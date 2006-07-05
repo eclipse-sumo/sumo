@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/07/05 11:02:06  ericnicolay
+// add code for change state of cphones and register them to the cells and las
+//
 // Revision 1.2  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -34,14 +37,14 @@ namespace
 //
 //
 /* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+* compiler pragmas
+* ======================================================================= */
 #pragma warning(disable: 4786)
 
 
 /* =========================================================================
- * included modules
- * ======================================================================= */
+* included modules
+* ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -58,6 +61,7 @@ namespace
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSPhoneNet.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -67,40 +71,87 @@ namespace
 
 
 /* =========================================================================
- * used namespaces
- * ======================================================================= */
+* used namespaces
+* ======================================================================= */
 using namespace std;
 
 
 /* =========================================================================
- * method definitions
- * ======================================================================= */
+* method definitions
+* ======================================================================= */
 MSE1VehicleActor::MSE1VehicleActor( const string& id, MSLane* lane,
-                                   SUMOReal positionInMeters)
-    : MSMoveReminder( lane, id ), MSTrigger(id),
-    posM(positionInMeters)
-{
+								   SUMOReal positionInMeters, ActorType at, unsigned int areaid )
+								   : MSMoveReminder( lane, id ), MSTrigger(id), 
+								   posM(positionInMeters),   _type( at ), _AreaId( areaid ){
     assert( posM >= 0 && posM <= laneM->length() );
+	//eintragen in MSPhoneNet
+	MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+	if ( _type == CELL ){
+		if ( pPhone->getMSPhoneCell( _AreaId ) == 0 )
+			pPhone->addMSPhoneCell( _AreaId );
+	}
+	else if ( _type == LA ){
+		if ( pPhone->getMSPhoneLA( _AreaId ) == 0 )
+			pPhone->addMSPhoneLA( _AreaId, 0 );
+	}
+
 }
 
 
-MSE1VehicleActor::~MSE1VehicleActor()
-{
+MSE1VehicleActor::~MSE1VehicleActor(){
 }
 
 
 bool
 MSE1VehicleActor::isStillActive( MSVehicle& veh,
-                             SUMOReal oldPos,
-                             SUMOReal newPos,
-                             SUMOReal newSpeed )
+								SUMOReal oldPos,
+								SUMOReal newPos,
+								SUMOReal newSpeed )
 {
-    if ( newPos < posM ) {
-        // detector not reached yet
-        return true;
-    }
-    // !!! do something
-    return false;
+	if ( newPos < posM ) {
+		// detector not reached yet
+		return true;
+	}
+	// !!! do something
+	/*in welchen zustand ist das handy?????????*/
+	int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
+	for(int np=0; np<noCellPhones; np++) {
+		MSDevice_CPhone* cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+		if ( _type == LA ){
+			MSDevice_CPhone::State state = cp->GetState();
+			if(state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT){
+				MSPhoneLA * l   = pPhone->getMSPhoneLA( _AreaId );
+				l->addCall();
+			}
+		}
+		else{//_type == CELL
+			cp->setCurrentCellId( _AreaId );
+			MSPhoneCell * cold = pPhone->getcurrentVehicleCell( veh.getID() );
+			MSPhoneCell * cnew = pPhone->getMSPhoneCell( _AreaId );
+			switch(cp->GetState()){
+		case	MSDevice_CPhone::STATE_OFF:{
+			if ( cold != 0 )	cold->remCall( veh.getID() );
+			break;
+										   }
+		case	MSDevice_CPhone::STATE_IDLE:{
+			if ( cold != 0 )	cold->remCall( veh.getID() );
+			break;
+											}
+		case	MSDevice_CPhone::STATE_CONNECTED_IN:{
+			if ( cold != 0 ) cold->remCall( veh.getID() );
+				cnew->addCall( veh.getID(), DYNIN );
+			break;
+													}
+		case	MSDevice_CPhone::STATE_CONNECTED_OUT:{
+			if ( cold != 0 ) cold->remCall( veh.getID() );
+				cnew->addCall( veh.getID(), DYNOUT );
+			break;						
+													}
+			}
+		}
+	}
+	return false;
 }
 
 
@@ -113,12 +164,12 @@ MSE1VehicleActor::dismissByLaneChange( MSVehicle& veh )
 bool
 MSE1VehicleActor::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-    if ( veh.pos()-veh.length() > posM ) {
-        // vehicle-end is beyond detector. Ignore
-        return false;
-    }
-    // vehicle is in front of detector
-    return true;
+	if ( veh.pos()-veh.length() > posM ) {
+		// vehicle-end is beyond detector. Ignore
+		return false;
+	}
+	// vehicle is in front of detector
+	return true;
 }
 
 
