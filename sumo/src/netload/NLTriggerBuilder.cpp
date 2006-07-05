@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/07/05 11:40:41  ericnicolay
+// change code in buildVehicleActor
+//
 // Revision 1.17  2006/06/13 13:17:48  dkrajzew
 // removed unneeded code
 //
@@ -268,7 +271,9 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "vehicle_actor", id);
-    return buildVehicleActor(net, id, lane, pos);
+	unsigned int areaid = helper.getInt( attrs, SUMO_ATTR_TO );
+	unsigned int areatype = helper.getInt( attrs, SUMO_ATTR_TYPE );
+    return buildVehicleActor(net, id, lane, pos, areatype, areaid);
 }
 
 
@@ -359,9 +364,14 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 
 MSE1VehicleActor *
 NLTriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
-                                    MSLane *lane, SUMOReal pos)
+                                    MSLane *lane, SUMOReal pos, unsigned int type, 
+									unsigned int areaid)
 {
-    return new MSE1VehicleActor(id, lane, pos);
+	if ( type == 0 )
+		return new MSE1VehicleActor(id, lane, pos, LA, areaid);
+	else
+		return new MSE1VehicleActor(id, lane, pos, CELL, areaid);
+
 }
 
 
