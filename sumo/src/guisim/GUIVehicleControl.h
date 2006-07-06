@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.7  2005/12/01 07:33:44  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -57,6 +60,7 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <vector>
 #include <microsim/MSVehicleControl.h>
 
 
@@ -86,9 +90,14 @@ public:
         SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset);
 
-protected:
     /// Removes the vehicle
-    virtual void removeVehicle(MSVehicle *v);
+    virtual void deleteVehicle(MSVehicle *v);
+
+    /** Returns the list of all known vehicles by name */
+    std::vector<std::string> getVehicleNames();
+
+    /** Returns the list of all known vehicles by gl-id */
+    std::vector<size_t> getVehicleIDs();
 
 };
 

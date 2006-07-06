@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.15  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -183,9 +186,9 @@ FXIMPLEMENT(GUIEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_Trig
  * ----------------------------------------------------------------------- */
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChild(
                 MSEmitter_FileTriggeredChild &s,
-                MSEmitter &parent,
+                MSEmitter &parent, MSVehicleControl &vc,
                 SUMOReal flow)
-    : MSEmitter::MSEmitterChild(parent), myUserFlow(flow),
+    : MSEmitter::MSEmitterChild(parent, vc), myUserFlow(flow),
     myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
     if(myUserFlow>0) {
@@ -352,7 +355,8 @@ GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,vo
         static_cast<GUIEmitter*>(myObject)->setActiveChild(1);
         break;
     default:
-        throw 1;
+        // hmmm, should not happen
+        break;
     }
     myParent->updateChildren();
     return 1;
@@ -377,8 +381,8 @@ GUIEmitter::GUIEmitterPopupMenu::~GUIEmitterPopupMenu()
 
 long
 GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip(FXObject*,
-                                                                  FXSelector,
-                                                                  void*)
+												FXSelector,
+												void*)
 {
     static_cast<GUIEmitter*>(myObject)->openManipulator(
         *myApplication, *myParent);
@@ -407,7 +411,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
     GUIGlObject_AbstractAdd(gIDStorage,
         "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false)
 {
-    const GUIEdge *edge = static_cast<const GUIEdge*>(&destLanes->edge());
+    const GUIEdge * const edge = static_cast<const GUIEdge * const>(destLanes->getEdge());
     const Position2DVector &v =
         edge->getLaneGeometry(destLanes).getShape();
     if(pos<0) {
@@ -422,7 +426,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
     myUserEmitChild =
         new GUIEmitterChild_UserTriggeredChild(
             static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-            *this, 0);
+            *this, net.getVehicleControl(), 0);
 }
 
 
@@ -441,7 +445,7 @@ GUIEmitter::setUserFlow(SUMOReal factor)
         myUserEmitChild =
             new GUIEmitterChild_UserTriggeredChild(
                 static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-                *this, factor);
+                *this, myNet.getVehicleControl(), factor);
     }
 }
 

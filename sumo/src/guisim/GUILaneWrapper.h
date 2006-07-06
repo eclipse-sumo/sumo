@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.26  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -244,7 +247,7 @@ public:
 
     SUMOReal getAggregatedFloat(E2::DetType what) const;
 
-    const MSEdge& getMSEdge() const;
+    const MSEdge * const getMSEdge() const;
 
     SUMOReal getEdgeLaneNumber() const;
 

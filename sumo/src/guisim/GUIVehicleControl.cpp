@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.10  2006/04/05 05:22:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -110,14 +113,43 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
 
 
 void
-GUIVehicleControl::removeVehicle(MSVehicle *veh)
+GUIVehicleControl::deleteVehicle(MSVehicle *veh)
 {
     static_cast<GUIVehicle*>(veh)->setRemoved();
 	if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
-		MSVehicle::remove(veh->getID());
-    }
+        MSVehicleControl::deleteVehicle(veh);
+	}
 }
 
+
+std::vector<std::string>
+GUIVehicleControl::getVehicleNames()
+{
+    std::vector<std::string> ret;
+    ret.reserve(myVehicleDict.size());
+    for(VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+        MSVehicle *veh = (*i).second;
+        if(veh->running()) {
+            ret.push_back((*i).first);
+        }
+    }
+    return ret;
+}
+
+
+std::vector<size_t>
+GUIVehicleControl::getVehicleIDs()
+{
+    std::vector<size_t> ret;
+    ret.reserve(myVehicleDict.size());
+    for(VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+        MSVehicle *veh = (*i).second;
+        if(veh->running()) {
+            ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
+        }
+    }
+    return ret;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

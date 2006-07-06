@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -76,9 +79,10 @@ GUIVehicleType::~GUIVehicleType()
 }
 
 
-GUIVehicleType::GUIVehicleType(const RGBColor &c,
-                               string id, SUMOReal length, SUMOReal maxSpeed,
-                               SUMOReal accel, SUMOReal decel, SUMOReal dawdle )
+GUIVehicleType::GUIVehicleType(const RGBColor &c, const string &id,
+                               SUMOReal length, SUMOReal maxSpeed,
+                               SUMOReal accel, SUMOReal decel,
+                               SUMOReal dawdle )
     : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle), myColor(c)
 {
 }

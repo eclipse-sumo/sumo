@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.9  2006/06/22 07:14:56  dkrajzew
 // debugged handling of previously loaded vehicles when loading states
 //
@@ -106,8 +109,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
+                                 MSVehicleControl &vc,
                                  bool addVehiclesDirectly)
-    : MSRouteHandler(file, addVehiclesDirectly, true)
+    : MSRouteHandler(file, vc, addVehiclesDirectly, true)
 {
 }
 

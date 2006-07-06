@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.35  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -525,13 +528,11 @@ GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
 }
 
-
-const MSEdge&
+const MSEdge * const
 GUILaneWrapper::getMSEdge() const
 {
-    return myLane.edge();
+    return myLane.getEdge();
 }
-
 
 
 
@@ -562,14 +563,13 @@ GUILaneWrapper::selectSucessors()
                 (laneAndDist.second<maxDist&&laneAndDist.first->maxSpeed()<maxSpeed) ) {
             selected.push_back(laneAndDist.first);
 
-            const MSEdge &e = laneAndDist.first->getMSEdge();
-            std::vector<MSEdge*> followingEdges = e.getFollowingEdges();
-            std::vector<MSEdge*> incomingEdges = e.getIncomingEdges();
-            copy(incomingEdges.begin(), incomingEdges.end(),
-                back_inserter(followingEdges));
+            const GUIEdge * const e = static_cast<const GUIEdge * const>(laneAndDist.first->getMSEdge());
+            std::vector<MSEdge*> followingEdges = e->getFollowingEdges();
+            std::vector<MSEdge*> incomingEdges = e->getIncomingEdges();
+            copy(incomingEdges.begin(), incomingEdges.end(), back_inserter(followingEdges));
             for(std::vector<MSEdge*>::iterator i=followingEdges.begin(); i!=followingEdges.end(); ++i) {
-                std::vector<MSLane*> *lanes = (*i)->getLanes();
-                for(std::vector<MSLane*>::iterator j=lanes->begin(); j!=lanes->end(); ++j) {
+                const std::vector<MSLane*> * const lanes = (*i)->getLanes();
+                for(std::vector<MSLane*>::const_iterator j=lanes->begin(); j!=lanes->end(); ++j) {
                     if(find(selected.begin(), selected.end(), &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j))==selected.end()) {
                         toProc.push_back(std::pair<GUILaneWrapper*, SUMOReal>(
                             &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j),
@@ -618,7 +618,7 @@ GUILaneWrapper::getDensity() const
 SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const
 {
-	return (SUMOReal) myLane.edge().getLanes()->size();
+	return (SUMOReal) myLane.getEdge()->getLanes()->size();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

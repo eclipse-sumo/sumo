@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.26  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -240,7 +243,7 @@ GUIInternalLane::push( MSVehicle* veh )
 
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
-    if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
+    if( myVehBuffer != 0 || (last!=0 && last->getPositionOnLane() < veh->getPositionOnLane()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
         WRITE_WARNING("Vehicle '" + veh->getID() + "' beamed due to a collision on push!\n" + "  Lane: '" + myID + "', previous vehicle: '" + prev->getID() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
@@ -255,10 +258,10 @@ GUIInternalLane::push( MSVehicle* veh )
     // check whether the vehicle has ended his route
     veh->destReached( myEdge );
     myVehBuffer = veh;
-    veh->enterLaneAtMove( this, SPEED2DIST(veh->speed()) - veh->pos() );
-    SUMOReal pspeed = veh->speed();
-    SUMOReal oldPos = veh->pos() - SPEED2DIST(veh->speed());
-    veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
+    veh->enterLaneAtMove( this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane() );
+    SUMOReal pspeed = veh->getSpeed();
+    SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
+    veh->workOnMoveReminders( oldPos, veh->getPositionOnLane(), pspeed );
     veh->_assertPos();
     _lock.unlock();//Display();
 //    setApproaching(veh->pos(), veh);

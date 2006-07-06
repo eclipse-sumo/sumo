@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.6  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -71,8 +74,9 @@
 class GUIVehicleType : public MSVehicleType
 {
 public:
-    GUIVehicleType(const RGBColor &c,
-        std::string id, SUMOReal length, SUMOReal maxSpeed,
+    /// Constructor
+    GUIVehicleType(const RGBColor &c, const std::string &id,
+        SUMOReal length, SUMOReal maxSpeed,
         SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
 
     /// Destructor.
@@ -89,10 +93,7 @@ private:
     RGBColor myColor;
 
 private:
-    /// Default constructor.
-    GUIVehicleType();
-
-    /// Copy constructor.
+    /// Invalidated copy constructor.
     GUIVehicleType( const GUIVehicleType& );
 
     /// Assignment operator.

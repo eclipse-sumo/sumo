@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.14  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -150,9 +153,9 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
     const MSLane *lane = section.laneM;
     SUMOReal pos = section.posM;
     const GUILaneWrapper &lw =
-        static_cast<const GUIEdge&>(lane->edge()).getLaneGeometry(lane);
+        static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(lane);
     const Position2DVector &v =
-        static_cast<const GUIEdge&>(lane->edge()).getLaneGeometry(static_cast<const MSLane*>(lane)).getShape();
+        static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(static_cast<const MSLane*>(lane)).getShape();
     Line2D l(v.getBegin(), v.getEnd());
 
     SingleCrossingDefinition def;

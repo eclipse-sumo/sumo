@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.39  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.38  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -206,28 +209,9 @@ public:
 
     /// returns the bounder of the network
     const Boundary &getBoundary() const;
-/*
-    /// preinitialises the network (before the network is loaded
-    static void preInitGUINet( SUMOTime startTimeStep,
-        MSVehicleControl *vc);
 
-    /// initialises the network (after the loading)
-    static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-        MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
-        MSDetectorControl *dc, MSTriggerControl *tc,
-        bool logExecutionTime,
-        const std::vector<OutputDevice*> &streams,
-        TimeVector stateDumpTimes, std::string stateDumpFiles,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles,
-        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles,
-        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds);
-*/
     /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;
-
-    /// returns the position of a vehicle
-    Position2D getVehiclePosition(const std::string &name,
-        bool useCenter=true) const;
 
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;

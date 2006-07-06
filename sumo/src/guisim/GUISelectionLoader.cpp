@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -109,7 +112,7 @@ GUISelectionLoader::loadSelection(const std::string &file)
                 {
                     MSLane *l = MSLane::dictionary(name);
                     if(l!=0) {
-                        oid = static_cast<const GUIEdge&>(l->edge()).getLaneGeometry(l).getGlID();
+                        oid = static_cast<const GUIEdge * const>(l->getEdge())->getLaneGeometry(l).getGlID();
                     }
                 }
                 break;

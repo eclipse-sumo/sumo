@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.41  2006/05/15 05:51:04  dkrajzew
 // debugged the id retrieval usage
 //
@@ -204,6 +207,8 @@ FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[]=
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack),
 };
 
 // Object implementation
@@ -233,8 +238,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->showRoute(
-        static_cast<GUIVehicle*>(myObject), -1);
+    static_cast<GUIViewTraffic*>(myParent)->showRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
 }
 
@@ -243,8 +247,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->hideRoute(
-        static_cast<GUIVehicle*>(myObject), -1);
+    static_cast<GUIViewTraffic*>(myParent)->hideRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
 }
 
@@ -253,8 +256,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->showRoute(
-        static_cast<GUIVehicle*>(myObject), 0);
+    static_cast<GUIViewTraffic*>(myParent)->showRoute(static_cast<GUIVehicle*>(myObject), 0);
     return 1;
 }
 
@@ -263,8 +265,23 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->hideRoute(
-        static_cast<GUIVehicle*>(myObject), 0);
+    static_cast<GUIViewTraffic*>(myParent)->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
+    return 1;
+}
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
+    return 1;
+}
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    static_cast<GUIViewTraffic*>(myParent)->stopTrack();
     return 1;
 }
 
@@ -415,38 +432,6 @@ GUIVehicle::~GUIVehicle()
 }
 
 
-std::vector<std::string>
-GUIVehicle::getNames()
-{
-    std::vector<std::string> ret;
-    ret.reserve(MSVehicle::myDict.size());
-    for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin();
-        i!=MSVehicle::myDict.end(); i++) {
-        MSVehicle *veh = (*i).second;
-        if(veh->running()) {
-            ret.push_back((*i).first);
-        }
-    }
-    return ret;
-}
-
-
-std::vector<size_t>
-GUIVehicle::getIDs()
-{
-    std::vector<size_t> ret;
-    ret.reserve(MSVehicle::myDict.size());
-    for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin();
-        i!=MSVehicle::myDict.end(); i++) {
-        MSVehicle *veh = (*i).second;
-        if(veh->running()) {
-            ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
-        }
-    }
-    return ret;
-}
-
-
 const RGBColor &
 GUIVehicle::getRandomColor1() const
 {
@@ -501,6 +486,16 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
         new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
     }
     new FXMenuSeparator(ret);
+    GUIViewTraffic *view = dynamic_cast<GUIViewTraffic*>(&parent);
+    if(view!=0) {
+        int trackedID = view->getTrackedID();
+        if(trackedID<0||(size_t)trackedID!=getGlID()) {
+            new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
+        } else {
+            new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
+        }
+        new FXMenuSeparator(ret);
+    }
     //
     buildShowParamsPopupEntry(ret, false);
     return ret;
@@ -523,9 +518,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, (SUMOReal) getDesiredDepart());
     ret->mkItem("position [m]", true,
-        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::pos));
+        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::speed));
+        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
     // close building
     ret->closeBuilding();
     return ret;
@@ -646,8 +641,7 @@ GUIVehicle::networking_Begin()
     time(&rawtime);
 	ptm=gmtime(&rawtime);
     //ptemp=pfad[m];
-    Position2D pos =
-        static_cast<GUINet*>(MSNet::getInstance())->getVehiclePosition(id());
+    Position2D pos = getPosition();
 	px2gps(pos.x(), pos.y(), scale, gkr, gkh, mylat, mylon);
 //	mylat=ptemp->GetGPSLat()*100;
 //	mylon=ptemp->GetGPSLon()*100;
@@ -669,7 +663,7 @@ GUIVehicle::networking_Begin()
         mylat1,mylat2,mylon1,mylon2);
 //	stepOut << buffer3;
         /*
-	//Miguel!!!
+	//Miguel
 	FXSlider* my1=myDialog->getMapscaleSlider();
 	FXTextField* my2=myDialog->getGKRTextField();
 	FXTextField* my3=myDialog->getGKHTextField();
@@ -678,7 +672,7 @@ GUIVehicle::networking_Begin()
 	FXint myFXint2=FXIntVal(my3->getText(),10);
 	int gkr=myFXint1;
 	int gkh=myFXint2;
-	///Miguel!!!
+	///Miguel
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];

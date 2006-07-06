@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.18  2006/06/22 07:13:51  dkrajzew
 // debugged interaction between user-defined and loaded values
 //
@@ -330,7 +333,8 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSe
         mySpeed = (SUMOReal) (myUserDefinedSpeed->getValue() / 3.6);
         break;
     default:
-        throw 1;
+        // hmmm, should not happen
+        break;
     }
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
@@ -386,7 +390,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     mySGRotations.reserve(destLanes.size());
     vector<MSLane*>::const_iterator i;
     for(i=destLanes.begin(); i!=destLanes.end(); ++i) {
-        const GUIEdge *edge = static_cast<const GUIEdge*>(&((*i)->edge()));
+        const GUIEdge * const edge = static_cast<const GUIEdge * const>((*i)->getEdge());
         const Position2DVector &v =
             edge->getLaneGeometry((const MSLane *) (*i)).getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));

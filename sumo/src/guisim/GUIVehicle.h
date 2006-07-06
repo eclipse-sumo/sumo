@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.27  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -84,7 +87,8 @@
 // class templates applied; documentation added
 //
 // Revision 1.6  2003/06/05 06:29:50  dkrajzew
-// first tries to build under linux: warnings removed; moc-files included Makefiles added
+// first tries to build under linux: warnings removed;
+//  moc-files included Makefiles added
 //
 // Revision 1.5  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
@@ -211,12 +215,6 @@ public:
     virtual void enterLaneAtEmit( MSLane* enteredLane );
 #endif
 
-    /** Returns the list of all known junctions as their names */
-    static std::vector<std::string> getNames();
-
-    /** Returns the list of all known junctions as their ids */
-    static std::vector<size_t> getIDs();
-
     /** returns a random color based on the vehicle's name
         (should stay the same across simulations */
     const RGBColor &getRandomColor1() const;
@@ -271,6 +269,12 @@ public:
 
         /// Called if the current route of the vehicle shall be hidden
         long onCmdHideCurrentRoute(FXObject*,FXSelector,void*);
+
+        /// Called if the vehicle shall be tracked
+        long onCmdStartTrack(FXObject*,FXSelector,void*);
+
+        /// Called if the current shall not be tracked any longer
+        long onCmdStopTrack(FXObject*,FXSelector,void*);
 
     protected:
         GUIVehiclePopupMenu() { }

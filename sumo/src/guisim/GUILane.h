@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.15  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -154,6 +157,9 @@ public:
     /// returns the vehicles closing their processing for other threads
     const VehCont &getVehiclesSecure();
 
+
+    SUMOReal getDensity() const;
+
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
 protected:
@@ -166,7 +172,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    FXEX::FXMutex _lock;
+    mutable FXEX::FXMutex _lock;
 
 
 };

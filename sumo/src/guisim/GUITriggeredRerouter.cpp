@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.8  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -310,7 +313,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
     mySGRotations.reserve(no);
     for(k=0; k<edges.size(); k++) {
         GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
-        MSEdge::LaneCont *lanes = gedge->getLanes();
+        const MSEdge::LaneCont * const lanes = gedge->getLanes();
         size_t noLanes = lanes->size();
         for(size_t i=0; i<noLanes; ++i) {
             const Position2DVector &v =
@@ -438,7 +441,7 @@ GUITriggeredRerouter::doPaint(const PosCont &poss,
             getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
         for(std::vector<MSEdge*>::const_iterator i=ri.closed.begin(); i!=ri.closed.end(); ++i) {
             GUIEdge *gedge = static_cast<GUIEdge*>(*i);
-            MSEdge::LaneCont *lanes = gedge->getLanes();
+            const MSEdge::LaneCont * const lanes = gedge->getLanes();
             size_t noLanes = lanes->size();
             SUMOReal prob = getProbability()*360;
             for(size_t j=0; j<noLanes; ++j) {

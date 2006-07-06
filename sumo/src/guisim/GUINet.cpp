@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.50  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -284,8 +287,6 @@ GUINet::~GUINet()
     }
         // of the network itself
     delete myWrapper;
-
-//!!!    GUIE3Collector::clearInstances();
 }
 
 
@@ -344,8 +345,7 @@ GUINet::initDetectors()
         MSDetectorControl::E2Vect loopVec2 = myDetectorControl->getE2Vector();
         for(MSDetectorControl::E2Vect::const_iterator i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
             const MSLane *lane = (*i2)->getLane();
-            GUIEdge *edge =
-                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().getID())); //!!!
+            const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
             // build the wrapper
             if( (*i2)->getUsageType()==DU_SUMO_INTERNAL
                 ||
@@ -376,8 +376,7 @@ GUINet::initDetectors()
         MSDetectorControl::LoopVect loopVec = myDetectorControl->getLoopVector();
         for(MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); i++) {
             const MSLane *lane = (*i)->getLane();
-            GUIEdge *edge =
-                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().getID()));//!!!
+            const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
             // build the wrapper
             GUIDetectorWrapper *wrapper =
                 static_cast<GUIInductLoop*>(*i)->buildDetectorWrapper(
@@ -440,26 +439,6 @@ GUINet::getJunctionPosition(const std::string &name) const
 }
 
 
-Position2D
-GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
-{
-    MSVehicle *vehicle = MSVehicle::dictionary(name);
-    if(vehicle==0) {
-        throw GUIExcp_VehicleIsInvisible();
-    }
-    const GUIEdge * const edge =
-        static_cast<const GUIEdge * const>(&(vehicle->getLane().edge()));
-    if(edge==0) {
-        throw GUIExcp_VehicleIsInvisible();
-    }
-    SUMOReal pos = vehicle->pos();
-    if(useCenter) {
-        pos -= (vehicle->length() / (SUMOReal) 2.0);
-    }
-    return edge->getLanePosition(vehicle->getLane(), pos);
-}
-
-
 bool
 GUINet::hasPosition(GUIVehicle *vehicle) const
 {
@@ -477,7 +456,7 @@ GUINet::hasPosition(GUIVehicle *vehicle) const
 bool
 GUINet::vehicleExists(const std::string &name) const
 {
-    return MSVehicle::dictionary(name)!=0;
+    return myVehicleControl->getVehicle(name)!=0;
 }
 
 
@@ -678,7 +657,7 @@ GUINet::buildRouteLoader(const std::string &file)
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) using colors
-    return new MSRouteLoader(*this, new GUIRouteHandler(file, false));
+    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false));
 }
 
 

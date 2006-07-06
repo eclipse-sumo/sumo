@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.6  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -151,7 +154,7 @@ protected:
     public:
         GUIEmitterChild_UserTriggeredChild(
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
-            SUMOReal flow);
+            MSVehicleControl &vc, SUMOReal flow);
         virtual ~GUIEmitterChild_UserTriggeredChild();
         SUMOTime execute(SUMOTime currentTime);
         SUMOReal getUserFlow() const;

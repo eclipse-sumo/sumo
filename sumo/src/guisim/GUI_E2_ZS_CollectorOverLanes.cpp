@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/06 06:40:38  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.18  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -200,7 +203,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     size_t glID = idStorage.getUniqueID();
     for(LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); i++) {
         MSLane *l = (*i).first;
-        const GUIEdge *edge = static_cast<const GUIEdge*>(&l->edge());
+        const GUIEdge * const edge = static_cast<const GUIEdge* const>(l->getEdge());
         GUILaneWrapper &w = edge->getLaneGeometry(l);
         GUI_E2_ZS_Collector *c =
             static_cast<GUI_E2_ZS_Collector*>((*i).second);
