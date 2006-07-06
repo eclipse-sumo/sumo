@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/07/06 07:13:23  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.7  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -97,19 +100,15 @@ MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal thisLaneVSafe;
     if(leader==0) {
         thisLaneVSafe =
-            myVehicle.vsafe(
-                myVehicle.speed(), myVehicle.decelAbility(),
-                myVehicle.getLane().length() - myVehicle.pos(), 0);
+            myVehicle.ffeV(myVehicle.getSpeed(), myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
         thisLaneVSafe =
-            myVehicle.vsafe(
-                myVehicle.speed(), myVehicle.decelAbility(),
-                leader->pos() - leader->length() - myVehicle.pos(),
-                leader->speed());
+            myVehicle.ffeV(myVehicle.getSpeed(), leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane(),
+                leader->getSpeed());
     }
     if(thisLaneVSafe
         >=
-        MIN2(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
+        MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane().maxSpeed())) {
 
         // lane change due to a higher speed on the other lane
         return LCA_RIGHT|LCA_SPEEDGAIN;
@@ -146,19 +145,15 @@ MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal thisLaneVSafe;
     if(leader==0) {
         thisLaneVSafe =
-            myVehicle.vsafe(
-                myVehicle.speed(), myVehicle.decelAbility(),
-                myVehicle.getLane().length() - myVehicle.pos(), 0);
+            myVehicle.ffeV(myVehicle.getSpeed(), myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
         thisLaneVSafe =
-            myVehicle.vsafe(
-                myVehicle.speed(), myVehicle.decelAbility(),
-                leader->pos() - leader->length() - myVehicle.pos(),
-                leader->speed());
+            myVehicle.ffeV(myVehicle.getSpeed(), leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane(),
+                leader->getSpeed());
     }
     if(thisLaneVSafe
         <
-        MIN2(myVehicle.getVehicleType().maxSpeed(), myVehicle.getLane().maxSpeed())) {
+        MIN2(myVehicle.getVehicleType().getMaxSpeed(), myVehicle.getLane().maxSpeed())) {
 
         // lane change due to a higher speed on the other lane
         return LCA_LEFT|LCA_SPEEDGAIN;

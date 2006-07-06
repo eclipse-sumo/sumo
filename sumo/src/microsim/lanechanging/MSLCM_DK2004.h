@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/07/06 07:13:23  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.6  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,8 +94,11 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        /*
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
+        */
         MSVehicle **lastBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -104,9 +110,12 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        /*
 //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
+        */
         MSVehicle **lastBlocked);
 
     virtual void *inform(void *info, MSVehicle *sender);
@@ -119,6 +128,9 @@ public:
     SUMOReal getProb() const;
     virtual void prepareStep();
 
+    SUMOReal getChangeProbability() const {
+        return myChangeProbability;
+    }
 
 protected:
     /*

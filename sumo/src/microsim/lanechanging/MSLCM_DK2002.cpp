@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/07/06 07:13:23  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.6  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,26 +103,41 @@ MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe =
-            myVehicle.vsafe(
+            myVehicle.ffeV(
+                myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0);
+            /*
                 myVehicle.speed(), myVehicle.decelAbility(),
                 neighLane.length() - myVehicle.pos(), 0);
+                */
     } else {
         neighLaneVSafe =
+            myVehicle.ffeV(
+                myVehicle.getSpeed(), neighLead->getPositionOnLane() - neighLead->getLength() - myVehicle.getPositionOnLane(),
+                neighLead->getSpeed());
+        /*
             myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                 neighLead->pos() - neighLead->length() - myVehicle.pos(),
                 neighLead->speed());
+                */
     }
     if(leader==0) {
         thisLaneVSafe =
+            myVehicle.ffeV(myVehicle.getSpeed(), myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
+        /*
             myVehicle.vsafe(
                 myVehicle.speed(), myVehicle.decelAbility(),
                 myVehicle.getLane().length() - myVehicle.pos(), 0);
+                */
     } else {
         thisLaneVSafe =
+            myVehicle.ffeV(myVehicle.getSpeed(), leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane(),
+                leader->getSpeed());
+        /*
             myVehicle.vsafe(
                 myVehicle.speed(), myVehicle.decelAbility(),
                 leader->pos() - leader->length() - myVehicle.pos(),
                 leader->speed());
+                */
     }
     if(thisLaneVSafe+0.1<neighLaneVSafe) {
         return LCA_RIGHT|LCA_SPEEDGAIN;
@@ -157,26 +175,45 @@ MSLCM_DK2002::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe =
+            myVehicle.ffeV(myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0);
+        /*
             myVehicle.vsafe(
                 myVehicle.speed(), myVehicle.decelAbility(),
                 neighLane.length() - myVehicle.pos(), 0);
+                */
     } else {
         neighLaneVSafe =
+            myVehicle.ffeV(myVehicle.getSpeed(),
+                neighLead->getSpeed() - neighLead->getLength() - myVehicle.getPositionOnLane(),
+                neighLead->getPositionOnLane());
+        /*
             myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                 neighLead->pos() - neighLead->length() - myVehicle.pos(),
                 neighLead->speed());
+                */
     }
     if(leader==0) {
         thisLaneVSafe =
+            myVehicle.ffeV(
+                myVehicle.getSpeed(),
+                myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
+        /*
             myVehicle.vsafe(
                 myVehicle.speed(), myVehicle.decelAbility(),
                 myVehicle.getLane().length() - myVehicle.pos(), 0);
+                */
     } else {
         thisLaneVSafe =
+            myVehicle.ffeV(
+                myVehicle.getSpeed(),
+                leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane(),
+                leader->getSpeed());
+        /*
             myVehicle.vsafe(
                 myVehicle.speed(), myVehicle.decelAbility(),
                 leader->pos() - leader->length() - myVehicle.pos(),
                 leader->speed());
+                */
     }
     if(thisLaneVSafe+0.1<neighLaneVSafe) {
         return LCA_LEFT|LCA_SPEEDGAIN;

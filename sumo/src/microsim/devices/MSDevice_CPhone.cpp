@@ -86,7 +86,7 @@ MSDevice_CPhone::~MSDevice_CPhone()
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		if ( pPhone != 0 ){
 			MSPhoneCell * cell = pPhone->getcurrentVehicleCell( myVehicle.getID() );
-			if ( cell != 0 ) 
+			if ( cell != 0 )
 				cell->remCall( myVehicle.getID() );
 		}
 	}
@@ -97,10 +97,8 @@ MSDevice_CPhone::~MSDevice_CPhone()
 	for(i=m_ProvidedCells.begin(); i!=m_ProvidedCells.end(); ++i) {
 		delete *i;
 	}
-
 }
 
-//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
 const vector<MSDevice_CPhone::CPhoneBroadcastCell*> &
@@ -175,7 +173,7 @@ MSDevice_CPhone::changeState()
 					MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 					if ( m_State == STATE_CONNECTED_IN )
 						cell->addCall( myVehicle.getID(), STATICIN );
-					else 
+					else
 						cell->addCall( myVehicle.getID(), STATICOUT );
 				}
 				next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
@@ -201,7 +199,7 @@ MSDevice_CPhone::changeState()
 					MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 					if ( m_State == STATE_CONNECTED_IN )
 						cell->addCall( myVehicle.getID(), STATICIN );
-					else 
+					else
 						cell->addCall( myVehicle.getID(), STATICOUT );
 				}
 				next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
@@ -240,7 +238,7 @@ MSDevice_CPhone::changeState()
 	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
 		MSCORN::saveTOSS2_CalledPositionData(
 			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-			myVehicle.getLane().edge().getID(), 0); // !!! recheck quality indicator
+			myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
 	}
 	return next;
 }
@@ -271,7 +269,7 @@ MSDevice_CPhone::onDepart()
 			MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 			if ( m_State == STATE_CONNECTED_IN )
 				cell->addCall( myVehicle.getID(), STATICIN );
-			else 
+			else
 				cell->addCall( myVehicle.getID(), STATICOUT );
 		}
 
@@ -289,7 +287,7 @@ MSDevice_CPhone::onDepart()
 	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
 		MSCORN::saveTOSS2_CalledPositionData(
 			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-			myVehicle.getLane().edge().getID(), 0); // !!! recheck quality indicator
+            myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
 	}
 	//
 	myCommand = new MyCommand(*this);
