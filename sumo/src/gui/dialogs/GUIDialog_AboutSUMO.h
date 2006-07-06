@@ -21,6 +21,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.6  2006/07/06 05:38:32  dkrajzew
+// documentation added
+//
 //
 /* =========================================================================
  * compiler pragmas
@@ -45,15 +49,27 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * @class GUIDialog_AboutSUMO
+ * @brief The "About" dialog
+ */
 class GUIDialog_AboutSUMO : public FXDialogBox
 {
 public:
+    /// Constructor
     GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
         int x, int y);
+
+    /// Destructor
     ~GUIDialog_AboutSUMO();
+
+    /// Creates the widget
     void create();
+
 private:
+    /// Icons for the widget
     FXIcon *myDLRIcon, *myZAIKIcon;
+
 };
 
 
