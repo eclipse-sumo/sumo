@@ -20,6 +20,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
+#include <string>
 #include <utils/helpers/Command.h>
 
 class MSVehicle;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/07/06 11:12:56  dkrajzew
+// debugging
+//
 // Revision 1.3  2006/07/05 11:02:06  ericnicolay
 // add code for change state of cphones and register them to the cells and las
 //
@@ -81,7 +84,7 @@ using namespace std;
 * ======================================================================= */
 MSE1VehicleActor::MSE1VehicleActor( const string& id, MSLane* lane,
 								   SUMOReal positionInMeters, ActorType at, unsigned int areaid )
-								   : MSMoveReminder( lane, id ), MSTrigger(id), 
+								   : MSMoveReminder( lane, id ), MSTrigger(id),
 								   posM(positionInMeters),   _type( at ), _AreaId( areaid ){
     assert( posM >= 0 && posM <= laneM->length() );
 	//eintragen in MSPhoneNet
@@ -146,7 +149,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 		case	MSDevice_CPhone::STATE_CONNECTED_OUT:{
 			if ( cold != 0 ) cold->remCall( veh.getID() );
 				cnew->addCall( veh.getID(), DYNOUT );
-			break;						
+			break;
 													}
 			}
 		}
@@ -164,7 +167,7 @@ MSE1VehicleActor::dismissByLaneChange( MSVehicle& veh )
 bool
 MSE1VehicleActor::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-	if ( veh.pos()-veh.length() > posM ) {
+	if ( veh.getPositionOnLane()-veh.getLength() > posM ) {
 		// vehicle-end is beyond detector. Ignore
 		return false;
 	}
