@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.35  2006/07/06 05:57:49  dkrajzew
+// removed unneeded values
+//
 // Revision 1.34  2006/02/23 11:35:55  dkrajzew
 // tls may have now several programs
 //
@@ -279,8 +282,6 @@ enum AttrEnum
     SUMO_ATTR_YFROM,
     SUMO_ATTR_XTO,
     SUMO_ATTR_YTO,
-    /* lane attributes */
-    SUMO_ATTR_CHANGEURGE,
     /* node attributes */
     SUMO_ATTR_X,
     SUMO_ATTR_Y,
@@ -405,7 +406,7 @@ extern GenericSAX2Handler::Tag sumotags[54];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[89];
+extern AttributesHandler::Attr sumoattrs[88];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/07/06 05:57:49  dkrajzew
+// removed unneeded values
+//
 // Revision 1.34  2006/02/23 11:35:55  dkrajzew
 // tls may have now several programs
 //
@@ -205,9 +208,9 @@ GenericSAX2Handler::Tag sumotags[54] =
 	  { "param",	        SUMO_TAG_PARAM }
 };
 
-size_t noSumoAttrs = 89;
+size_t noSumoAttrs = 88;
 
-AttributesHandler::Attr sumoattrs[89] =
+AttributesHandler::Attr sumoattrs[88] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -223,8 +226,6 @@ AttributesHandler::Attr sumoattrs[89] =
     { "yfrom",          SUMO_ATTR_YFROM },
     { "xto",            SUMO_ATTR_XTO },
     { "yto",            SUMO_ATTR_YTO },
-
-    { "changeurge",     SUMO_ATTR_CHANGEURGE },
 
     { "x",              SUMO_ATTR_X },
     { "y",              SUMO_ATTR_Y },
