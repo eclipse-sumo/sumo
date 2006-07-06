@@ -623,6 +623,15 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneCell.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneLA.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneNet.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSRightOfWayJunction.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1003,6 +1012,15 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSNoLogicJunction.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneCell.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneLA.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPhoneNet.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSPredicates.h">
