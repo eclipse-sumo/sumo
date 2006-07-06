@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/07/06 05:43:20  dkrajzew
+// replaced exception throwing by an error report
+//
 // Revision 1.16  2006/05/15 05:48:35  dkrajzew
 // debugging the raknet-demo
 //
@@ -184,7 +187,8 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
             myCurrentNumericalLaneID++, shape);
         break;
     default:
-        throw 1;
+        MsgHandler::getErrorInstance()->inform("A lane with an unknown type occured (" + toString(m_Function) + ")");
+        throw ProcessError();
     }
 #ifdef RAKNET_DEMO
 	float *xPos = new float[shape.size()];

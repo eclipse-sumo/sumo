@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/07/06 05:43:20  dkrajzew
+// replaced exception throwing by an error report
+//
 // Revision 1.13  2006/02/27 13:16:34  dkrajzew
 // raknet-support added
 //
@@ -134,6 +137,7 @@ private:
 
     /** invalid assignment operator */
     GUIEdgeControlBuilder &operator=(const GUIEdgeControlBuilder &s);
+
 };
 
 
