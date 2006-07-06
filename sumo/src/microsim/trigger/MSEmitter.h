@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/07/06 07:23:45  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.4  2006/03/17 08:58:36  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -99,8 +102,8 @@ public:
 public:
     class MSEmitterChild {
     public:
-        MSEmitterChild(MSEmitter &parent)
-            : myParent(parent), myTimeOffset(0) { }
+        MSEmitterChild(MSEmitter &parent, MSVehicleControl &vc)
+            : myParent(parent), myVehicleControl(vc), myTimeOffset(0) { }
 
         virtual ~MSEmitterChild() { }
 
@@ -136,6 +139,7 @@ public:
         }
 
     protected:
+        MSVehicleControl &myVehicleControl;
         RandomDistributor<MSRoute*> myRouteDist;
         RandomDistributor<MSVehicleType*> myVTypeDist;
         MSEmitter &myParent;
@@ -153,7 +157,7 @@ protected:
         : public MSTriggeredXMLReader, public MSEmitterChild, public Command {
     public:
         MSEmitter_FileTriggeredChild(MSNet &net,
-            const std::string &aXMLFilename, MSEmitter &parent);
+            const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
 
         ~MSEmitter_FileTriggeredChild();
 

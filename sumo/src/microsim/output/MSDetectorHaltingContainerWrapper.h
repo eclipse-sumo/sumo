@@ -68,7 +68,7 @@ namespace DetectorContainer
     {
         Halting( MSVehicle* veh )
             : vehM( veh ),
-              posM( vehM->pos() ),
+              posM( vehM->getPositionOnLane() ),
               timeBelowSpeedThresholdM( 0 ),
               isHaltingM( false ),
               isInJamM( false ),
@@ -86,7 +86,7 @@ namespace DetectorContainer
     {
         E3Halting( MSVehicle* veh )
             :
-            posM( veh->pos() )
+            posM( veh->getPositionOnLane() )
             , timeBelowSpeedThresholdM( 0 )
             , isHaltingM( false )
             , haltingDurationM( 0 )
@@ -169,11 +169,11 @@ struct MSDetectorHaltingContainerWrapper
             // set posM, isHaltingM and haltingDurationM
             for ( HaltingsIt haltIt = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
-                haltIt->posM = haltIt->vehM->pos();
+                haltIt->posM = haltIt->vehM->getPositionOnLane();
                 if(&myLane!=&haltIt->vehM->getLane()) {
                     haltIt->posM += myLane.length();
                 }
-                if ( haltIt->vehM->speed() >= speedThresholdM ) {
+                if ( haltIt->vehM->getSpeed() >= speedThresholdM ) {
                     if ( haltIt->isHaltingM ) {
                         HaltEndSubject::notify( *haltIt );
                     }
@@ -216,7 +216,7 @@ struct MSDetectorHaltingContainerWrapper
                         continue;
                     }
                     SUMOReal p12 = frontIt->posM;
-                    SUMOReal l1 = frontIt->vehM->length();
+                    SUMOReal l1 = frontIt->vehM->getLength();
                     SUMOReal p22 = rearIt->posM;
                     SUMOReal dist = p12-l1-p22;
                     if ( dist <= jamDistThresholdM ) {
@@ -320,7 +320,7 @@ struct MSDetectorHaltingMapWrapper
                 if(&myLane!=&veh->getLane()) {
                     halting.posM += myLane.length();
                 }*/
-                if ( veh->speed() >= speedThresholdM ) {
+                if ( veh->getSpeed() >= speedThresholdM ) {
                     halting.timeBelowSpeedThresholdM = 0;
                     halting.isHaltingM = false;
                     halting.haltingDurationM = 0.0;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/07/06 07:18:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.6  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -124,11 +127,6 @@ MSDetectorControl::~MSDetectorControl()
     delete MSUpdateEachTimestepContainer<
         MSUpdateEachTimestep<MSDetectorHaltingMapWrapper> >::getInstance();
     delete MSUnit::getInstance();
-    // delete mean data
-    for(MSMeanData_Net_Cont::iterator i6=myMeanData.begin(); i6!=myMeanData.end(); ++i6) {
-        delete *i6;
-    }
-    myMeanData.clear();
 }
 
 
@@ -221,26 +219,6 @@ MSDetectorControl::add(MSE3Collector *e3,
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test
-}
-
-
-void
-MSDetectorControl::addMeanData(MSMeanData_Net *newMeanData)
-{
-    /* !!!!
-    myMeanData.push_back(newMeanData);
-    // we may add it before the network is loaded
-    if(myEdges!=0) {
-        myEdges->addToLanes(newMeanData);
-    }
-    */
-}
-
-
-size_t
-MSDetectorControl::getMeanDataSize() const
-{
-    return myMeanData.size();
 }
 
 

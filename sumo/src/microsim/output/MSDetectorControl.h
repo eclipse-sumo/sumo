@@ -100,9 +100,6 @@ public:
     void add(MSE3Collector *e3, OutputDevice *device,
         int splInterval);
 
-    size_t getMeanDataSize() const;
-    void addMeanData(MSMeanData_Net *newMeanData);
-
     MSDetector2File &getDet2File();
 
     void resetInterval(MSDetectorFileOutput *il, SUMOTime interval);
@@ -118,9 +115,7 @@ protected:
     E2Dict myE2Detectors;
     E3Dict myE3Detectors;
     E2ZSOLDict myE2OverLanesDetectors;
-    MSMeanData_Net_Cont myMeanData;
     MSDetector2File myDetector2File;
-
 
 };
 

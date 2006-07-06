@@ -84,7 +84,7 @@ namespace
     inline SUMOReal speedSumUp( SUMOReal sumSoFar,
                             const MSSpaceMeanSpeed::Vehicle data )
     {
-        return sumSoFar + data->speed();
+        return sumSoFar + data->getSpeed();
     }
 }
 

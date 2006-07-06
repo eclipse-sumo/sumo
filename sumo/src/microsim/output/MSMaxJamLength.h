@@ -134,18 +134,18 @@ protected:
                         startVeh = it->vehM;
                     }
                     stopVeh = it->vehM;
-                    SUMOReal dist = stopVeh->pos() - startVeh->pos() +
-                        startVeh->length();
+                    SUMOReal dist = stopVeh->getPositionOnLane() - startVeh->getPositionOnLane() +
+                        startVeh->getLength();
                     if(startVeh==containerM.containerM.begin()->vehM) {
                         SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
                         if(corr!=0) {
-                            dist -= (SUMOReal) ((1.0 - corr) * startVeh->length());
+                            dist -= (SUMOReal) ((1.0 - corr) * startVeh->getLength());
                         }
                     }
                     if(stopVeh==(--containerM.containerM.end())->vehM) {
                         SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
                         if(corr!=0) {
-                            dist -= (SUMOReal) ((1.0 - corr) * stopVeh->length());
+                            dist -= (SUMOReal) ((1.0 - corr) * stopVeh->getLength());
                         }
                     }
                     if ( dist > maxDist ) {

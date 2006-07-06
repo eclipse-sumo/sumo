@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/07/06 07:19:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.14  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -384,7 +387,7 @@ MSAgentbasedTrafficLightLogic::collectData()
             }
             SUMOReal maxPerBit = 0;
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
-                if((*j)->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                if((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
                 SUMOReal tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/07/06 07:18:34  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.16  2006/04/11 10:59:07  dkrajzew
 // all structures now return their id via getID()
 //
@@ -131,7 +134,7 @@ MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime stopTime)
         }
     } else {
 #endif
-    MSEdge::LaneCont *lanes = edge.getLanes();
+    const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
         MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
@@ -201,7 +204,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
-    MSEdge::LaneCont *lanes = edge.getLanes();
+    const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if(!myAmEdgeBased) {
         dev.writeString("   <edge id=\"").writeString(edge.getID()).writeString("\">\n");

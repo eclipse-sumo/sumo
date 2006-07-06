@@ -133,7 +133,7 @@ private:
         {
             // activate if veh is in front on crossSection. Don't measure
             // 'partially' entered vehicles.
-            return veh.pos() <= posM;
+            return veh.getPositionOnLane() <= posM;
         }
 
     // EntryReminder overload
@@ -146,11 +146,11 @@ private:
                   SUMOReal newPos,
                   Loki::Int2Type< false >)
         {
-            if ( newPos - veh.length() > posM ) {
+            if ( newPos - veh.getLength() > posM ) {
                 // crossSection completely left
                 MSUnit::Seconds leaveTime = MSUnit::getInstance()->getSeconds(
                     MSNet::getInstance()->getCurrentTimeStep() -
-                    ( newPos - veh.length() - posM ) / ( newPos - oldPos ) );
+                    ( newPos - veh.getLength() - posM ) / ( newPos - oldPos ) );
                 collectorM.leave( veh, leaveTime );
                 return false;
             }
@@ -163,7 +163,7 @@ private:
         {
             // activate if veh is in front on crossSection. Don't measure
             // 'partially' entered vehicles.
-            return veh.pos() <= posM;
+            return veh.getPositionOnLane() <= posM;
         }
 
      // LeaveReminder overload

@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.9  2006/07/06 07:18:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.8  2006/03/17 08:57:15  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -347,7 +350,7 @@ public:
         VehicleData( MSVehicle& veh,
                      SUMOReal entryTimestep,
                      SUMOReal leaveTimestep )
-            : lengthM( veh.length() ),
+            : lengthM( veh.getLength() ),
               entryTimeM( MSNet::getSeconds( entryTimestep ) ),
               leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),
               speedM( lengthM / ( leaveTimeM - entryTimeM ) ),

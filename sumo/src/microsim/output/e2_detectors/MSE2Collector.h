@@ -385,18 +385,18 @@ public:
                     }
                 }
             }
-            if ( newPos - veh.length() < startPosM ) {
+            if ( newPos - veh.getLength() < startPosM ) {
                 // vehicle entered detector partially
                 occupancyCorrectionM.setOccupancyEntryCorrection(
-                    veh, ( newPos - startPosM ) / veh.length() );
+                    veh, ( newPos - startPosM ) / veh.getLength() );
             }
-            if ( newPos > endPosM && newPos - veh.length() <= endPosM ) {
+            if ( newPos > endPosM && newPos - veh.getLength() <= endPosM ) {
                 // vehicle left detector partially
                 occupancyCorrectionM.setOccupancyLeaveCorrection(
-                    veh, (endPosM - (newPos - veh.length() ) ) /
-                    veh.length() );
+                    veh, (endPosM - (newPos - veh.getLength() ) ) /
+                    veh.getLength() );
             }
-            if ( newPos - veh.length() > endPosM ) {
+            if ( newPos - veh.getLength() > endPosM ) {
                 // vehicle will leave detector
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
@@ -423,7 +423,7 @@ public:
     ///
     void dismissByLaneChange( MSVehicle& veh )
         {
-            if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
+            if (veh.getPositionOnLane() >= startPosM && veh.getPositionOnLane() - veh.getLength() < endPosM) {
                 // vehicle is on detector
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
@@ -431,8 +431,8 @@ public:
                         (*it)->leaveDetectorByLaneChange( &veh );
                     }
                 }
-                if ( veh.pos() - veh.length() < startPosM ||
-                     veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
+                if ( veh.getPositionOnLane() - veh.getLength() < startPosM ||
+                     veh.getPositionOnLane()>endPosM && veh.getPositionOnLane()-veh.getLength()<=endPosM ) {
                     // vehicle partially on det
                     occupancyCorrectionM.dismissOccupancyCorrection( veh );
                 }
@@ -457,7 +457,7 @@ public:
     ///
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
-            if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
+            if (veh.getPositionOnLane() >= startPosM && veh.getPositionOnLane() - veh.getLength() < endPosM) {
                 // vehicle is on detector
                 for ( ContainerContIter it = containersM.begin();
                       it != containersM.end(); ++it ) {
@@ -465,20 +465,20 @@ public:
                         (*it)->enterDetectorByEmitOrLaneChange( &veh );
                     }
                 }
-                if ( veh.pos() - veh.length() < startPosM ) {
+                if ( veh.getPositionOnLane() - veh.getLength() < startPosM ) {
                     // vehicle entered detector partially
                     occupancyCorrectionM.setOccupancyEntryCorrection(
-                        veh, (veh.pos() - startPosM ) / veh.length() );
+                        veh, (veh.getPositionOnLane() - startPosM ) / veh.getLength() );
                 }
-                if ( veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
+                if ( veh.getPositionOnLane()>endPosM && veh.getPositionOnLane()-veh.getLength()<=endPosM ) {
                     // vehicle left detector partially
                     occupancyCorrectionM.setOccupancyLeaveCorrection(
-                        veh, ( endPosM - (veh.pos() - veh.length() ) ) /
-                        veh.length() );
+                        veh, ( endPosM - (veh.getPositionOnLane() - veh.getLength() ) ) /
+                        veh.getLength() );
                 }
                 return true;
             }
-            if ( veh.pos() - veh.length() > endPosM ){
+            if ( veh.getPositionOnLane() - veh.getLength() > endPosM ){
                 // vehicle is beyond detector
                 return false;
             }

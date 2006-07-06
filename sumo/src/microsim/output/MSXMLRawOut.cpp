@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/07/06 07:18:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.8  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -171,7 +174,7 @@ MSXMLRawOut::writeVehicle(OutputDevice* of, const MSVehicle &veh,
 {
     string indent( intend , ' ' );
     of->getOStream() << indent << "<vehicle id=\"" << veh.getID() << "\" pos=\""
-       << veh.pos() << "\" speed=\"" << veh.speed()
+       << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed()
        << "\"/>" << endl;
 }
 

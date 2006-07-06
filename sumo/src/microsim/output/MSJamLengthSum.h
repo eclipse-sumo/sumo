@@ -116,10 +116,10 @@ protected:
                   front != containerM.containerM.end(); ++front ) {
                 if ( front->isInJamM ) {
                     if ( front == containerM.containerM.begin() ) {
-                        distSum += front->vehM->length();
+                        distSum += front->vehM->getLength();
                         SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
                         if(corr!=0) {
-                            distSum -= (SUMOReal) ((1.0 - corr) * front->vehM->length());
+                            distSum -= (SUMOReal) ((1.0 - corr) * front->vehM->getLength());
                         }
                         assert (distSum >= 0);
                     }
@@ -127,23 +127,21 @@ protected:
                         HaltingsConstIt rear = front;
                         --rear;
                         if ( rear->isInJamM ) {
-                            if ( front->vehM->pos() < rear->vehM->pos() ) {
-                                distSum += rear->vehM->getLane().length() -
-                                    rear->vehM->pos();
+                            if ( front->vehM->getPositionOnLane() < rear->vehM->getPositionOnLane() ) {
+                                distSum += rear->vehM->getLane().length() - rear->vehM->getPositionOnLane();
                             }
                             else {
-                                distSum +=
-                                    front->vehM->pos() - rear->vehM->pos();
+                                distSum += front->vehM->getPositionOnLane() - rear->vehM->getPositionOnLane();
                             }
                             if(rear==(--containerM.containerM.end())) {
                                 SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
                                 if(corr!=0) {
-                                    distSum -= (SUMOReal) ((1.0 - corr) * rear->vehM->length());
+                                    distSum -= (SUMOReal) ((1.0 - corr) * rear->vehM->getLength());
                                 }
                             }
                         }
                         else {
-                            distSum += front->vehM->length();
+                            distSum += front->vehM->getLength();
                         }
                     }
                 }

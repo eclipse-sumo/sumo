@@ -76,7 +76,7 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
             ContainerIt insertIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
-                                  PosGreaterPredicate(), veh->pos() ) );
+                                  PosGreaterPredicate(), veh->getPositionOnLane() ) );
             containerM.insert( insertIt, ContainerItem( veh ) );
         }
 

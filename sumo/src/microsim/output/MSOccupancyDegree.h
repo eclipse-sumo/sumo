@@ -87,7 +87,7 @@ namespace
     inline SUMOReal occupancySumUp( SUMOReal sumSoFar,
                                   const MSOccupancyDegree::Vehicle data )
     {
-        return sumSoFar + data->length();
+        return sumSoFar + data->getLength();
     }
 }
 
@@ -113,8 +113,8 @@ MSOccupancyDegree::getDetectorAggregate( void )
         ( ( std::accumulate( containerWrapperM.containerM.begin(),
                            containerWrapperM.containerM.end(),
                            (SUMOReal) 0.0, occupancySumUp )
-          - containerWrapperM.containerM.front()->length() * entryCorr
-          - containerWrapperM.containerM.back()->length() *  leaveCorr ) /
+          - containerWrapperM.containerM.front()->getLength() * entryCorr
+          - containerWrapperM.containerM.back()->getLength() *  leaveCorr ) /
         detectorLengthM);
     // Note: in reality a occupancyDegree value should be in
     // [0,1]. Due to size-less intersections and some inability of

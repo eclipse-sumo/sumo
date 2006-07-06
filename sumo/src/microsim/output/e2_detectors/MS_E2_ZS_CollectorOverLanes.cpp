@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/07/06 07:18:34  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.15  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -242,8 +245,8 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     getLanePredeccessorLanes(toExtend, edgeContinuations);
                 if(predeccessors.size()==0) {
                     int off = 1;
-                    const MSEdge &e = toExtend->edge();
-                    const std::vector<MSLane*> *lanes = e.getLanes();
+                    const MSEdge * const e = toExtend->getEdge();
+                    const std::vector<MSLane*> *lanes = e->getLanes();
                     int idx =
                         distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
                     while(predeccessors.size()==0) {
@@ -304,21 +307,21 @@ std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
         const MSEdgeContinuations &edgeContinuations)
 {
-    string eid = l->edge().getID();
+    string eid = l->getEdge()->getID();
     // check whether any exist
-    if(!edgeContinuations.hasFurther(l->edge())) {
+    if(!edgeContinuations.hasFurther(*l->getEdge())) {
         return std::vector<MSLane*>();
     }
     // get predecessing edges
     const std::vector<MSEdge*> &predEdges =
-        edgeContinuations.getInFrontOfEdge(l->edge());
+        edgeContinuations.getInFrontOfEdge(*l->getEdge());
     std::vector<MSLane*> ret;
     // find predecessing lanes
     for(std::vector<MSEdge*>::const_iterator i=predEdges.begin(); i!=predEdges.end(); i++) {
         MSEdge *e = *i;
         assert(e!=0);
         typedef std::vector<MSLane*> LaneVector;
-        const LaneVector *cl = e->allowedLanes(l->edge());
+        const LaneVector *cl = e->allowedLanes(*l->getEdge());
         bool fastAbort = false;
         if(cl!=0) {
             for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {

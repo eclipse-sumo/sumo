@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/07/06 07:23:45  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.7  2006/05/23 10:30:38  dkrajzew
 // Message corrected
 //
@@ -106,8 +109,9 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
             MSNet &net, const std::string &aXMLFilename,
-            MSEmitter &parent)
-    : MSEmitterChild(parent), MSTriggeredXMLReader(net, aXMLFilename), myHaveNext(false),
+            MSEmitter &parent, MSVehicleControl &vc)
+    : MSEmitterChild(parent, vc),
+    MSTriggeredXMLReader(net, aXMLFilename), myHaveNext(false),
     myFlow(-1), myRunningID(0), myHaveInitialisedFlow(false)
 {
     myBeginTime = net.getCurrentTimeStep();
@@ -193,7 +197,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if(freq<0) {
             MsgHandler::getErrorInstance()->inform(
-                "MSTriggeredSource " + myParent.getID() + ": Attribute \"frequency\" has value < 0.");
+                "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
             throw ProcessError();
         }
         // Attributes ok, add to routeDist
@@ -274,11 +278,11 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
             return;
         }
         // check and assign id
-        string aVehicleId = myParent.getID() +  "_" + getStringSecure(attrs, "id", "");
-        MSVehicle* veh = MSVehicle::dictionary( aVehicleId );
+        string aVehicleId = /*myParent.getID() +  "_" + */getStringSecure(attrs, "id", "");
+        MSVehicle* veh = myVehicleControl.getVehicle( aVehicleId );
         if ( veh != 0 ) {
-            aVehicleId = myParent.getID() +  "_" + toString(myRunningID++);
-            veh = MSVehicle::dictionary( aVehicleId );
+            aVehicleId = myParent.getID() +  "_" + toString(MSNet::getInstance()->getCurrentTimeStep()) +  "_" + toString(myRunningID++);
+            veh = myVehicleControl.getVehicle( aVehicleId );
             if ( veh != 0 ) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.");
                 WRITE_WARNING("Continuing with next element.");
@@ -386,7 +390,7 @@ MSEmitter::MSEmitter(const std::string &id,
 {
     assert(myPos>=0);
     myActiveChild =
-        new MSEmitter_FileTriggeredChild(net, aXMLFilename, *this);
+        new MSEmitter_FileTriggeredChild(net, aXMLFilename, *this, net.getVehicleControl());
     myFileBasedEmitter = myActiveChild;
 }
 
@@ -431,11 +435,11 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     // try to emit
 #ifdef HAVE_MESOSIM
     if(MSGlobals::gUseMesoSim) {
-        if ( ((MSEdge&) myDestLane->edge()).emit( *veh,  MSNet::getInstance()->getCurrentTimeStep() ) ) {
-            MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
+        if ( myDestLane->getEdge()->emit( *veh,  myNet.getCurrentTimeStep() ) ) {
+            myNet.getVehicleControl().vehiclesEmitted(1);
             veh->onDepart();
             // insert vehicle into the dictionary
-            if(!MSVehicle::dictionary(veh->getID(), veh)) {
+            if(!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
                 // !!!
                 throw 1;
             }
@@ -448,9 +452,9 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     if ( myDestLane->isEmissionSuccess( veh, state ) ) {
         veh->enterLaneAtEmit(myDestLane, state);
         veh->onDepart();
-        MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
+        myNet.getVehicleControl().vehiclesEmitted(1);
         // insert vehicle into the dictionary
-        if(!MSVehicle::dictionary(veh->getID(), veh)) {
+        if(!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
             // !!!
             throw 1;
         }

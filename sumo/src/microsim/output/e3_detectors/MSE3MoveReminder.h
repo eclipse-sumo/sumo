@@ -123,12 +123,12 @@ private:
 
     bool isActivated(MSVehicle& veh, Loki::Int2Type< true >)
         {
-            return veh.pos() <= posM;
+            return veh.getPositionOnLane() <= posM;
         }
 
     bool isActive(MSVehicle& veh, SUMOReal newPos, Loki::Int2Type< false >)
         {
-            if ( newPos - veh.length() > posM ) {
+            if ( newPos - veh.getLength() > posM ) {
                 // crossSection completely left
                 collectorM.leave( veh );
                 return false;
@@ -139,7 +139,7 @@ private:
 
     bool isActivated(MSVehicle& veh, Loki::Int2Type< false >)
         {
-            return veh.pos() - veh.length() <= posM;
+            return veh.getPositionOnLane() - veh.getLength() <= posM;
         }
 
 

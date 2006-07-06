@@ -63,7 +63,7 @@ namespace Predicate
         public std::binary_function< MSVehicle*, SUMOReal, bool >
     {
         bool operator() ( const MSVehicle* item, SUMOReal pos ) const {
-            return item->pos() > pos;
+            return item->getPositionOnLane() > pos;
         }
     };
 

@@ -22,6 +22,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/06 07:18:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.5  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -107,7 +110,7 @@ protected:
             statesM.clear();
 
             VehicleCont::const_iterator vehIt = containerM.begin();
-            if ( (*vehIt)->pos() > detectorEndPosM ) {
+            if ( (*vehIt)->getPositionOnLane() > detectorEndPosM ) {
                 // first vehicle left detector partially, start with the next
                 // one.
                 ++vehIt;
@@ -121,8 +124,8 @@ protected:
                   ++index, ++vehIt ) {
                 statesM.push_back(
                     VehicleState(
-                        detectorEndPosM - (*vehIt)->pos(),
-                        (*vehIt)->speed() ) );
+                        detectorEndPosM - (*vehIt)->getPositionOnLane(),
+                        (*vehIt)->getSpeed() ) );
             }
             return statesM;
         }

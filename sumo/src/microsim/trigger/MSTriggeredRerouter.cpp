@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/07/06 07:23:45  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.11  2006/04/18 08:13:52  dkrajzew
 // debugging rerouting
 //
@@ -122,7 +125,7 @@ bool
 MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal oldPos,
                                            SUMOReal newPos, SUMOReal newSpeed )
 {
-    myParent->reroute(veh, &(laneM->edge()));
+    myParent->reroute(veh, laneM->getEdge());
     return false;
 }
 
@@ -136,7 +139,7 @@ MSTriggeredRerouter::Setter::dismissByLaneChange( MSVehicle& veh )
 bool
 MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-    myParent->reroute(veh, &(laneM->edge()));
+    myParent->reroute(veh, laneM->getEdge());
     return false;
 }
 
@@ -167,7 +170,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
     delete triggerParser;
     // build actors
     for(std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-        std::vector<MSLane*> *destLanes = (*j)->getLanes();
+        const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
         std::vector<MSLane*>::const_iterator i;
         for(i=destLanes->begin(); i!=destLanes->end(); ++i) {
             string sid = id + "_at_" + (*i)->getID();

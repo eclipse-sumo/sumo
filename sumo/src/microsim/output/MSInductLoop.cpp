@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/07/06 07:18:33  dkrajzew
+// applied current microsim-APIs
+//
 // Revision 1.14  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -155,9 +158,9 @@ MSInductLoop::isStillActive( MSVehicle& veh,
     if ( vehiclesOnDetM.find( &veh ) == vehiclesOnDetM.end() ) {
         // entered the detector by move
         entryTimestep -= 1 - ( posM - oldPos ) / speed;
-        if ( newPos - veh.length() > posM ) {
+        if ( newPos - veh.getLength() > posM ) {
             // entered and passed detector in a single timestep
-            leaveTimestep -= ( newPos - veh.length() - posM ) / speed;
+            leaveTimestep -= ( newPos - veh.getLength() - posM ) / speed;
             enterDetectorByMove( veh, entryTimestep );
             leaveDetectorByMove( veh, leaveTimestep );
             return false;
@@ -167,9 +170,9 @@ MSInductLoop::isStillActive( MSVehicle& veh,
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
-        if ( newPos - veh.length() >= posM ) {
+        if ( newPos - veh.getLength() >= posM ) {
             // vehicle passed the detector
-            leaveTimestep -= ( newPos - veh.length() - posM ) / speed;
+            leaveTimestep -= ( newPos - veh.getLength() - posM ) / speed;
             leaveDetectorByMove( veh, leaveTimestep );
             return false;
         }
@@ -182,7 +185,7 @@ MSInductLoop::isStillActive( MSVehicle& veh,
 void
 MSInductLoop::dismissByLaneChange( MSVehicle& veh )
 {
-    if ( veh.pos() > posM && veh.pos() - veh.length() <= posM ) {
+    if ( veh.getPositionOnLane() > posM && veh.getPositionOnLane() - veh.getLength() <= posM ) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange( veh );
     }
@@ -192,7 +195,7 @@ MSInductLoop::dismissByLaneChange( MSVehicle& veh )
 bool
 MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 {
-    if ( veh.pos() > posM ) {
+    if ( veh.getPositionOnLane() > posM ) {
         // vehicle-front is beyond detector. Ignore
         return false;
     }
