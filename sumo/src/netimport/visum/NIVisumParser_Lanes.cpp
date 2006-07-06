@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/07/06 06:16:38  dkrajzew
+// further debugging of VISUM-import (unfinished)
+//
 // Revision 1.6  2006/06/13 13:16:00  dkrajzew
 // patching problems on loading split lanes and tls
 //
@@ -176,7 +179,7 @@ NIVisumParser_Lanes::myDependentReport()
                     sub = sub.substr(sub.rfind('_', sub.rfind('_')-1));
                     sub = sub.substr(1, sub.find('_', 1)-1);
                     SUMOReal dist = TplConvert<char>::_2SUMOReal(sub.c_str());
-                    if(dist>length) {
+                    if(dist<length) {
                         if(dirS=="1") {
                             // incoming -> move back
                             edge = edge->getFromNode()->getIncomingEdges()[0];
@@ -184,6 +187,8 @@ NIVisumParser_Lanes::myDependentReport()
                             // outgoing -> move forward
                             edge = edge->getToNode()->getOutgoingEdges()[0];
                         }
+                    } else {
+                        mustRecheck = false;
                     }
                 } else {
                     // we have the center edge - do not continue...
@@ -203,13 +208,17 @@ NIVisumParser_Lanes::myDependentReport()
                     ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
                     : edge->getGeometry().positionAtLengthPosition(length);
             }
-            NBNode *rn = new NBNode(edge->getID() + "_" +  toString(length) + "_" + node->getID(), p);
+            string edgeID = edge->getID();
+            if(edgeID.substr(edgeID.length()-node->getID().length()-1)=="_" + node->getID()) {
+                edgeID = edgeID.substr(0, edgeID.find('_'));
+            }
+            NBNode *rn = new NBNode(edgeID + "_" +  toString(length) + "_" + node->getID(), p);
             if(!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
                 throw ProcessError();
             }
             myEdgeCont.splitAt(myDistrictCont, edge, edge->getLength()-length, rn,
-                edge->getID(), edge->getID() + "_" +  toString(length) + "_" + node->getID(),
+                edge->getID(), edgeID + "_" +  toString(length) + "_" + node->getID(),
                 edge->getNoLanes(), edge->getNoLanes()+1);
         }
     } catch (OutOfBoundsException) {

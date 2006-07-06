@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/07/06 06:16:38  dkrajzew
+// further debugging of VISUM-import (unfinished)
+//
 // Revision 1.5  2006/06/13 13:16:00  dkrajzew
 // patching problems on loading split lanes and tls
 //
@@ -115,8 +118,8 @@ NIVisumParser_LanesConnections::myDependentReport()
 
         int fromLaneOffset = 0;//fromEdge->getNoLanes();
         if(!node->hasIncoming(fromEdge)) {
-            fromLaneOffset = fromEdge->getNoLanes();
             fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
+            fromLaneOffset = fromEdge->getNoLanes();
             /*
             string sid;
             if(fromEdge->getID()[0]=='-') {
@@ -210,6 +213,12 @@ NIVisumParser_LanesConnections::myDependentReport()
         // get the from-lane
         string fromLaneS =
             NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));
+
+        if(fromEdge->getID()=="-905002548_100_1565"&&toEdge->getID()=="-905002550"&&fromLaneS=="6") {
+            int bla = 0;
+        }
+
+
         int fromLane = -1;
         try {
             fromLane = TplConvert<char>::_2int(fromLaneS.c_str());

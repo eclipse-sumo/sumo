@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/07/06 06:16:38  dkrajzew
+// further debugging of VISUM-import (unfinished)
+//
 // Revision 1.11  2006/06/13 13:16:00  dkrajzew
 // patching problems on loading split lanes and tls
 //
@@ -368,6 +371,7 @@ private:
     bool checkForPosition(const std::string &line);
 
     NBTrafficLightLogicCont &myTLLogicCont;
+    NBEdgeCont &myEdgeCont;
     projPJ myProjection;
 
 };

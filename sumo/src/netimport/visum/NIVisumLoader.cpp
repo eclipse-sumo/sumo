@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/07/06 06:16:38  dkrajzew
+// further debugging of VISUM-import (unfinished)
+//
 // Revision 1.17  2006/06/13 13:16:00  dkrajzew
 // patching problems on loading split lanes and tls
 //
@@ -565,8 +568,8 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              NBCapacity2Lanes capacity2Lanes, projPJ pj)
     : FileErrorReporter("visum-network", file),
     _capacity2Lanes(capacity2Lanes),
-    myTLLogicCont(nb.getTLLogicCont()), myProjection(pj)
-
+    myTLLogicCont(nb.getTLLogicCont()), myEdgeCont(nb.getEdgeCont()),
+    myProjection(pj)
 {
     // the order of process is important!
     // set1
@@ -661,16 +664,16 @@ void NIVisumLoader::load(OptionsCont &options)
     // scan the file for data positions
     PositionSetter posSet(*this);
     myLineReader.readAll(posSet);
-    // go through the parsers and process every entry
-    for( ParserVector::iterator i=mySingleDataParsers.begin();
-         i!=mySingleDataParsers.end(); i++) {
+    // go through the parsers and process all entries
+    for( ParserVector::iterator i=mySingleDataParsers.begin(); i!=mySingleDataParsers.end(); i++) {
         (*i)->readUsing(myLineReader);
     }
     // build traffic lights
-	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
-		j!=myNIVisumTLs.end(); j++) {
+	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin(); j!=myNIVisumTLs.end(); j++) {
 		j->second->build(myTLLogicCont);
 	}
+    // recheck all edge shapes
+    myEdgeCont.recheckEdgeGeomsForDoublePositions();
 }
 
 
