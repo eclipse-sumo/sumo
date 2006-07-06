@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/07/06 05:52:15  dkrajzew
+// removed unused values
+//
 // Revision 1.5  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -94,7 +97,6 @@ TrackerValueDesc::TrackerValueDesc(const std::string &name,
                                    size_t recordBegin)
     : myName(name), myObject(o),
     myActiveCol(col), myInactiveCol(col),
-    myAmActive(true),
     myMin(0), myMax(0),
     myAggregationInterval(1), myInvalidValue(-1), myValidNo(0),
 	myRecordingBegin(recordBegin), myTmpLastAggValue(0)

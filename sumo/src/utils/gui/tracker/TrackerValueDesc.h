@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/07/06 05:52:15  dkrajzew
+// removed unused values
+//
 // Revision 1.4  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -155,9 +158,6 @@ private:
 
     /// The color to use when the value is set as "inactive"
     RGBColor myInactiveCol;
-
-    /// Information whether the value is active (!!! not used by now)
-    bool myAmActive;
 
     /// The minimum and the maximum of the value
     SUMOReal myMin, myMax;
