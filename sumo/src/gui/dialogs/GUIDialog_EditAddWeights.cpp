@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/06 05:35:54  dkrajzew
+// replaced exception throwing in unreachable places by something more friendly
+//
 // Revision 1.12  2006/04/11 10:54:56  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -514,7 +517,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         }
         break;
     default:
-        throw 1;
+        break;
     }
     gAddWeightsStorage[row] = aw;
     if(!i->updateOnly) {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2006/07/06 05:35:54  dkrajzew
+// replaced exception throwing in unreachable places by something more friendly
+//
 // Revision 1.54  2006/04/11 10:54:52  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -1120,7 +1123,8 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
             gQuitOnEnd = true;
             break;
         default:
-            throw 1;
+            text << "Unknown reason!";
+            break;
         }
         //
         onCmdStop(0, 0, 0);

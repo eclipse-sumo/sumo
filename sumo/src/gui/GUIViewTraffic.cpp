@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2006/07/06 05:35:54  dkrajzew
+// replaced exception throwing in unreachable places by something more friendly
+//
 // Revision 1.55  2006/06/13 13:12:55  dkrajzew
 // made static comboboxes really static
 //
@@ -728,7 +731,8 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
     default:
         break;
     }
-    throw 1;
+    // hmmmm - should not happen
+    return RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 0);
 }
 
 
