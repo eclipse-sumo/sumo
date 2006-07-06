@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/07/06 05:55:59  dkrajzew
+// added the "show blinker" option
+//
 // Revision 1.16  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -387,6 +390,7 @@ public:
         RGBColor minVehicleColor;
         RGBColor maxVehicleColor;
         std::vector<RGBColor> vehicleGradient;
+        bool showBlinker;
 
         int junctionMode;
 

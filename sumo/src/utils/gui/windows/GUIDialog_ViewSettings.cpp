@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/07/06 05:55:59  dkrajzew
+// added the "show blinker" option
+//
 // Revision 1.7  2006/06/22 07:19:02  dkrajzew
 // set the correct number of visible items
 //
@@ -138,6 +141,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL);
         FXVerticalFrame *frame1 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
         FXMatrix *m1 =
             new FXMatrix(frame1,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
@@ -146,7 +150,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             this, MID_SIMPLE_VIEW_COLORCHANGE,
             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
             0, 0, 100, 0,   0, 0, 0, 0);
+
         new FXHorizontalSeparator(frame1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
         new FXLabel(frame1, "Decals:");
         myDecalsFrame = new FXVerticalFrame(frame1);
     }
@@ -154,6 +160,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
         FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
         FXMatrix *m21 =
             new FXMatrix(s2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
@@ -178,7 +185,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myLaneEdgeColorMode->setNumVisible(10);
         myLaneColorSettingFrame =
             new FXVerticalFrame(s2, LAYOUT_FIX_HEIGHT|LAYOUT_FIX_Y|LAYOUT_FILL_Y,  0,0,  0,0, 10,10,10,10, 5,2);
+
         new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
         FXMatrix *m22 =
             new FXMatrix(frame2,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
@@ -192,6 +201,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             FXTabItem *tab3 = new FXTabItem(tabbook,"Vehicles",NULL);
             FXVerticalFrame *frame3 =
                 new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
             FXMatrix *m31 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
@@ -203,7 +213,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             c31->appendItem("complex shapes");
             c31->setNumVisible(4);
             c31->disable();
+
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
             FXSplitter *s3 = new FXSplitter(frame3, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,400);
             FXMatrix *m32 =
                 new FXMatrix(s3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
@@ -214,17 +226,21 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             myVehicleColorMode->setNumVisible(10);
             myVehicleColorSettingFrame =
                 new FXVerticalFrame(s3, 0, 0,0,80,0, 10,10,10,10, 5,2);
+
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
             FXMatrix *m33 =
                 new FXMatrix(frame3,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
-            FXCheckButton *tmpc = new FXCheckButton(m33, "Show blinker", 0 ,0);
-            tmpc->disable();
-            tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
+            myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
+            myShowBlinker->setCheck(mySettings->showBlinker);
+            FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
             tmpc->disable();
             tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
             tmpc->disable();
+
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
             FXMatrix *m34 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
@@ -250,6 +266,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL);
         FXVerticalFrame *frame5 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
         FXMatrix *m51 =
             new FXMatrix(frame5,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
@@ -269,12 +286,15 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab6 = new FXTabItem(tabbook,"Further",NULL);
         FXVerticalFrame *frame6 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
         FXMatrix *m61 =
             new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
         myShowLane2Lane = new FXCheckButton(m61, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLane2Lane->setCheck(mySettings->showLane2Lane);
+
         new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
         FXMatrix *m62 =
             new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
@@ -284,6 +304,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myDither->setCheck(mySettings->dither);
 
         new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
 		new FXLabel(frame6, "points of interest");
         FXMatrix *m63 =
             new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
@@ -379,6 +400,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
+    myShowBlinker->setCheck(mySettings->showBlinker);
 
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
@@ -443,6 +465,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
         mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
+        mySettings->showBlinker = myShowBlinker->getCheck();
     }
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();

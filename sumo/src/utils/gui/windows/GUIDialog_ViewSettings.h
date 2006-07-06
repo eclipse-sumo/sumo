@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/07/06 05:55:59  dkrajzew
+// added the "show blinker" option
+//
 // Revision 1.3  2006/01/31 11:02:37  dkrajzew
 // added the possibility to exaggerate pois
 //
@@ -126,6 +129,7 @@ private:
     FXVerticalFrame *myVehicleColorSettingFrame;
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
+    FXCheckButton *myShowBlinker;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
 
