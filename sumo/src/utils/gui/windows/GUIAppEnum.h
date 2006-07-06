@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/07/06 06:42:42  dkrajzew
+// added vehicle tracking
+//
 // Revision 1.15  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -307,6 +310,10 @@ enum {
     MID_SHOW_ALLROUTES,
     /// Hide all vehicle's routes
     MID_HIDE_ALLROUTES,
+    /// Start to track a vehicle
+    MID_START_TRACK,
+    /// Stop to track a vehicle
+    MID_STOP_TRACK,
     /// Rename the object
 	MID_RENAME,
     /// Move object to another position
