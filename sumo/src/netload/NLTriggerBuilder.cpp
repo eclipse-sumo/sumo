@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/06 06:13:33  dkrajzew
+// removed some old code
+//
 // Revision 1.18  2006/07/05 11:40:41  ericnicolay
 // change code in buildVehicleActor
 //
@@ -117,12 +120,6 @@ namespace
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/METriggeredCalibrator.h>
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -364,7 +361,7 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 
 MSE1VehicleActor *
 NLTriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
-                                    MSLane *lane, SUMOReal pos, unsigned int type, 
+                                    MSLane *lane, SUMOReal pos, unsigned int type,
 									unsigned int areaid)
 {
 	if ( type == 0 )
