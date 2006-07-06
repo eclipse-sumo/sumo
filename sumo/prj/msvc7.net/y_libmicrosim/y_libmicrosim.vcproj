@@ -182,6 +182,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.cpp">
 			</File>
 			<File
@@ -898,6 +901,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\logging\FuncBinding_UIntParam.h">
