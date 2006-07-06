@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/07/06 05:48:45  dkrajzew
+// extracted functions to compute angle differences
+//
 // Revision 1.14  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -160,6 +163,9 @@ public:
 
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
         const Position2D &end, SUMOReal wanted_offset);
+
+    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
+    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 /*
     static void sortAsPolyCWByAngle(Position2DVector &p);

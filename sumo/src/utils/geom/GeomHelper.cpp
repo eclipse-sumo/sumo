@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/06 05:48:45  dkrajzew
+// extracted functions to compute angle differences
+//
 // Revision 1.18  2005/11/09 06:45:15  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -568,6 +571,38 @@ GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
         }
     }
 }
+
+
+SUMOReal
+GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
+{
+    if(angle1<0) {
+        angle1 = 360 + angle1;
+    }
+    if(angle2<0) {
+        angle2 = 360 + angle2;
+    }
+    if(angle1>angle2) {
+        return angle1 - angle2;
+    }
+    return angle1 + 360 - angle2;
+}
+
+SUMOReal
+GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
+{
+    if(angle1<0) {
+        angle1 = 360 + angle1;
+    }
+    if(angle2<0) {
+        angle2 = 360 + angle2;
+    }
+    if(angle1<angle2) {
+        return angle2 - angle1;
+    }
+    return 360 - angle1 + angle2;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
