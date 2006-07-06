@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/07/06 06:18:42  dkrajzew
+// further debugging of VISSIM-import (unfinished)
+//
 // Revision 1.11  2006/03/17 11:03:06  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -121,22 +124,6 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
     }
     return myGeom.positionAtLengthPosition(pos);
 }
-
-
-Position2D // !!! reference?
-NIVissimAbstractEdge::getBeginPosition() const
-{
-    return myGeom[0];
-}
-
-
-Position2D // !!! reference?
-NIVissimAbstractEdge::getEndPosition() const
-{
-    return myGeom[-1];
-}
-
-
 bool
 NIVissimAbstractEdge::hasGeom() const
 {

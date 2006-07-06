@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/07/06 06:18:42  dkrajzew
+// further debugging of VISSIM-import (unfinished)
+//
 // Revision 1.24  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -456,8 +459,8 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
             for(IntVector::const_iterator k=toLanes.begin(); k!=toLanes.end(); k++) {
 
                 if(!fromEdge->addLane2LaneConnection((*j), toEdge, (*k), false)) {
-//                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-// bla!!!!                    throw ProcessError();
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
                 }
             }
         }

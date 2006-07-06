@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/07/06 06:18:42  dkrajzew
+// further debugging of VISSIM-import (unfinished)
+//
 // Revision 1.9  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,8 +70,6 @@ public:
     NIVissimAbstractEdge(int id, const Position2DVector &geom);
     virtual ~NIVissimAbstractEdge();
     Position2D getGeomPosition(SUMOReal pos) const;
-    Position2D getBeginPosition() const;
-    Position2D getEndPosition() const;
     void splitAssigning();
     bool crossesEdge(NIVissimAbstractEdge *c) const;
     Position2D crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
