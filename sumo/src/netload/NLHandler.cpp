@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/06 06:14:40  dkrajzew
+// removed unneeded values
+//
 // Revision 1.12  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -234,7 +237,7 @@ NLHandler::NLHandler(const std::string &file,
                            NLGeomShapeBuilder &shapeBuilder,
                            bool wantsVehicleColor)
 
-    : MSRouteHandler(file, true, wantsVehicleColor),
+    : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor),
     myActionBuilder(net), myNet(net),
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
@@ -543,7 +546,6 @@ NLHandler::addLane(const Attributes &attrs)
             myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
-            myCurrentChangeUrge = getFloat(attrs, SUMO_ATTR_CHANGEURGE);
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {

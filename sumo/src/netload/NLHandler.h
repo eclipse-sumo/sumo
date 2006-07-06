@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/07/06 06:14:40  dkrajzew
+// removed unneeded values
+//
 // Revision 1.6  2006/03/27 07:25:55  dkrajzew
 // added projection information to the network
 //
@@ -460,9 +463,6 @@ protected:
 
     /// The length of the current lane
     SUMOReal myCurrentLength;
-
-    /// The changeUrge.Information of the current lane
-    SUMOReal myCurrentChangeUrge;
 
     /// The shape of the current lane
     Position2DVector myShape;
