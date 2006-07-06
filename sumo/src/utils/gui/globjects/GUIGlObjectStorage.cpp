@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/07/06 05:51:39  dkrajzew
+// debugged handling of vehicles that left the simulation
+//
 // Revision 1.5  2006/01/09 13:36:47  dkrajzew
 // removed unneeded includes
 //
@@ -166,7 +169,7 @@ GUIGlObjectStorage::remove(size_t id)
         i = myBlocked.find(id);
         assert(i!=myBlocked.end());
         GUIGlObject *o = (*i).second;
-        myMap.erase(id);
+        myBlocked.erase(id);
         my2Delete[id] = o;
         _lock.unlock();
 		return false;
