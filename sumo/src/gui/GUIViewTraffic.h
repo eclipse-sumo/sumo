@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.29  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -181,7 +184,9 @@ public:
     /// builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow &);
 
-    void track(int id);
+    void startTrack(int id);
+    void stopTrack();
+    int getTrackedID() const;
 
     long onCmdShowFullGeom(FXObject*,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);

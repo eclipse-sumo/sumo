@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/07/06 06:26:45  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.10  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -103,7 +106,7 @@ GUIVehicleDrawer_SGwTasTriangle::~GUIVehicleDrawer_SGwTasTriangle()
 
 void
 GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker)
 {
     // retrieve vehicles from lane; disallow simulation
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
@@ -113,8 +116,8 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     // go through the vehicles
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
-        SUMOReal posX = laneEnd.x() - laneDir.x() * veh->pos();
-        SUMOReal posY = laneEnd.y() - laneDir.y() * veh->pos();
+        SUMOReal posX = laneEnd.x() - laneDir.x() * veh->getPositionOnLane();
+        SUMOReal posY = laneEnd.y() - laneDir.y() * veh->getPositionOnLane();
         drawVehicle(static_cast<GUIVehicle&>(*veh), posX, posY, rot, colorer, upscale);
     }
     // allow lane simulation
@@ -132,7 +135,7 @@ GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
     glScaled(upscale, upscale, upscale);
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
-    SUMOReal length = vehicle.length();
+    SUMOReal length = vehicle.getLength();
     colorer.setGlColor(vehicle);
     if(length<8) {
 /*

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.56  2006/07/06 05:35:54  dkrajzew
 // replaced exception throwing in unreachable places by something more friendly
 //
@@ -569,6 +572,15 @@ GUIViewTraffic::onCmdShowFullGeom(FXObject*sender,FXSelector,void*)
 void
 GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 {
+    if(myTrackedID>0) {
+        GUIGlObject *o = gIDStorage.getObjectBlocking(myTrackedID);
+        if(o!=0) {
+            Boundary b;
+            b.add(static_cast<GUIVehicle*>(o)->getPosition());
+            b.grow(20);
+            _changer->centerTo(myGrid->getBoundary(), b, false);
+        }
+    }
     // init view settings
     glRenderMode(mode);
     glMatrixMode( GL_MODELVIEW );
@@ -709,8 +721,10 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     // draw vehicles only when they're visible
     if(scale*m2p(3)>myVisualizationSettings.minVehicleSize) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show, _edges2ShowSize,
+            myVisualizationSettings);
+        /*
             *GUIBaseVehicleDrawer::getSchemesMap().getColorer(myVisualizationSettings.vehicleMode),
-            myVisualizationSettings.vehicleExaggeration);
+            myVisualizationSettings.vehicleExaggeration);*/
     }
     glPopMatrix();
 }
@@ -737,9 +751,23 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
 
 
 void
-GUIViewTraffic::track(int id)
+GUIViewTraffic::startTrack(int id)
 {
     myTrackedID = id;
+}
+
+
+void
+GUIViewTraffic::stopTrack()
+{
+    myTrackedID = -1;
+}
+
+
+int
+GUIViewTraffic::getTrackedID() const
+{
+    return myTrackedID;
 }
 
 
@@ -781,11 +809,10 @@ GUIViewTraffic::centerTo(GUIGlObject *o)
         GUISUMOAbstractView::centerTo(o);
     } else {
         try {
-            Position2D pos = _net->getVehiclePosition(o->microsimID());
             Boundary b;
-            b.add(pos);
+            b.add(static_cast<GUIVehicle*>(o)->getPosition());
             b.grow(20);
-            GUISUMOAbstractView::centerTo(b);
+            _changer->centerTo(myGrid->getBoundary(), b);
             _changer->otherChange();
             update();
         } catch (GUIExcp_VehicleIsInvisible) {

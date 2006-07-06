@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.16  2006/01/31 10:51:18  dkrajzew
 // unused methods documented out (kept for further use)
 //
@@ -133,8 +136,12 @@ GUIBaseVehicleDrawer::~GUIBaseVehicleDrawer()
 
 void
 GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
+                                     GUISUMOAbstractView::VisualizationSettings &settings)
+//        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
 {
+    GUIBaseColorer<GUIVehicle> &colorer = *getSchemesMap().getColorer(settings.vehicleMode);
+    SUMOReal upscale = settings.vehicleExaggeration;
+    bool showBlinker = settings.showBlinker;
     initStep();
     // go through edges
     for(size_t i=0; i<maxEdges; i++ ) {
@@ -152,7 +159,7 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-                    drawLanesVehicles(laneGeom, colorer, upscale);
+                    drawLanesVehicles(laneGeom, colorer, upscale, showBlinker);
                 }
             }
         }

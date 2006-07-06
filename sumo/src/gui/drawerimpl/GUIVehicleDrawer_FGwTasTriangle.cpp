@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.11  2006/03/17 11:03:01  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -107,7 +110,7 @@ GUIVehicleDrawer_FGwTasTriangle::~GUIVehicleDrawer_FGwTasTriangle()
 
 void
 GUIVehicleDrawer_FGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker)
 {
     // retrieve vehicles from lane; disallow simulation
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
@@ -124,7 +127,7 @@ GUIVehicleDrawer_FGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     SUMOReal positionOffset = 0;
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
-        SUMOReal vehiclePosition = veh->pos();
+        SUMOReal vehiclePosition = veh->getPositionOnLane();
         while(  shapePos<rots.size()-1
                 &&
                 vehiclePosition>positionOffset+lengths[shapePos]) {
@@ -155,7 +158,7 @@ GUIVehicleDrawer_FGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
     colorer.setGlColor(vehicle);
-    SUMOReal length = vehicle.length();
+    SUMOReal length = vehicle.getLength();
     if(length<8) {
 /*
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {

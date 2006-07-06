@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.11  2006/03/17 11:03:01  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -78,6 +81,9 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUIVehicleDrawer_FGnTasTriangle.h"
+#include <utils/glutils/GLHelper.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lanechanging/MSLCM_DK2004.h>
 
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
@@ -110,7 +116,7 @@ GUIVehicleDrawer_FGnTasTriangle::~GUIVehicleDrawer_FGnTasTriangle()
 
 void
 GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker)
 {
     // retrieve vehicles from lane; disallow simulation
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
@@ -127,7 +133,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     SUMOReal positionOffset = 0;
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
-        SUMOReal vehiclePosition = veh->pos();
+        SUMOReal vehiclePosition = veh->getPositionOnLane();
         while( shapePos<rots.size()-1
                &&
                vehiclePosition>positionOffset+lengths[shapePos]) {
@@ -142,6 +148,96 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
         glPushMatrix();
         glTranslated(0, -(vehiclePosition-positionOffset), 0);
         drawVehicle(static_cast<GUIVehicle&>(*veh), colorer, upscale);
+        if(showBlinker) {
+            int state = veh->getLaneChangeModel().getState();
+            glColor3f(1, 0, 1);
+            if((state&LCA_URGENT)!=0) {
+                glColor3f(1, 0, 0);
+            }
+            if((state&LCA_SPEEDGAIN)!=0) {
+                glColor3f(.5, 0, 0);
+            }
+            if((state&LCA_LEFT)!=0) {
+                glTranslated(1, .5, 0);
+                GLHelper::drawFilledCircle(.5, 8);
+                glTranslated(-1, -.5, 0);
+            }
+            if((state&LCA_RIGHT)!=0) {
+                glTranslated(-1, .5, 0);
+                GLHelper::drawFilledCircle(.5, 8);
+                glTranslated(1, -.5, 0);
+            }
+            glColor3f(1, 0, 1);
+
+            MSLinkCont::const_iterator link =
+                veh->getLane().succLinkSec( *veh, 1, veh->getLane() );
+            if(link!=veh->getLane().getLinkCont().end()) {
+                switch((*link)->getDirection()) {
+                case MSLink::LINKDIR_TURN:
+                case MSLink::LINKDIR_LEFT:
+                case MSLink::LINKDIR_PARTLEFT:
+                    glTranslated(1, .5, 0);
+                    GLHelper::drawFilledCircle(.5, 8);
+                    glTranslated(-1, -.5, 0);
+                    break;
+                case MSLink::LINKDIR_RIGHT:
+                case MSLink::LINKDIR_PARTRIGHT:
+                    glTranslated(-1, .5, 0);
+                    GLHelper::drawFilledCircle(.5, 8);
+                    glTranslated(1, -.5, 0);
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            if(true) {//!!!
+                MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+                glColor3f(.5, .5, 1);
+                glBegin(GL_LINES);
+                glVertex2f(0, 0);
+                glVertex2f(m.getChangeProbability(), .5);
+                glEnd();
+            }
+            if(true) {//!!!
+                glColor3f(1, .5, 0);
+                std::vector<MSVehicle::LaneQ> preb = veh->getBestLanes()[0];
+                int midx = 0;
+                SUMOReal maxLen = 0;
+                int o;
+                for(o=0; o<preb.size(); o++) {
+                    if(preb[o].lane==&veh->getLane()) {
+                        midx = o;
+                    }
+                    maxLen = MAX2(maxLen, preb[o].alllength);
+                }
+                for(o=0; o<preb.size(); o++) {
+                    glBegin(GL_LINES);
+                    glVertex2f(0.4 * (SUMOReal) (o-midx), 0);
+                    glVertex2f(0.4 * (SUMOReal) (o-midx), preb[o].alllength/maxLen/2.);
+                    glEnd();
+                }
+                /*
+                const MSLane &l = veh->getLane();
+                SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
+                SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
+                SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
+                SUMOReal mmax = MAX3(r1, r2, r3);
+                glBegin(GL_LINES);
+                glVertex2f(0, 0);
+                glVertex2f(0, r1/mmax/2.);
+                glEnd();
+                glBegin(GL_LINES);
+                glVertex2f(.4, 0);
+                glVertex2f(.4, r2/mmax/2.);
+                glEnd();
+                glBegin(GL_LINES);
+                glVertex2f(-.4, 0);
+                glVertex2f(-.4, r3/mmax/2.);
+                glEnd();
+                */
+            }
+        }
         glPopMatrix();
     }
     // allow lane simulation
@@ -155,16 +251,18 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             GUIBaseColorer<GUIVehicle> &colorer, float upscale)
 {
     glScaled(upscale, upscale, upscale);
-    glBegin( GL_TRIANGLES );
     colorer.setGlColor(vehicle);
-    SUMOReal length = vehicle.length();
+    SUMOReal length = vehicle.getLength();
     if(length<8) {
 /*
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
         */
+        glScaled(1, length, 1);//, 1);
+    glBegin( GL_TRIANGLES );
             glVertex2d(0, 0);
-            glVertex2d(0-1.25, length);
-            glVertex2d(0+1.25, length);
+            glVertex2d(0-1.25, 1);//length);
+            glVertex2d(0+1.25, 1);//length);
+    glEnd();
             /*
         } else {
             setVehicleColor1Of3(vehicle);
@@ -179,6 +277,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
         /*
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
         */
+    glBegin( GL_TRIANGLES );
             glVertex2d(0, 0);
             glVertex2d(0-1.25, 0+2);
             glVertex2d(0+1.25, 0+2);
@@ -188,6 +287,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             glVertex2d(0+1.25, 2);
             glVertex2d(0-1.25, 2);
             glVertex2d(0+1.25, length);
+    glEnd();
             /*
         } else {
             setVehicleColor1Of3(vehicle);
@@ -205,7 +305,6 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
         }
         */
     }
-    glEnd();
 }
 
 

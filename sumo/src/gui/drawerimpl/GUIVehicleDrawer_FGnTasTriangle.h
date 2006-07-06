@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.7  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -85,7 +88,7 @@ public:
 
 private:
     void drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale);
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker);
 
     void drawVehicle(const GUIVehicle &vehicle,
         GUIBaseColorer<GUIVehicle> &colorer, float upscale);

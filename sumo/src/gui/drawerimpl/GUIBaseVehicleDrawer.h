@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
 // Revision 1.10  2006/01/31 10:51:18  dkrajzew
 // unused methods documented out (kept for further use)
 //
@@ -96,7 +99,8 @@ public:
 
     /// Draws the vehicles that are on the marked edges
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale);
+        GUISUMOAbstractView::VisualizationSettings &settings/*,
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
 
     /// Returns the list of available coloring schemes
     static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
@@ -107,7 +111,7 @@ protected:
 
     /// Draws all vehicles that are on the given lane
     virtual void drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale) = 0;
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker) = 0;
 
 protected:
     /// The list of edges to consider at drawing
