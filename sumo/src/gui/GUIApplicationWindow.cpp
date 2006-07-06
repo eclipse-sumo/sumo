@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2006/07/06 05:41:17  dkrajzew
+// debugged reloading of simulations while subwindows are open
+//
 // Revision 1.55  2006/07/06 05:35:54  dkrajzew
 // replaced exception throwing in unreachable places by something more friendly
 //
@@ -1223,11 +1226,11 @@ GUIApplicationWindow::closeAllWindows()
     string caption = "SUMO " + string(version) + " - no simulation loaded";
     setTitle( caption.c_str());
     // delete other children
-    while(mySubWindows.size()!=0) {
-        delete mySubWindows[0];
-    }
     while(myTrackerWindows.size()!=0) {
         delete myTrackerWindows[0];
+    }
+    while(mySubWindows.size()!=0) {
+        delete mySubWindows[0];
     }
     mySubWindows.clear();
     // clear selected items
