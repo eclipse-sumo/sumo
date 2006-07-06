@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/07/06 12:22:32  dkrajzew
+// debugged construction of e3-detectors
+//
 // Revision 1.34  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -506,11 +509,12 @@ NLDetectorBuilder::endE3Detector()
     for(E3MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
         det->addDetector(*i);
     }
+    // add to net
+    myNet.getDetectorControl().add(
+        static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
     // clean up
     delete myE3Definition;
     myE3Definition = 0;
-    myNet.getDetectorControl().add(
-        static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
 }
 
 // -------------------
