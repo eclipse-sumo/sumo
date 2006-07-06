@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/07/06 06:31:37  dkrajzew
+// removed exception throwing for unreachable code
+//
 // Revision 1.7  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -94,7 +97,9 @@ public:
             glColor3f(0, 0, 1);
             return;
         default:
-            throw 1;
+            // hmmmm - should not happen
+            glColor3f(1, 1, 0);
+            return;
         }
 	}
 
