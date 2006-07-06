@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/07/06 06:36:11  dkrajzew
+// removed some old code
+//
 // Revision 1.20  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -172,9 +175,6 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /// Returns the given position on the given lane
-    Position2D getLanePosition(const MSLane &lane, SUMOReal pos) const;
-
     static void fill(std::vector<GUIEdge*> &netsWrappers);
 
 
@@ -185,8 +185,7 @@ public:
 
     /// Returns the parameter window
     virtual GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &parent)
-        { throw 1; }
+        GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;

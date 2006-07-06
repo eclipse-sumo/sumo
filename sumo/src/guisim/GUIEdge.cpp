@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/07/06 06:36:11  dkrajzew
+// removed some old code
+//
 // Revision 1.28  2006/06/22 07:12:35  dkrajzew
 // code beautifying
 //
@@ -139,12 +142,16 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSLaneChanger.h>
+#include <microsim/MSGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
 #include "GUINet.h"
 #include "GUILane.h"
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <microsim/logging/CastingFunctionBinding.h>
+#include <microsim/logging/FunctionBinding.h>
 
 
 /* =========================================================================
@@ -268,23 +275,6 @@ GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
 }
 
 
-Position2D
-GUIEdge::getLanePosition(const MSLane &lane, SUMOReal pos) const
-{
-    LaneWrapperVector::const_iterator i =
-        find_if(_laneGeoms.begin(), _laneGeoms.end(),
-        lane_wrapper_finder(lane));
-    // the lane should be one of this edge
-    assert(i!=_laneGeoms.end());
-    // compute the position and return it
-    const Position2D &laneEnd = (*i)->getBegin();
-    const Position2D &laneDir = (*i)->getDirection();
-    SUMOReal posX = laneEnd.x() - laneDir.x() * pos;
-    SUMOReal posY = laneEnd.y() - laneDir.y() * pos;
-    return Position2D(posX, posY);
-}
-
-
 void
 GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
 {
@@ -304,9 +294,34 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildSelectionPopupEntry(ret, false);
-//    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
+
+
+GUIParameterTableWindow *
+GUIEdge::getParameterWindow(GUIMainWindow &app,
+                            GUISUMOAbstractView &parent)
+{
+    GUIParameterTableWindow *ret = 0;
+#ifdef HAVE_MESOSIM
+    ret = new GUIParameterTableWindow(app, *this, 5);
+    // add items
+    ret->mkItem("length [m]", false, (SUMOReal) _laneGeoms[0]->getLength());
+    ret->mkItem("allowed speed [m/s]", false, (SUMOReal) getAllowedSpeed());
+    ret->mkItem("occupancy [%]", true,
+        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));
+    ret->mkItem("mean vehicle speed [m/s]", true,
+        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem("flow [veh/h/lane]", true,
+        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
+    ret->mkItem("#vehicles", true,
+        new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
+    // close building
+    ret->closeBuilding();
+#endif
+    return ret;
+}
+
 
 
 GUIGlObjectType
