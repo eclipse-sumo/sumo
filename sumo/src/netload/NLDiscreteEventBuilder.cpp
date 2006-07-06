@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/06 12:22:06  dkrajzew
+// tls switches added
+//
 // Revision 1.12  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -81,6 +84,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
+#include <microsim/actions/Command_SaveTLSSwitches.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -105,7 +109,8 @@ NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
     : AttributesHandler(sumoattrs, noSumoAttrs),
     myNet(net)
 {
-    myActions["SaveTLSState"] = EV_SAVETLSTATE;
+    myActions["SaveTLSStates"] = EV_SAVETLSTATE;
+    myActions["SaveTLSSwitches"] = EV_SAVETLSWITCHES;
 }
 
 
@@ -137,6 +142,9 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
     case EV_SAVETLSTATE:
         a = buildSaveTLStateCommand(attrs, basePath);
         break;
+    case EV_SAVETLSWITCHES:
+        a = buildSaveTLSwitchesCommand(attrs, basePath);
+        break;
     default:
         throw 1;
     }
@@ -166,6 +174,32 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the action
     return new Command_SaveTLSState(logics, dest);
+}
+
+
+Command *
+NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const Attributes &attrs,
+                                                   const std::string &basePath)
+{
+    // get the parameter
+    string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
+    string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    // check the parameter
+    if(dest==""||source=="") {
+        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
+        return 0;
+    }
+    if(!FileHelpers::isAbsolute(dest)) {
+        dest = FileHelpers::getConfigurationRelative(basePath, dest);
+    }
+    // get the logics
+    if(!myNet.getTLSControl().knows(source)) {
+        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
+        throw ProcessError();
+    }
+    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+    // build the action
+    return new Command_SaveTLSSwitches(logics, dest);
 }
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/07/06 12:22:06  dkrajzew
+// tls switches added
+//
 // Revision 1.6  2005/10/10 12:10:59  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -84,7 +87,8 @@ class NLDiscreteEventBuilder : public AttributesHandler {
 public:
 	/// Known action types
     enum ActionType {
-        EV_SAVETLSTATE
+        EV_SAVETLSTATE,
+        EV_SAVETLSWITCHES
     };
 
 	/// Constructor
@@ -100,6 +104,10 @@ public:
 private:
 	/// Builds an action which save the state of a certain tls into a file
     Command *buildSaveTLStateCommand(const Attributes &attrs,
+        const std::string &basePath);
+
+	/// Builds an action which save the state of a certain tls into a file
+    Command *buildSaveTLSwitchesCommand(const Attributes &attrs,
         const std::string &basePath);
 
 protected:
