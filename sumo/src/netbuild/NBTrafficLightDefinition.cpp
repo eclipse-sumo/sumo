@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.20  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -259,8 +262,8 @@ NBTrafficLightDefinition::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for(size_t j=0; j<noLanes; j++) {
-            const EdgeLaneVector *connected = incoming->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=connected->begin(); k!=connected->end(); k++) {
+            const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if(el.edge!=0) {
                     _links.push_back(
@@ -290,8 +293,8 @@ NBTrafficLightDefinition::getSizes() const
     for(EdgeVector::const_iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-			assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
-            noLinks += (*i)->getEdgeLanesFromLane(j)->size();
+			assert((*i)->getEdgeLanesFromLane(j).size()!=0);
+            noLinks += (*i)->getEdgeLanesFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.16  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,7 +115,7 @@ NBRequestEdgeLinkIterator::NBRequestEdgeLinkIterator(
     bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
     :
     _request(request), _linkNumber(0), _validLinks(0), _position(0),
-    _joinLaneLinks(joinLaneLinks), _outerValidLinks(0)
+    _joinLaneLinks(joinLaneLinks)
 {
     init(request, joinLaneLinks, removeTurnArounds, removalType);
     setValidNonLeft(removeTurnArounds, removalType);
@@ -139,11 +142,10 @@ NBRequestEdgeLinkIterator::init(
         size_t noLanes = incoming[i1]->getNoLanes();
         for(size_t i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            const EdgeLaneVector * const approached =
-                fromEdge->getEdgeLanesFromLane(i2);
-            for(size_t i3=0; i3<approached->size(); i3++) {
-                assert(approached!=0&&i3<approached->size());
-                NBEdge *toEdge = (*approached)[i3].edge;
+            const EdgeLaneVector &approached = fromEdge->getEdgeLanesFromLane(i2);
+            for(size_t i3=0; i3<approached.size(); i3++) {
+                assert(i3<approached.size());
+                NBEdge *toEdge = approached[i3].edge;
                 _fromEdges.push_back(fromEdge);
                 _fromLanes.push_back(i2);
                 _toEdges.push_back(toEdge);
@@ -210,10 +212,9 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
         size_t noLanes = incoming[i1]->getNoLanes();
         for(size_t i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            const EdgeLaneVector * const approached =
-                fromEdge->getEdgeLanesFromLane(i2);
+            const EdgeLaneVector &approached = fromEdge->getEdgeLanesFromLane(i2);
             _valid.set(pos++, 1);
-            for(size_t i3=1; i3<approached->size(); i3++) {
+            for(size_t i3=1; i3<approached.size(); i3++) {
                 _valid.set(pos++, 0);
             }
         }
@@ -298,10 +299,10 @@ NBRequestEdgeLinkIterator::getToEdge() const
 bool
 NBRequestEdgeLinkIterator::pp()
 {
-    if(_position>=63) {
-        // !!! hell happens when _position >= 64
-        return false;
-    }
+	if(_position>=63) {
+		// !!! hell happens when _position >= 64
+		return false;
+	}
     _position++;
     while( _position<_fromEdges.size() && !_valid.test(_position) ) {
         _position++;
@@ -433,7 +434,7 @@ NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
     return
         _request->mustBrake(_fromEdges[pos], _toEdges[pos])
-        ||
+		||
         !hasGreen;
 }
 

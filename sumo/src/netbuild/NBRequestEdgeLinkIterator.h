@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.14  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -213,8 +216,6 @@ private:
     /// information whether links shall be joined
     bool _joinLaneLinks;
 
-    /// !!!
-    size_t _outerValidLinks;
 };
 
 

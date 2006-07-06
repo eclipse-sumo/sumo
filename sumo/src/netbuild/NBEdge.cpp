@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.66  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.65  2006/04/11 10:59:39  dkrajzew
 // all structures now return their id via getID()
 //
@@ -633,11 +636,11 @@ NBEdge::getLength()
 }
 
 
-const EdgeLaneVector * const
+const EdgeLaneVector &
 NBEdge::getEdgeLanesFromLane(size_t lane) const
 {
     assert(lane<_reachable.size());
-    return &_reachable[lane]; // !!! unschöne Rückgabe
+    return _reachable[lane];
 }
 
 
@@ -828,7 +831,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
         throw ProcessError();
     }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
-        "\" changeurge=\"0\">";
+        "\">";
     // the lane's shape
     into << myLaneGeoms[lane];
     // close
@@ -1827,8 +1830,8 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
 {
     size_t lanes = e->getNoLanes();
     for(size_t i=0; i<lanes; i++) {
-        const EdgeLaneVector *elv = e->getEdgeLanesFromLane(i);
-        for(EdgeLaneVector::const_iterator j=elv->begin(); j!=elv->end(); j++) {
+        const EdgeLaneVector &elv = e->getEdgeLanesFromLane(i);
+        for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); j++) {
             EdgeLane el = (*j);
             assert(el.tlID=="");
             bool ok = addLane2LaneConnection(i+laneOff, el.edge, el.lane, markAs2Recheck);
@@ -2327,12 +2330,12 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
     case LANES2LANES:
         {
             for(size_t i=0; i<_nolanes; i++) {
-                const EdgeLaneVector *elv = getEdgeLanesFromLane(i);
+                const EdgeLaneVector &elv = getEdgeLanesFromLane(i);
                 bool found = false;
-                for(EdgeLaneVector::const_iterator j=elv->begin(); j!=elv->end(); j++) {
+                for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); j++) {
                     if((*j).edge==possContinuation&&(*j).lane==i) {
                         found = true;
-                        j = elv->end()-1;
+                        j = elv.end()-1;
                     }
                 }
                 if(!found) {
@@ -2545,7 +2548,6 @@ void
 NBEdge::addGeometryPoint(int index, const Position2D &p)
 {
     myGeom.insertAt(index, p);
-    computeLaneShapes();
 }
 
 
@@ -2691,6 +2693,12 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
 	}
 }
 
+
+void
+NBEdge::recheckEdgeGeomForDoublePositions()
+{
+    myGeom.removeDoublePoints();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

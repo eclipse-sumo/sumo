@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.23  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -863,8 +866,8 @@ NBNode::countInternalLanes()
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if((*k).edge==0) {
                     continue;
                 }
@@ -888,8 +891,8 @@ NBNode::writeXMLInternalLinks(ostream &into)
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if((*k).edge==0) {
                     continue;
                 }
@@ -914,7 +917,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(length) << "\" "
-                    << "changeurge=\"0\">"
+                    << ">"
                     << shape
                     << "</lane>" << endl;
                 into << "      </lanes>" << endl;
@@ -1051,8 +1054,8 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
     for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if((*k).edge==0) {
                     continue;
                 }
@@ -1082,8 +1085,8 @@ writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
     for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if((*k).edge==0) {
                     continue;
                 }
@@ -1270,38 +1273,6 @@ NBNode::computeNodeShape(ofstream *out)
     }
     NBNodeShapeComputer computer(*this, out);
     myPoly = computer.compute();
-}
-
-
-
-SUMOReal
-NBNode::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const
-{
-    if(angle1<0) {
-        angle1 = 360 + angle1;
-    }
-    if(angle2<0) {
-        angle2 = 360 + angle2;
-    }
-    if(angle1>angle2) {
-        return angle1 - angle2;
-    }
-    return angle1 + 360 - angle2;
-}
-
-SUMOReal
-NBNode::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const
-{
-    if(angle1<0) {
-        angle1 = 360 + angle1;
-    }
-    if(angle2<0) {
-        angle2 = 360 + angle2;
-    }
-    if(angle1<angle2) {
-        return angle2 - angle1;
-    }
-    return 360 - angle1 + angle2;
 }
 
 
@@ -1860,8 +1831,8 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
         }
         size_t noLanesEdge1 = (*i)->getNoLanes();
         for(size_t j1=0; j1<noLanesEdge1; j1++) {
-            const EdgeLaneVector *el1 = (*i)->getEdgeLanesFromLane(j1);
-            for(EdgeLaneVector::const_iterator i2=el1->begin(); i2!=el1->end(); i2++) {
+            const EdgeLaneVector &el1 = (*i)->getEdgeLanesFromLane(j1);
+            for(EdgeLaneVector::const_iterator i2=el1.begin(); i2!=el1.end(); i2++) {
                 if((*i2).edge==to&&((*i2).lane==-1||(*i2).lane==toLane)) {
                     return true;
                 }
@@ -2193,8 +2164,8 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
     for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if((*k).edge==0) {
                     continue;
                 }

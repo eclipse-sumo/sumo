@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.11  2006/04/11 10:59:39  dkrajzew
 // all structures now return their id via getID()
 //
@@ -518,12 +521,6 @@ private:
 
     SUMOReal chooseLaneOffset(DoubleVector &chk);
     SUMOReal chooseLaneOffset2(DoubleVector &chk);
-
-    SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const; // !!! not in NBNode!
-
-
-    SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const; // !!! not in NBNode!
-
 
     Position2DVector computeInternalLaneShape(NBEdge *fromE,
         size_t fromL, NBEdge *toE, size_t toL);

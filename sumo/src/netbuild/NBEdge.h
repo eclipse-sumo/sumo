@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.46  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.45  2006/04/11 10:59:39  dkrajzew
 // all structures now return their id via getID()
 //
@@ -335,7 +338,7 @@ public:
     size_t getNoLanes() const;
 
     /// returns the edges approached by the given lane
-    const EdgeLaneVector * const getEdgeLanesFromLane(size_t lane) const;
+    const EdgeLaneVector & getEdgeLanesFromLane(size_t lane) const;
 
     /// returns the id of the edge
     const std::string &getID() const;
@@ -391,13 +394,6 @@ public:
 
     /// sorts the connections of outgoing lanes (!!! Kaskade beschreiben)
     void sortOutgoingLanesConnections();
-
-    /// returns the information whether this edge is a source only
-    // !!! regarded?
-    //bool isSource() const;
-
-    /// returns the information whether this edge is a sink only
-    // !!! regarded?    bool isSink() const;
 
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
@@ -530,6 +526,8 @@ public:
 
 	void allowVehicleClass(int lane, SUMOVehicleClass vclass);
 	void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
+
+    void recheckEdgeGeomForDoublePositions();
 
 private:
     /**

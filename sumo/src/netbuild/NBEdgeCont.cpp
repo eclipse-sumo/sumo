@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.48  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -499,9 +502,11 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
     if(pos<=0) {
         return false;
     }
+    /*
     if(pos>edge->getGeometry().length()) {
         pos = edge->getGeometry().length()-10; // !!!! bla!!!
     }
+    */
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
         noLanesFirstEdge, noLanesSecondEdge);
         //!!! does not regard the real edge geometry
@@ -966,6 +971,15 @@ NBEdgeCont::recheckLaneSpread()
         } else {
             (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_CENTER);
         }
+    }
+}
+
+
+void
+NBEdgeCont::recheckEdgeGeomsForDoublePositions()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+        (*i).second->recheckEdgeGeomForDoublePositions();
     }
 }
 

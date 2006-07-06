@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.8  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -153,8 +156,8 @@ NBLogicKeyBuilder::appendEdgesLaneDescriptions(std::ostringstream &to,
     // for each lane of the incoming edge
     for(size_t j=0; j<noLanes; j++) {
         // get the connections (edges and lanes) and their number
-        const EdgeLaneVector *connected = edge->getEdgeLanesFromLane(j);
-        size_t size = connected->size();
+        const EdgeLaneVector &connected = edge->getEdgeLanesFromLane(j);
+        size_t size = connected.size();
         to << convert[size];
         // append the connection descriptions
         appendLaneConnectionDescriptions(to, edges, connected, pos);
@@ -164,20 +167,19 @@ NBLogicKeyBuilder::appendEdgesLaneDescriptions(std::ostringstream &to,
 
 void
 NBLogicKeyBuilder::appendLaneConnectionDescriptions(std::ostringstream &to,
-    const EdgeVector * const edges, const EdgeLaneVector *connected,
+    const EdgeVector * const edges, const EdgeLaneVector &connected,
     EdgeVector::const_iterator &pos)
 {
-    size_t size = connected->size();
+    size_t size = connected.size();
     // go through the connections (edges/lanes)
     for(size_t k=0; k<size; k++) {
         // mark blind connections
-        if((*connected)[k].edge==0) {
+        if(connected[k].edge==0) {
             to << "0a";
         // compute detailed and rotation-invariant connection
         //  description
         } else {
-            appendDetailedConnectionDescription(to, edges, (*connected)[k],
-                pos);
+            appendDetailedConnectionDescription(to, edges, connected[k], pos);
         }
     }
 }

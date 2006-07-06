@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.5  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -77,7 +80,7 @@ private:
         const EdgeVector * const edges, NBEdge *edge,
         EdgeVector::const_iterator &pos);
     void appendLaneConnectionDescriptions(std::ostringstream &to,
-        const EdgeVector * const edges, const EdgeLaneVector *connected,
+        const EdgeVector * const edges, const EdgeLaneVector &connected,
         EdgeVector::const_iterator &pos);
     void appendDetailedConnectionDescription(std::ostringstream &to,
         const EdgeVector * const edges, const EdgeLane &edgelane,

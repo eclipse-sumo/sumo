@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.36  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -387,26 +390,6 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-    /* debug
-    if(_junction->getID()=="15030407") {
-        int bla = 0;
-    }
-    if(_junction->getID()=="15030449") {
-        int bla = 0;
-    }
-    string from1ID = "15032263";
-    string to1ID = "153120314";
-    string from2ID = "15030816";
-    string to2ID = "153120314";
-    if(from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
-        int bla = 0;
-    }
-
-    if(from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
-        int bla = 0;
-    }
-    debug */
-
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -566,8 +549,8 @@ NBRequest::resetSignalised()
     for( EdgeVector::const_iterator i11=_incoming->begin(); i11!=_incoming->end(); i11++) {
         size_t noLanesEdge1 = (*i11)->getNoLanes();
         for(size_t j1=0; j1<noLanesEdge1; j1++) {
-            const EdgeLaneVector *el1 = (*i11)->getEdgeLanesFromLane(j1);
-            for(EdgeLaneVector::const_iterator i12=el1->begin(); i12!=el1->end(); i12++) {
+            const EdgeLaneVector &el1 = (*i11)->getEdgeLanesFromLane(j1);
+            for(EdgeLaneVector::const_iterator i12=el1.begin(); i12!=el1.end(); i12++) {
                 int idx1 = getIndex((*i11), (*i12).edge);
                 if(idx1<0) {
                     continue;
@@ -576,8 +559,8 @@ NBRequest::resetSignalised()
                 for( EdgeVector::const_iterator i21=_incoming->begin(); i21!=_incoming->end(); i21++) {
                     size_t noLanesEdge2 = (*i21)->getNoLanes();
                     for(size_t j2=0; j2<noLanesEdge2; j2++) {
-                        const EdgeLaneVector *el2 = (*i21)->getEdgeLanesFromLane(j2);
-                        for(EdgeLaneVector::const_iterator i22=el2->begin(); i22!=el2->end(); i22++) {
+                        const EdgeLaneVector &el2 = (*i21)->getEdgeLanesFromLane(j2);
+                        for(EdgeLaneVector::const_iterator i22=el2.begin(); i22!=el2.end(); i22++) {
                             int idx2 = getIndex((*i21), (*i22).edge);
                             if(idx2<0) {
                                 continue;
@@ -630,8 +613,8 @@ NBRequest::getSizes() const
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
             // assert that at least one edge is approached from this lane
-            assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
-            noLinks += (*i)->getEdgeLanesFromLane(j)->size();
+            assert((*i)->getEdgeLanesFromLane(j).size()!=0);
+            noLinks += (*i)->getEdgeLanesFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }
@@ -696,12 +679,9 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
-    const EdgeLaneVector * const connected =
-        from->getEdgeLanesFromLane(fromLane);
-    for( EdgeLaneVector::const_iterator j=connected->begin();
-                j!=connected->end(); j++) {
-        os << "         <logicitem request=\"" << pos++
-            << "\" response=\"";
+    const EdgeLaneVector &connected = from->getEdgeLanesFromLane(fromLane);
+    for(EdgeLaneVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
+        os << "         <logicitem request=\"" << pos++ << "\" response=\"";
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).edge);
@@ -728,8 +708,8 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
 
         unsigned int noLanes = (*i)->getNoLanes();
         for(unsigned int j=noLanes; j-->0; ) {
-            const EdgeLaneVector *connected = (*i)->getEdgeLanesFromLane(j);
-            size_t size = connected->size();
+            const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
+            size_t size = connected.size();
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '1';
@@ -737,13 +717,16 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     // do not prohibit a connection by others from same lane
                     os << '0';
                 } else {
-                    assert(connected!=0&&k<(int) connected->size());
+                    assert(k<(int) connected.size());
                     assert((size_t) idx<_incoming->size()*_outgoing->size());
-                    assert((*connected)[k].edge==0 || (size_t) getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
+                    assert(connected[k].edge==0 || (size_t) getIndex(*i, connected[k].edge)<_incoming->size()*_outgoing->size());
 					// check whether the connection is prohibited by another one
-                    if( (*connected)[k].edge!=0 &&
-                        _forbids[getIndex(*i, (*connected)[k].edge)][idx] &&
-                        toLane == (*connected)[k].lane ) {
+                    if( connected[k].edge!=0
+                        &&
+                        _forbids[getIndex(*i, connected[k].edge)][idx]
+                        &&
+                        toLane == connected[k].lane ) {
+
                         os << '1';
 						continue;
                     }
@@ -771,14 +754,14 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to)
 
         unsigned int noLanes = (*i)->getNoLanes();
         for(unsigned int j=noLanes; j-->0; ) {
-            const EdgeLaneVector *connected = (*i)->getEdgeLanesFromLane(j);
-            size_t size = connected->size();
+            const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
+            size_t size = connected.size();
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '0';
                 } else {
                     os <<
-                        foes(from, to, (*i), (*connected)[k].edge)
+                        foes(from, to, (*i), connected[k].edge)
                         ? '1'
                         : '0';
                 }

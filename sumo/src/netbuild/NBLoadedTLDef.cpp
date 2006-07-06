@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.18  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -632,8 +635,8 @@ NBLoadedTLDef::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for(size_t j=0; j<noLanes; j++) {
-            const EdgeLaneVector *connected = incoming->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=connected->begin(); k!=connected->end(); k++) {
+            const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if(el.edge!=0) {
                     _links.push_back(

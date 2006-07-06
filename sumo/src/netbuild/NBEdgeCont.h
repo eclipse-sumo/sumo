@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.28  2006/07/06 06:48:00  dkrajzew
+// changed the retrieval of connections-API; some unneeded variables removed
+//
 // Revision 1.27  2006/03/08 13:14:15  dkrajzew
 // debugging on/off-ramp geometries
 //
@@ -292,6 +295,8 @@ public:
     bool splitGeometry(NBNodeCont &nc);
 
     void recheckLaneSpread();
+
+    void recheckEdgeGeomsForDoublePositions();
 
 private:
     std::vector<std::string> buildPossibilities(
