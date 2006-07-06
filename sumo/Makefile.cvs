@@ -2,8 +2,8 @@ default: all
 
 all:
 #	cat smr.m4 > acinclude.m4
-	aclocal-1.6
+	aclocal
 	autoheader
-	automake-1.6 --gnu --add-missing
+	automake --gnu --add-missing
 	autoconf
 

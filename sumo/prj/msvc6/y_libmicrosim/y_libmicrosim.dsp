@@ -211,6 +211,18 @@ SOURCE=..\..\..\src\microsim\MSNoLogicJunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSPhoneCell.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSPhoneLA.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSPhoneNet.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSRightOfWayJunction.cpp
 # End Source File
 # Begin Source File
@@ -448,6 +460,18 @@ SOURCE=..\..\..\src\microsim\MSNoLogicJunction.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSPhaseDefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSPhoneCell.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSPhoneLA.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSPhoneNet.h
 # End Source File
 # Begin Source File
 

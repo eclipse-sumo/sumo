@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2006/07/06 09:22:08  dkrajzew
+// debugging
+//
 // Revision 1.23  2006/05/15 05:41:09  dkrajzew
 // moved description of "disable-normalize-node-positions" to another place joined with other geometry options
 //
@@ -152,7 +155,7 @@ char *help[] = {
     " Output files:",
     "  -o, --output-file FILE         The generated net will be written to FILE",
     "  --map-output FILE              File to write joined edges information to",
-    "  --plain-output FILE            Prefix of files to write node and edge",
+    "  --plain-output FILE            Prefix of files to write nodes and edges to",
     "  --node-geometry-dump FILE      Writes node corner positions to FILE",
     " ",
     " Building Defaults:",

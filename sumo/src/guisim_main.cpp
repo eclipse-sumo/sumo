@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/07/06 09:22:08  dkrajzew
+// debugging
+//
 // Revision 1.14  2006/04/18 08:21:48  dkrajzew
 // beautifying: output consolidation
 //
@@ -279,17 +282,17 @@ initColoringSchemes()
     sm.add("by speed",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
             0, (SUMOReal) (150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));
 
     sm.add("by waiting time",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
             0, (SUMOReal) (5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
-            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));//!!!!
 
     sm.add("by time since last lanechange",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
             0, (SUMOReal) (5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
-            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));//!!!!
 
     sm.add("by device number",
         new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
@@ -298,6 +301,11 @@ initColoringSchemes()
             true, 1, 10,
             RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
             MSCORN::CORN_VEH_DEV_NO_CPHONE));
+
+    sm.add("by max speed",
+        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+            0, (SUMOReal) (150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
 /*
     GUIColorer_ByDeviceState *c1 = new GUIColorer_ByDeviceState<GUIVehicle, MSCORN::Function>(
         (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
