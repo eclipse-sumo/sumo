@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2006/07/06 05:49:53  dkrajzew
+// made the assertion that two consecutive edge geomtry points must not be same less aggressive
+//
 // Revision 1.25  2006/03/27 07:33:01  dkrajzew
 // added projection information to the network
 //
@@ -323,6 +326,8 @@ public:
     void replaceAt(size_t index, const Position2D &by);
 
     bool isClosed() const;
+
+    void removeDoublePoints();
 
 private:
 

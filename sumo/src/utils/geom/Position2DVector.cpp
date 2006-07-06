@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/07/06 05:49:53  dkrajzew
+// made the assertion that two consecutive edge geomtry points must not be same less aggressive
+//
 // Revision 1.35  2006/03/27 07:33:01  dkrajzew
 // added projection information to the network
 //
@@ -1304,6 +1307,17 @@ Position2DVector::isClosed() const
     return myCont.size()>=2&&myCont[0]==myCont[myCont.size()-1];
 }
 
+
+void
+Position2DVector::removeDoublePoints()
+{
+    //@ to be optimized
+    Position2DVector newCont;
+    for(ContType::iterator i=myCont.begin(); i!=myCont.end(); ++i) {
+        newCont.push_back_noDoublePos(*i);
+    }
+    myCont = newCont.myCont;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
