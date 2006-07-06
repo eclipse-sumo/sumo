@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.27  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -247,8 +250,7 @@ MSLaneChanger::MSLaneChanger( MSEdge::LaneCont* lanes )
 
     // Fill the changer with the lane-data.
     myChanger.reserve( lanes->size() );
-    for ( MSEdge::LaneCont::iterator lane = lanes->begin();
-          lane != lanes->end(); ++lane ) {
+    for ( MSEdge::LaneCont::iterator lane = lanes->begin(); lane != lanes->end(); ++lane ) {
         ChangeElem ce;
         ce.follow    = 0;
         ce.lead      = 0;
@@ -288,6 +290,7 @@ MSLaneChanger::initChanger()
         ce->lead = 0;
         ce->hoppedVeh = 0;
         ce->lastBlocked = 0;
+        ce->dens = 0;
 
         MSLane::VehCont& vehicles = ce->lane->myVehicles;
         if ( vehicles.empty() ) {
@@ -323,23 +326,30 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
-    /*
+#ifdef GUI_DEBUG
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(vehicle)->getGlID())) {
         int blb = 0;
     }
-    */
-
+#endif
 #ifdef ABS_DEBUG
     if(debug_globaltime>=debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
-        DEBUG_OUT << "change:" << vehicle->getID() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+        DEBUG_OUT << "change:" << vehicle->getID() << ": " << vehicle->getPositionOnLane() << ", " << vehicle->getSpeed() << endl;
     }
 #endif
+    std::vector<std::vector<MSVehicle::LaneQ> > preb = vehicle->getBestLanes();
+    assert(preb[0].size()==myChanger.size());
+    for(int i=0; i<myChanger.size(); i++) {
+        preb[0][i].hindernisPos = myChanger[i].dens;
+    }
+
+    /*
     pair<int, SUMOReal> changePreference = getChangePreference();
     SUMOReal currentLaneDist =
         vehicle->allowedContinuationsLength((*myCandi).lane, 0);
     if(changePreference.second==currentLaneDist) {
         changePreference.first = 0;
     }
+    */
     vehicle->getLaneChangeModel().prepareStep();
     // check whether the vehicle wants and is able to change to right lane
     std::pair<MSVehicle*, SUMOReal> rLead = getRealRightLeader();
@@ -348,8 +358,8 @@ MSLaneChanger::change()
     std::pair<MSVehicle*, SUMOReal> lFollow = getRealLeftFollower();
     std::pair<MSVehicle*, SUMOReal> leader = getRealThisLeader(myCandi);
     int state1 =
-        change2right(leader, rLead, rFollow,
-            changePreference.first, changePreference.second, currentLaneDist);
+        change2right(leader, rLead, rFollow, preb);
+//            changePreference.first, changePreference.second, currentLaneDist);
     bool changingAllowed =
         (state1&(LCA_BLOCKEDBY_LEADER|LCA_BLOCKEDBY_FOLLOWER))==0
         /*||
@@ -370,14 +380,16 @@ MSLaneChanger::change()
     }
 #endif
         vehicle->getLaneChangeModel().changed();
+        ( myCandi - 1 )->dens += ( myCandi - 1 )->hoppedVeh->getLength();
         return true;
     }
     if ( (state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
+        /*!!!
         if( myCandi->veh==myCandi->lane->myVehicles.rbegin()
             &&
             !vehicle->onAllowed()
             &&
-            vehicle->speed()<MSGlobals::gMaxVehV4FalseLaneTeleport
+            vehicle->getSpeed()<MSGlobals::gMaxVehV4FalseLaneTeleport
             &&
             myCandi->lane->maxSpeed()>MSGlobals::gMinLaneVMax4FalseLaneTeleport
             &&
@@ -387,13 +399,14 @@ MSLaneChanger::change()
             MSVehicleTransfer::getInstance()->addVeh(veh(myCandi));
             return true;
         }
+        */
         ( myCandi - 1 )->lastBlocked = vehicle;
     }
 
     // check whether the vehicle wants and is able to change to left lane
     int state2 =
-        change2left(leader, lLead, lFollow,
-            changePreference.first, changePreference.second, currentLaneDist);
+        change2left(leader, lLead, lFollow,preb);
+//            changePreference.first, changePreference.second, currentLaneDist);
     if((state2&LCA_URGENT)!=0||(state2&LCA_SPEEDGAIN)!=0) {
         state2 |= LCA_LEFT;
     }
@@ -415,14 +428,16 @@ MSLaneChanger::change()
     }
 #endif
         vehicle->getLaneChangeModel().changed();
+        ( myCandi + 1 )->dens += ( myCandi + 1 )->hoppedVeh->getLength();
         return true;
     }
     if ( (state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {
+        /*
         if( myCandi->veh==myCandi->lane->myVehicles.rbegin()
             &&
             !vehicle->onAllowed()
             &&
-            vehicle->speed()<MSGlobals::gMaxVehV4FalseLaneTeleport
+            vehicle->getSpeed()<MSGlobals::gMaxVehV4FalseLaneTeleport
             &&
             myCandi->lane->maxSpeed()>MSGlobals::gMinLaneVMax4FalseLaneTeleport
             &&
@@ -432,6 +447,7 @@ MSLaneChanger::change()
             MSVehicleTransfer::getInstance()->addVeh(veh(myCandi));
             return true;
         }
+        */
         ( myCandi + 1 )->lastBlocked = vehicle;
     }
 
@@ -455,9 +471,9 @@ MSLaneChanger::change()
         }
         MSVehicle *prohibitor = target->lead;//veh(target);//->follow;
         if(target->hoppedVeh!=0) {
-            SUMOReal hoppedPos = target->hoppedVeh->pos();
+            SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
             if( prohibitor==0||(
-                hoppedPos>vehicle->pos() && prohibitor->pos()>hoppedPos) ) {
+                hoppedPos>vehicle->getPositionOnLane() && prohibitor->getPositionOnLane()>hoppedPos) ) {
 
                 prohibitor = 0;// !!! vehicles should not jump over more than one lanetarget->hoppedVeh;
             }
@@ -477,7 +493,7 @@ MSLaneChanger::change()
                 &&
                 fabs(prohibitor->pos()-vehicle->pos())<0.1
                 &&*/
-                prohibitor->length()-vehicle->length()==0
+                prohibitor->getLength()-vehicle->getLength()==0
                 ) {
 
                 // ok, may be swapped
@@ -501,10 +517,10 @@ MSLaneChanger::change()
                 vehicle->leaveLaneAtLaneChange();
                 prohibitor->leaveLaneAtLaneChange();
                 // patch position and speed
-                SUMOReal p1 = vehicle->pos();
+                SUMOReal p1 = vehicle->getPositionOnLane();
                 vehicle->myState.myPos = prohibitor->myState.myPos;
                 prohibitor->myState.myPos = p1;
-                p1 = vehicle->speed();
+                p1 = vehicle->getSpeed();
                 vehicle->myState.mySpeed = prohibitor->myState.mySpeed;
                 prohibitor->myState.mySpeed = p1;
                 // enter lane and detectors
@@ -518,12 +534,14 @@ MSLaneChanger::change()
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
         DEBUG_OUT << "swapped:"
-            << vehicle->getID() << ": at" << vehicle->getLane().getID() << ", " << vehicle->pos() << ", " << vehicle->speed()
+            << vehicle->getID() << ": at" << vehicle->getLane().getID() << ", " << vehicle->getPositionOnLane() << ", " << vehicle->getSpeed()
             << " with:"
-            << prohibitor->getID() << ": at" << prohibitor->getLane().getID() << ", " << prohibitor->pos() << ", " << vehicle->speed()
+            << prohibitor->getID() << ": at" << prohibitor->getLane().getID() << ", " << prohibitor->getPositionOnLane() << ", " << vehicle->getSpeed()
             << endl;
     }
 #endif
+                ( myCandi )->dens += prohibitor->getLength();
+                ( target )->dens += vehicle->getLength();
                 return true;
 				}
             }
@@ -537,6 +555,7 @@ MSLaneChanger::change()
         DEBUG_OUT << "kept" << endl;
     }
 #endif
+    ( myCandi )->dens += vehicle->getLength();
     return false;
 }
 
@@ -548,7 +567,7 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target)
     MSVehicle* leader = target->lead;
     if( leader==0 ) {
         MSLane* targetLane = target->lane;
-        MSLinkCont::iterator link =
+        MSLinkCont::const_iterator link =
             targetLane->succLinkSec( *veh(myCandi), 1, *targetLane );
         if(targetLane->isLinkEnd(link)) {
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
@@ -562,13 +581,13 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target)
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
         }
         SUMOReal gap =
-            leader->pos()-leader->length()
+            leader->getPositionOnLane()-leader->getLength()
             +
-            (myCandi->lane->length()-veh(myCandi)->pos());
+            (myCandi->lane->length()-veh(myCandi)->getPositionOnLane());
         return std::pair<MSVehicle *, SUMOReal>(leader, MAX2((SUMOReal) 0, gap));
     } else {
         MSVehicle *candi = veh(myCandi);
-        SUMOReal gap = leader->pos()-leader->length()-candi->pos();
+        SUMOReal gap = leader->getPositionOnLane()-leader->getLength()-candi->getPositionOnLane();
         return std::pair<MSVehicle *, SUMOReal>(leader, MAX2((SUMOReal) 0, gap));
     }
 }
@@ -581,9 +600,9 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
     MSVehicle* neighLead = target->lead;
     // check whether the hopped vehicle got the leader
     if(target->hoppedVeh!=0) {
-        SUMOReal hoppedPos = target->hoppedVeh->pos();
-        if( hoppedPos>veh(myCandi)->pos() &&
-            (neighLead==0 || neighLead->pos()>hoppedPos) ) {
+        SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
+        if( hoppedPos>veh(myCandi)->getPositionOnLane() &&
+            (neighLead==0 || neighLead->getPositionOnLane()>hoppedPos) ) {
 
             neighLead = target->hoppedVeh;
         }
@@ -591,7 +610,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
 
     if( neighLead==0 ) {
         MSLane* targetLane = target->lane;
-        MSLinkCont::iterator link =
+        MSLinkCont::const_iterator link =
             targetLane->succLinkSec( *veh(myCandi), 1, *targetLane );
         if(targetLane->isLinkEnd(link)) {
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
@@ -605,13 +624,13 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
         }
         return std::pair<MSVehicle *, SUMOReal>(neighLead,
-            neighLead->pos()-neighLead->length()
+            neighLead->getPositionOnLane()-neighLead->getLength()
             +
-            (myCandi->lane->length()-veh(myCandi)->pos()));
+            (myCandi->lane->length()-veh(myCandi)->getPositionOnLane()));
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle *, SUMOReal>(neighLead,
-            neighLead->pos()-neighLead->length()-candi->pos());
+            neighLead->getPositionOnLane()-neighLead->getLength()-candi->getPositionOnLane());
     }
 }
 
@@ -646,9 +665,9 @@ MSLaneChanger::getRealFollower(const ChangerIt &target)
     MSVehicle* neighFollow = veh(target);//->follow;
     // check whether the hopped vehicle got the follower
     if(target->hoppedVeh!=0) {
-        SUMOReal hoppedPos = target->hoppedVeh->pos();
-        if( hoppedPos<=veh(myCandi)->pos() &&
-            (neighFollow==0 || neighFollow->pos()>hoppedPos) ) {
+        SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
+        if( hoppedPos<=veh(myCandi)->getPositionOnLane() &&
+            (neighFollow==0 || neighFollow->getPositionOnLane()>hoppedPos) ) {
 
             neighFollow = target->hoppedVeh;
         }
@@ -659,14 +678,14 @@ MSLaneChanger::getRealFollower(const ChangerIt &target)
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
         }
         MSVehicle *candi = veh(myCandi);
-        SUMOReal gap = candi->pos()-candi->length()
+        SUMOReal gap = candi->getPositionOnLane()-candi->getLength()
             + target->lane->myBackDistance;
         return std::pair<MSVehicle *, SUMOReal>(neighFollow, gap);
             //(neighFollow->getLane().length()-neighFollow->pos()));
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle *, SUMOReal>(neighFollow,
-            candi->pos()-candi->length()-neighFollow->pos());
+            candi->getPositionOnLane()-candi->getLength()-neighFollow->getPositionOnLane());
     }
 }
 
@@ -761,7 +780,7 @@ MSLaneChanger::findCandidate()
         }
         assert( veh( ce )  != 0 );
         assert( veh( max ) != 0 );
-        if ( veh( max )->pos() < veh( ce )->pos() ) {
+        if ( veh( max )->getPositionOnLane() < veh( ce )->getPositionOnLane() ) {
             max = ce;
         }
     }
@@ -776,8 +795,11 @@ int
 MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                             const std::pair<MSVehicle*, SUMOReal> &rLead,
                             const std::pair<MSVehicle*, SUMOReal> &rFollow,
+                            std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                            /*
                             int bestLaneOffset, SUMOReal bestDist,
                             SUMOReal currentDist)
+                            */
 {
     // Try to change to the right-lane if there is one. If this lane isn't
     // an allowed one, cancel the try. Otherwise, check some conditions. If
@@ -789,7 +811,7 @@ MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
     }
     ChangerIt target = myCandi - 1;
     int blocked = overlapWithHopped( target )
-        ? target->hoppedVeh->pos()<veh(myCandi)->pos()
+        ? target->hoppedVeh->getPositionOnLane()<veh(myCandi)->getPositionOnLane()
             ? LCA_BLOCKEDBY_FOLLOWER
             : LCA_BLOCKEDBY_LEADER
         : 0;
@@ -798,7 +820,7 @@ MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
     return blocked
         |
         advan2right(leader, rLead, rFollow,
-            blocked, bestLaneOffset, bestDist, currentDist);
+            blocked, preb);//bestLaneOffset, bestDist, currentDist);
 }
 
 //-------------------------------------------------------------------------//
@@ -807,8 +829,11 @@ int
 MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &rLead,
                            const std::pair<MSVehicle*, SUMOReal> &rFollow,
+                           std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           /*
                            int bestLaneOffset, SUMOReal bestDist,
                            SUMOReal currentDist)
+                           */
 {
     // Try to change to the left-lane, if there is one. If this lane isn't
     // an allowed one, cancel the try. Otherwise, check some conditions.
@@ -820,7 +845,7 @@ MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
         return 0;
     }
     int blocked = overlapWithHopped( target )
-        ? target->hoppedVeh->pos()<veh(myCandi)->pos()
+        ? target->hoppedVeh->getPositionOnLane()<veh(myCandi)->getPositionOnLane()
             ? LCA_BLOCKEDBY_FOLLOWER
             : LCA_BLOCKEDBY_LEADER
         : 0;
@@ -829,7 +854,7 @@ MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
     return blocked
         |
         advan2left(leader, rLead, rFollow,
-            blocked, bestLaneOffset, bestDist, currentDist);
+            blocked, preb);//bestLaneOffset, bestDist, currentDist);
 }
 
 //-------------------------------------------------------------------------//
@@ -914,7 +939,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
         if(neighFollow.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if(!neighFollow.first->hasSafeGap(neighFollow.first->speed(), neighFollow.second, vehicle->speed(), targetLane->maxSpeed())) {
+            if(!neighFollow.first->hasSafeGap(neighFollow.first->getSpeed(), neighFollow.second, vehicle->getSpeed(), targetLane->maxSpeed())) {
 //                neighFollow.second, *vehicle, targetLane)) {
                 blocked |= LCA_BLOCKEDBY_FOLLOWER;
             }
@@ -926,7 +951,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
         if(neighLead.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if(!vehicle->hasSafeGap(vehicle->speed(), neighLead.second, neighLead.first->speed(), targetLane->maxSpeed())) {
+            if(!vehicle->hasSafeGap(vehicle->getSpeed(), neighLead.second, neighLead.first->getSpeed(), targetLane->maxSpeed())) {
 //                neighLead.second, *neighLead.first, targetLane)) {
                 blocked |= LCA_BLOCKEDBY_LEADER;
             }
@@ -941,17 +966,23 @@ MSLaneChanger::advan2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &neighLead,
                            const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                            int blocked,
+                           std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           /*
                            int bestLaneOffset, SUMOReal bestDist,
                            SUMOReal currentDist)
+                           */
 {
     MSAbstractLaneChangeModel::MSLCMessager
         msg(leader.first, neighLead.first, neighFollow.first);
     return veh(myCandi)->getLaneChangeModel().wantsChangeToRight(
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi-1)->lane,
+        preb,
+        /*
         bestLaneOffset, bestDist,
         veh(myCandi)->allowedContinuationsLength((myCandi-1)->lane, 0),
         currentDist,
+        */
         &(myCandi->lastBlocked));
 }
 
@@ -962,17 +993,23 @@ MSLaneChanger::advan2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                           const std::pair<MSVehicle*, SUMOReal> &neighLead,
                           const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                           int blocked,
+                          std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                          /*
                           int bestLaneOffset, SUMOReal bestDist,
                           SUMOReal currentDist)
+                          */
 {
     MSAbstractLaneChangeModel::MSLCMessager
         msg(leader.first, neighLead.first, neighFollow.first);
     return veh(myCandi)->getLaneChangeModel().wantsChangeToLeft(
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi+1)->lane,
+        preb,
+        /*
         bestLaneOffset, bestDist,
         veh(myCandi)->allowedContinuationsLength((myCandi+1)->lane, 0),
         currentDist,
+        */
         &(myCandi->lastBlocked));
 }
 

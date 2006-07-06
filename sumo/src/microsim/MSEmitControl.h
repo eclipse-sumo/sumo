@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -114,6 +117,7 @@
  * class declarations
  * ======================================================================= */
 class MSVehicle;
+class MSVehicleControl;
 
 
 /* =========================================================================
@@ -132,7 +136,7 @@ class MSEmitControl
 public:
     /** Use this constructor only. It will sort the vehicles by their
         departure time. */
-    MSEmitControl( std::string id);
+    MSEmitControl(MSVehicleControl &vc);
 
     /// Destructor.
     ~MSEmitControl();
@@ -151,18 +155,6 @@ public:
     /// Returns the number of waiting vehicles
     size_t getWaitingVehicleNo() const;
 
-    /** @brief Inserts emitcontrol into the static dictionary
-        Returns true if the key id isn't already in the dictionary (the control
-        is not added then). Otherwise returns false. */
-    static bool dictionary( std::string id, MSEmitControl* emitControl );
-
-    /** Returns the MSEdgeControl associated to the key id if exists,
-        otherwise returns 0. */
-    static MSEmitControl* dictionary( std::string id );
-
-    /** Clears the dictionary */
-    static void clear();
-
 private:
     /** @brief Tries to emit the vehicle
         If the emission fails, the vehicle is inserted into the given
@@ -176,19 +168,12 @@ private:
     void checkPrevious(SUMOTime time);
 
 private:
-    /// Unique ID.
-    std::string myID;
+    MSVehicleControl &myVehicleControl;
 
     /** @brief The entirety of loaded vehicles that will drive through the net.
         The vehicles know their departure-time and route. The container
         is sorted by the vehicles departure time. */
     MSVehicleContainer myAllVeh;
-
-    /// Definition of a static dictionary to associate string-ids with objects.
-    typedef std::map< std::string, MSEmitControl* > DictType;
-
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
 
     /** Buffer#1 for vehicles that were not allowed to enter their lane. */
     MSVehicleContainer::VehicleVector myRefusedEmits1;

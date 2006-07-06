@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -205,8 +208,8 @@ public:
     struct LaneUsage {
         MSLane *lane;
         size_t noVehicles;
-        MSEdge::LaneCont::iterator firstNeigh;
-        MSEdge::LaneCont::iterator lastNeigh;
+        MSEdge::LaneCont::const_iterator firstNeigh;
+        MSEdge::LaneCont::const_iterator lastNeigh;
     };
 
 private:

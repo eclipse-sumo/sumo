@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.9  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -129,6 +132,8 @@ public:
         /// the vehicle that really wants to change to this lane
         MSVehicle*                lastBlocked;
 
+        SUMOReal dens;
+
     };
 
 public:
@@ -193,13 +198,15 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     virtual int change2left(
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** If candidate isn't on an allowed lane, we need to find target-
         lane that takes it closer to an allowed one. */
@@ -225,7 +232,9 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        int blocked, int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
+        int blocked,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+    //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true, if candidate has an advantage by changing to the
         left. */
@@ -233,7 +242,9 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        int blocked, int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
+        int blocked,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
@@ -245,6 +256,7 @@ protected:
         }
         return false;
     }
+
 /*
     virtual bool change2RightPossible();
     virtual bool change2LeftPossible();

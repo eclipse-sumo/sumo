@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.13  2006/05/15 05:54:11  dkrajzew
 // debugging saving/loading of states
 //
@@ -156,6 +159,10 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <cassert>
@@ -185,31 +192,24 @@ MSVehicleType::~MSVehicleType()
 }
 
 
-MSVehicleType::MSVehicleType(string id, SUMOReal length, SUMOReal maxSpeed,
-                             SUMOReal accel, SUMOReal decel, SUMOReal dawdle ) :
-    myID(id),
-    myLength(length),
-    myMaxSpeed(maxSpeed),
-    myAccel(accel),
-    myDecel(decel),
-    myDawdle(dawdle)
+MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
+                             SUMOReal maxSpeed, SUMOReal accel,
+                             SUMOReal decel, SUMOReal dawdle)
+    : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
+    myDecel(decel), myDawdle(dawdle), myTau(1)
 {
     assert( myLength > 0 );
     assert( myMaxSpeed > 0 );
     assert( myAccel > 0 );
     assert( myDecel > 0 );
     assert( myDawdle >= 0 && myDawdle <= 1 );
-
-    if ( myMinDecel == 0 || myDecel < myMinDecel ) {
-
+    if(myMinDecel==0 || myDecel<myMinDecel) {
         myMinDecel = myDecel;
     }
-    if ( myLength > myMaxLength ) {
-
+    if (myLength>myMaxLength) {
         myMaxLength = myLength;
     }
-    myDecelSpeed          = myDecel * MSNet::deltaT();
-    myInversTwoDecel      = SUMOReal( 1 ) / ( SUMOReal( 2 ) * myDecel );
+    myInverseTwoDecel = SUMOReal( 1 ) / ( SUMOReal( 2 ) * myDecel );
 }
 
 
@@ -251,7 +251,6 @@ MSVehicleType::clear()
 MSVehicleType*
 MSVehicleType::dict_Random()
 {
-    // !!!
     assert(myDict.size()!=0);
     size_t r = (size_t) ((SUMOReal) rand() / RAND_MAX * myDict.size());
     if(r>=myDict.size()) {
@@ -317,10 +316,6 @@ MSVehicleType::dict_loadState(BinaryInputDevice &bis, long what)
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
 
 // Local Variables:
 // mode:C++

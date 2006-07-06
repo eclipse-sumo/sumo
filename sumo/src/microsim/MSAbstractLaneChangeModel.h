@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.7  2006/05/15 05:52:23  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -144,9 +147,12 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
 //        bool congested, bool predInteraction,
+/*
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
+        */
         MSVehicle **lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -158,9 +164,12 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
+        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        /*
 //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
+        */
         MSVehicle **lastBlocked) = 0;
 
     virtual void *inform(void *info, MSVehicle *sender) = 0;
@@ -194,11 +203,11 @@ protected:
             return false;
         }
         // let's check it on highways only
-        if(leader->speed()<(80.0*3.6)) {
+        if(leader->getSpeed()<(80.0*3.6)) {
             return false;
         }
-        SUMOReal gap = leader->pos() - leader->length() - myVehicle.pos();
-        return gap < myVehicle.interactionGap( myVehicle.speed(), myVehicle.getLane().maxSpeed(), leader->speed() );
+        SUMOReal gap = leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane();
+        return gap < myVehicle.interactionGap( myVehicle.getSpeed(), myVehicle.getLane().maxSpeed(), leader->getSpeed() );
     }
 
 

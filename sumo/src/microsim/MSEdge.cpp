@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.26  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.25  2006/03/28 06:20:43  dkrajzew
 // removed the unneded slow lane changer
 //
@@ -265,9 +268,24 @@ MSEdge::allowedLanes(const MSEdge& destination) const
 MSLane*
 MSEdge::leftLane(const MSLane* lane) const
 {
-    LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(),
-                                     lane);
-    return (laneIt != myLanes->end()) ? *laneIt : 0;
+    LaneCont::iterator laneIt =
+        find(myLanes->begin(), myLanes->end(), lane);
+    if(laneIt==myLanes->end()||laneIt==myLanes->end()-1) {
+        return 0;
+    }
+    return *(laneIt+1);
+}
+
+
+MSLane*
+MSEdge::rightLane(const MSLane* lane) const
+{
+    LaneCont::iterator laneIt =
+        find(myLanes->begin(), myLanes->end(), lane);
+    if(laneIt==myLanes->end()||laneIt==myLanes->begin()) {
+        return 0;
+    }
+    return *(laneIt-1);
 }
 
 
@@ -419,7 +437,7 @@ MSEdge::getEdgeVector( void )
 }
 
 
-MSEdge::LaneCont*
+const MSEdge::LaneCont * const
 MSEdge::getLanes( void ) const
 {
     return myLanes;

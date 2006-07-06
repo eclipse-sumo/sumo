@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.15  2006/05/15 05:53:56  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -203,9 +206,9 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
     // emission as last car (in driving direction)
     MSVehicle *leader = *leaderIt;
     // get invoked vehicles' positions
-    SUMOReal leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    SUMOReal leaderPos = (*leaderIt)->getPositionOnLane() - (*leaderIt)->getLength();
     // get secure gaps
-    SUMOReal frontGapNeeded = veh.getSecureGap(veh.speed(), leader->speed(), leader->length());
+    SUMOReal frontGapNeeded = veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength());
     // compute needed room
     SUMOReal frontMax = leaderPos - frontGapNeeded;
     // check whether there is enough room

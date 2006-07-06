@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.14  2006/05/15 05:54:11  dkrajzew
 // debugging saving/loading of states
 //
@@ -136,9 +139,11 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include <map>
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/StdDefs.h>
 
 
 /* =========================================================================
@@ -152,82 +157,197 @@ class BinaryInputDevice;
  * class definitions
  * ======================================================================= */
 /**
+ * @class MSVehicleType
+ * @brief Storage for parameters of vehicles of the same abstract type
+ *
+ * The vehicle type stores the parameter of a single vehicle type.
+ * It is assumed that within the simulation many vehicles are using the same
+ *  vehicle type, quite common is using only one vehicle type for all vehicles.
+ * You can think of it like of having a vehicle type for each VW Golf or
+ *  Ford Mustang in your simulation while the car instances just refer to it.
  */
 class MSVehicleType
 {
 public:
-
-    // !!!
-    friend class MSVehicle;
-
     /// Constructor.
-    MSVehicleType( std::string id, SUMOReal length, SUMOReal maxSpeed,
-                   SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
+    MSVehicleType( const std::string &id, SUMOReal length, SUMOReal maxSpeed,
+        SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
 
     /// Destructor.
     virtual ~MSVehicleType();
 
-    /// Get vehicle type's length [m].
-    SUMOReal length() const {
+
+
+
+
+
+
+
+
+    /**  */
+    virtual SUMOReal brakeGap( SUMOReal speed ) const {
+        return speed * speed * myInverseTwoDecel + speed * myTau;
+    }
+
+   /** */
+    virtual SUMOReal interactionGap( SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL ) const
+    {
+        // Resolve the vsafe equation to gap. Assume predecessor has
+        // speed != 0 and that vsafe will be the current speed plus acceleration,
+        // i.e that with this gap there will be no interaction.
+        SUMOReal vNext = MIN2(maxNextSpeed(vF), laneMaxSpeed);
+        SUMOReal gap = (vNext - vL) *
+            ( ( vF + vL ) * myInverseTwoDecel + myTau ) +
+            vL * myTau;
+
+        // Don't allow timeHeadWay < deltaT situations.
+        return MAX2(gap, timeHeadWayGap(vNext));
+    }
+
+    /**  */
+    bool hasSafeGap(  SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const
+    {
+        SUMOReal vSafe = ffeV( speed, gap, predSpeed );
+        SUMOReal vNext = MIN3( maxNextSpeed(speed), laneMaxSpeed, vSafe);
+        return (vNext>=getSpeedAfterMaxDecel(speed)
+            &&
+            gap   >= timeHeadWayGap( predSpeed ) );
+    }
+
+    /** Returns the minimum gap between this driving vehicle and a
+     * possibly emitted vehicle with speed 0. */
+    SUMOReal safeEmitGap(SUMOReal speed) const
+    {
+        SUMOReal vNextMin = getSpeedAfterMaxDecel(speed); // ok, minimum next speed
+        SUMOReal safeGap  = vNextMin * ( speed * myInverseTwoDecel + myTau );
+        return MAX2(safeGap, timeHeadWayGap( speed ) ) + ACCEL2DIST(getMaxAccel(speed));
+    }
+
+
+    /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
+    SUMOReal dawdle( SUMOReal speed ) const {
+        // generate random number out of [0,1]
+        SUMOReal random = SUMOReal( rand() ) / SUMOReal( RAND_MAX );
+        // Dawdle.
+        if(speed<getMaxAccel(0)) {
+            // we should not prevent vehicles from driving just due to dawdling
+            //  if someone is starting, he should definitely start
+            // (but what about slow-to-start?)!!!
+            speed -= myDawdle * speed * random;
+        } else {
+            speed -= myDawdle * getMaxAccel(speed) * random;
+        }
+        return MAX2( SUMOReal( 0 ), speed );
+    }
+
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
+        return MAX2((SUMOReal) 0, v - ACCEL2SPEED(myDecel));
+    }
+
+    SUMOReal maxNextSpeed( SUMOReal v ) const {
+        return MIN2(v+ACCEL2SPEED(getMaxAccel(v)), myMaxSpeed);
+    }
+
+    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
+        return MIN2(_vsafe(speed, myDecel, gap2pred, predSpeed), maxNextSpeed(speed) );
+    }
+
+    SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const {
+        return MIN2(_vsafe(speed, myDecel, gap2pred, 0), maxNextSpeed(speed) );
+    }
+
+    SUMOReal getSecureGap( SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength ) const {
+        SUMOReal safeSpace2 = brakeGap(speed);
+        SUMOReal vSafe = ffeV(0, 0, predSpeed);
+        SUMOReal safeSpace3 =
+            ( (vSafe - predSpeed)
+            * (SUMOReal) ((vSafe+predSpeed) / 2.0 / (2.0 * MSVehicleType::getMinVehicleDecel()) + myTau) )
+            + predSpeed * myTau;
+        SUMOReal safeSpace = safeSpace2 > safeSpace3 ? safeSpace2 : safeSpace3;
+        safeSpace = safeSpace > ACCEL2SPEED(myDecel) ? safeSpace : ACCEL2SPEED(myDecel);
+        safeSpace += predLength;
+        safeSpace += ACCEL2SPEED(getMaxAccel(speed));
+        return safeSpace;
+    }
+
+    SUMOReal decelAbility() const {
+        return ACCEL2SPEED(myDecel); // !!! really the speed?
+    }
+
+
+    /** */
+    SUMOReal timeHeadWayGap(SUMOReal speed) const {
+        assert( speed >= 0 );
+        return SPEED2DIST(speed);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /// Get vehicle's length [m].
+    SUMOReal getLength() const {
         return myLength;
     }
 
-    /// Get vehicle type's maximum speed [m/s].
-    SUMOReal maxSpeed() const {
+    /// Get vehicle's maximum speed [m/s].
+    SUMOReal getMaxSpeed() const {
         return myMaxSpeed;
     }
 
-    /// Get the vehicle type's maximum acceleration [m/s^2]
-    SUMOReal accel(SUMOReal v) const {
+    /// Get the vehicle's maximum acceleration [m/s^2]
+    inline SUMOReal getMaxAccel(SUMOReal v) const {
         return (SUMOReal) (myAccel * (1.0 - (v/myMaxSpeed)));
     }
 
-    /// Get the vehicle type's maximum deceleration [m/s^2]
-    SUMOReal decel() const {
+    /// Get the vehicle's maximum deceleration [m/s^2]
+    SUMOReal getMaxDecel() const {
         return myDecel;
     }
 
+    SUMOReal getTau() const {
+        return myTau;
+    }
+
+    /*
     /// Get the vehicle type's dawdle-probability. Out of [0,1]
-    SUMOReal dawdle() const {
+    SUMOReal getDawdleFactor() const {
         return myDawdle;
     }
 
+    /*
+    /// Returns precomputed 1 / ( 2 * decel )
+    SUMOReal getInverseTwoDecel( void ) const {
+        return myInverseTwoDecel;
+    }
+    */
+
+    /// returns the name of the vehicle type
+    const std::string &getID() const;
+
+
+
+    //@{ static functions covering all loaded vehicle types
     /// Returns the minimum deceleration-ability of all vehicle-types.
-    static SUMOReal minDecel() {
+    static SUMOReal getMinVehicleDecel() {
         return myMinDecel;
     }
 
     /// Returns the maximum length of all vehicle-types.
-    static SUMOReal maxLength() {
+    static SUMOReal getMaxVehicleLength() {
         return myMaxLength;
     }
+    //@}
 
-    /// Returns precomputed accel * deltaT
-    SUMOReal accelSpeed( SUMOReal v ) const {
-        return (SUMOReal) (ACCEL2SPEED(myAccel * (1.0 - (v/(myMaxSpeed*2.0)))));
-    }
 
-    /// Returns precomputed decel * deltaT
-    SUMOReal decelSpeed( void ) const {
-        return myDecelSpeed;
-    }
-
-    /// Returns precomputed ( accel + decel ) * deltaT
-    SUMOReal accelPlusDecelSpeed( SUMOReal v ) const {
-	    return ACCEL2SPEED( accel(v) + myDecel );
-    //    return myAccelPlusDecelSpeed;
-    }
-
-    /// Returns precomputed 1 / ( 2 * decel )
-    SUMOReal inversTwoDecel( void ) const {
-        return myInversTwoDecel;
-    }
-
-    /// Returns precomputed accel * deltaT^2
-    SUMOReal accelDist( SUMOReal v ) const {
-        return ACCEL2DIST(accel(v));
-    }
-
+    //@{ access functions to the vehicle type dictionary
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -250,50 +370,75 @@ public:
 
     /// Loads vehicle state
     static void dict_loadState(BinaryInputDevice &bis, long what);
+    //@}
 
-    /// returns the name of the vehicle type
-    const std::string &getID() const;
+
+protected:
+    /** Returns the SK-vsafe. */
+    SUMOReal _vsafe( SUMOReal currentSpeed, SUMOReal decelAbility,
+                  SUMOReal gap2pred, SUMOReal predSpeed ) const {
+        if(predSpeed==0&&gap2pred<0.01) {
+            return 0;
+        }
+        assert( currentSpeed     >= SUMOReal(0) );
+        assert( gap2pred  >= SUMOReal(0) );
+        assert( predSpeed >= SUMOReal(0) );
+        SUMOReal vsafe = predSpeed +
+            ( ( gap2pred - predSpeed * myTau ) /
+            ( ( ( predSpeed + currentSpeed ) * myInverseTwoDecel ) + myTau ) );
+        assert( vsafe >= 0 );
+        return vsafe;
+    }
+
 
 private:
     /// Unique ID.
     std::string myID;
 
-    /// Vehicle type's length [m].
+    /// Vehicle's length [m].
     SUMOReal myLength;
 
-    /// Vehicle type's maximum speed [m/s].
+    /// Vehicle's maximum speed [m/s].
     SUMOReal myMaxSpeed;
 
-    /// The vehicle type's maximum acceleration [m/s^2]
+    /// The vehicle's maximum acceleration [m/s^2]
     SUMOReal myAccel;
 
-    /// The vehicle type's maximum deceleration [m/s^2]
+    /// The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
 
-    /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
+    /// The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
-    SUMOReal myDecelSpeed;
-    SUMOReal myInversTwoDecel;
+    /// The precomputed value for 1/(2*d)
+    SUMOReal myInverseTwoDecel;
 
+
+
+    SUMOReal myTau;
+
+
+    //@{ static members covering all loaded vehicle types
     /// Minimum deceleration-ability of all vehicle-types.
     static SUMOReal myMinDecel;
 
     /// Maximum length of all vehicle-types.
     static SUMOReal myMaxLength;
+    //@}
 
+
+    //@{ the static dictionary
     /// Definition of the type of the static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicleType* > DictType;
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
+    //@}
 
-    /// Default constructor.
-    MSVehicleType();
 
-    /// Copy constructor.
+    /// Invalidated copy constructor
     MSVehicleType( const MSVehicleType& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator
     MSVehicleType& operator=( const MSVehicleType& );
 
 };

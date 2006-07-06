@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.40  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.39  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -350,7 +353,7 @@ public:
     {
         /// compares vehicle position to the detector position
         bool operator() ( const MSVehicle* cmp, SUMOReal pos ) const {
-            return cmp->pos() >= pos;
+            return cmp->getPositionOnLane() >= pos;
         }
     };
 
@@ -428,8 +431,8 @@ public:
     }
 
     /// Returns the lane's Edge.
-    const MSEdge& edge() const { // !!!
-        return *myEdge;
+    const MSEdge * const getEdge() const {
+        return myEdge;
     }
 
     /** @brief Inserts a MSLane into the static dictionary
@@ -469,9 +472,9 @@ public:
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    MSLinkCont::iterator succLinkSec( const MSVehicle& veh,
+    MSLinkCont::const_iterator succLinkSec( const MSVehicle& veh,
                                             unsigned int nRouteSuccs,
-                                            MSLane& succLinkSource );
+                                            const MSLane& succLinkSource ) const;
 
 
     /** Returns the information whether the given link shows at the end
@@ -542,7 +545,10 @@ public:
 
     const Position2DVector &getShape() const { return myShape; }
 
-    SUMOReal getDensity() const;
+    virtual SUMOReal getDensity() const;
+
+    MSLane * const getLeftLane() const;
+    MSLane * const getRightLane() const;
 
 
 protected:

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.19  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -117,7 +120,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
-    WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "'.");
+    WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
     // let the vehicle be on the one
     const MSLane &lane = veh->getLane();
     veh->leaveLaneAtLaneChange();
@@ -147,7 +150,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
         // check whether the vehicle may be emitted onto a following edge
         if(e->emit(*(desc.myVeh), time)) {
             // remove from this if so
-            WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "'.");
+            WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             i = myVehicles.erase(i);
         } else {
             // otherwise, check whether a consecutive edge may be used

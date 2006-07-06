@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.12  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -175,17 +178,18 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
     size_t pos = 0;
     EdgeCont::iterator i;
     for(i=singleLane->begin(); i!=singleLane->end(); i++) {
-        MSEdge::LaneCont *lanes = (*i)->getLanes();
+        const MSEdge::LaneCont * const lanes = (*i)->getLanes();
         myLanes[pos].lane = *(lanes->begin());
         myLanes[pos].noVehicles = 0;
+//5!!!        myLanes[pos].density = 0;
         myLanes[pos].firstNeigh = lanes->end();
         myLanes[pos].lastNeigh = lanes->end();
         pos++;
     }
         // for lanes with neighbors
     for(i=multiLane->begin(); i!=multiLane->end(); i++) {
-        MSEdge::LaneCont *lanes = (*i)->getLanes();
-        for(MSEdge::LaneCont::iterator j=lanes->begin(); j!=lanes->end(); j++) {
+        const MSEdge::LaneCont * const lanes = (*i)->getLanes();
+        for(MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
             myLanes[pos].lane = *j;
             myLanes[pos].noVehicles = 0;
             myLanes[pos].firstNeigh = (j+1);

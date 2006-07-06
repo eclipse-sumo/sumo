@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.25  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.24  2006/05/15 05:52:55  dkrajzew
 // debugging saving/loading of states
 //
@@ -255,6 +258,9 @@ public:
 
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
     MSLane* leftLane( const MSLane* lane ) const;
+    MSLane* rightLane( const MSLane* lane ) const;
+
+
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
@@ -299,7 +305,7 @@ public:
 
     static std::vector< MSEdge* > getEdgeVector( void );
 
-    LaneCont* getLanes( void ) const; // !!! not the container itself!
+    const LaneCont * const getLanes( void ) const;
 
 #ifdef HAVE_INTERNAL_LANES
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;

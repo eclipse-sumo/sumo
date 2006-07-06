@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2006/07/06 07:33:22  dkrajzew
+// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
+//
 // Revision 1.16  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -157,16 +160,10 @@ using namespace std;
 
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-MSEmitControl::DictType MSEmitControl::myDict;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSEmitControl::MSEmitControl(string id)
-    : myID(id)
+MSEmitControl::MSEmitControl(MSVehicleControl &vc)
+    : myVehicleControl(vc)
 {
 }
 
@@ -258,7 +255,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                 myNewPeriodicalAdds.push_back(nextPeriodical);
                 // !!! add some kind of a check and an error
                 //  handler, here
-                MSVehicle::dictionary(nextPeriodical->getID(), nextPeriodical);
+                myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
             }
         }
     } else {
@@ -268,40 +265,6 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
         edge.setLastFailedEmissionTime(time);
     }
 	return noEmitted;
-}
-
-
-bool
-MSEmitControl::dictionary(string id, MSEmitControl* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSEmitControl*
-MSEmitControl::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-void
-MSEmitControl::clear()
-{
-    for(DictType::iterator it = myDict.begin(); it!=myDict.end(); it++) {
-        delete (*it).second;
-    }
 }
 
 
