@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/06 05:54:11  dkrajzew
+// refactoring
+//
 // Revision 1.5  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,8 +105,8 @@ using namespace std;
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
             GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
-    myViewCenter(0, 0), _rotation(0), _zoom(100),
-    _mouseButtonState(MOUSEBTN_NONE), myMoveOnRightClick(false)
+    myViewCenter(0, 0), myRotation(0), myZoom(100),
+    myMouseButtonState(MOUSEBTN_NONE), myMoveOnRightClick(false)
 {
 }
 
@@ -116,21 +119,21 @@ GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger()
 void
 GUIDanielPerspectiveChanger::move(int xdiff, int ydiff)
 {
-    myViewCenter.add((SUMOReal) -_callback.p2m((SUMOReal) xdiff), (SUMOReal) _callback.p2m((SUMOReal) ydiff));
-    _changed = true;
-    _callback.update();
+    myViewCenter.add((SUMOReal) -myCallback.p2m((SUMOReal) xdiff), (SUMOReal) myCallback.p2m((SUMOReal) ydiff));
+    myHaveChanged = true;
+    myCallback.update();
 }
 
 
 void
 GUIDanielPerspectiveChanger::zoom(int diff)
 {
-    SUMOReal zoom = (SUMOReal) _zoom
-        + (SUMOReal) diff /(SUMOReal)  100.0 * (SUMOReal) _zoom;
+    SUMOReal zoom = (SUMOReal) myZoom
+        + (SUMOReal) diff /(SUMOReal)  100.0 * (SUMOReal) myZoom;
     if(zoom>0.01&&zoom<10000000.0) {
-        _zoom = zoom;
-        _changed = true;
-        _callback.update();
+        myZoom = zoom;
+        myHaveChanged = true;
+        myCallback.update();
     }
 }
 
@@ -138,10 +141,10 @@ GUIDanielPerspectiveChanger::zoom(int diff)
 void
 GUIDanielPerspectiveChanger::rotate(int diff)
 {
-    if(_callback.allowRotation()) {
-        _rotation += (SUMOReal) diff / (SUMOReal) 10.0;
-        _changed = true;
-        _callback.update();
+    if(myCallback.allowRotation()) {
+        myRotation += (SUMOReal) diff / (SUMOReal) 10.0;
+        myHaveChanged = true;
+        myCallback.update();
     }
 }
 
@@ -149,7 +152,7 @@ GUIDanielPerspectiveChanger::rotate(int diff)
 SUMOReal
 GUIDanielPerspectiveChanger::getRotation() const
 {
-    return _rotation;
+    return myRotation;
 }
 
 
@@ -170,74 +173,66 @@ GUIDanielPerspectiveChanger::getYPos() const
 SUMOReal
 GUIDanielPerspectiveChanger::getZoom() const
 {
-    return _zoom;
+    return myZoom;
 }
 
 
 void
 GUIDanielPerspectiveChanger::recenterView()
 {
-    _rotation = 0;
+    myRotation = 0;
     myViewCenter.set(0, 0);
-    _zoom = 100;
-    _changed = true;
+    myZoom = 100;
+    myHaveChanged = true;
 }
 
 
 
 void
 GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
-                                      const Position2D &pos, SUMOReal radius)
+                                      const Position2D &pos, SUMOReal radius,
+                                      bool applyZoom)
 {
     myViewCenter.set(pos);
     myViewCenter.sub(netBoundary.getCenter());
     myViewCenter.mul(-1.0);
-    _zoom =
-        netBoundary.getWidth() < netBoundary.getHeight() ?
-        (SUMOReal) 25.0 * (SUMOReal) netBoundary.getWidth() / radius :
-        (SUMOReal) 25.0 * (SUMOReal) netBoundary.getHeight() / radius;
-    _changed = true;
+    if(applyZoom) {
+        myZoom =
+            netBoundary.getWidth() < netBoundary.getHeight() ?
+            (SUMOReal) 25.0 * (SUMOReal) netBoundary.getWidth() / radius :
+            (SUMOReal) 25.0 * (SUMOReal) netBoundary.getHeight() / radius;
+    }
+    myHaveChanged = true;
 }
 
 
 void
 GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
-                                      Boundary bound)
+                                      Boundary bound,
+                                      bool applyZoom)
 {
     myViewCenter.set(bound.getCenter());
     myViewCenter.sub(netBoundary.getCenter());
     myViewCenter.mul(-1.0);
-    _zoom =
-        bound.getWidth() > bound.getHeight() ?
-        (SUMOReal) 100.0 * (SUMOReal) netBoundary.getWidth() / (SUMOReal) bound.getWidth() :
-        (SUMOReal) 100.0 * (SUMOReal) netBoundary.getHeight() / (SUMOReal) bound.getHeight();
-    _changed = true;
+    if(applyZoom) {
+        myZoom =
+            bound.getWidth() > bound.getHeight() ?
+            (SUMOReal) 100.0 * (SUMOReal) netBoundary.getWidth() / (SUMOReal) bound.getWidth() :
+            (SUMOReal) 100.0 * (SUMOReal) netBoundary.getHeight() / (SUMOReal) bound.getHeight();
+    }
+    myHaveChanged = true;
 }
 
-
-
-int
-GUIDanielPerspectiveChanger::getMouseXPosition() const
-{
-    return _mouseXPosition;
-}
-
-
-int
-GUIDanielPerspectiveChanger::getMouseYPosition() const
-{
-    return _mouseYPosition;
-}
 
 
 void
 GUIDanielPerspectiveChanger::onLeftBtnPress(void*data)
 {
     FXEvent* e = (FXEvent*) data;
-    _mouseButtonState =
-        (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_LEFT);
-    _mouseXPosition = e->win_x;
-    _mouseYPosition = e->win_y;
+    myMouseButtonState =
+        (MouseState) ((int) myMouseButtonState | (int) MOUSEBTN_LEFT);
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
 }
 
 
@@ -245,10 +240,10 @@ void
 GUIDanielPerspectiveChanger::onLeftBtnRelease(void*data)
 {
     FXEvent* e = (FXEvent*) data;
-    _mouseButtonState =
-        (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_LEFT));
-    _mouseXPosition = e->win_x;
-    _mouseYPosition = e->win_y;
+    myMouseButtonState =
+        (MouseState) ((int) myMouseButtonState & (255-(int) MOUSEBTN_LEFT));
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
 }
 
 
@@ -256,10 +251,10 @@ void
 GUIDanielPerspectiveChanger::onRightBtnPress(void*data)
 {
     FXEvent* e = (FXEvent*) data;
-    _mouseButtonState =
-        (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_RIGHT);
-    _mouseXPosition = e->win_x;
-    _mouseYPosition = e->win_y;
+    myMouseButtonState =
+        (MouseState) ((int) myMouseButtonState | (int) MOUSEBTN_RIGHT);
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
     myMoveOnRightClick = true;
 }
 
@@ -267,12 +262,12 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void*data)
 bool
 GUIDanielPerspectiveChanger::onRightBtnRelease(void*data)
 {
-    _mouseButtonState =
-        (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_RIGHT));
+    myMouseButtonState =
+        (MouseState) ((int) myMouseButtonState & (255-(int) MOUSEBTN_RIGHT));
     if(data!=0) {
         FXEvent* e = (FXEvent*) data;
-        _mouseXPosition = e->win_x;
-        _mouseYPosition = e->win_y;
+        myMouseXPosition = e->win_x;
+        myMouseYPosition = e->win_y;
     }
     if(myMoveOnRightClick) {
         myMoveOnRightClick = false;
@@ -286,10 +281,10 @@ void
 GUIDanielPerspectiveChanger::onMouseMove(void*data)
 {
     FXEvent* e = (FXEvent*) data;
-    _callback.setTooltipPosition(e->win_x, e->win_y, e->root_x, e->root_y);
-    int xdiff = _mouseXPosition - e->win_x;
-    int ydiff = _mouseYPosition - e->win_y;
-    switch(_mouseButtonState) {
+    myCallback.setTooltipPosition(e->win_x, e->win_y, e->root_x, e->root_y);
+    int xdiff = myMouseXPosition - e->win_x;
+    int ydiff = myMouseYPosition - e->win_y;
+    switch(myMouseButtonState) {
     case MOUSEBTN_LEFT:
         move(xdiff, ydiff);
         break;
@@ -301,11 +296,11 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data)
         }
         break;
     default:
-        _callback.updateToolTip();
+        myCallback.updateToolTip();
         break;
     }
-    _mouseXPosition = e->win_x;
-    _mouseYPosition = e->win_y;
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
 }
 
 
@@ -313,7 +308,7 @@ void
 GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
                                          SUMOReal xPos, SUMOReal yPos)
 {
-    _zoom = zoom;
+    myZoom = zoom;
     myViewCenter.set(xPos, yPos);
 }
 

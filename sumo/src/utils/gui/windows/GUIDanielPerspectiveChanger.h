@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/06 05:54:11  dkrajzew
+// refactoring
+//
 // Revision 1.5  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,20 +130,14 @@ public:
 
     /// Centers the view to the given position, setting it to a size that covers the radius
     void centerTo(const Boundary &netBoundary,
-        const Position2D &pos, SUMOReal radius);
+        const Position2D &pos, SUMOReal radius, bool applyZoom=true);
 
     /// Centers the view to show the given boundary
     void centerTo(const Boundary &netBoundary,
-        Boundary bound);
+        Boundary bound, bool applyZoom=true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
-
-    /// Returns the last mouse x-position an event occured at
-    int getMouseXPosition() const;
-
-    /// Returns the last mouse y-position an event occured at
-    int getMouseYPosition() const;
 
 private:
     /// Performs the view movement
@@ -157,22 +154,19 @@ private:
     Position2D myViewCenter;
 
     /// the sizes of the window
-    int _widthInPixels, _heightInPixels;
-
-    /// the current mouse position
-    int _mouseXPosition, _mouseYPosition;
+    int myWidthInPixels, myHeightInPixels;
 
     /// the scale of the net (the maximum size, either width or height)
-    SUMOReal _netScale;
+    SUMOReal myNetScale;
 
     /// the current rotation
-    SUMOReal _rotation;
+    SUMOReal myRotation;
 
     /// the current zoom factor
-    SUMOReal _zoom;
+    SUMOReal myZoom;
 
     /// the current mouse state
-    MouseState _mouseButtonState;
+    MouseState myMouseButtonState;
 
     /// Information whether the user has moved the cursor while pressing the right button
     bool myMoveOnRightClick;

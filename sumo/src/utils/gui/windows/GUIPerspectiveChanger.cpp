@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/07/06 05:54:11  dkrajzew
+// refactoring
+//
 // Revision 1.4  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -75,7 +78,7 @@ namespace
  * method definitions
  * ======================================================================= */
 GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
-    : _callback(callBack), _changed(true)
+    : myCallback(callBack), myHaveChanged(true)
 {
 }
 
@@ -88,21 +91,21 @@ GUIPerspectiveChanger::~GUIPerspectiveChanger()
 bool
 GUIPerspectiveChanger::changed() const
 {
-    return _changed;
+    return myHaveChanged;
 }
 
 
 void
 GUIPerspectiveChanger::otherChange()
 {
-    _changed = true;
+    myHaveChanged = true;
 }
 
 
 void
 GUIPerspectiveChanger::applied()
 {
-    _changed = false;
+    myHaveChanged = false;
 }
 
 
@@ -151,6 +154,20 @@ GUIPerspectiveChanger::onRightBtnRelease(void*)
 void
 GUIPerspectiveChanger::onMouseMove(void *data)
 {
+}
+
+
+int
+GUIPerspectiveChanger::getMouseXPosition() const
+{
+    return myMouseXPosition;
+}
+
+
+int
+GUIPerspectiveChanger::getMouseYPosition() const
+{
+    return myMouseYPosition;
 }
 
 

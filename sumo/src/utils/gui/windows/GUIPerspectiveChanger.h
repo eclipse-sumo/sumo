@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/06 05:54:11  dkrajzew
+// refactoring
+//
 // Revision 1.5  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -146,22 +149,22 @@ public:
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
     virtual void centerTo(const Boundary &netBoundary,
-        const Position2D &pos, SUMOReal radius) = 0;
+        const Position2D &pos, SUMOReal radius, bool applyZoom=true) = 0;
 
     /** @brief Centers the view to show the given boundary
         Used for: Centering of lanes */
     virtual void centerTo(const Boundary &netBoundary,
-        Boundary bound) = 0;
+        Boundary bound, bool applyZoom=true) = 0;
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) = 0;
 
     /// Returns the last mouse x-position an event occured at
-    virtual int getMouseXPosition() const = 0; // !!! should not be virtual
+    int getMouseXPosition() const;
 
     /// Returns the last mouse y-position an event occured at
-    virtual int getMouseYPosition() const = 0;// !!! should not be virtual
+    int getMouseYPosition() const;
 
     /// Sets the sizes of the network
     void setNetSizes(size_t width, size_t height);
@@ -171,16 +174,19 @@ public:
 
 protected:
     /// The parent window (canvas to scale)
-    GUISUMOAbstractView &_callback;
+    GUISUMOAbstractView &myCallback;
 
     /// Information whether the view has changed
-    bool _changed;
+    bool myHaveChanged;
 
     /// The sizes of the network
     size_t myNetWidth, myNetHeight;
 
     /// The sizes of the canvas
     size_t myCanvasWidth, myCanvasHeight;
+
+    /// the current mouse position
+    int myMouseXPosition, myMouseYPosition;
 
 };
 
