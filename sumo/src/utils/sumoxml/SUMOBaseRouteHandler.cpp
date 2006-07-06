@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/07/06 05:58:08  dkrajzew
+// removed some old code
+//
 // Revision 1.3  2006/04/07 10:41:50  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -104,10 +107,8 @@ SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
     try {
         ret = helper.getInt(attrs, SUMO_ATTR_DEPART); // !!! getSUMOTime
     } catch (EmptyData) {
-        //!!!getErrorHandlerMarkInvalid()->
         MsgHandler::getErrorInstance()->inform("Missing departure time in vehicle '" + id + "'.");
     } catch (NumberFormatException) {
-        //getErrorHandlerMarkInvalid()->
         MsgHandler::getErrorInstance()->inform("Non-numerical departure time in vehicle '" + id + "'.");
     }
     return ret;
