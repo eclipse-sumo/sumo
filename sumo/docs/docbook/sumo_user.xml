@@ -492,7 +492,7 @@
     </sect1>
 
     <sect1 id="user_chp03-simulation_workflow">
-      <title>The Workflow of preparing a Simulation</title>
+      <title>The Workflow of Preparing a Simulation</title>
 
       <para>As shortly described above, you basically have to perform the
       following steps in order to make your simulation run:</para>
@@ -1379,7 +1379,7 @@
 <sgmltag>&lt;/connections&gt;</sgmltag>
 </programlisting>
 
-        <para>The built file looks like this:</para>
+        <para>The built network looks like this:</para>
 
         <figure>
           <title>Network with explicit lane-2-lane connections</title>
@@ -4774,7 +4774,66 @@
         <para>The following options are accepted by
         <application>JTRROUTER</application>:</para>
 
-        <para>!!!</para>
+        <variablelist>
+          <varlistentry>
+            <term><option>( --net-file | --net | -n )
+            <replaceable>&lt;SUMO_NET&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Uses the named network to route vehicles on.
+              <remark>Mandatory, type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>( --output-file | --output | -o )
+            <replaceable>&lt;FILENAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Set <replaceable>&lt;FILENAME&gt;</replaceable> as the
+              filename to write computed routes into. Additionally a file
+              named "<replaceable>&lt;FILENAME&gt;</replaceable>.alt" will be
+              generated which contains the route alternatives.
+              <remark>Mandatory, type: filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>(--begin | -b )
+            <replaceable>&lt;INT&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>The first time step for which routes shall be build.
+              <remark>Optional (pregiven), type: int, default:
+              0</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>(--end | -e )
+            <replaceable>&lt;INT&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>The last time step (+1) for which routes shall be build.
+              <remark>Optional (pregiven), type: int, default:
+              86400</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option><option>( --alternatives | -a )
+            <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable></option></option></term>
+
+            <listitem>
+              <para>Forces <application>JTRROUTER</application> to use the
+              previously generated
+              <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable> as input.
+              <remark>Optional, type:filename, default: none</remark></para>
+
+              <para><remark>!!!</remark></para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
 
         <para>Recent changes:</para>
 
@@ -5293,42 +5352,11 @@
         <option>--no-last-cell</option> for this.</para>
       </sect2>
 
-      <sect2 id="user_chp05-import_routes-ptv">
+      <sect2 id="user_chp05-import_routes-ptv" revision="0.9.5">
         <title>Importing VISSIM und VISUM-routes</title>
 
-        <para>While VISSIM holds the possibility to describe vehicle-based
-        routes, too, our package contain only the second of VISSIM's route
-        specification abilities, it shares with VISUM. This representation of
-        vehicle movements is stored as origin-destination matrices which have
-        to be translated into single vehicle movements first. This is done
-        using the <application>OD2TRIPS</application> module. One has to pass
-        the SUMO-network to use using the <option>--net-file</option>
-        (<option>-n</option>) - option and the name of the output file using
-        <option>--output-file</option> (<option>-o</option>). The generated
-        output contains the single vehicle trips build from the OD-matrix.
-        Also, one has to supply the file the origin/destination-matrix is
-        described in. This is either a file with an ".fma" extension (other
-        table types supported by VISSIM/VISUM are not supported) which holds a
-        single OD-matrix or the VISSIM-simulation file itself (*.inp) which
-        holds the names of the OD-files to use. The option that lets
-        <application>OD2TRIPS</application> know about the file is
-        <option>--od-file</option>. In the second case, the path to the
-        matrices has to be supplied using the <option>--od-path</option> -
-        option, too.</para>
-
-        <para>Additionally, the first and the last time step to process may be
-        given. If not given, the values stored within the parsed descriptions
-        will be used. A further scaling factor may be used, too, which will be
-        applied on the read streams. An example for parsing an OD-description
-        that uses multiple matrices may be:</para>
-
-        <screen>od2trips --od-file=<replaceable>VISSIM/test.inp</replaceable> --od-path=<replaceable>VISSIM/</replaceable> --n=<replaceable>MySUMONet.net.xml</replaceable> \
-   --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable></screen>
-
-        <para>After obtaining single vehicle trips using this approach they
-        should be parsed into full route descriptions using router as
-        described within the chapter "Generation of own, explicit
-        routes".</para>
+        <para>See "<link linkend="user_chp05-od2trips">Using OD2TRIPS</link>"
+        for information about how to import O/D-matrices in ptv format.</para>
       </sect2>
     </sect1>
 
@@ -6269,13 +6297,6 @@
           </itemizedlist>
         </sect3>
 
-        <sect3 id="user_chp06-output-detectors-e23">
-          <title>E23-Detectors (Route-dependent Origin/Destination
-          Detectors)</title>
-
-          <para>... to be implemented ...</para>
-        </sect3>
-
         <sect3 id="user_chp06-output-detectors-e3">
           <title>E3-Detectors (Multi-Origin/Multi-Destination
           Detectors)</title>
@@ -6389,18 +6410,6 @@
           attribute measures to compute all values. This is also this
           attributes default value.</para>
         </sect3>
-
-        <sect3 id="user_chp06-output-detectors-e41">
-          <title>E41-Detectors (Destination based Detectors)</title>
-
-          <para>... to be implemented ...</para>
-        </sect3>
-
-        <sect3 id="user_chp06-output-detectors-e42">
-          <title>E42-Detectors (Edgebased Detectors)</title>
-
-          <para>... to be implemented ...</para>
-        </sect3>
       </sect2>
 
       <sect2 id="user_chp06-output-network_state">
@@ -6504,22 +6513,23 @@
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-output-lanestates">
+      <sect2 id="user_chp06-output-lanestates" revision="0.9.5">
         <title>Aggregated Lane/Edge States</title>
 
         <para>TBD: --dump-end + dump-begin; difference lane-based &amp;
         edge-based</para>
 
-        <para>This information is far more feasible than the network dump.
-        There are two different types of these files, one is edge-based, the
-        other lane-based. The aggregated state files contain information about
-        all edges/lanes states of the network.</para>
+        <para>This output is far more feasible than the network dump. There
+        are two different types of these files, one is edge-based, the other
+        lane-based. Both describe the situation on all of the network's
+        edges/lanes in terms of traffic science by giving macroscopic values
+        such as the mean vehicle speed, the mean density, etc.</para>
 
         <para>To force SUMO to generate edge-based state dumps, you have to
         use two command line options: a) <option>--dump-basename
         <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
-        describes where to write the dumps to and how the begin of the name
-        is. b) <option>--dump-intervals
+        describes where to write the dumps to and how the begin of the file
+        name is, b) <option>--dump-intervals
         <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
         describes over what time the values shall be collected and aggregated
         ("interval length"). Each aggregation interval is written into an own,
@@ -6605,6 +6615,14 @@
             <para>The (even invalid) documentation of the file printed
             previously at the begin of the file was removed in version
             0.9.3</para>
+          </listitem>
+
+          <listitem>
+            <para>This documentation text was rewritten for version 0.9.5,
+            because the previous text said that only those vehicles are
+            regarded which have left the lane. The edge-dumps/lane-dumps
+            contain instead the values of all vehicles that are on the
+            edges/lanes.</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -6736,7 +6754,7 @@
 
         <itemizedlist>
           <listitem>
-            <para><sgmltag>vehicle_id</sgmltag>: theid of the vehicle this
+            <para><sgmltag>vehicle_id</sgmltag>: the id of the vehicle this
             entry describes</para>
           </listitem>
 
@@ -6826,7 +6844,7 @@
 
         <itemizedlist>
           <listitem>
-            <para><sgmltag>id</sgmltag>: theid of the vehicle this entry
+            <para><sgmltag>id</sgmltag>: the id of the vehicle this entry
             describes</para>
           </listitem>
 
@@ -6906,6 +6924,170 @@
             0.9.3</para>
           </listitem>
         </itemizedlist>
+      </sect2>
+
+      <sect2 id="user_chp06-output-tls" revision="0.9.5">
+        <title>Output coupled to Traffic Lights</title>
+
+        <para>SUMO offers some possibilities to save states of traffic lights
+        during the simulation, a feature mainly used to evaluate adaptive
+        traffic light algorithms. We will now describe these outputs.</para>
+
+        <sect3 id="user_chp06-output-tls-states">
+          <title>TLS States</title>
+
+          <para>To enable writing tls state information you have to add the
+          following definition into one of your additional files:
+          <sgmltag>&lt;timed_event type="SaveTLSStates"
+          source="<replaceable>&lt;TLS_ID&gt;</replaceable>"
+          dest="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag>.
+          The attributes have herein the following meanings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>type</sgmltag>: type of the event trigger; always
+              "<literal>SaveTLSStates</literal>" herein</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>source</sgmltag>: The id of the traffic light
+              which state shall be written</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>dest</sgmltag>: The file to save the state
+              into</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The output looks like this:</para>
+
+          <programlisting><sgmltag>&lt;tls-states&gt;</sgmltag>
+   <sgmltag>&lt;tlsstate time="<replaceable>&lt;SIM_STEP&gt;</replaceable>" id="<replaceable>&lt;TLS_ID&gt;</replaceable>" subid="<replaceable>&lt;TLS_SUBID&gt;</replaceable>"&gt;</sgmltag><replaceable>&lt;STATE&gt;</replaceable><sgmltag>&lt;/tlsstate&gt;</sgmltag>
+   ... further states ...
+<sgmltag>&lt;/tls-states&gt;</sgmltag></programlisting>
+
+          <para>The state itself is coded as a list of the characters 'G',
+          'Y', and 'R', standing for "green", "yellow", and "red",
+          respectively. Each character describes a link controlled by the
+          traffic light. As indicated by the attribute
+          <sgmltag>subid</sgmltag>, each sub-tls state is written into the
+          file (see also "<link
+          linkend="user_chp06-management-traffic_lights-add_programs">Adding
+          new Programs</link>").</para>
+
+          <para>Missing:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>An easy mapping from positions within the state to
+              links.</para>
+            </listitem>
+
+            <listitem>
+              <para>A way to write only one/a set of sub-tls into the
+              file.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>This output is available since a long time, still several
+              issues may made him unworking before version 0.9.5</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-tls-states">
+          <title>TLS Switches</title>
+
+          <para>This output contains information about the green light phases
+          of links (lane-to-lane connections). Each phase is describes by its
+          begin, end and duration. An entry is written into the file as soon a
+          green phase of a link ends. To enable writing tls switch information
+          you have to add the following definition into one of your additional
+          files: <sgmltag>&lt;timed_event type="SaveTLSSwitches"
+          source="<replaceable>&lt;TLS_ID&gt;</replaceable>"
+          dest="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag>.
+          The attributes have herein the following meanings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>type</sgmltag>: type of the event trigger; always
+              "<literal>SaveTLSSwitches</literal>" herein</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>source</sgmltag>: The id of the traffic light
+              which state shall be written</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>dest</sgmltag>: The file to save the state
+              into</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The output looks like this:</para>
+
+          <programlisting><sgmltag>&lt;tls-switches&gt;</sgmltag>
+   <sgmltag>&lt;</sgmltag>switch tls="<replaceable>&lt;JUNCTION_ID&gt;</replaceable>" subid="<replaceable>&lt;JUNCTION_SUB_ID&gt;</replaceable>" \
+      fromLane="<replaceable>&lt;LINKS_SOURCE_LANE&gt;</replaceable>" toLane="<replaceable>&lt;LINK_DESTINATION_LANE&gt;</replaceable>" \
+      begin="<replaceable>&lt;BEGIN_OF_GREEN_PHASE&gt;</replaceable>" end="<replaceable>&lt;END_OF_GREEN_PHASE&gt;</replaceable>" \
+      duration="<replaceable>&lt;DURATION_OF_GREEN_PHASE&gt;</replaceable>"/<sgmltag>&gt;</sgmltag>
+   ... further switch points ...
+<sgmltag>&lt;/tls-switches&gt;</sgmltag></programlisting>
+
+          <para>Each entry is written into a single line. The values have the
+          following meanings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>junction</sgmltag>: The id of the tls that is
+              responsible for the link</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>subid</sgmltag>: The sub-id of the tls that is
+              (currently) responsible for the link</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>fromLane</sgmltag>: The id of the lane the link
+              starts at</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>toLane</sgmltag>: The id of the lane the link
+              ends at</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>begin</sgmltag>: Begin of this link's last green
+              phase</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>end</sgmltag>: End of this link's last green
+              phase</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>duration</sgmltag>: Duration of this link's last
+              green phase</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>This output is available since version 0.9.5</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
 
       <sect2 id="user_chp06-output-command_line">
@@ -7041,7 +7223,7 @@
         of traffic lights more deeply.</para>
 
         <sect3 id="user_chp06-management-traffic_lights-add_programs">
-          <title>Adding new Programs</title>
+          <title>Adding new TLS-Programs</title>
 
           <para>Since version 0.9.4 you may attach a new program to a tls
           after the network has been loaded. Defining a tls program is not
@@ -7526,7 +7708,7 @@
           </listitem>
         </itemizedlist>
 
-        <para></para>
+        <para>!!!</para>
       </sect2>
     </sect1>
 

@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/07/06 12:52:51  dkrajzew
+// final work on tls-switches
+//
 // Revision 1.13  2006/07/06 12:22:06  dkrajzew
 // tls switches added
 //
@@ -110,7 +113,7 @@ NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
     myNet(net)
 {
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
-    myActions["SaveTLSSwitches"] = EV_SAVETLSWITCHES;
+    myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
 }
 
 
