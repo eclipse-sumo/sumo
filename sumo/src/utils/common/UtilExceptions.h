@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/07/06 05:46:37  dkrajzew
+// added const declarations which were missing to make the methods be derived
+//
 // Revision 1.11  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -126,7 +129,7 @@ public:
     ~InvalidArgument() throw();
 
     /** returns the error description */
-    const std::string &msg();
+    const std::string &msg() const;
 
 private:
     /** the meaning of the argument within the context */
@@ -171,7 +174,7 @@ public:
     ~UnsupportedFeature() throw();
 
     /** returns the message */
-    const std::string &msg();
+    const std::string &msg() const;
 
 private:
     /** the message of the exception */
@@ -287,7 +290,7 @@ public:
     ~FileBuildError() throw();
 
     /** returns the message */
-    const std::string &msg();
+    const std::string &msg() const;
 
 private:
     /** the message of the exception */

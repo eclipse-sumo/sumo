@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/07/06 05:46:37  dkrajzew
+// added const declarations which were missing to make the methods be derived
+//
 // Revision 1.11  2005/10/17 09:22:54  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -135,7 +138,7 @@ InvalidArgument::~InvalidArgument() throw()
 }
 
 
-const string &InvalidArgument::msg()
+const string &InvalidArgument::msg() const
 {
     return _msg;
 }
@@ -171,7 +174,7 @@ UnsupportedFeature::~UnsupportedFeature() throw()
 
 
 const string &
-UnsupportedFeature::msg()
+UnsupportedFeature::msg() const
 {
     return _message;
 }
@@ -192,7 +195,7 @@ FileBuildError::~FileBuildError() throw()
 
 
 const string &
-FileBuildError::msg()
+FileBuildError::msg() const
 {
     return myMessage;
 }
