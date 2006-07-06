@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.10  2005/11/09 06:30:13  dkrajzew
 // subwindows are now deleted on (re)loading the simulation
 //
@@ -98,6 +101,7 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
+#include <guisim/GUIVehicleControl.h>
 #include "GUIDialog_GLObjChooser.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
@@ -163,7 +167,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         ids = GUIEdge::getIDs();
         break;
     case GLO_VEHICLE:
-        ids = GUIVehicle::getIDs();
+        ids = static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).getVehicleIDs();
         break;
     case GLO_ADDITIONAL:
         ids = GUIGlObject_AbstractAdd::getIDList();

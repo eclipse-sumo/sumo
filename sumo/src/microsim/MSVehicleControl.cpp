@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.12  2006/05/15 05:54:11  dkrajzew
 // debugging saving/loading of states
 //
@@ -83,12 +86,25 @@ namespace
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
 #include "MSSaveState.h"
+#include "MSGlobals.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/bindevice/BinaryInputDevice.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * some definitions (debugging only)
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -103,6 +119,10 @@ MSVehicleControl::MSVehicleControl()
 
 MSVehicleControl::~MSVehicleControl()
 {
+    for(VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+        delete (*i).second;
+    }
+    myVehicleDict.clear();
 }
 
 
@@ -139,17 +159,8 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     }
     myRunningVehNo--;
     myEndedVehNo++;
-    removeVehicle(v);
+    deleteVehicle(v);
 }
-
-
-void
-MSVehicleControl::removeVehicle(MSVehicle *v)
-{
-    MSVehicle::remove(v->getID());
-}
-
-
 
 
 void
@@ -267,7 +278,16 @@ MSVehicleControl::saveState(std::ostream &os, long what)
     FileHelpers::writeInt(os, myAbsVehTravelTime);
     MSVehicleType::dict_saveState(os, what);
     MSRoute::dict_saveState(os, what);
-    MSVehicle::dict_saveState(os, what);
+    //MSVehicle::dict_saveState(os, what);
+    {
+        FileHelpers::writeUInt(os, myVehicleDict.size());
+        for(VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
+            if((*it).second->hasCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)) {
+                (*it).second->saveState(os, what);
+            }
+        }
+        FileHelpers::writeString(os, "-----------------end---------------");
+    }
 }
 
 void
@@ -285,10 +305,139 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
     //os >> t;
     MSVehicleType::dict_loadState(bis, what);
     MSRoute::dict_loadState(bis, what);
-    MSVehicle::dict_loadState(bis, what);
+    {
+        // load vehicles
+        unsigned int size;
+        bis >> size;
+        string id;
+        do {
+            bis >> id;
+            if(id!="-----------------end---------------") {
+                SUMOTime lastLaneChangeOffset;
+                bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
+                unsigned int waitingTime;
+                bis >> waitingTime;
+                int repetitionNumber;
+                bis >> repetitionNumber;
+                int period;
+                bis >> period;
+                string routeID;
+                bis >> routeID;
+                MSRoute* route;
+                unsigned int desiredDepart;
+                bis >> desiredDepart;
+                string typeID;
+                bis >> typeID;
+                const MSVehicleType* type;
+                unsigned int routeOffset;
+                bis >> routeOffset;
+                unsigned int wasEmitted;
+                bis >> wasEmitted;
+
+                // !!! several things may be missing
+                unsigned int segIndex;
+                bis >> segIndex;
+                SUMOReal tEvent;
+                bis >> tEvent;
+                SUMOReal tLastEntry;
+                bis >> tLastEntry;
+
+                //
+                route = MSRoute::dictionary(routeID);
+                route->incReferenceCnt();
+                assert(route!=0);
+                type = MSVehicleType::dictionary(typeID);
+                assert(type!=0);
+                if(getVehicle(id)!=0) {
+                    DEBUG_OUT << "Error: vehicle was already added" << endl;
+                    continue;
+                }
+
+                MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
+                    route, desiredDepart, type, repetitionNumber, period);
+                v->myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] = (SUMOReal) wasEmitted;
+                while(routeOffset>0) {
+                    v->myCurrEdge++;
+                    routeOffset--;
+                }
+#ifdef HAVE_MESOSIM
+                v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
+                while(v->seg->get_index()!=segIndex) {
+                    v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
+                }
+                v->tEvent = tEvent;
+                v->tLastEntry = tLastEntry;
+                bool inserted;
+                bis >> inserted;
+                v->inserted = inserted!=0;
+#endif
+                if(!addVehicle(id, v)) {
+                    cout << "Could not build vehicle!!!" << endl;
+                    throw 1;
+                }
+                size--;
+            }
+        } while(id!="-----------------end---------------");
+        DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
+    }
+//    MSVehicle::dict_loadState(bis, what);
     MSRoute::clearLoadedState();
 }
 
+
+bool
+MSVehicleControl::addVehicle(const std::string &id, MSVehicle *v)
+{
+    VehicleDictType::iterator it = myVehicleDict.find(id);
+    if (it == myVehicleDict.end()) {
+        // id not in myVehicleDict.
+        myVehicleDict[id] = v;//.insert(VehicleDictType::value_type(id, ptr));
+        return true;
+    }
+    return false;
+}
+
+
+MSVehicle *
+MSVehicleControl::getVehicle(const std::string &id)
+{
+    VehicleDictType::iterator it = myVehicleDict.find(id);
+    if (it == myVehicleDict.end()) {
+        // id not in myVehicleDict.
+        return 0;
+    }
+    return it->second;
+}
+
+
+void
+MSVehicleControl::deleteVehicle(const std::string &id)
+{
+    VehicleDictType::iterator i = myVehicleDict.find(id);
+    MSVehicle *veh = (*i).second;
+    myVehicleDict.erase(id);
+    delete veh;
+}
+
+
+void
+MSVehicleControl::deleteVehicle(MSVehicle *veh)
+{
+    deleteVehicle(veh->getID());
+}
+
+
+MSVehicle *
+MSVehicleControl::detachVehicle(const std::string &id)
+{
+    VehicleDictType::iterator i = myVehicleDict.find(id);
+    if(i==myVehicleDict.end()) {
+        return 0;
+    }
+    MSVehicle *ret = (*i).second;
+    myVehicleDict.erase(id);
+    return ret;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

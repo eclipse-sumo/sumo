@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.79  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.78  2006/07/05 10:47:39  ericnicolay
 // add loading and removing of msphonenet
 //
@@ -519,8 +522,8 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myStep = startTimeStep;
-    myEmitter = new MSEmitControl("");
     myVehicleControl = new MSVehicleControl();
+    myEmitter = new MSEmitControl(*myVehicleControl);
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
     myJunctions = 0;
@@ -543,7 +546,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myStep = startTimeStep;
-    myEmitter = new MSEmitControl("");
+    myEmitter = new MSEmitControl(*vc);
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -820,12 +823,10 @@ MSNet::clearAll()
 {
     // clear container
     MSEdge::clear();
-    MSEmitControl::clear();
     MSJunction::clear();
     MSJunctionControl::clear();
     MSJunctionLogic::clear();
     MSLane::clear();
-    MSVehicle::clear();
     MSVehicleType::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
@@ -982,7 +983,7 @@ MSNet::buildRouteLoader(const std::string &file)
     //  a) not adding the vehicles directly
     //  b) not using colors
     // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, false, false));
+    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false));
 }
 
 

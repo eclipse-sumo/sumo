@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.63  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.62  2006/07/05 10:47:39  ericnicolay
 // add loading and removing of msphonenet
 //
@@ -667,12 +670,6 @@ protected:
 
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
-
-    // Definition of the container for items to initialise before starting
-//    typedef std::vector<PreStartInitialised*> PreStartVector;
-
-    // Container for items to initialise before starting
-    //PreStartVector myPreStartInitialiseItems;
 
     /// Timestep [sec]
     static SUMOReal myDeltaT;

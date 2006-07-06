@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.10  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -68,6 +71,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/gfx/RGBColor.h>
 
@@ -151,9 +155,13 @@ public:
     void saveState(std::ostream &os, long what);
     void loadState(BinaryInputDevice &bis, long what);
 
+    virtual bool addVehicle(const std::string &id, MSVehicle *v);
+    virtual MSVehicle *getVehicle(const std::string &id);
+    virtual void deleteVehicle(MSVehicle *v);
+    MSVehicle *detachVehicle(const std::string &id);
 
-protected:
-    virtual void removeVehicle(MSVehicle *v);
+private:
+    void deleteVehicle(const std::string &id);
 
 protected:
     /// The number of build vehicles
@@ -173,6 +181,12 @@ protected:
 
     /// The aggregated time vehicles needed to aacomplish their route
     long myAbsVehTravelTime;
+
+    /// Vehicle dictionary type
+    typedef std::map< std::string, MSVehicle* > VehicleDictType;
+
+    /// Dictionary of vehicles
+    VehicleDictType myVehicleDict;
 
 };
 

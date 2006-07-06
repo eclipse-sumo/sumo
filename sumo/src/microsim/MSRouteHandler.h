@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.13  2006/01/09 11:57:05  dkrajzew
 // bus stops implemented
 //
@@ -109,8 +112,8 @@ class MSRouteHandler : public SUMOSAXHandler, public SUMOBaseRouteHandler
 {
 public:
     /// standard constructor
-    MSRouteHandler(const std::string &file, bool addVehiclesDirectly,
-        bool wantsVehicleColor);
+    MSRouteHandler(const std::string &file, MSVehicleControl &vc,
+        bool addVehiclesDirectly, bool wantsVehicleColor);
 
     /// standard destructor
     virtual ~MSRouteHandler();
@@ -174,6 +177,8 @@ protected:
 
 
 protected:
+    MSVehicleControl &myVehicleControl;
+
     /// the emission time of the vehicle read last
     SUMOTime myLastDepart;
 

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/07/06 06:06:30  dkrajzew
+// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+//
 // Revision 1.25  2006/06/22 07:14:56  dkrajzew
 // debugged handling of previously loaded vehicles when loading states
 //
@@ -164,9 +167,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSRouteHandler::MSRouteHandler(const std::string &file,
+                               MSVehicleControl &vc,
                                bool addVehiclesDirectly,
                                bool wantsVehicleColor)
     : SUMOSAXHandler("sumo-network/routes", file),
+    myVehicleControl(vc),
     myLastDepart(0), myLastReadVehicle(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myWantVehicleColor(wantsVehicleColor),
@@ -439,27 +444,6 @@ MSRouteHandler::closeRoute()
 void
 MSRouteHandler::closeVehicle()
 {
-    /*
-    if(MSVehicle::dictionary(id)==0&&depart<beginTime_3) { //!!! only if multiple vehicles allowed
-        MSRoute *r = MSRoute::dictionary(routeid);
-        if(r!=0&&!r->inFurtherUse()) {
-            MSRoute::erase(routeid);
-        }
-    }
-
-    if(MSVehicle::dictionary(id)!=0||depart<beginTime_3) { //!!! only if multiple vehicles allowed
-        /*
-        MSRoute *r = MSRoute::dictionary(routeid);
-        if(r!=0&&lastUnadded!=) {
-            if(!r->inFurtherUse()) {
-                MSRoute::erase(routeid);
-            }
-        }
-        /
-        eturn 0;
-    }
-    */
-
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle's type
     MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
@@ -479,7 +463,7 @@ MSRouteHandler::closeVehicle()
     }
     //
     MSVehicle *vehicle = 0;
-    if(MSVehicle::dictionary(myActiveVehicleID)==0) {
+    if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
         vehicle =
             MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
                 route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
@@ -489,7 +473,7 @@ MSRouteHandler::closeVehicle()
                 myCurrentVehicleColor.green(),
                 myCurrentVehicleColor.blue());
         }
-        MSVehicle::dictionary(myActiveVehicleID, vehicle);
+        myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
     } else {
         if(!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
@@ -512,7 +496,6 @@ MSRouteHandler::closeVehicle()
     myVehicleStops.clear();
     myLastDepart = myCurrentDepart;
     myCurrentEmbeddedRoute = 0;
-//    return vehicle;
 }
 
 
