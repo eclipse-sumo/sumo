@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/07/07 11:51:51  dkrajzew
+// further work on lane changing
+//
 // Revision 1.16  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -159,6 +162,8 @@ public:
 
 
     SUMOReal getDensity() const;
+    SUMOReal getVehLenSum() const;
+
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/07/07 11:51:51  dkrajzew
+// further work on lane changing
+//
 // Revision 1.38  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -354,13 +357,21 @@ SUMOReal
 GUILane::getDensity() const
 {
     _lock.lock();
-    SUMOReal ret = 0;
-    for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
-        ret += (*i)->getLength();
-    }
+    SUMOReal ret = MSLane::getDensity();
     _lock.unlock();
-    return ret / myLength;
+    return ret;
 }
+
+
+SUMOReal
+GUILane::getVehLenSum() const
+{
+    _lock.lock();
+    SUMOReal ret = MSLane::getVehLenSum();
+    _lock.unlock();
+    return ret;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.56  2006/07/07 11:51:52  dkrajzew
+// further work on lane changing
+//
 // Revision 1.55  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -850,6 +853,7 @@ public:
         float hindernisPos;
         float wish;
         int dir;
+        bool t1;
     };
 
     std::vector<std::vector<LaneQ> > getBestLanes() const;

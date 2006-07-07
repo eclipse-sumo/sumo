@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.82  2006/07/07 11:51:52  dkrajzew
+// further work on lane changing
+//
 // Revision 1.81  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -1162,6 +1165,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         // get the next link used
         MSLinkCont::const_iterator link =
             myLane->succLinkSec( *this, view, *nextLane );
+
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if(nextLane->isLinkEnd(link)) {
@@ -2009,39 +2013,23 @@ MSVehicle::getBestLanes() const
             const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1));
             if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
 //            if(onAllowed((*lanes)[i])) {
-                currQ.length = (*lanes)[i]->length();
+                currQ.t1 = true;
+                //currQ.length = (*lanes)[i]->length();
             } else {
-                currQ.length = 0;
+                currQ.t1 = false;
+                //currQ.length = 0;
             }
+            currQ.length = (*lanes)[i]->length();
             currQ.alllength = (*lanes)[i]->length();
             currQ.lane = (*lanes)[i];
-            currQ.v = 0;
             currQ.hindernisPos = (*lanes)[i]->getDensity() * currQ.lane->length();
-            currQ.wish = 0;
+            currQ.v = (*lanes)[i]->getVehLenSum();
+            currQ.wish = 1;
             currQ.dir = 0;
         }
         ce++;
         seen++;
         dist += (*lanes)[0]->length();
-    }
-    // compute moving direction
-    {
-        std::vector<std::vector<LaneQ> >::iterator i;
-        for(i=ret.begin(); i!=ret.end(); ++i) {
-            std::vector<LaneQ> &curr = *i;
-            for(int j=0; j<curr.size(); ++j) {
-                if(curr[j].length!=0) {
-                    // vehicle may use this lane
-                    continue;
-                }
-                // vehicle may not use this lane; compute the direction to a usable
-                for(int k=0; k<curr.size(); k++) {
-                    if(k!=j&&curr[k].length!=0) {
-                        curr[j].dir = k-j;
-                    }
-                }
-            }
-        }
     }
     // sum up consecutive lengths
     {
@@ -2051,27 +2039,37 @@ MSVehicle::getBestLanes() const
             std::vector<LaneQ> &curr = *i;
             for(int j=0; j<curr.size(); ++j) {
                 MSLane *lane = curr[j].lane;
-                if(lane->getID()=="905002550_50_1565_1") {
-                    int bla = 0;
-                }
                 const MSLinkCont &lc = lane->getLinkCont();
                 for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     MSLane *c = (*k)->getLane();
                     for(std::vector<LaneQ>::iterator l=(*(i-1)).begin(); l!=(*(i-1)).end(); ++l) {
-                        if((*l).lane==c) {
-            if((*l).lane->getID()=="905002548_1") {
-                int bla = 0;
-            }
+                        if((*l).lane==c&&curr[j].t1) {
                             curr[j].length += (*l).length;
+                            curr[j].v += (*l).v;
+                            curr[j].wish++;// += (*l).length;
                             curr[j].alllength = (*l).alllength;
-                            /*
-                            curr[j].hindernisPos =
-                                0.5 * curr[j].hindernisPos
-                                + 0.5 * (*l).hindernisPos;
-                                */
                         }
                     }
                 }
+            }
+        }
+    }
+    // compute moving direction
+    {
+        std::vector<std::vector<LaneQ> >::iterator i;
+        for(i=ret.begin(); i!=ret.end(); ++i) {
+            std::vector<LaneQ> &curr = *i;
+            int best = 0;
+            SUMOReal bestLength = 0;
+            int j;
+            for(j=0; j<curr.size(); ++j) {
+                if(curr[j].length>bestLength) {
+                    bestLength = curr[j].length;
+                    best = j;
+                }
+            }
+            for(j=0; j<curr.size(); ++j) {
+                curr[j].dir = best-j;
             }
         }
     }

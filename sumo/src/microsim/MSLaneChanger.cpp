@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/07/07 11:51:52  dkrajzew
+// further work on lane changing
+//
 // Revision 1.28  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -339,7 +342,7 @@ MSLaneChanger::change()
     std::vector<std::vector<MSVehicle::LaneQ> > preb = vehicle->getBestLanes();
     assert(preb[0].size()==myChanger.size());
     for(int i=0; i<myChanger.size(); i++) {
-        preb[0][i].hindernisPos = myChanger[i].dens;
+        preb[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
     }
 
     /*

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.41  2006/07/07 11:51:51  dkrajzew
+// further work on lane changing
+//
 // Revision 1.40  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -455,15 +458,6 @@ public:
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
 
-    /* Adds Data for MeanValue calculation. Use this if vehicle
-        leaves a lane during move ( hasFinishedLane=true) or during
-        lanechange (false) or if interval is over (false). */
-/*    virtual void addVehicleData( SUMOReal contTimesteps,
-        unsigned discreteTimesteps, SUMOReal speedSum, SUMOReal speedSquareSum,
-        unsigned index, bool hasFinishedEntireLane, bool hasLeftLane,
-        bool hasEnteredLane, SUMOReal travelTimesteps = 0 );
-*/
-
     /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
     MSLinkCont::const_iterator succLinkOneLane(const MSEdge* nRouteEdge,
         const MSLane& succLinkSource) const;
@@ -546,6 +540,8 @@ public:
     const Position2DVector &getShape() const { return myShape; }
 
     virtual SUMOReal getDensity() const;
+    virtual SUMOReal getVehLenSum() const;
+
 
     MSLane * const getLeftLane() const;
     MSLane * const getRightLane() const;
@@ -571,13 +567,6 @@ protected:
                                  second_argument_type veh2 ) const;
     };
 
-
-    /** @brief Find nearest vehicle on neighboured lanes (there may be more than one) which isn't allowed to be overtaken.
-        Position and speed are conditional parameters. Returns veh if there is no
-        neigh to regard. */
-    const MSVehicle* findNeigh( MSVehicle* veh,
-                                MSEdge::LaneCont::const_iterator first,
-                                MSEdge::LaneCont::const_iterator last );
 
     /** @brief Insert a vehicle into the lane's vehicle buffer.
         After processing done from moveCritical, when a vehicle exits it's lane.
@@ -605,9 +594,6 @@ protected:
 
     /** Resets the MeanData container at the beginning of a new interval.*/
     virtual void resetMeanData( unsigned index );
-
-    /** Retrieves Data from all vehicles on the lane at the end of an interval. */
-//    virtual void collectVehicleData( unsigned index );
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();

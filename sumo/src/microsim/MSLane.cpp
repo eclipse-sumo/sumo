@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.65  2006/07/07 11:51:51  dkrajzew
+// further work on lane changing
+//
 // Revision 1.64  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -1211,55 +1214,35 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
 
+    std::vector<MSLinkCont::const_iterator> valid;
     // the link must be from a lane to the right or left from the current lane
     //  we have to do it via the edge
-    for ( MSLinkCont::const_iterator link = succLinkSource.myLinks.begin();
-            link != succLinkSource.myLinks.end() ; ++link ) {
-
+    MSLinkCont::const_iterator link;
+    for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link ) {
         if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
-            return link;
+            valid.push_back(link);
+//            return link;
         }
     }
-    return succLinkSource.myLinks.end();
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-const MSVehicle*
-MSLane::findNeigh( MSVehicle* veh,
-                   MSEdge::LaneCont::const_iterator first,
-                   MSEdge::LaneCont::const_iterator last )
-{
-    /* !!!
-    MSVehicle* neighbour = veh;
-    SUMOReal vNeighEqual( 0 );
-    for ( MSEdge::LaneCont::const_iterator neighLane = first;
-          neighLane != last; ++neighLane ) {
-
-        VehCont::const_iterator tmpNeighbour =
-            find_if( ( *neighLane )->myVehicles.begin(),
-                     ( *neighLane )->myVehicles.end(),
-                     bind2nd( PosGreater(), veh ) );
-        if ( tmpNeighbour == ( *neighLane )->myVehicles.end() ) {
-
-            continue;
-        }
-        // neighbour found
-        if ( (*tmpNeighbour)-> congested() ) {
-            continue;
-        }
-        SUMOReal tmpVNeighEqual = veh->vNeighEqualPos( **tmpNeighbour );
-        if ( neighbour == veh || tmpVNeighEqual < vNeighEqual ) {
-
-            neighbour   = *tmpNeighbour;
-            vNeighEqual = tmpVNeighEqual;
+    if(valid.size()==0) {
+        return succLinkSource.myLinks.end();
+    }
+    const MSEdge* nRouteEdge2 = veh.succEdge( nRouteSuccs+1 );
+    const MSEdge::LaneCont *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2);
+    if(nRouteEdge2==0||next_allowed==0) {
+        return *(valid.begin());
+    }
+    size_t best = 0;
+    SUMOReal bestdist = 0;
+    for(std::vector<MSLinkCont::const_iterator>::iterator i=valid.begin(); i!=valid.end(); ++i) {
+        if ( find(next_allowed->begin(), next_allowed->end(), ( **i )->getLane())!=next_allowed->end()) {
+            return *i;
         }
     }
-    return neighbour;
-    */
-    throw 1;
+    return *(valid.begin());
+//    return succLinkSource.myLinks.end();
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1271,26 +1254,6 @@ MSLane::resetMeanData( unsigned index )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-/*
-void
-MSLane::addVehicleData( SUMOReal contTimesteps,
-                        unsigned discreteTimesteps,
-                        SUMOReal speedSum,
-                        SUMOReal speedSquareSum,
-                        unsigned index,
-                        bool hasFinishedEntireLane,
-                        bool hasLeftLane,
-                        bool hasEnteredLane,
-                        SUMOReal travelTimesteps)
-{
-    /*
-    assert(index<myMeanData.size());
-    myMeanData[index].addVehicleData(contTimesteps, discreteTimesteps,
-        speedSum, speedSquareSum, hasFinishedEntireLane,
-        hasLeftLane, hasEnteredLane, travelTimesteps);
-        */
-//}
-
 
 void
 MSLane::addMean2(SUMOReal v, SUMOReal l)
@@ -1304,21 +1267,6 @@ MSLane::addMean2(SUMOReal v, SUMOReal l)
         }
     }
 }
-
-
-/////////////////////////////////////////////////////////////////////////////
-/*
-void
-MSLane::collectVehicleData( unsigned index )
-{
-    /*
-    for ( VehCont::iterator it = myVehicles.begin();
-          it != myVehicles.end(); ++it ) {
-
-        (*it)->dumpData( index );
-    }
-    */
-//}
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1340,21 +1288,6 @@ MSLane::getLinkCont() const
 }
 
 /////////////////////////////////////////////////////////////////////////////
-/*
-void
-MSLane::init()
-{
-    // reset mean data information
-    myMeanData.clear();
-    size_t noIntervals = myNet.getNDumpIntervalls();
-    myMeanData.insert( myMeanData.end(), noIntervals, MSLaneMeanDataValues() );
-    // empty vehicle buffers
-    myVehicles.clear();
-    myTmpVehicles.clear();
-    // remove information about the approaching vehicle
-    myApproaching = 0;
-}
-*/
 
 const std::string &
 MSLane::getID() const
@@ -1538,6 +1471,17 @@ MSLane::getDensity() const
         ret += (*i)->getLength();
     }
     return ret / myLength;
+}
+
+
+SUMOReal
+MSLane::getVehLenSum() const
+{
+    SUMOReal ret = 0;
+    for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+        ret += (*i)->getLength();
+    }
+    return ret;
 }
 
 

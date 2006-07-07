@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/07/07 11:51:52  dkrajzew
+// further work on lane changing
+//
 // Revision 1.13  2006/07/06 07:13:23  dkrajzew
 // applied current microsim-APIs
 //
@@ -156,8 +159,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
-            neighDist = currE[p+bestLaneOffset].length;
-            neighExtDist = currE[p+bestLaneOffset].alllength;
+            neighDist = currE[p-1].length;
+            neighExtDist = currE[p-1].alllength;
             best = currE[p+bestLaneOffset];
             currIdx = p;
         }
@@ -232,7 +235,12 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         : myVehicle.getSpeed() * 5;
     rv += myVehicle.getLength() * 2.;
 
-    SUMOReal tdist = best.lane->length()-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    /*
+    if(bestLaneOffset<0) {
+        myChangeProbability += 1. / (tdist / rv);
+    }
+    */
     if( bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
@@ -249,7 +257,9 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    if( bestLaneOffset>0&&currentDistDisallows(currentDist, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
+    SUMOReal maxJam = MAX2(currE[currIdx-1].hindernisPos, currE[currIdx].hindernisPos);
+    SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
+    if( bestLaneOffset>0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
@@ -260,7 +270,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(bestLaneOffset==0&&(neighDist<rv||currE[currIdx-1].length<currentDist)) {
+    if(bestLaneOffset==0&&(neighLeftPlace<rv/*||currE[currIdx-1].length<currentDist*/)) {
         return ret;
     }
 
@@ -340,7 +350,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         myChangeProbability -= (SUMOReal) ((neighLaneVSafe-vmax) / (vmax));
     }
 
-    if(myChangeProbability<-2./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
+    if(myChangeProbability<-2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) {//./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
         return ret | LCA_RIGHT|LCA_SPEEDGAIN;
     }
     // --------
@@ -375,8 +385,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
-            neighDist = currE[p+bestLaneOffset].length;
-            neighExtDist = currE[p+bestLaneOffset].alllength;
+            neighDist = currE[p+1].length;
+            neighExtDist = currE[p+1].alllength;
             best = currE[p+bestLaneOffset];
             currIdx = p;
         }
@@ -451,7 +461,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         : myVehicle.getSpeed() * 5;
     lv += myVehicle.getLength() * 2.;
 
-    SUMOReal tdist = best.lane->length()-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    /*
+    if(bestLaneOffset>0) {
+        myChangeProbability -= 1. / (tdist / lv);
+    }
+    */
     if( bestLaneOffset>0
         &&
         currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
@@ -468,7 +483,9 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    if( bestLaneOffset<0&&currentDistDisallows(currentDist, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
+    SUMOReal maxJam = MAX2(currE[currIdx+1].hindernisPos, currE[currIdx].hindernisPos);
+    SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
+    if( bestLaneOffset<0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
@@ -479,7 +496,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(bestLaneOffset==0&&(neighDist<lv||currE[currIdx+1].length<currentDist)) {
+    if(bestLaneOffset==0&&(neighLeftPlace<lv/*||currE[currIdx+1].length<currentDist*/)) {
         // ... let's not change the lane
         return ret;
     }
@@ -551,7 +568,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         myChangeProbability += (SUMOReal)
             ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
-    if(myChangeProbability>2./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // .1
+    //if(myChangeProbability>2./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // .1
+    if(myChangeProbability>.2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) { // .1
         return ret | LCA_LEFT|LCA_SPEEDGAIN|LCA_URGENT;
     }
     // --------

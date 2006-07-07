@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/07/07 11:51:51  dkrajzew
+// further work on lane changing
+//
 // Revision 1.12  2006/07/06 06:26:44  dkrajzew
 // added blinker visualisation and vehicle tracking (unfinished)
 //
@@ -209,12 +212,12 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                     if(preb[o].lane==&veh->getLane()) {
                         midx = o;
                     }
-                    maxLen = MAX2(maxLen, preb[o].alllength);
+                    maxLen = MAX2(maxLen, preb[o].length);
                 }
                 for(o=0; o<preb.size(); o++) {
                     glBegin(GL_LINES);
                     glVertex2f(0.4 * (SUMOReal) (o-midx), 0);
-                    glVertex2f(0.4 * (SUMOReal) (o-midx), preb[o].alllength/maxLen/2.);
+                    glVertex2f(0.4 * (SUMOReal) (o-midx), preb[o].length/maxLen/2.);
                     glEnd();
                 }
                 /*
