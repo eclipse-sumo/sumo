@@ -7008,7 +7008,7 @@
           begin, end and duration. An entry is written into the file as soon a
           green phase of a link ends. To enable writing tls switch information
           you have to add the following definition into one of your additional
-          files: <sgmltag>&lt;timed_event type="SaveTLSSwitches"
+          files: <sgmltag>&lt;timed_event type="SaveTLSSwitchTimes"
           source="<replaceable>&lt;TLS_ID&gt;</replaceable>"
           dest="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag>.
           The attributes have herein the following meanings:</para>
