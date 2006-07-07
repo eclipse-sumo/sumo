@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/07/07 11:57:21  dkrajzew
+// further work on VISUM-import
+//
 // Revision 1.6  2006/07/06 06:16:38  dkrajzew
 // further debugging of VISUM-import (unfinished)
 //
@@ -104,54 +107,16 @@ NIVisumParser_LanesConnections::myDependentReport()
         }
         // get the from-edge
         NBEdge *fromEdge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFENABBIEGER", "VONSTRNR", "VONSTR", node);
-        if(fromEdge->getID().substr(0, string("905002548").length())=="905002548") {
-            int bla = 0;
-        }
-//        NBEdge *fromEdge2 = myEdgeCont.retrieve(fromEdge->getID() + "_s_" + node->getID());
-//        if(fromEdge2==0) fromEdge2 = fromEdge;
         NBEdge *toEdge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFENABBIEGER", "NACHSTRNR", "NACHSTR", node);
-//        NBEdge *toEdge2 = myEdgeCont.retrieve(toEdge->getID() + "_s_" + node->getID());
-//        if(toEdge2==0) toEdge2 = toEdge;
         if(fromEdge==0||toEdge==0) {
             return;
         }
 
         int fromLaneOffset = 0;//fromEdge->getNoLanes();
         if(!node->hasIncoming(fromEdge)) {
-            fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
             fromLaneOffset = fromEdge->getNoLanes();
-            /*
-            string sid;
-            if(fromEdge->getID()[0]=='-') {
-                sid = fromEdge->getID().substr(1);
-            } else {
-                sid = "-" + fromEdge->getID();
-            }
-            fromEdge = myEdgeCont.retrieve(sid);
-            fromEdge2 = myEdgeCont.retrieve(fromEdge->getID() + "_s_" + node->getID());
-            if(fromEdge2==0) fromEdge2 = fromEdge;
-            /*
-            if(fromEdge==0) {
-                if(sid.find("_s")!=string::npos) {
-                    sid = sid.substr(0, sid.length()-2);
-                } else {
-                    sid = sid + "_s";
-                }
-                fromEdge = myEdgeCont.retrieve(sid);
-            }
-            */
+            fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
         } else {
-            /*
-            string sid;
-            if(fromEdge->getID()[0]=='-') {
-                sid = fromEdge->getID().substr(1);
-            } else {
-                sid = "-" + fromEdge->getID();
-            }
-            NBEdge *tmp = myEdgeCont.retrieve(sid);
-            NBEdge *tmp2 = myEdgeCont.retrieve(tmp->getID() + "_s_" + node->getID());
-            if(tmp2!=0) tmp = tmp2;
-            */
             fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
             NBEdge *tmp = myEdgeCont.retrieve(fromEdge->getID().substr(0, fromEdge->getID().find('_')));
             fromLaneOffset = tmp->getNoLanes();
@@ -161,55 +126,11 @@ NIVisumParser_LanesConnections::myDependentReport()
         if(!node->hasOutgoing(toEdge)) {
             toLaneOffset = toEdge->getNoLanes();
             toEdge = getReversedContinuating(myEdgeCont, toEdge, node);
-            /*
-            string sid;
-            if(toEdge->getID()[0]=='-') {
-                sid = toEdge->getID().substr(1);
-            } else {
-                sid = "-" + toEdge->getID();
-            }
-            toEdge = myEdgeCont.retrieve(sid);
-            toEdge2 = myEdgeCont.retrieve(toEdge->getID() + "_s_" + node->getID());
-            if(toEdge2==0) toEdge2 = toEdge;
-            /*
-            if(toEdge==0) {
-                if(sid.find("_s")!=string::npos) {
-                    sid = sid.substr(0, sid.length()-2);
-                } else {
-                    sid = sid + "_s";
-                }
-                toEdge = myEdgeCont.retrieve(sid);
-            }
-            */
         } else {
-//            toEdge = getReversedContinuating(myEdgeCont, toEdge, node);
-            /*
-            string sid;
-            if(toEdge->getID()[0]=='-') {
-                sid = toEdge->getID().substr(1);
-            } else {
-                sid = "-" + toEdge->getID();
-            }
-            NBEdge *tmp = myEdgeCont.retrieve(sid);
-            NBEdge *tmp2 = myEdgeCont.retrieve(tmp->getID() + "_s_" + node->getID());
-            if(tmp2!=0) tmp = tmp2;
-            */
             NBEdge *tmp = myEdgeCont.retrieve(toEdge->getID().substr(0, toEdge->getID().find('_')));
             toLaneOffset = tmp->getNoLanes();
         }
         //
-        /*
-        if(myEdgeCont.retrieve(fromEdge->getID() + "_s")!=0) {
-            fromEdge = myEdgeCont.retrieve(fromEdge->getID() + "_s");
-            assert(fromEdge!=0);
-        }
-        if(myEdgeCont.retrieve(toEdge->getID() + "_s")!=0) {
-            toEdge = myEdgeCont.retrieve(toEdge->getID() + "_s");
-            assert(toEdge!=0);
-        }
-        */
-
-
         // get the from-lane
         string fromLaneS =
             NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));

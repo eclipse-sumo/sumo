@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/07/07 11:54:49  dkrajzew
+// further work on VISUM-import
+//
 // Revision 1.24  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -1346,6 +1349,20 @@ NBNode::computeLanes2Lanes()
     if(_outgoingEdges->size()==0) {
         for(i=_incomingEdges->rbegin(); i!=_incomingEdges->rend(); i++) {
             (*i)->markAsInLane2LaneState();
+        }
+    }
+    // ... the next extension is to allow vehicles move from a lane to different
+    //  next lanes. We take a look at each combination of from-lane and to-lane
+    //  and if a lane beside the to-lane is free we will also add a connection
+    //  to it as long as it is not approached by any other lane from the same edge
+    if(_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+        vector<NBEdge*>::iterator i2;
+        for(i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+            NBEdge *currentIncoming = *i2;
+            if(currentIncoming->getID()=="905002550") {
+                int bla = 0;
+            }
+            currentIncoming->addAdditionalConnections();
         }
     }
 }

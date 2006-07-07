@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/07/07 11:54:49  dkrajzew
+// further work on VISUM-import
+//
 // Revision 1.21  2006/03/17 11:03:05  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -527,7 +530,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         if(distances.find(*i)!=distances.end()) {
             continue;
         }
-        assert(!simpleContinuation);
+//        assert(!simpleContinuation);
         EdgeVector::const_iterator cwi = i;
         cwi++;
         if(cwi==newAll.end()) {

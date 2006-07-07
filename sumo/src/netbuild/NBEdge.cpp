@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.67  2006/07/07 11:54:49  dkrajzew
+// further work on VISUM-import
+//
 // Revision 1.66  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -1625,11 +1628,11 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
         //  comes from the same lane as the current to add
         LaneVector::iterator i = find(lanes.begin(), lanes.end(), src_lane);
         // if not, append
-        if(i==lanes.end())
+//!!!!        if(i==lanes.end())
             lanes.push_back(src_lane);
         // otherwise, mark as known
-        else
-            known = true;
+//!!!!        else
+//!!!!            known = true;
         _succeedinglanes[dest_edge] = lanes;
     }
     // append current connection only if no equal is already known
@@ -2698,6 +2701,59 @@ void
 NBEdge::recheckEdgeGeomForDoublePositions()
 {
     myGeom.removeDoublePoints();
+}
+
+
+void
+NBEdge::addAdditionalConnections()
+{
+    // go through the lanes
+    for(size_t i=0; i<_nolanes; i++) {
+        // get the connections from the current lane
+        EdgeLaneVector reachableFromLane = _reachable[i];
+        // go through these connections
+        for(size_t j=0; j<reachableFromLane.size(); ++j) {
+            // get the current connection
+            const EdgeLane &el = reachableFromLane[j];
+            // get all connections that approach the current destination edge
+            const std::vector<size_t> &other = _ToEdges[el.edge];
+            // check whether we may add a connection on the right side
+            //  we may not do this directly because the containers will change
+            //  during the addition
+            bool mayAddRight = false;
+            bool mayAddRight2 = false;
+            bool mayAddLeft = false;
+            bool mayAddLeft2 = false;
+            if(i!=0 && el.lane!=0 && find(other.begin(), other.end(), i-1)==other.end()) {
+                mayAddRight = true;
+            }
+            if(i==0 && el.lane!=0) {
+                mayAddRight2 = true;
+            }
+            if(i+1<_nolanes && el.lane+1<el.edge->getNoLanes() && find(other.begin(), other.end(), i+1)==other.end()) {
+                mayAddLeft = true;
+            }
+            if(i+1==_nolanes && el.lane+1<el.edge->getNoLanes()) {
+                mayAddLeft2 = true;
+            }
+            // add the connections if possible
+            /*
+            if(mayAddRight) {
+                addLane2LaneConnection(i-1, el.edge, el.lane-1, true);
+            }
+            if(mayAddRight2) {
+                addLane2LaneConnection(0, el.edge, el.lane-1, true);
+            }
+            */
+            if(mayAddLeft) {
+                addLane2LaneConnection(i+1, el.edge, el.lane+1, false);
+            }
+            if(mayAddLeft2) {
+                addLane2LaneConnection(i, el.edge, el.lane+1, false);
+            }
+            reachableFromLane = _reachable[i];
+        }
+    }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

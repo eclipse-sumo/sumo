@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.47  2006/07/07 11:54:49  dkrajzew
+// further work on VISUM-import
+//
 // Revision 1.46  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -528,6 +531,8 @@ public:
 	void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void recheckEdgeGeomForDoublePositions();
+
+    void addAdditionalConnections();
 
 private:
     /**
