@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/07/10 09:04:22  dkrajzew
+// dump-begin/dump-end renamed to dump-begins/dump-ends
+//
 // Revision 1.8  2006/06/13 13:16:49  dkrajzew
 // made output about loading a saved state more pretty
 //
@@ -358,7 +361,7 @@ NLBuilder::buildNet()
         m_pOptions.getString("dump-basename"),
         m_pOptions.getIntVector("lanedump-intervals"),
         m_pOptions.getString("lanedump-basename"),
-        m_pOptions.getIntVector("dump-begin"), m_pOptions.getIntVector("dump-end"));
+        m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
     myNet.closeBuilding(
         edges,
         myJunctionBuilder.build(),

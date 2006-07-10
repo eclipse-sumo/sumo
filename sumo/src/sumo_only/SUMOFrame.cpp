@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2006/07/10 09:04:23  dkrajzew
+// dump-begin/dump-end renamed to dump-begins/dump-ends
+//
 // Revision 1.44  2006/05/18 13:09:14  awegener
 // *** empty log message ***
 //
@@ -235,8 +238,8 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("lanedump-intervals", new Option_IntVector(""));
     oc.doRegister("lanedump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
-    oc.doRegister("dump-begin", new Option_IntVector(""));
-    oc.doRegister("dump-end", new Option_IntVector(""));
+    oc.doRegister("dump-begins", new Option_IntVector(""));
+    oc.doRegister("dump-ends", new Option_IntVector(""));
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
@@ -298,7 +301,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     //
 
-	//remote port 0 if not used 
+	//remote port 0 if not used
 	oc.doRegister("remote-port", new Option_Integer(0));
 
     // add rand and dev options

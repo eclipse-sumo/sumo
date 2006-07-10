@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/07/10 09:04:19  dkrajzew
+// dump-begin/dump-end renamed to dump-begins/dump-ends
+//
 // Revision 1.18  2006/07/10 06:11:18  dkrajzew
 // mean data reworked
 //
@@ -210,11 +213,11 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if(!myAmEdgeBased) {
-        dev.writeString("   <edge id=\"").writeString(edge.getID()).writeString("\">\n");
+        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString("\">\n");
         for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
             writeLane(dev, *(*lane), startTime, stopTime);
         }
-        dev.writeString("   </edge>\n");
+        dev.writeString("      </edge>\n");
     } else {
         SUMOReal traveltimeS = 0;
         SUMOReal meanSpeedS = 0;
@@ -269,7 +272,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     conv(meanData, (stopTime-startTime+1),
         lane.myLength, lane.myMaxSpeed,
         traveltime, meanSpeed, meanDensity, meanOccupancy);
-    dev.writeString("      <lane id=\"").writeString(lane.getID()).writeString(
+    dev.writeString("         <lane id=\"").writeString(lane.getID()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
         "\" nSamples=\"").writeString(toString(meanData.nSamples)).writeString(
         "\" density=\"").writeString(toString(meanDensity)).writeString(

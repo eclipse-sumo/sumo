@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2006/07/10 09:04:16  dkrajzew
+// dump-begin/dump-end renamed to dump-begins/dump-ends
+//
 // Revision 1.23  2006/05/19 12:34:19  awegener
 // --remote-port added
 //
@@ -149,10 +152,8 @@ char *help[] = {
     "                                    of lane-based net loads",
     "                                   To use in c. with --lanedump-basename",
     " ",
-    "   --dump-begin UINT[;UINT]*       List of begin time steps dump data will",
-    "                                    be written",
-    "   --dump-end UINT[;UINT]*         List of end time steps dump data will",
-    "                                    be written",
+    "   --dump-begins UINT[;UINT]*      Begin time steps dump for writing dumps",
+    "   --dump-ends UINT[;UINT]*        End time steps dump for writing dumps",
     " ",
     "   --netstate-dump  FILE           FILE is the raw output destination file",
     "   --dump-empty-edges              Forces SUMO to write edges in dump even",
@@ -201,7 +202,7 @@ char *help[] = {
     " ",
     " RemoteServer Options:",
     "   --remote-port INT               Server port for remote controlled simulation runs",
-    
+
     0
 };
 
