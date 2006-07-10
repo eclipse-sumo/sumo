@@ -99,6 +99,10 @@ SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSState.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\trigger\MSBusStop.cpp
 # End Source File
 # Begin Source File
@@ -304,6 +308,10 @@ SOURCE=..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSState.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSSwitches.h
 # End Source File
 # Begin Source File
 
