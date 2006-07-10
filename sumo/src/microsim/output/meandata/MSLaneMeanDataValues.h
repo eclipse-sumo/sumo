@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/07/10 06:11:18  dkrajzew
+// mean data reworked
+//
 // Revision 1.5  2005/09/22 13:45:52  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -56,28 +59,20 @@ struct MSLaneMeanDataValues
 {
     MSLaneMeanDataValues()
         : nVehEntireLane( 0 ),
-        nVehContributed( 0 ),
+        nSamples( 0 ),
         nVehLeftLane( 0 ),
         nVehEnteredLane( 0 ),
-        contTimestepSum( 0 ),
-        discreteTimestepSum( 0 ),
         speedSum( 0 ),
-        speedSquareSum( 0 ),
-        traveltimeStepSum( 0 ),
         vehLengthSum( 0 ),
         haltSum(0)
         {}
 
     void reset() {
         nVehEntireLane = 0;
-        nVehContributed = 0;
+        nSamples = 0;
         nVehLeftLane = 0;
         nVehEnteredLane = 0;
-        contTimestepSum = 0;
-        discreteTimestepSum = 0;
         speedSum = 0;
-        speedSquareSum = 0;
-        traveltimeStepSum = 0;
         vehLengthSum = 0;
         haltSum = 0;
     }
@@ -85,8 +80,8 @@ struct MSLaneMeanDataValues
     /// the number of vehicles that passed the entire lane
     unsigned nVehEntireLane;
 
-    /// the number of vehicles that made up the aggregated data
-    SUMOReal nVehContributed;
+    /// the number of samples (vehicle hits) that made up the aggregated data
+    SUMOReal nSamples;
 
     /// the number of vehicles that left this lane within the
     /// sample intervall
@@ -96,26 +91,8 @@ struct MSLaneMeanDataValues
     /// sample intervall
     unsigned nVehEnteredLane;
 
-    /// the number of time steps
-    SUMOReal contTimestepSum;
-
-    /// as contTimestepSum but as an integer
-    unsigned discreteTimestepSum;
-
     /// the sum of the speeds the vehicles had ont the ...
     SUMOReal speedSum;
-
-    /// the sum of squared speeds the vehicles had ont the ...
-    SUMOReal speedSquareSum;
-
-    /// traveltime sum from vehicles that entirely passed the lane
-    SUMOReal traveltimeStepSum;
-
-/*    void  addVehicleData(
-        SUMOReal contTimesteps, unsigned discreteTimesteps, SUMOReal speedSum,
-        SUMOReal speedSquareSum, bool hasFinishedEntireLane,
-        bool hasLeftLane, bool hasEnteredLane, SUMOReal travelTimesteps);
-        */
 
     unsigned haltSum;
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/07/10 06:11:18  dkrajzew
+// mean data reworked
+//
 // Revision 1.17  2006/07/06 07:18:34  dkrajzew
 // applied current microsim-APIs
 //
@@ -218,41 +221,31 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         SUMOReal meanDensityS = 0;
         SUMOReal noStopsS = 0;
         SUMOReal nVehS = 0;
+        SUMOReal meanOccupancyS = 0;
         for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
             MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
             // calculate mean data
             SUMOReal traveltime = -42;
             SUMOReal meanSpeed = -43;
             SUMOReal meanDensity = -45;
-            if(meanData.nVehContributed==0) {
-                assert((*lane)->myMaxSpeed>=0);
-                traveltime = (*lane)->myLength / (*lane)->myMaxSpeed;
-                meanSpeed = (*lane)->myMaxSpeed;
-                meanDensity = 0;
-            } else {
-                meanSpeed = meanData.speedSum / (SUMOReal) meanData.nVehContributed;
-                if(meanSpeed==0) {
-                    traveltime = std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
-                } else {
-                    traveltime = (*lane)->myLength / meanSpeed;
-                }
-                assert((SUMOReal) (stopTime-startTime+1)!=0);
-                assert((*lane)->myLength!=0);
-                meanDensity = (SUMOReal) meanData.vehLengthSum / //.nVehContributed /
-                    (SUMOReal) (stopTime-startTime+1) / (*lane)->myLength;
-            }
+            SUMOReal meanOccupancy = -46;
+            conv(meanData, (stopTime-startTime+1),
+                (*lane)->myLength, (*lane)->myMaxSpeed,
+                traveltime, meanSpeed, meanDensity, meanOccupancy);
             traveltimeS += traveltime;
             meanSpeedS += meanSpeed;
             meanDensityS += meanDensity;
+            meanOccupancyS += meanOccupancy;
             noStopsS += meanData.haltSum;
-            nVehS += meanData.nVehContributed;
+            nVehS += meanData.nSamples;
             meanData.reset();
         }
         assert(lanes->size()!=0);
         dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
             "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
-            "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
-            "\" density=\"").writeString(toString(meanDensityS/(SUMOReal) lanes->size())).writeString(
+            "\" nSamples=\"").writeString(toString(nVehS)).writeString(
+            "\" density=\"").writeString(toString(meanDensityS)).writeString(
+            "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
             "\" noStops=\"").writeString(toString(noStopsS)).writeString(
             "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
             "\"/>\n");
@@ -272,26 +265,15 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     SUMOReal meanSpeed = -43;
     SUMOReal meanSpeedSquare = -44;
     SUMOReal meanDensity = -45;
-
-    if(meanData.nVehContributed==0) {
-        traveltime = lane.myLength / lane.myMaxSpeed;
-        meanSpeed = lane.myMaxSpeed;
-        meanDensity = 0;
-    } else {
-        meanSpeed = meanData.speedSum / (SUMOReal) meanData.nVehContributed;
-        if(meanSpeed==0) {
-            traveltime = std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
-        } else {
-            traveltime = lane.myLength / meanSpeed;
-        }
-        meanDensity = (SUMOReal) meanData.vehLengthSum / //.nVehContributed /
-            (SUMOReal) (stopTime-startTime+1) / lane.myLength;
-    }
-
+    SUMOReal meanOccupancy = -46;
+    conv(meanData, (stopTime-startTime+1),
+        lane.myLength, lane.myMaxSpeed,
+        traveltime, meanSpeed, meanDensity, meanOccupancy);
     dev.writeString("      <lane id=\"").writeString(lane.getID()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
-        "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
+        "\" nSamples=\"").writeString(toString(meanData.nSamples)).writeString(
         "\" density=\"").writeString(toString(meanDensity)).writeString(
+        "\" occupancy=\"").writeString(toString(meanOccupancy)).writeString(
         "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(
         "\" speed=\"").writeString(toString(meanSpeed)).writeString(
         "\"/>\n");

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/07/10 06:11:18  dkrajzew
+// mean data reworked
+//
 // Revision 1.7  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -63,6 +66,8 @@
 
 #include <vector>
 #include <microsim/output/MSDetectorFileOutput.h>
+#include "MSLaneMeanDataValues.h"
+#include <limits>
 
 
 /* =========================================================================
@@ -116,6 +121,34 @@ public:
 protected:
     void resetOnly(SUMOTime stopTime);
     void resetOnly(const MSEdge &edge, SUMOTime stopTime);
+
+    inline void conv(
+        const MSLaneMeanDataValues &values, SUMOTime period,
+        SUMOReal laneLength, SUMOReal laneVMax,
+        SUMOReal &traveltime, SUMOReal &meanSpeed,
+        SUMOReal &meanDensity, SUMOReal &meanOccupancy) {
+
+        if(values.nSamples==0) {
+            assert(laneVMax>=0);
+            traveltime = laneLength / laneVMax;
+            meanSpeed = laneVMax;
+            meanDensity = 0;
+            meanOccupancy = 0;
+        } else {
+            meanSpeed = values.speedSum / (SUMOReal) values.nSamples;
+            if(meanSpeed==0) {
+                traveltime = 1000000;//std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
+            } else {
+                traveltime = laneLength / meanSpeed;
+            }
+            assert(period!=0);
+            assert(laneLength!=0);
+            meanDensity = (SUMOReal) values.nSamples /
+                (SUMOReal) period * 1000. / laneLength;
+            meanOccupancy = (SUMOReal) values.vehLengthSum /
+                (SUMOReal) period / laneLength;
+        }
+    }
 
 protected:
     /// the time interval the data shall be aggregated over (in s)

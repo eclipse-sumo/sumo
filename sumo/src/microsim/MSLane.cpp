@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.66  2006/07/10 06:11:17  dkrajzew
+// mean data reworked
+//
 // Revision 1.65  2006/07/07 11:51:51  dkrajzew
 // further work on lane changing
 //
@@ -1259,7 +1262,7 @@ void
 MSLane::addMean2(SUMOReal v, SUMOReal l)
 {
     for(size_t i=0; i<myMeanData.size(); i++) {
-        myMeanData[i].nVehContributed++;
+        myMeanData[i].nSamples++;
         myMeanData[i].speedSum += v;
         myMeanData[i].vehLengthSum += l;
         if(v<0.1) { // !!! swell
