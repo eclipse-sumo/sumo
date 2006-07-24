@@ -8,7 +8,6 @@ copy_test_path:input_detectors.det.xml
 detector_defs:detectors_def.det.xml
 routes:routes.rou.xml
 pois:detectors.poi.xml
+emitters:emitters.add.xml
 
-[run_dependent_text]
-output:Build #
 

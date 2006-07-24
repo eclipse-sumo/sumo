@@ -1,15 +1,14 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Tests what happens if the net is not available
 false_net
 
-# Tests what happens if the output is not given
-no_output
+# Tests what happens if the detectors output is not given
+no_detectors_output
 
 # Tests what happens if an unknown option is passed
 unknown_option
 
+# Tests what happens if no detectors are given
+no_detector_files
 
 
 

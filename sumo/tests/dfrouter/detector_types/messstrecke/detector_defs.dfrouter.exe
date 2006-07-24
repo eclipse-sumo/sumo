@@ -1,10 +1,10 @@
 <detectors>
-   <detector_definition id="MQ11Fs1" lane="ErnstRuska2O_0" pos="5" type="between"/>
-   <detector_definition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5" type="between"/>
+   <detector_definition id="MQ11Fs1" lane="ErnstRuska2O_0" pos="5" type="source"/>
+   <detector_definition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5" type="source"/>
    <detector_definition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5" type="between"/>
    <detector_definition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5" type="between"/>
    <detector_definition id="MQ13Fs1N" lane="EinsteinN_0" pos="5" type="sink"/>
-   <detector_definition id="MQ13Fs1S" lane="EinsteinS_0" pos="-5" type="source"/>
+   <detector_definition id="MQ13Fs1S" lane="EinsteinS_0" pos="-5" type="discarded"/>
    <detector_definition id="MQ21Fs1" lane="ErnstRuska231O_0" pos="-5" type="between"/>
    <detector_definition id="MQ21Fs2" lane="ErnstRuska231O_1" pos="-5" type="between"/>
    <detector_definition id="MQ21Fs3" lane="ErnstRuska231O_2" pos="-5" type="between"/>

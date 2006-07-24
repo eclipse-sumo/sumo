@@ -4,7 +4,7 @@
    <node_count>19</node_count>
 
 
-   <edge id="AltglienickerBreitN" Length="10.25" Speed="14.00" Name="AltglienickerBreitN" NoLanes="2" XFrom="1908.47" YFrom="180.00" XTo="1908.47" YTo="200.00" From="AltglienickerBreit" To="ErnstRuskaAltglienicker" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="AltglienickerBreitN" Length="10.25" Speed="14.00" Name="AltglienickerBreitN" NoLanes="2" Xfrom="1908.47" Yfrom="180.00" Xto="1908.47" Yto="200.00" from="AltglienickerBreit" to="ErnstRuskaAltglienicker" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerBreitN_0" depart="1" maxspeed="14.00" length="10.25" changeurge="0">1913.72,181.50 1913.72,191.75</lane>
          <lane id="AltglienickerBreitN_1" depart="0" maxspeed="14.00" length="10.25" changeurge="0">1910.22,181.50 1910.22,191.75</lane>
@@ -13,48 +13,48 @@
       <cedge id="ErnstRuska4W" via=":ErnstRuskaAltglienicker">AltglienickerBreitN_1</cedge>
    </edge>
 
-   <edge id="AltglienickerBreitS" Length="10.25" Speed="14.00" Name="AltglienickerBreitS" NoLanes="1" XFrom="1908.47" YFrom="200.00" XTo="1908.47" YTo="180.00" From="ErnstRuskaAltglienicker" To="AltglienickerBreit" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="AltglienickerBreitS" Length="10.25" Speed="14.00" Name="AltglienickerBreitS" NoLanes="1" Xfrom="1908.47" Yfrom="200.00" Xto="1908.47" Yto="180.00" from="ErnstRuskaAltglienicker" to="AltglienickerBreit" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerBreitS_0" depart="1" maxspeed="14.00" length="10.25" changeurge="0">1906.72,191.75 1906.72,181.50</lane>
       </lanes>
       <cedge id="AltglienickerS" via=":AltglienickerBreit">AltglienickerBreitS_0</cedge>
    </edge>
 
-   <edge id="AltglienickerN" Length="78.50" Speed="14.00" Name="AltglienickerN" NoLanes="1" XFrom="1908.47" YFrom="100.00" XTo="1908.47" YTo="180.00" From="AltglienickerEnd" To="AltglienickerBreit" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="AltglienickerN" Length="78.50" Speed="14.00" Name="AltglienickerN" NoLanes="1" Xfrom="1908.47" Yfrom="100.00" Xto="1908.47" Yto="180.00" from="AltglienickerEnd" to="AltglienickerBreit" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerN_0" depart="1" maxspeed="14.00" length="78.50" changeurge="0">1910.22,100.00 1910.22,178.50</lane>
       </lanes>
       <cedge id="AltglienickerBreitN" via=":AltglienickerBreit">AltglienickerN_0</cedge>
    </edge>
 
-   <edge id="AltglienickerS" Length="78.50" Speed="14.00" Name="AltglienickerS" NoLanes="1" XFrom="1908.47" YFrom="180.00" XTo="1908.47" YTo="100.00" From="AltglienickerBreit" To="AltglienickerEnd" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="AltglienickerS" Length="78.50" Speed="14.00" Name="AltglienickerS" NoLanes="1" Xfrom="1908.47" Yfrom="180.00" Xto="1908.47" Yto="100.00" from="AltglienickerBreit" to="AltglienickerEnd" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerS_0" depart="1" maxspeed="14.00" length="78.50" changeurge="0">1906.72,178.50 1906.72,100.00</lane>
       </lanes>
       <cedge id="AltglienickerSinkS" via=":AltglienickerEnd">AltglienickerS_0</cedge>
    </edge>
 
-   <edge id="AltglienickerSinkN" Length="101.75" Speed="14.00" Name="AltglienickerSinkN" NoLanes="1" XFrom="1908.47" YFrom="0.00" XTo="1908.47" YTo="100.00" From="AltglienickerSinkEnd" To="AltglienickerEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="AltglienickerSinkN" Length="101.75" Speed="14.00" Name="AltglienickerSinkN" NoLanes="1" Xfrom="1908.47" Yfrom="0.00" Xto="1908.47" Yto="100.00" from="AltglienickerSinkEnd" to="AltglienickerEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerSinkN_0" depart="1" maxspeed="14.00" length="101.75" changeurge="0">1910.22,-1.75 1910.22,100.00</lane>
       </lanes>
       <cedge id="AltglienickerN" via=":AltglienickerEnd">AltglienickerSinkN_0</cedge>
    </edge>
 
-   <edge id="AltglienickerSinkS" Length="98.25" Speed="14.00" Name="AltglienickerSinkS" NoLanes="1" XFrom="1908.47" YFrom="100.00" XTo="1908.47" YTo="0.00" From="AltglienickerEnd" To="AltglienickerSinkEnd" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="AltglienickerSinkS" Length="98.25" Speed="14.00" Name="AltglienickerSinkS" NoLanes="1" Xfrom="1908.47" Yfrom="100.00" Xto="1908.47" Yto="0.00" from="AltglienickerEnd" to="AltglienickerSinkEnd" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="AltglienickerSinkS_0" depart="1" maxspeed="14.00" length="98.25" changeurge="0">1906.72,100.00 1906.72,1.75</lane>
       </lanes>
    </edge>
 
-   <edge id="EinsteinN" Length="91.75" Speed="14.00" Name="EinsteinN" NoLanes="1" XFrom="294.91" YFrom="200.00" XTo="294.91" YTo="300.00" From="ErnstRuskaEinstein" To="EinsteinEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="EinsteinN" Length="91.75" Speed="14.00" Name="EinsteinN" NoLanes="1" Xfrom="294.91" Yfrom="200.00" Xto="294.91" Yto="300.00" from="ErnstRuskaEinstein" to="EinsteinEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="EinsteinN_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">296.66,208.25 296.66,300.00</lane>
       </lanes>
       <cedge id="EinsteinSinkN" via=":EinsteinEnd">EinsteinN_0</cedge>
    </edge>
 
-   <edge id="EinsteinS" Length="91.75" Speed="14.00" Name="EinsteinS" NoLanes="1" XFrom="294.91" YFrom="300.00" XTo="294.91" YTo="200.00" From="EinsteinEnd" To="ErnstRuskaEinstein" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="EinsteinS" Length="91.75" Speed="14.00" Name="EinsteinS" NoLanes="1" Xfrom="294.91" Yfrom="300.00" Xto="294.91" Yto="200.00" from="EinsteinEnd" to="ErnstRuskaEinstein" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="EinsteinS_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">293.16,300.00 293.16,208.25</lane>
       </lanes>
@@ -62,20 +62,20 @@
       <cedge id="ErnstRuska2O" via=":ErnstRuskaEinstein">EinsteinS_0</cedge>
    </edge>
 
-   <edge id="EinsteinSinkN" Length="98.25" Speed="14.00" Name="EinsteinSinkN" NoLanes="1" XFrom="294.91" YFrom="300.00" XTo="294.91" YTo="400.00" From="EinsteinEnd" To="EinsteinSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="EinsteinSinkN" Length="98.25" Speed="14.00" Name="EinsteinSinkN" NoLanes="1" Xfrom="294.91" Yfrom="300.00" Xto="294.91" Yto="400.00" from="EinsteinEnd" to="EinsteinSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="EinsteinSinkN_0" depart="1" maxspeed="14.00" length="98.25" changeurge="0">296.66,300.00 296.66,398.25</lane>
       </lanes>
    </edge>
 
-   <edge id="EinsteinSinkS" Length="101.75" Speed="14.00" Name="EinsteinSinkS" NoLanes="1" XFrom="294.91" YFrom="400.00" XTo="294.91" YTo="300.00" From="EinsteinSinkEnd" To="EinsteinEnd" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="EinsteinSinkS" Length="101.75" Speed="14.00" Name="EinsteinSinkS" NoLanes="1" Xfrom="294.91" Yfrom="400.00" Xto="294.91" Yto="300.00" from="EinsteinSinkEnd" to="EinsteinEnd" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="EinsteinSinkS_0" depart="1" maxspeed="14.00" length="101.75" changeurge="0">293.16,401.75 293.16,300.00</lane>
       </lanes>
       <cedge id="EinsteinS" via=":EinsteinEnd">EinsteinSinkS_0</cedge>
    </edge>
 
-   <edge id="ErnstRuska1O" Length="190.16" Speed="19.00" Name="ErnstRuska1O" NoLanes="2" XFrom="100.00" YFrom="200.00" XTo="294.91" YTo="200.00" From="ErnstRuskaEnd1" To="ErnstRuskaEinstein" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska1O" Length="190.16" Speed="19.00" Name="ErnstRuska1O" NoLanes="2" Xfrom="100.00" Yfrom="200.00" Xto="294.91" Yto="200.00" from="ErnstRuskaEnd1" to="ErnstRuskaEinstein" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska1O_0" depart="1" maxspeed="19.00" length="190.16" changeurge="0">100.00,194.75 290.16,194.75</lane>
          <lane id="ErnstRuska1O_1" depart="0" maxspeed="19.00" length="190.16" changeurge="0">100.00,198.25 290.16,198.25</lane>
@@ -84,7 +84,7 @@
       <cedge id="EinsteinN" via=":ErnstRuskaEinstein">ErnstRuska1O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska1W" Length="190.16" Speed="19.00" Name="ErnstRuska1W" NoLanes="2" XFrom="294.91" YFrom="200.00" XTo="100.00" YTo="200.00" From="ErnstRuskaEinstein" To="ErnstRuskaEnd1" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska1W" Length="190.16" Speed="19.00" Name="ErnstRuska1W" NoLanes="2" Xfrom="294.91" Yfrom="200.00" Xto="100.00" Yto="200.00" from="ErnstRuskaEinstein" to="ErnstRuskaEnd1" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska1W_0" depart="1" maxspeed="19.00" length="190.16" changeurge="0">290.16,205.25 100.00,205.25</lane>
          <lane id="ErnstRuska1W_1" depart="0" maxspeed="19.00" length="190.16" changeurge="0">290.16,201.75 100.00,201.75</lane>
@@ -92,7 +92,7 @@
       <cedge id="ErnstRuskaSink1W" via=":ErnstRuskaEnd1">ErnstRuska1W_0 ErnstRuska1W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska231O" Length="20.25" Speed="19.00" Name="ErnstRuska231O" NoLanes="3" XFrom="985.25" YFrom="200.00" XTo="1015.25" YTo="200.00" From="ErnstRuskaHavestadtDiv1" To="ErnstRuskaHavestadt" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska231O" Length="20.25" Speed="19.00" Name="ErnstRuska231O" NoLanes="3" Xfrom="985.25" Yfrom="200.00" Xto="1015.25" Yto="200.00" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaHavestadt" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska231O_0" depart="1" maxspeed="19.00" length="20.25" changeurge="0">986.75,191.25 1007.00,191.25</lane>
          <lane id="ErnstRuska231O_1" depart="0" maxspeed="19.00" length="20.25" changeurge="0">986.75,194.75 1007.00,194.75</lane>
@@ -102,7 +102,7 @@
       <cedge id="HavestadtN" via=":ErnstRuskaHavestadt">ErnstRuska231O_2</cedge>
    </edge>
 
-   <edge id="ErnstRuska231W" Length="20.25" Speed="19.00" Name="ErnstRuska231W" NoLanes="2" XFrom="1015.25" YFrom="200.00" XTo="985.25" YTo="200.00" From="ErnstRuskaHavestadt" To="ErnstRuskaHavestadtDiv1" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska231W" Length="20.25" Speed="19.00" Name="ErnstRuska231W" NoLanes="2" Xfrom="1015.25" Yfrom="200.00" Xto="985.25" Yto="200.00" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv1" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska231W_0" depart="1" maxspeed="19.00" length="20.25" changeurge="0">1007.00,205.25 986.75,205.25</lane>
          <lane id="ErnstRuska231W_1" depart="0" maxspeed="19.00" length="20.25" changeurge="0">1007.00,201.75 986.75,201.75</lane>
@@ -110,7 +110,7 @@
       <cedge id="ErnstRuska2W" via=":ErnstRuskaHavestadtDiv1">ErnstRuska231W_0 ErnstRuska231W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska232O" Length="20.25" Speed="19.00" Name="ErnstRuska232O" NoLanes="3" XFrom="1015.25" YFrom="200.00" XTo="1045.25" YTo="200.00" From="ErnstRuskaHavestadt" To="ErnstRuskaHavestadtDiv2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska232O" Length="20.25" Speed="19.00" Name="ErnstRuska232O" NoLanes="3" Xfrom="1015.25" Yfrom="200.00" Xto="1045.25" Yto="200.00" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska232O_0" depart="1" maxspeed="19.00" length="20.25" changeurge="0">1023.50,191.25 1043.75,191.25</lane>
          <lane id="ErnstRuska232O_1" depart="0" maxspeed="19.00" length="20.25" changeurge="0">1023.50,194.75 1043.75,194.75</lane>
@@ -119,7 +119,7 @@
       <cedge id="ErnstRuska3O" via=":ErnstRuskaHavestadtDiv2">ErnstRuska232O_0 ErnstRuska232O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska232W" Length="20.25" Speed="19.00" Name="ErnstRuska232W" NoLanes="2" XFrom="1045.25" YFrom="200.00" XTo="1015.25" YTo="200.00" From="ErnstRuskaHavestadtDiv2" To="ErnstRuskaHavestadt" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska232W" Length="20.25" Speed="19.00" Name="ErnstRuska232W" NoLanes="2" Xfrom="1045.25" Yfrom="200.00" Xto="1015.25" Yto="200.00" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaHavestadt" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska232W_0" depart="1" maxspeed="19.00" length="20.25" changeurge="0">1043.75,205.25 1023.50,205.25</lane>
          <lane id="ErnstRuska232W_1" depart="0" maxspeed="19.00" length="20.25" changeurge="0">1043.75,201.75 1023.50,201.75</lane>
@@ -128,7 +128,7 @@
       <cedge id="ErnstRuska231W" via=":ErnstRuskaHavestadt">ErnstRuska232W_0 ErnstRuska232W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska2O" Length="684.09" Speed="19.00" Name="ErnstRuska2O" NoLanes="2" XFrom="294.91" YFrom="200.00" XTo="985.25" YTo="200.00" From="ErnstRuskaEinstein" To="ErnstRuskaHavestadtDiv1" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska2O" Length="684.09" Speed="19.00" Name="ErnstRuska2O" NoLanes="2" Xfrom="294.91" Yfrom="200.00" Xto="985.25" Yto="200.00" from="ErnstRuskaEinstein" to="ErnstRuskaHavestadtDiv1" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska2O_0" depart="1" maxspeed="19.00" length="684.09" changeurge="0">299.66,194.75 983.75,194.75</lane>
          <lane id="ErnstRuska2O_1" depart="0" maxspeed="19.00" length="684.09" changeurge="0">299.66,198.25 983.75,198.25</lane>
@@ -136,7 +136,7 @@
       <cedge id="ErnstRuska231O" via=":ErnstRuskaHavestadtDiv1">ErnstRuska2O_0 ErnstRuska2O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska2W" Length="684.09" Speed="19.00" Name="ErnstRuska2W" NoLanes="2" XFrom="985.25" YFrom="200.00" XTo="294.91" YTo="200.00" From="ErnstRuskaHavestadtDiv1" To="ErnstRuskaEinstein" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska2W" Length="684.09" Speed="19.00" Name="ErnstRuska2W" NoLanes="2" Xfrom="985.25" Yfrom="200.00" Xto="294.91" Yto="200.00" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaEinstein" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska2W_0" depart="1" maxspeed="19.00" length="684.09" changeurge="0">983.75,205.25 299.66,205.25</lane>
          <lane id="ErnstRuska2W_1" depart="0" maxspeed="19.00" length="684.09" changeurge="0">983.75,201.75 299.66,201.75</lane>
@@ -145,7 +145,7 @@
       <cedge id="ErnstRuska1W" via=":ErnstRuskaEinstein">ErnstRuska2W_0 ErnstRuska2W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska3O" Length="533.25" Speed="19.00" Name="ErnstRuska3O" NoLanes="2" XFrom="1045.25" YFrom="200.00" XTo="1584.75" YTo="200.00" From="ErnstRuskaHavestadtDiv2" To="ErnstRuskaVolmer" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska3O" Length="533.25" Speed="19.00" Name="ErnstRuska3O" NoLanes="2" Xfrom="1045.25" Yfrom="200.00" Xto="1584.75" Yto="200.00" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaVolmer" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska3O_0" depart="1" maxspeed="19.00" length="533.25" changeurge="0">1046.75,194.75 1580.00,194.75</lane>
          <lane id="ErnstRuska3O_1" depart="0" maxspeed="19.00" length="533.25" changeurge="0">1046.75,198.25 1580.00,198.25</lane>
@@ -154,7 +154,7 @@
       <cedge id="VolmerN" via=":ErnstRuskaVolmer">ErnstRuska3O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska3W" Length="533.25" Speed="19.00" Name="ErnstRuska3W" NoLanes="2" XFrom="1584.75" YFrom="200.00" XTo="1045.25" YTo="200.00" From="ErnstRuskaVolmer" To="ErnstRuskaHavestadtDiv2" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska3W" Length="533.25" Speed="19.00" Name="ErnstRuska3W" NoLanes="2" Xfrom="1584.75" Yfrom="200.00" Xto="1045.25" Yto="200.00" from="ErnstRuskaVolmer" to="ErnstRuskaHavestadtDiv2" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska3W_0" depart="1" maxspeed="19.00" length="533.25" changeurge="0">1580.00,205.25 1046.75,205.25</lane>
          <lane id="ErnstRuska3W_1" depart="0" maxspeed="19.00" length="533.25" changeurge="0">1580.00,201.75 1046.75,201.75</lane>
@@ -162,7 +162,7 @@
       <cedge id="ErnstRuska232W" via=":ErnstRuskaHavestadtDiv2">ErnstRuska3W_0 ErnstRuska3W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska4O" Length="314.22" Speed="19.00" Name="ErnstRuska4O" NoLanes="2" XFrom="1584.75" YFrom="200.00" XTo="1908.47" YTo="200.00" From="ErnstRuskaVolmer" To="ErnstRuskaAltglienicker" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska4O" Length="314.22" Speed="19.00" Name="ErnstRuska4O" NoLanes="2" Xfrom="1584.75" Yfrom="200.00" Xto="1908.47" Yto="200.00" from="ErnstRuskaVolmer" to="ErnstRuskaAltglienicker" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska4O_0" depart="1" maxspeed="19.00" length="314.22" changeurge="0">1589.50,194.75 1903.72,194.75</lane>
          <lane id="ErnstRuska4O_1" depart="0" maxspeed="19.00" length="314.22" changeurge="0">1589.50,198.25 1903.72,198.25</lane>
@@ -171,7 +171,7 @@
       <cedge id="ErnstRuska5O" via=":ErnstRuskaAltglienicker">ErnstRuska4O_0 ErnstRuska4O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska4W" Length="314.22" Speed="19.00" Name="ErnstRuska4W" NoLanes="2" XFrom="1908.47" YFrom="200.00" XTo="1584.75" YTo="200.00" From="ErnstRuskaAltglienicker" To="ErnstRuskaVolmer" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska4W" Length="314.22" Speed="19.00" Name="ErnstRuska4W" NoLanes="2" Xfrom="1908.47" Yfrom="200.00" Xto="1584.75" Yto="200.00" from="ErnstRuskaAltglienicker" to="ErnstRuskaVolmer" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska4W_0" depart="1" maxspeed="19.00" length="314.22" changeurge="0">1903.72,205.25 1589.50,205.25</lane>
          <lane id="ErnstRuska4W_1" depart="0" maxspeed="19.00" length="314.22" changeurge="0">1903.72,201.75 1589.50,201.75</lane>
@@ -180,7 +180,7 @@
       <cedge id="ErnstRuska3W" via=":ErnstRuskaVolmer">ErnstRuska4W_0 ErnstRuska4W_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska5O" Length="107.20" Speed="19.00" Name="ErnstRuska5O" NoLanes="2" XFrom="1908.47" YFrom="200.00" XTo="2025.42" YTo="200.00" From="ErnstRuskaAltglienicker" To="ErnstRuskaEnd2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuska5O" Length="107.20" Speed="19.00" Name="ErnstRuska5O" NoLanes="2" Xfrom="1908.47" Yfrom="200.00" Xto="2025.42" Yto="200.00" from="ErnstRuskaAltglienicker" to="ErnstRuskaEnd2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska5O_0" depart="1" maxspeed="19.00" length="107.20" changeurge="0">1916.72,194.75 2023.92,194.75</lane>
          <lane id="ErnstRuska5O_1" depart="0" maxspeed="19.00" length="107.20" changeurge="0">1916.72,198.25 2023.92,198.25</lane>
@@ -188,7 +188,7 @@
       <cedge id="ErnstRuskaSink5O" via=":ErnstRuskaEnd2">ErnstRuska5O_0 ErnstRuska5O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuska5W" Length="107.20" Speed="19.00" Name="ErnstRuska5W" NoLanes="3" XFrom="2025.42" YFrom="200.00" XTo="1908.47" YTo="200.00" From="ErnstRuskaEnd2" To="ErnstRuskaAltglienicker" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuska5W" Length="107.20" Speed="19.00" Name="ErnstRuska5W" NoLanes="3" Xfrom="2025.42" Yfrom="200.00" Xto="1908.47" Yto="200.00" from="ErnstRuskaEnd2" to="ErnstRuskaAltglienicker" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuska5W_0" depart="1" maxspeed="19.00" length="107.20" changeurge="0">2023.92,208.75 1916.72,208.75</lane>
          <lane id="ErnstRuska5W_1" depart="0" maxspeed="19.00" length="107.20" changeurge="0">2023.92,205.25 1916.72,205.25</lane>
@@ -198,7 +198,7 @@
       <cedge id="AltglienickerBreitS" via=":ErnstRuskaAltglienicker">ErnstRuska5W_2</cedge>
    </edge>
 
-   <edge id="ErnstRuskaSink1O" Length="103.50" Speed="19.00" Name="ErnstRuskaSink1O" NoLanes="2" XFrom="0.00" YFrom="200.00" XTo="100.00" YTo="200.00" From="ErnstRuskaSink1" To="ErnstRuskaEnd1" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuskaSink1O" Length="103.50" Speed="19.00" Name="ErnstRuskaSink1O" NoLanes="2" Xfrom="0.00" Yfrom="200.00" Xto="100.00" Yto="200.00" from="ErnstRuskaSink1" to="ErnstRuskaEnd1" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink1O_0" depart="1" maxspeed="19.00" length="103.50" changeurge="0">-5.25,194.75 100.00,194.75</lane>
          <lane id="ErnstRuskaSink1O_1" depart="0" maxspeed="19.00" length="103.50" changeurge="0">-1.75,198.25 100.00,198.25</lane>
@@ -206,21 +206,21 @@
       <cedge id="ErnstRuska1O" via=":ErnstRuskaEnd1">ErnstRuskaSink1O_0 ErnstRuskaSink1O_1</cedge>
    </edge>
 
-   <edge id="ErnstRuskaSink1W" Length="96.50" Speed="19.00" Name="ErnstRuskaSink1W" NoLanes="2" XFrom="100.00" YFrom="200.00" XTo="0.00" YTo="200.00" From="ErnstRuskaEnd1" To="ErnstRuskaSink1" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuskaSink1W" Length="96.50" Speed="19.00" Name="ErnstRuskaSink1W" NoLanes="2" Xfrom="100.00" Yfrom="200.00" Xto="0.00" Yto="200.00" from="ErnstRuskaEnd1" to="ErnstRuskaSink1" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink1W_0" depart="1" maxspeed="19.00" length="96.50" changeurge="0">100.00,205.25 5.25,205.25</lane>
          <lane id="ErnstRuskaSink1W_1" depart="0" maxspeed="19.00" length="96.50" changeurge="0">100.00,201.75 1.75,201.75</lane>
       </lanes>
    </edge>
 
-   <edge id="ErnstRuskaSink5O" Length="95.00" Speed="19.00" Name="ErnstRuskaSink5O" NoLanes="2" XFrom="2025.42" YFrom="200.00" XTo="2125.42" YTo="200.00" From="ErnstRuskaEnd2" To="ErnstRuskaSink2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="ErnstRuskaSink5O" Length="95.00" Speed="19.00" Name="ErnstRuskaSink5O" NoLanes="2" Xfrom="2025.42" Yfrom="200.00" Xto="2125.42" Yto="200.00" from="ErnstRuskaEnd2" to="ErnstRuskaSink2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink5O_0" depart="1" maxspeed="19.00" length="95.00" changeurge="0">2026.92,194.75 2120.17,194.75</lane>
          <lane id="ErnstRuskaSink5O_1" depart="0" maxspeed="19.00" length="95.00" changeurge="0">2026.92,198.25 2123.67,198.25</lane>
       </lanes>
    </edge>
 
-   <edge id="ErnstRuskaSink5W" Length="102.00" Speed="19.00" Name="ErnstRuskaSink5W" NoLanes="2" XFrom="2125.42" YFrom="200.00" XTo="2025.42" YTo="200.00" From="ErnstRuskaSink2" To="ErnstRuskaEnd2" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="ErnstRuskaSink5W" Length="102.00" Speed="19.00" Name="ErnstRuskaSink5W" NoLanes="2" Xfrom="2125.42" Yfrom="200.00" Xto="2025.42" Yto="200.00" from="ErnstRuskaSink2" to="ErnstRuskaEnd2" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="ErnstRuskaSink5W_0" depart="1" maxspeed="19.00" length="102.00" changeurge="0">2130.67,205.25 2026.92,205.25</lane>
          <lane id="ErnstRuskaSink5W_1" depart="0" maxspeed="19.00" length="102.00" changeurge="0">2127.17,201.75 2026.92,201.75</lane>
@@ -228,7 +228,7 @@
       <cedge id="ErnstRuska5W" via=":ErnstRuskaEnd2">ErnstRuskaSink5W_0 ErnstRuskaSink5W_1</cedge>
    </edge>
 
-   <edge id="HavestadtN" Length="91.75" Speed="14.00" Name="HavestadtN" NoLanes="2" XFrom="1015.25" YFrom="200.00" XTo="1015.25" YTo="300.00" From="ErnstRuskaHavestadt" To="HavestadtEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="HavestadtN" Length="91.75" Speed="14.00" Name="HavestadtN" NoLanes="2" Xfrom="1015.25" Yfrom="200.00" Xto="1015.25" Yto="300.00" from="ErnstRuskaHavestadt" to="HavestadtEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="HavestadtN_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">1020.50,208.25 1020.50,300.00</lane>
          <lane id="HavestadtN_1" depart="0" maxspeed="14.00" length="91.75" changeurge="0">1017.00,208.25 1017.00,300.00</lane>
@@ -236,7 +236,7 @@
       <cedge id="HavestadtSinkN" via=":HavestadtEnd">HavestadtN_0 HavestadtN_1</cedge>
    </edge>
 
-   <edge id="HavestadtS" Length="91.75" Speed="14.00" Name="HavestadtS" NoLanes="2" XFrom="1015.25" YFrom="300.00" XTo="1015.25" YTo="200.00" From="HavestadtEnd" To="ErnstRuskaHavestadt" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="HavestadtS" Length="91.75" Speed="14.00" Name="HavestadtS" NoLanes="2" Xfrom="1015.25" Yfrom="300.00" Xto="1015.25" Yto="200.00" from="HavestadtEnd" to="ErnstRuskaHavestadt" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="HavestadtS_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">1010.00,300.00 1010.00,208.25</lane>
          <lane id="HavestadtS_1" depart="0" maxspeed="14.00" length="91.75" changeurge="0">1013.50,300.00 1013.50,208.25</lane>
@@ -245,14 +245,14 @@
       <cedge id="ErnstRuska232O" via=":ErnstRuskaHavestadt">HavestadtS_1</cedge>
    </edge>
 
-   <edge id="HavestadtSinkN" Length="96.50" Speed="14.00" Name="HavestadtSinkN" NoLanes="2" XFrom="1015.25" YFrom="300.00" XTo="1015.25" YTo="400.00" From="HavestadtEnd" To="HavestadtSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="HavestadtSinkN" Length="96.50" Speed="14.00" Name="HavestadtSinkN" NoLanes="2" Xfrom="1015.25" Yfrom="300.00" Xto="1015.25" Yto="400.00" from="HavestadtEnd" to="HavestadtSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="HavestadtSinkN_0" depart="1" maxspeed="14.00" length="96.50" changeurge="0">1020.50,300.00 1020.50,394.75</lane>
          <lane id="HavestadtSinkN_1" depart="0" maxspeed="14.00" length="96.50" changeurge="0">1017.00,300.00 1017.00,398.25</lane>
       </lanes>
    </edge>
 
-   <edge id="HavestadtSinkS" Length="103.50" Speed="14.00" Name="HavestadtSinkS" NoLanes="2" XFrom="1015.25" YFrom="400.00" XTo="1015.25" YTo="300.00" From="HavestadtSinkEnd" To="HavestadtEnd" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="HavestadtSinkS" Length="103.50" Speed="14.00" Name="HavestadtSinkS" NoLanes="2" Xfrom="1015.25" Yfrom="400.00" Xto="1015.25" Yto="300.00" from="HavestadtSinkEnd" to="HavestadtEnd" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="HavestadtSinkS_0" depart="1" maxspeed="14.00" length="103.50" changeurge="0">1010.00,405.25 1010.00,300.00</lane>
          <lane id="HavestadtSinkS_1" depart="0" maxspeed="14.00" length="103.50" changeurge="0">1013.50,401.75 1013.50,300.00</lane>
@@ -260,14 +260,14 @@
       <cedge id="HavestadtS" via=":HavestadtEnd">HavestadtSinkS_0 HavestadtSinkS_1</cedge>
    </edge>
 
-   <edge id="VolmerN" Length="91.75" Speed="14.00" Name="VolmerN" NoLanes="1" XFrom="1584.75" YFrom="200.00" XTo="1584.75" YTo="300.00" From="ErnstRuskaVolmer" To="VolmerEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="VolmerN" Length="91.75" Speed="14.00" Name="VolmerN" NoLanes="1" Xfrom="1584.75" Yfrom="200.00" Xto="1584.75" Yto="300.00" from="ErnstRuskaVolmer" to="VolmerEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="VolmerN_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">1586.50,208.25 1586.50,300.00</lane>
       </lanes>
       <cedge id="VolmerSinkN" via=":VolmerEnd">VolmerN_0</cedge>
    </edge>
 
-   <edge id="VolmerS" Length="91.75" Speed="14.00" Name="VolmerS" NoLanes="1" XFrom="1584.75" YFrom="300.00" XTo="1584.75" YTo="200.00" From="VolmerEnd" To="ErnstRuskaVolmer" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="VolmerS" Length="91.75" Speed="14.00" Name="VolmerS" NoLanes="1" Xfrom="1584.75" Yfrom="300.00" Xto="1584.75" Yto="200.00" from="VolmerEnd" to="ErnstRuskaVolmer" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="VolmerS_0" depart="1" maxspeed="14.00" length="91.75" changeurge="0">1583.00,300.00 1583.00,208.25</lane>
       </lanes>
@@ -275,13 +275,13 @@
       <cedge id="ErnstRuska4O" via=":ErnstRuskaVolmer">VolmerS_0</cedge>
    </edge>
 
-   <edge id="VolmerSinkN" Length="98.25" Speed="14.00" Name="VolmerSinkN" NoLanes="1" XFrom="1584.75" YFrom="300.00" XTo="1584.75" YTo="400.00" From="VolmerEnd" To="VolmerSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="VolmerSinkN" Length="98.25" Speed="14.00" Name="VolmerSinkN" NoLanes="1" Xfrom="1584.75" Yfrom="300.00" Xto="1584.75" Yto="400.00" from="VolmerEnd" to="VolmerSinkEnd" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="VolmerSinkN_0" depart="1" maxspeed="14.00" length="98.25" changeurge="0">1586.50,300.00 1586.50,398.25</lane>
       </lanes>
    </edge>
 
-   <edge id="VolmerSinkS" Length="101.75" Speed="14.00" Name="VolmerSinkS" NoLanes="1" XFrom="1584.75" YFrom="400.00" XTo="1584.75" YTo="300.00" From="VolmerSinkEnd" To="VolmerEnd" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="VolmerSinkS" Length="101.75" Speed="14.00" Name="VolmerSinkS" NoLanes="1" Xfrom="1584.75" Yfrom="400.00" Xto="1584.75" Yto="300.00" from="VolmerSinkEnd" to="VolmerEnd" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="VolmerSinkS_0" depart="1" maxspeed="14.00" length="101.75" changeurge="0">1583.00,401.75 1583.00,300.00</lane>
       </lanes>

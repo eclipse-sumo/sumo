@@ -1,4 +1,4 @@
-SUBDIRS =  help noop
+SUBDIRS =  messstrecke
 
 EXTRA_DIST =  testsuite.dfrouter
 

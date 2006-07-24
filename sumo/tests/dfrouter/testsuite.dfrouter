@@ -8,6 +8,9 @@ detector_pois
 # Tests whether the routes are computed properly
 routes
 
+# Tests whether building emitters works
+emitters
+
 # testing meta processing
 meta
 

@@ -1,5 +1,6 @@
 SUMO dfrouter
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ Version 0.9.4
   Routes vehicles between detectors.
 
 Usage: (sumo-)dfrouter(.exe) [OPTION]*
@@ -16,6 +17,11 @@ Options:
    -n, --net-file FILE         FILE containing the SUMO-net
 
   Route descriptions:
+   -r, --routes-input FILE       FILE containing SUMO-routes
+
+ Detector files:
+   -d, --detector-definitions FILE FILE containing detector definition
+   -f, --flow-definitions        FILE containing flow definition
 
  Output files:
    -o, --output-file FILE      Generated routes will be written to FILE
@@ -30,6 +36,7 @@ Options:
  Report options:
    -v, --verbose              Verbose reports
    -W, -suppress-warnings     No warnings will be printed
+   -l, -log-file FILE         Writes all messages to the file
    -p, -print-options         Prints option values before processing
    -?, --help                 This screen
    --stats-period INT         Step number to pass between status output
