@@ -11,6 +11,4 @@ copy_test_path:input_net.net.xml
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
 
-[run_dependent_text]
-output:Build #
 

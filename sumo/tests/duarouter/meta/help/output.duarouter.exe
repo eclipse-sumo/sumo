@@ -1,5 +1,6 @@
 SUMO duarouter
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ Version 0.9.4
  Shortest path router for the microscopic road traffic simulation SUMO.
 
 Usage: (sumo-)duarouter(.exe) [OPTION]*
