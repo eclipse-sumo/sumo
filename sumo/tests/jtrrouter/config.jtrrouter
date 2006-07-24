@@ -9,6 +9,4 @@ copy_test_path:input_turns.turns.csv
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
 
-[run_dependent_text]
-output:Build #
 
