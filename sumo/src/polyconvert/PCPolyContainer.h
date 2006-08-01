@@ -1,0 +1,118 @@
+#ifndef PCPolyContainer_h
+#define PCPolyContainer_h
+/***************************************************************************
+                          PCPolyContainer.h
+    A storage for loaded polygons
+                             -------------------
+    project              : SUMO
+    subproject           : PolyConvert
+    begin                : Mon, 05 Dec 2005
+    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
+    author               : Danilo Boyom
+    email                : Danilot.Tete-Boyom@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.1  2006/08/01 07:52:46  dkrajzew
+// polyconvert added
+//
+// Revision 1.1  2006/03/27 07:22:27  dksumo
+// initial checkin
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
+#include <string>
+#include <map>
+#include <utils/shapes/Polygon2D.h>
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class
+ * @brief A storage for loaded polygons
+ */
+class PCPolyContainer {
+public:
+    /// Constructor
+    PCPolyContainer();
+
+    /// Destructor
+    ~PCPolyContainer();
+
+    /** adds a possible type into the list */
+    bool insert(std::string key, Polygon2D *poly, int layer);
+
+    /** returns the number of known types */
+    size_t getNo();
+
+    /** deletes all types */
+    void clear();
+
+    /// reports how many nodes were loaded
+    void report();
+
+    /// Returns the information whether a polygon with the given key is in the container
+	bool contains(const std::string &key);
+
+    /// Saves the stored polygons into the given file
+	void save(const std::string &file, int layer);
+
+    /// Retuns a unique id for a given name
+	int getEnumIDFor(const std::string &key);
+
+
+public:
+    /** a container of types, accessed by the string key */
+    typedef std::map<std::string, Polygon2D*> PolyCont;
+
+	/** the container of types**/
+    PolyCont myCont;
+
+	/// An id to int map for proper enumeration
+	std::map<std::string, int> myIDEnums;
+
+    /// A map from polygon to layer
+    std::map<Polygon2D*, int> myLayerMap;
+
+
+private:
+    /** invalid copy constructor */
+    PCPolyContainer(const PCPolyContainer &s);
+
+    /** invalid assignment operator */
+    PCPolyContainer &operator=(const PCPolyContainer &s);
+
+};
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+
+#endif
+
+// Local Variables:
+// mode:C++
+// End:
