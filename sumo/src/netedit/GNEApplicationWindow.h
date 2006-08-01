@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/08/01 07:31:35  dkrajzew
+// API adaptations
+//
 // Revision 1.13  2006/01/09 11:58:37  dkrajzew
 // new visualization settings implemented
 //
@@ -285,9 +288,6 @@ protected:
 
     /// The splitter that divides the main window into vies and the log window
     FXSplitter *myMainSplitter;
-
-    /// The status bar
-    FXStatusBar *myStatusbar;
 
     /// for some menu detaching fun
     FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,

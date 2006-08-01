@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/08/01 07:31:35  dkrajzew
+// API adaptations
+//
 // Revision 1.6  2006/01/09 11:58:37  dkrajzew
 // new visualization settings implemented
 //
@@ -141,6 +144,7 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
         0,0,0,0,0,0,0,0);
 	switch(view) {
     case MICROSCOPIC_VIEW:
+    default:
         if(share!=0) {
 			buildEditFrame(glcanvasFrame);
             _view =
@@ -155,8 +159,6 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
 			//	groupBox->hide();
         }
         break;
-    default:
-        throw 1;
     }
     _view->buildViewToolBars(*this);
 }

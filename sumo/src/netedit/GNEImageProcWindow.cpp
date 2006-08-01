@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/08/01 07:31:35  dkrajzew
+// API adaptations
+//
 // Revision 1.13  2006/04/11 11:00:43  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -92,7 +95,6 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/MsgRetrievingFunction.h>
@@ -440,7 +442,6 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             OptionsCont &oc = OptionsSubSys::getOptions();
             oc.clear();
             myNetBuilder->insertNetBuildOptions(oc);
-            DevHelper::insertDevOptions(oc);
             // add rand and dev options
             RandHelper::insertRandOptions(oc);
             oc.set("verbose", true);

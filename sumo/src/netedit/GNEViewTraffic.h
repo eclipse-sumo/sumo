@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/08/01 07:31:35  dkrajzew
+// API adaptations
+//
 // Revision 1.5  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -105,8 +108,6 @@ public:
 
     /// builds the view toolbars
     void buildViewToolBars(GUIGlChildWindow &);
-
-    void track(int id);
 
     long onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data);
 

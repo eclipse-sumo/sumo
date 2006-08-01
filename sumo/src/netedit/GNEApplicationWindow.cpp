@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/08/01 07:31:35  dkrajzew
+// API adaptations
+//
 // Revision 1.27  2006/04/11 11:00:43  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -291,8 +294,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
 
     // build the status bar
-    myStatusbar = new FXStatusBar(this,
-        LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
+    myStatusbar = new FXStatusBar(this, LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
 
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this,
