@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/01 07:38:46  dkrajzew
+// revalidation of options messaging
+//
 // Revision 1.15  2006/04/07 10:41:50  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -318,8 +321,16 @@ bool
 OptionsCont::set(const string &name, const string &value, bool isDefault)
 {
     Option *o = getSecure(name);
-    if(!o->set(value, isDefault)) {
+    if(!o->isWriteable()) {
         reportDoubleSetting(name);
+        return false;
+    }
+    try {
+        if(!o->set(value, isDefault)) {
+            return false;
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.msg());
         return false;
     }
     return true;
@@ -330,11 +341,18 @@ OptionsCont::set(const string &name, bool value, bool isDefault)
 {
     Option *o = getSecure(name);
     if(!o->isBool()) {
-        throw InvalidArgument("The option '" + name
-            + "' is not a boolean attribute and requires an argument.");
+        throw InvalidArgument("The option '" + name + "' is not a boolean attribute and requires an argument.");
     }
-    if(!o->set(value, isDefault)) {
+    if(!o->isWriteable()) {
         reportDoubleSetting(name);
+        return false;
+    }
+    try {
+        if(!o->set(value, isDefault)) {
+            return false;
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.msg());
         return false;
     }
     return true;

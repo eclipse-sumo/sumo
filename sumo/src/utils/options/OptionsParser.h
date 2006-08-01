@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/08/01 07:38:46  dkrajzew
+// revalidation of options messaging
+//
 // Revision 1.4  2005/05/04 09:28:01  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -90,10 +93,10 @@ public:
 
 private:
     /** parses the last argument */
-    static int check(OptionsCont *oc, char *arg1);
+    static int check(OptionsCont *oc, char *arg1, bool &ok);
 
     /** parses the previous arguments */
-    static int check(OptionsCont *oc, char *arg1, char *arg2);
+    static int check(OptionsCont *oc, char *arg1, char *arg2, bool &ok);
 
     /** returns the information whether the given argument is an option
         (begins with '-') */
@@ -110,7 +113,7 @@ private:
     static std::string convert(char abbr);
 
     /** extracts the parameter directly attached to an option */
-    static int processNonBooleanSingleSwitch(OptionsCont *oc, char *arg);
+    static bool processNonBooleanSingleSwitch(OptionsCont *oc, char *arg);
 
 };
 

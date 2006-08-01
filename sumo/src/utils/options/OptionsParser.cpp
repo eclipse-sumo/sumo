@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/08/01 07:38:46  dkrajzew
+// revalidation of options messaging
+//
 // Revision 1.9  2006/05/16 08:15:08  dkrajzew
 // catching empty parameters patched
 //
@@ -133,20 +136,13 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
             int add;
             // try to set the current option
             if(i<argc-1) {
-                add = check(oc, argv[i], argv[i+1]);
+                add = check(oc, argv[i], argv[i+1], ok);
             } else {
-                add = check(oc, argv[i]);
+                add = check(oc, argv[i], ok);
             }
-            // move the pointer forward
-            if(add>0) {
-                i += add;
-            } else {
-                i += 1;
-                ok = false;
-            }
+            i += add;
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform("Error on processing option '" + string(argv[i]) + "':");
-            MsgHandler::getErrorInstance()->inform(" " + e.msg());
+            MsgHandler::getErrorInstance()->inform("On processing option '" + string(argv[i]) + "':\n " + e.msg());
             i++;
             ok = false;
         }
@@ -156,20 +152,19 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
 
 
 int
-OptionsParser::check(OptionsCont *oc, char *arg1)
+OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
 {
     // the last stand-alone argument should be a switch
     if(!checkParameter(arg1)) return -1;
     // check switch
-    bool error = false;
     if(isAbbreviation(arg1)) {
         // set all switches when abbreviated
         for(int i=1; arg1[i]!=0; i++) {
-            // process boolean switches
             if(oc->isBool(convert(arg1[i]))) {
-                error = !oc->set(convert(arg1[i]), true);
-            // process non-boolean switches
+                // process boolean switches
+                ok &= oc->set(convert(arg1[i]), true);
             } else {
+                // process non-boolean switches
                 return processNonBooleanSingleSwitch(oc, arg1+i);
             }
         }
@@ -178,105 +173,95 @@ OptionsParser::check(OptionsCont *oc, char *arg1)
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if(idx1!=string::npos) {
-            error = !oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1));
+            ok &= oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1));
         } else {
-            error = !oc->set(convert(arg1+2), true);
+            ok &= oc->set(convert(arg1+2), true);
         }
-    }
-    if(error) {
-        return -1;
     }
     return 1;
 }
 
 
 int
-OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2)
+OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
 {
     // the first argument should be an option
     // (only the second may be a free string)
-    if(!checkParameter(arg1)) return -1;
+    if(!checkParameter(arg1)) {
+        ok = false;
+        return 1;
+    }
     // process not abbreviated switches
     if(!isAbbreviation(arg1)) {
         string tmp(arg1+2);
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if(idx1!=string::npos) {
-            if(oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
-                return 1;
+            if(!oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
+                ok = false;
             }
-            return -1;
+            return 1;
         } else {
             if(oc->isBool(convert(arg1+2))) {
-                if(oc->set(convert(arg1+2), true))
-                    return 1;
+                if(!oc->set(convert(arg1+2), true)) {
+                    ok = false;
+                }
+                return 1;
             } else {
-                if(oc->set(convert(arg1+2), convert(arg2)))
-                    return 2;
+                if(!oc->set(convert(arg1+2), convert(arg2))) {
+                    ok = false;
+                }
+                return 2;
             }
             // an error occured
-            return -1;
+            ok = false;
+            return 1;
         }
     }
     // process abbreviated switches
     else {
-        bool error = false;
         // go through the abbreviated switches
         for(int i=1; arg1[i]!=0; i++) {
             // set boolean switches
             if(oc->isBool(convert(arg1[i]))) {
-                error = !oc->set(convert(arg1[i]), true);
+                ok &= oc->set(convert(arg1[i]), true);
             // set non-boolean switches
             } else {
                 // check whether the parameter comes directly after the switch
                 //  and process if so
                 if(arg1[i+1]!=0) {
-                    return processNonBooleanSingleSwitch(oc, arg1+i);
+                    ok &= processNonBooleanSingleSwitch(oc, arg1+i);
                 // process parameter following after a space
                 } else {
-                    error = !oc->set(convert(arg1[i]), convert(arg2));
+                    ok &= oc->set(convert(arg1[i]), convert(arg2));
                     // option name and attribute were in two arguments
-                    if(!error) {
-                        return 2;
-                    } else {
-                        return -1;
-                    }
+                    return 2;
                 }
             }
         }
         // all switches within the current argument were boolean switches
-        if(!error) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return 1;
     }
 }
 
 
-int
+bool
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg)
 {
-    bool error = false;
     if(arg[1]=='=') {
         if(strlen(arg)<3) {
             MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg).substr(0, 1) + "'.");
-            error = true;
+            return false;
         } else {
-            error = !oc->set(convert(arg[0]), string(arg+2));
+            return oc->set(convert(arg[0]), string(arg+2));
         }
     } else {
         if(strlen(arg)<2) {
             MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg) + "'.");
-            error = true;
+            return false;
         } else {
-            error = !oc->set(convert(arg[0]), string(arg+1));
+            return oc->set(convert(arg[0]), string(arg+1));
         }
-    }
-    if(error) {
-        return -1;
-    } else {
-        return 1;
     }
 }
 
@@ -285,10 +270,8 @@ bool
 OptionsParser::checkParameter(char *arg1)
 {
     if(arg1[0]!='-') {
-        MsgHandler::getErrorInstance()->inform(
-            "The parameter '" + string(arg1) + "' is not allowed in this context");
-        MsgHandler::getErrorInstance()->inform(
-            "Switch or parameter name expected.");
+        MsgHandler::getErrorInstance()->inform("The parameter '" + string(arg1) + "' is not allowed in this context");
+        MsgHandler::getErrorInstance()->inform("Switch or parameter name expected.");
         return false;
     }
     return true;

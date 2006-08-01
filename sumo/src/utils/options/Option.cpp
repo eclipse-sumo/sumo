@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/08/01 07:38:46  dkrajzew
+// revalidation of options messaging
+//
 // Revision 1.11  2006/04/07 10:41:50  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -121,6 +124,7 @@ namespace
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -214,7 +218,7 @@ Option::getBool() const
 const IntVector &
 Option::getIntVector() const
 {
-    throw InvalidArgument("This is not a bool-option");
+    throw InvalidArgument("This is not an int vector-option");
 }
 
 
@@ -528,7 +532,7 @@ Option_Float::set(string v, bool isDefault)
         _value = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet(isDefault);
     } catch (...) {
-        string s = "'" + v + "' is not a valid SUMOReal (should be).";
+        string s = "'" + v + "' is not a valid float (should be).";
         throw InvalidArgument(s);
     }
 }
@@ -713,10 +717,12 @@ Option_IntVector::set(std::string v, bool isDefault)
             _value.push_back(TplConvert<char>::_2int(st.next().c_str()));
         }
         return markSet(isDefault);
+    } catch (EmptyData &) {
+        throw InvalidArgument("Empty element occured in " + v);
     } catch (...) {
-        string s = "'" + v + "' is not a valid long (should be).";
-        throw InvalidArgument(s);
+        throw InvalidArgument("'" + v + "' is not a valid integer vector (should be).");
     }
+    return false;
 }
 
 
