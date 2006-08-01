@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.57  2006/07/06 06:26:44  dkrajzew
 // added blinker visualisation and vehicle tracking (unfinished)
 //
@@ -932,10 +935,10 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                     (_net->getShapeContainer().getPOICont(1).get(name));
                 setPointToMove(p);
             } else {
-                std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
-                std::string Id= toString(point.first) +  "," + toString(point.second);
+                Position2D point = getPositionInformation();
+                std::string Id= toString(point.x()) +  "," + toString(point.y());
                 GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
-                    Position2D(point.first, point.second),RGBColor(0,0,0) );
+                    Position2D(point.x(), point.y()),RGBColor(0,0,0) );
                 _net->getShapeContainer().add(1, p);
                 update();
             }
@@ -980,10 +983,10 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 //!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);
 				update();
 			}else{
-				std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
-				std::string Id= toString(point.first)+toString(point.second);
+				Position2D point = getPositionInformation();
+				std::string Id= toString(point.x())+toString(point.y());
 				GUIPointOfInterest *p =
-                    new GUIPointOfInterest(gIDStorage, Id, "point", Position2D(point.first, point.second),RGBColor(0,0,0) );
+                    new GUIPointOfInterest(gIDStorage, Id, "point", point, RGBColor(0,0,0) );
 				_net->getShapeContainer().add(1, p);
 				setSecondPoint(p);
 //!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);
@@ -1016,8 +1019,8 @@ GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
 
 	if(_pointToMove!=0 && e->state&SHIFTMASK ){
 		// Keep Color Informations
-		std::pair<SUMOReal, SUMOReal> point = getPositionInformation(e->win_x, e->win_y);
-        _pointToMove->set(point.first, point.second);
+		Position2D point = getPositionInformation(e->win_x, e->win_y);
+        _pointToMove->set(point.x(), point.y());
 		if(!_leftButtonPressed){
 			_pointToMove=0;
 		}

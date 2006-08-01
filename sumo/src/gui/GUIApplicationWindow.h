@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.36  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.35  2006/05/15 05:45:17  dkrajzew
 // beautifying: dead code removed
 //
@@ -341,9 +344,6 @@ protected:
 
     /// The splitter that divides the main window into vies and the log window
     FXSplitter *myMainSplitter;
-
-    /// The status bar
-    FXStatusBar *myStatusbar;
 
     /// for some menu detaching fun
     FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.21  2006/04/11 10:54:52  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -230,6 +233,7 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
     // build the tool bar
     buildToolBar(glcanvasFrame);
     switch(view) {
+    default:
     case MICROSCOPIC_VIEW:
         if(share!=0) {
             _view =
@@ -241,8 +245,6 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
                     myParent->getGLVisual());
         }
         break;
-    default:
-        throw 1;
     }
     _view->buildViewToolBars(*this);
 }

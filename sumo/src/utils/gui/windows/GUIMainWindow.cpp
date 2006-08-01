@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.5  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -56,10 +59,12 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <string>
 #include "GUIMainWindow.h"
 #include <algorithm>
 #include "GUIAppEnum.h"
 #include <fx3d.h>
+#include <utils/common/StringUtils.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -67,9 +72,14 @@ namespace
 
 
 /* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
  * member method definitions
  * ======================================================================= */
-
 GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
 	: FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
@@ -157,6 +167,7 @@ GUIMainWindow::getMaxGLHeight() const
     return myGLHeight;
 }
 
+
 void
 GUIMainWindow::updateChildren()
 {
@@ -170,11 +181,29 @@ GUIMainWindow::updateChildren()
     myTrackerLock.unlock();
 }
 
+
 FXGLVisual *
 GUIMainWindow::getGLVisual() const
 {
     return myGLVisual;
 }
+
+
+void
+GUIMainWindow::setCartesianPos(SUMOReal x, SUMOReal y)
+{
+    string text = "x:" + StringUtils::trim(x, 3) + ", y:" + StringUtils::trim(y, 3);
+    myCartesianCoordinate->setText(text.c_str());
+}
+
+void
+GUIMainWindow::setGeoPos(SUMOReal x, SUMOReal y)
+{
+    string text = "lat:" + StringUtils::trim(y, 6) + ", lon:" + StringUtils::trim(x, 6);
+    myGeoCoordinate->setText(text.c_str());
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.7  2005/11/09 06:46:34  dkrajzew
 // added cursor position output (unfinished)
 //
@@ -96,6 +99,9 @@ public:
 
     virtual void setStatusBarText(const std::string &) { }
 
+    void setCartesianPos(SUMOReal x, SUMOReal y);
+    void setGeoPos(SUMOReal x, SUMOReal y);
+
 protected:
 	std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
@@ -110,6 +116,13 @@ protected:
 
     /// The multi view panel
     FXMDIClient *myMDIClient;
+
+    /// The status bar
+    FXStatusBar *myStatusbar;
+
+    /// Labels for the current cartesian and geo-coordinate
+    FXLabel *myCartesianCoordinate, *myGeoCoordinate;
+    FXHorizontalFrame *myCartesianFrame, *myGeoFrame;
 
 
     /// The gl-visual used

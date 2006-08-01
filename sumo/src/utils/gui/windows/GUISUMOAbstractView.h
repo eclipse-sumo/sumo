@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.17  2006/07/06 05:55:59  dkrajzew
 // added the "show blinker" option
 //
@@ -418,9 +421,9 @@ protected:
 
     void updatePositionInformation() const;
 
-    std::pair<SUMOReal, SUMOReal> getPositionInformation() const;
+    Position2D getPositionInformation() const;
 
-    std::pair<SUMOReal, SUMOReal> getPositionInformation(int x, int y) const;
+    Position2D getPositionInformation(int x, int y) const;
 
     void drawShapesLayer(const ShapeContainer &sc, int layer);
 

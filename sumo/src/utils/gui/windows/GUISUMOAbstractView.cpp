@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.20  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -233,6 +236,7 @@ namespace
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 
 #ifdef _WIN32
@@ -433,14 +437,14 @@ GUISUMOAbstractView::updateToolTip()
 }
 
 
-std::pair<SUMOReal, SUMOReal>
+Position2D
 GUISUMOAbstractView::getPositionInformation() const
 {
     return getPositionInformation(_changer->getMouseXPosition(), _changer->getMouseYPosition());
 }
 
 
-std::pair<SUMOReal, SUMOReal>
+Position2D
 GUISUMOAbstractView::getPositionInformation(int mx, int my) const
 {
     const Boundary &nb = myGrid->getBoundary();
@@ -501,7 +505,7 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const
             * ((SUMOReal) _heightInPixels - (SUMOReal) my)
             / (SUMOReal) _heightInPixels;
     }
-    return make_pair<SUMOReal, SUMOReal>(sx, sy);
+    return Position2D(sx, sy);
 }
 
 
@@ -509,9 +513,12 @@ void
 GUISUMOAbstractView::updatePositionInformation() const
 {
     if(true) {
-        std::pair<SUMOReal, SUMOReal> pos = getPositionInformation();
-        string text = "x:" + StringUtils::trim(pos.first, 3) + ", y:" + StringUtils::trim(pos.second, 3);
-        myApp->setStatusBarText(text);
+        Position2D pos = getPositionInformation();
+        myApp->setCartesianPos(pos.x(), pos.y());
+        if(GeoConvHelper::initialised()) {
+            GeoConvHelper::cartesian2geo(pos);
+            myApp->setGeoPos(pos.x(), pos.y());
+        }
     }
 }
 
@@ -1195,9 +1202,15 @@ double glvert[6];
 void
 GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 {
-	if(polygon.getPosition2DVector().size()<3) {
-		return;
-	}
+    if(polygon.fill()) {
+	    if(polygon.getPosition2DVector().size()<3) {
+		    return;
+	    }
+    } else {
+	    if(polygon.getPosition2DVector().size()<2) {
+		    return;
+	    }
+    }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	myPolyDrawLock.lock();
     if(_useToolTips) {
@@ -1206,7 +1219,10 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	RGBColor color = polygon.getColor();
 	glColor3d(color.red(), color.green(), color.blue());
 	double *points = new double[polygon.getPosition2DVector().size()*3];
-    if(polygon.getPosition2DVector().isClosed()) {
+    if(polygon.getName()=="Bahn#0") {
+        int bla = 0;
+    }
+    if(polygon.fill()) {
 	    GLUtesselator *tobj = gluNewTess();
 	    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
 	    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);

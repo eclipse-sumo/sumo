@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2006/08/01 05:43:46  dkrajzew
+// cartesian and geocoordinates are shown; changed the APIs for this
+//
 // Revision 1.56  2006/07/06 05:41:17  dkrajzew
 // debugged reloading of simulations while subwindows are open
 //
@@ -362,8 +365,17 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
     myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
 
     // build the status bar
-    myStatusbar = new FXStatusBar(this,
-        LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
+    myStatusbar = new FXStatusBar(this, LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
+    {
+        myGeoFrame =
+            new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH|LAYOUT_FILL_Y|LAYOUT_RIGHT|FRAME_SUNKEN,
+            0,0,20,0, 0,0,0,0, 0,0);
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A");// !!!!!
+        myCartesianFrame =
+            new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH|LAYOUT_FILL_Y|LAYOUT_RIGHT|FRAME_SUNKEN,
+            0,0,20,0, 0,0,0,0, 0,0);
+        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A"); // !!!!!
+    }
 
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this,
@@ -426,6 +438,11 @@ GUIApplicationWindow::create()
     mySettingsMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
+
+    size_t width = getApp()->getNormalFont()->getTextWidth("8", 1)*22;
+    myCartesianFrame->setWidth(width);
+    myGeoFrame->setWidth(width);
+
     show(PLACEMENT_SCREEN);
     if(getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==1) {
         maximize();
