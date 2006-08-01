@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/08/01 06:56:56  dkrajzew
+// error checks for dump-begins/dump-ends added
+//
 // Revision 1.13  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -99,6 +102,19 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 const std::vector<int> &dumpBegins,
                                 const std::vector<int> &dumpEnds)
 {
+    // check constraints
+    if(dumpBegins.size()!=dumpEnds.size()) {
+        MsgHandler::getErrorInstance()->inform("The number of entries in dump-begins must be the same as in dump-ends.");
+        throw ProcessError();
+    }
+    size_t noConstraints = dumpBegins.size();
+    for(size_t i=0; i<noConstraints; i++) {
+        if(dumpBegins[i]>=dumpEnds[i]) {
+            MsgHandler::getErrorInstance()->inform("The dump-begin at position " + toString(i+1) + " is not smaller than the according dump-end.");
+            throw ProcessError();
+        }
+    }
+    // build mean data
     MSMeanData_Net_Cont ret;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
         MSMeanData_Net_Cont tmp =
