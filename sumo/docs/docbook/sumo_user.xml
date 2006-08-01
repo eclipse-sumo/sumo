@@ -121,9 +121,7 @@
       <para>This document describes how to use each of the applications that
       come with the SUMO-package. We should remark, that this document only
       covers the usage of the software and some descriptions of the used
-      models. Information about the applications' interna may be found in the
-      <ulink url="http://sumo.sourceforge.net/docs/devdocs.shtml">developer
-      documentation</ulink>.</para>
+      models.</para>
 
       <sect2 id="user_chp01-about_document-applications">
         <title>Described Applications</title>
@@ -595,17 +593,6 @@
         SUMO a little bit uncomfortable in comparison to other simulation
         packages. As there are still other things to do, we are not thinking
         of a redesign towards an integrated approach by now.</para>
-      </sect2>
-
-      <sect2 id="user_chp03-sumo-meta">
-        <title>Available Meta-Information</title>
-
-        <para>All applications of the SUMO-package print the current version
-        and build number when started with the option
-        <option>--version</option>. Furthermore a help-screen is printed
-        including all options the application knows when the application is
-        started with the <option>--help</option> (<option>-?</option> for
-        short) option.</para>
       </sect2>
     </sect1>
   </chapter>
@@ -4134,19 +4121,20 @@
       <title>Introduction</title>
 
       <para>After having your network converted into the SUMO-format, you
-      could take a look at it using the gui-version of the simulation, but no
-      cars would be driving around. You still need some kind of description
-      about the vehicles. If you are importing data from other simulation
-      packages, they normally bring own route definitions you can use. In case
-      of using ArcView- or own data or in other cases where you do not have
-      the vehicle movements at all, you have to generate them by your own.
-      From now on we will use the following nomenclature: A
-      <emphasis>trip</emphasis> is a vehicle movement from one place to
-      another defined by the starting edge (street), the destination edge, and
-      the departure time. A <emphasis>route</emphasis> is an expanded trip,
-      that means, that a route definition contains no only the first and the
-      last edge, but all edges the vehicle will pass. There are several ways
-      to generate routes for SUMO:</para>
+      could take a look at it using the gui-version of the simulation (see
+      "<link linkend="user_chp07">Simulation-GUI</link>"), but no cars would
+      be driving around. You still need some kind of description about the
+      vehicles. If you are importing data from other simulation packages, they
+      normally bring own route definitions you can use. In case of using
+      ArcView or own data or in other cases where you do not have the vehicle
+      movements at all, you have to generate them by your own. From now on we
+      will use the following nomenclature: A <glossterm>trip</glossterm> is a
+      vehicle movement from one place to another defined by the starting edge
+      (street), the destination edge, and the departure time. A
+      <glossterm>route</glossterm> is an expanded trip, that means, that a
+      route definition contains not only the first and the last edge, but all
+      edges the vehicle will pass. There are several ways to generate routes
+      for SUMO:</para>
 
       <itemizedlist>
         <listitem>
@@ -4189,7 +4177,9 @@
         <listitem>
           <para>by hand</para>
 
-          <para>You can of course generate route files by hand.</para>
+          <para>You can of course generate route files by hand (see Chapter
+          "<ulink url="#user_chp05-explicite-hand">Building Routes 'by
+          Hand'</ulink>").</para>
         </listitem>
 
         <listitem>
@@ -4208,18 +4198,20 @@
         </listitem>
       </itemizedlist>
 
-      <para>By now, the SUMO-package contains three applications for
-      processing routes. <application>DUAROUTER</application> is responsible
-      for importing routes from other simulation packages and for computing
-      routes using the shortest-path algorithm by Dijkstra.
+      <para>By now, the SUMO-package contains four applications for processing
+      routes. <application>DUAROUTER</application> is responsible for
+      importing routes from other simulation packages and for computing routes
+      using the shortest-path algorithm by Dijkstra.
       <application>JTRROUTER</application> may be used if you want to model
       traffic statistically, using flows and turning percentages at junctions.
       <application>OD2TRIPS</application> helps you to convert OD-matrices
-      (origin/destination-matrices) into trips. Within the next chapters, at
-      first the mandatory arguments are described, then we will show how each
-      of the possible methods of generating routes from scratch can be used.
-      In the following, importing routes and additional options are given
-      followed by a small overview.</para>
+      (origin/destination-matrices) into trips. A new application, the
+      <application>DFROUTER</application> was added to the suite for version
+      0.9.5. Within the next chapters, at first the mandatory arguments are
+      described, then we will show how each of the possible methods of
+      generating routes from scratch can be used. In the following, importing
+      routes and additional options are given followed by a small
+      overview.</para>
     </sect1>
 
     <sect1 id="user_chp05-common">
@@ -4227,8 +4219,12 @@
 
       <para>Independent to what you are doing, you always have to supply the
       network using the <option>--net-file</option> (or <option>--net</option>
-      or <option>-n</option> for short) option. Additionally, you should let
-      the application know which time interval is to be used. Route/trip/flow
+      or <option>-n</option> for short) option when working with either
+      <application>DFROUTER</application>,
+      <application>DUAROUTER</application>,
+      <application>JTRROUTER</application>, or
+      <application>OD2TRIPS</application>. Additionally, you should let the
+      application know which time interval shall be used. Route/trip/flow
       definitions will be imported within the interval given by the options
       <option>--begin</option> (<option>-b</option>) and
       <option>--end</option> (<option>-e</option>). Definitions with departure
@@ -4237,7 +4233,7 @@
       do not give a value for the begin / end time step the defaults 0 and
       86400 (one day) will be used, respectively.</para>
 
-      <para>Mandatory options:</para>
+      <para>Common options:</para>
 
       <variablelist>
         <varlistentry>
@@ -4275,7 +4271,7 @@
     </sect1>
 
     <sect1 id="user_chp05-own_routes">
-      <title>Building own Routes from Scratch</title>
+      <title>Building Routes from Scratch</title>
 
       <para>You have either the possibility to generate completely random
       routes or to exactly describe what you want and pass this information to
@@ -4295,16 +4291,17 @@
       <sect2 id="user_chp05-explicit">
         <title>Generating own, explicit Routes</title>
 
-        <para>There are two possibilities to describe own routes. The first
-        one id the usage of trip definitions, the second one the usage of flow
-        descriptions. Trip definitions describe the movement of a single
-        vehicle giving the departure time, and both the origin and the
-        destination via their edge-id. Flow descriptions use these values to,
-        but instead of describing only one vehicle, the description is used
-        for a defined number of vehicles to be emitted within a described
-        interval. Due to this, instead of the departure time, the period's
-        begin and end times must be supplied and the number of vehicles to
-        emit within this interval.</para>
+        <para>There are three possibilities to describe own routes. The most
+        trivial one is to do this by hand. The first one id the usage of trip
+        definitions, the second one the usage of flow descriptions. Trip
+        definitions describe the movement of a single vehicle giving the
+        departure time, and both the origin and the destination edges via
+        their id. Flow descriptions use these values too, but instead of
+        describing only one vehicle, the description is used for a defined
+        number of vehicles to be emitted within a described interval. Due to
+        this, instead of the departure time, the period's begin and end times
+        must be supplied and the number of vehicles to emit within this
+        interval.</para>
 
         <figure>
           <title>Building routes from trips</title>
@@ -4318,6 +4315,158 @@
         </figure>
 
         <para>We will describe both data types less briefly, now.</para>
+
+        <sect3 id="user_chp05-explicite-hand" revision="0.9.5">
+          <title>Building Routes 'by Hand'</title>
+
+          <para>The most simple way to get own routes is to edit a routes file
+          by hand, but only if the number of different routes is not too high.
+          Most of the routes within the examples were written by hand, in
+          fact. Before starting, you must know that a vehicle in SUMO consists
+          of three parts: a vehicle type which describes the vehicle's
+          physical properties, a route the vehicle shall take, and the vehicle
+          itself. Both routes and vehicle types can be shared by several
+          vehicles. In this case, routes need a further information. Assume
+          you want to build a routes file "routes.rou.xml". Herein, you can
+          define a vehicle type as following:</para>
+
+          <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
+   <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
+<sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
+
+          <para>The values used above are the ones most of the examples use.
+          They resemble a standard vehicle as used within the Stefan Krauß'
+          thesis besides that the minimum gap between vehicles is not added to
+          the length. (!!!) These values have the following meanings:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: A string holding the id of the
+              vehicle type</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>accel</sgmltag>: The acceleration ability of
+              vehicles of this type (in m/s^2)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>decel</sgmltag>: The deceleration ability of
+              vehicles of this type (in m/s^2)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>sigma</sgmltag>: The driver imperfection (between
+              0 and 1)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>length</sgmltag>: The vehicle length (in
+              m)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>maxspeed</sgmltag>: The vehicle's maximum
+              velocity (in m/s)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>color</sgmltag>: An optional color of the vehicle
+              type, encoded as three values between 0 and 1 for red, green,
+              and blue, divided by a ','. Please remark that no spaces between
+              the numbers are allowed.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Having this defined, you can build vehicles of type "type1".
+          Let's do this for a vehicle with an completely own route:</para>
+
+          <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
+   <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
+
+   &lt;vehicle id="0" type="type1" depart="0" color="1,0,0"&gt;
+      &lt;route&gt;beg middle end rend&lt;/route&gt;
+   &lt;/vehicle&gt;
+
+<sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
+
+          <para>Ok, now we have a red (color=1,0,0) vehicle of type "type1"
+          named "0" which will start at time 0. The vehicle will drive along
+          the streets "beg", "middle", "end", and as soon as it has approached
+          the edge "rend" it will be removed from the simulation. Ok, let's
+          review a vehicle's attributes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: A string holding the id of the
+              vehicle</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>type</sgmltag>: The vehicle type to use for this
+              vehicle</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>depart</sgmltag>: The time at which the vehicle
+              shall be emitted into the net</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>color</sgmltag>: An optional color of the
+              vehicle, encoded as three values between 0 and 1 for red, green,
+              and blue, divided by a ','. Please remark that no spaces between
+              the numbers are allowed.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>This vehicle has an own, internal route which is not shared
+          with other vehicles. You may also define two vehicles using the same
+          route. In this case you have to "externalize" the route by giving it
+          an id and make <application>SUMO</application> know that it is
+          shared by more than one vehicle using the
+          <sgmltag>multi_ref</sgmltag> attribute. The vehicles using it refer
+          it using the "<sgmltag>route</sgmltag>"-attribute. The complete
+          change looks like this:</para>
+
+          <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
+   <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
+
+   &lt;route id="route0" multi_ref="x" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;
+
+   &lt;vehicle id="0" type="type1" route="route0" depart="0" color="1,0,0"/&gt;
+   &lt;vehicle id="1" type="type1" route="route0" depart="0" color="0,1,0"/&gt;
+
+<sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
+
+          <para>You may have noticed, that the route itself also got a color
+          definition, so the attributes of a route are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: A string holding the id of the
+              route</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>multi_ref</sgmltag>: If set to 'x' or 't' then
+              the route is assumed to be shared by several vehicles and not
+              removed until the simulation has ended</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>color</sgmltag>: An optional color of the
+              vehicle, encoded as three values between 0 and 1 for red, green,
+              and blue, divided by a ','. Please remark that no spaces between
+              the numbers are allowed.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>This knowledge should enable you to specify own route
+          definitions by hand or using self-written scripts. All routing
+          modules are generating route files that match this routes and
+          vehicles specification.</para>
+        </sect3>
 
         <sect3 id="user_chp05-explicite-trips">
           <title>Using Trip Definitions</title>
@@ -5488,7 +5637,9 @@
 
       <note>
         <para>There is some further reading on DUA within our More On... -
-        section. See TBD.</para>
+        section. See "<ulink
+        url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_dua.shtml">More
+        On... Dynamic User Assignment</ulink>".</para>
       </note>
 
       <para>Specific options:</para>
@@ -5663,6 +5814,8 @@
       completely known. <application>DFROUTER</application> uses directly the
       information collected from induct loops to rebuild the vehicle amounts
       and routes.</para>
+
+      <para>!!!</para>
     </sect1>
 
     <sect1 id="user_chp05-closing">
@@ -5823,9 +5976,9 @@
 
       <para>To supply the definitions of these structures to the simulation,
       we use an additional file normally and pass it to "SUMO" using the
-      <option>--additional-files</option> (<option>-a</option>) - option. The
-      file may contain all the definitions about additional structures such as
-      detectors, emitters etc. in random order.</para>
+      <option>--additional-files</option> (<option>-a</option>) - option. Each
+      of these files may contain all the definitions about additional
+      structures such as detectors, emitters etc. in random order.</para>
 
       <sect2 id="user_chp06-output-detectors">
         <title>Detectors</title>
@@ -6507,17 +6660,14 @@
 
         <itemizedlist>
           <listitem>
-            <para>Please notcie that this options has been earlier falsely
+            <para>Please notice that this options has been earlier falsely
             named <option>--output</option> (<option>-o</option>)</para>
           </listitem>
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-output-lanestates" revision="0.9.5">
-        <title>Aggregated Lane/Edge States</title>
-
-        <para>TBD: --dump-end + dump-begin; difference lane-based &amp;
-        edge-based</para>
+      <sect2 id="user_chp06-output-edgelanedump" revision="0.9.5">
+        <title>Aggregated Lane/Edge States (Edge/Lane-Dumps)</title>
 
         <para>This output is far more feasible than the network dump. There
         are two different types of these files, one is edge-based, the other
@@ -6525,90 +6675,32 @@
         edges/lanes in terms of traffic science by giving macroscopic values
         such as the mean vehicle speed, the mean density, etc.</para>
 
-        <para>To force SUMO to generate edge-based state dumps, you have to
-        use two command line options: a) <option>--dump-basename
-        <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
-        describes where to write the dumps to and how the begin of the file
-        name is, b) <option>--dump-intervals
-        <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
-        describes over what time the values shall be collected and aggregated
-        ("interval length"). Each aggregation interval is written into an own,
-        single file. The file name is made up from the base name and the
-        aggregation interval:
-        <filename><replaceable>&lt;FILENAME&gt;</replaceable> =
-        <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable>_<replaceable>&lt;INTERVAL&gt;</replaceable>.xml</filename>.
-        An example: <option>--dump-basename=./output/lanedump
-        --dump-intervals=300;600</option> will build two files:
-        <filename>./output/lanedump_300.xml</filename> and
-        <filename>./output/lanedump_600.xml</filename>. For edge-based state
-        dumps, the output file will look as the following:</para>
+        <para>In the following, it is described how both outputs are generated
+        and which values they contain. Then, the meanings of the values are
+        given as well as a description of intervals. At last, some additional
+        possibilities to constraint the outputs are given.</para>
 
-        <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
-   <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
-      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
-                 noVehContrib="<replaceable>&lt;VEHICLE_NUMBER#1&gt;</replaceable>" \
-                 density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" \
-                 noStops="<replaceable>&lt;NUMBER_OF_HALTING_VEHICLES&gt;</replaceable>" \
-                 speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>"/&gt;</sgmltag>
+        <note>
+          <para>Please remark that "aggregated lane/edge states" are also
+          called "meandata" or "edge/lane-dumps".</para>
+        </note>
 
-      ... more edges ...
-
-   <sgmltag>&lt;/interval&gt;</sgmltag>
-
-   ... further intervals ...
-
-<sgmltag>&lt;/netstats&gt;</sgmltag></programlisting>
-
-        <para>Please remark, that in contrary to the example above, for each
-        edge, all those values are reported in one line.</para>
-
-        <para>The meanings of the written values are:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para><sgmltag>traveltime</sgmltag>: The mean travel time the
-            vehicles needed to pass the lane. Only vehicles that pass the
-            whole lane are regarded. If no vehicle has passed the edge,
-            length/maximum allowed velocity is used; Measure: s</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>speed</sgmltag>: The mean speed the vehicles had
-            when passing the lane. Only vehicles that pass the whole lane are
-            regarded. If no vehicle has passed the edge, the maximum allowed
-            velocity is used; Measure: m/s</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>density</sgmltag>: The mean density on the lane
-            during the interval. Only vehicles that pass the whole lane are
-            regarded. Measure: veh/h</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>noVehContrib</sgmltag>: The number of vehicles that
-            were on the lane during the interval. All vehicles are regarded.
-            Measure: n (veh)</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>The interval end is the interval begin + aggregation time - 1,
-        meaning that values were collected within these steps. If the
-        simulation ends before the last interval is over, the interval will be
-        prunned.</para>
-
-        <para>To generate lane-based dumps, TBD!!!</para>
-
-        <para>Examples:</para>
-
-        <para>tbd</para>
+        <note>
+          <para>Some people find the number of information within the
+          lane/edge states quite minimalist. This is because this output is
+          used as input for the <application>DUAROUTER</application> during
+          the computation of a dynamic user assignment (see "<link
+          linkend="user_chp05-dua">Dynamic User Assignment and Alternative
+          Routes</link>") and due to this is meant to be fast. That's why it
+          only contains values that are fast to compute.</para>
+        </note>
 
         <para>Recent changes:</para>
 
         <itemizedlist>
           <listitem>
             <para>The documentation has been updated to fit the real output
-            when being rechecked for verion 0.9.3</para>
+            when being rechecked for version 0.9.3</para>
           </listitem>
 
           <listitem>
@@ -6621,10 +6713,200 @@
             <para>This documentation text was rewritten for version 0.9.5,
             because the previous text said that only those vehicles are
             regarded which have left the lane. The edge-dumps/lane-dumps
-            contain instead the values of all vehicles that are on the
-            edges/lanes.</para>
+            contain instead the values of all vehicles that were on the
+            edges/lanes within the interval.</para>
+          </listitem>
+
+          <listitem>
+            <para>Furthermore, computation of the density and the occupancy
+            has been debugged for version 0.9.5.</para>
           </listitem>
         </itemizedlist>
+
+        <sect3 id="user_chp06-output-edgelanedump-edges">
+          <title>Edge-Based Network States</title>
+
+          <para>To force SUMO to generate edge-based state dumps, you have to
+          use two command line options: a) <option>--dump-basename
+          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
+          describes where to write the dumps to and how the begin of the file
+          name is, b) <option>--dump-intervals
+          <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
+          describes over what time the values shall be collected and
+          aggregated ("interval length"). Each aggregation interval is written
+          into an own, single file. The file name is made up from the base
+          name and the aggregation interval:
+          <filename><replaceable>&lt;FILENAME&gt;</replaceable> =
+          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable>_<replaceable>&lt;INTERVAL&gt;</replaceable>.xml</filename>.
+          An example: <option>--dump-basename=./output/lanedump
+          --dump-intervals=300;600</option> will build two files:
+          <filename>./output/lanedump_300.xml</filename> and
+          <filename>./output/lanedump_600.xml</filename>. For edge-based state
+          dumps, the output file will look like the following:</para>
+
+          <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
+                 nSamples="&lt;VEHICLE_NUMBER&gt;" \
+                 density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" occupancy="<replaceable>&lt;MEAN_OCCUPANCY&gt;</replaceable>" \
+                 noStops="&lt;NUMBER_OF_HALTS&gt;" speed="&lt;MEAN_SPEED&gt;"/&gt;</sgmltag>
+
+      ... more edges ...
+
+   <sgmltag>&lt;/interval&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/netstats&gt;</sgmltag></programlisting>
+
+          <para>Please remark, that in contrary to the example above, for each
+          edge, all values are reported in one line.</para>
+
+          <para>Examples:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_meandata_edges/</filename>
+              shows how to generate an edge-based aggregated state output.
+              Herein, four outputs are written into the subfolder
+              "<filename>output</filename>", one for each of the intervals
+              15s, 60s, 300s, and 900s.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-edgelanedump-lanes">
+          <title>Lane-Based Network States</title>
+
+          <para>Lane-dumps are generated analogous to edge-dumps using the
+          options <option>--lanedump-basename
+          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option> and
+          <option>--lanedump-intervals
+          <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>.
+          The generated output looks like the following:</para>
+
+          <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag><sgmltag>&gt;</sgmltag>
+         <sgmltag>&lt;lane id="<replaceable>&lt;LANE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
+                 nSamples="&lt;VEHICLE_NUMBER&gt;" \
+                 density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" occupancy="<replaceable>&lt;MEAN_OCCUPANCY&gt;</replaceable>" \
+                 noStops="&lt;NUMBER_OF_HALTS&gt;" speed="&lt;MEAN_SPEED&gt;"/&gt;</sgmltag>
+
+         ... more lanes
+
+      <sgmltag>&lt;/edge&gt;</sgmltag>
+
+      ... more edges ...
+
+   <sgmltag>&lt;/interval&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/netstats&gt;</sgmltag></programlisting>
+
+          <para>Please remark, that in contrary to the example above, for each
+          edge, all values are reported in one line.</para>
+
+          <para>Examples:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_meandata_lanes/</filename>
+              shows how to generate a lane-based aggregated state output.
+              Herein, four outputs are written into the subfolder
+              "<filename>output</filename>", one for each of the intervals
+              15s, 60s, 300s, and 900s.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-edgelanedump-values">
+          <title>Value Descriptions</title>
+
+          <para>Both the edge-dump and the lane-dump are computing the values
+          the same way: every vehicle move - even those with v=0 - is recorded
+          and saved during the interval. After the interval has passed, these
+          values are written into the file after being normalised. In the case
+          of the edge-dump the values are not only normalized by the number of
+          the collected vehicle moves and the length of the lane, but also by
+          the number of lanes of the edge.</para>
+
+          <para>The meanings of the written values are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>traveltime</sgmltag>: The mean travel time is
+              computed from the collected vehicle velocities. If no vehicle
+              has passed the edge, length/maximum_allowed_velocity is used;
+              Measure: s</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>speed</sgmltag>: The mean of the collected
+              vehicle velocities. If no vehicle has passed the edge, the
+              maximum allowed velocity is used; Measure: m/s</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>density</sgmltag>: The mean vehicle density on
+              the edge in veh/km.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>occupancy</sgmltag>: The occupancy of the edge
+              (in range of 0-1)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>noStops</sgmltag>: The number of recognized stops
+              (tbd)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>nSamples</sgmltag>: The number of collected
+              samples - the number of vehicle steps done on this edge during
+              the interval.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The interval end is the interval begin + aggregation time - 1,
+          meaning that values were collected within these steps. If the
+          simulation ends before the last interval is over, the interval will
+          be prunned.</para>
+        </sect3>
+
+        <sect3 id="user_chp06-output-edgelanedump-constraining">
+          <title>Constraining the State Outputs</title>
+
+          <para>If you need only information about the network states during
+          certain time periods, you may constraint generation of the dumps
+          using the options <option>--dump-begins
+          <replaceable>&lt;TIME&gt;[;&lt;TIME&gt;]+</replaceable></option> and
+          <option>--dump-ends
+          <replaceable>&lt;TIME&gt;[;&lt;TIME&gt;]+</replaceable></option>.
+          When at least one combination is given, dumps will be written only
+          if an according begin/end-pair exists for the current time. This
+          means, only those intervals will be saved for which
+          dump-begins[x]&lt;=INTERVAL_END and
+          dump-ends[x]&gt;=INTERVAL_BEGIN.</para>
+
+          <para>Of course, all dumps will cover the complete simulation if the
+          options <option>--dump-begins</option> and
+          <option>--dump-ends</option> are not set.</para>
+
+          <para>Examples:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_meandata_constrained/</filename>
+              shows how to generate a restrained state output. Herein, eight
+              outputs are written into the subfolder
+              "<filename>output</filename>", four edge- and four lane-based,
+              and for each of the intervals 15s, 60s, 300s, and 900s.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
 
       <sect2 id="user_chp06-output-emissions">
@@ -6890,7 +7172,8 @@
         the output does not contain any information that could not be
         retrieved from the routes and the tripinfo output. But as soon as you
         reroute your vehicles within the simulation, f.e. using rerouters (see
-        TBD), it will contain new information.</para>
+        "<link linkend="user_chp06-management-rerouter">Rerouter</link>"), it
+        will contain new information.</para>
 
         <para>The simulation is forced to generate this output using:
         <option>--vehroutes-output
@@ -7097,7 +7380,7 @@
       </sect2>
     </sect1>
 
-    <sect1 id="user_chp06-vehicle_handling">
+    <sect1 id="user_chp06-vehicle_handling" revision="0.9.5">
       <title>Vehicles Handling Revisited</title>
 
       <para>In the normal case, SUMO is meant to simulate urban areas where
@@ -7139,61 +7422,314 @@
         </listitem>
       </itemizedlist>
 
-      <para>We will now describe the emitters more deeply.</para>
+      <para>We will now describe the emitters more deeply. (!!!)</para>
 
-      <sect2>
+      <sect2 id="user_chp06-vehicle_handling-emitter-vtypedist"
+             revision="0.9.5">
         <title>Emitter</title>
 
-        <para>You can place an emitter onto a lane by adding the following
-        declaration to your additional-file:</para>
+        <para>Emitters may be used to define flows using induction loops as
+        input data. For such modelling attempt, you should place emitters at
+        those positions on the network where the induction loops are located
+        and convert the values retrieved from the induction loops to the
+        format emitters may read. (!!! references) The format is described
+        below, together with some additional methods to ease generation of
+        emitter files. If you are working with such inputs extensively, you
+        may be also interested in what the <application>DFROUTER</application>
+        does (see "!!!" for a further documentation).</para>
 
-        <programlisting><sgmltag>&lt;trigger id="<replaceable>&lt;ID&gt;</replaceable>" objecttype="emitter" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
-   [friendly_pos="x"] file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+        <para>Examples:</para>
 
-        <para>The fields have the following meanings:</para>
+        <para>Recent changes:</para>
 
-        <itemizedlist spacing="compact">
+        <itemizedlist>
           <listitem>
-            <para><sgmltag>id</sgmltag>: A string holding the id of the
-            emitter.</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>objecttype</sgmltag>: Always
-            "<sgmltag>lane</sgmltag>"; indicates that the trigger changes a
-            lane</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>pos</sgmltag>: Position on the lane in meters; if
-            positive, then the following must be ensured:
-            0&lt;=<sgmltag><replaceable>&lt;POS&gt;</replaceable></sgmltag>&lt;&lt;LANE_LENGTH&gt;.
-            If negative, then 0&gt;&lt;POS&gt;&gt;-&lt;LANE_LENGTH&gt;; in
-            this case the position will be counted from the lane's end.</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>objectid</sgmltag>: The id of the lane the emitter
-            shall placed on</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>friendly_pos</sgmltag>: optional; if this is set
-            and the position (<sgmltag>pos</sgmltag>) is not valid, the
-            detector will be placed at the lane's end (0.1meter away from
-            it).</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>file</sgmltag>: The file the emitter shall read the
-            definition of what/how/when to emit from</para>
+            <para>Although emitters are available for a long time already,
+            their description has been added while working on version
+            0.9.5</para>
           </listitem>
         </itemizedlist>
 
-        <para>As you can see, an emitter needs further information about what
-        to do.</para>
+        <sect3 id="user_chp06-vehicle_handling-emitter-basic">
+          <title>Basic Definition</title>
 
-        <para>!!!</para>
+          <para>You can place an emitter onto a lane by adding the following
+          declaration to one of your additional-files:</para>
+
+          <programlisting><sgmltag>&lt;trigger id="<replaceable>&lt;ID&gt;</replaceable>" objecttype="emitter" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+   [friendly_pos="x"] file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+
+          <para>The fields have the following meanings:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: A string holding the id of the
+              emitter.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>objecttype</sgmltag>: Always
+              "<sgmltag>emitter</sgmltag>"; indicates this trigger is an
+              emitter</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>pos</sgmltag>: Position on the lane in meters; if
+              positive, then the following must be ensured:
+              0&lt;=<sgmltag><replaceable>&lt;POS&gt;</replaceable></sgmltag>&lt;<replaceable>&lt;LANE_LENGTH&gt;</replaceable>,
+              if negative:
+              0&gt;<replaceable>&lt;POS&gt;</replaceable>&gt;-<replaceable>&lt;LANE_LENGTH&gt;</replaceable>;
+              in this case the position will be counted from the lane's
+              end.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>objectid</sgmltag>: The id of the lane the
+              emitter shall be placed on</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>friendly_pos</sgmltag>: optional; if this is set
+              and the position (<sgmltag>pos</sgmltag>) is not valid, the
+              detector will be placed at the lane's end (0.1meter away from
+              it).</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>file</sgmltag>: The file the emitter shall read
+              the definition of what/how/when to emit from</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>An emitter needs further information to know when, how many
+          and what kind of vehicles shall be emitted. All this information
+          must be written into
+          <replaceable>&lt;DEFINITION_FILE&gt;</replaceable>. The easiest way
+          to describe vehicle emissions herein is to list all of them
+          explicitely:</para>
+
+          <programlisting><sgmltag>&lt;triggeredsource&gt;
+   &lt;emit id="veh1" time="0" vehtype="my_type" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh2" time="4" vehtype="my_type" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh3" time="8" vehtype="my_type" route="my_route" speed="13.9"/&gt;
+&lt;/triggeredsource&gt;
+</sgmltag></programlisting>
+
+          <para>Using such a definition only would raise error because we have
+          named the vehicle types and the routes but did not define them. We
+          can either define them within another additional file or within a
+          route file but we have to ensure that they're loaded before the
+          emission definition is (see !!! on Reihenfolge). Let's assume we
+          have done it. In this case, using such a definition we would emit
+          three vehicles, having the names "veh1", "veh2", and "veh3" as given
+          within the id-field, all being of type "my_type". All vehicles use
+          the same route, "my_route", and will start with a velocity of 0 at
+          the simulation seconds 0, 4, and 8. To summarize, a vehicle emission
+          within an Emitter definition is described as following:
+          <sgmltag>&lt;emit
+          [id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>"]
+          [vehtype="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>"]
+          time="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>"
+          [route="<replaceable>&lt;VEHICLE_ROUTE&gt;</replaceable>"]
+          [speed="<replaceable>&lt;INITIAL_SPEED&gt;</replaceable>"]/&gt;</sgmltag>.
+          The meanings of these values are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The id of the vehicle to
+              emit.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>vehtype</sgmltag>: Name of the vehicle type the
+              vehicle to emit shall have</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>time</sgmltag>: The time at which the vehicle
+              shall be emitted (in simulation seconds)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>route</sgmltag>: Name of the route the vehicle
+              shall use</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>speed</sgmltag>: The speed the vehicle shall be
+              emitted with in m/s</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>As you can see, several of the fields are marked as optional.
+          If no id is given, the id will be constructed automatically. The
+          vehicle will then have a name !!!. Also, the emission speed is
+          optional. If not given, the initial vehicle speed will be !!!. The
+          following sections describe how one can omit explicite attributes
+          for vehicle type and route.</para>
+
+          <para>If the emission time lies before the simulation begin, the
+          vehicle will be discarded.</para>
+        </sect3>
+
+        <sect3 id="user_chp06-vehicle_handling-emitter-routedist">
+          <title>Describing Route Distributions</title>
+
+          <para>To avoid computing and assigning a vehicle type and a route to
+          each vehicle emission definition explicitely, you can define a
+          probability distribution by which routes/types are chosen from a
+          set. For the routes, you can do this as shown in the next
+          example:</para>
+
+          <programlisting><sgmltag>&lt;triggeredsource&gt;
+   &lt;routedistelem id="my_route1" probability=".2"/&gt;
+   &lt;routedistelem id="my_route2" probability=".8"/&gt;
+
+   &lt;emit id="veh1" time="0" vehtype="my_type" speed="13.9"/&gt;
+   &lt;emit id="veh2" time="4" vehtype="my_type" speed="13.9"/&gt;
+&lt;/triggeredsource&gt;
+</sgmltag></programlisting>
+
+          <para>Now, a random route is assigned to a vehicle, "my_route1" with
+          a probability of .2, "my_route2" with a probability of .8. The
+          probabilities are normed automatically, that means that you can also
+          use numbers that do not sum to 1. Each occuring
+          <sgmltag>routedistelem</sgmltag> will be added to the distribution
+          (see also "<link
+          linkend="user_chp06-vehicle_handling-emitter-dist_reset">Resetting
+          the Distributions</link>"). The meanings of the attributes of a
+          <sgmltag>routedistelem</sgmltag>-element are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The name of the route to use (the
+              route must have been loaded in prior to the occurence of the
+              <sgmltag>routedistelem</sgmltag>-element)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>probability</sgmltag>: The probability (value/sum
+              of probabilities) of choosing the route</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-tls-states">
+          <title>Describing Vehicle Type Distributions</title>
+
+          <para>Vehicle types may be assigned to vehicles from distributions,
+          too:</para>
+
+          <programlisting><sgmltag>&lt;triggeredsource&gt;
+   &lt;vtypedistelem id="my_type1" probability=".8"/&gt;
+   &lt;vtypedistelem id="my_type2" probability=".8"/&gt;
+
+   &lt;emit id="veh1" time="0" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh2" time="4" route="my_route" speed="13.9"/&gt;
+&lt;/triggeredsource&gt;
+</sgmltag></programlisting>
+
+          <para>In this example the probabilities for using one of the types
+          are equal. The probabilities are normed automatically, that means
+          that you can also use numbers that do not sum to 1. Each occuring
+          <sgmltag>vtypedistelem</sgmltag> will be added to the distribution
+          (see also "<link
+          linkend="user_chp06-vehicle_handling-emitter-dist_reset">Resetting
+          the Distributions</link>"). The meanings of the attributes of a
+          <sgmltag>vtypedistelem</sgmltag>-element are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The name of the vehicle type to use
+              (the vehicle type must have been loaded in prior to the
+              occurence of the
+              <sgmltag>vtypedistelem</sgmltag>-element)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>probability</sgmltag>: The probability (value/sum
+              of probabilities) of choosing the vehicle type</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-vehicle_handling-emitter-dist_reset">
+          <title>Resetting the Distributions</title>
+
+          <para>As said before, all occurences of
+          <sgmltag>vtypedistelem</sgmltag> are stored into the same
+          distribution. This also holds for the occurences of
+          <sgmltag>routedistelem</sgmltag>. Now, one maybe wants to model
+          different distributions over time. To allow this, you can add a
+          "<sgmltag>reset</sgmltag>"-element to your description:</para>
+
+          <programlisting><sgmltag>&lt;triggeredsource&gt;
+   &lt;vtypedistelem id="my_type1" probability=".5"/&gt;
+   &lt;vtypedistelem id="my_type2" probability=".5"/&gt;
+   &lt;routedistelem id="my_route1" probability=".2"/&gt;
+   &lt;routedistelem id="my_route2" probability=".8"/&gt;
+
+   &lt;emit time="10" speed="13.9"/&gt;
+   ... further vehicle emits ...
+   &lt;emit time="20" speed="13.9"/&gt;
+
+   &lt;reset/&gt;
+
+   &lt;vtypedistelem id="my_type3" probability=".5"/&gt;
+   &lt;vtypedistelem id="my_type4" probability=".5"/&gt;
+   &lt;routedistelem id="my_route3" probability=".2"/&gt;
+   &lt;routedistelem id="my_route4" probability=".8"/&gt;
+
+   &lt;emit time="30" speed="13.9"/&gt;
+   ... further vehicle emits ...
+   &lt;emit time="40" speed="13.9"/&gt;
+
+&lt;/triggeredsource&gt;
+</sgmltag></programlisting>
+
+          <para>This would force the emitter to reset all distributions after
+          emitting the vehicle at time 20. While vehicles emitted within the
+          times 10 and 20 would use the vehicle types "my_type1" and
+          "my_type2" and routes "my_route1" and "my_route2", the vehicles
+          emitted between time 30 and 40 - after the
+          <sgmltag>reset</sgmltag>-element - would use the vehicle types
+          "my_type3" and "my_type4" and the routes "my_route3" and
+          "my_route4".</para>
+        </sect3>
+
+        <sect3 id="user_chp06-vehicle_handling-emitter-flows">
+          <title>Using Flows</title>
+
+          <para>Instead of describing each vehicle emission explicitely, you
+          can specify a flow to emit. In this case, vehicle type and routes
+          distributions must be given:</para>
+
+          <programlisting><sgmltag>&lt;triggeredsource&gt;
+   &lt;vtypedistelem id="my_type1" probability=".5"/&gt;
+   &lt;vtypedistelem id="my_type2" probability=".5"/&gt;
+   &lt;routedistelem id="my_route1" probability=".2"/&gt;
+   &lt;routedistelem id="my_route2" probability=".8"/&gt;
+
+   &lt;flow no="1800" end="10"/&gt;
+   &lt;flow no="900" end="20"/&gt;
+&lt;/triggeredsource&gt;
+</sgmltag></programlisting>
+
+          <para>The meaning of the attributes of a
+          <sgmltag>flow</sgmltag>-element are:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>no</sgmltag>: The flow to use in veh/h.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>end</sgmltag>: The end of the interval for which
+              this flow shall be emitted. If &lt;0 (default) the flow will be
+              used until the simulation's end.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
     </sect1>
 
@@ -8634,17 +9170,14 @@
     possibly the most interesting ones of this document as they describe some
     possibilities to ease the work.</para>
 
-    <para>We will now discuss the different possibilities to use the graphical
-    user interface more deeply.</para>
-
     <sect1 id="user_chp08-configs">
       <title>Using Configuration Files</title>
 
       <para>Most simulations have to be executed more than only one time.
       Furthermore, some experiments require the execution of similar, slightly
       different settings, for example the same network with a different route
-      set. To avoid the retyping of all the parameter at the input line, all
-      of the main applications can be fed with a configuration file. This
+      set. To avoid retyping of all parameter at the input line, all of the
+      main applications can be fed with a configuration file. This
       configuration file contains the values the user normally would give to
       the program at the command line. For example, instead of typing</para>
 
@@ -8665,7 +9198,7 @@
       too.</para>
 
       <para>A configuration file is a simple XML-file in which each of the
-      command line parameter is represented as a XML-element with the
+      command line parameters is represented as a XML-element with the
       parameter's value being given as text between the begin and end tag of
       this parameter. So if you want to set a parameter "foo" to the value
       "bar" within your configuration file, write
@@ -8684,26 +9217,234 @@
       different approach will maybe be invented in future. You can find the
       templates for each of the package's application's configuration files
       within the folder
-      "<filename>[SUMO]/data/cfg_templates</filename>".</para>
+      "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/cfg_templates</filename>".</para>
     </sect1>
 
-    <sect1>
-      <title>Using generated XML-Files</title>
+    <sect1 id="user_chp08-meta">
+      <title>Additional Meta-Information</title>
 
-      <para>All but imported files used by SUMO use XML as format. This makes
-      their usage not as straightforward as plain CSV-file, for example, but
-      with some additional tools, these files are far more flexible and
-      powerful. Some tools can be found within the tools/-folder coming with
-      the release.</para>
+      <para>All applications of the SUMO-package print a help-screen is
+      printed including all options the application knows when the application
+      is started with the <option>--help</option> (<option>-?</option> for
+      short) option. You can also list all current option settings using
+      <option>--print-options</option> (or <option>-p</option> for
+      short).</para>
+
+      <para>Recent changes:</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para>This chapter has been moved to this place while working on
+          version 0.9.5</para>
+        </listitem>
+
+        <listitem>
+          <para>The option <option>--version</option> that printed the currnt
+          build number was removed in version 0.9.5. As we assume our users to
+          build the software by themselves, a build number does not really
+          make sense.</para>
+        </listitem>
+
+        <listitem>
+          <para>The description of <option>--print-options</option> was added
+          in version 0.9.5.</para>
+        </listitem>
+      </itemizedlist>
     </sect1>
 
-    <sect1>
+    <sect1 id="user_chp08-tools">
       <title>Additional Tools</title>
 
       <para>You can some find helpful tools within the
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools</filename>
       - folder. We will now introduce some of them. The following chapters are
       devided by the topic the tools cover.</para>
+
+      <sect2>
+        <title>Polygon Conversion</title>
+
+        <para>Since version 0.9.5 a further application was added to the
+        suite: <application>POLYCONVERT</application>, a tool which allows you
+        to convert polygons from Elmar's format into a description that may be
+        used by SUMO. As the offset that was appied to the network during the
+        conversion using <application>NETCONVERT</application> is needed, one
+        has to supply the network name using <option>--net-file
+        <replaceable>&lt;SUMO_NET&gt;</replaceable></option>
+        (<option>--net</option> or <option>-n</option> for short).
+        Additionally the name of the file containing the polygons to import
+        must be given using <option>--elmar
+        <replaceable>&lt;ELMAR_POLYGON_FILE&gt;</replaceable></option>. The
+        conversion from geocoordinates to cartesian is recommended, initiated
+        using <option>--use-projection</option> and defined using
+        <option>--proj
+        <replaceable>&lt;PROJ_DEFINITION&gt;</replaceable></option> (see also
+        "<link linkend="user_chp04-further_options-geocoordinates">Converting
+        from Geocoordinates</link>").</para>
+
+        <para>Defaults for the polygon's color and layer as well as a name
+        prefix and the name of the type to assign can be given using the
+        options <option>--color
+        <replaceable>&lt;COLORDEF&gt;</replaceable></option>, <option>--layer
+        <replaceable>&lt;LAYER_NO&gt;</replaceable></option>, <option>--prefix
+        <replaceable>&lt;PREFIX&gt;</replaceable></option>, and <option>--type
+        <replaceable>&lt;TYPENAME&gt;</replaceable></option>, respectively. As
+        the non-water polygons contain different polygon types, you can also
+        use a type map which defines which values shall be set in dependance
+        to the type. A single entry for this typemap should look like this:
+        <sgmltag>&lt;polytype
+        id="<replaceable>&lt;PREVIOUS_NAME&gt;</replaceable>"
+        name="<replaceable>&lt;NEW_NAME&gt;</replaceable>"
+        color="<replaceable>&lt;COLORDEF&gt;</replaceable>"
+        fill="<replaceable>&lt;BOOL&gt;</replaceable>"
+        layer="<replaceable>&lt;LAYER_NO&gt;</replaceable>"/&gt;</sgmltag>.
+        The values are:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><sgmltag>id</sgmltag>: The name of the type as read from the
+            input file</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>name</sgmltag>: The name to use for the type in the
+            output (type-name replacement)</para>
+          </listitem>
+
+          <listitem>
+            <para>color: Definition of the color to assign</para>
+          </listitem>
+
+          <listitem>
+            <para>fill: Information whether a filling of the polygon must be
+            prohibited</para>
+          </listitem>
+
+          <listitem>
+            <para>layer: Layer to use for this type of polygons</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>An example type-map for Elmar's polygons can be found in
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>add/elmar_type_map.xml.</para>
+
+        <para>All options (excluded loading configuration and output options,
+        see !!!):</para>
+
+        <variablelist>
+          <varlistentry>
+            <term><option>( --net-file | --net | -n )
+            <replaceable>&lt;SUMO_NET&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>The SUMO-net to use as reference. <remark>Mandatory,
+              type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--elmar
+            <replaceable>&lt;ELMAR_POLYGON_FILE&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>The elmar polygons-file to import. <remark>Mandatory,
+              type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--use-projection</option></term>
+
+            <listitem>
+              <para>Enables conversion from geocoordinates to cartesian.
+              <remark>Optional, type:bool, default: false</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--proj
+            <replaceable>&lt;PROJ_DEFINITION&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Defines the projection to use. <remark>Optional,
+              type:string, default: "+proj=utm +zone=33 +ellps=bessel
+              +units=m"</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--color &lt;COLORDEF&gt;</option></term>
+
+            <listitem>
+              <para>Defines the color to use as default. <remark>Optional
+              (pregiven), type:color, default: "0.2,0.5,1." (light
+              blue)</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--layer &lt;LAYER_NO&gt;</option></term>
+
+            <listitem>
+              <para>Defines into which layer the polygons shall be put by
+              default. <remark>Optional (pregiven), type:int, default: -1 (one
+              layer below the road network)</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--prefix &lt;PREFIX&gt;</option></term>
+
+            <listitem>
+              <para>Defines the type-dependant prefix to apply to polygons.
+              <remark>Optional (pregiven), type:string, default:
+              &lt;empty&gt;</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--type &lt;TYPENAME&gt;</option></term>
+
+            <listitem>
+              <para>Defines the name of the type to set for the polygons.
+              <remark>Optional (pregiven), type:string, default:
+              "water"</remark></para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><application>POLYCONVERT</application> is available since
+            version 0.9.5</para>
+          </listitem>
+        </itemizedlist>
+
+        <sect3>
+          <title>dua-iterate.pl</title>
+
+          <para>This script performs a dua computation by runing the
+          <application>DUAROUTER</application> and
+          <application>SUMO</application> a given number of times and using
+          the previous outputs. A detailed description may be found in the
+          subchapter "<ulink url="#user_chp05-dua-iterate">Automatic Iteration
+          using 'dua-iterate.pl'</ulink>".</para>
+
+          <para><emphasis>Usage</emphasis>: <command>dua-iterate.pl
+          <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;
+          </replaceable><optional><replaceable>[&lt;BEGIN_ITERATION_STEP&gt;]
+          </replaceable></optional><replaceable>&lt;END_ITERATION_STEP&gt;
+          </replaceable></command></para>
+
+          <para><emphasis>Output</emphasis>: see "<ulink
+          url="#user_chp05-dua-iterate">Automatic Iteration using
+          'dua-iterate.pl'</ulink>"</para>
+
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools</filename></para>
+        </sect3>
+      </sect2>
 
       <sect2>
         <title>Helpers for DUA-Computation</title>
@@ -9352,253 +10093,5 @@
         </sect3>
       </sect2>
     </sect1>
-  </appendix>
-
-  <appendix id="user_apc">
-    <title>Error Messages</title>
-
-    <para>Here, only errors that should occur to normal users are reported.
-    Some more errors exist but should occur only if the network is invalid
-    what should not happen when using networks generated by sumo-netconvert or
-    sumo-netgen. As said before, we do not expect a normal user to build a
-    network "by hand". If you are a developer and an error occurs that is not
-    in the list below, take a look into the developer documentation.</para>
-
-    <caution>
-      <para>This list is not up-to-date. We have to rework it. Please contact
-      us if an unlisted error occures.</para>
-    </caution>
-
-    <itemizedlist spacing="compact">
-      <listitem>
-        <para><errorcode>No option with the name '[NAME]'
-        exists.</errorcode><blockquote>
-            <para>You are trying to set an option on the command line that is
-            not known to sumo.</para>
-
-            <para>You may have dispelled an option. View Appendix A for a list
-            of known options and their correct spelling.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The option '[NAME]' is not a boolean attribute and so
-        needs a value.</errorcode><blockquote>
-            <para>A non-boolean option has no parameter supplied. An example:
-            you have typed "sumo -n", but the option "-n" needs a value like
-            "-n ./nodes.xml".</para>
-
-            <para>Always supply a parameter for parameterised options.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>A value for the option '[NAME]' was already set.
-        Possible synonyms: [SYNONYMS]</errorcode><blockquote>
-            <para>You are setting an option twice. An example: you have typed
-            "sumo -n [FILE1] --net [FILE2]". This is not possible. A list of
-            possible synonyms is supported.</para>
-
-            <para>Set a value only once. When you are sure you have specified
-            the value only once on the command line, your configuration file
-            may contain two definitions for the value. A value may be defined
-            as well in the configuration file as on the command line but never
-            twice in each of them.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: The current parameter '[NAME1]' and the
-        parameter '[NAME2]' do both need a value.</errorcode><blockquote>
-            <para>You are trying to use a single value for two parameters. An
-            example: "sumo -nj [FILE1]" or "sumo -nj [FILE1] [FILE2]" is not
-            allowed as the parameter may not be assigned to either the network
-            or the junctions. Only boolean options may be coupled with other
-            options.</para>
-
-            <para>Split the options when using parameterised options.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The configurations file '[NAME]' could not be
-        found.</errorcode><blockquote>
-            <para>The name for the configuration file is not valid.</para>
-
-            <para>Even if you did not specify a configuration file, it is
-            loaded as default. Use the option "-C" when you don't wish to use
-            any configuration file.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: The named junctions folder '[NAME]' does not
-        exist.</errorcode><blockquote>
-            <para>You have specified a folder for your junction logics that
-            does not exist.</para>
-
-            <para>You have to use a valid folder for your junctions.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: No simulation file (-n)
-        specified.</errorcode><blockquote>
-            <para>You forgot to specify a file containing the road network to
-            use. Attention! The file is not examined to be valid, this error
-            only occurs when the user did not give the name of the file. When
-            it does not exist or is invalid, other errors are produced.</para>
-
-            <para>You have to specify a network file using "-n [FILE]" where
-            [FILE] is the name of the network file.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: The begin of the simulation (-b) is not
-        specified.</errorcode><blockquote>
-            <para>You forgot to specify the begin of the simulation.</para>
-
-            <para>Use "-b [TIME]" to specify the simulation-time the
-            simulation shall begin at where [TIME] is a numerical
-            value.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: The end of the simulation (-e) is not
-        specified.</errorcode><blockquote>
-            <para>You forgot to specify the end of the simulation.</para>
-
-            <para>Use "-e [TIME]" to specify the simulation-time the
-            simulation shall end at where [TIME] is a numerical value.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error: The output file '[NAME]' can not be
-        build.</errorcode><blockquote>
-            <para>The output file can not be build. This may be due to trying
-            to save the file into a folder that does not exist.</para>
-
-            <para>Use a valid name a file may be created under for your
-            output. Check whether the folder you want to generate the file in
-            exists.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Error during XML-initialisation: [MORE
-        TEXT]</errorcode><blockquote>
-            <para>An error while the initialisation of the XML-importer
-            occurred.</para>
-
-            <para>In fact, this is an error produced by XERCES. The only
-            explanation we have is that you are using an inappropriate version
-            of XERCES. Remember to use a C++ - XERCES version over 1.5 and
-            fits to your system (Windows, Linux, Solaris etc.)</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>An exception occured! Type: UTFDataFormatException,
-        Message: invalid byte 2 (L) of a
-        2-byte-sequence.</errorcode><blockquote>
-            <para>Your network obviously uses a name that contains non-latin
-            characters. Older versions of xerces seemed to work with such
-            names, although it's against the XML-specifications, newer are
-            not. You have to convert them within your input files (mainly
-            within the file used to build the network) and rebuild the network
-            then.</para>
-
-            <para>If you are a programme, you also may take a look at the
-            conversion routine within the class
-            <classname>StringUtils</classname> called
-            <methodname>convertUmlaute</methodname> and try to patch the
-            values to replace within him.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>An XML-error occurred: [MORE
-        TEXT]</errorcode><blockquote>
-            <para>Your file is corrupt in a way that our XML-importer XERCES
-            is not able to parse it. This may happen when you forgot to open a
-            tag before closing it or when using non-ASCII characters.</para>
-
-            <para>This error always comes with a deeper explanation, so you
-            may find the error quite easy. If you do not see any error, you
-            have to look into an XML-description or try to load the document
-            into A XML-development tool.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>"Empty route ([NAME])" or "The list belonging to the
-        '[TYPE]' with the id '[NAME]' must not but is
-        empty"</errorcode><blockquote>
-            <para>You have specified an empty route. This is not valid.</para>
-
-            <para>Remove the route or insert at least one edge into it.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The id of the object [TYPE] is missing in the
-        description.</errorcode><blockquote>
-            <para>An object from your definition which type is given in [TYPE]
-            does not have an id (name).</para>
-
-            <para>Insert ids for all used objects.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The description of the object '[TYPE]' with the id
-        '[NAME]' is not complete.</errorcode><blockquote>
-            <para>At least one of the needed values for an object is not
-            given. The type of the object is given in [TYPE], it's name in
-            [NAME]. In the case of a vehicle, this could be the type, the
-            route or the depart time. The missing of the id is reported by
-            another error message.</para>
-
-            <para>Check your file for missing values.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The object [TYPE] with the id [NAME] is not
-        known</errorcode><blockquote>
-            <para>You have references an object of the type [TYPE] with the
-            name [NAME] that you did not define in the file. Such an error may
-            occur when you for instance wish to use a vehicle of the type "VW
-            Beetle" but have not defined a vehicle type named "VW
-            Beetle".</para>
-
-            <para>Insert a definition for TYPE with the id NAME or use a given
-            id in your file.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>Another [TYPE] with the id [NAME]
-        exists</errorcode><blockquote>
-            <para>You are using an id twice for two objects of the same
-            type.</para>
-
-            <para>All objects of a type have to have unique ids.</para>
-          </blockquote></para>
-      </listitem>
-
-      <listitem>
-        <para><errorcode>The list belonging to the '[TYPE]' with the id
-        '[NAME]' must not but is empty</errorcode><blockquote>
-            <para>The information you have specified needs values, you did not
-            supply.</para>
-
-            <para>Supply all needed information.</para>
-          </blockquote></para>
-      </listitem>
-    </itemizedlist>
   </appendix>
 </book>
