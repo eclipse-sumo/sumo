@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/08/01 05:58:17  dkrajzew
+// warnings removed
+//
 // Revision 1.36  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -466,7 +469,7 @@ GUILaneWrapper::getAggregatedNormed(E2::DetType what,
             }
         }
     default:
-        throw 1;
+        return -1;
     }
 }
 
@@ -489,7 +492,7 @@ GUILaneWrapper::getAggregatedFloat(E2::DetType what) const
             }
         }
     default:
-        throw 1;
+        return -1;
     }
 }
 
