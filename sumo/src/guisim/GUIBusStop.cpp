@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/08/01 07:51:57  dkrajzew
+// code beautifying
+//
 // Revision 1.6  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -279,30 +282,6 @@ GUIBusStop::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXSelector,v
 long
 GUIBusStop::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
 {
-    static_cast<GUIBusStop*>(myObject)->setOverriding(true);
-    switch(myChosenValue) {
-    case 0:
-        mySpeed = (SUMOReal) static_cast<GUIBusStop*>(myObject)->getDefaultSpeed();
-        break;
-    case 1:
-        mySpeed = (SUMOReal) static_cast<GUIBusStop*>(myObject)->getLoadedSpeed();
-        break;
-    case 2:
-        mySpeed = (SUMOReal) ((myPredefinedValues->getCurrentItem() * 20 + 20)/3.6);
-        break;
-    case 3:
-        mySpeed = (SUMOReal) (myUserDefinedSpeed->getValue() / 3.6);
-        break;
-    default:
-        throw 1;
-    }
-    static_cast<GUIBusStop*>(myObject)->setOverridingValue(mySpeed);
-    myParent->updateChildren();
-    if(myChosenValue==12) {
-        // !!! lock in between
-        static_cast<GUIBusStop*>(myObject)->setOverriding(false);
-    }
-    return 1;
 }
 */
 
@@ -511,74 +490,6 @@ GUIBusStop::drawGL_SG(SUMOReal scale, SUMOReal upscale)
     */
 }
 
-/*
-void
-GUIBusStop::doPaint(const PosCont &poss, const RotCont rots,
-                             SUMOReal scale)
-{
-    for(size_t i=0; i<poss.size(); ++i) {
-        const Position2D &pos = poss[i];
-        SUMOReal rot = rots[i];
-        glPushMatrix();
-        glTranslated(pos.x(), pos.y(), 0);
-        glRotated( rot, 0, 0, 1 );
-        glTranslated(0, -1.5, 0);
-
-        int noPoints = 9;
-        if(scale>25) {
-            noPoints = (int) (9.0 + scale / 10.0);
-            if(noPoints>36) {
-                noPoints = 36;
-            }
-        }
-        glColor3f(1, 0, 0);
-        GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-        if(scale<10) {
-            glPopMatrix();
-            continue;
-        }
-        glColor3f(0, 0, 0);
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
-        // draw the speed string
-            // not if scale to low
-        if(scale<4.5) {
-            glPopMatrix();
-            continue;
-        }
-            // compute
-        SUMOReal value = (SUMOReal) getCurrentSpeed();
-        if(myShowAsKMH) {
-            value *= 3.6f;
-            // !!!
-            if(((int) value+1)%10==0) {
-                value = (SUMOReal) (((int) value+1) / 10 * 10);
-            }
-        }
-        if(value!=myLastValue) {
-            myLastValue = value;
-            myLastValueString = toString<SUMOReal>(myLastValue);
-            size_t idx = myLastValueString.find('.');
-            if(idx!=string::npos) {
-                if(idx>myLastValueString.length()) {
-                    idx = myLastValueString.length();
-                }
-                myLastValueString = myLastValueString.substr(0, idx);
-            }
-        }
-            //draw
-        glColor3f(1, 1, 0);
-
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(1.2f);
-        SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
-        glRotated(180, 0, 1, 0);
-        glTranslated(-w/2., 0.3, 0);
-        pfDrawString(myLastValueString.c_str());
-        glPopMatrix();
-    }
-}
-*/
 
 Boundary
 GUIBusStop::getBoundary() const

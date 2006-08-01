@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/08/01 07:51:57  dkrajzew
+// code beautifying
+//
 // Revision 1.12  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -77,10 +80,10 @@ FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_NODE_SLIDER,                    ConfigDialog::onCmdNodeSlider),
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_EPSI_SLIDER,                    ConfigDialog::onCmdEpsiSlider),
-  ///Miguel!!!
+  ///Miguel
   FXMAPFUNC(SEL_CHANGED,  ConfigDialog::ID_MAPSCALE_SLIDER,                    ConfigDialog::onCmdMapscaleSlider),
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_MAPSCALE_SLIDER,                    ConfigDialog::onCmdMapscaleSlider),
-  ///Miguel!!!
+  ///Miguel
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_OK,                             ConfigDialog::onCmdOK),
 
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_CANCEL,                         ConfigDialog::onCmdCancel),
@@ -185,7 +188,7 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
   //Third Tab
 
   tab3=new FXTabItem(tabbook,"&Bitmap Properties",NULL);
-  ///Miguel!!!
+  ///Miguel
 
   tab_frame3=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
         boxframe1=new FXVerticalFrame(tab_frame3,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT , 0,0,300,300, 0,0,0,0);
@@ -196,7 +199,7 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
 			FXMatrix *myMatrix3=new FXMatrix(boxframe1,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
 			FXMatrix *myMatrix4=new FXMatrix(boxframe1,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
 
-			///Miguel!!!
+			///Miguel
   new FXLabel(myMatrix2,"&Map Scale(gk/100/pixel):",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_LEFT);
   mapscaleTextField =new FXTextField(myMatrix2,4,this,ID_MAPSCALE_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
   mapscaleSlider    =new FXSlider(myMatrix2,this,ID_MAPSCALE_SLIDER,LAYOUT_FILL_ROW|LAYOUT_FILL_COLUMN|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FIX_HEIGHT|SLIDER_HORIZONTAL|SLIDER_INSIDE_BAR,0,0,0,15,15,0,0,0);
@@ -215,7 +218,7 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
   gkhTextField->setEditable(true);
 
 
-  ///Miguel!!!
+  ///Miguel
 
 
   buttonframe=new FXHorizontalFrame(contents,LAYOUT_FILL_X|LAYOUT_FILL_Y);
@@ -265,13 +268,13 @@ long ConfigDialog::onCmdEpsiSlider(FXObject*,FXSelector sel,void*){
   epsilonSlider->setValue(epsilonSlider->getValue());
   return 1;
   }
-///Miguel!!!
+///Miguel
 long ConfigDialog::onCmdMapscaleSlider(FXObject*,FXSelector sel,void*){
   mapscaleTextField->setText(FXStringVal(mapscaleSlider->getValue()));
   mapscaleSlider->setValue(mapscaleSlider->getValue());
   return 1;
   }
-///Miguel!!!
+///Miguel
 
 // Active panel switched
 long ConfigDialog::onCmdPanel(FXObject*,FXSelector,void* ptr)
@@ -362,7 +365,7 @@ FXSlider* ConfigDialog::getNodeSlider(){
     return nodeDistanceSlider;
 }
 
-///Miguel!!!
+///Miguel
 FXSlider* ConfigDialog::getMapscaleSlider(){
     return mapscaleSlider;
 }
@@ -374,7 +377,7 @@ FXTextField* ConfigDialog::getGKRTextField(){
 FXTextField* ConfigDialog::getGKHTextField(){
     return gkhTextField;
 }
-///Miguel!!!
+///Miguel
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

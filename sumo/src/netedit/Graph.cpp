@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/01 07:51:57  dkrajzew
+// code beautifying
+//
 // Revision 1.15  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -411,7 +414,7 @@ Graph::Reduce_plus(ConfigDialog* my)
 }
 
 
-///////////////////NEU!!!!//////////////////////////////
+///////////////////NEU//////////////////////////////
 void
 Graph::DelEdge(Vertex* v,Vertex* w)
 {
@@ -483,7 +486,7 @@ Graph::Reduce_Edges()
     }
 
 }
-/////////////////////////ENDE NEU!!!!!!!!!!!!!!////////////////////
+/////////////////////////ENDE NEU////////////////////
 
 void
 Graph::Export_Vertexes_XML()
@@ -587,7 +590,7 @@ int Graph::GetIndex(Vertex* v)
 
 void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 {
-	//Miguel!!!
+	//Miguel
 	FXSlider* my1=myDialog->getMapscaleSlider();
 	FXTextField* my2=myDialog->getGKRTextField();
 	FXTextField* my3=myDialog->getGKHTextField();
@@ -596,7 +599,7 @@ void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 	FXint myFXint2=FXIntVal(my3->getText(),10);
 	int gkr=myFXint1;
 	int gkh=myFXint2;
-	///Miguel!!!
+	///Miguel
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/08/01 07:51:57  dkrajzew
+// code beautifying
+//
 // Revision 1.8  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -104,20 +107,20 @@ protected:
   FXTextField*       nodeDistanceTextField;
   FXTextField*       epsilonTextField;
   FXTextField*		 mergeTextField;
-  ///Miguel!!!
+  ///Miguel
   FXTextField*		 mapscaleTextField;
   FXTextField*		 gkrTextField;
   FXTextField*		 gkhTextField;
-  ///Miguel!!!
+  ///Miguel
   FXSlider*          dilatationSlider;
   FXSlider*          erosionSlider;
   FXSlider*          eraseStainsSlider;
   FXSlider*          nodeDistanceSlider;
   FXSlider*          epsilonSlider;
   FXSlider*			 mergeSlider;
-  ///Miguel!!!
+  ///Miguel
   FXSlider*			 mapscaleSlider;
-  ///Miguel!!!
+  ///Miguel
 public:
 
 
@@ -136,12 +139,12 @@ public:
 	ID_NODE_TEXT,
 	ID_EPSI_SLIDER,
 	ID_EPSI_TEXT,
-	///Miguel!!!
+	///Miguel
 	ID_MAPSCALE_SLIDER,
 	ID_MAPSCALE_TEXT,
 	ID_GKR_TEXT,
 	ID_GKH_TEXT,
-	///Miguel!!!
+	///Miguel
 	ID_DEL_ALL_COL,
 	ID_ACCEPT_COLOR,
 	ID_DELETE_COLOR,
@@ -168,9 +171,9 @@ public:
   long onCmdNodeSlider(FXObject*,FXSelector sel,void*);
 
   long onCmdEpsiSlider(FXObject*,FXSelector sel,void*);
-  ///Miguel!!!
+  ///Miguel
   long onCmdMapscaleSlider(FXObject*,FXSelector sel,void*);
-  ///Miguel!!!
+  ///Miguel
   long onCmdCancel(FXObject*,FXSelector,void* ptr);
   long onCmdOK(FXObject*,FXSelector,void* ptr);
 
@@ -184,12 +187,11 @@ public:
   FXSlider* getEpsiSlider();
   FXSlider* getEraSlider();
   FXSlider* getMergeSlider();
-  ///Miguel!!!
+  ///Miguel
   FXSlider* getMapscaleSlider();
   FXTextField* getGKRTextField();
   FXTextField* getGKHTextField();
-  ///Miguel!!!
-  //void create();
+  ///Miguel!
   };
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
