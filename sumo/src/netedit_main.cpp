@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.11  2006/04/18 08:21:48  dkrajzew
 // beautifying: output consolidation
 //
@@ -91,7 +94,6 @@
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
 #include "netedit_help.h"
-#include "netedit_build.h"
 #include "sumo_version.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
@@ -130,11 +132,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO netedit" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;

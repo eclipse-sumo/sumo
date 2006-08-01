@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.42  2006/06/08 09:19:43  awegener
 // modify XmlRpc::setVerbosity(5) to XmlRpc::setVerbosity(1)
 // decrease the output of xmlRpc detail.
@@ -272,7 +275,6 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-#include "sumo_build.h"
 #include "sumo_version.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
@@ -332,7 +334,6 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-
     size_t rand_init = 10551;
     int ret = 0;
 #ifndef _DEBUG
@@ -342,11 +343,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO sumo" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;
@@ -360,9 +358,8 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-
         // load the net
-		MSNet *net = load(oc);
+        MSNet *net = load(oc);
 	if(net!=0) {
 #ifdef _RPC
 		if (oc.getInt("remote-port") != 0)

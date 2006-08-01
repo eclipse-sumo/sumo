@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2006/08/01 07:19:57  dkrajzew
+// removed build number information
+//
 // Revision 1.45  2006/07/10 09:04:23  dkrajzew
 // dump-begin/dump-end renamed to dump-begins/dump-ends
 //
@@ -194,7 +197,6 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include "SUMOFrame.h"
 
 #ifdef _DEBUG
@@ -299,14 +301,12 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // debug
     oc.doRegister("track", new Option_Float(0.));
 
-    //
 
 	//remote port 0 if not used
 	oc.doRegister("remote-port", new Option_Integer(0));
 
     // add rand and dev options
     RandHelper::insertRandOptions(oc);
-    DevHelper::insertDevOptions(oc);
 }
 
 

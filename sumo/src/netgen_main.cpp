@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.28  2006/03/27 07:28:43  dkrajzew
 // edge types may now store the edge function
 //
@@ -143,10 +146,8 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include <utils/common/ToString.h>
 #include "netgen_help.h"
-#include "netgen_build.h"
 #include "sumo_version.h"
 #include <utils/common/HelpPrinter.h>
 
@@ -296,7 +297,6 @@ fillOptions(OptionsCont &oc)
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // add rand and dev options
-    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 
@@ -366,11 +366,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO netgen" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;

@@ -4,7 +4,6 @@ GUI_DIRS = gui guinetload guisim icons
 GUI_INCS = -I$(FOX_INCLUDES)
 endif
 
-
 if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ./foreign/nvwa/nvwalib.a
 endif
@@ -19,7 +18,7 @@ sumo_SOURCES = sumo_main.cpp sumo_help.h \
 RemoteServer.h \
 sumo_version.cpp sumo_version.h sumo_build.h
 
-sumo_LDFLAGS = -L$(XERCES_LDFLAGS) 
+sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -45,8 +44,10 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
 $(MEM_LIBS) \
+if WITH_RPC
 $(XMLRPC_LDFLAGS)/libXmlRpc.a \
--l$(LIB_XERCES) 
+endif
+-l$(LIB_XERCES)
 
 
 

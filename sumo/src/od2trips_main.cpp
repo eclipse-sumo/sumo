@@ -48,13 +48,11 @@
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/common/XMLHelpers.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
 #include "od2trips_help.h"
-#include "od2trips_build.h"
 #include "sumo_version.h"
 #include <od2trips/ODmatrix.h>
 #include <utils/common/TplConvert.h>
@@ -114,7 +112,6 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
 
     // add rand and dev options
-    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 
@@ -415,11 +412,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO od2trips" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;

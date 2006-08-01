@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/08/01 07:22:23  dkrajzew
+// removed build number information
+//
 // Revision 1.14  2006/04/07 10:41:48  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -123,10 +126,6 @@ SystemFrame::init(bool gui, int argc, char **argv,
         return -3;
     }
     bool iret = OptionsSubSys::init(!gui, argc, argv, fill_f, check_f);
-    // check whether only the version shall be printed
-    if(OptionsSubSys::getOptions().getBool("version")) {
-        return -1;
-    }
     // check whether the help shall be printed
     if(OptionsSubSys::getOptions().getBool("help")) {
         //HelpPrinter::print(help);

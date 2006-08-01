@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.15  2006/07/06 09:22:08  dkrajzew
 // debugging
 //
@@ -223,7 +226,6 @@
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
 #include "guisim_help.h"
-#include "guisim_build.h"
 #include "sumo_version.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
@@ -294,13 +296,15 @@ initColoringSchemes()
             0, (SUMOReal) (5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
             (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));//!!!!
 
+    /*
     sm.add("by device number",
         new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
             (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            (size_t (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
             true, 1, 10,
             RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
             MSCORN::CORN_VEH_DEV_NO_CPHONE));
+            */
 
     sm.add("by max speed",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
@@ -353,16 +357,15 @@ main(int argc, char **argv)
     int ret = 0;
 #ifndef _DEBUG
     try {
+#else
+    {
 #endif
         int init_ret = SystemFrame::init(true, argc, argv, GUIFrame::fillInitOptions);
         if(init_ret<0) {
             cout << "SUMO guisim" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;
@@ -419,6 +422,8 @@ main(int argc, char **argv)
     } catch(...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
+    }
+#else
     }
 #endif
     SystemFrame::close();

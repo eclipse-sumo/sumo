@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.18  2006/05/15 06:02:35  dkrajzew
 // further work on dfrouter
 //
@@ -130,7 +133,6 @@ namespace
 #include <routing_df/DFDetectorFlow.h>
 #include <routing_df/DFDetFlowLoader.h>
 #include "dfrouter_help.h"
-#include "dfrouter_build.h"
 #include "sumo_version.h"
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/FileHelpers.h>
@@ -205,12 +207,10 @@ readDetectors(OptionsCont &oc)
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } catch (SAXException &e) {
             delete cont;
-            cont = 0;
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             throw ProcessError();
         } catch (XMLException &e) {
             delete cont;
-            cont = 0;
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             throw ProcessError();
         }
@@ -256,9 +256,6 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 {
     // read the detector definitions (mandatory)
     DFDetectorCon *detectors = readDetectors(oc);
-    if(detectors==0) {
-        throw 1;
-    }
     // read routes (optionally)
 	/*!!!
     DFRORouteCont *routes = new DFRORouteCont();
@@ -279,15 +276,14 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         }
         // compute the detector types (optionally)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Computing detector types...");
-            optNet->computeTypes(*detectors);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            optNet->computeTypes(*detectors, oc.getBool("strict-sources"));
         }
         // compute routes between the detectors (optionally)
         if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
             optNet->buildRoutes(*detectors,
-                oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"));
+                oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"),
+                oc.getBool("routes-for-all"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
@@ -382,11 +378,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO dfrouter" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;

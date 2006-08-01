@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/08/01 07:19:56  dkrajzew
+// removed build number information
+//
 // Revision 1.36  2006/03/27 07:28:43  dkrajzew
 // edge types may now store the edge function
 //
@@ -209,7 +212,6 @@ namespace
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
-#include <netbuild/NBJunctionLogicCont.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBDistribution.h>
@@ -219,7 +221,6 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include "netconvert_help.h"
-#include "netconvert_build.h"
 #include "sumo_version.h"
 #include <utils/common/HelpPrinter.h>
 
@@ -248,11 +249,8 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO netconvert" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " Version " << version << endl;
             switch(init_ret) {
-            case -1:
-                cout << " Version " << version << endl;
-                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
-                break;
             case -2:
                 HelpPrinter::print(help);
                 break;

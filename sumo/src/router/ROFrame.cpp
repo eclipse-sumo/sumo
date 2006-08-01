@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/08/01 07:19:57  dkrajzew
+// removed build number information
+//
 // Revision 1.12  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -91,7 +94,6 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include <utils/common/ToString.h>
 #include <router/ROVehicleType_Krauss.h>
 #include "ROFrame.h"
@@ -114,7 +116,6 @@ void
 ROFrame::fillOptions(OptionsCont &oc)
 {
     // add rand and dev options
-    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
     // register the file i/o options
     oc.doRegister("configuration-file", 'c', new Option_FileName());

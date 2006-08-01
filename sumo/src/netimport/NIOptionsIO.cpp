@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/08/01 07:19:57  dkrajzew
+// removed build number information
+//
 // Revision 1.21  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -240,7 +243,6 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/DevHelper.h>
 #include <netbuild/NBNetBuilder.h>
 
 #ifdef _DEBUG
@@ -317,7 +319,6 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // add rand and dev options
-    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 
