@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<refentry>
+  <refmeta>
+    <refentrytitle><application>polyconvert</application></refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo>polyconvert 0.9.3</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><application>sumo-polyconvert</application></refname>
+
+    <refpurpose>Polygon importer.</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>sumo-polyconvert</command>
+
+      <group>
+        <option><replaceable class="option">options</replaceable></option>
+      </group>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>sumo-polyconvert</command>
+
+      <arg><option>-c <replaceable
+      class="parameter">configuration</replaceable></option></arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>sumo-polyconvert</command>
+
+      <arg><option>--help</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><application>polyconvert</application> is an importer of polygon
+    definitions.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para>In the following, all possible options are presented.</para>
+
+    <para>Please remark, that the configuration-option may be used to supply a
+    file that contains all other parameter's definition. Please take a look
+    into the SUMO user documentation for further information about the usage
+    of configuration files.</para>
+
+    <refsect2>
+      <title>Input Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --configuration-file | --configuration | -c ) <replaceable
+          class="parameter">&lt;CONFIGURATION_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Specifies whether and which a configuration file shall be
+            loaded. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --net-file | --net | -n ) <replaceable
+          class="parameter">&lt;SUMO_NET&gt;</replaceable></term>
+
+          <listitem>
+            <para>Uses the given network as a reference to place the polygon
+            properly. <remark>Mandatory, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--elmar <replaceable
+          class="parameter">&lt;ELMAR_POLYGON_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>The elmar polygons-file to import. <remark>Mandatory,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--typemap <replaceable
+          class="parameter">&lt;TYPEMAP_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>The type-map file to use. <remark>Mandatory, type:filename,
+            default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Output Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --output-file | --output | -o ) <replaceable
+          class="parameter">&lt;NET_OUTPUT_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines the file to write the converted polygons to.
+            <remark>Optional (pregiven), type:filename, default:
+            "polygons.xml"</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Building Defaults:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --color ) &lt;<replaceable
+          class="parameter">COLORDEF&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines the color to use as default. <remark>Optional
+            (pregiven), type:color, default: "0.2,0.5,1." (light
+            blue)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --layer ) <replaceable
+          class="parameter">&lt;LAYER_NO&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines into which layer the polygons shall be put by
+            default. <remark>Optional (pregiven), type:int, default: -1 (one
+            layer below the road network)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --prefix ) <replaceable
+          class="parameter">&lt;PREFIX&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines the type-dependant prefix to apply to polygons.
+            <remark>Optional (pregiven), type:string, default:
+            &lt;empty&gt;</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --type ) <replaceable
+          class="parameter">&lt;TYPENAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines the name of the type to set for the polygons.
+            <remark>Optional (pregiven), type:string, default:
+            "water"</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Geocoordinates Projection and Network Geometry:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term><option><option>--use-projection</option></option></term>
+
+          <listitem>
+            <para>Enables reprojection of the network's coordinates.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option><option>--proj
+          <replaceable>&lt;STRING&gt;</replaceable></option></option></term>
+
+          <listitem>
+            <para>Defines projection. Please consult the PROJ-manual for
+            further details. <remark>Optional (pregiven), type:string,
+            default: "+proj=utm +zone=33 +ellps=bessel
+            +units=m"</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Report Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --verbose | -v )</term>
+
+          <listitem>
+            <para>Prints some information about the process during execution.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --suppress-warnings | -W )</term>
+
+          <listitem>
+            <para>No warnings will be prompted if this option is set.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --print-options | -p )</term>
+
+          <listitem>
+            <para>Prints the current option settings before the execution
+            starts. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --log-file | -L )<replaceable class="parameter">
+          &lt;LOG_FILE_NAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>All outputs (messages, warnings, and errors) will be written
+            to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--print-node-position</term>
+
+          <listitem>
+            <para>Prints the node positions during building. <remark>Optional
+            (pregiven), type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>USAGE</title>
+
+    <para>The following topics should be described more precisely within the
+    SUMO user documentation that may be found at
+    http://sumo.sourceforge.net</para>
+
+    <para>polyconvert requires at least the SUMO-network and an input file.
+    Additionally --use-projection should be set to true, unless this has not
+    been done while converting the network. If no type-map file is given, the
+    polygons will be converted using the default values for color, layer,
+    type, and prefix. Otherwise these values are read from the type-map and
+    given to the polygons in dependence to their types.</para>
+
+    <refsect2>
+      <title>Examples</title>
+
+      <para><command>polyconvert</command> -c
+      <filename>myConfig.polyc.cfg</filename></para>
+
+      <para>Does the things described by the configuration
+      "<filename>myConfig.polyc.cfg</filename>"</para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>CAVEATS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>netconvert(1), sumo(1), jtrrouter(1), duarouter(1),
+    od2trips(1)</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para><author>
+        <firstname>Daniel</firstname>
+
+        <surname>Krajzewicz</surname>
+      </author></para>
+  </refsect1>
+</refentry>
