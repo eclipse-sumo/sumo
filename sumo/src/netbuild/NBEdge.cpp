@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.68  2006/08/01 07:04:50  dkrajzew
+// current geocoordinate translations and new network format functions added
+//
 // Revision 1.67  2006/07/07 11:54:49  dkrajzew
 // further work on VISUM-import
 //
@@ -740,8 +743,8 @@ NBEdge::writeXMLStep1(std::ostream &into)
         "\" YFrom=\"" << _from->getPosition().y() <<
         "\" XTo=\"" << _to->getPosition().x() <<
         "\" YTo=\"" << _to->getPosition().y() <<
-        "\" From=\"" << _from->getID() <<
-        "\" To=\"" << _to->getID() <<
+        "\" from=\"" << _from->getID() <<
+        "\" to=\"" << _to->getID() <<
         "\" Priority=\"" << _priority <<
         "\" Angle=\"" << getAngle() <<
         "\" Type=\"" << _type <<

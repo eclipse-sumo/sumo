@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/08/01 07:04:50  dkrajzew
+// current geocoordinate translations and new network format functions added
+//
 // Revision 1.36  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -473,8 +476,9 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
         res.setf( ios::fixed, ios::floatfield );
         // write network offsets
         res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
-        res << "   <conv>" << myNodeCont.getConvBoundary() << "</conv>" << endl;
-        res << "   <orig>" << myNodeCont.getOrigBoundary() << "</orig>" << endl;
+        res << "   <conv-boundary>" << myNodeCont.getConvBoundary() << "</conv-boundary>" << endl;
+        res << "   <orig-boundary>" << myNodeCont.getOrigBoundary() << "</orig-boundary>" << endl;
+        res << "   <orig-utm>" << oc.getInt("arcview.utm") << "</orig-utm>" << endl;
         res << endl;
         res << setprecision( 2 );
 
