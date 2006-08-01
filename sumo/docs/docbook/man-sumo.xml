@@ -218,7 +218,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--dump-begin<replaceable class="parameter">
+          <term>--dump-begins<replaceable class="parameter">
           &lt;DUMP_BEGIN_IN_S&gt;[;&lt;DUMP_BEGIN_IN_S&gt;]*</replaceable></term>
 
           <listitem>
@@ -229,7 +229,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--dump-end<replaceable class="parameter">
+          <term>--dump-ends<replaceable class="parameter">
           &lt;DUMP_END_IN_S&gt;[;&lt;DUMP_END_IN_S&gt;]*</replaceable></term>
 
           <listitem>
