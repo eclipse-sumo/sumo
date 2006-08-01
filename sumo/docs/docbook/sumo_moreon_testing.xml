@@ -192,12 +192,6 @@
                     </row>
 
                     <row>
-                      <entry><filename>dfrouter/meta/version</filename></entry>
-
-                      <entry>checks whether printing version works</entry>
-                    </row>
-
-                    <row>
                       <entry><filename>dfrouter/trips/noop</filename></entry>
 
                       <entry>checks what happens when no argument is
@@ -343,6 +337,15 @@
             </tbody>
           </tgroup>
         </table>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Test for <option>--version</option> was removed in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2>
@@ -379,12 +382,6 @@
                       <entry><filename>duarouter/meta/help</filename></entry>
 
                       <entry>checks whether printing help works</entry>
-                    </row>
-
-                    <row>
-                      <entry><filename>duarouter/meta/version</filename></entry>
-
-                      <entry>checks whether printing version works</entry>
                     </row>
 
                     <row>
@@ -977,6 +974,15 @@
             </tbody>
           </tgroup>
         </table>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Test for <option>--version</option> was removed in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2>
@@ -1013,12 +1019,6 @@
                       <entry><filename>dfrouter/meta/help</filename></entry>
 
                       <entry>checks whether printing help works</entry>
-                    </row>
-
-                    <row>
-                      <entry><filename>dfrouter/meta/version</filename></entry>
-
-                      <entry>checks whether printing version works</entry>
                     </row>
 
                     <row>
@@ -1188,6 +1188,15 @@
             </tbody>
           </tgroup>
         </table>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Test for <option>--version</option> was removed in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2>
@@ -1224,12 +1233,6 @@
                       <entry><filename>netconvert/meta/help</filename></entry>
 
                       <entry>checks whether printing help works</entry>
-                    </row>
-
-                    <row>
-                      <entry><filename>netconvert/meta/version</filename></entry>
-
-                      <entry>checks whether printing version works</entry>
                     </row>
 
                     <row>
@@ -1486,6 +1489,15 @@
             </tbody>
           </tgroup>
         </table>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Test for <option>--version</option> was removed in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2>
@@ -1522,12 +1534,6 @@
                       <entry><filename>sumo/meta/help</filename></entry>
 
                       <entry>checks whether printing help works</entry>
-                    </row>
-
-                    <row>
-                      <entry><filename>sumo/meta/version</filename></entry>
-
-                      <entry>checks whether printing version works</entry>
                     </row>
 
                     <row>
@@ -1604,10 +1610,31 @@
                     </row>
 
                     <row>
-                      <entry><filename>sumo/routes/output/cross3ltl_meandata</filename></entry>
+                      <entry><filename>sumo/routes/output/cross3ltl_meandata_edges</filename></entry>
 
                       <entry>checks whether mean data are written
                       (edge-based)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_meandata_lanes</filename></entry>
+
+                      <entry>checks whether mean data are written
+                      (lane-based)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_meandata_edges_constrained</filename></entry>
+
+                      <entry>checks whether mean data can be contstrained
+                      (edge-based)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_meandata_lanes_constrained</filename></entry>
+
+                      <entry>checks whether mean data can be constrained
+                      (lane-based)</entry>
                     </row>
 
                     <row>
@@ -1849,6 +1876,55 @@
                       <entry>Tests what happens if an unknown option is
                       passed</entry>
                     </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_begin1</filename></entry>
+
+                      <entry>Tests what happens if the first begin time is
+                      missing</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_begin2</filename></entry>
+
+                      <entry>Tests what happens if the second begin time is
+                      missing</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_begin_divider</filename></entry>
+
+                      <entry>Tests what happens if a divider is given but no
+                      value in begins</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_end1</filename></entry>
+
+                      <entry>Tests what happens if the first end time is
+                      missing</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_end</filename></entry>
+
+                      <entry>Tests what happens if the second end time is
+                      missing</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_missing_end_divider</filename></entry>
+
+                      <entry>Tests what happens if a divider is given but no
+                      value in ends</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/errors/meandata_edges_false_order</filename></entry>
+
+                      <entry>Tests what happens if a begin is larger than an
+                      end</entry>
+                    </row>
                   </tbody>
                 </entrytbl>
               </row>
@@ -1859,6 +1935,15 @@
             </tbody>
           </tgroup>
         </table>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Test for <option>--version</option> was removed in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
     </sect1>
   </chapter>
