@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/08/01 05:48:42  dkrajzew
+// added the possibility to make a polygon being filled or not
+//
 // Revision 1.2  2005/10/07 11:47:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -72,11 +75,10 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 //////////////////////////////////////////////////////////////////////
-
-
 Polygon2D::Polygon2D(const std::string name, const std::string type,
-                     const RGBColor &color, const Position2DVector &Pos)
-        : myName(name),  myType(type), myColor(color), myPos(Pos)
+                     const RGBColor &color, const Position2DVector &Pos,
+                     bool fill)
+    : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill)
 {
 }
 
@@ -89,42 +91,53 @@ Polygon2D::~Polygon2D()
 //////////////////////////////////////////////////////////////////////
 // Definitions of the Methods
 //////////////////////////////////////////////////////////////////////
-
-/// return the name of the Polygon
+// return the name of the Polygon
 const std::string &
-Polygon2D::getName(void) const
+Polygon2D::getName() const
 {
     return myName;
 }
 
-/// return the typ of the Polygon
+
+// return the typ of the Polygon
 const std::string &
-Polygon2D::getType(void) const
+Polygon2D::getType() const
 {
     return myType;
 }
 
-/// return the Color of the polygon
+
+// return the Color of the polygon
 const RGBColor &
-Polygon2D::getColor(void) const
+Polygon2D::getColor() const
 {
     return myColor;
 }
 
-/// return the Positions Vector of the Polygon
+
+// return the Positions Vector of the Polygon
 const Position2DVector &
-Polygon2D::getPosition2DVector(void) const
+Polygon2D::getPosition2DVector() const
 {
     return myPos;
 }
 
-/// add the Position2DVector to the polygon
+
+// add the Position2DVector to the polygon
 void
 Polygon2D::addPolyPosition(Position2DVector &myNewPos)
 {
      myPos = myNewPos;
 
 }
+
+
+bool
+Polygon2D::fill() const
+{
+    return myFill;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

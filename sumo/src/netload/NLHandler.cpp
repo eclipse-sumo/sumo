@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/08/01 05:48:42  dkrajzew
+// added the possibility to make a polygon being filled or not
+//
 // Revision 1.13  2006/07/06 06:14:40  dkrajzew
 // removed unneeded values
 //
@@ -597,7 +600,8 @@ NLHandler::addPoly(const Attributes &attrs)
             myShapeBuilder.polygonBegin(name,
                 getIntSecure(attrs, "layer", -1),//!!!
                 getString(attrs, SUMO_ATTR_TYPE),
-                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)));
+                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                getBoolSecure(attrs, "fill", false)); // !!!
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
         } catch (NumberFormatException &) {
@@ -1226,10 +1230,13 @@ NLHandler::myCharacters(int element, const std::string &name,
         if(name=="net-offset") { // !!!!6 change to tag*
             setNetOffset(chars);
         }
-        if(name=="conv") { // !!!!6 change to tag*
+        if(name=="conv-boundary") { // !!!!6 change to tag*
             setNetConv(chars);
         }
-        if(name=="orig") { // !!!!6 change to tag*
+        if(name=="orig-boundary") { // !!!!6 change to tag*
+            setNetOrig(chars);
+        }
+        if(name=="orig-utm") { // !!!!6 change to tag*
             setNetOrig(chars);
         }
     }

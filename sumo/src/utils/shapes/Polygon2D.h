@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/08/01 05:48:42  dkrajzew
+// added the possibility to make a polygon being filled or not
+//
 // Revision 1.2  2005/10/07 11:47:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -68,7 +71,7 @@ class Polygon2D
 public:
     /// Constructor
     Polygon2D(const std::string name, const std::string type,
-        const RGBColor &color, const Position2DVector &Pos);
+        const RGBColor &color, const Position2DVector &Pos, bool fill);
 
     /// Destructor
     virtual ~Polygon2D();
@@ -77,30 +80,34 @@ public:
     void addPolyPosition(Position2DVector &myNewPos);
 
     // return the name of the Polygon
-    const std::string &getName(void) const;
+    const std::string &getName() const;
 
     // return the type of the Polygon
-    const std::string &getType(void) const;
+    const std::string &getType() const;
 
     // return the Color of the polygon
-    const RGBColor &getColor(void) const;
+    const RGBColor &getColor() const;
 
     // return the Positions Vector of the Polygon
     const Position2DVector &getPosition2DVector(void) const;
 
+    bool fill() const;
 
 protected:
-    /// the Name of the Polygon
+    /// the name of the Polygon
     std::string myName;
 
     /// the type of the polygon
     std::string myType;
 
-    /// the Color of the Polygon
+    /// the color of the Polygon
     RGBColor myColor;
 
-    /// the Positions of the Polygon
+    /// the positions of the Polygon
     Position2DVector myPos;
+
+    /// Information whether the polygon has to be filled
+    bool myFill;
 
 };
 

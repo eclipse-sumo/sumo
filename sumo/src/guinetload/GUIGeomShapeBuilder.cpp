@@ -45,7 +45,7 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 {
     GUIPolygon2D *p =
         new GUIPolygon2D(myIdStorage, myCurrentName, myCurrentType,
-            myCurrentColor, shape);
+            myCurrentColor, shape, myFillPoly);
     if(!myShapeContainer.add(myCurrentLayer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;

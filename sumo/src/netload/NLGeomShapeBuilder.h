@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/08/01 05:48:42  dkrajzew
+// added the possibility to make a polygon being filled or not
+//
 // Revision 1.7  2006/03/27 07:23:36  dkrajzew
 // shape layers added
 //
@@ -94,7 +97,7 @@ public:
         The values are stored in order to allocate the complete polygon after
         the shape has been parsed, too */
     virtual void polygonBegin(const std::string &name, int layer,
-        const std::string &type, const RGBColor &c);
+        const std::string &type, const RGBColor &c, bool fill);
 
     /** @brief Ends the parsing of the polygon allocating it. */
     virtual void polygonEnd(const Position2DVector &shape);
@@ -124,8 +127,12 @@ protected:
     /// The layer thepolygon shall be added to
     int myCurrentLayer;
 
+    /// Information whether the polygon shall be filled
+    bool myFillPoly;
+
     /// The shape container
     ShapeContainer &myShapeContainer;
+
 
 };
 

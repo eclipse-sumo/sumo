@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/08/01 05:48:42  dkrajzew
+// added the possibility to make a polygon being filled or not
+//
 // Revision 1.7  2006/03/27 07:23:36  dkrajzew
 // shape layers added
 //
@@ -105,12 +108,14 @@ void
 NLGeomShapeBuilder::polygonBegin(const std::string &name,
                                  int layer,
                                  const std::string &type,
-                                 const RGBColor &c)
+                                 const RGBColor &c,
+                                 bool fill)
 {
     myCurrentName = name;
     myCurrentType = type;
     myCurrentColor = c;
     myCurrentLayer = layer;
+    myFillPoly = fill;
 }
 
 
@@ -118,12 +123,13 @@ void
 NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 {
     Polygon2D *p =
-        new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape);
+        new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape, myFillPoly);
     if(!myShapeContainer.add(myCurrentLayer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
     }
 }
+
 
 void
 NLGeomShapeBuilder::addPoint(const std::string &name,
