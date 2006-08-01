@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/08/01 07:00:30  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.29  2006/07/07 11:51:52  dkrajzew
 // further work on lane changing
 //
@@ -345,14 +348,6 @@ MSLaneChanger::change()
         preb[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
     }
 
-    /*
-    pair<int, SUMOReal> changePreference = getChangePreference();
-    SUMOReal currentLaneDist =
-        vehicle->allowedContinuationsLength((*myCandi).lane, 0);
-    if(changePreference.second==currentLaneDist) {
-        changePreference.first = 0;
-    }
-    */
     vehicle->getLaneChangeModel().prepareStep();
     // check whether the vehicle wants and is able to change to right lane
     std::pair<MSVehicle*, SUMOReal> rLead = getRealRightLeader();
@@ -1008,36 +1003,7 @@ MSLaneChanger::advan2left(const std::pair<MSVehicle*, SUMOReal> &leader,
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi+1)->lane,
         preb,
-        /*
-        bestLaneOffset, bestDist,
-        veh(myCandi)->allowedContinuationsLength((myCandi+1)->lane, 0),
-        currentDist,
-        */
         &(myCandi->lastBlocked));
-}
-
-
-std::pair<int, SUMOReal>
-MSLaneChanger::getChangePreference()
-{
-    MSVehicle *vehicle = veh( myCandi );
-    // compute the need to change lanes soon
-    int maxNo = -1;
-    int maxIdx = -1;
-    int midx = distance(myChanger.begin(), myCandi);
-    for(int i=0; i<(int) myChanger.size(); ++i) {
-        MSLane *lane = (*(myChanger.begin()+i)).lane;
-        int mmax = vehicle->countAllowedContinuations(lane, -(midx-i));
-        if(maxNo==-1||mmax>maxNo) {
-            maxNo = mmax;
-            maxIdx = i;
-        }
-    }
-    assert(maxIdx!=-1);
-    return pair<int, SUMOReal>(
-        maxIdx-distance(myChanger.begin(), myCandi),
-        vehicle->allowedContinuationsLength((*(myChanger.begin()+maxIdx)).lane, -(midx-maxIdx))
-        );
 }
 
 

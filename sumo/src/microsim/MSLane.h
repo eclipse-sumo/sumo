@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.42  2006/08/01 07:00:29  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.41  2006/07/07 11:51:51  dkrajzew
 // further work on lane changing
 //
@@ -457,10 +460,6 @@ public:
 
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
-
-    /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
-    MSLinkCont::const_iterator succLinkOneLane(const MSEdge* nRouteEdge,
-        const MSLane& succLinkSource) const;
 
     /** Same as succLink, but does not throw any assertions when
         the succeeding link could not be found;

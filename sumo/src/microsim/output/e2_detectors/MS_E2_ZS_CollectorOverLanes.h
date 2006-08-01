@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/08/01 06:56:20  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.11  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -127,20 +130,6 @@ public:
 	/// ... have to override this method
     void resetQueueLengthAheadOfTrafficLights( void );
 
-
-    /**
-     * @name Inherited MSDetectorFileOutput methods.
-     *
-     */
-    //@{
-    /**
-     * Returns a string indentifying an object of this class. Used for
-     * distinct filenames.
-     */
-    std::string  getNamePrefix( void ) const
-        {
-            return "MS_E2_ZS_CollectorOverLanes";
-        }
 
     /**
      * Get a header for file output which shall contain some

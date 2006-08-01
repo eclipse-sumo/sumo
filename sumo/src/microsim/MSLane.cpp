@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.67  2006/08/01 07:00:29  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.66  2006/07/10 06:11:17  dkrajzew
 // mean data reworked
 //
@@ -1152,24 +1155,6 @@ MSLane::integrateNewVehicle()
 //5!!!        myUseDefinition->vehLenSum += myVehBuffer->length();
         assert(myUseDefinition->noVehicles==myVehicles.size());
     }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSLinkCont::const_iterator
-MSLane::succLinkOneLane(const MSEdge* nRouteEdge,
-                        const MSLane& succLinkSource) const
-{
-    // the link must be from a lane to the right or left from the current lane
-    //  we have to do it via the edge
-    for ( MSLinkCont::const_iterator link = succLinkSource.myLinks.begin();
-          link != succLinkSource.myLinks.end() ; ++link ) {
-
-        if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
-            return link;
-        }
-    }
-    return succLinkSource.myLinks.end();
 }
 
 /////////////////////////////////////////////////////////////////////////////

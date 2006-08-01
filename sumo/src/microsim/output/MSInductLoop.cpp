@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/01 06:56:20  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.15  2006/07/06 07:18:33  dkrajzew
 // applied current microsim-APIs
 //
@@ -284,13 +287,6 @@ MSInductLoop::getNVehContributed( SUMOTime lastNTimesteps ) const
 {
     return (SUMOReal) distance( getStartIterator( lastNTimesteps ),
                      vehicleDataContM.end() );
-}
-
-
-string
-MSInductLoop::getNamePrefix( void ) const
-{
-    return "MSInductLoop_" + idM;
 }
 
 

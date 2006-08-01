@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.57  2006/08/01 07:00:32  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.56  2006/07/07 11:51:52  dkrajzew
 // further work on lane changing
 //
@@ -857,9 +860,6 @@ public:
     };
 
     std::vector<std::vector<LaneQ> > getBestLanes() const;
-
-    int countAllowedContinuations(const MSLane *lane, int dir) const;
-    SUMOReal allowedContinuationsLength(const MSLane *lane, int dir) const;
 
     SUMOReal getMovedDistance( void ) const
         {

@@ -32,15 +32,6 @@ private:
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);
     Position2DVector computeNodeShapeByCrosses();
     bool isSimpleContinuation(const NBNode &n) const;
-
-    struct NeighborCrossDesc {
-        bool myUsedOppositeDirection; // !!!
-        bool myAmValid;
-        SUMOReal myCrossingPosition;
-        SUMOReal myCrossingAngle;
-
-    };
-
 private:
     const NBNode &myNode;
     std::ofstream * const myOut;

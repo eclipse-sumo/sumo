@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.83  2006/08/01 07:00:32  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.82  2006/07/07 11:51:52  dkrajzew
 // further work on lane changing
 //
@@ -1859,133 +1862,6 @@ MSVehicle::rebuildAllowedLanes()
 }
 
 
-int
-MSVehicle::countAllowedContinuations(const MSLane *lane, int dir) const
-{
-    int ret = 0;
-    SUMOReal MIN_DIST = 1000;
-    MSRouteIterator ce = myCurrEdge;
-    SUMOReal dist = -myState.pos();
-    do {
-        if(!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
-            if(lane!=myStops.begin()->lane) {
-                return ret;
-            } else {
-                return ret+1;
-            }
-        }
-        if(ce==myRoute->end()-1) {
-            return ret + 1;
-        }
-        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        if(al==0) {
-            return ret;
-        }
-        MSEdge::LaneCont::const_iterator i = find(al->begin(), al->end(), lane);
-        if(i==al->end()) {
-            if(dir==0) {
-                return ret;
-            }
-            // !!!! may be a lane that must be used to leave...
-            const std::vector<MSLane*> *pl = lane->getEdge()->getLanes();
-            std::vector<MSLane*>::const_iterator pli = find(pl->begin(), pl->end(), lane);
-            if(dir<0) {
-                // to right
-                if(pli==pl->begin()) {
-                    return ret;
-                }
-                lane = *(pli-1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return ret;
-                }
-            }
-            if(dir>0) {
-                // to left
-                if(pli==pl->end()-1) {
-                    return ret;
-                }
-                lane = *(pli+1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return ret;
-                }
-            }
-        }
-        ret++;
-        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
-        assert(al!=0);
-        ++ce;
-        dist += ((*al)[0])->length();
-    } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
-    return ret;
-}
-
-
-SUMOReal
-MSVehicle::allowedContinuationsLength(const MSLane *lane, int dir) const
-{
-    SUMOReal MIN_DIST = 1000;
-    MSRouteIterator ce = myCurrEdge;
-    SUMOReal dist = -myState.pos();
-    do {
-        if(!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
-            if(lane!=myStops.begin()->lane) {
-                return dist;
-            } else {
-                return dist+myStops.begin()->pos;
-            }
-        }
-        if(ce==myRoute->end()-1) {
-            dist += lane->length();
-            return dist;
-        }
-        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        if(al==0) {
-            return dist;
-        }
-        MSEdge::LaneCont::const_iterator i =
-            find(al->begin(), al->end(), lane);
-        if(i==al->end()) {
-            if(dir==0) {
-                dist += lane->length();
-                return dist;
-            }
-            // !!!! may be a lane that must be used to leave...
-            const std::vector<MSLane*> *pl = lane->getEdge()->getLanes();
-            std::vector<MSLane*>::const_iterator pli = find(pl->begin(), pl->end(), lane);
-            if(dir<0) {
-                // to right
-                if(pli==pl->begin()) {
-                    return dist;
-                }
-                lane = *(pli-1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return dist;
-                }
-            }
-            if(dir>0) {
-                // to left
-                if(pli==pl->end()-1) {
-                    return dist;
-                }
-                lane = *(pli+1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return dist;
-                }
-            }
-        }
-        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
-        assert(al!=0);
-        ++ce;
-        dist += ((*al)[0])->length();
-    } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
-    return dist;
-}
-
-
 std::vector<std::vector<MSVehicle::LaneQ> >
 MSVehicle::getBestLanes() const
 {
@@ -2073,68 +1949,6 @@ MSVehicle::getBestLanes() const
             }
         }
     }
-
-    //MSEdge::LaneCont* getLanes( void ) const; // !!! not the container itself!
-
-    //for(int
-    /*
-    SUMOReal dist = -myState.pos();
-    int seen = 0;
-    do {
-        if(!myStops.empty()&&&(myStops.begin()->lane->edge())==&(lane->edge())) {
-            if(lane!=myStops.begin()->lane) {
-                return dist;
-            } else {
-                return dist+myStops.begin()->pos;
-            }
-        }
-        if(ce==myRoute->end()-1) {
-            dist += lane->length();
-            return dist;
-        }
-        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        if(al==0) {
-            return dist;
-        }
-        MSEdge::LaneCont::const_iterator i =
-            find(al->begin(), al->end(), lane);
-        if(i==al->end()) {
-            if(dir==0) {
-                dist += lane->length();
-                return dist;
-            }
-            // !!!! may be a lane that must be used to leave...
-            const std::vector<MSLane*> *pl = lane->edge().getLanes();
-            std::vector<MSLane*>::const_iterator pli = find(pl->begin(), pl->end(), lane);
-            if(dir<0) {
-                // to right
-                if(pli==pl->begin()) {
-                    return dist;
-                }
-                lane = *(pli-1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return dist;
-                }
-            }
-            if(dir>0) {
-                // to left
-                if(pli==pl->end()-1) {
-                    return dist;
-                }
-                lane = *(pli+1);
-                i = find(al->begin(), al->end(), lane);
-                if(i==al->end()) {
-                    return dist;
-                }
-            }
-        }
-        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
-        assert(al!=0);
-        ++ce;
-        dist += ((*al)[0])->length();
-    } while(dist<MIN_DIST&&ce!=myRoute->end()-1&&seen<4);
-    */
     return ret;
 
 }

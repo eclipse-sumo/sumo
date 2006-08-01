@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/08/01 06:56:20  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.8  2006/07/10 06:11:18  dkrajzew
 // mean data reworked
 //
@@ -110,7 +113,6 @@ public:
 
     friend class MSMeanData_Net_Utils;
 
-    std::string  getNamePrefix( void ) const;
     void writeXMLHeader( XMLDevice &dev ) const;
     virtual void writeXMLOutput( XMLDevice &dev,
         SUMOTime startTime, SUMOTime stopTime );

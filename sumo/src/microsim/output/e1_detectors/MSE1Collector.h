@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.13  2006/08/01 06:56:20  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.12  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //
@@ -247,21 +250,6 @@ public:
     const std::string& getID() const
         {
             return idM;
-        }
-
-    ///
-    /// @name Methods, inherited from MSDetectorFileOutput.
-    ///
-    /// @{
-
-    /// Returns a string indentifying this class. Used to create
-    /// distinct filenames.
-    ///
-    /// @return Always "MSE1Collector".
-    ///
-    std::string  getNamePrefix( void ) const
-        {
-            return "MSE1Collector";
         }
 
     /// Get a header for file output which shall contain some

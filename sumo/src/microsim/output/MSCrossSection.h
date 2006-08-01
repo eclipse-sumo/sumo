@@ -62,31 +62,14 @@ public:
         , posM( pos )
         {}
 
-    /*
-    MSCrossSection( const MSCrossSection &s )
-        : laneM( s.laneM )
-        , posM( s.posM )
-        {}
-
-    MSCrossSection &operator=( const MSCrossSection &s ) {
-        if(&s==this) {
-            return *this;
-        }
-        laneM = s.laneM;
-        posM = s.posM;
-        return *this;
-    }
-    */
-
     MSLane* laneM;
     SUMOReal posM;
 };
 
-namespace Detector
-{
-    typedef std::vector< MSCrossSection > CrossSections;
-    typedef CrossSections::iterator CrossSectionsIt;
-}
+
+typedef std::vector< MSCrossSection > CrossSectionVector;
+typedef CrossSectionVector::iterator CrossSectionVectorIt;
+typedef CrossSectionVector::const_iterator CrossSectionVectorConstIt;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/08/01 07:00:32  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.10  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -261,8 +264,6 @@ protected:
     virtual bool change2RightPossible();
     virtual bool change2LeftPossible();
 	*/
-    std::pair<int, SUMOReal> getChangePreference();
-
     std::pair<MSVehicle *, SUMOReal> getRealThisLeader(const ChangerIt &target);
     std::pair<MSVehicle *, SUMOReal> getRealFollower(const ChangerIt &target);
     std::pair<MSVehicle *, SUMOReal> getRealRightFollower();

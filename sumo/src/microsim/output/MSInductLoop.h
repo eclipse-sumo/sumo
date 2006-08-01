@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.10  2006/08/01 06:56:20  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.9  2006/07/06 07:18:33  dkrajzew
 // applied current microsim-APIs
 //
@@ -272,16 +275,6 @@ public:
      * @see MSDetectorFileOutput
      */
     //@{
-    /**
-     * Returns a string indentifying an object of this class. Used for
-     * distinct filenames in MSDetector2File
-     *
-     * @see MSDetector2File
-     * @return String "MSInductLoop_" + idM
-     */
-    std::string getNamePrefix( void ) const;
-
-
     /**
      * Get a header for file output via MSDetector2File
      *

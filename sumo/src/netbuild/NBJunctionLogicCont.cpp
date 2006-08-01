@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/08/01 07:03:43  dkrajzew
+// removed unneeded API parts
+//
 // Revision 1.10  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -162,12 +165,11 @@ void
 NBJunctionLogicCont::add(const std::string &key,
                          const std::string &xmlDescription)
 {
-    string nkey = "b." + key; // !!! nkey?
-    LogicMap::iterator i=_map.find(nkey);
+    LogicMap::iterator i=_map.find(key);
     if(i!=_map.end()) {
         string tmp = (*i).second;
     }
-    _map.insert(LogicMap::value_type(nkey, xmlDescription));
+    _map.insert(LogicMap::value_type(key, xmlDescription));
 }
 
 
