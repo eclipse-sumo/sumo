@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/08/01 07:08:58  dkrajzew
+// output patched
+//
 // Revision 1.32  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -732,8 +735,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     int i;
     for(i=0; i<(int) myNoLanes; i++) {
         if(myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
-            WRITE_WARNING("Unset speed on edge:" + toString<int>(myID) + ", lane:" + toString<int>(i));
-            WRITE_WARNING(". Using default.");
+            WRITE_WARNING("Unset speed on edge:" + toString<int>(myID) + ", lane:" + toString<int>(i) + "; using default.");
             avgSpeed += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
         } else {
             avgSpeed += myLaneSpeeds[i];

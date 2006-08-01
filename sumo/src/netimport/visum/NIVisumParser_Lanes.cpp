@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/08/01 07:08:58  dkrajzew
+// output patched
+//
 // Revision 1.8  2006/07/07 11:57:21  dkrajzew
 // further work on VISUM-import
 //
@@ -112,7 +115,6 @@ NIVisumParser_Lanes::myDependentReport()
         // get the edge
         NBEdge *baseEdge = getNamedEdge(myEdgeCont, "FAHRSTREIFEN", "STRNR");
         NBEdge *edge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFEN", "STRNR", node);
-        cout << baseEdge->getID() << "<->" << edge->getID() << endl;
         // check
         if(node==0||edge==0) {
             return;
