@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2006/08/01 07:43:43  dkrajzew
+// help text patched
+//
 // Revision 1.24  2006/07/10 09:04:16  dkrajzew
 // dump-begin/dump-end renamed to dump-begins/dump-ends
 //
@@ -124,7 +127,7 @@ char *help[] = {
     " ",
     "Options:",
     " Input files:",
-    "   -n, --net-file FILE[;FILE]*     FILE is a network file",
+    "   -n, --net-file FILE             FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
     "   -a, --additional-files FILE...  FILE is a detector file",
     "   -c, --configuration FILE        FILE will be used as configuration",
