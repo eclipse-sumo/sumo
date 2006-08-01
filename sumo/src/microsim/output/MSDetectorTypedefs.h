@@ -22,6 +22,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/08/01 06:56:34  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.5  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -44,6 +47,12 @@
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
+
+// concrete E3 detectors, all LD
+#include <microsim/output/e3_detectors/MSE3Collector.h>
+#include <microsim/output/e3_detectors/MSE3Traveltime.h>
+#include <microsim/output/e3_detectors/MSE3NVehicles.h>
+#include <microsim/output/e3_detectors/MSE3MeanNHaltings.h>
 
 #include "MSMeanDetector.h"
 #include "MSSumDetector.h"
@@ -68,10 +77,6 @@
 #include "MSHaltDuration.h"
 
 
-// concrete E3 detectors, all LD
-#include <microsim/output/e3_detectors/MSE3Traveltime.h>
-#include <microsim/output/e3_detectors/MSE3NVehicles.h>
-#include <microsim/output/e3_detectors/MSE3MeanNHaltings.h>
 
 // concrete E1 detectors, all LD
 #include <microsim/output/e1_detectors/MSE1MeanSpeed.h>
@@ -131,11 +136,9 @@ namespace Detector
     // E3
     typedef MSSumDetector< LD::MSDetector< MSE3NVehicles >, true > E3NVehicles;
 
-    typedef MSMeanDetector< LD::MSDetector<
-        MSE3Traveltime >, true> E3Traveltime;
+    typedef MSMeanDetector< LD::MSDetector< MSE3Traveltime >, true> E3Traveltime;
 
-    typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true >
-    E3MeanNHaltings;
+    typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true > E3MeanNHaltings;
 
     // E1 are all LD
     typedef MSMeanDetector< LD::MSDetector<
