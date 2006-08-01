@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/08/01 07:12:11  dkrajzew
+// faster access to weight time lines added
+//
 // Revision 1.27  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -155,7 +158,8 @@ ROEdge::ROEdge(const std::string &id, int index)
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
       _hasSupplementaryWeights(false),
-      myIndex(index), myLength(-1)
+      myIndex(index), myLength(-1),
+      myPackedValueLine(0), myHaveBuildShortCut(false)
 {
 }
 
@@ -168,6 +172,7 @@ ROEdge::~ROEdge()
     delete _supplementaryWeightAbsolut;
     delete _supplementaryWeightAdd;
     delete _supplementaryWeightMult;
+    delete[] myPackedValueLine;
 }
 
 
@@ -245,12 +250,12 @@ ROEdge::getEffort(SUMOTime time) const
 {
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
-    // check whether to use an absolute value
+    // check whether an absolute value shalle be used
     bool hasAbsolutValue = false;
-    if ( _hasSupplementaryWeights == true ) {
-        searchResult =
-            _supplementaryWeightAbsolut->getSearchStateAndValue( time );
-        if ( searchResult.first == true ) {
+    if (_hasSupplementaryWeights) {
+        searchResult = _supplementaryWeightAbsolut->getSearchStateAndValue( time );
+        if (searchResult.first) {
+            // ok, we have an absolute value for this time step, return it
             return searchResult.second;
         }
     }
@@ -259,31 +264,31 @@ ROEdge::getEffort(SUMOTime time) const
     //  weight as default
     SUMOReal value = (SUMOReal) (_dist / _speed);
     if(_usingTimeLine) {
-        searchResult = _ownValueLine.getSearchStateAndValue( time );
-        if ( searchResult.first == false ) {
+        if(!myHaveBuildShortCut) {
+            myPackedValueLine = _ownValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myShortCutInterval);
+            myHaveBuildShortCut = true;
+        }
+        if(myShortCutBegin>time||myShortCutEnd<time) {
             if(!myHaveWarned) {
-                WRITE_WARNING("ROEdge::getMyEffort(id " + _id+ " ):");
-                WRITE_WARNING(" No interval matches passed time "+ toString<SUMOTime>(time)  + ".");
-                WRITE_WARNING("Using edge's length / edge's speed.");
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using edge's length / edge's speed.");
                 myHaveWarned = true;
             }
         } else {
-            value = searchResult.second;
+            value = myPackedValueLine[(time-myShortCutBegin)/myShortCutInterval];
+            SUMOReal value2 = _ownValueLine.getSearchStateAndValue(time).second;
         }
     }
 
     // check for additional values
     if ( _hasSupplementaryWeights == true ) {
         // for factors
-        supplementarySearchResult =
-            _supplementaryWeightMult->getSearchStateAndValue( time );
-        if ( supplementarySearchResult.first == true ) {
+        supplementarySearchResult = _supplementaryWeightMult->getSearchStateAndValue(time);
+        if (supplementarySearchResult.first) {
             value *= supplementarySearchResult.second;
         }
         // for a value to add
-        supplementarySearchResult =
-            _supplementaryWeightAdd->getSearchStateAndValue( time );
-        if ( supplementarySearchResult.first == true ) {
+        supplementarySearchResult = _supplementaryWeightAdd->getSearchStateAndValue(time);
+        if (supplementarySearchResult.first) {
             value += supplementarySearchResult.second;
         }
     }
@@ -354,10 +359,6 @@ ROEdge::getType() const
 SUMOReal
 ROEdge::getLength() const
 {
-    /*
-    assert(_laneCont.size()!=0);
-    return (*(_laneCont.begin())).first->getLength();
-    */
     return myLength;
 }
 

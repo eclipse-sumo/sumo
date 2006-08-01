@@ -363,7 +363,7 @@ public:
         return(i!=myValues.end());
     }
 
-    bool hasOverlaps() {
+    bool hasOverlaps() const {
         if(myValues.size()==0) {
             return false;
         }
@@ -392,6 +392,23 @@ public:
     const ValuedTimeRange &getLastRange() const {
         assert(!empty());
         return *(myValues.end()-1);
+    }
+
+
+    T *buildShortCut(SUMOTime &begin, SUMOTime &end, SUMOTime &interval) const {
+        T *ret;
+        // make it simple: assume we use only weights that have the same intervals
+        //  in this case!
+        assert(myValues.size()!=0);
+        assert(!hasOverlaps());
+        interval = myValues.begin()->first.second-myValues.begin()->first.first+1;
+        ret = new T[myValues.size()];
+        begin = myValues.begin()->first.first;
+        end = (myValues.end()-1)->first.second;//begin + myValues.size() * interval;
+        for(int i=0; i<myValues.size(); i++) {
+            ret[i] = myValues[i].second;
+        }
+        return ret;
     }
 
 private:

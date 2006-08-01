@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/08/01 07:12:11  dkrajzew
+// faster access to weight time lines added
+//
 // Revision 1.21  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -258,8 +261,13 @@ protected:
     /// List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 
-    /// infomration whether the time line shall be used instead of the length value
+    /// information whether the time line shall be used instead of the length value
     bool _usingTimeLine;
+
+    mutable bool myHaveBuildShortCut;
+    mutable SUMOReal *myPackedValueLine;
+    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
+
 
     /// The type of the edge
     EdgeType myType;
