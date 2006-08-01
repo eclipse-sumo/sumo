@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.80  2006/08/01 07:01:51  dkrajzew
+// simulation-wide cartesian to geocoordinates conversion added
+//
 // Revision 1.79  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -480,7 +483,7 @@ namespace
 #include "MSDebugHelper.h" // !!!
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
-
+#include <utils/geoconv/GeoConvHelper.h>
 #include <ctime>
 
 #ifdef _DEBUG
@@ -595,6 +598,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // set requests/responses
     MSJunction::postloadInitContainer(); // !!!
+
+    GeoConvHelper::init("+proj=utm +zone=33 +ellps=bessel +units=m", myOffset);
 }
 
 
@@ -622,6 +627,7 @@ MSNet::~MSNet()
 	delete myMSPhoneNet;
 	myMSPhoneNet = 0;
     clearAll();
+    GeoConvHelper::close();
 }
 
 
