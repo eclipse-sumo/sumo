@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/08/01 13:39:54  dkrajzew
+// patching building
+//
 // Revision 1.3  2006/05/15 05:56:24  dkrajzew
 // debugged splitting of matrices
 //
@@ -95,7 +98,7 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
 {
     int vehicles2emit = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle emission
-    SUMOReal mrand = rand()/(double) RAND_MAX;
+    SUMOReal mrand = (SUMOReal) rand()/(SUMOReal) RAND_MAX;
     SUMOReal mprob = (SUMOReal)cell->vehicleNumber-(SUMOReal) vehicles2emit;
     if(mrand<mprob) {
         vehicles2emit++;

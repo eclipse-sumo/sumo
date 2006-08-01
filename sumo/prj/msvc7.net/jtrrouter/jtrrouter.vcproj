@@ -132,8 +132,7 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl jtrrouter"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

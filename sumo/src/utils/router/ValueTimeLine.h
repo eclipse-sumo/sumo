@@ -405,7 +405,7 @@ public:
         ret = new T[myValues.size()];
         begin = myValues.begin()->first.first;
         end = (myValues.end()-1)->first.second;//begin + myValues.size() * interval;
-        for(int i=0; i<myValues.size(); i++) {
+        for(size_t i=0; i<myValues.size(); i++) {
             ret[i] = myValues[i].second;
         }
         return ret;

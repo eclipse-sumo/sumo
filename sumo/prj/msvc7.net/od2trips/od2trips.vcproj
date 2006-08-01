@@ -63,8 +63,7 @@ copy Release\od2trips.exe ..\..\..\bin\od2trips.exe
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl od2trips"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

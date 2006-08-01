@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src;&quot;$(GDAL)\ogr&quot;;&quot;$(GDAL)\port&quot;;..\..\..\src\foreign\proj"
 				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -75,7 +75,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src;&quot;$(GDAL)\ogr&quot;;&quot;$(GDAL)\port&quot;;..\..\..\src\foreign\proj"
 				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -127,9 +127,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\bindevice\BinaryOutputDevice.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\DevHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\DoubleVector.cpp">
@@ -190,6 +187,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\IntVector.cpp">
@@ -377,9 +377,6 @@
 				RelativePath="..\..\..\src\utils\common\BoolVector.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\DevHelper.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\DoubleVector.h">
 			</File>
 			<File
@@ -387,6 +384,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\HelpPrinter.h">

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/08/01 13:39:54  dkrajzew
+// patching building
+//
 // Revision 1.18  2006/08/01 11:30:20  dkrajzew
 // patching building
 //
@@ -275,7 +278,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                 length += (*i)->getLength();
                 ++i;
             }
-            SUMOReal noEdges = rd->edges2Pass.size();
+            SUMOReal noEdges = (SUMOReal) rd->edges2Pass.size();
 
             //
             distanceFactor = distanceFactor * distanceFactor;

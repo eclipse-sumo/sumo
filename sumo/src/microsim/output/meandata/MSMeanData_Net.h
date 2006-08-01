@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/08/01 13:39:54  dkrajzew
+// patching building
+//
 // Revision 1.9  2006/08/01 06:56:20  dkrajzew
 // removed unneeded API parts
 //
@@ -146,9 +149,9 @@ protected:
             assert(period!=0);
             assert(laneLength!=0);
             meanDensity = (SUMOReal) values.nSamples /
-                (SUMOReal) period * 1000. / laneLength;
+                (SUMOReal) period * (SUMOReal) 1000. / (SUMOReal) laneLength;
             meanOccupancy = (SUMOReal) values.vehLengthSum /
-                (SUMOReal) period / laneLength;
+                (SUMOReal) period / (SUMOReal) laneLength;
         }
     }
 

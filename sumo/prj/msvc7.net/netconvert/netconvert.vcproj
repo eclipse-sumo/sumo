@@ -134,8 +134,7 @@ copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl netconvert"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

@@ -64,8 +64,7 @@ copy Release\netgen.exe ..\..\..\bin\netgen.exe
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl netgen"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

@@ -134,8 +134,7 @@ copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl duarouter"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

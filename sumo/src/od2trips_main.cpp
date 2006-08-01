@@ -147,7 +147,7 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
         }
         // get the distribution value
         prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
-        points.push_back(Position2D(time, prob));
+        points.push_back(Position2D((SUMOReal) time, prob));
         chour++;
     }
     if(timelineDayInHours) {

@@ -131,8 +131,7 @@ copy Debug\sumo.exe ..\..\..\bin\sumoD.exe
 copy Release\sumo.exe ..\..\..\bin\sumo.exe
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"
-				CommandLine="..\..\add-ins\incBuildNumber.pl sumo"/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
