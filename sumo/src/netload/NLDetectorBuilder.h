@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2006/08/01 05:54:35  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.23  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -266,7 +269,7 @@ public:
     E2MeasuresVector parseE2Measures(const std::string &measures);
 
     /// Definition of an E2-measures vector
-    typedef std::vector<E3::DetType> E3MeasuresVector;
+    typedef std::vector<MSE3Collector::DetType> E3MeasuresVector;
 
     /// Parses the measures an E3-detector shall compute
     E3MeasuresVector parseE3Measures(const std::string &measures);
@@ -299,8 +302,8 @@ public:
 
     /// Creates the instance of an e3-detector (overwritten by gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
-        const Detector::CrossSections &entries,
-        const Detector::CrossSections &exits,
+        const CrossSectionVector &entries,
+        const CrossSectionVector &exits,
         SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds);
@@ -337,8 +340,8 @@ public:
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
         SUMOTime myDeleteDataAfterSeconds;
         E3MeasuresVector myMeasures;
-        Detector::CrossSections myEntries;
-        Detector::CrossSections myExits;
+        CrossSectionVector myEntries;
+        CrossSectionVector myExits;
         int mySampleInterval;
         //}
 

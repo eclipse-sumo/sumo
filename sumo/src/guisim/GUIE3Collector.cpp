@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/01 05:57:09  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.15  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -123,16 +126,16 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
     : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getID()),
     myDetector(detector)
 {
-    const Detector::CrossSections &entries = detector.getEntries();
-    const Detector::CrossSections &exits = detector.getExits();
-    Detector::CrossSections::const_iterator i;
-    for(i=entries.begin(); i!=entries.end(); i++) {
+    const CrossSectionVector &entries = detector.getEntries();
+    const CrossSectionVector &exits = detector.getExits();
+    CrossSectionVectorConstIt i;
+    for(i=entries.begin(); i!=entries.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i, false);
         myBoundary.add(def.mySGPosition);
         myBoundary.add(def.myFGPosition);
         myEntryDefinitions.push_back(def);
     }
-    for(i=exits.begin(); i!=exits.end(); i++) {
+    for(i=exits.begin(); i!=exits.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i, true);
         myBoundary.add(def.mySGPosition);
         myBoundary.add(def.myFGPosition);
@@ -181,9 +184,9 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
-    myMkExistingItem(*ret, "mean travel time [s]", E3::MEAN_TRAVELTIME);
-    myMkExistingItem(*ret, "mean halting number [n]", E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
-    myMkExistingItem(*ret, "vehicle number [n]", E3::NUMBER_OF_VEHICLES);
+    myMkExistingItem(*ret, "mean travel time [s]", MSE3Collector::MEAN_TRAVELTIME);
+    myMkExistingItem(*ret, "mean halting number [n]", MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
+    myMkExistingItem(*ret, "vehicle number [n]", MSE3Collector::NUMBER_OF_VEHICLES);
     // close building
     ret->closeBuilding();
     return ret;
@@ -193,7 +196,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 void
 GUIE3Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
                                             const std::string &name,
-                                            E3::DetType type)
+                                            MSE3Collector::DetType type)
 {
     if(!myDetector.hasDetector(type)) {
         return;
@@ -295,8 +298,8 @@ GUIE3Collector::MyWrapper::getDetector()
 /* -------------------------------------------------------------------------
  * GUIE3Collector-methods
  * ----------------------------------------------------------------------- */
-GUIE3Collector::GUIE3Collector(std::string id,
-        Detector::CrossSections entries,  Detector::CrossSections exits,
+GUIE3Collector::GUIE3Collector(const std::string &id,
+        const CrossSectionVector &entries,  const CrossSectionVector &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds)
@@ -312,14 +315,14 @@ GUIE3Collector::~GUIE3Collector()
 }
 
 
-const Detector::CrossSections &
+const CrossSectionVector &
 GUIE3Collector::getEntries() const
 {
     return entriesM;
 }
 
 
-const Detector::CrossSections &
+const CrossSectionVector &
 GUIE3Collector::getExits() const
 {
     return exitsM;

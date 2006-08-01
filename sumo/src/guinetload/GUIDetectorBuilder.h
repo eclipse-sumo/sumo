@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/08/01 05:54:35  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.12  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -126,8 +129,8 @@ protected:
 
     /// Creates the instance of an e3-detector (gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
-        const Detector::CrossSections &entries,
-        const Detector::CrossSections &exits,
+        const CrossSectionVector &entries,
+        const CrossSectionVector &exits,
         SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds);

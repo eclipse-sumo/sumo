@@ -27,6 +27,7 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,7 +51,6 @@
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
 #include <microsim/output/MSDetectorOccupancyCorrection.h>
 #include <microsim/output/MSCrossSection.h>
-#include "MSE3MoveReminder.h"
 #include <microsim/output/MSLDDetectorInterface.h>
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <microsim/MSVehicleQuitReminded.h>
@@ -60,53 +60,9 @@
 #include <utils/common/UtilExceptions.h>
 
 
-///
-/// Introduces some enums and consts for use in MSE3Collector.
-///
-namespace E3
-{
-    ///
-    /// Collection of all possible E3-detectors. Names should be
-    /// self-explanatory. All E3-detectors are LD-detectors (leave-data).
-    ///
-    enum DetType { MEAN_TRAVELTIME = 0
-                   , MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE
-                   , NUMBER_OF_VEHICLES
-                   , ALL        ///< Use this to generate all possible
-                                ///detectors in
-                                ///MSE3Collector::addDetector().
-    };
-
-    /// Increment operator that allows us to iterate over the
-    /// E3::DetType detectors.
-    ///
-    /// @param det A detector out of E3::DetType (an integral type).
-    ///
-    /// @return The detector that follows det.
-    ///
-    DetType& operator++( DetType& det );
-
-    ///
-    /// Collection of different "vehicle" containers used by MSE3Collector.
-    ///
-    enum Containers { VEHICLES = 0
-                      , HALTINGS
-                      , TRAVELTIME
-    };
-
-    /// Increment operator that allows us to iterate over the
-    /// E2::Containers detectors.
-    ///
-    /// @param cont A container out of E2::Containers (an integral type).
-    ///
-    /// @return The container that follows cont.
-    Containers& operator++( Containers& cont );
-}
-
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-
 /// Collection of E3-detectors. E3-detectors are defined by a set of
 /// in-cross-sections and out-cross-sections. Vehicles, that pass an
 /// in- and out-cross-section are detected when they pass the
@@ -122,6 +78,87 @@ class MSE3Collector : public MSDetectorFileOutput,
                       public MSVehicleQuitReminded
 {
 public:
+    /**
+    *
+    */
+    class MSE3EntryReminder : public MSMoveReminder
+    {
+    public:
+        MSE3EntryReminder(const std::string &id,
+            const MSCrossSection &crossSection, MSE3Collector& collector);
+
+        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+
+        void dismissByLaneChange( MSVehicle& veh );
+
+        bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+
+    private:
+        MSE3Collector& collectorM;
+        SUMOReal posM;
+
+    };
+
+
+
+    class MSE3LeaveReminder : public MSMoveReminder
+    {
+    public:
+        MSE3LeaveReminder(const std::string &id,
+            const MSCrossSection &crossSection, MSE3Collector& collector);
+
+        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+
+        void dismissByLaneChange( MSVehicle& veh );
+
+        bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+
+    private:
+        MSE3Collector& collectorM;
+        SUMOReal posM;
+
+    };
+
+    ///
+    /// Collection of all possible E3-detectors. Names should be
+    /// self-explanatory. All E3-detectors are LD-detectors (leave-data).
+    ///
+    enum DetType {
+        MEAN_TRAVELTIME = 0,
+        MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE,
+        NUMBER_OF_VEHICLES,
+        ALL        ///< Use this to generate all possible
+                                ///detectors in
+                                ///MSE3Collector::addDetector().
+    };
+
+    /// Increment operator that allows us to iterate over the
+    /// E3::DetType detectors.
+    ///
+    /// @param det A detector out of E3::DetType (an integral type).
+    ///
+    /// @return The detector that follows det.
+    ///
+    friend MSE3Collector::DetType& operator++( MSE3Collector::DetType& det );
+
+    ///
+    /// Collection of different "vehicle" containers used by MSE3Collector.
+    ///
+    enum Containers {
+        VEHICLES = 0,
+        HALTINGS,
+        TRAVELTIME
+    };
+
+    /// Increment operator that allows us to iterate over the
+    /// E3::Containers detectors.
+    ///
+    /// @param cont A container out of E3::Containers (an integral type).
+    ///
+    /// @return The container that follows cont.
+
+    friend MSE3Collector::Containers& operator++( MSE3Collector::Containers& cont );
+
 
     typedef LD::MSDetectorInterface LDDetector;
     typedef std::vector< LDDetector* > DetectorCont;
@@ -129,8 +166,8 @@ public:
 
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
-    typedef std::vector< Detector::E3EntryReminder* > EntryReminders;
-    typedef std::vector< Detector::E3LeaveReminder* > LeaveReminders;
+    typedef std::vector<MSE3EntryReminder*> EntryReminders;
+    typedef std::vector<MSE3LeaveReminder*> LeaveReminders;
 
     /// Ctor. Sets reminder objects on entry- and leave-lanes and
     /// inserts itself to an E3Dictionary for global access to all
@@ -147,58 +184,13 @@ public:
     /// timestep so that data is always present for at least
     /// deleteDataAfterSeconds.
     ///
-    MSE3Collector(
-        std::string id
-        , Detector::CrossSections entries
-        , Detector::CrossSections exits
-        , MSUnit::Seconds haltingTimeThreshold
-        , MSUnit::MetersPerSecond haltingSpeedThreshold
-        , SUMOTime deleteDataAfterSeconds
-        )
-        :
-        idM( id )
-        , entriesM( entries )
-        , exitsM( exits )
-        , haltingTimeThresholdM(
-            MSUnit::getInstance()->getSteps( haltingTimeThreshold ) )
-        , haltingSpeedThresholdM(
-            MSUnit::getInstance()->getCellsPerStep( haltingSpeedThreshold ) )
-        , deleteDataAfterSecondsM( deleteDataAfterSeconds )
-        , detectorsM(3)
-        , containersM(3)
-
-        {
-            // Set MoveReminders to entries and exits
-            for ( Detector::CrossSectionsIt crossSec1 = entries.begin();
-                  crossSec1 != entries.end(); ++crossSec1 ) {
-                entryRemindersM.push_back(
-                    new Detector::E3EntryReminder( id, *crossSec1, *this ) );
-            }
-            for ( Detector::CrossSectionsIt crossSec2 = exits.begin();
-                  crossSec2 != exits.end(); ++crossSec2 ) {
-                leaveRemindersM.push_back(
-                    new Detector::E3LeaveReminder( id, *crossSec2, *this ) );
-            }
-/*
-            // insert object into dictionary
-            if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
-                MsgHandler::getErrorInstance()->inform(
-                    "e3-detector '" + idM + "' could not be build;");
-                MsgHandler::getErrorInstance()->inform(
-                    " (declared twice?)");
-                throw ProcessError();
-            }
-            */
-        }
+    MSE3Collector(const std::string &id,
+        const CrossSectionVector &entries, const CrossSectionVector &exits,
+        MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold,
+        SUMOTime deleteDataAfterSeconds);
 
     /// Dtor. Deletes the created detectors.
-    virtual ~MSE3Collector( void )
-        {
-            deleteContainer( entryRemindersM );
-            deleteContainer( leaveRemindersM );
-            deleteContainer( detectorsM );
-            deleteContainer( containersM );
-        }
+    virtual ~MSE3Collector( void );
 
     /// Call if a vehicle touches an entry-cross-section. Usually
     /// called by LD::MSMoveReminder. Inserts vehicle into internal
@@ -206,16 +198,7 @@ public:
     ///
     /// @param veh The entering vehicle.
     ///
-    void enter( MSVehicle& veh )
-        {
-            for ( ContainerContIter it = containersM.begin();
-                  it != containersM.end(); ++it ) {
-                if ( *it != 0 ) {
-                    (*it)->enterDetectorByMove( &veh );
-                }
-            }
-            veh.quitRemindedEntered(this);
-        }
+    void enter( MSVehicle& veh );
 
     /// Call if a vehicle passes a leave-cross-section. Usually called
     /// by LD::MSMoveReminder. Removed vehicle from internal
@@ -223,22 +206,7 @@ public:
     ///
     /// @param veh The leaving vehicle.
     ///
-    void leave( MSVehicle& veh )
-        {
-            for ( DetContIter det = detectorsM.begin();
-                  det != detectorsM.end(); ++det ) {
-                if ( *det != 0 ) {
-                    (*det)->leave( veh );
-                }
-            }
-            for ( ContainerContIter cont = containersM.begin();
-                  cont != containersM.end(); ++cont ) {
-                if ( *cont != 0 ) {
-                    (*cont)->leaveDetectorByMove( &veh );
-                }
-            }
-            veh.quitRemindedLeft(this);
-        }
+    void leave( MSVehicle& veh );
 
     /// Add, i.e. create the requested detector or all detectors out
     /// of E3::DetType.
@@ -247,21 +215,7 @@ public:
     /// all detectors.
     /// @param detId Optional id of the newly created detector(s).
     ///
-    void addDetector( E3::DetType type, std::string detId = "" )
-        {
-            if ( detId == "" ) {
-                detId = idM;
-            }
-            if ( type != E3::ALL ) {
-                createDetector( type, detId );
-            }
-            else {
-                for ( E3::DetType typ = E3::MEAN_TRAVELTIME;
-                      typ < E3::ALL; ++typ ){
-                    createDetector( typ, detId );
-                }
-            }
-        }
+    void addDetector( DetType type, std::string detId = "" );
 
     /// Checks if the requested detector is present.
     ///
@@ -269,10 +223,7 @@ public:
     ///
     /// @return True if the detector exists, false otherwise.
     ///
-    bool hasDetector( E3::DetType type )
-        {
-            return getDetector( type ) != 0;
-        }
+    bool hasDetector( DetType type );
 
     /// Get the aggregated value of a detector. If the detector
     /// doesn't exist, create it and return -1 for this first call.
@@ -284,27 +235,13 @@ public:
     /// @return If the detector exists, return it's aggregated value,
     /// else return -1.
     ///
-    SUMOReal getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
-        {
-            assert( type != E3::ALL );
-            LDDetector* det = getDetector( type );
-            if ( det != 0 ){
-                return det->getAggregate( lastNSeconds );
-            }
-            // requested type not present
-            // create it and return nonsens value for the first access
-            addDetector(type, "");
-            return -1;
-        }
+    SUMOReal getAggregate( DetType type, MSUnit::Seconds lastNSeconds );
 
     /// Get the detectors unique id.
     ///
     /// @return Th detectors unique id.
     ///
-    const std::string& getID() const
-        {
-            return idM;
-        }
+    const std::string& getID() const;
 
     /// Remove vehicles that entered the detector but reached their
     /// destination before passing the leave-cross-section from
@@ -312,39 +249,14 @@ public:
     ///
     /// @param veh The vehicle to remove.
     ///
-    void removeOnTripEnd( MSVehicle *veh ) {
-        for ( ContainerContIter cont = containersM.begin();
-                  cont != containersM.end(); ++cont  ) {
-                if ( *cont != 0 ) {
-                    (*cont)->removeOnTripEnd( veh );
-                }
-        }
-    }
-
-    ///
-    /// @name Methods, inherited from MSDetectorFileOutput.
-    ///
-    /// @{
-
-    /// Returns a string indentifying this class. Used to create
-    /// distinct filenames.
-    ///
-    /// @return Always "MSE3Collector".
-    ///
-    std::string  getNamePrefix( void ) const
-        {
-            return "MSE3Collector";
-        }
+    void removeOnTripEnd( MSVehicle *veh );
 
     /// Get a header for file output which shall contain some
     /// explanation of the output generated by getXMLOutput.
     ///
     /// @return The member xmlHeaderM.
     ///
-    void writeXMLHeader( XMLDevice &dev ) const
-        {
-            dev.writeString(xmlHeaderM);
-        }
+    void writeXMLHeader( XMLDevice &dev ) const;
 
     /// Get the XML-formatted output of the concrete detector.  Calls
     /// resetQueueLengthAheadOfTrafficLights() if the detector
@@ -356,62 +268,26 @@ public:
     /// @return XML-output of all existing concrete detectors. Except
     /// APPROACHING_VEHICLES_STATES.
     ///
-    void writeXMLOutput( XMLDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime )
-        {
-            dev.writeString("<interval begin=\"").writeString(
-                toString(startTime)).writeString("\" end=\"").writeString(
-                toString(stopTime)).writeString("\" ");
-            if(dev.needsDetectorName()) {
-                dev.writeString("id=\"").writeString(idM).writeString("\" ");
-            }
-            writeXMLOutput( dev, detectorsM, startTime, stopTime );
-            dev.writeString("/>");
-        }
+    void writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime );
 
     /// Get an opening XML-tag containing information about the detector.
     ///
     /// @return String describing the detetctor-collection.
     ///
-    void writeXMLDetectorInfoStart( XMLDevice &dev ) const
-        {
-            dev.writeString("<detector type=\"E3_Collector\" id=\"");
-            dev.writeString(idM).writeString("\" >\n");
-            std::string entries;
-            Detector::CrossSections::const_iterator crossSec;
-            for ( crossSec = entriesM.begin(); crossSec != entriesM.end();
-                  ++crossSec ) {
-                dev.writeString("  <entry lane=\"").writeString(
-                    crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                    toString( crossSec->posM )).writeString("\" />\n");
-            }
-            std::string exits;
-            for ( crossSec = exitsM.begin(); crossSec != exitsM.end();
-                  ++crossSec ) {
-                dev.writeString("  <exit lane=\"").writeString(
-                    crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                    toString( crossSec->posM )).writeString("\" />\n");
-            }
-        }
+    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
 
     /// Get an closing XML-tag corresponding to the opening tag from
     /// getXMLDetectorInfoStart().
     ///
     /// @return The member infoEndM.
     ///
-    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const
-    {
-        dev.writeString(infoEndM);
-    }
+    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
 
     /// Get the clean-up interval length.
     ///
     /// @return Interval-length in steps.
     ///
-    SUMOTime getDataCleanUpSteps( void ) const
-        {
-            return deleteDataAfterSecondsM; // !!! Konvertierung
-        }
+    SUMOTime getDataCleanUpSteps( void ) const;
 
     /// @}
 
@@ -424,16 +300,12 @@ protected:
     /// @return If the detector exists, a pointer to the valid object,
     /// 0 otherwise.
     ///
-    LDDetector* getDetector( E3::DetType type ) const
-        {
-            assert( type != E3::ALL );
-            return detectorsM[ type ];
-        }
+    LDDetector* getDetector( DetType type ) const;
 
     std::string idM;            ///< The detector's unique id.
 
-    Detector::CrossSections entriesM; ///< Container of detector entries.
-    Detector::CrossSections exitsM; ///< Container of detector exits.
+    CrossSectionVector entriesM; ///< Container of detector entries.
+    CrossSectionVector exitsM; ///< Container of detector exits.
 
     EntryReminders entryRemindersM; ///< Container of entryReminders.
     LeaveReminders leaveRemindersM; ///< Container of leaveReminders.
@@ -462,41 +334,7 @@ protected:
     ///
     /// @param type The container you are interested in.
     ///
-    void createContainer( E3::Containers type )
-        {
-            switch( type ){
-                case E3::VEHICLES:
-                {
-                    if ( containersM[ E3::VEHICLES ] == 0 ) {
-                        containersM[ E3::VEHICLES ] =
-                            new DetectorContainer::VehicleMap();
-                    }
-                    break;
-                }
-                case E3::TRAVELTIME:
-                {
-                    if ( containersM[ E3::TRAVELTIME ] == 0 ) {
-                        containersM[ E3::TRAVELTIME ] =
-                            new DetectorContainer::TimeMap();
-                    }
-                    break;
-                }
-                case E3::HALTINGS:
-                {
-                    if ( containersM[ E3::HALTINGS ] == 0 ) {
-                        containersM[ E3::HALTINGS ] =
-                            new DetectorContainer::HaltingsMap(
-                                haltingTimeThresholdM,
-                                haltingSpeedThresholdM );
-                    }
-                    break;
-                }
-                default:
-                {
-                    assert( 0 );
-                }
-            }
-        }
+    void createContainer( Containers type );
 
     /// Create a detector out of E3::DetType. The created detector is
     /// put into member detectorsM. On creation, the detector gets one
@@ -505,52 +343,7 @@ protected:
     /// @param type The detector you are interested in.
     /// @param detId Detector-id, need not be unique.
     ///
-    void createDetector( E3::DetType type, std::string detId )
-        {
-            if ( hasDetector( type ) ) {
-                return;
-            }
-            using namespace Detector;
-            switch ( type ) {
-                case E3::MEAN_TRAVELTIME:
-                {
-                    createContainer( E3::TRAVELTIME );
-                    detectorsM[ E3::MEAN_TRAVELTIME ] =
-                        new E3Traveltime(
-                            E3Traveltime::getDetectorName() + detId,
-                            (MSUnit::Seconds) deleteDataAfterSecondsM,
-                            *static_cast< DetectorContainer::TimeMap* >(
-                                containersM[ E3::TRAVELTIME ] ) );
-                    break;
-                }
-                case E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
-                {
-                    createContainer( E3::HALTINGS );
-                    detectorsM[ E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
-                        new E3MeanNHaltings(
-                            E3MeanNHaltings::getDetectorName() + detId,
-                            (MSUnit::Seconds) deleteDataAfterSecondsM,
-                            *static_cast< DetectorContainer::HaltingsMap* >(
-                                containersM[ E3::HALTINGS ] ) );
-                    break;
-                }
-                case E3::NUMBER_OF_VEHICLES:
-                {
-                    createContainer( E3::VEHICLES );
-                    detectorsM[ E3::NUMBER_OF_VEHICLES ] =
-                        new E3NVehicles(
-                            E3NVehicles::getDetectorName() + detId,
-                            (MSUnit::Seconds) deleteDataAfterSecondsM,
-                            *static_cast< DetectorContainer::VehicleMap* >(
-                                containersM[ E3::VEHICLES ] ) );
-                    break;
-                }
-                default:
-                {
-                    assert( 0 );
-                }
-            }
-        }
+    void createDetector( DetType type, std::string detId );
 
     /// Get aggregated XML-output for all detectors in a container.
     ///
@@ -561,43 +354,36 @@ protected:
     ///
     template< class Cont >
     void writeXMLOutput( XMLDevice &dev, Cont& container,
-            SUMOTime startTime, SUMOTime stopTime)
-        {
-            MSUnit::Seconds lastNSeconds =
-                (MSUnit::Seconds) stopTime-startTime+1;
-            for ( typename Cont::iterator it = container.begin();
-                  it != container.end(); ++it ) {
-
-                if ( *it == 0 ) {
-                    continue;
-                }
-                dev.writeString((*it)->getName()).writeString("=\"").writeString(
-                    toString( (*it)->getAggregate( lastNSeconds ))).writeString(
-                    "\" ");
+                        SUMOTime startTime, SUMOTime stopTime) {
+        MSUnit::Seconds lastNSeconds = (MSUnit::Seconds) stopTime-startTime+1;
+        for ( typename Cont::iterator it = container.begin(); it != container.end(); ++it ) {
+            if ( *it == 0 ) {
+                continue;
             }
+            dev.writeString((*it)->getName()).writeString("=\"").writeString(
+                toString( (*it)->getAggregate( lastNSeconds ))).writeString(
+                "\" ");
         }
+    }
 
     /// Deletes the elements of a container.
     ///
     /// @param cont The container whose elements shall be deleted.
     ///
     template< class Cont >
-    void deleteContainer( Cont& cont )
-        {
-            for ( typename Cont::iterator it = cont.begin();
-                  it != cont.end(); ++it ) {
-                if ( *it != 0 ) {
-                    delete *it;
-                }
+    void deleteContainer( Cont& cont ) {
+        for ( typename Cont::iterator it = cont.begin(); it != cont.end(); ++it ) {
+            if ( *it != 0 ) {
+                delete *it;
             }
         }
-
-private:
+    }
 
 };
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-
 
 // Local Variables:
 // mode:C++

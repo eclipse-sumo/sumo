@@ -54,38 +54,31 @@ class MSVehicle;
  */
 class MSE3MeanNHaltings
 {
-public:
-
 protected:
     typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsMap Container;
     typedef Container::InnerContainer HaltingsMap;
 
     MSE3MeanNHaltings( const Container& container )
-        :
-        containerM( container )
-        {}
+    : containerM( container )
+    {
+    }
 
-    virtual ~MSE3MeanNHaltings( void )
-        {}
+    virtual ~MSE3MeanNHaltings( void ) {}
 
-    bool hasVehicle( MSVehicle& veh ) const
-        {
-            return containerM.hasVehicle( &veh );
-        }
+    bool hasVehicle( MSVehicle& veh ) const {
+        return containerM.hasVehicle( &veh );
+    }
 
-    DetectorAggregate getValue( MSVehicle& veh )
-        {
-            HaltingsMap::const_iterator pair =
-                containerM.containerM.find( &veh );
-            assert( pair != containerM.containerM.end() );
-            return (SUMOReal) pair->second.nHalts;
-        }
+    DetectorAggregate getValue( MSVehicle& veh ) {
+        HaltingsMap::const_iterator pair = containerM.containerM.find( &veh );
+        assert( pair != containerM.containerM.end() );
+        return (SUMOReal) pair->second.nHalts;
+    }
 
-    static std::string getDetectorName( void )
-        {
-            return "meanNHaltsPerVehicle";
-        }
+    static std::string getDetectorName( void ) {
+        return "meanNHaltsPerVehicle";
+    }
 
 private:
     const Container& containerM;
@@ -94,6 +87,8 @@ private:
     MSE3MeanNHaltings( const MSE3MeanNHaltings& );
     MSE3MeanNHaltings& operator=( const MSE3MeanNHaltings& );
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 

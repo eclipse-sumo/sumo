@@ -51,36 +51,30 @@
  */
 class MSE3NVehicles
 {
-public:
-
 protected:
-
     typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::VehicleMap Container;
     typedef Container::InnerContainer VehiclesMap;
 
     MSE3NVehicles( const Container& container )
-        :
-        containerM( container )
-        {}
+    : containerM( container )
+    {
+    }
 
-    virtual ~MSE3NVehicles( void )
-        {}
+    virtual ~MSE3NVehicles( void ) {}
 
-    bool hasVehicle( MSVehicle& veh ) const
-        {
-            return containerM.hasVehicle( &veh );
-        }
+    bool hasVehicle( MSVehicle& veh ) const {
+        return containerM.hasVehicle( &veh );
+    }
 
-    DetectorAggregate getValue( MSVehicle& veh )
-        {
-            return 1;
-        }
+    DetectorAggregate getValue( MSVehicle& veh ) {
+        return 1;
+    }
 
-    static std::string getDetectorName( void )
-        {
-            return "nE3Vehicles";
-        }
+    static std::string getDetectorName( void ) {
+        return "nE3Vehicles";
+    }
+
 private:
     const Container& containerM;
 
@@ -89,6 +83,8 @@ private:
     MSE3NVehicles& operator=( const MSE3NVehicles& );
 
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 

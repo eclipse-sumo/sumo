@@ -57,10 +57,7 @@ class MSVehicle;
  */
 class MSE3Traveltime
 {
-private:
-
 protected:
-
     typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::TimeMap Container;
     typedef Container::InnerContainer TravelTimeMap;
@@ -102,6 +99,8 @@ private:
     MSE3Traveltime& operator=( const MSE3Traveltime& );
 
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/01 05:54:35  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.15  2006/05/15 05:47:50  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -168,8 +171,8 @@ GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
 
 MSE3Collector *
 GUIDetectorBuilder::createE3Detector(const std::string &id,
-        const Detector::CrossSections &entries,
-        const Detector::CrossSections &exits,
+        const CrossSectionVector &entries,
+        const CrossSectionVector &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds)

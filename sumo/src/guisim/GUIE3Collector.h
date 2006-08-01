@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/08/01 05:57:09  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.14  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -103,8 +106,8 @@
 class GUIE3Collector : public MSE3Collector {
 public:
     /// Constructor
-    GUIE3Collector(std::string id, Detector::CrossSections entries,
-        Detector::CrossSections exits,
+    GUIE3Collector(const std::string &id,
+        const CrossSectionVector &entries, const CrossSectionVector &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds);
@@ -113,10 +116,10 @@ public:
     ~GUIE3Collector();
 
     /// Returns the list of entry points
-    const Detector::CrossSections &getEntries() const;
+    const CrossSectionVector &getEntries() const;
 
     /// Returns the list of exit points
-    const Detector::CrossSections &getExits() const;
+    const CrossSectionVector &getExits() const;
 
     /// Builds the wrapper
     GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage);
@@ -175,7 +178,7 @@ public:
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-            const std::string &name, E3::DetType type);
+            const std::string &name, MSE3Collector::DetType type);
 
         /// Builds the description about the position of the entry/exit point
         SingleCrossingDefinition buildDefinition(const MSCrossSection &section,
@@ -210,7 +213,7 @@ public:
         public:
             /// Constructor
             MyValueRetriever(GUIE3Collector &det,
-                E3::DetType type, size_t nSec)
+                MSE3Collector::DetType type, size_t nSec)
                 : myDetector(det), myType(type), myNSec(nSec) { }
 
             /// Destructor
@@ -232,7 +235,7 @@ public:
             GUIE3Collector &myDetector;
 
             /// The type of the value to retrieve
-            E3::DetType myType;
+            MSE3Collector::DetType myType;
 
             /// The aggregation interval
             size_t myNSec;

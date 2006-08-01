@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/08/01 05:54:35  dkrajzew
+// E3 detectors refactored partially
+//
 // Revision 1.35  2006/07/06 12:22:32  dkrajzew
 // debugged construction of e3-detectors
 //
@@ -630,16 +633,16 @@ NLDetectorBuilder::parseE3Measures(const std::string &measures)
     StringUtils::upper(my);
     E3MeasuresVector ret;
     if(my.find("MEAN_TRAVELTIME")!=string::npos) {
-        ret.push_back(E3::MEAN_TRAVELTIME);
+        ret.push_back(MSE3Collector::MEAN_TRAVELTIME);
     }
     if(my.find("MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE")!=string::npos) {
-        ret.push_back(E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
+        ret.push_back(MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
     }
     if(my.find("NUMBER_OF_VEHICLES")!=string::npos) {
-        ret.push_back(E3::NUMBER_OF_VEHICLES);
+        ret.push_back(MSE3Collector::NUMBER_OF_VEHICLES);
     }
     if(my.find("ALL")!=string::npos) {
-        ret.push_back(E3::ALL);
+        ret.push_back(MSE3Collector::ALL);
     }
     return ret;
 }
@@ -687,8 +690,8 @@ NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
 
 MSE3Collector *
 NLDetectorBuilder::createE3Detector(const std::string &id,
-        const Detector::CrossSections &entries,
-        const Detector::CrossSections &exits,
+        const CrossSectionVector &entries,
+        const CrossSectionVector &exits,
         SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds)
