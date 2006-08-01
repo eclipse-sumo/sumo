@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/08/01 07:12:36  dkrajzew
+// parsing of new networks patched
+//
 // Revision 1.17  2006/05/16 07:47:26  dkrajzew
 // debugged loop removal
 //
@@ -166,12 +169,21 @@ RONetHandler::myStartElement(int element, const std::string&,
 void
 RONetHandler::parseEdge(const Attributes &attrs)
 {
+    // get the id of the edge and the edge
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
-        _currentEdge = _net.getEdge(_currentName);
-        if(_currentEdge==0) {
-            MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + _file + ".");
-        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
+        throw ProcessError();
+    }
+    _currentEdge = _net.getEdge(_currentName);
+    if(_currentEdge==0) {
+        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + _file + ".");
+        throw ProcessError();
+    }
+
+    // get the type of the edge
+    try {
         string type = getString(attrs, SUMO_ATTR_FUNC);
         _process = true;
         if(type=="normal") {
@@ -183,23 +195,41 @@ RONetHandler::parseEdge(const Attributes &attrs)
         } else if(type=="internal") {
             _process = false;
         } else {
-            throw 1; // !!!
+            MsgHandler::getErrorInstance()->inform("Edge '" + _currentName + "' has an unknown type.");
+            throw ProcessError();
         }
-        //
-        string from = getString(attrs, "From");
-        if(_net.getNode(from)==0) {
-            RONode *n = new RONode(from);
-            _net.addNode(n);
-        }
-        string to = getString(attrs, "To");
-        if(_net.getNode(to)==0) {
-            RONode *n = new RONode(to);
-            _net.addNode(n);
-        }
-        _currentEdge->setNodes(_net.getNode(from), _net.getNode(to));
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
+        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + _currentName + "'.");
+        throw ProcessError();
     }
+    // get the from-junction
+    RONode *fromNode = 0;
+    try {
+        string from = getString(attrs, SUMO_ATTR_FROM);
+        fromNode = _net.getNode(from);
+        if(fromNode==0) {
+            fromNode = new RONode(from);
+            _net.addNode(fromNode);
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + _currentName + "' (try rebuilding the net - changed in 0.9.5).");
+        throw ProcessError();
+    }
+    // get the to-junction
+    RONode *toNode = 0;
+    try {
+        string to = getString(attrs, SUMO_ATTR_TO);
+        toNode = _net.getNode(to);
+        if(toNode==0) {
+            toNode = new RONode(to);
+            _net.addNode(toNode);
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + _currentName + "' (try rebuilding the net - changed in 0.9.5).");
+        throw ProcessError();
+    }
+    // add the edge
+    _currentEdge->setNodes(fromNode, toNode);
 }
 
 
