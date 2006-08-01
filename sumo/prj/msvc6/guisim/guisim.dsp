@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 shell32.lib glu32.lib opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib /nologo /subsystem:console /incremental:yes /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.exe	..\..\add-ins\incBuildNumber.pl guisim
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "guisim - Win32 Debug"

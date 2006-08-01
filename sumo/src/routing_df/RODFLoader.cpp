@@ -23,10 +23,16 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2006/04/18 08:17:11  dkrajzew
-// beautifying: output consolidation
+// Revision 1.3  2006/08/01 11:30:21  dkrajzew
+// patching building
 //
-// Revision 1.1  2006/03/28 06:17:18  dkrajzew
+// Revision 1.3  2006/05/08 11:14:53  dksumo
+// further work on the dfrouter
+//
+// Revision 1.2  2006/04/11 11:07:58  dksumo
+// debugging
+//
+// Revision 1.1  2006/03/28 06:17:21  dksumo
 // extending the dfrouter by distance/length factors
 //
 //
@@ -92,6 +98,10 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
     RONet *net = new RONet(true);
     std::string file = _options.getString("n");
+    if(file==""||!FileHelpers::exists(file)) {
+        MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
+        throw ProcessError();
+    }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
     RODFNetHandler handler(_options, *net, eb);
 	handler.setFileName(file);
@@ -101,7 +111,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
         delete net;
         return 0;
     } else {
-		WRITE_MESSAGE("done.");
+		MsgHandler::getMessageInstance()->endProcessMsg("done.");
 	}
     // build and prepare the parser
     return net;

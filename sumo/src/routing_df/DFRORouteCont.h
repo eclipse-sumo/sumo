@@ -21,13 +21,16 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.7  2006/04/07 05:29:39  dkrajzew
+// Revision 1.8  2006/08/01 11:30:21  dkrajzew
+// patching building
+//
+// Revision 1.7  2006/04/07 05:29:44  dksumo
 // removed some warnings
 //
-// Revision 1.6  2006/03/27 07:32:15  dkrajzew
+// Revision 1.6  2006/03/27 07:32:19  dksumo
 // some further work...
 //
-// Revision 1.5  2006/03/17 09:04:26  dkrajzew
+// Revision 1.5  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
 //
 //
@@ -88,6 +91,23 @@ protected:
             return p1->distance2Last<p2->distance2Last;
         }
     };
+
+    class route_by_id_finder {
+    public:
+        /** constructor */
+        explicit route_by_id_finder(const DFRORouteDesc &desc) : myDesc(desc) { }
+
+        /** the comparing function */
+        bool operator() (DFRORouteDesc *desc) {
+            return myDesc.routename==desc->routename;
+        }
+
+    private:
+        /// The time to search for
+        const DFRORouteDesc &myDesc;
+
+    };
+
 
     std::vector<DFRORouteDesc*> myRoutes;
     std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;

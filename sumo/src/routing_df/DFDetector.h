@@ -21,16 +21,19 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.15  2006/04/05 05:35:26  dkrajzew
+// Revision 1.16  2006/08/01 11:30:20  dkrajzew
+// patching building
+//
+// Revision 1.12  2006/04/05 05:35:25  dksumo
 // further work on the dfrouter
 //
-// Revision 1.14  2006/03/28 06:17:18  dkrajzew
+// Revision 1.11  2006/03/28 06:17:21  dksumo
 // extending the dfrouter by distance/length factors
 //
-// Revision 1.13  2006/03/27 07:32:15  dkrajzew
+// Revision 1.10  2006/03/27 07:32:19  dksumo
 // some further work...
 //
-// Revision 1.12  2006/03/17 09:04:25  dkrajzew
+// Revision 1.9  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
 //
 //
@@ -107,10 +110,11 @@ public:
 	SUMOReal getPos() const { return myPosition; };
 	dfdetector_type getType() const { return myType; };
     void setType(dfdetector_type type);
-	void writeEmitterDefinition(const std::string &file,
+	bool writeEmitterDefinition(const std::string &file,
         const DFDetectorCon &detectors, const DFDetectorFlows &flows,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset) const;
-	void addRoutes(DFRORouteCont *routes);
+	void addRoute(DFRORouteDesc *nrd);
+    void addRoutes(DFRORouteCont *routes);
 	bool hasRoutes() const;
 	bool writeRoutes(std::vector<std::string> &saved,
 		std::ostream &os);
@@ -176,6 +180,9 @@ public:
     int getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
         const DFDetectorFlows &flows) const;
 
+#ifdef HAVE_MESOSIM
+    void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
+#endif
 
 protected:
 	std::vector<DFDetector*> myDetectors;

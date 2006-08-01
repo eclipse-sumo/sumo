@@ -23,22 +23,28 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.17  2006/04/11 11:08:13  dkrajzew
+// Revision 1.18  2006/08/01 11:30:20  dkrajzew
+// patching building
+//
+// Revision 1.15  2006/04/11 11:07:58  dksumo
 // debugging
 //
-// Revision 1.16  2006/04/07 05:29:39  dkrajzew
+// Revision 1.14  2006/04/07 10:44:17  dksumo
+// multiple detector and flows definitions can be read
+//
+// Revision 1.13  2006/04/07 05:29:44  dksumo
 // removed some warnings
 //
-// Revision 1.15  2006/04/05 05:35:26  dkrajzew
+// Revision 1.12  2006/04/05 05:35:25  dksumo
 // further work on the dfrouter
 //
-// Revision 1.14  2006/03/28 06:17:18  dkrajzew
+// Revision 1.11  2006/03/28 06:17:21  dksumo
 // extending the dfrouter by distance/length factors
 //
-// Revision 1.13  2006/03/27 07:32:15  dkrajzew
+// Revision 1.10  2006/03/27 07:32:19  dksumo
 // some further work...
 //
-// Revision 1.12  2006/03/17 09:04:25  dkrajzew
+// Revision 1.9  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
 //
 //
@@ -135,6 +141,12 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                          SUMOTime stepOffset,
                                          std::map<size_t, RandomDistributor<size_t>* > &into) const
 {
+    if(myRoutes==0) {
+        if(myType!=DISCARDED_DETECTOR&&myType!=BETWEEN_DETECTOR) {
+            MsgHandler::getErrorInstance()->inform("Missing routes for detector '" + myID + "'.");
+        }
+        return;
+    }
     std::vector<DFRORouteDesc*>::const_iterator ri;
     const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
     /*
@@ -159,6 +171,8 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             DFRORouteDesc *rd = *ri;
 
             SUMOReal distanceFactor = computeDistanceFactor(*rd);
+
+            /*
 
             // the current probability is 1
             SUMOReal ovProb = 1.;
@@ -185,9 +199,9 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                     }
                                     cflow += tmpFlow;
                                 }
-                                */
+                                /
                             } else {
-                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
+                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last/), flows);
                             }
                             if(cflow<0) {
                                 cflow = 0; // !!!
@@ -214,10 +228,62 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                 }
                 ++i;
             }
+            */
+            //
+            std::vector<ROEdge*>::iterator i = rd->edges2Pass.begin();
+            SUMOReal noRamps = 0;
+            SUMOReal noLanes = 1;
+            SUMOReal length = 0;
+            SUMOReal edgeFactor = 1;
+            while(i!=rd->edges2Pass.end()) {
+                if((*i)->getID().find("Added")!=string::npos) {
+                    noRamps += 1;
+                }
+                if((*i)->getID()=="537844516") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="537844517") {
+                    edgeFactor = MIN2((SUMOReal) .10, edgeFactor);
+                } else if((*i)->getID()=="51054917") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-572279218") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-51049672") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-537849185-AddedOffRampEdge") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-51069807-AddedOffRampEdge") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-51140230") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-51555688") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="50872837") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="-51110597") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                } else if((*i)->getID()=="537835308") {
+                    edgeFactor = MIN2((SUMOReal) .25, edgeFactor);
+                }
+
+
+
+
+
+                if((*i)->getLaneNo()==1) {
+                    noLanes *= (SUMOReal) .4;
+                }
+                length += (*i)->getLength();
+                ++i;
+            }
+            SUMOReal noEdges = rd->edges2Pass.size();
+
+            //
             distanceFactor = distanceFactor * distanceFactor;
-            ovProb *= (rd->factor * distanceFactor);
+            rd->factor = rd->factor * rd->factor;
+            SUMOReal laneFactor = (noLanes/noEdges);
+            SUMOReal ovProb = (rd->factor * distanceFactor * length * edgeFactor * noLanes);
             into[time]->add(ovProb, index);
-            (*ri)->overallProb += ovProb;
+            (*ri)->overallProb = ovProb;
         }
     }
     /*
@@ -345,7 +411,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
 //	return ret;
 }
 
-void
+bool
 DFDetector::writeEmitterDefinition(const std::string &file,
                                    const DFDetectorCon &detectors,
 								   const DFDetectorFlows &flows,
@@ -353,12 +419,12 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 								   SUMOTime stepOffset) const
 {
 	// write the definition
-    cout << myID << endl;
 	ofstream strm(file.c_str());
 	if(!strm.good()) {
 		MsgHandler::getErrorInstance()->inform("Could not open definition file '" + file + "'.");
 		throw ProcessError();
 	}
+//    cout << "a1" << endl;
 		// begin
 	if(getType()==SOURCE_DETECTOR) {
 		strm << "<triggeredsource>" << endl;
@@ -366,11 +432,12 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 		strm << "<calibrator>" << endl;
 	}
 
-
+//    cout << "a2" << endl;
         std::map<size_t, RandomDistributor<size_t>* > dists;
 	if(flows.knows(myID)) {
-        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, dists);
+        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, dists); // !!!
     }
+//    cout << "a3" << endl;
 
 		// routes
 	{
@@ -395,20 +462,22 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                     }
 	    	    }
             }
+            // hmmmm - all routes seem to have a probability of zero...
+            //  let's save them all (should maybe be done optional)
             if(writtenRoutes==0) {
-                strm << "   <routedistelem id=\"" << routes[0]->routename << "\" probability=\"1\"/>" << endl; // !!!
+		        for(i=routes.begin(); i!=routes.end(); ++i) {
+                    strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"1\"/>" << endl; // !!!
+	    	    }
             }
 		} else {
-			cout << "Detector " << getID() << " has no routes!?" << endl;
-			throw 1; //!!!
+			MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
+            return false;
 		}
 	}
 		// vehicle types
 	{
 	}
-    if(myID=="12") {
-        int bla = 0;
-    }
+//    cout << "a4" << endl;
 		// emissions
 	if(flows.knows(myID)) {
 		// get the flows for this detector
@@ -417,7 +486,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 		// go through the simulation seconds
 		for(int time=startTime; time<endTime; time+=stepOffset) {
 			// get own (departure flow)
-            if((int) mflows.size()<=(int) (time/stepOffset) - startTime) {
+            if(mflows.size()<=(int) ((time/stepOffset) - startTime)) {
                 cout << mflows.size() << ":" << (int) (time/stepOffset) - startTime << endl;
                 throw 1;
             }
@@ -426,6 +495,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
             RandomDistributor<size_t> *destDist = dists[time];
 			// go through the cars
 			size_t carNo = (size_t) (srcFD.qPKW + srcFD.qLKW);
+//            cout << "b1 " << carNo <<  endl;
 			for(size_t car=0; car<carNo; ++car) {
 				// get the vehicle parameter
 				string type = "test";
@@ -469,12 +539,13 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 			delete destDist;
 		}
 	}
-
+//    cout << "a5" << endl;
 	if(getType()==SOURCE_DETECTOR) {
 		strm << "</triggeredsource>" << endl;
 	} else {
 		strm << "</calibrator>" << endl;
 	}
+    return true;
 }
 
 
@@ -485,6 +556,15 @@ DFDetector::addRoutes(DFRORouteCont *routes)
 	myRoutes = routes;
 }
 
+
+void
+DFDetector::addRoute(DFRORouteDesc *nrd)
+{
+    if(myRoutes==0) {
+        myRoutes = new DFRORouteCont();
+    }
+    myRoutes->addRouteDesc(nrd);
+}
 
 bool
 DFDetector::hasRoutes() const
@@ -677,6 +757,7 @@ DFDetectorCon::saveRoutes(const std::string &file) const
 	}
 	std::vector<std::string> saved;
 	strm << "<routes>" << endl;
+    // write for source detectors
 	bool lastWasSaved = true;
     for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
 		if(lastWasSaved) {
@@ -725,30 +806,37 @@ DFDetectorCon::writeEmitters(const std::string &file,
 	for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
 		DFDetector *det = *i;
 		string defFileName;
+
+
 		// write the declaration into the file
 		if(det->getType()==SOURCE_DETECTOR) {
 			defFileName = "emitter_" + det->getID() + ".def.xml";
+		} else if(writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
+			defFileName = "calibrator_" + det->getID() + ".def.xml";
+        } else {
+            continue;
+        }
+        // try to write the definition
+        if(!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset)) {
+            // skip if something failed... (!!!)
+            continue;
+        }
+		// write the declaration into the file
+		if(det->getType()==SOURCE_DETECTOR) {
 			strm << "   <trigger id=\"source_" << det->getID()
 				<< "\" objecttype=\"emitter\" "
 				<< "pos=\"" << det->getPos() << "\" "
 				<< "objectid=\"" << det->getLaneID() << "\" "
                 << "friendly_pos=\"x\" " // !!!
 				<< "file=\"" << defFileName << "\"/>" << endl;
-		} else if(writeCalibrators) {
-			defFileName = "calibrator_" + det->getID() + ".def.xml";
+		} else if(writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
 			strm << "   <trigger id=\"calibrator_" << det->getID()
 				<< "\" objecttype=\"calibrator\" "
 				<< "pos=\"" << det->getPos() << "\" "
 				<< "objectid=\"" << det->getLaneID() << "\" "
                 << "friendly_pos=\"x\" " // !!!
 				<< "file=\"" << defFileName << "\"/>" << endl;
-		}
-		// check whethe the definition shall not be saved
-		if(defFileName=="") {
-			continue;
-		}
-		det->writeEmitterDefinition(defFileName, *this, flows,
-			startTime, endTime, stepOffset);
+        }
 	}
 	strm << "</additional>" << endl;
 }
@@ -927,6 +1015,23 @@ DFDetectorCon::removeDetector(const std::string &id)
         }
         delete oldDet;
 }
+
+
+#ifdef HAVE_MESOSIM
+void
+DFDetectorCon::mesoJoin(const std::string &nid,
+                        const std::vector<std::string> &oldids)
+{
+    // build the new detector
+    const DFDetector &first = getDetector(*(oldids.begin()));
+    DFDetector *newDet = new DFDetector(nid, first);
+    addDetector(newDet);
+    // delete previous
+    for(std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
+        removeDetector(*i);
+    }
+}
+#endif
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

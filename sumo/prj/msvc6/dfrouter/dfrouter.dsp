@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe	..\..\add-ins\incBuildNumber.pl dfrouter
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "dfrouter - Win32 Debug"

@@ -28,6 +28,12 @@ AC_ARG_ENABLE(rpc,
               [AC_DEFINE(_RPC, 1,
                          [Define to 1 in order to enable sumo debugging code.])
 	      ])
+AM_CONDITIONAL([WITH_RPC], [test "$rpc" = "1"])
+if test x$mesosim = x1; then
+	AC_DEFINE(HAVE_RPC, 1,
+		[Define to 1 in order to enable rpc features.])
+fi
+
 	      
 AC_ARG_ENABLE(geomcheck,
               [  --enable-geomcheck          enable compilation of geometry checks [default=no].],

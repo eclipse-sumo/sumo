@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2.lib $(GDAL)\gdal_i.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netconvert.exe ..\..\..\bin\netconvert.exe	..\..\add-ins\incBuildNumber.pl netconvert
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "netconvert - Win32 Debug"

@@ -21,15 +21,20 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.9  2006/04/05 05:35:27  dkrajzew
+// Revision 1.10  2006/08/01 11:30:20  dkrajzew
+// patching building
+//
+// Revision 1.10  2006/04/11 11:07:58  dksumo
+// debugging
+//
+// Revision 1.9  2006/04/05 05:35:25  dksumo
 // further work on the dfrouter
 //
-// Revision 1.8  2006/03/27 07:32:15  dkrajzew
+// Revision 1.8  2006/03/27 07:32:19  dksumo
 // some further work...
 //
-// Revision 1.7  2006/03/17 09:04:26  dkrajzew
+// Revision 1.7  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -76,9 +81,10 @@ public:
     size_t numberOfEdgesAfter(ROEdge *edge) const;
     const std::vector<ROEdge*> &getEdgesAfter(ROEdge *edge) const;
 
-    void computeTypes(DFDetectorCon &dets) const;
+    void computeTypes(DFDetectorCon &dets,
+        bool sourcesStrict) const;
     void buildRoutes(DFDetectorCon &det, bool allEndFollower,
-        bool keepUnfoundEnds) const;
+        bool keepUnfoundEnds, bool includeInBetween) const;
 	SUMOReal getAbsPos(const DFDetector &det) const;
 
     void buildEdgeFlowMap(const DFDetectorFlows &flows,
@@ -95,12 +101,18 @@ public:
         SUMOTime stepOffset);
 
 
+
+#ifdef HAVE_MESOSIM
+    void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
+#endif
+
+
 protected:
     void revalidateFlows(const DFDetector *detector,
         DFDetectorFlows &flows,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
     bool isSource(const DFDetector &det,
-		const DFDetectorCon &detectors) const;
+		const DFDetectorCon &detectors, bool strict) const;
     bool isFalseSource(const DFDetector &det,
 		const DFDetectorCon &detectors) const;
     bool isDestination(const DFDetector &det,
@@ -108,7 +120,8 @@ protected:
 
     ROEdge *getDetectorEdge(const DFDetector &det) const;
     bool isSource(const DFDetector &det, ROEdge *edge,
-		std::vector<ROEdge*> seen, const DFDetectorCon &detectors) const;
+		std::vector<ROEdge*> seen, const DFDetectorCon &detectors,
+        bool strict) const;
     bool isFalseSource(const DFDetector &det, ROEdge *edge,
 		std::vector<ROEdge*> seen, const DFDetectorCon &detectors) const;
     bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
@@ -129,6 +142,8 @@ protected:
 	std::string buildRouteID(const DFRORouteDesc &desc) const;
 
 	bool hasInBetweenDetectorsOnly(ROEdge *edge,
+		const DFDetectorCon &detectors) const;
+	bool hasSourceDetector(ROEdge *edge,
 		const DFDetectorCon &detectors) const;
 
     struct IterationEdge {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/08/01 11:30:20  dkrajzew
+// patching building
+//
 // Revision 1.19  2006/07/10 09:04:19  dkrajzew
 // dump-begin/dump-end renamed to dump-begins/dump-ends
 //
@@ -281,13 +284,6 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
         "\" speed=\"").writeString(toString(meanSpeed)).writeString(
         "\"/>\n");
     meanData.reset();
-}
-
-
-std::string
-MSMeanData_Net::getNamePrefix( void ) const
-{
-    return "WeightsDump"; // !!!
 }
 
 

@@ -164,6 +164,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name x_libforeign_proj
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -238,6 +241,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name x_libforeign_proj
     End Project Dependency
 }}}
 
@@ -413,6 +419,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name x_libforeign_proj
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -544,6 +553,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name x_libforeign_proj
     End Project Dependency
 }}}
 

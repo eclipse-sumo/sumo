@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 shell32.lib glu32.lib opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\giant.exe ..\..\..\bin\giant.exe	..\..\add-ins\incBuildNumber.pl giant
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\giant.exe ..\..\..\bin\giant.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "giant - Win32 Debug"

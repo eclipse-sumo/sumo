@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\od2trips.exe ..\..\..\bin\od2trips.exe	..\..\add-ins\incBuildNumber.pl od2trips
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\od2trips.exe ..\..\..\bin\od2trips.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "od2trips - Win32 Debug"

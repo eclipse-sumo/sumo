@@ -54,7 +54,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\duarouter.exe ..\..\..\bin\duarouter.exe	..\..\add-ins\incBuildNumber.pl duarouter
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "duarouter - Win32 Debug"
