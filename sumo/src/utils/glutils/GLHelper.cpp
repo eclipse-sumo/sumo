@@ -23,29 +23,32 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.12  2006/03/27 07:24:45  dkrajzew
+// Revision 1.13  2006/08/01 07:34:28  dkrajzew
+// API for drawing not filled circles
+//
+// Revision 1.8  2006/03/27 07:24:49  dksumo
 // extracted drawing of lane geometries
 //
-// Revision 1.11  2006/03/08 13:16:23  dkrajzew
+// Revision 1.7  2006/03/08 13:16:12  dksumo
 // some work on lane visualization
 //
-// Revision 1.10  2006/01/09 13:36:09  dkrajzew
-// further visualization options added
+// Revision 1.6  2006/01/03 11:01:01  dksumo
+// new visualization settings implemented
 //
-// Revision 1.9  2005/11/09 07:29:43  dkrajzew
+// Revision 1.5  2005/11/11 10:39:50  dksumo
 // debugging
 //
-// Revision 1.8  2005/10/07 11:44:40  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.4  2005/10/06 13:39:46  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.7  2005/09/23 06:07:25  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+// Revision 1.3  2005/09/20 06:13:02  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
-// Revision 1.6  2005/09/15 12:18:45  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/09/09 12:54:48  dksumo
+// complete code rework: debug_new and config added
 //
-// Revision 1.5  2004/11/23 10:35:13  dkrajzew
-// debugging
+// Revision 1.1  2004/10/22 12:50:46  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.4  2004/07/02 09:46:28  dkrajzew
 // some helper procedures for vss visualisation
@@ -284,6 +287,54 @@ GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end
     glVertex2d(p1.first * width, p1.second * width);
     glVertex2d(p2.first * width, p2.second * width);
     glVertex2d(0, 0);
+    glEnd();
+}
+
+
+void
+GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps)
+{
+    drawOutlineCircle(width, iwidth, steps, 0, 360);
+}
+
+
+void
+GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps, SUMOReal beg, SUMOReal end)
+{
+    if(myCircleCoords.size()==0) {
+        for(int i=0; i<360; i+=10) {
+            SUMOReal x = (SUMOReal) sin((SUMOReal) i / 180.0 * PI);
+            SUMOReal y = (SUMOReal) cos((SUMOReal) i / 180.0 * PI);
+            myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
+        }
+    }
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    std::pair<SUMOReal, SUMOReal> p1 =
+        beg==0 ? myCircleCoords[0] : myCircleCoords[((int) beg/10)%36];
+    for(int i=(int) (beg/10); i<steps&&(36.0/(SUMOReal) steps * (SUMOReal) i)*10<end; i++) {
+        const std::pair<SUMOReal, SUMOReal> &p2 =
+            myCircleCoords[(size_t) (36.0/(SUMOReal) steps * (SUMOReal) i)];
+        glBegin(GL_TRIANGLES);
+        glVertex2d(p1.first * width, p1.second * width);
+        glVertex2d(p2.first * width, p2.second * width);
+        glVertex2d(p2.first * iwidth, p2.second * iwidth);
+
+        glVertex2d(p2.first * iwidth, p2.second * iwidth);
+        glVertex2d(p1.first * iwidth, p1.second * iwidth);
+        glVertex2d(p1.first * width, p1.second * width);
+        glEnd();
+        p1 = p2;
+    }
+    const std::pair<SUMOReal, SUMOReal> &p2 =
+        end==360 ? myCircleCoords[0] : myCircleCoords[((int) end/10)%36];
+    glBegin(GL_TRIANGLES);
+        glVertex2d(p1.first * width, p1.second * width);
+        glVertex2d(p2.first * width, p2.second * width);
+        glVertex2d(p2.first * iwidth, p2.second * iwidth);
+
+        glVertex2d(p2.first * iwidth, p2.second * iwidth);
+        glVertex2d(p1.first * iwidth, p1.second * iwidth);
+        glVertex2d(p1.first * width, p1.second * width);
     glEnd();
 }
 

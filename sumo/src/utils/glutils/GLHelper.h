@@ -20,23 +20,29 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.9  2006/03/27 07:24:45  dkrajzew
+// Revision 1.10  2006/08/01 07:34:28  dkrajzew
+// API for drawing not filled circles
+//
+// Revision 1.7  2006/03/27 07:24:49  dksumo
 // extracted drawing of lane geometries
 //
-// Revision 1.8  2006/03/08 13:16:23  dkrajzew
+// Revision 1.6  2006/03/08 13:16:13  dksumo
 // some work on lane visualization
 //
-// Revision 1.7  2006/01/09 13:36:09  dkrajzew
-// further visualization options added
+// Revision 1.5  2006/01/03 11:01:01  dksumo
+// new visualization settings implemented
 //
-// Revision 1.6  2005/10/07 11:44:40  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.4  2005/10/06 13:39:46  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.5  2005/09/23 06:07:25  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+// Revision 1.3  2005/09/20 06:13:02  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
-// Revision 1.4  2005/09/15 12:18:45  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/09/09 12:54:48  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.1  2004/10/22 12:50:46  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.3  2004/07/02 09:46:28  dkrajzew
 // some helper procedures for vss visualisation
@@ -104,6 +110,12 @@ public:
 
     static void drawFilledCircle(SUMOReal width, int steps,
         SUMOReal beg, SUMOReal end);
+
+    static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
+        int steps=8);
+
+    static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
+        int steps, SUMOReal beg, SUMOReal end);
 
     static void drawTriangleAtEnd(const Line2D &l, float tLength,
         float tWidth);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/08/01 07:36:47  dkrajzew
+// API for drawing not filled circles
+//
 // Revision 1.4  2006/04/18 08:12:05  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -70,7 +73,8 @@ public:
     /// Constructor
     GUIPolygon2D(GUIGlObjectStorage &idStorage,
         const std::string name, const std::string type,
-        const RGBColor &color, const Position2DVector &Pos);
+        const RGBColor &color, const Position2DVector &Pos,
+        bool fill);
 
     /// Destructor
     ~GUIPolygon2D();

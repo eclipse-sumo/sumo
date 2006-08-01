@@ -32,8 +32,10 @@ using namespace std;
 GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const std::string name, const std::string type,
                            const RGBColor &color,
-                           const Position2DVector &Pos)
-    : Polygon2D(name, type, color, Pos), GUIGlObject(idStorage, "poly:"+name)
+                           const Position2DVector &Pos,
+                           bool fill)
+    : Polygon2D(name, type, color, Pos, fill),
+    GUIGlObject(idStorage, "poly:"+name)
 {
 }
 
@@ -51,7 +53,7 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    buildSelectionPopupEntry(ret);
+//    buildSelectionPopupEntry(ret);
     return ret;
 }
 
