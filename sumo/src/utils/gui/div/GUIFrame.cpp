@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/08/01 07:35:30  dkrajzew
+// removed build number information
+//
 // Revision 1.6  2005/11/29 13:33:09  dkrajzew
 // debugging
 //
@@ -60,7 +63,6 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsParser.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/DevHelper.h>
 #include "GUIFrame.h"
 
 #ifdef _DEBUG
@@ -87,7 +89,6 @@ GUIFrame::fillInitOptions(OptionsCont &oc)
     oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
-    DevHelper::insertDevOptions(oc);
 }
 
 
