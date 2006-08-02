@@ -6,8 +6,7 @@ EXTRA_DIST =
 libmicrosimtls_a_SOURCES = \
 MSActuatedPhaseDefinition.h MSActuatedTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.h MSAgentbasedTrafficLightLogic.cpp \
-MSAgentbasedTrafficLightLogic.h MSExtendedTrafficLightLogic.h \
-MSPhaseDefinition.h \
+MSAgentbasedTrafficLightLogic.h MSPhaseDefinition.h \
 MSSimpleTrafficLightLogic.cpp MSSimpleTrafficLightLogic.h \
 MSTLLogicControl.cpp MSTLLogicControl.h \
 MSTrafficLightLogic.cpp MSTrafficLightLogic.h
