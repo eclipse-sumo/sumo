@@ -4,13 +4,18 @@ GUI_DIRS = gui guinetload guisim icons
 GUI_INCS = -I$(FOX_INCLUDES)
 endif
 
+if WITH_XMLRPC
+XMLRPC_INCS = bla
+XMLRPC_LIBS = $(XMLRPC_LDFLAGS)/libXmlRpc.a
+endif
+
 if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ./foreign/nvwa/nvwalib.a
 endif
 
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
 sumo-duarouter sumo-dfrouter sumo-jtrrouter \
-sumo-od2trips $(GUI_APPS)
+sumo-od2trips sumo-polyconvert $(GUI_APPS)
 
 EXTRA_PROGRAMS =
 
@@ -43,11 +48,11 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
+./utils/geoconv/libgeoconv.a \
+./foreign/proj/libproj.a \
 $(MEM_LIBS) \
-if WITH_RPC
-$(XMLRPC_LDFLAGS)/libXmlRpc.a \
-endif
--l$(LIB_XERCES)
+$(XMLRPC_LIBS) \
+-l$(LIB_GDAL) -l$(LIB_XERCES)
 
 
 
@@ -181,6 +186,24 @@ $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
+sumo_polyconvert_SOURCES = polyconvert_main.cpp polyconvert_help.h \
+sumo_version.cpp sumo_version.h od2trips_build.h
+
+sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
+
+sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
+./utils/sumoxml/libsumoxml.a \
+./utils/options/liboptions.a \
+./foreign/proj/libproj.a \
+./utils/geom/libgeom.a \
+./utils/common/libcommon.a \
+./utils/importio/libimportio.a \
+./utils/gfx/libgfx.a \
+./utils/xml/libxml.a \
+./utils/shapes/libshapes.a \
+$(MEM_LIBS) \
+-l$(LIB_XERCES)
+
 
 if WITH_GUI
 sumo_guisim_SOURCES = guisim_main.cpp guisim_help.h \
@@ -227,6 +250,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/iodevices/libiodevices.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
+./utils/geoconv/libgeoconv.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
@@ -241,7 +265,7 @@ $(GUI_INCS) -I$(top_srcdir)/src/foreign/proj
 
 SUBDIRS = foreign microsim multimodal \
 netbuild netedit netgen netimport netload \
-od2trips router routing_df routing_dua routing_jtr sumo_only \
+od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \

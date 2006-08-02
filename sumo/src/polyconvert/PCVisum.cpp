@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/08/02 10:27:21  dkrajzew
+// building under Linux patched
+//
 // Revision 1.1  2006/08/01 07:52:47  dkrajzew
 // polyconvert added
 //
@@ -49,7 +52,6 @@ namespace
 
 #include <string>
 #include <map>
-#include <direct.h>
 #include <math.h>
 #include <fstream>
 #include <utils/common/UtilExceptions.h>

@@ -28,7 +28,7 @@ AC_ARG_ENABLE(rpc,
               [AC_DEFINE(_RPC, 1,
                          [Define to 1 in order to enable sumo debugging code.])
 	      ])
-AM_CONDITIONAL([WITH_RPC], [test "$rpc" = "1"])
+AM_CONDITIONAL([WITH_XMLRPC], [test "$rpc" = "1"])
 if test x$mesosim = x1; then
 	AC_DEFINE(HAVE_RPC, 1,
 		[Define to 1 in order to enable rpc features.])
@@ -639,6 +639,7 @@ src/netimport/visum/Makefile
 src/netimport/xml/Makefile
 src/netload/Makefile
 src/od2trips/Makefile
+src/polyconvert/Makefile
 src/router/Makefile
 src/routing_df/Makefile
 src/routing_dua/Makefile
@@ -653,6 +654,7 @@ src/utils/dev/Makefile
 src/utils/distribution/Makefile
 src/utils/foxtools/Makefile
 src/utils/geom/Makefile
+src/utils/geoconv/Makefile
 src/utils/gfx/Makefile
 src/utils/glutils/Makefile
 src/utils/gui/Makefile

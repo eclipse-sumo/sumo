@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/08/02 10:27:21  dkrajzew
+// building under Linux patched
+//
 // Revision 1.1  2006/08/01 07:52:46  dkrajzew
 // polyconvert added
 //
@@ -49,7 +52,6 @@ namespace
 
 #include <string>
 #include <map>
-#include <direct.h>
 #include <fstream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -103,9 +105,6 @@ PCElmar::loadElmar(OptionsCont &oc)
     RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     std::string file = oc.getString("elmar");
 	// load the polygons
-	char buffer[_MAX_PATH];
-	getcwd(buffer,_MAX_PATH);
-
 	ifstream out(file.c_str());
 	if(!out) {
 		MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
