@@ -21,9 +21,11 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
-# Revision 1.1  2006/02/27 13:17:30  dkrajzew
-# tls-conversion script added
+# Revision 1.2  2006/08/02 08:00:32  dkrajzew
+# regarding foe streams
 #
+# Revision 1.1  2006/02/27 13:17:22  dksumo
+# tls-conversion script added
 #
 
 if(!defined($ARGV[2])) {
@@ -42,6 +44,7 @@ $Synchronitaet = "";
 $WAUT_ID = "";
 
 @programs;
+@prohibitions;
 
 sub getAttr($$) {
 	my $text = $_[0];
@@ -74,26 +77,48 @@ sub parseSingle2($$) {
 }
 
 sub encodeSUMO($$$) {
+	# builds a single state of a tls
 	my $index = $_[0];
 	my $noKs = $_[1];
+	my $linkYields = $_[2];
 	my $phase = "";
 	my $brake = "";
 	my $yellow = "";
 	my $i;
+	my $j;
+	my $brakes = "";
+	# go through all signal groups
+	for($i=0; $i<$noKs; $i++) {
+		my $haveToBrake = 0;
+		# check whether any other signal group has green and is higher
+		#  priorised
+		for($j=$noKs-1; $j>=0&&$haveToBrake==0; $j--) {
+			if(substr($prohibitions[$noKs-1-$i], $j, 1) eq "1" && substr($color[$j], $index, 1) eq "G" && substr($linkYields, $i, 1) eq "1") {
+				$haveToBrake = 1;
+			}
+		}
+		if($haveToBrake==0) {
+			$brakes = $brakes."0";
+		} else {
+			$brakes = $brakes."1";
+		}
+	}
+	# go through all signal groups
 	for($i=$noKs-1; $i>=0; $i--) {
 		if(substr($color[$i], $index, 1) eq "G") {
 			$phase = $phase."1";
-			$brake = $brake.$_[2];
+			# whether a signal group has to wait is stored in $brakes
+			$brake = $brake.substr($brakes, $i, 1);
 			$yellow = $yellow."0";
 		}
 		if(substr($color[$i], $index, 1) eq "Y") {
 			$phase = $phase."0";
-			$brake = $brake.$_[2];
+			$brake = $brake."1";
 			$yellow = $yellow."1";
 		}
 		if(substr($color[$i], $index, 1) eq "R") {
 			$phase = $phase."0";
-			$brake = $brake."1"; # !!!
+			$brake = $brake."1";
 			$yellow = $yellow."0";
 		}
 	}
@@ -155,28 +180,52 @@ print "WAUT_ID:                 ".$WAUT_ID."\n";
 
 
 #--------------
+$noSignals = 0;
+$found = 0;
+$haveRowLogic = 0;
+$parsingCurrent = 0;
+$namestr = "<key>".$KP_ID."</key>";
 # now we know what tls shall be parsed; read in SUMO-network information
 @tls_cons;
 open(INDAT2, "< $ARGV[0]") || die "Could not open '$ARGV[0]'.";
 while(<INDAT2>) {
 	$line = $_;
-	if($line =~ "\<succ edge") {
-		$from_lane = getAttr($line, "lane");
+	if($line =~ "\<row-logic") {
+		$haveRowLogic = 1;
 	}
+	if($line =~ "\<\/row-logic") {
+		$haveRowLogic = 0;
+		$parsingCurrent = 0;
+	}
+	if($line =~ $namestr && $haveRowLogic==1) {
+		$parsingCurrent = 1;
+	}
+	if($line =~ "logicitem " && $parsingCurrent==1) {
+		$resp = getAttr($line, "foes");
+		push @prohibitions, $resp;
+	}
+
 	if($line =~ "\<succ edge") {
 		$from_lane = getAttr($line, "lane");
 	}
 	if($line =~ "\<succlane") {
 		$tl = getAttr($line, "tl");
 		if($tl eq $KP_ID) {
+			$found = 1;
 			$to_lane = getAttr($line, "lane");
 			$linkno = getAttr($line, "linkno");
 			$yield = getAttr($line, "yield");
 			$dir = getAttr($line, "dir");
 			$con = $from_lane.";".$to_lane.";".$linkno.";".$yield.";".$dir;
+			if($linkno>=$noSignals) {
+				$noSignals = $linkno + 1;
+			}
 			push @tls_cons, $con;
 		}
 	}
+}
+if($found==0) {
+	die "Have not found tls '".$KP_ID."' in the network description.\n";
 }
 
 
@@ -184,7 +233,7 @@ while(<INDAT2>) {
 
 
 
-$noSignals = 0;
+#$noSignals = 0;
 %signals;
 # parse the connections
 $endReached = 0;
@@ -198,6 +247,7 @@ $endReached = 0;
 $currentKsP = "";
 %kindices;
 %gks;
+%hasToWait;
 while($endReached==0) {
 	$line = <INDAT>;
 	$tmp = $line;
@@ -217,7 +267,7 @@ while($endReached==0) {
 			}
 			if(!exists $gks{$k}) {
 				$gks{$k} = 1;
-				$noSignals++;
+#				$noSignals++;
 			}
 			$cto =~ s/\/\/.*$//g;
 			$cto =~ s/\s*//g;
@@ -228,6 +278,13 @@ while($endReached==0) {
 				$to =~ s/^\s*|\s*$//g;
 				foreach $con (@tls_cons) {
 					($pfrom, $pto, $plinkno, $pyield, $pdir) = split("\;", $con);
+					if($pdir ne "s") {
+						$hasToWait{$plinkno} = 1;
+					} else {
+						if(!defined($hasToWait{$plinkno})) {
+							$hasToWait{$plinkno} = 0;
+						}
+					}
 					$add = 0;
 					if($pfrom eq $from) {
 						if($to eq "all_succlanes") {
@@ -417,13 +474,21 @@ while($noRead<=$#programs) {
 }
 close INDAT;
 
+$yieldingCons = "";
+for($j=0; $j<$noSignals; $j++) {
+	if($hasToWait{$j}==0) {
+		$yieldingCons = $yieldingCons."0";
+	} else {
+		$yieldingCons = $yieldingCons."1";
+	}
+}
 
 
 # build and write results
 open(OUTDAT, "> $ARGV[2]") || die "Could not open '$ARGV[2]'";
 print OUTDAT "<additional>\n";
 
-	# build tls-logics
+# build tls-logics
 for($i=0; $i<=$#programs; $i++) {
 	($Name_Signalprogamm, $Signalprogramm_ID, $Umlaufzeit, $Versatzzeit, $GSP, $Anzahl_Bereiche, $StretchUmlaufAnz) = split("\;", $prog_defs[$i]);
 	$tphases = $phase_defs{$Name_Signalprogamm};
@@ -472,9 +537,6 @@ for($i=0; $i<=$#programs; $i++) {
 				@indices = @$Pindices;
 				foreach $index (@indices) {
 					$color[$index] = substr($color[$index], 0, $j)."Y".substr($color[$index], $j+1);
-#if($name eq "K8" && $index==0) {
-#	print $color[$index]."\n";
-#}
 				}
 			}
 		}
@@ -483,15 +545,7 @@ for($i=0; $i<=$#programs; $i++) {
 	@durations = ();
 	@phases = ();
 
-#	for($j=0; $j<$noSignals; $j++) {
-#		for($k=0; $k<$Umlaufzeit; $k++) {
-#			print $j.":".$color[$j]."\n";
-#		}
-#	}
-
-	$yield = 1;
-
-	$encoded = encodeSUMO(0, $noSignals, $yield);
+	$encoded = encodeSUMO(0, $noSignals, $yieldingCons);
 	push @phases, $encoded;
 	push @durations, 1;
 	$index = 0;
@@ -499,7 +553,7 @@ for($i=0; $i<=$#programs; $i++) {
 		if(nextIsSame($j, $noSignals)==1) {
 			$durations[$index] = $durations[$index] + 1;
 		} else {
-			$encoded = encodeSUMO($j+1, $noSignals, $yield);
+			$encoded = encodeSUMO($j+1, $noSignals, $yieldingCons);
 			push @phases, $encoded;
 			push @durations, 1;
 			$index++;
