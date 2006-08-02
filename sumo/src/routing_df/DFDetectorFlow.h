@@ -21,10 +21,13 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.7  2006/04/05 05:35:26  dkrajzew
+// Revision 1.8  2006/08/02 11:59:02  dkrajzew
+// warnings removed
+//
+// Revision 1.7  2006/04/05 05:35:25  dksumo
 // further work on the dfrouter
 //
-// Revision 1.6  2006/03/17 09:04:25  dkrajzew
+// Revision 1.6  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
 //
 //
@@ -49,7 +52,7 @@
 #include <map>
 #include <string>
 #include <vector>
-//#include <routing_df/DFDetector.h>
+
 
 /* =========================================================================
  * struct definitions
@@ -101,6 +104,7 @@ public:
     const std::vector<FlowDef> &getFlowDefs( const std::string &id ) const;
     bool knows( const std::string &det_id ) const;
     bool knows( const std::string &det_id, SUMOTime time ) const;
+
 
     //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 protected:

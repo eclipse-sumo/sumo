@@ -38,7 +38,7 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian)
     p = pj_inv(p, myProjection);
     p.u *= RAD_TO_DEG;
     p.v *= RAD_TO_DEG;
-    cartesian.set(p.u, p.v);
+    cartesian.set((SUMOReal) p.u, (SUMOReal) p.v);
 }
 
 
