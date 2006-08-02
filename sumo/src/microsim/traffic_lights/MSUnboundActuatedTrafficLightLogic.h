@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.5  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -145,7 +148,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSActuatedPhaseDefinition.h"
-#include "MSExtendedTrafficLightLogic.h"
+#include "MSSimpleTrafficLightLogic.h"
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSLaneState.h>
 
@@ -168,7 +171,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSUnboundActuatedTrafficLightLogic :
-        public MSExtendedTrafficLightLogic
+        public MSSimpleTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to induct loops lying on them

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.11  2006/02/27 12:04:40  dkrajzew
 // eased the initialisation API
 //
@@ -115,7 +118,7 @@
 #include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
-#include "MSExtendedTrafficLightLogic.h"
+#include "MSSimpleTrafficLightLogic.h"
 
 
 /* =========================================================================
@@ -138,7 +141,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSAgentbasedTrafficLightLogic :
-        public MSExtendedTrafficLightLogic
+        public MSSimpleTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to lane state detectors lying on them

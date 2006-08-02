@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.15  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -187,6 +190,10 @@ public:
     /**  */
     virtual SUMOReal brakeGap( SUMOReal speed ) const {
         return speed * speed * myInverseTwoDecel + speed * myTau;
+    }
+
+    virtual SUMOReal approachingBrakeGap( SUMOReal speed ) const {
+        return speed * speed * myInverseTwoDecel;
     }
 
    /** */

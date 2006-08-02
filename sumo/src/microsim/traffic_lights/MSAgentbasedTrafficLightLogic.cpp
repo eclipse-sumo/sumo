@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.15  2006/07/06 07:19:33  dkrajzew
 // applied current microsim-APIs
 //
@@ -159,7 +162,7 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
             const std::string &id, const std::string &subid,
             const Phases &phases, size_t step, size_t delay,
             int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
-    : MSExtendedTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
+    : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
     tDecide(decHorizon), tSinceLastDecision (0), stepOfLastDecision (0),
     numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit (minDiff)
 {

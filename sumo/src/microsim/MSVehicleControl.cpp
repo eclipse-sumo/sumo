@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.13  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -360,17 +363,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                     v->myCurrEdge++;
                     routeOffset--;
                 }
-#ifdef HAVE_MESOSIM
-                v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
-                while(v->seg->get_index()!=segIndex) {
-                    v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
-                }
-                v->tEvent = tEvent;
-                v->tLastEntry = tLastEntry;
-                bool inserted;
-                bis >> inserted;
-                v->inserted = inserted!=0;
-#endif
                 if(!addVehicle(id, v)) {
                     cout << "Could not build vehicle!!!" << endl;
                     throw 1;

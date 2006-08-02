@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.6  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -188,7 +191,7 @@ MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
             const Phases &phases,
             size_t step, size_t delay,
             SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
-    : MSExtendedTrafficLightLogic(id, phases, step, delay),
+    : MSSimpleTrafficLightLogic(id, phases, step, delay),
     _continue(false),
     myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
 {

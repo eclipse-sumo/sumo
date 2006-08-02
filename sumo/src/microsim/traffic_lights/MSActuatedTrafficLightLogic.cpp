@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.16  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -184,7 +187,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
             const Phases &phases,
             size_t step, size_t delay, SUMOReal maxGap, SUMOReal passingTime,
             SUMOReal detectorGap)
-    : MSExtendedTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
+    : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
     _continue(false),
     myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
 {

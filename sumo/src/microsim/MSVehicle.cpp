@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.84  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.83  2006/08/01 07:00:32  dkrajzew
 // removed unneeded API parts
 //
@@ -945,6 +948,11 @@ void
 MSVehicle::moveFirstChecked()
 {
     myTarget = 0;
+#ifdef GUI_DEBUG
+    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(this)->getGlID())) {
+        int blb = 0;
+    }
+#endif
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2) ) {
         int textdummy = 0;
@@ -1235,7 +1243,8 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
             //  and when the distance to the vehicle on the next lane allows moving
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
-            if(seen>myType->brakeGap(myState.mySpeed)&&dist2Pred>0) {
+            //  [m]>
+            if(seen>myType->approachingBrakeGap(myState.mySpeed)&&dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());//vaccel(myState.mySpeed, myLane->maxSpeed())); // otherwise vsafe may become incredibly large
                 (*link)->setApproaching(this);
             } else {

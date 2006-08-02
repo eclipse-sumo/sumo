@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.10  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -139,6 +142,9 @@ public:
 
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();
+
+    void rebuildPriorities();
+
 
 protected:
     /// Search for deadlock-situations and eleminate them.

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.14  2006/05/15 11:16:32  ericnicolay
 // remove the private flag before SwitchCommand, now its protected
 //
@@ -131,6 +134,8 @@ class MSLink;
 class MSEventControl;
 class DiscreteCommand;
 class MSTLLogicControl;
+class NLDetectorBuilder;
+class MSEdgeContinuations;
 
 
 /* =========================================================================
@@ -230,6 +235,10 @@ public:
     void setCurrentDurationIncrement(SUMOTime delay);
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
         SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
+
+    virtual void init(NLDetectorBuilder &nb,
+        const MSEdgeContinuations &edgeContinuations);
+
 
 protected:
     /// Adds a link on building

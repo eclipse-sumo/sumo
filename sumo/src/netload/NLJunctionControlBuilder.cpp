@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.24  2006/05/29 12:58:04  dkrajzew
 // debugged step offset computation
 //
@@ -361,7 +364,7 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 
 
 void
-NLJunctionControlBuilder::addJunctionInitInfo(MSExtendedTrafficLightLogic *tl)
+NLJunctionControlBuilder::addJunctionInitInfo(MSTrafficLightLogic *tl)
 {
     TLInitInfo ii;
     ii.logic = tl;
@@ -389,7 +392,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
                 myActiveKey, myActiveSubKey,
                 myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
                 myStdActuatedPassingTime, myStdActuatedDetectorGap);
-        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
     } else if(myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
@@ -397,7 +399,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
                 myActiveKey, myActiveSubKey,
                 myActivePhases, step, firstEventOffset, myStdLearnHorizon,
                 myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
-        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
     } else {
         // build an uncontrolled (fix) tls-logic
         tlLogic =
@@ -406,6 +407,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
                 myActivePhases, step, firstEventOffset);
         tlLogic->setParameter(myAdditionalParameter);
     }
+    addJunctionInitInfo(tlLogic);
     myActivePhases.clear();
     if(tlLogic!=0) {
         if(!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
@@ -478,12 +480,12 @@ NLJunctionControlBuilder::addLogicItem(int request,
     assert(myActiveLogic->size()>(size_t) request);
     (*myActiveLogic)[request] = use;
     // add the read junction-internal foes for the given request index
-    //  ...but only if junction-internal lanes shall be loaded
-    if(MSGlobals::gUsingInternalLanes) {
+/*    //  ...but only if junction-internal lanes shall be loaded
+    //if(MSGlobals::gUsingInternalLanes) {*/
         bitset<64> use2(foes);
         assert(myActiveFoes->size()>(size_t) request);
         (*myActiveFoes)[request] = use2;
-    }
+    //}
     // increse number of set information
     myRequestItemNumber++;
 }

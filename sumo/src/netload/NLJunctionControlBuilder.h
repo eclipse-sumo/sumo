@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.17  2006/02/27 12:10:41  dkrajzew
 // WAUTs added
 //
@@ -248,7 +251,7 @@ public:
 protected:
     /** @brief adds an information about the initialisation of a tls
         The initialisation is done during the closing of junctions */
-    void addJunctionInitInfo(MSExtendedTrafficLightLogic *key);
+    void addJunctionInitInfo(MSTrafficLightLogic *key);
 
     /** builds a junction that does not use a logic */
     virtual MSJunction *buildNoLogicJunction();
@@ -330,7 +333,7 @@ protected:
 
     /// A definition of junction initialisation
     struct TLInitInfo {
-        MSExtendedTrafficLightLogic *logic;
+        MSTrafficLightLogic *logic;
         std::map<std::string, std::string> params;
     };
 

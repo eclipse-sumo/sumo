@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -154,6 +157,13 @@ MSJunctionLogic::clear()
         delete (*i).second;
     }
     myDict.clear();
+}
+
+
+void
+MSJunctionLogic::replace( std::string id, MSJunctionLogic* junction )
+{
+    myDict[id] = junction;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

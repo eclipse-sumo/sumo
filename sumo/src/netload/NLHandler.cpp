@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.14  2006/08/01 05:48:42  dkrajzew
 // added the possibility to make a polygon being filled or not
 //
@@ -661,13 +664,13 @@ NLHandler::addLogicItem(const Attributes &attrs)
     }
     // parse the internal links information (when wished)
     string foes;
-    if(MSGlobals::gUsingInternalLanes) {
+    //if(MSGlobals::gUsingInternalLanes) {
         try {
             foes = getString(attrs, SUMO_ATTR_FOES);
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Missing foes for a request");
         }
-    }
+    //}
     // store received information
     if(request>=0 && response.length()>0) {
         myJunctionControlBuilder.addLogicItem(request, response, foes);
@@ -1236,9 +1239,11 @@ NLHandler::myCharacters(int element, const std::string &name,
         if(name=="orig-boundary") { // !!!!6 change to tag*
             setNetOrig(chars);
         }
+        /*
         if(name=="orig-utm") { // !!!!6 change to tag*
             setNetOrig(chars);
         }
+        */
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, name, chars);

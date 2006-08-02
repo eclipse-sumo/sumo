@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.37  2006/04/18 07:54:32  dkrajzew
 // unifying threads
 //
@@ -252,7 +255,9 @@ GUILoadThread::run()
     GUITriggerBuilder tb;
     GUIHandler handler("", *net, db, tb, *eb, jb, sb);
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
+#ifndef _DEBUG
     try {
+#endif
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
@@ -267,6 +272,7 @@ GUILoadThread::run()
             closeNetLoadingDependent(oc, *net);
             RandHelper::initRandGlobal(oc);
         }
+#ifndef _DEBUG
     } catch (UtilException &e) {
         string error = e.msg();
         MsgHandler::getErrorInstance()->inform(error);
@@ -280,6 +286,7 @@ GUILoadThread::run()
         MSNet::clearAll();
         net = 0;
     }
+#endif
     if(net==0) {
         MSNet::clearAll();
     }

@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -149,13 +152,19 @@ public:
         }
         // check whether internal lanes disallow any movement
         //  the number of internal lanes is equal to the number of links
+#ifdef HAVE_INTERNAL_LANES
         for ( i = 0; i < myNLinks; ++i ) {
             bool linkPermit = request.test( i ) && respond.test( i ) &&
                 ( innerState & ( *myInternalLinksFoes )[ i ]).none();
             respond.set( i, linkPermit );
         }
-}
+#endif
+    }
 
+
+    const Foes &getInternalFoes() const {
+        return *myInternalLinksFoes;
+    }
 
 private:
     /// junctions logic based on std::bitset

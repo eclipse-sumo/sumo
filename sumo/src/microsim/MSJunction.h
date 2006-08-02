@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.14  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -165,6 +168,9 @@ public:
     // valid for gui-version only
     virtual GUIJunctionWrapper *buildJunctionWrapper(
         GUIGlObjectStorage &idStorage);
+
+
+    virtual void rebuildPriorities() { }
 
     friend class GUIGridBuilder;
 

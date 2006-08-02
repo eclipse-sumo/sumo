@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.13  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -125,6 +128,7 @@ namespace
 #include <microsim/MSEventControl.h>
 #include "MSTLLogicControl.h"
 #include <utils/helpers/DiscreteCommand.h>
+#include <microsim/MSJunctionLogic.h>
 
 #ifdef RAKNET_DEMO
 #include <raknet_demo/sumo_add/ampel.h>
@@ -465,6 +469,18 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay)
 {
     myCurrentDurationIncrement = delay;
 }
+
+
+void
+MSTrafficLightLogic::init(NLDetectorBuilder &nb,
+                                const MSEdgeContinuations &edgeContinuations)
+{
+    MSJunction *j = MSJunction::dictionary(getID());
+    if(j!=0) {
+        j->rebuildPriorities();
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

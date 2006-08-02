@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/08/02 11:58:23  dkrajzew
+// first try to make junctions tls-aware
+//
 // Revision 1.15  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -133,6 +136,7 @@ namespace
 #include "MSRightOfWayJunction.h"
 #include "MSLane.h"
 #include "MSJunctionLogic.h"
+#include "MSBitSetLogic.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -187,13 +191,11 @@ MSRightOfWayJunction::clearRequests()
     return true;
 }
 
-//-------------------------------------------------------------------------//
 
 MSRightOfWayJunction::~MSRightOfWayJunction()
 {
 }
 
-//-------------------------------------------------------------------------//
 
 bool
 MSRightOfWayJunction::setAllowed()
@@ -214,8 +216,6 @@ MSRightOfWayJunction::setAllowed()
 #endif
     return true;
 }
-
-//-------------------------------------------------------------------------//
 
 
 void
@@ -263,6 +263,69 @@ MSRightOfWayJunction::deadlockKiller()
         myLogic->respond( noLockRequest, myInnerState,  myRespond );
     }
     return;
+}
+
+
+bool areRealFoes(MSLink *l1, MSLink *l2)
+{
+    if(l1->getLane()->getEdge()!=l2->getLane()->getEdge()) {
+        return true;
+    }
+    return l1->getLane()==l2->getLane();
+}
+
+void
+MSRightOfWayJunction::rebuildPriorities()
+{
+    MSBitSetLogic<64>::Logic *logic2 = new MSBitSetLogic<64>::Logic();
+    logic2->resize(myLogic->nLinks());
+    const MSBitSetLogic<64>::Foes &foes = static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalFoes();
+    // go through each link
+    if(getID()=="1565") {
+        int bla = 0;
+    }
+    size_t running = 0;
+    for(size_t i=0; i<myIncomingLanes.size(); ++i) {
+        const MSLinkCont &links = myIncomingLanes[i]->getLinkCont();
+        for(size_t j=0; j<links.size(); ++j) {
+            MSLink *l = links[j];
+
+            // check possible foe links
+            size_t running2 = 0;
+            for(size_t i2=0; i2<myIncomingLanes.size(); ++i2) {
+                const MSLinkCont &links2 = myIncomingLanes[i2]->getLinkCont();
+                for(size_t j2=0; j2<links2.size(); ++j2) {
+                    MSLink *l2 = links2[j2];
+
+                    if(foes[running].test(running2)) {//[running2]) {
+                        // ok, both do cross
+                        if(l->getDirection()!=MSLink::LINKDIR_STRAIGHT) {
+                            // orig is turning
+                            //  -> keep waiting
+                            (*logic2)[running][running2] = areRealFoes(l, l2) ? 1 : 0;
+                        } else {
+                            if(l2->getDirection()!=MSLink::LINKDIR_STRAIGHT) {
+                                (*logic2)[running][running2] = 0;
+                            } else {
+                                (*logic2)[running][running2] = areRealFoes(l, l2) ? 1 : 0;
+                            }
+                        }
+                    } else {
+                        // no crossing -> vehicles may drive
+                        (*logic2)[running][running2] = 0;
+                    }
+                    running2++;
+                }
+            }
+            running++;
+        }
+    }
+    MSBitSetLogic<64> *nlogic = new MSBitSetLogic<64>(myLogic->nLinks(), myLogic->nInLanes(),
+        logic2,
+        new MSBitSetLogic<64>::Foes(static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalFoes()));
+    delete myLogic;
+    myLogic = nlogic;
+    MSJunctionLogic::replace(getID(), myLogic);
 }
 
 
