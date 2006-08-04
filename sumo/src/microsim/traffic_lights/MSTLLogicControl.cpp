@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/08/04 11:47:48  jringel
+// WAUTSwitchProcedure_GSP::adaptLogic(...) added
+//
 // Revision 1.17  2006/05/29 12:57:44  dkrajzew
 // added a reference to the tlcontrols to switch procedures
 //
@@ -166,35 +169,69 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP()
 bool
 MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step)
 {
-    SUMOTime actTime = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime actTime = step;
 	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
 	size_t StepFrom = myFrom->getStepNo();
 	size_t CycleTimeFrom = LogicFrom->getCycleTime();
 	SUMOReal gspFrom = getGSPValue(myFrom);
 	/// position of the active signalprogramm
 	size_t posFrom = 0;
-	///calculates the position of the active signalprogramm
-	if (StepFrom > 0)	{
-		for (size_t i=0; i < StepFrom; i++)	{
-			posFrom = posFrom + LogicFrom->getPhaseFromStep(i).duration;
-		}
-	}
-	posFrom = posFrom + actTime - LogicFrom->getPhaseFromStep(StepFrom)._lastSwitch;
-	///some idiotchecks
-	if (posFrom>=CycleTimeFrom)	{
-		posFrom = posFrom - CycleTimeFrom;
-	}
+	///gets the position of the active signalprogramm
+	posFrom = LogicFrom -> getPosition (actTime);
+	
 	if (gspFrom == CycleTimeFrom)	{
 		gspFrom = 0;
 	}
 	///compares the position of the active programm with the GSP (GSP = "Günstiger SchaltPunkt")
 	///switch to the next programm if the GSP is reached
 	if (gspFrom == posFrom) {
+		adaptLogic(step);
 		return true;
 	}
 	else {
 		return false;
 	}
+}
+
+void
+MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
+{
+	SUMOTime actTime = step;
+	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
+	size_t StepTo = myTo->getStepNo();
+	size_t CycleTimeTo = LogicTo->getCycleTime();
+	SUMOReal gspTo = getGSPValue(myTo);
+	
+	//calculates the step of the phase, in which the GSP is reached the next time
+	//and the remainig phaseduration from the GSP
+	assert(gspTo <= CycleTimeTo);
+	size_t pos = 0;
+	size_t stepOfGsp = 0;
+	size_t durAfterGsp = 0;
+	for (size_t i=0; i < LogicTo->getPhases().size(); i++) {
+		pos = pos + LogicTo -> getPhaseFromStep(i).duration;
+		if (pos >= gspTo)	{
+			stepOfGsp = i;
+			durAfterGsp = pos - gspTo;
+			break;
+		}
+	}
+	// gets the actual position from the myToLogic
+	size_t actPosTo = LogicTo->getPosition(actTime);
+	
+	//calculates the waiting time until the GSP is reached
+	//and the modified duration of the phase, in which the GSP is
+	size_t timeWaiting = 0;
+	if (gspTo >= actPosTo)	{
+		timeWaiting = gspTo - actPosTo;
+	}
+	else {
+		timeWaiting = CycleTimeTo - actPosTo + gspTo;
+	}
+	size_t newdur = timeWaiting + durAfterGsp;
+
+	//manipulates the step and duration of the toLogic
+	LogicTo->changeStepAndDuration( myControl ,step, stepOfGsp, newdur);
 }
 
 

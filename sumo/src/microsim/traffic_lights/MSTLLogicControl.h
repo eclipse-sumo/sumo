@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/08/04 11:47:48  jringel
+// WAUTSwitchProcedure_GSP::adaptLogic(...) added
+//
 // Revision 1.14  2006/05/29 12:57:44  dkrajzew
 // added a reference to the tlcontrols to switch procedures
 //
@@ -374,6 +377,8 @@ protected:
         /** @brief Determines whether a switch is possible.
          */
         bool trySwitch(SUMOTime step);
+
+		void adaptLogic(SUMOTime step);
 
     protected:
         /// Returns the GSP-value which should be within the tls program definition
