@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/08/04 11:45:14  jringel
+// method getPosition(...) (of the signalplan) addded
+//
 // Revision 1.12  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -206,6 +209,20 @@ MSSimpleTrafficLightLogic::getCycleTime()
 		myCycleTime = myCycleTime + myPhases[i]->duration;
 	}
 	return myCycleTime;
+}
+
+size_t
+MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
+{
+	size_t position = 0;
+	if (myStep > 0)	{
+		for (size_t i=0; i < myStep; i++)	{
+			position = position + getPhaseFromStep(i).duration;
+		}
+	}
+	position = position + simStep - getPhaseFromStep(myStep)._lastSwitch;
+	assert (position <= myCycleTime);
+	return position;
 }
 
 const MSSimpleTrafficLightLogic::Phases &

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/08/04 11:45:14  jringel
+// method getPosition(...) (of the signalplan) addded
+//
 // Revision 1.12  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -163,6 +166,9 @@ public:
 
 	/// returns the cycletime
 	size_t getCycleTime() ;
+
+	/// returns the position of the logic at the actual step of the simulation
+	size_t getPosition(SUMOTime simStep);
 
     /// Returns the phases of this tls
     const Phases &getPhases() const;
