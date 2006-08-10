@@ -4,13 +4,11 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_types.typ.xml
-
+copy_test_path:visum.net
 
 [collate_file]
 net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 
-[run_dependent_text]
-output:Build #
 

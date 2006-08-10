@@ -12,4 +12,7 @@ shapes
 # tests whether connections are processed
 connections
 
+# tests whether definig function works
+function
+
 

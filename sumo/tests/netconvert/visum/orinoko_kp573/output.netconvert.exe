@@ -1,0 +1,54 @@
+Found: $VSYS: at 16167
+Found: $KNOTEN: at 26142
+Found: $BEZIRK: at 30242
+Found: $STRECKENTYP: at 33465
+Found: $STRECKE: at 72291
+Found: $STRECKENPOLY: at 103530
+Found: $ABBIEGER: at 105862
+Found: $ANBINDUNG: at 122406
+Found: $SIGNALANLAGE: at 226548
+Found: $SIGNALANLAGEZUKNOTEN: at 226725
+Found: $SIGNALGRUPPE: at 226817
+Found: $SIGNALGRUPPEZUABBIEGER: at 227127
+Found: $PHASE: at 227551
+Found: $FAHRSTREIFEN: at 228722
+Found: $FAHRSTREIFENABBIEGER: at 229540
+Parsing VSYS... done.
+Parsing STRECKENTYP... done.
+Parsing KNOTEN... done.
+Parsing BEZIRK... done.
+Parsing STRECKE... done.
+Parsing ANBINDUNG... done.
+Parsing ABBIEGER... done.
+Parsing STRECKENPOLY... done.
+Parsing FAHRSTREIFEN... done.
+Parsing SIGNALANLAGE... done.
+Parsing SIGNALANLAGEZUKNOTEN... done.
+Parsing SIGNALGRUPPE... done.
+Parsing SIGNALGRUPPEZUABBIEGER... done.
+Parsing PHASE... done.
+Parsing FAHRSTREIFENABBIEGER... done.
+   100 types loaded.
+   54 edges loaded.
+   28 nodes loaded.
+Computing step 1: Removing dummy edges
+Computing step 2: Joining double connections
+Computing step 3: Normalising node positions
+Computing step 4: Guessing and setting TLs
+Computing step 5: Computing turning directions
+Computing step 6: Sorting nodes' edges
+Computing step 7: Computing Approached Edges
+Computing step 8: Computing Approaching Lanes
+Computing step 9: Dividing of Lanes on Approached Lanes
+Computing step 10: Appending Turnarounds
+Computing step 11: Rechecking of lane endings
+Computing step 12: Computing node shapes
+Computing step 13: Computing edge shapes
+Computing step 14: Computing tls logics
+Computing step 15: Computing node logics
+Computing step 16: Computing traffic light logics
+1 traffic light(s) computed.
+No Junctions (converted)    : 0
+Priority Junctions          : 28
+Right Before Left Junctions : 0
+Success.

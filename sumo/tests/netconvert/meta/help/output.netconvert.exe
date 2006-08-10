@@ -1,5 +1,6 @@
 SUMO netconvert
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ Version 0.9.4
  Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: (sumo-)netconvert(.exe) [OPTION]*
@@ -31,8 +32,7 @@ Options:
  Output files:
   -o, --output-file FILE         The generated net will be written to FILE
   --map-output FILE              File to write joined edges information to
-  --plain-output FILE            Prefix of files to write node and edge
-                                   information to
+  --plain-output FILE            Prefix of files to write nodes and edges to
   --node-geometry-dump FILE      Writes node corner positions to FILE
 
  Building Defaults:
@@ -51,6 +51,14 @@ Options:
   --vissim-default-speed FLOAT   Default speed for edges (vissim only)
   --vissim-offset DOUBLE         Specifies the structure join offset within
                                    vissim-import
+  --arcview.street-id STRING     Defines column to use as the edge-id
+  --arcview.from-id STRING       Defines column to use as starting node name
+  --arcview.to-id STRING         Defines column to use as ending node name
+  --arcview.type-id STRING       Defines column to use as edge type id
+  --arcview.use-defaults-on-failure    Uses edge type defaults on problems
+  --arcview.all-bidi             Forces insertion of edges in both directions
+  --arcview.utm INT              Defines the network's UTM-zone
+  --arcview.guess-projection     Guesses the proper projection
   -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.
   --edges-min-speed FLOAT        Specifies the minimum speed of edges in order
                                   to be imported
@@ -79,11 +87,19 @@ Options:
   --explicite-tls JID[;JID]*     Specifies which junctions named by their ids
                                   shall be tls-controlled.  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids
                                   shall not be tls-controlled.
+  --tls-poi-output FILENAME      Writes positions of tls-junctions.
+
  Highway On-/Off-Ramps Building:
   --guess-ramps                  Turn on on-/off-ramp guessing
   --ramp-guess.max-ramp-speed FLOAT     The maximum velocity for ramps
   --ramp-guess.min-highway-speed FLOAT  The minimum velocity for highways
   --ramp-guess.ramp-length FLOAT        The length of ramps to build
+
+ Geocoordinates Projection and Network Geometry:
+  --use-projection               Enables reprojection of network coordinates
+  --proj PROJ_DEF                Defines the projection used by PROJ
+  --proj.simple                  Uses tiny projection
+  --disable-normalize-node-positions   Turn off normalizing node positions
 
  Random Number Options:
   --srand INT                     Initialises the random number generator

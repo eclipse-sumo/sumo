@@ -2,6 +2,9 @@
 # testing XML-import
 XML2
 
+# Visum import tests
+visum
+
 # testing meta processing
 meta
 
