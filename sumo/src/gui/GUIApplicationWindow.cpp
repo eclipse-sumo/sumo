@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2006/08/10 11:12:53  dkrajzew
+// coordinate information is resetted when all windows are closed
+//
 // Revision 1.57  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -1255,6 +1258,9 @@ GUIApplicationWindow::closeAllWindows()
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
+    // remove coordinate information
+    myGeoCoordinate->setText("N/A");
+    myCartesianCoordinate->setText("N/A");
     //
     update();
 }
