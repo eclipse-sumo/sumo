@@ -25,7 +25,7 @@ public class Converter {
 		}
 		// call constructor
 		if (param != null) {
-			new Converter(param.net, param.trace, param.activity, param.mobility);
+			new Converter(param.net, param.trace, param.activity, param.mobility, param.penetration);
 		} else {
 			System.err.println("param == null");
 		}
@@ -42,6 +42,7 @@ public class Converter {
 		System.out.println("-t [tracefile]");
 		System.out.println("-a [activityfile]");
 		System.out.println("-m [mobilityfile]");
+		System.out.println("-p [penetration factor] with penetration factor in [0,1]");
 	}
 	
 	/**
@@ -51,24 +52,23 @@ public class Converter {
 	 * @param activity name of activity file
 	 * @param mobility name of mobility file
 	 */
-	private Converter(String net, String trace, String activity, String mobility) {
-		List<Edge>               edges      = new LinkedList<Edge>();
-		List<Vehicle>            vehicles   = new LinkedList<Vehicle>();
-		HashMap<String, Integer> vehicleIds = new HashMap<String, Integer>();
+	private Converter(String net, String trace, String activity, String mobility, double penetration) {
+		List<Edge>               edges            = new LinkedList<Edge>();
+		List<Vehicle>            vehicles         = new LinkedList<Vehicle>();
+		List<Vehicle>            equippedVehicles = new LinkedList<Vehicle>();
+		HashMap<String, Integer> vehicleIds       = new HashMap<String, Integer>();
 		
 		System.out.println("start: read netfile");
 		NetReader.read(net, edges);
 		System.out.println("finished: read netfile");
-		System.out.println("#edges = " +edges.size());
-		System.out.println("start: read trace file - stage 1");
-		TraceReader.readFirst(trace, vehicles, vehicleIds, edges);
-		System.out.println("finished: read trace file - stage 1");
-		System.out.println("#vehicles = " + vehicles.size());
 		System.out.println("start: write mobiliy file");
-		MobilityWriter.write(mobility, trace, edges, vehicles, vehicleIds);
+		MobilityWriter.write(mobility, trace, edges, vehicles, vehicleIds, equippedVehicles, penetration);
 		System.out.println("finished: write mobiliy file");
+		System.out.println("#edges = " +edges.size());
+		System.out.println("#vehicles = " + vehicles.size());
+		System.out.println("#vehicles equipped = " + equippedVehicles.size());
 		System.out.println("start: write activity file");
-		ActivityWriter.write(activity, vehicles, vehicleIds);
+		ActivityWriter.write(activity, vehicles, vehicleIds, equippedVehicles);
 		System.out.println("finished: write activity file");
 	}
 }
