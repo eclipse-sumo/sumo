@@ -18,11 +18,15 @@ public class MobilityWriter {
 	 * @param edges holds net
 	 * @param vehicles stored vehicles to be written
 	 * @param vehicleIds holds vehicle ids
+	 * @param penetration value of penetration in [0,1]
 	 */
 	public static void write(String mobility,  String trace, List<Edge> edges, List<Vehicle> vehicles, HashMap<String, Integer> vehicleIds, List<Vehicle> equippedVehicles, double penetration) {
 		try {
+			// write none-initial positions
 			PrintWriter out = new PrintWriter(mobility);
-			
+	        TraceReader.read(out, trace, vehicles, vehicleIds, edges, equippedVehicles, penetration);
+	        out.flush();
+
 			// write initial positions
 	        for (Vehicle vehicle: vehicles) {
 	        	if (equippedVehicles.contains(vehicle)) {
@@ -34,8 +38,7 @@ public class MobilityWriter {
 		            out.println("set Z_ 0.0 ");
 	        	}
 	        }
-	        // write following positions
-	        TraceReader.read(out, trace, vehicles, vehicleIds, edges, equippedVehicles, penetration);
+	        out.flush();
 		} catch (IOException e) {
 			System.err.println(e);
 		}

@@ -12,13 +12,15 @@ public class Parameter {
 	 * @param trace name of tracefile
 	 * @param activity name of activity file
 	 * @param mobility name of mobility file
+	 * @param config name of config file
 	 * @param penetration value in [0,1] of penetration factor
 	 */
-	public Parameter(String net, String trace, String activity, String mobility, double penetration) {
+	public Parameter(String net, String trace, String activity, String mobility, String config, double penetration) {
 		this.net         = net;
 		this.trace       = trace;
 		this.activity    = activity;
 		this.mobility    = mobility;
+		this.config      = config;
 		this.penetration = penetration;
 	}
 
@@ -26,5 +28,6 @@ public class Parameter {
 	public String trace;
 	public String activity;
 	public String mobility;
+	public String config;
 	public double penetration;
 }

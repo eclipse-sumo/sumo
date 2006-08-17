@@ -17,6 +17,7 @@ public class Parser {
 		String trace       = "";
 		String activity    = "";
 		String mobility    = "";
+		String config      = "";
 		double penetration = 0;
 		
 		boolean hasNet         = false;
@@ -24,6 +25,7 @@ public class Parser {
 		boolean hasActivity    = false;
 		boolean hasMobility    = false;
 		boolean hasPenetration = false;
+		boolean hasConfig      = false;
 		
 		for (int i=0; i<args.length; i++) {
 			if ("ns2".equals(args[i].toLowerCase())) {
@@ -69,6 +71,16 @@ public class Parser {
 				}
 			}
 			
+			if ("-c".equals(args[i])) {
+				// config file
+				if (++i<args.length) {
+					if (!args[i].startsWith("-")) {
+						config = args[i];
+						hasConfig = true;
+					}
+				}
+			}
+			
 			if ("-p".equals(args[i])) {
 				// penetration factor
 				if (++i<args.length) {
@@ -104,10 +116,16 @@ public class Parser {
 			throw new IllegalArgumentException("no mobility specified!");
 		}
 		
+		// must have config file argument
+		if (!hasConfig) {
+			throw new IllegalArgumentException("no config specified!");
+		}
+		
+		// must have penetration argument
 		if (!hasPenetration) {
 			throw new IllegalArgumentException("no penetration specified!");
 		}
 		
-		return new Parameter(net, trace, activity, mobility, penetration);
+		return new Parameter(net, trace, activity, mobility, config, penetration);
 	}
 }

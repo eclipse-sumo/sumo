@@ -25,7 +25,7 @@ public class Converter {
 		}
 		// call constructor
 		if (param != null) {
-			new Converter(param.net, param.trace, param.activity, param.mobility, param.penetration);
+			new Converter(param.net, param.trace, param.activity, param.mobility, param.config, param.penetration);
 		} else {
 			System.err.println("param == null");
 		}
@@ -42,6 +42,7 @@ public class Converter {
 		System.out.println("-t [tracefile]");
 		System.out.println("-a [activityfile]");
 		System.out.println("-m [mobilityfile]");
+		System.out.println("-c [configfile]");
 		System.out.println("-p [penetration factor] with penetration factor in [0,1]");
 	}
 	
@@ -51,8 +52,10 @@ public class Converter {
 	 * @param trace name of trace file
 	 * @param activity name of activity file
 	 * @param mobility name of mobility file
+	 * @param config name of config file
+	 * @param penetration value of penetration in [0,1]
 	 */
-	private Converter(String net, String trace, String activity, String mobility, double penetration) {
+	private Converter(String net, String trace, String activity, String mobility, String config, double penetration) {
 		List<Edge>               edges            = new LinkedList<Edge>();
 		List<Vehicle>            vehicles         = new LinkedList<Vehicle>();
 		List<Vehicle>            equippedVehicles = new LinkedList<Vehicle>();
@@ -70,5 +73,8 @@ public class Converter {
 		System.out.println("start: write activity file");
 		ActivityWriter.write(activity, vehicles, vehicleIds, equippedVehicles);
 		System.out.println("finished: write activity file");
+		System.out.println("start: write config file");
+		ConfigWriter.write(config, mobility, activity, edges, vehicles);
+		System.out.println("finished: write config file");
 	}
 }

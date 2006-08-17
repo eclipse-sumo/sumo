@@ -141,7 +141,6 @@ public class TraceReader {
 					}
 				}
 			}
-			out.flush();
 			parser.close();
 		} catch (XMLStreamException ex) {
 			System.out.println(ex);
