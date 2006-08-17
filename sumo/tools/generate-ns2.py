@@ -25,13 +25,13 @@ from   optparse import OptionParser
 
 usage = "usage: %prog [options]"
 parser = OptionParser()
-parser.add_option("--node",        action="store", type="string", dest="nodefile",    help="name of nodesfile to be read")
-parser.add_option("--edge",        action="store", type="string", dest="edgefile",    help="name of edgesfile to be read")
-parser.add_option("--route",       action="store", type="string", dest="routefile",   help="name of routesfile to be read")
-parser.add_option("--net",         action="store", type="string", dest="netfile",     help="name of netfile to be read, you need either to specify this or node and edge")
-parser.add_option("--begin",       action="store", type="string", dest="begintime",   help="time at which simulation starts")
-parser.add_option("--end",         action="store", type="string", dest="endtime",     help="time at which simulation ends")
-parser.add_option("--penetration", action="store", type="string", dest="penetration", help="penetration factor of vehicles in [0,1]")
+parser.add_option("--node",        "-N", action="store",  type="string", dest="nodefile",    help="name of nodesfile to be read")
+parser.add_option("--edge",        "-E", action="store",  type="string", dest="edgefile",    help="name of edgesfile to be read")
+parser.add_option("--route",       "-r", action="store",  type="string", dest="routefile",   help="name of routesfile to be read")
+parser.add_option("--net",         "-n", action="store",  type="string", dest="netfile",     help="name of netfile to be read, you need either to specify this or node and edge")
+parser.add_option("--begin",       "-b", action="store",  type="string", dest="begintime",   help="time at which simulation starts")
+parser.add_option("--end",         "-e", action="store",  type="string", dest="endtime",     help="time at which simulation ends")
+parser.add_option("--penetration", "-p", action="append", type="float",  dest="penetration", help="penetration factor of vehicles in [0,1]")
 (options, args) = parser.parse_args()
 
 #
@@ -100,9 +100,10 @@ if (os.path.isfile(exporter)==False):
     print "file does not exist:", exporter
     ok = False
 
-if (float(options.penetration) < 0 or float(options.penetration) > 1):
-    print "penetration must be in [0,1]"
-    ok = False
+for val in options.penetration:
+    if (val < 0 or val > 1):
+        print "penetration must be in [0,1]"
+        ok = False
 
 if (ok == False):
     sys.exit(1)
@@ -141,10 +142,12 @@ if (os.path.isfile("netstate.xml")==False):
 #
 # create mobility, activity
 #
-os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility -a activity -c config.tcl -p " + options.penetration)
-if (os.path.isfile("mobility")==False or os.path.isfile("activity")==False):
-    print "error creating mobility, activity"
-    sys.exit(1)
+for penetration in options.penetration:
+    print "generation tracefile with penetration level of " + str(penetration)
+    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility" +  str(penetration) + " -a activity" +  str(penetration) + " -c config" +  str(penetration) + ".tcl -p " + str(penetration))
+    if (os.path.isfile("mobility")==False or os.path.isfile("activity")==False):
+        print "error creating mobility, activity"
+        sys.exit(1)
     
 
 #
