@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.64  2006/08/17 14:06:26  t-bohn
+// a little more statistics information during simulation run
+//
 // Revision 1.63  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -603,8 +606,10 @@ public:
                 std::cout << " (" << mySimStepDuration << "ms ~= "
                     << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
                     << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)
-                        << "UPS)"
-                    << "               "
+                        << "UPS, vehicles" 
+						<< " TOT " << myVehicleControl->getEmittedVehicleNo()
+						<< " ACT " << myVehicleControl->getRunningVehicleNo()
+                    << "       "
                     << (char) 13;
             } else {
                 std::cout << " (" << mySimStepDuration << "ms; further information not available"
