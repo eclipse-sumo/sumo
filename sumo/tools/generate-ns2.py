@@ -8,9 +8,9 @@
 #
 # BEGIN: change to your needs
 #
-exporter   = "H:\\itm\\sumo\\tools\\traceExporter\\traceExporter.jar"
-sumo       = "H:\\itm\\sumo\\bin\\sumo.exe"
-netconvert = "H:\\itm\\sumo\\bin\\netconvert.exe"
+exporter   = "H:\\sumo-win\\tools\\traceExporter\\traceExporter.jar"
+sumo       = "H:\\sumo-win\\bin\\sumo.exe"
+netconvert = "H:\\sumo-win\\bin\\netconvert.exe"
 #
 #END: change to your needs
 #
@@ -145,7 +145,7 @@ if (os.path.isfile("netstate.xml")==False):
 for penetration in options.penetration:
     print "generation tracefile with penetration level of " + str(penetration)
     os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility" +  str(penetration) + " -a activity" +  str(penetration) + " -c config" +  str(penetration) + ".tcl -p " + str(penetration))
-    if (os.path.isfile("mobility")==False or os.path.isfile("activity")==False):
+    if (os.path.isfile("mobility" + str(penetration))==False or os.path.isfile("activity" + str(penetration))==False):
         print "error creating mobility, activity"
         sys.exit(1)
     
