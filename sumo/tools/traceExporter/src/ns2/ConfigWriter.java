@@ -36,10 +36,10 @@ public class ConfigWriter {
         		float _xmax = (edge.xfrom>edge.xto) ? edge.xfrom : edge.xto;
         		float _ymin = (edge.yfrom>edge.yto) ? edge.yto   : edge.yfrom;
         		float _ymax = (edge.yfrom>edge.yto) ? edge.yfrom : edge.yto;
-        		xmin = (xmin>_xmin) ? _xmin : xmin;
-        		xmax = (xmin>_xmin) ? _xmax : xmax;
+        		xmin = (xmin>_xmin) ? _xmin :  xmin;
+        		xmax = (xmax>_xmax) ?  xmax : _xmax;
         		ymin = (ymin>_ymin) ? _ymin : ymin;
-        		ymax = (ymin>_ymin) ? _ymax : ymax;
+        		ymax = (ymax>_ymax) ?  ymax : _ymax;
         	}
         }
 
