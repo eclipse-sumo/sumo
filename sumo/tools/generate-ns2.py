@@ -8,9 +8,9 @@
 #
 # BEGIN: change to your needs
 #
-exporter   = "H:\\sumo-win\\tools\\traceExporter\\traceExporter.jar"
-sumo       = "H:\\sumo-win\\bin\\sumo.exe"
-netconvert = "H:\\sumo-win\\bin\\netconvert.exe"
+exporter   = "H:\\itm\\sumo\\tools\\traceExporter\\traceExporter.jar"
+sumo       = "H:\\itm\\sumo\\bin\\sumo.exe"
+netconvert = "H:\\itm\\sumo\\bin\\netconvert.exe"
 #
 #END: change to your needs
 #
@@ -143,11 +143,13 @@ if (os.path.isfile("netstate.xml")==False):
 # create mobility, activity
 #
 for penetration in options.penetration:
-    print "generation tracefile with penetration level of " + str(penetration)
-    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility" +  str(penetration) + " -a activity" +  str(penetration) + " -c config" +  str(penetration) + ".tcl -p " + str(penetration))
-    if (os.path.isfile("mobility" + str(penetration))==False or os.path.isfile("activity" + str(penetration))==False):
-        print "error creating mobility, activity"
+    print "start: generation tracefile with penetration level of " + str(penetration)
+    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" +  str(penetration) + " -a activity_" +  str(penetration) + " -c config_" +  str(penetration) + ".tcl -p " + str(penetration))
+    if (os.path.isfile("mobility_" + str(penetration))==False or os.path.isfile("activity_" + str(penetration))==False or os.path.isfile("config_" + str(penetration)+".tcl")==False):
+        print "error creating mobility, activity, config"
         sys.exit(1)
+    else:
+        print "finished: generation tracefile with penetration level of " + str(penetration)
     
 
 #
