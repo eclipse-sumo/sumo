@@ -56,25 +56,26 @@ public class Converter {
 	 * @param penetration value of penetration in [0,1]
 	 */
 	private Converter(String net, String trace, String activity, String mobility, String config, double penetration) {
-		List<Edge>               edges            = new LinkedList<Edge>();
-		List<Vehicle>            vehicles         = new LinkedList<Vehicle>();
-		List<Vehicle>            equippedVehicles = new LinkedList<Vehicle>();
-		HashMap<String, Integer> vehicleIds       = new HashMap<String, Integer>();
+		List<Edge>               edges             = new LinkedList<Edge>();
+		List<Vehicle>            vehicles          = new LinkedList<Vehicle>();
+		List<Vehicle>            equippedVehicles  = new LinkedList<Vehicle>();
+		HashMap<String, Integer> vehicleIds        = new HashMap<String, Integer>();
+		HashMap<String, Integer> partialVehicleIds = new HashMap<String, Integer>();
 		
 		System.out.println("start: read netfile");
 		NetReader.read(net, edges);
 		System.out.println("finished: read netfile");
 		System.out.println("start: write mobiliy file");
-		MobilityWriter.write(mobility, trace, edges, vehicles, vehicleIds, equippedVehicles, penetration);
+		MobilityWriter.write(mobility, trace, edges, vehicles, vehicleIds, partialVehicleIds, equippedVehicles, penetration);
 		System.out.println("finished: write mobiliy file");
 		System.out.println("#edges = " +edges.size());
 		System.out.println("#vehicles = " + vehicles.size());
 		System.out.println("#vehicles equipped = " + equippedVehicles.size());
 		System.out.println("start: write activity file");
-		ActivityWriter.write(activity, vehicles, vehicleIds, equippedVehicles);
+		ActivityWriter.write(activity, vehicles, vehicleIds, partialVehicleIds, equippedVehicles);
 		System.out.println("finished: write activity file");
 		System.out.println("start: write config file");
-		ConfigWriter.write(config, mobility, activity, edges, vehicles);
+		ConfigWriter.write(config, mobility, activity, edges, vehicles, equippedVehicles);
 		System.out.println("finished: write config file");
 	}
 }

@@ -18,7 +18,7 @@ public class ConfigWriter {
 	 * @param edges stored edges
 	 * @param vehicles stored vehicles
 	 */
-	public static void write(String config, String mobility, String activity, List<Edge> edges, List<Vehicle> vehicles) {
+	public static void write(String config, String mobility, String activity, List<Edge> edges, List<Vehicle> vehicles, List<Vehicle> equippedVehicles) {
         float xmin = 0, xmax = 0, ymin = 0, ymax = 0;
         float start = 0, end = 0;
 
@@ -60,11 +60,16 @@ public class ConfigWriter {
         try {
 			PrintWriter out = new PrintWriter(config);
 			
+			out.println("# set number of nodes");
+			out.println("set opt(nn) " + equippedVehicles.size());
+			out.println();
 			out.println("# set activity file");
-			out.println("set opt(af) opt(" + activity + ")");
+			out.println("set opt(af) opt(config-path)");
+			out.println("append opt(af) /" + activity);
 			out.println();
 			out.println("# set mobility file");
-			out.println("set opt(mf) opt(" + mobility + ")");
+			out.println("set opt(mf) opt(config-path)");
+			out.println("append opt(mf) /" + mobility);
 			out.println();
 			out.println("# set start/stop time");
 			out.println("set opt(start) " + start);

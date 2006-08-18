@@ -36,7 +36,8 @@ public class TraceReader {
 	 */
 	public static void read(PrintWriter out, String trace,
 			List<Vehicle> vehicles, HashMap<String, Integer> vehicleIds,
-			List<Edge> edges, List<Vehicle> equippedVehicles, double penetration) {
+			HashMap<String, Integer> partialVehicleIds, List<Edge> edges,
+			List<Vehicle> equippedVehicles, double penetration) {
 		try {
 			InputStream in = new FileInputStream(trace);
 			XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -124,6 +125,7 @@ public class TraceReader {
 								assert (penetration >= 0 && penetration <= 1);
 								if (Math.random() <= penetration) {
 									equippedVehicles.add(vehicle);
+									partialVehicleIds.put(id, partialVehicleIds.size());
 								}
 							}
 

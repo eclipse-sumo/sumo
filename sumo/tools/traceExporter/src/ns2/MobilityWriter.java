@@ -20,21 +20,21 @@ public class MobilityWriter {
 	 * @param vehicleIds holds vehicle ids
 	 * @param penetration value of penetration in [0,1]
 	 */
-	public static void write(String mobility,  String trace, List<Edge> edges, List<Vehicle> vehicles, HashMap<String, Integer> vehicleIds, List<Vehicle> equippedVehicles, double penetration) {
+	public static void write(String mobility,  String trace, List<Edge> edges, List<Vehicle> vehicles, HashMap<String, Integer> vehicleIds, HashMap<String, Integer> partialVehicleIds, List<Vehicle> equippedVehicles, double penetration) {
 		try {
 			// write none-initial positions
 			PrintWriter out = new PrintWriter(mobility);
-	        TraceReader.read(out, trace, vehicles, vehicleIds, edges, equippedVehicles, penetration);
+	        TraceReader.read(out, trace, vehicles, vehicleIds, partialVehicleIds, edges, equippedVehicles, penetration);
 	        out.flush();
 
 			// write initial positions
 	        for (Vehicle vehicle: vehicles) {
 	        	if (equippedVehicles.contains(vehicle)) {
-		            out.print("$node_(" + vehicleIds.get(vehicle.id) + ") ");
+		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
 		            out.println("set X_ " + vehicle.x);
-		            out.print("$node_(" + vehicleIds.get(vehicle.id) + ") ");
+		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
 		            out.println("set Y_ " + vehicle.y + " ");
-		            out.print("$node_(" + vehicleIds.get(vehicle.id) + ") ");
+		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
 		            out.println("set Z_ 0.0 ");
 	        	}
 	        }
