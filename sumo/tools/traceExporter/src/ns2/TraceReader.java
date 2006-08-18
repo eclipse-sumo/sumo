@@ -133,7 +133,7 @@ public class TraceReader {
 									.get(vehicleIds.get(id)))) {
 								// write to mobility file
 								out.println("$ns_ at " + time + " \"$node_("
-										+ vehicleIds.get(id) + ") setdest " + x
+										+ partialVehicleIds.get(id) + ") setdest " + x
 										+ " " + y + " " + v + "\"");
 							}
 							// save some data for activity file (last occurence
