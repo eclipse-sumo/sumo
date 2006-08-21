@@ -43,6 +43,7 @@ public class TraceReader {
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader parser = factory.createXMLStreamReader(in);
 			String edgeid = "";
+			String laneid = "";
 			float time = -1;
 			// parse trace file
 			for (int event = parser.next(); event != XMLStreamConstants.END_DOCUMENT; event = parser
@@ -70,6 +71,18 @@ public class TraceReader {
 								String value = parser.getAttributeValue(attr);
 								if ("id".equals(attrName)) {
 									edgeid = value;
+								}
+							}
+						}
+						// lane element found
+						if (parser.getLocalName().equals("lane")) {
+							for (int attr = 0; attr < parser
+									.getAttributeCount(); attr++) {
+								String attrName = parser
+										.getAttributeLocalName(attr);
+								String value = parser.getAttributeValue(attr);
+								if ("id".equals(attrName)) {
+									laneid = value;
 								}
 							}
 						}
@@ -104,13 +117,16 @@ public class TraceReader {
 									break;
 								}
 							}
-
+							
+							// get lane of edge
+							Lane thislane = thisedge.lanes.get(laneid);
+							
 							// calculate positons of vehicle
-							x = thisedge.xfrom + pos
-									* (thisedge.xto - thisedge.xfrom)
+							x = thislane.xfrom + pos
+									* (thislane.xto - thislane.xfrom)
 									/ thisedge.length;
-							y = thisedge.yfrom + pos
-									* (thisedge.yto - thisedge.yfrom)
+							y = thislane.yfrom + pos
+									* (thislane.yto - thislane.yfrom)
 									/ thisedge.length;
 
 							// new vehicles found

@@ -27,18 +27,19 @@ public class NetReader {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(in);
             // parse net file
+            Edge edge = null;
             for (int event = parser.next(); event != XMLStreamConstants.END_DOCUMENT; event = parser.next()) {
                 if (event == XMLStreamConstants.START_ELEMENT) {
                 	// edge element found
                     if (parser.getLocalName().equals("edge")) {
-                        String id = "";
+                        String id    = "";
                         float length = 0;
-                        float speed = 0;
-                        String name = "";
-                        float xfrom = 0;
-                        float yfrom = 0;
-                        float xto = 0;
-                        float yto = 0;
+                        float speed  = 0;
+                        String name  = "";
+                        float xfrom  = 0;
+                        float yfrom  = 0;
+                        float xto    = 0;
+                        float yto    = 0;
                         // parse attributes of element
                         for (int attr=0; attr < parser.getAttributeCount(); attr++) {
                             String attrName = parser.getAttributeLocalName(attr);
@@ -70,10 +71,32 @@ public class NetReader {
                             
                         }
                         // construct edge element
-                        Edge edge = new Edge(id, length, speed, name, xfrom, yfrom, xto, yto);
+                        edge = new Edge(id, length, speed, name, xfrom, yfrom, xto, yto);
                         // store edge
                         edges.add(edge);
                     }
+                    if (parser.getLocalName().equals("lane")) {
+                    	String id = "";
+                    	float xfrom = 0;
+                    	float xto   = 0;
+                    	float yfrom = 0;
+                    	float yto   = 0;
+                    	// parse attributes of element
+                        for (int attr=0; attr < parser.getAttributeCount(); attr++) {
+                            String attrName = parser.getAttributeLocalName(attr);
+                            String value = parser.getAttributeValue(attr);
+                            if ("id".equals(attrName)) {
+    							id = value;
+    						}
+                        }
+                    	String text   = parser.getElementText();
+                    	String[] vals = text.split("[,\\ ]"); // separate by delimiters "," and " "
+                    	xfrom = Float.parseFloat(vals[0]);
+                    	yfrom = Float.parseFloat(vals[1]);
+                    	xto   = Float.parseFloat(vals[2]);
+                    	yto   = Float.parseFloat(vals[3]);
+                		edge.lanes.put(id, new Lane(id, xfrom, xto, yfrom, yto));
+                    }                    
                 }
             }
             parser.close();
