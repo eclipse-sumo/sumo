@@ -64,11 +64,11 @@ public class ConfigWriter {
 			out.println("set opt(nn) " + equippedVehicles.size());
 			out.println();
 			out.println("# set activity file");
-			out.println("set opt(af) opt(config-path)");
+			out.println("set opt(af) $opt(config-path)");
 			out.println("append opt(af) /" + activity);
 			out.println();
 			out.println("# set mobility file");
-			out.println("set opt(mf) opt(config-path)");
+			out.println("set opt(mf) $opt(config-path)");
 			out.println("append opt(mf) /" + mobility);
 			out.println();
 			out.println("# set start/stop time");
