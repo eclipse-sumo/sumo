@@ -127,6 +127,7 @@ public class TraceReader {
 						y = thislane.yfrom + pos
 								* (thislane.yto - thislane.yfrom)
 								/ thisedge.length;
+						Vehicle vehicle = null;
 						// new vehicle found
 						// * create new vehicles object
 						// * creation time := 0    if time <  0
@@ -134,7 +135,7 @@ public class TraceReader {
 						if (!vehicleIds.containsKey(id)) {
 							// create Vehicle object
 							float _time = (time>=0) ? time : 0; // (!) time >= 0
-							Vehicle vehicle = new Vehicle(id, x, y, _time);
+							vehicle = new Vehicle(id, x, y, _time, v);
 							// and save it
 							vehicles.add(vehicle);
 							// give it new id and save it too
@@ -144,6 +145,11 @@ public class TraceReader {
 							if (Math.random() <= penetration) {
 								equippedVehicles.add(vehicle);
 							}
+						} else {
+							vehicle = vehicles.get(vehicleIds.get(id));
+							vehicle.setX(x);
+							vehicle.setY(y);
+							vehicle.setSpeed(v);
 						}
 
 						// write vehicle movement if time >= 0
@@ -155,11 +161,11 @@ public class TraceReader {
 								// write to mobility file
 								out.println("$ns_ at " + time + 
 										" \"$node_(" + partialVehicleIds.get(id) + ") "
-										+ "setdest " + x + " " + y + " " + v + "\"");
+										+ "setdest " + vehicle.getX() + " " + vehicle.getY() + " " + vehicle.getSpeed() + "\"");
 							}
 						}
 						// save some data for activity file (last occurence of vehicle)
-						vehicles.get(vehicleIds.get(id)).time_last = time;
+						vehicles.get(vehicleIds.get(id)).setTime(time);
 					}
 				}
 			}
@@ -173,7 +179,7 @@ public class TraceReader {
 		Iterator<Vehicle> iter = vehicles.iterator();
 		while (iter.hasNext()) {
 			Vehicle vehicle = iter.next();
-			if (vehicle.time_last <= vehicle.time_first) {
+			if (vehicle.getStopTime() <= vehicle.getStartTime()) {
 				equippedVehicles.remove(vehicle);
 				iter.remove();
 			}

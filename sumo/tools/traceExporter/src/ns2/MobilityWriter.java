@@ -31,9 +31,9 @@ public class MobilityWriter {
 	        for (Vehicle vehicle: vehicles) {
 	        	if (equippedVehicles.contains(vehicle)) {
 		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
-		            out.println("set X_ " + vehicle.x);
+		            out.println("set X_ " + vehicle.getInitialX());
 		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
-		            out.println("set Y_ " + vehicle.y + " ");
+		            out.println("set Y_ " + vehicle.getInitialY() + " ");
 		            out.print("$node_(" + partialVehicleIds.get(vehicle.id) + ") ");
 		            out.println("set Z_ 0.0 ");
 	        	}

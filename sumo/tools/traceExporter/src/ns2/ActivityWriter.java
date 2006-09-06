@@ -23,8 +23,8 @@ public class ActivityWriter {
 			out = new PrintWriter(activity);
 	        for (Vehicle vehicle: vehicles) {
 	        	if (equippedVehicles.contains(vehicle)) {
-		            out.println("$ns_ at " + vehicle.time_first + " \"$g(" + partialVehicleIds.get(vehicle.id) + ") start\"");
-		            out.println("$ns_ at " + vehicle.time_last + " \"$g(" + partialVehicleIds.get(vehicle.id) + ") stop\"");
+		            out.println("$ns_ at " + vehicle.getStartTime() + " \"$g(" + partialVehicleIds.get(vehicle.id) + ") start\"");
+		            out.println("$ns_ at " + vehicle.getStopTime() + " \"$g(" + partialVehicleIds.get(vehicle.id) + ") stop\"");
 	        	}
 	        }
 	        out.println();
