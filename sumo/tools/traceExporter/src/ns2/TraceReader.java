@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.stream.XMLInputFactory;
@@ -140,21 +141,21 @@ public class TraceReader {
 							vehicleIds.put(id, vehicleIds.size());
 							// apply pentration factor
 							assert (penetration >= 0 && penetration <= 1);
-							if (Math.random() <= penetration && time == _time) {
+							if (Math.random() <= penetration) {
 								equippedVehicles.add(vehicle);
-								partialVehicleIds.put(id, partialVehicleIds.size());
 							}
 						}
 
-						// write vehicle movement if time > 0 and vehicle not fresh found 
-						if (time > 0) {
+						// write vehicle movement if time >= 0
+						if (time >= 0) {
 							if (equippedVehicles.contains(vehicles.get(vehicleIds.get(id)))) {
-								if (vehicles.get(vehicleIds.get(id)).time_first < time) {
-									// write to mobility file
-									out.println("$ns_ at " + time + 
-											" \"$node_(" + partialVehicleIds.get(id) + ") "
-											+ "setdest " + x + " " + y + " " + v + "\"");
+								if (!partialVehicleIds.containsKey(id)) {
+									partialVehicleIds.put(id, partialVehicleIds.size());
 								}
+								// write to mobility file
+								out.println("$ns_ at " + time + 
+										" \"$node_(" + partialVehicleIds.get(id) + ") "
+										+ "setdest " + x + " " + y + " " + v + "\"");
 							}
 						}
 						// save some data for activity file (last occurence of vehicle)
@@ -167,6 +168,15 @@ public class TraceReader {
 			System.out.println(ex);
 		} catch (IOException ex) {
 			System.out.println("IOException while parsing " + trace);
+		}
+		// remove vehicles existing only at time<=0
+		Iterator<Vehicle> iter = vehicles.iterator();
+		while (iter.hasNext()) {
+			Vehicle vehicle = iter.next();
+			if (vehicle.time_last <= vehicle.time_first) {
+				equippedVehicles.remove(vehicle);
+				iter.remove();
+			}
 		}
 	}
 }
