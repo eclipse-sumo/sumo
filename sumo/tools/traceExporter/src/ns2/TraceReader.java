@@ -60,102 +60,105 @@ public class TraceReader {
 							}
 						}
 					}
-					// process only positive time
-					if (time > 0) {
-						// edge element found
-						if (parser.getLocalName().equals("edge")) {
-							for (int attr = 0; attr < parser
-									.getAttributeCount(); attr++) {
-								String attrName = parser
-										.getAttributeLocalName(attr);
-								String value = parser.getAttributeValue(attr);
-								if ("id".equals(attrName)) {
-									edgeid = value;
+					// edge element found
+					if (parser.getLocalName().equals("edge")) {
+						for (int attr = 0; attr < parser
+								.getAttributeCount(); attr++) {
+							String attrName = parser
+									.getAttributeLocalName(attr);
+							String value = parser.getAttributeValue(attr);
+							if ("id".equals(attrName)) {
+								edgeid = value;
+							}
+						}
+					}
+					// lane element found
+					if (parser.getLocalName().equals("lane")) {
+						for (int attr = 0; attr < parser
+								.getAttributeCount(); attr++) {
+							String attrName = parser
+									.getAttributeLocalName(attr);
+							String value = parser.getAttributeValue(attr);
+							if ("id".equals(attrName)) {
+								laneid = value;
+							}
+						}
+					}
+					// vehicle element found
+					if (parser.getLocalName().equals("vehicle")) {
+						String id = "";
+						float pos = 0;
+						float x = 0;
+						float y = 0;
+						float v = 0;
+						for (int attr = 0; attr < parser
+								.getAttributeCount(); attr++) {
+							String attrName = parser
+									.getAttributeLocalName(attr);
+							String value = parser.getAttributeValue(attr);
+							if ("id".equals(attrName)) {
+								id = value;
+							}
+							if ("pos".equals(attrName)) {
+								pos = Float.parseFloat(value);
+							}
+							if ("speed".equals(attrName)) {
+								v = Float.parseFloat(value);
+							}
+						}
+
+						Edge thisedge = null;
+						// find corresponding edge object
+						for (Edge edge : edges) {
+							thisedge = edge;
+							if (edge.id.equals(edgeid)) {
+								break;
+							}
+						}
+						
+						// get lane of edge
+						Lane thislane = thisedge.lanes.get(laneid);
+						
+						// calculate positons of vehicle
+						x = thislane.xfrom + pos
+								* (thislane.xto - thislane.xfrom)
+								/ thisedge.length;
+						y = thislane.yfrom + pos
+								* (thislane.yto - thislane.yfrom)
+								/ thisedge.length;
+						// new vehicle found
+						// * create new vehicles object
+						// * creation time := 0    if time <  0
+						//                    time if time >= 0
+						if (!vehicleIds.containsKey(id)) {
+							// create Vehicle object
+							float _time = (time>=0) ? time : 0; // (!) time >= 0
+							Vehicle vehicle = new Vehicle(id, x, y, _time);
+							// and save it
+							vehicles.add(vehicle);
+							// give it new id and save it too
+							vehicleIds.put(id, vehicleIds.size());
+							// apply pentration factor
+							assert (penetration >= 0 && penetration <= 1);
+							if (Math.random() <= penetration && time == _time) {
+								equippedVehicles.add(vehicle);
+								partialVehicleIds.put(id, partialVehicleIds.size());
+							}
+						}
+
+						// write vehicle movement if time > 0 and vehicle not fresh found 
+						if (time > 0) {
+							if (equippedVehicles.contains(vehicles.get(vehicleIds.get(id)))) {
+								if (vehicles.get(vehicleIds.get(id)).time_first < time) {
+									// write to mobility file
+									out.println("$ns_ at " + time + 
+											" \"$node_(" + partialVehicleIds.get(id) + ") "
+											+ "setdest " + x + " " + y + " " + v + "\"");
 								}
 							}
 						}
-						// lane element found
-						if (parser.getLocalName().equals("lane")) {
-							for (int attr = 0; attr < parser
-									.getAttributeCount(); attr++) {
-								String attrName = parser
-										.getAttributeLocalName(attr);
-								String value = parser.getAttributeValue(attr);
-								if ("id".equals(attrName)) {
-									laneid = value;
-								}
-							}
-						}
-						// vehicle element found
-						if (parser.getLocalName().equals("vehicle")) {
-							String id = "";
-							float pos = 0;
-							float x = 0;
-							float y = 0;
-							float v = 0;
-							for (int attr = 0; attr < parser
-									.getAttributeCount(); attr++) {
-								String attrName = parser
-										.getAttributeLocalName(attr);
-								String value = parser.getAttributeValue(attr);
-								if ("id".equals(attrName)) {
-									id = value;
-								}
-								if ("pos".equals(attrName)) {
-									pos = Float.parseFloat(value);
-								}
-								if ("speed".equals(attrName)) {
-									v = Float.parseFloat(value);
-								}
-							}
-
-							Edge thisedge = null;
-							// find corresponding edge object
-							for (Edge edge : edges) {
-								thisedge = edge;
-								if (edge.id.equals(edgeid)) {
-									break;
-								}
-							}
-							
-							// get lane of edge
-							Lane thislane = thisedge.lanes.get(laneid);
-							
-							// calculate positons of vehicle
-							x = thislane.xfrom + pos
-									* (thislane.xto - thislane.xfrom)
-									/ thisedge.length;
-							y = thislane.yfrom + pos
-									* (thislane.yto - thislane.yfrom)
-									/ thisedge.length;
-
-							// new vehicles found
-							if (!vehicleIds.containsKey(id)) {
-								// create Vehicle object
-								Vehicle vehicle = new Vehicle(id, x, y, time);
-								// and save it
-								vehicles.add(vehicle);
-								// give it new id and save it too
-								vehicleIds.put(id, vehicleIds.size());
-								// apply pentration factor
-								assert (penetration >= 0 && penetration <= 1);
-								if (Math.random() <= penetration) {
-									equippedVehicles.add(vehicle);
-									partialVehicleIds.put(id, partialVehicleIds.size());
-								}
-							}
-
-							if (equippedVehicles.contains(vehicles
-									.get(vehicleIds.get(id)))) {
-								// write to mobility file
-								out.println("$ns_ at " + time + " \"$node_("
-										+ partialVehicleIds.get(id) + ") setdest " + x
-										+ " " + y + " " + v + "\"");
-							}
-							// save some data for activity file (last occurence
-							// of vehicle)
-							vehicles.get(vehicleIds.get(id)).time_last = time;
-						}
+						// save some data for activity file (last occurence of vehicle)
+						vehicles.get(vehicleIds.get(id)).time_last = time;
 					}
 				}
 			}
