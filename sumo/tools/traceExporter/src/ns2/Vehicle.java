@@ -28,8 +28,6 @@ public class Vehicle {
 		this.y = y;
 		this.curr_x = x;
 		this.curr_y = y;
-		this.next_x = x;
-		this.next_y = y;
 		this.time_first = time_first;
 		this.time_last = time_first;
 		this.speed = speed;
@@ -52,24 +50,16 @@ public class Vehicle {
 	}
 	
 	public void setX(float x, float time) {
-		if (time >= 0) {
-			this.curr_x = this.next_x;
-			this.next_x = x;
-		} else {
+		this.curr_x = x;
+		if (time < 0) {
 			this.x = x;
-			this.curr_x = x;
-			this.next_x = x;
 		}
 	}
-	
+
 	public void setY(float y, float time) {
-		if (time >= 0) {
-			this.curr_y = this.next_y;
-			this.next_y = y;
-		} else {
+		this.curr_y = y;
+		if (time < 0) {
 			this.y = y;
-			this.curr_y = y;
-			this.next_y = y;
 		}
 	}
 	
@@ -107,19 +97,11 @@ public class Vehicle {
 	/** curr_y current y-position */
 	public float curr_y;
 	
-	/** next_x next x-position */
-	public float next_x;
-	
-	/** next_y next y-position */
-	public float next_y;
-	
+	/** time_first time of node creation >= 0*/
 	public float time_first;
 
+	/** time_first time of node leave */
 	public float time_last;
-	
-	//protected float curr_speed;
-	
-	//protected float next_speed;
 	
 	protected float speed;
 }
