@@ -51,14 +51,26 @@ public class Vehicle {
 		return this.curr_y;
 	}
 	
-	public void setX(float x) {
-		this.curr_x = this.next_x;
-		this.next_x = x;
+	public void setX(float x, float time) {
+		if (time >= 0) {
+			this.curr_x = this.next_x;
+			this.next_x = x;
+		} else {
+			this.x = x;
+			this.curr_x = x;
+			this.next_x = x;
+		}
 	}
 	
-	public void setY(float y) {
-		this.curr_y = this.next_y;
-		this.next_y = y;
+	public void setY(float y, float time) {
+		if (time >= 0) {
+			this.curr_y = this.next_y;
+			this.next_y = y;
+		} else {
+			this.y = y;
+			this.curr_y = y;
+			this.next_y = y;
+		}
 	}
 	
 	public float getInitialX() {

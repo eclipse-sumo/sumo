@@ -147,8 +147,8 @@ public class TraceReader {
 							}
 						} else {
 							vehicle = vehicles.get(vehicleIds.get(id));
-							vehicle.setX(x);
-							vehicle.setY(y);
+							vehicle.setX(x, time);
+							vehicle.setY(y, time);
 							vehicle.setSpeed(v);
 						}
 
