@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/09/08 12:31:28  jringel
+// Stretch added
+//
 // Revision 1.15  2006/08/04 11:47:48  jringel
 // WAUTSwitchProcedure_GSP::adaptLogic(...) added
 //
@@ -88,6 +91,7 @@
 #include <vector>
 #include <map>
 #include "MSTrafficLightLogic.h"
+#include "MSSimpleTrafficLightLogic.h"
 #include <utils/helpers/Command.h>
 
 
@@ -317,6 +321,12 @@ protected:
          * If a switch shall be done, this method should return true.
          */
         virtual bool trySwitch(SUMOTime step) = 0;
+		
+		// checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
+		bool isPosAtGSP (SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
+		
+		// switches the given Logic directly to the given position
+		void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
 
     protected:
         /// The current program of the tls to switch
@@ -333,6 +343,9 @@ protected:
 
         /// The control the logic belongs to
         MSTLLogicControl &myControl;
+
+		/// Returns the GSP-value which should be within the tls program definition
+        SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
 
     };
 
@@ -381,9 +394,7 @@ protected:
 		void adaptLogic(SUMOTime step);
 
     protected:
-        /// Returns the GSP-value which should be within the tls program definition
-        SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
-
+    
     };
 
 
@@ -404,6 +415,15 @@ protected:
         /** @brief Determines whether a switch is possible.
          */
         bool trySwitch(SUMOTime step);
+
+		void adaptLogic(SUMOTime step, SUMOReal position);
+		
+		// cuts (stauchen) the Logic to synchronize, 
+		// returns false if cutting was imposible
+		void cutLogic(SUMOTime step, size_t position, size_t deltaToCut);
+		
+		// stretchs the logic to synchronize
+		void stretchLogic(SUMOTime step, size_t position, size_t deltaToStretch);
 
     protected:
         /** @struct StretchBereichDef
@@ -427,7 +447,7 @@ protected:
          * The first bereich has normally the number "1", not "0"!
          */
         StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
-
+		
     };
 
 

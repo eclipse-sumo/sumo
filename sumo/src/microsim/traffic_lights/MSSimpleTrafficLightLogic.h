@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.13  2006/08/04 11:45:14  jringel
-// method getPosition(...) (of the signalplan) addded
+// Revision 1.14  2006/09/08 12:31:28  jringel
+// Stretch added
 //
 // Revision 1.12  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
@@ -169,6 +169,12 @@ public:
 
 	/// returns the position of the logic at the actual step of the simulation
 	size_t getPosition(SUMOTime simStep);
+
+	/// returns the step (the phasenumber) of a given position of the cycle
+	size_t getStepFromPos(size_t position);
+	
+	/// returns the position (start of a phase during a cycle) from of a given step
+	size_t getPosFromStep(size_t step);
 
     /// Returns the phases of this tls
     const Phases &getPhases() const;
