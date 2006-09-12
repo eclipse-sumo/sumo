@@ -25,21 +25,23 @@ public class ConfigWriter {
         // extend of map
         boolean first = true;
         for (Edge edge: edges) {
-        	if (first) {
-        		first = false;
-        		xmin = (edge.xfrom>edge.xto) ? edge.xto   : edge.xfrom;
-        		xmax = (edge.xfrom>edge.xto) ? edge.xfrom : edge.xto;
-        		ymin = (edge.yfrom>edge.yto) ? edge.yto   : edge.yfrom;
-        		ymax = (edge.yfrom>edge.yto) ? edge.yfrom : edge.yto;
-        	} else {
-        		float _xmin = (edge.xfrom>edge.xto) ? edge.xto   : edge.xfrom;
-        		float _xmax = (edge.xfrom>edge.xto) ? edge.xfrom : edge.xto;
-        		float _ymin = (edge.yfrom>edge.yto) ? edge.yto   : edge.yfrom;
-        		float _ymax = (edge.yfrom>edge.yto) ? edge.yfrom : edge.yto;
-        		xmin = (xmin>_xmin) ? _xmin :  xmin;
-        		xmax = (xmax>_xmax) ?  xmax : _xmax;
-        		ymin = (ymin>_ymin) ? _ymin : ymin;
-        		ymax = (ymax>_ymax) ?  ymax : _ymax;
+        	for (Lane lane: edge.lanes.values() ) {
+	        	if (first) {
+	        		first = false;
+	        		xmin = (lane.xfrom>lane.xto) ? lane.xto   : lane.xfrom;
+	        		xmax = (lane.xfrom>lane.xto) ? lane.xfrom : lane.xto;
+	        		ymin = (lane.yfrom>lane.yto) ? lane.yto   : lane.yfrom;
+	        		ymax = (lane.yfrom>lane.yto) ? lane.yfrom : lane.yto;
+	        	} else {
+	        		float _xmin = (lane.xfrom>lane.xto) ? lane.xto   : lane.xfrom;
+	        		float _xmax = (lane.xfrom>lane.xto) ? lane.xfrom : lane.xto;
+	        		float _ymin = (lane.yfrom>lane.yto) ? lane.yto   : lane.yfrom;
+	        		float _ymax = (lane.yfrom>lane.yto) ? lane.yfrom : lane.yto;
+	        		xmin = (xmin>_xmin) ? _xmin :  xmin;
+	        		xmax = (xmax>_xmax) ?  xmax : _xmax;
+	        		ymin = (ymin>_ymin) ? _ymin : ymin;
+	        		ymax = (ymax>_ymax) ?  ymax : _ymax;
+	        	}
         	}
         }
 
