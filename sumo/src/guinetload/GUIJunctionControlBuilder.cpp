@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/14 11:51:17  dkrajzew
+// test
+//
 // Revision 1.10  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -120,7 +123,7 @@ GUIJunctionControlBuilder::buildLogicJunction()
     // build the junction
     return new GUIRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
-        m_pActiveInternalLanes,
+        myActiveInternalLanes,
 #endif
         jtype, myShape);
     myShape.clear();
