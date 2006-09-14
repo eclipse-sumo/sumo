@@ -45,9 +45,9 @@ public:
 
     MSDevice_CPhone(MSVehicle &vehicle);
     ~MSDevice_CPhone();
-    const std::vector<CPhoneBroadcastCell*> &GetProvidedCells() const;
+    const std::vector<CPhoneBroadcastCell> &GetProvidedCells() const;
     State GetState() const;
-    int SetProvidedCells(const std::vector<CPhoneBroadcastCell*> &ActualCells);
+    int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
     SUMOTime changeState();
 	void setCurrentCellId( unsigned int id ){ mycurrentCellId = id; };
@@ -78,7 +78,7 @@ protected:
         bool myAmActive;
 
     };
-
+	void invalidateCommand();
 private:
 	std::string myId;
   //the State the cellphone (if available) is in
@@ -87,13 +87,12 @@ private:
     State m_State;
 
   //the best 6 of the available broadcast cells; index "0" represents the actual serving cell
-    std::vector<CPhoneBroadcastCell*> m_ProvidedCells;
+    std::vector<CPhoneBroadcastCell> m_ProvidedCells;
     MSVehicle &myVehicle;
 
     static int gCallID;
-
     MyCommand *myCommand;
-
+	
 	/*this id reminds the cell-id the phone is currently in*/
 	/*if it is -1 the car still not cross a cellborder*/
 	int mycurrentCellId;

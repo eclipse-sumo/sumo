@@ -38,6 +38,8 @@ MSDevice_CPhone::MyCommand::MyCommand(MSDevice_CPhone &parent)
 
 MSDevice_CPhone::MyCommand::~MyCommand( void )
 {
+	if(myAmActive)
+		myParent.invalidateCommand();
 }
 
 
@@ -93,15 +95,16 @@ MSDevice_CPhone::~MSDevice_CPhone()
 	if(myCommand!=0) {
 		myCommand->setInactivated();
 	}
-	vector<CPhoneBroadcastCell*>::iterator i;
+	/*vector<CPhoneBroadcastCell*>::iterator i;
 	for(i=m_ProvidedCells.begin(); i!=m_ProvidedCells.end(); ++i) {
 		delete *i;
-	}
+	}*/
+	this->m_ProvidedCells.clear();
 }
 
 //---------------------------------------------------------------------------
 
-const vector<MSDevice_CPhone::CPhoneBroadcastCell*> &
+const vector<MSDevice_CPhone::CPhoneBroadcastCell> &
 MSDevice_CPhone::GetProvidedCells() const
 {
 	return m_ProvidedCells;
@@ -119,14 +122,14 @@ MSDevice_CPhone::GetState() const
 // the actually provided cells can only be set if a cellphone is existent and in
 // idle/connected mode (m_state=2||3); if it's OK, the function returns 0
 int
-MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastCell*> &ActualCells)
+MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastCell> &ActualCells)
 {
 if(m_State == 0 || m_State == STATE_OFF)
 return 1;
 else {
 for(int i=0;i<7;i++) {
-m_ProvidedCells[i]->m_CellID = ActualCells[i]->m_CellID;
-m_ProvidedCells[i]->m_LoS = ActualCells[i]->m_LoS;
+m_ProvidedCells[i].m_CellID = ActualCells[i].m_CellID;
+m_ProvidedCells[i].m_LoS = ActualCells[i].m_LoS;
 }
 }
 return 0;
@@ -276,11 +279,10 @@ MSDevice_CPhone::onDepart()
 		t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
 		gCallID++;
 	}
-	for(int i=0;i<7;i++)
-	{
-		CPhoneBroadcastCell* TempCell = new CPhoneBroadcastCell;
-		TempCell->m_CellID = 0;
-		TempCell->m_LoS = -1;
+	CPhoneBroadcastCell TempCell;
+	for(int i=0;i<7;i++){
+		TempCell.m_CellID = 0;
+		TempCell.m_LoS = -1;
 		m_ProvidedCells.push_back(TempCell);
 	}
 	// TOL_SPEC_SS2 (1.2)
@@ -292,8 +294,12 @@ MSDevice_CPhone::onDepart()
 	//
 	myCommand = new MyCommand(*this);
 	MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-		myCommand, t1, MSEventControl::ADAPT_AFTER_EXECUTION);
+		myCommand, t1+MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
+void
+MSDevice_CPhone::invalidateCommand(){
+	this->myCommand = 0;
+}
 
 //#pragma package(smart_init)
