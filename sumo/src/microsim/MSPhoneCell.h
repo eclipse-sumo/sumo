@@ -28,6 +28,7 @@ public:
 	bool getCall( std::string id );
     int  getIntervall();
 	void writeOutput( SUMOTime t );
+	void writeSQLOutput( SUMOTime t );
 private:
     int Cell_Id;
     int Calls_In;

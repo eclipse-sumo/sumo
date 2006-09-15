@@ -9,6 +9,7 @@ public:
     ~MSPhoneLA();
 	void addCall( );
 	void writeOutput( SUMOTime t );
+	void writeSQLOutput( SUMOTime t );
 private:
     int last_time;
     int position_id;

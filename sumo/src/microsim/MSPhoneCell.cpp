@@ -43,6 +43,7 @@ MSPhoneCell::addCall( std::string id, CallType t){
 			Dyn_Calls_Out++;
 			break;
 	}
+	++Sum_Calls;
 }
 
 void
@@ -63,6 +64,8 @@ MSPhoneCell::remCall( std::string id ){
 					Dyn_Calls_Out--;
 					break;
 			}
+			if(Sum_Calls<0)
+				--Sum_Calls;
 			_Calls.erase( icalls );
 			break;
 		}
@@ -90,6 +93,14 @@ void
 MSPhoneCell::writeOutput( SUMOTime t ){
 	Intervall = t - last_time;
 	MSCORN::saveTOSS2_CellStateData( t, Cell_Id, Calls_In, Calls_Out, 
+		Dyn_Calls_In, Dyn_Calls_Out, Sum_Calls, Intervall );
+	last_time = t;
+}
+
+void
+MSPhoneCell::writeSQLOutput( SUMOTime t ){
+	Intervall = t - last_time;
+	MSCORN::saveTOSS2SQL_CellStateData( t, Cell_Id, Calls_In, Calls_Out, 
 		Dyn_Calls_In, Dyn_Calls_Out, Sum_Calls, Intervall );
 	last_time = t;
 }

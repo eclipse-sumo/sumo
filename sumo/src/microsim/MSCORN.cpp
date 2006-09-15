@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/09/15 09:28:47  ericnicolay
+// TO SS2 SQL output added
+//
 // Revision 1.10  2006/04/05 05:28:49  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -80,6 +83,9 @@ OutputDevice *MSCORN::myVehicleRouteOutput = 0;
 OutputDevice *MSCORN::myVehicleDeviceTOSS2Output = 0;
 OutputDevice *MSCORN::myCellTOSS2Output = 0;
 OutputDevice *MSCORN::myLATOSS2Output = 0;
+OutputDevice *MSCORN::myVehicleDeviceTOSS2SQLOutput = 0;
+OutputDevice *MSCORN::myCellTOSS2SQLOutput = 0;
+OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
 
 bool MSCORN::myWished[CORN_MAX];
 
@@ -95,6 +101,9 @@ MSCORN::init()
     myVehicleDeviceTOSS2Output = 0;
 	myCellTOSS2Output = 0;
 	myLATOSS2Output = 0;
+	myVehicleDeviceTOSS2SQLOutput = 0;
+	myCellTOSS2SQLOutput = 0;
+	myLATOSS2SQLOutput = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
     }
@@ -174,9 +183,21 @@ MSCORN::setVehicleDeviceTOSS2Output(OutputDevice *s)
 }
 
 void
+MSCORN::setVehicleDeviceTOSS2SQLOutput(OutputDevice *s)
+{
+    myVehicleDeviceTOSS2SQLOutput = s;
+}
+
+void
 MSCORN::setCellTOSS2Output(OutputDevice *s)
 {
     myCellTOSS2Output = s;
+}
+
+void
+MSCORN::setCellTOSS2SQLOutput(OutputDevice *s)
+{
+    myCellTOSS2SQLOutput = s;
 }
 
 void
@@ -185,6 +206,11 @@ MSCORN::setLATOSS2Output(OutputDevice *s)
     myLATOSS2Output = s;
 }
 
+void
+MSCORN::setLATOSS2SQLOutput(OutputDevice *s)
+{
+    myLATOSS2SQLOutput = s;
+}
 
 
 void
@@ -233,6 +259,19 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
     }
 }
 
+void
+MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
+                                     const std::string &pos,
+                                     int quality)
+{
+    if(myVehicleDeviceTOSS2SQLOutput!=0) {
+        myVehicleDeviceTOSS2SQLOutput->getOStream()
+			<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
+			<< "NULL, NULL, '" << time << "', NULL , NULL, '"
+            << time << ';' << callID << ';' << pos << ';' << quality << "',1\n"; 
+    }
+}
+
 
 void
 MSCORN::saveTOSS2_CellStateData(SUMOTime time,
@@ -248,6 +287,36 @@ MSCORN::saveTOSS2_CellStateData(SUMOTime time,
 }
 
 void
+MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
+		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
+{
+	if(myCellTOSS2SQLOutput!=0)
+	{
+		myCellTOSS2SQLOutput->getOStream()
+			<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
+			<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES "
+			<< "(NULL, NULL, " << ',' << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ',' 
+			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ");\n";
+	}
+}
+
+
+void
+MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
+        int dir, int sum_changes, int quality_id, int intervall)
+{
+	if(myLATOSS2SQLOutput!=0)
+	{
+		myLATOSS2SQLOutput->getOStream()
+			<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
+			<< "`QUALITY_ID`,`INTERVALL`) VALUES " 
+			<< "(NULL, NULL, " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ',' 
+			<< quality_id << ',' << intervall << ");\n";
+	}
+}
+
+void
 MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
@@ -258,7 +327,6 @@ MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
 			<< ';' << quality_id << ';' << intervall << "\n";
 	}
 }
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

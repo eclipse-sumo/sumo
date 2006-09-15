@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/09/15 09:28:47  ericnicolay
+// TO SS2 SQL output added
+//
 // Revision 1.10  2006/03/16 15:19:35  ericnicolay
 // add ss2 interface for cells and LAs
 //
@@ -87,6 +90,9 @@ public:
         CORN_OUT_DEVICE_TO_SS2,
 		CORN_OUT_CELL_TO_SS2,
 		CORN_OUT_LA_TO_SS2,
+		CORN_OUT_DEVICE_TO_SS2_SQL,
+		CORN_OUT_CELL_TO_SS2_SQL,
+		CORN_OUT_LA_TO_SS2_SQL,
 
         CORN_VEH_REALDEPART,
         CORN_MEAN_VEH_TRAVELTIME,
@@ -126,6 +132,9 @@ public:
     static void setVehicleDeviceTOSS2Output(OutputDevice *s);
 	static void setCellTOSS2Output(OutputDevice *s);
 	static void setLATOSS2Output(OutputDevice *s);
+	static void setVehicleDeviceTOSS2SQLOutput(OutputDevice *s);
+	static void setCellTOSS2SQLOutput(OutputDevice *s);
+	static void setLATOSS2SQLOutput(OutputDevice *s);
 
     static void compute_TripDurationsOutput(MSVehicle *v);
 	static void compute_VehicleRouteOutput(MSVehicle *v);
@@ -140,12 +149,26 @@ public:
 	static void saveTOSS2_LA_ChangesData(SUMOTime time, int position_id, 
         int dir, int sum_changes, int quality_id, int intervall);
 
+	static void saveTOSS2SQL_CalledPositionData(SUMOTime time,
+        int callID, const std::string &pos, int quality);
+
+	static void saveTOSS2SQL_CellStateData(SUMOTime time, 
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In, 
+		int Dyn_Calls_Out, int Sum_Calls, int Intervall);
+	
+	static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id, 
+        int dir, int sum_changes, int quality_id, int intervall);
+
 private:
     static OutputDevice *myTripDurationsOutput;
     static OutputDevice *myVehicleRouteOutput;
     static OutputDevice *myVehicleDeviceTOSS2Output;
 	static OutputDevice *myCellTOSS2Output;
 	static OutputDevice *myLATOSS2Output;
+	static OutputDevice *myVehicleDeviceTOSS2SQLOutput;
+	static OutputDevice *myCellTOSS2SQLOutput;
+	static OutputDevice *myLATOSS2SQLOutput;
+   
     static bool myWished[CORN_MAX];
 
 private:

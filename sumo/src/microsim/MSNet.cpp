@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.81  2006/09/15 09:28:47  ericnicolay
+// TO SS2 SQL output added
+//
 // Revision 1.80  2006/08/01 07:01:51  dkrajzew
 // simulation-wide cartesian to geocoordinates conversion added
 //
@@ -584,7 +587,10 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
 	MSCORN::setCellTOSS2Output(streams[OS_CELL_TO_SS2]);
 	MSCORN::setLATOSS2Output( streams[OS_LA_TO_SS2]);
-    myOutputStreams = streams;
+    MSCORN::setVehicleDeviceTOSS2SQLOutput(streams[OS_DEVICE_TO_SS2_SQL]);
+	MSCORN::setCellTOSS2SQLOutput(streams[OS_CELL_TO_SS2_SQL]);
+	MSCORN::setLATOSS2SQLOutput( streams[OS_LA_TO_SS2_SQL]);
+	myOutputStreams = streams;
     myMeanData = meanData;
 
     // we may add it before the network is loaded
@@ -706,6 +712,16 @@ MSNet::initialiseSimulation()
     }
 	if ( myOutputStreams[OS_LA_TO_SS2]!=0 ) {
         MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2);
+    }
+	// ... the same for TrafficOnline-SS2-SQL information
+    if ( myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL);
+    }
+	if ( myOutputStreams[OS_CELL_TO_SS2_SQL]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_CELL_TO_SS2_SQL);
+    }
+	if ( myOutputStreams[OS_LA_TO_SS2_SQL]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2_SQL);
     }
 }
 
@@ -885,7 +901,10 @@ MSNet::writeOutput()
         myOutputStreams[OS_EMISSIONS]->getOStream()
             << "/>" << endl;
     }
-	if ( myOutputStreams[OS_CELL_TO_SS2] != 0 ){
+	if ( myOutputStreams[OS_CELL_TO_SS2] != 0 || myOutputStreams[OS_LA_TO_SS2] != 0 ){
+		myMSPhoneNet->writeOutput( myStep );
+	}
+	if ( myOutputStreams[OS_CELL_TO_SS2_SQL] != 0 || myOutputStreams[OS_LA_TO_SS2_SQL] != 0 ){
 		myMSPhoneNet->writeOutput( myStep );
 	}
 }

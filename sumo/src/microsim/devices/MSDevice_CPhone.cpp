@@ -243,6 +243,11 @@ MSDevice_CPhone::changeState()
 			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
 			myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
 	}
+	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)){
+		MSCORN::saveTOSS2SQL_CalledPositionData(
+			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
+			myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
+	}
 	return next;
 }
 
@@ -294,7 +299,7 @@ MSDevice_CPhone::onDepart()
 	//
 	myCommand = new MyCommand(*this);
 	MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-		myCommand, t1+MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
+		myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 void

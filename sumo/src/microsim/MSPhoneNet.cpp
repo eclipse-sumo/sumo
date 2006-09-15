@@ -98,4 +98,17 @@ MSPhoneNet::writeOutput( SUMOTime t ){
 			lit->second->writeOutput( t );
 		}
 	}
+	/*the same but for the sql version*/
+	if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2_SQL ) && ( t % _CellIntervall  ) == 0 ){
+		std::map< int, MSPhoneCell* >::iterator cit;
+		for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
+			cit->second->writeSQLOutput( t);
+		}
+    }
+	if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2_SQL ) && ( t % _LAIntervall ) == 0 ){
+		std::map< int, MSPhoneLA* >::iterator lit;
+		for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ){
+			lit->second->writeSQLOutput( t );
+		}
+	}
 }

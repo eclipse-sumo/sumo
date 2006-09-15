@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/09/15 09:26:41  ericnicolay
+// TO SS2 SQL output added
+//
 // Revision 1.46  2006/08/01 07:19:57  dkrajzew
 // removed build number information
 //
@@ -293,6 +296,10 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
 	oc.doRegister("ss2-cell-output", new Option_FileName());
 	oc.doRegister("ss2-la-output", new Option_FileName());
+	oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
+	oc.doRegister("ss2-sql-cell-output", new Option_FileName());
+	oc.doRegister("ss2-sql-la-output", new Option_FileName());
+
 
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
@@ -321,7 +328,61 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 	ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
 	ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");
 	ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
+	ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
+	if( ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0 ){
+		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream() 
+					<< "DROP TABLE IF EXISTS `COLLECTOR`;\n"
+					<< "CREATE TABLE `COLLECTOR` (\n"
+					<< "`ID` int(11) NOT NULL auto_increment,\n"
+					<< "`TID` varchar(20) NOT NULL default '',\n"
+					<< "`Zeitstempel` datetime NOT NULL default '0000-00-00 00:00:00',\n"
+					<< "`IP` varchar(20) NOT NULL default '',\n"
+					<< "`Port` int(11) NOT NULL default '0',\n"
+					<< "`incoming` text NOT NULL,\n"
+					<< "`handled` int(11) NOT NULL default '0',\n"
+					<< "PRIMARY KEY  (`ID`,`TID`)\n"
+					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+
+	}
+	ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
+	if( ret[MSNet::OS_CELL_TO_SS2_SQL]!=0 ){
+		(ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+					<< "DROP TABLE IF EXISTS `COLLECTORCS`;\n"
+					<< "CREATE TABLE `COLLECTORCS` ("
+					<< "`ID` int(11) NOT NULL auto_increment,\n"
+					<< "`TID` varchar(20) NOT NULL default '',\n"
+					<< "`DATE_TIME` datetime default NULL,\n"
+					<< "`CELL_ID` int(5) NOT NULL default '0',\n"
+					<< "`STAT_CALLS_IN` int(5) NOT NULL default '0',\n"
+					<< "`STAT_CALLS_OUT` int(5) NOT NULL default '0',\n"
+					<< "`DYN_CALLS_IN` int(5) NOT NULL default '0',\n"
+					<< "`DYN_CALLS_OUT` int(5) NOT NULL default '0',\n"
+					<< "`SUM_CALLS` int(5) NOT NULL default '0',\n"
+					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
+					<< "PRIMARY KEY  (`ID`,`TID`)\n"
+					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+
+	}
+	ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
+	if( ret[MSNet::OS_LA_TO_SS2_SQL]!=0 ){
+		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream() 
+					<< "DROP TABLE IF EXISTS `COLLECTORLA`;\n"
+					<< "CREATE TABLE `COLLECTORLA` (\n"
+					<< "`ID` int(11) NOT NULL auto_increment,\n"
+					<< "`TID` varchar(20) NOT NULL default '',\n"
+					<< "`DATE_TIME` datetime default NULL,\n"
+					<< "`POSITION_ID` int(5) NOT NULL default '0',\n"
+					<< "`DIR` int(1) NOT NULL default '0',\n"
+					<< "`SUM_CHANGE` int(5) NOT NULL default '0',\n"
+					<< "`QUALITY_ID` int(2) NOT NULL default '0',\n"
+					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
+					<< "PRIMARY KEY  (`ID`,`TID`)\n"
+					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+	}
+
     return ret;
+
+
 }
 
 

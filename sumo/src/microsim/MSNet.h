@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.65  2006/09/15 09:28:47  ericnicolay
+// TO SS2 SQL output added
+//
 // Revision 1.64  2006/08/17 14:06:26  t-bohn
 // a little more statistics information during simulation run
 //
@@ -434,6 +437,12 @@ public:
 		OS_CELL_TO_SS2,
         /// TrafficOnline-SS2 LA output
 		OS_LA_TO_SS2,
+		/// TrafficOnline-SS2-SQL output
+        OS_DEVICE_TO_SS2_SQL,
+        /// TrafficOnline-SS2-SQL Cell output
+		OS_CELL_TO_SS2_SQL,
+        /// TrafficOnline-SS2-SQL LA output
+		OS_LA_TO_SS2_SQL,
         /// maximum value
         OS_MAX
     };

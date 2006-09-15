@@ -23,3 +23,11 @@ MSPhoneLA::writeOutput( SUMOTime t ){
 	last_time = t;
 	sum_changes = 0;
 }
+
+void
+MSPhoneLA::writeSQLOutput( SUMOTime t ){
+	intervall = t - last_time;
+	MSCORN::saveTOSS2SQL_LA_ChangesData( t, position_id, dir, sum_changes, quality_id, intervall );
+	last_time = t;
+	sum_changes = 0;
+}
