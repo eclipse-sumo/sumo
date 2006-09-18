@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/09/18 10:00:07  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.27  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -152,7 +155,7 @@ using namespace std;
 /* =========================================================================
  * some definitions (debugging only)
  * ======================================================================= */
-#define DEBUG_OUT cout
+#define DEBUG_OUT std::cout
 
 
 /* =========================================================================
@@ -161,8 +164,10 @@ using namespace std;
 GUIInternalLane::GUIInternalLane(/*MSNet &net, */std::string id,
                              SUMOReal maxSpeed, SUMOReal length,
                              MSEdge* edge, size_t numericalID,
-                             const Position2DVector &shape )
-    : MSInternalLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
+                             const Position2DVector &shape,
+                             const std::vector<SUMOVehicleClass> &allowed,
+                             const std::vector<SUMOVehicleClass> &disallowed)
+    : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {
 }
 
@@ -232,9 +237,9 @@ GUIInternalLane::push( MSVehicle* veh )
     _lock.lock();//Display();
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
-        DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
-        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-        DEBUG_OUT << veh->getID() << ", " << veh->pos() << ", " << veh->speed() << endl;
+        DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << std::endl;
+        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << std::endl;
+        DEBUG_OUT << veh->getID() << ", " << veh->pos() << ", " << veh->speed() << std::endl;
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0
@@ -277,7 +282,7 @@ GUIInternalLane::releaseVehicles()
 
 
 
-const MSInternalLane::VehCont &
+const MSLane::VehCont &
 GUIInternalLane::getVehiclesSecure()
 {
     _lock.lock();
@@ -307,6 +312,45 @@ GUILaneWrapper *
 GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 {
     return new GUILaneWrapper(idStorage, *this, myShape);
+}
+
+
+SUMOReal
+GUIInternalLane::getDensity() const
+{
+    _lock.lock();
+    SUMOReal ret = MSLane::getDensity();
+    _lock.unlock();
+    return ret;
+}
+
+
+SUMOReal
+GUIInternalLane::getVehLenSum() const
+{
+    _lock.lock();
+    SUMOReal ret = MSLane::getVehLenSum();
+    _lock.unlock();
+    return ret;
+}
+
+
+void
+GUIInternalLane::detectCollisions( SUMOTime timestep )
+{
+    _lock.lock();
+    MSLane::detectCollisions(timestep);
+    _lock.unlock();
+}
+
+
+MSVehicle*
+GUIInternalLane::pop()
+{
+    _lock.lock();
+    MSVehicle *ret = MSLane::pop();
+    _lock.unlock();
+    return ret;
 }
 
 

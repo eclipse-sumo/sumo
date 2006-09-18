@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2006/09/18 10:00:08  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.27  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -252,6 +255,8 @@ public:
     SUMOReal getEdgeLaneNumber() const;
 
     void selectSucessors();
+
+    const MSLane &getLane() const { return myLane; }
 
 
 private:

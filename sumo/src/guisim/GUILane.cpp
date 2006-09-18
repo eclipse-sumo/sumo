@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/09/18 10:00:08  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.39  2006/07/07 11:51:51  dkrajzew
 // further work on lane changing
 //
@@ -198,8 +201,10 @@ using namespace std;
  * ======================================================================= */
 GUILane::GUILane(/*MSNet &net, */std::string id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* edge, size_t numericalID,
-                 const Position2DVector &shape )
-    : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
+                 const Position2DVector &shape,
+                 const std::vector<SUMOVehicleClass> &allowed,
+                 const std::vector<SUMOVehicleClass> &disallowed)
+    : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {
 }
 
@@ -372,6 +377,24 @@ GUILane::getVehLenSum() const
     return ret;
 }
 
+
+void
+GUILane::detectCollisions( SUMOTime timestep )
+{
+    _lock.lock();
+    MSLane::detectCollisions(timestep);
+    _lock.unlock();
+}
+
+
+MSVehicle*
+GUILane::pop()
+{
+    _lock.lock();
+    MSVehicle *ret = MSLane::pop();
+    _lock.unlock();
+    return ret;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

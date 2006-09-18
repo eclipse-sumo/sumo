@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/09/18 10:00:07  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.6  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -71,9 +74,10 @@ GUIHelpingJunction::fill(std::vector<GUIJunctionWrapper*> &list,
     size_t size = MSJunction::dictSize();
     list.reserve(size);
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        GUIJunctionWrapper *wrapper =
-            (*i).second->buildJunctionWrapper(idStorage);
-        list.push_back(wrapper);
+        GUIJunctionWrapper *wrapper = (*i).second->buildJunctionWrapper(idStorage);
+        if(wrapper!=0) {
+            list.push_back(wrapper);
+        }
     }
 }
 

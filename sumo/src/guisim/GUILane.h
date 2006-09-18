@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/09/18 10:00:08  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.17  2006/07/07 11:51:51  dkrajzew
 // further work on lane changing
 //
@@ -122,13 +125,12 @@ public:
     /// constructor
     GUILane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
         SUMOReal length, MSEdge* edge, size_t numericalID,
-        const Position2DVector &shape );
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed);
 
     /// destructor
     ~GUILane();
-
-    /** returns the vector of vehicles locking the lane for simulation first */
-    const MSLane::VehCont &getVehiclesLocked();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -164,6 +166,8 @@ public:
     SUMOReal getDensity() const;
     SUMOReal getVehLenSum() const;
 
+    void detectCollisions( SUMOTime timestep );
+
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
@@ -171,6 +175,8 @@ protected:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     bool push( MSVehicle* veh );
+
+    MSVehicle* pop();
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange();
