@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/09/18 10:15:17  dkrajzew
+// changed vehicle class naming
+//
 // Revision 1.9  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -137,8 +140,7 @@ protected:
     bool _process;
 
 	std::vector<SUMOVehicleClass> myAllowedClasses;
-	std::vector<SUMOVehicleClass> myDisallowedClasses;
-
+	std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
     /// The object used to build of edges of the desired type
     ROAbstractEdgeBuilder &myEdgeBuilder;
@@ -149,6 +151,7 @@ private:
 
     /// invalidated assignment operator
     RONetHandler &operator=(const RONetHandler &src);
+
 };
 
 

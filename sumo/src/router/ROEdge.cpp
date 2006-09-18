@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/09/18 10:15:17  dkrajzew
+// changed vehicle class naming
+//
 // Revision 1.28  2006/08/01 07:12:11  dkrajzew
 // faster access to weight time lines added
 //
@@ -207,13 +210,13 @@ ROEdge::addLane(ROLane *lane)
 			myAllowedClasses.push_back(allowedC);
 		}
 		// remove from disallowed if allowed on the lane
-		t = find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), allowedC);
-		if(t!=myDisAllowedClasses.end()) {
-			myDisAllowedClasses.erase(t);
+		t = find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), allowedC);
+		if(t!=myNotAllowedClasses.end()) {
+			myNotAllowedClasses.erase(t);
 		}
 	}
 	// for disallowed classes
-	const std::vector<SUMOVehicleClass> &disallowed = lane->getDisallowedClasses();
+	const std::vector<SUMOVehicleClass> &disallowed = lane->getNotAllowedClasses();
 	for(i=disallowed.begin(); i!=disallowed.end(); ++i) {
 		SUMOVehicleClass disallowedC = *i;
 		std::vector<SUMOVehicleClass>::iterator t;
@@ -221,9 +224,9 @@ ROEdge::addLane(ROLane *lane)
 		//  and not within allowed
 		t = find(myAllowedClasses.begin(), myAllowedClasses.end(), disallowedC);
 		if(t==myAllowedClasses.end()) {
-			t = find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), disallowedC);
-			if(t==myDisAllowedClasses.end()) {
-				myDisAllowedClasses.push_back(disallowedC);
+			t = find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), disallowedC);
+			if(t==myNotAllowedClasses.end()) {
+				myNotAllowedClasses.push_back(disallowedC);
 			}
 		}
 	}
@@ -448,7 +451,7 @@ ROEdge::getLaneNo() const
 bool
 ROEdge::prohibits(const ROVehicle * const vehicle) const
 {
-	if(myAllowedClasses.size()==0&&myDisAllowedClasses.size()==0) {
+	if(myAllowedClasses.size()==0&&myNotAllowedClasses.size()==0) {
 		return false;
 	}
     // ok, vehicles with an unknown class may be only prohibited
@@ -458,7 +461,7 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const
         return false;
     }
 	// check whether it is explicitely disallowed
-	if(find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), vclass)!=myDisAllowedClasses.end()) {
+	if(find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass)!=myNotAllowedClasses.end()) {
 		return true;
 	}
 	// check whether it is within the allowed classes

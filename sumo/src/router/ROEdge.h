@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2006/09/18 10:15:17  dkrajzew
+// changed vehicle class naming
+//
 // Revision 1.22  2006/08/01 07:12:11  dkrajzew
 // faster access to weight time lines added
 //
@@ -291,7 +294,7 @@ protected:
 	std::vector<SUMOVehicleClass> myAllowedClasses;
 
 	/// The list of disallowed vehicle classes
-	std::vector<SUMOVehicleClass> myDisAllowedClasses;
+	std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
     /// The nodes this edge is connecting
     RONode *myFromNode, *myToNode;

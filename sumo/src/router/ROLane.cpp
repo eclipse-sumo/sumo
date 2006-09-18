@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:15:17  dkrajzew
+// changed vehicle class naming
+//
 // Revision 1.10  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -79,7 +82,7 @@ ROLane::ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
 			   const std::vector<SUMOVehicleClass> &allowed,
 			   const std::vector<SUMOVehicleClass> &disallowed)
     : Named(id), myLength(length), myMaxSpeed(maxSpeed),
-	myAllowedClasses(allowed), myDisAllowedClasses(disallowed)
+	myAllowedClasses(allowed), myNotAllowedClasses(disallowed)
 {
 }
 
@@ -116,9 +119,9 @@ ROLane::getAllowedClasses() const
 }
 
 const std::vector<SUMOVehicleClass> &
-ROLane::getDisallowedClasses() const
+ROLane::getNotAllowedClasses() const
 {
-	return myDisAllowedClasses;
+	return myNotAllowedClasses;
 }
 
 

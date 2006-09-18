@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/09/18 10:15:17  dkrajzew
+// changed vehicle class naming
+//
 // Revision 1.10  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -98,7 +101,7 @@ public:
 	const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
 
 	/// Returns the list of not allowed vehicle classes
-	const std::vector<SUMOVehicleClass> &getDisallowedClasses() const;
+	const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const;
 
 protected:
 
@@ -114,7 +117,7 @@ private:
 	std::vector<SUMOVehicleClass> myAllowedClasses;
 
 	/// The list of disallowed vehicle classes
-	std::vector<SUMOVehicleClass> myDisAllowedClasses;
+	std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
 };
 
