@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/09/18 10:13:48  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.10  2005/11/09 06:42:54  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -154,7 +157,8 @@ public:
         lane is marked to be the depart lane and another so marked lane
         was added before */
     virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
-        SUMOReal maxSpeed, SUMOReal length, bool isDepart, const Position2DVector &shape);
+        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+        const Position2DVector &shape, const std::string &vclasses);
 
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();
@@ -179,6 +183,11 @@ public:
     MSEdgeControl *build();
 
     MSEdge *getActiveEdge() const;
+
+    void parseVehicleClasses(const std::string &allowedS,
+        std::vector<SUMOVehicleClass> &allowed,
+        std::vector<SUMOVehicleClass> &disallowed);
+
 
 protected:
     /** storage for edges; to allow the splitting of edges after their number
