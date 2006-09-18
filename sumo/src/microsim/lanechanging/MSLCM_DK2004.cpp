@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/09/18 10:03:33  dkrajzew
+// minor patches
+//
 // Revision 1.14  2006/07/07 11:51:52  dkrajzew
 // further work on lane changing
 //
@@ -307,7 +310,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // --------
 
     // -------- higher speed
-    if(congested( neighLead.first )||predInteraction(leader.first)) {
+    if((congested( neighLead.first ) && neighLead.second<20)||predInteraction(leader.first)) {//!!!
         return ret;
     }
     SUMOReal neighLaneVSafe, thisLaneVSafe;
@@ -534,7 +537,10 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     // -------- higher speed
-    if(congested( neighLead.first )) {
+    /* !!! scheint nicht vernünftig zu funktionieren - Fahrzeuge bleiben auf der rechten Spur
+       obwohl sie noch eine Zeitlang auf der linken fahren dürften
+    */
+    if(congested( neighLead.first ) && neighLead.second<20) {//!!!
         return ret;
     }
     SUMOReal neighLaneVSafe, thisLaneVSafe;
