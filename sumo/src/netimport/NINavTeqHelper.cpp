@@ -1,8 +1,52 @@
+/***************************************************************************
+                          NINavTeqHelper.cpp
+    Some parser methods shared around several formats containing NavTeq-Nets
+                             -------------------
+    project              : SUMO
+    subproject           : netbuilder / netconverter
+    begin                : Jul 2006
+    copyright            : (C) 2006 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2006/09/18 10:12:57  dkrajzew
+// added import of vclasses
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "NINavTeqHelper.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <netbuild/NBEdge.h>
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 SUMOReal
 NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
 {
@@ -75,3 +119,66 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
 }
 
 
+void
+NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &classS)
+{
+    // 0: allow all vehicle types
+    if(classS[0]=='1') {
+        return;
+    }
+    // Passenger cars -- becomes SVC_PASSENGER
+    if(classS[1]=='1') {
+        addVehicleClass(e, SVC_PASSENGER);
+    }
+    // High Occupancy Vehicle -- becomes SVC_PASSENGER|SVC_HOV
+    if(classS[2]=='1') {
+        addVehicleClass(e, SVC_HOV);
+        addVehicleClass(e, SVC_PASSENGER);
+    }
+    // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
+    if(classS[3]=='1') {
+        addVehicleClass(e, SVC_PUBLIC_EMERGENCY);
+    }
+    // Taxi -- becomes SVC_PASSENGER|SVC_TAXI
+    if(classS[4]=='1') {
+        addVehicleClass(e, SVC_TAXI);
+        addVehicleClass(e, SVC_PASSENGER);
+    }
+    // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
+    if(classS[5]=='1') {
+        addVehicleClass(e, SVC_PUBLIC_TRANSPORT);
+        addVehicleClass(e, SVC_BUS);
+    }
+    // Delivery Truck -- becomes SVC_DELIVERY
+    if(classS[6]=='1') {
+        addVehicleClass(e, SVC_DELIVERY);
+    }
+    // Transport Truck -- becomes SVC_TRANSPORT
+    if(classS[7]=='1') {
+        addVehicleClass(e, SVC_TRANSPORT);
+    }
+    // Bicycle -- becomes SVC_BICYCLE
+    if(classS[8]=='1') {
+        addVehicleClass(e, SVC_BICYCLE);
+    }
+    // Pedestrian -- becomes SVC_PEDESTRIAN
+    if(classS[9]=='1') {
+        addVehicleClass(e, SVC_PEDESTRIAN);
+    }
+}
+
+
+void
+NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c)
+{
+    for(size_t i=0; i<e.getNoLanes(); i++) {
+        e.allowVehicleClass(i, c);
+    }
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

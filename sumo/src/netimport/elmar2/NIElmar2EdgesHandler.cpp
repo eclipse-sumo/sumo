@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/09/18 10:12:57  dkrajzew
+// added import of vclasses
+//
 // Revision 1.8  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -202,12 +205,14 @@ NIElmar2EdgesHandler::report(const std::string &result)
                 speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
         }
     }
-
+    // insert the edge to the network
     if(!myEdgeCont.insert(e)) {
         delete e;
         MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
     }
+    // add vehicle type information to the edge
+    NINavTeqHelper::addVehicleClasses(*e, veh_type);
     return true;
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/09/18 10:12:57  dkrajzew
+// added import of vclasses
+//
 // Revision 1.9  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -153,19 +156,20 @@ NIElmarEdgesHandler::report(const std::string &result)
         MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
-
+    // build the edge
     NBEdge *e =
-        new NBEdge(id, id, from, to, "DEFAULT",
-            speed, nolanes, length, priority,
-            NBEdge::LANESPREAD_CENTER);
-
+        new NBEdge(id, id, from, to, "DEFAULT", speed, nolanes, length, priority, NBEdge::LANESPREAD_CENTER);
+    // insert the edge to the network
     if(!myEdgeCont.insert(e)) {
         delete e;
         MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
     }
+    // add vehicle type information to the edge
+    NINavTeqHelper::addVehicleClasses(*e, veh_type);
     return true;
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

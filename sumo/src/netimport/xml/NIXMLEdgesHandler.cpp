@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/09/18 10:12:58  dkrajzew
+// added import of vclasses
+//
 // Revision 1.26  2006/05/16 08:11:36  dkrajzew
 // spelling patched
 //
@@ -194,6 +197,7 @@ namespace
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -437,6 +441,19 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
     myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
     myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
+//    myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+    if(myBegNodeXPos!=-1&&myBegNodeYPos!=-1) {
+        Position2D pos(myBegNodeXPos, myBegNodeYPos);
+        GeoConvHelper::remap(pos);
+        myBegNodeXPos = pos.x();
+        myBegNodeYPos = pos.y();
+    }
+    if(myEndNodeXPos!=-1&&myEndNodeYPos!=-1) {
+        Position2D pos(myEndNodeXPos, myEndNodeYPos);
+        GeoConvHelper::remap(pos);
+        myEndNodeXPos = pos.x();
+        myEndNodeYPos = pos.y();
+    }
         // check with shape
     /*
     if(myShape.size()!=0) {
@@ -448,10 +465,6 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     */
     // check the obtained values for nodes
     if(!insertNodesCheckingCoherence()) {
-        if(!_options.getBool("omit-corrupt-edges")) {
-			addError("On parsing edge '" + myCurrentID + "':");
-            addError(" The data are not coherent or the nodes are not given...");
-        }
         return false;
     }
     return true;
@@ -476,6 +489,9 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
 {
     // check if both coordinates and names are given.
     // if so, store them in the nodes-map
+    MsgHandler *msgh = _options.getBool("omit-corrupt-edges")
+        ? MsgHandler::getWarningInstance()
+        : MsgHandler::getErrorInstance();
     bool coherent = false;
     if( myBegNodeXPos!=-1.0 &&
         myBegNodeYPos!=-1.0 &&
@@ -486,10 +502,14 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
 
         Position2D begPos(myBegNodeXPos, myBegNodeYPos);
         Position2D endPos(myEndNodeXPos, myEndNodeYPos);
-        if(myNodeCont.insert(myCurrentBegNodeID, begPos)) {
-            if(myNodeCont.insert(myCurrentEndNodeID, endPos)) {
-                coherent = true;
-            }
+        coherent = true;
+        if(!myNodeCont.insert(myCurrentBegNodeID, begPos)) {
+            msgh->inform("On parsing edge '" + myCurrentID + "':\n Position of node '" + myCurrentBegNodeID + "' mismatches previous positions");
+            coherent = false;
+        }
+        if(!myNodeCont.insert(myCurrentEndNodeID, endPos)) {
+            msgh->inform("On parsing edge '" + myCurrentID + "':\n Position of node '" + myCurrentEndNodeID + "' mismatches previous positions");
+            coherent = false;
         }
     }
 
@@ -511,17 +531,17 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
             coherent = true;
         } else {
             if(myFromNode==0) {
-                myFromNode =
-                    new NBNode(myNodeCont.getFreeID(), begPos);
+                myFromNode = new NBNode(myNodeCont.getFreeID(), begPos);
                 if(!myNodeCont.insert(myFromNode)) {
-                    throw 1;
+                    msgh->inform("On parsing edge '" + myCurrentID + "':\n Could not insert from-node '" + myFromNode->getID() + "'");
+                    return false;
                 }
             }
             if(myToNode==0) {
-                myToNode =
-                    new NBNode(myNodeCont.getFreeID(), endPos);
+                myToNode = new NBNode(myNodeCont.getFreeID(), endPos);
                 if(!myNodeCont.insert(myToNode)) {
-                    throw 1;
+                    msgh->inform("On parsing edge '" + myCurrentID + "':\n Could not insert to-node '" + myToNode->getID() + "'");
+                    return false;
                 }
             }
             coherent = true;
@@ -542,6 +562,9 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
         myEndNodeXPos = myToNode->getPosition().x();
         myEndNodeYPos = myToNode->getPosition().y();
         coherent = true;
+    }
+    if(!coherent) {
+        msgh->inform("On parsing edge '" + myCurrentID + "':\n Either the name or the position of a node is not given.");
     }
     return coherent;
 }
@@ -587,7 +610,14 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
     }
     // try to build shape
     try {
-        Position2DVector shape = GeomConvHelper::parseShape(shpdef);
+        Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
+        Position2DVector shape;
+        for(size_t i=0; i<shape1.size(); ++i) {
+            Position2D pos(shape1[i]);
+            GeoConvHelper::remap(pos);
+            shape.push_back(pos);
+        }
+
         if(shape.size()==1) {
             addError("The shape of edge '" + myCurrentID + "' has only one entry.");
         }
