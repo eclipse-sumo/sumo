@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.47  2006/09/15 09:26:41  ericnicolay
-// TO SS2 SQL output added
+// Revision 1.48  2006/09/18 10:16:22  dkrajzew
+// debugging; new c2c and mobile phone options added
 //
 // Revision 1.46  2006/08/01 07:19:57  dkrajzew
 // removed build number information
@@ -248,7 +248,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
-    oc.doRegister("route-steps", 's', new Option_Integer(0));
+    oc.doRegister("route-steps", 's', new Option_Integer(200));
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.doRegister("check-accidents", new Option_Bool(false));
     oc.doRegister("too-slow-rtf", new Option_Float(-1));
@@ -330,7 +330,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 	ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
 	ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
 	if( ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0 ){
-		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream() 
+		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
 					<< "DROP TABLE IF EXISTS `COLLECTOR`;\n"
 					<< "CREATE TABLE `COLLECTOR` (\n"
 					<< "`ID` int(11) NOT NULL auto_increment,\n"
@@ -365,7 +365,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 	}
 	ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
 	if( ret[MSNet::OS_LA_TO_SS2_SQL]!=0 ){
-		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream() 
+		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
 					<< "DROP TABLE IF EXISTS `COLLECTORLA`;\n"
 					<< "CREATE TABLE `COLLECTORLA` (\n"
 					<< "`ID` int(11) NOT NULL auto_increment,\n"
@@ -381,8 +381,6 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 	}
 
     return ret;
-
-
 }
 
 
