@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2006/09/18 11:49:05  dkrajzew
+// code beautifying
+//
 // Revision 1.48  2006/09/18 10:16:22  dkrajzew
 // debugging; new c2c and mobile phone options added
 //
@@ -291,19 +294,21 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));
 
     // device
-    oc.doRegister("device", new Option_Float(0.5));//!!! check, describe
-    oc.doRegister("knownveh", new Option_String("444_4"));//!!! check, describe
+        // cell-phones
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
 	oc.doRegister("ss2-cell-output", new Option_FileName());
 	oc.doRegister("ss2-la-output", new Option_FileName());
 	oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
 	oc.doRegister("ss2-sql-cell-output", new Option_FileName());
 	oc.doRegister("ss2-sql-la-output", new Option_FileName());
-
-
+    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
+        // c2x
+    oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! check, describe
+    oc.doRegister("device.c2x.knownveh", new Option_String());//!!! check, describe
+
 
     // debug
     oc.doRegister("track", new Option_Float(0.));

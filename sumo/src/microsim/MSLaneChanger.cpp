@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/09/18 11:49:05  dkrajzew
+// code beautifying
+//
 // Revision 1.32  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
 //
@@ -989,11 +992,6 @@ MSLaneChanger::advan2right(const std::pair<MSVehicle*, SUMOReal> &leader,
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi-1)->lane,
         preb,
-        /*
-        bestLaneOffset, bestDist,
-        veh(myCandi)->allowedContinuationsLength((myCandi-1)->lane, 0),
-        currentDist,
-        */
         &(myCandi->lastBlocked));
 }
 

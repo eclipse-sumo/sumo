@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 11:49:06  dkrajzew
+// code beautifying
+//
 // Revision 1.10  2006/09/18 11:34:21  dkrajzew
 // debugged building on Windows
 //
@@ -163,6 +166,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myDecalsFrame = new FXVerticalFrame(frame1);
     }
     {
+        // tab for the streets
         FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
