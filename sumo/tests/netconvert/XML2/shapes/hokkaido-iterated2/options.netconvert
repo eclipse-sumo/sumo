@@ -1,1 +1,0 @@
---xml-edge-files=%SUMO_DIST%\tests\netconvert\XML\shapes\hokkaido-iterated2\plain_edges.netconvert.exe --xml-node-files=%SUMO_DIST%\tests\netconvert\XML\shapes\hokkaido-iterated2\plain_nodes.netconvert.exe --output-file=net.net.xml --plain-output=plain

@@ -72,10 +72,10 @@
    </district>
 
 
-   <edge id="-53091482" Length="31.96" Speed="13.89" Name="-53091482" NoLanes="2" XFrom="32.00" YFrom="1842.00" XTo="0.00" YTo="1826.00" from="100667830" to="1567" Priority="88" Angle="63.43" Type="83" function="normal">
+   <edge id="-53091482" Length="28.71" Speed="13.89" Name="-53091482" NoLanes="2" XFrom="32.00" YFrom="1842.00" XTo="0.00" YTo="1826.00" from="100667830" to="1567" Priority="88" Angle="63.43" Type="83" function="normal">
       <lanes>
-         <lane id="-53091482_0" depart="1" vclasses="" maxspeed="13.89" length="31.96">29.33,1846.20 2.21,1832.64</lane>
-         <lane id="-53091482_1" depart="0" vclasses="" maxspeed="13.89" length="31.96">30.80,1843.25 0.74,1828.21</lane>
+         <lane id="-53091482_0" depart="1" vclasses="" maxspeed="13.89" length="28.71">29.33,1846.20 3.64,1833.36</lane>
+         <lane id="-53091482_1" depart="0" vclasses="" maxspeed="13.89" length="28.71">30.80,1843.25 5.12,1830.41</lane>
       </lanes>
       <cedge id="53091482" via=":1567">-53091482_1</cedge>
    </edge>
@@ -127,9 +127,9 @@
       <cedge id="545279717" via=":100674627">-545279717_0</cedge>
    </edge>
 
-   <edge id="-545285123" Length="453.34" Speed="16.67" Name="-545285123" NoLanes="1" XFrom="1910.00" YFrom="2806.00" XTo="1551.00" YTo="3056.00" from="1671" to="814" Priority="89" Angle="124.85" Type="84" function="normal">
+   <edge id="-545285123" Length="451.69" Speed="16.67" Name="-545285123" NoLanes="1" XFrom="1910.00" YFrom="2806.00" XTo="1551.00" YTo="3056.00" from="1671" to="814" Priority="89" Angle="124.85" Type="84" function="normal">
       <lanes>
-         <lane id="-545285123_0" depart="1" vclasses="" maxspeed="16.67" length="453.34">1911.83,2807.45 1778.67,2822.58 1756.10,2841.23 1668.12,2926.22 1616.16,2971.17 1564.41,3029.90 1555.98,3048.86</lane>
+         <lane id="-545285123_0" depart="1" vclasses="" maxspeed="16.67" length="451.69">1910.19,2807.64 1778.67,2822.58 1756.10,2841.23 1668.12,2926.22 1616.16,2971.17 1564.41,3029.90 1555.98,3048.86</lane>
       </lanes>
       <cedge id="905005456" via=":814">-545285123_0</cedge>
       <cedge id="905005626" via=":814">-545285123_0</cedge>
@@ -161,9 +161,9 @@
       <cedge id="59394070" via=":100674626">-59394070_0</cedge>
    </edge>
 
-   <edge id="-83535600" Length="165.10" Speed="19.44" Name="-83535600" NoLanes="1" XFrom="3119.00" YFrom="13.00" XTo="3286.00" YTo="0.00" from="100674947" to="1678" Priority="89" Angle="274.45" Type="85" function="normal">
+   <edge id="-83535600" Length="163.50" Speed="19.44" Name="-83535600" NoLanes="1" XFrom="3119.00" YFrom="13.00" XTo="3286.00" YTo="0.00" from="100674947" to="1678" Priority="89" Angle="274.45" Type="85" function="normal">
       <lanes>
-         <lane id="-83535600_0" depart="1" vclasses="" maxspeed="19.44" length="165.10">3120.96,10.86 3183.83,-3.65 3284.38,-1.68</lane>
+         <lane id="-83535600_0" depart="1" vclasses="" maxspeed="19.44" length="163.50">3120.96,10.86 3183.83,-3.65 3282.78,-1.71</lane>
       </lanes>
       <cedge id="83535600" via=":1678">-83535600_0</cedge>
    </edge>
@@ -185,9 +185,9 @@
       <cedge id="905001099" via=":1572">-905001099_1</cedge>
    </edge>
 
-   <edge id="-905001109" Length="323.77" Speed="8.33" Name="-905001109" NoLanes="1" XFrom="302.00" YFrom="2746.00" XTo="568.00" YTo="2953.00" from="1571" to="1568" Priority="88" Angle="232.11" Type="81" function="normal">
+   <edge id="-905001109" Length="322.12" Speed="8.33" Name="-905001109" NoLanes="1" XFrom="302.00" YFrom="2746.00" XTo="568.00" YTo="2953.00" from="1571" to="1568" Priority="88" Angle="232.11" Type="81" function="normal">
       <lanes>
-         <lane id="-905001109_0" depart="1" vclasses="" maxspeed="8.33" length="323.77">301.67,2743.69 412.00,2826.68 481.03,2879.71 557.39,2942.19</lane>
+         <lane id="-905001109_0" depart="1" vclasses="" maxspeed="8.33" length="322.12">302.99,2744.68 412.00,2826.68 481.03,2879.71 557.39,2942.19</lane>
       </lanes>
       <cedge id="-905002548" via=":1568">-905001109_0</cedge>
       <cedge id="905006034" via=":1568">-905001109_0</cedge>
@@ -254,18 +254,18 @@
       <cedge id="905005134" via=":1577">-905005134_1</cedge>
    </edge>
 
-   <edge id="-905005137" Length="515.01" Speed="13.89" Name="-905005137" NoLanes="2" XFrom="9.00" YFrom="3643.00" XTo="104.00" YTo="4142.00" from="1577" to="1574" Priority="88" Angle="190.78" Type="83" function="normal">
+   <edge id="-905005137" Length="511.76" Speed="13.89" Name="-905005137" NoLanes="2" XFrom="9.00" YFrom="3643.00" XTo="104.00" YTo="4142.00" from="1577" to="1574" Priority="88" Angle="190.78" Type="83" function="normal">
       <lanes>
-         <lane id="-905005137_0" depart="1" vclasses="" maxspeed="13.89" length="515.01">16.81,3645.97 42.36,3685.63 85.65,3781.27 113.84,3876.92 124.95,3949.62 124.95,4018.32 109.54,4137.72</lane>
-         <lane id="-905005137_1" depart="0" vclasses="" maxspeed="13.89" length="515.01">14.03,3647.76 39.45,3687.21 82.55,3782.42 110.61,3877.64 121.65,3949.87 121.65,4018.11 105.85,4140.57</lane>
+         <lane id="-905005137_0" depart="1" vclasses="" maxspeed="13.89" length="511.76">16.81,3645.97 42.36,3685.63 85.65,3781.27 113.84,3876.92 124.95,3949.62 124.95,4018.32 109.75,4136.14</lane>
+         <lane id="-905005137_1" depart="0" vclasses="" maxspeed="13.89" length="511.76">14.03,3647.76 39.45,3687.21 82.55,3782.42 110.61,3877.64 121.65,3949.87 121.65,4018.11 106.47,4135.71</lane>
       </lanes>
       <cedge id="905005137" via=":1574">-905005137_1</cedge>
    </edge>
 
-   <edge id="-905005456" Length="758.24" Speed="16.67" Name="-905005456" NoLanes="2" XFrom="2052.00" YFrom="3563.00" XTo="1551.00" YTo="3056.00" from="100668444" to="814" Priority="89" Angle="44.66" Type="84" function="normal">
+   <edge id="-905005456" Length="754.94" Speed="16.67" Name="-905005456" NoLanes="2" XFrom="2052.00" YFrom="3563.00" XTo="1551.00" YTo="3056.00" from="100668444" to="814" Priority="89" Angle="44.66" Type="84" function="normal">
       <lanes>
-         <lane id="-905005456_0" depart="1" vclasses="" maxspeed="16.67" length="758.24">2049.79,3569.64 2041.54,3553.15 1943.54,3341.15 1888.83,3231.73 1844.57,3178.62 1794.47,3141.28 1738.27,3115.65 1555.06,3062.34</lane>
-         <lane id="-905005456_1" depart="0" vclasses="" maxspeed="16.67" length="758.24">2051.26,3565.21 2044.51,3551.71 1946.51,3339.71 1891.61,3229.91 1846.86,3176.21 1796.16,3138.43 1739.42,3112.55 1555.98,3059.17</lane>
+         <lane id="-905005456_0" depart="1" vclasses="" maxspeed="16.67" length="754.94">2047.57,3565.21 2041.54,3553.15 1943.54,3341.15 1888.83,3231.73 1844.57,3178.62 1794.47,3141.28 1738.27,3115.65 1555.06,3062.34</lane>
+         <lane id="-905005456_1" depart="0" vclasses="" maxspeed="16.67" length="754.94">2050.52,3563.74 2044.51,3551.71 1946.51,3339.71 1891.61,3229.91 1846.86,3176.21 1796.16,3138.43 1739.42,3112.55 1555.98,3059.17</lane>
       </lanes>
       <cedge id="905005626" via=":814">-905005456_0 -905005456_1</cedge>
       <cedge id="545285123" via=":814">-905005456_1</cedge>
@@ -310,17 +310,17 @@
       <cedge id="905006042" via=":1560">-905006042_1</cedge>
    </edge>
 
-   <edge id="-905006352" Length="95.39" Speed="3.06" Name="-905006352" NoLanes="1" XFrom="1171.00" YFrom="2904.00" XTo="1236.00" YTo="2821.00" from="1672" to="261" Priority="100" Angle="321.93" Type="0" function="normal">
+   <edge id="-905006352" Length="93.79" Speed="3.06" Name="-905006352" NoLanes="1" XFrom="1171.00" YFrom="2904.00" XTo="1236.00" YTo="2821.00" from="1672" to="261" Priority="100" Angle="321.93" Type="0" function="normal">
       <lanes>
-         <lane id="-905006352_0" depart="1" vclasses="" maxspeed="3.06" length="95.39">1174.87,2896.38 1233.68,2821.28</lane>
+         <lane id="-905006352_0" depart="1" vclasses="" maxspeed="3.06" length="93.79">1174.87,2896.38 1232.70,2822.54</lane>
       </lanes>
       <cedge id="905006352" via=":261">-905006352_0</cedge>
    </edge>
 
-   <edge id="53091482" Length="38.56" Speed="13.89" Name="53091482" NoLanes="2" XFrom="0.00" YFrom="1826.00" XTo="32.00" YTo="1842.00" from="1567" to="100667830" Priority="88" Angle="243.43" Type="83" function="normal">
+   <edge id="53091482" Length="35.26" Speed="13.89" Name="53091482" NoLanes="2" XFrom="0.00" YFrom="1826.00" XTo="32.00" YTo="1842.00" from="1567" to="100667830" Priority="88" Angle="243.43" Type="83" function="normal">
       <lanes>
-         <lane id="53091482_0" depart="1" vclasses="" maxspeed="13.89" length="38.56">-2.21,1819.36 33.75,1837.34</lane>
-         <lane id="53091482_1" depart="0" vclasses="" maxspeed="13.89" length="38.56">-0.74,1823.79 32.28,1840.29</lane>
+         <lane id="53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">2.21,1821.57 33.75,1837.34</lane>
+         <lane id="53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">0.74,1824.52 32.28,1840.29</lane>
       </lanes>
       <cedge id="-905002541" via=":100667830">53091482_0 53091482_1</cedge>
       <cedge id="-53091482" via=":100667830">53091482_1</cedge>
@@ -371,9 +371,9 @@
       <cedge id="-545279717" via=":100674949">545279717_0</cedge>
    </edge>
 
-   <edge id="545285123" Length="453.53" Speed="16.67" Name="545285123" NoLanes="1" XFrom="1551.00" YFrom="3056.00" XTo="1910.00" YTo="2806.00" from="814" to="1671" Priority="89" Angle="304.85" Type="84" function="normal">
+   <edge id="545285123" Length="451.93" Speed="16.67" Name="545285123" NoLanes="1" XFrom="1551.00" YFrom="3056.00" XTo="1910.00" YTo="2806.00" from="814" to="1671" Priority="89" Angle="304.85" Type="84" function="normal">
       <lanes>
-         <lane id="545285123_0" depart="1" vclasses="" maxspeed="16.67" length="453.53">1552.97,3047.52 1561.59,3028.10 1613.84,2968.83 1665.89,2923.78 1753.90,2838.77 1777.33,2819.42 1908.17,2804.55</lane>
+         <lane id="545285123_0" depart="1" vclasses="" maxspeed="16.67" length="451.93">1552.97,3047.52 1561.59,3028.10 1613.84,2968.83 1665.89,2923.78 1753.90,2838.77 1777.33,2819.42 1906.58,2804.73</lane>
       </lanes>
       <cedge id="-545285123" via=":1671">545285123_0</cedge>
    </edge>
@@ -403,9 +403,9 @@
       <cedge id="-59394070" via=":100674627">59394070_0</cedge>
    </edge>
 
-   <edge id="83535600" Length="167.58" Speed="19.44" Name="83535600" NoLanes="1" XFrom="3286.00" YFrom="0.00" XTo="3119.00" YTo="13.00" from="1678" to="100674947" Priority="89" Angle="94.45" Type="85" function="normal">
+   <edge id="83535600" Length="165.93" Speed="19.44" Name="83535600" NoLanes="1" XFrom="3286.00" YFrom="0.00" XTo="3119.00" YTo="13.00" from="1678" to="100674947" Priority="89" Angle="94.45" Type="85" function="normal">
       <lanes>
-         <lane id="83535600_0" depart="1" vclasses="" maxspeed="19.44" length="167.58">3287.62,1.68 3184.17,-0.35 3121.70,14.07</lane>
+         <lane id="83535600_0" depart="1" vclasses="" maxspeed="19.44" length="165.93">3285.97,1.65 3184.17,-0.35 3121.70,14.07</lane>
       </lanes>
       <cedge id="83535603" via=":100674947">83535600_0</cedge>
       <cedge id="-83535600" via=":100674947">83535600_0</cedge>
@@ -428,9 +428,9 @@
       <cedge id="-905001099" via=":100667991">905001099_1</cedge>
    </edge>
 
-   <edge id="905001109" Length="320.34" Speed="8.33" Name="905001109" NoLanes="1" XFrom="568.00" YFrom="2953.00" XTo="302.00" YTo="2746.00" from="1568" to="1571" Priority="88" Angle="52.11" Type="81" function="normal">
+   <edge id="905001109" Length="318.74" Speed="8.33" Name="905001109" NoLanes="1" XFrom="568.00" YFrom="2953.00" XTo="302.00" YTo="2746.00" from="1568" to="1571" Priority="88" Angle="52.11" Type="81" function="normal">
       <lanes>
-         <lane id="905001109_0" depart="1" vclasses="" maxspeed="8.33" length="320.34">555.30,2944.74 478.97,2882.29 410.00,2829.31 302.33,2748.31</lane>
+         <lane id="905001109_0" depart="1" vclasses="" maxspeed="8.33" length="318.74">555.30,2944.74 478.97,2882.29 410.00,2829.31 303.61,2749.27</lane>
       </lanes>
       <cedge id="-905001109" via=":1571">905001109_0</cedge>
    </edge>
@@ -492,19 +492,19 @@
       <cedge id="-905005134" via=":100667991">905005134_1</cedge>
    </edge>
 
-   <edge id="905005137" Length="516.97" Speed="13.89" Name="905005137" NoLanes="2" XFrom="104.00" YFrom="4142.00" XTo="9.00" YTo="3643.00" from="1574" to="1577" Priority="88" Angle="10.78" Type="83" function="normal">
+   <edge id="905005137" Length="513.67" Speed="13.89" Name="905005137" NoLanes="2" XFrom="104.00" YFrom="4142.00" XTo="9.00" YTo="3643.00" from="1574" to="1577" Priority="88" Angle="10.78" Type="83" function="normal">
       <lanes>
-         <lane id="905005137_0" depart="1" vclasses="" maxspeed="13.89" length="516.97">98.46,4146.28 115.05,4017.68 115.05,3950.38 104.16,3879.08 76.35,3784.73 33.64,3690.37 8.48,3651.34</lane>
-         <lane id="905005137_1" depart="0" vclasses="" maxspeed="13.89" length="516.97">102.15,4143.43 118.35,4017.89 118.35,3950.13 107.39,3878.36 79.45,3783.58 36.55,3688.79 11.26,3649.55</lane>
+         <lane id="905005137_0" depart="1" vclasses="" maxspeed="13.89" length="513.67">99.09,4141.37 115.05,4017.68 115.05,3950.38 104.16,3879.08 76.35,3784.73 33.64,3690.37 8.48,3651.34</lane>
+         <lane id="905005137_1" depart="0" vclasses="" maxspeed="13.89" length="513.67">102.36,4141.79 118.35,4017.89 118.35,3950.13 107.39,3878.36 79.45,3783.58 36.55,3688.79 11.26,3649.55</lane>
       </lanes>
       <cedge id="905005134" via=":1577">905005137_0 905005137_1</cedge>
       <cedge id="-905005137" via=":1577">905005137_1</cedge>
    </edge>
 
-   <edge id="905005456" Length="757.10" Speed="16.67" Name="905005456" NoLanes="2" XFrom="1551.00" YFrom="3056.00" XTo="2052.00" YTo="3563.00" from="814" to="100668444" Priority="89" Angle="224.66" Type="84" function="normal">
+   <edge id="905005456" Length="753.85" Speed="16.67" Name="905005456" NoLanes="2" XFrom="1551.00" YFrom="3056.00" XTo="2052.00" YTo="3563.00" from="814" to="100668444" Priority="89" Angle="224.66" Type="84" function="normal">
       <lanes>
-         <lane id="905005456_0" depart="1" vclasses="" maxspeed="16.67" length="757.10">1557.83,3052.83 1741.73,3106.35 1799.53,3132.72 1851.43,3171.38 1897.17,3226.27 1952.46,3336.86 2050.46,3548.85 2054.21,3556.36</lane>
-         <lane id="905005456_1" depart="0" vclasses="" maxspeed="16.67" length="757.10">1556.91,3056.00 1740.58,3109.45 1797.84,3135.57 1849.14,3173.79 1894.39,3228.09 1949.49,3338.28 2047.49,3550.28 2052.74,3560.79</lane>
+         <lane id="905005456_0" depart="1" vclasses="" maxspeed="16.67" length="753.85">1557.83,3052.83 1741.73,3106.35 1799.53,3132.72 1851.43,3171.38 1897.17,3226.27 1952.46,3336.86 2050.46,3548.85 2053.50,3554.93</lane>
+         <lane id="905005456_1" depart="0" vclasses="" maxspeed="16.67" length="753.85">1556.91,3056.00 1740.58,3109.45 1797.84,3135.57 1849.14,3173.79 1894.39,3228.09 1949.49,3338.28 2047.49,3550.28 2050.55,3556.40</lane>
       </lanes>
       <cedge id="-905005456" via=":100668444">905005456_1</cedge>
    </edge>
@@ -546,9 +546,9 @@
       <cedge id="-905006042" via=":1561">905006042_1</cedge>
    </edge>
 
-   <edge id="905006352" Length="98.69" Speed="3.06" Name="905006352" NoLanes="1" XFrom="1236.00" YFrom="2821.00" XTo="1171.00" YTo="2904.00" from="261" to="1672" Priority="100" Angle="141.93" Type="0" function="normal">
+   <edge id="905006352" Length="97.04" Speed="3.06" Name="905006352" NoLanes="1" XFrom="1236.00" YFrom="2821.00" XTo="1171.00" YTo="2904.00" from="261" to="1672" Priority="100" Angle="141.93" Type="0" function="normal">
       <lanes>
-         <lane id="905006352_0" depart="1" vclasses="" maxspeed="3.06" length="98.69">1238.32,2820.72 1177.47,2898.41</lane>
+         <lane id="905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1237.30,2822.02 1177.47,2898.41</lane>
       </lanes>
       <cedge id="-905005626" via=":1672">905006352_0</cedge>
       <cedge id="-53091655" via=":1672">905006352_0</cedge>
@@ -561,12 +561,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -575,13 +575,13 @@
       <requestsize>7</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="0000000" foes="1000000"/>
-         <logicitem request="1" response="0000000" foes="1000000"/>
-         <logicitem request="2" response="0100000" foes="0111000"/>
-         <logicitem request="3" response="0000000" foes="0000100"/>
-         <logicitem request="4" response="0000000" foes="0000100"/>
-         <logicitem request="5" response="0000000" foes="0000100"/>
-         <logicitem request="6" response="0000010" foes="0000011"/>
+         <logicitem request="0" response="0000000" foes="1000000" cont="0"/>
+         <logicitem request="1" response="0000000" foes="1000000" cont="0"/>
+         <logicitem request="2" response="0100000" foes="0111000" cont="0"/>
+         <logicitem request="3" response="0000000" foes="0000100" cont="0"/>
+         <logicitem request="4" response="0000000" foes="0000100" cont="0"/>
+         <logicitem request="5" response="0000000" foes="0000100" cont="0"/>
+         <logicitem request="6" response="0000010" foes="0000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -590,12 +590,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -604,10 +604,10 @@
       <requestsize>4</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="0000" foes="1000" cont="0"/>
+         <logicitem request="1" response="0100" foes="0100" cont="0"/>
+         <logicitem request="2" response="0000" foes="0010" cont="0"/>
+         <logicitem request="3" response="0001" foes="0001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -616,8 +616,8 @@
       <requestsize>2</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="11" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
+         <logicitem request="0" response="11" foes="00" cont="0"/>
+         <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
@@ -626,10 +626,10 @@
       <requestsize>4</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="0000" foes="1000" cont="0"/>
+         <logicitem request="1" response="0100" foes="0100" cont="0"/>
+         <logicitem request="2" response="0000" foes="0010" cont="0"/>
+         <logicitem request="3" response="0001" foes="0001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -638,10 +638,10 @@
       <requestsize>4</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="0000" foes="1000" cont="0"/>
+         <logicitem request="1" response="0100" foes="0100" cont="0"/>
+         <logicitem request="2" response="0000" foes="0010" cont="0"/>
+         <logicitem request="3" response="0001" foes="0001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -650,10 +650,10 @@
       <requestsize>4</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="0000" foes="1000" cont="0"/>
+         <logicitem request="1" response="0100" foes="0100" cont="0"/>
+         <logicitem request="2" response="0000" foes="0010" cont="0"/>
+         <logicitem request="3" response="0001" foes="0001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -662,10 +662,10 @@
       <requestsize>4</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="1000"/>
-         <logicitem request="1" response="0100" foes="0100"/>
-         <logicitem request="2" response="0000" foes="0010"/>
-         <logicitem request="3" response="0001" foes="0001"/>
+         <logicitem request="0" response="0000" foes="1000" cont="0"/>
+         <logicitem request="1" response="0100" foes="0100" cont="0"/>
+         <logicitem request="2" response="0000" foes="0010" cont="0"/>
+         <logicitem request="3" response="0001" foes="0001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -674,12 +674,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -688,12 +688,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -702,12 +702,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -716,12 +716,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -730,13 +730,13 @@
       <requestsize>7</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="0000000" foes="1000000"/>
-         <logicitem request="1" response="0000000" foes="1000000"/>
-         <logicitem request="2" response="0000000" foes="1000000"/>
-         <logicitem request="3" response="0100000" foes="0110000"/>
-         <logicitem request="4" response="0000000" foes="0001000"/>
-         <logicitem request="5" response="0000000" foes="0001000"/>
-         <logicitem request="6" response="0000100" foes="0000111"/>
+         <logicitem request="0" response="0000000" foes="1000000" cont="0"/>
+         <logicitem request="1" response="0000000" foes="1000000" cont="0"/>
+         <logicitem request="2" response="0000000" foes="1000000" cont="0"/>
+         <logicitem request="3" response="0100000" foes="0110000" cont="0"/>
+         <logicitem request="4" response="0000000" foes="0001000" cont="0"/>
+         <logicitem request="5" response="0000000" foes="0001000" cont="0"/>
+         <logicitem request="6" response="0000100" foes="0000111" cont="0"/>
       </logic>
    </row-logic>
 
@@ -745,26 +745,26 @@
       <requestsize>20</requestsize>
       <lanenumber>13</lanenumber>
       <logic>
-         <logicitem request="0" response="00000000000000000000" foes="10000001000001100000"/>
-         <logicitem request="1" response="01010000000000000000" foes="01111111000011100000"/>
-         <logicitem request="2" response="01010000110000000000" foes="01111000110111100000"/>
-         <logicitem request="3" response="01000000100000000000" foes="01100000100000010000"/>
-         <logicitem request="4" response="00000000000000000000" foes="01100000100000001000"/>
-         <logicitem request="5" response="00000000000000000001" foes="11100001100000000111"/>
-         <logicitem request="6" response="00000000000000000110" foes="11100001100000000111"/>
-         <logicitem request="7" response="00010000000000000110" foes="00011111100000000110"/>
-         <logicitem request="8" response="00010000010000000100" foes="00011000010000000100"/>
-         <logicitem request="9" response="11111111111111111111" foes="00000000000000000000"/>
-         <logicitem request="10" response="00000000000000000000" foes="00011000000100000100"/>
-         <logicitem request="11" response="00000000000011000000" foes="01111000000011111100"/>
-         <logicitem request="12" response="00000000000011000010" foes="11111000000011100011"/>
-         <logicitem request="13" response="00000000000010000010" foes="00000100000010000010"/>
-         <logicitem request="14" response="00000000000000000000" foes="00000010000010000010"/>
-         <logicitem request="15" response="00000000000000000000" foes="00000001110110000110"/>
-         <logicitem request="16" response="00000001110000000000" foes="00000001110110000110"/>
-         <logicitem request="17" response="00000000000000110000" foes="00000001100001111110"/>
-         <logicitem request="18" response="00000001100001000000" foes="00000001100001111110"/>
-         <logicitem request="19" response="00000001000001000000" foes="00000001000001100001"/>
+         <logicitem request="0" response="00000000000000000000" foes="10000001000001100000" cont="0"/>
+         <logicitem request="1" response="01010000000000000000" foes="01111111000011100000" cont="0"/>
+         <logicitem request="2" response="01010000110000000000" foes="01111000110111100000" cont="1"/>
+         <logicitem request="3" response="01000000100000000000" foes="01100000100000010000" cont="0"/>
+         <logicitem request="4" response="00000000000000000000" foes="01100000100000001000" cont="0"/>
+         <logicitem request="5" response="00000000000000000001" foes="11100001100000000111" cont="0"/>
+         <logicitem request="6" response="00000000000000000110" foes="11100001100000000111" cont="0"/>
+         <logicitem request="7" response="00010000000000000110" foes="00011111100000000110" cont="1"/>
+         <logicitem request="8" response="00010000010000000100" foes="00011000010000000100" cont="0"/>
+         <logicitem request="9" response="11111111111111111111" foes="00000000000000000000" cont="0"/>
+         <logicitem request="10" response="00000000000000000000" foes="00011000000100000100" cont="0"/>
+         <logicitem request="11" response="00000000000011000000" foes="01111000000011111100" cont="0"/>
+         <logicitem request="12" response="00000000000011000010" foes="11111000000011100011" cont="1"/>
+         <logicitem request="13" response="00000000000010000010" foes="00000100000010000010" cont="0"/>
+         <logicitem request="14" response="00000000000000000000" foes="00000010000010000010" cont="0"/>
+         <logicitem request="15" response="00000000000000000000" foes="00000001110110000110" cont="0"/>
+         <logicitem request="16" response="00000001110000000000" foes="00000001110110000110" cont="0"/>
+         <logicitem request="17" response="00000000000000110000" foes="00000001100001111110" cont="1"/>
+         <logicitem request="18" response="00000001100001000000" foes="00000001100001111110" cont="1"/>
+         <logicitem request="19" response="00000001000001000000" foes="00000001000001100001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -773,12 +773,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -787,8 +787,8 @@
       <requestsize>2</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="11" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
+         <logicitem request="0" response="11" foes="00" cont="0"/>
+         <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
@@ -797,17 +797,17 @@
       <requestsize>11</requestsize>
       <lanenumber>5</lanenumber>
       <logic>
-         <logicitem request="0" response="00000000000" foes="10000100000"/>
-         <logicitem request="1" response="00010000000" foes="01111100000"/>
-         <logicitem request="2" response="01000000000" foes="01100011000"/>
-         <logicitem request="3" response="00000000000" foes="01100000100"/>
-         <logicitem request="4" response="00000000000" foes="01100000100"/>
-         <logicitem request="5" response="00000000000" foes="11100000011"/>
-         <logicitem request="6" response="00010000010" foes="00010000010"/>
-         <logicitem request="7" response="00000000000" foes="00001000010"/>
-         <logicitem request="8" response="00000000000" foes="00000111110"/>
-         <logicitem request="9" response="00000000000" foes="00000111110"/>
-         <logicitem request="10" response="00000100000" foes="00000100001"/>
+         <logicitem request="0" response="00000000000" foes="10000100000" cont="0"/>
+         <logicitem request="1" response="00010000000" foes="01111100000" cont="0"/>
+         <logicitem request="2" response="01000000000" foes="01100011000" cont="0"/>
+         <logicitem request="3" response="00000000000" foes="01100000100" cont="0"/>
+         <logicitem request="4" response="00000000000" foes="01100000100" cont="0"/>
+         <logicitem request="5" response="00000000000" foes="11100000011" cont="0"/>
+         <logicitem request="6" response="00010000010" foes="00010000010" cont="0"/>
+         <logicitem request="7" response="00000000000" foes="00001000010" cont="0"/>
+         <logicitem request="8" response="00000000000" foes="00000111110" cont="0"/>
+         <logicitem request="9" response="00000000000" foes="00000111110" cont="0"/>
+         <logicitem request="10" response="00000100000" foes="00000100001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -816,7 +816,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -825,12 +825,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -839,8 +839,8 @@
       <requestsize>2</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="11" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
+         <logicitem request="0" response="11" foes="00" cont="0"/>
+         <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
@@ -849,12 +849,12 @@
       <requestsize>6</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="100000"/>
-         <logicitem request="1" response="000000" foes="100000"/>
-         <logicitem request="2" response="010000" foes="011000"/>
-         <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000100"/>
-         <logicitem request="5" response="000010" foes="000011"/>
+         <logicitem request="0" response="000000" foes="100000" cont="0"/>
+         <logicitem request="1" response="000000" foes="100000" cont="0"/>
+         <logicitem request="2" response="010000" foes="011000" cont="0"/>
+         <logicitem request="3" response="000000" foes="000100" cont="0"/>
+         <logicitem request="4" response="000000" foes="000100" cont="0"/>
+         <logicitem request="5" response="000010" foes="000011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -863,7 +863,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -872,18 +872,18 @@
       <requestsize>12</requestsize>
       <lanenumber>5</lanenumber>
       <logic>
-         <logicitem request="0" response="000000000000" foes="100001100000"/>
-         <logicitem request="1" response="000001000000" foes="100001100000"/>
-         <logicitem request="2" response="001100000000" foes="011111100000"/>
-         <logicitem request="3" response="010000000000" foes="011000010000"/>
-         <logicitem request="4" response="000000000000" foes="011000001000"/>
-         <logicitem request="5" response="000000000000" foes="111000000111"/>
-         <logicitem request="6" response="000000000000" foes="111000000111"/>
-         <logicitem request="7" response="000100000100" foes="000100000100"/>
-         <logicitem request="8" response="000000000000" foes="000010000100"/>
-         <logicitem request="9" response="000000010000" foes="000001111100"/>
-         <logicitem request="10" response="000001000000" foes="000001111100"/>
-         <logicitem request="11" response="000000100000" foes="000001100011"/>
+         <logicitem request="0" response="000000000000" foes="100001100000" cont="0"/>
+         <logicitem request="1" response="000001000000" foes="100001100000" cont="0"/>
+         <logicitem request="2" response="001100000000" foes="011111100000" cont="0"/>
+         <logicitem request="3" response="010000000000" foes="011000010000" cont="0"/>
+         <logicitem request="4" response="000000000000" foes="011000001000" cont="0"/>
+         <logicitem request="5" response="000000000000" foes="111000000111" cont="0"/>
+         <logicitem request="6" response="000000000000" foes="111000000111" cont="0"/>
+         <logicitem request="7" response="000100000100" foes="000100000100" cont="0"/>
+         <logicitem request="8" response="000000000000" foes="000010000100" cont="0"/>
+         <logicitem request="9" response="000000010000" foes="000001111100" cont="0"/>
+         <logicitem request="10" response="000001000000" foes="000001111100" cont="0"/>
+         <logicitem request="11" response="000000100000" foes="000001100011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -892,7 +892,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -901,7 +901,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -910,11 +910,11 @@
       <requestsize>5</requestsize>
       <lanenumber>3</lanenumber>
       <logic>
-         <logicitem request="0" response="00000" foes="10000"/>
-         <logicitem request="1" response="00000" foes="10000"/>
-         <logicitem request="2" response="01000" foes="01000"/>
-         <logicitem request="3" response="00000" foes="00100"/>
-         <logicitem request="4" response="00010" foes="00011"/>
+         <logicitem request="0" response="00000" foes="10000" cont="0"/>
+         <logicitem request="1" response="00000" foes="10000" cont="0"/>
+         <logicitem request="2" response="01000" foes="01000" cont="0"/>
+         <logicitem request="3" response="00000" foes="00100" cont="0"/>
+         <logicitem request="4" response="00010" foes="00011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -923,17 +923,17 @@
       <requestsize>11</requestsize>
       <lanenumber>5</lanenumber>
       <logic>
-         <logicitem request="0" response="00000000000" foes="10000100000"/>
-         <logicitem request="1" response="00000000000" foes="10000100000"/>
-         <logicitem request="2" response="00000000000" foes="01111100000"/>
-         <logicitem request="3" response="01000000000" foes="01100010000"/>
-         <logicitem request="4" response="00000000000" foes="01100001000"/>
-         <logicitem request="5" response="00000000010" foes="11100000111"/>
-         <logicitem request="6" response="00010000100" foes="00010000100"/>
-         <logicitem request="7" response="00000000100" foes="00001000100"/>
-         <logicitem request="8" response="00000010100" foes="00000111100"/>
-         <logicitem request="9" response="00000100000" foes="00000111100"/>
-         <logicitem request="10" response="00000100010" foes="00000100011"/>
+         <logicitem request="0" response="00000000000" foes="10000100000" cont="0"/>
+         <logicitem request="1" response="00000000000" foes="10000100000" cont="0"/>
+         <logicitem request="2" response="00000000000" foes="01111100000" cont="0"/>
+         <logicitem request="3" response="01000000000" foes="01100010000" cont="0"/>
+         <logicitem request="4" response="00000000000" foes="01100001000" cont="0"/>
+         <logicitem request="5" response="00000000010" foes="11100000111" cont="0"/>
+         <logicitem request="6" response="00010000100" foes="00010000100" cont="0"/>
+         <logicitem request="7" response="00000000100" foes="00001000100" cont="0"/>
+         <logicitem request="8" response="00000010100" foes="00000111100" cont="0"/>
+         <logicitem request="9" response="00000100000" foes="00000111100" cont="0"/>
+         <logicitem request="10" response="00000100010" foes="00000100011" cont="0"/>
       </logic>
    </row-logic>
 
@@ -982,7 +982,7 @@
 
    <junction id="100668444" type="priority" x="2052.00" y="3563.00">
       <inclanes>905005456_0 905005456_1</inclanes>
-      <shape>2051.98,3563.07 2049.07,3571.79 2054.93,3554.21 2052.02,3562.93</shape>
+      <shape>2051.98,3563.07 2054.93,3554.21 2049.12,3557.12</shape>
    </junction>
 
    <junction id="100674626" type="priority" x="2905.00" y="75.00">
@@ -1042,7 +1042,7 @@
 
    <junction id="1567" type="priority" x="0.00" y="1826.00">
       <inclanes>-53091482_0 -53091482_1</inclanes>
-      <shape>-0.02,1825.93 -2.93,1817.21 2.93,1834.79 0.02,1826.07</shape>
+      <shape>-0.02,1825.93 2.93,1834.79 5.84,1828.97</shape>
    </junction>
 
    <junction id="1568" type="priority" x="568.00" y="2953.00">
@@ -1052,7 +1052,7 @@
 
    <junction id="1571" type="priority" x="302.00" y="2746.00">
       <inclanes>905001109_0</inclanes>
-      <shape>301.99,2745.93 301.36,2741.45 302.64,2750.55 302.01,2746.07</shape>
+      <shape>301.99,2745.93 302.64,2750.55 304.57,2747.99</shape>
    </junction>
 
    <junction id="1572" type="priority" x="330.00" y="3227.00">
@@ -1062,7 +1062,7 @@
 
    <junction id="1574" type="priority" x="104.00" y="4142.00">
       <inclanes>-905005137_0 -905005137_1</inclanes>
-      <shape>103.94,4142.04 96.67,4147.66 111.33,4136.34 104.06,4141.96</shape>
+      <shape>103.94,4142.04 111.33,4136.34 104.89,4135.51</shape>
    </junction>
 
    <junction id="1577" type="priority" x="9.00" y="3643.00">
@@ -1072,7 +1072,7 @@
 
    <junction id="1671" type="priority" x="1910.00" y="2806.00">
       <inclanes>545285123_0</inclanes>
-      <shape>1910.06,2806.04 1913.60,2808.86 1906.40,2803.14 1909.94,2805.96</shape>
+      <shape>1910.06,2806.04 1906.40,2803.14 1906.77,2806.32</shape>
    </junction>
 
    <junction id="1672" type="priority" x="1171.00" y="2904.00">
@@ -1082,12 +1082,12 @@
 
    <junction id="1678" type="priority" x="3286.00" y="0.00">
       <inclanes>-83535600_0</inclanes>
-      <shape>3286.05,0.05 3289.19,3.31 3282.81,-3.31 3285.95,-0.05</shape>
+      <shape>3286.05,0.05 3282.81,-3.31 3282.75,-0.11</shape>
    </junction>
 
    <junction id="261" type="priority" x="1236.00" y="2821.00">
       <inclanes>-905006352_0</inclanes>
-      <shape>1236.07,2820.99 1240.56,2820.45 1231.44,2821.55 1235.93,2821.01</shape>
+      <shape>1236.07,2820.99 1231.44,2821.55 1233.96,2823.53</shape>
    </junction>
 
    <junction id="605000010" type="priority" x="2405.00" y="726.00">

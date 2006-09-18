@@ -9,17 +9,17 @@
    <node_count>9</node_count>
 
 
-   <edge id="1fi" Length="251.80" Speed="11.11" Name="1fi" NoLanes="2" XFrom="0.00" YFrom="500.00" XTo="250.00" YTo="500.00" from="1" to="m1" Priority="2" Angle="270.00" Type="" function="normal">
+   <edge id="1fi" Length="248.50" Speed="11.11" Name="1fi" NoLanes="2" XFrom="0.00" YFrom="500.00" XTo="250.00" YTo="500.00" from="1" to="m1" Priority="2" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="1fi_0" depart="1" vclasses="" maxspeed="11.11" length="251.80">-4.95,495.05 248.50,495.05</lane>
-         <lane id="1fi_1" depart="0" vclasses="" maxspeed="11.11" length="251.80">-1.65,498.35 248.50,498.35</lane>
+         <lane id="1fi_0" depart="1" vclasses="" maxspeed="11.11" length="248.50">0.00,495.05 248.50,495.05</lane>
+         <lane id="1fi_1" depart="0" vclasses="" maxspeed="11.11" length="248.50">0.00,498.35 248.50,498.35</lane>
       </lanes>
       <cedge id="1si" via=":m1">1fi_0 1fi_1</cedge>
    </edge>
 
-   <edge id="1o" Length="487.00" Speed="11.11" Name="1o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="0.00" YTo="500.00" from="0" to="1" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="1o" Length="485.40" Speed="11.11" Name="1o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="0.00" YTo="500.00" from="0" to="1" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="1o_0" depart="1" vclasses="" maxspeed="11.11" length="487.00">488.65,501.65 1.65,501.65</lane>
+         <lane id="1o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">488.65,501.65 3.25,501.65</lane>
       </lanes>
    </edge>
 
@@ -34,17 +34,17 @@
       <cedge id="4o" via=":0">1si_2</cedge>
    </edge>
 
-   <edge id="2fi" Length="251.80" Speed="11.11" Name="2fi" NoLanes="2" XFrom="1000.00" YFrom="500.00" XTo="750.00" YTo="500.00" from="2" to="m2" Priority="2" Angle="90.00" Type="" function="normal">
+   <edge id="2fi" Length="248.50" Speed="11.11" Name="2fi" NoLanes="2" XFrom="1000.00" YFrom="500.00" XTo="750.00" YTo="500.00" from="2" to="m2" Priority="2" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="2fi_0" depart="1" vclasses="" maxspeed="11.11" length="251.80">1004.95,504.95 751.50,504.95</lane>
-         <lane id="2fi_1" depart="0" vclasses="" maxspeed="11.11" length="251.80">1001.65,501.65 751.50,501.65</lane>
+         <lane id="2fi_0" depart="1" vclasses="" maxspeed="11.11" length="248.50">1000.00,504.95 751.50,504.95</lane>
+         <lane id="2fi_1" depart="0" vclasses="" maxspeed="11.11" length="248.50">1000.00,501.65 751.50,501.65</lane>
       </lanes>
       <cedge id="2si" via=":m2">2fi_0 2fi_1</cedge>
    </edge>
 
-   <edge id="2o" Length="487.00" Speed="11.11" Name="2o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="1000.00" YTo="500.00" from="0" to="2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="2o" Length="485.40" Speed="11.11" Name="2o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="1000.00" YTo="500.00" from="0" to="2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" vclasses="" maxspeed="11.11" length="487.00">511.35,498.35 998.35,498.35</lane>
+         <lane id="2o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">511.35,498.35 996.75,498.35</lane>
       </lanes>
    </edge>
 
@@ -59,17 +59,17 @@
       <cedge id="3o" via=":0">2si_2</cedge>
    </edge>
 
-   <edge id="3fi" Length="251.80" Speed="11.11" Name="3fi" NoLanes="2" XFrom="500.00" YFrom="0.00" XTo="500.00" YTo="250.00" from="3" to="m3" Priority="2" Angle="180.00" Type="" function="normal">
+   <edge id="3fi" Length="248.50" Speed="11.11" Name="3fi" NoLanes="2" XFrom="500.00" YFrom="0.00" XTo="500.00" YTo="250.00" from="3" to="m3" Priority="2" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="3fi_0" depart="1" vclasses="" maxspeed="11.11" length="251.80">504.95,-4.95 504.95,248.50</lane>
-         <lane id="3fi_1" depart="0" vclasses="" maxspeed="11.11" length="251.80">501.65,-1.65 501.65,248.50</lane>
+         <lane id="3fi_0" depart="1" vclasses="" maxspeed="11.11" length="248.50">504.95,0.00 504.95,248.50</lane>
+         <lane id="3fi_1" depart="0" vclasses="" maxspeed="11.11" length="248.50">501.65,0.00 501.65,248.50</lane>
       </lanes>
       <cedge id="3si" via=":m3">3fi_0 3fi_1</cedge>
    </edge>
 
-   <edge id="3o" Length="487.00" Speed="11.11" Name="3o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" from="0" to="3" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="3o" Length="485.40" Speed="11.11" Name="3o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" from="0" to="3" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" vclasses="" maxspeed="11.11" length="487.00">498.35,488.65 498.35,1.65</lane>
+         <lane id="3o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">498.35,488.65 498.35,3.25</lane>
       </lanes>
    </edge>
 
@@ -84,17 +84,17 @@
       <cedge id="1o" via=":0">3si_2</cedge>
    </edge>
 
-   <edge id="4fi" Length="251.80" Speed="11.11" Name="4fi" NoLanes="2" XFrom="500.00" YFrom="1000.00" XTo="500.00" YTo="750.00" from="4" to="m4" Priority="2" Angle="0.00" Type="" function="normal">
+   <edge id="4fi" Length="248.50" Speed="11.11" Name="4fi" NoLanes="2" XFrom="500.00" YFrom="1000.00" XTo="500.00" YTo="750.00" from="4" to="m4" Priority="2" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="4fi_0" depart="1" vclasses="" maxspeed="11.11" length="251.80">495.05,1004.95 495.05,751.50</lane>
-         <lane id="4fi_1" depart="0" vclasses="" maxspeed="11.11" length="251.80">498.35,1001.65 498.35,751.50</lane>
+         <lane id="4fi_0" depart="1" vclasses="" maxspeed="11.11" length="248.50">495.05,1000.00 495.05,751.50</lane>
+         <lane id="4fi_1" depart="0" vclasses="" maxspeed="11.11" length="248.50">498.35,1000.00 498.35,751.50</lane>
       </lanes>
       <cedge id="4si" via=":m4">4fi_0 4fi_1</cedge>
    </edge>
 
-   <edge id="4o" Length="487.00" Speed="11.11" Name="4o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="1000.00" from="0" to="4" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="4o" Length="485.40" Speed="11.11" Name="4o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="1000.00" from="0" to="4" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="11.11" length="487.00">501.65,511.35 501.65,998.35</lane>
+         <lane id="4o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">501.65,511.35 501.65,996.75</lane>
       </lanes>
    </edge>
 
@@ -115,18 +115,18 @@
       <requestsize>12</requestsize>
       <lanenumber>12</lanenumber>
       <logic>
-         <logicitem request="0" response="000000000000" foes="000100010000"/>
-         <logicitem request="1" response="111000000000" foes="111100110000"/>
-         <logicitem request="2" response="110011000000" foes="110011110000"/>
-         <logicitem request="3" response="000000000000" foes="100010000000"/>
-         <logicitem request="4" response="000000000111" foes="100110000111"/>
-         <logicitem request="5" response="011000000110" foes="011110000110"/>
-         <logicitem request="6" response="000000000000" foes="010000000100"/>
-         <logicitem request="7" response="000000111000" foes="110000111100"/>
-         <logicitem request="8" response="000000110011" foes="110000110011"/>
-         <logicitem request="9" response="000000000000" foes="000000100010"/>
-         <logicitem request="10" response="000111000000" foes="000111100110"/>
-         <logicitem request="11" response="000110011000" foes="000110011110"/>
+         <logicitem request="0" response="000000000000" foes="000100010000" cont="0"/>
+         <logicitem request="1" response="111000000000" foes="111100110000" cont="0"/>
+         <logicitem request="2" response="110011000000" foes="110011110000" cont="0"/>
+         <logicitem request="3" response="000000000000" foes="100010000000" cont="0"/>
+         <logicitem request="4" response="000000000111" foes="100110000111" cont="0"/>
+         <logicitem request="5" response="011000000110" foes="011110000110" cont="0"/>
+         <logicitem request="6" response="000000000000" foes="010000000100" cont="0"/>
+         <logicitem request="7" response="000000111000" foes="110000111100" cont="0"/>
+         <logicitem request="8" response="000000110011" foes="110000110011" cont="0"/>
+         <logicitem request="9" response="000000000000" foes="000000100010" cont="0"/>
+         <logicitem request="10" response="000111000000" foes="000111100110" cont="0"/>
+         <logicitem request="11" response="000110011000" foes="000110011110" cont="0"/>
       </logic>
    </row-logic>
 
@@ -135,7 +135,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="1" foes="0"/>
+         <logicitem request="0" response="1" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -144,7 +144,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="1" foes="0"/>
+         <logicitem request="0" response="1" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -153,7 +153,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="1" foes="0"/>
+         <logicitem request="0" response="1" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -162,7 +162,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="1" foes="0"/>
+         <logicitem request="0" response="1" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -171,9 +171,9 @@
       <requestsize>3</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="000" foes="000" cont="0"/>
+         <logicitem request="1" response="000" foes="000" cont="0"/>
+         <logicitem request="2" response="000" foes="000" cont="0"/>
       </logic>
    </row-logic>
 
@@ -182,9 +182,9 @@
       <requestsize>3</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="000" foes="000" cont="0"/>
+         <logicitem request="1" response="000" foes="000" cont="0"/>
+         <logicitem request="2" response="000" foes="000" cont="0"/>
       </logic>
    </row-logic>
 
@@ -193,9 +193,9 @@
       <requestsize>3</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="000" foes="000" cont="0"/>
+         <logicitem request="1" response="000" foes="000" cont="0"/>
+         <logicitem request="2" response="000" foes="000" cont="0"/>
       </logic>
    </row-logic>
 
@@ -204,9 +204,9 @@
       <requestsize>3</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="000" foes="000" cont="0"/>
+         <logicitem request="1" response="000" foes="000" cont="0"/>
+         <logicitem request="2" response="000" foes="000" cont="0"/>
       </logic>
    </row-logic>
 
@@ -219,22 +219,22 @@
 
    <junction id="1" type="priority" x="0.00" y="500.00">
       <inclanes>1o_0</inclanes>
-      <shape>-0.05,499.95 -6.55,493.45 3.25,503.25 0.05,500.05</shape>
+      <shape>-0.05,499.95 3.25,503.25 3.25,500.05</shape>
    </junction>
 
    <junction id="2" type="priority" x="1000.00" y="500.00">
       <inclanes>2o_0</inclanes>
-      <shape>1000.05,500.05 1006.55,506.55 996.75,496.75 999.95,499.95</shape>
+      <shape>1000.05,500.05 996.75,496.75 996.75,499.95</shape>
    </junction>
 
    <junction id="3" type="priority" x="500.00" y="0.00">
       <inclanes>3o_0</inclanes>
-      <shape>500.05,-0.05 506.55,-6.55 496.75,3.25 499.95,0.05</shape>
+      <shape>500.05,-0.05 496.75,3.25 499.95,3.25</shape>
    </junction>
 
    <junction id="4" type="priority" x="500.00" y="1000.00">
       <inclanes>4o_0</inclanes>
-      <shape>499.95,1000.05 493.45,1006.55 503.25,996.75 500.05,999.95</shape>
+      <shape>499.95,1000.05 503.25,996.75 500.05,996.75</shape>
    </junction>
 
    <junction id="m1" type="priority" x="250.00" y="500.00">

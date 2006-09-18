@@ -40,16 +40,16 @@
 
    <edge id="sink" Length="500.00" Speed="30.00" Name="sink" NoLanes="3" XFrom="1700.00" YFrom="0.00" XTo="2200.00" YTo="0.00" from="dr" to="sink" Priority="1" Angle="270.00" Type="sink" function="sink">
       <lanes>
-         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2191.75,-8.25</lane>
-         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2195.05,-4.95</lane>
-         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-1.65 2198.35,-1.65</lane>
+         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2190.15,-8.25</lane>
+         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2190.15,-4.95</lane>
+         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-1.65 2190.15,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="source" Length="500.00" Speed="40.00" Name="source" NoLanes="2" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" from="source" to="dl" Priority="1" Angle="270.00" Type="source" function="source">
       <lanes>
-         <lane id="source_0" depart="1" vclasses="" maxspeed="40.00" length="500.00">-4.95,-4.95 500.00,-4.95</lane>
-         <lane id="source_1" depart="0" vclasses="" maxspeed="40.00" length="500.00">-1.65,-1.65 500.00,-1.65</lane>
+         <lane id="source_0" depart="1" vclasses="" maxspeed="40.00" length="500.00">0.00,-4.95 500.00,-4.95</lane>
+         <lane id="source_1" depart="0" vclasses="" maxspeed="40.00" length="500.00">0.00,-1.65 500.00,-1.65</lane>
       </lanes>
       <cedge id="1" via=":dl">source_0</cedge>
    </edge>
@@ -60,9 +60,9 @@
       <requestsize>3</requestsize>
       <lanenumber>3</lanenumber>
       <logic>
-         <logicitem request="0" response="100" foes="100"/>
-         <logicitem request="1" response="111" foes="000"/>
-         <logicitem request="2" response="000" foes="001"/>
+         <logicitem request="0" response="100" foes="100" cont="0"/>
+         <logicitem request="1" response="111" foes="000" cont="0"/>
+         <logicitem request="2" response="000" foes="001" cont="0"/>
       </logic>
    </row-logic>
 
@@ -71,10 +71,10 @@
       <requestsize>4</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0000" foes="0000"/>
-         <logicitem request="1" response="0000" foes="0000"/>
-         <logicitem request="2" response="0000" foes="0000"/>
-         <logicitem request="3" response="0000" foes="0000"/>
+         <logicitem request="0" response="0000" foes="0000" cont="0"/>
+         <logicitem request="1" response="0000" foes="0000" cont="0"/>
+         <logicitem request="2" response="0000" foes="0000" cont="0"/>
+         <logicitem request="3" response="0000" foes="0000" cont="0"/>
       </logic>
    </row-logic>
 
@@ -83,7 +83,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -92,7 +92,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -110,12 +110,12 @@
 
    <junction id="sink" type="DEAD_END" x="2200.00" y="0.00">
       <inclanes>sink_0 sink_1 sink_2</inclanes>
-      <shape>2190.15,-9.85 2199.95,-0.05</shape>
+      <shape>2190.15,-9.85 2190.15,-0.05</shape>
    </junction>
 
    <junction id="source" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05 -6.55,-6.55</shape>
+      <shape>-0.05,-0.05</shape>
    </junction>
 
    <junction id="tl" type="priority" x="500.00" y="190.99">

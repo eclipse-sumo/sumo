@@ -15,4 +15,6 @@ connections
 # tests whether definig function works
 function
 
+# tests whether internal lanes are computed properly
+internal
 

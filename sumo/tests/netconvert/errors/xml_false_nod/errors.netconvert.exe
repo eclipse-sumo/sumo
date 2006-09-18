@@ -1,15 +1,11 @@
 Error: File 'hokkaido.nod.xml' does not exist.
-Error: The xml-edges - file 'input_edges.edg.xml' is corrupt:
- On parsing edge '1':
+Error: On parsing edge '1':
  Either the name or the position of a node is not given.
-Error: The xml-edges - file 'input_edges.edg.xml' is corrupt:
- On parsing edge '2':
+Error: On parsing edge '2':
  Either the name or the position of a node is not given.
-Error: The xml-edges - file 'input_edges.edg.xml' is corrupt:
- On parsing edge '3':
+Error: On parsing edge '3':
  Either the name or the position of a node is not given.
-Error: The xml-edges - file 'input_edges.edg.xml' is corrupt:
- On parsing edge '4':
+Error: On parsing edge '4':
  Either the name or the position of a node is not given.
 Error: No nodes loaded.
 Quitting (conversion failed).
