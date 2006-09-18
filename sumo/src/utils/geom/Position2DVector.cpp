@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/09/18 10:17:49  dkrajzew
+// debugging
+//
 // Revision 1.36  2006/07/06 05:49:53  dkrajzew
 // made the assertion that two consecutive edge geomtry points must not be same less aggressive
 //
@@ -1025,6 +1028,46 @@ offset(const Position2D &from, const Position2D &to,
     return offsets;
 }
 
+
+void
+Position2DVector::move2side(SUMOReal amount, int index)
+{
+    if(index<0) {
+        index = myCont.size() + index;
+    }
+        if(/*i==myGeom.size()-2||*/index==0) {
+            Position2D from = myCont.at(index);
+            Position2D to = myCont.at(index+1);
+            std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
+            myCont[index] = Position2D(from.x()-offsets.first, from.y()-offsets.second);
+        } else if(index==myCont.size()-1) {
+            Position2D from = myCont.at(index-1);
+            Position2D to = myCont.at(index);
+            std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
+            myCont[index] = Position2D(to.x()-offsets.first, to.y()-offsets.second);
+        } else {
+            Position2D from = myCont.at(index-1);
+            Position2D me = myCont.at(index);
+            Position2D to = myCont.at(index+1);
+            std::pair<SUMOReal, SUMOReal> offsets = offset(from, me, amount);
+            std::pair<SUMOReal, SUMOReal> offsets2 = offset(me, to, amount);
+            Line2D l1(
+                Position2D(from.x()-offsets.first, from.y()-offsets.second),
+                Position2D(me.x()-offsets.first, me.y()-offsets.second));
+            l1.extrapolateBy(100);
+            Line2D l2(
+                Position2D(me.x()-offsets2.first, me.y()-offsets2.second),
+                Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
+            l2.extrapolateBy(100);
+            if(l1.intersects(l2)) {
+                myCont[index] = l1.intersectsAt(l2);
+            } else {
+                // !!! should never happen
+             //   throw 1;
+            }
+        }
+
+}
 
 void
 Position2DVector::move2side(SUMOReal amount)

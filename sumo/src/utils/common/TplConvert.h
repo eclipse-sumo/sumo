@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2006/09/18 10:16:57  dkrajzew
+// debugging
+//
 // Revision 1.3  2006/05/15 05:59:44  dkrajzew
 // added consective process messages
 //
@@ -165,8 +168,11 @@ public:
         throws an EmptyData - exception if the given string is empty */
     static std::string _2str(const E * const data, int length)
     {
-        if(data==0||length==0) {
+        if(data==0) {
             throw EmptyData();
+        }
+        if(length==0) {
+            return "";
         }
         char *buf = new char[length+1];
         int i = 0;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/09/18 10:16:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2006/02/23 11:34:22  dkrajzew
 // code beautifying
 //
@@ -112,8 +115,7 @@ FileErrorReporter::~FileErrorReporter()
 void
 FileErrorReporter::addError(const std::string &msg)
 {
-    MsgHandler::getErrorInstance()->inform("The " + _filetype + " '" + _file + "' is corrupt:");
-    MsgHandler::getErrorInstance()->inform(msg);
+    MsgHandler::getErrorInstance()->inform("The " + _filetype + " '" + _file + "' is corrupt:\n " + msg);
 }
 
 

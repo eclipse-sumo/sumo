@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/09/18 10:18:23  dkrajzew
+// debugging
+//
 // Revision 1.21  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -562,13 +565,10 @@ GUISUMOAbstractView::paintGL()
         paintGLGrid();
     }
     //
-
-
     doPaintGL(GL_RENDER, 1.0);
     if(_parent->showLegend()) {
         displayLegend();
     }
-    updatePositionInformation();
     // check whether the select mode /tooltips)
     //  shall be computed, too
     if(!_useToolTips) {
@@ -1219,9 +1219,6 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	RGBColor color = polygon.getColor();
 	glColor3d(color.red(), color.green(), color.blue());
 	double *points = new double[polygon.getPosition2DVector().size()*3];
-    if(polygon.getName()=="Bahn#0") {
-        int bla = 0;
-    }
     if(polygon.fill()) {
 	    GLUtesselator *tobj = gluNewTess();
 	    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
@@ -1282,17 +1279,40 @@ GUISUMOAbstractView::getSnapshot()
 {
     makeCurrent();
     // draw
+    // draw
+    glClearColor(
+        myVisualizationSettings.backgroundColor.red(),
+        myVisualizationSettings.backgroundColor.green(),
+        myVisualizationSettings.backgroundColor.blue(),
+        1);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glDisable(GL_POINT_SMOOTH);
-    glDisable(GL_LINE_SMOOTH);
-    glDisable(GL_POLYGON_SMOOTH);
+
+    if(myVisualizationSettings.dither) {
+        glEnable(GL_DITHER);
+    } else {
+        glDisable(GL_DITHER);
+    }
+    if(myVisualizationSettings.antialiase) {
+        glEnable(GL_BLEND);
+        glEnable(GL_POLYGON_SMOOTH);
+        glEnable(GL_LINE_SMOOTH);
+//        glDisable (GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_BLEND);
+        glDisable(GL_POLYGON_SMOOTH);
+        glDisable(GL_LINE_SMOOTH);
+//        glEnable (GL_DEPTH_TEST);
+    }
+
     applyChanges(1.0, 0, 0);
-    glScaled(1.0, -1.0, 1);
     if(_showGrid) {
         paintGLGrid();
     }
     doPaintGL(GL_RENDER, 1.0);
+    if(_parent->showLegend()) {
+        displayLegend();
+    }
 
     glFlush();
     swapBuffers();
@@ -1302,8 +1322,8 @@ GUISUMOAbstractView::getSnapshot()
     // read from the back buffer
     glReadBuffer(GL_BACK);
     // Read the pixels
-    glReadPixels(0, 0, getWidth(), getHeight(),
-        GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)buf);
+    glReadPixels(0, 0, getWidth(), getHeight(), GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)buf);
+    // !!! flip orientation
     makeNonCurrent();
     update();
     return buf;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/09/18 10:19:18  dkrajzew
+// debugging
+//
 // Revision 1.29  2006/08/01 07:19:56  dkrajzew
 // removed build number information
 //
@@ -307,7 +310,7 @@ buildNetwork(NBNetBuilder &nb)
     TNGNet *net = new TNGNet(nb);
     OptionsCont &oc = OptionsSubSys::getOptions();
     // spider-net
-    if(oc.getBool("s")) {
+    if(oc.getBool("spider-net")) {
         net->CreateSpiderWeb(
             oc.getInt("arms"),
             oc.getInt("circles"),

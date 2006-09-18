@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2006/09/18 10:17:50  dkrajzew
+// debugging
+//
 // Revision 1.26  2006/07/06 05:49:53  dkrajzew
 // made the assertion that two consecutive edge geomtry points must not be same less aggressive
 //
@@ -257,6 +260,7 @@ public:
     Position2DVector reverse() const;
 
     void move2side(SUMOReal amount);
+    void move2side(SUMOReal amount, int index);
 
     Line2D lineAt(size_t pos) const;
 

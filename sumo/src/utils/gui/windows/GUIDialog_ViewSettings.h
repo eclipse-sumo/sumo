@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/09/18 10:18:23  dkrajzew
+// debugging
+//
 // Revision 1.4  2006/07/06 05:55:59  dkrajzew
 // added the "show blinker" option
 //
@@ -124,6 +127,7 @@ private:
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
     FXCheckButton *myShowLaneBorders;
     FXCheckButton *myShowLaneDecals;
+    FXCheckButton *myShowRails;
 
     FXComboBox *myVehicleColorMode;
     FXVerticalFrame *myVehicleColorSettingFrame;

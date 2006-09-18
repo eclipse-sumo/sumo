@@ -1,5 +1,5 @@
 <tripdefs>
-	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" class="pedestrian"/>
+	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" vclass="pedestrian"/>
 	<tripdef depart="0" from="beg" to="rend" type="0"/>
 	<tripdef depart="1" from="beg" to="rend" type="0"/>
 	<tripdef depart="2" from="beg" to="rend" type="0"/>

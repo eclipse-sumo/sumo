@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/09/18 10:18:23  dkrajzew
+// debugging
+//
 // Revision 1.18  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -385,6 +388,7 @@ public:
         int laneEdgeExaggMode;
         SUMOReal minExagg;
         SUMOReal maxExagg;
+        bool showRails;
 
         int vehicleMode;
         float minVehicleSize;

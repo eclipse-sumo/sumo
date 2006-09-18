@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/09/18 10:18:40  dkrajzew
+// debugging
+//
 // Revision 1.35  2006/07/06 05:57:49  dkrajzew
 // removed unneeded values
 //
@@ -242,7 +245,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "accel",          SUMO_ATTR_ACCEL },
     { "decel",          SUMO_ATTR_DECEL },
     { "sigma",          SUMO_ATTR_SIGMA },
-    { "class",          SUMO_ATTR_VCLASS },
+    { "vclass",         SUMO_ATTR_VCLASS },
     { "repno",          SUMO_ATTR_REPNUMBER },
 
     { "last",           SUMO_ATTR_LAST },

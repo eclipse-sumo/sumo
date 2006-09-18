@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/09/18 10:18:23  dkrajzew
+// debugging
+//
 // Revision 1.8  2006/07/06 05:55:59  dkrajzew
 // added the "show blinker" option
 //
@@ -195,6 +198,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
         myShowLaneDecals = new FXCheckButton(m22, "Show link decals", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDecals->setCheck(mySettings->showLinkDecals);
+        myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowRails->setCheck(mySettings->showRails);
     }
     {
         if(myVehicleColoringInfoSource!=0) {
@@ -396,6 +401,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myLaneEdgeColorMode->setCurrentItem(mySettings->laneEdgeMode);
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
+    myShowRails->setCheck(mySettings->showRails);
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
@@ -460,6 +466,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->laneEdgeMode = myLaneEdgeColorMode->getCurrentItem();
     mySettings->laneShowBorders = myShowLaneBorders->getCheck()!=0;
     mySettings->showLinkDecals = myShowLaneDecals->getCheck()!=0;
+    mySettings->showRails = myShowRails->getCheck()!=0;
 
     if(myVehicleColoringInfoSource!=0) {
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
