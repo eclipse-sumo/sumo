@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2006/09/18 10:02:18  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.28  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -167,23 +170,6 @@ public:
     inline void setOwnTypeColor() const { static_cast<const GUIVehicleType&>(getVehicleType()).setColor(); }
     inline void setOwnRouteColor() const { static_cast<const GUIRoute&>(getRoute()).setColor(); }
 
-// !!! 4 UniDortmund
-    void networking_Begin();
-#ifdef NETWORKING_BLA
-    struct networking_EdgeTimeInformation {
-        MSEdge *edge;
-        size_t time;
-        SUMOReal val;
-    };
-	void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
-
-	void networking_KnowsAbout(GUIVehicle *v2, SUMOTime t);
-    void networking_End();
-    const std::vector<networking_EdgeTimeInformation> &
-        networking_GetKnownEdges();
-    bool networking_hasDevice();
-#endif
-
     //@{ From GUIGlObject
     /// returns the popup-menu for vehicles
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
@@ -206,14 +192,6 @@ public:
     Boundary getCenteringBoundary() const;
     //@}
 
-
-#ifdef NETWORKING_BLA
-    virtual void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
-
-    /** Update of members if vehicle enters a new lane in the emit step.
-        @param Pointer to the entered Lane. */
-    virtual void enterLaneAtEmit( MSLane* enteredLane );
-#endif
 
     /** returns a random color based on the vehicle's name
         (should stay the same across simulations */
@@ -296,16 +274,6 @@ private:
     /// random color #2 (completely random)
     RGBColor _randomColor2;
 
-#ifdef NETWORKING_BLA
-    std::vector<networking_EdgeTimeInformation> networking_myKnownEdges;
-    std::vector<GUIVehicle*> networking_mySeenThisTime;
-    std::vector<int> networking_myLaneEmitTime;
-    std::vector<int> networking_myLaneEntryTime;
-    std::set<GUIVehicle*> networking_mySeenGlobal;
-    bool networking_HaveDevice;
-	size_t networking_globalConns;
-	int networking_EntryTime;
-#endif
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

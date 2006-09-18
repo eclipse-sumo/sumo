@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2006/09/18 10:01:07  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.51  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -529,34 +532,6 @@ GUINet::initGUIStructures()
 }
 
 
-/*
-void
-GUINet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
-                      MSRouteLoaderControl *routeLoaders,
-                      MSTLLogicControl *tlc,
-                      std::vector<OutputDevice*> streams,
-                      const MSMeanData_Net_Cont &meanData,
-                      TimeVector stateDumpTimes,
-                      std::string stateDumpFiles)
-{
-    MSNet::closeBuilding(edges, junctions, routeLoaders, tlc,
-                      streams, meanData, stateDumpTimes, stateDumpFiles);
-    // initialise detector storage for gui
-    initDetectors();
-    // initialise the tl-map
-    initTLMap();
-    // initialise edge storage for gui
-    GUIEdge::fill(myEdgeWrapper);
-    // initialise junction storage for gui
-    GUIHelpingJunction::fill(myJunctionWrapper, gIDStorage);
-    // build the grid
-	GUIGridBuilder b(*this, _grid);
-	b.build();
-    // get the boundary
-    _boundary = _grid.getBoundary();
-}
-*/
-
 int
 GUINet::getWholeDuration() const
 {
@@ -660,50 +635,6 @@ GUINet::buildRouteLoader(const std::string &file)
     return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false));
 }
 
-
-#ifdef NETWORKING_BLA
-
-void
-GUINet::networking(SUMOTime startTimeStep, SUMOTime currentStep)
-{
-    MSVehicle::DictType::iterator i;
-	for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
-		GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
-		if(!hasPosition(v1)/*!!!4UniDortmund||!v1->networking_hasDevice()*/) {
-			continue;
-		}
-        v1->networking_Begin();
-    }
-    /* !!! 4 UniDortmund
-	for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
-		GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
-		if(!hasPosition(v1)||!v1->networking_hasDevice()) {
-			continue;
-		}
-		Position2D p1 = getVehiclePosition(v1->id());
-		MSVehicle::DictType::iterator j = i;
-		++j;
-		for(; j!=MSVehicle::myDict.end(); ++j) {
-			GUIVehicle *v2 = static_cast<GUIVehicle*>((*j).second);
-			if(!hasPosition(v2)||!v1->networking_hasDevice()) {
-				continue;
-			}
-			Position2D p2 = getVehiclePosition(v2->id());
-			if(fabs(p1.x()-p2.x())<10&&fabs(p1.y()-p2.y())<10) {
-				v1->networking_KnowsAbout(v2, currentStep);
-			}
-		}
-	}
-	for(i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); ++i) {
-		GUIVehicle *v1 = static_cast<GUIVehicle*>((*i).second);
-		if(!hasPosition(v1)||!v1->networking_hasDevice()) {
-			continue;
-		}
-        v1->networking_End();
-    }
-    */
-}
-#endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

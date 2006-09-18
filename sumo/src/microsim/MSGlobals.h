@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/09/18 10:06:04  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.11  2006/05/15 05:52:55  dkrajzew
 // debugging saving/loading of states
 //
@@ -106,6 +109,10 @@ public:
 
     /// Information whether a state has been loaded
     static bool gStateLoaded;
+
+
+	static SUMOReal gLANRange;
+	static SUMOReal gLANRefuseOldInfosOffset;
 
 };
 

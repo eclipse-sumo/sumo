@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/09/18 09:57:43  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.35  2006/01/09 11:50:41  dkrajzew
 // warnings removed
 //
@@ -277,9 +280,6 @@ GUIRunThread::makeStep()
         mySimulationLock.lock();
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
-#ifdef NETWORKING_BLA
-//		_net->networking(_simStartTime, _step);
-#endif
         mySimulationLock.unlock();
 
         // inform parent that a step has been performed

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:06:04  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.10  2006/05/15 05:52:55  dkrajzew
 // debugging saving/loading of states
 //
@@ -92,6 +95,9 @@ SUMOReal MSGlobals::gMinVehDist4FalseLaneTeleport;
 bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gStateLoaded;
+
+SUMOReal MSGlobals::gLANRange = 100;
+SUMOReal MSGlobals::gLANRefuseOldInfosOffset = 15 * 60;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

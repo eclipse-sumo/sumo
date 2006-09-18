@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.40  2006/09/18 10:01:24  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
+//
 // Revision 1.39  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -285,9 +288,6 @@ public:
     void initGUIStructures();
 
 	bool hasPosition(GUIVehicle *v) const;
-// !!! 4 UniDortmund #ifdef NETWORKING_BLA
-	void networking(SUMOTime startTimeStep, SUMOTime currentStep);
-// !!! 4 UniDortmund #endif
 
     MSRouteLoader *buildRouteLoader(const std::string &file);
 

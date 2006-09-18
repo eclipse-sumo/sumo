@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.81  2006/09/15 09:28:47  ericnicolay
-// TO SS2 SQL output added
+// Revision 1.82  2006/09/18 10:07:24  dkrajzew
+// removed deprecated c2c functions, added new made by Danilot Boyom
 //
 // Revision 1.80  2006/08/01 07:01:51  dkrajzew
 // simulation-wide cartesian to geocoordinates conversion added
@@ -486,6 +486,7 @@ namespace
 #include "MSDebugHelper.h" // !!!
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
+#include "MSBuildCells.h"
 #include <utils/geoconv/GeoConvHelper.h>
 #include <ctime>
 
@@ -535,6 +536,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myJunctions = 0;
     myRouteLoaders = 0;
     myLogics = 0;
+	myCellsBuilder = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
 	myMSPhoneNet = new MSPhoneNet();
@@ -559,6 +561,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myJunctions = 0;
     myRouteLoaders = 0;
     myLogics = 0;
+	myCellsBuilder = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
 	myMSPhoneNet = new MSPhoneNet();
@@ -590,12 +593,14 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setVehicleDeviceTOSS2SQLOutput(streams[OS_DEVICE_TO_SS2_SQL]);
 	MSCORN::setCellTOSS2SQLOutput(streams[OS_CELL_TO_SS2_SQL]);
 	MSCORN::setLATOSS2SQLOutput( streams[OS_LA_TO_SS2_SQL]);
-	myOutputStreams = streams;
+    myOutputStreams = streams;
     myMeanData = meanData;
 
     // we may add it before the network is loaded
     if(myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
+	    myCellsBuilder = new MSBuildCells(*this, myConvBoundary); //Danilo
+		myCellsBuilder->build();
     }
 
     // save the time the network state shall be saved at
@@ -605,7 +610,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // set requests/responses
     MSJunction::postloadInitContainer(); // !!!
 
-    GeoConvHelper::init("+proj=utm +zone=33 +ellps=bessel +units=m", myOffset);
+    GeoConvHelper::init(myOrigProj/*"+proj=utm +zone=33 +ellps=bessel +units=m"*/,
+        myOffset);
 }
 
 
@@ -631,6 +637,7 @@ MSNet::~MSNet()
     delete myShapeContainer;
     delete myTriggerControl;
 	delete myMSPhoneNet;
+	delete myCellsBuilder;
 	myMSPhoneNet = 0;
     clearAll();
     GeoConvHelper::close();
@@ -837,8 +844,118 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
+	computeCar2Car();
 }
 
+// Compute Car2Car-Communication
+void MSNet::computeCar2Car(void)
+{
+	ofstream out("resultMSNET.txt", ios_base::app);
+	ofstream out2("VehicleNeighborsGNU.txt", ios_base::app);
+	out<<"--------  Timestep   "<<myStep<<"   ------ "<<endl;
+    out2<<"#NewTS "<<myStep<<endl;
+	std::vector<std::string> edgeNames = myEdges->getEdgeNames();
+
+
+    std::vector<MSVehicle*> connected;
+
+	for(std::vector<std::string>::iterator i=edgeNames.begin(); i!=edgeNames.end(); ++i) {
+		MSEdge *e = MSEdge::dictionary(*i);
+	//	out<<"      Edge "<<(*j)->getID()<<" MyEquipped size "<<(*j)->myEquippedVeh.size()<<" ---"<<endl;
+        const MSEdge::DictTypeVeh &eEquipped = e->getEquippedVehs();
+        if(eEquipped.size()>0){
+			std::map<std::string, MSVehicle*>::const_iterator k = eEquipped.begin();
+			// above all Equipped vehicle of this Edge
+			for(k; k!=eEquipped.end();++k){
+				out<<"        Equipped veh "<<(*k).second->getID()<<"  ----"<<endl;
+				// first update the neighbor list
+				//(*k).second->updateNeighbors(myStep);
+				(*k).second->updateInfos(myStep);
+                const std::map<std::string, MSEdge*> &neighborEdges = e->getNeighborEdges();
+				// above all Egde neighbors of this Edge
+				for(std::map<std::string, MSEdge*>::const_iterator l=neighborEdges.begin(); l!=neighborEdges.end(); ++l){
+                    const MSEdge::DictTypeVeh &nEquipped = (*l).second->getEquippedVehs();
+					if(nEquipped.size()>0){
+						std::map<std::string, MSVehicle*>::const_iterator m = nEquipped.begin();
+						// above all neighbors of this cells
+						for(m; m!=nEquipped.end();++m){
+							if((*k).second->getID() != (*m).second->getID()){
+								(*k).second->addVehNeighbors((*m).second, myStep);
+							}
+						}
+					}
+				}
+				(*k).second->cleanUpConnections(myStep);
+                if((*k).second->getConnections().size()!=0) {
+                    connected.push_back((*k).second);
+                }
+			}
+		}
+	}
+
+    // clean up the list of interacting vehicles
+    /*
+    {
+        for(std::vector<MSVehicle*>::iterator q=connected.begin(); q!=connected.end(); ++q) {
+            // getSendingTimeEnd() liefert den Zeitpunkt des Endes des Sendens von sender
+            if((*q)->getSendingTimeEnd()>myStep+1) {
+                const MSVehicle::VehCont &conns = sender->getConnections();
+                for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
+                    // remove vehicles around a vehicle that sends over the current time step
+                    MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
+                    std::vector<MSVehicle*>::iterator q3 =
+                        find(connected.begin(), connected.end(); conn);
+                    if(q3!=connected.end()) {
+                        connected.erase(q3);
+                    }
+                }
+            }
+        }
+    }
+    // send
+    {
+        while(connected.size()!=0) {
+            int index = (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size();
+            std::vector<MSVehicle*>::iterator q = connected.begin() + index;
+            if((*q)->maySend()) {
+                (*q)->send(myStep);
+                if((*q)->getSendingTimeEnd()>myStep+1) {
+                    const MSVehicle::VehCont &conns = sender->getConnections();
+                    for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
+                        // remove vehicles around a vehicle that sends over the current time step
+                        MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
+                        std::vector<MSVehicle*>::iterator q3 =
+                            find(connected.begin(), connected.end(); conn);
+                        if(q3!=connected.end()) {
+                            connected.erase(q3);
+                        }
+                    }
+                }
+            } else {
+                connected.erase(q);
+            }
+
+            /*
+            MSVehicle *sender = (*q)->getSendingNeighbor();
+            if(sender!=0) {
+
+                if(sender->getSendingTimeEnd()>myStep+1) {
+                    const MSVehicle::VehCont &conns = sender->getConnections();
+                    for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
+                        MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
+                        s
+                    }
+                }
+            }
+            /
+
+        }
+    }
+*/
+	out2<<"#End"<<endl;
+	out.close();
+	out2.close();
+}
 
 void
 MSNet::clearAll()
@@ -1041,6 +1158,13 @@ MSNet::setConvBoundary(const Boundary &p)
 }
 
 
+void
+MSNet::setOrigProj(const std::string &proj)
+{
+    myOrigProj = proj;
+}
+
+
 
 const Position2D &
 MSNet::getOffset() const
@@ -1060,6 +1184,13 @@ const Boundary &
 MSNet::getConvBoundary() const
 {
     return myConvBoundary;
+}
+
+
+const std::string &
+MSNet::getOrigProj() const
+{
+    return myOrigProj;
 }
 
 
