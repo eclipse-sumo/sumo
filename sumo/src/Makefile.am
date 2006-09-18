@@ -62,6 +62,7 @@ sumo_version.cpp sumo_version.h netconvert_build.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
+./utils/geoconv/libgeoconv.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -191,7 +192,8 @@ sumo_version.cpp sumo_version.h od2trips_build.h
 
 sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
 
-sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
+sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
+./polyconvert/libpolyconvert.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./foreign/proj/libproj.a \

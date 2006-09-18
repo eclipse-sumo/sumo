@@ -424,7 +424,6 @@ dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
 bin/Makefile
 prj/Makefile
-prj/add-ins/Makefile
 prj/msvc6/Makefile
 prj/msvc6/dfrouter/Makefile
 prj/msvc6/duarouter/Makefile

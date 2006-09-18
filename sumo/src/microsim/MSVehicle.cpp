@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.86  2006/09/18 12:31:12  dkrajzew
+// patched building under Linux
+//
 // Revision 1.85  2006/09/18 10:09:04  dkrajzew
 // c2c added; vehicle classes added
 //
@@ -515,6 +518,7 @@ namespace
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include <map>
 #include "MSMoveReminder.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
@@ -2294,7 +2298,8 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 void
 MSVehicle::cleanUpConnections(int time)
 {
-	std::map<std::string, C2CConnection*>::iterator i;
+  /*
+	VehCont::iterator i;
 	ofstream out("VehicleNeighborsGNU.txt", ios_base::app);
 	for(i=myNeighbors.begin(); i!=myNeighbors.end(); ) {
 		if((*i).second->lastTimeSeen != time) {
@@ -2307,7 +2312,7 @@ MSVehicle::cleanUpConnections(int time)
 			out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
 			out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
 			out<<" Verbindung moeglich? Nein (Erase !!)"<<endl;
-			*/
+			/
             MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)->quitRemindedLeft(this);
 			i = myNeighbors.erase(i);
 		} else {
@@ -2325,11 +2330,12 @@ MSVehicle::cleanUpConnections(int time)
 			out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
 			out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
 			out<<" Verbindung moeglich? Ja (Updating)"<<endl;
-			*/
+			/
 			++i;
 		}
 	}
 	out.close();
+	*/
 }
 
 /*
@@ -2400,14 +2406,16 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 void
 MSVehicle::updateInfos(int time)
 {
-	std::map<std::string, Information*>::iterator i = infoCont.begin();
-	for(i; i!= infoCont.end(); ){
+  /*
+	std::map<std::string, Information*>::iterator i;
+	for(i=infoCont.begin(); i!= infoCont.end(); ){
 		if((*i).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
 			i = infoCont.erase(i);
 		}else{
 			i++;
 		}
 	}
+  */
 }
 
 
