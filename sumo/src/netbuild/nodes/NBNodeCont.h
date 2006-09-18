@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.12  2006/03/27 07:26:32  dkrajzew
 // added projection information to the network
 //
@@ -247,6 +250,7 @@ public:
 
     void writeXMLInternalLinks(std::ostream &into);
     void writeXMLInternalSuccInfos(std::ostream &into);
+    void writeXMLInternalNodes(std::ostream &into);
 
 
     /// writes the nodes into the given ostream

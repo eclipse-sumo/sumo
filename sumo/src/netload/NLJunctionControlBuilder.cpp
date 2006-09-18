@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.25  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -157,6 +160,7 @@ namespace
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSNoLogicJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
+#include <microsim/MSInternalJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
@@ -188,6 +192,7 @@ const int NLJunctionControlBuilder::TYPE_NOJUNCTION = 0;
 const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 1;
 const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 2;
 const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
+const int NLJunctionControlBuilder::TYPE_INTERNAL = 4;
 
 
 /* =========================================================================
@@ -246,6 +251,8 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         myType = TYPE_PRIORITY_JUNCTION;
     } else if(type=="DEAD_END"||type=="district") {
         myType = TYPE_DEAD_END;
+    } else if(type=="internal") {
+        myType = TYPE_INTERNAL;
     }
     if(myType<0) {
         MsgHandler::getErrorInstance()->inform("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
@@ -286,6 +293,11 @@ NLJunctionControlBuilder::closeJunction()
     case TYPE_DEAD_END:
         junction = buildNoLogicJunction();
         break;
+#ifdef HAVE_INTERNAL_LANES
+    case TYPE_INTERNAL:
+        junction = buildInternalJunction();
+        break;
+#endif
     default:
         MsgHandler::getErrorInstance()->inform("False junction type.");
         throw ProcessError();
@@ -328,6 +340,17 @@ NLJunctionControlBuilder::buildLogicJunction()
 #endif
         jtype);
 }
+
+
+#ifdef HAVE_INTERNAL_LANES
+MSJunction *
+NLJunctionControlBuilder::buildInternalJunction()
+{
+    // build the junction
+    return new MSInternalJunction(myActiveID, myPosition, myActiveIncomingLanes,
+        myActiveInternalLanes);
+}
+#endif
 
 
 MSJunctionLogic *
@@ -460,6 +483,7 @@ NLJunctionControlBuilder::initJunctionLogic()
     myActiveSubKey = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
+    myActiveConts.reset(false);
     myRequestSize = -1;
     myLaneNumber = -1;
     myRequestItemNumber = 0;
@@ -469,7 +493,8 @@ NLJunctionControlBuilder::initJunctionLogic()
 void
 NLJunctionControlBuilder::addLogicItem(int request,
                                        const string &response,
-                                       const std::string &foes)
+                                       const std::string &foes,
+                                       bool cont)
 {
     if(myRequestSize<=0) {
         MsgHandler::getErrorInstance()->inform("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
@@ -480,12 +505,11 @@ NLJunctionControlBuilder::addLogicItem(int request,
     assert(myActiveLogic->size()>(size_t) request);
     (*myActiveLogic)[request] = use;
     // add the read junction-internal foes for the given request index
-/*    //  ...but only if junction-internal lanes shall be loaded
-    //if(MSGlobals::gUsingInternalLanes) {*/
-        bitset<64> use2(foes);
-        assert(myActiveFoes->size()>(size_t) request);
-        (*myActiveFoes)[request] = use2;
-    //}
+    bitset<64> use2(foes);
+    assert(myActiveFoes->size()>(size_t) request);
+    (*myActiveFoes)[request] = use2;
+    // add whether the vehicle may drive a little bit further
+    myActiveConts.set(request, cont);
     // increse number of set information
     myRequestItemNumber++;
 }
@@ -585,7 +609,7 @@ NLJunctionControlBuilder::closeJunctionLogic()
         MsgHandler::getErrorInstance()->inform("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     MSJunctionLogic *logic =
-        new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes);
+        new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes, myActiveConts);
     MSJunctionLogic::dictionary(myActiveKey, logic); // !!! replacement within the dictionary
 }
 

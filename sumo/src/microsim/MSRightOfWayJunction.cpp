@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/09/18 10:07:43  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.16  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -281,9 +284,6 @@ MSRightOfWayJunction::rebuildPriorities()
     logic2->resize(myLogic->nLinks());
     const MSBitSetLogic<64>::Foes &foes = static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalFoes();
     // go through each link
-    if(getID()=="1565") {
-        int bla = 0;
-    }
     size_t running = 0;
     for(size_t i=0; i<myIncomingLanes.size(); ++i) {
         const MSLinkCont &links = myIncomingLanes[i]->getLinkCont();
@@ -322,7 +322,8 @@ MSRightOfWayJunction::rebuildPriorities()
     }
     MSBitSetLogic<64> *nlogic = new MSBitSetLogic<64>(myLogic->nLinks(), myLogic->nInLanes(),
         logic2,
-        new MSBitSetLogic<64>::Foes(static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalFoes()));
+        new MSBitSetLogic<64>::Foes(static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalFoes()),
+        static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalConts());
     delete myLogic;
     myLogic = nlogic;
     MSJunctionLogic::replace(getID(), myLogic);

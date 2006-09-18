@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.16  2006/02/27 12:11:04  dkrajzew
 // variants container named properly
 //
@@ -118,6 +121,7 @@ namespace
 #include <map>
 #include <vector>
 #include <microsim/MSLane.h>
+#include <microsim/MSInternalLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -167,6 +171,7 @@ void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #ifdef HAVE_INTERNAL_LANES
                                      const std::string &viaID,
+                                     SUMOReal pass,
 #endif
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
@@ -197,6 +202,9 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         }
     }
 #endif
+    if(pass>=0) {
+        static_cast<MSInternalLane*>(lane)->setPassPosition(pass);
+    }
     // check whether this link is controlled by a traffic light
     MSTLLogicControl::TLSLogicVariants logics;
     if(tlid!="") {

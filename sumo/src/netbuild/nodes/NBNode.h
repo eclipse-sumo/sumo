@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.12  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -337,6 +340,7 @@ public:
 
     void writeXMLInternalLinks(std::ostream &into);
     void writeXMLInternalSuccInfos(std::ostream &into);
+    void writeXMLInternalNodes(std::ostream &into);
 
 
 
@@ -416,7 +420,7 @@ public:
 
     const Position2DVector &getShape() const;
 
-    size_t countInternalLanes();
+    size_t countInternalLanes(bool includeSplits);
 
     std::string getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const;
 
@@ -433,6 +437,13 @@ public:
 
     bool isNearDistrict() const;
     bool isDistrict() const;
+
+
+    std::pair<SUMOReal, std::vector<size_t> > getCrossingPosition(NBEdge *fromE, size_t fromL,
+        NBEdge *toE, size_t toL);
+    std::string getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
+        NBEdge *toE, size_t toL);
+
 
 private:
 

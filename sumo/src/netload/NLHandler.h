@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.7  2006/07/06 06:14:40  dkrajzew
 // removed unneeded values
 //
@@ -463,6 +466,9 @@ protected:
 
     /// The length of the current lane
     SUMOReal myCurrentLength;
+
+    /// Vehicle classes allowed/disallowed on the current lane
+    std::string myVehicleClasses;
 
     /// The shape of the current lane
     Position2DVector myShape;

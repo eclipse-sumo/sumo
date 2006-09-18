@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.69  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.68  2006/08/01 07:04:50  dkrajzew
 // current geocoordinate translations and new network format functions added
 //
@@ -467,8 +470,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 //    _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
 //    _ToEdges = new map<NBEdge*, vector<size_t> >();
     if(_length<=0) {
-        _length = GeomHelper::distance(
-            _from->getPosition(), _to->getPosition());
+        _length = GeomHelper::distance(_from->getPosition(), _to->getPosition());
     }
     assert(_from->getPosition()!=_to->getPosition());
     myGeom.push_back(_from->getPosition());
@@ -1036,8 +1038,7 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
     if(edge==0) {
         return;
     }
-    into << "      <cedge id=\"" << edge->getID()
-        << "\" via=\":" << _to->getID() << "\">";
+    into << "      <cedge id=\"" << edge->getID() << "\" via=\":" << _to->getID() << "\">";
     size_t noApproachers = lanes.size();
     for(size_t i=0; i<noApproachers; i++) {
         assert(i<lanes.size());
@@ -1107,8 +1108,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << " yield=\"1\"";
     }
     // write the direction information
-    NBMMLDirection dir =
-        _to->getMMLDirection(this, _reachable[fromlane][destidx].edge);
+    NBMMLDirection dir = _to->getMMLDirection(this, _reachable[fromlane][destidx].edge);
     into << " dir=\"";
     switch(dir) {
     case MMLDIR_STRAIGHT:
@@ -1130,7 +1130,9 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << "R";
         break;
     default:
-        throw 1;
+        // should not happen
+        assert(false);
+        break;
     }
     into << "\" ";
     // write the state information
@@ -1148,6 +1150,58 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
 
 
 bool
+NBEdge::hasRestrictions() const
+{
+    for(size_t i=0; i<_nolanes; ++i) {
+        if(myAllowedOnLanes[i].size()!=0) {
+            return true;
+        }
+        if(myNotAllowedOnLanes[i].size()!=0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void
+NBEdge::writeLanesPlain(std::ostream &into)
+{
+    for(size_t lane=0; lane<_nolanes; ++lane) {
+		into << "      <lane id=\"" << lane << "\"";
+        // write allowed lanes
+        if(myAllowedOnLanes[lane].size()!=0) {
+    		bool hadOne = false;
+            into << " allow=\"";
+            std::vector<SUMOVehicleClass>::const_iterator i;
+		    for(i=myAllowedOnLanes[lane].begin(); i!=myAllowedOnLanes[lane].end(); ++i) {
+			    if(hadOne) {
+    				into << ';';
+	    		}
+		    	into << getVehicleClassName(*i);
+			    hadOne = true;
+		    }
+            into << "\"";
+        }
+        if(myNotAllowedOnLanes[lane].size()!=0) {
+    		bool hadOne = false;
+            into << " disallow=\"";
+            std::vector<SUMOVehicleClass>::const_iterator i;
+		    for(i=myNotAllowedOnLanes[lane].begin(); i!=myNotAllowedOnLanes[lane].end(); ++i) {
+			    if(hadOne) {
+				    into << ';';
+			    }
+			    into << getVehicleClassName(*i);
+			    hadOne = true;
+		    }
+            into << "\"";
+        }
+		into << "/>" << endl;
+    }
+}
+
+
+bool
 NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 {
     if(_step==INIT_REJECT_CONNECTIONS) {
@@ -1159,8 +1213,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
     if(_to!=dest->_from) {
         return false;
     }
-    if( find(_connectedEdges.begin(), _connectedEdges.end(), dest)
-          ==_connectedEdges.end()) {
+    if( find(_connectedEdges.begin(), _connectedEdges.end(), dest)==_connectedEdges.end()) {
         _connectedEdges.push_back(dest);
     }
     if(_step<EDGE2EDGES) {
@@ -1195,8 +1248,6 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
         if(i==lanes.end()) {
             lanes.push_back(from);
         }
-    } else {
-        throw 1;
     }
     return ok;
 }
@@ -1319,8 +1370,7 @@ NBEdge::getConnectionRemoving(size_t srcLane, size_t pos)
     EdgeLane edgelane = _reachable[srcLane][pos];
     _reachable[srcLane].erase(_reachable[srcLane].begin()+pos);
     // remove the information from the map of how to reach edges
-    NBEdge::LanesThatSucceedEdgeCont::iterator i =
-        _succeedinglanes.find(edgelane.edge);
+    NBEdge::LanesThatSucceedEdgeCont::iterator i = _succeedinglanes.find(edgelane.edge);
     LaneVector lanes = (*i).second;
     LaneVector::iterator j = find(lanes.begin(), lanes.end(), srcLane);
     lanes.erase(j);
@@ -1595,16 +1645,14 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     //  still may happen due to an incomplete or not proper input
     // what happens is that under some circumstances a single lane may set to
     //  be approached by more than a lane of this junction. This must not be!
+    //  This must not be!
     // we test whether it is the case and do nothing if so - the connection
     //  will be refused
+    //
     EdgeLane el;
     el.edge = dest_edge;
-    el.lane = dest_lane; // !!! EdgeLane as class
+    el.lane = dest_lane;
     for(size_t j=0; dest_edge!=0&&j<_reachable.size(); j++) {
-        // skip current lane
-        if(j==src_lane) {
-            continue;
-        }
         // for any other lane: check whether a connection to the same
         //  lane as the one to be added exists
         EdgeLaneVector &tmp = _reachable[j];
@@ -1626,12 +1674,11 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     // else
     } else {
         LaneVector lanes = (*i).second;
-
         // check whether one of the known connections to the current destination
         //  comes from the same lane as the current to add
         LaneVector::iterator i = find(lanes.begin(), lanes.end(), src_lane);
         // if not, append
-//!!!!        if(i==lanes.end())
+        if(i==lanes.end())
             lanes.push_back(src_lane);
         // otherwise, mark as known
 //!!!!        else
@@ -2293,6 +2340,12 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
     if(_speed!=possContinuation->_speed) {
         return false;
     }
+    // the vehicle class constraints, too
+    if(myAllowedOnLanes!=possContinuation->myAllowedOnLanes
+       ||
+       myNotAllowedOnLanes!=possContinuation->myNotAllowedOnLanes) {
+        return false;
+    }
     // the next is quite too conservative here, but seems to work
     if( _basicType!=EDGEFUNCTION_NORMAL
         &&
@@ -2758,6 +2811,37 @@ NBEdge::addAdditionalConnections()
         }
     }
 }
+
+
+std::vector<SUMOVehicleClass>
+NBEdge::getAllowedVehicleClasses() const
+{
+    std::vector<SUMOVehicleClass> ret;
+    for(std::vector<std::vector<SUMOVehicleClass> >::const_iterator i=myAllowedOnLanes.begin(); i!=myAllowedOnLanes.end(); ++i) {
+        for(std::vector<SUMOVehicleClass>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            if(find(ret.begin(), ret.end(), *j)==ret.end()) {
+                ret.push_back(*j);
+            }
+        }
+    }
+    return ret;
+}
+
+
+std::vector<SUMOVehicleClass>
+NBEdge::getNotAllowedVehicleClasses() const
+{
+    std::vector<SUMOVehicleClass> ret;
+    for(std::vector<std::vector<SUMOVehicleClass> >::const_iterator i=myNotAllowedOnLanes.begin(); i!=myNotAllowedOnLanes.end(); ++i) {
+        for(std::vector<SUMOVehicleClass>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            if(find(ret.begin(), ret.end(), *j)==ret.end()) {
+                ret.push_back(*j);
+            }
+        }
+    }
+    return ret;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

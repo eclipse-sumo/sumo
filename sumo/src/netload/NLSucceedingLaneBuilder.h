@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.10  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -124,7 +127,7 @@ public:
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
 #ifdef HAVE_INTERNAL_LANES
-        const std::string &viaID,
+        const std::string &viaID, SUMOReal pass,
 #endif
         MSLink::LinkDirection dir, MSLink::LinkState state,
         bool internalEnd,

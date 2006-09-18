@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/09/18 10:09:46  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.37  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -685,6 +688,11 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).edge);
+        if(_junction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
+            os << "\" cont=\"1";
+        } else {
+            os << "\" cont=\"0";
+        }
         os << "\"/>" << endl;
     }
     return pos;

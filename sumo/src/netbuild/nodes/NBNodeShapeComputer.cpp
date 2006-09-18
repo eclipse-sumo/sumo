@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.22  2006/07/07 11:54:49  dkrajzew
 // further work on VISUM-import
 //
@@ -96,6 +99,21 @@ Position2DVector
 NBNodeShapeComputer::compute()
 {
     Position2DVector ret;
+    bool isDeadEnd = false;
+    if(myNode._allEdges.size()==1) {
+        isDeadEnd = true;
+    }
+    if(myNode._allEdges.size()==2&&myNode.getIncomingEdges().size()==1) {
+        if(myNode.getIncomingEdges()[0]->isTurningDirectionAt(&myNode, myNode.getOutgoingEdges()[0])) {
+            isDeadEnd = true;
+        }
+    }
+    if(isDeadEnd) {
+        ret = computeNodeShapeByCrosses();
+        return ret;
+    }
+
+
     bool simpleContinuation = isSimpleContinuation(myNode);
     ret = computeContinuationNodeShape(simpleContinuation);
     // add the geometry of internal lanes
@@ -177,7 +195,8 @@ computeSameEnd(Position2DVector& l1, Position2DVector &l2)
 void
 replaceLastChecking(Position2DVector &g, bool decenter,
                     Position2DVector counter,
-                    size_t counterLanes, SUMOReal counterDist)
+                    size_t counterLanes, SUMOReal counterDist,
+                    int laneDiff)
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
@@ -188,7 +207,12 @@ replaceLastChecking(Position2DVector &g, bool decenter,
     }
     if(decenter) {
         Line2D l(g[-2], g[-1]);
-        l.move2side(-SUMO_const_halfLaneAndOffset);
+        SUMOReal factor = laneDiff%2!=0 ? SUMO_const_halfLaneAndOffset : SUMO_const_laneWidthAndOffset;
+        /*
+            SUMO_const_laneWidthAndOffset * (SUMOReal) (counterLanes-1)
+            + SUMO_const_halfLaneAndOffset * (SUMOReal) (counterLanes%2);
+            */
+        l.move2side(-factor);//SUMO_const_laneWidthAndOffset);
         g.replaceAt(g.size()-1, l.p2());
     }
 }
@@ -197,7 +221,8 @@ replaceLastChecking(Position2DVector &g, bool decenter,
 void
 replaceFirstChecking(Position2DVector &g, bool decenter,
                      Position2DVector counter,
-                    size_t counterLanes, SUMOReal counterDist)
+                    size_t counterLanes, SUMOReal counterDist,
+                    int laneDiff)
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
@@ -208,7 +233,12 @@ replaceFirstChecking(Position2DVector &g, bool decenter,
     }
     if(decenter) {
         Line2D l(g[0], g[1]);
-        l.move2side(-SUMO_const_halfLaneAndOffset);
+        SUMOReal factor = laneDiff%2!=0 ? SUMO_const_halfLaneAndOffset : SUMO_const_laneWidthAndOffset;
+        /*
+            SUMO_const_laneWidthAndOffset * (SUMOReal) (counterLanes-1)
+            + SUMO_const_halfLaneAndOffset * (SUMOReal) (counterLanes%2);
+            */
+        l.move2side(-factor);//SUMO_const_laneWidthAndOffset);
         g.replaceAt(0, l.p1());
     }
 }
@@ -391,6 +421,31 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             // only two edges, almost parallel
             //  compute the position where both would meet
             //   (assume the junction position for this)
+/*
+            // ok, just one further thing: maybe we have the number of lanes
+            //  has changed; let's apply the proper geometry in this case
+            if((*i)->getNoLanes()<(*cwi)->getNoLanes()) {
+                int diff = (*cwi)->getNoLanes() - (*i)->getNoLanes();
+                SUMOReal factor1 =
+                    SUMO_const_laneWidthAndOffset * (SUMOReal) (diff-1)
+                    + SUMO_const_halfLaneAndOffset * (SUMOReal) (diff%2);
+                SUMOReal factor2 = 0;
+                Position2DVector g = (*i)->getGeometry();
+                g.move2side(factor1);
+                (*i)->setGeometry(g);
+
+            }
+            /*
+            if((*i)->getNoLanes()<(*cwi)->getNoLanes()&&myNode.hasIncoming(*i)) {
+                int diff = (*i)->getNoLanes() - (*cwi)->getNoLanes();
+                SUMOReal factor =
+                    SUMO_const_laneWidthAndOffset * (SUMOReal) (diff-1)
+                    + SUMO_const_halfLaneAndOffset * (SUMOReal) (diff%2);
+                Position2DVector g = (*i)->getGeometry();
+                g.move2side(factor, -1);
+                (*i)->setGeometry(g);
+            }
+            */
             // compute the mean position between both edges ends ...
             Position2D p;
             if(myExtended.find(*ccwi)!=myExtended.end()) {
@@ -451,6 +506,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 }
                 distances[*i] = dist;
             }
+
         } else {
             if(ccad>(90.+45.)/180.*pi&&cad>(90.+45.)/180.*PI&&*ccwi!=*cwi/*&&cwBoundary[*i]==ccwBoundary[*i]*/) {
                 // ok, in this case we have a street which is opposite to at least
@@ -584,13 +640,26 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             cad -= (SUMOReal) (2.*3.1415926535897);
         }
         SUMOReal offset = 0;
+        int laneDiff = (*i)->getNoLanes() - (*ccwi)->getNoLanes();
+        if(*ccwi!=*cwi) {
+            laneDiff -= (*cwi)->getNoLanes();
+        }
+        laneDiff = 0;
+        if(myNode.hasIncoming(*i)&&(*ccwi)->getNoLanes()%2==1) {
+            laneDiff = 1;
+        }
+        if(myNode.hasOutgoing(*i)&&(*cwi)->getNoLanes()%2==1) {
+            laneDiff = 1;
+        }
+
 //        for(m=msame.begin(); m!=msame.end(); ++m) {
                 Position2DVector g = (*i)->getGeometry();
                     Position2DVector counter;
                 if(myNode.hasIncoming(*i)) {
                     if(myNode.hasOutgoing(*ccwi)&&myNode.hasOutgoing(*cwi)) {
                         replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            (*cwi)->getGeometry(), (*cwi)->getNoLanes(), distances[*cwi]);
+                            (*cwi)->getGeometry(), (*cwi)->getNoLanes(), distances[*cwi],
+                            laneDiff);
 /*
                         counter = (*cwi)->getGeometry();
                         counter.extrapolate(100);
@@ -607,7 +676,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                             counter = counter.reverse();
                         }
                         replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*ccwi)->getNoLanes(), distances[*ccwi]);
+                            counter, (*ccwi)->getNoLanes(), distances[*ccwi],
+                            laneDiff);
                         /*
                         counter.extrapolate(100);
                         if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
@@ -622,7 +692,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                     if(myNode.hasIncoming(*ccwi)&&myNode.hasIncoming(*cwi)) {
                         //counter = (*ccwi)->getGeometry().reverse();
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi]);
+                            (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi],
+                            laneDiff);
                         /*
                         counter.extrapolate(100);
                         if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
@@ -638,7 +709,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                             counter = counter.reverse();
                         }
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*cwi)->getNoLanes(), distances[*cwi]);
+                            counter, (*cwi)->getNoLanes(), distances[*cwi],
+                            laneDiff);
                         /*
                         counter.extrapolate(100);
                         if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
@@ -661,7 +733,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         //counter.extrapolate(100);
                     if(myNode.hasIncoming(cwBoundary[*i])) {
                         replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*cwi)->getNoLanes(), distances[*cwi]);
+                            counter, (*cwi)->getNoLanes(), distances[*cwi],
+                            laneDiff);
                         /*
                         if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*cwi]));
@@ -672,7 +745,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         */
                     } else {
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*cwi)->getNoLanes(), distances[*cwi]);
+                            counter, (*cwi)->getNoLanes(), distances[*cwi],
+                            laneDiff);
                         /*
                         if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
@@ -702,7 +776,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         //counter.extrapolate(100);
                     if(myNode.hasIncoming(ccwBoundary[*i])) {
                         replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*ccwi)->getNoLanes(), distances[*ccwi]);
+                            counter, (*ccwi)->getNoLanes(), distances[*ccwi],
+                            laneDiff);
                         /*
                         if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
                             g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*ccwi]));
@@ -713,7 +788,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         */
                     } else {
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
-                            counter, (*cwi)->getNoLanes(), distances[*cwi]);
+                            counter, (*cwi)->getNoLanes(), distances[*cwi],
+                            laneDiff);
 /*
                         if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
@@ -806,22 +882,23 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         // compute crossing with normal
         {
-            Position2DVector edgebound = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            Position2DVector edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            Position2DVector edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             Position2DVector cross;
-            cross.push_back(edgebound[0]);
-            cross.push_back(edgebound[1]);
+            cross.push_back(edgebound1[0]);
+            cross.push_back(edgebound1[1]);
             cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
-            if(cross.intersects(edgebound)) {
-                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound));
-            } else {
-                Position2DVector cross2 = cross;
-                cross2.extrapolate(500);
-                edgebound.extrapolate(500);
-                if(cross2.intersects(edgebound)) {
-                    ret.push_back_noDoublePos(cross2.intersectsAtPoint(edgebound));
-                }
+            cross.extrapolate(500);
+
+            edgebound1.extrapolate(500);
+            if(cross.intersects(edgebound1)) {
+                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound1));
+            }
+            if(cross.intersects(edgebound2)) {
+                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound2));
             }
         }
+        /*
         {
             Position2DVector edgebound = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             Position2DVector cross;
@@ -839,6 +916,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
                 }
             }
         }
+        */
     }
     {
         if(myOut!=0) {

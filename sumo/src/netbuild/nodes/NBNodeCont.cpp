@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.24  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -244,6 +247,7 @@ namespace
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBJoinedEdgesMap.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <iomanip>
 
 #include "NBNodeCont.h"
 
@@ -500,6 +504,16 @@ NBNodeCont::writeXMLInternalSuccInfos(ostream &into)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->writeXMLInternalSuccInfos(into);
+    }
+    into << endl;
+}
+
+
+void
+NBNodeCont::writeXMLInternalNodes(ostream &into)
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->writeXMLInternalNodes(into);
     }
     into << endl;
 }
@@ -806,6 +820,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
 
             swap(pot_highway, pot_ramp);
         }
+
         // check conditions
             // is it really a highway?
         if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
@@ -819,6 +834,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
             oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
             return false;
         }
+
         // ok, may be
         return true;
     }
@@ -843,11 +859,13 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 
         swap(pot_highway, pot_ramp);
     }
+
 	// compute the number of lanes to append
 	int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - cont->getNoLanes();
 	if(toAdd<=0) {
 		return;
 	}
+
 	//
     if(cont->getGeometry().length()<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
@@ -868,7 +886,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             cont->invalidateConnections(true);
             if(cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = cont->getGeometry();
-                g.move2side(SUMO_const_halfLaneAndOffset);
+                g.move2side(SUMO_const_laneWidthAndOffset);
                 cont->setGeometry(g);
             }
         }
@@ -877,6 +895,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         p.push_back(cont->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
         pot_ramp->setGeometry(p);
     } else {
+        // there is enough place to build a ramp; do it
         NBNode *rn =
             new NBNode(cont->getID() + "-AddedOnRampNode",
                 cont->getGeometry().positionAtLengthPosition(
@@ -904,7 +923,10 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(SUMO_const_halfLaneAndOffset);
+                    SUMOReal factor =
+                        SUMO_const_laneWidthAndOffset * (SUMOReal) (toAdd-1)
+                        + SUMO_const_halfLaneAndOffset * (SUMOReal) (toAdd%2);
+                    g.move2side(factor);
                     added_ramp->setGeometry(g);
                 }
             } else {
@@ -974,7 +996,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             }
             if(prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = prev->getGeometry();
-                g.move2side(SUMO_const_halfLaneAndOffset);
+                g.move2side(SUMO_const_laneWidthAndOffset);//SUMO_const_laneWidthAndOffset*(SUMOReal)(toAdd-1)+SUMO_const_halfLaneAndOffset);
                 prev->setGeometry(g);
             }
         }
@@ -983,10 +1005,10 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
         pot_ramp->setGeometry(p);
     } else {
-        NBNode *rn =
-            new NBNode(prev->getID() + "-AddedOffRampNode",
-                prev->getGeometry().positionAtLengthPosition(
-                    prev->getGeometry().length()-oc.getFloat("ramp-guess.ramp-length")));
+        Position2D pos =
+            prev->getGeometry().positionAtLengthPosition(
+                prev->getGeometry().length()-oc.getFloat("ramp-guess.ramp-length"));
+        NBNode *rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if(!insert(rn)) {
             MsgHandler::getErrorInstance()->inform("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
             throw ProcessError();
@@ -1010,7 +1032,10 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(SUMO_const_halfLaneAndOffset);
+                    SUMOReal factor =
+                        SUMO_const_laneWidthAndOffset * (SUMOReal) (toAdd-1)
+                        + SUMO_const_halfLaneAndOffset * (SUMOReal) (toAdd%2);
+                    g.move2side(factor);
                     added_ramp->setGeometry(g);
                 }
             } else {
@@ -1061,6 +1086,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
 
             swap(pot_highway, pot_ramp);
         }
+
         // check conditions
             // is it really a highway?
         if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
@@ -1074,6 +1100,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
             oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
             return false;
         }
+
         return true;
     }
     return false;
@@ -1317,12 +1344,13 @@ NBNodeCont::savePlain(const std::string &file)
         MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.");
         return false;
     }
+    std::fixed(res);
+    res << std::setprecision( 10 );
     res << "<nodes>" << endl;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         NBNode *n = (*i).second;
-        res << "   <node id=\"" << n->getID() << "\" x=\""
-            << n->getPosition().x() << "\" y=\"" << n->getPosition().y()
-            << "\"/>" << endl;
+        res << "   <node id=\"" << n->getID() << "\" ";
+        res << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>" << endl;
     }
     res << "</nodes>" << endl;
     return res.good();

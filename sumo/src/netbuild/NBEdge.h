@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.48  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.47  2006/07/07 11:54:49  dkrajzew
 // further work on VISUM-import
 //
@@ -374,6 +377,9 @@ public:
     /** writes the succeeding lane information */
     void writeXMLStep2(std::ostream &into);
 
+    bool hasRestrictions() const;
+    void writeLanesPlain(std::ostream &into);
+
     /** adds a connection to another edge;
         instead of adding connections one by one, they may be computed
         using "computeEdge2Edges"
@@ -529,6 +535,9 @@ public:
 
 	void allowVehicleClass(int lane, SUMOVehicleClass vclass);
 	void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
+	std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
+	std::vector<SUMOVehicleClass> getNotAllowedVehicleClasses() const;
+
 
     void recheckEdgeGeomForDoublePositions();
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.49  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -235,6 +238,7 @@ namespace
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -304,11 +308,34 @@ NBEdgeCont::insert(NBEdge *edge)
             return true;
         }
     }
+    // check whether the edge is a named edge to keep
     if( !OptionsSubSys::getOptions().getBool("keep-edges.postload")
         &&
         OptionsSubSys::getOptions().isSet("keep-edges")) {
 
         if(!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+        }
+    }
+    // check whether the edge shall be removed due to a allow an unwished class
+    if(OptionsSubSys::getOptions().isSet("remove-edges.by-type")) {
+        int matching = 0;
+        std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
+        // !!! don't do this each time
+        StringTokenizer st(OptionsSubSys::getOptions().getString("remove-edges.by-type"), ";");
+        while(st.hasNext()) {
+            SUMOVehicleClass vclass = getVehicleClassID(st.next());
+            std::vector<SUMOVehicleClass>::iterator i =
+                find(allowed.begin(), allowed.end(), vclass);
+            if(i!=allowed.end()) {
+                allowed.erase(i);
+            }
+        }
+        // remove the edge if all allowed
+        if(allowed.size()!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -708,10 +735,8 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     SUMOReal speed = 0;
     int priority = 0;
     string id;
-    NBEdge::EdgeBasicFunction function =
-        NBEdge::EDGEFUNCTION_UNKNOWN;
-    sort(edges.begin(), edges.end(),
-        NBContHelper::same_connection_edge_sorter());
+    NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_UNKNOWN;
+    sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
     NBNode *from = tpledge->getFromNode();
@@ -894,17 +919,47 @@ NBEdgeCont::savePlain(const std::string &file)
         MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.");
         return false;
     }
+    std::fixed(res);
     res << "<edges>" << endl;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         NBEdge *e = (*i).second;
-        res << "   <edge id=\"" << e->getID() << "\" fromnode=\"" <<
-            e->getFromNode()->getID() << "\" tonode=\"" << e->getToNode()->getID()
-            << "\" nolanes=\"" << e->getNoLanes() << "\" speed=\""
-            << e->getSpeed() << "\"";
+        res << std::setprecision( 2 );
+        res << "   <edge id=\"" << e->getID()
+            << "\" fromnode=\"" << e->getFromNode()->getID()
+            << "\" tonode=\"" << e->getToNode()->getID()
+            << "\" nolanes=\"" << e->getNoLanes()
+            << "\" speed=\"" << e->getSpeed() << "\"";
+        // write the geometry only if larger than just the from/to positions
         if(e->getGeometry().size()>2) {
+            res << std::setprecision( 10 );
             res << " shape=\"" << e->getGeometry() << "\"";
         }
-        res << "/>" << endl;
+        // write the spread type if not default ("right")
+        if(e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
+            res << " spread_type=\"center\"";
+        }
+        // write the function if not "normal"
+        if(e->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
+            switch(e->getBasicType()) {
+            case NBEdge::EDGEFUNCTION_SOURCE:
+                res << " function=\"source\"";
+                break;
+            case NBEdge::EDGEFUNCTION_SINK:
+                res << " function=\"sink\"";
+                break;
+            default:
+                // hmmm - do nothing? seems to be invalid anyhow
+                break;
+            }
+        }
+        // write the vehicles class if restrictions exist
+        if(!e->hasRestrictions()) {
+            res << "/>" << endl;
+        } else {
+            res << ">" << endl;
+            e->writeLanesPlain(res);
+            res << "   </edge>" << endl;
+        }
     }
     res << "</edges>" << endl;
     return res.good();

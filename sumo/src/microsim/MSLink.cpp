@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/09/18 10:07:00  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.17  2006/02/23 11:32:13  dkrajzew
 // some further work on the encapsulation of internal lanes
 //
@@ -158,11 +161,6 @@ MSLink::setPriority( bool prio, bool yellow )
 bool
 MSLink::opened() const
 {
-#ifdef HAVE_INTERNAL_LANES
-    if(myIsInternalEnd) {
-        return true;
-    }
-#endif
     if(myRespond==0) {
         std::cout << "Buggy" << std::endl;
         return false; // !!! should never happen, was sometimes the case in possibly buggy networks
@@ -248,6 +246,13 @@ MSLink::getViaLane() const
     return myJunctionInlane;
 }
 #endif
+
+
+bool
+MSLink::isApproached() const
+{
+    return myApproaching!=0;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

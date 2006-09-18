@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.18  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -199,7 +202,7 @@ public:
 
     /// adds a logic item
     void addLogicItem(int request, const std::string &response,
-        const std::string &foes);
+        const std::string &foes, bool cont);
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const std::string &type,
@@ -259,6 +262,11 @@ protected:
     /** builds a junction with a logic */
     virtual MSJunction *buildLogicJunction();
 
+#ifdef HAVE_INTERNAL_LANES
+    /** builds an internal junction */
+    virtual MSJunction *buildInternalJunction();
+#endif
+
     /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();
 
@@ -287,6 +295,8 @@ protected:
 
     /// the description about which in-junction lanes disallow other passing the junction
     MSBitsetLogic::Foes *myActiveFoes;
+
+    std::bitset<64> myActiveConts;
 
     /// the current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;
@@ -389,6 +399,9 @@ protected:
 
     /** a dead end (all roads end here) */
     static const int TYPE_DEAD_END;
+
+    /** an internal junction */
+    static const int TYPE_INTERNAL;
 
 private:
     /** invalid copy operator */

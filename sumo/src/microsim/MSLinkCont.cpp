@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/09/18 10:07:00  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.5  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -75,8 +78,8 @@ MSLinkContHelper::getInternalFollowingEdge(MSLane *fromLane,
     const MSLinkCont &lc = fromLane->getLinkCont();
     for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); j++) {
         MSLink *link = *j;
-        if(&link->getLane()->edge()==followerAfterInternal) {
-            return &(link->getViaLane()->edge());
+        if(link->getLane()->getEdge()==followerAfterInternal) {
+            return link->getViaLane()->getEdge();
         }
     }
     return 0;

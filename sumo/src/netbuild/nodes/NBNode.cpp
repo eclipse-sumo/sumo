@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/09/18 10:09:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.25  2006/07/07 11:54:49  dkrajzew
 // further work on VISUM-import
 //
@@ -851,7 +854,7 @@ std::vector<std::string>
 NBNode::getInternalNamesList()
 {
     std::vector<std::string> ret;
-    size_t noInternalLanes = countInternalLanes();
+    size_t noInternalLanes = countInternalLanes(true);
     if(noInternalLanes!=0) {
         for(size_t i=0; i<noInternalLanes; i++) {
             ret.push_back(":" + _id + "_" + toString<size_t>(i));
@@ -862,7 +865,7 @@ NBNode::getInternalNamesList()
 
 
 size_t
-NBNode::countInternalLanes()
+NBNode::countInternalLanes(bool includeSplits)
 {
     size_t lno = 0;
     EdgeVector::iterator i;
@@ -875,6 +878,13 @@ NBNode::countInternalLanes()
                     continue;
                 }
                 lno++;
+                // add internal splits if any
+                if(includeSplits) {
+                    std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
+                    if(cross.first>=0) {
+                        lno++;
+                    }
+                }
             }
         }
     }
@@ -885,11 +895,13 @@ NBNode::countInternalLanes()
 void
 NBNode::writeXMLInternalLinks(ostream &into)
 {
-    if(countInternalLanes()==0) {
+    size_t noInternalNoSplits = countInternalLanes(false);
+    if(noInternalNoSplits==0) {
         return;
     }
     string id = ":" + _id;
     size_t lno = 0;
+    size_t splitNo = 0;
     EdgeVector::iterator i;
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
@@ -899,7 +911,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 if((*k).edge==0) {
                     continue;
                 }
-                // compute the maximu speed allowed
+                // compute the maximum speed allowed
                 //  see !!! for an explanation (with a_lat_mean ~0.3)
                 SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
                     GeomHelper::distance(
@@ -911,23 +923,60 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 string id = ":" + _id + "_" + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
-                SUMOReal length = GeomHelper::distance(beg, end);
-                Position2DVector shape =
-                    computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
-                into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">" << endl;
-                into << "      <lanes>" << endl;
-                into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
-                    << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length) << "\" "
-                    << ">"
-                    << shape
-                    << "</lane>" << endl;
-                into << "      </lanes>" << endl;
-                into << "      <cedge id=\"" << (*k).edge->getID()
-                    << "\">" << id << "_0" << "</cedge>" << endl;
-                into << "   </edge>" << endl << endl;
-                lno++;
+                Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
+                SUMOReal length = shape.length();
+
+                // get internal splits if any
+                std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
+                if(cross.first>=0) {
+                    std::pair<Position2DVector, Position2DVector> split = shape.splitAt(cross.first);
+
+                    into << "   <edge id=\"" << id
+                        << "\" function=\"internal\">" << endl;
+                    into << "      <lanes>" << endl;
+                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                        << "maxspeed=\"" << vmax << "\" length=\""
+                        << toString<SUMOReal>(cross.first) << "\" "
+                        << ">"
+                        << split.first
+                        << "</lane>" << endl;
+                    into << "      </lanes>" << endl;
+                    into << "      <cedge id=\":" << _id << "_" << toString<size_t>(splitNo+noInternalNoSplits)
+                        << "\">" << id << "_0" << "</cedge>" << endl;
+                    into << "   </edge>" << endl << endl;
+                    lno++;
+
+                    string id = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                    into << "   <edge id=\"" << id
+                        << "\" function=\"internal\">" << endl;
+                    into << "      <lanes>" << endl;
+                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                        << "maxspeed=\"" << vmax << "\" length=\""
+                        << toString<SUMOReal>(length-cross.first) << "\" "
+                        << ">"
+                        << split.second
+                        << "</lane>" << endl;
+                    into << "      </lanes>" << endl;
+                    into << "      <cedge id=\"" << (*k).edge->getID()
+                        << "\">" << id << "_0" << "</cedge>" << endl;
+                    into << "   </edge>" << endl << endl;
+                    splitNo++;
+                } else {
+                    into << "   <edge id=\"" << id
+                        << "\" function=\"internal\">" << endl;
+                    into << "      <lanes>" << endl;
+                    into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
+                        << "maxspeed=\"" << vmax << "\" length=\""
+                        << toString<SUMOReal>(length) << "\" "
+                        << ">"
+                        << shape
+                        << "</lane>" << endl;
+                    into << "      </lanes>" << endl;
+                    into << "      <cedge id=\"" << (*k).edge->getID()
+                        << "\">" << id << "_0" << "</cedge>" << endl;
+                    into << "   </edge>" << endl << endl;
+                    lno++;
+                }
             }
         }
     }
@@ -946,6 +995,17 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
     if(beg==end) {
         noSpline = true;
     } else {
+        if(fromE->getTurnDestination()==toE) {
+            Line2D straightConn(fromE->getLaneShape(fromL)[-1],toE->getLaneShape(toL)[0]);
+            //cross.sub(cross
+            Position2D straightCenter = straightConn.getPositionAtDistance(straightConn.length()/2.);
+            //straightCenter.sub(cross.p1().x(), cross.p1().y());
+            center = straightCenter;//.add(straightCenter);
+            Line2D cross(straightConn);
+            cross.sub(cross.p1().x(), cross.p1().y());
+            cross.rotateDegAtP1(90);
+            center.sub(cross.p2());
+        } else {
         Line2D begL = fromE->getLaneShape(fromL).getEndLine();
         begL.extrapolateSecondBy(100);
         Line2D endL = toE->getLaneShape(toL).getBegLine();
@@ -960,6 +1020,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
 /*            if(endL.nearestPositionTo(center)<100) {
                 noSpline = true;
             }*/
+            }
         }
     }
     //
@@ -1045,15 +1106,103 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
 }
 
 
+std::pair<SUMOReal, std::vector<size_t> >
+NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL)
+{
+    std::pair<SUMOReal, std::vector<size_t> > ret(-1, std::vector<size_t>());
+    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    switch(dir) {
+    case MMLDIR_LEFT:
+    case MMLDIR_PARTLEFT:
+    case MMLDIR_TURN:
+        {
+            Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+            size_t index = 0;
+            for(EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+                size_t noLanesEdge = (*i2)->getNoLanes();
+                for(size_t j2=0; j2<noLanesEdge; j2++) {
+                    const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                    for(EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
+                        if((*k2).edge==0) {
+                            continue;
+                        }
+                        if(fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                            // compute the crossing point
+                            ret.second.push_back(index);
+                            Position2DVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).edge, (*k2).lane);
+                            if(thisShape.intersects(otherShape)) {
+                                DoubleVector dv = thisShape.intersectsAtLengths(otherShape);
+                                SUMOReal minDV = dv[0];
+                                if(minDV<thisShape.length()-.1&&minDV>.1) { // !!!?
+                                    assert(minDV>=0);
+                                    if(ret.first<0||ret.first>minDV) {
+                                        ret.first = minDV;
+                                    }
+                                }
+                            }
+                        }
+                        index++;
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+
+std::string
+NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
+                                        NBEdge *toE, size_t toL)
+{
+    std::string ret;
+    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    switch(dir) {
+    case MMLDIR_LEFT:
+    case MMLDIR_PARTLEFT:
+    case MMLDIR_TURN:
+        {
+            Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+            size_t index = 0;
+            for(EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+                size_t noLanesEdge = (*i2)->getNoLanes();
+                for(size_t j2=0; j2<noLanesEdge; j2++) {
+                    const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                    for(EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
+                        if((*k2).edge==0) {
+                            continue;
+                        }
+                        if(fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                            if(ret.length()!=0) {
+                                ret += " ";
+                            }
+                            ret += (":" + _id + "_" + toString(index) + "_0");
+                        }
+                        index++;
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
 
 
 void
 NBNode::writeXMLInternalSuccInfos(ostream &into)
 {
-    if(countInternalLanes()==0) {
+    size_t noInternalNoSplits = countInternalLanes(false);
+    if(noInternalNoSplits==0) {
         return;
     }
     size_t lno = 0;
+    size_t splitNo = 0;
     for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
@@ -1063,23 +1212,99 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                     continue;
                 }
                 string id = ":" + _id + "_" + toString<size_t>(lno);
+                string sid = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
+
+                // get internal splits if any
                 into << "   <succ edge=\"" << id << "\" "
                     << "lane=\"" << id << "_"
                     << 0 << "\" junction=\"" << _id << "\">"
                     << endl;
-                into << "      <succlane lane=\""
-                    << (*k).edge->getID() << "_" << (*k).lane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" yield=\"0\" dir=\"s\" state=\"M\""
-                    << " int_end=\"x\"/>"
-                    << endl;
-                lno++;
+                if(cross.first>=0) {
+                    into << "      <succlane lane=\""
+                        //<< sid << "_" << 0 ()
+                        << (*k).edge->getID() << "_" << (*k).lane
+                        << "\" tl=\"" << "" << "\" linkno=\""
+                        << "" << "\" yield=\"1\" dir=\"s\" state=\"M\""
+                        << " via=\"" << sid << "_" << 0 << "\"";
+                } else {
+                    into << "      <succlane lane=\""
+                        << (*k).edge->getID() << "_" << (*k).lane
+                        << "\" tl=\"" << "" << "\" linkno=\""
+                        << "" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
+                }
+                into << " int_end=\"x\"/>" << endl;
                 into << "   </succ>" << endl;
+
+                if(cross.first>=0) {
+                    into << "   <succ i=\"\" edge=\"" << sid << "\" "
+                        << "lane=\"" << sid << "_" << 0
+                        << "\" junction=\"" << sid << "\">"
+                        << endl;
+                    into << "      <succlane lane=\""
+                        << (*k).edge->getID() << "_" << (*k).lane
+                        << "\" tl=\"" << "" << "\" linkno=\""
+                        << "0" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
+                    into << " int_end=\"x\"/>" << endl;
+                    into << "   </succ>" << endl;
+                    splitNo++;
+                }
+                lno++;
             }
         }
     }
 }
 
+
+void
+NBNode::writeXMLInternalNodes(ostream &into)
+{
+    size_t noInternalNoSplits = countInternalLanes(false);
+    if(noInternalNoSplits==0) {
+        return;
+    }
+    size_t lno = 0;
+    size_t splitNo = 0;
+    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for(size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for(EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
+                if((*k).edge==0) {
+                    continue;
+                }
+
+
+                std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
+                if(cross.first<=0) {
+                    lno++;
+                    continue;
+                }
+
+                // write the attributes
+                string sid = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
+                string iid = ":" + _id + "_" + toString<size_t>(lno) + "_0";
+                Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
+                Position2D pos = shape.positionAtLengthPosition(cross.first);
+                into << "   <junction id=\"" << sid << '\"';
+                into << " type=\"" << "internal\"";
+                into << " x=\"" << setprecision( 2 ) << pos.x()
+                    << "\" y=\"" << setprecision( 2 ) << pos.y() << "\"";
+                into <<  ">" << endl;
+                // write the incoming and the internal lanes
+                into << "      <inclanes>" << iid << "</inclanes>" << endl;
+                into << "      <intlanes>"
+                    << getCrossingNames_dividedBySpace(*i, j, (*k).edge, (*k).lane)
+                    << "</intlanes>" << endl;
+                into << "      <shape></shape>" << endl;
+                // close writing
+                into << "   </junction>" << endl << endl;
+                splitNo++;
+                lno++;
+            }
+        }
+    }
+}
 
 void
 writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
@@ -1146,12 +1371,6 @@ NBNode::writeXML(ostream &into)
             }
         }
     }
-    if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
-        if(countInternalLanes()!=0) {
-            //into << ' ';
-            //bla(_incomingEdges, into, _id);
-        }
-    }
     into << "</inclanes>" << endl;
     // write the internal lanes
     if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
@@ -1166,13 +1385,6 @@ NBNode::writeXML(ostream &into)
     into << "   </junction>" << endl << endl;
 }
 
-/*
-void
-NBNode::setKey(string key)
-{
-    _key = key;
-}
-*/
 
 void
 NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
@@ -1359,9 +1571,6 @@ NBNode::computeLanes2Lanes()
         vector<NBEdge*>::iterator i2;
         for(i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
             NBEdge *currentIncoming = *i2;
-            if(currentIncoming->getID()=="905002550") {
-                int bla = 0;
-            }
             currentIncoming->addAdditionalConnections();
         }
     }

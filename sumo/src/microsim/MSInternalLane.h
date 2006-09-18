@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/09/18 10:06:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.8  2006/01/09 11:56:21  dkrajzew
 // includes debugged
 //
@@ -96,10 +99,13 @@ class MSInternalLane
 public:
     /// Constructor
     MSInternalLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
-        SUMOReal length, MSEdge *e, size_t numericalID, const Position2DVector &shape);
+        SUMOReal length, MSEdge *e, size_t numericalID,
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed);
 
     /// Destructor
-    ~MSInternalLane();
+    virtual ~MSInternalLane();
 
     /// Sets the information where to report vehicles being on this lane to
     void setParentJunctionInformation(MSLogicJunction::InnerState *foescont,
@@ -108,14 +114,20 @@ public:
     /** @brief moves the vehicles at the end of the lane
         Overrides the method from MSLane as internal lane must inform their
          corresponding junction about the fact that a vehicle uses them */
-    void moveNonCritical();
+    virtual void moveNonCritical();
+
+    bool emit( MSVehicle& newVeh ) { throw 1; }
+
+    void setPassPosition(SUMOReal passPos);
 
 private:
     /// The container of junction-internal vehicle-occupied lanes
     MSLogicJunction::InnerState *myFoesCont;
 
     /// The index on where to write into this container
-    size_t myFoesIndex;
+    int myFoesIndex;
+
+    SUMOReal myPassPosition;
 
 };
 

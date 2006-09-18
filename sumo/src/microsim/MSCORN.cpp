@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/09/18 10:05:46  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.11  2006/09/15 09:28:47  ericnicolay
 // TO SS2 SQL output added
 //
@@ -68,6 +71,7 @@
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -268,7 +272,7 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
         myVehicleDeviceTOSS2SQLOutput->getOStream()
 			<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
 			<< "NULL, NULL, '" << time << "', NULL , NULL, '"
-            << time << ';' << callID << ';' << pos << ';' << quality << "',1\n"; 
+            << time << ';' << callID << ';' << pos << ';' << quality << "',1\n";
     }
 }
 
@@ -296,7 +300,7 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 		myCellTOSS2SQLOutput->getOStream()
 			<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
 			<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES "
-			<< "(NULL, NULL, " << ',' << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ',' 
+			<< "(NULL, NULL, " << ',' << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
 			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ");\n";
 	}
 }
@@ -310,8 +314,8 @@ MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
 	{
 		myLATOSS2SQLOutput->getOStream()
 			<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
-			<< "`QUALITY_ID`,`INTERVALL`) VALUES " 
-			<< "(NULL, NULL, " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ',' 
+			<< "`QUALITY_ID`,`INTERVALL`) VALUES "
+			<< "(NULL, NULL, " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
 			<< quality_id << ',' << intervall << ");\n";
 	}
 }

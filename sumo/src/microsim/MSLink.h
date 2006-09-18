@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/09/18 10:07:00  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.17  2006/02/23 11:32:13  dkrajzew
 // some further work on the encapsulation of internal lanes
 //
@@ -184,6 +187,7 @@ public:
 #endif
 
     bool havePriority() const;
+    bool isApproached() const;
 
 private:
 #ifdef HAVE_INTERNAL_LANES

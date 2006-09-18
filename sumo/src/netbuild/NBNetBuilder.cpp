@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/09/18 10:09:46  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.37  2006/08/01 07:04:50  dkrajzew
 // current geocoordinate translations and new network format functions added
 //
@@ -163,11 +166,6 @@ NBNetBuilder::buildLoaded()
     if(!ok) {
         MsgHandler::getErrorInstance()->inform("Could not save net to '" + oc.getString("o") + "'.");
         throw ProcessError();
-    }
-    // save plain nodes/edges/connections
-    if(oc.isSet("plain-output")) {
-        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
-        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
     }
     // save the mapping information when wished
     if(oc.isSet("map-output")) {
@@ -439,6 +437,11 @@ NBNetBuilder::compute(OptionsCont &oc)
     if(ok) ok = computeLanes2Lanes(step);
     if(ok) ok = appendTurnarounds(step, oc);
     if(ok) ok = recheckLanes(step);
+    // save plain nodes/edges/connections
+    if(oc.isSet("plain-output")) {
+        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
+        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
+    }
     if(ok) ok = computeNodeShapes(step, oc);
     if(ok) ok = computeEdgeShapes(step);
 //    if(ok) ok = computeLinkPriorities(step++);
@@ -478,7 +481,13 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
         res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
         res << "   <conv-boundary>" << myNodeCont.getConvBoundary() << "</conv-boundary>" << endl;
         res << "   <orig-boundary>" << myNodeCont.getOrigBoundary() << "</orig-boundary>" << endl;
-        res << "   <orig-utm>" << oc.getInt("arcview.utm") << "</orig-utm>" << endl;
+        if(!oc.getBool("use-projection")) {
+            res << "   <orig-proj>!</orig-proj>" << endl;
+        } else if(oc.getBool("proj.simple")) {
+            res << "   <orig-proj>-</orig-proj>" << endl;
+        } else {
+            res << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>" << endl;
+        }
         res << endl;
         res << setprecision( 2 );
 
@@ -505,6 +514,10 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
         myTLLCont.writeXML(res);
         // write the nodes
         myNodeCont.writeXML(res);
+        // write internal nodes
+        if(oc.getBool("add-internal-links")) {
+            myNodeCont.writeXMLInternalNodes(res);
+        }
         // write the successors of lanes
         myEdgeCont.writeXMLStep2(res);
         if(oc.getBool("add-internal-links")) {
@@ -606,6 +619,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("keep-edges", new Option_String());
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.doRegister("keep-edges.postload", new Option_Bool(false));
+    oc.doRegister("remove-edges.by-type", new Option_String());
 
     // unregulated nodes options
     oc.doRegister("keep-unregulated", new Option_Bool(false));

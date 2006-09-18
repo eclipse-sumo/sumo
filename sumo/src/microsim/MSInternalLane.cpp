@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:06:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.10  2006/01/09 11:56:21  dkrajzew
 // includes debugged
 //
@@ -104,9 +107,13 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 MSInternalLane::MSInternalLane( /*MSNet &net, */string id, SUMOReal maxSpeed,
-                               SUMOReal length, MSEdge *e, size_t numericalID, const Position2DVector &shape)
+                               SUMOReal length, MSEdge *e, size_t numericalID,
+                               const Position2DVector &shape,
+                               const std::vector<SUMOVehicleClass> &allowed,
+                               const std::vector<SUMOVehicleClass> &disallowed)
     :
-    MSLane(/*net, */id, maxSpeed, length, e, numericalID, shape)
+    MSLane(id, maxSpeed, length, e, numericalID, shape, allowed, disallowed),
+    myFoesIndex(-1)
 {
 }
 
@@ -129,10 +136,18 @@ void
 MSInternalLane::moveNonCritical()
 {
     assert(myVehicles.size()>0);
-    (*myFoesCont)[myFoesIndex] = true;
+    if(myFoesIndex>=0) {
+        (*myFoesCont)[myFoesIndex] = true;
+    }
     MSLane::moveNonCritical();
 }
 
+
+void
+MSInternalLane::setPassPosition(SUMOReal passPos)
+{
+    myPassPosition = passPos;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

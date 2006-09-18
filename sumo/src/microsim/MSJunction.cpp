@@ -22,6 +22,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2006/09/18 10:06:29  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.12  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -208,7 +211,7 @@ MSJunction::getID() const
 GUIJunctionWrapper *
 MSJunction::buildJunctionWrapper(GUIGlObjectStorage &)
 {
-    throw "Only within the gui-version";
+    return 0;//!!!
 }
 
 size_t

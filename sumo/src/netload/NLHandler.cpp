@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/09/18 10:14:04  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.15  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -552,6 +555,7 @@ NLHandler::addLane(const Attributes &attrs)
             myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
+            myVehicleClasses = getStringSecure(attrs, "vclasses", "");
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {
@@ -670,10 +674,10 @@ NLHandler::addLogicItem(const Attributes &attrs)
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Missing foes for a request");
         }
-    //}
+    bool cont = getBoolSecure(attrs, "cont", true);
     // store received information
     if(request>=0 && response.length()>0) {
-        myJunctionControlBuilder.addLogicItem(request, response, foes);
+        myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
     }
 }
 
@@ -1077,6 +1081,11 @@ NLHandler::openSucc(const Attributes &attrs)
 {
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
+        if(!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+            myCurrentIsInternalToSkip = true;
+            return;
+        }
+        myCurrentIsInternalToSkip = false;
         m_pSLB.openSuccLane(id);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a succ-object.");
@@ -1086,6 +1095,10 @@ NLHandler::openSucc(const Attributes &attrs)
 void
 NLHandler::addSuccLane(const Attributes &attrs)
 {
+    // do not process internal lanes if not wished
+    if(myCurrentIsInternalToSkip) {
+        return;
+    }
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
         if(tlID!="") {
@@ -1094,6 +1107,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
+                getFloatSecure(attrs, "pass", -1), // !!! make this an enum
 #endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
@@ -1105,6 +1119,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
+                getFloatSecure(attrs, "pass", -1), // !!! make this an enum
 #endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
@@ -1239,11 +1254,9 @@ NLHandler::myCharacters(int element, const std::string &name,
         if(name=="orig-boundary") { // !!!!6 change to tag*
             setNetOrig(chars);
         }
-        /*
-        if(name=="orig-utm") { // !!!!6 change to tag*
-            setNetOrig(chars);
+        if(name=="orig-proj") { // !!!!6 change to tag*
+            myNet.setOrigProj(chars);
         }
-        */
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, name, chars);
@@ -1291,6 +1304,10 @@ NLHandler::setNodeNumber(const std::string &chars)
 void
 NLHandler::addAllowedEdges(const std::string &chars)
 {
+    // omit internal edges if not wished
+    if(myCurrentIsInternalToSkip) {
+        return;
+    }
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -1411,7 +1428,6 @@ NLHandler::setNetOrig(const std::string &chars)
 
 
 
-
 void
 NLHandler::addIncomingLanes(const std::string &chars)
 {
@@ -1444,6 +1460,10 @@ NLHandler::addPolyPosition(const std::string &chars)
 void
 NLHandler::addInternalLanes(const std::string &chars)
 {
+    // do not parse internal lanes if not wished
+    if(!MSGlobals::gUsingInternalLanes) {
+        return;
+    }
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string set = st.next();
@@ -1526,26 +1546,29 @@ NLHandler::myEndElement(int element, const std::string &name)
 void
 NLHandler::closeEdge()
 {
-    MSEdge *edge = myEdgeControlBuilder.closeEdge();
+    // do not process internal lanes if not wished
+    if(!myCurrentIsInternalToSkip) {
+        MSEdge *edge = myEdgeControlBuilder.closeEdge();
 #ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()),
-            OptionsSubSys::getOptions());
-    }
+        if(MSGlobals::gUseMesoSim) {
+            MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());
+        }
 #endif
+    }
 }
 
 
 void
 NLHandler::closeLane()
 {
-    MSLane *lane =
-        myEdgeControlBuilder.addLane(
-            /*getNet(), */myID, myCurrentMaxSpeed, myCurrentLength,
-            myLaneIsDepart, myShape);
-    // insert the lane into the lane-dictionary, checking
-    if(!MSLane::dictionary(myID, lane)) {
-        throw XMLIdAlreadyUsedException("Lanes", myID);
+    // do not process internal lanes if not wished
+    if(!myCurrentIsInternalToSkip) {
+        MSLane *lane =
+            myEdgeControlBuilder.addLane(myID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
+        // insert the lane into the lane-dictionary, checking
+        if(!MSLane::dictionary(myID, lane)) {
+            throw XMLIdAlreadyUsedException("Lanes", myID);
+        }
     }
 }
 
@@ -1559,7 +1582,10 @@ NLHandler::closeLanes()
 void
 NLHandler::closeAllowedEdge()
 {
-    myEdgeControlBuilder.closeAllowedEdge();
+    // do not process internal lanes if not wished
+    if(!myCurrentIsInternalToSkip) {
+        myEdgeControlBuilder.closeAllowedEdge();
+    }
 }
 
 
@@ -1581,6 +1607,10 @@ NLHandler::closeJunction()
 void
 NLHandler::closeSuccLane()
 {
+    // do not process internal lanes if not wished
+    if(myCurrentIsInternalToSkip) {
+        return;
+    }
     try {
         m_pSLB.closeSuccLane();
     } catch (XMLIdNotKnownException &e) {

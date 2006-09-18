@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2006/09/18 10:05:46  dkrajzew
+// patching junction-internal state simulation
+//
 // Revision 1.8  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -124,9 +127,10 @@ public:
     MSBitSetLogic( unsigned int nLinks,
                    unsigned int nInLanes,
                    Logic* logic,
-                   Foes *foes)
+                   Foes *foes,
+                   std::bitset<64> conts)
     : MSJunctionLogic( nLinks, nInLanes ), myLogic( logic ),
-        myInternalLinksFoes(foes)
+        myInternalLinksFoes(foes), myConts(conts)
     {
     }
 
@@ -147,7 +151,9 @@ public:
         size_t i;
         // calculate respond
         for ( i = 0; i < myNLinks; ++i ) {
-            bool linkPermit = request.test( i ) && ( request & ( *myLogic )[ i ]).none();
+            bool linkPermit = request.test( i )
+                &&
+                ( (request&(*myLogic)[i]).none() || myConts.test(i));
             respond.set( i, linkPermit );
         }
         // check whether internal lanes disallow any movement
@@ -166,12 +172,18 @@ public:
         return *myInternalLinksFoes;
     }
 
+    const std::bitset<64> &getInternalConts() const {
+        return myConts;
+    }
+
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
 
     /// internal lanes logic
     Foes *myInternalLinksFoes;
+
+    std::bitset<64> myConts;
 
 private:
     /// Invalidated copy constructor.
