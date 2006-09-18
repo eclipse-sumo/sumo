@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/09/18 10:15:40  dkrajzew
+// code beautifying
+//
 // Revision 1.15  2006/08/01 11:30:21  dkrajzew
 // patching building
 //
@@ -118,23 +121,13 @@ RODFFrame::fillOptions(OptionsCont &oc)
     // register input-options
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
-
     oc.doRegister("routes-input", 'r', new Option_FileName());
-
-
     oc.doRegister("detector-files", 'd', new Option_FileName());
     oc.addSynonyme("detector-files", "detectors");
-
     oc.doRegister("detector-flow-files", 'f', new Option_FileName());
     oc.addSynonyme("detector-flow-files", "detflows");
-    oc.doRegister("fast-flows", new Option_Bool(false));
-
-
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-
-//    oc.doRegister("flow-definitions", 'f', new Option_FileName());
-//    oc.addSynonyme("flow-definitions", "flows");
 
     // register output options
     oc.doRegister("routes-output", 'o', new Option_FileName());
@@ -145,30 +138,29 @@ RODFFrame::fillOptions(OptionsCont &oc)
 	oc.doRegister("speed-trigger-output", new Option_FileName());
     oc.doRegister("end-reroute-output", new Option_FileName());
 	oc.doRegister("validation-output", new Option_FileName());
-//	oc.doRegister("validation-output", new Option_FileName());
 	oc.doRegister("validation-output.add-sources", new Option_Bool(false));
 
-
-
     // register processing options
-    oc.doRegister("time-offset", new Option_Integer(0));
-    oc.doRegister("build-calibrators", 'C', new Option_Bool(false));
-    oc.doRegister("revalidate-routes", new Option_Bool(false));
+    oc.doRegister("highway-mode", 'h', new Option_Bool(false));
+        // for detector type computation
     oc.doRegister("revalidate-detectors", new Option_Bool(false));
-	oc.doRegister("write-calibrators", new Option_Bool(false));
+        // for route computation
+    oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.doRegister("all-end-follower", new Option_Bool(false));
     oc.doRegister("keep-unfound-ends", new Option_Bool(false));
+        // flow reading
+    oc.doRegister("fast-flows", new Option_Bool(false));
+    oc.doRegister("time-offset", new Option_Integer(0));
+        // saving further structures
+	oc.doRegister("write-calibrators", new Option_Bool(false)); // undescribed
     oc.doRegister("revalidate-flows", new Option_Bool(false));
     oc.doRegister("remove-empty-detectors", new Option_Bool(false));
 
-    oc.doRegister("strict-sources", new Option_Bool(false));
-
-
+    oc.doRegister("strict-sources", new Option_Bool(false)); // undescribed
 
 #ifdef HAVE_MESOSIM
     oc.doRegister("mesosim", new Option_Bool(false));
 #endif
-
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
@@ -181,9 +173,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
     oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
 
-    oc.doRegister("highway-mode", 'h', new Option_Bool(false));
-
-
+    // register reporting options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));

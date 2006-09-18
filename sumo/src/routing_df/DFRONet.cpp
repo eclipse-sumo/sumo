@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/09/18 10:15:40  dkrajzew
+// code beautifying
+//
 // Revision 1.18  2006/08/01 11:30:20  dkrajzew
 // patching building
 //
@@ -992,9 +995,6 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge,
                   const DFDetectorCon &detectors,
                   bool strict) const
 {
-    if(det.getID()=="MQ147_0") {
-        int bla = 0;
-    }
 	if(edge==getDetectorEdge(det)) {
 		// maybe there is another detector at the same edge
 		//  get the list of this/these detector(s)
