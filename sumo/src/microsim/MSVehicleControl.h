@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/09/18 10:08:47  dkrajzew
+// debugging
+//
 // Revision 1.11  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -159,6 +162,11 @@ public:
     virtual MSVehicle *getVehicle(const std::string &id);
     virtual void deleteVehicle(MSVehicle *v);
     MSVehicle *detachVehicle(const std::string &id);
+
+    typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;
+
+    constVehIt loadedVehBegin() const;
+    constVehIt loadedVehEnd() const;
 
 private:
     void deleteVehicle(const std::string &id);

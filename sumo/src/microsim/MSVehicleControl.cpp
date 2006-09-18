@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/09/18 10:08:47  dkrajzew
+// debugging
+//
 // Revision 1.14  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -429,6 +432,20 @@ MSVehicleControl::detachVehicle(const std::string &id)
     MSVehicle *ret = (*i).second;
     myVehicleDict.erase(id);
     return ret;
+}
+
+
+MSVehicleControl::constVehIt
+MSVehicleControl::loadedVehBegin() const
+{
+    return myVehicleDict.begin();
+}
+
+
+MSVehicleControl::constVehIt
+MSVehicleControl::loadedVehEnd() const
+{
+    return myVehicleDict.end();
 }
 
 
