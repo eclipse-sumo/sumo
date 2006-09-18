@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/09/18 10:10:05  dkrajzew
+// code beautifying
+//
 // Revision 1.11  2005/10/07 11:38:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,8 +115,6 @@ TNeighbourDistribution::Num()
         i++;
         sum += (*i).second;
     }
-//  if ((*i).first != 4)
-//      sum=0;
     return (*i).first;
 }
 
@@ -126,6 +127,7 @@ TNGRandomNet::TNGRandomNet(TNGNet *Net)
     Links = &Net->LinkList;
 }
 
+
 void
 TNGRandomNet::RemoveOuterNode(TNode *Node)
 {
@@ -134,8 +136,9 @@ TNGRandomNet::RemoveOuterNode(TNode *Node)
     while ((*ni != Node) && (ni != OuterNodes.end())) {
         ni++;
     }
-    if (*ni == Node)
+    if (*ni == Node) {
         OuterNodes.erase(ni);
+    }
 }
 
 
@@ -147,25 +150,11 @@ TNGRandomNet::RemoveOuterLink(TLink *Link)
     while ((*li != Link) && (li != OuterLinks.end())) {
         li++;
     }
-    if (*li == Link)
+    if (*li == Link) {
         OuterLinks.erase(li);
+    }
 }
 
-/*
-bool
-TNGRandomNet::NodesConnected(TNode *Node1, TNode *Node2)
-{
-    bool Connected = false;
-    TLinkList::iterator li;
-    for (li = Node1->LinkList.begin(); li != Node1->LinkList.end(); ++li) {
-        if (( ((*li)->StartNode() == Node1) && ((*li)->EndNode() == Node2) ) ||
-            ( ((*li)->StartNode() == Node2) && ((*li)->EndNode() == Node1) )) {
-            return true;
-        };
-    };
-    return Connected;
-}
-*/
 
 bool
 TNGRandomNet::CheckAngles(TNode *Node)
@@ -178,10 +167,11 @@ TNGRandomNet::CheckAngles(TNode *Node)
         TNode *ni;
         for (li = Node->LinkList.begin(); li != Node->LinkList.end(); ++li) {
             // calc vector of currentnode
-            if ((*li)->StartNode() == Node)
+            if ((*li)->StartNode() == Node) {
                 ni = (*li)->EndNode();
-            else
+            } else {
                 ni = (*li)->StartNode();
+            }
             Position2D v1(
                 ni->getPosition().x() - Node->getPosition().x(),
                 ni->getPosition().y() - Node->getPosition().y());
@@ -199,10 +189,10 @@ TNGRandomNet::CheckAngles(TNode *Node)
                     SUMOReal angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
                     if (fabs((SUMOReal) angle) < myMinLinkAngle)
                         check = false;
-                };
-            };
-        };
-    };
+                }
+            }
+        }
+    }
     return check;
 }
 
@@ -217,9 +207,10 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
     // check for range between Basenode and Newnode
     if (Connectable) {
         SUMOReal dist = GeomHelper::distance(n1, n2);
-        if ((dist < myMinDistance) || (dist > myMaxDistance))
+        if ((dist < myMinDistance) || (dist > myMaxDistance)) {
             Connectable = false;
-    };
+        }
+    }
 
     // check for angle restrictions
     if (Connectable) Connectable = CheckAngles(BaseNode);
@@ -237,18 +228,17 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
                 && (NewNode != (*li)->StartNode()) && (NewNode!= (*li)->EndNode())) {
                 Connectable = !GeomHelper::intersects(n1, n2, p1, p2);
 
-            };
+            }
             // check NewNode-To-Links distance only, if NewNode isn't part of link
             if ((Connectable) &&
                 (NewNode != (*li)->StartNode()) && (NewNode != (*li)->EndNode())) {
                 SUMOReal dist = GeomHelper::DistancePointLine(n2, p1, p2);
                 if (( dist < myMinDistance) && (dist > -1))
                     Connectable = false;
-            };
+            }
             li++;
-        };
-    };
-
+        }
+    }
     return Connectable;
 }
 
@@ -292,10 +282,11 @@ TNGRandomNet::UseOuterNode()
     SUMOReal value = (SUMOReal) rand();
     SUMOReal max = static_cast<SUMOReal>(RAND_MAX) + 1;
     value = value/max;
-    if ((value) < myConnectivity)
+    if ((value) < myConnectivity) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 
@@ -385,9 +376,9 @@ TNGRandomNet::CreateNet(int NumNodes)
             if (!created) {
                 OuterNode->SetMaxNeighbours((SUMOReal) OuterNode->LinkList.size());
                 OuterNodes.remove(OuterNode);
-            };
+            }
         }
-    };
+    }
 }
 
 

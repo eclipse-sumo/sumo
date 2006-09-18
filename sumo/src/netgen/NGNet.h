@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/09/18 10:10:05  dkrajzew
+// code beautifying
+//
 // Revision 1.6  2005/10/07 11:38:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -90,9 +93,6 @@ public:
 	    NumRadDiv >= 3
 	    NumCircles >= 1 */
 	void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad);
-
-	/// save
-	void SaveNet(char* FileName); // saves NGNetwork to file
 
     /// Transfer to netbuild-structures
     void toNB() const;

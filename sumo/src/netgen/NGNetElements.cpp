@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/09/18 10:10:05  dkrajzew
+// code beautifying
+//
 // Revision 1.12  2005/10/07 11:38:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -132,9 +135,6 @@ TNode::TNode(const std::string &id, int xIDa, int yIDa, bool amCenter)
 TNode::~TNode()
 {
     TLinkList::iterator li;
-    //for (li = LinkList.begin(); li != LinkList.end(); ++li) {
-    //  delete (*li);
-    //}
     while (LinkList.size() != 0) {
         li = LinkList.begin();
         delete (*li);
@@ -152,8 +152,9 @@ TNode::RemoveLink(TLink *Link)
         if ((*li) == Link) {
             LinkList.erase(li);
             return;
-        } else
+        } else {
             li++;
+        }
     }
 }
 

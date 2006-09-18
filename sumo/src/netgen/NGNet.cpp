@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:10:05  dkrajzew
+// code beautifying
+//
 // Revision 1.10  2005/10/07 11:38:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -121,48 +124,6 @@ TNGNet::GetID()
 }
 
 
-void
-TNGNet::SaveNet(char* FileName)
-{/*
-	FILE* File;
-	// --------- nodes ---------------------------------------------------------
-	char NodeName[LENGTH];
-	strcpy(NodeName, FileName);
-	strcat(NodeName, "_nodes.txt");
-	File = fopen(NodeName, "w");
-	// header
-	fprintf(File,"<nodes>\n");
-	// node
-	TNodeList::iterator ni;
-    for (ni = NodeList.begin(); ni != NodeList.end(); ++ni) {
-		fprintf(File, "%s%d%s", "   <node id=\"", (*ni)->GetID().c_str(), "\" ");
-		fprintf(File, "%s%f%s%f%s%", (const char*) "x=\"", (*ni)->x(), (const char *)"\" y=\"", (*ni)->y(), "\" ");
-		fprintf(File, "%s\n", "type=\"priority\"/>");
-	}
-	// end
-	fprintf(File, "</nodes>\n\n");
-    fclose(File);
-
-	// ---------- links -------------------------------------------------------
-	char LinkName[LENGTH];
-	strcpy(LinkName, FileName);
-	strcat(LinkName, "_links.txt");
-	File = fopen(LinkName, "w");
-	fprintf(File,"<edges>\n");
-	// node
-	TLinkList::iterator li;
-    for (li = LinkList.begin(); li != LinkList.end(); ++li) {
-//   <edge id="1i" fromnode="1" tonode="0" type="25"/>
-   		fprintf(File, "%s%d%s", "   <edge id=\"", (*li)->GetID(), "\" ");
-		fprintf(File, "%s%d%s%d%s", "fromnode=\"", (*li)->StartNode()->GetID(), "\" tonode=\"", (*li)->EndNode()->GetID(), "\" ");
-		fprintf(File, "%s\n", "type=\"25\"/>");
-	}
-	// end
-	fprintf(File, "</edges>\n\n");
-	fclose(File);*/
-}
-
-
 TNode*
 TNGNet::FindNode(int xID, int yID)
 {
@@ -171,10 +132,11 @@ TNGNet::FindNode(int xID, int yID)
 	while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != NodeList.end())) {
 		ni++;
 	}
-	if (((*ni)->xID == xID) && ((*ni)->yID == yID))
+    if (((*ni)->xID == xID) && ((*ni)->yID == yID)) {
 		return *ni;
-	else
+    } else {
 		return 0;
+    }
 }
 
 
@@ -194,13 +156,9 @@ TNGNet::CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY)
 			// create Links
 			if (ix > 0) {
                 connect(Node, FindNode(ix-1, iy));
-/*				Link = new TLink(GetID(), Node, FindNode(ix-1, iy));
-				LinkList.push_back(Link);*/
 			}
 			if (iy > 0) {
                 connect(Node, FindNode(ix, iy-1));
-/*				Link = new TLink(GetID(), Node, FindNode(ix, iy-1));
-				LinkList.push_back(Link);*/
 			}
 		}
 	}
@@ -272,6 +230,7 @@ TNGNet::connect(TNode *node1, TNode *node2)
     LinkList.push_back(link2);
 }
 
+
 void
 TNGNet::toNB() const
 {
@@ -284,6 +243,7 @@ TNGNet::toNB() const
         myNetBuilder.getEdgeCont().insert(edge);
     }
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
