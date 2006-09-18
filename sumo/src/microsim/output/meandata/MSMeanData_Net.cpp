@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/09/18 10:03:58  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.20  2006/08/01 11:30:20  dkrajzew
 // patching building
 //
@@ -132,26 +135,12 @@ MSMeanData_Net::~MSMeanData_Net()
 void
 MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime stopTime)
 {
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
-        s->updateMeanData((SUMOReal) stopTime);
-        while(s!=0) {
-            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
-            s = s->getNextSegment();
-            meanData.reset();
-        }
-    } else {
-#endif
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
         MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
         meanData.reset();
     }
-#ifdef HAVE_MESOSIM
-    }
-#endif
 }
 
 

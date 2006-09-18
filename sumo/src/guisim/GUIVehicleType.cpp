@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/09/18 10:02:34  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.6  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -82,8 +85,9 @@ GUIVehicleType::~GUIVehicleType()
 GUIVehicleType::GUIVehicleType(const RGBColor &c, const string &id,
                                SUMOReal length, SUMOReal maxSpeed,
                                SUMOReal accel, SUMOReal decel,
-                               SUMOReal dawdle )
-    : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle), myColor(c)
+                               SUMOReal dawdle, SUMOVehicleClass vclass)
+    : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, vclass),
+    myColor(c)
 {
 }
 

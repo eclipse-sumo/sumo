@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/09/18 10:07:54  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.26  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -294,7 +297,8 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
                 getFloat(attrs, SUMO_ATTR_ACCEL),
                 getFloat(attrs, SUMO_ATTR_DECEL),
-                getFloat(attrs, SUMO_ATTR_SIGMA));
+                getFloat(attrs, SUMO_ATTR_SIGMA),
+                parseVehicleClass(*this, attrs, "vehicle", id));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -311,9 +315,10 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
 void
 MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                     const SUMOReal maxspeed, const SUMOReal bmax,
-                                    const SUMOReal dmax, const SUMOReal sigma)
+                                    const SUMOReal dmax, const SUMOReal sigma,
+                                    SUMOVehicleClass vclass)
 {
-    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
+    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, vclass);
     if(!MSVehicleType::dictionary(id, vtype)) {
         delete vtype;
         if(!MSGlobals::gStateLoaded) {

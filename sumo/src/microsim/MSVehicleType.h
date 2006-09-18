@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2006/09/18 10:08:33  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.16  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -147,6 +150,7 @@
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -174,7 +178,8 @@ class MSVehicleType
 public:
     /// Constructor.
     MSVehicleType( const std::string &id, SUMOReal length, SUMOReal maxSpeed,
-        SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
+        SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
+        SUMOVehicleClass vclass);
 
     /// Destructor.
     virtual ~MSVehicleType();
@@ -379,6 +384,10 @@ public:
     static void dict_loadState(BinaryInputDevice &bis, long what);
     //@}
 
+    SUMOVehicleClass getVehicleClass() const {
+        return myVehicleClass;
+    }
+
 
 protected:
     /** Returns the SK-vsafe. */
@@ -423,7 +432,7 @@ private:
 
 
     SUMOReal myTau;
-
+    SUMOVehicleClass myVehicleClass;
 
     //@{ static members covering all loaded vehicle types
     /// Minimum deceleration-ability of all vehicle-types.

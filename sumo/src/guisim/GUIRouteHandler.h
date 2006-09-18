@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/09/18 10:01:39  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.6  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -83,7 +86,8 @@ protected:
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
         const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-        const SUMOReal dmax, const SUMOReal sigma, const RGBColor &c);
+        const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
+        const RGBColor &c);
 
     void closeRoute();
     void openRoute(const Attributes &attrs);

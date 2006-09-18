@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/09/18 10:01:58  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.14  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -106,8 +109,10 @@ namespace
 GUISourceLane::GUISourceLane(/*MSNet &net, */std::string id,
                              SUMOReal maxSpeed, SUMOReal length,
                              MSEdge* edge, size_t numericalID,
-                             const Position2DVector &shape )
-    : MSSourceLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
+                             const Position2DVector &shape,
+                             const std::vector<SUMOVehicleClass> &allowed,
+                             const std::vector<SUMOVehicleClass> &disallowed)
+    : MSSourceLane(/*net, */id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {
 }
 
@@ -183,7 +188,7 @@ GUISourceLane::releaseVehicles()
 
 
 
-const MSSourceLane::VehCont &
+const MSLane::VehCont &
 GUISourceLane::getVehiclesSecure()
 {
     _lock.lock();
@@ -213,6 +218,45 @@ GUILaneWrapper *
 GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 {
     return new GUILaneWrapper(idStorage, *this, myShape);
+}
+
+
+SUMOReal
+GUISourceLane::getDensity() const
+{
+    _lock.lock();
+    SUMOReal ret = MSLane::getDensity();
+    _lock.unlock();
+    return ret;
+}
+
+
+SUMOReal
+GUISourceLane::getVehLenSum() const
+{
+    _lock.lock();
+    SUMOReal ret = MSLane::getVehLenSum();
+    _lock.unlock();
+    return ret;
+}
+
+
+void
+GUISourceLane::detectCollisions( SUMOTime timestep )
+{
+    _lock.lock();
+    MSLane::detectCollisions(timestep);
+    _lock.unlock();
+}
+
+
+MSVehicle*
+GUISourceLane::pop()
+{
+    _lock.lock();
+    MSVehicle *ret = MSLane::pop();
+    _lock.unlock();
+    return ret;
 }
 
 

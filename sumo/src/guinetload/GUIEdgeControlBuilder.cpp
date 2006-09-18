@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/09/18 09:58:57  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.17  2006/07/06 05:43:20  dkrajzew
 // replaced exception throwing by an error report
 //
@@ -165,26 +168,29 @@ GUIEdgeControlBuilder::closeEdge()
 MSLane *
 GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                                SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                               const Position2DVector &shape)
+                               const Position2DVector &shape,
+                               const std::string &vclasses)
 {
     // checks if the depart lane was set before
     if(isDepart&&m_pDepartLane!=0) {
       throw XMLDepartLaneDuplicationException();
     }
+    std::vector<SUMOVehicleClass> allowed, disallowed;
+    parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new GUISourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape);
+            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape);
+            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
         lane = new GUILane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape);
+            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
         MsgHandler::getErrorInstance()->inform("A lane with an unknown type occured (" + toString(m_Function) + ")");
@@ -208,13 +214,6 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     return lane;
 }
 
-/*
-void
-GUIEdgeControlBuilder::addLaneShape(const Position2DVector &shape)
-{
-    myLaneShape = shape;
-}
-*/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

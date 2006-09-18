@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.26  2006/09/18 10:05:34  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.25  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -186,6 +189,7 @@
 #include <iostream>
 #include "MSLinkCont.h"
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -239,6 +243,7 @@ public:
     /** Associative container with suceeding edges (keys) and allowed
         lanes to reach these edges. */
     typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
+    typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
 
     /// Destructor.
     virtual ~MSEdge();
@@ -254,7 +259,8 @@ public:
 
     /** @brief Get the allowed lanes to reach the destination-edge.
         If there is no such edge, get 0. Then you are on the wrong edge. */
-    const LaneCont* allowedLanes( const MSEdge& destination ) const;
+    const LaneCont* allowedLanes( const MSEdge& destination,
+        SUMOVehicleClass vclass) const;
 
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
     MSLane* leftLane( const MSLane* lane ) const;
@@ -338,6 +344,25 @@ public:
 
 	virtual bool prohibits(const MSVehicle *veh) const { return false; } // !!!
 
+
+	/// add a new neighborsEdge to this Edge
+	void addNeighborEdge(std::string id, MSEdge *edge);
+
+	/// return  neighborsEdge
+    const std::map<std::string, MSEdge*> & getNeighborEdges() const;
+
+
+	// add a new vehicle into the container
+	void addEquippedVehicle(std::string id, MSVehicle *vehicle) const;
+
+	//remove a vehicle with this id from the container
+    void removeEquippedVehicle(std::string id) const;
+
+	/// definition the dictionary of ids to vehicles
+    typedef std::map<std::string, MSVehicle*> DictTypeVeh;
+
+    const DictTypeVeh &getEquippedVehs() const;
+
 protected:
     /// Unique ID.
     std::string myID;
@@ -351,6 +376,9 @@ protected:
     /** Associative container for destination-edge/allowed-lanes
         matching. */
     AllowedLanesCont* myAllowed;
+    ClassedAllowedLanesCont myClassedAllowed;
+    ClassedAllowedLanesCont myClassedNotAllowed;
+    bool myHaveClassConstraints;
 
     /** @brief Lane from which vehicles will depart.
         Usually the rightmost,
@@ -374,6 +402,16 @@ protected:
     mutable SUMOTime myLastFailedEmissionTime;
 
     size_t myNumericalID;
+
+
+	// the Container of equipped vehicle driving on this Lane
+	mutable DictTypeVeh myEquippedVeh;
+	    /// Definition of the Edge vector
+    typedef std::map<std::string, MSEdge*> EdgeCont;
+	/// the list of all neighborsEdge of this Edge
+	EdgeCont neighborEdges;
+
+
 
 private:
     /// Default constructor.

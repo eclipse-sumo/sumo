@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/09/18 09:58:57  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.5  2006/05/15 05:49:06  dkrajzew
 // debugging saving/loading of states
 //
@@ -247,6 +250,7 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_ACCEL),
                 getFloat(attrs, SUMO_ATTR_DECEL),
                 getFloat(attrs, SUMO_ATTR_SIGMA),
+                parseVehicleClass(*this, attrs, "vehicle", id),
                 col);
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
@@ -265,10 +269,11 @@ void
 GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                     const SUMOReal maxspeed, const SUMOReal bmax,
                                     const SUMOReal dmax, const SUMOReal sigma,
+                                    SUMOVehicleClass vclass,
                                     const RGBColor &c)
 {
     GUIVehicleType *vtype =
-        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
+        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, vclass);
     if(!MSVehicleType::dictionary(id, vtype)) {
         delete vtype;
         if(!MSGlobals::gStateLoaded) {

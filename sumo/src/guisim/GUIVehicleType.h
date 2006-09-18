@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/09/18 10:02:34  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.7  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -77,7 +80,8 @@ public:
     /// Constructor
     GUIVehicleType(const RGBColor &c, const std::string &id,
         SUMOReal length, SUMOReal maxSpeed,
-        SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
+        SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
+        SUMOVehicleClass vclass);
 
     /// Destructor.
     ~GUIVehicleType();

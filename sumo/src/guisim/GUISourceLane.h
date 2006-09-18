@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/09/18 10:01:58  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.13  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -110,27 +113,12 @@ public:
     /// constructor
     GUISourceLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
         SUMOReal length, MSEdge* edge, size_t numericalID,
-        const Position2DVector &shape );
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed);
 
     /// destructor
     ~GUISourceLane();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveNonCriticalSingle();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveCriticalSingle();
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveNonCriticalMulti();
-
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
-//    void moveCriticalMulti();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -167,18 +155,24 @@ public:
     const VehCont &getVehiclesSecure();
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
+    SUMOReal getDensity() const;
+    SUMOReal getVehLenSum() const;
+
+    void detectCollisions( SUMOTime timestep );
 
 protected:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     bool push( MSVehicle* veh );
 
+    MSVehicle* pop();
+
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange();
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    FXEX::FXMutex _lock;
+    mutable FXEX::FXMutex _lock;
 
 };
 

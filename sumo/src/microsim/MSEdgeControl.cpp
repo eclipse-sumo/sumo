@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/09/18 10:05:34  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.13  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -311,6 +314,21 @@ MSEdgeControl::saveState(std::ostream &os, long what)
 void
 MSEdgeControl::loadState(BinaryInputDevice &bis, long what)
 {
+}
+
+
+std::vector<std::string>
+MSEdgeControl::getEdgeNames() const
+{
+    std::vector<std::string> ret;
+    EdgeCont::const_iterator i;
+    for(i=mySingleLaneEdges->begin(); i!=mySingleLaneEdges->end(); ++i) {
+        ret.push_back((*i)->getID());
+    }
+    for(i=myMultiLaneEdges->begin(); i!=myMultiLaneEdges->end(); ++i) {
+        ret.push_back((*i)->getID());
+    }
+    return ret;
 }
 
 

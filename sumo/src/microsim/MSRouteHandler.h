@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/09/18 10:07:54  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.14  2006/07/06 06:06:30  dkrajzew
 // made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
 //
@@ -154,7 +157,8 @@ protected:
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
         const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-        const SUMOReal dmax, const SUMOReal sigma);
+        const SUMOReal dmax, const SUMOReal sigma,
+        SUMOVehicleClass vclass);
 
 
     /* parses an occured vehicle definition */

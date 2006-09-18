@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.68  2006/09/18 10:06:48  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.67  2006/08/01 07:00:29  dkrajzew
 // removed unneeded API parts
 //
@@ -513,14 +516,10 @@ MSLane::~MSLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::MSLane( //MSNet &net,
-                string id,
-                SUMOReal maxSpeed,
-                SUMOReal length,
-                MSEdge* edge,
-                size_t numericalID,
-				const Position2DVector &shape
-                )  :
+MSLane::MSLane(string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
+               size_t numericalID, const Position2DVector &shape,
+               const std::vector<SUMOVehicleClass> &allowed,
+               const std::vector<SUMOVehicleClass> &disallowed)  :
     myApproaching(0),
     myID( id ),
     myNumericalID(numericalID),
@@ -532,7 +531,9 @@ MSLane::MSLane( //MSNet &net,
     myMeanData(),
 	myShape(shape),
     myLastState(10000, 10000),
-    myFirstUnsafe(0)
+    myFirstUnsafe(0),
+    myAllowedClasses(allowed),
+    myNotAllowedClasses(disallowed)
 {
         assert(myMaxSpeed>0);
 }
@@ -1133,13 +1134,11 @@ bool
 MSLane::appropriate(const MSVehicle *veh)
 {
     if(myEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-
         return true;
-    } else {
-
-        MSLinkCont::const_iterator link = succLinkSec( *veh, 1, *this );
-        return ( link != myLinks.end() );
     }
+
+    MSLinkCont::const_iterator link = succLinkSec( *veh, 1, *this );
+    return ( link != myLinks.end() );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1207,7 +1206,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     //  we have to do it via the edge
     MSLinkCont::const_iterator link;
     for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link ) {
-        if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge ) {
+        if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge &&  ( *link )->getLane()->allowsVehicleClass(veh.getVehicleClass()) ) {
             valid.push_back(link);
 //            return link;
         }
@@ -1216,7 +1215,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
     const MSEdge* nRouteEdge2 = veh.succEdge( nRouteSuccs+1 );
-    const MSEdge::LaneCont *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2);
+    const MSEdge::LaneCont *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleClass());
     if(nRouteEdge2==0||next_allowed==0) {
         return *(valid.begin());
     }
@@ -1319,7 +1318,7 @@ MSLane::setApproaching(SUMOReal dist, MSVehicle *veh)
     myApproaching = veh;
 }
 
-
+/*
 MSLane::VehCont::const_iterator
 MSLane::findNextVehicleByPosition(SUMOReal pos) const
 {
@@ -1344,8 +1343,8 @@ MSLane::findNextVehicleByPosition(SUMOReal pos) const
         }
     }
 }
-
-
+*/
+/*
 MSLane::VehCont::const_iterator
 MSLane::findPrevVehicleByPosition(const VehCont::const_iterator &beginAt,
                                   SUMOReal pos) const
@@ -1376,7 +1375,7 @@ MSLane::findPrevVehicleByPosition(const VehCont::const_iterator &beginAt,
         }
     }
 }
-
+*/
 
 void
 MSLane::addMoveReminder( MSMoveReminder* rem )
@@ -1485,6 +1484,43 @@ MSLane::getRightLane() const
 {
     return myEdge->rightLane(this);
 }
+
+
+const std::vector<SUMOVehicleClass> &
+MSLane::getAllowedClasses() const
+{
+    return myAllowedClasses;
+}
+
+
+const std::vector<SUMOVehicleClass> &
+MSLane::getNotAllowedClasses() const
+{
+    return myNotAllowedClasses;
+}
+
+
+bool
+MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const
+{
+    if(vclass==SVC_UNKNOWN) {
+        return true;
+    }
+    if(myAllowedClasses.size()==0&&myNotAllowedClasses.size()==0) {
+        return true;
+    }
+    if(find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass)!=myAllowedClasses.end()) {
+        return true;
+    }
+    if(myAllowedClasses.size()!=0) {
+        return false;
+    }
+    if(find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass)!=myNotAllowedClasses.end()) {
+        return false;
+    }
+    return true;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

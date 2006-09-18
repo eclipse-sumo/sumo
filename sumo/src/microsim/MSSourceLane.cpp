@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/09/18 10:08:33  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.16  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -137,9 +140,12 @@ MSSourceLane::~MSSourceLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSSourceLane::MSSourceLane( /*MSNet &net, */string id, SUMOReal maxSpeed,
-                           SUMOReal length, MSEdge* edge, size_t numericalID, const Position2DVector &shape)
-    : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
+MSSourceLane::MSSourceLane(string id, SUMOReal maxSpeed,
+                           SUMOReal length, MSEdge* edge, size_t numericalID,
+                           const Position2DVector &shape,
+                           const std::vector<SUMOVehicleClass> &allowed,
+                           const std::vector<SUMOVehicleClass> &disallowed)
+    : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {
 }
 

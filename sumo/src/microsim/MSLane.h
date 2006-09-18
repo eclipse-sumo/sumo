@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.43  2006/09/18 10:06:48  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.42  2006/08/01 07:00:29  dkrajzew
 // removed unneeded API parts
 //
@@ -309,6 +312,7 @@
 #include "output/meandata/MSLaneMeanDataValues.h"
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -369,14 +373,10 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSLane( //MSNet &net,
-            std::string id,
-            SUMOReal maxSpeed,
-            SUMOReal length,
-            MSEdge* edge,
-            size_t numericalID,
-			const Position2DVector &shape
-            );
+    MSLane(std::string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
+        size_t numericalID, const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed);
 
     /** Not all lane-members are known at the time the lane is born,
         above all the pointers to other lanes, so we have to
@@ -391,7 +391,7 @@ public:
     virtual void moveCritical();
 
     /// Check if vehicles are too close.
-    void detectCollisions( SUMOTime timestep );
+    virtual void detectCollisions( SUMOTime timestep );
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );
@@ -482,9 +482,9 @@ public:
     virtual bool inEdge(const MSEdge *edge) const;
 
     /// returns the last vehicle
-    const MSVehicle * const getLastVehicle() const;
+    virtual const MSVehicle * const getLastVehicle() const;
 
-    MSVehicle *getLastVehicle(MSLaneChanger &lc) const;
+    virtual MSVehicle *getLastVehicle(MSLaneChanger &lc) const;
 
     MSVehicle::State myLastState;
 
@@ -503,12 +503,12 @@ public:
 
     void setApproaching(SUMOReal dist, MSVehicle *veh);
 
-    VehCont::const_iterator findNextVehicleByPosition(SUMOReal pos) const;
-
+//    VehCont::const_iterator findNextVehicleByPosition(SUMOReal pos) const;
+/*
     VehCont::const_iterator findPrevVehicleByPosition(
         const VehCont::const_iterator &beginAt,
         SUMOReal pos) const;
-
+*/
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     /// Add a move-reminder to move-reminder container
     virtual void addMoveReminder( MSMoveReminder* rem );
@@ -545,6 +545,10 @@ public:
     MSLane * const getLeftLane() const;
     MSLane * const getRightLane() const;
 
+	const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
+	const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const;
+    bool allowsVehicleClass(SUMOVehicleClass vclass) const;
+
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -573,7 +577,7 @@ protected:
     virtual bool push( MSVehicle* veh );
 
     /** Returns the first/front vehicle of the lane and removing it from the lane. */
-    MSVehicle* pop();
+    virtual MSVehicle* pop();
 
     /** @brief Tries to emit veh into lane.
         There are four kind of possible emits that have to be handled differently:
@@ -637,7 +641,14 @@ protected:
 
     MSEdgeControl::LaneUsage *myUseDefinition;
 
-private:
+	/// The list of allowed vehicle classes
+	std::vector<SUMOVehicleClass> myAllowedClasses;
+
+	/// The list of disallowed vehicle classes
+	std::vector<SUMOVehicleClass> myNotAllowedClasses;
+
+
+protected:
 
     /** Use this, when there is only a vehicle behind the vehicle to insert */
     bool emitTry( VehCont::iterator followIt, MSVehicle& veh ); // back ins.

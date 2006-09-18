@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/09/18 10:03:58  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.16  2006/07/06 07:18:34  dkrajzew
 // applied current microsim-APIs
 //
@@ -321,7 +324,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
         MSEdge *e = *i;
         assert(e!=0);
         typedef std::vector<MSLane*> LaneVector;
-        const LaneVector *cl = e->allowedLanes(*l->getEdge());
+        const LaneVector *cl = e->allowedLanes(*l->getEdge(), SVC_UNKNOWN);
         bool fastAbort = false;
         if(cl!=0) {
             for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {

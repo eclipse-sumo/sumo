@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/09/18 10:06:48  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.30  2006/08/01 07:00:30  dkrajzew
 // removed unneeded API parts
 //
@@ -807,7 +810,11 @@ MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
     if ( myCandi == myChanger.begin() ) {
         return 0;
     }
+
     ChangerIt target = myCandi - 1;
+    if(!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleClass())) {
+        return 0;
+    }
     int blocked = overlapWithHopped( target )
         ? target->hoppedVeh->getPositionOnLane()<veh(myCandi)->getPositionOnLane()
             ? LCA_BLOCKEDBY_FOLLOWER
@@ -840,6 +847,9 @@ MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
     // no left lane, overlapping or left lane not allowed -> exit
     ChangerIt target = myCandi + 1;
     if ( target == myChanger.end() ) {
+        return 0;
+    }
+    if(!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleClass())) {
         return 0;
     }
     int blocked = overlapWithHopped( target )

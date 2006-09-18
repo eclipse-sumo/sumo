@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2006/09/18 10:08:33  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -93,7 +96,10 @@ public:
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
     MSSourceLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
-        SUMOReal length, MSEdge* edge, size_t numericalID, const Position2DVector &shape);
+        SUMOReal length, MSEdge* edge, size_t numericalID,
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed);
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );

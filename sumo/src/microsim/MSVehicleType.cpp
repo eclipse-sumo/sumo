@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2006/09/18 10:08:33  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.14  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -194,9 +197,10 @@ MSVehicleType::~MSVehicleType()
 
 MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOReal maxSpeed, SUMOReal accel,
-                             SUMOReal decel, SUMOReal dawdle)
+                             SUMOReal decel, SUMOReal dawdle,
+                             SUMOVehicleClass vclass)
     : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-    myDecel(decel), myDawdle(dawdle), myTau(1)
+    myDecel(decel), myDawdle(dawdle), myTau(1), myVehicleClass(vclass)
 {
     assert( myLength > 0 );
     assert( myMaxSpeed > 0 );
@@ -291,6 +295,7 @@ MSVehicleType::saveState(std::ostream &os, long what)
     FileHelpers::writeFloat(os, myAccel);
     FileHelpers::writeFloat(os, myDecel);
     FileHelpers::writeFloat(os, myDawdle);
+    FileHelpers::writeInt(os, (int) myVehicleClass);
 }
 
 
@@ -302,13 +307,15 @@ MSVehicleType::dict_loadState(BinaryInputDevice &bis, long what)
     while(size-->0) {
         string id;
         SUMOReal length, maxSpeed, accel, decel, dawdle;
+        int vclass;
         bis >> id;
         bis >> length;
         bis >> maxSpeed;
         bis >> accel;
         bis >> decel;
         bis >> dawdle;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle);
+        bis >> vclass;
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, (SUMOVehicleClass) vclass);
         dictionary(id, t);
     }
 }

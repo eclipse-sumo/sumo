@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/09/18 09:58:57  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.1  2005/10/10 11:52:16  dkrajzew
 // renamed *NetHandler to *Handler
 //
@@ -140,7 +143,8 @@ protected:
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
         const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-        const SUMOReal dmax, const SUMOReal sigma, const RGBColor &c);
+        const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
+        const RGBColor &c);
 
     void closeRoute();
     void openRoute(const Attributes &attrs);

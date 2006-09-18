@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:01:39  dkrajzew
+// added vehicle class support to microsim
+//
 // Revision 1.10  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -137,6 +140,7 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_ACCEL),
                 getFloat(attrs, SUMO_ATTR_DECEL),
                 getFloat(attrs, SUMO_ATTR_SIGMA),
+                parseVehicleClass(*this, attrs, "vehicle", id),
                 col);
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
@@ -155,10 +159,11 @@ void
 GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                       const SUMOReal maxspeed, const SUMOReal bmax,
                                       const SUMOReal dmax, const SUMOReal sigma,
+                                      SUMOVehicleClass vclass,
                                       const RGBColor &c)
 {
     GUIVehicleType *vtype =
-        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
+        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, vclass);
     if(!MSVehicleType::dictionary(id, vtype)) {
         if(!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
