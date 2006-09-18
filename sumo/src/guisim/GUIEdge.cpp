@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/09/18 09:57:00  dkrajzew
+// removed unneeded code
+//
 // Revision 1.29  2006/07/06 06:36:11  dkrajzew
 // removed some old code
 //
@@ -257,21 +260,6 @@ GUIEdge::getBoundary() const
     }
     ret.grow(10);
     return ret;
-}
-
-
-void
-GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
-                   LaneCont* lanes, EdgeBasicFunction function)
-{
-    myAllowed = allowed;
-    myDepartLane = departLane;
-    myLanes = lanes;
-    _function = function;
-
-    if ( myLanes->size() > 1 ) {
-        myLaneChanger = new MSLaneChanger( myLanes );
-    }
 }
 
 

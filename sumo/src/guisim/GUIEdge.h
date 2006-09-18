@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/09/18 09:57:01  dkrajzew
+// removed unneeded code
+//
 // Revision 1.21  2006/07/06 06:36:11  dkrajzew
 // removed some old code
 //
@@ -168,12 +171,6 @@ public:
         !!! should be within another class */
     static std::pair<SUMOReal, SUMOReal> getLaneOffsets(SUMOReal x1, SUMOReal y1,
         SUMOReal x2, SUMOReal y2, SUMOReal prev, SUMOReal wanted);
-
-    /** @brief Initialize the edge.
-        A GUILaneChanger is build here */
-    void initialize(
-        AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
-        EdgeBasicFunction function);
 
     static void fill(std::vector<GUIEdge*> &netsWrappers);
 
