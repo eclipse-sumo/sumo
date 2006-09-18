@@ -151,7 +151,7 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
         chour++;
     }
     if(timelineDayInHours) {
-        points.push_back(Position2D(chour*3600, prob));
+        points.push_back(Position2D((SUMOReal) chour * (SUMOReal) 3600, prob));
     }
     return Distribution_Points("N/A", points, interpolating);
 }

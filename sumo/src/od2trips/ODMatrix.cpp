@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/09/18 11:34:21  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.4  2006/08/01 13:39:54  dkrajzew
 // patching building
 //
@@ -105,7 +108,7 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
     }
 
     SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
-    for(size_t i=0; i<vehicles2emit; i++) {
+    for(int i=0; i<vehicles2emit; i++) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 

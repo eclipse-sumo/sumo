@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/09/18 11:34:20  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.9  2006/09/18 10:02:55  dkrajzew
 // documentation added
 //
@@ -87,6 +90,8 @@ public:
     void onDepart();
 	void setId(std::string id){myId=id;};
 	std::string getId(){return myId;};
+	void invalidateCommand();
+
 protected:
     class MyCommand : public Command
     {
@@ -110,7 +115,7 @@ protected:
         bool myAmActive;
 
     };
-	void invalidateCommand();
+
 private:
 	std::string myId;
   //the State the cellphone (if available) is in

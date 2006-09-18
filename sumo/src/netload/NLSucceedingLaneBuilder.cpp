@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/09/18 11:34:21  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.17  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
 //
@@ -201,10 +204,10 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
             throw XMLIdNotKnownException("lane", viaID);
         }
     }
-#endif
     if(pass>=0) {
         static_cast<MSInternalLane*>(lane)->setPassPosition(pass);
     }
+#endif
     // check whether this link is controlled by a traffic light
     MSTLLogicControl::TLSLogicVariants logics;
     if(tlid!="") {

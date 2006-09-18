@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/09/18 11:34:20  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.26  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -998,7 +1001,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
         if(fromE->getTurnDestination()==toE) {
             Line2D straightConn(fromE->getLaneShape(fromL)[-1],toE->getLaneShape(toL)[0]);
             //cross.sub(cross
-            Position2D straightCenter = straightConn.getPositionAtDistance(straightConn.length()/2.);
+            Position2D straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
             //straightCenter.sub(cross.p1().x(), cross.p1().y());
             center = straightCenter;//.add(straightCenter);
             Line2D cross(straightConn);

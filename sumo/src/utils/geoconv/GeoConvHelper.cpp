@@ -76,7 +76,7 @@ GeoConvHelper::remap(Position2D &from)
         p.u = from.x() / 100000.0 * DEG_TO_RAD;
         p.v = from.y() / 100000.0 * DEG_TO_RAD;
         p = pj_fwd(p, myProjection);
-        from.set(p.u+myOffset.x(), p.v+myOffset.y());
+        from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     } else {
         SUMOReal x = (SUMOReal) (from.x() / 100000.0);
         SUMOReal y = (SUMOReal) (from.y() / 100000.0);
@@ -89,8 +89,8 @@ GeoConvHelper::remap(Position2D &from)
         y = (y-myInitY);
         p.v = (SUMOReal) (x * 111.320*1000.);
         SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-        p.u *= (SUMOReal) cos(ys*PI/180.0);
-        from.set(p.u+myOffset.x(), p.v+myOffset.y());
+        p.u *= (SUMOReal) cos(ys*PI/180.0); // !!!
+        from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     }
 }
 

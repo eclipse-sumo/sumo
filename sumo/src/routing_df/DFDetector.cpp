@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/09/18 11:34:21  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.19  2006/08/01 13:39:54  dkrajzew
 // patching building
 //
@@ -489,7 +492,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 		// go through the simulation seconds
 		for(int time=startTime; time<endTime; time+=stepOffset) {
 			// get own (departure flow)
-            if(mflows.size()<=(int) ((time/stepOffset) - startTime)) {
+            if((int) mflows.size()<=(int) ((time/stepOffset) - startTime)) {
                 cout << mflows.size() << ":" << (int) (time/stepOffset) - startTime << endl;
                 throw 1;
             }

@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/09/18 11:34:20  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.31  2006/09/18 10:06:48  dkrajzew
 // added vehicle class support to microsim
 //
@@ -347,7 +350,7 @@ MSLaneChanger::change()
 #endif
     std::vector<std::vector<MSVehicle::LaneQ> > preb = vehicle->getBestLanes();
     assert(preb[0].size()==myChanger.size());
-    for(int i=0; i<myChanger.size(); i++) {
+    for(int i=0; i<(int) myChanger.size(); i++) {
         preb[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
     }
 

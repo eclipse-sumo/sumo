@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/09/18 11:34:20  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.28  2006/09/18 10:11:37  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -290,7 +293,7 @@ NIArcView_Loader::load(OptionsCont &)
             if(!try_transform2) {
                 shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
             } else {
-                Position2D pos(cgeom->getX(j), cgeom->getY(j));
+                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 GeoConvHelper::remap(pos);
                 shape.push_back_noDoublePos(pos);
             }

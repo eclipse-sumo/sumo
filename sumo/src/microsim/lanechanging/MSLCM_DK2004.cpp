@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/09/18 11:34:20  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.15  2006/09/18 10:03:33  dkrajzew
 // minor patches
 //
@@ -157,7 +160,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal neighDist = 0;
     SUMOReal neighExtDist = 0;
     int currIdx = 0;
-    for(int p=0; p<currE.size(); ++p) {
+    for(int p=0; p<(int) currE.size(); ++p) {
         if(currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
@@ -232,13 +235,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * 5;
+        : myVehicle.getLane().maxSpeed() * (SUMOReal) 5;
     rv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * 5;
-    rv += myVehicle.getLength() * 2.;
+        : myVehicle.getSpeed() * (SUMOReal) 5;
+    rv += myVehicle.getLength() * (SUMOReal) 2.;
 
-    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset<0) {
         myChangeProbability += 1. / (tdist / rv);
@@ -348,7 +351,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
     // let's recheck the "Rechtsfahrgebot"
     SUMOReal vmax = MIN2(myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
-    vmax -= (5./2.6);
+    vmax -= (SUMOReal) (5./2.6);
     if(neighLaneVSafe>=vmax) {
         myChangeProbability -= (SUMOReal) ((neighLaneVSafe-vmax) / (vmax));
     }
@@ -383,7 +386,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighDist = 0;
     SUMOReal neighExtDist = 0;
     int currIdx = 0;
-    for(int p=0; p<currE.size(); ++p) {
+    for(int p=0; p<(int) currE.size(); ++p) {
         if(currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
@@ -458,13 +461,13 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * 5;
+        : myVehicle.getLane().maxSpeed() * (SUMOReal) 5;
     lv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * 5;
-    lv += myVehicle.getLength() * 2.;
+        : myVehicle.getSpeed() * (SUMOReal) 5;
+    lv += myVehicle.getLength() * (SUMOReal) 2.;
 
-    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos*JAM_FACTOR2;
+    SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {
         myChangeProbability -= 1. / (tdist / lv);

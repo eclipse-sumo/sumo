@@ -349,6 +349,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSInternalJunction.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSInternalLane.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -982,6 +985,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSInterface_NetRun.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSInternalJunction.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSInternalLane.h">

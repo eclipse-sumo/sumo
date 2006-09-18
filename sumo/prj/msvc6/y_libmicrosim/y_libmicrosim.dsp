@@ -163,6 +163,10 @@ SOURCE=..\..\..\src\microsim\MSGlobals.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSInternalJunction.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSInternalLane.cpp
 # End Source File
 # Begin Source File
@@ -416,6 +420,10 @@ SOURCE=..\..\..\src\microsim\MSGlobals.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSInterface_NetRun.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSInternalJunction.h
 # End Source File
 # Begin Source File
 

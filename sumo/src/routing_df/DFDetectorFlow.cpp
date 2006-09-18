@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/09/18 11:34:21  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.6  2006/04/07 10:44:18  dkrajzew
 // multiple detector and flows definitions can be read
 //
@@ -93,7 +96,7 @@ DFDetectorFlows::addFlow( const std::string &id, int t, const FlowDef &fd )
             (*i).firstSet = true;
         }
     }
-    assert(t<myFastAccessFlows[id].size());
+    assert(t<(int) myFastAccessFlows[id].size());
     FlowDef &ofd = myFastAccessFlows[id][t];
     if(ofd.firstSet) {
         ofd = fd;

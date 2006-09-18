@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/09/18 11:34:21  dkrajzew
+// debugged building on Windows
+//
 // Revision 1.9  2006/09/18 10:18:23  dkrajzew
 // debugging
 //
@@ -472,7 +475,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
         mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
-        mySettings->showBlinker = myShowBlinker->getCheck();
+        mySettings->showBlinker = myShowBlinker->getCheck()!=0;
     }
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
