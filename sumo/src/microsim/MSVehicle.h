@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.58  2006/09/18 10:09:04  dkrajzew
+// c2c added; vehicle classes added
+//
 // Revision 1.57  2006/08/01 07:00:32  dkrajzew
 // removed unneeded API parts
 //
@@ -361,6 +364,8 @@
 #include <vector>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include "MSVehicleQuitReminded.h"
+#include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
 
 #ifdef RAKNET_DEMO
@@ -519,10 +524,7 @@ protected:
 /**
  * @class MSVehicle
  */
-class MSVehicle
-#ifdef HAVE_MESOSIM
-    : public MEVehicle
-#endif
+class MSVehicle : public MSVehicleQuitReminded
 #ifdef RAKNET_DEMO
     , public Vehicle
 #endif
@@ -585,6 +587,24 @@ public:
     /// Returns the desired departure time.
     SUMOTime desiredDepart() const;
     //@}
+
+    // add a new Vehicle
+	void addVehNeighbors(MSVehicle *veh, int time);
+
+	    // delete all vehicle in the list
+	void removeAllVehNeighbors(void);
+
+	/// update the list of neighbors each timestep
+	//void updateNeighbors(int time);
+	void cleanUpConnections(int time);
+
+	/// compute the distance between two equipped vehicle
+	bool computeDistance(MSVehicle* veh1, MSVehicle* veh2);
+
+	// erase the Information, if the information is older than 30 minutes
+	void updateInfos(int time);
+
+    void removeOnTripEnd( MSVehicle *veh );
 
 
     //@{ interaction with the route
@@ -737,8 +757,8 @@ public:
     }
 
 
-
-
+    /// return true if the vehicle is eqquiped with WLAN
+    bool isEquipped();
 
 
     /// Returns the name of the vehicle
@@ -894,6 +914,39 @@ public:
         myStops.push_back(stop);
     }
 
+    SUMOVehicleClass getVehicleClass() const { return myType->getVehicleClass(); }
+    bool knowsEdgeTest(MSEdge &edge) const;
+
+
+	struct Information {
+		std::string InfoTyp;
+	   // MSEdge *edge;
+		int neededTime; // how long needed the vehicle to travel on the edge
+		int time; // the Time, when the Info was saved
+	};
+
+	// enumeration for all type of Connection
+	enum C2CConnectionState {dialing, connected, sending, receiving, disconnected};
+
+	// structure for Car2Car Connection
+	struct C2CConnection {
+		MSVehicle  *connectedVeh;
+		C2CConnectionState state;
+		int timeSinceSeen;
+		int timeSinceConnect;
+		int lastTimeSeen;
+		std::vector<Information *> toSend;
+		std::vector<Information *> transmitted;
+		std::vector<Information *>::iterator nextToSend;
+	};
+	typedef std::map<std::string, C2CConnection *> VehCont;
+
+    const VehCont &getConnections() const;
+/*
+    SUMOTime getSendingTimeEnd() const;
+    bool maySend() const;
+    void send(SUMOTime time);
+*/
 
 protected:
     /// Use this constructor only.
@@ -934,12 +987,24 @@ protected:
     /// Vehicles driving state. here: pos and speed
     State myState;
 
+	/// is true, if the vehicle is abble to send Informations to another vehicle
+	bool equipped;
+
+	// for save the time
+	int lastUp;
+
     /// The lane the vehicle is on
     MSLane* myLane;
 
     MSAbstractLaneChangeModel *myLaneChangeModel;
 
     const MSVehicleType * const myType;
+
+
+	VehCont myNeighbors;
+
+	typedef std::map<std::string, Information *> InfoCont;
+	InfoCont infoCont;
 
 private:
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.85  2006/09/18 10:09:04  dkrajzew
+// c2c added; vehicle classes added
+//
 // Revision 1.84  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -506,6 +509,7 @@ namespace
 #include <utils/common/StdDefs.h>
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSGlobals.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -633,6 +637,8 @@ MSVehicle::~MSVehicle()
         }
     }
     delete myLaneChangeModel;
+	myNeighbors.clear();
+	infoCont.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -661,7 +667,9 @@ MSVehicle::MSVehicle( string id,
     myAllowedLanes(0),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
-    myOldLaneMoveReminderOffsets( 0 )
+    myOldLaneMoveReminderOffsets( 0 ),
+	lastUp(0),
+	equipped(false)
 {
     myCurrEdge = myRoute->begin();
     rebuildAllowedLanes();
@@ -674,10 +682,12 @@ MSVehicle::MSVehicle( string id,
 void
 MSVehicle::initDevices()
 {
-    // cell phones
     OptionsCont &oc = OptionsSubSys::getOptions();
-    if(oc.getFloat("device.cell-phone.probability")!=0) {
-        if((((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.cell-phone.probability")) {
+    // cell phones
+    if(oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
+        bool t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.cell-phone.probability");
+        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
+        if(t1||t2) {
             int noCellPhones = (int) (((SUMOReal) rand()/(SUMOReal) RAND_MAX)
                 * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
                 + oc.getFloat("device.cell-phone.amount.min"));
@@ -692,6 +702,14 @@ MSVehicle::initDevices()
 				MSDevice_CPhone * tmp =	((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
 				tmp->setId( phoneid );
             }
+        }
+    }
+    // c2c communication
+    if(oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
+        bool t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.c2x.probability");
+        bool t2 = oc.isSet("device.c2x.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.c2x.knownveh", myID);
+        if(t1||t2) {
+            equipped = true;
         }
     }
 }
@@ -1161,10 +1179,6 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     SUMOReal vLinkWait = vLinkPass;
 
     size_t view = 1;
-#ifdef HAVE_INTERNAL_LANES
-    bool nextInternal =
-        nextLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
-#endif
     // loop over following lanes
     while(true) {
         if(!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
@@ -1191,9 +1205,9 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
 
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
+        bool nextInternal = false;
         nextLane = (*link)->getViaLane();
         if(nextLane==0) {
-            nextInternal = false;
             nextLane = (*link)->getLane();
         } else {
             nextInternal = true;
@@ -1291,13 +1305,29 @@ MSVehicle::getID() const
 /////////////////////////////////////////////////////////////////////////////
 
 bool
+MSVehicle::isEquipped()
+{
+    return equipped;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
 MSVehicle::onAllowed( const MSLane* lane ) const
 {
-    if(myLane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+#ifdef GUI_DEBUG
+    if(gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+        int blb = 0;
+    }
+#endif
+    if(lane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
     if(myAllowedLanes.size()==0) {
         return false; // check (was assertion only)!!!
+    }
+    if(!lane->allowsVehicleClass(myType->getVehicleClass())) {
+        return false;
     }
     assert(myAllowedLanes.size()!=0);
     MSEdge::LaneCont::const_iterator compare =
@@ -1309,11 +1339,19 @@ MSVehicle::onAllowed( const MSLane* lane ) const
 bool
 MSVehicle::onAllowed( ) const
 {
+#ifdef GUI_DEBUG
+    if(gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+        int blb = 0;
+    }
+#endif
     if(myLane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
     if(myAllowedLanes.size()==0) {
         return false; // check (was assertion only)!!!
+    }
+    if(!myLane->allowsVehicleClass(myType->getVehicleClass())) {
+        return false;
     }
     assert(myAllowedLanes.size()!=0);
     MSEdge::LaneCont::const_iterator compare =
@@ -1321,7 +1359,12 @@ MSVehicle::onAllowed( ) const
     return ( compare != myAllowedLanes[0]->end() );
 }
 
-
+	struct Information {
+		std::string InfoTyp;
+		MSEdge *edge;
+		int neededTime; // how long needed the vehicle to travel on the edge
+		int time; // the Time, when the Info was saved
+	};
 /////////////////////////////////////////////////////////////////////////////
 
 void
@@ -1342,6 +1385,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
     for(size_t j=0; j<myMoveReminders.size(); j++) {
         myOldLaneMoveReminderOffsets.push_back(oldLaneLength);
     }
+
     copy(myMoveReminders.begin(), myMoveReminders.end(),
         back_inserter(myOldLaneMoveReminders));
     assert(myOldLaneMoveReminders.size()==myOldLaneMoveReminderOffsets.size());
@@ -1365,6 +1409,32 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
         }
         myCurrEdge = edgeIt;
     }
+
+	if(isEquipped()){
+		ofstream out("savedInformations.txt", ios_base::app);
+		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
+		out2<<"--enterLaneAtMove Enter Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		out2.close();
+		out<<"---enterLaneAtMove Enter Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		(*myCurrEdge)->addEquippedVehicle(getID(), this);
+
+		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+        if(i==infoCont.end()){
+			Information *info = new Information;
+			info->InfoTyp = "congestion";
+			info->neededTime = 0;
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+			out<<"	--enterLaneAtMove New Information Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}else{
+            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
+			(*i).second->neededTime = 0;
+			out<<"	--enterLaneAtMove Information Update Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}
+		out.close();
+	}
+
+
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
@@ -1382,6 +1452,33 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
     myAllowedLanes.clear();
     rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange();
+/*
+	    // for Car2Car
+	if(isEquipped()){
+		ofstream out("savedInformations.txt", ios_base::app);
+		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
+		out2<<"--Enter enterLaneAtLaneChange Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		out2.close();
+		out<<"---Enter enterLaneAtLaneChange Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		(*myCurrEdge)->addEquippedVehicle(getID(), this);
+
+		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+        if(i==infoCont.end()){
+			Information *info = new Information;
+			info->InfoTyp = "congestion";
+			info->neededTime = 0;
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+			out<<"	--enterLaneAtLaneChange New Information Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}else{
+            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
+			(*i).second->neededTime = 0;
+			out<<"	--enterLaneAtLaneChange Information Update Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}
+		out.close();
+	}
+
+	*/
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1397,6 +1494,31 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
+
+    // for Car2Car
+	if(isEquipped()){
+		ofstream out("savedInformations.txt", ios_base::app);
+		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
+		out2<<"--Enter enterLaneAtEmit Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		out2.close();
+		out<<"---Enter enterLaneAtEmit Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		(*myCurrEdge)->addEquippedVehicle(getID(), this);
+
+		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+        if(i==infoCont.end()){
+			Information *info = new Information;
+			info->InfoTyp = "congestion";
+			info->neededTime = 0;
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+			out<<"	--New Information enterLaneAtEmit Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}else{
+            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
+			(*i).second->neededTime = 0;
+			out<<"	--Information Update enterLaneAtEmit Time: "<<MSNet::getInstance()->getCurrentTimeStep()<<endl;
+		}
+		out.close();
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1404,6 +1526,43 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
 void
 MSVehicle::leaveLaneAtMove( SUMOReal driven )
 {
+	if(isEquipped()){ //
+
+		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
+		out2<<"--Leave leaveLaneAtMove Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		out2.close();
+		(*myCurrEdge)->removeEquippedVehicle(getID());
+
+
+	    ofstream out("savedInformations.txt", ios_base::app);
+		out<<"--Leave leaveLaneAtMove Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		// save required Informations
+		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+		if(i != infoCont.end()){
+			float nt = MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time;
+			float length = (*((*myCurrEdge)->getLanes()))[0]->length();
+            float speed  = (*((*myCurrEdge)->getLanes()))[0]->maxSpeed();
+			float factor = length/(speed*2);
+			if(nt < factor){
+				out<<"	--Information erased leaveLaneAtMove, NeededTime: "<<nt<<"  Factor: "<<factor<<"---"<<endl;
+				infoCont.erase((*myCurrEdge)->getID());
+			}else{
+				(*i).second->neededTime = nt;
+				out<<"	--Information leaveLaneAtMove, neededTime Saved: "<<nt<<"  Factor: "<<factor<<"---"<<endl;
+			}
+		}else{ // should never arrive here
+			out<<"	--leaveLaneAtMove should never arrive here AtMove!!!!! "<<endl;
+			Information *info = new Information;
+			info->InfoTyp = "congestion";
+			// info->edge = static_cast<MSEdge * >(*myCurrEdge);
+			info->neededTime = 0;
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+		}
+		out.close();
+	}
+
+
     if(!myAllowedLanes.empty()) {
         myAllowedLanes.pop_front();
     }
@@ -1430,6 +1589,54 @@ MSVehicle::leaveLaneAtLaneChange( void )
     myMoveReminders.clear();
     myOldLaneMoveReminders.clear();
     myOldLaneMoveReminderOffsets.clear();
+
+	// Car2Car
+	/*
+	if(isEquipped()){ //
+		/* Wenn Veh die Lane bzw. die Simulation verlässt, müsst er seine nachbar benachrichtigen,
+		 * damit sie die Connection zu dieser(Veh) Löschen Können.
+         /
+		std::map<std::string, C2CConnection*>::iterator j = myNeighbors.begin();
+		for(j;j!=myNeighbors.end();){
+			(*j).second->connectedVeh->infoCont.erase(getID());
+			j++;
+		}
+
+		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
+		out2<<"--Leave leaveLaneAtLaneChange Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		out2.close();
+		(*myCurrEdge)->removeEquippedVehicle(getID());
+
+
+	    ofstream out("savedInformations.txt", ios_base::app);
+		out<<"--Leave leaveLaneAtLaneChange Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
+		// save required Informations
+		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+		if(i != infoCont.end()){
+			int nt = MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time;
+			int length = (*((*myCurrEdge)->getLanes()))[0]->length();
+            int speed  = (*((*myCurrEdge)->getLanes()))[0]->maxSpeed();
+			int factor = length/(speed*2);
+			if(nt < factor){
+				out<<"	--Information erased leaveLaneAtLaneChange, NeededTime: "<<nt<<"  Factor: "<<factor<<"---"<<endl;
+				infoCont.erase((*myCurrEdge)->getID());
+			}else{
+				(*i).second->neededTime = nt;
+				out<<"	--Information leaveLaneAtLaneChange, neededTime Saved: "<<nt<<"  Factor: "<<factor<<"---"<<endl;
+			}
+		}else{ // should never arrive here
+			out<<"	--leaveLaneAtLaneChange should never arrive here AtMove!!!!! "<<endl;
+			Information *info = new Information;
+			info->InfoTyp = "congestion";
+			// info->edge = static_cast<MSEdge * >(*myCurrEdge);
+			info->neededTime = 0;
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+		}
+		out.close();
+
+	}
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1663,10 +1870,11 @@ MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 void
 MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 {
-    QuitRemindedVector::iterator i =
-        find(myQuitReminded.begin(), myQuitReminded.end(), r);
+    QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
     if(i!=myQuitReminded.end()) {
         myQuitReminded.erase(i);
+    } else {
+        assert(false);
     }
 }
 
@@ -1857,14 +2065,14 @@ MSVehicle::rebuildAllowedLanes()
         if(pos>=myRoute->size()-1) {
             return;
         }
-        const MSEdge::LaneCont *al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1] );
+        const MSEdge::LaneCont *al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1], myType->getVehicleClass() );
         while(al!=0&&dist<MIN_DIST&&pos<myRoute->size()-1) {
             assert(al!=0);
             myAllowedLanes.push_back(al);
             pos++;
             if(pos<myRoute->size()-1) {
                 dist += ((*al)[0])->length();
-                al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1] );
+                al = ( *myRoute )[pos]->allowedLanes( *( *myRoute )[pos+1], myType->getVehicleClass() );
             }
         }
     }
@@ -1892,10 +2100,7 @@ MSVehicle::getBestLanes() const
         for(int i=0; i<lanes->size(); i++) {
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
-            if((*lanes)[i]->getID()=="905002548_1") {
-                int bla = 0;
-            }
-            const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1));
+            const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
             if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
 //            if(onAllowed((*lanes)[i])) {
                 currQ.t1 = true;
@@ -1904,8 +2109,18 @@ MSVehicle::getBestLanes() const
                 currQ.t1 = false;
                 //currQ.length = 0;
             }
+
             currQ.length = (*lanes)[i]->length();
             currQ.alllength = (*lanes)[i]->length();
+
+                if(!myStops.empty()&&myStops.begin()->lane->getEdge()==(*lanes)[i]->getEdge()) {
+                    if(myStops.begin()->lane!=(*lanes)[i]) {
+                        currQ.length = 0;
+                        currQ.alllength = 0;
+                        currQ.t1 = false;
+                    }
+                }
+
             currQ.lane = (*lanes)[i];
             currQ.hindernisPos = (*lanes)[i]->getDensity() * currQ.lane->length();
             currQ.v = (*lanes)[i]->getVehLenSum();
@@ -1928,7 +2143,7 @@ MSVehicle::getBestLanes() const
                 for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     MSLane *c = (*k)->getLane();
                     for(std::vector<LaneQ>::iterator l=(*(i-1)).begin(); l!=(*(i-1)).end(); ++l) {
-                        if((*l).lane==c&&curr[j].t1) {
+                        if((*l).lane==c&&curr[j].t1&&(*l).t1) {
                             curr[j].length += (*l).length;
                             curr[j].v += (*l).v;
                             curr[j].wish++;// += (*l).length;
@@ -1941,6 +2156,7 @@ MSVehicle::getBestLanes() const
     }
     // compute moving direction
     {
+        // !!! optimize: maybe only for the current edge
         std::vector<std::vector<LaneQ> >::iterator i;
         for(i=ret.begin(); i!=ret.end(); ++i) {
             std::vector<LaneQ> &curr = *i;
@@ -2040,6 +2256,222 @@ MSVehicle::saveState(std::ostream &os, long what)
     FileHelpers::writeByte(os, inserted);
 #endif
 }
+
+
+
+
+void
+MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
+{
+	if(computeDistance(this, veh)){
+		ofstream out("VehicleNeighborsGNU.txt", ios_base::app);
+		Position2D pos1 = this->getPosition();
+	    Position2D pos2 = veh->getPosition();
+		//out<<"----------------Vehicle: "<<getID()<<" addVehNeighbors ------------------------"<<endl;
+		std::map<std::string, C2CConnection*>::iterator i = myNeighbors.find(veh->getID());
+		if(i== myNeighbors.end()){
+			//out<<"Timestep="<<time<<" veh1="<<getID()<<" Pos1="<<pos1.x()<<", "<<pos1.y()<<" # veh2="<<veh->getID()<<" Pos2="<<pos2.x()<<", "<<pos2.y()<<" Verbindung moeglich? Ja (New Vehicle)"<<endl;
+			out<<"TS_"<<time<<" Com Possible"<<endl;
+			C2CConnection *con = new C2CConnection;
+			con->connectedVeh=veh;
+			con->state = disconnected;
+			con->timeSinceSeen = 1; // dk!!!: 0
+			con->timeSinceConnect = 0;
+			con->lastTimeSeen = time;
+			//con->toSend = NULL;
+			//con->nextToSend = 0;
+			myNeighbors[veh->getID()] = con;
+            veh->quitRemindedEntered(this);
+		}else{
+			 out<<"TS_"<<time<<" Com Possible"<<endl;
+			 (*i).second->lastTimeSeen = time;
+		}
+		out.close();
+	}
+}
+
+
+void
+MSVehicle::cleanUpConnections(int time)
+{
+	std::map<std::string, C2CConnection*>::iterator i;
+	ofstream out("VehicleNeighborsGNU.txt", ios_base::app);
+	for(i=myNeighbors.begin(); i!=myNeighbors.end(); ) {
+		if((*i).second->lastTimeSeen != time) {
+			Position2D pos1 = this->getPosition();
+			Position2D pos2 = ((*i).second->connectedVeh)->getPosition();
+			/*
+			out<<"Timestep="<<time<<" veh1="<<getID()<<" Pos1="<<pos1.x()<<", "<<pos1.y()<<" myEdge:";
+			out<<(*myCurrEdge)->getID()<<" # veh2=";
+			out<<((*i).second->connectedVeh)->getID()<<" Pos2="<<pos2.x();
+			out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
+			out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
+			out<<" Verbindung moeglich? Nein (Erase !!)"<<endl;
+			*/
+            MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)->quitRemindedLeft(this);
+			i = myNeighbors.erase(i);
+		} else {
+			((*i).second->timeSinceSeen)++;
+			if(((*i).second->state != dialing)&&((*i).second->state != disconnected)){
+				((*i).second->timeSinceConnect)++;
+			}
+			MSVehicle *veh2 = ((*i).second->connectedVeh);
+			Position2D pos1 = this->getPosition();
+			Position2D pos2 = ((*i).second->connectedVeh)->getPosition();
+			/*
+			out<<"Timestep="<<time<<" veh1="<<getID()<<" Pos1="<<pos1.x()<<", "<<pos1.y()<<" myEdge:";
+			out<<(*myCurrEdge)->getID()<<" # veh2=";
+			out<<((*i).second->connectedVeh)->getID()<<" Pos2="<<pos2.x();
+			out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
+			out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
+			out<<" Verbindung moeglich? Ja (Updating)"<<endl;
+			*/
+			++i;
+		}
+	}
+	out.close();
+}
+
+/*
+
+void
+MSVehicle::updateNeighbors(int time)
+{
+	// eine Edge befindet sich in mehrere Cells, und alle Cells werden durchlaufen.
+	// damit update nicht mehrmals passiert innerhalb einer timeStep.
+
+    if(lastUp != time){
+		std::map<std::string, C2CConnection*>::iterator i = myNeighbors.begin();
+		ofstream out("VehicleNeighbors.txt", ios_base::app);
+		for(i; i!= myNeighbors.end(); ){
+			//cout<<"----------------Vehicle "<<getID()<<" Update ------------------------"<<endl;
+			//cout<<"----------------Vehicle neightbors container size"<<myNeighbors.size()<<endl;
+			if(!(computeDistance(this, (*i).second->connectedVeh))){
+				Position2D pos1 = this->getPosition();
+				Position2D pos2 = ((*i).second->connectedVeh)->getPosition();
+				out<<"Timestep="<<time<<" veh1="<<getID()<<" Pos1="<<pos1.x()<<", "<<pos1.y()<<" myEdge:";
+				out<<(*myCurrEdge)->getID()<<" # veh2=";
+				out<<((*i).second->connectedVeh)->getID()<<" Pos2="<<pos2.x();
+				out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
+				out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
+				out<<" Verbindung moeglich? Nein (Erase !!)"<<endl;
+				i = myNeighbors.erase(i);
+			}else{
+
+				((*i).second->timeSinceSeen)++;
+				if(((*i).second->state != dialing)&&((*i).second->state != disconnected)){
+					((*i).second->timeSinceConnect)++;
+				}
+				MSVehicle *veh2 = ((*i).second->connectedVeh);
+				Position2D pos1 = this->getPosition();
+				Position2D pos2 = ((*i).second->connectedVeh)->getPosition();
+				out<<"Timestep="<<time<<" veh1="<<getID()<<" Pos1="<<pos1.x()<<", "<<pos1.y()<<" myEdge:";
+				out<<(*myCurrEdge)->getID()<<" # veh2=";
+				out<<((*i).second->connectedVeh)->getID()<<" Pos2="<<pos2.x();
+				out<<", "<<pos2.y()<<" myEdge:"<<((*i).second->connectedVeh)->getEdge()->getID()<<" timeSinceSeen ";
+				out<<(*i).second->timeSinceSeen <<" timeSinceConnect "<<(*i).second->timeSinceConnect;
+				out<<" Verbindung moeglich? Ja (Updating)"<<endl;
+				++i;
+			}
+		}
+		out.close();
+		lastUp = time;
+	}
+}
+
+*/
+
+bool
+MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
+{
+	bool b = false;
+	Position2D pos1 = veh1->getPosition();
+	Position2D pos2 = veh2->getPosition();
+	if(fabs(pos1.x()-pos2.x())<MSGlobals::gLANRange && fabs(pos1.y()-pos2.y())<MSGlobals::gLANRange){
+		int distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
+		if((distance>0)&&(distance<=MSGlobals::gLANRange)){
+			b = true;
+		}
+	}
+	return b;
+}
+
+
+void
+MSVehicle::updateInfos(int time)
+{
+	std::map<std::string, Information*>::iterator i = infoCont.begin();
+	for(i; i!= infoCont.end(); ){
+		if((*i).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
+			i = infoCont.erase(i);
+		}else{
+			i++;
+		}
+	}
+}
+
+
+void
+MSVehicle::removeAllVehNeighbors(void)
+{
+	myNeighbors.clear();
+
+}
+
+
+void
+MSVehicle::removeOnTripEnd( MSVehicle *veh )
+{
+    quitRemindedLeft(veh);
+    assert(myNeighbors.find(veh->getID())!=myNeighbors.end());
+    myNeighbors.erase(myNeighbors.find(veh->getID()));
+}
+
+
+bool
+MSVehicle::knowsEdgeTest(MSEdge &edge) const
+{
+    return infoCont.find(edge.getID())!=infoCont.end();
+}
+
+
+const MSVehicle::VehCont &
+MSVehicle::getConnections() const
+{
+    return myNeighbors;
+}
+
+/*
+SUMOTime
+MSVehicle::getSendingTimeEnd() const
+{
+    return mySendingTimeEndHigh;
+}
+
+
+bool
+MSVehicle::maySend() const
+{
+    // check ob es überhaupt neue Informationen für die Beteiligten gibt?
+
+    //
+    for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+        if((*i).second->state==receiving||(*i).second->state==sending) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void
+MSVehicle::send(SUMOTime time)
+{
+    for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+        (*i)->transferInformation(infoCont, mySendingTimeEndHigh, mySendingTimeEndLow);
+    }
+}
+*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
