@@ -103,7 +103,15 @@ SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSBuildCells.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\trigger\MSBusStop.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSCell.cpp
 # End Source File
 # Begin Source File
 
@@ -347,7 +355,15 @@ SOURCE=..\..\..\src\microsim\MSBitSetLogic.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSBuildCells.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\trigger\MSBusStop.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSCell.h
 # End Source File
 # Begin Source File
 

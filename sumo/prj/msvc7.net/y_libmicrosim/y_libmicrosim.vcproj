@@ -185,7 +185,13 @@
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSBuildCells.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCell.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.cpp">
@@ -930,7 +936,13 @@
 				RelativePath="..\..\..\src\microsim\MSBitSetLogic.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSBuildCells.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCell.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.h">
