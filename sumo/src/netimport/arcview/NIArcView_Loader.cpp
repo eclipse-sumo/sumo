@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/09/18 10:11:37  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.27  2006/04/18 17:02:14  t-bohn
 // debug: linux build problems
 //
@@ -130,6 +133,8 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
+#include <utils/geoconv/GeoConvHelper.h>
+
 #ifdef WIN32
 #include <ogrsf_frmts/ogrsf_frmts.h>
 #else
@@ -157,15 +162,14 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
                                    bool speedInKMH,
-								   bool useNewLaneNumberInfoPlain,
-                                   projPJ pj)
+								   bool useNewLaneNumberInfoPlain)
     : FileErrorReporter("Navtech Edge description", dbf_name),
     myOptions(oc), myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
     myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
     mySpeedInKMH(speedInKMH),
 	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain),
-    myRunningNodeID(0), myProjection(pj)
+    myRunningNodeID(0)
 {
 }
 
@@ -283,14 +287,12 @@ NIArcView_Loader::load(OptionsCont &)
 
         Position2DVector shape;
         for(j=0; j<cgeom->getNumPoints(); j++) {
-            if(!try_transform2||myProjection==0) {
+            if(!try_transform2) {
                 shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
             } else {
-                projUV p;
-                p.u = cgeom->getX(j) / 100000.0 * DEG_TO_RAD;
-                p.v = cgeom->getY(j) / 100000.0 * DEG_TO_RAD;
-                p = pj_fwd(p, myProjection);
-                shape.push_back_noDoublePos(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+                Position2D pos(cgeom->getX(j), cgeom->getY(j));
+                GeoConvHelper::remap(pos);
+                shape.push_back_noDoublePos(pos);
             }
         }
 

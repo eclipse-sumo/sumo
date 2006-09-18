@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/09/18 10:11:36  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.8  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -107,7 +110,6 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <proj_api.h>
 #include <netbuild/NLLoadFilter.h>
 #include <sax2/SAX2XMLReader.hpp>
 
@@ -157,7 +159,7 @@ private:
         const std::string &files, const std::string &type);
 
     /** loads data from XML-files */
-    void loadXML(OptionsCont &oc, projPJ pj);
+    void loadXML(OptionsCont &oc);
 
     /** loads data from the list of xml-files of certain type */
     void loadXMLType(SUMOSAXHandler *handler,
@@ -178,18 +180,18 @@ private:
         LineHandler &lh);
 
     /** loads data from visum-input-file */
-    void loadVisum(OptionsCont &oc, projPJ pj);
+    void loadVisum(OptionsCont &oc);
 
     /** loads data from arcview-files */
-    void loadArcView(OptionsCont &oc, projPJ pj);
+    void loadArcView(OptionsCont &oc);
 
     /** loads data from vissim-input-file */
     void loadVissim(OptionsCont &oc);
 
     /// loads Elmar's data parsed from GDF
-    void loadElmar(OptionsCont &oc, projPJ pj);
+    void loadElmar(OptionsCont &oc);
 
-    void loadTiger(OptionsCont &oc, projPJ pj);
+    void loadTiger(OptionsCont &oc);
 
 private:
     NBNetBuilder &myNetBuilder;

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/09/18 10:11:38  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.6  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -38,7 +41,6 @@
 // Revision 1.1  2005/07/14 11:05:28  dkrajzew
 // elmar unsplitted import added
 //
-//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -56,7 +58,6 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <proj_api.h>
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/FileErrorReporter.h>
@@ -76,7 +77,7 @@ class NIElmar2NodesHandler : public LineHandler,
 public:
     /// constructor
     NIElmar2NodesHandler(NBNodeCont &nc, const std::string &file,
-        std::map<std::string, Position2DVector> &geoms, projPJ pj);
+        std::map<std::string, Position2DVector> &geoms);
 
     /// destructor
     ~NIElmar2NodesHandler();
@@ -92,8 +93,6 @@ protected:
     NBNodeCont &myNodeCont;
 
     std::map<std::string, Position2DVector> &myGeoms;
-
-    projPJ myProjection;
 
 };
 

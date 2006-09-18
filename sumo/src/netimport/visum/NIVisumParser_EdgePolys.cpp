@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/09/18 10:11:39  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.13  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -93,6 +96,7 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -109,9 +113,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_EdgePolys::NIVisumParser_EdgePolys(NIVisumLoader &parent,
-        NBNodeCont &nc, projPJ projection, const std::string &dataName)
+        NBNodeCont &nc, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc), myProjection(projection)
+    myNodeCont(nc)
 {
 }
 
@@ -143,26 +147,18 @@ NIVisumParser_EdgePolys::myDependentReport()
             MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             return;
         }
-        projUV p;
-        if(myProjection!=0) {
-
-            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
-
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            p = pj_fwd(p, myProjection);
-            x = (SUMOReal) p.u;
-            y = (SUMOReal) p.v;
-        }
+        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        Position2D pos(x, y);
+        GeoConvHelper::remap(pos);
         NBEdge *e = from->getConnectionTo(to);
         if(e!=0) {
-            e->addGeometryPoint(index, Position2D(x, y));
+            e->addGeometryPoint(index, pos);
         } else {
             failed = true;
         }
         e = to->getConnectionTo(from);
         if(e!=0) {
-            e->addGeometryPoint(-index, Position2D(x, y));
+            e->addGeometryPoint(-index, pos);
             failed = false;
         }
         // check whether the operation has failed

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/09/18 10:14:35  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.1  2006/08/01 07:52:46  dkrajzew
 // polyconvert added
 //
@@ -50,6 +53,7 @@ namespace
 #include <string>
 #include <map>
 #include <iostream>
+#include <iomanip>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/shapes/Polygon2D.h>
@@ -141,11 +145,13 @@ PCPolyContainer::save(const std::string &file, int layer)
             int bla = 0;
         }
 
+        out << setprecision(2);
         out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
 			<< (*i).second->getType() << "\" color=\""
             << (*i).second->getColor() << "\" fill=\""
             << (*i).second->fill() << "\"";
         out << " layer=\"" << myLayerMap[(*i).second] << "\"";
+        out << setprecision(10);
         out << ">" << (*i).second->getPosition2DVector() << "</poly>" << endl;
     }
 	out << "</polygons>" << endl;

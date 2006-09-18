@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/09/18 10:11:38  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.7  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -59,7 +62,6 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <proj_api.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/FileErrorReporter.h>
 
@@ -77,8 +79,7 @@ class NIElmarNodesHandler : public LineHandler,
                            public FileErrorReporter {
 public:
     /// constructor
-    NIElmarNodesHandler(NBNodeCont &nc, const std::string &file,
-       projPJ pj);
+    NIElmarNodesHandler(NBNodeCont &nc, const std::string &file);
 
     /// destructor
     ~NIElmarNodesHandler();
@@ -92,8 +93,6 @@ protected:
     SUMOReal myInitX, myInitY;
 
     NBNodeCont &myNodeCont;
-
-    projPJ myProjection;
 
 };
 

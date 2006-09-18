@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/09/18 10:11:35  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.26  2006/05/15 05:55:26  dkrajzew
 // added consective process messages
 //
@@ -172,7 +175,8 @@ namespace
 // Memory leaks debugging added (MSVC++)
 //
 // Revision 1.2  2002/03/15 09:17:11  traffic
-// A non-verbose mode is now possible and the handling of map logics is removed
+// A non-verbose mode is now possible and the handling of map logics
+//  is removed
 //
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
@@ -234,6 +238,7 @@ namespace
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
 #include <utils/common/TplConvert.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -264,16 +269,17 @@ void
 NILoader::load(OptionsCont &oc)
 {
     // build the projection
-    projPJ pj = 0;
-    if(oc.getBool("use-projection")) {
-        pj = pj_init_plus(oc.getString("proj").c_str());
-        if(pj==0) {
+    if(!oc.getBool("use-projection")) {
+        GeoConvHelper::init("!", Position2D());
+    } else if(oc.getBool("proj.simple")) {
+        GeoConvHelper::init("-", Position2D());
+    } else {
+        if(!GeoConvHelper::init(oc.getString("proj"), Position2D())) {
             MsgHandler::getErrorInstance()->inform("Could not build projection!");
             throw ProcessError();
         }
     }
     // load types first
-    // load types
     if(oc.isUsableFileList("xml-type-files")) {
 	    NIXMLTypesHandler *handler =
 		    new NIXMLTypesHandler(myNetBuilder.getTypeCont());
@@ -283,13 +289,13 @@ NILoader::load(OptionsCont &oc)
     // try to load using different methods
     loadSUMO(oc);
     loadCell(oc);
-    loadVisum(oc, pj);
-    loadArcView(oc, pj);
+    loadVisum(oc);
+    loadArcView(oc);
     loadArtemis(oc);
     loadVissim(oc);
-    loadElmar(oc, pj);
-    loadTiger(oc, pj);
-    loadXML(oc, pj);
+    loadElmar(oc);
+    loadTiger(oc);
+    loadXML(oc);
     // check the loaded structures
     if(myNetBuilder.getNodeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -337,13 +343,13 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 
 
 void
-NILoader::loadXML(OptionsCont &oc, projPJ pj)
+NILoader::loadXML(OptionsCont &oc)
 {
     // load nodes
     if(oc.isUsableFileList("xml-node-files")) {
         NIXMLNodesHandler *handler =
             new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
-                myNetBuilder.getTLLogicCont(), oc, pj);
+                myNetBuilder.getTLLogicCont(), oc);
         loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
         myNetBuilder.getNodeCont().report();
     }
@@ -450,20 +456,20 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NILoader::loadVisum(OptionsCont &oc, projPJ pj)
+NILoader::loadVisum(OptionsCont &oc)
 {
     if(!oc.isSet("visum")) {
         return;
     }
     // load the visum network
     NIVisumLoader loader(myNetBuilder, oc.getString("visum"),
-        NBCapacity2Lanes(oc.getFloat("N")), pj);
+        NBCapacity2Lanes(oc.getFloat("N")));
     loader.load(oc);
 }
 
 
 void
-NILoader::loadArcView(OptionsCont &oc, projPJ pj)
+NILoader::loadArcView(OptionsCont &oc)
 {
     if(!oc.isSet("arcview")) {
         return;
@@ -489,7 +495,7 @@ NILoader::loadArcView(OptionsCont &oc, projPJ pj)
     // load the arcview files
     NIArcView_Loader loader(oc,
         myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
-        dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech-rechecklanes"), pj);
+        dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech-rechecklanes"));
     loader.load(oc);
 }
 
@@ -522,7 +528,7 @@ NILoader::loadArtemis(OptionsCont &oc)
 
 
 void
-NILoader::loadElmar(OptionsCont &oc, projPJ pj)
+NILoader::loadElmar(OptionsCont &oc)
 {
     if(!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
         return;
@@ -544,13 +550,13 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
     if(!unsplitted) {
         string file = oc.getString(opt) + "_nodes.txt";
-        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file, pj);
+        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
     } else {
         string file = oc.getString(opt) + "_nodes_unsplitted.txt";
-        NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms, pj);
+        NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
@@ -586,13 +592,13 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
 
 
 void
-NILoader::loadTiger(OptionsCont &oc, projPJ pj)
+NILoader::loadTiger(OptionsCont &oc)
 {
     if(!oc.isSet("tiger")) {
         return;
     }
     NITigerLoader l(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont(),
-        oc.getString("tiger"), pj);
+        oc.getString("tiger"));
     l.load(oc);
 }
 

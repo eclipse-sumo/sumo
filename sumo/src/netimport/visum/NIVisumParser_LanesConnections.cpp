@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/09/18 10:11:40  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.7  2006/07/07 11:57:21  dkrajzew
 // further work on VISUM-import
 //
@@ -134,11 +137,6 @@ NIVisumParser_LanesConnections::myDependentReport()
         // get the from-lane
         string fromLaneS =
             NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));
-
-        if(fromEdge->getID()=="-905002548_100_1565"&&toEdge->getID()=="-905002550"&&fromLaneS=="6") {
-            int bla = 0;
-        }
-
 
         int fromLane = -1;
         try {

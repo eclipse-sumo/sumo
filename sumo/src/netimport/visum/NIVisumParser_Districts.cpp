@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/09/18 10:11:39  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.11  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -79,6 +82,7 @@ namespace
 #include <netbuild/NBDistrictCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Districts.h"
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -95,9 +99,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Districts::NIVisumParser_Districts(NIVisumLoader &parent,
-        NBDistrictCont &dc, projPJ projection, const std::string &dataName)
+        NBDistrictCont &dc, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myDistrictCont(dc), myProjection(projection)
+	myDistrictCont(dc)
 {
 }
 
@@ -123,16 +127,11 @@ NIVisumParser_Districts::myDependentReport()
         // get the node information
         SUMOReal x = getNamedFloat("XKoord");
         SUMOReal y = getNamedFloat("YKoord");
-        projUV p;
-        if(myProjection!=0) {
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            p = pj_fwd(p, myProjection);
-            x = (SUMOReal) p.u;
-            y = (SUMOReal) p.v;
-        }
+//        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        Position2D pos(x, y);
+        GeoConvHelper::remap(pos);
         // build the district
-        NBDistrict *district = new NBDistrict(id, name, x, y);
+        NBDistrict *district = new NBDistrict(id, name, pos.x(), pos.y());
         if(!myDistrictCont.insert(district)) {
             addError(" Duplicate district occured ('" + id + "').");
             delete district;

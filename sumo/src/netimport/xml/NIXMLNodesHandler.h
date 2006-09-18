@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/09/18 10:11:40  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.11  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -96,7 +99,6 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <proj_api.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/geom/Position2D.h>
 
@@ -123,7 +125,7 @@ class NIXMLNodesHandler
 public:
     /// standard constructor
     NIXMLNodesHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
-		OptionsCont &options, projPJ pj);
+		OptionsCont &options);
 
     /// Destructor
     ~NIXMLNodesHandler();
@@ -165,8 +167,6 @@ private:
     NBNodeCont &myNodeCont;
 
 	NBTrafficLightLogicCont &myTLLogicCont;
-
-    projPJ myProjection;
 
 private:
     /** invalid copy constructor */

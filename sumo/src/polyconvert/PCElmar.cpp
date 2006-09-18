@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/09/18 10:14:35  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.2  2006/08/02 10:27:21  dkrajzew
 // building under Linux patched
 //
@@ -58,6 +61,7 @@ namespace
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
@@ -69,6 +73,7 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -84,11 +89,11 @@ using namespace std;
 /* =========================================================================
  * method defintions
  * ======================================================================= */
-PCElmar::PCElmar(PCPolyContainer &toFill, projPJ projection,
+PCElmar::PCElmar(PCPolyContainer &toFill,
                  const Boundary &netBoundary, const Position2D &netOffset,
                  PCTypeMap &tm)
-	: myCont(toFill), myProjection(projection),
-    myInitX(-1), myInitY(-1), /*myNetBoundary(netBoundary), */myNetOffset(netOffset),
+	: myCont(toFill),
+    myInitX(-1), myInitY(-1), myNetOffset(netOffset),
     myTypeMap(tm)
 {
 }
@@ -148,37 +153,15 @@ PCElmar::loadElmar(OptionsCont &oc)
 		std::string ypos;
 		while(rest.find(tab)!=string::npos){ // now collecting the Positions
             xpos = rest.substr(0,rest.find(tab));
-            if(xpos=="1292474") {
-                int bla = 0;
-            }
 			rest = rest.substr(rest.find(tab)+1, rest.length());
             ypos = rest.substr(0,rest.find(tab));
 
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
 			SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
 
-            projUV p;
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            if(myProjection!=0) {
-                p = pj_fwd(p, myProjection);
-                p.u = p.u + myNetOffset.x();
-                p.v = p.v + myNetOffset.y();
-            } else {
-                x = (SUMOReal) (x / 100000.0);
-                y = (SUMOReal) (y / 100000.0);
-                SUMOReal ys = y;
-                if(myInitX=-1) {
-                    myInitX = x;
-                    myInitY = y;
-                }
-                x = (x-myInitX);
-                y = (y-myInitY);
-                p.v = (SUMOReal) (x * 111.320*1000.) + myNetOffset.x();
-                SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-                p.u *= (SUMOReal) cos(ys*PI/180.0) + myNetOffset.y();
-            }
-            vec.push_back/*_noDoublePos*/(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+            Position2D pos(x, y);
+            GeoConvHelper::remap(pos);
+            vec.push_back/*_noDoublePos*/(pos);
             rest = rest.substr(rest.find(tab)+1);
         }
         name = StringUtils::convertUmlaute(name);

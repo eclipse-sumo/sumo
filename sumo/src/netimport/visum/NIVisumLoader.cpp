@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/09/18 10:11:39  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.18  2006/07/06 06:16:38  dkrajzew
 // further debugging of VISUM-import (unfinished)
 //
@@ -565,11 +568,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedString(const std::string &fi
  * ----------------------------------------------------------------------- */
 NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              const std::string &file,
-                             NBCapacity2Lanes capacity2Lanes, projPJ pj)
+                             NBCapacity2Lanes capacity2Lanes)
     : FileErrorReporter("visum-network", file),
     _capacity2Lanes(capacity2Lanes),
-    myTLLogicCont(nb.getTLLogicCont()), myEdgeCont(nb.getEdgeCont()),
-    myProjection(pj)
+    myTLLogicCont(nb.getTLLogicCont()), myEdgeCont(nb.getEdgeCont())
 {
     // the order of process is important!
     // set1
@@ -578,9 +580,9 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     mySingleDataParsers.push_back(
         new NIVisumParser_Types(*this, nb.getTypeCont(), "STRECKENTYP", _capacity2Lanes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Nodes(*this, nb.getNodeCont(), pj, "KNOTEN"));
+        new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Districts(*this, nb.getDistrictCont(), pj, "BEZIRK"));
+        new NIVisumParser_Districts(*this, nb.getDistrictCont(), "BEZIRK"));
 
 
     // set2
@@ -601,7 +603,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
         new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGER", myVSysTypes));
 
     mySingleDataParsers.push_back(
-        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), pj, "STRECKENPOLY"));
+        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), "STRECKENPOLY"));
     mySingleDataParsers.push_back(
         new NIVisumParser_Lanes(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getDistrictCont(), "FAHRSTREIFEN"));
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2006/09/18 10:14:35  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.1  2006/08/01 07:52:46  dkrajzew
 // polyconvert added
 //
@@ -46,7 +49,6 @@
 
 #include <string>
 #include "PCPolyContainer.h"
-#include <proj_api.h>
 #include "PCTypeMap.h"
 
 
@@ -78,7 +80,7 @@ class OptionsCont;
 class PCElmar {
 public:
     /// Constructor
-    PCElmar(PCPolyContainer &toFill, projPJ projection,
+    PCElmar(PCPolyContainer &toFill,
         const Boundary &netBoundary, const Position2D &netOffset,
         PCTypeMap &tm);
 
@@ -92,9 +94,6 @@ public:
 private:
     /// The container to store the converted polygons into
 	PCPolyContainer &myCont;
-
-    /// The used projection
-    projPJ myProjection;
 
     /// First x and y positions read used if no projection is given
     SUMOReal myInitX, myInitY;

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.25  2006/09/18 10:18:57  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.24  2006/07/06 09:22:08  dkrajzew
 // debugging
 //
@@ -222,6 +225,7 @@ char *help[] = {
     " Geocoordinates Projection and Network Geometry:",
     "  --use-projection               Enables reprojection of network coordinates",
     "  --proj PROJ_DEF                Defines the projection used by PROJ",
+    "  --proj.simple                  Uses tiny projection",
     "  --disable-normalize-node-positions   Turn off normalizing node positions",
     " ",
     " Random Number Options:",

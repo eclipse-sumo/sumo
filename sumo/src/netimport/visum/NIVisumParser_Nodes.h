@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2006/09/18 10:11:40  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.5  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -52,7 +55,6 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <proj_api.h>
 #include "NIVisumLoader.h"
 
 
@@ -68,7 +70,7 @@ class NIVisumParser_Nodes :
 public:
     /// Constructor
     NIVisumParser_Nodes(NIVisumLoader &parent, NBNodeCont &nc,
-        projPJ projection, const std::string &dataName);
+        const std::string &dataName);
 
     /// Destructor
     ~NIVisumParser_Nodes();
@@ -79,8 +81,6 @@ protected:
 
 protected:
 	NBNodeCont &myNodeCont;
-
-    projPJ myProjection;
 
 };
 

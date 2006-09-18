@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/09/18 10:11:40  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.14  2006/04/07 05:28:50  dkrajzew
 // finished lane-2-lane connections setting
 //
@@ -87,6 +90,7 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Nodes.h"
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -103,9 +107,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Nodes::NIVisumParser_Nodes(NIVisumLoader &parent,
-        NBNodeCont &nc, projPJ projection, const std::string &dataName)
+        NBNodeCont &nc, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNodeCont(nc), myProjection(projection)
+	myNodeCont(nc)
 {
 }
 
@@ -125,19 +129,11 @@ NIVisumParser_Nodes::myDependentReport()
         // get the position
         SUMOReal x = getNamedFloat("XKoord");
         SUMOReal y = getNamedFloat("YKoord");
-        projUV p;
-        if(myProjection!=0) {
-
-            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
-
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            p = pj_fwd(p, myProjection);
-            x = (SUMOReal) p.u;
-            y = (SUMOReal) p.v;
-        }
+        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        Position2D pos(x, y);
+        GeoConvHelper::remap(pos);
         // add to the list
-        if(!myNodeCont.insert(id, Position2D(x, y))) {
+        if(!myNodeCont.insert(id, pos)) {
             addError(" Duplicate node occured ('" + id + "').");
         }
     } catch (OutOfBoundsException) {

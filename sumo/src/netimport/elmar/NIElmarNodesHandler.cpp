@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/09/18 10:11:37  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.12  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -86,6 +89,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIElmarNodesHandler.h"
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -102,11 +106,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
-                                         const std::string &file,
-                                         projPJ pj)
+                                         const std::string &file)
     : FileErrorReporter("elmar-nodes", file),
     myInitX(-1), myInitY(-1),
-    myNodeCont(nc), myProjection(pj)
+    myNodeCont(nc)
 {
 }
 
@@ -147,27 +150,9 @@ NIElmarNodesHandler::report(const std::string &result)
     }
     // geo->metric
     myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
-
-    projUV p;
-    p.u = x / 100000.0 * DEG_TO_RAD;
-    p.v = y / 100000.0 * DEG_TO_RAD;
-    if(myProjection!=0) {
-        p = pj_fwd(p, myProjection);
-    } else {
-        x = x / (SUMOReal) 100000.0;
-        y = y / (SUMOReal) 100000.0;
-        SUMOReal ys = y;
-        if(myInitX=-1) {
-            myInitX = x;
-            myInitY = y;
-        }
-        x = (x-myInitX);
-        y = (y-myInitY);
-        p.u = (SUMOReal) (x * 111.320*1000.);
-        p.v = (SUMOReal) (y * 111.136*1000.);
-        p.u *= (SUMOReal) cos(ys*PI/180.0);
-    }
-    NBNode *n = new NBNode(id, Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+    Position2D pos(x, y);
+    GeoConvHelper::remap(pos);
+    NBNode *n = new NBNode(id, pos);
     if(!myNodeCont.insert(n)) {
         delete n;
         MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");

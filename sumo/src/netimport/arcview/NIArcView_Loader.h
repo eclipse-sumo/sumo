@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/09/18 10:11:37  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.15  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -106,7 +109,7 @@ public:
     NIArcView_Loader(OptionsCont &oc,
         NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
         const std::string &dbf_name, const std::string &shp_name,
-        bool speedInKMH, bool useNewLaneNumberInfoPlain, projPJ pj);
+        bool speedInKMH, bool useNewLaneNumberInfoPlain);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -148,7 +151,6 @@ private:
     NBTypeCont &myTypeCont;
     bool mySpeedInKMH;
 	bool myUseNewLaneNumberInfoPlain;
-    projPJ myProjection;
 
     int myRunningNodeID;
 

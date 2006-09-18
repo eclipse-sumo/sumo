@@ -21,12 +21,21 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2006/09/18 10:19:29  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.1  2006/08/01 07:20:32  dkrajzew
 // polyconvert added
 //
 // Revision 1.4  2005/12/12 11:58:14  dksumo
 // help output patched; cheanges due to correct the output
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -51,7 +60,7 @@ char *help[] = {
     "Usage: sumo-polyconvert [OPTION]*",
     " ",
     "Examples: ",
-    " sumo-polyconvert -n net.net.xml --elmar tol_polygons.txt --use-projection",
+    " sumo-polyconvert -n net.net.xml --elmar tol_polygons.txt",
     " ",
     "Options:",
     " Input files:",
@@ -73,6 +82,7 @@ char *help[] = {
     " Geocoordinates Projection and Network Geometry:",
     "  --use-projection               Enables reprojection of network coordinates",
     "  --proj PROJ_DEF                Defines the projection used by PROJ",
+    "  --proj.simple                  Uses tiny projection",
     " ",
     " Report options:",
     "  -v, --verbose                   SUMO-NETCONVERT will report what it does",

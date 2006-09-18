@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/09/18 10:11:39  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.14  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -94,7 +97,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/geom/GeomHelper.h>
-
+#include <utils/geoconv/GeoConvHelper.h>
 #include "NITigerLoader.h"
 
 #ifdef _DEBUG
@@ -112,10 +115,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-                             const std::string &file, projPJ pj)
+                             const std::string &file)
     : FileErrorReporter("tiger-network", file),
-    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc),
-    myProjection(pj)
+    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
 {
 }
 
@@ -228,27 +230,9 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
 
             myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
 
-            projUV p;
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            if(myProjection!=0) {
-                p = pj_fwd(p, myProjection);
-            } else {
-                x = x / (SUMOReal) 100000.0;
-                y = y / (SUMOReal) 100000.0;
-                SUMOReal ys = y;
-                if(!myWasSet) {
-                    myWasSet = true;
-                    myInitX = x;
-                    myInitY = y;
-                }
-                x = (x-myInitX);
-                y = (y-myInitY);
-                p.u = (SUMOReal) (x * 111.320*1000.);
-                p.v = (SUMOReal) (y * 111.136*1000.);
-                p.u *= (SUMOReal) cos(ys*PI/180.0);
-            }
-            ret.push_back(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+            Position2D pos(x, y);
+            GeoConvHelper::remap(pos);
+            ret.push_back(pos);
         } catch(NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Could not convert position '" + p1 + "/" + p2 + "'.");
             throw ProcessError();
@@ -386,7 +370,6 @@ NITigerLoader::getLaneNo(const std::string &type) const
         throw 1;
     }
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

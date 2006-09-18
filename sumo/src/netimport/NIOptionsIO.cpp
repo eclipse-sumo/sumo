@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/09/18 10:11:36  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.22  2006/08/01 07:19:57  dkrajzew
 // removed build number information
 //
@@ -287,6 +290,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("arcview.guess-projection", new Option_Bool(false));
 
     oc.doRegister("use-projection", new Option_Bool(false));
+    oc.doRegister("proj.simple", new Option_Bool(false));
     oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
 
 

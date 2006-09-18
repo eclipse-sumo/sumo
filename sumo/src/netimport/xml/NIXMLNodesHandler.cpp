@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/09/18 10:11:40  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.18  2006/04/07 05:28:24  dkrajzew
 // removed some warnings
 //
@@ -155,6 +158,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -172,10 +176,10 @@ using namespace std;
  * ======================================================================= */
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
 									 NBTrafficLightLogicCont &tlc,
-									 OptionsCont &options, projPJ pj)
+									 OptionsCont &options)
     : SUMOSAXHandler("xml-nodes - file"),
     _options(options),
-    myNodeCont(nc), myTLLogicCont(tlc), myProjection(pj)
+    myNodeCont(nc), myTLLogicCont(tlc)
 {
 }
 
@@ -240,18 +244,9 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
     try {
         SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
-        if(myProjection!=0) {
-
-            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
-
-            projUV p;
-            p.u = x / 100000.0 * DEG_TO_RAD;
-            p.v = y / 100000.0 * DEG_TO_RAD;
-            p = pj_fwd(p, myProjection);
-            myPosition.set((SUMOReal) p.u, (SUMOReal) p.v); // !!!! in multiple of degrees!!!
-        } else {
-            myPosition.set(x, y);
-        }
+        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        myPosition.set(x, y);
+        GeoConvHelper::remap(myPosition);
     } catch (NumberFormatException) {
         addError("Not numeric value for position (at node ID='" + myID + "').");
         return false;

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/09/18 10:19:29  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.1  2006/08/01 07:20:32  dkrajzew
 // polyconvert added
 //
@@ -37,6 +40,12 @@ namespace
 // Revision 1.4  2005/12/12 11:58:14  dksumo
 // help output patched; cheanges due to correct the output
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -69,8 +78,7 @@ namespace
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/RandHelper.h>
-
-#include <proj_api.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -114,7 +122,8 @@ fillOptions(OptionsCont &oc)
 
     // projection options
     oc.doRegister("use-projection", new Option_Bool(false));
-    oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
+    oc.doRegister("proj.simple", new Option_Bool(false));
+    oc.doRegister("proj", new Option_String());
 
     // default values
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
@@ -137,7 +146,7 @@ getNetworkOrigBoundary(const std::string &file)
     }
     while(lr.hasMore()) {
         string line = lr.readLine();
-        if(line.find("<orig>")!=string::npos) {
+        if(line.find("<orig-boundary>")!=string::npos) {
             size_t beg = line.find('>');
             size_t end = line.find('<', beg);
             string my = line.substr(beg+1, end-beg-1);
@@ -171,8 +180,8 @@ getNetworkOffset(const std::string &file)
 }
 
 
-SUMOReal
-getOrigUTM(const std::string &file)
+std::string
+getOrigProj(const std::string &file)
 {
     LineReader lr(file);
     if(!lr.good()) {
@@ -181,11 +190,10 @@ getOrigUTM(const std::string &file)
     }
     while(lr.hasMore()) {
         string line = lr.readLine();
-        if(line.find("<orig-utm>")!=string::npos) {
+        if(line.find("<orig-proj>")!=string::npos) {
             size_t beg = line.find('>');
             size_t end = line.find('<', beg);
-            string my = line.substr(beg+1, end-beg-1);
-            return TplConvert<char>::_2SUMOReal(my.c_str());
+            return line.substr(beg+1, end-beg-1);
         }
     }
     MsgHandler::getErrorInstance()->inform("Could not find projection description in net.");
@@ -225,16 +233,22 @@ main(int argc, char **argv)
         // build the projection
         Boundary origNetBoundary;
         Position2D netOffset;
-        SUMOReal utm;
-        projPJ pj = 0;
-        if(oc.getBool("use-projection")) {
-            pj = pj_init_plus(oc.getString("proj").c_str());
+        string proj;
+
+        if(!oc.getBool("use-projection")) {
+            GeoConvHelper::init("!", Position2D());
+        } else if(oc.getBool("proj.simple")) {
+            GeoConvHelper::init("-", Position2D());
+        } else {
             if(oc.isSet("net")) {
                 origNetBoundary = getNetworkOrigBoundary(oc.getString("net"));
                 netOffset = getNetworkOffset(oc.getString("net"));
-                //!!!utm = getOrigUTM(oc.getString("net"));
+                proj = getOrigProj(oc.getString("net"));
             }
-            if(pj==0) {
+            if(oc.isSet("proj")) {
+                proj = oc.getString("proj");
+            }
+            if(!GeoConvHelper::init(proj, netOffset)) {
                 MsgHandler::getErrorInstance()->inform("Could not build projection!");
                 throw ProcessError();
             }
@@ -250,7 +264,7 @@ main(int argc, char **argv)
         // read in the data
         if(oc.isSet("elmar")) {
             // elmars
-            PCElmar pce(toFill, pj, origNetBoundary, netOffset, tm);
+            PCElmar pce(toFill, origNetBoundary, netOffset, tm);
             pce.loadElmar(oc);
         }
         if(oc.isSet("visum-file")) {

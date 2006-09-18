@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/09/18 10:11:39  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.12  2006/07/06 06:16:38  dkrajzew
 // further debugging of VISUM-import (unfinished)
 //
@@ -82,7 +85,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <proj_api.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
@@ -123,7 +125,7 @@ public:
 public:
     /// constructor
     NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-		NBCapacity2Lanes capacity2Lanes, projPJ pj);
+		NBCapacity2Lanes capacity2Lanes);
 
     /// destructor
     ~NIVisumLoader();
@@ -372,7 +374,6 @@ private:
 
     NBTrafficLightLogicCont &myTLLogicCont;
     NBEdgeCont &myEdgeCont;
-    projPJ myProjection;
 
 };
 

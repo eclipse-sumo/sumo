@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/09/18 10:11:38  dkrajzew
+// changed the way geocoordinates are processed
+//
 // Revision 1.10  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -81,6 +84,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIElmar2NodesHandler.h"
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -97,11 +101,10 @@ using namespace std;
  * ======================================================================= */
 NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
                                            const std::string &file,
-                                           std::map<std::string, Position2DVector> &geoms,
-                                           projPJ pj)
+                                           std::map<std::string, Position2DVector> &geoms)
     : FileErrorReporter("elmar-nodes", file),
     myInitX(-1), myInitY(-1),
-    myNodeCont(nc), myGeoms(geoms), myProjection(pj)
+    myNodeCont(nc), myGeoms(geoms)
 {
 }
 
@@ -160,27 +163,9 @@ NIElmar2NodesHandler::report(const std::string &result)
         }
 
         myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
-
-        projUV p;
-        p.u = x / 100000.0 * DEG_TO_RAD;
-        p.v = y / 100000.0 * DEG_TO_RAD;
-        if(myProjection!=0) {
-            p = pj_fwd(p, myProjection);
-        } else {
-            x = (SUMOReal) (x / 100000.0);
-            y = (SUMOReal) (y / 100000.0);
-            SUMOReal ys = y;
-            if(myInitX=-1) {
-                myInitX = x;
-                myInitY = y;
-            }
-            x = (x-myInitX);
-            y = (y-myInitY);
-            p.v = (SUMOReal) (x * 111.320*1000.);
-            SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-            p.u *= (SUMOReal) cos(ys*PI/180.0);
-        }
-        geoms.push_back(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+        Position2D pos(x, y);
+        GeoConvHelper::remap(pos);
+        geoms.push_back(pos);
     }
 
     if(intermediate==0) {
