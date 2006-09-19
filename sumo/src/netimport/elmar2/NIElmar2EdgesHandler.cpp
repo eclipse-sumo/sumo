@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/09/19 11:48:59  dkrajzew
+// debugging removal of edges which allow only unwished vehicle classes
+//
 // Revision 1.9  2006/09/18 10:12:57  dkrajzew
 // added import of vclasses
 //
@@ -205,14 +208,14 @@ NIElmar2EdgesHandler::report(const std::string &result)
                 speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
         }
     }
+    // add vehicle type information to the edge
+    NINavTeqHelper::addVehicleClasses(*e, veh_type);
     // insert the edge to the network
     if(!myEdgeCont.insert(e)) {
         delete e;
         MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
     }
-    // add vehicle type information to the edge
-    NINavTeqHelper::addVehicleClasses(*e, veh_type);
     return true;
 }
 

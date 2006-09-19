@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/09/19 11:48:59  dkrajzew
+// debugging removal of edges which allow only unwished vehicle classes
+//
 // Revision 1.50  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -332,10 +335,11 @@ NBEdgeCont::insert(NBEdge *edge)
                 find(allowed.begin(), allowed.end(), vclass);
             if(i!=allowed.end()) {
                 allowed.erase(i);
+                matching++;
             }
         }
         // remove the edge if all allowed
-        if(allowed.size()!=0) {
+        if(allowed.size()==0&&matching!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
