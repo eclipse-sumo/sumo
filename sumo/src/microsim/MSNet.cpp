@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.83  2006/09/19 09:03:32  dkrajzew
+// invalidated c2c communication temporary
+//
 // Revision 1.82  2006/09/18 10:07:24  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -599,8 +602,10 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // we may add it before the network is loaded
     if(myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
+	/*
 	    myCellsBuilder = new MSBuildCells(*this, myConvBoundary); //Danilo
 		myCellsBuilder->build();
+	*/
     }
 
     // save the time the network state shall be saved at
