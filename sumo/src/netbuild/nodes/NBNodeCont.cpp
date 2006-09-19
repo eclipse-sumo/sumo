@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/09/19 11:48:24  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.25  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -479,10 +482,8 @@ NBNodeCont::getInternalNamesList()
 {
     std::vector<std::string> ret;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        std::vector<std::string> nodes =
-            (*i).second->getInternalNamesList();
-        copy(nodes.begin(), nodes.end(),
-            back_inserter(ret));
+        std::vector<std::string> nodes = (*i).second->getInternalNamesList();
+        copy(nodes.begin(), nodes.end(), back_inserter(ret));
     }
     return ret;
 }

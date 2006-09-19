@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/09/19 11:48:23  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.1  2006/09/18 10:06:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -129,7 +132,7 @@ MSInternalJunction::setAllowed()
         const MSLinkCont &lc = l->getLinkCont();
         for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             if(find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
-                if((*j)->isApproached()) {
+                if((*j)->isApproached()&&(*j)->opened()) {
                     allow = false;
                 }
             }

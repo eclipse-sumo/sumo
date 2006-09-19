@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.70  2006/09/19 11:48:23  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.69  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -1773,7 +1776,7 @@ NBEdge::tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance) const
     return 0;
 }
 
-
+/*
 NBEdge *
 NBEdge::checkCorrectNode(NBEdge *opposite)
 {
@@ -1785,7 +1788,7 @@ NBEdge::checkCorrectNode(NBEdge *opposite)
     }
     return this;
 }
-
+*/
 
 NBEdge::EdgeBasicFunction
 NBEdge::getBasicType() const

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/09/19 11:48:24  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.27  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
 //
@@ -1178,7 +1181,15 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                         if((*k2).edge==0) {
                             continue;
                         }
-                        if(fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                        NBEdge *e = fromE->getToNode()->getOppositeIncoming(fromE);
+                        if(e!=*i2) {
+                            index++;
+                            continue;
+                        }
+                        NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).edge);
+                        bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
+                        left = false;
+                        if(!left&&fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
                             if(ret.length()!=0) {
                                 ret += " ";
                             }
@@ -1240,7 +1251,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                 into << "   </succ>" << endl;
 
                 if(cross.first>=0) {
-                    into << "   <succ i=\"\" edge=\"" << sid << "\" "
+                    into << "   <succ edge=\"" << sid << "\" "
                         << "lane=\"" << sid << "_" << 0
                         << "\" junction=\"" << sid << "\">"
                         << endl;
@@ -1857,21 +1868,30 @@ NBEdge *
 NBNode::getOppositeIncoming(NBEdge *e) const
 {
     EdgeVector edges(*_incomingEdges);
-    sort(edges.begin(), edges.end(),
-        NBContHelper::edge_similar_direction_sorter(e));
+    if(find(edges.begin(), edges.end(), e)!=edges.end()) {
+        edges.erase(find(edges.begin(), edges.end(), e));
+    }
+    if(e->getToNode()==this) {
+        sort(edges.begin(), edges.end(), NBContHelper::edge_opposite_direction_sorter(e));
+    } else {
+        sort(edges.begin(), edges.end(), NBContHelper::edge_similar_direction_sorter(e));
+    }
     return edges[0];
 }
 
-
+/*
 NBEdge *
 NBNode::getOppositeOutgoing(NBEdge *e) const
 {
     EdgeVector edges(*_outgoingEdges);
+    if(find(edges.begin(), edges.end(), e)!=edges.end()) {
+        edges.erase(find(edges.begin(), edges.end(), e));
+    }
     sort(edges.begin(), edges.end(),
         NBContHelper::edge_similar_direction_sorter(e));
     return edges[0];
 }
-
+*/
 
 void
 NBNode::addSortedLinkFoes(const NBConnection &mayDrive,

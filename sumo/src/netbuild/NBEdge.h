@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.49  2006/09/19 11:48:23  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.48  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -430,7 +433,7 @@ public:
         The epsilon is a static member of NBEdge, should be setable via program options */
     NBNode *tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance=5.0) const;
 
-    NBEdge *checkCorrectNode(NBEdge *opposite);
+//    NBEdge *checkCorrectNode(NBEdge *opposite);
 
     EdgeBasicFunction getBasicType() const;
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/09/19 11:48:24  dkrajzew
+// debugging junction-internal lanes
+//
 // Revision 1.13  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -370,7 +373,7 @@ public:
     bool hasOutgoing(NBEdge *e) const;
     bool hasIncoming(NBEdge *e) const;
     NBEdge *getOppositeIncoming(NBEdge *e) const;
-    NBEdge *getOppositeOutgoing(NBEdge *e) const;
+//    NBEdge *getOppositeOutgoing(NBEdge *e) const;
     void invalidateIncomingConnections();
     void invalidateOutgoingConnections();
 
