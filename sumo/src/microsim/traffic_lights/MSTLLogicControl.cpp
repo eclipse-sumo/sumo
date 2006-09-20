@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/09/20 09:18:33  jringel
+// stretch: some bugs removed
+//
 // Revision 1.19  2006/09/08 12:31:28  jringel
 // Stretch added
 //
@@ -364,11 +367,12 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
 	// synchronize the toLogic if necessary
 	if (mySwitchSynchron) {
 		// calculate the difference, that has to be equalized
-		if (startPos < posAfterSyn) {
-			startPos = startPos + cycleTime;
+		size_t deltaToCut = 0;
+		if (posAfterSyn < startPos) {
+			deltaToCut = posAfterSyn + cycleTime - startPos;
 		}
+		else deltaToCut =  posAfterSyn - startPos;
 		// test, wheter cutting of the Signalplan is possible
-		size_t deltaToCut = startPos - posAfterSyn;
 		size_t deltaPossible = 0;
 		int noBereiche = getStretchBereicheNo(myTo);
 		for(int i=0; i<noBereiche; i++) {
@@ -376,14 +380,14 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
 		assert (def.end >= def.begin) ; 
 		deltaPossible = deltaPossible + (def.end - def.begin);
 		}
-		int stretchUmlaufAnz = 1;	// hier noch richtigen Wert aus Eingabedaten lesen!!!!
+		int stretchUmlaufAnz = TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
 		deltaPossible = stretchUmlaufAnz * deltaPossible;
 		if ((deltaPossible > deltaToCut)&&(deltaToCut < (cycleTime / 2))) {
 			cutLogic(step, startPos, deltaToCut);
 		}
 		else {
 			size_t deltaToStretch = cycleTime - deltaToCut;
-			stretchLogic(step, startPos, deltaToStretch);
+			stretchLogic(step, deltaToStretch);
 		}
 	}
 }
@@ -450,45 +454,47 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 }
 
 void
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch)
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_t deltaToStretch)
 {
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
 	size_t currStep = LogicTo->getStepNo();	
 	size_t allStretchTime = deltaToStretch;
 	size_t remainingStretchTime = allStretchTime;
-	size_t StretchUmlaufAnz = 2; // ToDo Wert aus Eingabedaten einlesen!!!!
+	size_t stretchUmlaufAnz = TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
 	float facSum = 0;
 	int noBereiche = getStretchBereicheNo(myTo);
-	for(int i=0; i<noBereiche; i++) {
-				StretchBereichDef def = getStretchBereichDef(myTo, i+1);
+	for(int x=0; x<noBereiche; x++) {
+				StretchBereichDef def = getStretchBereichDef(myTo, x+1);
 				size_t fac = def.fac;
 				facSum = facSum + fac;
 	}
-	facSum = facSum * StretchUmlaufAnz;
+	facSum = facSum * stretchUmlaufAnz;
+	int changeSwitchPhase = 0;
 	while(remainingStretchTime > 0) {
 		for(int i=currStep; i<LogicTo->getPhases().size(); i++) {
 			size_t beginOfPhase = LogicTo->getPosFromStep(i);
 			size_t durOfPhase = LogicTo->getPhaseFromStep(i).duration;
 			size_t endOfPhase = beginOfPhase + durOfPhase;
-			for(int i=0; i<noBereiche; i++) {
-				StretchBereichDef def = getStretchBereichDef(myTo, i+1);
+			changeSwitchPhase ++; 
+			for(int j=0; j<noBereiche; j++) {
+				StretchBereichDef def = getStretchBereichDef(myTo, j+1);
 				size_t end = def.end;
 				float fac = def.fac;
 				if((beginOfPhase <= end) && (endOfPhase >= end)) {
 					float actualfac = fac / facSum;
-					int StretchTimeOfPhase = (int)((float)allStretchTime * actualfac + 0.5) ;
-					if (StretchTimeOfPhase > remainingStretchTime) {
-						StretchTimeOfPhase = remainingStretchTime;
-					}
-					remainingStretchTime = remainingStretchTime - StretchTimeOfPhase;
+					int StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5) ;
+					facSum = facSum - fac;
 					durOfPhase = durOfPhase + StretchTimeOfPhase;
+					remainingStretchTime = remainingStretchTime - StretchTimeOfPhase;
 				}
 			}
-			LogicTo->addOverridingDuration(durOfPhase);
+			if (changeSwitchPhase ==1) {
+				LogicTo->changeStepAndDuration(myControl, step, i, durOfPhase);
+			}
+			else LogicTo->addOverridingDuration(durOfPhase);
 		}
 	currStep = 0;
 	}
-	
 }
 
 int

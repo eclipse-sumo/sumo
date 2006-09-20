@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/09/20 09:18:33  jringel
+// stretch: some bugs removed
+//
 // Revision 1.16  2006/09/08 12:31:28  jringel
 // Stretch added
 //
@@ -423,7 +426,7 @@ protected:
 		void cutLogic(SUMOTime step, size_t position, size_t deltaToCut);
 		
 		// stretchs the logic to synchronize
-		void stretchLogic(SUMOTime step, size_t position, size_t deltaToStretch);
+		void stretchLogic(SUMOTime step, size_t deltaToStretch);
 
     protected:
         /** @struct StretchBereichDef
