@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2006/09/21 09:48:57  dkrajzew
+// debugging computation of inner-lane velocities and lane-to-lane connections
+//
 // Revision 1.17  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,6 +130,8 @@
 #include "NBCont.h"
 #include "NBEdge.h"
 #include "nodes/NBNode.h"
+#include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
 
 
 /* =========================================================================
@@ -325,7 +330,8 @@ public:
          */
         SUMOReal getDiff(NBEdge *e) const {
             SUMOReal d = e->getAngle();
-            return fabs(d - _angle);
+            return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
+//                fabs(d - _angle);
         }
 
     private:

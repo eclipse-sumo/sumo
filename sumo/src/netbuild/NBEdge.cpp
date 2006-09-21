@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.70  2006/09/19 11:48:23  dkrajzew
-// debugging junction-internal lanes
+// Revision 1.71  2006/09/21 09:48:57  dkrajzew
+// debugging computation of inner-lane velocities and lane-to-lane connections
 //
 // Revision 1.69  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
@@ -331,6 +331,8 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "NBEdge.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -393,8 +395,9 @@ NBEdge::ToEdgeConnectionsAdder::execute(SUMOReal lane, SUMOReal virtEdge)
 NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
                                        NBEdge *parent, NBNode *to)
 {
-    if(outgoing.size()==0)
+    if(outgoing.size()==0) {
         return;
+    }
     // check whether the right turn has a higher priority
     assert(outgoing.size()>0);
     if(outgoing[0]->getJunctionPriority(to)==1) {
@@ -402,7 +405,13 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
     }
     // check whether the left turn has a higher priority
     if(outgoing[outgoing.size()-1]->getJunctionPriority(to)==1) {
-        _dirs.push_back(MainDirections::DIR_LEFTMOST);
+        // we have additionally to check whether our direction has the
+        //  same priority even if the junction priority is lower
+        vector<NBEdge*> tmp(outgoing);
+        sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
+        if(outgoing[outgoing.size()-1]->getPriority()!=tmp[0]->getPriority()) {
+            _dirs.push_back(MainDirections::DIR_LEFTMOST);
+        }
     }
     // check whether the forward direction has a higher priority
     //  get the forward direction
@@ -455,6 +464,10 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
+    // check whether the number of lanes shall be used
+    if(OptionsSubSys::getOptions().getBool("use-laneno-as-priority")) {
+        _priority = _nolanes;
+    }
     assert(_nolanes!=0);
     if(_from==0||_to==0) {
         throw std::exception();
@@ -515,6 +528,10 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
+    // check whether the number of lanes shall be used
+    if(OptionsSubSys::getOptions().getBool("use-laneno-as-priority")) {
+        _priority = _nolanes;
+    }
     assert(_nolanes!=0);
     if(_from==0||_to==0) {
         throw std::exception();
@@ -1528,7 +1545,11 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
     MainDirections mainDirections(*outgoing, this, _to);
-    if(!mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
+        vector<NBEdge*> tmp(*outgoing);
+        sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
+        i=find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
+        size_t dist = distance(outgoing->begin(), i);
+    if(dist!=0&&!mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
         assert(priorities->size()>0);
         (*priorities)[0] = (*priorities)[0] / 2;
     }
@@ -1536,13 +1557,6 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     // when no higher priority exists, let the forward direction be
     //  the main direction
     if(mainDirections.empty()) {
-        vector<NBEdge*> tmp(*outgoing);
-        sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
-        i=find(
-            outgoing->begin(),
-            outgoing->end(),
-            *(tmp.begin()));
-        size_t dist = distance(outgoing->begin(), i);
         assert(dist<priorities->size());
         (*priorities)[dist] = (*priorities)[dist] * 2;
     }

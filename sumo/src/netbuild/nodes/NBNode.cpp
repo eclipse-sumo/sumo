@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/09/21 09:48:57  dkrajzew
+// debugging computation of inner-lane velocities and lane-to-lane connections
+//
 // Revision 1.28  2006/09/19 11:48:24  dkrajzew
 // debugging junction-internal lanes
 //
@@ -684,38 +687,122 @@ NBNode::isDistrictCenter() const
 void
 NBNode::setPriorityJunctionPriorities()
 {
-    if(_incomingEdges->size()==0) {
-        return; // !!! what happens with outgoing edges
-                //  (which priority should be assigned here)?
-    }
-    NBEdge *best1, *best2;
-    best1 = best2 = 0;
-    best1 = 0;
-    vector<NBEdge*> incoming(*_incomingEdges);
-    int noIncomingPrios = NBContHelper::countPriorities(incoming);
-    if(noIncomingPrios==1) {
+    if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
     }
+    vector<NBEdge*> incoming(*_incomingEdges);
+    vector<NBEdge*> outgoing(*_outgoingEdges);
+    int noIncomingPrios = NBContHelper::countPriorities(incoming);
+    int noOutgoingPrios = NBContHelper::countPriorities(outgoing);
+    if(noIncomingPrios==1&&noOutgoingPrios==1) {
+        return;
+    }
+    // what we do want to have is to extract the pair of roads that are
+    //  the major roads for this junction
+    // let's get the list of incoming edges with the highest priority
+    //  (may be more than one)
+    sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
+    std::vector<NBEdge*> bestIncoming;
+    NBEdge *best = incoming[0];
+    incoming.erase(incoming.begin());
+    bestIncoming.push_back(best);
+    while(incoming.size()>0&&incoming[0]->getPriority()==best->getPriority()) {
+        best = incoming[0];
+        incoming.erase(incoming.begin());
+        bestIncoming.push_back(best);
+    }
+    // now, let's get the list of best outgoing
+    sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
+    std::vector<NBEdge*> bestOutgoing;
+    best = outgoing[0];
+    assert(outgoing.size()!=0);
+    outgoing.erase(outgoing.begin());
+    bestOutgoing.push_back(best);
+    while(outgoing.size()>0&&outgoing[0]->getPriority()==best->getPriority()) {
+        best = outgoing[0];
+        outgoing.erase(outgoing.begin());
+        bestOutgoing.push_back(best);
+    }
+    // ok, now we have two lists... what now?
+    // by now, let's assume the following:
+    // 1a) there is one best incoming road
+    if(bestIncoming.size()==1) {
+        // let's mark this road as the best
+        NBEdge *best1 = extractAndMarkFirst(bestIncoming);
+        if(bestOutgoing.size()!=0) {
+            sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
+            extractAndMarkFirst(bestOutgoing);
+        }
+        return;
+    }
+    // 1b) there are more than one best incoming road
+    // ok, we may have two cases here:
+    // 2a) there are as many "best outgoing" as "best incoming" edges
+    if(bestIncoming.size()==bestOutgoing.size()) {
+        // !!! version 1: choose one randomly
+        /*
+        NBEdge *best1 = extractAndMarkFirst(bestIncoming);
+        sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
+        extractAndMarkFirst(bestOutgoing);
+        // !!! version 2: mark all as major
+        /*
+        // let's mark all these roads as the best (incoming and outgoing)
+        while(bestIncoming.size()!=0) {
+            extractAndMarkFirst(bestIncoming);
+        }
+        while(bestOutgoing.size()!=0) {
+            extractAndMarkFirst(bestOutgoing);
+        }
+        */
+        return;
+    }
+    // 2b) ok, there seems to be at least one connection which does not
+    //  have an opposite major road...
+    // !!! version 1: find the one incoming with the last
+    //  direction deviation from one of the best outgoing
+    NBEdge *bestIncomingEdge = 0;
+    NBEdge *bestOutgoingEdge = 0;
+    SUMOReal bestAngle = -1;
+    for(vector<NBEdge*>::iterator i1=bestIncoming.begin(); i1!=bestIncoming.end(); ++i1) {
+        for(vector<NBEdge*>::iterator i2=bestOutgoing.begin(); i2!=bestOutgoing.end(); ++i2) {
+            SUMOReal angle = MIN2(
+                GeomHelper::getCCWAngleDiff((*i1)->getAngle(), (*i2)->getAngle()),
+                GeomHelper::getCWAngleDiff((*i1)->getAngle(), (*i2)->getAngle()));
+            if(bestAngle==-1||bestAngle>angle) {
+                bestIncomingEdge = *i1;
+                bestOutgoingEdge = *i2;
+                bestAngle = angle;
+            }
+        }
+    }
+    bestIncoming.insert(bestIncoming.begin(), bestIncomingEdge);
+    bestOutgoing.insert(bestOutgoing.begin(), bestOutgoingEdge);
+    extractAndMarkFirst(bestIncoming);
+    extractAndMarkFirst(bestOutgoing);
+
+
+
+
     // !!! Attention!
     // there is no case that fits into junctions with no incoming edges
         // extract the edge with the highest priority
+    /*
     if(incoming.size()>0) {
-        sort(incoming.begin(), incoming.end(),
-            NBContHelper::edge_by_priority_sorter());
+        sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
         best1 = extractAndMarkFirst(incoming);
     }
         // check whether a second main road exists
     if(incoming.size()>0) {
         noIncomingPrios = NBContHelper::countPriorities(incoming);
-        if(noIncomingPrios>1) {
+        //if(noIncomingPrios>1) {
             sort(incoming.begin(), incoming.end(),
                 NBContHelper::edge_by_priority_sorter());
-            best2 = extractAndMarkFirst(incoming);
-        } /*else {
+//            best2 = extractAndMarkFirst(incoming);
+        /*} /*else {
             sort(incoming.begin(), incoming.end(),
                 NBContHelper::edge_opposite_direction_sorter(best1));
             best2 = extractAndMarkFirst(incoming);
-        }*/
+        }/
     }
     // get the best continuations (outgoing edges)
     NBEdge *bestBack1, *bestBack2;
@@ -727,12 +814,14 @@ NBNode::setPriorityJunctionPriorities()
             NBContHelper::edge_similar_direction_sorter(best1));
         bestBack1 = extractAndMarkFirst(outgoing);
     }
+    /*
     // for best2
     if(best2!=0&&outgoing.size()>0) {
         sort(outgoing.begin(), outgoing.end(),
-            NBContHelper::edge_similar_direction_sorter(best1));
-        bestBack1 = extractAndMarkFirst(outgoing);
+            NBContHelper::edge_similar_direction_sorter(best2));
+        bestBack2 = extractAndMarkFirst(outgoing);
     }
+    */
 
 
     /*
@@ -925,6 +1014,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                         (*k).edge->getLaneShape((*k).lane).getBegin())
                     / (SUMOReal) 2.0 / (SUMOReal) PI;
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0));
+                vmax = ((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0;
                 //
                 string id = ":" + _id + "_" + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
