@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.84  2006/09/21 09:45:50  dkrajzew
+// code beautifying
+//
 // Revision 1.83  2006/09/19 09:03:32  dkrajzew
 // invalidated c2c communication temporary
 //
@@ -863,6 +866,7 @@ void MSNet::computeCar2Car(void)
 
 
     std::vector<MSVehicle*> connected;
+   std::vector<MSVehicle*> clusterHeaders;
 
 	for(std::vector<std::string>::iterator i=edgeNames.begin(); i!=edgeNames.end(); ++i) {
 		MSEdge *e = MSEdge::dictionary(*i);
@@ -892,14 +896,83 @@ void MSNet::computeCar2Car(void)
 				}
 				(*k).second->cleanUpConnections(myStep);
                 if((*k).second->getConnections().size()!=0) {
+					(*k).second->setClusterId(-1);
                     connected.push_back((*k).second);
                 }
 			}
 		}
 	}
 
+	// Cluster Bildung
+	{
+      ofstream out3("ClusterGNU.txt", ios_base::app);
+	  //out3<<endl; //to comment
+	  //out3<<"# TimeStep "<<myStep<<" Vehicle in die connected Liste "<<connected.size() <<endl;//to comment
+      out3<<myStep<<" "<<connected.size()<<endl;
+	  out3.close();
+	  int counter = 1;
+	  int clusterId = 1;
+	  while(counter <= connected.size()) {
+		int index = (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size();
+		if(index>=connected.size())
+			index = index-1;
+		std::vector<MSVehicle*>::iterator q = connected.begin() + index;
+	    //cout<<"Ich bin hier1 "<<myStep<<" Size of connected "<<connected.size()<<" Index "<<index<<endl;
+	    //cout<<"ID element auswahlt "<<(*q)->getID()<<endl;
+		if((*q)->getClusterId() < 0) { // gehört noch zu keiner Cluster
+			//out3<<myStep<<" "<<clusterId;//to comment
+			//out3<<"# Cluster Header "<<(*q)->getID();//to comment
+			clusterHeaders.push_back((*q));
+			int count = (*q)->buildMyCluster(myStep, clusterId);
+			counter = counter + count;
+			//out3<<" "<<myStep<<" "<<count <<endl;
+			clusterId++;
+		}
+	  }
+	}
+
+	//Senden
+	{
+		//ofstream out4("TransmittedInfos.txt", ios_base::app);
+		std::vector<MSVehicle*>::iterator q;
+		for(q= clusterHeaders.begin();q!=clusterHeaders.end();q++){
+		//out4<<"TS "<<myStep<<"-----SendInfos- "<<(*q)->getID()<<endl; //to comment
+			(*q)->sendInfos(myStep);
+		}
+		//out4.close();
+	}
+	connected.clear();
+    clusterHeaders.clear();
+
+
+
+
+	// nach dem Senden, sollte die Cluster ID alle gelöscht werden, für den nächste TimeStep
+
+
+
+  /*
+
+			if((*q)->getSendingTimeEnd()>myStep+1) {
+				const MSVehicle::VehCont &conns = sender->getConnections();
+				for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
+					// remove vehicles around a vehicle that sends over the current time step
+					MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
+					std::vector<MSVehicle*>::iterator q3 =
+						find(connected.begin(), connected.end(); conn);
+					if(q3!=connected.end()) {
+						connected.erase(q3);
+					}
+				}
+			}
+		} else {
+			connected.erase(q);
+		}
+	  }
+	}
+
     // clean up the list of interacting vehicles
-    /*
+
     {
         for(std::vector<MSVehicle*>::iterator q=connected.begin(); q!=connected.end(); ++q) {
             // getSendingTimeEnd() liefert den Zeitpunkt des Endes des Sendens von sender

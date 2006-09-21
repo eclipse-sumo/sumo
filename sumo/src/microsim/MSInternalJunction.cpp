@@ -22,12 +22,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/09/21 09:45:50  dkrajzew
+// code beautifying
+//
 // Revision 1.2  2006/09/19 11:48:23  dkrajzew
 // debugging junction-internal lanes
 //
 // Revision 1.1  2006/09/18 10:06:29  dkrajzew
 // patching junction-internal state simulation
-//
 //
 /* =========================================================================
  * compiler pragmas

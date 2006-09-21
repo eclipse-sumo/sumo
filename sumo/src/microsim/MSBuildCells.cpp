@@ -23,11 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/09/21 09:45:13  dkrajzew
+// code beautifying
+//
 // Revision 1.1  2006/09/18 09:58:02  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
-
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -76,7 +77,6 @@ using namespace std;
 MSBuildCells::MSBuildCells(MSNet &net, Boundary boundary)
     : myNet(net), _boundary(boundary)
 {
-//	Boundary b(-6.78000, -11.7100, 2018.26, 1463.05); // realNetz
 	_boundary = net.getConvBoundary();
 	_xsize = (_boundary.xmax()-_boundary.xmin())/MSGlobals::gLANRange;
 	_ysize = (_boundary.ymax()-_boundary.ymin())/MSGlobals::gLANRange;
@@ -150,9 +150,6 @@ MSBuildCells::divideOnGrid()
 void
 MSBuildCells::computeEdgeCells(size_t index, MSEdge *edge)
 {
-    if(edge->getID()=="218489") {
-        int bla = 0;
-    }
 	//const MSEdge::LaneCont * const lanes = edge->getLanes();
     const std::vector<MSLane*> *lanes = edge->getLanes();
 	for(size_t i=0; i<lanes->size(); i++) {
@@ -282,15 +279,20 @@ MSBuildCells::getNeighbors(size_t i)
 {
 	std::vector<MSCell*> ret;
 	ret.push_back(_cellsCont[i]); //I'am my own neighbor
+//cout<<"XSize "<<_xsize<<" Ysize "<<_ysize<<endl;
 
 	size_t x = i % _xsize;
 	if(x==0){
 		ret.push_back(_cellsCont[i+1]);
+	//	cout<<"-----Nachbarn1   "<<i+1<<endl;
 	}
 	if(x==_xsize-1){
 			ret.push_back(_cellsCont[i-1]);
+			//cout<<"-----Nachbarn2   "<<i-1<<endl;
 	}
 	if((x>0) && (x<_xsize-1)){
+	//	cout<<"-----Nachbarn3   "<<i+1<<endl;
+	//	cout<<"-----Nachbarn4   "<<i-1<<endl;
 		ret.push_back(_cellsCont[i-1]);
 		ret.push_back(_cellsCont[i+1]);
 	}
@@ -298,31 +300,44 @@ MSBuildCells::getNeighbors(size_t i)
     size_t y = i / _xsize;
 	if(y==0){
 		ret.push_back(_cellsCont[i+_xsize]);
+	//	cout<<"-----Nachbarn5   "<<i+_xsize<<endl;
 	}
 	if(y==_ysize-1){
 		ret.push_back(_cellsCont[i-_xsize]);
+	//	cout<<"-----Nachbarn6   "<<i-_xsize<<endl;
 	}
 	if((y>0) && (y<_ysize-1)){
+	//	cout <<"i == "<<i<<"  y == "<<y<<endl;
+	//	cout<<"-----Nachbarn7   "<<i+_xsize<<endl;
+	//	cout<<"-----Nachbarn8   "<<i-_xsize<<endl;
 		ret.push_back(_cellsCont[i+_xsize]);
 		ret.push_back(_cellsCont[i-_xsize]);
 	}
 
 	if((x>0) && (y>0)){
 		ret.push_back(_cellsCont[i-_xsize-1]);
+	//	cout<<"-----Nachbarn9   "<<i-_xsize-1<<endl;
 	}
 	if((x>0) && (y<_ysize-1) ){
 		ret.push_back(_cellsCont[i+_xsize-1]);
+	//	cout<<"-----Nachbarn10   "<<i+_xsize-1<<endl;
 	}
 	if((x<_xsize-1) && (y<_ysize-1)){
 		ret.push_back(_cellsCont[i+_xsize+1]);
+	//	cout<<"-----Nachbarn11   "<<i+_xsize+1<<endl;
 	}
 	if((x<_xsize-1) && (y>0)){
 		ret.push_back(_cellsCont[i-_xsize+1]);
+	//	cout<<"-----Nachbarn 12  "<<i-_xsize+1<<endl;
 	}
+	/*
+    cout<<"---Nachbarn von  "<<i<<" Anzahl davon "<< ret.size()<<" -----------"<<endl;
+	for(std::vector<GUICell*>::iterator m = ret.begin(); m != ret.end(); m++){
+		cout<<"-----Nachbarn  "<<(*m)->getIndex()<<endl;
+	}*/
 	return ret;
 
 }
-
 
 std::vector<MSCell*> &
 MSBuildCells::getCellsCont(void)
