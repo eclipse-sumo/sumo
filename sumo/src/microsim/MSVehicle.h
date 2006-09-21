@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.59  2006/09/21 09:47:06  dkrajzew
+// debugging vehicle movement; insertion of Danilot's current sources
+//
 // Revision 1.58  2006/09/18 10:09:04  dkrajzew
 // c2c added; vehicle classes added
 //
@@ -380,7 +383,6 @@ class MSLane;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
-class MSVehicleQuitReminded;
 class MSAbstractLaneChangeModel;
 class MSBusStop;
 
@@ -603,6 +605,24 @@ public:
 
 	// erase the Information, if the information is older than 30 minutes
 	void updateInfos(int time);
+
+	// set the Id of the Cluster to them the vehicle belong
+	void setClusterId(int Id);
+
+	// get the Id of the Cluster
+	int getClusterId(void);
+
+	void sendInfos(SUMOTime time);
+
+	// Build a Cluster for the WLAN simulation
+	/* A Cluster is a set of Vehicle, where all vehicle is or the Neighbor of this Vehicle
+	 * other the Neighbor of the Neighbor of this Vehicle.
+	 * A Vehicle cannot belong to two different cluster
+	 */
+	int buildMyCluster(int myStep, int clId);
+
+	// set the Actual sender in my Cluster
+	//void setActSender(MSVehicle* actS);
 
     void removeOnTripEnd( MSVehicle *veh );
 
@@ -993,6 +1013,12 @@ protected:
 	// for save the time
 	int lastUp;
 
+	// the Id of the Cluster
+	int clusterId;
+
+	// a Pointer on the actual sender in the Cluster
+	//MSVehicle* actSender;
+
     /// The lane the vehicle is on
     MSLane* myLane;
 
@@ -1005,6 +1031,17 @@ protected:
 
 	typedef std::map<std::string, Information *> InfoCont;
 	InfoCont infoCont;
+
+	typedef std::vector<C2CConnection*> ClusterCont;
+	ClusterCont clusterCont;
+
+    // transfert the N Information in infos into my own InformationsContainer
+	int transferInformation(InfoCont infos, int N);
+
+	//compute accordant the distance, the Number of Infos that can be transmit
+	int NumOfPack(MSVehicle *veh1, MSVehicle* veh2);
+
+	InfoCont getInfosToSend(void);
 
 private:
 
