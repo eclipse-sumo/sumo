@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.88  2006/09/21 09:52:02  dkrajzew
+// debugging
+//
 // Revision 1.87  2006/09/21 09:47:06  dkrajzew
 // debugging vehicle movement; insertion of Danilot's current sources
 //
@@ -2364,10 +2367,11 @@ MSVehicle::sendInfos(SUMOTime time)
 	ofstream out("TransmittedInfosGNU.txt", ios_base::app);
 	out<<time<<" ";
 	// Als ClusterHeader, sende ich als erste
+/*
 	for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end() && NumberOfInfo>0; ++i) {
 		int transmit = (*i).second->connectedVeh->transferInformation(getInfosToSend(),NofP);
     }
-
+*/
 	for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end() && NumberOfInfo>0; ++i) {
 		int NofP = NumOfPack(this,(*i).second->connectedVeh);
 		if(NofP>NumberOfInfo)
