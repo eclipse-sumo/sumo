@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.89  2006/09/21 09:57:52  dkrajzew
+// debugging
+//
 // Revision 1.88  2006/09/21 09:52:02  dkrajzew
 // debugging
 //
@@ -1802,8 +1805,6 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
     QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
     if(i!=myQuitReminded.end()) {
         myQuitReminded.erase(i);
-    } else {
-        assert(false);
     }
 }
 
