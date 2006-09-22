@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.85  2006/09/22 06:05:06  dkrajzew
+// invalidated c2c communication temporary
+//
 // Revision 1.84  2006/09/21 09:45:50  dkrajzew
 // code beautifying
 //
@@ -852,7 +855,7 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
-	computeCar2Car();
+	//computeCar2Car();
 }
 
 // Compute Car2Car-Communication
