@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.69  2006/09/25 13:30:11  dkrajzew
+// debugged lane-changing and distance keeping for internal links
+//
 // Revision 1.68  2006/09/18 10:06:48  dkrajzew
 // added vehicle class support to microsim
 //
@@ -461,6 +464,11 @@ namespace
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+
+#ifdef GUI_DEBUG
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <guisim/GUIVehicle.h>
+#endif
 
 #ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
@@ -1195,6 +1203,11 @@ MSLinkCont::const_iterator
 MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
                     const MSLane& succLinkSource) const
 {
+#ifdef GUI_DEBUG
+    if(gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle&>(veh).getGlID())) {
+        int blb = 0;
+    }
+#endif
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
     // check whether the vehicle tried to look beyond its route
     if(nRouteEdge==0 ) {
@@ -1208,7 +1221,6 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link ) {
         if ( ( *link )->getLane()!=0 && ( *link )->getLane()->myEdge == nRouteEdge &&  ( *link )->getLane()->allowsVehicleClass(veh.getVehicleClass()) ) {
             valid.push_back(link);
-//            return link;
         }
     }
     if(valid.size()==0) {

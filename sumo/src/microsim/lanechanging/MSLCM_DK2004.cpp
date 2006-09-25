@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/09/25 13:30:12  dkrajzew
+// debugged lane-changing and distance keeping for internal links
+//
 // Revision 1.16  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
 //
@@ -159,12 +162,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
     SUMOReal neighExtDist = 0;
+    SUMOReal currExtDist = 0;
     int currIdx = 0;
     for(int p=0; p<(int) currE.size(); ++p) {
         if(currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
+            currExtDist = curr.alllength;
             neighDist = currE[p-1].length;
             neighExtDist = currE[p-1].alllength;
             best = currE[p+bestLaneOffset];
@@ -276,7 +281,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(bestLaneOffset==0&&(neighLeftPlace<rv/*||currE[currIdx-1].length<currentDist*/)) {
+    if(currExtDist>neighExtDist&&(neighLeftPlace<rv/*||currE[currIdx+1].length<currentDist*/)) {
         return ret;
     }
 
@@ -385,12 +390,14 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal currentDist = 0;
     SUMOReal neighDist = 0;
     SUMOReal neighExtDist = 0;
+    SUMOReal currExtDist = 0;
     int currIdx = 0;
     for(int p=0; p<(int) currE.size(); ++p) {
         if(currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
+            currExtDist = curr.alllength;
             neighDist = currE[p+1].length;
             neighExtDist = currE[p+1].alllength;
             best = currE[p+bestLaneOffset];
@@ -502,7 +509,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(bestLaneOffset==0&&(neighLeftPlace<lv/*||currE[currIdx+1].length<currentDist*/)) {
+    if(currExtDist>neighExtDist&&(neighLeftPlace<lv/*||currE[currIdx+1].length<currentDist*/)) {
         // ... let's not change the lane
         return ret;
     }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.90  2006/09/25 13:30:12  dkrajzew
+// debugged lane-changing and distance keeping for internal links
+//
 // Revision 1.89  2006/09/21 09:57:52  dkrajzew
 // debugging
 //
@@ -1194,8 +1197,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     SUMOReal vLinkWait = vLinkPass;
     if(seen>boundVSafe + myType->brakeGap(myState.mySpeed)) {
         // just for the case the vehicle is still very far away from the lane end
-            myLFLinkLanes.push_back(
-                DriveProcessItem(0, vLinkPass, vLinkPass));
+        myLFLinkLanes.push_back(DriveProcessItem(0, vLinkPass, vLinkPass));
             return;
     }
 
@@ -1224,6 +1226,11 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         // the link was passed
         vLinkWait = vLinkPass;
 
+
+        // !!! optimize this - make this optional
+        //  needed to let vehicles wait for all overlapping vehicles in front
+        const MSLinkCont &lc = nextLane->getLinkCont();
+
         // get the following lane
 #ifdef HAVE_INTERNAL_LANES
         bool nextInternal = false;
@@ -1244,23 +1251,91 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
 
             // the vehicle shall keep a secure distance to its predecessor
             //  (or approach the lane end if the predeccessor is too near)
-        const State &nextLanePred = nextLane->myLastState;
-        SUMOReal dist2Pred = seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
-        SUMOReal vsafePredNextLane;
-        if(dist2Pred>=0) {
-            // leading vehicle is not overlapping
-            vsafePredNextLane =
-                myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed());
-            SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
-            if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
+        SUMOReal vsafePredNextLane = 1000;
 
-                vsafePredNextLane =
-                    MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+        // !!! optimize this - make this optional
+        SUMOReal r_dist2Pred = seen+nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs;
+        for(size_t j=0; j<lc.size(); ++j) {
+            MSLane *nl = lc[j]->getViaLane();
+            if(nl==0) {
+                nl = lc[j]->getLane();
             }
-        } else {
-            // leading vehicle is overlapping (stands within the junction)
-            vsafePredNextLane =
-                myType->ffeV(myState.mySpeed, seen, 0);
+            if(nl==0) {
+                continue;
+            }
+
+            const State &nextLanePred = nl->myLastState;
+            SUMOReal dist2Pred =
+                nextLanePred.pos()>9000
+                ? seen
+                : seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! die echte Länge des fahrzeugs
+
+
+                if(dist2Pred>=0) {
+                    // leading vehicle is not overlapping
+                    vsafePredNextLane =
+                        MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
+                    if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
+
+                        vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                    }
+                } else {
+                    // leading vehicle is overlapping (stands within the junction)
+                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                    // we have to wait in any case
+                    break;
+                }
+
+                if(nextLanePred.pos()>9000) {
+                    dist2Pred = seen + nl->length();
+                }
+
+
+                const MSLinkCont &lc2 = nl->getLinkCont();
+                for(size_t j2=0; j2<lc2.size(); ++j2) {
+                    MSLane *nl2 = lc2[j2]->getViaLane();
+                    if(nl2==0) {
+                        nl2 = lc2[j2]->getLane();
+                    }
+                    if(nl2==0) {
+                        continue;
+                    }
+                    const State &nextLanePred2 = nl2->myLastState;
+                    SUMOReal dist2Pred2 = dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+                    if(dist2Pred2>=0) {
+                        // leading vehicle is not overlapping
+                        vsafePredNextLane =
+                            MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred2, nextLanePred2.speed()));
+                        SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred2.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
+                        if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred2) {
+
+                            vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred2));
+                        }
+                    } else {
+                        // leading vehicle is overlapping (stands within the junction)
+                        vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                        break;
+                    }
+                }
+                /*
+            } else {
+                if(dist2Pred>=0) {
+                    // leading vehicle is not overlapping
+                    vsafePredNextLane =
+                        MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! /);
+                    if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
+
+                        vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                    }
+                } else {
+                    // leading vehicle is overlapping (stands within the junction)
+                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                }
+            }
+            */
         }
 
             // compute the velocity to use when the link may be used
@@ -1270,7 +1345,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
         vLinkWait =
-            MIN2(vLinkWait, myType->ffeS(myState.mySpeed, seen));
+            MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
 
         // valid, when a vehicle is not on a priorised lane
         if(!(*link)->havePriority()) {
@@ -1279,7 +1354,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
             //  [m]>
-            if(seen>myType->approachingBrakeGap(myState.mySpeed)&&dist2Pred>0) {
+            if(seen>myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());//vaccel(myState.mySpeed, myLane->maxSpeed())); // otherwise vsafe may become incredibly large
                 (*link)->setApproaching(this);
             } else {
