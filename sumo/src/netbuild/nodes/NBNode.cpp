@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/09/25 13:33:17  dkrajzew
+// computation of junction internal lane geometries
+//
 // Revision 1.29  2006/09/21 09:48:57  dkrajzew
 // debugging computation of inner-lane velocities and lane-to-lane connections
 //
@@ -1084,63 +1087,195 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                                  NBEdge *toE, size_t toL)
 {
     bool noSpline = false;
+ //   bool recheck = false;
     Position2DVector ret;
+    Position2DVector init;
     Position2D beg = fromE->getLaneShape(fromL).getEnd();
     Position2D end = toE->getLaneShape(toL).getBegin();
-    Position2D center;
+    Position2D intersection;
+    size_t noInitialPoints = 0;
     if(beg==end) {
         noSpline = true;
     } else {
         if(fromE->getTurnDestination()==toE) {
+            // turnarounds:
+            //  - end of incoming lane
+            //  - position between incoming/outgoing end/begin shifted by the distace orthogonally
+            //  - begin of outgoing lane
+            noInitialPoints = 3;
+            init.push_back(beg);
             Line2D straightConn(fromE->getLaneShape(fromL)[-1],toE->getLaneShape(toL)[0]);
-            //cross.sub(cross
             Position2D straightCenter = straightConn.getPositionAtDistance((SUMOReal) straightConn.length() / (SUMOReal) 2.);
-            //straightCenter.sub(cross.p1().x(), cross.p1().y());
-            center = straightCenter;//.add(straightCenter);
+            Position2D center = straightCenter;//.add(straightCenter);
             Line2D cross(straightConn);
             cross.sub(cross.p1().x(), cross.p1().y());
             cross.rotateDegAtP1(90);
             center.sub(cross.p2());
+            init.push_back(center);
+            init.push_back(end);
         } else {
-        Line2D begL = fromE->getLaneShape(fromL).getEndLine();
-        begL.extrapolateSecondBy(100);
-        Line2D endL = toE->getLaneShape(toL).getBegLine();
-        endL.extrapolateFirstBy(100);
-        if(!begL.intersects(endL)) {
-            noSpline = true;
-        } else {
-            center = begL.intersectsAt(endL);
-/*            if(begL.nearestPositionTo(center)<begL.length()-100) {
-                noSpline = true;
-            }*/
-/*            if(endL.nearestPositionTo(center)<100) {
-                noSpline = true;
-            }*/
+            //
+            SUMOReal angle1 = fromE->getLaneShape(fromL).getEndLine().atan2DegreeAngle();
+            SUMOReal angle2 = toE->getLaneShape(toL).getBegLine().atan2DegreeAngle();
+            SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
+            if(angle<45) {
+                // very low angle: almost straight
+                noInitialPoints = 4;
+                init.push_back(beg);
+                Line2D begL = fromE->getLaneShape(fromL).getEndLine();
+                begL.extrapolateSecondBy(100);
+                Line2D endL = toE->getLaneShape(toL).getBegLine();
+                endL.extrapolateFirstBy(100);
+
+                /*
+                Position2D tmp = begL.getPositionAtDistance(
+                    fromE->getLaneShape(fromL).getEndLine().length() + GeomHelper::distance(beg, end) / 2.);
+                tmp.add(endL.getPositionAtDistance(100-GeomHelper::distance(beg, end) / 2.));
+                tmp.mul(.5);
+                cout << getID() << " " << fromE->getID() << " " << toE->getID() << ":" << tmp << endl;
+                */
+                SUMOReal distance = GeomHelper::distance(beg, end);
+                if(distance>10) {
+                    {
+                        SUMOReal off1 = fromE->getLaneShape(fromL).getEndLine().length() + (SUMOReal) 5. * (SUMOReal) fromE->getNoLanes();
+                        off1 = MIN2(off1, (SUMOReal) (fromE->getLaneShape(fromL).getEndLine().length()+distance/2.));
+                        Position2D tmp = begL.getPositionAtDistance(off1);
+                        init.push_back(tmp);
+                    }
+                    {
+                        SUMOReal off1 = (SUMOReal) 100. - (SUMOReal) 5. * (SUMOReal) toE->getNoLanes();
+                        off1 = MAX2(off1, (SUMOReal) (100.-distance/2.));
+                        Position2D tmp = endL.getPositionAtDistance(off1);
+                        init.push_back(tmp);
+                    }
+                } else {
+                    noInitialPoints--;
+                    noInitialPoints--;
+                }
+                init.push_back(end);
+                //noSpline = true;
+            } else {
+                // a somehow larger angle: turning
+                /*
+                NBMMLDirection dir = getMMLDirection(fromE, toE);
+                if(dir==MMLDIR_PARTLEFT||dir==MMLDIR_LEFT) {
+                    //  we want left-movers to use all the available space...
+                    noInitialPoints = 3;
+                    init.push_back(beg);
+                    Line2D begL = fromE->getLaneShape(fromL).getEndLine();
+                    begL.extrapolateSecondBy(100);
+                    Line2D endL = toE->getLaneShape(toL).getBegLine();
+                    endL.extrapolateFirstBy(100);
+                    if(!begL.intersects(endL)) {
+                        noSpline = true;
+                    } else {
+                        /
+                        recheck = true;
+                        // this is different than normal turning (see below)
+                        // we will add some offset to the turning's begin
+                        intersection = begL.intersectsAt(endL);
+                        SUMOReal ipos = begL.intersectsAtLength(endL);
+                        //
+                        {
+                            SUMOReal pend = fromE->getLaneShape(fromL).getEndLine().length();
+                            SUMOReal p1 = ipos;//-5;//MIN2(pend + 5., (pend+ipos)/2.);
+                            if(fabs(p1-pend)>.1) {
+                                Position2D tmp = begL.getPositionAtDistance(p1);
+                                tmp.add(intersection);
+                                tmp.mul(.5);
+                                //init.push_back(tmp);
+                                //init.push_back(intersection);
+                                noInitialPoints--;
+                            } else {
+                                noInitialPoints--;
+                            }
+                        }
+
+                        /*
+                        SUMOReal p1 = begL.intersectsAtLength(endL);
+                        cout << _id << " p1/1: " << fromE->getID() << "<->" << toE->getID()
+                            << "; "
+                            << begL.length() << ", " << p1 << endl;
+                        p1 = MAX2(p1-10, fromE->getLaneShape(fromL).getEndLine().length());
+                        cout << _id << " p1/2: " << fromE->getID() << "<->" << toE->getID()
+                            << "; "
+                            << begL.length() << ", " << p1 << endl;
+                        if(p1-.1>fromE->getLaneShape(fromL).getEndLine().length()) {
+                            init.push_back(begL.getPositionAtDistance(p1));
+                        } else {
+                            noInitialPoints--;
+                        }
+                        /
+                        //
+                        init.push_back(intersection);
+                        //
+                        //noInitialPoints--;
+                        /*
+                        SUMOReal p2 = endL.intersectsAtLength(begL);
+                        p2 = MAX2(p2-10, toE->getLaneShape(toL).getBegLine().length());
+                        if(p2-.1>toE->getLaneShape(toL).getBegLine().length()) {
+                            init.push_back(endL.getPositionAtDistance(p2));
+                        } else {
+                            noInitialPoints--;
+                        }
+                        /
+                    }
+                    init.push_back(end);
+                } else {
+                    */
+                    // turning
+                    //  - end of incoming lane
+                    //  - intersection of the extrapolated lanes
+                    //  - begin of outgoing lane
+                    // attention: if there is no intersection, use a straight line
+                    noInitialPoints = 3;
+                    init.push_back(beg);
+                    Line2D begL = fromE->getLaneShape(fromL).getEndLine();
+                    begL.extrapolateSecondBy(100);
+                    Line2D endL = toE->getLaneShape(toL).getBegLine();
+                    endL.extrapolateFirstBy(100);
+                    if(!begL.intersects(endL)) {
+                        noSpline = true;
+                    } else {
+                        init.push_back(begL.intersectsAt(endL));
+                    }
+                    init.push_back(end);
+                //}
             }
         }
     }
     //
     if(noSpline) {
-        ret.push_back(beg);
-        ret.push_back(end);
+        ret.push_back(fromE->getLaneShape(fromL).getEnd());
+        ret.push_back(toE->getLaneShape(toL).getBegin());
         return ret;
     }
-    SUMOReal def[10];
-    def[1] = beg.x();
-    def[2] = 0;
-    def[3] = beg.y();
-    def[4] = center.x();
-    def[5] = 0;
-    def[6] = center.y();
-    def[7] = end.x();
-    def[8] = 0;
-    def[9] = end.y();
 
+    size_t i;
+    SUMOReal *def = new SUMOReal[1+noInitialPoints*3];
+    for(i=0; i<init.size(); ++i) {
+        // starts at index 1
+        def[i*3+1] = init[i].x();
+        def[i*3+2] = 0;
+        def[i*3+3] = init[i].y();
+    }
+    delete[] def;
     SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
-    bezier(3, def, NO_INTERNAL_POINTS, ret_buf);
+    bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
     Position2D prev;
-    for(size_t i=0; i<NO_INTERNAL_POINTS; i++) {
+
+    for(i=0; i<NO_INTERNAL_POINTS; i++) {
         Position2D current(ret_buf[i*3+1], ret_buf[i*3+3]);
+        /*
+        if(recheck&&i!=0&&i<NO_INTERNAL_POINTS-1) {
+            current.set(
+                current.x() * .85 + intersection.x() * .15,
+                current.y() * .85 + intersection.y() * .15);
+            /*
+            current.add(intersection);
+            current.mul(.75);
+        }
+    */
         if(prev!=current) {
             ret.push_back(current);
         }
@@ -2497,7 +2632,8 @@ NBNode::getShape() const
 }
 
 std::string
-NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
+NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
+                          NBEdge *to, size_t tolane) const
 {
     size_t l = 0;
     for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
@@ -2508,7 +2644,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
                 if((*k).edge==0) {
                     continue;
                 }
-                if((from==*i)&&(j==fromlane)&&((*k).edge==to)) {
+                if((from==*i)&&(j==fromlane)&&((*k).edge==to)&&((*k).lane==tolane)) {
                     return ":" + _id + "_" + toString<size_t>(l);
                 }
                 l++;

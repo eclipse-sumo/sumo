@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/09/25 13:33:17  dkrajzew
+// computation of junction internal lane geometries
+//
 // Revision 1.14  2006/09/19 11:48:24  dkrajzew
 // debugging junction-internal lanes
 //
@@ -425,7 +428,8 @@ public:
 
     size_t countInternalLanes(bool includeSplits);
 
-    std::string getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const;
+    std::string getInternalLaneID(NBEdge *from, size_t fromlane,
+        NBEdge *to, size_t tolane) const;
 
 
     bool checkIsRemovable() const;
