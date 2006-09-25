@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/09/25 13:34:21  dkrajzew
+// code beautifying
+//
 // Revision 1.11  2006/04/07 10:42:44  dkrajzew
 // speeded up trip definition loading
 //
@@ -280,11 +283,8 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
     }
     if(e==0) {
         if(!emptyAllowed) {
-            MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.");
+            MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
         }
-    }
-    if(vid.length()!=0&&!emptyAllowed) {
-        MsgHandler::getErrorInstance()->inform(" Vehicle id='" + vid + "'.");
     }
     return 0;
 }
