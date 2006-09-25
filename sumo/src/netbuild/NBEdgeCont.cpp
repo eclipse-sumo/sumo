@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2006/09/25 13:31:38  dkrajzew
+// options to remove edges added
+//
 // Revision 1.51  2006/09/19 11:48:59  dkrajzew
 // debugging removal of edges which allow only unwished vehicle classes
 //
@@ -317,6 +320,15 @@ NBEdgeCont::insert(NBEdge *edge)
         OptionsSubSys::getOptions().isSet("keep-edges")) {
 
         if(!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+        }
+    }
+    // check whether the edge is a named edge to remove
+    if( OptionsSubSys::getOptions().isSet("remove-edges")) {
+        if(OptionsSubSys::helper_CSVOptionMatches("remove-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;

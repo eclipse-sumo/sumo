@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/09/25 13:31:38  dkrajzew
+// options to remove edges added
+//
 // Revision 1.38  2006/09/18 10:09:46  dkrajzew
 // patching junction-internal state simulation
 //
@@ -575,6 +578,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
     oc.doRegister("flip-y", new Option_Bool(false));
+    oc.doRegister("dismiss-vclasses", new Option_Bool(false));
 
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false)); // !!! not described
 
@@ -620,6 +624,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.doRegister("keep-edges.postload", new Option_Bool(false));
     oc.doRegister("remove-edges.by-type", new Option_String());
+    oc.doRegister("remove-edges", new Option_String());
 
     // unregulated nodes options
     oc.doRegister("keep-unregulated", new Option_Bool(false));

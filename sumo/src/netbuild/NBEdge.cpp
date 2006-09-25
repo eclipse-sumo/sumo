@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.72  2006/09/25 13:31:38  dkrajzew
+// options to remove edges added
+//
 // Revision 1.71  2006/09/21 09:48:57  dkrajzew
 // debugging computation of inner-lane velocities and lane-to-lane connections
 //
@@ -1112,7 +1115,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         << _reachable[fromlane][destidx].edge->getID() << '_'
         << _reachable[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
     into << " via=\""
-        << _to->getInternalLaneID(this, fromlane, _reachable[fromlane][destidx].edge)
+        << _to->getInternalLaneID(this, fromlane, _reachable[fromlane][destidx].edge, _reachable[fromlane][destidx].lane)
         << "_0\"";
     // set information about the controlling tl if any
     if(_reachable[fromlane][destidx].tlID!="") {
@@ -2733,6 +2736,9 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
 void
 NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
 {
+    if(OptionsSubSys::getOptions().getBool("dismiss-vclasses")) {
+        return;
+    }
 	if(lane<0) {
 		// if all lanes are meant...
 		for(size_t i=0; i<_nolanes; i++) {
@@ -2753,6 +2759,9 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
 void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
 {
+    if(OptionsSubSys::getOptions().getBool("dismiss-vclasses")) {
+        return;
+    }
 	if(lane<0) {
 		// if all lanes are meant...
 		for(size_t i=0; i<_nolanes; i++) {

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/09/25 13:33:57  dkrajzew
+// options to remove edges added
+//
 // Revision 1.27  2006/09/18 10:12:58  dkrajzew
 // added import of vclasses
 //
@@ -297,7 +300,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
     if(element==SUMO_TAG_LANE) {
 		NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
 		if(edge==0) {
-			addError("Additional lane information could not been set.");
+//			addError("Additional lane information could not been set.");
 			return;
 		}
 		int lane = getIntSecure(attrs, "id", -1);
@@ -396,10 +399,6 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 {
-    // check whether the number of lanes shall be used
-    if(_options.getBool("use-laneno-as-priority")) {
-        myCurrentPriority = myCurrentLaneNo;
-    }
     // try to retrieve given priority
     try {
         myCurrentPriority =
