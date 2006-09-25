@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/09/25 13:32:22  dkrajzew
+// patches for multi-junction - tls
+//
 // Revision 1.11  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -204,7 +207,7 @@ NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
         NBRequestEdgeLinkIterator cei2(cei1);
         if(cei2.pp()) {
             do {
-                if(cei1.forbids(cei2)) {
+                if(cei1.forbids(cei2)||forbids(cei1.getFromEdge(), cei1.getToEdge(), cei2.getFromEdge(), cei2.getToEdge(), true)) {
                     assert(ret!=0 && cei1.getLinkNumber()<ret->size());
                     assert(ret!=0 && cei2.getLinkNumber()<ret->size());
                     (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 0);

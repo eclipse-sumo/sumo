@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/09/25 13:32:22  dkrajzew
+// patches for multi-junction - tls
+//
 // Revision 1.18  2005/10/07 11:38:19  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -298,7 +301,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
             }
         }
         // add phase
-        size_t duration = 20;
+        size_t duration = 31;
         if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
             duration = OptionsSubSys::getOptions().getInt("traffic-light-green");
         }
@@ -317,7 +320,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
             }
 			// let vehicles moving left pass secure
             if(breakingTime!=0) { // !! something else
-                ret->addStep(3, driveMask, brakeMask, std::bitset<64>());
+                ret->addStep(6, driveMask, brakeMask, std::bitset<64>());
             }
             yellow = driveMask;
         }

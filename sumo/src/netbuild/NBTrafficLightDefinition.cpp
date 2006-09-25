@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/09/25 13:32:22  dkrajzew
+// patches for multi-junction - tls
+//
 // Revision 1.21  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -365,22 +368,102 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
 								  NBEdge *possProhibitedTo,
                                   bool regardNonSignalisedLowerPriority) const
 {
-    // retrieve both nodes (it is possible that a connection
+    if(possProhibitorFrom==0||possProhibitorTo==0||possProhibitedFrom==0||possProhibitedTo==0) {
+        return false;
+    }
+    /*
+    if(getID()=="test1") {
+        cout << possProhibitorFrom->getID() << "->" << possProhibitorTo->getID()
+            << " vs "
+            << possProhibitedFrom->getID() << "->" << possProhibitedTo->getID();
+        int bla;
+    }
+    */
+
+    if(possProhibitorFrom->getID()=="-53488232" && possProhibitorTo->getID()=="-53488245") {
+        if(possProhibitedFrom->getID()=="53488385" && possProhibitedTo->getID()=="53488244") {
+            int bla = 0;
+        }
+    }
+
+    // retrieve both nodes
     NodeCont::const_iterator incoming =
-        find_if(_nodes.begin(), _nodes.end(),
-            NBContHelper::node_with_incoming_finder(possProhibitorFrom));
+        find_if(_nodes.begin(), _nodes.end(), NBContHelper::node_with_incoming_finder(possProhibitorFrom));
     NodeCont::const_iterator outgoing =
-        find_if(_nodes.begin(), _nodes.end(),
-            NBContHelper::node_with_outgoing_finder(possProhibitedTo));
+        find_if(_nodes.begin(), _nodes.end(), NBContHelper::node_with_outgoing_finder(possProhibitedTo));
     assert(incoming!=_nodes.end());
     NBNode *incnode = *incoming;
     NBNode *outnode = *outgoing;
+    EdgeVector::const_iterator i;
     if(incnode!=outnode) {
+        // the links are located at different nodes
+        const EdgeVector &ev1 = possProhibitedTo->getConnected();
+        // go through the following edge,
+        //  check whether one of these connections is prohibited
+        for(i=ev1.begin(); i!=ev1.end(); ++i) {
+            NodeCont::const_iterator outgoing2 =
+                find_if(_nodes.begin(), _nodes.end(), NBContHelper::node_with_outgoing_finder(*i));
+            if(outgoing2==_nodes.end()) {
+                continue;
+            }
+            NBNode *outnode2 = *outgoing2;
+            if(incnode!=outnode2) {
+                continue;
+            }
+    bool ret1 = incnode->foes(possProhibitorTo, *i,
+		        possProhibitedFrom, possProhibitedTo);
+            bool ret2 = incnode->forbids(possProhibitorFrom, possProhibitorTo,
+		        possProhibitedTo, *i,
+                regardNonSignalisedLowerPriority);
+            bool ret = ret1||ret2;
+            if(ret) {
+                return true;
+            }
+        }
+
+        const EdgeVector &ev2 = possProhibitorTo->getConnected();
+        // go through the following edge,
+        //  check whether one of these connections is prohibited
+        for(i=ev2.begin(); i!=ev2.end(); ++i) {
+            NodeCont::const_iterator incoming2 =
+                find_if(_nodes.begin(), _nodes.end(), NBContHelper::node_with_incoming_finder(possProhibitorTo));
+            if(incoming2==_nodes.end()) {
+                continue;
+            }
+            NBNode *incnode2 = *incoming2;
+            if(incnode2!=outnode) {
+                continue;
+            }
+    if(possProhibitorTo->getID()=="-53488245" && (*i)->getID()=="-53488290") {
+        if(possProhibitedFrom->getID()=="53488385" && possProhibitedTo->getID()=="53488244") {
+            int bla = 0;
+        }
+    }
+    bool ret1 = incnode2->foes(possProhibitorTo, *i,
+		        possProhibitedFrom, possProhibitedTo);
+            bool ret2 = incnode2->forbids(possProhibitorTo, *i,
+		        possProhibitedFrom, possProhibitedTo,
+                regardNonSignalisedLowerPriority);
+            bool ret = ret1||ret2;
+            if(ret) {
+                return true;
+            }
+        }
         return false;
     }
+    // both links are located at the same node
+    //  check using this node's information
     return incnode->forbids(possProhibitorFrom, possProhibitorTo,
 		possProhibitedFrom, possProhibitedTo,
         regardNonSignalisedLowerPriority);
+    /*
+    if(!ret) {
+        cout << ": no2" << endl;
+    } else {
+        cout << ": yes" << endl;
+    }
+    return ret;
+    */
 }
 
 
