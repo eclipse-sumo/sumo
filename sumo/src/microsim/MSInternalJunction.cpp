@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.3  2006/09/21 09:45:50  dkrajzew
 // code beautifying
 //
@@ -112,30 +115,32 @@ MSInternalJunction::setAllowed()
     }
 #endif
     // Get myRespond from logic and check for deadlocks.
-    bool allow = true;
+    myRespond.set(0, true);
     LaneCont::iterator i;
 
     // do nothing if there is no vehicle
     if(myIncomingLanes[0]->empty()) {
-        myRespond.set(0, allow);
         return true;
     }
 
-
     // do not move if any other internal (foe) lane is set
-    for(i=myInternalLanes.begin(); allow&&i!=myInternalLanes.end(); ++i) {
+    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
         if(!(*i)->empty()) {
-            allow = false;
+            myRespond.set(0, false);
+            return true;
         }
     }
     // do not move if a vehicle is approaching on a link from foe lanes
-    for(i=myIncomingLanes.begin()+1; allow&&i!=myIncomingLanes.end(); ++i) {
+    //  the first entry is our lane itself, the following should be those that feed
+    //  the internal lanes
+    for(i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
         MSLane *l = *i;
         const MSLinkCont &lc = l->getLinkCont();
         for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             if(find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
-                if((*j)->isApproached()&&(*j)->opened()) {
-                    allow = false;
+                if((*j)->isApproached()&&((*j)->opened()||(*j)->havePriority())) {
+                    myRespond.set(0, false);
+                    return true;
                 }
             }
         }
@@ -153,14 +158,10 @@ MSInternalJunction::setAllowed()
     const MSVehicle * const lastOnDest = dest->getLastVehicle();
     if(lastOnDest!=0) {
         if(lastOnDest->getPositionOnLane()-lastOnDest->getLength()<5) { // !!! explcite vehicle length
-            allow = false;
+            myRespond.set(0, false);
+            return true;
         }
     }
-
-
-
-    //
-    myRespond.set(0, allow);
     /*
     myLogic->respond( myRequest, myInnerState, myRespond );
     deadlockKiller();

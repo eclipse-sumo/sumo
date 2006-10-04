@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.17  2006/09/18 10:08:33  dkrajzew
 // added vehicle class support to microsim
 //
@@ -353,9 +356,11 @@ public:
     }
 
     /// Returns the maximum length of all vehicle-types.
+    /*
     static SUMOReal getMaxVehicleLength() {
         return myMaxLength;
     }
+    */
     //@}
 
 

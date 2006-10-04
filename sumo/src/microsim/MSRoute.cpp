@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.11  2006/05/15 05:53:33  dkrajzew
 // debugging saving/loading of states
 //
@@ -109,7 +112,7 @@ MSRoute::MSRoute(const std::string &id,
                  bool multipleReferenced)
     : Named(id), _edges(edges),
     _multipleReferenced(multipleReferenced),
-    myReferenceNo(0)
+    myReferenceNo(1)
 {
 }
 

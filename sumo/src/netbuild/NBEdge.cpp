@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.72  2006/09/25 13:31:38  dkrajzew
-// options to remove edges added
+// Revision 1.73  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.71  2006/09/21 09:48:57  dkrajzew
 // debugging computation of inner-lane velocities and lane-to-lane connections
@@ -1061,7 +1061,8 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
     if(edge==0) {
         return;
     }
-    into << "      <cedge id=\"" << edge->getID() << "\" via=\":" << _to->getID() << "\">";
+    //into << "      <cedge id=\"" << edge->getID() << "\" via=\":" << _to->getID() << "\">";
+    into << "      <cedge id=\"" << edge->getID() << "\">";
     size_t noApproachers = lanes.size();
     for(size_t i=0; i<noApproachers; i++) {
         assert(i<lanes.size());
@@ -1537,10 +1538,12 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     vector<NBEdge*>::const_iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
         int prio = (*i)->getJunctionPriority(_to);
-        if(((*i)->getJunctionPriority(_to)+1)*2<=0) {
+        /*
+        if((prio+1)*2<=0) {
             prio = (*i)->getJunctionPriority(_to);
         }
-        assert(((*i)->getJunctionPriority(_to)+1)*2>0);
+        */
+        assert((prio+1)*2>0);
         prio = (prio+1) * 2;
         priorities->push_back(prio);
     }

@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.15  2006/09/25 13:33:17  dkrajzew
-// computation of junction internal lane geometries
+// Revision 1.16  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.14  2006/09/19 11:48:24  dkrajzew
 // debugging junction-internal lanes
@@ -449,6 +449,8 @@ public:
     std::pair<SUMOReal, std::vector<size_t> > getCrossingPosition(NBEdge *fromE, size_t fromL,
         NBEdge *toE, size_t toL);
     std::string getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
+        NBEdge *toE, size_t toL);
+    std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
         NBEdge *toE, size_t toL);
 
 

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.16  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
 //
@@ -668,13 +671,12 @@ NLHandler::addLogicItem(const Attributes &attrs)
     }
     // parse the internal links information (when wished)
     string foes;
-    //if(MSGlobals::gUsingInternalLanes) {
-        try {
-            foes = getString(attrs, SUMO_ATTR_FOES);
-        } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform("Missing foes for a request");
-        }
-    bool cont = getBoolSecure(attrs, "cont", true);
+    try {
+        foes = getString(attrs, SUMO_ATTR_FOES);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing foes for a request");
+    }
+    bool cont = getBoolSecure(attrs, "cont", false);
     // store received information
     if(request>=0 && response.length()>0) {
         myJunctionControlBuilder.addLogicItem(request, response, foes, cont);

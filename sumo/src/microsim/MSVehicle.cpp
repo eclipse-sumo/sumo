@@ -22,8 +22,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.90  2006/09/25 13:30:12  dkrajzew
-// debugged lane-changing and distance keeping for internal links
+// Revision 1.91  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.89  2006/09/21 09:57:52  dkrajzew
 // debugging
@@ -689,6 +689,9 @@ MSVehicle::MSVehicle( string id,
 	equipped(false),
 	clusterId(-1)
 {
+    if(myRepetitionNumber>0) {
+        myRoute->incReferenceCnt();
+    }
     myCurrEdge = myRoute->begin();
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
@@ -996,40 +999,6 @@ MSVehicle::moveFirstChecked()
 #endif
     // get vsafe
     SUMOReal vSafe = 0;
-    if(!myStops.empty()) {
-        if(myStops.begin()->reached) {
-            if(myStops.begin()->duration==0) {
-                if(myStops.begin()->busstop!=0) {
-                    myStops.begin()->busstop->leaveFrom(this);
-                }
-                myStops.pop_front();
-            } else {
-                myStops.begin()->duration--;
-                myTarget = myLane;
-                myState.mySpeed = 0;
-                myLane->addMean2(0, myType->getLength());
-                return; // !!!detectore etc?
-            }
-        } else {
-            if(myStops.begin()->lane==myLane) {
-                Stop &bstop = *myStops.begin();
-                SUMOReal endPos = bstop.pos;
-                bool busStopsMustHaveSpace = true;
-                if(bstop.busstop!=0) {
-                    endPos = bstop.busstop->getLastFreePos();
-                    if(endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
-                        busStopsMustHaveSpace = false;
-                    }
-                }
-                if(myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
-                    bstop.reached = true;
-                    if(bstop.busstop!=0) {
-                        bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
-                    }
-                }
-            }
-        }
-    }
 
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
@@ -1061,6 +1030,50 @@ MSVehicle::moveFirstChecked()
         }
         currentLane = link->getLane();
     }
+
+
+    if(!myStops.empty()) {
+        if(myStops.begin()->reached) {
+            if(myStops.begin()->duration==0) {
+                if(myStops.begin()->busstop!=0) {
+                    myStops.begin()->busstop->leaveFrom(this);
+                }
+                myStops.pop_front();
+            } else {
+                myStops.begin()->duration--;
+                myTarget = myLane;
+                myState.mySpeed = 0;
+                myLane->addMean2(0, myType->getLength());
+                return; // !!!detectore etc?
+            }
+        } else {
+            if(myStops.begin()->lane->getEdge()->getID()=="-565027836") {
+                int bla = 0;
+            }
+            if(myStops.begin()->lane==myLane) {
+            if(myStops.begin()->lane->getEdge()->getID()=="-565027836") {
+                int bla = 0;
+            }
+                Stop &bstop = *myStops.begin();
+                SUMOReal endPos = bstop.pos;
+                bool busStopsMustHaveSpace = true;
+                if(bstop.busstop!=0) {
+                    endPos = bstop.busstop->getLastFreePos();
+                    if(endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
+                        busStopsMustHaveSpace = false;
+                    }
+                }
+                if(myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
+                    bstop.reached = true;
+                    if(bstop.busstop!=0) {
+                        bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
+                    }
+                }
+                vSafe = MIN2(vSafe, myType->ffeS( myState.mySpeed, endPos-myState.pos()) );
+            }
+        }
+    }
+
     // compute vNext in considering dawdling
     SUMOReal vNext = myType->dawdle(vSafe);
     vNext =
@@ -1254,21 +1267,32 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         SUMOReal vsafePredNextLane = 1000;
 
         // !!! optimize this - make this optional
-        SUMOReal r_dist2Pred = seen+nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs;
-        for(size_t j=0; j<lc.size(); ++j) {
-            MSLane *nl = lc[j]->getViaLane();
-            if(nl==0) {
-                nl = lc[j]->getLane();
-            }
-            if(nl==0) {
-                continue;
-            }
+        SUMOReal r_dist2Pred = seen;
+        if(nextLane->getLastVehicle()!=0) {
+            r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getLength();
+        } else {
+            r_dist2Pred = r_dist2Pred + nextLane->length();
+        }
+//        +nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs;
 
-            const State &nextLanePred = nl->myLastState;
-            SUMOReal dist2Pred =
-                nextLanePred.pos()>9000
-                ? seen
-                : seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+        if(MSGlobals::gUsingInternalLanes) {
+            for(size_t j=0; j<lc.size(); ++j) {
+                MSLane *nl = lc[j]->getViaLane();
+                if(nl==0) {
+                    nl = lc[j]->getLane();
+                }
+                if(nl==0) {
+                    continue;
+                }
+
+                const State &nextLanePred = nl->myLastState;
+                SUMOReal dist2Pred = seen;
+                if(nl->getLastVehicle()!=0) {
+                    dist2Pred = dist2Pred + nextLanePred.pos() - nl->getLastVehicle()->getLength();
+                } else {
+                    dist2Pred = dist2Pred + nl->length();
+                }
+//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
 //            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! die echte Länge des fahrzeugs
 
 
@@ -1288,10 +1312,10 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                     break;
                 }
 
+//                if(MSGlobals::gUsingInternalLanes) {
                 if(nextLanePred.pos()>9000) {
                     dist2Pred = seen + nl->length();
                 }
-
 
                 const MSLinkCont &lc2 = nl->getLinkCont();
                 for(size_t j2=0; j2<lc2.size(); ++j2) {
@@ -1303,7 +1327,12 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                         continue;
                     }
                     const State &nextLanePred2 = nl2->myLastState;
-                    SUMOReal dist2Pred2 = dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+                    SUMOReal dist2Pred2 = dist2Pred;//dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+                    if(nl2->getLastVehicle()!=0) {
+                        dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getLength();
+                    } else {
+                        dist2Pred2 = dist2Pred2 + nl2->length();
+                    }
                     if(dist2Pred2>=0) {
                         // leading vehicle is not overlapping
                         vsafePredNextLane =
@@ -1319,6 +1348,33 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                         break;
                     }
                 }
+            }
+        } else {
+            const State &nextLanePred = nextLane->myLastState;
+            SUMOReal dist2Pred = seen;
+            if(nextLane->getLastVehicle()!=0) {
+                dist2Pred = dist2Pred + nextLanePred.pos() - nextLane->getLastVehicle()->getLength();
+            } else {
+                dist2Pred = dist2Pred + nextLane->length();
+            }
+//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! die echte Länge des fahrzeugs
+
+
+            if(dist2Pred>=0) {
+                // leading vehicle is not overlapping
+                vsafePredNextLane =
+                    MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
+                SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
+                if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
+
+                    vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                }
+            } else {
+                // leading vehicle is overlapping (stands within the junction)
+                vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+            }
+        }
                 /*
             } else {
                 if(dist2Pred>=0) {
@@ -1336,7 +1392,6 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                 }
             }
             */
-        }
 
             // compute the velocity to use when the link may be used
         vLinkPass =
@@ -1354,7 +1409,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
             //  [m]>
-            if(seen>myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
+            if(seen>=myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());//vaccel(myState.mySpeed, myLane->maxSpeed())); // otherwise vsafe may become incredibly large
                 (*link)->setApproaching(this);
             } else {
@@ -1692,9 +1747,13 @@ MSVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return MSNet::getInstance()->getVehicleControl().buildVehicle(
+    MSVehicle *ret = MSNet::getInstance()->getVehicleControl().buildVehicle(
         StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
         myType, myRepetitionNumber-1, myPeriod);
+    for(std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
+        ret->myStops.push_back(*i);
+    }
+    return ret;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/10/04 13:18:19  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.19  2006/07/06 05:48:45  dkrajzew
 // extracted functions to compute angle differences
 //
@@ -582,7 +585,7 @@ GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
     if(angle2<0) {
         angle2 = 360 + angle2;
     }
-    if(angle1>angle2) {
+    if(angle1>=angle2) {
         return angle1 - angle2;
     }
     return angle1 + 360 - angle2;
@@ -597,7 +600,7 @@ GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
     if(angle2<0) {
         angle2 = 360 + angle2;
     }
-    if(angle1<angle2) {
+    if(angle1<=angle2) {
         return angle2 - angle1;
     }
     return 360 - angle1 + angle2;

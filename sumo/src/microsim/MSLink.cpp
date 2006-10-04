@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.18  2006/09/18 10:07:00  dkrajzew
 // patching junction-internal state simulation
 //
@@ -252,6 +255,13 @@ bool
 MSLink::isApproached() const
 {
     return myApproaching!=0;
+}
+
+
+void
+MSLink::resetInternalPriority()
+{
+    myPrio = opened();
 }
 
 

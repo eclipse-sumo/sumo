@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.38  2006/09/18 10:09:46  dkrajzew
 // patching junction-internal state simulation
 //
@@ -688,12 +691,15 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).edge);
-        if(_junction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
-            os << "\" cont=\"1";
-        } else {
-            os << "\" cont=\"0";
+        os << "\"";
+        if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
+            if(_junction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
+                os << "\" cont=\"1\"";
+            } else {
+                os << "\" cont=\"0\"";
+            }
         }
-        os << "\"/>" << endl;
+        os << "/>" << endl;
     }
     return pos;
 }

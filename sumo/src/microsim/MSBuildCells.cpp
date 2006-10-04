@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.2  2006/09/21 09:45:13  dkrajzew
 // code beautifying
 //
@@ -183,11 +186,16 @@ MSBuildCells::computeLaneCells(size_t index, const Position2DVector &lane, MSEdg
     SUMOReal x22 = end.x() + offsets.first;
     SUMOReal y22 = end.y() - offsets.second;
 
+            Boundary bb1;
+            for(size_t i=0; i<lane.size(); i++) {
+                bb1.add(lane[i]);
+            }
     // compute the cells the lae is going through
-    for(int y=0; y<_ysize; y++) {
+    for(int y=bb1.ymin()/_ycellsize; y<bb1.ymax()/_ycellsize+1&&y<_ysize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
-        for(int x=0; x<_xsize; x++) {
+        for(int x=bb1.xmin()/_xcellsize; x<bb1.xmax()/_xcellsize+1&&x<_xsize; x++) {
             SUMOReal xpos1 = SUMOReal(x) * _xcellsize;
+
 			size_t offset = _xsize * y + x;
             if(
                 GeomHelper::intersects(x11, y11, x12, y12,

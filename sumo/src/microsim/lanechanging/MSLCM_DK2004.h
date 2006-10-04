@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.7  2006/07/06 07:13:23  dkrajzew
 // applied current microsim-APIs
 //
@@ -149,7 +152,7 @@ protected:
     inline bool amBlockingFollowerNB() { return (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0; }
     inline bool amBlockingFollowerPlusNB() { return (myState&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0; }
     inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
-        return dist/abs(laneOffset)<lookForwardDist;
+        return dist/(abs(laneOffset)+1)<lookForwardDist;
     }
     inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
         return dist/abs(laneOffset)>lookForwardDist;

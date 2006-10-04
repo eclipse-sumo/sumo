@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.1  2006/07/06 12:22:06  dkrajzew
 // tls switches added
 //
@@ -99,7 +102,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime)
         if(!allowedLinks.test(i)) {
             const MSTrafficLightLogic::LinkVector &currLinks = links[i];
             const MSTrafficLightLogic::LaneVector &currLanes = light->getLanesAt(i);
-            for(int j=0; j<currLinks.size(); j++) {
+            for(int j=0; j<(int) currLinks.size(); j++) {
                 if(myPreviousLinkStates.find(currLinks[j])==myPreviousLinkStates.end()) {
                     continue;
                 } else {

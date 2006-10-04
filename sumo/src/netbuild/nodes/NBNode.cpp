@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.30  2006/09/25 13:33:17  dkrajzew
-// computation of junction internal lane geometries
+// Revision 1.31  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.29  2006/09/21 09:48:57  dkrajzew
 // debugging computation of inner-lane velocities and lane-to-lane connections
@@ -1023,7 +1023,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
-                SUMOReal length = shape.length();
+                SUMOReal length = MAX2(shape.length(), (SUMOReal) .1);
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
@@ -1149,8 +1149,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                         init.push_back(tmp);
                     }
                 } else {
-                    noInitialPoints--;
-                    noInitialPoints--;
+                    noSpline = true;
                 }
                 init.push_back(end);
                 //noSpline = true;
@@ -1259,9 +1258,9 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
         def[i*3+2] = 0;
         def[i*3+3] = init[i].y();
     }
-    delete[] def;
     SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
     bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
+    delete[] def;
     Position2D prev;
 
     for(i=0; i<NO_INTERNAL_POINTS; i++) {
@@ -1433,6 +1432,61 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
 }
 
 
+std::string
+NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
+                                        NBEdge *toE, size_t toL)
+{
+    std::string ret;
+    std::vector<std::string> tmp;
+    NBMMLDirection dir = getMMLDirection(fromE, toE);
+    switch(dir) {
+    case MMLDIR_LEFT:
+    case MMLDIR_PARTLEFT:
+    case MMLDIR_TURN:
+        {
+            Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
+            size_t index = 0;
+            for(EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+                size_t noLanesEdge = (*i2)->getNoLanes();
+                for(size_t j2=0; j2<noLanesEdge; j2++) {
+                    const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                    for(EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
+                        if((*k2).edge==0) {
+                            continue;
+                        }
+                        NBEdge *e = fromE->getToNode()->getOppositeIncoming(fromE);
+                        if(e!=*i2) {
+                            index++;
+                            continue;
+                        }
+                        NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).edge);
+                        bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
+                        left = false;
+                        if(!left&&fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                            string nid = (*i2)->getID() + "_" + toString(j2);
+                            if(find(tmp.begin(), tmp.end(), nid)==tmp.end()) {
+                                tmp.push_back(nid);
+                            }
+                        }
+                        index++;
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    for(vector<string>::iterator i=tmp.begin(); i!=tmp.end(); ++i) {
+        if(ret.length()>0) {
+            ret = ret + " ";
+        }
+        ret = ret + *i;
+    }
+    return ret;
+}
+
+
 void
 NBNode::writeXMLInternalSuccInfos(ostream &into)
 {
@@ -1531,7 +1585,12 @@ NBNode::writeXMLInternalNodes(ostream &into)
                     << "\" y=\"" << setprecision( 2 ) << pos.y() << "\"";
                 into <<  ">" << endl;
                 // write the incoming and the internal lanes
-                into << "      <inclanes>" << iid << "</inclanes>" << endl;
+                string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).edge, (*k).lane);
+                if(furtherIncoming.length()!=0) {
+                    into << "      <inclanes>" << iid << " " << furtherIncoming << "</inclanes>" << endl;
+                } else {
+                    into << "      <inclanes>" << iid << "</inclanes>" << endl;
+                }
                 into << "      <intlanes>"
                     << getCrossingNames_dividedBySpace(*i, j, (*k).edge, (*k).lane)
                     << "</intlanes>" << endl;
@@ -1778,6 +1837,18 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
 void
 NBNode::computeLanes2Lanes()
 {
+    // special case:
+    //  one in, one out, the outgoing has one lane more
+    if(_incomingEdges->size()==1&&_outgoingEdges->size()==1&&(*_incomingEdges)[0]->getNoLanes()==(*_outgoingEdges)[0]->getNoLanes()-1&&(*_incomingEdges)[0]!=(*_outgoingEdges)[0]) {
+        NBEdge *incoming = (*_incomingEdges)[0];
+        NBEdge *outgoing = (*_outgoingEdges)[0];
+        for(int i=0; i<incoming->getNoLanes(); ++i) {
+            incoming->setConnection(i, outgoing, i+1, false);
+        }
+        incoming->setConnection(0, outgoing, 0, false);
+        return;
+    }
+
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge

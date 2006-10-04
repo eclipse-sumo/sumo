@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/10/04 13:18:17  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.17  2006/09/18 10:07:43  dkrajzew
 // patching junction-internal state simulation
 //
@@ -140,6 +143,7 @@ namespace
 #include "MSLane.h"
 #include "MSJunctionLogic.h"
 #include "MSBitSetLogic.h"
+#include "MSGlobals.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -212,6 +216,24 @@ MSRightOfWayJunction::setAllowed()
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond( myRequest, myInnerState, myRespond );
     deadlockKiller();
+
+#ifdef HAVE_INTERNAL_LANES
+    // lets reset the yield information on internal, split
+    //  left-moving links
+    if(MSGlobals::gUsingInternalLanes) {
+        for(LaneCont::iterator i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
+            const MSLinkCont &lc = (*i)->getLinkCont();
+            if(lc.size()==1) {
+                MSLink *link = lc[0];
+                if(link->getViaLane()!=0) {
+                    // thisis a split left-mover
+                    link->resetInternalPriority();
+                }
+            }
+        }
+    }
+#endif
+
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
         DEBUG_OUT << "Respond: " << myRespond << endl;
@@ -274,7 +296,7 @@ bool areRealFoes(MSLink *l1, MSLink *l2)
     if(l1->getLane()->getEdge()!=l2->getLane()->getEdge()) {
         return true;
     }
-    return l1->getLane()==l2->getLane();
+    return false;//l1->getLane()==l2->getLane();
 }
 
 void
@@ -296,6 +318,32 @@ MSRightOfWayJunction::rebuildPriorities()
                 const MSLinkCont &links2 = myIncomingLanes[i2]->getLinkCont();
                 for(size_t j2=0; j2<links2.size(); ++j2) {
                     MSLink *l2 = links2[j2];
+/*
+                    if(l2->getLane()->getEdge()->getID()=="-905002550") {
+                        int bla = 0;
+                    }
+                    if(l->getLane()->getEdge()->getID()=="-905002550") {
+                        int bla = 0;
+                    }
+                    if(l2->getLane()->getEdge()->getID()=="-905002550") {
+                        if(l->getLane()->getEdge()->getID()=="-905002550") {
+                            cout << myIncomingLanes[i]->getEdge()->getID()
+                                << endl
+                                << myIncomingLanes[i2]->getEdge()->getID()
+                                << endl << endl;
+                            if(myIncomingLanes[i]->getEdge()->getID()=="-53091655_200_1565") {
+                                if(myIncomingLanes[i2]->getEdge()->getID()=="-905002551") {
+                                    int bla = 0;
+                                }
+                            }
+                            if(myIncomingLanes[i2]->getEdge()->getID()=="-53091655_200_1565") {
+                                if(myIncomingLanes[i]->getEdge()->getID()=="-905002551") {
+                                    int bla = 0;
+                                }
+                            }
+                        }
+                    }
+*/
 
                     if(foes[running].test(running2)) {//[running2]) {
                         // ok, both do cross
@@ -305,8 +353,12 @@ MSRightOfWayJunction::rebuildPriorities()
                             (*logic2)[running][running2] = areRealFoes(l, l2) ? 1 : 0;
                         } else {
                             if(l2->getDirection()!=MSLink::LINKDIR_STRAIGHT) {
+                                // this is straight, the other not
+                                //  -> may pass
                                 (*logic2)[running][running2] = 0;
                             } else {
+                                // both are straight
+                                //  -> wait
                                 (*logic2)[running][running2] = areRealFoes(l, l2) ? 1 : 0;
                             }
                         }

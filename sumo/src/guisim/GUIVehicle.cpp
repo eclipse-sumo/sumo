@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2006/10/04 13:18:14  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.43  2006/09/18 10:02:18  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -355,9 +358,19 @@ GUIVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return MSNet::getInstance()->getVehicleControl().buildVehicle(
+    MSVehicle *ret = MSNet::getInstance()->getVehicleControl().buildVehicle(
         StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
         myType, myRepetitionNumber-1, myPeriod);
+    for(std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
+        ret->myStops.push_back(*i);
+    }
+    if(hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
+        ret->setCORNColor(
+            (SUMOReal) getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED),
+            (SUMOReal) getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_GREEN),
+            (SUMOReal) getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_BLUE));
+    }
+    return ret;
 }
 
 

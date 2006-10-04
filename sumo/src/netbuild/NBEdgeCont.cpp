@@ -24,8 +24,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.52  2006/09/25 13:31:38  dkrajzew
-// options to remove edges added
+// Revision 1.53  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.51  2006/09/19 11:48:59  dkrajzew
 // debugging removal of edges which allow only unwished vehicle classes
@@ -614,10 +614,22 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     edge->_to->removeDoubleEdges();
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
-    for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
-        if(!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
-            MsgHandler::getErrorInstance()->inform("Could not set connection!");
-            throw ProcessError();
+    // check special case:
+    //  one in, one out, the outgoing has one lane more
+    if(noLanesFirstEdge==noLanesSecondEdge-1) {
+        for(i=0; i<one->getNoLanes(); i++) {
+            if(!one->addLane2LaneConnection(i, two, i+1, false)) {// !!! Bresenham, here!!!
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
+                throw ProcessError();
+            }
+        }
+        one->addLane2LaneConnection(0, two, 0, false);
+    } else {
+        for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
+            if(!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
+                throw ProcessError();
+            }
         }
     }
     // erase the splitted edge

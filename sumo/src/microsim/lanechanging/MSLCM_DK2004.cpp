@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.17  2006/09/25 13:30:12  dkrajzew
-// debugged lane-changing and distance keeping for internal links
+// Revision 1.18  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.16  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
@@ -274,6 +274,10 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         // ...we will not change the lane if not
         return ret;
     }
+    if( bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, rv)/*&&currentDist!=neighDist*/) {
+        // ...we will not change the lane if not
+        return ret;
+    }
 
 
     // if the current lane is the best and a lane-changing would cause a situation
@@ -281,7 +285,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(currExtDist>neighExtDist&&(neighLeftPlace<rv/*||currE[currIdx+1].length<currentDist*/)) {
+    if(currExtDist>neighExtDist&&(neighLeftPlace*2.<rv/*||currE[currIdx+1].length<currentDist*/)) {
         return ret;
     }
 
@@ -502,6 +506,10 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         // ...we will not change the lane if not
         return ret;
     }
+    if( bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, lv)/*&&currentDist!=neighDist*/) {
+        // ...we will not change the lane if not
+        return ret;
+    }
 
 
     // if the current lane is the best and a lane-changing would cause a situation
@@ -509,7 +517,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(currExtDist>neighExtDist&&(neighLeftPlace<lv/*||currE[currIdx+1].length<currentDist*/)) {
+    if(currExtDist>neighExtDist&&(neighLeftPlace*2.<lv/*||currE[currIdx+1].length<currentDist*/)) {
         // ... let's not change the lane
         return ret;
     }
@@ -550,7 +558,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     /* !!! scheint nicht vernünftig zu funktionieren - Fahrzeuge bleiben auf der rechten Spur
        obwohl sie noch eine Zeitlang auf der linken fahren dürften
     */
-    if(congested( neighLead.first ) && neighLead.second<20) {//!!!
+    if((congested( neighLead.first ) && neighLead.second<20)||predInteraction(leader.first)) {//!!!
+//    if(congested( neighLead.first ) && neighLead.second<20) {//!!!
         return ret;
     }
     SUMOReal neighLaneVSafe, thisLaneVSafe;

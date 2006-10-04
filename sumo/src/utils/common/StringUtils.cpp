@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.12  2006/04/18 08:13:00  dkrajzew
 // debugging return of a local reference
 //
@@ -129,7 +132,7 @@ std::string
 StringUtils::version1(std::string str)
 {
     size_t idx = str.rfind('_');
-    if(idx!=string::npos) {
+    if(idx!=string::npos&&idx<str.length()-1&&(str.substr(idx+1)!="+"&&str.substr(idx+1)!="-")) {
         try {
             int no = TplConvert<char>::_2int(str.substr(idx+1).c_str());
             str = str.substr(0, idx+1) + toString<int>(no+1);

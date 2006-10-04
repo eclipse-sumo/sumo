@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/10/04 13:18:13  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
+//
 // Revision 1.13  2006/07/07 11:51:51  dkrajzew
 // further work on lane changing
 //
@@ -86,6 +89,7 @@ namespace
 #include "GUIVehicleDrawer_FGnTasTriangle.h"
 #include <utils/glutils/GLHelper.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/lanechanging/MSLCM_DK2004.h>
 
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -128,13 +132,29 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     const Position2DVector &geom = lane.getShape();
     const Position2D &laneBeg = geom[0];
 
+    MSLane::VehCont::const_iterator v;
+    for(v=vehicles.begin(); v!=vehicles.end(); v++) {
+        MSVehicle *veh = *v;
+            if(true&&veh->isEquipped()) {
+                const MSVehicle::VehCont &neigh = veh->getConnections();
+                for(MSVehicle::VehCont::const_iterator q=neigh.begin(); q!=neigh.end(); ++q) {
+                    Position2D pos = (*q).second->connectedVeh->getPosition();
+                    //pos.sub(veh->getPosition());
+                    glBegin(GL_LINES);
+                    glVertex2f(veh->getPosition().x(), veh->getPosition().y());
+                    glVertex2f(pos.x(), pos.y());
+                    glEnd();
+                }
+            }
+    }
+
     glPushMatrix();
     glTranslated(laneBeg.x(), laneBeg.y(), 0);
     glRotated(rots[0], 0, 0, 1);
     // go through the vehicles
     size_t shapePos = 0;
     SUMOReal positionOffset = 0;
-    for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
+    for(v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
         SUMOReal vehiclePosition = veh->getPositionOnLane();
         while( shapePos<rots.size()-1
@@ -150,6 +170,10 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
         }
         glPushMatrix();
         glTranslated(0, -(vehiclePosition-positionOffset), 0);
+            if(true&&veh->isEquipped()) {
+                glColor3f(.8f, .6f, 0);
+                GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
+            }
         drawVehicle(static_cast<GUIVehicle&>(*veh), colorer, upscale);
         if(showBlinker) {
             int state = veh->getLaneChangeModel().getState();
@@ -171,7 +195,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                 glTranslated(1, -.5, 0);
             }
             glColor3f(1, 0, 1);
-
+/*
             MSLinkCont::const_iterator link =
                 veh->getLane().succLinkSec( *veh, 1, veh->getLane() );
             if(link!=veh->getLane().getLinkCont().end()) {
@@ -193,7 +217,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                     break;
                 }
             }
-
+*/
             if(true) {//!!!
                 MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
                 glColor3f(.5, .5, 1);
@@ -202,6 +226,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                 glVertex2f(m.getChangeProbability(), .5);
                 glEnd();
             }
+            /*
             if(true) {//!!!
                 glColor3f(1, .5, 0);
                 std::vector<MSVehicle::LaneQ> preb = veh->getBestLanes()[0];
@@ -220,6 +245,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                     glVertex2f(0.4 * (SUMOReal) (o-midx), preb[o].length/maxLen/2.);
                     glEnd();
                 }
+            }
                 /*
                 const MSLane &l = veh->getLane();
                 SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
@@ -238,8 +264,8 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                 glVertex2f(-.4, 0);
                 glVertex2f(-.4, r3/mmax/2.);
                 glEnd();
-                */
-            }
+                /
+            */
         }
         glPopMatrix();
     }
