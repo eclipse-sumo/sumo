@@ -1,0 +1,1 @@
+--net-file=copy of net.net.xml --detector-files=input_detectors.det.xml --detectors-poi-output detectors.poi.xml
