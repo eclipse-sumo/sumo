@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/10/05 08:18:05  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.39  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -694,9 +697,9 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         os << "\"";
         if(OptionsSubSys::getOptions().getBool("add-internal-links")) {
             if(_junction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
-                os << "\" cont=\"1\"";
+                os << " cont=\"1\"";
             } else {
-                os << "\" cont=\"0\"";
+                os << " cont=\"0\"";
             }
         }
         os << "/>" << endl;
