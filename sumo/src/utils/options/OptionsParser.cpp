@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/10/05 09:47:40  dkrajzew
+// debugging options parsing
+//
 // Revision 1.10  2006/08/01 07:38:46  dkrajzew
 // revalidation of options messaging
 //
@@ -155,7 +158,7 @@ int
 OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
 {
     // the last stand-alone argument should be a switch
-    if(!checkParameter(arg1)) return -1;
+    if(!checkParameter(arg1)) return 1;
     // check switch
     if(isAbbreviation(arg1)) {
         // set all switches when abbreviated
