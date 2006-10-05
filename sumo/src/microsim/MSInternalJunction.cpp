@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/10/05 11:24:34  dkrajzew
+// debugging options parsing
+//
 // Revision 1.4  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -138,7 +141,9 @@ MSInternalJunction::setAllowed()
         const MSLinkCont &lc = l->getLinkCont();
         for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             if(find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
-                if((*j)->isApproached()&&((*j)->opened()||(*j)->havePriority())) {
+                bool approached = (*j)->getViaLane()!=0&&(*j)->getViaLane()->myApproaching!=0;
+                approached |= (*j)->getLane()->myApproaching!=0;
+                if(approached&&((*j)->opened()||(*j)->havePriority())) {
                     myRespond.set(0, false);
                     return true;
                 }
