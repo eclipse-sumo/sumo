@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.12  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -142,6 +145,10 @@ MSLogicJunction::~MSLogicJunction()
 void
 MSLogicJunction::postloadInit()
 {
+    /*
+    if(getID()=="1565") {
+        int bla = 0;
+    }
     // inform links where they have to report approaching vehicles to
     size_t requestPos = 0;
     LaneCont::iterator i;
@@ -151,7 +158,7 @@ MSLogicJunction::postloadInit()
         // ... set information for every link
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                &myRespond, requestPos/*, clearInfo*/);
+                &myRespond, requestPos/*, clearInfo/);
             requestPos++;
         }
     }
@@ -164,6 +171,7 @@ MSLogicJunction::postloadInit()
             &myInnerState, requestPos++);
     }
 #endif
+    */
 }
 
 

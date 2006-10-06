@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.5  2006/10/05 11:24:34  dkrajzew
 // debugging options parsing
 //
@@ -108,6 +111,34 @@ MSInternalJunction::~MSInternalJunction()
 }
 
 
+void
+MSInternalJunction::postloadInit()
+{
+    // inform links where they have to report approaching vehicles to
+    size_t requestPos = 0;
+    LaneCont::iterator i;
+    // going through the incoming lanes...
+    const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
+    // ... set information for every link
+    for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+        (*j)->setRequestInformation(&myRequest, requestPos,
+            &myRespond, requestPos/*, clearInfo*/);
+        requestPos++;
+    }
+    /*
+#ifdef HAVE_INTERNAL_LANES
+    // set information for the internal lanes
+    requestPos = 0;
+    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
+        // ... set information about participation
+        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
+            &myInnerState, requestPos++);
+    }
+#endif
+    */
+}
+
+
 bool
 MSInternalJunction::setAllowed()
 {
@@ -167,10 +198,6 @@ MSInternalJunction::setAllowed()
             return true;
         }
     }
-    /*
-    myLogic->respond( myRequest, myInnerState, myRespond );
-    deadlockKiller();
-    */
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
         DEBUG_OUT << "Respond: " << myRespond << endl;

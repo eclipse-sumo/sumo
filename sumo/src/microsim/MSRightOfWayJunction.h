@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.11  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -145,6 +148,7 @@ public:
 
     void rebuildPriorities();
 
+    void postloadInit();
 
 protected:
     /// Search for deadlock-situations and eleminate them.

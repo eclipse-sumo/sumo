@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.92  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.91  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -1009,7 +1012,7 @@ MSVehicle::moveFirstChecked()
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
         if(!onLinkEnd) {
-            if(link->havePriority()) {
+            if(link->havePriority()&&link->opened()) {
                 vSafe = (*i).myVLinkPass;
             } else {
                 if(link->opened()) {

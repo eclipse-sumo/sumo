@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.9  2006/09/18 10:05:46  dkrajzew
 // patching junction-internal state simulation
 //
@@ -158,13 +161,15 @@ public:
         }
         // check whether internal lanes disallow any movement
         //  the number of internal lanes is equal to the number of links
+        /*
 #ifdef HAVE_INTERNAL_LANES
         for ( i = 0; i < myNLinks; ++i ) {
             bool linkPermit = request.test( i ) && respond.test( i ) &&
-                ( innerState & ( *myInternalLinksFoes )[ i ]).none();
+                (( innerState & ( *myInternalLinksFoes )[ i ]).none()  || myConts.test(i));
             respond.set( i, linkPermit );
         }
 #endif
+        */
     }
 
 

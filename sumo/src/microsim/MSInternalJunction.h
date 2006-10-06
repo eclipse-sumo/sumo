@@ -19,9 +19,11 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.1  2006/09/18 10:06:29  dkrajzew
 // patching junction-internal state simulation
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -78,6 +80,7 @@ public:
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
     bool clearRequests();
+    void postloadInit();
 
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();

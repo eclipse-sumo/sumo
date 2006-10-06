@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/10/06 07:13:40  dkrajzew
+// debugging internal lanes
+//
 // Revision 1.19  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -165,8 +168,9 @@ bool
 MSLink::opened() const
 {
     if(myRespond==0) {
-        std::cout << "Buggy" << std::endl;
-        return false; // !!! should never happen, was sometimes the case in possibly buggy networks
+        // this is the case for internal lanes ending at a junction's end
+        // (let the vehicle always leave the junction)
+        return true;
     }
     return myRespond->test(myRespondIdx);
 }
