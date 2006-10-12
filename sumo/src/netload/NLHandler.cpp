@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/10/12 09:28:14  dkrajzew
+// patched building under windows
+//
 // Revision 1.17  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -581,7 +584,7 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
-                getIntSecure(attrs, "layer", 1),//!!!
+                getIntSecure(attrs, "layer", 1),// !!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                 getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
@@ -608,10 +611,10 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
-                getIntSecure(attrs, "layer", -1),//!!!
+                getIntSecure(attrs, "layer", -1),// !!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                getBoolSecure(attrs, "fill", false)); // !!!
+                getBoolSecure(attrs, "fill", false));// !!!
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
         } catch (NumberFormatException &) {

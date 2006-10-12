@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/10/12 09:28:14  dkrajzew
+// patched building under windows
+//
 // Revision 1.15  2006/10/12 07:50:43  dkrajzew
 // c2c visualisation added (unfinished)
 //
@@ -178,13 +181,16 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
             if(true&&veh->isEquipped()) {
                 int cluster = veh->getClusterId();
                 if(colorBla.find(cluster)==colorBla.end()) {
-                    int r = (double) rand() / (double) RAND_MAX * 255.;
-                    int g = (double) rand() / (double) RAND_MAX * 255.;
-                    int b = (double) rand() / (double) RAND_MAX * 255.;
+                    int r = (int) ((double) rand() / (double) RAND_MAX * 255.);
+                    int g = (int) ((double) rand() / (double) RAND_MAX * 255.);
+                    int b = (int) ((double) rand() / (double) RAND_MAX * 255.);
                     colorBla[cluster] = FXRGB(r, g, b);
                 }
                 FXColor c = colorBla[cluster];
-                glColor3f((SUMOReal) FXREDVAL(c)/255., (SUMOReal) FXGREENVAL(c)/255., (SUMOReal) FXBLUEVAL(c)/255.);
+                glColor3f(
+					(float) ((float) FXREDVAL(c) /255.),
+					(float) ((float) FXGREENVAL(c) /255.),
+					(float) ((float) FXBLUEVAL(c) /255.));
                 GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
             }
         drawVehicle(static_cast<GUIVehicle&>(*veh), colorer, upscale);

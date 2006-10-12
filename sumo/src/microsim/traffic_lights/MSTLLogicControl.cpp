@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/10/12 09:28:14  dkrajzew
+// patched building under windows
+//
 // Revision 1.21  2006/10/12 08:07:17  dkrajzew
 // added an error handling for adding a tls definition for an unknown tls
 //
@@ -267,7 +270,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
 			pos = pos + LogicTo -> getPhaseFromStep(i).duration;
 			if (pos >= gspTo)	{
 				stepOfGsp = i;
-				durAfterGsp = pos - gspTo;
+				durAfterGsp = (size_t) (pos - gspTo);
 				break;
 			}
 		}
@@ -278,10 +281,10 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
 		//and the modified duration of the phase, in which the GSP is
 		size_t timeWaiting = 0;
 		if (gspTo >= actPosTo)	{
-			timeWaiting = gspTo - actPosTo;
+			timeWaiting = (size_t) (gspTo - actPosTo);
 		}
 		else {
-			timeWaiting = CycleTimeTo - actPosTo + gspTo;
+			timeWaiting = (size_t) (CycleTimeTo - actPosTo + gspTo);
 		}
 		size_t newdur = timeWaiting + durAfterGsp;
 
@@ -360,7 +363,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
 	size_t cycleTime = LogicTo->getCycleTime();
 
 	// the position, in which the logic has to be switched
-	size_t startPos = position;
+	size_t startPos = (size_t) position;
 
 	// this is the position, where the Logic have to be after synchronisation
 	size_t posAfterSyn = LogicTo->getPosition(step);

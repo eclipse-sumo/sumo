@@ -231,6 +231,10 @@ SOURCE=..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\div\GUIUserIO.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\tracker\TrackerValueDesc.cpp
 # End Source File
 # End Group
@@ -480,6 +484,10 @@ SOURCE=..\..\..\src\utils\gui\images\GUITexturesHelper.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\div\GUIUserIO.h
 # End Source File
 # Begin Source File
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.87  2006/10/12 09:28:14  dkrajzew
+// patched building under windows
+//
 // Revision 1.86  2006/10/12 08:09:50  dkrajzew
 // added current car2car-code
 //
@@ -918,9 +921,9 @@ void MSNet::computeCar2Car(void)
 	  //out3<<"# TimeStep "<<myStep<<" Vehicle in die connected Liste "<<connected.size() <<endl;//to comment
 	  int counter = 1;
 	  int clusterId = 1;
-	  while(counter <= connected.size()) {
-		int index = (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size();
-		if(index>=connected.size())
+	  while(counter <= (int) connected.size()) {
+		int index = (int) ((SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size());
+		if(index>=(int) connected.size())
 			index = index-1;
 		std::vector<MSVehicle*>::iterator q = connected.begin() + index;
 	    //cout<<"Ich bin hier1 "<<myStep<<" Size of connected "<<connected.size()<<" Index "<<index<<endl;

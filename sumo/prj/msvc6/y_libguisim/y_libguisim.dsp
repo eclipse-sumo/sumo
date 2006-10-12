@@ -103,6 +103,10 @@ SOURCE=..\..\..\src\guisim\GUIDetectorWrapper.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUIE1VehicleActor.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUIE3Collector.cpp
 # End Source File
 # Begin Source File
@@ -224,6 +228,10 @@ SOURCE=..\..\..\src\guisim\GUIBusStop.h
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUIDetectorWrapper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIE1VehicleActor.h
 # End Source File
 # Begin Source File
 

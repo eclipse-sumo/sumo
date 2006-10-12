@@ -218,6 +218,9 @@
 				RelativePath="..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUIUserIO.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\TrackerValueDesc.cpp">
 			</File>
 		</Filter>
@@ -392,6 +395,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUIUserIO.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\TrackerValueDesc.h">

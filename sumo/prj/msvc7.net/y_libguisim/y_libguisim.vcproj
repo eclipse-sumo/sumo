@@ -187,6 +187,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIE1VehicleActor.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIE3Collector.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -656,6 +659,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIDetectorWrapper.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIE1VehicleActor.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIE3Collector.h">
