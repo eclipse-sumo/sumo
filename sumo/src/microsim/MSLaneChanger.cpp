@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.33  2006/09/18 11:49:05  dkrajzew
 // code beautifying
 //
@@ -351,10 +354,10 @@ MSLaneChanger::change()
         DEBUG_OUT << "change:" << vehicle->getID() << ": " << vehicle->getPositionOnLane() << ", " << vehicle->getSpeed() << endl;
     }
 #endif
-    std::vector<std::vector<MSVehicle::LaneQ> > preb = vehicle->getBestLanes();
+    const std::vector<std::vector<MSVehicle::LaneQ> > &preb = vehicle->getBestLanes();
     assert(preb[0].size()==myChanger.size());
     for(int i=0; i<(int) myChanger.size(); i++) {
-        preb[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
+        ((std::vector<std::vector<MSVehicle::LaneQ> >&) preb)[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
     }
 
     vehicle->getLaneChangeModel().prepareStep();
@@ -379,7 +382,9 @@ MSLaneChanger::change()
         ( myCandi - 1 )->hoppedVeh = veh( myCandi );
         ( myCandi - 1 )->lane->myTmpVehicles.push_front( veh ( myCandi ) );
         vehicle->leaveLaneAtLaneChange();
+        myCandi->lane->myUseDefinition->vehLenSum -= veh( myCandi )->getLength();
         vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
+        ( myCandi - 1 )->lane->myUseDefinition->vehLenSum += veh( myCandi )->getLength();
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
@@ -427,7 +432,9 @@ MSLaneChanger::change()
         ( myCandi + 1 )->hoppedVeh = veh( myCandi );
         ( myCandi + 1 )->lane->myTmpVehicles.push_front( veh ( myCandi ) );
         vehicle->leaveLaneAtLaneChange();
+        myCandi->lane->myUseDefinition->vehLenSum -= veh( myCandi )->getLength();
         vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
+        ( myCandi + 1 )->lane->myUseDefinition->vehLenSum += veh( myCandi )->getLength();
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
@@ -802,7 +809,7 @@ int
 MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                             const std::pair<MSVehicle*, SUMOReal> &rLead,
                             const std::pair<MSVehicle*, SUMOReal> &rFollow,
-                            std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                            const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
                             /*
                             int bestLaneOffset, SUMOReal bestDist,
                             SUMOReal currentDist)
@@ -840,7 +847,7 @@ int
 MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &rLead,
                            const std::pair<MSVehicle*, SUMOReal> &rFollow,
-                           std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
                            /*
                            int bestLaneOffset, SUMOReal bestDist,
                            SUMOReal currentDist)
@@ -980,7 +987,7 @@ MSLaneChanger::advan2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &neighLead,
                            const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                            int blocked,
-                           std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
                            /*
                            int bestLaneOffset, SUMOReal bestDist,
                            SUMOReal currentDist)
@@ -1002,7 +1009,7 @@ MSLaneChanger::advan2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                           const std::pair<MSVehicle*, SUMOReal> &neighLead,
                           const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                           int blocked,
-                          std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                          const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
                           /*
                           int bestLaneOffset, SUMOReal bestDist,
                           SUMOReal currentDist)

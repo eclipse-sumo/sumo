@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.14  2006/09/18 10:05:34  dkrajzew
 // added vehicle class support to microsim
 //
@@ -184,7 +187,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
         myLanes[pos].lane = *(lanes->begin());
         myLanes[pos].noVehicles = 0;
-//5!!!        myLanes[pos].density = 0;
+        myLanes[pos].vehLenSum = 0;
         myLanes[pos].firstNeigh = lanes->end();
         myLanes[pos].lastNeigh = lanes->end();
         pos++;
@@ -195,6 +198,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
         for(MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
             myLanes[pos].lane = *j;
             myLanes[pos].noVehicles = 0;
+            myLanes[pos].vehLenSum = 0;
             myLanes[pos].firstNeigh = (j+1);
             myLanes[pos].lastNeigh = lanes->end();
             pos++;

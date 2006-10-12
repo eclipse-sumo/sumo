@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.70  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.69  2006/09/25 13:30:11  dkrajzew
 // debugged lane-changing and distance keeping for internal links
 //
@@ -712,7 +715,7 @@ MSLane::detectCollisions( SUMOTime timestep )
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
             myUseDefinition->noVehicles--;
-//5!!!            myUseDefinition->density -= (*veh)->length();
+            myUseDefinition->vehLenSum -= (*veh)->getLength();
             if(veh==myVehicles.end()) {
                 break;
             }
@@ -797,13 +800,13 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         // emit
         myVehicles.insert( predIt, aVehicle );
         myUseDefinition->noVehicles++;
-//5!!!        myUseDefinition->vehLenSum += aVehicle->length();
+        myUseDefinition->vehLenSum += aVehicle->getLength();
         assert(myVehicles.size()==myUseDefinition->noVehicles);
         return true;
     }
     // emit
     myVehicles.push_back( aVehicle );
-//5!!!    myUseDefinition->vehLenSum += aVehicle->length();
+    myUseDefinition->vehLenSum += aVehicle->getLength();
     myUseDefinition->noVehicles++;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     return true;
@@ -824,7 +827,7 @@ MSLane::emitTry( MSVehicle& veh )
         veh.enterLaneAtEmit( this, state );
         myVehicles.push_front( &veh );
         myUseDefinition->noVehicles++;
-//5!!!        myUseDefinition->vehLenSum += veh.length();
+        myUseDefinition->vehLenSum += veh.getLength();
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
@@ -859,7 +862,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             veh.enterLaneAtEmit( this, state );
             myVehicles.push_front( &veh );
             myUseDefinition->noVehicles++;
-//5!!!            myUseDefinition->vehLenSum += veh.length();
+            myUseDefinition->vehLenSum += veh.getLength();
             assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
@@ -891,7 +894,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             veh.enterLaneAtEmit( this, state );
             myVehicles.insert( leaderIt, &veh );
             myUseDefinition->noVehicles++;
-//5!!!            myUseDefinition->vehLenSum += veh.length();
+            myUseDefinition->vehLenSum += veh.getLength();
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
     if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -925,7 +928,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         veh.enterLaneAtEmit( this, state );
         myVehicles.push_back( &veh );
         myUseDefinition->noVehicles++;
-//5!!!        myUseDefinition->vehLenSum += veh.length();
+        myUseDefinition->vehLenSum += veh.getLength();
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
     if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -962,7 +965,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         veh.enterLaneAtEmit( this, state );
         myVehicles.insert( leaderIt, &veh );
         myUseDefinition->noVehicles++;
-//5!!!        myUseDefinition->vehLenSum += veh.length();
+        myUseDefinition->vehLenSum += veh.getLength();
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
     if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -1129,7 +1132,7 @@ MSLane::pop()
     first->leaveLaneAtMove( SPEED2DIST(first->getSpeed())/* - first->pos()*/ );
     myVehicles.pop_back();
     myUseDefinition->noVehicles--;
-//5!!!    myUseDefinition->vehLenSum -= first->length();
+    myUseDefinition->vehLenSum -= first->getLength();
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     if(myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
@@ -1157,9 +1160,9 @@ MSLane::integrateNewVehicle()
     if ( myVehBuffer ) {
         assert(myUseDefinition->noVehicles==myVehicles.size());
         myVehicles.push_front( myVehBuffer );
+        myUseDefinition->vehLenSum += myVehBuffer->getLength();
         myVehBuffer = 0;
         myUseDefinition->noVehicles++;
-//5!!!        myUseDefinition->vehLenSum += myVehBuffer->length();
         assert(myUseDefinition->noVehicles==myVehicles.size());
     }
 }
@@ -1314,7 +1317,6 @@ MSLane::swapAfterLaneChange()
     myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
     myUseDefinition->noVehicles = myVehicles.size();
-//5!!!    myUseDefinition->vehLenSum += veh.length();!!!
     if(myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
         myFirstUnsafe = 0;
@@ -1431,7 +1433,7 @@ MSLane::removeFirstVehicle()
     veh->leaveLaneAtLaneChange();
     myVehicles.erase(myVehicles.end()-1);
     myUseDefinition->noVehicles--;
-//5!!!    myUseDefinition->vehLenSum -= veh->length();
+    myUseDefinition->vehLenSum -= veh->getLength();
     return veh;
 }
 
@@ -1465,22 +1467,30 @@ MSLane::getLastVehicle(MSLaneChanger &lc) const
 SUMOReal
 MSLane::getDensity() const
 {
+    /*
     SUMOReal ret = 0;
     for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
         ret += (*i)->getLength();
     }
-    return ret / myLength;
+    if(myUseDefinition->vehLenSum!=ret) {
+        cout << myUseDefinition->vehLenSum << " <-> " << ret << endl;
+        throw 1;
+    }
+    */
+    return myUseDefinition->vehLenSum / myLength;
 }
 
 
 SUMOReal
 MSLane::getVehLenSum() const
 {
+    /*
     SUMOReal ret = 0;
     for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
         ret += (*i)->getLength();
     }
-    return ret;
+    */
+    return myUseDefinition->vehLenSum;
 }
 
 

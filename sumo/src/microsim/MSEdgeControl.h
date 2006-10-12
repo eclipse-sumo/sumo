@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.12  2006/09/18 10:05:34  dkrajzew
 // added vehicle class support to microsim
 //
@@ -213,6 +216,7 @@ public:
     struct LaneUsage {
         MSLane *lane;
         size_t noVehicles;
+        SUMOReal vehLenSum;
         MSEdge::LaneCont::const_iterator firstNeigh;
         MSEdge::LaneCont::const_iterator lastNeigh;
     };

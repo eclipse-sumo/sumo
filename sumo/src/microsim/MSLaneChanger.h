@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.11  2006/08/01 07:00:32  dkrajzew
 // removed unneeded API parts
 //
@@ -201,14 +204,14 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
         //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     virtual int change2left(
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
         //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** If candidate isn't on an allowed lane, we need to find target-
@@ -236,7 +239,7 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
         int blocked,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
     //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true, if candidate has an advantage by changing to the
@@ -246,7 +249,7 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
         int blocked,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
         //int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true if candidate overlaps with a vehicle, that

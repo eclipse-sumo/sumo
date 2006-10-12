@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.17  2006/09/18 10:08:33  dkrajzew
 // added vehicle class support to microsim
 //
@@ -192,6 +195,7 @@ MSSourceLane::emitTry( MSVehicle& veh )
     veh.enterLaneAtEmit( this, MSVehicle::State(0, 0) );
     myVehicles.push_front( &veh );
     myUseDefinition->noVehicles++;
+    myUseDefinition->vehLenSum += veh.getLength();
     MSVehicle::State state( myLength>1 ? (SUMOReal) (myLength - 1.) : 0, 0 );
     veh.enterLaneAtEmit( this, state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -224,6 +228,7 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         veh.enterLaneAtEmit( this, state );
         myVehicles.push_front( &veh );
         myUseDefinition->noVehicles++;
+        myUseDefinition->vehLenSum += veh.getLength();
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG

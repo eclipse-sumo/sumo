@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 08:09:15  dkrajzew
+// fastened up lane changing
+//
 // Revision 1.8  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -147,7 +150,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
 //        bool congested, bool predInteraction,
 /*
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
@@ -164,7 +167,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
         /*
 //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
