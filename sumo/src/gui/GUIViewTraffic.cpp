@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2006/10/12 07:50:40  dkrajzew
+// c2c visualisation added (unfinished)
+//
 // Revision 1.58  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -257,6 +260,8 @@ namespace
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include "GUIColorer_LaneByPurpose.h"
+#include "GUIColorer_LaneByVehKnowledge.h"
+#include "GUIColorer_LaneNeighEdges.h"
 #include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <utils/glutils/polyfonts.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -424,6 +429,13 @@ GUIViewTraffic::init(GUINet &net)
             0, (SUMOReal) 5,
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+
+	myLaneColoringSchemes.add("by vehicle knowledge",
+		new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
+
+	myLaneColoringSchemes.add("by edge neighborhood",
+		new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
+
 
     myVisualizationSettings = gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
