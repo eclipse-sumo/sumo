@@ -9,7 +9,8 @@ GUIIOGlobals.cpp GUIIOGlobals.h GUIMessageWindow.cpp GUIMessageWindow.h \
 GUIParam_PopupMenu.cpp GUIParam_PopupMenu.h \
 GUIParameterTableItem.cpp GUIParameterTableItem.h \
 GUIParameterTableWindow.cpp GUIParameterTableWindow.h \
-GUISelectedStorage.cpp GUISelectedStorage.h
+GUISelectedStorage.cpp GUISelectedStorage.h \
+GUIUserIO.cpp GUIUserIO.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
 
