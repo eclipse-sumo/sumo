@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/10/12 07:57:47  dkrajzew
+// warnings removed
+//
 // Revision 1.31  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -1842,7 +1845,7 @@ NBNode::computeLanes2Lanes()
     if(_incomingEdges->size()==1&&_outgoingEdges->size()==1&&(*_incomingEdges)[0]->getNoLanes()==(*_outgoingEdges)[0]->getNoLanes()-1&&(*_incomingEdges)[0]!=(*_outgoingEdges)[0]) {
         NBEdge *incoming = (*_incomingEdges)[0];
         NBEdge *outgoing = (*_outgoingEdges)[0];
-        for(int i=0; i<incoming->getNoLanes(); ++i) {
+        for(int i=0; i<(int) incoming->getNoLanes(); ++i) {
             incoming->setConnection(i, outgoing, i+1, false);
         }
         incoming->setConnection(0, outgoing, 0, false);

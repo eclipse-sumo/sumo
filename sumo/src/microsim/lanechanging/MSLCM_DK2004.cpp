@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/10/12 07:58:09  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -117,7 +120,8 @@ size_t searchedtime = 21900;
 // 80km/h will be the swell for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 12.22
 
-#define LOOK_FORWARD_FAR 15
+#define LOOK_FORWARD_FAR 2.5
+#define LOOK_FORWARD_NEAR 2.5
 
 
 
@@ -148,7 +152,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                  const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                  const MSLane &neighLane,
-                                 std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+                                 const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
                                  /*
                                  int bestLaneOffset, SUMOReal bestDist,
                                  SUMOReal neighDist,
@@ -156,7 +160,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  */
                                  MSVehicle **lastBlocked)
 {
-    std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
+    const std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -239,11 +243,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         :*/
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * (SUMOReal) 5;
+        ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+        : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * (SUMOReal) 5;
+        ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+        : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
@@ -380,7 +384,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                 const MSLane &neighLane,
-                                std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+                                const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
                                 /*
                                 int bestLaneOffset, SUMOReal bestDist,
                                 SUMOReal neighDist,
@@ -388,7 +392,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 */
                                 MSVehicle **lastBlocked)
 {
-    std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
+    const std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -471,11 +475,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         : */
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * (SUMOReal) 5;
+        ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+        : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getSpeed() * LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * (SUMOReal) 5;
+        ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+        : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
@@ -494,7 +498,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
 
-    // the opposite lane-changing direction should be done than the one examined herein
+    // the opposite lane-changing direction should be rather done, not
+    //  the one examined herein
     //  we'll check whether we assume we could change anyhow and get back in time...
     //
     // this rule prevents the vehicle from moving in opposite direction of the best lane

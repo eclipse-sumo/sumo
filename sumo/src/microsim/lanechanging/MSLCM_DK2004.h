@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 07:58:09  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -97,7 +100,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
         /*
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
@@ -113,7 +116,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
         /*
 //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
