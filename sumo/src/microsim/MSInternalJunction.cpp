@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/10/12 08:10:01  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -116,7 +119,6 @@ MSInternalJunction::postloadInit()
 {
     // inform links where they have to report approaching vehicles to
     size_t requestPos = 0;
-    LaneCont::iterator i;
     // going through the incoming lanes...
     const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
     // ... set information for every link
@@ -173,7 +175,7 @@ MSInternalJunction::setAllowed()
         for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             if(find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
                 bool approached = (*j)->getViaLane()!=0&&(*j)->getViaLane()->myApproaching!=0;
-                approached |= (*j)->getLane()->myApproaching!=0;
+                approached |= ((*j)->getLane()->myApproaching!=0);
                 if(approached&&((*j)->opened()||(*j)->havePriority())) {
                     myRespond.set(0, false);
                     return true;
