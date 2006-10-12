@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.93  2006/10/12 08:09:41  dkrajzew
+// fastened up lane changing; added current car2car-code
+//
 // Revision 1.92  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -690,7 +693,8 @@ MSVehicle::MSVehicle( string id,
     myOldLaneMoveReminderOffsets( 0 ),
 	lastUp(0),
 	equipped(false),
-	clusterId(-1)
+	clusterId(-1),
+    myLastBestLanesLane(0)
 {
     if(myRepetitionNumber>0) {
         myRoute->incReferenceCnt();
@@ -1644,14 +1648,14 @@ void
 MSVehicle::leaveLaneAtMove( SUMOReal driven )
 {
 	if(isEquipped()){ //
-
+      ofstream out3("MAMAMA.txt", ios_base::app);
 		ofstream out2("EquippedVehInEdges.txt", ios_base::app);
 		out2<<"--Leave leaveLaneAtMove Lane: "<<(*myCurrEdge)->getID()<<" Vehicle: "<<getID()<<" Timestep: "<<MSNet::getInstance()->getCurrentTimeStep()<<" --"<<endl;
 		out2.close();
 		(*myCurrEdge)->removeEquippedVehicle(getID());
 
 
-	    ofstream out("savedInformations.txt", ios_base::app);
+	    ofstream out("savedInformationsGNU.txt", ios_base::app);
 		// save required Informations
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
 		if(i != infoCont.end()){
@@ -1661,6 +1665,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal driven )
 			float factor = (length/speed)*2;
 			if(nt > factor){
 				(*i).second->neededTime = nt;
+				out3<<"Vehicle "<<myID<<" Ts "<<MSNet::getInstance()->getCurrentTimeStep()<<" Edge "<<(*myCurrEdge)->getID()<<"---- Saved: Needtime "<<nt<<"  Factor: "<<factor<<"---"<<endl;
 				out<<MSNet::getInstance()->getCurrentTimeStep()<<" 1"<<endl;
 			}else{
 				infoCont.erase((*myCurrEdge)->getID());
@@ -1673,6 +1678,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal driven )
 			infoCont[(*myCurrEdge)->getID()] = info;
 		}
 		out.close();
+		out3.close();
 	}
 
 
@@ -2146,35 +2152,63 @@ MSVehicle::rebuildAllowedLanes()
 }
 
 
-std::vector<std::vector<MSVehicle::LaneQ> >
+const std::vector<std::vector<MSVehicle::LaneQ> > &
 MSVehicle::getBestLanes() const
 {
+    if(myLastBestLanesLane==myLane) {
+        return myBestLanes;
+    }
+    myBestLanes.clear();
+    myLastBestLanesLane = myLane;
 #ifdef GUI_DEBUG
     if(gSelected.isSelected(GLO_VEHICLE, ((GUIVehicle*) this)->getGlID())) {
         int blb = 0;
     }
 #endif
-    std::vector<std::vector<LaneQ> > ret;
     SUMOReal MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
+    /*
+    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
+        cout << "ce1 " << (*myCurrEdge)->getID() << endl;
+    }
+    */
     int seen = 0;
-    float dist = 0;
+    float dist = -getPositionOnLane();
     // compute initial list
     while(seen<4&&dist<MIN_DIST&&ce!=myRoute->end()) {
         const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
-        ret.push_back(std::vector<LaneQ>());
-        std::vector<LaneQ> &curr = *(ret.end()-1);
+        /*
+    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
+        cout << "ce2 " << (*myCurrEdge)->getID() << ", " << lanes << endl;
+    }
+    */
+        myBestLanes.push_back(std::vector<LaneQ>());
+        std::vector<LaneQ> &curr = *(myBestLanes.end()-1);
         for(int i=0; i<lanes->size(); i++) {
+            /*
+    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
+        cout << "lane[i] " << (*lanes)[i]->getID() << endl;
+    }
+    */
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
-            const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
-            if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
-//            if(onAllowed((*lanes)[i])) {
-                currQ.t1 = true;
-                //currQ.length = (*lanes)[i]->length();
+            if((ce+1)!=myRoute->end()) {
+                const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
+                /*
+    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
+        cout << "allowed " << allowed << endl;
+    }
+    */
+                if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
+//                if(onAllowed((*lanes)[i])) {
+                    currQ.t1 = true;
+                    //currQ.length = (*lanes)[i]->length();
+                } else {
+                    currQ.t1 = false;
+                    //currQ.length = 0;
+                }
             } else {
-                currQ.t1 = false;
-                //currQ.length = 0;
+                currQ.t1 = true;
             }
 
             currQ.length = (*lanes)[i]->length();
@@ -2200,9 +2234,9 @@ MSVehicle::getBestLanes() const
     }
     // sum up consecutive lengths
     {
-        ce = myCurrEdge + ret.size() - 1;
+        ce = myCurrEdge + myBestLanes.size() - 1;
         std::vector<std::vector<LaneQ> >::reverse_iterator i;
-        for(i=ret.rbegin()+1; i!=ret.rend(); ++i, --ce) {
+        for(i=myBestLanes.rbegin()+1; i!=myBestLanes.rend(); ++i, --ce) {
             std::vector<LaneQ> &curr = *i;
             for(int j=0; j<curr.size(); ++j) {
                 MSLane *lane = curr[j].lane;
@@ -2210,7 +2244,7 @@ MSVehicle::getBestLanes() const
                 for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     MSLane *c = (*k)->getLane();
                     for(std::vector<LaneQ>::iterator l=(*(i-1)).begin(); l!=(*(i-1)).end(); ++l) {
-                        if((*l).lane==c&&curr[j].t1) {
+                        if((*l).lane==c&&curr[j].t1/*&&(*l).t1*/) {
                             curr[j].length += (*l).length;
                             curr[j].v += (*l).v;
                             curr[j].wish++;// += (*l).length;
@@ -2225,7 +2259,7 @@ MSVehicle::getBestLanes() const
     {
         // !!! optimize: maybe only for the current edge
         std::vector<std::vector<LaneQ> >::iterator i;
-        for(i=ret.begin(); i!=ret.end(); ++i) {
+        for(i=myBestLanes.begin(); i!=myBestLanes.end(); ++i) {
             std::vector<LaneQ> &curr = *i;
             int best = 0;
             SUMOReal bestLength = 0;
@@ -2241,7 +2275,7 @@ MSVehicle::getBestLanes() const
             }
         }
     }
-    return ret;
+    return myBestLanes;
 
 }
 
@@ -2501,43 +2535,39 @@ void
 MSVehicle::sendInfos(SUMOTime time)
 {
 	int NumberOfInfo = 732*14;
-    int count = 0; // wieviel Info übertragen würden
 	ofstream out("TransmittedInfosGNU.txt", ios_base::app);
 	out<<time<<" ";
+	int count = 0;
+	MSVehicle::InfoCont info = getInfosToSend();
+	count = count+info.size();
 	// Als ClusterHeader, sende ich als erste
-/*
 	for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end() && NumberOfInfo>0; ++i) {
-		int transmit = (*i).second->connectedVeh->transferInformation(getInfosToSend(),NofP);
-    }
-*/
-	for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end() && NumberOfInfo>0; ++i) {
-		int NofP = NumOfPack(this,(*i).second->connectedVeh);
+		int NofP = NumOfInfos(this,(*i).second->connectedVeh);
 		if(NofP>NumberOfInfo)
 			NofP=NumberOfInfo;
-        count = count + getInfosToSend().size();
-		int transmit = (*i).second->connectedVeh->transferInformation(getInfosToSend(),NofP);
-        NumberOfInfo = NumberOfInfo - (NumberOfInfo/NofP)*transmit;
+		(*i).second->connectedVeh->transferInformation(info,NofP);
 	}
+	NumberOfInfo = NumberOfInfo - info.size();// (NumberOfInfo/NofP)*transmit;
 
     // Alle Vehicle in mein Cluster das Senden erlauben.
 	for(ClusterCont::const_iterator o=clusterCont.begin(); o!=clusterCont.end() && NumberOfInfo>0; ++o) {
+		MSVehicle::InfoCont info2 = (*o)->connectedVeh->getInfosToSend();
+		count = count+info2.size();
        for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j) {
-			int NofP = NumOfPack((*j).second->connectedVeh,(*o)->connectedVeh);
+			int NofP = NumOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
 			if(NofP>NumberOfInfo)
 				NofP=NumberOfInfo;
-			int transmit = (*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getInfosToSend(), NofP);
-			NumberOfInfo = NumberOfInfo - (NumberOfInfo/NofP)*transmit;
-			count = count+(*o)->connectedVeh->getInfosToSend().size();
+			(*j).second->connectedVeh->transferInformation(info2, NofP);
 		}
+	   NumberOfInfo = NumberOfInfo - info2.size();
 	}
 	out<<count<<endl;
 	out.close();
 	clusterCont.clear();
-
 }
 
 int
-MSVehicle::NumOfPack(MSVehicle *veh1, MSVehicle* veh2)
+MSVehicle::NumOfInfos(MSVehicle *veh1, MSVehicle* veh2)
 {
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
@@ -2555,31 +2585,34 @@ MSVehicle::getInfosToSend(void)
 {
 	InfoCont infos;
 	InfoCont::iterator i;
-	for(i = infoCont.begin(); i != infoCont.end(); i++){
+	for(i = infoCont.begin(); i != infoCont.end(); ++i){
 		if((*i).second->neededTime>0){ // wenn er die Strasse schon vollständig befahren hat
 			infos[(*i).first] = (*i).second;
 		}
 	}
-
 	return infos;
 }
 
 
 
 
-int
+void
 MSVehicle::transferInformation(InfoCont infos, int NofP)
 {
 	int count = 0;
 	std::map<std::string, Information *>::iterator i;
-	for(i = infos.begin(); i != infos.end() && count < NofP; i++){
+	for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
 		std::map<std::string, Information *>::iterator j = infoCont.find((*i).first);
-		if(j== infoCont.end() || (*i).second->time < (*j).second->time ){ // wenn noch nicht eine Info über diese Edge vorhanden
-			infoCont[(*i).first] = (*i).second;                           // oder die Information älter ist, dann speichern
+		if(j!= infoCont.end() && (*i).second->time > (*j).second->time ){
+            delete infoCont[(*i).first];
+			//infoCont.erase(j);  // wenn Info älter ist als die neue info, dann ersetzen
+			infoCont[(*i).first] = new Information(*(*i).second);
 		}
-		count++;
+		if(j== infoCont.end()){ // wenn noch nicht eine Info über diese Edge vorhanden, dann speichern
+			infoCont[(*i).first] = new Information(*(*i).second);
+		    count++;
+		}
 	}
-	return count;
 }
 
 

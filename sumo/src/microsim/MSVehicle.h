@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.60  2006/10/12 08:09:41  dkrajzew
+// fastened up lane changing; added current car2car-code
+//
 // Revision 1.59  2006/09/21 09:47:06  dkrajzew
 // debugging vehicle movement; insertion of Danilot's current sources
 //
@@ -899,7 +902,7 @@ public:
         bool t1;
     };
 
-    std::vector<std::vector<LaneQ> > getBestLanes() const;
+    const std::vector<std::vector<LaneQ> > &getBestLanes() const;
 
     SUMOReal getMovedDistance( void ) const
         {
@@ -1036,12 +1039,15 @@ protected:
 	ClusterCont clusterCont;
 
     // transfert the N Information in infos into my own InformationsContainer
-	int transferInformation(InfoCont infos, int N);
+    void transferInformation(InfoCont infos, int N);
 
 	//compute accordant the distance, the Number of Infos that can be transmit
-	int NumOfPack(MSVehicle *veh1, MSVehicle* veh2);
+	int NumOfInfos(MSVehicle *veh1, MSVehicle* veh2);
 
 	InfoCont getInfosToSend(void);
+
+    mutable MSLane *myLastBestLanesLane;
+    mutable std::vector<std::vector<LaneQ> > myBestLanes;
 
 private:
 
