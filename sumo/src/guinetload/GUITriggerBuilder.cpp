@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/10/12 07:55:28  dkrajzew
+// added tol-actor visualisation
+//
 // Revision 1.7  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
 //
@@ -61,6 +64,7 @@ namespace
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
+#include <guisim/GUIE1VehicleActor.h>
 #include <guisim/GUIBusStop.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
@@ -120,6 +124,19 @@ GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                  SUMOReal prob, const std::string &file)
 {
     return new GUITriggeredRerouter(id, net, edges, prob, file);
+}
+
+
+MSE1VehicleActor *
+GUITriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
+                                     MSLane *lane, SUMOReal pos,
+                                     unsigned int type, unsigned int areaid)
+{
+	if ( type == 0 )
+		return new GUIE1VehicleActor(id, lane, pos, LA, areaid);
+	else
+		return new GUIE1VehicleActor(id, lane, pos, CELL, areaid);
+
 }
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/10/12 07:55:28  dkrajzew
+// added tol-actor visualisation
+//
 // Revision 1.7  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
 //
@@ -94,6 +97,11 @@ protected:
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
         const std::string &id, std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &file);
+
+    /// builds a vehicle actor
+    virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
+        const std::string &id, MSLane *lane, SUMOReal pos,
+		unsigned int type, unsigned int areaid);
 
     /// builds a bus stop
     virtual MSBusStop* buildBusStop(MSNet &net,
