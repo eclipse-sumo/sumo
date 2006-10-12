@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/10/12 07:54:15  dkrajzew
+// snapshots debugged
+//
 // Revision 1.22  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -334,6 +337,23 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
     FXColor *buf = _view->getSnapshot();
+    // mirror
+    size_t mwidth = _view->getWidth();
+    size_t mheight = _view->getHeight();
+    FXColor *paa = buf;
+    FXColor *pbb = buf + mwidth * (mheight-1);
+    do {
+        FXColor *pa=paa;
+        paa+=mwidth;
+        FXColor *pb=pbb;
+        pbb-=mwidth;
+        do {
+            FXColor t=*pa;
+            *pa++=*pb;
+            *pb++=t;
+        } while(pa<paa);
+    } while(paa<pbb);
+    // save
     try {
         MFXImageHelper::saveimage(getApp(), file,
             _view->getWidth(), _view->getHeight(), buf);
