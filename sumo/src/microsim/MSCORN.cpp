@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/10/12 14:48:43  ericnicolay
+// removes bug in the ss2-sql-output
+//
 // Revision 1.12  2006/09/18 10:05:46  dkrajzew
 // patching junction-internal state simulation
 //
@@ -122,6 +125,10 @@ MSCORN::clear()
     delete myVehicleDeviceTOSS2Output;
 	delete myCellTOSS2Output;
 	delete myLATOSS2Output;
+	delete myVehicleDeviceTOSS2SQLOutput;
+	delete myCellTOSS2SQLOutput;
+	delete myLATOSS2SQLOutput;
+    
 }
 
 
@@ -270,9 +277,9 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
 {
     if(myVehicleDeviceTOSS2SQLOutput!=0) {
         myVehicleDeviceTOSS2SQLOutput->getOStream()
-			<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
+			<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES("
 			<< "NULL, NULL, '" << time << "', NULL , NULL, '"
-            << time << ';' << callID << ';' << pos << ';' << quality << "',1\n";
+            << time << ';' << callID << ';' << pos << ';' << quality << "',1);\n";
     }
 }
 
@@ -300,7 +307,7 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 		myCellTOSS2SQLOutput->getOStream()
 			<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
 			<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES "
-			<< "(NULL, NULL, " << ',' << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
+			<< "(NULL, \' \', " << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
 			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ");\n";
 	}
 }
@@ -315,7 +322,7 @@ MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
 		myLATOSS2SQLOutput->getOStream()
 			<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
 			<< "`QUALITY_ID`,`INTERVALL`) VALUES "
-			<< "(NULL, NULL, " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
+			<< "(NULL, \' \', " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
 			<< quality_id << ',' << intervall << ");\n";
 	}
 }
