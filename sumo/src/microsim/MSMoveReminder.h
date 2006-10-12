@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.19  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.18  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //
@@ -113,9 +116,8 @@ public:
      *
      * @param lane Lane on which the reminder will work.
      */
-    MSMoveReminder( MSLane* lane, std::string id ) :
-        laneM( lane ),
-        idM( id )
+    MSMoveReminder(MSLane* lane) :
+        laneM( lane )
         {
             // add reminder to lane
             laneM->addMoveReminder( this );
@@ -165,17 +167,6 @@ public:
 
 
     /**
-     * Get the reminders id. The default value is "". If the MSMoveReminder
-     * objects are stored in a SingleDictionary, the ids are distinct.
-     *
-     * @return The reminders id.
-     */
-    const std::string &getID( void ) const
-        {
-            return idM;
-        }
-
-    /**
      * The lane the reminder works on.
      *
      * @return The lane the reminder works on.
@@ -187,7 +178,7 @@ public:
 
 protected:
     MSLane* laneM;              /**< Lane on which the reminder works. */
-    const std::string idM;      /**< Reminders id. */
+
 };
 
 

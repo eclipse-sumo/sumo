@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.12  2006/07/06 07:23:45  dkrajzew
 // applied current microsim-APIs
 //
@@ -111,7 +114,7 @@ using namespace std;
 MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter *parent,
                                     MSLane *lane,
                                     const std::string &id)
-    : MSMoveReminder( lane, id ), myParent(parent)
+    : MSMoveReminder(lane), myParent(parent)
 {
 }
 

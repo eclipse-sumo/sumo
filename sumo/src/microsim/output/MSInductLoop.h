@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.11  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.10  2006/08/01 06:56:20  dkrajzew
 // removed unneeded API parts
 //
@@ -79,6 +82,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <utils/common/Named.h>
 
 
 /* =========================================================================
@@ -120,7 +124,8 @@ class GUILaneWrapper;
  */
 class MSInductLoop
     : public MSMoveReminder,
-      public MSDetectorFileOutput
+      public MSDetectorFileOutput,
+      public Named
 {
 public:
     /// Type of the dictionary where all MSInductLoop are registered.

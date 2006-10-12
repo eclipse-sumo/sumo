@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.4  2006/07/06 11:12:56  dkrajzew
 // debugging
 //
@@ -84,7 +87,7 @@ using namespace std;
 * ======================================================================= */
 MSE1VehicleActor::MSE1VehicleActor( const string& id, MSLane* lane,
 								   SUMOReal positionInMeters, ActorType at, unsigned int areaid )
-								   : MSMoveReminder( lane, id ), MSTrigger(id),
+								   : MSMoveReminder(lane), MSTrigger(id),
 								   posM(positionInMeters),   _type( at ), _AreaId( areaid ){
     assert( posM >= 0 && posM <= laneM->length() );
 	//eintragen in MSPhoneNet

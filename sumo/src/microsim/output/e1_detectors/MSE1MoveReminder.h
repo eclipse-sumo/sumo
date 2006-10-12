@@ -75,7 +75,7 @@ public:
         , MSCrossSection crossSection
         , MSE1Collector& collector
         )
-        : MSMoveReminder(  crossSection.laneM, id )
+        : MSMoveReminder(crossSection.laneM)
           , collectorM( collector )
           , posM(crossSection.posM)
         {}

@@ -55,6 +55,7 @@
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/Named.h>
 
 ///
 /// Introduces some enums and consts for use in MSE2Collector.
@@ -129,7 +130,8 @@ namespace E2
 /// by calling MSDetector2File::addDetectorAndInterval().
 ///
 class
-MSE2Collector : public MSMoveReminder,
+MSE2Collector : public Named,
+                public MSMoveReminder,
                 public MSDetectorFileOutput
 {
 public:
@@ -169,14 +171,14 @@ public:
     /// timestep so that data is always present for at least
     /// deleteDataAfterSeconds.
     MSE2Collector(
-        std::string id,
+        const std::string &id,
         DetectorUsage usage,
         MSLane* lane, SUMOReal startPos, SUMOReal detLength,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
-        : MSMoveReminder( lane, id ),
+        : Named(id), MSMoveReminder(lane),
           startPosM( startPos ),
           endPosM( startPos + detLength ),
           deleteDataAfterSecondsM( deleteDataAfterSeconds ),
@@ -315,7 +317,7 @@ public:
     void addDetector( E2::DetType type, std::string detId = "" )
         {
             if ( detId == "" ) {
-                detId = idM;
+                detId = getID();
             }
             if ( type != E2::ALL ) {
                 createDetector( type, detId );
@@ -513,7 +515,7 @@ public:
                 toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
             if(dev.needsDetectorName()) {
-                dev.writeString("id=\"").writeString(idM).writeString("\" ");
+                dev.writeString("id=\"").writeString(getID()).writeString("\" ");
             }
             if ( hasDetector(
                      E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
@@ -536,7 +538,7 @@ public:
     void writeXMLDetectorInfoStart( XMLDevice &dev ) const
         {
             dev.writeString("<detector type=\"E2_Collector\" id=\"").writeString(
-                idM).writeString("\" lane=\"").writeString(laneM->getID()).writeString(
+                getID()).writeString("\" lane=\"").writeString(laneM->getID()).writeString(
                 "\" startpos=\"").writeString(toString(startPosM)).writeString(
                 "\" length=\"").writeString(toString(endPosM - startPosM)).writeString(
                 "\" >\n");

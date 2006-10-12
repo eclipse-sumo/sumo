@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/10/12 08:06:36  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.6  2006/04/11 11:02:32  dkrajzew
 // patched the distribution usage; added possibility o load predefined routes
 //
@@ -83,7 +86,9 @@ class MSLane;
  *  chosen with a certain probability, or newly computed, either by keeping
  *  the old destination or by choosing a new one from a set of existing ones.
  */
-class MSTriggeredRerouter : public MSTrigger, public SUMOSAXHandler {
+class MSTriggeredRerouter :
+            public MSTrigger,
+            public SUMOSAXHandler {
 public:
     /** constructor */
     MSTriggeredRerouter(const std::string &id,

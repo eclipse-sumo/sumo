@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.16  2006/08/01 06:56:20  dkrajzew
 // removed unneeded API parts
 //
@@ -121,7 +124,7 @@ MSInductLoop::MSInductLoop( const string& id,
                             MSLane* lane,
                             SUMOReal positionInMeters,
                             SUMOTime deleteDataAfterSeconds )
-    : MSMoveReminder( lane, id ),
+    : MSMoveReminder(lane), Named(id),
       posM(positionInMeters),
       deleteDataAfterStepsM( MSNet::getSteps( (SUMOReal) deleteDataAfterSeconds ) ),
       lastLeaveTimestepM( 0 ),
@@ -300,7 +303,7 @@ MSInductLoop::writeXMLHeader( XMLDevice &dev ) const
 void
 MSInductLoop::writeXMLDetectorInfoStart( XMLDevice &dev ) const
 {
-    dev.writeString("<detector type=\"inductionloop\" id=\"" + idM +
+    dev.writeString("<detector type=\"inductionloop\" id=\"" + getID() +
         "\" lane=\"" + laneM->getID() + "\" pos=\"" +
         toString(posM) + "\" >");
 }
@@ -326,7 +329,7 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
     if(dev.needsDetectorName()) {
-        dev.writeString("id=\"").writeString(idM).writeString("\" ");
+        dev.writeString("id=\"").writeString(getID()).writeString("\" ");
     }
     dev.writeString("nVehContrib=\"").writeString(
         toString(getNVehContributed( t ))).writeString("\" flow=\"").writeString(

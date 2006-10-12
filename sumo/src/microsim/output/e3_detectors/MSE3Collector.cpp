@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/10/12 08:06:35  dkrajzew
+// removed unneeded id member in MSMoveReminder
+//
 // Revision 1.8  2006/08/01 05:54:35  dkrajzew
 // E3 detectors refactored partially
 //
@@ -86,7 +89,7 @@ std::string MSE3Collector::infoEndM = "</detector>";
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(const std::string &id,
             const MSCrossSection &crossSection, MSE3Collector& collector)
-    : MSMoveReminder(  crossSection.laneM, id ),
+    : MSMoveReminder(crossSection.laneM),
     collectorM( collector ), posM(crossSection.posM)
 {
 }
@@ -125,7 +128,7 @@ MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh 
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(const std::string &id,
             const MSCrossSection &crossSection, MSE3Collector& collector)
-    : MSMoveReminder(  crossSection.laneM, id ),
+    : MSMoveReminder(crossSection.laneM),
     collectorM( collector ), posM(crossSection.posM)
 {
 }
