@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.86  2006/10/12 08:09:50  dkrajzew
+// added current car2car-code
+//
 // Revision 1.85  2006/09/22 06:05:06  dkrajzew
 // invalidated c2c communication temporary
 //
@@ -909,10 +912,10 @@ void MSNet::computeCar2Car(void)
 	// Cluster Bildung
 	{
       ofstream out3("ClusterGNU.txt", ios_base::app);
+	  ofstream out4("ErreichbarkeitGNU.txt", ios_base::app);
+	  out4<<myStep<<" "<<connected.size()<<endl;
 	  //out3<<endl; //to comment
 	  //out3<<"# TimeStep "<<myStep<<" Vehicle in die connected Liste "<<connected.size() <<endl;//to comment
-      out3<<myStep<<" "<<connected.size()<<endl;
-	  out3.close();
 	  int counter = 1;
 	  int clusterId = 1;
 	  while(counter <= connected.size()) {
@@ -932,6 +935,8 @@ void MSNet::computeCar2Car(void)
 			clusterId++;
 		}
 	  }
+	  out3<<myStep<<" "<<clusterHeaders.size()<<endl;
+	  out3.close();
 	}
 
 	//Senden
@@ -947,6 +952,12 @@ void MSNet::computeCar2Car(void)
 	connected.clear();
     clusterHeaders.clear();
 
+	ofstream out5("savedInformationsGNU.txt", ios_base::app);
+	ofstream out6("TransmittedInfosGNU.txt", ios_base::app);
+	out5<<"#"<<endl;
+	out6<<"#"<<endl;
+	out5.close();
+	out6.close();
 
 
 
