@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/10/12 14:50:37  ericnicolay
+// add code for the ss2-sql-output
+//
 // Revision 1.13  2006/09/18 10:02:55  dkrajzew
 // documentation added
 //
@@ -330,10 +333,17 @@ MSDevice_CPhone::onDepart()
 		m_ProvidedCells.push_back(TempCell);
 	}
 	// TOL_SPEC_SS2 (1.2)
-	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
-        MSCORN::saveTOSS2_CalledPositionData(
+	if(m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT){
+		if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)){
+			MSCORN::saveTOSS2_CalledPositionData(
             MSNet::getInstance()->getCurrentTimeStep(), gCallID,
             myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
+		}
+		else if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)){
+			MSCORN::saveTOSS2SQL_CalledPositionData(
+            MSNet::getInstance()->getCurrentTimeStep(), gCallID,
+            myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
+		}
     }
     //
     myCommand = new MyCommand(*this);
