@@ -44,6 +44,7 @@ public:
 
 	/// Returns the boundary to which the object shall be centered
 	Boundary getCenteringBoundary() const;
+    //@}
 
 };
 

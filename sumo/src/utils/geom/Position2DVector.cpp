@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/10/12 10:14:31  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.37  2006/09/18 10:17:49  dkrajzew
 // debugging
 //
@@ -235,7 +238,7 @@ Position2DVector::push_front(const Position2D &p)
     }
 #endif
 #endif
-	assert(myCont.size()==0||myCont[0]!=p);
+    assert(myCont.size()==0||myCont[0]!=p);
     myCont.push_front(p);
 }
 
@@ -747,7 +750,7 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
         }
 #endif
 #endif
-		return 3;
+        return 3;
     }
 }
 

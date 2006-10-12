@@ -1,9 +1,9 @@
 #ifndef GUIHandler_h
 #define GUIHandler_h
 //---------------------------------------------------------------------------//
-//                        GUINetHandler.h -
+//                        GUIHandler.h -
 //  The XML-Handler for building networks within the gui-version derived
-//      from NLHandlerBuilder
+//      from NLHandler
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.2  2006/09/18 09:58:57  dkrajzew
 // added vehicle class support to microsim
 //

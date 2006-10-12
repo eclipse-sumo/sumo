@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2006/01/26 08:37:23  dkrajzew
 // removed warnings 4786
 //
@@ -94,7 +97,7 @@ public:
         /// index to the routes
         int route[3];
 
-        /// the propability of the routes
+        /// the probability of the routes
         SUMOReal p[3];
 
         /// the costs of the routes
@@ -130,7 +133,7 @@ public:
     /// Returns the cost of the route specified by her index
     SUMOReal getAlternativeCost(size_t pos) const;
 
-    /// Returns the propability of the route specified by her index
+    /// Returns the probability of the route specified by her index
     SUMOReal getAlternativeProbability(size_t pos) const;
 
     /// Returns the route index within the routes file of the route specified by her index

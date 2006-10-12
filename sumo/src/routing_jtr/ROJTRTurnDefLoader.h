@@ -1,7 +1,7 @@
 #ifndef ROJTRTurnDefLoader_h
 #define ROJTRTurnDefLoader_h
 //---------------------------------------------------------------------------//
-//                        ROJPTurnDefLoader.h -
+//                        ROJTRTurnDefLoader.h -
 //      Loader for the description of turning percentages
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -134,7 +137,7 @@ private:
     /// The list of parsed sinks
 	std::set<ROJTREdge*> mySinks;
 
-    /// The current incoming edge the turning percentages are set into
+    /// The current incoming edge the turning probabilities are set into
     ROJTREdge *myEdge;
 
     /// Information whether this loader was initialised for parsing lines

@@ -2,7 +2,7 @@
 #define ROVehicleType_ID_h
 //---------------------------------------------------------------------------//
 //                        ROVehicleType_ID.h -
-//  A type which is only described by its id
+//  A type which is only described by its id (other values are invalid)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 07.12.2005
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.1  2006/01/09 13:29:32  dkrajzew
 // debugging vehicle color usage
 //

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -120,7 +123,7 @@ public:
     /// returns the to-lane
     int getToLane() const;
 
-    /// returns an od of the connection (!!! not really pretty)
+    /// returns the id of the connection (!!! not really pretty)
     std::string getID() const;
 
     /// Compares both connections in order to allow sorting

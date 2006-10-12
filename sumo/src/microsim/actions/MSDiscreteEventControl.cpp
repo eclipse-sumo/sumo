@@ -18,6 +18,10 @@
 //
 //---------------------------------------------------------------------------//
 
+// $Log$
+// Revision 1.7  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 //
 /* =========================================================================
  * compiler pragmas

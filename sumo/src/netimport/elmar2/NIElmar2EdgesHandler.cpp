@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/10/12 10:14:29  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.10  2006/09/19 11:48:59  dkrajzew
 // debugging removal of edges which allow only unwished vehicle classes
 //
@@ -188,7 +191,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
         MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
-
+    // build the edge
     NBEdge *e = 0;
     if(interID=="-1") {
         e = new NBEdge(id, id, from, to, "DEFAULT",

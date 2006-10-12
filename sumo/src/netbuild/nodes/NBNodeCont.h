@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/10/12 10:14:29  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.13  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -329,7 +332,7 @@ private:
     /** the map of names to nodes */
     NodeCont   _nodes;
 
-    /// The minimum network position
+    /// The position the network was shifted by
     Position2D myNetworkOffset;
 
     /// Boundaries of the network (original, converted)

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.9  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,7 +86,7 @@ public:
     /// Returns a sink from the named district by random
     std::string getRandomSinkFromDistrict(const std::string &name) const;
 
-    // Computes abstract colors for all districts
+    /// Computes abstract colors for all districts
     void colorize();
 
     /// Returns an abstract (computed) color of the district

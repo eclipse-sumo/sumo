@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/10/12 10:14:29  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.32  2006/10/12 07:57:47  dkrajzew
 // warnings removed
 //
@@ -316,7 +319,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/geom/Line2D.h>
-#include <utils/geom/GeomHelper.h>//!!!
+#include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -1521,7 +1524,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                         //<< sid << "_" << 0 ()
                         << (*k).edge->getID() << "_" << (*k).lane
                         << "\" tl=\"" << "" << "\" linkno=\""
-                        << "" << "\" yield=\"1\" dir=\"s\" state=\"M\""
+                        << "" << "\" yield=\"1\" dir=\"s\" state=\"M\"" // !!! yield or not depends on whether it is tls controlled or not
                         << " via=\"" << sid << "_" << 0 << "\"";
                 } else {
                     into << "      <succlane lane=\""

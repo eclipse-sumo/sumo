@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/10/12 10:14:32  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.17  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -359,7 +362,7 @@ enum {
     MID_SURPRESSENDINFO,
     /// Allow aggregated Views - Option
     MID_ALLOWAGGREGATED,
-    /// Allow SUMORealing aggregated Views - Option
+    /// Allow floating aggregated Views - Option
     MID_ALLOWAFLOATING,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 10:14:31  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2006/03/27 07:33:38  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -95,13 +98,13 @@ public:
 	~GUILaneDrawer_FGnT() { }
 
 private:
-    /// draws a single vehicle
+    /// draws a single lane as a box list
     void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
         GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
 	}
 
-    /// draws a single vehicle
+    /// draws a single edge as a box list
     void drawEdge(const _E2 &edge, SUMOReal mult) const
 	{
         const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);

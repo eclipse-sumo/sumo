@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,7 +72,7 @@
 /**
  * @class MSRouteLoader
  */
-class MSRouteLoader// : public MSRouteHandler
+class MSRouteLoader
 {
 public:
     /// constructor

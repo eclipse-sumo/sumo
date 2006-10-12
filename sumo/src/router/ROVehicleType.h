@@ -2,7 +2,7 @@
 #define ROVehicleType_h
 //---------------------------------------------------------------------------//
 //                        ROVehicleType.h -
-//  Basic class for vehicle types
+//  Base class for vehicle types
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.11  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //

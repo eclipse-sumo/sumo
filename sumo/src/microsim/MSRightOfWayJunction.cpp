@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.19  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -377,10 +380,10 @@ MSRightOfWayJunction::rebuildPriorities()
                     }
 */
 
-                    if(foes[running].test(running2)) {//[running2]) {
+                    if(foes[running].test(running2)) {
                         // ok, both do cross
                         if(l->getDirection()!=MSLink::LINKDIR_STRAIGHT) {
-                            // orig is turning
+                            // current is turning
                             //  -> keep waiting
                             (*logic2)[running][running2] = areRealFoes(l, l2) ? 1 : 0;
                         } else {

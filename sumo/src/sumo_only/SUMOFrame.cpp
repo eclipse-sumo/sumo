@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.49  2006/09/18 11:49:05  dkrajzew
 // code beautifying
 //
@@ -254,9 +257,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("route-steps", 's', new Option_Integer(200));
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.doRegister("check-accidents", new Option_Bool(false));
-    oc.doRegister("too-slow-rtf", new Option_Float(-1));
+    oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
     // register the report options
-    oc.doRegister("no-duration-log", new Option_Bool(false));
+    oc.doRegister("no-duration-log", new Option_Bool(false));//!!! check, describe
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
@@ -269,29 +272,29 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     //
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
-    oc.doRegister("save-state.prefix", new Option_FileName());
+    oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
     //
     oc.doRegister("time-to-teleport", new Option_Integer(300));
 //    oc.doRegister("no-geom", new Option_Bool(false));
 
-    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
-    oc.doRegister("default-lanechange-model", new Option_String("dk1"));
+    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
+    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
 
-    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));
-    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));
-    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));
+    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
+    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
+    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
 
     // tls
-    oc.doRegister("agent-tl.detector-len", new Option_Float(75));
-    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));
-    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));
-    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));
-    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
+    oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck
+    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));//!!! recheck
+    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));//!!! recheck
+    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));//!!! recheck
+    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));//!!! recheck
 
-    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));
-    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));
-    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));
-    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));
+    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));//!!! recheck
+    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
+    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
+    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
 
     // device
         // cell-phones
@@ -311,7 +314,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
 
     // debug
-    oc.doRegister("track", new Option_Float(0.));
+    oc.doRegister("track", new Option_Float(0.));//!!! check, describe
 
 
 	//remote port 0 if not used

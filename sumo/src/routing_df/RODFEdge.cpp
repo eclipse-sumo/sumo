@@ -1,28 +1,31 @@
-//---------------------------------------------------------------------------//
-//                        RODFEdge.cpp -
-//  An edge the router may route through
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01.03.2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          RODFEdge.cpp
+    An edge within the DFROUTER
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.3  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //

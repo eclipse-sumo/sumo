@@ -347,8 +347,7 @@ public:
         return myValues.size();
     }
 
-    /// Returns the time period description at the given position //
-    /// !!! should not be public
+    /// Returns the time period description at the given position
     const TimeRange &getRangeAtPosition(size_t pos) const
     {
         assert( pos < myValues.size() );

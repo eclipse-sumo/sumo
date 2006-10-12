@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2006/09/18 10:02:34  dkrajzew
 // added vehicle class support to microsim
 //
@@ -100,7 +103,7 @@ private:
     /// Invalidated copy constructor.
     GUIVehicleType( const GUIVehicleType& );
 
-    /// Assignment operator.
+    /// Invalidated assignment operator.
     GUIVehicleType& operator=( const GUIVehicleType& );
 
 };

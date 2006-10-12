@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.39  2006/09/25 13:31:38  dkrajzew
 // options to remove edges added
 //
@@ -430,7 +433,7 @@ NBNetBuilder::compute(OptionsCont &oc)
     }
     if(ok) ok = splitGeometry(step, oc);
     if(ok&&!oc.getBool("disable-normalize-node-positions")) ok = normaliseNodePositions(step);
-    if(ok) ok = myEdgeCont.recomputeLaneShapes(); // !!!!!
+    if(ok) ok = myEdgeCont.recomputeLaneShapes();
     if(ok) ok = guessRamps(step, oc);
     if(ok) ok = guessTLs(step, oc);
     if(ok) ok = computeTurningDirections(step);
@@ -556,7 +559,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("plain-output", new Option_FileName());
     oc.doRegister("node-geometry-dump", new Option_FileName());
     oc.doRegister("map-output", 'M', new Option_FileName());
-    oc.doRegister("tls-poi-output", new Option_FileName()); // !!! describe
+    oc.doRegister("tls-poi-output", new Option_FileName());
     oc.doRegister("disable-normalize-node-positions", new Option_Bool(false));
 
     // register building defaults

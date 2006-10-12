@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.54  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.53  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -879,7 +882,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
             }
         }
     }
-    return 0; //!!!
+    return 0;
 }
 
 

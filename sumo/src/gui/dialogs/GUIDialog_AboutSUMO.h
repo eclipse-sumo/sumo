@@ -3,7 +3,7 @@
 
 //---------------------------------------------------------------------------//
 //                        GUIDialog_AboutSUMO.h -
-//
+//                      The "About" dialog
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Fri, 29.04.2005
@@ -22,9 +22,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/10/12 10:14:26  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.6  2006/07/06 05:38:32  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * compiler pragmas

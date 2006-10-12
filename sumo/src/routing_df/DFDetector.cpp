@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.20  2006/09/18 11:34:21  dkrajzew
 // debugged building on Windows
 //
@@ -989,7 +992,7 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
             if(!singleFile) {
                 strm << "file=\"validation_det_" << det->getID() << ".xml\"/>" << endl;
             } else {
-                strm << "file=\"validation_dets.xml\"/>" << endl;
+                strm << "file=\"validation_dets.xml\"/>" << endl;//!!!
             }
         }
     }

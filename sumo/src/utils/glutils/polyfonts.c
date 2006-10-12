@@ -72,6 +72,7 @@
   default font.
 */
 
+// changes for SUMO begin
 #include "pfPSansBold16.h"
 
 static pffont *pfCurrentFont = &pfPSansBold16;

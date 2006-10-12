@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/10/12 10:14:26  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.9  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -85,7 +88,7 @@ extern bool gQuitOnEnd;
 /// Information whether aggregated views are allowed
 extern bool gAllowAggregated;
 
-/// Information whether time-SUMORealing views are allowed
+/// Information whether time-floating views are allowed
 extern bool gAllowAggregatedFloating;
 
 /// Information whether not to display the information about a simulation's end

@@ -1,25 +1,29 @@
 #ifndef help_h
 #define help_h
-//---------------------------------------------------------------------------//
-//                        router_help.h -
-//  Help-screen of the router module
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          dfrouter_help.h
+    Help-screen for DFROUTER
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 // $Log$
+// Revision 1.4  2006/10/12 10:14:25  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.3  2006/02/01 06:10:40  dkrajzew
 // applied Eric's changes
 //
@@ -28,63 +32,6 @@
 //
 // Revision 1.1  2005/12/08 12:51:15  ericnicolay
 // add new workingmap for the dfrouter
-//
-// Revision 1.8  2005/10/07 11:48:00  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/15 12:27:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2004/12/20 15:00:36  dkrajzew
-// version patched
-//
-// Revision 1.5  2004/12/20 14:05:15  dkrajzew
-// version patched
-//
-// Revision 1.4  2004/12/20 13:15:58  dkrajzew
-// options output corrected
-//
-// Revision 1.3  2004/12/20 10:48:35  dkrajzew
-// net-files changed to net-file
-//
-// Revision 1.2  2004/11/23 10:43:29  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/08/02 13:03:19  dkrajzew
-// applied better names
-//
-// Revision 1.2  2004/04/14 13:53:49  roessel
-// Changes and additions in order to implement supplementary-weights.
-//
-// Revision 1.1  2004/01/26 07:12:12  dkrajzew
-// now two routers are available - the dua- and the jp-router
-//
-// Revision 1.12  2003/10/28 08:35:01  dkrajzew
-// random number specification options added
-//
-// Revision 1.11  2003/08/21 13:01:39  dkrajzew
-// some bugs patched
-//
-// Revision 1.10  2003/07/07 08:40:09  dkrajzew
-// included new options into the help-screens
-//
-// Revision 1.9  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.8  2003/05/20 09:54:45  dkrajzew
-// configuration files are no longer set as default
-//
-// Revision 1.7  2003/04/09 15:45:29  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.6  2003/03/31 06:18:16  dkrajzew
-// help screen corrected
-//
-// Revision 1.5  2003/02/07 10:37:30  dkrajzew
-// files updated
 //
 /* =========================================================================
  * included modules

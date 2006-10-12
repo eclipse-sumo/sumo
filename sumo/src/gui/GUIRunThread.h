@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/10/12 10:14:26  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.11  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -159,9 +162,6 @@ protected:
     void makeStep();
 
 protected:
-    /// the parent application window
-//    GUIApplicationWindow    *_parent;
-
     /// the loaded simulation network
     GUINet                  *_net;
 

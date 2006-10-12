@@ -1,12 +1,12 @@
 #ifndef ODMatrix_h
 #define ODMatrix_h
 //---------------------------------------------------------------------------//
-//                        ODmatrix.h -
-//  some matrix usage functions
+//                        ODMatrix.h -
+//  An internal representation of the loaded matrix
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  begin                : 05. Apr. 2006
+//  copyright            : (C) 2006 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.14  2006/05/15 05:56:24  dkrajzew
 // debugged splitting of matrices
 //

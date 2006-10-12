@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/10/12 10:14:31  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.7  2006/03/09 10:58:53  dkrajzew
 // reworking the drawers
 //
@@ -91,7 +94,7 @@ public:
     ~GUILaneDrawer_SGwT() { }
 
 private:
-    /// draws a lane as a box
+    /// draws a single lane as a box list
     void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 	    glPushName(lane.getGlID());
@@ -116,7 +119,7 @@ private:
 		glPopName();
 	}
 
-    /// draws an edge as a box
+    /// draws a single edge as a box list
     void drawEdge(const _E2 &edge, SUMOReal mult) const
 	{
 	    glPushName(edge.getGlID());

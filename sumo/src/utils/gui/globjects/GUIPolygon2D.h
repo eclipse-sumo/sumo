@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/10/12 10:14:32  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.5  2006/08/01 07:36:47  dkrajzew
 // API for drawing not filled circles
 //
@@ -80,7 +83,7 @@ public:
     ~GUIPolygon2D();
 
 
-
+    //@{ From GUIGlObject
     /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.11  2006/09/15 09:28:47  ericnicolay
 // TO SS2 SQL output added
 //
@@ -142,21 +145,21 @@ public:
     static void saveTOSS2_CalledPositionData(SUMOTime time,
         int callID, const std::string &pos, int quality);
 
-	static void saveTOSS2_CellStateData(SUMOTime time, 
-		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In, 
+	static void saveTOSS2_CellStateData(SUMOTime time,
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall);
-	
-	static void saveTOSS2_LA_ChangesData(SUMOTime time, int position_id, 
+
+	static void saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall);
 
 	static void saveTOSS2SQL_CalledPositionData(SUMOTime time,
         int callID, const std::string &pos, int quality);
 
-	static void saveTOSS2SQL_CellStateData(SUMOTime time, 
-		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In, 
+	static void saveTOSS2SQL_CellStateData(SUMOTime time,
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall);
-	
-	static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id, 
+
+	static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall);
 
 private:
@@ -168,7 +171,7 @@ private:
 	static OutputDevice *myVehicleDeviceTOSS2SQLOutput;
 	static OutputDevice *myCellTOSS2SQLOutput;
 	static OutputDevice *myLATOSS2SQLOutput;
-   
+
     static bool myWished[CORN_MAX];
 
 private:

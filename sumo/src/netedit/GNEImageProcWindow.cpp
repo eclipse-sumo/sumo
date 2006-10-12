@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/10/12 10:14:29  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.14  2006/08/01 07:31:35  dkrajzew
 // API adaptations
 //
@@ -556,7 +559,7 @@ GNEImageProcWindow::onCmdShowBMPDialog(FXObject*,FXSelector,void*)
 /////////////////////////new Andreas (Ende)
 
 
-//Noch zu ändern!!!!!!!!!!!!!!!!!!
+//Noch zu ändern
 /////////////////////////new Miguel (Anfang)
 long
 GNEImageProcWindow::onCmdShowGraphOnEmptyBitmap(FXObject*,FXSelector,void*)

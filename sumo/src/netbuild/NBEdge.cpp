@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.74  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.73  2006/10/04 13:18:18  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -891,7 +894,7 @@ NBEdge::computeLaneShapes()
     if(_from==_to) {
         return;
     }
-    // build the shape of each edge
+    // build the shape of each lane
     myLaneGeoms.clear();
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms.push_back(computeLaneShape(i));
@@ -1663,11 +1666,11 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     }
     assert(dest_lane>=0&&dest_lane<=10);
     assert(src_lane>=0&&src_lane<=10);
-    // this is somekind of a misbehaviour which should only occure when the
-    //  junction's outgoing edge priorities were not properly computed, what
-    //  still may happen due to an incomplete or not proper input
+    // somekind of a misbehaviour which may occure when the junction's outgoing
+    //  edge priorities were not properly computed, what may happen due to
+    //  an incomplete or not proper input
     // what happens is that under some circumstances a single lane may set to
-    //  be approached by more than a lane of this junction. This must not be!
+    //  be approached by more than once by the one of our lanes.
     //  This must not be!
     // we test whether it is the case and do nothing if so - the connection
     //  will be refused

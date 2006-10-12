@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.88  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.87  2006/10/12 09:28:14  dkrajzew
 // patched building under windows
 //
@@ -498,7 +501,7 @@ namespace
 #include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
 #include "MSSaveState.h"
-#include "MSDebugHelper.h" // !!!
+#include "MSDebugHelper.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
 #include "MSBuildCells.h"
@@ -596,10 +599,10 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      TimeVector stateDumpTimes,
                      std::string stateDumpFiles)
 {
-    myEdges = edges;//new MSEdgeControl();
-    myJunctions = junctions;//new MSJunctionControl();
-    myRouteLoaders = routeLoaders;//new MSRouteLoaderControl();
-    myLogics = tlc;//new MSTLLogicControl();
+    myEdges = edges;
+    myJunctions = junctions;
+    myRouteLoaders = routeLoaders;
+    myLogics = tlc;
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);

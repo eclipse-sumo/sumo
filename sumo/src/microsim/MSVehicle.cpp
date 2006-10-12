@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.94  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.93  2006/10/12 08:09:41  dkrajzew
 // fastened up lane changing; added current car2car-code
 //
@@ -635,12 +638,12 @@ MSVehicle::~MSVehicle()
     for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
     }
-    //myWaitingPersons.clear();
+    // delete the route
     myRoute->decReferenceCnt();
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     }
-    // delete
+    // delete values in CORN
         // prior routes
     if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
         int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
@@ -981,12 +984,12 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         // set next links, computing possible speeds
         vsafeCriticalCont(vBeg);
     }
-    // !!! remove this! make this somewhere else!
+    //@ to be optimized (move to somewhere else)
     if(hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
-    // !!! remove this! make this somewhere else!
+    //@ to be optimized (move to somewhere else)
 }
 
 
@@ -1211,7 +1214,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->length() - myState.myPos;
     MSLane *nextLane = myLane;
-    // compute the way the vehicle may drive when accelerating
+    // compute the way the vehicle may drive when accelerating // !!!?
     SUMOReal dist = boundVSafe + myType->brakeGap(myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.5  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -98,11 +101,11 @@ public:
     ~GUITriggeredRerouter();
 
     //@{ From GUIGlObject
-    /// Returns an own popup-menu
+    /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
-    /// Returns an own parameter window
+    /// Returns the parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.27  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.26  2006/09/18 10:05:34  dkrajzew
 // added vehicle class support to microsim
 //
@@ -342,7 +345,7 @@ public:
         return (*i).first;
     }
 
-	virtual bool prohibits(const MSVehicle *veh) const { return false; } // !!!
+	virtual bool prohibits(const MSVehicle *veh) const { return false; }
 
 
 	/// add a new neighborsEdge to this Edge

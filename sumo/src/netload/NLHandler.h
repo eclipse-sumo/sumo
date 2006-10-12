@@ -1,7 +1,7 @@
 #ifndef NLHandler_h
 #define NLHandler_h
 //---------------------------------------------------------------------------//
-//                        NLNetHandler.h -
+//                        NLHandler.h -
 //  The XML-Handler for network loading (parses the elements)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.8  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
 //

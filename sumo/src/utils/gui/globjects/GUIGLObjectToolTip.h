@@ -2,7 +2,7 @@
 #define GUIGLObjectToolTip_h
 //---------------------------------------------------------------------------//
 //                        GUIGLObjectToolTip.h -
-//  A tooltip SUMORealing over a window
+//  A tooltip floating over a window
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/10/12 10:14:32  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //

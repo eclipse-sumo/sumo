@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.14  2006/09/08 12:31:28  jringel
 // Stretch added
 //
@@ -172,7 +175,7 @@ public:
 
 	/// returns the step (the phasenumber) of a given position of the cycle
 	size_t getStepFromPos(size_t position);
-	
+
 	/// returns the position (start of a phase during a cycle) from of a given step
 	size_t getPosFromStep(size_t step);
 
@@ -192,7 +195,7 @@ protected:
     /// The current step
     size_t myStep;
 
-		/// the cycletime
+    /// the cycletime
     size_t myCycleTime;
 
 };

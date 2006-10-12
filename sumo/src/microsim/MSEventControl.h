@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.14  2006/03/17 08:59:18  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -161,9 +164,15 @@ public:
     /// Events that should be executed at time.
     typedef std::pair< Command*, SUMOTime > Event;
 
-    /// what to do on false time
+    /**
+     * @enum AdaptType
+     * Defines what to do if the insertion time lies before the current simulation
+     *  time
+     */
     enum AdaptType {
+        /// Patch the time in a way that it is at least as high as the simulation begin time
         ADAPT_AFTER_EXECUTION = 1,
+        /// Do nothing
         NO_CHANGE = 2
     };
 

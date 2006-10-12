@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.10  2005/10/07 11:42:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,7 +81,7 @@ class OutputDevice;
  */
 class SUMOFrame {
 public:
-    /// Builds teh simulation options
+    /// Builds the simulation options
     static void fillOptions(OptionsCont &oc);
 
     /** @brief Builds the streams used possibly by the simulation

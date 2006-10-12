@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/10/12 10:14:31  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.9  2006/03/27 07:33:38  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -98,7 +101,7 @@ public:
 	~GUILaneDrawer_FGwT() { }
 
 private:
-    /// draws a single lane as a box
+    /// draws a single lane as a box list
     void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 		glPushName(lane.getGlID());
@@ -106,7 +109,7 @@ private:
 	    glPopName();
 	}
 
-    /// draws a single lane as a box
+    /// draws a single edge as a box list
     void drawEdge(const _E2 &edge, SUMOReal mult) const
 	{
 		glPushName(edge.getGlID());
@@ -116,7 +119,7 @@ private:
 	    glPopName();
 	}
 
-    /// draws a single lane as a box
+    /// draws a lane as a line
     void drawLine(const _L1 &lane) const
 	{
 		glPushName(lane.getGlID());
@@ -129,7 +132,7 @@ private:
 	    glPopName();
 	}
 
-    /// draws a single edge as a box
+    /// draws an edge as a line
     void drawLine(const _E2 &edge) const
 	{
 		glPushName(edge.getGlID());

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/10/12 10:14:26  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.17  2006/07/06 06:26:44  dkrajzew
 // added blinker visualisation and vehicle tracking (unfinished)
 //
@@ -153,7 +156,7 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
             if((onWhich[i]&pos)!=0) {
                 GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
                 if(edge->isSource()) {
-                    continue;
+                    continue; // !!! optional
                 }
                 size_t noLanes = edge->nLanes();
                 for(size_t i=0; i<noLanes; i++) {
@@ -279,7 +282,6 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
             case MSDevice_CPhone::STATE_CONNECTED:
                 return RGBColor(0, 1, 0);
             default:
-                throw 1;
             }
         }
         break;
@@ -508,12 +510,10 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
                 glColor3d(0, 1, 0);
                 return;
             default:
-                throw 1;
             }
         }
         break;
     default:
-        throw 1;
     }
 }
 

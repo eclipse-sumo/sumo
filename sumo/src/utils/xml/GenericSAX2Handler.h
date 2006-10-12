@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/10/12 10:14:32  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.9  2005/10/07 11:47:41  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -217,9 +220,7 @@ protected:
     /** the current position in the xml-tree as a stack */
     std::stack<int> _tagTree;
 
-    /** the current characters */
-//    std::string _characters;
-
+    /// A list of characters string obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
 
 private:

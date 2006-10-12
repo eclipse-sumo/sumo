@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.20  2006/10/05 09:29:22  ericnicolay
 // in builldTrigger now the event actor at first check if the lane exist.
 //
@@ -170,7 +173,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 		/*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
 		MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
 		if(tlane!=0)
-			t = parseAndBuildVehicleActor(net, attrs, base, helper);
+        t = parseAndBuildVehicleActor(net, attrs, base, helper);
     }
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);

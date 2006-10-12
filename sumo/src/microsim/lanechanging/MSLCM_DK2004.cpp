@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.19  2006/10/12 07:58:09  dkrajzew
 // warnings removed
 //
@@ -462,7 +465,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     // we try to estimate the distance which is necessary to get on a lane
-    //  we have to get on in order to kep our route
+    //  we have to get on in order to keep our route
     // we assume we need something that depends on our velocity
     // and compare this with the free space on our wished lane
     //

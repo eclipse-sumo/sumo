@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        ROVehicleType_ID.cpp -
-//  A type which is only described by its id
+//  A type which is only described by its id (other values are invalid)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 07.12.2005
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/10/12 10:14:30  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.2  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.28  2006/10/12 10:14:27  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.27  2006/09/18 10:05:34  dkrajzew
 // added vehicle class support to microsim
 //
@@ -550,7 +553,7 @@ MSEdge::getLanes( void ) const
 const MSEdge *
 MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
 {
-    // !!! too slow
+    //@ to be optimized
     for(LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); i++) {
         MSLane *l = *i;
         const MSLinkCont &lc = l->getLinkCont();

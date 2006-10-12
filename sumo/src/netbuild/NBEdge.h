@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.50  2006/10/12 10:14:28  dkrajzew
+// synchronized with internal CVS (mainly the documentation has changed)
+//
 // Revision 1.49  2006/09/19 11:48:23  dkrajzew
 // debugging junction-internal lanes
 //
@@ -634,7 +637,7 @@ private:
     /// the type of the edge
     std::string _type;
 
-    // the number of lanes
+    /// the number of lanes
     size_t     _nolanes;
 
     /// the source and the destination node
