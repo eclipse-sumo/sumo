@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.95  2006/10/12 13:35:34  dkrajzew
+// debugging
+//
 // Revision 1.94  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -2158,9 +2161,11 @@ MSVehicle::rebuildAllowedLanes()
 const std::vector<std::vector<MSVehicle::LaneQ> > &
 MSVehicle::getBestLanes() const
 {
+  /*
     if(myLastBestLanesLane==myLane) {
         return myBestLanes;
     }
+  */
     myBestLanes.clear();
     myLastBestLanesLane = myLane;
 #ifdef GUI_DEBUG
