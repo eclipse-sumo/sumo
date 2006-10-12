@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.5  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -108,6 +111,12 @@ public:
 public:
     /// Called if the assigned objects shall be centered
     long onCmdCenter(FXObject*,FXSelector,void*);
+
+    /// Called if the name shall be copied to clipboard
+    long onCmdCopyName(FXObject*,FXSelector,void*);
+
+    /// Called if the typed name shall be copied to clipboard
+    long onCmdCopyTypedName(FXObject*,FXSelector,void*);
 
     /// Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*,FXSelector,void*);

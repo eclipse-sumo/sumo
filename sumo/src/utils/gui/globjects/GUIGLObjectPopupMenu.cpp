@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.5  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -94,6 +97,7 @@ namespace
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/drawer/GUILaneRepresentation.h>
+#include <utils/gui/div/GUIUserIO.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -112,6 +116,8 @@ using namespace std;
 FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]=
 {
     FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,       GUIGLObjectPopupMenu::onCmdCopyName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
@@ -148,6 +154,22 @@ long
 GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*)
 {
     myParent->centerTo(myObject);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*)
+{
+    GUIUserIO::copyToClipboard(myParent->getApp(), myObject->microsimID());
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
+{
+    GUIUserIO::copyToClipboard(myParent->getApp(), myObject->getFullName());
     return 1;
 }
 

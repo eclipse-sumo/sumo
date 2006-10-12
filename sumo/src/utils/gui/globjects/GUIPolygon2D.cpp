@@ -53,6 +53,7 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
 //    buildSelectionPopupEntry(ret);
     return ret;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.21  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -156,6 +159,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     return ret;
 }

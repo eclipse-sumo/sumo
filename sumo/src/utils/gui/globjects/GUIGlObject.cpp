@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.5  2006/04/18 08:12:05  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -156,6 +159,20 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret,
 {
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
+                                     bool addSeparator)
+{
+    new FXMenuCommand(ret, "Copy name to clipboard",
+        0, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, "Copy typed name to clipboard",
+        0, ret, MID_COPY_TYPED_NAME);
     if(addSeparator) {
         new FXMenuSeparator(ret);
     }

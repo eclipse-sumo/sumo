@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.16  2006/07/06 06:42:42  dkrajzew
 // added vehicle tracking
 //
@@ -286,6 +289,10 @@ enum {
     //@{ Object PopUp Entries - IDs
     /// Center View To Object - Menu Entry
     MID_CENTER,
+    /// Center View To Object - Menu Entry
+    MID_COPY_NAME,
+    /// Center View To Object - Menu Entry
+    MID_COPY_TYPED_NAME,
     /// Show Object Parameter - Menu Entry
     MID_SHOWPARS,
     /// Show TLS phases - Menu Entry
@@ -301,7 +308,8 @@ enum {
     MID_REMOVESELECT,
     /// Open the object's manipulator
     MID_MANIP,
-    MID_DRAWROUTE, // !!!
+    /// Draw a vehicle's route
+    MID_DRAWROUTE,
     /// Show vehicle's current route
     MID_SHOW_CURRENTROUTE,
     /// Hide vehicle's current route

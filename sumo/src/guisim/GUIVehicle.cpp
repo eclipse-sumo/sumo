@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.44  2006/10/04 13:18:14  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -381,6 +384,7 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
     if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, 0)) {

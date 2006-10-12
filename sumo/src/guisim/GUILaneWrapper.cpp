@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.37  2006/08/01 05:58:17  dkrajzew
 // warnings removed
 //
@@ -317,6 +320,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, false);
     new FXMenuCommand(ret, "Add Successors To Selected", GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
     new FXMenuSeparator(ret);

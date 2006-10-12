@@ -61,6 +61,7 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
         GUIIconSubSys::getIcon(ICON_CLOSING), ret, MID_DELETE);
     new FXMenuSeparator(ret);
     //
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     return ret;
 }

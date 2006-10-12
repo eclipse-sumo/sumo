@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.5  2006/04/18 08:12:05  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -153,6 +156,10 @@ protected:
 
     /// Builds an entry which allows to center to the object
     void buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true);
+
+    /// Builds entries which allow to copy the name / typed name into the clipboard
+    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
+        bool addSeparator=true);
 
     /// Builds an entry which allows to (de)select the object
     void buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,

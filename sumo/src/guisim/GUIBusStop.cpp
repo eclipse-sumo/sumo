@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.7  2006/08/01 07:51:57  dkrajzew
 // code beautifying
 //
@@ -368,6 +371,7 @@ GUIBusStop::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIBusStopPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
     return ret;

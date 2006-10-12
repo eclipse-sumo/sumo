@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.19  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -417,6 +420,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret);
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret, false);
     return ret;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/10/12 07:57:14  dkrajzew
+// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
+//
 // Revision 1.14  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -208,6 +211,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     new FXMenuSeparator(ret);
     //
+    buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, false);
     return ret;
 }
