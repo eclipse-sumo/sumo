@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/10/13 13:07:50  dkrajzew
+// added the option to not emit vehicles from flows using a fix frequency
+//
 // Revision 1.13  2006/08/01 07:19:57  dkrajzew
 // removed build number information
 //
@@ -156,6 +159,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     // register the data processing options
     oc.doRegister("continue-on-unbuild", new Option_Bool(false));
     oc.doRegister("unsorted", new Option_Bool(false));
+    oc.doRegister("randomize-flows", new Option_Bool(false)); // !!! undescibed
     oc.doRegister("move-on-short", new Option_Bool(false));
     oc.doRegister("max-alternatives", new Option_Integer(5));
     // add possibility to insert random vehicles

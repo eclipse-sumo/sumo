@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/10/13 13:07:50  dkrajzew
+// added the option to not emit vehicles from flows using a fix frequency
+//
 // Revision 1.16  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -98,6 +101,7 @@ namespace
 
 #include <cassert>
 #include <string>
+#include <algorithm>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
@@ -139,12 +143,23 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
                                           RORouteDef *route,
                                           SUMOTime intBegin,
                                           SUMOTime intEnd,
-                                          unsigned int vehicles2Emit)
+                                          unsigned int vehicles2Emit,
+                                          bool randomize)
     : myVehicle(vehicle), myVehicleType(type), myRoute(route),
     myIntervalBegin(intBegin), myIntervalEnd(intEnd),
-    myVehicle2EmitNumber(vehicles2Emit), myEmitted(0)
+    myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize)
 {
     assert(myIntervalBegin<myIntervalEnd);
+    if(myRandom) {
+        SUMOTime period = myIntervalEnd - myIntervalBegin;
+        myDepartures.reserve(myVehicle2EmitNumber);
+        for(size_t i=0; i<myVehicle2EmitNumber; ++i) {
+            SUMOTime departure = (SUMOTime) (double) rand() / (double) RAND_MAX * (double) (period);
+            myDepartures.push_back(departure);
+        }
+        sort(myDepartures.begin(), myDepartures.end());
+        reverse(myDepartures.begin(), myDepartures.end());
+    }
 }
 
 
@@ -167,18 +182,24 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
 {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
-    unsigned int absPerEachStep = myVehicle2EmitNumber /
-        (myIntervalEnd-myIntervalBegin);
-    for(unsigned int i=0; i<absPerEachStep; i++) {
-        addSingleRoute(vb, net, t);
-    }
-    // fraction
-    SUMOReal toEmit =
-        (SUMOReal) myVehicle2EmitNumber
-        / (SUMOReal) (myIntervalEnd-myIntervalBegin)
-        * (SUMOReal) (t-myIntervalBegin);
-    if(toEmit>myEmitted) {
-        addSingleRoute(vb, net, t);
+    if(!myRandom) {
+        unsigned int absPerEachStep = myVehicle2EmitNumber / (myIntervalEnd-myIntervalBegin);
+        for(unsigned int i=0; i<absPerEachStep; i++) {
+            addSingleRoute(vb, net, t);
+        }
+        // fraction
+        SUMOReal toEmit =
+            (SUMOReal) myVehicle2EmitNumber
+            / (SUMOReal) (myIntervalEnd-myIntervalBegin)
+            * (SUMOReal) (t-myIntervalBegin);
+        if(toEmit>myEmitted) {
+            addSingleRoute(vb, net, t);
+        }
+    } else {
+        while(myDepartures.size()>0&&*(myDepartures.end()-1)==t) {
+            addSingleRoute(vb, net, t);
+            myDepartures.pop_back();
+        }
     }
 }
 
@@ -212,9 +233,10 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
                                                  SUMOTime begin,
                                                  SUMOTime end,
                                                  bool emptyDestinationsAllowed,
+                                                 bool randomize,
                                                  const std::string &fileName)
     : RORDLoader_TripDefs(vb, net, begin, end, emptyDestinationsAllowed, fileName),
-    myEnded(false)
+    myEnded(false), myRandom(randomize)
 {
 }
 
@@ -406,8 +428,8 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         }
         // add to the container
         FlowDef *fd =
-            new FlowDef(vehicle, type, route,
-                myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber);
+            new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,
+                myVehicle2EmitNumber, myRandom);
         myFlows.push_back(fd);
     }
 }

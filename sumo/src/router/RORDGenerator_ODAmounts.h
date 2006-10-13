@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/10/13 13:07:50  dkrajzew
+// added the option to not emit vehicles from flows using a fix frequency
+//
 // Revision 1.11  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -104,7 +107,7 @@ public:
     /// Constructor
     RORDGenerator_ODAmounts(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-        const std::string &file="");
+        bool randomize, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_ODAmounts();
@@ -122,7 +125,6 @@ public:
 
     /// reader dependent initialisation
     virtual bool init(OptionsCont &options);
-
 
 
 protected:
@@ -164,7 +166,7 @@ protected:
         /// Constructor
         FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,
             SUMOTime intBegin, SUMOTime intEnd,
-            unsigned int vehicles2Emit);
+            unsigned int vehicles2Emit, bool randomize);
 
         /// Destructor
         ~FlowDef();
@@ -203,6 +205,12 @@ protected:
 
         /// The number of vehicles already emitted
         unsigned int myEmitted;
+
+        /// The list of generated departure times in the case randomized departures are used
+        std::vector<SUMOTime> myDepartures;
+
+        /// Information whether randomized departures are used
+        bool myRandom;
 
     };
 
@@ -243,6 +251,9 @@ private:
 
     /// A storage for ids (!!! this should be done router-wide)
     std::set<std::string> myKnownIDs;
+
+    /// Information whether randomized departures are used
+    bool myRandom;
 
 private:
     /// we made the copy constructor invalid
