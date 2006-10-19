@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/10/19 11:03:13  ericnicolay
+// change code for the ss2-sql-output
+//
 // Revision 1.12  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -173,6 +176,7 @@ private:
 	static OutputDevice *myLATOSS2SQLOutput;
 
     static bool myWished[CORN_MAX];
+	static bool myFirstCall[CORN_MAX];
 
 private:
     MSCORN();

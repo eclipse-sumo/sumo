@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.89  2006/10/19 11:03:13  ericnicolay
+// change code for the ss2-sql-output
+//
 // Revision 1.88  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -772,6 +775,16 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     if ( myOutputStreams[OS_VEHROUTE]!=0 ) {
         myOutputStreams[OS_VEHROUTE]->getOStream() << "</vehicleroutes>" << endl;
     }
+	// ... the same for the OS_CELL_TO_SS2_SQL
+	if ( myOutputStreams[OS_CELL_TO_SS2_SQL]!=0 ) {
+		myOutputStreams[OS_CELL_TO_SS2_SQL]->getOStream() << ";" << endl;
+	}
+	if ( myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0 ) {
+		myOutputStreams[OS_DEVICE_TO_SS2_SQL]->getOStream() << ";" << endl;
+	}
+	if ( myOutputStreams[OS_LA_TO_SS2_SQL]!=0 ) {
+		myOutputStreams[OS_LA_TO_SS2_SQL]->getOStream() << ";" << endl;
+	}
     if(myLogExecutionTime!=0&&mySimDuration!=0) {
         cout << "Performance: " << endl
             << " Duration: " << mySimDuration << "ms" << endl

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/10/19 11:03:12  ericnicolay
+// change code for the ss2-sql-output
+//
 // Revision 1.13  2006/10/12 14:48:43  ericnicolay
 // removes bug in the ss2-sql-output
 //
@@ -95,6 +98,7 @@ OutputDevice *MSCORN::myCellTOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
 
 bool MSCORN::myWished[CORN_MAX];
+bool MSCORN::myFirstCall[CORN_MAX];
 
 
 /* =========================================================================
@@ -113,6 +117,7 @@ MSCORN::init()
 	myLATOSS2SQLOutput = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
+		myFirstCall[i] = true;
     }
 }
 
@@ -276,10 +281,13 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
                                      int quality)
 {
     if(myVehicleDeviceTOSS2SQLOutput!=0) {
+		if(!MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL])
+			myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
         myVehicleDeviceTOSS2SQLOutput->getOStream()
-			<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES("
-			<< "NULL, NULL, '" << time << "', NULL , NULL, '"
-            << time << ';' << callID << ';' << pos << ';' << quality << "',1);\n";
+			<< "(NULL, NULL, '" << time << "', NULL , NULL, '"
+            << time << ';' << callID << ';' << pos << ';' << quality << "',1);";
     }
 }
 
@@ -304,14 +312,15 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 {
 	if(myCellTOSS2SQLOutput!=0)
 	{
+		if(!MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL])
+			myCellTOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
 		myCellTOSS2SQLOutput->getOStream()
-			<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
-			<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES "
 			<< "(NULL, \' \', " << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
-			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ");\n";
+			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
 	}
 }
-
 
 void
 MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
@@ -319,11 +328,13 @@ MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
 {
 	if(myLATOSS2SQLOutput!=0)
 	{
+		if(!MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL])
+			myLATOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
 		myLATOSS2SQLOutput->getOStream()
-			<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
-			<< "`QUALITY_ID`,`INTERVALL`) VALUES "
 			<< "(NULL, \' \', " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
-			<< quality_id << ',' << intervall << ");\n";
+			<< quality_id << ',' << intervall << ")";
 	}
 }
 
