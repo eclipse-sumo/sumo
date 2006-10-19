@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/10/19 11:11:14  ericnicolay
+// change code for ss2-sql-output
+//
 // Revision 1.50  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -350,6 +353,9 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 					<< "`handled` int(11) NOT NULL default '0',\n"
 					<< "PRIMARY KEY  (`ID`,`TID`)\n"
 					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
+					<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
+					<< endl;
 
 	}
 	ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
@@ -369,6 +375,10 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
 					<< "PRIMARY KEY  (`ID`,`TID`)\n"
 					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+		
+		(ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+					<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
+					<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
 
 	}
 	ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
@@ -386,6 +396,10 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
 					<< "PRIMARY KEY  (`ID`,`TID`)\n"
 					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+		
+		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
+					<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
+					<< "`QUALITY_ID`,`INTERVALL`) VALUES \n";
 	}
 
     return ret;
