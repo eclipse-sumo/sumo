@@ -5,7 +5,7 @@
 /// @file    MSE1.h
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Fri Jul 09 2004 21:31 CEST
-/// @version
+/// @version $Id$
 ///
 /// @brief
 ///
@@ -22,6 +22,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/10/25 12:22:39  dkrajzew
+// updated
+//
 // Revision 1.6  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //

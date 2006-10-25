@@ -33,8 +33,19 @@
 // A concrete subject defines the Observer type by it's base MSSubject
 // (see MSSubject.h).
 
+// $Log$
+// Revision 1.6  2006/10/25 12:22:38  dkrajzew
+// updated
 //
-
+// Revision 1.5  2005/10/06 13:39:19  dksumo
+// using of a configuration file rechecked
+//
+// Revision 1.4  2005/09/09 12:51:23  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.3  2005/06/14 11:21:06  dksumo
+// documentation added
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */

@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="./images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="./images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="./images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="./images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="./images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -39,7 +45,7 @@
 </center>
 
 
-SUMO is developed by:</br>
+<b>SUMO is developed by:</b></br>
 <table>
 <tr>
 	<td><a href="http://ivf.dlr.de" target="new"><img src="images/logo_dlr.gif" width="40" height="42" alt="logo_dlr.gif 40x42" border="0"></a></td>
@@ -48,6 +54,16 @@ SUMO is developed by:</br>
 <tr>
 	<td><a href="http://www.zaik.uni-koeln.de/" target="new"><img src="images/logo_zaik.gif" width="40" height="42" alt="logo_zaik.gif 40x42" border="0"></a></td>
 	<td><a class="SUMOBoldInLineLink" href="http://www.zaik.uni-koeln.de/" target="new"><b>Centre for Applied Informatics, Cologne</b></a></td>
+</tr>
+</table>
+
+<hr class="thin"/>
+
+<b>In the recent past we got much support from:</b></br>
+<table>
+<tr>
+	<td><a href="http://ivf.dlr.de" target="new"><img src="images/logo_itm_luebeck.jpg" width="40" height="40" alt="logo_itm_luebeck.jpg" border="0"></a></td>
+	<td><a class="SUMOBoldInLineLink" href="http://www.itm.uni-luebeck.de/index.html" target="new"><b>Institute of Telematics at the L&uuml;beck University</b></a></td>
 </tr>
 </table>
 

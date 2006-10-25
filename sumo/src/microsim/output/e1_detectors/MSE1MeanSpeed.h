@@ -5,7 +5,7 @@
 /// @file    MSE1MeanSpeed.h
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Fri Jul 09 2004 21:31 CEST
-/// @version
+/// @version $Id$
 ///
 /// @brief
 ///

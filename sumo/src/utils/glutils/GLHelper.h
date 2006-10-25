@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/10/25 12:22:43  dkrajzew
+// updated
+//
 // Revision 1.10  2006/08/01 07:34:28  dkrajzew
 // API for drawing not filled circles
 //
@@ -52,7 +55,6 @@
 //
 // Revision 1.1  2003/06/05 14:27:45  dkrajzew
 // some helping functions added; Makefile added
-//
 //
 /* =========================================================================
  * included modules
@@ -97,8 +99,11 @@ public:
         const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
         SUMOReal width);
 
-    static void drawBoxLines(const Position2DVector &geom, SUMOReal width);
+    static void drawStippleBoxLines(const Position2DVector &geom1,
+        const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
+        SUMOReal width);
 
+    static void drawBoxLines(const Position2DVector &geom, SUMOReal width);
 
     static void drawLine(const Position2D &beg, SUMOReal rot,
         SUMOReal visLength);
@@ -122,6 +127,8 @@ public:
 
 private:
     static std::vector<std::pair<SUMOReal, SUMOReal> > myCircleCoords;
+
+    static int myStippleTexture;
 
 };
 

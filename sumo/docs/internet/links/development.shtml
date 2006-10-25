@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -58,13 +64,6 @@
     A description of how to use DocBook, the format used for SUMO-documentation.
 </ul><br>
 
-<b>Tutorials</b>
-<ul>
-    <li><a class="SUMOInLineLink" href="http://www.vandenoever.info/software/KDEautomakemanual.html">How to use KDE autotools for a Qt application?</a><br>
-    A small tutorial about building KDE-Applications under Linux.
-</ul><br>
-
-
 <b>Libraries</b>
 <ul>
     <li><a class="SUMOInLineLink" href="http://xml.apache.org/">Xerces</a><br>
@@ -73,13 +72,21 @@
     <li><a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a><br>
     The GUI toolkit SUMO uses.
 
-    <li><a class="SUMOInLineLink" href="http://www.trolltech.com">Troll Tech</a><br>
-    The makers of the former GUI toolkit SUMO used.
+    <li><a class="SUMOInLineLink" href="http://www.gdal.org/">GDAL - Geospatial Data Abstraction Library</a><br>
+    Used by SUMO for geoocordinates conversion.
+
+    <li><a class="SUMOInLineLink" href="http://www.remotesensing.org/proj/">PROJ.4 - Cartographic Projections Library</a><br>
+    Used by SUMO for geoocordinates conversion.
+
+    <li><a class="SUMOInLineLink" href="http://www.cs.wustl.edu/~schmidt/ACE.html">ACE - The ADAPTIVE Communication Environment</a><br>
+    A portable communication library used by an internal version of SUMO.
+
+    <li><a class="SUMOInLineLink" href="www.xmlrpc.com">XML - RPC</a><br>
+    A communication library used by the <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html" target="new">Institute of Telematics at the L&uuml;beck University</a>.
 
     <li><a class="SUMOInLineLink" href="http://www.boost.org">Boost</a><br>
     A highly portable, multi-purpose library (more a set of of libraries).
 </ul><br>
-
 
 <b>Tools</b>
 <p><ul>

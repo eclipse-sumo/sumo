@@ -20,8 +20,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-// $Id$
 // $Log$
+// Revision 1.14  2006/10/25 12:22:39  dkrajzew
+// updated
+//
 // Revision 1.13  2006/08/01 06:56:20  dkrajzew
 // removed unneeded API parts
 //

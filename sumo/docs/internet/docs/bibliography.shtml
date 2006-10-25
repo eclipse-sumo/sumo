@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -55,30 +61,26 @@
     <li>The car-following model by Stefan Krau&szlig;<br><br>
     <a name="Krauss1998_1"><b>[Krauss1998_1]</b></a>
     <i>"Metastable States in a Microscopic Model of Traffic Flow"</i>; Stefan Krau&szlig;, Peter Wagner, Christian Gawron; Physical Review E, volume 55, number 304, pages 55-97; May, 1997<br>
-    Available at:<a href="http://www.zaik.uni-koeln.de/~paper/index.html?show=zpr97-304" class="SUMOInLineLink">http://www.zaik.uni-koeln.de/~paper/index.html?show=zpr97-304</a><br>
-    or as <a href="sk.pdf" class="SUMOInLineLink">[.pdf, ~210KB]</a>, or <a href="sk.ps.gz" class="SUMOInLineLink">[.ps.gz, ~80KB]</a>.
+    <b>Available as:</b> <a href="sk.pdf" class="SUMOInLineLink">[.pdf, ~210KB]</a>, or <a href="sk.ps.gz" class="SUMOInLineLink">[.ps.gz, ~80KB]</a>.
     <br><br>
 
     <a name="Krauss1998_2"><b>[Krauss1998_2]</b></a>
     <i>"Microscopic Modeling of Traffic Flow: Investigation of Collision Free Vehicle Dynamics"</i>; Stefan Krau&szlig;; Hauptabteilung Mobilit&auml;t und Systemtechnik des DLR K&ouml;ln; 1998; ISSN 1434-8454<br>
-    Available at: <a href="http://www.zaik.uni-koeln.de/~paper/index.html?show=zpr98-319" class="SUMOInLineLink">http://www.zaik.uni-koeln.de/~paper/index.html?show=zpr98-319</a><br>
-    or as <a href="KraussDiss.pdf" class="SUMOInLineLink">[.pdf, ~1.5MB]</a>, or <a href="KraussDiss.ps.gz" class="SUMOInLineLink">[.ps.gz, ~1.6MB]</a>.
+    <b>Available as:</b> <a href="KraussDiss.pdf" class="SUMOInLineLink">[.pdf, ~1.5MB]</a>, or <a href="KraussDiss.ps.gz" class="SUMOInLineLink">[.ps.gz, ~1.6MB]</a>.
     <br><br>
 
 
     <li>The Dynamic User Equilibrium - approach by C. Gawron<br><br>
     <a name="Gawron1998_1"><b>[Gawron1998_1]</b></a>
     <i>"Simulation-Based Traffic Assignment"</i>; Christian Gawron; Inaugural Dissertation. 1998.<br>
-    Available at: <a href="http://www.zaik.uni-koeln.de/~paper/index.html?show=zaik1999-366" class="SUMOInLineLink">http://www.zaik.uni-koeln.de/~paper/index.html?show=zaik1999-366</a><br>
-    or as <a href="GawronDiss.pdf" class="SUMOInLineLink">[.pdf, ~1.6MB]</a>, or <a href="GawronDiss.ps.gz" class="SUMOInLineLink">[.ps.gz, ~1.6MB]</a>.
+    <b>Available as:</b> <a href="GawronDiss.pdf" class="SUMOInLineLink">[.pdf, ~1.6MB]</a>, or <a href="GawronDiss.ps.gz" class="SUMOInLineLink">[.ps.gz, ~1.6MB]</a>.
     <br><br>
 
 
     <li>On building the networks<br><br>
     <a name="Krajzewicz2005_2"><b>[Krajzewicz_et_al2005_2]</b></a>
     <i>"Preparation of Digital Maps for Traffic Simulation; Part 1: Approach and Algorithms"</i>; Daniel Krajzewicz, Georg Hertkorn, Julia Ringel, Peter Wagner; In: Proceedings of the 3rd Industrial Simulation Conference 2005, EUROSIS-ETI, J. Kr&uuml;ger, A. Lisounkin, G. Schreck (Eds.); p. 285-290; ISBN: 90-77381-18-X, Jun. 2005, Berlin / Germany<br>
-    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2005.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2005.html</a><br>
-    or as <a href="dkrajzew_TRAF5_DigitalMaps1.pdf" class="SUMOInLineLink">[.pdf, ~230KB]</a>.
+    <b>Available as:</b> <a href="dkrajzew_TRAF5_DigitalMaps1.pdf" class="SUMOInLineLink">[.pdf, ~230KB]</a>.
     You may also download the <a href="dkrajzew_TRAF5_DigitalMaps1_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~560KB]</a>
     <br><br>
 
@@ -94,22 +96,19 @@
     <li>SUMO descriptions<br><br>
     <a name="Krajzewicz2002_1"><b>[Krajzewicz_et_al2002_1]</b></a>
     <i>"SUMO (Simulation of Urban MObility); An open-source traffic simulation"</i>; Daniel Krajzewicz, Georg Hertkorn, Christian R&ouml;ssel, Peter Wagner; In: ~Al-Akaidi, A. [Ed.]: Proceedings of the 4th Middle East Symposium on Simulation and Modelling (MESM2002), SCS European Publishing House, pp. 183-187, 4th Middle East Symposium on Simulation and Modelling, Sept. 2002, Sharjah / United Arab Emirates.<br>
-    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2002.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2002.html</a><br>
-    or as <a href="dkrajzew_MESM2002_SUMO.pdf" class="SUMOInLineLink">[.pdf, ~250KB]</a>. You may also download the <a href="dkrajzew_mesm2002_SUMO_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~900KB]</a>
+    <b>Available as:</b> <a href="dkrajzew_MESM2002_SUMO.pdf" class="SUMOInLineLink">[.pdf, ~250KB]</a>. You may also download the <a href="dkrajzew_mesm2002_SUMO_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~900KB]</a>
     <br><br>
 
 
     <li>Validation and Calibration<br><br>
     <a name="Krajzewicz2002_2"><b>[Krajzewicz_et_al2002_2]</b></a>
     <i>"An Example of Microscopic Car Models Validation using the open source Traffic Simulation SUMO"</i>; Daniel Krajzewicz, Georg Hertkorn, Christian R&ouml;ssel, Peter Wagner; In: Proceedings of Simulation in Industry, 14th European Simulation Symposium, 2002, SCS European Publishing House, 2002, pp. 318-322, Simulation in Industry, 14th European Simulation Symposium, Oct. 2002, Dresden / Germany<br>
-    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2002.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2002.html</a><br>
-    or as <a href="dkrajzew_ESS2002_LOG14_Validation.pdf" class="SUMOInLineLink">[.pdf, ~320KB]</a>. You may also download the <a href="dkrajzew_ESS2002_Validation_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~700KB]</a>
+    <b>Available as:</b> <a href="dkrajzew_ESS2002_LOG14_Validation.pdf" class="SUMOInLineLink">[.pdf, ~320KB]</a>. You may also download the <a href="dkrajzew_ESS2002_Validation_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~700KB]</a>
     <br><br>
 
 	<a name="BrockfeldWagner2004"><b>[Brockfeld, Wagner, 2004]</b></a>
 	<i>Testing and Benchmarking of Microscopic Traffic Flow Models</i>; E. Brockfeld, P. Wagner; In: 10th world conference on transport research, Band abstract book I, A-D, S. 775-776, WCTR04 - 10th World Conference for Transport Research, 2004.07.04 - 2004.07.08, Istanbul, Turkey<br>
-	Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2004.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2004.html</a><br>
-    or as <a href="WCTR2004_Brockfeld.pdf" class="SUMOInLineLink">[.pdf, ~290KB]</a>.
+	<b>Available as:</b> <a href="WCTR2004_Brockfeld.pdf" class="SUMOInLineLink">[.pdf, ~290KB]</a>.
     <br><br>
 
 </ul>
@@ -117,20 +116,18 @@
 
 
 <p>
-<b>Projects done by IVF</b>
+<b>Projects done by IVF that use/used SUMO</b>
 <ul>
 	<li>OIS & Agentbased TLS<br><br>
     <a name="Krajzewicz2005_1"><b>[Krajzewicz_et_al2005_1]</b></a>
     <i>"Simulation of modern Traffic Lights Control Systems using the open source Traffic Simulation SUMO"</i>; Daniel Krajzewicz, Elmar Brockfeld, J&uuml;rgen Mikat, Julia Ringel, Christian R&ouml;ssel, Wolfram Tuchscheerer, Peter Wagner, Richard Woesler; In: Proceedings of the 3rd Industrial Simulation Conference 2005; J. Kr&uuml;ger, A. Lisounkin, G. Schreck (Eds.); EUROSIS-ETI, S. 299-302, ISBN: 90-77381-18-X, Jun. 2005, Berlin / Germany<br>
-    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2005.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2005.html</a><br>
-    or as <a href="dkrajzew_TRAF9_AgentbasedTLS.pdf" class="SUMOInLineLink">[.pdf, ~200KB]</a>. You may also download the <a href="dkrajzew_TRAF9_AgentbasedTLS_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~2MB]</a>
+    <b>Available as:</b> <a href="dkrajzew_TRAF9_AgentbasedTLS.pdf" class="SUMOInLineLink">[.pdf, ~200KB]</a>. You may also download the <a href="dkrajzew_TRAF9_AgentbasedTLS_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~2MB]</a>
     <br><br>
 
 	<li>Car2Car Communication<br><br>
     <a name="Lehr2005"><b>[Lehr2005]</b></a>
     <i>"Optimierung der Kommunikation zwischen am Verkehr beteiligten Strukturen"</i>; Sebastian Lehr; Diploma Thesis; Fachhochschule für Technik und Wirtschaft Berlin<br>
-    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2005.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2005.html</a><br>
-    or as <a href="DiplomarbeitSebastianLehr.pdf" class="SUMOInLineLink">[.pdf, ~1MB]</a>.
+    <b>Available as:</b> <a href="DiplomarbeitSebastianLehr.pdf" class="SUMOInLineLink">[.pdf, ~1MB]</a>.
     <br><br>
 </ul>
 </p>
@@ -139,16 +136,24 @@
 <p>
 <b>Other people's projects</b>
 <ul>
-    <li>SUMO at Cambridge<br><br>
+    <li>SUMO at Cambridge University<br><br>
     <a name="CottinghamDaviesBeresford2005"><b>[Cottingham, Davies, Beresford, 2005]</b></a>
     <i>"Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots"</i>; David N. Cottingham and Jonathan J. Davies and Alastair R. Beresford; In: Proceedings of Communications Innovation Institute Workshop, Cambridge-MIT Institute, p. 4-6, Apr. 2005<br>
-    Available at: <a href="http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php" class="SUMOInLineLink">http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php</a><br>
+    <b>Available at:</b> <a href="http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php" class="SUMOInLineLink">http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php</a><br>
     <br><br>
 
-    <li>SUMO at Uni Dortmund<br><br>
+    <li>SUMO at the University of Dortmund<br><br>
     <a name="EdelkampJabarMehrer2005"><b>[Edekamp, Jabar, Mehrer, 2005]</b></a>
     <i>"GPS-Route, Endbericht"</i>; Stefan Edelkamp, Shahidd Jabar, Tilman Mehrer<br>
-    Available at: <a href="http://ls5-www.cs.uni-dortmund.de/~edelkamp/Endbericht/End.pdf" class="SUMOInLineLink">http://ls5-www.cs.uni-dortmund.de/~edelkamp/Endbericht/End.pdf</a><br>
+    <b>Topics:</b> car-to-car (c2c) communication, vehicle navigation, road network generation<br>
+    <b>Available at:</b> <a href="http://ls5-www.cs.uni-dortmund.de/~edelkamp/Endbericht/End.pdf" class="SUMOInLineLink">http://ls5-www.cs.uni-dortmund.de/~edelkamp/Endbericht/End.pdf</a><br>
+    <br><br>
+
+    <li>SUMO at the University of New South Wales<br><br>
+    <a name="KarnadiMoLan2005"><b>[Karnadi, Mo, Lan, 2005]</b></a>
+    <i>"Rapid Generation of Realistic Mobility Models for VANET"</i>; Feliz Kristianto Karnadi, Zhi Hai Mo, Kun-chan Lany; Appeared in ACM MOBICOMM 2005<br>
+    <b>Topics:</b> car-to-car (c2c) communication<br>
+    <b>Available at:</b> <a href="http://www.cse.unsw.edu.au/~klan/paper/sumo.pdf" class="SUMOInLineLink">http://www.cse.unsw.edu.au/~klan/paper/sumo.pdf</a><br>
     <br><br>
 </ul>
 

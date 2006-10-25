@@ -19,8 +19,21 @@
 //
 //---------------------------------------------------------------------------//
 
+// $Log$
+// Revision 1.7  2006/10/25 12:22:36  dkrajzew
+// updated
 //
-
+// Revision 1.6  2005/10/06 13:39:18  dksumo
+// using of a configuration file rechecked
+//
+// Revision 1.5  2005/09/20 06:11:15  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
+//
+// Revision 1.4  2005/09/09 12:51:21  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.3  2005/06/14 11:21:04  dksumo
+// documentation added
 //
 /* =========================================================================
  * compiler pragmas

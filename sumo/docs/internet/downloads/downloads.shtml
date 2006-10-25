@@ -20,7 +20,13 @@
 			<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 		</head>
 		<body>
-			<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 			<hr>
 
 <!--#include virtual="../menus/down_menu.html"-->

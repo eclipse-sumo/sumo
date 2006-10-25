@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.96  2006/10/25 12:22:34  dkrajzew
+// updated
+//
 // Revision 1.95  2006/10/12 13:35:34  dkrajzew
 // debugging
 //
@@ -2175,45 +2178,23 @@ MSVehicle::getBestLanes() const
 #endif
     SUMOReal MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
-    /*
-    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
-        cout << "ce1 " << (*myCurrEdge)->getID() << endl;
-    }
-    */
     int seen = 0;
     float dist = -getPositionOnLane();
     // compute initial list
+    // each item in the list is a list of lane descriptions
     while(seen<4&&dist<MIN_DIST&&ce!=myRoute->end()) {
         const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
-        /*
-    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
-        cout << "ce2 " << (*myCurrEdge)->getID() << ", " << lanes << endl;
-    }
-    */
         myBestLanes.push_back(std::vector<LaneQ>());
         std::vector<LaneQ> &curr = *(myBestLanes.end()-1);
         for(int i=0; i<lanes->size(); i++) {
-            /*
-    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
-        cout << "lane[i] " << (*lanes)[i]->getID() << endl;
-    }
-    */
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
             if((ce+1)!=myRoute->end()) {
                 const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
-                /*
-    if(getID()=="22962"&&MSNet::getInstance()->getCurrentTimeStep()>22990) {
-        cout << "allowed " << allowed << endl;
-    }
-    */
                 if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
-//                if(onAllowed((*lanes)[i])) {
                     currQ.t1 = true;
-                    //currQ.length = (*lanes)[i]->length();
                 } else {
                     currQ.t1 = false;
-                    //currQ.length = 0;
                 }
             } else {
                 currQ.t1 = true;
@@ -2222,13 +2203,13 @@ MSVehicle::getBestLanes() const
             currQ.length = (*lanes)[i]->length();
             currQ.alllength = (*lanes)[i]->length();
 
-                if(!myStops.empty()&&myStops.begin()->lane->getEdge()==(*lanes)[i]->getEdge()) {
-                    if(myStops.begin()->lane!=(*lanes)[i]) {
-                        currQ.length = 0;
-                        currQ.alllength = 0;
-                        currQ.t1 = false;
-                    }
+            if(!myStops.empty()&&myStops.begin()->lane->getEdge()==(*lanes)[i]->getEdge()) {
+                if(myStops.begin()->lane!=(*lanes)[i]) {
+                    currQ.length = 0;
+                    currQ.alllength = 0;
+                    currQ.t1 = false;
                 }
+            }
 
             currQ.lane = (*lanes)[i];
             currQ.hindernisPos = (*lanes)[i]->getDensity() * currQ.lane->length();

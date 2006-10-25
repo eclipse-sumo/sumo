@@ -5,7 +5,6 @@
 /// @file    MSEDDetectorInterface.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:04 CET
-/// @version
 ///
 /// @brief
 ///
@@ -22,12 +21,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/10/25 12:22:37  dkrajzew
+// updated
+//
 // Revision 1.5  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
 // Revision 1.4  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
-//
 //
 //
 /* =========================================================================

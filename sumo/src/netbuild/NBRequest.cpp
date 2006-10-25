@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/10/25 12:22:42  dkrajzew
+// updated
+//
 // Revision 1.40  2006/10/05 08:18:05  dkrajzew
 // debugging internal lanes
 //
@@ -399,6 +402,25 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
+/*
+    if(_junction->getID()=="15620399") {
+        int bla = 0;
+    }
+    if(_junction->getID()=="15620399") {
+        int bla = 0;
+    }
+    string from1ID = "-153114464";
+    string to1ID = "15620546";
+    string from2ID = "-15620546";
+    string to2ID = "15620547";
+    if(from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
+        int bla = 0;
+    }
+
+    if(from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
+        int bla = 0;
+    }
+*/
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;

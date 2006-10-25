@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/10/25 12:22:41  dkrajzew
+// updated
+//
 // Revision 1.14  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -477,7 +480,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder &nb,
 {
     MSJunction *j = MSJunction::dictionary(getID());
     if(j!=0) {
-        j->rebuildPriorities();
+//        j->rebuildPriorities();
     }
 }
 

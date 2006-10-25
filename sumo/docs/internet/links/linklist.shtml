@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -39,6 +45,7 @@
 
 
 <b>Road traffic in general</b>
+!!!
 <!--
 <p><ul>
     <li><a class="SUMOInLineLink" href="http://www.mip.sdu.dk/~mortenm/trafficLinks.html">Morten Monrad Pedersen's Links</a><br>

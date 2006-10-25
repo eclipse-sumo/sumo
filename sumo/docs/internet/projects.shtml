@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="./images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="./images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="./images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="./images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="./images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -38,31 +44,57 @@
 </center>
 
 <h3>At the IVF/DLR</h3>
-Current projects using SUMO at the Institute of Transport Research at the German Aerospace Centre:<br>
-<p><b>INVENT</b><br>
-visit: <a class="SUMOInLineLink" href="http://www.invent-online.de">http://www.invent-online.de</a></p>
+<b>Current projects using SUMO at the Institute of Transport Research at the German Aerospace Centre:</b><br>
+<ul>
+	<li><i><b>TrafficOnline</b></i>
+	<li><i><b>ORINOKO</b></i>
+</ul>
 
 <hr class="thin"/>
 
-Past internal projects that used SUMO:<br>
-<p><b>OIS</b><br>
-Please visit our institute's pages for more information (<a class="SUMOInLineLink" href="http://ivf.dlr.de/">http://ivf.dlr.de/</a>)</p>
+<b>Past IVF's projects that used SUMO:</b>
+<ul>
+	<li><i><b>OIS</b></i><br>
+	Please visit our institute's pages for more information (<a class="SUMOInLineLink" href="http://ivf.dlr.de/">http://ivf.dlr.de/</a>)
 
+	<li><i><b>INVENT</b></i><br>
+	visit: <a class="SUMOInLineLink" href="http://www.invent-online.de">http://www.invent-online.de</a>
+
+	<li><i><b>Weltjugendtag 2005</b></i>
+
+	<li><i><b>Soccer 2006</b></i>
+</ul>
 
 <hr class="medium"/>
 
 <h3>Foreign</h3>
-Other peoples' projects using SUMO:<br>
+<b>Current projects using SUMO done by other people:</b><br>
 
-<p><b>Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots</b> by <i>David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford</i><br>
-project pages:  <a class="SUMOInLineLink" href="http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php"><b>http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php</b></a><br>
-publications: <a class="SUMOInLineLink" href="./docs/bibliography.shtml#CottinghamDaviesBeresford2005"><b>[Cottingham, Davies, Beresford, 2005]</b></a>
-</p>
+<hr class="thin"/>
 
-<p><b>GPS-Route</b> by <i>Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)</i> many thanks go to students who have extendended SUMO: <i><b>Maik Drozdzynski, Andreas Gaubatz and Miguel Liebe</b></i><br>
-project pages:  <a class="SUMOInLineLink" href="http://ls5-www.cs.uni-dortmund.de/~edelkamp/gpsroute/"><b>http://ls5-www.cs.uni-dortmund.de/~edelkamp/gpsroute/</b></a><br>
-publications: <a class="SUMOInLineLink" href="./docs/bibliography.shtml#EdelkampJabarMehrer2005"><b>[Edekamp, Jabar, Mehrer, 2005]</b></a>
-</p>
+<b>Past projects that used SUMO done by other people:</b><br>
+
+<ul>
+	<li><i><b>Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots</b></i> by <i>David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford</i><br>
+	from the University of Cambridge, Cambridge, UK<br>
+	project pages:  <a class="SUMOInLineLink" href="http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php"><b>http://www.cl.cam.ac.uk/Research/DTG/research/sentient/vehicles.php</b></a><br>
+	publications: <a class="SUMOInLineLink" href="./docs/bibliography.shtml#CottinghamDaviesBeresford2005"><b>[Cottingham, Davies, Beresford, 2005]</b></a>
+	<p>
+
+	<li><i><b>GPS-Route</b></i> by <i>Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)</i><br>
+	from the University of Dortmund, Dortmund, Germany<br>
+	many thanks go to students who have extendended SUMO: <i><b>Maik Drozdzynski, Andreas Gaubatz and Miguel Liebe</b></i><br>
+	project pages:  <a class="SUMOInLineLink" href="http://ls5-www.cs.uni-dortmund.de/~edelkamp/gpsroute/"><b>http://ls5-www.cs.uni-dortmund.de/~edelkamp/gpsroute/</b></a><br>
+	publications: <a class="SUMOInLineLink" href="./docs/bibliography.shtml#EdelkampJabarMehrer2005"><b>[Edekamp, Jabar, Mehrer, 2005]</b></a>
+	<p>
+
+	<li><i><b>Rapid Generation of Realistic Simulation for VANET</b></i> by <i>Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan</i><br>
+	from the University of New South Wales, Sydney, Australia<br>
+	many thanks for extending SUMO!<br>
+	project pages:  <a class="SUMOInLineLink" href="http://www.cse.unsw.edu.au/~klan/move/"><b>http://www.cse.unsw.edu.au/~klan/move/</b></a><br>
+	publications: <a class="SUMOInLineLink" href="./docs/bibliography.shtml#KarnadiMoLan2005"><b>[Karnadi, Mo, Lan, 2005]</b></a>
+	<p>
+</ul>
 
 
 <!-- End of Text area -->

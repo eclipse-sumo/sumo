@@ -5,7 +5,6 @@
 /// @file    MSHaltingDurationSum.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Fri Nov 28 2003 19:21 CET
-/// @version
 ///
 /// @brief
 ///

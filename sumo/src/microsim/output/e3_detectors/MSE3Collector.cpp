@@ -2,7 +2,7 @@
 /// @file    MSE3Collector.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 22:17 CET
-/// @version
+/// @version $Id$
 ///
 /// @brief
 ///
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/10/25 12:22:41  dkrajzew
+// updated
+//
 // Revision 1.9  2006/10/12 08:06:35  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/10/25 12:22:35  dkrajzew
+// updated
+//
 // Revision 1.20  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -123,8 +126,8 @@ size_t searchedtime = 21900;
 // 80km/h will be the swell for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 12.22
 
-#define LOOK_FORWARD_FAR 2.5
-#define LOOK_FORWARD_NEAR 2.5
+#define LOOK_FORWARD_FAR  5
+#define LOOK_FORWARD_NEAR 15
 
 
 

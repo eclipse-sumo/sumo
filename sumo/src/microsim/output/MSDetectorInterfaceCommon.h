@@ -5,7 +5,6 @@
 /// @file    MSDetectorInterfaceCommon.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Mon Dec 01 2003 16:20 CET
-/// @version
 ///
 /// @brief
 ///

@@ -5,7 +5,6 @@
 /// @file    MSEDDetector.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:04 CET
-/// @version
 ///
 /// @brief
 ///

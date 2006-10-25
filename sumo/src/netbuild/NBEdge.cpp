@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.75  2006/10/25 12:22:42  dkrajzew
+// updated
+//
 // Revision 1.74  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -1666,7 +1669,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     }
     assert(dest_lane>=0&&dest_lane<=10);
     assert(src_lane>=0&&src_lane<=10);
-    // somekind of a misbehaviour which may occure when the junction's outgoing
+    // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input
     // what happens is that under some circumstances a single lane may set to

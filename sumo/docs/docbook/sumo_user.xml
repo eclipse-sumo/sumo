@@ -811,8 +811,8 @@
 
                 <listitem>
                   <para><sgmltag>traffic_light</sgmltag>: The junction is
-                  controlled by a traffic light. (... TBD ... further
-                  types?)</para>
+                  controlled by a traffic light. (# TBD ... further
+                  types?#)</para>
                 </listitem>
               </itemizedlist>
             </listitem>
@@ -1083,10 +1083,14 @@
                 </listitem>
               </itemizedlist>
             </listitem>
-          </itemizedlist>The priority (... TBD ...) plays a role during the
-        computation of the way-giving rules of a node. Larger values for the
-        priority of an edge allow vehicles using it to pass without waiting -
-        if no traffic light is on the node.</para>
+          </itemizedlist>The priority plays a role during the computation of
+        the way-giving rules of a node. Larger values for the priority of an
+        edge allow vehicles using it to pass without waiting - if no traffic
+        light is on the node. Also, the priority is responsible for
+        determining how many of the street's lanes are used to get to the next
+        edges (see also "<link
+        linkend="user_chp04-further_options-laneno_priority">Automatic
+        Lane-2-Lane Connections</link>").</para>
 
         <para>Also the definitions of edges must be embedded into an opening
         and a closing tag and for the example
@@ -1188,8 +1192,8 @@
           </itemizedlist>
 
           <para>Both the allowed and the disallowed attributes assume to get a
-          list of vehicle class names devided by a ';'. For further
-          information on vehicle classes see "!!!".</para>
+          list of vehicle class names devided by a ';'. (#TBD: For further
+          information on vehicle classes see "!!!".#)</para>
 
           <caution>
             <para>This is a new feature. Its usage and the way it works will
@@ -3233,6 +3237,45 @@
         </itemizedlist>
       </sect2>
 
+      <sect2 id="user_chp04-further_options-laneno_priority" revision="0.9.5">
+        <title>Automatic Lane-2-Lane Connections</title>
+
+        <para>Though you can define a certain priority value for edges (see
+        "<link linkend="user_chp04-xml_descriptions-edges">Edges
+        Descriptions</link>") which is used while computing how many and which
+        lanes are used which of the connected roads, this value is not given
+        for most of the imported road network formats. Setting a priority
+        value for each of the roads is still very time consuming. Using the
+        option <option>--use-laneno-as-priority</option> forces
+        <application>NETCONVERT</application> to use the number of a street's
+        lanes as this street's priority. We strongly recommend to enable this
+        option when importing large networks.</para>
+
+        <para>Specific option:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term>( ----use-laneno-as-priority )</term>
+
+            <listitem>
+              <para><remark>Optional (pregiven), type:bool, default:
+              false</remark></para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>This options may be used in conjunction with all import
+        formats.</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Documentation added in version 0.9.5.</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+
       <sect2 id="user_chp04-further_options-nogeometry">
         <title>Removing Geometry Nodes</title>
 
@@ -3983,7 +4026,7 @@
           </itemizedlist>
         </sect3>
 
-        <sect3 id="user_chp04-further_options-additional_output-plain">
+        <sect3 id="user_chp04-further_options-additional_output-map_output">
           <title>Information about Geometry Removal</title>
 
           <para>The option <option>--map-output</option> (or
@@ -3992,7 +4035,22 @@
           url="#user_chp04-further_options-turnarounds">Removing Geometry
           Nodes</ulink>").</para>
 
-          <para>!!! describe the format</para>
+          <para>The format is a little bit strange and should be reworked in
+          the next time. At the begin of each line of the generated file, you
+          will find the id of an edge from the generated network. Then,
+          divided by tabs, you will find the list of edge ids together with
+          the corresponding edges' lengths, the edge consists of. The id is
+          divided from the length by a ':'. This means if that an edge that
+          was joined from the edges 'edge1', 'edge2', 'edge3', each having the
+          length 10, 20, and 30m, respectively, it would appear in the file
+          encoded as following:</para>
+
+          <programlisting>edge1&lt;TAB&gt;edge1:10&lt;TAB&gt;edge2:20&lt;TAB&gt;edge3:30</programlisting>
+
+          <para>If the edge was not build by joining other edges, the list of
+          edge ids/length will have only one value, of course:</para>
+
+          <programlisting>edge&lt;TAB&gt;edge:100</programlisting>
 
           <para>Specific options:</para>
 
@@ -4019,8 +4077,9 @@
 
           <para>The option <option>--node-geometry-dump</option> is meant to
           be used when debugging the geometry computation. It generates a list
-          of points of interest as readable by guisim (see chapter "... TBD
-          ...") on the positions that were used to compute the imported nodes'
+          of points of interest as readable by guisim (see chapter "<link
+          linkend="user_chp07-shapes">Additional Geometry Files</link>") on
+          the positions that were used to compute the imported nodes'
           geometries. The option "<option>--print-node-positions</option>"
           forces <application>NETCONVERT</application> and
           <application>NETGEN</application> to print the positions of the
@@ -4647,7 +4706,7 @@
           <para>The values used above are the ones most of the examples use.
           They resemble a standard vehicle as used within the Stefan Krauß'
           thesis besides that the minimum gap between vehicles is not added to
-          the length. (!!!) These values have the following meanings:</para>
+          the length. These values have the following meanings:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
@@ -6203,8 +6262,8 @@
         </itemizedlist>
 
         <para>Given a network and the list of detectors,
-        <application>DFROUTER</application> assigns types to detectors (tbd:
-        reference) and saves the so extended list into a file if the option
+        <application>DFROUTER</application> assigns types to detectors (#TBD:
+        reference#) and saves the so extended list into a file if the option
         <option>--detectors-output
         <replaceable>&lt;DETECTOR_OUTPUT_FILE&gt;</replaceable></option> is
         given. This list looks like the input described above except that an
@@ -6301,11 +6360,11 @@
         <application>DFROUTER</application> to also build routes that start at
         in-between detectors. The option <option>--all-end-follower</option>
         will make the routes not end at the edge the source detector is placed
-        on, but on all edges that follow this edge (spread uniformly!!!)
-        (recheck this!!!). <option>--keep-unfound-ends</option> will also keep
-        those routes where a sink detector could not be found for what may be
-        the case if the network is not completely covered with induction
-        loops.</para>
+        on, but on all edges that follow this edge (#TBD: spread uniformly#)
+        (#TBD: recheck this#). <option>--keep-unfound-ends</option> will also
+        keep those routes where a sink detector could not be found for what
+        may be the case if the network is not completely covered with
+        induction loops.</para>
 
         <para>Specific options:</para>
 
@@ -6453,9 +6512,9 @@ myDet1;0;10;2;100;80
         <replaceable>&lt;TIME_OFFSET&gt;</replaceable> is meant to be an int
         representing seconds.</para>
 
-        <para>!!!verify: how long is the time period, are speeds given in m/s,
-        is qPKW/qLKW right, does qPKW/qLKW describe the amount within this
-        period or within one hour</para>
+        <para>(#TBD verify: how long is the time period, are speeds given in
+        m/s, is qPKW/qLKW right, does qPKW/qLKW describe the amount within
+        this period or within one hour#)</para>
 
         <para>Specific options:</para>
 
@@ -6514,10 +6573,10 @@ myDet1;0;10;2;100;80
         according source detector. These definitions are called within the
         <replaceable>&lt;EMITTER_OUTPUT_FILE&gt;</replaceable> and contain
         vehicles which depart the emitter in accordance to the read flows and
-        have routes computed using the flows. !!!calibrators</para>
+        have routes computed using the flows.</para>
 
         <para>As some approaches use a speed limit to avoid open-end boundary
-        problems (see !!!), the <application>DFROUTER</application> can
+        problems (#see TBD#), the <application>DFROUTER</application> can
         generate a list of speed triggers (see "<link
         linkend="user_chp06-management-vss">Variable Speed Signs
         (VSS)</link>") placed on the positions of sink detectors. The name to
@@ -6558,8 +6617,8 @@ myDet1;0;10;2;100;80
         detectors which are place 1m behind the real-life detector's
         position.</para>
 
-        <para>!!! check whether everything is placed into the proper
-        directory; check what's about PKWs/LKWs</para>
+        <para>#TBD: check whether everything is placed into the proper
+        directory; check what's about PKWs/LKWs#</para>
 
         <variablelist>
           <varlistentry>
@@ -7668,7 +7727,7 @@ myDet1;0;10;2;100;80
 
             <listitem>
               <para><sgmltag>noStops</sgmltag>: The number of recognized stops
-              (tbd)</para>
+              (#TBD complete#)</para>
             </listitem>
 
             <listitem>
@@ -8184,7 +8243,7 @@ myDet1;0;10;2;100;80
       <sect2 id="user_chp06-output-command_line">
         <title>Output to the Command Line</title>
 
-        <para>!!!</para>
+        <para>#TBD: describe#</para>
       </sect2>
     </sect1>
 
@@ -8239,12 +8298,13 @@ myDet1;0;10;2;100;80
         input data. For such modelling attempt, you should place emitters at
         those positions on the network where the induction loops are located
         and convert the values retrieved from the induction loops to the
-        format emitters may read. (!!! references) The format is described
-        below, together with some additional methods to ease generation of
-        emitter files. If you are working with such inputs extensively, you
-        may be also interested in what the <application>DFROUTER</application>
-        does (see "<link linkend="user_chp05-dfrouter">Using Detectors and
-        DFROUTER</link>" for a further documentation).</para>
+        format emitters may read. (#TBD add references#) The format is
+        described below, together with some additional methods to ease
+        generation of emitter files. If you are working with such inputs
+        extensively, you may be also interested in what the
+        <application>DFROUTER</application> does (see "<link
+        linkend="user_chp05-dfrouter">Using Detectors and DFROUTER</link>" for
+        a further documentation).</para>
 
         <para>Examples:</para>
 
@@ -8327,7 +8387,7 @@ myDet1;0;10;2;100;80
           named the vehicle types and the routes but did not define them. We
           can either define them within another additional file or within a
           route file but we have to ensure that they're loaded before the
-          emission definition is (see !!! on Reihenfolge). Let's assume we
+          emission definition is (#TBD see !!! on order#). Let's assume we
           have done it. In this case, using such a definition we would emit
           three vehicles, having the names "veh1", "veh2", and "veh3" as given
           within the id-field, all being of type "my_type". All vehicles use
@@ -8370,11 +8430,11 @@ myDet1;0;10;2;100;80
           </itemizedlist>
 
           <para>As you can see, several of the fields are marked as optional.
-          If no id is given, the id will be constructed automatically. The
-          vehicle will then have a name !!!. Also, the emission speed is
-          optional. If not given, the initial vehicle speed will be !!!. The
-          following sections describe how one can omit explicite attributes
-          for vehicle type and route.</para>
+          If no id is given, the id will be constructed automatically. (#TBD:
+          The vehicle will then have a name '). Also, the emission speed is
+          optional. (#TBD: If not given, the initial vehicle speed will be
+          !!!#). The following sections describe how one can omit explicite
+          attributes for vehicle type and route.</para>
 
           <para>If the emission time lies before the simulation begin, the
           vehicle will be discarded.</para>
@@ -8929,7 +8989,7 @@ myDet1;0;10;2;100;80
       </sect2>
 
       <sect2 id="user_chp06-management-vss">
-        <title id="_">Variable Speed Signs (VSS)</title>
+        <title>Variable Speed Signs (VSS)</title>
 
         <para>One of the trigger objects that may be specified within an
         additional file allows the simulation of variable speed signs. The
@@ -8969,7 +9029,7 @@ myDet1;0;10;2;100;80
       </sect2>
 
       <sect2 id="user_chp06-management-rerouter">
-        <title id="_">Rerouter</title>
+        <title>Rerouter</title>
 
         <para>Rerouter change the route of vehicles as soon as a vehicle moves
         on a specified edge. Although implemented earlier, were firstly
@@ -9051,7 +9111,7 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
-        <para>!!!</para>
+        <para>#TBD: end#</para>
       </sect2>
     </sect1>
 
@@ -9095,7 +9155,7 @@ myDet1;0;10;2;100;80
         problem internally, either by changing the position of the last car or
         - if this does not work because the lane the accident happened at is
         full - by removing one of the cars and trying to reinsert it as soon
-        as possible (see also "Vehicle Teleportation" !!!). You still may
+        as possible (#TBD see also "Vehicle Teleportation" #). You still may
         force the simulation to quit as soon an "accident" happens using the
         option <option>--quit-on-accident</option>.</para>
       </sect2>
@@ -9104,17 +9164,17 @@ myDet1;0;10;2;100;80
     <sect1 id="user_chp06-missing">
       <title>Missing</title>
 
-      <para>--route-steps TBD</para>
+      <para>--route-steps</para>
 
-      <para>--check-accidents TBD</para>
+      <para>--check-accidents</para>
 
-      <para>--too-slow-rtf TBD</para>
+      <para>--too-slow-rtf</para>
 
-      <para>--no-duration-log TBD</para>
+      <para>--no-duration-log</para>
 
-      <para>TBD: loading &amp; saving of states</para>
+      <para>loading &amp; saving of states</para>
 
-      <para>--time-to-teleport TBD</para>
+      <para>--time-to-teleport</para>
     </sect1>
   </chapter>
 
@@ -9967,6 +10027,125 @@ myDet1;0;10;2;100;80
         </figure>
       </sect2>
     </sect1>
+
+    <sect1>
+      <title>Additional Geometry Files</title>
+
+      <para>Since version 0.9.4 it is possible to load additional geometry
+      files into GUISIM which may contain definition of polygons or points of
+      interest. These shapes are currently meant to improve a simulation's
+      appearence and to allow an easier debugging. No special interaction with
+      them is implemented, yet.</para>
+
+      <para>Both polygons and points-of-interest may be located at a "layer".
+      Shapes with lowest layer values are drawn first so that they can be
+      below those with a higher layer number. The network itself is drawn as
+      layer 0. An additional file may contain definitions for both
+      points-of-interest and polygons. Any name may be used for the embedding
+      element.</para>
+
+      <para>In the following subchapters, it is described how polygons and
+      points-of-interest may be defined.</para>
+
+      <sect2>
+        <title>Polygon Definitions</title>
+
+        <para>A polygon is defined as following:</para>
+
+        <programlisting><sgmltag>&lt;poly id="&lt;POLYGON_ID&gt;" type="&lt;TYPENAME&gt;" color="&lt;RED&gt;,&lt;GREEN&gt;,&lt;BLUE&gt;" \
+   fill="&lt;FILL_OPTION&gt;" layer="&lt;LAYER_NO&gt;"&gt;&lt;POINT&gt; [&lt;POINT&gt;]+&lt;/poly&gt;</sgmltag></programlisting>
+
+        <para>These attributes have the following meanings:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><sgmltag>id</sgmltag>: The is (name) of the polygon;
+            mandatory string</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>type</sgmltag>: A typename for the polygon. This
+            value has no meaning; mandatory string</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>color</sgmltag>: The color with which the polygon
+            shall be displayed; &lt;RED&gt;, &lt;GREEN&gt;, and &lt;BLUE&gt;
+            must be floating point numbers between 0 and 1. They are devided
+            using a ',' (no space); mandatory</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>fill</sgmltag>: An information whether the polygon
+            shall be filled; optional bool, default: false</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>layer</sgmltag>: The number of the layer in which
+            the polygon lies; optional int, default: -1</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+
+      <sect2>
+        <title>Point-of-interest Definitions</title>
+
+        <para>A point-of-interest is defined as following:</para>
+
+        <programlisting><sgmltag>&lt;poi id="&lt;POLYGON_ID&gt;" type="&lt;TYPENAME&gt;" color="&lt;RED&gt;,&lt;GREEN&gt;,&lt;BLUE&gt;" \
+   layer="&lt;LAYER_NO&gt;" [(x="&lt;X_POS&gt;" y="&lt;Y_POS&gt;") | (lane="&lt;LANE_ID&gt;" pos="&lt;LANE_POS&gt;")]/&gt;</sgmltag></programlisting>
+
+        <para>It means that the position a point-of-interest is located at may
+        be given either using explicite x/y-coordinates or a lane name and a
+        position on this lane. So, the attributes have the following
+        meanings:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><sgmltag>id</sgmltag>: The is (name) of the poi; mandatory
+            string</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>type</sgmltag>: A typename for the poi. This value
+            has no meaning; mandatory string</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>color</sgmltag>: The color with which the poi shall
+            be displayed; &lt;RED&gt;, &lt;GREEN&gt;, and &lt;BLUE&gt; must be
+            floating point numbers between 0 and 1. They are devided using a
+            ',' (no space); mandatory</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>layer</sgmltag>: The number of the layer in which
+            the polygon lies; optional int, default: -1</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>x</sgmltag>: The position of the poi along the
+            x-axis; float</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>y</sgmltag>: The position of the poi along the
+            y-axis; float</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>lane</sgmltag>: The name of the lane the poi is
+            located at; string, the lane must be a part of the loaded
+            network</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>pos</sgmltag>: The position on the named lane at
+            which the poi is located at; float</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+    </sect1>
   </chapter>
 
   <chapter id="user_chp08">
@@ -10134,8 +10313,8 @@ myDet1;0;10;2;100;80
         <para>An example type-map for Elmar's polygons can be found in
         <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>add/elmar_type_map.xml.</para>
 
-        <para>All options (excluded loading configuration and output options,
-        see !!!):</para>
+        <para>All options (#TBD excluded loading configuration and output
+        options, see #):</para>
 
         <variablelist>
           <varlistentry>

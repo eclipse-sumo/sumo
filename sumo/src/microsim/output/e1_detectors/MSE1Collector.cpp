@@ -2,7 +2,7 @@
 /// @file    MSE1Collector.cpp
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Wed Jun 9 16:40:56 CEST 2004
-/// @version
+/// @version $Id$
 ///
 /// @brief
 ///
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/10/25 12:22:39  dkrajzew
+// updated
+//
 // Revision 1.7  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //

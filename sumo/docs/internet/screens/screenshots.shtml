@@ -22,7 +22,13 @@
 	</head>
 	<body>
 
-		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+        <table border="0">
+          <tr>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
+          </tr>
+          </table>
 		<hr>
 
 
@@ -37,25 +43,37 @@
 	<h2>Screenshots</h2>
 </center>
 
-<p>Some "random" samples.</p>
+<h3>Some "random" samples from earlier versions (0.7/0.8).</h3>
+
 <p><center>
+<table border="0">
+	<tr>
+		<td width="50%"><a href="koeln_fastlane.gif"><img width="300" border="0" src="koeln_fastlane_sml.gif"></a></td>
+		<td width="50%"><a href="koeln_fastlane.gif"><img width="300" border="0" src="koeln_fastlane_sml.gif"></a></td>
+	</tr>
+	<tr>
+		<td width="50%"><i>Simulation of the City of Cologne</i></td>
+		<td width="50%"><i>Simulation of the area around our institute in Berlin Adlershof; streets are coloured by the maximum speed allowed</i></td>
+	</tr>
+</table>
+<!--
 	<a href="koeln_fastlane.gif"><img width="300" src="koeln_fastlane_sml.gif"></a><br>
 	<i>Simulation of the City of Cologne</i><br><br>
 
 	<a href="ernst-ruska.gif"><img width="300" src="ernst-ruska_sml.gif"></a><br>
-	<i>Simulation of the area around our institute in Berlin Adlershof; streets are coloured by the maximum speed allowed</i><br><br>
+	<i>Simulation of the area around our institute in Berlin Adlershof;<br>streets are coloured by the maximum speed allowed</i><br><br>
 
 	<a href="ny.gif"><img src="ny_sml.gif"></a><br>
 	<i>The converted network of New York</i><br><br>
-
+-->
 </center></p>
 
-<hr/>
+<hr class="thin"/>
 
 <p>Further screenshots by topic.</p>
 <p>
 <ul>
-	<li><a class="SUMOInLineLink" href="frida.shtml">Screenshots from the using the network of Osnabrück from the Frida-project</a>
+	<li><a class="SUMOInLineLink" href="frida.shtml">The network of Osnabrück from the Frida-project</a>
 </ul>
 </center></p>
 

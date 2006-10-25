@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/10/25 12:22:42  dkrajzew
+// updated
+//
 // Revision 1.13  2006/08/01 07:34:28  dkrajzew
 // API for drawing not filled circles
 //
@@ -91,6 +94,7 @@ namespace
  * static member definitions
  * ======================================================================= */
 std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
+int GLHelper::myStippleTexture = 1;
 
 
 /* =========================================================================
@@ -206,6 +210,29 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
 	    GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], width);
     }
 }
+
+
+void
+GLHelper::drawStippleBoxLines(const Position2DVector &geom1,
+                       const std::vector<SUMOReal> &rots,
+                       const std::vector<SUMOReal> &lengths,
+                       SUMOReal width)
+{
+    /*
+    if(myStippleTexture<0) {
+        FXImage *img = MFXImageHelper::loadimage(getApp(), "D:\\bild.bmp");
+        myStippleTexture = GUITexturesHelper::add(img);
+    }
+    for(size_t i=0; i<geom1.size()-1; i++) {
+        glPushMatrix();
+        glTranslated(beg.x(), beg.y(), 0);
+        glRotated( rot, 0, 0, 1 );
+        GUITexturesHelper::drawTexturedBox(myStippleTexture, -.75, 0, .75, lengths[i]);
+        glPopMatrix();
+    }
+    */
+}
+
 
 void
 GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width)

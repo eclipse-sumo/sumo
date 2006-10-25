@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/10/25 12:22:42  dkrajzew
+// updated
+//
 // Revision 1.29  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
 //
@@ -234,7 +237,7 @@ NIArcView_Loader::load(OptionsCont &)
             myOptions.isSet("arcview.street-id")
             ? poFeature->GetFieldAsString( (char*) myOptions.getString("arcview.street-id").c_str())
             : poFeature->GetFieldAsString( "ST_NAME" );
-        name = StringUtils::prune(name);
+        name = StringUtils::prune(StringUtils::replace(name, "&", "&amp;"));
 
         string from_node =
             myOptions.isSet("arcview.from-id")

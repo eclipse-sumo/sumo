@@ -5,7 +5,7 @@
 /// @file    MSE3NVehicles.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Thu Nov 27 2003 20:24 CET
-/// @version
+/// @version $Id$
 ///
 /// @brief
 ///
