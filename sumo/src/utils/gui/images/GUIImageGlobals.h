@@ -2,7 +2,7 @@
 #define GUIImageGlobals_h
 //---------------------------------------------------------------------------//
 //                        GUIImageGlobals.h -
-//  A tooltip SUMORealing over a window
+//  A tooltip floating over a window
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,12 +20,20 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2005/09/23 06:08:42  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+// Revision 1.5  2006/10/26 10:27:31  dkrajzew
+// debugging
 //
-// Revision 1.3  2005/09/15 12:19:55  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.6  2005/11/29 13:01:04  dksumo
+// debugging
 //
+// Revision 1.5  2005/09/20 06:13:03  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
+//
+// Revision 1.4  2005/09/15 12:27:57  dksumo
+// code style changes
+//
+// Revision 1.3  2005/06/14 11:29:50  dksumo
+// documentation added
 //
 /* =========================================================================
  * variable declarations

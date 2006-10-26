@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/10/26 10:27:30  dkrajzew
+// debugging
+//
 // Revision 1.10  2006/03/27 07:33:38  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -176,7 +179,8 @@ public:
 	        			        const _L1 &lane = edge->getLaneGeometry(k);
 		        				colorer.setGlColor(lane);
 //			        		      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-                                if(width>1.) {
+                                if(width>1.) {//&&lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+//                                if(width>1.&&lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
 				        		    drawLane(lane, 1.);
                                 } else {
                                     drawLine(lane);

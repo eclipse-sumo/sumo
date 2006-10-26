@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/10/26 10:27:30  dkrajzew
+// debugging
+//
 // Revision 1.30  2006/10/13 13:07:50  dkrajzew
 // added the option to not emit vehicles from flows using a fix frequency
 //
@@ -451,7 +454,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
     if(optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
             _options.getInt("begin"), _options.getInt("end"),
-            myEmptyDestinationsAllowed, _options.getInt("randomize-flows"), file);
+            myEmptyDestinationsAllowed, _options.getBool("randomize-flows"), file);
     }
     throw 1;
 }

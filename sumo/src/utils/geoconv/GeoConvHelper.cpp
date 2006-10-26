@@ -87,9 +87,14 @@ GeoConvHelper::remap(Position2D &from)
         }
         x = (x-myInitX);
         y = (y-myInitY);
+        p.u = (SUMOReal) (x * 111.320*1000.);
+        p.v = (SUMOReal) (y * 111.136*1000.);
+        p.u *= (SUMOReal) cos(ys*PI/180.0);
+/*!!! recheck whether the axes are mirrored
         p.v = (SUMOReal) (x * 111.320*1000.);
         SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
         p.u *= (SUMOReal) cos(ys*PI/180.0); // !!!
+        */
         from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     }
 }
