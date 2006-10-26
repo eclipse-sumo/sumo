@@ -643,6 +643,14 @@ SOURCE=..\..\..\src\foreign\proj\pj_zpoly1.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\foreign\proj\proj_mdist.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\foreign\proj\proj_rouss.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\foreign\proj\rtodms.c
 # End Source File
 # Begin Source File

@@ -2900,6 +2900,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\foreign\proj\proj_mdist.c">
+			</File>
+			<File
+				RelativePath="..\..\..\src\foreign\proj\proj_rouss.c">
+			</File>
+			<File
 				RelativePath="..\..\..\src\foreign\proj\rtodms.c">
 				<FileConfiguration
 					Name="Release|Win32">
