@@ -3,10 +3,10 @@
 static const char SCCSID[]="@(#)gen_cheb.c	4.9	95/09/23	GIE	REL";
 #endif
 #define PJ_LIB__
+#include "projects.h"
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <projects.h>
 #include "emess.h"
 #ifndef COEF_LINE_MAX
 #define COEF_LINE_MAX 60

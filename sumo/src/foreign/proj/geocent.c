@@ -65,8 +65,11 @@
  *    25-02-97          Original Code
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:20  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.6  2006/01/12 22:29:01  fwarmerdam
+ * make geocent.c globals static to avoid conflicts
  *
  * Revision 1.5  2004/10/25 15:34:36  fwarmerdam
  * make names of geodetic funcs from geotrans unique
@@ -112,13 +115,13 @@
  *                              GLOBAL DECLARATIONS
  */
 /* Ellipsoid parameters, default to WGS 84 */
-double Geocent_a = 6378137.0;     /* Semi-major axis of ellipsoid in meters */
-double Geocent_b = 6356752.3142;  /* Semi-minor axis of ellipsoid           */
+static double Geocent_a = 6378137.0;     /* Semi-major axis of ellipsoid in meters */
+static double Geocent_b = 6356752.3142;  /* Semi-minor axis of ellipsoid           */
 
-double Geocent_a2 = 40680631590769.0;        /* Square of semi-major axis */
-double Geocent_b2 = 40408299984087.05;       /* Square of semi-minor axis */
-double Geocent_e2 = 0.0066943799901413800;   /* Eccentricity squared  */
-double Geocent_ep2 = 0.00673949675658690300; /* 2nd eccentricity squared */
+static double Geocent_a2 = 40680631590769.0;        /* Square of semi-major axis */
+static double Geocent_b2 = 40408299984087.05;       /* Square of semi-minor axis */
+static double Geocent_e2 = 0.0066943799901413800;   /* Eccentricity squared  */
+static double Geocent_ep2 = 0.00673949675658690300; /* 2nd eccentricity squared */
 /*
  * These state variables are for optimization purposes.  The only function
  * that should modify them is Set_Geocentric_Parameters.

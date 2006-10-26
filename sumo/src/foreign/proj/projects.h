@@ -28,8 +28,18 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:29  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.24  2006/10/18 04:34:03  fwarmerdam
+ * added mlist functions from libproj4
+ *
+ * Revision 1.23  2006/10/12 21:04:39  fwarmerdam
+ * Added experimental +lon_wrap argument to set a "center point" for
+ * longitude wrapping of longitude values coming out of pj_transform().
+ *
+ * Revision 1.22  2006/03/30 14:35:09  fwarmerdam
+ * bug 1145: avoid warnings on VC8.
  *
  * Revision 1.21  2004/10/28 16:08:13  fwarmerdam
  * added pj_get_*_ref() accessors
@@ -88,6 +98,15 @@
 /* General projections header file */
 #ifndef PROJECTS_H
 #define PROJECTS_H
+
+#ifdef _MSC_VER
+#  ifndef _CRT_SECURE_NO_DEPRECATE
+#    define _CRT_SECURE_NO_DEPRECATE
+#  endif
+#  ifndef _CRT_NONSTDC_NO_DEPRECATE
+#    define _CRT_NONSTDC_NO_DEPRECATE
+#  endif
+#endif
 
 /* standard inclusions */
 #include <math.h>
@@ -262,6 +281,7 @@ typedef struct PJconsts {
         int     datum_type; /* PJD_UNKNOWN/3PARAM/7PARAM/GRIDSHIFT/WGS84 */
         double  datum_params[7];
         double  from_greenwich; /* prime meridian offset (in radians) */
+        double  long_wrap_center; /* 0.0 for -180 to 180, actually in radians*/
 
 #ifdef PROJ_PARMS__
 PROJ_PARMS__
@@ -426,6 +446,9 @@ PJ_GRIDINFO *pj_gridinfo_init( const char * );
 int pj_gridinfo_load( PJ_GRIDINFO * );
 void pj_gridinfo_free( PJ_GRIDINFO * );
 
+void *proj_mdist_ini(double);
+double proj_mdist(double, double, double, const void *);
+double proj_inv_mdist(double, const void *);
 void *pj_gauss_ini(double, double, double *,double *);
 LP pj_gauss(LP, const void *);
 LP pj_inv_gauss(LP, const void *);

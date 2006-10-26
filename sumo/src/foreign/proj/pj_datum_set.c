@@ -28,8 +28,8 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:21  dkrajzew
+ * proj 4.5.0 added
  *
  * Revision 1.2  2001/04/04 21:13:21  warmerda
  * do arcsecond/radian and ppm datum parm transformation in pj_set_datum()

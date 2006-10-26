@@ -29,8 +29,12 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:22  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.7  2005/07/07 00:16:03  fwarmerdam
+ * Fixed debug fprintf syntax per:
+ * http://bugzilla.remotesensing.org/show_bug.cgi?id=886
  *
  * Revision 1.6  2004/10/30 04:03:03  fwarmerdam
  * fixed reported information in ctable debug message
@@ -493,7 +497,7 @@ static int pj_gridinfo_init_ntv2( FILE *fid, PJ_GRIDINFO *gilist )
             {
                 if( getenv("PROJ_DEBUG") != NULL )
                     fprintf( stderr, "pj_gridinfo_init_ntv2(): "
-                             "failed to find parent %8.8s for %.\n",
+                             "failed to find parent %8.8s for %s.\n",
                              (const char *) header+24, gi->ct->id );
 
                 for( lnk = gp; lnk->next != NULL; lnk = lnk->next ) {}

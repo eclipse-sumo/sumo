@@ -6,6 +6,9 @@
 static const char
 LIBPROJ_ID[] = "$Id$";
 /*
+** See also (section 4.4.3.2):
+**   http://www.eumetsat.int/en/area4/msg/news/us_doc/cgms_03_26.pdf
+**
 ** Permission is hereby granted, free of charge, to any person obtaining
 ** a copy of this software and associated documentation files (the
 ** "Software"), to deal in the Software without restriction, including
@@ -139,8 +142,11 @@ ENTRY0(geos)
 ENDENTRY(P)
 /*
 ** $Log$
-** Revision 1.1  2006/03/08 13:02:28  dkrajzew
-** some further work on converting geo-coordinates
+** Revision 1.2  2006/10/26 10:26:22  dkrajzew
+** proj 4.5.0 added
+**
+** Revision 1.2  2005/02/04 19:27:58  fwarmerdam
+** Added link to reference info.
 **
 ** Revision 1.1  2004/10/20 17:04:00  fwarmerdam
 ** New

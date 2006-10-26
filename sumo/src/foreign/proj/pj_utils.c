@@ -29,8 +29,12 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:29  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.4  2005/07/06 14:04:09  fwarmerdam
+ * Improved precision of es encoding for pj_latlong_from_proj() per:
+ *   http://bugzilla.remotesensing.org/show_bug.cgi?id=881
  *
  * Revision 1.3  2002/12/14 20:14:00  warmerda
  * added pj_is_geocent, added +pm support to pj_get_def
@@ -118,7 +122,7 @@ PJ *pj_latlong_from_proj( PJ *pj_in )
             sprintf( defn+strlen(defn), " +f=%s",
                      pj_param(pj_in->params,"sf").s );
         else
-            sprintf( defn+strlen(defn), " +es=%.4f",
+            sprintf( defn+strlen(defn), " +es=%.16g",
                      pj_in->es );
     }
     else

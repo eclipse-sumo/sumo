@@ -29,8 +29,8 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
  *
  * Revision 1.3  2002/12/14 19:37:29  warmerda
  * updated headers

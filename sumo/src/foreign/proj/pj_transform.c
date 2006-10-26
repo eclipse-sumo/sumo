@@ -30,8 +30,32 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.20  2006/10/12 21:04:39  fwarmerdam
+ * Added experimental +lon_wrap argument to set a "center point" for
+ * longitude wrapping of longitude values coming out of pj_transform().
+ *
+ * Revision 1.19  2006/05/10 19:23:47  fwarmerdam
+ * Don't apply to_meter in pj_transform() if the value is HUGE_VAL.
+ *
+ * Revision 1.18  2006/05/01 21:13:54  fwarmerdam
+ * make out of range errors in geodetic to geocentric a transient error
+ *
+ * Revision 1.17  2006/03/20 17:54:34  fwarmerdam
+ * pj_geodetic_to_geocentric returns -14 now for lat out of range
+ *
+ * Revision 1.16  2006/02/17 02:26:14  fwarmerdam
+ * ERANGE/EDOM treated as transient errors
+ *
+ * Revision 1.15  2005/12/04 14:47:37  fwarmerdam
+ * use symbolic names as per patch from Martin Vermeer
+ *
+ * Revision 1.14  2004/11/05 06:05:11  fwarmerdam
+ * Fixed pj_geocentric_to_geodetic() to not try and process HUGE_VAL values
+ * (those that have failed some previous transform step).  Related to bug:5B
+ *     http://bugzilla.remotesensing.org/show_bug.cgi?id=642
  *
  * Revision 1.13  2004/10/25 15:34:36  fwarmerdam
  * make names of geodetic funcs from geotrans unique
@@ -162,8 +186,11 @@ int pj_transform( PJ *srcdefn, PJ *dstdefn, long point_count, int point_offset,
         {
             for( i = 0; i < point_count; i++ )
             {
-                x[point_offset*i] *= srcdefn->to_meter;
-                y[point_offset*i] *= srcdefn->to_meter;
+                if( x[point_offset*i] != HUGE_VAL )
+                {
+                    x[point_offset*i] *= srcdefn->to_meter;
+                    y[point_offset*i] *= srcdefn->to_meter;
+                }
             }
         }
 
@@ -204,8 +231,9 @@ int pj_transform( PJ *srcdefn, PJ *dstdefn, long point_count, int point_offset,
             geodetic_loc = pj_inv( projected_loc, srcdefn );
             if( pj_errno != 0 )
             {
-                if( pj_errno > 0 || pj_errno < -44 || point_count == 1
-                    || transient_error[-pj_errno] == 0 )
+                if( (pj_errno != 33 /*EDOM*/ && pj_errno != 34 /*ERANGE*/ )
+                    && (pj_errno > 0 || pj_errno < -44 || point_count == 1
+                        || transient_error[-pj_errno] == 0 ) )
                     return pj_errno;
                 else
                 {
@@ -299,8 +327,9 @@ int pj_transform( PJ *srcdefn, PJ *dstdefn, long point_count, int point_offset,
             projected_loc = pj_fwd( geodetic_loc, dstdefn );
             if( pj_errno != 0 )
             {
-                if( pj_errno > 0 || pj_errno < -44 || point_count == 1
-                    || transient_error[-pj_errno] == 0 )
+                if( (pj_errno != 33 /*EDOM*/ && pj_errno != 34 /*ERANGE*/ )
+                    && (pj_errno > 0 || pj_errno < -44 || point_count == 1
+                        || transient_error[-pj_errno] == 0 ) )
                     return pj_errno;
                 else
                 {
@@ -311,6 +340,24 @@ int pj_transform( PJ *srcdefn, PJ *dstdefn, long point_count, int point_offset,
 
             x[point_offset*i] = projected_loc.u;
             y[point_offset*i] = projected_loc.v;
+        }
+    }
+
+/* -------------------------------------------------------------------- */
+/*      If a wrapping center other than 0 is provided, rewrap around    */
+/*      the suggested center (for latlong coordinate systems only).     */
+/* -------------------------------------------------------------------- */
+    else if( dstdefn->is_latlong && dstdefn->long_wrap_center != 0 )
+    {
+        for( i = 0; i < point_count; i++ )
+        {
+            if( x[point_offset*i] == HUGE_VAL )
+                continue;
+
+            while( x[point_offset*i] < dstdefn->long_wrap_center - HALFPI )
+                x[point_offset*i] += PI;
+            while( x[point_offset*i] > dstdefn->long_wrap_center + HALFPI )
+                x[point_offset*i] -= PI;
         }
     }
 
@@ -329,6 +376,8 @@ int pj_geodetic_to_geocentric( double a, double es,
     double b;
     int    i;
 
+    pj_errno = 0;
+
     if( es == 0.0 )
         b = a;
     else
@@ -344,15 +393,19 @@ int pj_geodetic_to_geocentric( double a, double es,
     {
         long io = i * point_offset;
 
+        if( x[io] == HUGE_VAL  )
+            continue;
+
         if( pj_Convert_Geodetic_To_Geocentric( y[io], x[io], z[io],
-                                            x+io, y+io, z+io ) != 0 )
+                                               x+io, y+io, z+io ) != 0 )
         {
-            pj_errno = PJD_ERR_GEOCENTRIC;
-            return PJD_ERR_GEOCENTRIC;
+            pj_errno = -14;
+            x[io] = y[io] = HUGE_VAL;
+            /* but keep processing points! */
         }
     }
 
-    return 0;
+    return pj_errno;
 }
 
 /************************************************************************/
@@ -460,9 +513,9 @@ int pj_geocentric_to_wgs84( PJ *defn,
             if( x[io] == HUGE_VAL )
                 continue;
 
-            x[io] = x[io] + defn->datum_params[0];
-            y[io] = y[io] + defn->datum_params[1];
-            z[io] = z[io] + defn->datum_params[2];
+            x[io] = x[io] + Dx_BF;
+            y[io] = y[io] + Dy_BF;
+            z[io] = z[io] + Dz_BF;
         }
     }
     else if( defn->datum_type == PJD_7PARAM )
@@ -510,9 +563,9 @@ int pj_geocentric_from_wgs84( PJ *defn,
             if( x[io] == HUGE_VAL )
                 continue;
 
-            x[io] = x[io] - defn->datum_params[0];
-            y[io] = y[io] - defn->datum_params[1];
-            z[io] = z[io] - defn->datum_params[2];
+            x[io] = x[io] - Dx_BF;
+            y[io] = y[io] - Dy_BF;
+            z[io] = z[io] - Dz_BF;
         }
     }
     else if( defn->datum_type == PJD_7PARAM )
@@ -575,7 +628,7 @@ int pj_datum_transform( PJ *srcdefn, PJ *dstdefn,
         z_is_temp = TRUE;
     }
 
-#define CHECK_RETURN {if( pj_errno != 0 ) { if( z_is_temp ) pj_dalloc(z); return pj_errno; }}
+#define CHECK_RETURN {if( pj_errno != 0 && (pj_errno > 0 || transient_error[-pj_errno] == 0) ) { if( z_is_temp ) pj_dalloc(z); return pj_errno; }}
 
 /* -------------------------------------------------------------------- */
 /*	If this datum requires grid shifts, then apply it to geodetic   */
@@ -588,13 +641,13 @@ int pj_datum_transform( PJ *srcdefn, PJ *dstdefn,
         CHECK_RETURN;
 
         src_a = SRS_WGS84_SEMIMAJOR;
-        src_es = 0.006694379990;
+        src_es = SRS_WGS84_ESQUARED;
     }
 
     if( dstdefn->datum_type == PJD_GRIDSHIFT )
     {
         dst_a = SRS_WGS84_SEMIMAJOR;
-        dst_es = 0.006694379990;
+        dst_es = SRS_WGS84_ESQUARED;
     }
 
 /* ==================================================================== */

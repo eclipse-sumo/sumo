@@ -28,8 +28,11 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:29  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.14  2006/04/20 04:19:59  fwarmerdam
+ * updated version
  *
  * Revision 1.13  2004/10/30 02:33:47  fwarmerdam
  * Updated release version.
@@ -86,7 +89,7 @@ extern "C" {
 #endif
 
 /* Try to update this every version! */
-#define PJ_VERSION 449
+#define PJ_VERSION 450
 
 extern char const pj_release[]; /* global release id string */
 

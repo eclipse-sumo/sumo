@@ -28,8 +28,8 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:21  dkrajzew
+ * proj 4.5.0 added
  *
  * Revision 1.4  2003/08/18 15:21:23  warmerda
  * fixed initialization of en variable

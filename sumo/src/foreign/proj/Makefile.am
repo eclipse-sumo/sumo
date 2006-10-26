@@ -10,7 +10,7 @@ libproj_a_SOURCES = \
 	PJ_nsper.c PJ_nzmg.c PJ_ortho.c PJ_stere.c PJ_sterea.c \
 	PJ_aea.c PJ_bipc.c PJ_bonne.c PJ_eqdc.c \
 	PJ_imw_p.c PJ_krovak.c PJ_lcc.c PJ_mpoly.c PJ_poly.c \
-	PJ_rpoly.c PJ_sconics.c \
+	PJ_rpoly.c PJ_sconics.c proj_rouss.c \
 	PJ_cass.c PJ_cc.c PJ_cea.c PJ_eqc.c \
 	PJ_gall.c PJ_labrd.c PJ_lsat.c PJ_merc.c \
 	PJ_mill.c PJ_ocea.c PJ_omerc.c PJ_somerc.c \
@@ -33,7 +33,7 @@ libproj_a_SOURCES = \
 	biveval.c dmstor.c mk_cheby.c pj_auth.c \
 	pj_deriv.c pj_ell_set.c pj_ellps.c pj_errno.c \
 	pj_factors.c pj_fwd.c pj_init.c pj_inv.c \
-	pj_list.c pj_malloc.c pj_mlfn.c pj_msfn.c \
+	pj_list.c pj_malloc.c pj_mlfn.c pj_msfn.c proj_mdist.c \
 	pj_open_lib.c pj_param.c pj_phi2.c pj_pr_list.c \
 	pj_qsfn.c pj_strerrno.c pj_tsfn.c pj_units.c \
 	pj_zpoly1.c rtodms.c vector1.c pj_release.c pj_gauss.c \

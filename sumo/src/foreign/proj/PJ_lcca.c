@@ -1,8 +1,8 @@
 static const char RCS_ID[] = "$Id$";
 /* PROJ.4 Cartographic Projection System -- Revision Log:
 **$Log$
-**Revision 1.1  2006/03/08 13:02:28  dkrajzew
-**some further work on converting geo-coordinates
+**Revision 1.2  2006/10/26 10:26:22  dkrajzew
+**proj 4.5.0 added
 **
 **Revision 1.1  2003/03/04 02:59:41  warmerda
 **New

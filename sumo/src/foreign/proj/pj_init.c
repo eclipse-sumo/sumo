@@ -30,8 +30,15 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:22  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.18  2006/10/12 21:04:39  fwarmerdam
+ * Added experimental +lon_wrap argument to set a "center point" for
+ * longitude wrapping of longitude values coming out of pj_transform().
+ *
+ * Revision 1.17  2006/09/22 23:06:24  fwarmerdam
+ * remote static start variable in pj_init (bug 1283)
  *
  * Revision 1.16  2004/09/08 15:23:37  warmerda
  * added new error for unknown prime meridians
@@ -71,14 +78,13 @@
 
 PJ_CVSID("$Id$");
 
-static paralist *start;
 extern FILE *pj_open_lib(char *, char *);
 
 /************************************************************************/
 /*                              get_opt()                               */
 /************************************************************************/
 static paralist *
-get_opt(FILE *fid, char *name, paralist *next) {
+get_opt(paralist **start, FILE *fid, char *name, paralist *next) {
     char sword[302], *word = sword+1;
     int first = 1, len, c;
 
@@ -95,16 +101,16 @@ get_opt(FILE *fid, char *name, paralist *next) {
                 while((c = fgetc(fid)) != EOF && c != '\n') ;
                 break;
             }
-        } else if (!first && !pj_param(start, sword).i) {
+        } else if (!first && !pj_param(*start, sword).i) {
             /* don't default ellipse if datum, ellps or any earth model
                information is set. */
             if( strncmp(word,"ellps=",6) != 0
-                || (!pj_param(start, "tdatum").i
-                    && !pj_param(start, "tellps").i
-                    && !pj_param(start, "ta").i
-                    && !pj_param(start, "tb").i
-                    && !pj_param(start, "trf").i
-                    && !pj_param(start, "tf").i) )
+                || (!pj_param(*start, "tdatum").i
+                    && !pj_param(*start, "tellps").i
+                    && !pj_param(*start, "ta").i
+                    && !pj_param(*start, "tb").i
+                    && !pj_param(*start, "trf").i
+                    && !pj_param(*start, "tf").i) )
             {
                 next = next->next = pj_mkparam(word);
             }
@@ -120,13 +126,13 @@ get_opt(FILE *fid, char *name, paralist *next) {
 /*                            get_defaults()                            */
 /************************************************************************/
 static paralist *
-get_defaults(paralist *next, char *name) {
+get_defaults(paralist **start, paralist *next, char *name) {
 	FILE *fid;
 
 	if (fid = pj_open_lib("proj_def.dat", "rt")) {
-		next = get_opt(fid, "general", next);
+		next = get_opt(start, fid, "general", next);
 		rewind(fid);
-		next = get_opt(fid, name, next);
+		next = get_opt(start, fid, name, next);
 		(void)fclose(fid);
 	}
 	if (errno)
@@ -138,7 +144,7 @@ get_defaults(paralist *next, char *name) {
 /*                              get_init()                              */
 /************************************************************************/
 static paralist *
-get_init(paralist *next, char *name) {
+get_init(paralist **start, paralist *next, char *name) {
 	char fname[MAX_PATH_FILENAME+ID_TAG_MAX+3], *opt;
 	FILE *fid;
 
@@ -147,7 +153,7 @@ get_init(paralist *next, char *name) {
 		*opt++ = '\0';
 	else { pj_errno = -3; return(0); }
 	if (fid = pj_open_lib(fname, "rt"))
-		next = get_opt(fid, opt, next);
+		next = get_opt(start, fid, opt, next);
 	else
 		return(0);
 	(void)fclose(fid);
@@ -228,6 +234,7 @@ pj_init_plus( const char *definition )
 PJ *
 pj_init(int argc, char **argv) {
 	char *s, *name;
+        paralist *start = NULL;
 	PJ *(*proj)(PJ *);
 	paralist *curr;
 	int i;
@@ -249,7 +256,7 @@ pj_init(int argc, char **argv) {
 	if (pj_param(start, "tinit").i) {
 		paralist *last = curr;
 
-		if (!(curr = get_init(curr, pj_param(start, "sinit").s)))
+		if (!(curr = get_init(&start, curr, pj_param(start, "sinit").s)))
 			goto bum_call;
 		if (curr == last) { pj_errno = -2; goto bum_call; }
 	}
@@ -262,7 +269,7 @@ pj_init(int argc, char **argv) {
 
 	/* set defaults, unless inhibited */
 	if (!pj_param(start, "bno_defs").i)
-		curr = get_defaults(curr, name);
+		curr = get_defaults(&start, curr, name);
 	proj = (PJ *(*)(PJ *)) pj_list[i].proj;
 
 	/* allocate projection structure */
@@ -270,6 +277,7 @@ pj_init(int argc, char **argv) {
 	PIN->params = start;
         PIN->is_latlong = 0;
         PIN->is_geocent = 0;
+        PIN->long_wrap_center = 0.0;
 
         /* set datum parameters */
         if (pj_datum_set(start, PIN)) goto bum_call;
@@ -299,6 +307,9 @@ pj_init(int argc, char **argv) {
 
 	/* over-ranging flag */
 	PIN->over = pj_param(start, "bover").i;
+
+	/* longitude center for wrapping */
+	PIN->long_wrap_center = pj_param(start, "rlon_wrap").f;
 
 	/* central meridian */
 	PIN->lam0=pj_param(start, "rlon_0").f;

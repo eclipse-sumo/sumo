@@ -20,7 +20,7 @@ static const char SCCSID[]="@(#)proj.c	4.12	95/09/23	GIE	REL";
 #endif
 /* ! TK 1999-02-13 */
 
-#define MAX_LINE 200
+#define MAX_LINE 1000
 #define MAX_PARGS 100
 #define PJ_INVERS(P) (P->inv ? 1 : 0)
 	static PJ

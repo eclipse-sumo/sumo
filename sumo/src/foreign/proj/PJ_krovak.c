@@ -30,8 +30,14 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:22  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.6  2006/09/14 13:10:50  fwarmerdam
+ * Add +czech flag to control reversal of signs (bug 1133,147)
+ *
+ * Revision 1.5  2006/03/30 01:22:48  fwarmerdam
+ * Removed win32 only debug hack.
  *
  * Revision 1.4  2002/12/15 22:31:04  warmerda
  * handle lon_0, k, and prime meridian properly
@@ -139,19 +145,11 @@ FORWARD(s_forward); /* spheroid */
 	xy.y = ro * cos(eps) / a;
 	xy.x = ro * sin(eps) / a;
 
-#ifdef DEBUG
-	strcpy(errmess,"a: ");
-	strcpy(tmp,"        ");
-	ltoa((long)(a*1000000000),tmp,10);
-	strcat(errmess,tmp);
-	strcat(errmess,"e2: ");
-	strcpy(tmp,"        ");
-	ltoa((long)(e2*1000000000),tmp,10);
-	strcat(errmess,tmp);
-
-	MessageBox(NULL, errmess, NULL, 0);
-#endif
-
+        if( !pj_param(P -> params, "tczech").i )
+	  {
+	    xy.y *= -1.0;
+	    xy.x *= -1.0;
+	  }
 
 	return (xy);
 }
@@ -201,6 +199,12 @@ INVERSE(s_inverse); /* spheroid */
 	xy0=xy.x;
 	xy.x=xy.y;
 	xy.y=xy0;
+
+        if( !pj_param(P -> params, "tczech").i )
+	  {
+	    xy.x *= -1.0;
+	    xy.y *= -1.0;
+	  }
 
 	ro = sqrt(xy.x * xy.x + xy.y * xy.y);
 	eps = atan2(xy.y, xy.x);

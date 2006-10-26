@@ -28,8 +28,14 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:21  dkrajzew
+ * proj 4.5.0 added
+ *
+ * Revision 1.12  2006/04/21 02:46:10  fwarmerdam
+ * fixed bogota direction
+ *
+ * Revision 1.11  2005/11/08 15:25:40  fwarmerdam
+ * added OSGB36 transformation
  *
  * Revision 1.10  2004/10/28 16:07:55  fwarmerdam
  * added pj_get_*_ref() accessors
@@ -89,6 +95,7 @@ C_NAMESPACE struct PJ_DATUMS pj_datums[] = {
 "hermannskogel", "towgs84=653.0,-212.0,449.0",  "bessel",  "Hermannskogel",
 "ire65",  "towgs84=482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",  "mod_airy",  "Ireland 1965",
 "nzgd49",    "towgs84=59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993", "intl", "New Zealand Geodetic Datum 1949",
+"OSGB36",    "towgs84=446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894", "airy", "Airy 1830",
 NULL,       NULL,                                    NULL,    NULL
 };
 
@@ -104,7 +111,7 @@ C_NAMESPACE struct PJ_PRIME_MERIDIANS pj_prime_meridians[] = {
     "greenwich", "0dE",
     "lisbon",    "9d07'54.862\"W",
     "paris",     "2d20'14.025\"E",
-    "bogota",    "74d04'51.3\"E",
+    "bogota",    "74d04'51.3\"W",
     "madrid",    "3d41'16.58\"W",
     "rome",      "12d27'8.4\"E",
     "bern",      "7d26'22.5\"E",

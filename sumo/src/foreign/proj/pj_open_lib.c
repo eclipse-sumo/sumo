@@ -31,8 +31,8 @@
  ******************************************************************************
  *
  * $Log$
- * Revision 1.1  2006/03/08 13:02:28  dkrajzew
- * some further work on converting geo-coordinates
+ * Revision 1.2  2006/10/26 10:26:23  dkrajzew
+ * proj 4.5.0 added
  *
  * Revision 1.6  2004/09/16 15:14:01  fwarmerdam
  * * src/pj_open_lib.c: added pj_set_searchpath() provided by Eric Miller.

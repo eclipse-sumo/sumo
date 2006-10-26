@@ -66,7 +66,6 @@ ENTRY1(eqdc, en)
 		double ml1, m1;
 
 		m1 = pj_msfn(sinphi, cosphi, P->es);
-		P->en = pj_enfn(P->es);
 		ml1 = pj_mlfn(P->phi1, sinphi, cosphi, P->en);
 		if (secant) { /* secant cone */
 			sinphi = sin(P->phi2);

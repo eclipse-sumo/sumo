@@ -2,10 +2,11 @@
 #ifndef lint
 static const char SCCSID[]="@(#)pj_strerrno.c	4.12   94/05/25 GIE REL";
 #endif
+#include "projects.h"
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
-#include <projects.h>
+
 	static char *
 pj_err_list[] = {
 	"no arguments in initialization list",	/*  -1 */

@@ -10,7 +10,7 @@ static const char SCCSID[]="@(#)nad2nad.c	4.5	94/02/15	GIE	REL";
 #include <projects.h>
 #include "emess.h"
 
-#define MAX_LINE 200
+#define MAX_LINE 1000
 #define MAX_PARGS 100
 #define PJ_INVERS(P) (P->inv ? 1 : 0)
 	static int
