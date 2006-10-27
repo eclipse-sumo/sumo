@@ -1,1 +1,1 @@
-SUBDIRS = cfg_templates examples
+SUBDIRS = add cfg_templates examples
