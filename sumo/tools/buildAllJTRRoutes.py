@@ -23,11 +23,15 @@ def getStructure(dir):
 # main
 files = getStructure("../data/examples")
 for file in files:
-	if(file.endswith(".jtr.cfg")):
-		print "--------------------------"
-		print "Executing " + file
-		print "--------------------------"
-		if(sys.platform=="win32"):
-			ret = os.system("..\\bin\\jtrrouter -v -c " + file)
-		else:
-			ret = os.system("../src/sumo-jtrrouter -v -c " + file)
+    if(file.endswith(".jtr.cfg")):
+        print "----------------------------------"
+        print "Runnning: " + file
+        if(sys.platform=="win32"):
+            (cin, cout) = os.popen4("..\\bin\\jtrrouter -v -c " + file)
+        else:
+            (cin, cout) = os.popen4("../src/sumo-jtrrouter -v -c " + file)
+        line = cout.readline()
+        while line:
+             print line[:-1]
+             line = cout.readline()
+        print "----------------------------------\n"

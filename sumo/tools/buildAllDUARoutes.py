@@ -23,11 +23,15 @@ def getStructure(dir):
 # main
 files = getStructure("../data/examples")
 for file in files:
-	if(file.endswith(".dua.cfg")):
-		print "--------------------------"
-		print "Executing " + file
-		print "--------------------------"
-		if(sys.platform=="win32"):
-			ret = os.system("..\\bin\\duarouter -v -c " + file)
-		else:
-			ret = os.system("../src/sumo-duarouter -v -c " + file)
+    if(file.endswith(".dua.cfg")):
+        print "----------------------------------"
+        print "Runnning: " + file
+        if(sys.platform=="win32"):
+            (cin, cout) = os.popen4("..\\bin\\duarouter -v -c " + file)
+        else:
+            (cin, cout) = os.popen4("../src/sumo-duarouter -v -c " + file)
+        line = cout.readline()
+        while line:
+             print line[:-1]
+             line = cout.readline()
+        print "----------------------------------\n"

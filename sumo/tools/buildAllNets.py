@@ -22,10 +22,16 @@ def getStructure(dir):
 
 # main
 files = getStructure("../data/examples")
-print sys.platform
 for file in files:
     if(file.endswith(".netc.cfg")):
+        print "----------------------------------"
+        print "Runnning: " + file
         if(sys.platform=="win32"):
-            ret = os.system("..\\bin\\netconvert -v -c " + file)
+            (cin, cout) = os.popen4("..\\bin\\netconvert -v -c " + file)
         else:
-            ret = os.system("../src/sumo-netconvert -v -c " + file)
+            (cin, cout) = os.popen4("../src/sumo-netconvert -v -c " + file)
+        line = cout.readline()
+        while line:
+             print line[:-1]
+             line = cout.readline()
+        print "----------------------------------\n"

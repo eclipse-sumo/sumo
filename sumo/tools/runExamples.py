@@ -23,8 +23,15 @@ def getStructure(dir):
 # main
 files = getStructure("../data/examples")
 for file in files:
-	if(file.endswith(".sumo.cfg")):
-		print "--------------------------"
-		print "Executing " + file
-		print "--------------------------"
-		ret = os.system("..\\bin\\sumo -v -c " + file)
+    if(file.endswith(".sumo.cfg")):
+        print "----------------------------------"
+        print "Runnning: " + file
+        if(sys.platform=="win32"):
+            (cin, cout) = os.popen4("..\\bin\\sumo -v -c " + file)
+        else:
+            (cin, cout) = os.popen4("../src/sumo -v -c " + file)
+        line = cout.readline()
+        while line:
+             print line[:-1]
+             line = cout.readline()
+        print "----------------------------------\n"

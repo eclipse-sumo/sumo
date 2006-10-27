@@ -1,6 +1,6 @@
 <emitter>
 	<route-interval begin="0" end="86400">
-		<routedistelem routeid="def" probability="1"/>
+		<routedistelem id="def" probability="1"/>
 	</route-interval>
 
 	<emit id="0" time="0" speed="0" route="def" vehtype="SUMO_DEFAULT_TYPE"/>
