@@ -404,8 +404,8 @@
 
 
    <junction id=":mid_9_0" type="internal" x="1000.00" y="19.11">
-      <inclanes>:mid_1_0 middle1_0</inclanes>
-      <intlanes>:mid_7_0 :mid_8_0</intlanes>
+      <inclanes>:mid_1_0</inclanes>
+      <intlanes></intlanes>
       <shape></shape>
    </junction>
 

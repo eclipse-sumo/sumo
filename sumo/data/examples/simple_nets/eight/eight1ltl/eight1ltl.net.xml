@@ -557,10 +557,10 @@
       <subkey>0</subkey>
       <phaseno>8</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="0001111100001111" brake="1110110011111110" yellow="0000000000000000"/>
-      <phase duration="12" phase="0000110000001110" brake="1111111111111111" yellow="0001001100000001"/>
-      <phase duration="6" phase="0000110000001110" brake="1111001111110001" yellow="0000000000000000"/>
-      <phase duration="12" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001110"/>
+      <phase duration="31" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/>
+      <phase duration="12" phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/>
+      <phase duration="6" phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/>
+      <phase duration="12" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/>
       <phase duration="31" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
       <phase duration="12" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/>
       <phase duration="6" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/>
@@ -612,8 +612,8 @@
 
 
    <junction id=":4_16_0" type="internal" x="1000.00" y="999.92">
-      <inclanes>:4_2_0 b1_0</inclanes>
-      <intlanes>:4_13_0 :4_14_0</intlanes>
+      <inclanes>:4_2_0 a3_0</inclanes>
+      <intlanes>:4_8_0 :4_9_0</intlanes>
       <shape></shape>
    </junction>
 
