@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.29  2006/10/31 12:19:39  dkrajzew
+// warnings removed
+//
 // Revision 1.28  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -176,6 +179,13 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
