@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/10/31 12:20:51  dkrajzew
+// code beautifying
+//
 // Revision 1.27  2006/09/18 10:07:54  dkrajzew
 // added vehicle class support to microsim
 //
@@ -345,9 +348,6 @@ MSRouteHandler::openRoute(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a route-object.");
         return;
-    } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("route", "(ID_UNKNOWN!)"));
-        return;
     }
     // get the information whether the route shall be deleted after
     // being passed
@@ -453,7 +453,8 @@ MSRouteHandler::closeVehicle()
     // get the vehicle's type
     MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
     if(vtype==0) {
-        throw XMLIdNotKnownException("vtype", myCurrentVType);
+        MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        throw ProcessError();
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle
@@ -464,7 +465,8 @@ MSRouteHandler::closeVehicle()
     }
     if(route==0) {
         // nothing found? -> error
-        throw XMLIdNotKnownException("route", myCurrentRouteName);
+        MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        throw ProcessError();
     }
     //
     MSVehicle *vehicle = 0;

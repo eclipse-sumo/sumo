@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.76  2006/10/31 12:22:14  dkrajzew
+// code beautifying
+//
 // Revision 1.75  2006/10/25 12:22:42  dkrajzew
 // updated
 //
@@ -1490,17 +1493,6 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
     //  a virtual edge is used as a replacement for a real edge from now on
     //  it shall ollow to divide the existing lanes on this structure without
     //  regarding the structure of outgoing edges
-    // the next line is absolutely unneeded and false;
-    //  Still, I encountered a conversion from 7,0000000000001400000000000028 to
-    //  an int yielding in 6; This is by far a worse problem and I hope to manage
-    //  it by adding a small offset...
-    // Sorry, Daniel Krajzewicz
-/*
-    SUMOReal g4t = (sumResulting / minResulting);
-    int rer = int(g4t);
-    SUMOReal f1 = floor(g4t);
-    SUMOReal f2 = ceil(g4t);
-*/
     sumResulting += minResulting / 2;
     size_t noVirtual = (size_t) (sumResulting / minResulting);
     // compute the transition from virtual to real edges

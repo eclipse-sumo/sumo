@@ -22,9 +22,11 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
+# Revision 1.2  2006/10/31 12:24:59  dkrajzew
+# code beautifying
+#
 # Revision 1.1  2006/02/13 07:42:09  dkrajzew
 # some tools for trip manipulation added
-#
 #
 if(!defined($ARGV[2])) {
 	print "Syntax-Error.\n";

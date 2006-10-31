@@ -20,9 +20,11 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
+# Revision 1.2  2006/10/31 12:24:58  dkrajzew
+# code beautifying
+#
 # Revision 1.1  2006/01/19 08:01:06  dkrajzew
 # tools rechecked
-#
 #
 
 sub writeRouteConf($)

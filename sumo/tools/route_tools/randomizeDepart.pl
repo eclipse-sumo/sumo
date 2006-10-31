@@ -21,9 +21,11 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
+# Revision 1.2  2006/10/31 12:24:59  dkrajzew
+# code beautifying
+#
 # Revision 1.1  2006/01/09 13:46:12  dkrajzew
 # new scripts added
-#
 #
 
 if(!defined($ARGV[1])) {

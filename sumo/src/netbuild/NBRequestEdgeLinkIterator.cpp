@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/10/31 12:22:14  dkrajzew
+// code beautifying
+//
 // Revision 1.17  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -223,7 +226,8 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
 
 
 void
-NBRequestEdgeLinkIterator::computeValidLinks() {
+NBRequestEdgeLinkIterator::computeValidLinks()
+{
     for(size_t i=0; i<_fromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
         if(_valid.test(i)==1) {
             _positions.push_back(i);

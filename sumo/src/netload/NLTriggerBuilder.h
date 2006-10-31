@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/10/31 12:22:14  dkrajzew
+// code beautifying
+//
 // Revision 1.14  2006/07/05 11:45:43  ericnicolay
 // change code in buildVehicleActor
 //
@@ -167,7 +170,7 @@ protected:
         const std::string &id, const std::vector<std::string> &lines,
         MSLane *lane, SUMOReal frompos, SUMOReal topos);
 
-    /// builds a rerouter
+    /// builds an emitter
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
         const std::string &id, std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &file);

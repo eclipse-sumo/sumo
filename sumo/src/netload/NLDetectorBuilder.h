@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.25  2006/10/31 12:22:14  dkrajzew
+// code beautifying
+//
 // Revision 1.24  2006/08/01 05:54:35  dkrajzew
 // E3 detectors refactored partially
 //
@@ -277,12 +280,6 @@ public:
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
         MSLane *lane, SUMOReal pos, int splInterval);
-
-#ifdef HAVE_MESOSIM
-    /// Creates the instance of an induct loop (overwritten by gui version)
-    virtual MEInductLoop *createMEInductLoop(const std::string &id,
-        MESegment *s, SUMOReal pos, int splInterval);
-#endif
 
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,

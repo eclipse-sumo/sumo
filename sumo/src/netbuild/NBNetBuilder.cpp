@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/10/31 12:22:14  dkrajzew
+// code beautifying
+//
 // Revision 1.40  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -197,7 +200,7 @@ bool
 NBNetBuilder::removeDummyEdges(int &step)
 {
     // Removes edges that are connecting the same node
-    inform(step, "Removing dummy edges ");
+    inform(step, "Removing dummy edges");
     return myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
 }
 
