@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2006/10/31 12:25:24  dkrajzew
+// debugging
+//
 // Revision 1.12  2006/05/15 05:59:33  dkrajzew
 // added consective process messages
 //
@@ -215,6 +218,9 @@ private:
     /// The instance to handle normal messages
     static MsgHandler *myMessageInstance;
 
+    /// Information whether a process information is printed to cout
+    static bool myAmProcessingProcess;
+
 private:
     /// The type of the instance
     MsgType myType;
@@ -238,8 +244,8 @@ private:
         The lock will not be deleted */
     AbstractMutex *myLock;
 
-    /// Information whether a process information was sent as last
-    bool myAmProcessingProcess;
+    // Information whether a process information was sent as last
+    //bool myAmProcessingProcess;
 
 private:
     /** invalid copy constructor */

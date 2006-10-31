@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/10/31 12:25:27  dkrajzew
+// debugging
+//
 // Revision 1.11  2006/10/05 09:47:40  dkrajzew
 // debugging options parsing
 //
@@ -232,13 +235,21 @@ OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
             } else {
                 // check whether the parameter comes directly after the switch
                 //  and process if so
-                if(arg1[i+1]!=0) {
+                if(arg1[i+1]!=0&&arg1[i+1]!='=') {
                     ok &= processNonBooleanSingleSwitch(oc, arg1+i);
                 // process parameter following after a space
                 } else {
-                    ok &= oc->set(convert(arg1[i]), convert(arg2));
-                    // option name and attribute were in two arguments
-                    return 2;
+                    if(arg1[i+1]=='=') {
+                        string val = arg1;
+                        val = val.substr(i+2);
+                        ok &= oc->set(convert(arg1[i]), val);
+                        // option name and attribute were in one argument
+                        return 1;
+                    } else {
+                        ok &= oc->set(convert(arg1[i]), convert(arg2));
+                        // option name and attribute were in two arguments
+                        return 2;
+                    }
                 }
             }
         }

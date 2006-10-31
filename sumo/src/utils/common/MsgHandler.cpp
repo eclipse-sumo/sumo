@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2006/10/31 12:25:22  dkrajzew
+// debugging
+//
 // Revision 1.12  2006/05/15 05:59:33  dkrajzew
 // added consective process messages
 //
@@ -115,6 +118,7 @@ bool gSuppressMessages = false;
 MsgHandler *MsgHandler::myErrorInstance = 0;
 MsgHandler *MsgHandler::myWarningInstance = 0;
 MsgHandler *MsgHandler::myMessageInstance = 0;
+bool MsgHandler::myAmProcessingProcess = false;
 
 
 /* =========================================================================
@@ -366,7 +370,7 @@ MsgHandler::cleanupOnEnd()
 
 MsgHandler::MsgHandler(MsgType type)
     : myType(type), myWasInformed(false), myReport2COUT(true),
-    myReport2CERR(false), myLock(0), myAmProcessingProcess(false)
+    myReport2CERR(false), myLock(0)
 
 {
 }
