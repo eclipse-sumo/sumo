@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/10/31 12:19:17  dkrajzew
+// rerouter debugged
+//
 // Revision 1.13  2006/10/12 08:06:35  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //
@@ -204,7 +207,7 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
     }
     // maybe by giving probabilities of new destinations
     if(name=="dest_prob_reroute") {
-        string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
+        string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *to = MSEdge::dictionary(dest);
         if(to==0) {
             MsgHandler::getErrorInstance()->inform("Could not find edge '" + dest + "' to reroute in '" + _file + "'.");
@@ -228,19 +231,21 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
     }
     // maybe by closing
     if(name=="closing_reroute") {
-        string toid = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        MSEdge *to = MSEdge::dictionary(toid);
-        if(to==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find edge '" + toid + "' to reroute in '" + _file + "'.");
+        string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        MSEdge *closed = MSEdge::dictionary(closed_id);
+        if(closed==0) {
+            MsgHandler::getErrorInstance()->inform("Could not find edge '" + closed_id + "' to reroute in '" + _file + "'.");
             return;
         }
-        myCurrentClosed.push_back(to);
+        myCurrentClosed.push_back(closed);
+        /*
         string destid = getStringSecure(attrs, SUMO_ATTR_TO, "");
         MSEdge *dest = MSEdge::dictionary(destid);
+        */
     }
     // maybe by giving probabilities of new routes
     if(name=="route_prob_reroute") {
-        string routeID = getStringSecure(attrs, "route", "");
+        string routeID = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSRoute *route = MSRoute::dictionary(routeID);
         if(route==0) {
             MsgHandler::getErrorInstance()->inform("Could not find route '" + routeID + "' to reroute in '" + _file + "'.");
@@ -376,15 +381,15 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     // get rerouting params
     const MSTriggeredRerouter::RerouteInterval &rerouteDef = getCurrentReroute(time, veh);
     MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
-    // we will use the route if given rather than calling our own dijskatra...
+    // we will use the route if given rather than calling our own dijsktra...
     if(newRoute!=0) {
         veh.replaceRoute(newRoute, time);
         return;
     }
     // ok, try using a new destination
-    MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : 0;
+    const MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
     if(newEdge==0) {
-        WRITE_WARNING("Empty rerouting definition for rerouter '" + getID() + "' in time " + toString(time) + ".");
+        newEdge = lastEdge;
     }
 
     // we have a new destination, let's replace the vehicle route
@@ -397,7 +402,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
             SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
             router.prohibit(rerouteDef.closed);
             std::vector<const MSEdge*> edges;
-			router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+			router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
             MSRoute *rep = new MSRoute(nid, edges, true);
             if(!MSRoute::dictionary(nid, rep)) {
                 cout << "Error: Could not insert route ''" << endl;
@@ -410,7 +415,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
         SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
         router.prohibit(rerouteDef.closed);
 		MSEdgeVector edges;
-		router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+		router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         veh.replaceRoute(edges, time);
     }
 }
