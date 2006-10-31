@@ -1,5 +1,6 @@
 SUMO sumo
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ Version 0.9.5
  A microscopic road traffic simulation.
 
 Usage: sumo(.exe) [OPTION]*
@@ -13,7 +14,7 @@ Examples:
 
 Options:
  Input files:
-   -n, --net-file FILE[;FILE]*     FILE is a network file
+   -n, --net-file FILE             FILE is a network file
    -r, --route-files FILE[;FILE]*  FILE is a route file
    -a, --additional-files FILE...  FILE is a detector file
    -c, --configuration FILE        FILE will be used as configuration
@@ -41,10 +42,8 @@ Options:
                                     of lane-based net loads
                                    To use in c. with --lanedump-basename
 
-   --dump-begin UINT[;UINT]*       List of begin time steps dump data will
-                                    be written
-   --dump-end UINT[;UINT]*         List of end time steps dump data will
-                                    be written
+   --dump-begins UINT[;UINT]*      Begin time steps dump for writing dumps
+   --dump-ends UINT[;UINT]*        End time steps dump for writing dumps
 
    --netstate-dump  FILE           FILE is the raw output destination file
    --dump-empty-edges              Forces SUMO to write edges in dump even
@@ -89,3 +88,7 @@ Options:
    -p, --print-options             Prints option values before processing
    -?, --help                      This screen
    --version                       Prints the program version
+
+
+ RemoteServer Options:
+   --remote-port INT               Server port for remote controlled simulation runs
