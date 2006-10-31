@@ -187,8 +187,13 @@
         <step>
           <para>Download the sources from <ulink
           url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
-          The cvs-server is <literal>cvs.sourceforge.net</literal>, the module
-          name is <literal>sumo</literal>.</para>
+          The cvs-server is <literal>sumo.cvs.sourceforge.net</literal>, the
+          module name is <literal>sumo</literal>. An example session could
+          be:</para>
+
+          <screen>cvs -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo login
+cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo
+co -P sumo</screen>
         </step>
 
         <step>
@@ -222,8 +227,8 @@
         </step>
 
         <step>
-          <para>Execute <command>make -f admin/Makefile.common cvs</command>.
-          This will create the <filename>configure</filename>-script from
+          <para>Execute <command>make -f Makefile.cvs</command>. This will
+          create the <filename>configure</filename>-script from
           <filename>configure.in</filename> and
           <filename>Makefile.in</filename> for each
           <filename>Makefile.am</filename> by calling the GNU

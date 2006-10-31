@@ -811,8 +811,8 @@
 
                 <listitem>
                   <para><sgmltag>traffic_light</sgmltag>: The junction is
-                  controlled by a traffic light. (# TBD ... further
-                  types?#)</para>
+                  controlled by a traffic light. <remark>(TBD: would further
+                  types make sense?)</remark></para>
                 </listitem>
               </itemizedlist>
             </listitem>
@@ -1192,8 +1192,10 @@
           </itemizedlist>
 
           <para>Both the allowed and the disallowed attributes assume to get a
-          list of vehicle class names devided by a ';'. (#TBD: For further
-          information on vehicle classes see "!!!".#)</para>
+          list of vehicle class names devided by a ';'. See "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vclasses">Vehicle
+          Classes</ulink>" for further information about allowed vehicle
+          classes and their usage.</para>
 
           <caution>
             <para>This is a new feature. Its usage and the way it works will
@@ -6263,9 +6265,9 @@
         </itemizedlist>
 
         <para>Given a network and the list of detectors,
-        <application>DFROUTER</application> assigns types to detectors (#TBD:
-        reference#) and saves the so extended list into a file if the option
-        <option>--detectors-output
+        <application>DFROUTER</application> assigns types to detectors
+        <remark>(TBD: add a reference)</remark> and saves the so extended list
+        into a file if the option <option>--detectors-output
         <replaceable>&lt;DETECTOR_OUTPUT_FILE&gt;</replaceable></option> is
         given. This list looks like the input described above except that an
         aditional attribute is given for each detector,
@@ -6361,11 +6363,11 @@
         <application>DFROUTER</application> to also build routes that start at
         in-between detectors. The option <option>--all-end-follower</option>
         will make the routes not end at the edge the source detector is placed
-        on, but on all edges that follow this edge (#TBD: spread uniformly#)
-        (#TBD: recheck this#). <option>--keep-unfound-ends</option> will also
-        keep those routes where a sink detector could not be found for what
-        may be the case if the network is not completely covered with
-        induction loops.</para>
+        on, but on all edges that follow this edge <remark>(TBD: recheck
+        this)</remark>. <option>--keep-unfound-ends</option> will also keep
+        those routes where a sink detector could not be found for what may be
+        the case if the network is not completely covered with induction
+        loops.</para>
 
         <para>Specific options:</para>
 
@@ -6513,9 +6515,9 @@ myDet1;0;10;2;100;80
         <replaceable>&lt;TIME_OFFSET&gt;</replaceable> is meant to be an int
         representing seconds.</para>
 
-        <para>(#TBD verify: how long is the time period, are speeds given in
-        m/s, is qPKW/qLKW right, does qPKW/qLKW describe the amount within
-        this period or within one hour#)</para>
+        <para><remark>(TBD: verify: how long is the time period, are speeds
+        given in m/s, is qPKW/qLKW right, does qPKW/qLKW describe the amount
+        within this period or within one hour)</remark></para>
 
         <para>Specific options:</para>
 
@@ -6577,12 +6579,12 @@ myDet1;0;10;2;100;80
         have routes computed using the flows.</para>
 
         <para>As some approaches use a speed limit to avoid open-end boundary
-        problems (#see TBD#), the <application>DFROUTER</application> can
-        generate a list of speed triggers (see "<link
-        linkend="user_chp06-management-vss">Variable Speed Signs
-        (VSS)</link>") placed on the positions of sink detectors. The name to
-        save the declaration of these speed triggers into is given using the
-        option <option>--speed-trigger-output
+        problems <remark>(TBD add a reference)</remark>, the
+        <application>DFROUTER</application> can generate a list of speed
+        triggers (see "<link linkend="user_chp06-management-vss">Variable
+        Speed Signs (VSS)</link>") placed on the positions of sink detectors.
+        The name to save the declaration of these speed triggers into is given
+        using the option <option>--speed-trigger-output
         <replaceable>&lt;VSS_OUTPUT_FILE&gt;</replaceable></option>. The
         according speed trigger definitions will be written into files named
         "<filename>vss_<replaceable>&lt;DETECTOR_ID&gt;</replaceable>.def.xml</filename>"
@@ -6618,8 +6620,8 @@ myDet1;0;10;2;100;80
         detectors which are place 1m behind the real-life detector's
         position.</para>
 
-        <para>#TBD: check whether everything is placed into the proper
-        directory; check what's about PKWs/LKWs#</para>
+        <para><remark>(TBD: check whether everything is placed into the proper
+        directory; check what's about PKWs/LKWs)</remark></para>
 
         <variablelist>
           <varlistentry>
@@ -6760,6 +6762,9 @@ myDet1;0;10;2;100;80
       described</para>
 
       <para><option>--prune-random</option> is not tested and described</para>
+
+      <para>spread uniformly of <application>DFROUTER</application> is not
+      described</para>
     </sect1>
   </chapter>
 
@@ -7727,8 +7732,8 @@ myDet1;0;10;2;100;80
             </listitem>
 
             <listitem>
-              <para><sgmltag>noStops</sgmltag>: The number of recognized stops
-              (#TBD complete#)</para>
+              <para><sgmltag>noStops</sgmltag>: The number of recognized
+              stops</para>
             </listitem>
 
             <listitem>
@@ -8240,12 +8245,6 @@ myDet1;0;10;2;100;80
           </itemizedlist>
         </sect3>
       </sect2>
-
-      <sect2 id="user_chp06-output-command_line">
-        <title>Output to the Command Line</title>
-
-        <para>#TBD: describe#</para>
-      </sect2>
     </sect1>
 
     <sect1 id="user_chp06-vehicle_handling" revision="0.9.5">
@@ -8299,9 +8298,9 @@ myDet1;0;10;2;100;80
         input data. For such modelling attempt, you should place emitters at
         those positions on the network where the induction loops are located
         and convert the values retrieved from the induction loops to the
-        format emitters may read. (#TBD add references#) The format is
-        described below, together with some additional methods to ease
-        generation of emitter files. If you are working with such inputs
+        format emitters may read. <remark>(TBD add references)</remark> The
+        format is described below, together with some additional methods to
+        ease generation of emitter files. If you are working with such inputs
         extensively, you may be also interested in what the
         <application>DFROUTER</application> does (see "<link
         linkend="user_chp05-dfrouter">Using Detectors and DFROUTER</link>" for
@@ -8388,14 +8387,15 @@ myDet1;0;10;2;100;80
           named the vehicle types and the routes but did not define them. We
           can either define them within another additional file or within a
           route file but we have to ensure that they're loaded before the
-          emission definition is (#TBD see !!! on order#). Let's assume we
-          have done it. In this case, using such a definition we would emit
-          three vehicles, having the names "veh1", "veh2", and "veh3" as given
-          within the id-field, all being of type "my_type". All vehicles use
-          the same route, "my_route", and will start with a velocity of 0 at
-          the simulation seconds 0, 4, and 8. To summarize, a vehicle emission
-          within an Emitter definition is described as following:
-          <sgmltag>&lt;emit
+          emission definition is (see "<link
+          linkend="user_chp06-file_load_order">Using the Files in a correct
+          Way</link>" on loading order). Let's assume we have done it. In this
+          case, using such a definition we would emit three vehicles, having
+          the names "veh1", "veh2", and "veh3" as given within the id-field,
+          all being of type "my_type". All vehicles use the same route,
+          "my_route", and will start with a velocity of 0 at the simulation
+          seconds 0, 4, and 8. To summarize, a vehicle emission within an
+          Emitter definition is described as following: <sgmltag>&lt;emit
           [id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>"]
           [vehtype="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>"]
           time="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>"
@@ -8406,7 +8406,7 @@ myDet1;0;10;2;100;80
           <itemizedlist spacing="compact">
             <listitem>
               <para><sgmltag>id</sgmltag>: The id of the vehicle to
-              emit.</para>
+              emit</para>
             </listitem>
 
             <listitem>
@@ -8431,14 +8431,17 @@ myDet1;0;10;2;100;80
           </itemizedlist>
 
           <para>As you can see, several of the fields are marked as optional.
-          If no id is given, the id will be constructed automatically. (#TBD:
-          The vehicle will then have a name '). Also, the emission speed is
-          optional. (#TBD: If not given, the initial vehicle speed will be
-          !!!#). The following sections describe how one can omit explicite
-          attributes for vehicle type and route.</para>
-
-          <para>If the emission time lies before the simulation begin, the
-          vehicle will be discarded.</para>
+          If no id is given, the id will be constructed automatically. The
+          vehicle will then have a name made up from the emitter's id followed
+          by the time step the vehicle shall be emitted at and a running
+          number, all divided by a '_'
+          ("<replaceable>&lt;EMITTER_ID&gt;</replaceable>_<replaceable>&lt;DEPART&gt;</replaceable>_<replaceable>&lt;RUNNING&gt;</replaceable>").
+          Also, the emission speed is optional. If not given, the minimum of
+          the maximum speed allowed on the lane and the vehicle's maximum
+          velocity is used. If the emission time lies before the simulation
+          begin, the vehicle will be discarded. The following sections
+          describe how one can omit explicite attributes for vehicle type and
+          route.</para>
         </sect3>
 
         <sect3 id="user_chp06-vehicle_handling-emitter-routedist">
@@ -9034,7 +9037,7 @@ myDet1;0;10;2;100;80
 
         <para>Rerouter change the route of vehicles as soon as a vehicle moves
         on a specified edge. Although implemented earlier, were firstly
-        described and tested within version 0.9.4.</para>
+        described and tested within version 0.9.5.</para>
 
         <para>A rerouter is set into the simulated by adding the following
         line to an "additional file": <sgmltag>&lt;trigger
@@ -9077,49 +9080,440 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
-        <para>A rerouter may work in several different ways. Assume you would
-        give the following file as definition:</para>
+        <para>Each definition of what a rerouter shall do is embedded in an
+        interval definition which describes within which time period the
+        rerouter shall work. This is set up as following:</para>
 
         <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
-      <sgmltag>&lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>" [to="<replaceable>&lt;EDGE_ID&gt;</replaceable>"]/&gt;</sgmltag>
+      ... action description ...
    <sgmltag>&lt;/interval/&gt;</sgmltag>
 
    ... further intervals ...
 
 <sgmltag>&lt;/rerouter&gt;</sgmltag></programlisting>
 
-        <para>A "<sgmltag>closing_reroute</sgmltag>" forces the rerouter to
-        close the edge
-        <sgmltag><replaceable>&lt;EDGE_ID&gt;</replaceable></sgmltag>.
-        Vehicles which normally would pass this edge will get a new route as
-        soon as they reach one of the edges given in the
-        <sgmltag>objectid</sgmltag>-attribute of the rerouter's definition. If
-        you change the <sgmltag>probability</sgmltag>-attribute within the
-        rerouter's definition, only a part of the vehicles will be rerouted.
-        The optional "<sgmltag>to</sgmltag>"-edge will be set as the new
-        destination of the vehicle. If no new destination edge is given, the
-        vehicle will keep his previous destaintion. The values for a closing
-        reroute:</para>
+        <para>A rerouter may work in several different ways. Within a time
+        period you may close an edge, or assign new destinations or pregiven
+        routes to vehicles. The next subchapters will describe these
+        possibilities and how to describe them in detail.</para>
+
+        <para>Examples:</para>
+
+        <para>Recent changes:</para>
 
         <itemizedlist>
           <listitem>
-            <para><sgmltag>id</sgmltag>: the id of the closed edge</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>to</sgmltag>: the destination to use (edge)</para>
+            <para>A complete description of rerouters was added in version
+            0.9.5; in accordace, definitions of rerouters have changed</para>
           </listitem>
         </itemizedlist>
 
-        <para>#TBD: end#</para>
+        <sect3 id="user_chp06-management-vclasses-defs">
+          <title>Closing a Street</title>
+
+          <para>A "<sgmltag>closing_reroute</sgmltag>" forces the rerouter to
+          close the edge
+          <sgmltag><replaceable>&lt;EDGE_ID&gt;</replaceable></sgmltag>.
+          Vehicles which normally would pass this edge will get a new route as
+          soon as they reach one of the edges given in the
+          <sgmltag>objectid</sgmltag>-attribute of the rerouter's declaration.
+          A definition may look like this:</para>
+
+          <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+      &lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"/&gt;
+   <sgmltag>&lt;/interval/&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/rerouter&gt;</sgmltag></programlisting>
+
+          <para>The attributes used within such definitions are:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>id</sgmltag>: the id of the closed edge;
+              mandatory string, the id must be the id of an edge within the
+              network</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-management-vclasses-defs">
+          <title>Assigning a new Destination</title>
+
+          <para>A "<sgmltag>dest_prob_reroute</sgmltag>" forces the rerouter
+          to assign a new route to vehicles which pass one of the edges
+          defined in the <sgmltag>objectid</sgmltag>-attribute of the
+          rerouter's declaration. A new route destination is used, defined by
+          the name of a new destination in the according element:</para>
+
+          <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+      &lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;
+      &lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;
+   <sgmltag>&lt;/interval/&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/rerouter&gt;</sgmltag></programlisting>
+
+          <para>The route is computed automatically using the
+          Dijkstra-algorithm and starting at the edge the vehicle is located
+          at and ending at the new destination.</para>
+
+          <para>The attributes used within such definitions are:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>id</sgmltag>: the id of the new destination;
+              mandatory string, the id must be the id of an edge within the
+              network</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>probability</sgmltag>: the probability with which
+              a vehicle will use the given edge as destination; mandatory
+              float, should be between 0 and 1; the sum of the probabilities
+              should be 1</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-management-vclasses-defs">
+          <title>Assigning a new Route</title>
+
+          <para>A "<sgmltag>route_prob_reroute</sgmltag>" forces the rerouter
+          to assign a new route to vehicles which pass one of the edges
+          defined in the <sgmltag>objectid</sgmltag>-attribute of the
+          rerouter's declaration. In this case, the id of a complete route
+          shall be supplied instead of a new destination:</para>
+
+          <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+      &lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;
+      &lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;
+   <sgmltag>&lt;/interval/&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/rerouter&gt;</sgmltag></programlisting>
+
+          <para>The attributes used within such definitions are:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>id</sgmltag>: the id of a new route to assign;
+              mandatory string, the id must be the id of a previously loaded
+              route</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>probability</sgmltag>: the probability with which
+              a vehicle will use the given edge as destination; mandatory
+              float, should be between 0 and 1; the sum of the probabilities
+              should be 1</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+
+      <sect2 id="user_chp06-management-vclasses" revision="0.9.5">
+        <title>Vehicle Classes</title>
+
+        <para>Since version 0.9.5 SUMO is capable to handle vehicle classes.
+        One can close a road or a lane for certain vehicle classes or
+        explicitely allow certain vehicle classes on a road/lane. This is done
+        by a combination of assigning allowed/disallowed vehicle classes to
+        roads/lanes and additionally giving vehicles a further class
+        attributes. Available vehicle classes as well as using them is
+        described within the next subchapters.</para>
+
+        <caution>
+          <para>Please keep in mind that this feature is quite new and that du
+          to this some things may not work as suspected and may get changed in
+          the near future.</para>
+
+          <para>We want to ask you to supply us any comments on this topic -
+          it is not completely designed, yet.</para>
+        </caution>
+
+        <para>Examples:</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>A first support for vehicle classes was added in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
+
+        <sect3 id="user_chp06-management-vclasses-defs">
+          <title>Available Vehicle Classes</title>
+
+          <para>A vehicle class is made up of two parts. The first part
+          describes to what kind of an authority the vehicle belongs. The next
+          table shows what kind of authorities are defined currently:</para>
+
+          <table id="tab_vehicle_class_authorities">
+            <title>Allowed vehicle class authority descriptions</title>
+
+            <tgroup cols="2">
+              <thead>
+                <row>
+                  <entry>Table Name</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry>private</entry>
+
+                  <entry>The vehicle belongs to a private person</entry>
+                </row>
+
+                <row>
+                  <entry>public_transport</entry>
+
+                  <entry>The vehicle is a public transport vehicle</entry>
+                </row>
+
+                <row>
+                  <entry>public_emergency</entry>
+
+                  <entry>The vehicle is an emergency vehicle</entry>
+                </row>
+
+                <row>
+                  <entry>public_authority</entry>
+
+                  <entry>The vehicle belongs to a public authority
+                  (police)</entry>
+                </row>
+
+                <row>
+                  <entry>public_army</entry>
+
+                  <entry>The vehicle is an army vehicle</entry>
+                </row>
+
+                <row>
+                  <entry>vip</entry>
+
+                  <entry>The vehicle is used to transport a vip (very
+                  important person)</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+          <para>The second part describes the kind of the vehicle. Currently
+          possible values are shown within the next table:</para>
+
+          <table id="tab_vehicle_class_kinds">
+            <title>Allowed vehicle class vehicle kind descriptions</title>
+
+            <tgroup cols="2">
+              <thead>
+                <row>
+                  <entry>Table Name</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry>passenger</entry>
+
+                  <entry>A plain passenger car</entry>
+                </row>
+
+                <row>
+                  <entry>hov</entry>
+
+                  <entry>A heavy occupied vehicle</entry>
+                </row>
+
+                <row>
+                  <entry>taxi</entry>
+
+                  <entry>A taxi</entry>
+                </row>
+
+                <row>
+                  <entry>bus</entry>
+
+                  <entry>A bus</entry>
+                </row>
+
+                <row>
+                  <entry>delivery</entry>
+
+                  <entry>A small delivery vehicle</entry>
+                </row>
+
+                <row>
+                  <entry>transport</entry>
+
+                  <entry>A truck</entry>
+                </row>
+
+                <row>
+                  <entry>lightrail</entry>
+
+                  <entry>A lightrail</entry>
+                </row>
+
+                <row>
+                  <entry>cityrail</entry>
+
+                  <entry>A cityrail</entry>
+                </row>
+
+                <row>
+                  <entry>rail_slow</entry>
+
+                  <entry>A slow transport rail</entry>
+                </row>
+
+                <row>
+                  <entry>rail_fast</entry>
+
+                  <entry>A fast passenger rail</entry>
+                </row>
+
+                <row>
+                  <entry>motorcycle</entry>
+
+                  <entry>A motorcycle</entry>
+                </row>
+
+                <row>
+                  <entry>bicycle</entry>
+
+                  <entry>A bicycle</entry>
+                </row>
+
+                <row>
+                  <entry>pedestrian</entry>
+
+                  <entry>A pedestrian</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+          <para>Please remark that both the authority descriptions and kind
+          descriptions are only names, no model is stored behind them. By
+          defining a vehicle type as "pedestrian" you will not get a person
+          walking within the simulation - currently pedestrian are not modeled
+          anyway. These values simply name possible types of vehicles found on
+          a network to allow closing/opening lanes or edges for them
+          currently.</para>
+        </sect3>
+
+        <sect3 id="user_chp06-management-vclasses-network_prepartion">
+          <title>Closing/Opening Roads/Lanes for certain Vehicle
+          Classes</title>
+
+          <para>Roads/lanes are normally marked to allow/disallow a certain
+          vehicle class while building the network using NETCONVERT. This
+          process is described in chapter "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-xml_descriptions-edges-vclasses">Defining
+          allowed Vehicle Types</ulink>".</para>
+        </sect3>
+
+        <sect3 id="user_chp06-management-vclasses-vehicle_definitions">
+          <title>Assigning a Type to a Vehicle</title>
+
+          <para>You can assign a vehicle class to a vehicle by extending this
+          vehicle's vehicle type. Assume you want to set a vehicle as being of
+          the class "bus". A vehicle type definition could look like this:
+          </para>
+
+          <programlisting>    <sgmltag>&lt;vtype id="BUS" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70"
+            color="1,1,0" vclass="public_bus"/&gt;</sgmltag>
+</programlisting>
+
+          <para>In this case, the vehicle will drive only on lanes/roads where
+          all vehicle classes are allowed or where public busses are not
+          disallowed or where public busses are explicitely allowed.</para>
+        </sect3>
+
+        <sect3 id="user_chp06-management-vclasses-mixing">
+          <title>Mixing Closings/Openings of Roads for Vehicle Classes</title>
+
+          <para>The importer for XML-edge description uses two lanes
+          attributes, <sgmltag>allow</sgmltag> and <sgmltag>disallow</sgmltag>
+          (see <ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-xml_descriptions-edges-vclasses">Defining
+          allowed Vehicle Types</ulink>). Within the resulting network the
+          values supplied this way are stored by listing all allowed and
+          disallowed vehicle classes, divided by a ';'. Here, disallowed
+          vehicle classes are marked by a leading '-'. This means that if a
+          lane shall not allow pedestrians, it should have the attribute
+          <sgmltag>vclasses="-pedestrian"</sgmltag>.</para>
+
+          <para>A vehicle class may use a lane if</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>there is no vehicle class allowed/disallowed on this
+              lane</para>
+            </listitem>
+
+            <listitem>
+              <para>the vehicle class matches a class allowed on this lane if
+              any allowed class is defined for this lane</para>
+            </listitem>
+
+            <listitem>
+              <para>the vehicle class does not match any of the defined
+              disallowed vehicle classes on for this lane</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
     </sect1>
 
     <sect1 id="user_chp06-file_load_order">
       <title>Using the Files in a correct Way</title>
 
-      <para>... tbd...</para>
+      <para>You may have noticed that beside the networks, SUMO additionally
+      reads route files and "additional" files. Most of the structures
+      (detectors, actors, route definitions, vehicle type definitions, tls
+      definitions, etc.) may be placed in both route files and additional
+      files. On the low application level the difference between the two file
+      types is the order of loading them.</para>
+
+      <para>Normally, when the option <option>route-steps</option> is left to
+      be not equal to zero, additional files are parsed first, in the order of
+      their definition. This means if you set the option "<option>-a
+      file1.add.xml;file2.add.xml</option>", at first
+      "<filename>file1.add.xml</filename>" will be loaded, then
+      "<filename>file2.ad..xml</filename>". Each file is read completely
+      before the next file is parsed. This means that if you have some global
+      routes and want to reference them by a changing set of vehicles, you
+      should place these routes in a file which is loaded at first. After all
+      additional files have been read, the route files are opened. Still, they
+      are not read immediately but as soon as the simulation starts. Each of
+      these files is read until a vehicle emission occures which is beyond the
+      current time step + time defined in <option>route-steps</option>. Here,
+      all route files are parsed in the order they occured within the call,
+      too.</para>
+
+      <para>The things change a little bit if the option
+      <option>route-steps</option> is set to zero. In this case, the route
+      files are parsed as first, BEFORE the simulation starts. They also will
+      be parsed completely before the additional files are parsed. If you need
+      your additional files to be parsed at first, either use a
+      <option>route-steps</option> value not equal to zero or place your
+      additional files at the begin of the route-files list.</para>
     </sect1>
 
     <sect1 id="user_chp06-other">
