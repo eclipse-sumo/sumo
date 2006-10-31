@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/10/31 12:22:47  dkrajzew
+// debugging internal lanes usage
+//
 // Revision 1.18  2006/10/12 09:28:14  dkrajzew
 // patched building under windows
 //
@@ -1441,6 +1444,9 @@ NLHandler::addIncomingLanes(const std::string &chars)
         string set = st.next();
         try {
             MSLane *lane = MSLane::dictionary(set);
+            if(!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+                continue;
+            }
             if(lane==0) {
                 throw XMLIdNotKnownException("lane", set);
             }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/10/31 12:23:23  dkrajzew
+// debugging internal lanes usage
+//
 // Revision 1.18  2006/08/01 07:12:36  dkrajzew
 // parsing of new networks patched
 //
@@ -172,6 +175,12 @@ RONetHandler::parseEdge(const Attributes &attrs)
     // get the id of the edge and the edge
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
+        if(_currentName[0]==':') {
+            // this is an internal edge - we will not use it
+            //  !!! recheck this; internal edges may be of importance during the dua
+            _currentEdge = 0;
+            return;
+        }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
         throw ProcessError();
@@ -236,6 +245,10 @@ RONetHandler::parseEdge(const Attributes &attrs)
 void
 RONetHandler::parseLane(const Attributes &attrs)
 {
+    if(_currentEdge==0) {
+        // was an internal edge to skip
+        return;
+    }
     SUMOReal maxSpeed = -1;
     SUMOReal length = -1;
 	std::vector<SUMOVehicleClass> allowed, disallowed;
@@ -301,29 +314,22 @@ RONetHandler::parseJunction(const Attributes &attrs)
 void
 RONetHandler::parseConnEdge(const Attributes &attrs)
 {
-    // no error by now
-    bool error = false;
-    // try to get the edge to connect the current edge to
+    if(_currentEdge==0) {
+        // was an internal edge to skip
+        return;
+    }
     try {
         // get the edge to connect
         string succID = getString(attrs, SUMO_ATTR_ID);
         ROEdge *succ = _net.getEdge(succID);
-        if(succ!=0&&_currentEdge!=0) {
+        if(succ!=0) {
             // connect edge
             _currentEdge->addFollower(succ);
         } else {
-            MsgHandler::getErrorInstance()->inform("The succeding edge '" + succID + "' does not exist.");
-            error = true;
+            MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': the succeding edge '" + succID + "' does not exist.");
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("A succeding edge has no id.");
-        error = true;
-    }
-    // check whether everything was ok
-    if(error) {
-        if(_currentName.length()!=0) {
-            MsgHandler::getErrorInstance()->inform(" At edge '" + _currentName + "'.");
-        }
+        MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': a succeding edge has no id.");
     }
 }
 
@@ -344,6 +350,11 @@ RONetHandler::preallocateEdges(const std::string &chars)
     StringTokenizer st(chars);
     while(st.hasNext()) {
         string id = st.next();
+        if(id[0]==':') {
+            // this is an internal edge - we will not use it
+            //  !!! recheck this; internal edges may be of importance during the dua
+            continue;
+        }
         _net.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
     }
 }
