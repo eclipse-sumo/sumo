@@ -1,42 +1,42 @@
 <?xml version="1.0" standalone="no"?>
 <vehicleroutes>
-   <vehicle id="emitter_route1_0" emitedAt="3" endedAt="115">
+   <vehicle id="route1_0" emitedAt="3" endedAt="115">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route0_0" emitedAt="0" endedAt="116">
+   <vehicle id="route0_0" emitedAt="0" endedAt="118">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route1_1" emitedAt="7" endedAt="119">
+   <vehicle id="route1_1" emitedAt="9" endedAt="122">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route0_1" emitedAt="4" endedAt="121">
+   <vehicle id="route0_1" emitedAt="6" endedAt="124">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route1_2" emitedAt="12" endedAt="124">
+   <vehicle id="route1_2" emitedAt="15" endedAt="128">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route0_2" emitedAt="8" endedAt="125">
+   <vehicle id="route0_2" emitedAt="12" endedAt="130">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route1_3" emitedAt="16" endedAt="129">
+   <vehicle id="route1_3" emitedAt="21" endedAt="134">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route0_3" emitedAt="13" endedAt="131">
+   <vehicle id="route0_3" emitedAt="18" endedAt="136">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route1_4" emitedAt="21" endedAt="133">
+   <vehicle id="route1_4" emitedAt="27" endedAt="139">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_route0_4" emitedAt="17" endedAt="135">
+   <vehicle id="route0_4" emitedAt="24" endedAt="142">
       <route>beg middle end rend</route>
    </vehicle>
 
