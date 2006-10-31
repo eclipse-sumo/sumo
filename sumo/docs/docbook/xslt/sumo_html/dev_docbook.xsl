@@ -20,7 +20,7 @@
 
 <!-- ==================================================================== -->
 
-<xsl:include href="../html/docbook.xsl"/>
+<xsl:include href="http://docbook.sourceforge.net/xsl/docbook.xsl"/>
 
 <!-- ==================================================================== -->
 
@@ -73,7 +73,7 @@
 <!-- End of Text area -->
 		</div>
 		</td>
-		$%MENU3%$
+		</tr></table>
 
     </body>
   </html>

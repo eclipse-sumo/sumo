@@ -42,7 +42,7 @@
   <chapter id="howto_global_output-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="howto_global_output-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -51,30 +51,30 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_global_output-intro-scope">
       <title>Document Scope</title>
 
       <para><application>SUMO</application> contains several simulation-wide
-      output options which collect information from all instances of vehicles
-      or streets and save them into a single file. Their implementation is
-      hidden between different layers, structures, and methods so adding a new
-      output capability may be not very straightforward. To ease the
-      development of such new outputs, this HowTo shows the implementation of
-      a new simulation-wide output by example.</para>
+      output options which, f.e., collect information from all instances of
+      vehicles or streets and save them into a single file. Their
+      implementation is hidden between different layers, structures, and
+      methods so adding a new output may be not very straightforward. To ease
+      the development of such new outputs, this HowTo shows the implementation
+      of a new simulation-wide output by example.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_global_output-intro-audience">
       <title>Document Audience</title>
 
       <para>This document contains information for
       <emphasis>developers</emphasis> who want to extend SUMO.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_global_output-intro-structure">
       <title>Document Structure</title>
 
       <para>The first chapter describes what the described extension shall do
@@ -95,13 +95,13 @@
     event occures or after a given time has passed.</para>
   </chapter>
 
-  <chapter>
-    <title id="howto_global_output-implementation">Implementation</title>
+  <chapter id="howto_global_output-implementation">
+    <title>Implementation</title>
 
     <para>For the TrafficOnline project, vehicles should be equipped with
     cellphones which report their states into an output.</para>
 
-    <sect1>
+    <sect1 id="howto_global_output-implementation-output_management">
       <title>Output Management within the Simulation</title>
 
       <para>All simulation-wide outputs are managed by the
@@ -111,20 +111,20 @@
       <filename>MSNet.h</filename>:</para>
 
       <programlisting>...
-    /**
+<remark>    /**
      * @enum MSNetOutputs
      * List of network-wide outputs
      */
-    enum MSNetOutputs {
-        /// netstate output
+</remark>    enum MSNetOutputs {
+        <remark>/// netstate output</remark>
         OS_NETSTATE = 0,
-        /// emissions output
+        <remark>/// emissions output</remark>
         OS_EMISSIONS,
-        /// trip information output
+        <remark>/// trip information output</remark>
         OS_TRIPDURATIONS,
-        /// route information output
+        <remark>/// route information output</remark>
         OS_VEHROUTE,
-        /// maximum value
+        <remark>/// maximum value</remark>
         OS_MAX
     };
 ...</programlisting>
@@ -136,44 +136,45 @@
       first:</para>
 
       <programlisting>...
-    /**
+<remark>    /**
      * @enum MSNetOutputs
      * List of network-wide outputs
      */
-    enum MSNetOutputs {
-        /// netstate output
+</remark>    enum MSNetOutputs {
+        <remark>/// netstate output</remark>
         OS_NETSTATE = 0,
-        /// emissions output
+        <remark>/// emissions output</remark>
         OS_EMISSIONS,
-        /// trip information output
+        <remark>/// trip information output</remark>
         OS_TRIPDURATIONS,
-        /// route information output
+        <remark>/// route information output</remark>
         OS_VEHROUTE,
-        /// TrafficOnline-SS2 output  // &lt;-- new entry
-        OS_DEVICE_TO_SS2,             // &lt;-- new entry
-        /// maximum value
+        <remark>/// TrafficOnline-SS2 output  // &lt;-- new entry</remark>
+        OS_DEVICE_TO_SS2,             <remark>// &lt;-- new entry</remark>
+        <remark>/// maximum value</remark>
         OS_MAX
     };
 ...</programlisting>
 
       <para>At first, we have to add the command-line option which will force
       the simulation to generate our new output by adding the following line
-      to <methodname>void SUMOFrame::fillOptions(OptionsCont
-      &amp;oc)</methodname>:</para>
+      to the method "<methodname>void SUMOFrame::fillOptions(OptionsCont
+      &amp;oc)</methodname>":</para>
 
       <programlisting>    oc.doRegister("ss2-output", new Option_FileName());</programlisting>
 
       <para>This means that the user can enable the output using the option
       <option>--ss2-output=<replaceable>&lt;FILENAME&gt;</replaceable></option>.
       The application can determine whether this option is set using
-      oc.isSet("ss2-output") and can retrieve the file name - if the option is
-      set - using oc.getString("ss2-output").</para>
+      <code>oc.isSet("ss2-output")</code> and can retrieve the file name - if
+      the option is set - using
+      <code>oc.getString("ss2-output")</code>.</para>
 
-      <para>Then we have to add procedures for building and closing of this
-      new output. Most of the simulation wide output files are opened within
-      <methodname>std::vector&lt;OutputDevice*&gt;
-      SUMOFrame::buildStreams(const OptionsCont &amp;oc)</methodname>. We add
-      the following line:</para>
+      <para>Then we have to add procedures which build and close this new
+      output. Most of the simulation wide output files are opened within
+      "<methodname>std::vector&lt;OutputDevice*&gt;
+      SUMOFrame::buildStreams(const OptionsCont &amp;oc)</methodname>". We add
+      the following line to this method:</para>
 
       <programlisting>   ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");</programlisting>
 
@@ -189,10 +190,10 @@
       and deleted as soon as the simulation ends.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_global_output-implementation-output_usage">
       <title>Using the Stream within the Simulation</title>
 
-      <sect2>
+      <sect2 id="howto_global_output-implementation-output_usage-optional">
         <title>Making the Output optional</title>
 
         <para>In order not to create all outputs at every simulation run, but
@@ -206,11 +207,11 @@
 
         <programlisting>class MSCORN {
 public:
-    /**
+<remark>    /**
      * @enum Function
      * A list of functions
      */
-    enum Function {
+</remark>    enum Function {
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
@@ -227,15 +228,15 @@ public:
 
         <programlisting>class MSCORN {
 public:
-    /**
+<remark>    /**
      * @enum Function
      * A list of functions
      */
-    enum Function {
+</remark>    enum Function {
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
-        CORN_OUT_DEVICE_TO_SS2, // &lt;-- new handle
+        CORN_OUT_DEVICE_TO_SS2, <remark>// &lt;-- new handle</remark>
 
         CORN_VEH_REALDEPART,
         CORN_MEAN_VEH_TRAVELTIME,
@@ -243,11 +244,11 @@ public:
 
         <para>We inform <classname>MSCORN</classname> that our new output is
         wished as soon as the simulation is initialised. This is done by
-        extending the method <methodname>void
-        MSNet::initialiseSimulation()</methodname> by the following
+        extending the method "<methodname>void
+        MSNet::initialiseSimulation()</methodname>" by the following
         lines:</para>
 
-        <programlisting>    // ... the same for TrafficOnline-SS2 information
+        <programlisting>    <remark>// ... the same for TrafficOnline-SS2 information</remark>
     if ( myOutputStreams[OS_DEVICE_TO_SS2]!=0 ) {
         MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2);
     }</programlisting>
@@ -256,7 +257,7 @@ public:
         it was previously created.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="howto_global_output-implementation-output_usage-global_access">
         <title>Adding a global Access</title>
 
         <para>To ease accessing the output stream, we'll save a pointer to it
@@ -287,7 +288,8 @@ MSCORN::setVehicleDeviceTOSS2Output(OutputDevice *s)
 ...</programlisting>
 
         <para>Furthermore, we have to use our new assignment method. This is
-        done in void MSNet::closeBuilding(...):</para>
+        done in "<methodname>void
+        MSNet::closeBuilding(...)</methodname>":</para>
 
         <programlisting>...
    MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
@@ -301,11 +303,11 @@ MSCORN::setVehicleDeviceTOSS2Output(OutputDevice *s)
         </note>
       </sect2>
 
-      <sect2>
+      <sect2 id="howto_global_output-implementation-output_usage-writing_functions">
         <title>Adding writing Functions</title>
 
         <para>Now we have static interfaces for the output stream we can use.
-        As the format our data shall be written as is well defined, we'll use
+        As the format of the data to generate is well defined, we'll use
         interfaces which allow only to access the stream with the set of
         values that shall be written. In <classname>MSCORN</classname>, we add
         a function for writing our messages. In <filename>MSCORN.h</filename>,
@@ -344,7 +346,7 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
         with our current values:</para>
 
         <programlisting>...
-    // TOL_SPEC_SS2 (1.2)
+    <remark>// TOL_SPEC_SS2 (1.2)</remark>
     if(m_State==STATE_CONNECTED&amp;&amp;MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
         MSCORN::saveTOSS2_CalledPositionData(
             MSNet::getInstance()-&gt;getCurrentTimeStep(), gCallID,

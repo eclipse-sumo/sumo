@@ -27,7 +27,7 @@
   <chapter id="more_tls-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="more_tls-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -36,11 +36,11 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4. We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-intro-scope">
       <title>Document Scope</title>
 
       <para>Herein, we will describe how traffic lights are implemented and
@@ -71,7 +71,7 @@
       </orderedlist>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-intro-audience">
       <title>Document Audience</title>
 
       <para>This document contains information for <emphasis>users</emphasis>
@@ -81,7 +81,7 @@
       SUMO.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-intro-structure">
       <title>Document Structure</title>
 
       <para>At first, a description about how traffic lights work in SUMO is
@@ -92,7 +92,7 @@
   <chapter id="more_tls-right_of_way">
     <title>Right-Of-Way Rules in SUMO</title>
 
-    <sect1>
+    <sect1 id="more_tls-right_of_way-links">
       <title>Links: A Connection between Lanes</title>
 
       <para>Each lane (<classname>MSLane</classname>) beside dead ends has a
@@ -111,7 +111,7 @@
       different type.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-right_of_way-links_usage">
       <title>Usage of Links within the Simulation</title>
 
       <para>If a vehicle approaches a link (<classname>MSLink</classname>), it
@@ -143,7 +143,7 @@
         in the next time.</para>
       </note>
 
-      <figure>
+      <figure id="img_junction_classes">
         <title>Junction classes within SUMO</title>
 
         <mediaobject>
@@ -164,7 +164,7 @@
       his drive without being hindered.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-right_of_way-logic_junctions">
       <title>Setting Information by MSLogicJunctions</title>
 
       <para>As we have seen, a MSLogicJunction gives way to the vehicles after
@@ -185,7 +185,7 @@
       wait until there is a gap in the enemy stream they can use to move over
       the junction.</para>
 
-      <figure>
+      <figure id="img_tls_classes">
         <title>TLS classes within SUMO</title>
 
         <mediaobject>
@@ -197,7 +197,7 @@
       </figure>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-right_of_way-switching_phases">
       <title>Switching the Phases</title>
 
       <para>What we furthermore need to know is how a traffic light is forces
@@ -245,7 +245,7 @@
       check the tls each simulation step.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-right_of_way-whole">
       <title>The whole procedure</title>
 
       <para>So the whole procedure of bringing a vehicle save over a junctions
@@ -315,7 +315,7 @@
   <chapter id="more_tls-existing_algorithms">
     <title>Existing LSA-Algorithms in SUMO</title>
 
-    <sect1>
+    <sect1 id="more_tls-existing_algorithms-static">
       <title>Static TLS (MSSimpleTrafficLightLogic)</title>
 
       <para>This tls-type simply obtains the list of phases from the
@@ -349,7 +349,7 @@ MSSimpleTrafficLightLogic::trySwitch()
   <chapter id="more_tls-implement_own">
     <title>Implementing Own TLS-Logics</title>
 
-    <sect1>
+    <sect1 id="more_tls-implement_own-apis">
       <title>Existing APIs</title>
 
       <para>This tls-type simply obtains the list of phases from the
@@ -386,10 +386,10 @@ MSSimpleTrafficLightLogic::trySwitch()
     <para>Within the next subchapters, we will describe what all these
     information means and how it is parsed.</para>
 
-    <sect1>
+    <sect1 id="more_tls-loading-representation">
       <title>XML-Representation</title>
 
-      <sect2>
+      <sect2 id="more_tls-loading-representation-tls_logics">
         <title>Description of TLS-Logics</title>
 
         <para>Normally, the descriptions of traffic lights are stored within
@@ -531,7 +531,7 @@ MSSimpleTrafficLightLogic::trySwitch()
         <para>The next table shows again the meaning of phase/brake/yellow
         combinations:</para>
 
-        <table>
+        <table id="tab_phase_brake_yellow_combinations">
           <title>Meanings of combinations of phase/brake/yellow</title>
 
           <tgroup cols="4">
@@ -664,80 +664,9 @@ MSSimpleTrafficLightLogic::trySwitch()
         <para>There is no possibility to insert values for
         <sgmltag>min_duration</sgmltag> and <sgmltag>max_duration</sgmltag>
         into the network descriptions by now but by hand.</para>
-
-        <sect3>
-          <title>Connections between streams and tls-logics</title>
-
-          <para>You probably have seen, that the
-          <sgmltag>inclanes-tag</sgmltag> is buggy. In fact, the links
-          (connections between two consecutive lanes, see above) are added
-          almost at the end of the loading process. When a link is built, the
-          tls-logic which controls it is informed about it getting the
-          information which stream information is used by the link. This
-          information is given as an index to the fields
-          <sgmltag>phase</sgmltag>, <sgmltag>brake</sgmltag> and
-          <sgmltag>yellow</sgmltag> from the <sgmltag>phase</sgmltag>-element
-          of the tls-description described above.</para>
-
-          <para>The information about a link is represented as following
-          (example from <filename>cross3ltl.net.xml</filename>):</para>
-
-          <programlisting><sgmltag>&lt;succ edge="1si" lane="1si_0" junction="0"&gt;
-   &lt;succlane lane="3o_0" via=":0_12_0" tl="0" linkno="12" yield="1" dir="r" state="t"/&gt;
-&lt;/succ&gt; </sgmltag></programlisting>
-
-          <para>Let's consider the element "succlane" only, the element "succ"
-          gives us only the names of the edge/lane that is currently processed
-          and the junction this edge/lane yields in.</para>
-
-          <itemizedlist>
-            <listitem>
-              <para><sgmltag>lane</sgmltag>: the connected lane's id
-              (mandatory, string)</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>via</sgmltag>: the connected internal lane's id
-              (mandatory, string)</para>
-
-              <caution>
-                <para>internal lanes are not yet supported, this is just a
-                developer's information by now</para>
-              </caution>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>tl</sgmltag>: the id of the tls-logic that is
-              responsible for this link; this field is missing if the link is
-              not controlled by a tls</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>linkno</sgmltag>: the index of the information
-              within the controlling tls logic that shall be used for this
-              link</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>yield</sgmltag>: information whether vehicles
-              have to wait in front of this link (valid only for uncontrolled
-              links)</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>dir</sgmltag>: the information about which arrow
-              shall be drawn for this link</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>state</sgmltag>: the information what kind of
-              state shall be drawn</para>
-            </listitem>
-          </itemizedlist>
-        </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tls-loading-representation-connection_streams_tls">
         <title>Connections between Streams and TLS-Logics</title>
 
         <para>You probably have seen, that the <sgmltag>inclanes-tag</sgmltag>
@@ -808,7 +737,7 @@ MSSimpleTrafficLightLogic::trySwitch()
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tls-loading-parsing">
       <title>Parsing the network description</title>
 
       <para>As described in <ulink
@@ -824,15 +753,15 @@ MSSimpleTrafficLightLogic::trySwitch()
     </sect1>
   </chapter>
 
-  <chapter id="more_tls-loading">
-    <title>Further</title>
+  <chapter id="more_tls-further">
+    <title>Further Information</title>
 
     <para>You can find some further questions posted by users herein.</para>
 
-    <sect1>
+    <sect1 id="more_tls-further-qa">
       <title>Questions &amp; Answers</title>
 
-      <sect2>
+      <sect2 id="more_tls-further-qa-changing_duration">
         <title>Changing the duration of Cycles and Phases</title>
 
         <para><emphasis>Question:</emphasis> I want to study the effects of
@@ -849,7 +778,7 @@ MSSimpleTrafficLightLogic::trySwitch()
         directly in here.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tls-further-qa-coupling">
         <title>Coupling Traffic Lights</title>
 
         <para><emphasis>Question:</emphasis> Is it possible to "connect" two

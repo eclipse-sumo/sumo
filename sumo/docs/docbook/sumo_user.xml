@@ -126,7 +126,7 @@
       <sect2 id="user_chp01-about_document-applications">
         <title>Described Applications</title>
 
-        <table>
+        <table id="tab_described_apps">
           <title>Applications described within this document</title>
 
           <tgroup cols="5">
@@ -447,7 +447,7 @@
         require large computation times. This restrains the size of the
         networks to be simulated.</para>
 
-        <figure>
+        <figure id="img_simulation_granularities">
           <title>The different simulation granularities; from left to right:
           macroscopic, microscopic, sub-microscopic (within the circle:
           mesoscopic)</title>
@@ -466,7 +466,7 @@
         They use cells and vehicles driving on the simulated streets "jump"
         from one cell to another.</para>
 
-        <figure>
+        <figure id="img_discrete-continuous">
           <title>The difference between a space-continuous (top) and a
           space-discrete (bottom) simulation</title>
 
@@ -576,7 +576,7 @@
 
       <para>This process is also visualised within the next figure.</para>
 
-      <figure>
+      <figure id="img_sim_process">
         <title>Process of simulation with SUMO; (grey and rounded: data used;
         white: program calls)</title>
 
@@ -641,7 +641,7 @@
       <application>NETCONVERT</application> within the flow of building and
       running a simulation.</para>
 
-      <figure>
+      <figure id="img_network_building_process">
         <title>Building a network</title>
 
         <mediaobject>
@@ -854,7 +854,7 @@
         monitor), the higher his y-value must be. The more to left it shall
         be, the higher his x-value.</para>
 
-        <figure>
+        <figure id="img_coordinate_system">
           <title>Coordinate system used in SUMO</title>
 
           <mediaobject>
@@ -1406,7 +1406,7 @@
         all connections and turnarounds are computed using the default
         values.</para>
 
-        <figure>
+        <figure id="img_connections_unconstrained">
           <title>Unconstrained Network</title>
 
           <mediaobject>
@@ -1440,7 +1440,7 @@
         <para>As you may see in the next picture, the horizontal edges within
         the result network contain no left-moving connections.</para>
 
-        <figure>
+        <figure id="img_connections_edge2edge">
           <title>Network with explicit edge-2-edge connections</title>
 
           <mediaobject>
@@ -1471,7 +1471,7 @@
 
         <para>The built network looks like this:</para>
 
-        <figure>
+        <figure id="img_connections_lane2lane">
           <title>Network with explicit lane-2-lane connections</title>
 
           <mediaobject>
@@ -1758,7 +1758,7 @@
         was build to read ArcView-files containing road networks from NavTech.
         Due to this the following fields are used as default:</para>
 
-        <table>
+        <table id="tab_read_arcview_entries">
           <title>Entries read by NETCONVERT</title>
 
           <tgroup cols="2">
@@ -1843,7 +1843,7 @@
         information about an edge's attributes from NavTech using own
         fields:</para>
 
-        <table>
+        <table id="tab_overriding_navteq_entries">
           <title>Possible entries to override NavTech-information</title>
 
           <tgroup cols="2">
@@ -2459,7 +2459,7 @@
         table which contains the information which Visum-tables are
         imported.</para>
 
-        <table>
+        <table id="tab_imported_visum_tables">
           <title>Imported VISUM-tables</title>
 
           <tgroup cols="3">
@@ -4078,10 +4078,11 @@
           <para>The option <option>--node-geometry-dump</option> is meant to
           be used when debugging the geometry computation. It generates a list
           of points of interest as readable by guisim (see chapter "<link
-          linkend="user_chp07-shapes">Additional Geometry Files</link>") on
-          the positions that were used to compute the imported nodes'
-          geometries. The option "<option>--print-node-positions</option>"
-          forces <application>NETCONVERT</application> and
+          linkend="user_chp07-geometry_files">Additional Geometry
+          Files</link>") on the positions that were used to compute the
+          imported nodes' geometries. The option
+          "<option>--print-node-positions</option>" forces
+          <application>NETCONVERT</application> and
           <application>NETGEN</application> to print the positions of the
           imported/build nodes on the command line.</para>
 
@@ -4148,7 +4149,7 @@
       <para>Further, you can specify the default street type by using the same
       options as in the netconvert-application.</para>
 
-      <sect2>
+      <sect2 id="user_chp04-netgen-grid_like">
         <title>Grid-like Networks</title>
 
         <para>You are able to describe how many junctions in x- and in
@@ -4164,7 +4165,7 @@
 
         <para>An example usage for building could be:</para>
 
-        <figure>
+        <figure id="img_gridnet1">
           <title><command>netgen --grid-net --grid-number=10 --grid-length=400
           --output-file=MySUMOFile.net.xml</command></title>
 
@@ -4178,7 +4179,7 @@
 
         <para>Another one:</para>
 
-        <figure>
+        <figure id="img_gridnet2">
           <title><command>netgen --grid-net --grid-x-number=20
           --grid-y-number=5 --grid-y-length=40 --grid-x-length=200
           --output-file=MySUMOFile.net.xml</command></title>
@@ -4192,7 +4193,7 @@
         </figure>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp04-netgen-spider_like">
         <title>Spider-net-like Networks</title>
 
         <para>Spider-net networks are defined by the number of axes dividing
@@ -4212,7 +4213,7 @@
 
         <para>Two examples of usage:</para>
 
-        <figure>
+        <figure id="img_spidernet1">
           <title><command>netgen --spider-net --spider-arm-number=10
           --spider-circle-number=10 --spider-space-rad=100
           --output-file=MySUMOFile.net.xml</command></title>
@@ -4227,7 +4228,7 @@
 
         <para>and:</para>
 
-        <figure>
+        <figure id="img_spidernet2">
           <title><command>netgen --spider-net --spider-arm-number=4
           --spider-circle-number=3 --spider-space-rad=100
           --output-file=MySUMOFile.net.xml</command></title>
@@ -4241,7 +4242,7 @@
         </figure>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp04-netgen-random">
         <title>Random Networks</title>
 
         <para>The random network generator does just what his name says, it
@@ -4309,7 +4310,7 @@
 
         <para>An example:</para>
 
-        <figure>
+        <figure id="img_randomnet1">
           <title><command>netgen --random-net -o MySUMOFile.net.xml --rand-ite
           rations=200 --abs-rand</command></title>
 
@@ -4672,7 +4673,7 @@
         must be supplied and the number of vehicles to emit within this
         interval.</para>
 
-        <figure>
+        <figure id="img_trips2routes">
           <title>Building routes from trips</title>
 
           <mediaobject>
@@ -5158,7 +5159,7 @@
         not taking - the normal traffic would concentrate on rural
         roads.</para>
 
-        <figure>
+        <figure id="img_false_random_routes_network">
           <title>A network where the usage of random routes causes an improper
           behaviour due to the mixture of rural and minor roads</title>
 
@@ -5450,7 +5451,7 @@
         linkend="user_chp05-od2trips-splitting">Splitting large
         matrices</link>" on this.</para>
 
-        <figure>
+        <figure id="img_od2trips">
           <title>Building trips from the OD-matrix</title>
 
           <mediaobject>
@@ -5889,7 +5890,7 @@
       it. In fact, they need longer to pass this edge than if they would try
       to use one of the outer connections.</para>
 
-      <figure>
+      <figure id="img_duaexample1">
         <title>Example DUA-network (from
         "&lt;SUMO_DIST&gt;/data/examples/dua/dua3s*")</title>
 
@@ -5938,7 +5939,7 @@
       url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1">[Gawron1998_1]</ulink>)
       for further information.</para>
 
-      <figure>
+      <figure id="img_duaexample2">
         <title>Sketch showing the effects of Christian Gawron dua-approach on
         route distribution within the network; blue color indicates that an
         edge is used within the step, red shows jams</title>
@@ -6212,7 +6213,7 @@
 
       <para>Examples: none yet</para>
 
-      <sect2>
+      <sect2 id="user_chp05-dfrouter-detector_types">
         <title>Computing Detector Types</title>
 
         <para>The idea behind the <application>DFROUTER</application> assumes
@@ -6335,7 +6336,7 @@
         </variablelist>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp05-dfrouter-routes">
         <title>Computing Routes</title>
 
         <para>Now that we do know where vehicles enter and where they leave
@@ -6435,7 +6436,7 @@
         </variablelist>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp05-dfrouter-flows">
         <title>Computing Flows</title>
 
         <para>The next step is to use the computed routes and flow amounts
@@ -6552,7 +6553,7 @@ myDet1;0;10;2;100;80
         </variablelist>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp05-dfrouter-output">
         <title>Saving Flows and other Values</title>
 
         <para>If flow definitions were supplied, we can let the
@@ -8856,7 +8857,7 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
-        <figure>
+        <figure id="img_busstop">
           <title>Visualization of a bus stop in SUMO (from
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/extended/busses1</filename>)</title>
 
@@ -9191,7 +9192,7 @@ myDet1;0;10;2;100;80
     appear. Your application should then look like displayed below (with your
     own network, of course).</para>
 
-    <figure>
+    <figure id="img_gui">
       <title>The GUI-Window with a loaded simulation (violet: names of the
       controls as used below)</title>
 
@@ -9213,13 +9214,13 @@ myDet1;0;10;2;100;80
     <para>We will now discuss the different possibilities to use the graphical
     user interface more deeply.</para>
 
-    <sect1>
+    <sect1 id="user_chp07-main_window">
       <title>Main Window Interface</title>
 
-      <sect2>
+      <sect2 id="user_chp07-main_window-menu_bar">
         <title>Menu Bar</title>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-menu_bar-file_menu">
           <title>File-Menu</title>
 
           <para><itemizedlist spacing="compact">
@@ -9272,7 +9273,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-menu_bar-edit_menu">
           <title>Edit-Menu</title>
 
           <para><itemizedlist spacing="compact">
@@ -9304,7 +9305,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-menu_bar-settings_menu">
           <title>Settings-Menu</title>
 
           <para><itemizedlist spacing="compact">
@@ -9331,7 +9332,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-menu_bar-windows_menu">
           <title>Windows-Menu</title>
 
           <para><itemizedlist spacing="compact">
@@ -9388,7 +9389,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-menu_bar-help_menu">
           <title>Help-Menu</title>
 
           <para><itemizedlist spacing="compact">
@@ -9402,10 +9403,10 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-main_window-tool_bar">
         <title>Tool Bar</title>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-tool_bar-file_ops">
           <title>File Operations</title>
 
           <para><itemizedlist spacing="compact">
@@ -9432,7 +9433,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-tool_bar-simulation_ops">
           <title>Simulation Operations</title>
 
           <para><itemizedlist spacing="compact">
@@ -9484,7 +9485,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-main_window-tool_bar-window_ops">
           <title>Window Operations</title>
 
           <para><itemizedlist spacing="compact">
@@ -9508,7 +9509,7 @@ myDet1;0;10;2;100;80
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="user_chp07-simulation_window">
       <title>Simulation Window Interfaces</title>
 
       <para>SUMO-GUI provides different views on the simulation. The
@@ -9526,10 +9527,10 @@ myDet1;0;10;2;100;80
           </menuchoice></para>
       </caution>
 
-      <sect2>
+      <sect2 id="user_chp07-simulation_window-common">
         <title>Common Controls</title>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-common-tracking">
           <title>Tracking Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9554,7 +9555,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-common-view">
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9579,7 +9580,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-common-view2">
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9632,7 +9633,7 @@ myDet1;0;10;2;100;80
                 beyond shows the difference between full and simple geometry
                 mode.</para>
 
-                <figure>
+                <figure id="img_geom">
                   <title>The difference between simple (left) and full (right)
                   geometry mode</title>
 
@@ -9649,10 +9650,10 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-simulation_window-additional">
         <title>Additional Microscopic View Controls</title>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-additional-tracking">
           <title>Tracking Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9673,7 +9674,7 @@ myDet1;0;10;2;100;80
             </itemizedlist></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-view">
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9769,10 +9770,10 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-simulation_window-aggragated">
         <title>Additional Aggregated View Controls</title>
 
-        <sect3>
+        <sect3 id="user_chp07-simulation_window-aggragated-view">
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact">
@@ -9834,10 +9835,10 @@ myDet1;0;10;2;100;80
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="user_chp07-interaction">
       <title>Interacting with Objects</title>
 
-      <sect2>
+      <sect2 id="user_chp07-interaction-tooltips">
         <title>Display an Object's Name</title>
 
         <para>Each view has the possibility to display tool tips. If enabled
@@ -9854,7 +9855,7 @@ myDet1;0;10;2;100;80
         </caution>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-interaction-popups">
         <title>Object Popup Menus</title>
 
         <para>If the cursor is over an object you can press down the right
@@ -9908,7 +9909,7 @@ myDet1;0;10;2;100;80
           </itemizedlist></para>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-interaction-selection">
         <title>Object Selection</title>
 
         <para>From version 0.8. you are able to add every object that has a
@@ -9940,14 +9941,14 @@ myDet1;0;10;2;100;80
         </caution>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-interaction-parameter">
         <title>Parameter Windows</title>
 
         <para>If you choose the option "<guimenuitem>Show
         Parameter</guimenuitem>" from an object's popup menu, a window like
         the one displayed below will appear:</para>
 
-        <figure>
+        <figure id="img_parameter_window">
           <title>A sample Parameter Window (for an induct loop in this
           case)</title>
 
@@ -9973,7 +9974,7 @@ myDet1;0;10;2;100;80
         will allow you to open another window where this parameter's values
         will be shown as a time line over the simulation run.</para>
 
-        <figure>
+        <figure id="img_tracker_window">
           <title>A sample Parameter Window (for the number of vehicles within
           a simulation in this case)</title>
 
@@ -9988,7 +9989,7 @@ myDet1;0;10;2;100;80
         <para>You can change the aggregation time of the tracked values within
         this window using the combobox in this window's menu.</para>
 
-        <figure>
+        <figure id="img_tracker_aggregation">
           <title>A sample usage of the aggregation option (for an induct loop
           in this case, for aggregation times of 1s, 1min, 5min (from left to
           right))</title>
@@ -10002,7 +10003,7 @@ myDet1;0;10;2;100;80
         </figure>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-interaction-tl_tracker">
         <title>TL-Tracker Windows</title>
 
         <para>If you position your mouse over one of the red, green or yellow
@@ -10015,7 +10016,7 @@ myDet1;0;10;2;100;80
         time the tracker has been opened, no scrolling aorund is
         supported.</para>
 
-        <figure>
+        <figure id="img_tls_tracker">
           <title>A sample usage of the tls-tracker</title>
 
           <mediaobject>
@@ -10028,7 +10029,7 @@ myDet1;0;10;2;100;80
       </sect2>
     </sect1>
 
-    <sect1>
+    <sect1 id="user_chp07-geometry_files">
       <title>Additional Geometry Files</title>
 
       <para>Since version 0.9.4 it is possible to load additional geometry
@@ -10047,7 +10048,7 @@ myDet1;0;10;2;100;80
       <para>In the following subchapters, it is described how polygons and
       points-of-interest may be defined.</para>
 
-      <sect2>
+      <sect2 id="user_chp07-geometry_files-polygons">
         <title>Polygon Definitions</title>
 
         <para>A polygon is defined as following:</para>
@@ -10087,7 +10088,7 @@ myDet1;0;10;2;100;80
         </itemizedlist>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp07-geometry_files-pois">
         <title>Point-of-interest Definitions</title>
 
         <para>A point-of-interest is defined as following:</para>
@@ -10149,7 +10150,7 @@ myDet1;0;10;2;100;80
   </chapter>
 
   <chapter id="user_chp08">
-    <title>Tips, Tricks &amp; Tools</title>
+    <title>Tips, Tricks and Tools</title>
 
     <para>We want to supply some additional information that did not fit into
     the descriptions within the previous chapters. The next chapters are
@@ -10406,36 +10407,12 @@ myDet1;0;10;2;100;80
             version 0.9.5</para>
           </listitem>
         </itemizedlist>
-
-        <sect3>
-          <title>dua-iterate.pl</title>
-
-          <para>This script performs a dua computation by runing the
-          <application>DUAROUTER</application> and
-          <application>SUMO</application> a given number of times and using
-          the previous outputs. A detailed description may be found in the
-          subchapter "<ulink url="#user_chp05-dua-iterate">Automatic Iteration
-          using 'dua-iterate.pl'</ulink>".</para>
-
-          <para><emphasis>Usage</emphasis>: <command>dua-iterate.pl
-          <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;
-          </replaceable><optional><replaceable>[&lt;BEGIN_ITERATION_STEP&gt;]
-          </replaceable></optional><replaceable>&lt;END_ITERATION_STEP&gt;
-          </replaceable></command></para>
-
-          <para><emphasis>Output</emphasis>: see "<ulink
-          url="#user_chp05-dua-iterate">Automatic Iteration using
-          'dua-iterate.pl'</ulink>"</para>
-
-          <para><emphasis>Location</emphasis>:
-          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools</filename></para>
-        </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp08-tools-dua">
         <title>Helpers for DUA-Computation</title>
 
-        <sect3>
+        <sect3 id="user_chp08-tools-dua-dua_iterate">
           <title>dua-iterate.pl</title>
 
           <para>This script performs a dua computation by runing the
@@ -10460,10 +10437,10 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_chp08-tools-routes">
         <title>Handling Routes and Route Alternatives</title>
 
-        <sect3>
+        <sect3 id="user_chp08-tools-routes-oldStyle2newStyle">
           <title>oldStyle2newStyle_Routes.pl</title>
 
           <para>This tool converts route files as generated by
@@ -10483,7 +10460,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/route_tools</filename></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp08-tools-routes-randomizeDepart">
           <title>randomizeDepart.pl</title>
 
           <para>This tool randomizes the departure time of vehicles within a
@@ -10506,7 +10483,7 @@ myDet1;0;10;2;100;80
           </caution>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp08-tools-routes-removeRouteId">
           <title>removeRouteId.pl</title>
 
           <para>Removes the ids of routes from their description within the
@@ -10528,7 +10505,7 @@ myDet1;0;10;2;100;80
           </caution>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_chp08-tools-routes-removeRouteReference">
           <title>removeRouteReference.pl</title>
 
           <para>Removes the references to routes from the descriptions of
@@ -10821,7 +10798,7 @@ myDet1;0;10;2;100;80
   <appendix id="user_apb">
     <title>Included Data</title>
 
-    <sect1>
+    <sect1 id="user_apb-config_templates">
       <title>Configuration File Templates</title>
 
       <para>You can find the templates for each of the package's application's
@@ -10831,7 +10808,7 @@ myDet1;0;10;2;100;80
       configuration files may be found within the examples-section.</para>
     </sect1>
 
-    <sect1 revision="0.9.5">
+    <sect1 id="user_apb-included_examples" revision="0.9.5">
       <title>Included Examples</title>
 
       <para>Several examples are included in the distribution. You may find
@@ -10839,7 +10816,7 @@ myDet1;0;10;2;100;80
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples</filename>.
       The subfolders have the following contents:</para>
 
-      <table>
+      <table id="tab_supported_examples_folders">
         <title>Supported example folders</title>
 
         <tgroup cols="3">
@@ -10939,7 +10916,7 @@ myDet1;0;10;2;100;80
         </tgroup>
       </table>
 
-      <sect2>
+      <sect2 id="user_apb-included_examples-simple_nets">
         <title>SIMPLE_NETS: Basic Examples</title>
 
         <para>Some smaller networks, mainly for testing purposes may be found
@@ -10959,7 +10936,7 @@ myDet1;0;10;2;100;80
         shape of the network.</para>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_apb-included_examples-netbuild">
         <title>NETBUILD: Examples for NETCONVERT'S XML-Import</title>
 
         <para>These examples may be found in the folder
@@ -10967,7 +10944,7 @@ myDet1;0;10;2;100;80
         They shall show how networks may be imported/defined using the
         <application>NETCONVERT</application> application.</para>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-netbuild-types">
           <title>"types": Using Type Definitions to describe edges</title>
 
           <para>Both of these two examples describe the same network (a simple
@@ -10978,7 +10955,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuilding/types</filename></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-netbuild-kmh_speed">
           <title>"speed_in_kmh": Defining Edges' Speed Limits in km/h</title>
 
           <para>Both of these two examples describe the same network (a simple
@@ -10992,7 +10969,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuilding/speed_in_kmh</filename></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-netbuild-shapes">
           <title>"shapes": Defining the Shapes of Edges</title>
 
           <para>One can pass an additional parameter to edges to describe a
@@ -11004,7 +10981,7 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_apb-included_examples-router">
         <title>ROUTER: Examples for DUAROUTER and JTRROUTER</title>
 
         <para>These examples may be found in the folder
@@ -11012,7 +10989,7 @@ myDet1;0;10;2;100;80
         They shall show how trips and flows may be used to define
         vehicles.</para>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-routes-same1">
           <title>"trips2routes", "trips2routes_repetition", "flows2routes":
           Different Definition Types for the Same</title>
 
@@ -11028,7 +11005,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router</filename></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-router-intervals">
           <title>"flows2routes" vs.
           "flows2routes_<replaceable>X</replaceable>s_interval" vs.
           "flows2routes_<replaceable>X</replaceable>s_interval_ext": Spreading
@@ -11046,7 +11023,7 @@ myDet1;0;10;2;100;80
         </sect3>
       </sect2>
 
-      <sect2>
+      <sect2 id="user_apb-included_examples-extended">
         <title>EXTENDED: Examples for using additional SUMO-structures</title>
 
         <para>These examples may be found in the folder
@@ -11054,7 +11031,7 @@ myDet1;0;10;2;100;80
         They show how simulations may be equipped with additional structures
         such as variable speed signs, bus routes etc..</para>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-extended-bus_stops">
           <title>"busses1" vs. "3busses1": Examples for Bus Stops</title>
 
           <para>"busses1" shows how bus stops are defined and a bus is forced
@@ -11066,7 +11043,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/extended</filename></para>
         </sect3>
 
-        <sect3>
+        <sect3 id="user_apb-included_examples-extended-vehicle_stops">
           <title>"vehicle_stops": Defining Stop Positions for Vehicles</title>
 
           <para>"vehicle_stops" shows how a vehicle can be forced to stop at a

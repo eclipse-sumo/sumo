@@ -27,7 +27,7 @@
   <chapter id="more_tests-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="more_tests-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -36,11 +36,11 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-intro-scope">
       <title>Document Scope</title>
 
       <para>Since version 0.9.3 we support some basic tests which prove the
@@ -49,7 +49,7 @@
       how to set up the testing system and how to use it.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-intro-audience">
       <title>Document Audience</title>
 
       <para>This document contains information for
@@ -57,7 +57,7 @@
       changes work properly.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-intro-structure">
       <title>Document Structure</title>
 
       <para>At first, the acceptance tests that come with the package are
@@ -65,11 +65,10 @@
     </sect1>
   </chapter>
 
-  <chapter>
-    <title id="more_tests-acceptance">Acceptance Testing using
-    TextTest</title>
+  <chapter id="more_tests-acceptance">
+    <title>Acceptance Testing using TextTest</title>
 
-    <sect1>
+    <sect1 id="more_tests-acceptance-about">
       <title>About</title>
 
       <para>We use "<ulink url="http://texttest.carmen.se/">TextTest</ulink>"
@@ -90,7 +89,7 @@
       b) it is working.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-acceptance-install">
       <title>Install</title>
 
       <para>At first, you have to download and install "<ulink
@@ -122,7 +121,7 @@
       far...</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-acceptance-running">
       <title>Running the Tests</title>
 
       <para>Within the
@@ -136,29 +135,23 @@
       etc.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_tests-acceptance-setting_up_new">
       <title>Setting up new Tests</title>
 
       <para>Please follow the instructions for TextTest. In the following, the
       TextTest configuration for each application will be discussed.</para>
-
-      <sect2>
-        <title>SUMO</title>
-
-        <para>tbd...</para>
-      </sect2>
     </sect1>
 
-    <sect1>
-      <title>Coverage and Results</title>
+    <sect1 id="more_tests-acceptance-coverage">
+      <title>Coverage</title>
 
       <para>As said before, further tests have to be added. The following
       tests are currently available:</para>
 
-      <sect2>
+      <sect2 id="more_tests-acceptance-coverage-dfrouter">
         <title>DFROUTER</title>
 
-        <table>
+        <table id="tab_tests_dfrouter">
           <title>Tests for DFROUTER</title>
 
           <tgroup cols="1">
@@ -348,10 +341,10 @@
         </itemizedlist>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tests-acceptance-coverage-duarouter">
         <title>DUAROUTER</title>
 
-        <table>
+        <table id="tab_tests_duarouter">
           <title>Tests for DUAROUTER</title>
 
           <tgroup cols="1">
@@ -985,10 +978,10 @@
         </itemizedlist>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tests-acceptance-coverage-jtrrouter">
         <title>JTRROUTER</title>
 
-        <table>
+        <table id="tab_tests_jtrrouter">
           <title>Tests for JTRROUTER</title>
 
           <tgroup cols="1">
@@ -1199,10 +1192,10 @@
         </itemizedlist>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tests-acceptance-coverage-netconvert">
         <title>NETCONVERT</title>
 
-        <table>
+        <table id="tab_tests_netconvert">
           <title>Tests for NETCONVERT</title>
 
           <tgroup cols="1">
@@ -1500,10 +1493,10 @@
         </itemizedlist>
       </sect2>
 
-      <sect2>
+      <sect2 id="more_tests-acceptance-coverage-sumo">
         <title>SUMO</title>
 
-        <table>
+        <table id="tab_tests_sumo">
           <title>Tests for SUMO</title>
 
           <tgroup cols="1">

@@ -27,7 +27,7 @@
   <chapter id="more_dua-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="more_dua-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -36,11 +36,11 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_dua-intro-scope">
       <title>Document Scope</title>
 
       <para>This chapter is meant to be an add-on to the <ulink
@@ -54,40 +54,38 @@
       deeper aspects using a examples.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_dua-intro-audience">
       <title>Document Audience</title>
 
       <para>This document contains information for <emphasis>users</emphasis>
       of SUMO.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_dua-intro-structure">
       <title>Document Structure</title>
 
       <para>The first chapter discusses a real-world DUA example on the City
       of Magdeburg using data from the INVENT project.</para>
-
-      <para>!!!</para>
     </sect1>
   </chapter>
 
   <chapter id="more_dua-magdeburg">
     <title>DUA on the City of Magdeburg from the INVENT Project</title>
 
-    <sect1>
+    <sect1 id="more_dua-magdeburg-prerequisites">
       <title>Prerequisites</title>
 
-      <para>The next picture shows the network we have used within the project
-      "INVENT". It was given to us as an VISUM network. As VISUM-routes
-      normally start at explicite feeding edges, we could reduce the network
-      by removing geometry nodes. The routes were given as OD-matrices in a
-      ptv-Format. They define the flows for the time betwee 5am and 12pm.
-      After converting the matrices using <application>OD2TRIPS</application>
-      into trips we were able to begin with the DUA. The assignment was made
-      using the <filename>iterate.pl</filename> - script described here
-      (tbd).</para>
+      <para>The next picture shows one of the networks we have used within the
+      project "INVENT". It was given to us as an VISUM network. As
+      VISUM-routes normally start at explicite feeding edges, we could reduce
+      the network by removing geometry nodes. The routes were given as
+      OD-matrices in a ptv-Format. They define the flows for the time between
+      5am and 12pm. After converting the matrices using
+      <application>OD2TRIPS</application> into trips we were able to begin
+      with the DUA. The assignment was made using the
+      <filename>iterate.pl</filename> - script described here (tbd).</para>
 
-      <figure>
+      <figure id="img_network">
         <title>The network of City of Magdeburg used within INVENT as shown by
         SUMO</title>
 
@@ -100,7 +98,7 @@
       </figure>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_dua-magdeburg-evaluations">
       <title>Evaluations of the DUA</title>
 
       <para>The DUA has been run 40 times in order to check the behaviour of
@@ -112,7 +110,7 @@
       <para>We will now examine the data generated, starting with the vehicle
       emissions file.</para>
 
-      <sect2>
+      <sect2 id="more_dua-magdeburg-evaluations-emissions">
         <title>Development of Vehicle Emissions</title>
 
         <para>The vehicle emissions file (see chapter tbd) gives information
@@ -120,7 +118,7 @@
         for each time stemp. Additionally, the time the simulation needed to
         compute the step is written.</para>
 
-        <sect3>
+        <sect3 id="more_dua-magdeburg-evaluations-emissions-running">
           <title>Running Vehicles</title>
 
           <para>The next picture shows the development of the number of
@@ -136,7 +134,7 @@ gnuplot&gt; plot "emissions_0.txt" u 1:4 w l, "emissions_5.txt" u 1:4 w l, \
    "emissions_20.txt" u 1:4 w l, "emissions_25.txt" u 1:4 w l, \
    "emissions_30.txt" u 1:4 w l, "emissions_35.txt" u 1:4 w l</screen>
 
-          <figure>
+          <figure id="img_magdeburg_running_development">
             <title>Development of running vehicles over time and dua iteration
             step (iteration step number is increased by 5) (tbd)</title>
 
@@ -189,7 +187,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
    "emissions_36.txt" u 1:4 w l, "emissions_37.txt" u 1:4 w l, \
    "emissions_38.txt" u 1:4 w l, "emissions_39.txt" u 1:4 w l</screen>
 
-          <figure>
+          <figure id="img_magdeburg_running_development2">
             <title>Development of running vehicles over time in steps 30-39
             (tbd)</title>
 
@@ -212,7 +210,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
    "emissions_36.txt" u 1:4 w l, "emissions_37.txt" u 1:4 w l, \
    "emissions_38.txt" u 1:4 w l, "emissions_39.txt" u 1:4 w l</screen>
 
-          <figure>
+          <figure id="img_magdeburg_running_development3">
             <title>Development of running vehicles over time in steps 30-39,
             step 34 and 35 excluded (tbd)</title>
 
@@ -237,7 +235,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
           but is still missing.</para>
         </sect3>
 
-        <sect3>
+        <sect3 id="more_dua-magdeburg-evaluations-emissions-ended">
           <title>Ended Vehicles</title>
 
           <para>Almost the same information can be gained using the
@@ -248,7 +246,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
           the same reasons as described within the previous chapter: the
           vehicles get stocked in the simulation due to jams.</para>
 
-          <figure>
+          <figure id="img_magdeburg_ended_development">
             <title>Development of ended vehicles over time and dua iteration
             step (iteration step number is increased by 5) (tbd)</title>
 
@@ -270,7 +268,7 @@ gnuplot&gt; plot "emissions_0.txt" u 1:6 w l, "emissions_5.txt" u 1:6 w l, \
    "emissions_30.txt" u 1:6 w l, "emissions_35.txt" u 1:6 w l</screen>
         </sect3>
 
-        <sect3>
+        <sect3 id="more_dua-magdeburg-evaluations-emissions-waiting">
           <title>Waiting Vehicles and the Mean Waiting Time</title>
 
           <para>That vehicles are stocked may be also visualised using the
@@ -279,7 +277,7 @@ gnuplot&gt; plot "emissions_0.txt" u 1:6 w l, "emissions_5.txt" u 1:6 w l, \
           full. The next picture shows the development of this value during
           the simulations and the dua-steps.</para>
 
-          <figure>
+          <figure id="img_magdeburg_waiting_development">
             <title>Development of waiting vehicles over time and dua iteration
             step (iteration step number is increased by 5) (tbd)</title>
 
@@ -303,7 +301,7 @@ gnuplot&gt; plot "emissions_0.txt" u 1:5 w l, "emissions_5.txt" u 1:5 w l, \
           <para>This is also visible when evaluating the mean waiting
           time:</para>
 
-          <figure>
+          <figure id="img_magdeburg_mean_wating_development">
             <title>Development of the mean waiting time over time and dua
             iteration step (iteration step number is increased by 5)
             (tbd)</title>
@@ -327,13 +325,13 @@ gnuplot&gt; plot "emissions_0.txt" u 1:7 w l, "emissions_5.txt" u 1:7 w l, \
    "emissions_30.txt" u 1:7 w l, "emissions_35.txt" u 1:7 w l</screen>
         </sect3>
 
-        <sect3>
+        <sect3 id="more_dua-magdeburg-evaluations-emissions-mean_travel">
           <title>Mean Travel Time</title>
 
           <para>The next picture shows how dramatically the dua changes the
           mean travel time.</para>
 
-          <figure>
+          <figure id="img_magdeburg_mean_travel_development">
             <title>Development of the mean travel time over time and dua
             iteration step (iteration step number is increased by 5)
             (tbd)</title>
@@ -358,7 +356,7 @@ gnuplot&gt; plot "emissions_0.txt" u 1:8 w l, "emissions_5.txt" u 1:8 w l, \
 
           <para>... and for the last 10 steps:</para>
 
-          <figure>
+          <figure id="img_magdeburg_mean_travel_development2">
             <title>Development of the mean travel time over time and dua
             iteration step for the last iteration steps</title>
 
@@ -383,7 +381,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
 
           <para>... and for those last steps where no vehicle blocked:</para>
 
-          <figure>
+          <figure id="img_magdeburg_mean_travel_development3">
             <title>Development of the mean travel time over time and dua
             iteration step for the last and valid iteration steps</title>
 

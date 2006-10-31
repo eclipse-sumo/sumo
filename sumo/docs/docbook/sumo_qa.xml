@@ -7,10 +7,10 @@
   <para>We advice you to read also the user documentation - especially the
   tricks, tips &amp; tools - chapter.</para>
 
-  <sect1>
+  <sect1 id="sumo_qa-general">
     <title>General</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-general-what_is">
       <title>What is SUMO?</title>
 
       <para><emphasis>Question: </emphasis>What is SUMO?</para>
@@ -21,14 +21,14 @@
       computer power is large enough.</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="sumo_qa-general-what_means">
       <title>What does "SUMO" mean?</title>
 
       <para><emphasis>Answer:</emphasis> "SUMO" is an acronym for "Simulation
       of Urban MObility".</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="sumo_qa-general-what_kind">
       <title>What kind of a traffic simulation is SUMO?</title>
 
       <para><emphasis>Answer:</emphasis> SUMO is a microscopic,
@@ -37,13 +37,13 @@
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-building">
     <title>Building</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-building-getting_sources">
       <title>Getting the sources</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-building-getting_sources-cygwin_cvs_access">
         <title>How do I access the CVS using cygwin or Linux?</title>
 
         <para><emphasis>Answer:</emphasis> Use the following commands:</para>
@@ -55,7 +55,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
         password.</para>
       </sect3>
 
-      <sect3>
+      <sect3 id="sumo_qa-building-getting_sources-cvs_documentation">
         <title>Is there further documentation on the CVS?</title>
 
         <para><emphasis>Answer:</emphasis> Look under <ulink
@@ -65,21 +65,20 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-features">
     <title>Features</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-features-junction_traffic" revision="0.9.5">
       <title>Traffic within junctions</title>
 
       <para><emphasis>Question: </emphasis>Does SUMO support traffic within
       the junctions?</para>
 
-      <para><emphasis>Answer:</emphasis> No, not yet. There is an approach
-      towards this, but it is not yet in such a stable state that it would be
-      useable.</para>
+      <para><emphasis>Answer:</emphasis> Yes, SUMO supports inner-junction
+      traffic since version 0.9.5.</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="sumo_qa-features-socket_connections">
       <title>Connection with an external application</title>
 
       <para><emphasis>Question: </emphasis>Is it possible to connect SUMO to
@@ -92,13 +91,13 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage">
     <title>Usage</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-errors">
       <title>Errors</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-errors-cryptic">
         <title>Strange and cryptic Errors</title>
 
         <para><emphasis>Question: </emphasis>What does the following error
@@ -116,13 +115,13 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage-netconvert">
     <title>Netconvert</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-netconvert-windows">
       <title>Using Windows</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-netconvert-windows-memory">
         <title>The application hangs after a while (few memory consumption,
         most of the system time)</title>
 
@@ -140,13 +139,13 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage-routing">
     <title>Routing</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-routing-random">
       <title>Random Routes</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-routing-random-missing">
         <title>No random routes are generated</title>
 
         <para><emphasis>Question: </emphasis>I have tried to insert vehicles
@@ -163,13 +162,13 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage-simulation">
     <title>Simulation</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-simulation-networks">
       <title>Networks</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-simulation-networks-changed">
         <title>Network changes</title>
 
         <para><emphasis>Question: </emphasis>I have changed my network and now
@@ -182,10 +181,10 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
       </sect3>
     </sect2>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-simulation-vehicles">
       <title>Vehicles</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-simulation-vehicles-missing">
         <title>No vehicle appears</title>
 
         <para><emphasis>Question: </emphasis>I have build the network and
@@ -201,7 +200,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
         us.</para>
       </sect3>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-simulation-vehicles-jumps_backward">
         <title>Vehicle jumps backward</title>
 
         <para><emphasis>Question: </emphasis>When I try to evaluate my vehicle
@@ -220,7 +219,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage-simulation-tls">
     <title>Traffic Lights</title>
 
     <para>See also the documentation on traffic light (<ulink
@@ -229,7 +228,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_tls.shtml">SUMO -
     More on... Traffic Lights</ulink>).</para>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-simulation-tls-changing_duration">
       <title>Changing the duration of Cycles and Phases</title>
 
       <para><emphasis>Question:</emphasis> I want to study the effects of
@@ -246,7 +245,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
       here.</para>
     </sect2>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-simulation-tls-coupling">
       <title>Coupling Traffic Lights</title>
 
       <para><emphasis>Question:</emphasis> Is it possible to "connect" two
@@ -259,13 +258,13 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
     </sect2>
   </sect1>
 
-  <sect1>
+  <sect1 id="sumo_qa-usage-visualisation">
     <title>Visualisation</title>
 
-    <sect2>
+    <sect2 id="sumo_qa-usage-visualisation-windows">
       <title>Using Windows</title>
 
-      <sect3>
+      <sect3 id="sumo_qa-usage-visualisation-windows-flickering">
         <title>Display flickers in the area of the mouse pointer</title>
 
         <para><emphasis>Question: </emphasis>Why is the view around the mouse

@@ -21,7 +21,7 @@
   <chapter id="more_arcview-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="more_arcview-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -30,34 +30,33 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-intro-scope">
       <title>Document Scope</title>
 
       <para>Several people had problems when trying to import streets from
-      ArcView databases. The reason of this problem is that the original
-      importer was meant to import networks from ArcView databases which use
-      the scheme NavTeq-networks are stored in. During the time, we had to
-      recognize that this scheme is used only very seldom. In the real world,
-      every network supplier uses an own scheme and when importing networks
-      from ArcView-databases, the user has to give some additional information
-      about it.</para>
+      ArcView databases. The reason is that the original importer was meant to
+      import networks from ArcView databases which use the scheme used by
+      NavTeq. During the time, we had to recognize that this scheme is used
+      only very seldom. In the real world, every network supplier uses an own
+      scheme and when importing networks from ArcView-databases, the user has
+      to give some additional information about it.</para>
 
       <para>This documentation shows how to use the importer to import
       networks from other suppliers than NavTeq by example.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-intro-audience">
       <title>Audience</title>
 
       <para>This document contains information for <emphasis>users</emphasis>
       who want to import ArcView-based maps.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-intro-structure">
       <title>Document Structure</title>
 
       <para>The document describes the usage of the ArcView importer by giving
@@ -65,11 +64,10 @@
     </sect1>
   </chapter>
 
-  <chapter>
-    <title id="more_arcview-frida">Importing the Network of Osnabrück from the
-    Frida-project</title>
+  <chapter id="more_arcview-frida">
+    <title>Importing the Network of Osnabrück from the Frida-project</title>
 
-    <sect1>
+    <sect1 id="more_arcview-frida-availability">
       <title>Data Availability</title>
 
       <para>The network is available at the <ulink
@@ -77,7 +75,7 @@
       licensed under the GPL.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-frida-conversion">
       <title>Conversion</title>
 
       <para>Our main interest are of course the street networks within the
@@ -96,7 +94,7 @@
 
       <itemizedlist>
         <listitem>
-          <para>Another field naming</para>
+          <para>Different field naming</para>
 
           <para>The only problem with this is that we can not extract street
           names properly. Still, within FRIDA, the edges are numbered. We have
@@ -125,7 +123,8 @@
           available in <application>NETCONVERT</application>; to use types in
           combination with ArcView-files, only a small extension was necessary
           (available in version 0.9.4). Still, the types have to be translated
-          into XML. The generated file looks like this:</para>
+          into XML. The generated file (<filename>frida.typ.xml</filename>)
+          looks like this:</para>
 
           <programlisting><sgmltag>&lt;types&gt;</sgmltag>
    <sgmltag>&lt;!-- "noch nicht attributiert" (= not yet attributed) --&gt;</sgmltag>
@@ -170,7 +169,7 @@
 
       <para>The network looks as shown below:</para>
 
-      <figure>
+      <figure id="img_frida_converted">
         <title>The converted Frida-network of Osnabrück (using allowed speed
         for coloring)</title>
 
@@ -180,6 +179,10 @@
           </imageobject>
         </mediaobject>
       </figure>
+    </sect1>
+
+    <sect1 id="more_arcview-frida-quality">
+      <title>Data Quality</title>
 
       <para>Looking a bit deeper at the network, we had to realise two further
       problems. At first, highway on- and off-ramps are marked as "highway".
@@ -187,7 +190,7 @@
       lanes as the highways themselves. And it's definitely not fitting to
       reality, as the next picture shows:</para>
 
-      <figure>
+      <figure id="img_frida_details">
         <title>Detail view showing problems with (unidirectional) highway
         on-/off-ramps</title>
 
@@ -205,7 +208,7 @@
       bidirectional, makes the city usable, but the highways are even worse,
       now, because also the on-/off-ramps are bidirectional, then...</para>
 
-      <figure>
+      <figure id="img_frida_details2">
         <title>Detail view showing problems with (bidirectional) highway
         on-/off-ramps</title>
 
@@ -217,29 +220,30 @@
       </figure>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-frida-demand">
       <title>Demand</title>
 
       <para>There is no demand available for Osnabrück - at least none we know
       about.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-frida-conclusion">
       <title>Conlusion</title>
 
       <para>Using the current features we are able to parse the network from
       the Frida-project but we can not state it is completely usable for
-      traffic simulations. At least areas around highways lack are not
-      realistic, because on-/offramps lack an explicite declaration and are
-      due to this as wide as the highways themselfes and furthermore, all
-      streets within the network are coded in just one direction.</para>
-
-      <para>Still, if one wants to simulate only the inner city traffic, the
-      error made when inserting edges bidirectional should be small enough to
-      get a working, realistic network at no cost.</para>
+      traffic simulations. At least areas around highways are not realistic,
+      because on-/offramps lack an explicite declaration and are due to this
+      as wide as the highways themselves. Furthermore, all streets within the
+      network are coded in just one direction. Extending them to be
+      bidirectional solves the problem in inner-city areas, but yields in an
+      unacceptable reslt for highways. Still, if one wants to simulate only
+      the inner city traffic, the error made when inserting edges
+      bidirectional should be small enough to get a working, realistic network
+      at no cost.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="more_arcview-frida-data">
       <title>Data</title>
 
       <para>You can download the converted networks from the <ulink

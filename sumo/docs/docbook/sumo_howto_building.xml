@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<book>
+<book revision="0.9.5">
   <bookinfo>
     <title id="howto_build">SUMO - HowTo... Build</title>
 
@@ -31,7 +31,7 @@
   <chapter id="howto_build-intro">
     <title>Introduction</title>
 
-    <sect1>
+    <sect1 id="howto_build-intro-information">
       <title>Document Information</title>
 
       <para>This document is a part of <emphasis>SUMO</emphasis> -
@@ -40,18 +40,18 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.5. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_build-intro-scope">
       <title>Document Scope</title>
 
-      <para>This document describes how to obtain SUMO-sources and how to used
+      <para>This document describes how to obtain SUMO-sources and how to use
       them to build SUMO.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_build-intro-audience">
       <title>Document Audience</title>
 
       <para>This document contains information for
@@ -59,14 +59,20 @@
       sources.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_build-intro-structure">
       <title>Document Structure</title>
 
-      <para>The first chapter describes what the described extension shall do
-      (the goal).</para>
+      <para>The first chapter describes how to obtain SUMO-sources which can
+      be build to executable files.</para>
 
-      <para>The second one described how to extend SUMO to achieve the
-      goal.</para>
+      <para>The second chapter describes how to build SUMO under
+      Linux/UNIX.</para>
+
+      <para>The third chapter describes how to build SUMO under
+      Windows.</para>
+
+      <para>The fourth chapter describes how to extend the Makefiles in the
+      case you work under Linux/UNIX.</para>
     </sect1>
   </chapter>
 
@@ -89,7 +95,7 @@
   <chapter id="howto_build-linux">
     <title>UNIX/Linux: SUMO and the GNU build process</title>
 
-    <para>Here we descride how to use the <ulink
+    <para>Here we describe how to use the <ulink
     url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>, <ulink
     url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
     <ulink
@@ -102,7 +108,79 @@
     <literal>configure</literal> and how to modify
     <literal>Makefile.am</literal> if new files or libraries are added.</para>
 
-    <sect1>
+    <sect1 id="howto_build-linux-from_source_tarball">
+      <title>Building SUMO from a sourcecode release</title>
+
+      <procedure>
+        <step>
+          <para>Download the <ulink
+          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+          1.4.x), the <ulink
+          url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
+          (version 4.4.9), and the <ulink
+          url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
+          (version 1.3.1). All libraries are also available at our <ulink
+          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          Make sure you download the Linux-version of Xerces, the sources for
+          FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+
+          <caution>
+            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
+            will also not need the PROJ and the GDAL library.</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Install all libraries into desired folder (FOX and GDAL must
+          be build, Xerces possibly not)</para>
+        </step>
+
+        <step>
+          <para>Extract the source tarball into a folder.</para>
+        </step>
+
+        <step>
+          <para><literal>cd</literal> into the generated directory.</para>
+        </step>
+
+        <step>
+          <para>Call <command>./configure</command>. You can get a list of
+          <command>configure</command>-option by calling <command>./configure
+          --help</command>. <command>./configure</command> builds a
+          <filename>Makefile</filename> for each
+          <filename>Makefile.in</filename>.</para>
+
+          <para>Normally, you have to supply the places the includes and the
+          libraries are located at, for all libraries. This is done
+          using:</para>
+
+          <para><option>--with-xerces-libraries=<replaceable>&lt;PATH_TO_XERCES_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-xerces-includes=<replaceable>&lt;PATH_TO_XERCES_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-libraries=<replaceable>&lt;PATH_TO_FOX_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-includes=<replaceable>&lt;PATH_TO_FOX_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-gdal-libraries=<replaceable>&lt;PATH_TO_GDAL_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-gdal-includes=<replaceable>&lt;PATH_TO_GDAL_INCLUDES&gt;</replaceable></option></para>
+        </step>
+
+        <step>
+          <para>Call <command>make</command> to build all applications within
+          the SUMO package.</para>
+        </step>
+      </procedure>
+
+      <para>If everything was build, the applications may be found in
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
+      Enjoy!</para>
+    </sect1>
+
+    <sect1 id="howto_build-linux-from_cvs">
       <title>Building SUMO from CVS</title>
 
       <procedure>
@@ -185,149 +263,18 @@
       <para>If everything was build, the applications may be found in
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
       Enjoy!</para>
-
-      <sect2>
-        <title>Adding options to configure</title>
-
-        <para>If - for any reasons - you want to add some further options to
-        <literal>configure</literal>, you need to modify the file
-        <filename>configure.in</filename> file. There are some SUMO-specific
-        options. Take them as sample and consult the <ulink
-        url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
-        for further insights.</para>
-      </sect2>
-
-      <sect2>
-        <title>Adding header/library-checks to configure</title>
-
-        <para>If - for any reasons - you want to add a check for a needed
-        header or library, you need to modify the file
-        <filename>configure.in</filename> file. There are some SUMO-specific
-        header/library-checks for the libraries SUMO uses. Take them as sample
-        and consult the <ulink
-        url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
-        for further insights. Take care of <ulink
-        url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
-        shell-code</ulink>.</para>
-      </sect2>
-
-      <sect2>
-        <title>Modifying Makefile.am</title>
-
-        <para>There is a need of modifying <literal>Makefile.am</literal> if
-        you</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>add or remove new sources or files that should go in the
-            distribution: In this case, all source files must be listed behind
-            <literal>*_SOURCES</literal>. All other files that should be
-            included in the distribution must be listed behind
-            <literal>EXTRA_DIST</literal></para>
-          </listitem>
-
-          <listitem>
-            <para>need to include header-files from different directories: In
-            this case, add the header directories to
-            <literal>AM_CPPFLAGS</literal>. If these header-directories have
-            been assigned to a name in <literal>configure</literal>, refer to
-            them like <literal>-I$(FOX_INCLUDES)</literal> or
-            <literal>-I$(XERCES_INCLUDE)S</literal>. To search for headers
-            within SUMO directories, use
-            <literal>-I$(top_srcdir)/<replaceable>&lt;PATH_TO_DIR&gt;</replaceable></literal>.</para>
-          </listitem>
-
-          <listitem>
-            <para>need to link against new libraries or create new programs:
-            In this case, modify the file <literal>src/Makefile.am</literal>.
-            Add a new program to <literal>bin_PROGRAMS</literal>. For each
-            program you need to provide <literal>prg_SOURCES</literal>,
-            <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
-            <literal>prg_LDFLAGS</literal> holds the linker flags and
-            library-directories like <literal>-L$(XERCES_LIB_PATH)</literal>.
-            <literal>prg_LDADD</literal> lists all libraries that should be
-            linked with the executable, e.g. <literal>./utils/xml/libxml.a
-            -l$(LIB_XERCES) -l$(LIB_FOX)</literal>.</para>
-          </listitem>
-
-          <listitem>
-            <para>you create new subdirectories: In this case, add the new
-            subdirectory to <literal>SUBDIRS</literal> and create a new
-            <literal>Makefile.am</literal> there. In this case, you also have
-            to include the command to build this directory's makefiles within
-            <literal>configure.in</literal>.</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>All SUMO-executables are build in <literal>sumo/src</literal>.
-        Modify this directory's <literal>Makefile.am</literal> to add new
-        executables.</para>
-
-        <para>All other <literal>Makefile.am</literal> looks e.g. like
-        this:</para>
-
-        <screen>noinst_LIBRARIES = libxxx.a
-
-EXTRA_DIST = distributed_but_not_compiled_file
-
-libxxx_a_SOURCES = header.h source.cpp
-
-AM_CPPFLAGS = -I$(top_srcdir)/src/helpers -I$(FOX_INCLUDES) \ -I$(XERCES_INCLUDES)
-
-SUBDIRS = icons</screen>
-
-        <sect3>
-          <title>Makefile.am additions for Xerces</title>
-
-          <para>If you need to include Xerces-headers in a specific directory
-          add <literal>-I$(XERCES_INCLUDES)
-          -I$(XERCES_INCLUDES_PRIOR_1_7)</literal> to
-          <literal>AM_CPPFLAGS</literal>.</para>
-
-          <para>If you need to link against the Xerces-library add
-          <literal>-L$(XERCES_LDFLAGS)</literal> to
-          <literal>prg_LDFLAGS</literal> and
-          <literal>-l$(LIB_XERCES)</literal> to
-          <literal>prg_LDADD</literal>.</para>
-        </sect3>
-
-        <sect3>
-          <title>Makefile.am additions for FOX</title>
-
-          <para>If you need to include FOX-headers in a specific directory add
-          -I<literal>$(FOX_INCLUDES)</literal> to
-          <literal>AM_CPPFLAGS</literal>.</para>
-
-          <para>If you need to link against FOX-library add
-          <literal>-L$(FOX_LDFLAGS)</literal> to
-          <literal>prg_LDFLAGS</literal> and <literal>-l$(LIB_FOX)</literal>
-          to <literal>prg_LDADD</literal>.</para>
-        </sect3>
-
-        <sect3>
-          <title>Makefile.am additions for GDAL</title>
-
-          <para>If you need to include GDAL-headers in a specific directory
-          add -I<literal>$(GDAL_INCLUDES)</literal> to
-          <literal>AM_CPPFLAGS</literal>.</para>
-
-          <para>If you need to link against GDAL-library add
-          <literal>-L$(GDAL_LDFLAGS)</literal> to
-          <literal>prg_LDFLAGS</literal> and <literal>-l$(LIB_GDAL)</literal>
-          to <literal>prg_LDADD</literal>.</para>
-        </sect3>
-      </sect2>
     </sect1>
   </chapter>
 
   <chapter id="howto_build-windows">
     <title>Windows</title>
 
-    <sect1>
+    <sect1 id="howto_build-windows-msvc6">
       <title>Using MSVC++ 6.0</title>
 
-      <para>Building under Windows is as easy as under Linux. The following
-      steps have to be done (steps 9-11 may be skipped if using SUMO
+      <para>Building under Windows is as easy as under Linux. The procedure is
+      the same for sources from the CVS and those from a release. The
+      following steps have to be done (steps 9-11 may be skipped if using SUMO
       0.8.x):</para>
 
       <procedure>
@@ -336,7 +283,9 @@ SUBDIRS = icons</screen>
         </step>
 
         <step>
-          <para>Obtain the sources as described above.</para>
+          <para>Obtain the sources as described in "<link
+          linkend="howto_build-obtain_sources">All Platforms: Obtaining the
+          sources</link>".</para>
         </step>
 
         <step>
@@ -354,7 +303,7 @@ SUBDIRS = icons</screen>
           for FOX in the version 1.4.x and GDAL version 1.3.1.</para>
 
           <caution>
-            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
+            <para>If you use SUMO 0.8.x you have to use FOX 1.2 instead. You
             will also not need the PROJ and the GDAL library.</para>
           </caution>
         </step>
@@ -458,7 +407,7 @@ SUBDIRS = icons</screen>
       Enjoy!</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="howto_build-windows-msvc7">
       <title>Using MS Studio 7.0 .NET</title>
 
       <para>Follow steps 2-11 as described for <application
@@ -479,6 +428,153 @@ SUBDIRS = icons</screen>
       </procedure>
 
       <para>Enjoy!</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="howto_build-extending_linux">
+    <title>UNIX/Linux: SUMO and the GNU build process</title>
+
+    <para>Here we describe how to use the <ulink
+    url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>, <ulink
+    url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+    <ulink
+    url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+    and <ulink
+    url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+    to build SUMO from the cvs-sources.</para>
+
+    <para>We will also discuss how to add new option to
+    <literal>configure</literal> and how to modify
+    <literal>Makefile.am</literal> if new files or libraries are added.</para>
+
+    <sect1 id="howto_build-extending_linux-configure_add_options">
+      <title>Adding options to configure</title>
+
+      <para>If you want to add some further options to
+      <literal>configure</literal>, you need to modify the file
+      <filename>configure.in</filename> file. There are some SUMO-specific
+      options. Take them as sample and consult the <ulink
+      url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+      for further insights.</para>
+    </sect1>
+
+    <sect1 id="howto_build-extending_linux-configure_add_headers_libraries">
+      <title>Adding header/library-checks to configure</title>
+
+      <para>If you want to add a check for a needed header or library, you
+      need to modify the file <filename>configure.in</filename> file. There
+      are some SUMO-specific header/library-checks for the libraries SUMO
+      uses. Take them as sample and consult the <ulink
+      url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+      for further insights. Take care of <ulink
+      url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+      shell-code</ulink>.</para>
+    </sect1>
+
+    <sect1 id="howto_build-extending_linux-makefile_modify">
+      <title>Modifying Makefile.am</title>
+
+      <para>There is a need of modifying <literal>Makefile.am</literal> if
+      you</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>add or remove new sources or files that should go in the
+          distribution: In this case, all source files must be listed behind
+          <literal>*_SOURCES</literal>. All other files that should be
+          included in the distribution must be listed behind
+          <literal>EXTRA_DIST</literal></para>
+        </listitem>
+
+        <listitem>
+          <para>need to include header-files from different directories: In
+          this case, add the header directories to
+          <literal>AM_CPPFLAGS</literal>. If these header-directories have
+          been assigned to a name in <literal>configure</literal>, refer to
+          them like <literal>-I$(FOX_INCLUDES)</literal> or
+          <literal>-I$(XERCES_INCLUDE)S</literal>. To search for headers
+          within SUMO directories, use
+          <literal>-I$(top_srcdir)/<replaceable>&lt;PATH_TO_DIR&gt;</replaceable></literal>.</para>
+        </listitem>
+
+        <listitem>
+          <para>need to link against new libraries or create new programs: In
+          this case, modify the file <literal>src/Makefile.am</literal>. Add a
+          new program to <literal>bin_PROGRAMS</literal>. For each program you
+          need to provide <literal>prg_SOURCES</literal>,
+          <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+          <literal>prg_LDFLAGS</literal> holds the linker flags and
+          library-directories like <literal>-L$(XERCES_LIB_PATH)</literal>.
+          <literal>prg_LDADD</literal> lists all libraries that should be
+          linked with the executable, e.g. <literal>./utils/xml/libxml.a
+          -l$(LIB_XERCES) -l$(LIB_FOX)</literal>.</para>
+        </listitem>
+
+        <listitem>
+          <para>you create new subdirectories: In this case, add the new
+          subdirectory to <literal>SUBDIRS</literal> and create a new
+          <literal>Makefile.am</literal> there. In this case, you also have to
+          include the command to build this directory's makefiles within
+          <literal>configure.in</literal>.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+      Modify this directory's <literal>Makefile.am</literal> to add new
+      executables.</para>
+
+      <para>All other <literal>Makefile.am</literal> looks e.g. like
+      this:</para>
+
+      <screen>noinst_LIBRARIES = libxxx.a
+
+EXTRA_DIST = distributed_but_not_compiled_file
+
+libxxx_a_SOURCES = header.h source.cpp
+
+AM_CPPFLAGS = -I$(top_srcdir)/src/helpers -I$(FOX_INCLUDES) \ -I$(XERCES_INCLUDES)
+
+SUBDIRS = icons</screen>
+
+      <sect2 id="howto_build-extending_linux-makefile_modify-xerces">
+        <title>Makefile.am additions for Xerces</title>
+
+        <para>If you need to include Xerces-headers in a specific directory
+        add <literal>-I$(XERCES_INCLUDES)
+        -I$(XERCES_INCLUDES_PRIOR_1_7)</literal> to
+        <literal>AM_CPPFLAGS</literal>.</para>
+
+        <para>If you need to link against the Xerces-library add
+        <literal>-L$(XERCES_LDFLAGS)</literal> to
+        <literal>prg_LDFLAGS</literal> and <literal>-l$(LIB_XERCES)</literal>
+        to <literal>prg_LDADD</literal>.</para>
+      </sect2>
+
+      <sect2 id="howto_build-extending_linux-makefile_modify-fox">
+        <title>Makefile.am additions for FOX</title>
+
+        <para>If you need to include FOX-headers in a specific directory add
+        -I<literal>$(FOX_INCLUDES)</literal> to
+        <literal>AM_CPPFLAGS</literal>.</para>
+
+        <para>If you need to link against FOX-library add
+        <literal>-L$(FOX_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+        and <literal>-l$(LIB_FOX)</literal> to
+        <literal>prg_LDADD</literal>.</para>
+      </sect2>
+
+      <sect2 id="howto_build-extending_linux-makefile_modify-gdal">
+        <title>Makefile.am additions for GDAL</title>
+
+        <para>If you need to include GDAL-headers in a specific directory add
+        -I<literal>$(GDAL_INCLUDES)</literal> to
+        <literal>AM_CPPFLAGS</literal>.</para>
+
+        <para>If you need to link against GDAL-library add
+        <literal>-L$(GDAL_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+        and <literal>-l$(LIB_GDAL)</literal> to
+        <literal>prg_LDADD</literal>.</para>
+      </sect2>
     </sect1>
   </chapter>
 </book>

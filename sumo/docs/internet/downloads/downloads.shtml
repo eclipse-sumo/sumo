@@ -29,7 +29,41 @@
           </table>
 			<hr>
 
-<!--#include virtual="../menus/down_menu.html"-->
+			<!-- Navigation bar begin -->
+			<table border="0" ID="Table1">
+				<tr>
+					<td valign="top" width="120">
+						<div class="navbar">
+							<a href="../index.shtml" class="SUMOMainLink">Home</a><br>
+							<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
+							<a href="../docs/documentation.shtml" class="SUMOMainLink">Documentation</a><br>
+							<a href="../screens/screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
+
+							<a href="downloads.shtml" class="SUMOMainLink">Downloads</a><br>
+							<a href="changes.shtml" class="SUMOSubLink">Changes</a><br>
+							<a href="add_data.shtml" class="SUMOSubLink">Add. Data</a><br>
+							<a href="rel_policy.shtml" class="SUMOSubLink">Release Policy</a><br>
+							<a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
+
+							<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
+							<a href="../projects.shtml" class="SUMOMainLink">Projects</a><br>
+							<a href="../links/links.shtml" class="SUMOMainLink">Links</a><br>
+							<a href="../disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
+							<a href="../contact.shtml" class="SUMOMainLink">Contact</a><br>
+
+							<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
+
+							<center><br>
+								<a href="http://ivf.dlr.de" class="SUMOMainLink"><img src="../images/logo_dlr.gif" width="40" height="42"></a>
+								<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink"><img src="../images/logo_zaik.gif" width="40" height="42"></a><br>
+								<a href="http://sourceforge.net/projects/sumo/"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31"
+										border="0" alt="SourceForge.net Logo"></a>
+							</center>
+						</div>
+					</td>
+					<td width="20"></td>
+					<!-- Navigation bar end -->
+
 
 					<td valign="top">
 						<div class="SUMOMainText">
@@ -95,8 +129,8 @@
 										<br>
 									<li>
 										The last stable source-tarball. This one was built on 07.10.2005. Includes
-										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
-										.net-project workspace.<br>
+										sources, examples, Linux-Makefiles and project workspaces for MSVC++ 6.0 and
+										MS Visual Studio .NET.<br>
 										Download as:
 											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.tar.gz?download">[sumo-src-0.9.4.tar.gz, ~5MB]</a>
 											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.zip?download">[sumo-src-0.9.4.zip, ~5.5MB]</a><br>
@@ -162,10 +196,8 @@
 							<p>
 								<h2>SUMO - Latest Stable Release (Version 0.8.3)</h2>
 								<br>
-								"stable"; All input and command line options will not be changed within the
-								0.8.x-line (I know this was not true for the step between 0.8.0.1 and 0.8.2).
-								Use this for your projects if you want to use the same settings
-								for a longer time.<br>
+								"stable"; This is an outdated, old version of SUMO. Please use this only if
+								you have old networks/routes or other settings and want to reuse them.<br>
 								<br>
 								Included: sumo, netconvert, netgen, jtrrouter, duarouter, od2trips.<br>
 								<br>
@@ -186,9 +218,6 @@
 
 								</a> or at <a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607&atid=443421">
 									http://sourceforge.net/tracker/?group_id=45607&atid=443421</a>. <br>
-									<b>Please remind that several option names have changed!</b> The most important:
-								"net-files" (router, simulation) is now "net-file"...<br>
-								Check user documentation and man-pages for this.<br>
 								<ul>
 									<li>
 										The MS Windows binaries.
@@ -251,7 +280,7 @@
 			<p></p>
 			<hr>
 
-<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./downloads.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./downloads.shtml"--></div></p>
 
 		</body>
 </html>

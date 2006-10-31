@@ -21,13 +21,6 @@ h1 {
 	color:#000000;
 	}
 
-h2 {
-	font-family:Helvetica,Arial,Palatino;
-	font-size:10pt;
-	font-weight:bold;
-	color:#000000;
-	}
-
 .SUMOMainText, .SUMOMainText td {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
@@ -287,7 +280,7 @@ div.caution h3 {
 	background-color:#ffffff;
 	}
 
-h1.SUMOMainText.chapter.title {
+h1.chapter.title {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:20pt;
 	font-weight:bold;
@@ -295,23 +288,23 @@ h1.SUMOMainText.chapter.title {
 	margin-bottom:5px;
 	}
 
-h2.SUMOMainText.chapter.title {
+h2.chapter.title {
 	font-family:Helvetica,Arial,Palatino;
-	font-size:24pt;
+	font-size:16pt;
 	font-weight:bold;
 	color:#000000;
 	margin-bottom:5px;
 	}
 
-h2.SUMOMainText.chapter.sect1.title {
+h2.chapter.sect1.titlepage.title {
 	font-family:Helvetica,Arial,Palatino;
-	font-size:13pt;
+	font-size:14pt;
 	font-weight:bold;
 	color:#000000;
 	margin-bottom:5px;
 	}
 
-h3.SUMOMainText.chapter.sect2.title {
+h3.chapter.sect2.title {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:12pt;
 	font-weight:bold;
@@ -319,7 +312,7 @@ h3.SUMOMainText.chapter.sect2.title {
 	margin-bottom:5px;
 	}
 
-h4.SUMOMainText.chapter.sect3.title {
+h4.chapter.sect3.title {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:11pt;
 	font-weight:bold;
@@ -327,7 +320,7 @@ h4.SUMOMainText.chapter.sect3.title {
 	margin-bottom:5px;
 	}
 
-h5.SUMOMainText.chapter.sect4.title {
+h5.chapter.sect4.title {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
 	font-weight:bold;
