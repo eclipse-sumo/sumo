@@ -503,6 +503,7 @@ prj/msvc7.net/z_libutils_options/Makefile
 prj/msvc7.net/z_libutils_sumoxml/Makefile
 prj/msvc7.net/z_libutils_xml/Makefile
 data/Makefile
+data/add/Makefile
 data/cfg_templates/Makefile
 data/examples/Makefile
 data/examples/dua/Makefile
@@ -544,8 +545,12 @@ data/examples/output_tests/cross3ltl_emissions/Makefile
 data/examples/output_tests/cross3ltl_emissions/output/Makefile
 data/examples/output_tests/cross3ltl_inductloops/Makefile
 data/examples/output_tests/cross3ltl_inductloops/output/Makefile
-data/examples/output_tests/cross3ltl_meandata/Makefile
-data/examples/output_tests/cross3ltl_meandata/output/Makefile
+data/examples/output_tests/cross3ltl_meandata_constrained/Makefile
+data/examples/output_tests/cross3ltl_meandata_constrained/output/Makefile
+data/examples/output_tests/cross3ltl_meandata_edges/Makefile
+data/examples/output_tests/cross3ltl_meandata_edges/output/Makefile
+data/examples/output_tests/cross3ltl_meandata_lanes/Makefile
+data/examples/output_tests/cross3ltl_meandata_lanes/output/Makefile
 data/examples/output_tests/cross3ltl_rawdump/Makefile
 data/examples/output_tests/cross3ltl_rawdump/output/Makefile
 data/examples/output_tests/cross3ltl_tripinfo/Makefile
