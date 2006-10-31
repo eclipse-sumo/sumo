@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/10/31 12:20:31  dkrajzew
+// further work on internal lanes
+//
 // Revision 1.19  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -157,6 +160,7 @@ public:
 
     /// sets the information about an approaching vehicle
     void setApproaching(MSVehicle *approaching);
+    MSVehicle *getApproaching() const { return myApproaching; };
 
     /// Some Junctions need to switch the priority
     void setPriority( bool prio, bool yellow );

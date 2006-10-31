@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.97  2006/10/31 12:20:31  dkrajzew
+// further work on internal lanes
+//
 // Revision 1.96  2006/10/25 12:22:34  dkrajzew
 // updated
 //
@@ -1233,6 +1236,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     size_t view = 1;
     // loop over following lanes
     while(true) {
+        SUMOReal laneLength = nextLane->length();
         if(!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
             SUMOReal vsafeStop = myType->ffeS(myState.mySpeed, seen-(nextLane->length()-myStops.begin()->pos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
@@ -1418,6 +1422,10 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         vLinkWait =
             MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
 
+        if((*link)->amYellow()&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
+            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait));
+            return;
+        }
         // valid, when a vehicle is not on a priorised lane
         if(!(*link)->havePriority()) {
             // if it has already decelerated to let priorised vehicles pass

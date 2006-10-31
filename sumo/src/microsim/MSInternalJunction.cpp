@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/10/31 12:20:31  dkrajzew
+// further work on internal lanes
+//
 // Revision 1.7  2006/10/12 08:10:01  dkrajzew
 // warnings removed
 //
@@ -171,11 +174,17 @@ MSInternalJunction::setAllowed()
     //  the internal lanes
     for(i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
         MSLane *l = *i;
+        const MSVehicle * const foe = l->getFirstVehicle();
         const MSLinkCont &lc = l->getLinkCont();
         for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             if(find(myInternalLanes.begin(), myInternalLanes.end(), (*j)->getViaLane())!=myInternalLanes.end()) {
+                /*
                 bool approached = (*j)->getViaLane()!=0&&(*j)->getViaLane()->myApproaching!=0;
+                approached |= ((*j)->getViaLane()!=0&&!(*j)->getViaLane()->empty());
                 approached |= ((*j)->getLane()->myApproaching!=0);
+                */
+                bool approached = foe!=0&&(*j)->getApproaching()==foe;
+                approached |= ((*j)->getViaLane()!=0&&!(*j)->getViaLane()->empty());
                 if(approached&&((*j)->opened()||(*j)->havePriority())) {
                     myRespond.set(0, false);
                     return true;

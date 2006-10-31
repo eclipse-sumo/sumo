@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.44  2006/10/31 12:20:31  dkrajzew
+// further work on internal lanes
+//
 // Revision 1.43  2006/09/18 10:06:48  dkrajzew
 // added vehicle class support to microsim
 //
@@ -483,6 +486,7 @@ public:
 
     /// returns the last vehicle
     virtual const MSVehicle * const getLastVehicle() const;
+    virtual const MSVehicle * const getFirstVehicle() const;
 
     virtual MSVehicle *getLastVehicle(MSLaneChanger &lc) const;
 

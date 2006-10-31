@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.71  2006/10/31 12:20:31  dkrajzew
+// further work on internal lanes
+//
 // Revision 1.70  2006/10/12 08:09:15  dkrajzew
 // fastened up lane changing
 //
@@ -1198,6 +1201,17 @@ MSLane::getLastVehicle() const
         return 0;
     }
     return *myVehicles.begin();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+const MSVehicle * const
+MSLane::getFirstVehicle() const
+{
+    if(myVehicles.size()==0) {
+        return 0;
+    }
+    return *(myVehicles.end()-1);
 }
 
 /////////////////////////////////////////////////////////////////////////////
