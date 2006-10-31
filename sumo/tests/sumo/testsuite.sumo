@@ -8,8 +8,14 @@ output
 # tests for additional structures
 extended
 
+# tests for the traffic lights subsystem
+tls
+
 # testing meta processing
 meta
 
 # error handling tests
 errors
+
+# mesoscopic simulation checks
+meso

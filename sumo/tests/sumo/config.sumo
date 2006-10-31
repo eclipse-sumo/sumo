@@ -4,9 +4,7 @@ copy_test_path:net.net.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_definition.def.xml
-
-[run_dependent_text]
-output:Build #
+copy_test_path:input_definition2.def.xml
 
 [collate_file]
 emissions:emissions.xml
@@ -18,5 +16,5 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 tripinfos:tripinfos.xml
 vehroutes:vehroutes.xml
-
+tls_state:tls_state.xml
 

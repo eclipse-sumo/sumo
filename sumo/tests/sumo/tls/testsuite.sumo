@@ -1,0 +1,6 @@
+
+# Plain test for a basic example with a simple state output
+cross3ltl_savetlsstate
+
+# Plain test for a basic example with a simple state output
+cross3ltl_savetlsswitches
