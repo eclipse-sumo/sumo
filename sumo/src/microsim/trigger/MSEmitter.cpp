@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/10/31 12:18:52  dkrajzew
+// emitter debugged
+//
 // Revision 1.8  2006/07/06 07:23:45  dkrajzew
 // applied current microsim-APIs
 //
@@ -278,14 +281,15 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
             return;
         }
         // check and assign id
-        string aVehicleId = /*myParent.getID() +  "_" + */getStringSecure(attrs, "id", "");
-        MSVehicle* veh = myVehicleControl.getVehicle( aVehicleId );
-        if ( veh != 0 ) {
-            aVehicleId = myParent.getID() +  "_" + toString(MSNet::getInstance()->getCurrentTimeStep()) +  "_" + toString(myRunningID++);
-            veh = myVehicleControl.getVehicle( aVehicleId );
-            if ( veh != 0 ) {
-                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.");
-                WRITE_WARNING("Continuing with next element.");
+        string aVehicleId = getStringSecure(attrs, "id", "");
+        if(myVehicleControl.getVehicle(aVehicleId)!=0) {
+            WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Generating a default id.");
+            aVehicleId = "";
+        }
+        if(aVehicleId=="") {
+            aVehicleId = myParent.getID() +  "_" + toString(aEmitTime) +  "_" + toString(myRunningID++);
+            if(myVehicleControl.getVehicle(aVehicleId)!=0) {
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Continuing with next element.");
                 return;// false;
             }
         }
@@ -320,10 +324,9 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
         }
         // build vehicle
         SUMOReal aEmitSpeed = getFloatSecure(attrs, "speed", -1);
-        veh =
+        MSVehicle *veh =
             MSNet::getInstance()->getVehicleControl().buildVehicle(
-                aVehicleId, aEmitRoute, aEmitTime,
-                aVehType, 0, 0);
+                aVehicleId, aEmitRoute, aEmitTime, aVehType, 0, 0);
         myParent.schedule(this, veh, aEmitSpeed);
         myHaveNext = true;
         _offset = SUMOTime(aEmitTime);
@@ -428,27 +431,11 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     MSVehicle *veh = myToEmit[child].first;
     SUMOReal speed = myToEmit[child].second;
     // check whether the speed shall be patched
-    MSVehicle::State state(myPos, myDestLane->maxSpeed());
+    MSVehicle::State state(myPos, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
     if(speed>=0) {
         state = MSVehicle::State( myPos, speed );
     }
     // try to emit
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        if ( myDestLane->getEdge()->emit( *veh,  myNet.getCurrentTimeStep() ) ) {
-            myNet.getVehicleControl().vehiclesEmitted(1);
-            veh->onDepart();
-            // insert vehicle into the dictionary
-            if(!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
-                // !!!
-                throw 1;
-            }
-            // erase the child information
-            myToEmit.erase(myToEmit.find(child));
-            return true;
-        }
-    } else {
-#endif
     if ( myDestLane->isEmissionSuccess( veh, state ) ) {
         veh->enterLaneAtEmit(myDestLane, state);
         veh->onDepart();
@@ -462,9 +449,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         myToEmit.erase(myToEmit.find(child));
         return true;
     }
-#ifdef HAVE_MESOSIM
-    }
-#endif
     return false;
 }
 
