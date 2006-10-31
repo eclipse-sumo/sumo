@@ -7,3 +7,7 @@ all:
 	automake --gnu --add-missing
 	autoconf
 
+clean:
+	rm -r aclocal.m4 autom4te.cache/ configure depcomp install-sh missing src/config.h.in
+	find . -name Makefile.in -exec rm '{}' ';'
+ 
