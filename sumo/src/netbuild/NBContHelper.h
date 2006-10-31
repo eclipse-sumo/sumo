@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2006/10/31 12:21:26  dkrajzew
+// debugging tls computation
+//
 // Revision 1.18  2006/09/21 09:48:57  dkrajzew
 // debugging computation of inner-lane velocities and lane-to-lane connections
 //
@@ -275,12 +278,14 @@ public:
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
+            /*
             if(_edge==e2) {
                 return 1;
             }
             if(_edge==e1) {
                 return 0;
             }
+            */
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 < d2;
@@ -294,7 +299,10 @@ public:
             if(d>=360) {
                 d -= 360;
             }
+            return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
+            /*
             return fabs(d - _angle);
+            */
         }
 
     private:
