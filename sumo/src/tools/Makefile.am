@@ -1,6 +1,8 @@
-EXTRA_DIST = \
-findIncludingRoutes.cpp findIncludingRoutes.h \
-Intersection.cpp Intersection.h \
+EXTRA_DIST = Intersection.cpp Intersection.h \
 MapEdges.cpp MapEdges.h \
 NetCompare.cpp NetCompare.h \
+findIncludingRoutes.cpp findIncludingRoutes.h \
 wjt_routesFromDets_main.cpp
+
+
+

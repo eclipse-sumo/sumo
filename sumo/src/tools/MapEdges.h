@@ -2,7 +2,7 @@
 #define MapEdges_h
 //---------------------------------------------------------------------------//
 //                        MapEdges.h -
-//
+//  A tool application to map between edges from two different networks
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
@@ -20,17 +20,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2006/04/05 05:35:54  dkrajzew
+// Revision 1.5  2006/10/31 12:24:13  dkrajzew
+// some tools added
+//
+// Revision 1.4  2006/04/05 05:35:56  dksumo
 // debugging
 //
-// Revision 1.3  2005/10/07 11:42:59  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.3  2005/10/06 13:39:43  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.2  2005/09/23 06:05:18  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 12:09:27  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/09/20 06:12:34  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.1  2005/09/09 12:53:17  dksumo
 // tools added

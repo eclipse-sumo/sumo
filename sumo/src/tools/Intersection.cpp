@@ -20,10 +20,17 @@
 namespace
 {
     const char rcsid[] =
-    "$Id: $";
+    "$Id: Intersection.cpp,v 1.3 2005/10/06 13:39:43 dksumo Exp $";
 }
-// $Log: $
+// $Log: Intersection.cpp,v $
+// Revision 1.3  2005/10/06 13:39:43  dksumo
+// using of a configuration file rechecked
 //
+// Revision 1.2  2005/09/15 12:03:58  dksumo
+// code style changes
+//
+// Revision 1.1  2005/09/09 12:53:16  dksumo
+// tools added
 //
 /* =========================================================================
  * included modules
@@ -155,6 +162,8 @@ Intersection::loadPolygon(void)
             poly->posi.push_back(*pos);
 			cout <<"       Position: x = "<<pos1<<" y = "<<pos2<<endl;
 			}
+        // !!! patch due to false implementation of intersectsAtLengths!!!
+        poly->posi.push_back(poly->posi[0]);
         myPolyDict[id] = poly;
 		}
 
@@ -171,13 +180,21 @@ Intersection::compare(const char *output)
    ofstream out(output);
    for(DictTypePolygon::iterator i=myPolyDict.begin(); i!=myPolyDict.end(); i++) {
 	    for(DictTypeLane::iterator j=myLaneDict.begin(); j!=myLaneDict.end(); j++) {
-			if(((*i).second->posi).intersects((*j).second->posi)){
+			if(((*j).second->posi).intersects((*i).second->posi)){
 				out<<(*i).second->id << ":" << (*j).second->id<<endl;
 				cout<<"  Schnittpunkt zwischen Polygon "<<(*i).second->id<<" und Lane "<<(*j).second->id <<endl;
+                DoubleVector intersectionPositions =
+                    (*j).second->posi.intersectsAtLengths((*i).second->posi);
+                for(DoubleVector::iterator k=intersectionPositions.begin(); k!=intersectionPositions.end(); ++k) {
+                    Position2D pos = (*j).second->posi.positionAtLengthPosition(*k);
+                    cout << "     At lane pos " << (*k) << " (" << pos.x() << ", " << pos.y() << ")" << endl;
+                }
 			}
 		}
     }
    out.close();
+
+
 }
 // gibt wie oft ein char in einr string vorkommt
 int

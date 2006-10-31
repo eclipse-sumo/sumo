@@ -1,7 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        MapEdges.h -
-//
-//                           -------------------
+//  A tool application to map between edges from two different networks//                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
 //  copyright            : (C) 2005 by Danilo Boyom
@@ -23,22 +22,20 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2006/04/05 05:35:54  dkrajzew
+// Revision 1.5  2006/10/31 12:24:13  dkrajzew
+// some tools added
+//
+// Revision 1.4  2006/04/05 05:35:56  dksumo
 // debugging
 //
-// Revision 1.3  2005/10/07 11:42:59  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.3  2005/10/06 13:39:43  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.2  2005/09/23 06:05:18  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 12:09:27  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/09/20 06:12:34  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.1  2005/09/09 12:53:16  dksumo
 // tools added
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -60,6 +57,7 @@ namespace
 #include <direct.h>
 #include <math.h>
 #include <utils/common/StdDefs.h>
+#include <utils/importio/LineReader.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -79,6 +77,8 @@ MapEdges::DictTypeJunction MapEdges::myJunctionDictA;
 MapEdges::DictTypeJunction MapEdges::myJunctionDictB;
 std::map<std::string, std::string> MapEdges::myEdge2JunctionAMap;
 std::map<std::string, std::string> MapEdges::myEdge2JunctionBMap;
+
+std::vector<std::string> myBlacklist;
 
 
 /* =========================================================================
@@ -161,12 +161,21 @@ MapEdges::loadNet(const char *net, int dic)
 		}
         if(buff.find("<edge id=")!=string::npos) {
             string id = getAttr(buff, "id");
+            // skip edges within the blacklist
+            if(find(myBlacklist.begin(), myBlacklist.end(), id)!=myBlacklist.end()) {
+                continue;
+            }
+            // !!! no ramp-hack!!!
+            if(id.find("-Added")!=string::npos) {
+                continue;
+            }
             string from = getAttr(buff, " From");
 			if (dic == 1){
 				myEdge2JunctionAMap[id] = from;
 			}else{
 				myEdge2JunctionBMap[from] = id;
 			}
+
 
         }
 
@@ -288,7 +297,8 @@ MapEdges::convertB(void)
 
 
 void
-MapEdges::result(const std::string &file){
+MapEdges::result(const std::string &file)
+{
 	ofstream out(file.c_str());
     if(!out.good()) {
         cerr << "Could not open '" << file << "'." << endl;
@@ -300,6 +310,14 @@ MapEdges::result(const std::string &file){
          string nodeID = (*i).second;
          Position2D posA = myJunctionDictA[nodeID]->pos;
 		 for(DictTypeJunction::iterator j=myJunctionDictB.begin(); j!=myJunctionDictB.end(); j++) {
+             // skip empty nodes
+             if(myEdge2JunctionBMap.find((*j).second->id)==myEdge2JunctionBMap.end()) {
+                 continue;
+             }
+             if(myEdge2JunctionBMap[(*j).second->id].size()==0) {
+                 continue;
+             }
+             //
 			 SUMOReal X = pow(posA.x() - (*j).second->pos.x(),2);
 			 SUMOReal Y = pow(posA.y() - (*j).second->pos.y(),2);
 			 SUMOReal nabstand = sqrt(X+Y);
@@ -315,6 +333,22 @@ MapEdges::result(const std::string &file){
 }
 
 
+void
+loadBlacklist(const std::string &file)
+{
+    LineReader lr(file);
+    if(!lr.good()) {
+        cerr << "Could not open blacklist ''.";
+        exit(1);
+    }
+    while(lr.hasMore()) {
+        string id = lr.readLine();
+        if(id.length()>0&&id[0]!='#') {
+            myBlacklist.push_back(id);
+        }
+    }
+}
+
 
 /* -------------------------------------------------------------------------
  * main
@@ -325,8 +359,14 @@ int main(int argc, char** argv)
         cerr << "Syntax-Error!" << endl;
         cerr << "Syntax: MapEdges <NET_A> <NET_B> <JUNCTION_A1> <JUNCTION_A2> <JUNCTION_A3> \\"
             << endl
-            << "   <JUNCTION_B1> <JUNCTION_B2> <JUNCTION_B3> <OUTPUT_FILE>" << endl;
+            << "   <JUNCTION_B1> <JUNCTION_B2> <JUNCTION_B3> <OUTPUT_FILE> \\"
+            << endl
+            << "   [<BLACKLIST>]" << endl;
       return -1;
+    }
+
+    if(argc==10) {
+        loadBlacklist(argv[10]);
     }
 
 	MapEdges *app = new MapEdges(argv[1], argv[2]);

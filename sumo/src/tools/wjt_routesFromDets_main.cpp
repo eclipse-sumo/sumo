@@ -423,7 +423,7 @@ readFlows(char *f)
     cout << " Reading from " << mbeg << " to " << mend << endl;
     for(int i=mbeg; i<mend; i+=4) {
         string file(f);
-        file = file + string("_") + twoPosHourString(i) + string("-") + twoPosHourString(i+4);
+        file = file + "_" + twoPosHourString(i) + "-" + twoPosHourString(i+4);
         LineReader lr(file);
         if(!lr.good()) {
             cout << "Could not open '" << file << "'." << endl;
