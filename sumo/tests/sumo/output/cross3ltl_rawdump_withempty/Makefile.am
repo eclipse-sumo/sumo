@@ -1,3 +1,3 @@
-EXTRA_DIST =  cross3ltl.sumo.cfg errors.sumo.exe input_routes.rou.xml \
-net.net.xml options.sumo output.sumo.exe rawdump.sumo.exe
+EXTRA_DIST =  cross3ltl.sumo.cfg errors.sumo.exe options.sumo \
+output.sumo.exe rawdump.sumo.exe
 

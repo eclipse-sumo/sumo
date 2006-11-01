@@ -1,0 +1,212 @@
+<netstats>
+   <interval begin="0" end="59" >
+      <edge id="1fi">
+         <lane id="1fi_0" traveltime="22.5158" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="1o">
+         <lane id="1o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="2fi">
+         <lane id="2fi_0" traveltime="22.5158" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="2o">
+         <lane id="2o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="3fi">
+         <lane id="3fi_0" traveltime="22.5158" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="3o">
+         <lane id="3o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="4fi">
+         <lane id="4fi_0" traveltime="22.5158" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="4o">
+         <lane id="4o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="1si">
+         <lane id="1si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="1si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="1si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="2si">
+         <lane id="2si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="2si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="2si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="3si">
+         <lane id="3si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="3si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="3si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="4si">
+         <lane id="4si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="4si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="4si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+   </interval>
+   <interval begin="60" end="119" >
+      <edge id="1fi">
+         <lane id="1fi_0" traveltime="47.0701" nSamples="33" density="2.19868" occupancy="0.0109934" noStops="0" speed="5.31442"/>
+      </edge>
+      <edge id="1o">
+         <lane id="1o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="2fi">
+         <lane id="2fi_0" traveltime="48.3523" nSamples="33" density="2.19868" occupancy="0.0109934" noStops="0" speed="5.17349"/>
+      </edge>
+      <edge id="2o">
+         <lane id="2o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="3fi">
+         <lane id="3fi_0" traveltime="51.9005" nSamples="66" density="4.39736" occupancy="0.0219868" noStops="0" speed="4.8198"/>
+      </edge>
+      <edge id="3o">
+         <lane id="3o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="4fi">
+         <lane id="4fi_0" traveltime="22.5158" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="4o">
+         <lane id="4o_0" traveltime="43.8344" nSamples="0" density="0" occupancy="0" noStops="0" speed="11.11"/>
+      </edge>
+      <edge id="1si">
+         <lane id="1si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="1si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="1si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="2si">
+         <lane id="2si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="2si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="2si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="3si">
+         <lane id="3si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="3si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="3si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+      <edge id="4si">
+         <lane id="4si_0" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="4si_1" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+         <lane id="4si_2" traveltime="17.0734" nSamples="0" density="0" occupancy="0" noStops="0" speed="13.89"/>
+      </edge>
+   </interval>
+   <interval begin="120" end="179" >
+   </interval>
+   <interval begin="180" end="239" >
+   </interval>
+   <interval begin="240" end="299" >
+   </interval>
+   <interval begin="300" end="359" >
+   </interval>
+   <interval begin="360" end="419" >
+   </interval>
+   <interval begin="420" end="479" >
+   </interval>
+   <interval begin="480" end="539" >
+   </interval>
+   <interval begin="540" end="599" >
+   </interval>
+   <interval begin="600" end="659" >
+   </interval>
+   <interval begin="660" end="719" >
+   </interval>
+   <interval begin="720" end="779" >
+   </interval>
+   <interval begin="780" end="839" >
+   </interval>
+   <interval begin="840" end="899" >
+   </interval>
+   <interval begin="900" end="959" >
+      <edge id="1fi">
+         <lane id="1fi_0" traveltime="33.3342" nSamples="388" density="25.8512" occupancy="0.129256" noStops="0" speed="7.50431"/>
+      </edge>
+      <edge id="1o">
+         <lane id="1o_0" traveltime="47.0937" nSamples="739" density="25.2909" occupancy="0.126454" noStops="0" speed="10.3411"/>
+      </edge>
+      <edge id="2fi">
+         <lane id="2fi_0" traveltime="32.6366" nSamples="481" density="32.0474" occupancy="0.160237" noStops="0" speed="7.6647"/>
+      </edge>
+      <edge id="2o">
+         <lane id="2o_0" traveltime="49.2448" nSamples="810" density="27.7207" occupancy="0.138604" noStops="0" speed="9.88936"/>
+      </edge>
+      <edge id="3fi">
+         <lane id="3fi_0" traveltime="36.6304" nSamples="393" density="26.1843" occupancy="0.130921" noStops="0" speed="6.82903"/>
+      </edge>
+      <edge id="3o">
+         <lane id="3o_0" traveltime="49.2307" nSamples="569" density="19.473" occupancy="0.0973648" noStops="0" speed="9.89221"/>
+      </edge>
+      <edge id="4fi">
+         <lane id="4fi_0" traveltime="23.6447" nSamples="405" density="26.9838" occupancy="0.134919" noStops="0" speed="10.5795"/>
+      </edge>
+      <edge id="4o">
+         <lane id="4o_0" traveltime="50.5219" nSamples="825" density="28.2341" occupancy="0.14117" noStops="0" speed="9.63938"/>
+      </edge>
+      <edge id="1si">
+         <lane id="1si_0" traveltime="41.2283" nSamples="248" density="17.4292" occupancy="0.087146" noStops="105" speed="5.75211"/>
+         <lane id="1si_1" traveltime="48.8891" nSamples="262" density="18.4131" occupancy="0.0920655" noStops="85" speed="4.85078"/>
+         <lane id="1si_2" traveltime="810.742" nSamples="2230" density="156.722" occupancy="0.783611" noStops="1608" speed="0.29251"/>
+      </edge>
+      <edge id="2si">
+         <lane id="2si_0" traveltime="28.7707" nSamples="87" density="6.11427" occupancy="0.0305714" noStops="0" speed="8.24275"/>
+         <lane id="2si_1" traveltime="47.2062" nSamples="297" density="20.8729" occupancy="0.104364" noStops="112" speed="5.02371"/>
+         <lane id="2si_2" traveltime="46.3013" nSamples="174" density="12.2285" occupancy="0.0611427" noStops="84" speed="5.12189"/>
+      </edge>
+      <edge id="3si">
+         <lane id="3si_0" traveltime="38.537" nSamples="249" density="17.4995" occupancy="0.0874974" noStops="84" speed="6.15383"/>
+         <lane id="3si_1" traveltime="39.0099" nSamples="222" density="15.6019" occupancy="0.0780097" noStops="73" speed="6.07923"/>
+         <lane id="3si_2" traveltime="21.7476" nSamples="41" density="2.88144" occupancy="0.0144072" noStops="0" speed="10.9046"/>
+      </edge>
+      <edge id="4si">
+         <lane id="4si_0" traveltime="18.605" nSamples="164" density="11.5258" occupancy="0.0576288" noStops="0" speed="12.7466"/>
+         <lane id="4si_1" traveltime="53.476" nSamples="249" density="17.4995" occupancy="0.0874974" noStops="112" speed="4.4347"/>
+         <lane id="4si_2" traveltime="378.346" nSamples="753" density="52.9201" occupancy="0.2646" noStops="586" speed="0.626808"/>
+      </edge>
+   </interval>
+   <interval begin="960" end="1000" >
+      <edge id="1fi">
+         <lane id="1fi_0" traveltime="33.7699" nSamples="421" density="41.0485" occupancy="0.205243" noStops="0" speed="7.40749"/>
+      </edge>
+      <edge id="1o">
+         <lane id="1o_0" traveltime="49.0947" nSamples="484" density="24.24" occupancy="0.1212" noStops="0" speed="9.91961"/>
+      </edge>
+      <edge id="2fi">
+         <lane id="2fi_0" traveltime="33.483" nSamples="219" density="21.353" occupancy="0.106765" noStops="0" speed="7.47096"/>
+      </edge>
+      <edge id="2o">
+         <lane id="2o_0" traveltime="49.9409" nSamples="431" density="21.5856" occupancy="0.107928" noStops="0" speed="9.75153"/>
+      </edge>
+      <edge id="3fi">
+         <lane id="3fi_0" traveltime="34.8645" nSamples="315" density="30.7133" occupancy="0.153566" noStops="0" speed="7.17492"/>
+      </edge>
+      <edge id="3o">
+         <lane id="3o_0" traveltime="53.761" nSamples="367" density="18.3803" occupancy="0.0919016" noStops="0" speed="9.05861"/>
+      </edge>
+      <edge id="4fi">
+         <lane id="4fi_0" traveltime="23.5191" nSamples="295" density="28.7632" occupancy="0.143816" noStops="0" speed="10.636"/>
+      </edge>
+      <edge id="4o">
+         <lane id="4o_0" traveltime="50.6383" nSamples="477" density="23.8894" occupancy="0.119447" noStops="0" speed="9.61723"/>
+      </edge>
+      <edge id="1si">
+         <lane id="1si_0" traveltime="39.3925" nSamples="142" density="14.6043" occupancy="0.0730216" noStops="41" speed="6.02019"/>
+         <lane id="1si_1" traveltime="94.0518" nSamples="158" density="16.2499" occupancy="0.0812494" noStops="10" speed="2.52148"/>
+         <lane id="1si_2" traveltime="470.813" nSamples="1466" density="150.774" occupancy="0.753871" noStops="755" speed="0.503703"/>
+      </edge>
+      <edge id="2si">
+         <lane id="2si_0" traveltime="31.1308" nSamples="212" density="21.8036" occupancy="0.109018" noStops="44" speed="7.61786"/>
+         <lane id="2si_1" traveltime="30.6669" nSamples="138" density="14.1929" occupancy="0.0709647" noStops="12" speed="7.7331"/>
+         <lane id="2si_2" traveltime="53.7409" nSamples="152" density="15.6328" occupancy="0.078164" noStops="70" speed="4.41284"/>
+      </edge>
+      <edge id="3si">
+         <lane id="3si_0" traveltime="49.8685" nSamples="192" density="19.7467" occupancy="0.0987334" noStops="85" speed="4.7555"/>
+         <lane id="3si_1" traveltime="34.287" nSamples="163" density="16.7641" occupancy="0.0838206" noStops="39" speed="6.91662"/>
+         <lane id="3si_2" traveltime="46.1944" nSamples="83" density="8.53633" occupancy="0.0426816" noStops="40" speed="5.13373"/>
+      </edge>
+      <edge id="4si">
+         <lane id="4si_0" traveltime="18.2797" nSamples="129" density="13.2673" occupancy="0.0663365" noStops="0" speed="12.9734"/>
+         <lane id="4si_1" traveltime="83.3811" nSamples="270" density="27.7688" occupancy="0.138844" noStops="127" speed="2.84417"/>
+         <lane id="4si_2" traveltime="661.033" nSamples="488" density="50.1895" occupancy="0.250947" noStops="394" speed="0.358756"/>
+      </edge>
+   </interval>
+</netstats>
