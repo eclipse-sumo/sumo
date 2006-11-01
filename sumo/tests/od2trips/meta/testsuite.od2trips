@@ -1,0 +1,11 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests --help
+help
+
+# Tests no input
+noop
+
+
+
