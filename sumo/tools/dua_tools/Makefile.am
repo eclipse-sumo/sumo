@@ -1,1 +1,2 @@
-EXTRA_DIST = dua-iterate.pl
+EXTRA_DIST =  dua-iterate.pl
+

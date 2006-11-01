@@ -1,1 +1,2 @@
 SUBDIRS =  hokkaido-japan
+

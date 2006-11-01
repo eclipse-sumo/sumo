@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/01 08:12:42  dkrajzew
+// debugged building under Linux
+//
 // Revision 1.20  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -262,11 +265,13 @@ MSLink::isApproached() const
 }
 
 
+#ifdef HAVE_INTERNAL_LANES
 void
 MSLink::resetInternalPriority()
 {
     myPrio = opened();
 }
+#endif
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

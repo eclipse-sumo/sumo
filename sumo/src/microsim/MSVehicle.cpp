@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.98  2006/11/01 08:12:42  dkrajzew
+// debugged building under Linux
+//
 // Revision 1.97  2006/10/31 12:20:31  dkrajzew
 // further work on internal lanes
 //
@@ -1295,6 +1298,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         }
 //        +nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs;
 
+#ifdef HAVE_INTERNAL_LANES
         if(MSGlobals::gUsingInternalLanes) {
             for(size_t j=0; j<lc.size(); ++j) {
                 MSLane *nl = lc[j]->getViaLane();
@@ -1370,6 +1374,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                 }
             }
         } else {
+#endif
             const State &nextLanePred = nextLane->myLastState;
             SUMOReal dist2Pred = seen;
             if(nextLane->getLastVehicle()!=0) {
@@ -1394,7 +1399,9 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                 // leading vehicle is overlapping (stands within the junction)
                 vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
             }
+#ifdef HAVE_INTERNAL_LANES
         }
+#endif
                 /*
             } else {
                 if(dist2Pred>=0) {
@@ -2388,7 +2395,8 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 void
 MSVehicle::cleanUpConnections(int time)
 {
-	std::map<std::string, C2CConnection*>::iterator i;
+  /*
+	typename std::map<std::string, C2CConnection*>::iterator i;
 	ofstream out("VehicleNeighborsGNU.txt", ios_base::app);
 	for(i=myNeighbors.begin(); i!=myNeighbors.end(); ) {
 		if((*i).second->lastTimeSeen != time) {
@@ -2403,12 +2411,14 @@ MSVehicle::cleanUpConnections(int time)
 		}
 	}
 	out.close();
+  */
 }
 
 
 bool
 MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 {
+  /*
 	bool b = false;
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
@@ -2419,12 +2429,14 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 		}
 	}
 	return b;
+  */
 }
 
 
 void
 MSVehicle::updateInfos(int time)
 {
+  /*
 	std::map<std::string, Information*>::iterator i = infoCont.begin();
 	for(i; i!= infoCont.end(); ){
 		if((*i).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
@@ -2433,6 +2445,7 @@ MSVehicle::updateInfos(int time)
 			i++;
 		}
 	}
+  */
 }
 
 

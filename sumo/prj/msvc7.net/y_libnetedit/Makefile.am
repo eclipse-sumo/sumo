@@ -1,1 +1,2 @@
-EXTRA_DIST = y_libnetedit.vcproj
+EXTRA_DIST =  y_libnetedit.vcproj
+

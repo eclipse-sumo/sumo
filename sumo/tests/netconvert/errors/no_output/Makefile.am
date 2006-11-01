@@ -1,3 +1,3 @@
-EXTRA_DIST =  errors.netconvert.exe input_edges.edg.xml input_nodes.nod.xml \
-net.netconvert.exe options.netconvert output.netconvert.exe
+EXTRA_DIST =  errors.netconvert.exe net.netconvert.exe options.netconvert \
+output.netconvert.exe
 

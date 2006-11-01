@@ -1,3 +1,2 @@
-EXTRA_DIST =  errors.duarouter.exe errors.jtrrouter.exe options.jtrrouter \
-output.duarouter.exe output.jtrrouter.exe
+EXTRA_DIST =  errors.jtrrouter.exe options.jtrrouter output.jtrrouter.exe
 

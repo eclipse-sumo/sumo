@@ -1,1 +1,2 @@
-EXTRA_DIST = y_libgui.vcproj
+EXTRA_DIST =  y_libgui.vcproj
+

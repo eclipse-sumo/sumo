@@ -1,1 +1,2 @@
-EXTRA_DIST = y_libnetgen.vcproj
+EXTRA_DIST =  y_libnetgen.vcproj
+

@@ -1,2 +1,2 @@
-SUBDIRS = box cross eight
+SUBDIRS =  box cross eight
 

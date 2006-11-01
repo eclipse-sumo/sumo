@@ -1,4 +1,4 @@
-SUBDIRS =  help noop version
+SUBDIRS =  help noop
 
 EXTRA_DIST =  testsuite.jtrrouter
 

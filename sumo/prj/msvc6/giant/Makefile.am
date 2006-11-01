@@ -1,1 +1,2 @@
-EXTRA_DIST = giant.dsp
+EXTRA_DIST =  giant.dsp
+

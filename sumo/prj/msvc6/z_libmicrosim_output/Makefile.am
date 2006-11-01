@@ -1,2 +1,2 @@
-EXTRA_DIST = z_libmicrosim_output.dsp
+EXTRA_DIST =  z_libmicrosim_output.dsp
 

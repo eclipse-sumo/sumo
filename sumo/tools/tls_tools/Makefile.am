@@ -1,2 +1,2 @@
-EXTRA_DIST = buildPrograms.pl
+EXTRA_DIST =  buildPrograms.pl
 

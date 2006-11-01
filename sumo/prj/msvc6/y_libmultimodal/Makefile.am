@@ -1,1 +1,2 @@
-EXTRA_DIST = y_libmultimodal.dsp
+EXTRA_DIST =  y_libmultimodal.dsp
+

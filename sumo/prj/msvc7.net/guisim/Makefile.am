@@ -1,2 +1,2 @@
-EXTRA_DIST = guisim.vcproj
+EXTRA_DIST =  guisim.vcproj
 

@@ -1,2 +1,2 @@
-EXTRA_DIST = z_libutils_foxtools.vcproj
+EXTRA_DIST =  z_libutils_foxtools.vcproj
 

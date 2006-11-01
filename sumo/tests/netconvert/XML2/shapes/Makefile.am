@@ -1,4 +1,4 @@
-SUBDIRS =  hokkaido hokkaido-iterated hokkaido-iterated2
+SUBDIRS =  hokkaido
 
 EXTRA_DIST =  testsuite.netconvert
 

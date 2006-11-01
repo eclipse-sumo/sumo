@@ -1,1 +1,3 @@
-SUBDIRS = cross3l_actuated cross3l_agentbased cross3l_simpletl
+SUBDIRS =  cross3l_actuated cross3l_agentbased cross3l_simpletl \
+cross3l_simpletl_1add
+

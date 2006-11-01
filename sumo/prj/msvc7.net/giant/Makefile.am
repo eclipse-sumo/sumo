@@ -1,1 +1,2 @@
-EXTRA_DIST = giant.vcproj
+EXTRA_DIST =  giant.vcproj
+

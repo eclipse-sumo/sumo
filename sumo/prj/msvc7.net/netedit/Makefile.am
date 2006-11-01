@@ -1,1 +1,2 @@
-EXTRA_DIST = netedit.vcproj
+EXTRA_DIST =  netedit.vcproj
+

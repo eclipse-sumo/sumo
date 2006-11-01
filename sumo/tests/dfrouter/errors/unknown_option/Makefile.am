@@ -1,3 +1,2 @@
-EXTRA_DIST =  errors.dfrouter.exe errors.duarouter.exe options.dfrouter \
-output.dfrouter.exe output.duarouter.exe
+EXTRA_DIST =  errors.dfrouter.exe options.dfrouter output.dfrouter.exe
 

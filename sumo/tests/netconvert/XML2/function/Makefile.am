@@ -1,4 +1,4 @@
-SUBDIRS = normal_notypes normal_withtypes sources_notypes sources_withtypes
+SUBDIRS =  sources_notypes sources_withtypes
 
-EXTRA_DIST =  testsuite.netconvert
+EXTRA_DIST =  input_nodes.nod.xml input_types.typ.xml testsuite.netconvert
 
