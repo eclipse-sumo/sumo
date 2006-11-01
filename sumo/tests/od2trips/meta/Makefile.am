@@ -1,4 +1,5 @@
 SUBDIRS =  help noop
 
-EXTRA_DIST =  testsuite.dfrouter
+EXTRA_DIST =  testsuite.od2trips
+
 
