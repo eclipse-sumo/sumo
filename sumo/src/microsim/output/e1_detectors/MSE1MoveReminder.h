@@ -74,43 +74,18 @@ public:
         std::string id
         , MSCrossSection crossSection
         , MSE1Collector& collector
-        )
-        : MSMoveReminder(crossSection.laneM)
-          , collectorM( collector )
-          , posM(crossSection.posM)
-        {}
+        );
 
     bool isStillActive(
         MSVehicle& veh
         , SUMOReal oldPos
         , SUMOReal newPos
         , SUMOReal
+        );
 
-        )
-        {
-            if ( newPos <= posM ) {
-                // crossSection not yet reached
-                return true;
-            }
-            return isActive( veh, oldPos, newPos,
-                             Loki::Int2Type< isEntryReminder >() );
-        }
+    void dismissByLaneChange( MSVehicle& veh );
 
-    void dismissByLaneChange( MSVehicle& veh )
-        {
-            dismiss( veh,  Loki::Int2Type< isEntryReminder >() );
-        }
-
-    bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
-        {
-            return isActivated( veh,
-                                Loki::Int2Type< isEntryReminder >() );
-/*            if ( veh.pos() <= posM ) {
-                // crossSection not yet reached
-                return true;
-            }
-            return false;*/
-        }
+    bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
 
 private:
 
@@ -118,59 +93,25 @@ private:
     bool isActive(MSVehicle& veh,
                   SUMOReal oldPos ,
                   SUMOReal newPos,
-                  Loki::Int2Type< true >)
-        {
-            // crossSection partially or completely entered
-            MSUnit::Seconds entryTime = MSUnit::getInstance()->getSeconds(
-                MSNet::getInstance()->getCurrentTimeStep() -
-                ( newPos - posM ) / ( newPos - oldPos ) );
-            collectorM.enter( veh, entryTime );
-            return false;
-        }
+                  Loki::Int2Type< true >);
 
     // EntryReminder overload
-    bool isActivated(MSVehicle& veh, Loki::Int2Type< true >)
-        {
-            // activate if veh is in front on crossSection. Don't measure
-            // 'partially' entered vehicles.
-            return veh.getPositionOnLane() <= posM;
-        }
+    bool isActivated(MSVehicle& veh, Loki::Int2Type< true >);
 
     // EntryReminder overload
-    void dismiss(MSVehicle& veh, Loki::Int2Type< true >)
-        {}
+    void dismiss(MSVehicle& veh, Loki::Int2Type< true >);
 
     // LeaveReminder overload
     bool isActive(MSVehicle& veh,
                   SUMOReal oldPos ,
                   SUMOReal newPos,
-                  Loki::Int2Type< false >)
-        {
-            if ( newPos - veh.getLength() > posM ) {
-                // crossSection completely left
-                MSUnit::Seconds leaveTime = MSUnit::getInstance()->getSeconds(
-                    MSNet::getInstance()->getCurrentTimeStep() -
-                    ( newPos - veh.getLength() - posM ) / ( newPos - oldPos ) );
-                collectorM.leave( veh, leaveTime );
-                return false;
-            }
-            // crossSection partially left
-            return true;
-        }
+                  Loki::Int2Type< false >);
 
     // LeaveReminder overload
-    bool isActivated(MSVehicle& veh, Loki::Int2Type< false >)
-        {
-            // activate if veh is in front on crossSection. Don't measure
-            // 'partially' entered vehicles.
-            return veh.getPositionOnLane() <= posM;
-        }
+    bool isActivated(MSVehicle& veh, Loki::Int2Type< false >);
 
      // LeaveReminder overload
-     void dismiss(MSVehicle& veh, Loki::Int2Type< false >)
-        {
-            collectorM.dismissByLaneChange( veh );
-        }
+     void dismiss(MSVehicle& veh, Loki::Int2Type< false >);
 
     MSE1Collector& collectorM;
     SUMOReal posM;
