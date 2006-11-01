@@ -1,0 +1,2 @@
+SUBDIRS =  emitters normal sources
+
