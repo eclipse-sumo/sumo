@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/02 21:01:56  behrisch
+// Missing class declarations
+//
 // Revision 1.5  2006/10/12 10:14:32  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -67,6 +70,7 @@
  * class declarations
  * ======================================================================= */
 class GUIGlObject;
+class GUISUMOAbstractView;
 
 
 /* =========================================================================
