@@ -20,7 +20,7 @@ GUIUserIO::copyToClipboard(FXApp *app, const std::string &text)
 #else
 
 void
-GUIUserIO::copyToClipboard(FXApp &app, const std::string &text)
+GUIUserIO::copyToClipboard(FXApp *app, const std::string &text)
 {
 }
 
