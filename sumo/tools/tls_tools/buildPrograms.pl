@@ -21,7 +21,10 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
-# Revision 1.2  2006/08/02 08:00:32  dkrajzew
+# Revision 1.3  2006/11/02 11:55:35  dkrajzew
+# right of way computation patched (left-movers do not wait for opposite right-movers)
+#
+# Revision 1.2  2006/08/02 08:00:17  dksumo
 # regarding foe streams
 #
 # Revision 1.1  2006/02/27 13:17:22  dksumo
@@ -278,7 +281,7 @@ while($endReached==0) {
 				$to =~ s/^\s*|\s*$//g;
 				foreach $con (@tls_cons) {
 					($pfrom, $pto, $plinkno, $pyield, $pdir) = split("\;", $con);
-					if($pdir ne "s") {
+					if($pdir ne "s" && $pdir ne "r" && $pdir ne "R") {
 						$hasToWait{$plinkno} = 1;
 					} else {
 						if(!defined($hasToWait{$plinkno})) {
@@ -324,6 +327,7 @@ while($endReached==0) {
 		}
 	}
 }
+
 
 print "----- Connections parsed ----\n";
 foreach $con (@Kdefs) {
