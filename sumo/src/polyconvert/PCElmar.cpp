@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/02 12:20:16  dkrajzew
+// removed unneeded code
+//
 // Revision 1.3  2006/09/18 10:14:35  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -61,7 +64,6 @@ namespace
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
@@ -89,12 +91,9 @@ using namespace std;
 /* =========================================================================
  * method defintions
  * ======================================================================= */
-PCElmar::PCElmar(PCPolyContainer &toFill,
-                 const Boundary &netBoundary, const Position2D &netOffset,
+PCElmar::PCElmar(PCPolyContainer &toFill, const Boundary &netBoundary,
                  PCTypeMap &tm)
-	: myCont(toFill),
-    myInitX(-1), myInitY(-1), myNetOffset(netOffset),
-    myTypeMap(tm)
+	: myCont(toFill), myTypeMap(tm)
 {
 }
 

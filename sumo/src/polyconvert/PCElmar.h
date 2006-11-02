@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2006/11/02 12:20:16  dkrajzew
+// removed unneeded code
+//
 // Revision 1.2  2006/09/18 10:14:35  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -80,9 +83,7 @@ class OptionsCont;
 class PCElmar {
 public:
     /// Constructor
-    PCElmar(PCPolyContainer &toFill,
-        const Boundary &netBoundary, const Position2D &netOffset,
-        PCTypeMap &tm);
+    PCElmar(PCPolyContainer &toFill, const Boundary &netBoundary, PCTypeMap &tm);
 
     /// Destructor
     ~PCElmar();
@@ -94,16 +95,6 @@ public:
 private:
     /// The container to store the converted polygons into
 	PCPolyContainer &myCont;
-
-    /// First x and y positions read used if no projection is given
-    SUMOReal myInitX, myInitY;
-
-    /** @brief The network offset
-     *
-     * The offset the network was shifted by. This offset must be applied to the
-     *  polygons, too.
-     */
-    Position2D myNetOffset;
 
     /// The type map to use
     PCTypeMap &myTypeMap;
