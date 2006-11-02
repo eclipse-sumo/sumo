@@ -79,12 +79,12 @@ public:
             AggregatesContIter startIt =
                 getAggrContStartIterator(
 					(MSUnit::Steps) MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
-            if(startIt==aggregatesM.end()) {
+            if(startIt==this->aggregatesM.end()) {
                 return 0;
             }
             MSUnit::Seconds seconds =
                 MSUnit::getInstance()->getSeconds(
-					(MSUnit::Steps) std::distance( startIt, aggregatesM.end() ) );
+					(MSUnit::Steps) std::distance( startIt, this->aggregatesM.end() ) );
             if(seconds==0) {
                 return 0;
             }
@@ -102,7 +102,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            detNameM = getDetectorName() + "Mean";
+            this->detNameM = getDetectorName() + "Mean";
         }
 
     // Another E2 ctor
@@ -115,7 +115,7 @@ public:
             deleteDataAfterSeconds,
             helperDetector )
         {
-            detNameM = getDetectorName() + "Mean";
+            this->detNameM = getDetectorName() + "Mean";
         }
 
     // E3 ctors
@@ -127,7 +127,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            detNameM = getDetectorName() + "Mean";
+            this->detNameM = getDetectorName() + "Mean";
         }
 
     MSMeanDetector( std::string id,
@@ -138,7 +138,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            detNameM = getDetectorName() + "Mean";
+            this->detNameM = getDetectorName() + "Mean";
         }
 
     // E* ctors follow here

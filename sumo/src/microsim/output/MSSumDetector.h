@@ -97,8 +97,8 @@ protected:
                         deleteDataAfterSeconds,
                         container )
         {
-            if ( detNameM == "" ) {
-                detNameM = getDetectorName() + "Sum";
+            if ( this->detNameM == "" ) {
+                this->detNameM = getDetectorName() + "Sum";
             }
         }
 
@@ -111,8 +111,8 @@ protected:
                         deleteDataAfterSeconds,
                         helperDetector )
         {
-            if ( detNameM == "" ) {
-                detNameM = getDetectorName() + "Sum";
+            if ( this->detNameM == "" ) {
+                this->detNameM = getDetectorName() + "Sum";
             }
         }
 
@@ -124,8 +124,8 @@ protected:
                         deleteDataAfterSeconds,
                         container )
         {
-            if ( detNameM == "" ) {
-                detNameM = getDetectorName() + "Sum";
+            if ( this->detNameM == "" ) {
+                this->detNameM = getDetectorName() + "Sum";
             }
         }
 
@@ -137,8 +137,8 @@ protected:
                         deleteDataAfterSeconds,
                         container )
         {
-            if ( detNameM == "" ) {
-                detNameM = getDetectorName() + "Sum";
+            if ( this->detNameM == "" ) {
+                this->detNameM = getDetectorName() + "Sum";
             }
         }
 
@@ -153,7 +153,7 @@ protected:
                          Loki::Int2Type< false > )
         {
             // returns the sum of the lastNSeconds
-            return std::accumulate( startIt , aggregatesM.end(),
+            return std::accumulate( startIt , this->aggregatesM.end(),
                                     static_cast< DetAggregate >( 0 ) );
         }
 
@@ -163,7 +163,7 @@ protected:
         {
             // returns the sum of the lastNSeconds
             DetAggregate retVal = 0;
-            for (; startIt != aggregatesM.end(); ++startIt ) {
+            for (; startIt != this->aggregatesM.end(); ++startIt ) {
                 retVal += startIt->valueM;
             }
             return retVal;

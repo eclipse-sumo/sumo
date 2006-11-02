@@ -167,8 +167,8 @@ struct MSDetectorHaltingContainerWrapper
     bool updateEachTimestep( void )
         {
             // set posM, isHaltingM and haltingDurationM
-            for ( HaltingsIt haltIt = containerM.begin();
-                  haltIt != containerM.end(); ++haltIt ) {
+            for ( HaltingsIt haltIt = this->containerM.begin();
+                  haltIt != this->containerM.end(); ++haltIt ) {
                 haltIt->posM = haltIt->vehM->getPositionOnLane();
                 if(&myLane!=&haltIt->vehM->getLane()) {
                     haltIt->posM += myLane.length();
@@ -200,15 +200,15 @@ struct MSDetectorHaltingContainerWrapper
             }
 
             // set isInJamM
-            if ( containerM.size() >= 1 ) {
-                containerM.begin()->isInJamM = false;
+            if ( this->containerM.size() >= 1 ) {
+                this->containerM.begin()->isInJamM = false;
             }
-            if ( containerM.size() == 1 ) {
-                containerM.begin()->isInJamM = containerM.begin()->isHaltingM;
+            if ( this->containerM.size() == 1 ) {
+                this->containerM.begin()->isInJamM = this->containerM.begin()->isHaltingM;
             }
-            if ( containerM.size() > 1 ) {
-                for ( HaltingsIt jamIt = containerM.begin();
-                      jamIt != --containerM.end(); /* empty */ ){
+            if ( this->containerM.size() > 1 ) {
+                for ( HaltingsIt jamIt = this->containerM.begin();
+                      jamIt != --this->containerM.end(); /* empty */ ){
                     HaltingsIt rearIt = jamIt;
                     HaltingsIt frontIt = ++jamIt;
                     if ( ! rearIt->isHaltingM || ! frontIt->isHaltingM ) {
@@ -229,7 +229,7 @@ struct MSDetectorHaltingContainerWrapper
                         frontIt->isInJamM = false;
                     }
                 }
-                HaltingsIt first = containerM.end();
+                HaltingsIt first = this->containerM.end();
                 first--;
                 (first)->isInJamM = (first)->isHaltingM;
             }
