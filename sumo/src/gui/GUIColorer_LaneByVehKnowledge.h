@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/02 14:16:51  behrisch
+// Missing includes
+//
 // Revision 1.1  2006/10/12 07:50:42  dkrajzew
 // c2c visualisation added (unfinished)
 //
@@ -63,6 +66,7 @@
 
 #include <utils/gui/drawer/GUIBaseColorer.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 #ifdef _WIN32
 #include <windows.h>
