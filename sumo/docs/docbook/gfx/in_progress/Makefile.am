@@ -1,2 +1,2 @@
-EXTRA_DIST = bulb.psd simcontrols.psd
+EXTRA_DIST =  bulb.psd simcontrols.psd
 
