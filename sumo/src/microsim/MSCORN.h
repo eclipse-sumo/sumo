@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.13  2006/10/19 11:03:13  ericnicolay
 // change code for the ss2-sql-output
 //
@@ -90,15 +93,23 @@ public:
      * A list of functions
      */
     enum Function {
+        // standard output
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
+        // TrafficOnline-output
         CORN_OUT_DEVICE_TO_SS2,
-		CORN_OUT_CELL_TO_SS2,
-		CORN_OUT_LA_TO_SS2,
-		CORN_OUT_DEVICE_TO_SS2_SQL,
-		CORN_OUT_CELL_TO_SS2_SQL,
-		CORN_OUT_LA_TO_SS2_SQL,
+        CORN_OUT_CELL_TO_SS2,
+        CORN_OUT_LA_TO_SS2,
+        CORN_OUT_DEVICE_TO_SS2_SQL,
+        CORN_OUT_CELL_TO_SS2_SQL,
+        CORN_OUT_LA_TO_SS2_SQL,
+        // c2x-output
+        CORN_OUT_CLUSTER_INFO,
+        CORN_OUT_EDGE_NEAR,
+        CORN_OUT_SAVED_INFO,
+        CORN_OUT_TRANS_INFO,
+        CORN_OUT_VEH_IN_RANGE,
 
         CORN_VEH_REALDEPART,
         CORN_MEAN_VEH_TRAVELTIME,
@@ -141,6 +152,12 @@ public:
 	static void setVehicleDeviceTOSS2SQLOutput(OutputDevice *s);
 	static void setCellTOSS2SQLOutput(OutputDevice *s);
 	static void setLATOSS2SQLOutput(OutputDevice *s);
+    // Car2Car
+    static void setClusterInfoOutput(OutputDevice *s);
+    static void setEdgeNearInfoOutput(OutputDevice *s);
+    static void setSavedInfoOutput(OutputDevice *s);
+    static void setTransmittedInfoOutput(OutputDevice *s);
+	static void setVehicleInRangeOutput(OutputDevice *s);
 
     static void compute_TripDurationsOutput(MSVehicle *v);
 	static void compute_VehicleRouteOutput(MSVehicle *v);
@@ -165,15 +182,35 @@ public:
 	static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall);
 
+	//car2car
+    static void saveClusterInfoData(SUMOTime step, int id,
+		const std::string vehs, int quantity, int a);
+    static void saveEdgeNearInfoData(const std::string id,
+		const std::string neighbor, int quantity);
+    static void saveSavedInformationData(SUMOTime step, const std::string veh,
+		const std::string edge, std::string type, int time, int nt, int a);
+    static void saveTransmittedInformationData(SUMOTime step, const std::string from,
+		const std::string to, const std::string edge, int time, int nt, int a);
+    static void saveVehicleInRangeData(SUMOTime step, const std::string veh1,
+		const std::string veh2, int x1, int y1, int x2 , int y2, int a);
+
 private:
+    //
     static OutputDevice *myTripDurationsOutput;
     static OutputDevice *myVehicleRouteOutput;
     static OutputDevice *myVehicleDeviceTOSS2Output;
+    ///
 	static OutputDevice *myCellTOSS2Output;
 	static OutputDevice *myLATOSS2Output;
 	static OutputDevice *myVehicleDeviceTOSS2SQLOutput;
 	static OutputDevice *myCellTOSS2SQLOutput;
 	static OutputDevice *myLATOSS2SQLOutput;
+	//Car2car
+	static OutputDevice *myClusterInfoOutput;
+    static OutputDevice *myEdgeNearInfoOutput;
+	static OutputDevice *mySavedInfoOutput;
+	static OutputDevice *myTransmittedInfoOutput;
+	static OutputDevice *myVehicleInRangeOutput;
 
     static bool myWished[CORN_MAX];
 	static bool myFirstCall[CORN_MAX];

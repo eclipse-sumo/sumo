@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.14  2006/10/19 11:03:12  ericnicolay
 // change code for the ss2-sql-output
 //
@@ -88,14 +91,22 @@ using namespace std;
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
+// standard output files
 OutputDevice *MSCORN::myTripDurationsOutput = 0;
 OutputDevice *MSCORN::myVehicleRouteOutput = 0;
+// TrafficOnline output files
 OutputDevice *MSCORN::myVehicleDeviceTOSS2Output = 0;
 OutputDevice *MSCORN::myCellTOSS2Output = 0;
 OutputDevice *MSCORN::myLATOSS2Output = 0;
 OutputDevice *MSCORN::myVehicleDeviceTOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myCellTOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
+// c2x output files
+OutputDevice *MSCORN::myClusterInfoOutput= 0;
+OutputDevice *MSCORN::myEdgeNearInfoOutput= 0;
+OutputDevice *MSCORN::mySavedInfoOutput= 0;
+OutputDevice *MSCORN::myTransmittedInfoOutput= 0;
+OutputDevice *MSCORN::myVehicleInRangeOutput= 0;
 
 bool MSCORN::myWished[CORN_MAX];
 bool MSCORN::myFirstCall[CORN_MAX];
@@ -107,33 +118,48 @@ bool MSCORN::myFirstCall[CORN_MAX];
 void
 MSCORN::init()
 {
+    // standard output files
     myTripDurationsOutput = 0;
-	myVehicleRouteOutput = 0;
+    myVehicleRouteOutput = 0;
+    // TrafficOnline output files & settings
     myVehicleDeviceTOSS2Output = 0;
-	myCellTOSS2Output = 0;
-	myLATOSS2Output = 0;
-	myVehicleDeviceTOSS2SQLOutput = 0;
-	myCellTOSS2SQLOutput = 0;
-	myLATOSS2SQLOutput = 0;
+    myCellTOSS2Output = 0;
+    myLATOSS2Output = 0;
+    myVehicleDeviceTOSS2SQLOutput = 0;
+    myCellTOSS2SQLOutput = 0;
+    myLATOSS2SQLOutput = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
 		myFirstCall[i] = true;
     }
+    // c2x output files
+    myClusterInfoOutput = 0;
+    myEdgeNearInfoOutput = 0;
+    mySavedInfoOutput = 0;
+    myTransmittedInfoOutput = 0;
+    myVehicleInRangeOutput = 0;
 }
 
 
 void
 MSCORN::clear()
 {
+    // standard
 	delete myTripDurationsOutput;
 	delete myVehicleRouteOutput;
+    // TrafficOnline
     delete myVehicleDeviceTOSS2Output;
 	delete myCellTOSS2Output;
 	delete myLATOSS2Output;
 	delete myVehicleDeviceTOSS2SQLOutput;
 	delete myCellTOSS2SQLOutput;
 	delete myLATOSS2SQLOutput;
-    
+    // car2car
+    delete myClusterInfoOutput;
+    delete myEdgeNearInfoOutput;
+    delete mySavedInfoOutput;
+    delete myTransmittedInfoOutput;
+    delete myVehicleInRangeOutput;
 }
 
 
@@ -228,6 +254,37 @@ MSCORN::setLATOSS2SQLOutput(OutputDevice *s)
     myLATOSS2SQLOutput = s;
 }
 
+//car2car
+void
+MSCORN::setClusterInfoOutput(OutputDevice *s)
+{
+    myClusterInfoOutput = s;
+}
+
+void
+MSCORN::setEdgeNearInfoOutput(OutputDevice *s)
+{
+    myEdgeNearInfoOutput = s;
+}
+
+void
+MSCORN::setSavedInfoOutput(OutputDevice *s)
+{
+    mySavedInfoOutput = s;
+}
+
+void
+MSCORN::setTransmittedInfoOutput(OutputDevice *s)
+{
+    myTransmittedInfoOutput = s;
+}
+
+void
+MSCORN::setVehicleInRangeOutput(OutputDevice *s)
+{
+    myVehicleInRangeOutput = s;
+}
+
 
 void
 MSCORN::compute_TripDurationsOutput(MSVehicle *v)
@@ -271,7 +328,7 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
 {
     if(myVehicleDeviceTOSS2Output!=0) {
         myVehicleDeviceTOSS2Output->getOStream()
-            << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
+        << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
     }
 }
 
@@ -281,12 +338,12 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
                                      int quality)
 {
     if(myVehicleDeviceTOSS2SQLOutput!=0) {
-		if(!MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL])
-			myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
-		else
-			MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
+        if(!MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL])
+            myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
+        else
+        MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
         myVehicleDeviceTOSS2SQLOutput->getOStream()
-			<< "(NULL, NULL, '" << time << "', NULL , NULL, '"
+            << "(NULL, NULL, '" << time << "', NULL , NULL, '"
             << time << ';' << callID << ';' << pos << ';' << quality << "',1);";
     }
 }
@@ -297,12 +354,11 @@ MSCORN::saveTOSS2_CellStateData(SUMOTime time,
 		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
 {
-	if(myCellTOSS2Output!=0)
-	{
-		myCellTOSS2Output->getOStream()
-			<< "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' <<
-			Dyn_Calls_In << ';' << Dyn_Calls_Out << ';' << Sum_Calls << ';' << Intervall << "\n";
-	}
+    if(myCellTOSS2Output!=0) {
+        myCellTOSS2Output->getOStream()
+            << "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' <<
+            Dyn_Calls_In << ';' << Dyn_Calls_Out << ';' << Sum_Calls << ';' << Intervall << "\n";
+    }
 }
 
 void
@@ -310,44 +366,136 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
 {
-	if(myCellTOSS2SQLOutput!=0)
-	{
-		if(!MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL])
-			myCellTOSS2SQLOutput->getOStream() << "," << endl;
-		else
-			MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
-		myCellTOSS2SQLOutput->getOStream()
-			<< "(NULL, \' \', " << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
-			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
-	}
+    if(myCellTOSS2SQLOutput!=0) {
+        if(!MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL])
+            myCellTOSS2SQLOutput->getOStream() << "," << endl;
+        else
+            MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
+        myCellTOSS2SQLOutput->getOStream()
+            << "(NULL, \' \', " << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
+            << Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
+    }
 }
 
 void
 MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
-	if(myLATOSS2SQLOutput!=0)
-	{
-		if(!MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL])
-			myLATOSS2SQLOutput->getOStream() << "," << endl;
-		else
-			MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
-		myLATOSS2SQLOutput->getOStream()
-			<< "(NULL, \' \', " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
-			<< quality_id << ',' << intervall << ")";
-	}
+	if(myLATOSS2SQLOutput!=0) {
+        if(!MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL])
+            myLATOSS2SQLOutput->getOStream() << "," << endl;
+        else
+            MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
+        myLATOSS2SQLOutput->getOStream()
+            << "(NULL, \' \', " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
+            << quality_id << ',' << intervall << ")";
+    }
 }
 
 void
 MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
-	if(myLATOSS2Output!=0)
-	{
-		myLATOSS2Output->getOStream()
-			<< "03;" << ';' << time << ';' << position_id << ';' << dir << ';' << sum_changes
-			<< ';' << quality_id << ';' << intervall << "\n";
-	}
+	if(myLATOSS2Output!=0) {
+        myLATOSS2Output->getOStream()
+            << "03;" << ';' << time << ';' << position_id << ';' << dir << ';' << sum_changes
+            << ';' << quality_id << ';' << intervall << "\n";
+    }
+}
+
+//car2car
+void
+MSCORN::saveClusterInfoData(SUMOTime step, int id, const std::string vehs, int quantity, int a)
+{
+    if(myClusterInfoOutput!=0) {
+        if(a==0){
+            myClusterInfoOutput->getOStream()
+                << "	<timeStep time=\"" << step << "\">"<< "\n";
+        }
+        if(a==1) {
+            myClusterInfoOutput->getOStream()
+                << "	</timeStep>"<< "\n";
+        }
+        if(a==-1) {
+            myClusterInfoOutput->getOStream()
+                << "		<cluster id=\"" <<id<< "\" "<<" NOfveh =\""<<quantity<<"\""
+                <<">"<<vehs<<"</cluster>"<< "\n";
+        }
+    }
+}
+
+void
+MSCORN::saveEdgeNearInfoData(const std::string id, const std::string neighbor, int quantity)
+{
+    if(myEdgeNearInfoOutput!=0) {
+        myEdgeNearInfoOutput->getOStream()
+            << "	<edge id=\"" << id << "\" "<<" NOfNeighbor =\""<<quantity<<"\""
+            <<">"<<neighbor<<" </edge>"<< "\n";
+    }
+}
+
+void
+MSCORN::saveSavedInformationData(SUMOTime step, const std::string veh,
+				 const std::string edge, std::string type, int time, int nt, int a)
+{
+    if(mySavedInfoOutput!=0) {
+        if(a==0){
+            mySavedInfoOutput->getOStream()
+                << "	<timeStep time=\"" << step << "\">"<< "\n";
+        }
+        if(a==1) {
+            mySavedInfoOutput->getOStream()
+                << "	</timeStep>"<< "\n";
+        }
+        if(a==-1) {
+            mySavedInfoOutput->getOStream()
+                << "		<info veh=\"" << veh <<"\" edge=\"" << edge << "\""<< " type=\"" << type << "\" "
+                <<" time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\" "<<"/>"<<"\n";
+        }
+    }
+}
+
+void
+MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string from, const std::string to,
+    const std::string edge, int time, int nt, int a)
+{
+    if(myTransmittedInfoOutput!=0) {
+        if(a==0){
+            myTransmittedInfoOutput->getOStream()
+                << "	<timeStep time=\"" << step << "\">"<< "\n";
+        }
+        if(a==1) {
+            myTransmittedInfoOutput->getOStream()
+                << "	</timeStep>"<< "\n";
+        }
+        if(a==-1) {
+            myTransmittedInfoOutput->getOStream()
+                << "		<info edge=\"" << edge <<"\" from=\"" << from << "\""<< " to=\"" << to << "\" "
+                <<" time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\" "<<"/>"<<"\n";
+        }
+    }
+}
+
+void
+MSCORN::saveVehicleInRangeData(SUMOTime step, const std::string veh1, const std::string veh2,
+    int x1, int y1, int x2 , int y2, int a)
+{
+    if(myVehicleInRangeOutput!=0) {
+        if(a==0){
+            myVehicleInRangeOutput->getOStream()
+                << "	<timeStep time=\"" << step << "\">"<< "\n";
+        }
+        if(a==1) {
+            myVehicleInRangeOutput->getOStream()
+                << "	</timeStep>"<< "\n";
+        }
+        if(a==-1) {
+            myVehicleInRangeOutput->getOStream()
+                << "		<connection veh1=\"" << veh1<<"\"" <<" x1=\""<< x1 << "\""<< " y1=\"" << y1 << "\" "
+                <<" veh2=\"" << veh2<<"\"" <<" x2=\""<< x2 << "\""<< " y2=\"" << y2 << "\" "
+                <<"/>"<<"\n";
+        }
+    }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.11  2006/09/18 10:06:04  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -96,7 +99,16 @@ bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gStateLoaded;
 
+
+
+bool MSGlobals::gUsingC2C = false;
+
 SUMOReal MSGlobals::gLANRange = 100;
+
+SUMOReal MSGlobals::gNumberOfSendingPos = 732;
+
+SUMOReal MSGlobals::gInfoPerPaket = 14;
+
 SUMOReal MSGlobals::gLANRefuseOldInfosOffset = 15 * 60;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

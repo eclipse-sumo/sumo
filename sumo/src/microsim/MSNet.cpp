@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.90  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.89  2006/10/19 11:03:13  ericnicolay
 // change code for the ss2-sql-output
 //
@@ -614,16 +617,23 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setVehicleDeviceTOSS2SQLOutput(streams[OS_DEVICE_TO_SS2_SQL]);
 	MSCORN::setCellTOSS2SQLOutput(streams[OS_CELL_TO_SS2_SQL]);
 	MSCORN::setLATOSS2SQLOutput( streams[OS_LA_TO_SS2_SQL]);
+	//car2car
+	MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
+	MSCORN::setEdgeNearInfoOutput(streams[OS_EDGE_NEAR]);
+	MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
+	MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
+	MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
+
     myOutputStreams = streams;
     myMeanData = meanData;
 
     // we may add it before the network is loaded
     if(myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
-	/*
-	    myCellsBuilder = new MSBuildCells(*this, myConvBoundary); //Danilo
-		myCellsBuilder->build();
-	*/
+        if(MSGlobals::gUsingC2C) {
+	        myCellsBuilder = new MSBuildCells(*this, myConvBoundary); //Danilo
+		    myCellsBuilder->build();
+        }
     }
 
     // save the time the network state shall be saved at
@@ -632,9 +642,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // set requests/responses
     MSJunction::postloadInitContainer(); // !!!
-
-    GeoConvHelper::init(myOrigProj/*"+proj=utm +zone=33 +ellps=bessel +units=m"*/,
-        myOffset);
+    GeoConvHelper::init(myOrigProj, myOffset);
 }
 
 
@@ -753,6 +761,37 @@ MSNet::initialiseSimulation()
 	if ( myOutputStreams[OS_LA_TO_SS2_SQL]!=0 ) {
         MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2_SQL);
     }
+	//car2car
+	if ( myOutputStreams[OS_CLUSTER_INFO]!=0 ) {
+		myOutputStreams[OS_CLUSTER_INFO]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<clusterInfos>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
+    }
+	if ( myOutputStreams[OS_EDGE_NEAR]!=0 ) {
+		myOutputStreams[OS_EDGE_NEAR]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<edgeNears>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_EDGE_NEAR);
+    }
+	if ( myOutputStreams[OS_SAVED_INFO]!=0 ) {
+		myOutputStreams[OS_SAVED_INFO]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<savedInfos>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
+    }
+	if ( myOutputStreams[OS_TRANS_INFO]!=0 ) {
+		myOutputStreams[OS_TRANS_INFO]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<transmittedInfos>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
+    }
+	if ( myOutputStreams[OS_VEH_IN_RANGE]!=0 ) {
+		myOutputStreams[OS_VEH_IN_RANGE]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<vehicleInRanges>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
+    }
 }
 
 
@@ -785,6 +824,22 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 	if ( myOutputStreams[OS_LA_TO_SS2_SQL]!=0 ) {
 		myOutputStreams[OS_LA_TO_SS2_SQL]->getOStream() << ";" << endl;
 	}
+	//car2car
+	if ( myOutputStreams[OS_CLUSTER_INFO]!=0 ) {
+		myOutputStreams[OS_CLUSTER_INFO]->getOStream() << "</clusterInfos>" << endl;
+    }
+	if ( myOutputStreams[OS_EDGE_NEAR]!=0 ) {
+		myOutputStreams[OS_EDGE_NEAR]->getOStream() << "</edgeNears>" << endl;
+    }
+	if ( myOutputStreams[OS_SAVED_INFO]!=0 ) {
+		myOutputStreams[OS_SAVED_INFO]->getOStream() << "</savedInfos>" << endl;
+    }
+	if ( myOutputStreams[OS_TRANS_INFO]!=0 ) {
+		myOutputStreams[OS_TRANS_INFO]->getOStream() << "</transmittedInfos>" << endl;
+    }
+	if ( myOutputStreams[OS_VEH_IN_RANGE]!=0 ) {
+		myOutputStreams[OS_VEH_IN_RANGE]->getOStream() << "</vehicleInRanges>" << endl;
+    }
     if(myLogExecutionTime!=0&&mySimDuration!=0) {
         cout << "Performance: " << endl
             << " Duration: " << mySimDuration << "ms" << endl
@@ -802,6 +857,9 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     // execute beginOfTimestepEvents
     if(myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
+    }
+    if(MSGlobals::gUsingC2C) {
+        MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,0);
     }
     myBeginOfTimestepEvents.execute(myStep);
     // load routes
@@ -863,6 +921,10 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     writeOutput();
     // execute endOfTimestepEvents
     myEndOfTimestepEvents.execute(myStep);
+    if(MSGlobals::gUsingC2C) {
+        computeCar2Car();
+        MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,1);
+    }
 
     // check state dumps
     if(find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
@@ -877,33 +939,27 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
-	//computeCar2Car();
 }
 
 // Compute Car2Car-Communication
 void MSNet::computeCar2Car(void)
 {
-	ofstream out("resultMSNET.txt", ios_base::app);
-	ofstream out2("VehicleNeighborsGNU.txt", ios_base::app);
-	out<<"--------  Timestep   "<<myStep<<"   ------ "<<endl;
-    out2<<"#NewTS "<<myStep<<endl;
+	MSCORN::saveClusterInfoData(myStep,0,"",0,0);
+	MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,0);
+	MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,0);
+
 	std::vector<std::string> edgeNames = myEdges->getEdgeNames();
-
-
     std::vector<MSVehicle*> connected;
-   std::vector<MSVehicle*> clusterHeaders;
+    std::vector<MSVehicle*> clusterHeaders;
 
 	for(std::vector<std::string>::iterator i=edgeNames.begin(); i!=edgeNames.end(); ++i) {
 		MSEdge *e = MSEdge::dictionary(*i);
-	//	out<<"      Edge "<<(*j)->getID()<<" MyEquipped size "<<(*j)->myEquippedVeh.size()<<" ---"<<endl;
         const MSEdge::DictTypeVeh &eEquipped = e->getEquippedVehs();
         if(eEquipped.size()>0){
 			std::map<std::string, MSVehicle*>::const_iterator k = eEquipped.begin();
 			// above all Equipped vehicle of this Edge
 			for(k; k!=eEquipped.end();++k){
-				out<<"        Equipped veh "<<(*k).second->getID()<<"  ----"<<endl;
 				// first update the neighbor list
-				//(*k).second->updateNeighbors(myStep);
 				(*k).second->updateInfos(myStep);
                 const std::map<std::string, MSEdge*> &neighborEdges = e->getNeighborEdges();
 				// above all Egde neighbors of this Edge
@@ -930,142 +986,44 @@ void MSNet::computeCar2Car(void)
 
 	// Cluster Bildung
 	{
-      ofstream out3("ClusterGNU.txt", ios_base::app);
-	  ofstream out4("ErreichbarkeitGNU.txt", ios_base::app);
-	  out4<<myStep<<" "<<connected.size()<<endl;
-	  //out3<<endl; //to comment
-	  //out3<<"# TimeStep "<<myStep<<" Vehicle in die connected Liste "<<connected.size() <<endl;//to comment
-	  int counter = 1;
-	  int clusterId = 1;
-	  while(counter <= (int) connected.size()) {
-		int index = (int) ((SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size());
-		if(index>=(int) connected.size())
-			index = index-1;
-		std::vector<MSVehicle*>::iterator q = connected.begin() + index;
-	    //cout<<"Ich bin hier1 "<<myStep<<" Size of connected "<<connected.size()<<" Index "<<index<<endl;
-	    //cout<<"ID element auswahlt "<<(*q)->getID()<<endl;
-		if((*q)->getClusterId() < 0) { // gehört noch zu keiner Cluster
-			//out3<<myStep<<" "<<clusterId;//to comment
-			//out3<<"# Cluster Header "<<(*q)->getID();//to comment
-			clusterHeaders.push_back((*q));
-			int count = (*q)->buildMyCluster(myStep, clusterId);
-			counter = counter + count;
-			//out3<<" "<<myStep<<" "<<count <<endl;
-			clusterId++;
+		int clusterId = 1;
+
+		std::vector<MSVehicle*>::iterator q;
+		std::vector<MSVehicle*>::iterator q1;
+		std::vector<MSVehicle*>::iterator q2;
+		for(q1 = connected.begin();q1!=connected.end();q1++){
+			if((*q1)->getClusterId() < 0){
+				q = q1;
+				for(q2 = connected.begin();q2!=connected.end();q2++){
+					int size1 = (*q1)->getConnections().size();
+					int size2 = (*q2)->getConnections().size();
+					if((*q2)->getClusterId() < 0 && size1 < size2){
+						q = q2;
+					}
+				}
+				clusterHeaders.push_back((*q));
+				int count = (*q)->buildMyCluster(myStep, clusterId);
+				clusterId++;
+			}
 		}
-	  }
-	  out3<<myStep<<" "<<clusterHeaders.size()<<endl;
-	  out3.close();
+
 	}
 
 	//Senden
 	{
-		//ofstream out4("TransmittedInfos.txt", ios_base::app);
 		std::vector<MSVehicle*>::iterator q;
 		for(q= clusterHeaders.begin();q!=clusterHeaders.end();q++){
-		//out4<<"TS "<<myStep<<"-----SendInfos- "<<(*q)->getID()<<endl; //to comment
 			(*q)->sendInfos(myStep);
 		}
-		//out4.close();
 	}
 	connected.clear();
     clusterHeaders.clear();
 
-	ofstream out5("savedInformationsGNU.txt", ios_base::app);
-	ofstream out6("TransmittedInfosGNU.txt", ios_base::app);
-	out5<<"#"<<endl;
-	out6<<"#"<<endl;
-	out5.close();
-	out6.close();
 
-
-
-	// nach dem Senden, sollte die Cluster ID alle gelöscht werden, für den nächste TimeStep
-
-
-
-  /*
-
-			if((*q)->getSendingTimeEnd()>myStep+1) {
-				const MSVehicle::VehCont &conns = sender->getConnections();
-				for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
-					// remove vehicles around a vehicle that sends over the current time step
-					MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
-					std::vector<MSVehicle*>::iterator q3 =
-						find(connected.begin(), connected.end(); conn);
-					if(q3!=connected.end()) {
-						connected.erase(q3);
-					}
-				}
-			}
-		} else {
-			connected.erase(q);
-		}
-	  }
-	}
-
-    // clean up the list of interacting vehicles
-
-    {
-        for(std::vector<MSVehicle*>::iterator q=connected.begin(); q!=connected.end(); ++q) {
-            // getSendingTimeEnd() liefert den Zeitpunkt des Endes des Sendens von sender
-            if((*q)->getSendingTimeEnd()>myStep+1) {
-                const MSVehicle::VehCont &conns = sender->getConnections();
-                for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
-                    // remove vehicles around a vehicle that sends over the current time step
-                    MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
-                    std::vector<MSVehicle*>::iterator q3 =
-                        find(connected.begin(), connected.end(); conn);
-                    if(q3!=connected.end()) {
-                        connected.erase(q3);
-                    }
-                }
-            }
-        }
-    }
-    // send
-    {
-        while(connected.size()!=0) {
-            int index = (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX)) * (SUMOReal) connected.size();
-            std::vector<MSVehicle*>::iterator q = connected.begin() + index;
-            if((*q)->maySend()) {
-                (*q)->send(myStep);
-                if((*q)->getSendingTimeEnd()>myStep+1) {
-                    const MSVehicle::VehCont &conns = sender->getConnections();
-                    for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
-                        // remove vehicles around a vehicle that sends over the current time step
-                        MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
-                        std::vector<MSVehicle*>::iterator q3 =
-                            find(connected.begin(), connected.end(); conn);
-                        if(q3!=connected.end()) {
-                            connected.erase(q3);
-                        }
-                    }
-                }
-            } else {
-                connected.erase(q);
-            }
-
-            /*
-            MSVehicle *sender = (*q)->getSendingNeighbor();
-            if(sender!=0) {
-
-                if(sender->getSendingTimeEnd()>myStep+1) {
-                    const MSVehicle::VehCont &conns = sender->getConnections();
-                    for(MSVehicle::VehCont::const_iterator q2=conns.begin(); q2!=conns.end(); ++q2) {
-                        MSVehicle *conn = myVehicleControl->getVehicle((*q2).first);
-                        s
-                    }
-                }
-            }
-            /
-
-        }
-    }
-*/
-	out2<<"#End"<<endl;
-	out.close();
-	out2.close();
+	//close XML-tags
+    MSCORN::saveClusterInfoData(myStep,0,"",0,1);
+	MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,1);
+	MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,1);
 }
 
 void

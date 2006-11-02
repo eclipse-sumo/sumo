@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.12  2006/09/18 10:06:04  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -111,7 +114,14 @@ public:
     static bool gStateLoaded;
 
 
+    /// Information whether c2x communication shall be used
+    static bool MSGlobals::gUsingC2C;
+	/// the standard WLAN range
 	static SUMOReal gLANRange;
+	/// the Number of Sending possibility per TimeStep
+	static SUMOReal gNumberOfSendingPos ;
+	/// the Number Of Infos per Paket
+	static SUMOReal gInfoPerPaket;
 	static SUMOReal gLANRefuseOldInfosOffset;
 
 };

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2006/11/02 11:44:51  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.51  2006/10/19 11:11:14  ericnicolay
 // change code for ss2-sql-output
 //
@@ -261,6 +264,12 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.doRegister("check-accidents", new Option_Bool(false));
     oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
+    oc.doRegister("time-to-teleport", new Option_Integer(300));
+    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
+    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
+    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
+    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
+    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
     // register the report options
     oc.doRegister("no-duration-log", new Option_Bool(false));//!!! check, describe
     oc.doRegister("verbose", 'v', new Option_Bool(false));
@@ -269,44 +278,30 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register some research options
-//    oc.doRegister("initial-density", new Option_Float());
-//    oc.doRegister("initial-speed", new Option_Float());
+    //    oc.doRegister("initial-density", new Option_Float());
+    //    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
-    //
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
-    //
-    oc.doRegister("time-to-teleport", new Option_Integer(300));
-//    oc.doRegister("no-geom", new Option_Bool(false));
-
-    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
-    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
-
-    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
-    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
-    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
-
     // tls
     oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck
     oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));//!!! recheck
     oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));//!!! recheck
     oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));//!!! recheck
     oc.doRegister("agent-tl.tcycle", new Option_Integer(90));//!!! recheck
-
     oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));//!!! recheck
     oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
     oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
-
-    // device
+    // devices
         // cell-phones
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
-	oc.doRegister("ss2-cell-output", new Option_FileName());
-	oc.doRegister("ss2-la-output", new Option_FileName());
-	oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
-	oc.doRegister("ss2-sql-cell-output", new Option_FileName());
-	oc.doRegister("ss2-sql-la-output", new Option_FileName());
+    oc.doRegister("ss2-cell-output", new Option_FileName());
+    oc.doRegister("ss2-la-output", new Option_FileName());
+    oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
+    oc.doRegister("ss2-sql-cell-output", new Option_FileName());
+    oc.doRegister("ss2-sql-la-output", new Option_FileName());
     oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
@@ -314,14 +309,17 @@ SUMOFrame::fillOptions(OptionsCont &oc)
         // c2x
     oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.c2x.knownveh", new Option_String());//!!! check, describe
-
+    oc.doRegister("c2x.cluster-info", new Option_FileName());
+    oc.doRegister("c2x.edge-near-info", new Option_FileName());
+    oc.doRegister("c2x.saved-info", new Option_FileName());
+    oc.doRegister("c2x.transmitted-info", new Option_FileName());
+    oc.doRegister("c2x.vehicle-in-range", new Option_FileName());
 
     // debug
     oc.doRegister("track", new Option_Float(0.));//!!! check, describe
 
-
-	//remote port 0 if not used
-	oc.doRegister("remote-port", new Option_Integer(0));
+    //remote port 0 if not used
+    oc.doRegister("remote-port", new Option_Integer(0));
 
     // add rand and dev options
     RandHelper::insertRandOptions(oc);
@@ -332,76 +330,83 @@ std::vector<OutputDevice*>
 SUMOFrame::buildStreams(const OptionsCont &oc)
 {
     std::vector<OutputDevice*> ret(MSNet::OS_MAX, 0);
+    // standard outputs
     ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
     ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
-	ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
-	ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
-	ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");
-	ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
-	ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
-	if( ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0 ){
-		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-					<< "DROP TABLE IF EXISTS `COLLECTOR`;\n"
-					<< "CREATE TABLE `COLLECTOR` (\n"
-					<< "`ID` int(11) NOT NULL auto_increment,\n"
-					<< "`TID` varchar(20) NOT NULL default '',\n"
-					<< "`Zeitstempel` datetime NOT NULL default '0000-00-00 00:00:00',\n"
-					<< "`IP` varchar(20) NOT NULL default '',\n"
-					<< "`Port` int(11) NOT NULL default '0',\n"
-					<< "`incoming` text NOT NULL,\n"
-					<< "`handled` int(11) NOT NULL default '0',\n"
-					<< "PRIMARY KEY  (`ID`,`TID`)\n"
-					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
-		(ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-					<< "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
-					<< endl;
-
-	}
-	ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
-	if( ret[MSNet::OS_CELL_TO_SS2_SQL]!=0 ){
-		(ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
-					<< "DROP TABLE IF EXISTS `COLLECTORCS`;\n"
-					<< "CREATE TABLE `COLLECTORCS` ("
-					<< "`ID` int(11) NOT NULL auto_increment,\n"
-					<< "`TID` varchar(20) NOT NULL default '',\n"
-					<< "`DATE_TIME` datetime default NULL,\n"
-					<< "`CELL_ID` int(5) NOT NULL default '0',\n"
-					<< "`STAT_CALLS_IN` int(5) NOT NULL default '0',\n"
-					<< "`STAT_CALLS_OUT` int(5) NOT NULL default '0',\n"
-					<< "`DYN_CALLS_IN` int(5) NOT NULL default '0',\n"
-					<< "`DYN_CALLS_OUT` int(5) NOT NULL default '0',\n"
-					<< "`SUM_CALLS` int(5) NOT NULL default '0',\n"
-					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
-					<< "PRIMARY KEY  (`ID`,`TID`)\n"
-					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
-		
-		(ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
-					<< "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
-					<< "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
-
-	}
+    ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
+    // TrafficOnline-outputs
+    ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
+    ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");
+    ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
+    ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
+    ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
 	ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
-	if( ret[MSNet::OS_LA_TO_SS2_SQL]!=0 ){
-		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
-					<< "DROP TABLE IF EXISTS `COLLECTORLA`;\n"
-					<< "CREATE TABLE `COLLECTORLA` (\n"
-					<< "`ID` int(11) NOT NULL auto_increment,\n"
-					<< "`TID` varchar(20) NOT NULL default '',\n"
-					<< "`DATE_TIME` datetime default NULL,\n"
-					<< "`POSITION_ID` int(5) NOT NULL default '0',\n"
-					<< "`DIR` int(1) NOT NULL default '0',\n"
-					<< "`SUM_CHANGE` int(5) NOT NULL default '0',\n"
-					<< "`QUALITY_ID` int(2) NOT NULL default '0',\n"
-					<< "`INTERVALL` int(5) NOT NULL default '0',\n"
-					<< "PRIMARY KEY  (`ID`,`TID`)\n"
-					<< ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
-		
-		(ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
-					<< "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
-					<< "`QUALITY_ID`,`INTERVALL`) VALUES \n";
-	}
+    // c2x-outputs
+    ret[MSNet::OS_CLUSTER_INFO] = buildStream(oc, "c2x.cluster-info");
+    ret[MSNet::OS_EDGE_NEAR] = buildStream(oc, "c2x.edge-near-info");
+    ret[MSNet::OS_SAVED_INFO] = buildStream(oc, "c2x.saved-info");
+    ret[MSNet::OS_TRANS_INFO] = buildStream(oc, "c2x.transmitted-info");
+    ret[MSNet::OS_VEH_IN_RANGE] = buildStream(oc, "c2x.vehicle-in-range");
 
+    // initialise TrafficOnline-outputs
+    if( ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0 ){
+        (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
+		    << "DROP TABLE IF EXISTS `COLLECTOR`;\n"
+            << "CREATE TABLE `COLLECTOR` (\n"
+            << "`ID` int(11) NOT NULL auto_increment,\n"
+            << "`TID` varchar(20) NOT NULL default '',\n"
+            << "`Zeitstempel` datetime NOT NULL default '0000-00-00 00:00:00',\n"
+            << "`IP` varchar(20) NOT NULL default '',\n"
+            << "`Port` int(11) NOT NULL default '0',\n"
+            << "`incoming` text NOT NULL,\n"
+            << "`handled` int(11) NOT NULL default '0',\n"
+            << "PRIMARY KEY  (`ID`,`TID`)\n"
+            << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+        (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
+		    << "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
+            << endl;
+    }
+    if( ret[MSNet::OS_CELL_TO_SS2_SQL]!=0 ){
+        (ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+            << "DROP TABLE IF EXISTS `COLLECTORCS`;\n"
+            << "CREATE TABLE `COLLECTORCS` ("
+            << "`ID` int(11) NOT NULL auto_increment,\n"
+            << "`TID` varchar(20) NOT NULL default '',\n"
+            << "`DATE_TIME` datetime default NULL,\n"
+            << "`CELL_ID` int(5) NOT NULL default '0',\n"
+            << "`STAT_CALLS_IN` int(5) NOT NULL default '0',\n"
+            << "`STAT_CALLS_OUT` int(5) NOT NULL default '0',\n"
+            << "`DYN_CALLS_IN` int(5) NOT NULL default '0',\n"
+            << "`DYN_CALLS_OUT` int(5) NOT NULL default '0',\n"
+            << "`SUM_CALLS` int(5) NOT NULL default '0',\n"
+            << "`INTERVALL` int(5) NOT NULL default '0',\n"
+            << "PRIMARY KEY  (`ID`,`TID`)\n"
+            << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+
+        (ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+            << "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
+            << "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
+    }
+    if( ret[MSNet::OS_LA_TO_SS2_SQL]!=0 ){
+        (ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
+            << "DROP TABLE IF EXISTS `COLLECTORLA`;\n"
+            << "CREATE TABLE `COLLECTORLA` (\n"
+            << "`ID` int(11) NOT NULL auto_increment,\n"
+            << "`TID` varchar(20) NOT NULL default '',\n"
+            << "`DATE_TIME` datetime default NULL,\n"
+            << "`POSITION_ID` int(5) NOT NULL default '0',\n"
+            << "`DIR` int(1) NOT NULL default '0',\n"
+            << "`SUM_CHANGE` int(5) NOT NULL default '0',\n"
+            << "`QUALITY_ID` int(2) NOT NULL default '0',\n"
+            << "`INTERVALL` int(5) NOT NULL default '0',\n"
+            << "PRIMARY KEY  (`ID`,`TID`)\n"
+            << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+
+        (ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
+            << "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
+            << "`QUALITY_ID`,`INTERVALL`) VALUES \n";
+    }
     return ret;
 }
 
@@ -413,12 +418,9 @@ SUMOFrame::buildStream(const OptionsCont &oc,
     if(!oc.isSet(optionName)) {
         return 0;
     }
-    ofstream *ret = new ofstream(oc.getString(optionName).c_str(),
-        ios::out|ios::trunc);
+    ofstream *ret = new ofstream(oc.getString(optionName).c_str(), ios::out|ios::trunc);
     if(!ret->good()) {
-        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.");
-        MsgHandler::getErrorInstance()->inform(" (Used for '" + optionName + "').");
-        MsgHandler::getErrorInstance()->inform("Simulation failed.");
+        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.\n (Used for '" + optionName + "').");
         throw ProcessError();
     }
     return new OutputDevice_File(ret);
@@ -465,11 +467,11 @@ void
 SUMOFrame::setMSGlobals(OptionsCont &oc)
 {
     // pre-initialise the network
-     // set whether empty edges shall be printed on dump
+        // set whether empty edges shall be printed on dump
     MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("dump-empty-edges");
-    // set whether internal lanes shall be used
+        // set whether internal lanes shall be used
     MSGlobals::gUsingInternalLanes = oc.getBool("use-internal-links");
-    // set the grid lock time
+        // set the grid lock time
     MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0
         ? 0
         : oc.getInt("time-to-teleport");
@@ -481,6 +483,7 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     //
+    MSGlobals::gUsingC2C = oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh");
 }
 
 

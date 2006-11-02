@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.1  2006/09/18 09:58:02  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -78,6 +81,7 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include "MSEdge.h"
 #include "MSCell.h"
+#include "MSCORN.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -155,25 +159,21 @@ MSCell::getEdges(void)
 void
 MSCell::setEdgesNeighbors(void)
 {
-	ofstream out("EdgeNachbarnGNU.txt", ios_base::app);
 	// all Edges in this Cell
 	for(std::vector<MSEdge*>::iterator i=_edgesCont.begin(); i!=_edgesCont.end(); i++) {
-    if((*i)->getID()=="218489") {
-        int bla = 0;
-    }
 		// all others Cells
 		int anzahl = -1; // sich selbst rausnehmen
+		std::string neighbor;
 		for(std::vector<MSCell*>::iterator j=_neighbors.begin(); j!=_neighbors.end(); j++) {
 			 // all Edges in others Cells
 			for(std::vector<MSEdge*>::iterator k=((*j)->_edgesCont).begin(); k!=((*j)->_edgesCont).end(); k++) {
 				(*i)->addNeighborEdge((*k)->getID(),*k);
 				anzahl++;
-				out<<(*i)->getID()<<" "<<(*k)->getID()<<endl;
+				neighbor=neighbor+" "+(*k)->getID();
 			}
 		}
-		out<<"# Total "<<anzahl<<endl;
+		MSCORN::saveEdgeNearInfoData((*i)->getID(), neighbor, anzahl);
 	}
-    out.close();
 }
 
 size_t

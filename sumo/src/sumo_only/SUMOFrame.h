@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/11/02 11:44:51  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.11  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -84,10 +87,8 @@ public:
     /// Builds the simulation options
     static void fillOptions(OptionsCont &oc);
 
-    /** @brief Builds the streams used possibly by the simulation
-        */
+    /** @brief Builds the streams used possibly by the simulation */
     static std::vector<OutputDevice*> buildStreams(const OptionsCont &oc);
-
 
     /// Build the output stream named by the according option
     static OutputDevice *buildStream(const OptionsCont &oc,

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.61  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.60  2006/10/12 08:09:41  dkrajzew
 // fastened up lane changing; added current car2car-code
 //
@@ -942,8 +945,8 @@ public:
 
 
 	struct Information {
-		std::string InfoTyp;
-	   // MSEdge *edge;
+		std::string infoTyp;
+		std::string edge;
 		int neededTime; // how long needed the vehicle to travel on the edge
 		int time; // the Time, when the Info was saved
 	};
@@ -1019,6 +1022,10 @@ protected:
 	// the Id of the Cluster
 	int clusterId;
 
+	//Aktuelle Information
+	//wird erst gespiechert, wenn vehicle die Lane verlässt !!!!!!!!!
+	Information *akt;
+
 	// a Pointer on the actual sender in the Cluster
 	//MSVehicle* actSender;
 
@@ -1039,12 +1046,12 @@ protected:
 	ClusterCont clusterCont;
 
     // transfert the N Information in infos into my own InformationsContainer
-    void transferInformation(InfoCont infos, int N);
+    void transferInformation(std::string senderID, InfoCont infos, int N);
 
 	//compute accordant the distance, the Number of Infos that can be transmit
-	int NumOfInfos(MSVehicle *veh1, MSVehicle* veh2);
+	int numOfInfos(MSVehicle *veh1, MSVehicle* veh2);
 
-	InfoCont getInfosToSend(void);
+	//InfoCont getInfosToSend(void);
 
     mutable MSLane *myLastBestLanesLane;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;

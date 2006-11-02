@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.67  2006/11/02 11:44:50  dkrajzew
+// added Danilo Teta-Boyom's changes to car2car-communication
+//
 // Revision 1.66  2006/09/18 10:07:24  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -443,6 +446,16 @@ public:
 		OS_CELL_TO_SS2_SQL,
         /// TrafficOnline-SS2-SQL LA output
 		OS_LA_TO_SS2_SQL,
+		/// Cluster's Information output
+		OS_CLUSTER_INFO,
+		/// Edge Neighborhood output
+		OS_EDGE_NEAR,
+		/// Saved Informations output
+		OS_SAVED_INFO,
+		/// Transmitted Informations output
+		OS_TRANS_INFO,
+		/// Vehicle in range
+		OS_VEH_IN_RANGE,
         /// maximum value
         OS_MAX
     };
