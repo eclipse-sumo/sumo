@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/11/02 12:19:50  dkrajzew
+// added parsing of Elmar's pointcollections
+//
 // Revision 1.2  2006/09/18 10:14:35  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -89,12 +92,25 @@ PCPolyContainer::~PCPolyContainer()
 bool
 PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
 {
-    PolyCont::iterator i=myCont.find(key);
-    if(i!=myCont.end()) {
+    PolyCont::iterator i=myPolyCont.find(key);
+    if(i!=myPolyCont.end()) {
         return false;
     }
-    myCont[key] = poly;
-    myLayerMap[poly] = layer;
+    myPolyCont[key] = poly;
+    myPolyLayerMap[poly] = layer;
+    return true;
+}
+
+
+bool
+PCPolyContainer::insert(std::string key, PointOfInterest *poi, int layer)
+{
+    POICont::iterator i=myPOICont.find(key);
+    if(i!=myPOICont.end()) {
+        return false;
+    }
+    myPOICont[key] = poi;
+    myPOILayerMap[poi] = layer;
     return true;
 }
 
@@ -102,31 +118,47 @@ PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
 bool
 PCPolyContainer::contains(const std::string &key)
 {
-	return myCont.find(key)!=myCont.end();
+	return myPolyCont.find(key)!=myPolyCont.end();
 }
 
 
 size_t
-PCPolyContainer::getNo()
+PCPolyContainer::getNoPolygons()
 {
-    return myCont.size();
+    return myPolyCont.size();
+}
+
+
+size_t
+PCPolyContainer::getNoPOIs()
+{
+    return myPOICont.size();
 }
 
 
 void
 PCPolyContainer::clear()
 {
-    for(PolyCont::iterator i=myCont.begin(); i!=myCont.end(); i++) {
-        delete((*i).second);
+    {
+        for(PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); i++) {
+            delete((*i).second);
+        }
+        myPolyCont.clear();
     }
-    myCont.clear();
+    {
+        for(POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); i++) {
+            delete((*i).second);
+        }
+        myPOICont.clear();
+    }
 }
 
 
 void
 PCPolyContainer::report()
 {
-    WRITE_MESSAGE("   " + toString<int>(getNo()) + " polygons loaded.");
+    WRITE_MESSAGE("   " + toString<int>(getNoPolygons()) + " polygons loaded.");
+    WRITE_MESSAGE("   " + toString<int>(getNoPOIs()) + " pois loaded.");
 }
 
 
@@ -138,23 +170,36 @@ PCPolyContainer::save(const std::string &file, int layer)
         MsgHandler::getErrorInstance()->inform("Output file '" + file + "' could not be build.");
         throw ProcessError();
     }
-	out << "<polygons>" << endl;
-    for(PolyCont::iterator i=myCont.begin(); i!=myCont.end(); i++) {
-
-        if((*i).second->getPosition2DVector().size()<3) {
-            int bla = 0;
+	out << "<shapes>" << endl;
+    // write polygons
+    {
+        for(PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
+            out << setprecision(2);
+            out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
+    			<< (*i).second->getType() << "\" color=\""
+                << (*i).second->getColor() << "\" fill=\""
+                << (*i).second->fill() << "\"";
+            out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
+            out << setprecision(10);
+            out << ">" << (*i).second->getPosition2DVector() << "</poly>" << endl;
         }
-
-        out << setprecision(2);
-        out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
-			<< (*i).second->getType() << "\" color=\""
-            << (*i).second->getColor() << "\" fill=\""
-            << (*i).second->fill() << "\"";
-        out << " layer=\"" << myLayerMap[(*i).second] << "\"";
-        out << setprecision(10);
-        out << ">" << (*i).second->getPosition2DVector() << "</poly>" << endl;
     }
-	out << "</polygons>" << endl;
+    // write pois
+    {
+        for(POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
+            out << setprecision(2);
+            out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
+    			<< (*i).second->getType() << "\" color=\""
+                << *static_cast<RGBColor*>((*i).second) << '"';
+            out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";
+            out << setprecision(10);
+            out << " x=\"" << (*i).second->x() << "\""
+                << " y=\"" << (*i).second->y() << "\""
+                << "/>" << endl;
+        }
+    }
+    //
+	out << "</shapes>" << endl;
 }
 
 

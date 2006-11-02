@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/11/02 12:19:50  dkrajzew
+// added parsing of Elmar's pointcollections
+//
 // Revision 1.2  2006/09/18 10:19:29  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -74,6 +77,7 @@ namespace
 #include "sumo_version.h"
 #include <polyconvert/PCVisum.h>
 #include <polyconvert/PCElmar.h>
+#include <polyconvert/PCElmarPoints.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/common/XMLHelpers.h>
@@ -112,6 +116,7 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("net-file", "net");
         // elmar import
 	oc.doRegister("elmar", new Option_FileName());
+	oc.doRegister("elmar-points", new Option_FileName());
         // visum import
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
@@ -262,13 +267,18 @@ main(int argc, char **argv)
         }
 
         // read in the data
+            // elmar's polygons
         if(oc.isSet("elmar")) {
-            // elmars
-            PCElmar pce(toFill, origNetBoundary, netOffset, tm);
+            PCElmar pce(toFill, origNetBoundary, tm);
             pce.loadElmar(oc);
         }
-        if(oc.isSet("visum-file")) {
+            // elmar's points
+        if(oc.isSet("elmar-points")) {
+            PCElmarPoints pce(toFill, origNetBoundary, tm);
+            pce.loadElmar(oc);
+        }
             // visum
+        if(oc.isSet("visum-file")) {
 		    PCVisum pcv(toFill);
             pcv.loadVisum(oc);
         }

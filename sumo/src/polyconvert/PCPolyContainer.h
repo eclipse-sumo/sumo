@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2006/11/02 12:19:50  dkrajzew
+// added parsing of Elmar's pointcollections
+//
 // Revision 1.1  2006/08/01 07:52:46  dkrajzew
 // polyconvert added
 //
@@ -47,6 +50,7 @@
 #include <string>
 #include <map>
 #include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/PointOfInterest.h>
 
 
 /* =========================================================================
@@ -64,11 +68,17 @@ public:
     /// Destructor
     ~PCPolyContainer();
 
-    /** adds a possible type into the list */
+    /** adds a polygon */
     bool insert(std::string key, Polygon2D *poly, int layer);
 
-    /** returns the number of known types */
-    size_t getNo();
+    /** adds a point of interest */
+    bool insert(std::string key, PointOfInterest *poi, int layer);
+
+    /** returns the number of contained polygons */
+    size_t getNoPolygons();
+
+    /** returns the number of contained pois */
+    size_t getNoPOIs();
 
     /** deletes all types */
     void clear();
@@ -89,15 +99,22 @@ public:
 public:
     /** a container of types, accessed by the string key */
     typedef std::map<std::string, Polygon2D*> PolyCont;
-
 	/** the container of types**/
-    PolyCont myCont;
+    PolyCont myPolyCont;
+
+    /** a container of types, accessed by the string key */
+    typedef std::map<std::string, PointOfInterest*> POICont;
+	/** the container of types**/
+    POICont myPOICont;
 
 	/// An id to int map for proper enumeration
 	std::map<std::string, int> myIDEnums;
 
     /// A map from polygon to layer
-    std::map<Polygon2D*, int> myLayerMap;
+    std::map<Polygon2D*, int> myPolyLayerMap;
+
+    /// A map from poi to layer
+    std::map<PointOfInterest*, int> myPOILayerMap;
 
 
 private:
