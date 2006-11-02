@@ -68,11 +68,11 @@
             <a href="../userdocs.shtml" class="SUMOSubLink">User Docs</a><br/>
 
             <a href="../moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
-            <a href="sumo_moreon_dua.shtml" class="SUMOSubSubLink">Dynamic User Assignment</a><br/>
-            <a href="sumo_moreon_arcview.shtml" class="SUMOSubSubLink">Parsing ArcView Files</a><br/>
+            <a href="sumo_moreon_dua.shtml" class="SUMOSubSubLink">DUA</a><br/>
+            <a href="sumo_moreon_arcview.shtml" class="SUMOSubSubLink">Parsing ArcView</a><br/>
             <a href="sumo_moreon_tls.shtml" class="SUMOSubSubLink">Traffic Lights</a><br/>
-            <a href="sumo_howto_building.shtml" class="SUMOSubSubLink">Build HowTo</a><br/>
-            <a href="sumo_howto_global_output_file.shtml" class="SUMOSubSubLink">Add global output HowTo</a><br/>
+            <a href="sumo_howto_building.shtml" class="SUMOSubSubLink">Building</a><br/>
+            <a href="sumo_howto_global_output_file.shtml" class="SUMOSubSubLink">Global Output</a><br/>
 
             <a href="../bibliography.shtml" class="SUMOSubLink">Bibliography</a><br/>
 
