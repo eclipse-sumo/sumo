@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book>
-  <bookinfo>
+  <bookinfo revision="0.9.5">
     <title id="more_arcview">SUMO - More on... Parsing ArcView Files</title>
 
     <author>
@@ -47,6 +47,14 @@
 
       <para>This documentation shows how to use the importer to import
       networks from other suppliers than NavTeq by example.</para>
+
+      <note>
+        <para>Please remark, that this document is "for fun only". Internally,
+        we are using commercial road network databases of high quality. The
+        networks presented here are available for free and due to this their
+        quality may be not as good as needed for a somehow meaningful
+        simulation of real world traffic.</para>
+      </note>
     </sect1>
 
     <sect1 id="more_arcview-intro-audience">
@@ -61,6 +69,229 @@
 
       <para>The document describes the usage of the ArcView importer by giving
       examples. Each of the next chapter describes one example.</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="more_arcview-ntad">
+    <title>Importing Networks from the National Transportation Atlas
+    Database</title>
+
+    <sect1 id="more_arcview-ntad-availability">
+      <title>Data Availability</title>
+
+      <para>At <ulink
+      url="http://www.bts.gov/publications/national_transportation_atlas_database/2006/">http://www.bts.gov/publications/national_transportation_atlas_database/2006/</ulink>
+      the National Transportation Atlas Database is set of maps supplied by
+      the Bureau of Transportation Statistics. Among several other data, also
+      road networks can be downloaded. Within the next chapters using the data
+      set "Region 10 (AK, ID, OR, and WA)" (<ulink
+      url="http://www.bts.gov/publications/national_transportation_atlas_database/2006/zip/nhpn_10.zip">nhpn_10.zip</ulink>)
+      from the "National Highway Planning Network" section is
+      described.</para>
+    </sect1>
+
+    <sect1 id="more_arcview-ntad-conversion">
+      <title>Conversion</title>
+
+      <para>Two datasets can be found within the downloaded package,
+      <filename>nhpnLinRegion10</filename> and
+      <filename>nhpnNodRegion10</filename>. We are interested in the lines in
+      order to get the road network, node features seem to be not interesting
+      for us. After reading the data description
+      "<filename>nhpnlinDataDictionary.htm</filename>" we know that:</para>
+
+      <para>--arcview.from-id FNRECID --arcview.to-id TNRECID
+      --arcview.street-id RECID --arcview.use-defaults-on-failure -v
+      --use-projection --arcview.utm 10</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>The origin node of a street is named "FNRECID" in the table;
+          that means we should add the option <option>--arcview.from-id
+          FNRECID</option> to our call</para>
+        </listitem>
+
+        <listitem>
+          <para>The destination node of a street is named "TNRECID" in the
+          table; that means we should add the option <option>--arcview.to-id
+          TNRECID</option> to our call</para>
+        </listitem>
+
+        <listitem>
+          <para>The street identifier should be read from the column RECID;
+          that means we should add the option <option>--arcview.street-id
+          RECID</option> to our call</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>There seems to be no information about the number of lanes or
+      allowed speeds within the table. By now, we will simply use the defaults
+      and force <application>NETCONVERT</application> to do this using
+      <option>--arcview.use-defaults-on-failure</option>. Also, as shapefiles
+      are using a geocoordinate system, we want to reproject the network to
+      the cartesian coordinates using <option>--use-projection</option> and
+      setting the utm-zone to 10 using <option>--arcview.utm 10</option>. So,
+      the complete call is:</para>
+
+      <screen>netconvert --arcview nhpnLinRegion10 -o nhpnRegion10.net.xml \
+    --arcview.from-id FNRECID --arcview.to-id TNRECID \
+    --arcview.street-id RECID --arcview.use-defaults-on-failure \
+    --use-projection --arcview.utm 10</screen>
+
+      <para>After some seconds of waiting, we get a network which looks as
+      following:</para>
+
+      <figure id="img_ntad_converted_plain">
+        <title>The converted Region10-network</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/more/nhpnLinRegion10_small.png"
+                       width="400" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>A look at a part of the complete network shows that although the
+      whole network is not fully connected, some smaller parts may be
+      interesting:</para>
+
+      <figure id="img_ntad_converted_plain_detail">
+        <title>A detail from the converted Region10-network</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/more/nhpnLinRegion10_detail_small.png"
+                       width="400" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>Still, all streets are unidirectional, have the same number of
+      lanes and allow the same maximum velocity. While looking for some
+      further information, a more detailed description <ulink
+      url="http://www.fhwa.dot.gov/Planning/nhpn/docs/aat.html">here</ulink>.
+      Based on this, we decided the field FCLASS to differ between the road
+      types. To make a relationship between the values in FCLASS and the
+      physical attributes of the network to build we defined a type-file (see
+      "<ulink
+      url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-xml_descriptions-types">Types
+      Descriptions</ulink>"). The values are just guess, but should assuming a
+      speed limit of 65mph on interstate highways and of 30mph for urban
+      roads. The number of lanes is guessed, too. Please remark that there is
+      also a field which describes the number of lanes on a street. We do not
+      use it because we would have to divide it by two - something not yet
+      implemented in the current version of SUMO. The complete types-file
+      (<filename>nhpnLinRegion.typ.xml</filename>) looks like this:</para>
+
+      <programlisting><sgmltag>&lt;types&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Interstate --&gt;</sgmltag>
+   <sgmltag>&lt;type id="01"  priority="6" nolanes="3" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Principal Arterial --&gt;</sgmltag>
+   <sgmltag>&lt;type id="02"  priority="6" nolanes="3" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Minor Arterial  --&gt;</sgmltag>
+   <sgmltag>&lt;type id="06"  priority="6" nolanes="3" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Major Collector --&gt;</sgmltag>
+   <sgmltag>&lt;type id="07"  priority="5" nolanes="2" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Minor Collector --&gt;</sgmltag>
+   <sgmltag>&lt;type id="08"  priority="4" nolanes="1" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Rural Local --&gt;</sgmltag>
+   <sgmltag>&lt;type id="09"  priority="1" nolanes="1" speed="25"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Interstate --&gt;</sgmltag>
+   <sgmltag>&lt;type id="11"  priority="2" nolanes="2" speed="13.4"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Freeway or Expressway --&gt;</sgmltag>
+   <sgmltag>&lt;type id="12"  priority="2" nolanes="2" speed="13.4"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Principal Arterial --&gt;</sgmltag>
+   <sgmltag>&lt;type id="14"  priority="2" nolanes="2" speed="13.4"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Minor Arterial --&gt;</sgmltag>
+   <sgmltag>&lt;type id="16"  priority="2" nolanes="2" speed="13.4"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Collector --&gt;</sgmltag>
+   <sgmltag>&lt;type id="17" priority="1" nolanes="1" speed="13.4"/&gt;</sgmltag>
+   <sgmltag>&lt;!-- Urban Local --&gt;</sgmltag>
+   <sgmltag>&lt;type id="19" priority="1" nolanes="1" speed="13.4"/&gt;</sgmltag>
+<sgmltag>&lt;/types&gt;</sgmltag></programlisting>
+
+      <para>The new call, which adds the types definition and builds all roads
+      bidirectional is:</para>
+
+      <screen>netconvert --arcview nhpnLinRegion10 -o nhpnRegion10.net.xml \
+    --arcview.from-id FNRECID --arcview.to-id TNRECID \
+    --arcview.street-id RECID --arcview.use-defaults-on-failure \
+    --use-projection --arcview.utm 10 \
+    --arcview.all-bidi -t nhpnLinRegion.typ.xml --arcview.type-id FCLASS</screen>
+
+      <para>Here, some pictures from the resulting network:</para>
+
+      <figure id="img_ntad_converted_types_detail1">
+        <title>A close-up view on the converted Region10-network (1)</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/more/nhpnLinRegion10_2_detail1_small.png"
+                       width="400" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure id="img_ntad_converted_types_detail2">
+        <title>A close-up view on the converted Region10-network (2)</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/more/nhpnLinRegion10_2_detail2_small.png"
+                       width="400" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <figure id="img_ntad_converted_types_detail3">
+        <title>A close-up view on the converted Region10-network (3)</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="./gfx/more/nhpnLinRegion10_2_detail3_small.png"
+                       width="400" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect1>
+
+    <sect1 id="more_arcview-ntad-quality">
+      <title>Data Quality</title>
+
+      <para>The Bureau of Transportation Statistics states a "maximal
+      positional error of 80 meters" for the networks (see
+      <filename>nhpnlinDataDictionary.htm</filename>). The network we had was
+      not fully connected. Beside this, it seems to be not complete - or -
+      better to say - one should state that it is not "dense" in the means
+      that due to its size it only contains major roads.</para>
+    </sect1>
+
+    <sect1 id="more_arcview-ntad-demand">
+      <title>Demand</title>
+
+      <para>The database contains a filed named "AADT", documented as: "The
+      Annual Average Daily Traffic field comes from the 2002 Highway
+      Performance Monitoring System." (from
+      <filename>nhpnlinDataDictionary.htm</filename>). One could use this to
+      fill the network with traffic, we didn't.</para>
+    </sect1>
+
+    <sect1 id="more_arcview-ntad-conclusion">
+      <title>Conlusion</title>
+
+      <para>Due to its size the network seems to be quite interesting for
+      simulating large-area traffic. Still, it is not fully connected, so one
+      should maybe try one of the other parts located at <ulink
+      url="http://www.bts.gov/publications/national_transportation_atlas_database/2006/">http://www.bts.gov/publications/national_transportation_atlas_database/2006/</ulink>.</para>
+    </sect1>
+
+    <sect1 id="more_arcview-ntad-data">
+      <title>Data</title>
+
+      <para>You can download the converted networks from the <ulink
+      url="http://sumo.sourceforge.net/downloads/add_data.shtml#ntad">additional
+      data</ulink> page.</para>
     </sect1>
   </chapter>
 
@@ -165,7 +396,7 @@
       this:</para>
 
       <screen>netconvert --arcview strassen -o frida.net.xml --arcview.street-id strShapeID \
-   -t frida.typ.xml --arcview.type-id strTypID</screen>
+   -t frida.typ.xml --arcview.type-id strTypID --use-projection</screen>
 
       <para>The network looks as shown below:</para>
 
@@ -175,7 +406,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="./gfx/more/frida_by_speed.gif" width="500" />
+            <imagedata fileref="./gfx/more/frida_by_speed_small.png"
+                       width="400" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -196,7 +428,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="./gfx/more/uni_highway_ramp.gif" width="500" />
+            <imagedata fileref="./gfx/more/uni_highway_ramp_small.png"
+                       width="400" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -214,7 +447,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="./gfx/more/bidi_highway_ramp.gif" width="500" />
+            <imagedata fileref="./gfx/more/bidi_highway_ramp_small.png"
+                       width="400" />
           </imageobject>
         </mediaobject>
       </figure>
