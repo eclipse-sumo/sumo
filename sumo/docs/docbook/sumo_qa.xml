@@ -49,7 +49,7 @@
         <para><emphasis>Answer:</emphasis> Use the following commands:</para>
 
         <screen>export CVS_RSH=ssh
-cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
+cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
 
         <para>Press <keycode>RETURN</keycode> if you should be asked for a
         password.</para>
