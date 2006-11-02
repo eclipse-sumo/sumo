@@ -1,6 +1,7 @@
 include_HEADERS = projects.h nad_list.h proj_api.h org_proj4_Projections.h
 
-EXTRA_DIST =
+EXTRA_DIST = cs2cs.c geod.c geod_for.c geod_inv.c geod_set.c jniproj.c \
+nad2bin.c nad2nad.c proj.c proj.def proj_config.h.in
 
 noinst_LIBRARIES = libproj.a
 
@@ -37,7 +38,7 @@ libproj_a_SOURCES = \
 	pj_open_lib.c pj_param.c pj_phi2.c pj_pr_list.c \
 	pj_qsfn.c pj_strerrno.c pj_tsfn.c pj_units.c \
 	pj_zpoly1.c rtodms.c vector1.c pj_release.c pj_gauss.c \
-	\
+	gen_cheb.c p_series.c geodesic.h \
 	nad_cvt.c nad_init.c nad_intr.c emess.c emess.h \
 	pj_apply_gridshift.c pj_datums.c pj_datum_set.c pj_transform.c \
 	geocent.c geocent.h pj_utils.c pj_gridinfo.c pj_gridlist.c
