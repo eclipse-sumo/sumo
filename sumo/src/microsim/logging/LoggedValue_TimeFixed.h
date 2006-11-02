@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/11/02 13:15:35  behrisch
+// Template inheritance needs explicit member reference (this->)
+//
 // Revision 1.8  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -99,10 +102,10 @@ public:
         // clear on a new interval
         if(mySampledUnits>mySampleInterval) {
             mySampledUnits = 1;
-            myCurrentValue = 0;
+            this->myCurrentValue = 0;
         }
         // add new value
-        myCurrentValue += value;
+        this->myCurrentValue += value;
     }
 
 
@@ -115,7 +118,7 @@ public:
             return 0; // !!! You could also throw an exception here;
             // This is not meant to be done
         }
-        return myCurrentValue / (SUMOReal) mySampledUnits;
+        return this->myCurrentValue / (SUMOReal) mySampledUnits;
     }
 
 
@@ -123,7 +126,7 @@ public:
         (for the given sample interval) */
     _T getAbs() const
     {
-        return myCurrentValue;
+        return this->myCurrentValue;
     }
 
 

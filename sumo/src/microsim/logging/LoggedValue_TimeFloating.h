@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/02 13:15:35  behrisch
+// Template inheritance needs explicit member reference (this->)
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -97,9 +100,9 @@ public:
     void add(_T value)
     {
         // remove the value lying some steps ahead
-        myCurrentValue -= myFloatingArray[mySampledUnits];
+        this->myCurrentValue -= myFloatingArray[mySampledUnits];
         // add the current value
-        myCurrentValue += value;
+        this->myCurrentValue += value;
         // store the current value
         myFloatingArray[mySampledUnits] = value;
         // check whether the number of sampled units exceeds the array
@@ -118,11 +121,11 @@ public:
     {
         // the list is complete
         if(myBufferWasFull) {
-            return myCurrentValue / (SUMOReal) mySampleInterval;
+            return this->myCurrentValue / (SUMOReal) mySampleInterval;
         }
         // return only the acquired values
         if(mySampledUnits!=0) {
-            return myCurrentValue / (SUMOReal) mySampledUnits;
+            return this->myCurrentValue / (SUMOReal) mySampledUnits;
         }
         // return 0 (or throw an exception when not initialised
         return 0;
@@ -133,7 +136,7 @@ public:
         (for the given sample interval) */
     _T getAbs() const
     {
-        return myCurrentValue;
+        return this->myCurrentValue;
     }
 
 

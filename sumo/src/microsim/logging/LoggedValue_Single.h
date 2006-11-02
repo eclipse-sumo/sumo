@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/02 13:15:35  behrisch
+// Template inheritance needs explicit member reference (this->)
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -86,7 +89,7 @@ public:
         Simply sets the current value */
     void add(_T value)
     {
-        myCurrentValue = value;
+        this->myCurrentValue = value;
     }
 
 
@@ -94,7 +97,7 @@ public:
         (for and over the given sample interval) */
     _T getAvg() const
     {
-        return myCurrentValue;
+        return this->myCurrentValue;
     }
 
 
@@ -102,7 +105,7 @@ public:
         (for the given sample interval) */
     _T getAbs() const
     {
-        return myCurrentValue;
+        return this->myCurrentValue;
     }
 
 
