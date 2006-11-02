@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/11/02 14:09:22  behrisch
+// Missing class declarations
+//
 // Revision 1.18  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,6 +91,7 @@
  * class declarations
  * ======================================================================= */
 class NBNode;
+class NIVissimEdge;
 
 
 /* =========================================================================

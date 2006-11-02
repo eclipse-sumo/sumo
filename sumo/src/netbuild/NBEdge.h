@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.51  2006/11/02 14:09:22  behrisch
+// Missing class declarations
+//
 // Revision 1.50  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -248,6 +251,7 @@
  * ======================================================================= */
 class NBNode;
 class NBNodeCont;
+class NBEdgeCont;
 
 
 /* =========================================================================
