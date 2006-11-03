@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/03 22:58:16  behrisch
+// Templates need explicit member reference (this->)
+//
 // Revision 1.1  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -75,9 +78,9 @@ public:
 	void setGlColor(const _T& i) const {
         if(!(i.*myHasOperation)((_P) myParameter)) {
             if(myCatchNo) {
-                mglColor(myNoColor);
+                this->mglColor(myNoColor);
             } else {
-                mglColor(myMinColor);
+                this->mglColor(myMinColor);
             }
         } else {
             SUMOReal val = (i.*myNumberOperation)((_P) myParameter) - myMin;
