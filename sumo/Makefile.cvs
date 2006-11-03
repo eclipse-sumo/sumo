@@ -1,13 +1,9 @@
 default: all
 
 all:
-#	cat smr.m4 > acinclude.m4
-	aclocal
-	autoheader
-	automake --gnu --add-missing
-	autoconf
+	autoreconf -is
 
 clean:
-	rm -r aclocal.m4 autom4te.cache/ configure depcomp install-sh missing src/config.h.in
+	rm -r aclocal.m4 autom4te.cache/ config.* configure depcomp install-sh missing src/config.h.in ltmain.sh INSTALL
 	find . -name Makefile.in -exec rm '{}' ';'
  
