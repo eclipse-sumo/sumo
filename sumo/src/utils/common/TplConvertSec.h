@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2006/11/03 22:55:14  behrisch
+// Templates need explicit reference
+//
 // Revision 1.2  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -215,7 +218,7 @@ public:
     static char *_2charpSec(const E * const data, int length, char *def)
     {
         if(data==0||length==0) {
-            return copy(def);
+            return TplConvert<E>::copy(def);
         }
         return TplConvert<E>::_2charp(data, length);
     }
