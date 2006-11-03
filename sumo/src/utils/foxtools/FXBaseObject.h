@@ -107,7 +107,7 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
       ID_DOCUMENT,
       ID_TAG,
       ID_CONTENT,
-      ID_LAST,
+      ID_LAST
       };
 
   public:

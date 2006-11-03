@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.52  2006/11/03 23:05:34  behrisch
+// Syntactic sugar
+//
 // Revision 1.51  2006/11/02 14:09:22  behrisch
 // Missing class declarations
 //
@@ -517,7 +520,7 @@ public:
 
     NBEdge *getTurnDestination() const;
 
-    typedef std::map<std::string, std::vector<std::string> > StringContMap;;
+    typedef std::map<std::string, std::vector<std::string> > StringContMap;
 
     std::string getLaneID(size_t lane);
 

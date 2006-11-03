@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.36  2006/11/03 23:05:34  behrisch
+// Syntactic sugar
+//
 // Revision 1.35  2006/07/06 05:57:49  dkrajzew
 // removed unneeded values
 //
@@ -258,7 +261,7 @@ enum TagEnum
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_WEIGHT,
 	SUMO_TAG_REROUTE_AGENT,
-	SUMO_TAG_PARAM,
+	SUMO_TAG_PARAM
 };
 
 

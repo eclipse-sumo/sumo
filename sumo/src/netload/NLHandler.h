@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/03 23:05:34  behrisch
+// Syntactic sugar
+//
 // Revision 1.9  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -361,7 +364,7 @@ private:
     void addIncomingLanes(const std::string &chars);
 
     /// adds the incoming Polygon's Positions
-    void NLHandler::addIncomingPolyPosititon(const std::string &chars);
+    void addIncomingPolyPosititon(const std::string &chars);
 
 #ifdef HAVE_INTERNAL_LANES
     /// adds the internal lanes
