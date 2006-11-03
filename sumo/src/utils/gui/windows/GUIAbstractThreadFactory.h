@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/11/03 13:28:18  behrisch
+// Missing and wrong includes and classes corrected
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -42,9 +45,10 @@
  * class declarations
  * ======================================================================= */
 
-class GUIMainWindow;
 class GUILoadThread;
 class GUIRunThread;
+class MFXInterThreadEventClient;
+class MFXEventQue;
 
 
 /* =========================================================================
@@ -60,8 +64,6 @@ class GUIRunThread;
 #endif // HAVE_CONFIG_H
 
 #include <utils/foxtools/FXRealSpinDial.h>
-
-#include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 
 /* =========================================================================
@@ -74,10 +76,10 @@ class GUIAbstractThreadFactory {
 public:
     GUIAbstractThreadFactory();
     virtual ~GUIAbstractThreadFactory();
-    virtual GUILoadThread *buildLoadThread(GUIMainWindow *mw,
+    virtual GUILoadThread *buildLoadThread(MFXInterThreadEventClient *mw,
         MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
-    virtual GUIRunThread *buildRunThread(GUIMainWindow *mw,
+    virtual GUIRunThread *buildRunThread(MFXInterThreadEventClient *mw,
         FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/03 13:28:18  behrisch
+// Missing and wrong includes and classes corrected
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -59,8 +62,8 @@ namespace
 #include <utils/foxtools/FXThreadEvent.h>
 #include "GUIAbstractThreadFactory.h"
 //#include "GUIMainWindow.h"
-#include "GUILoadThread.h"
-#include "GUIRunThread.h"
+#include <gui/GUILoadThread.h>
+#include <gui/GUIRunThread.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -81,7 +84,7 @@ GUIAbstractThreadFactory::~GUIAbstractThreadFactory()
 
 
 GUILoadThread *
-GUIAbstractThreadFactory::buildLoadThread(GUIMainWindow *mw,
+GUIAbstractThreadFactory::buildLoadThread(MFXInterThreadEventClient *mw,
                                   MFXEventQue &eq, FXEX::FXThreadEvent &ev)
 {
     return new GUILoadThread(mw, eq, ev);
@@ -89,7 +92,7 @@ GUIAbstractThreadFactory::buildLoadThread(GUIMainWindow *mw,
 
 
 GUIRunThread *
-GUIAbstractThreadFactory::buildRunThread(GUIMainWindow *mw,
+GUIAbstractThreadFactory::buildRunThread(MFXInterThreadEventClient *mw,
                                  FXRealSpinDial &simDelay, MFXEventQue &eq,
                                  FXEX::FXThreadEvent &ev)
 {

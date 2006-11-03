@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/11/03 13:28:18  behrisch
+// Missing and wrong includes and classes corrected
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -125,6 +128,9 @@ public:
     virtual bool simulationIsStopable() const;
     virtual bool simulationIsStepable() const;
 
+    /** deletes the existing simulation */
+    virtual void deleteSim();
+
     /** returns the simulation's current time step */
     SUMOTime getCurrentTimeStep() const;
 
@@ -144,6 +150,9 @@ protected:
     void makeStep();
 
 protected:
+    /// the loaded simulation network
+    GUINet                  *_net;
+
     /// the times the simulation starts and ends with
     SUMOTime             _simStartTime, _simEndTime;
 

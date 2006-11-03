@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/03 13:28:18  behrisch
+// Missing and wrong includes and classes corrected
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -127,9 +130,9 @@ namespace
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
-//#include "GUIApplicationWindow.h"
+#include <gui/GUIApplicationWindow.h>
 #include "GUIAbstractRunThread.h"
-#include "GUIGlobals.h"
+// #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 
