@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/03 22:59:26  behrisch
+// Syntactic sugar
+//
 // Revision 1.9  2006/10/12 07:58:09  dkrajzew
 // warnings removed
 //
@@ -75,7 +78,7 @@ enum MyLCAEnum {
     LCA_KEEP1 = 65536,// 8
     LCA_KEEP2 = 131072,// 9
     LCA_AMBACKBLOCKER = 262144,// 10
-    LCA_AMBACKBLOCKER_STANDING = 524288,// 11
+    LCA_AMBACKBLOCKER_STANDING = 524288// 11
 
 };
 

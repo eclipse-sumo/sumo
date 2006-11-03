@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/03 22:59:26  behrisch
+// Syntactic sugar
+//
 // Revision 1.9  2006/10/12 08:09:15  dkrajzew
 // fastened up lane changing
 //
@@ -78,7 +81,7 @@ enum LaneChangeAction {
     LCA_BLOCKEDBY_FOLLOWER = 32,
     LCA_OVERLAPPING = 64,
 
-    LCA_MAX = 128,
+    LCA_MAX = 128
 };
 
 /* =========================================================================

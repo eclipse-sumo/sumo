@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/11/03 22:59:26  behrisch
+// Syntactic sugar
+//
 // Revision 1.14  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -128,7 +131,7 @@ public:
 
         CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
 
-        CORN_MAX,
+        CORN_MAX
     };
 
     enum Pointer {

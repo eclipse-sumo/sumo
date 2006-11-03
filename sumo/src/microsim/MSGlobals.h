@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/11/03 22:59:26  behrisch
+// Syntactic sugar
+//
 // Revision 1.13  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -115,7 +118,7 @@ public:
 
 
     /// Information whether c2x communication shall be used
-    static bool MSGlobals::gUsingC2C;
+    static bool gUsingC2C;
 	/// the standard WLAN range
 	static SUMOReal gLANRange;
 	/// the Number of Sending possibility per TimeStep

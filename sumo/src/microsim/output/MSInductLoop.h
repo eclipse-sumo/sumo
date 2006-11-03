@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.12  2006/11/03 22:59:26  behrisch
+// Syntactic sugar
+//
 // Revision 1.11  2006/10/12 08:06:35  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //
@@ -527,7 +530,7 @@ namespace
         return sumSoFar + data.lengthM;
     }
     //@}
-};
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
