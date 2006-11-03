@@ -98,13 +98,13 @@ namespace LD
         ///
         void leave( MSVehicle& veh )
             {
-                if ( ! hasVehicle( veh ) ) {
+                if ( ! this->hasVehicle( veh ) ) {
                     // vehicle left detector but did not enter it.
                     return;
                 }
                 aggregatesM.push_back(
                     TimeValue((MSUnit::Seconds) MSNet::getInstance()->simSeconds(),
-                              getValue( veh ) ) );
+                              this->getValue( veh ) ) );
             }
 
         /// Get the aggregated value of the detector. This method is

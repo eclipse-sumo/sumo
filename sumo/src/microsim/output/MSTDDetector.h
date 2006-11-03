@@ -137,7 +137,7 @@ namespace TD // timestep data
                                          deleteDataAfterSeconds ) )
             {
                 if ( detNameM == "" ) {
-                    detNameM = getDetectorName() + "Sum";
+                    detNameM = this->getDetectorName() + "Sum";
                 }
                 startOldDataRemoval();
             }
@@ -155,7 +155,7 @@ namespace TD // timestep data
         ///
         bool updateEachTimestep( void )
             {
-                aggregatesM.push_back( getDetectorAggregate() );
+                aggregatesM.push_back( this->getDetectorAggregate() );
                 return false;
             }
 

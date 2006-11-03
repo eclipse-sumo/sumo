@@ -77,7 +77,7 @@ public:
         {
             // returns the mean value of the lastNSeconds
             AggregatesContIter startIt =
-                getAggrContStartIterator(
+                this->getAggrContStartIterator(
 					(MSUnit::Steps) MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
             if(startIt==this->aggregatesM.end()) {
                 return 0;
@@ -102,7 +102,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            this->detNameM = getDetectorName() + "Mean";
+            this->detNameM = this->getDetectorName() + "Mean";
         }
 
     // Another E2 ctor
@@ -115,7 +115,7 @@ public:
             deleteDataAfterSeconds,
             helperDetector )
         {
-            this->detNameM = getDetectorName() + "Mean";
+            this->detNameM = this->getDetectorName() + "Mean";
         }
 
     // E3 ctors
@@ -127,7 +127,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            this->detNameM = getDetectorName() + "Mean";
+            this->detNameM = this->getDetectorName() + "Mean";
         }
 
     MSMeanDetector( std::string id,
@@ -138,7 +138,7 @@ public:
             deleteDataAfterSeconds,
             container )
         {
-            this->detNameM = getDetectorName() + "Mean";
+            this->detNameM = this->getDetectorName() + "Mean";
         }
 
     // E* ctors follow here

@@ -81,7 +81,7 @@ public:
         {
             // returns the sum of the lastNSeconds
             AggregatesContIter startIt =
-                getAggrContStartIterator(
+                this->getAggrContStartIterator(
 					(MSUnit::Steps) MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
             return getSum( lastNSeconds, startIt,
                            Loki::Int2Type< hasTimeValueCont >() );
@@ -98,7 +98,7 @@ protected:
                         container )
         {
             if ( this->detNameM == "" ) {
-                this->detNameM = getDetectorName() + "Sum";
+                this->detNameM = this->getDetectorName() + "Sum";
             }
         }
 
@@ -112,7 +112,7 @@ protected:
                         helperDetector )
         {
             if ( this->detNameM == "" ) {
-                this->detNameM = getDetectorName() + "Sum";
+                this->detNameM = this->getDetectorName() + "Sum";
             }
         }
 
@@ -125,7 +125,7 @@ protected:
                         container )
         {
             if ( this->detNameM == "" ) {
-                this->detNameM = getDetectorName() + "Sum";
+                this->detNameM = this->getDetectorName() + "Sum";
             }
         }
 
@@ -138,7 +138,7 @@ protected:
                         container )
         {
             if ( this->detNameM == "" ) {
-                this->detNameM = getDetectorName() + "Sum";
+                this->detNameM = this->getDetectorName() + "Sum";
             }
         }
 
