@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/11/06 10:30:30  dkrajzew
+// debugged handling of neworks with internal geometry in the case SUMO was build with no such support
+//
 // Revision 1.26  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
 //
@@ -281,7 +284,7 @@ NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
 void
 NLJunctionControlBuilder::closeJunction()
 {
-    MSJunction *junction;
+    MSJunction *junction = 0;
     switch(myType) {
     case TYPE_NOJUNCTION:
         junction = buildNoLogicJunction();
@@ -293,18 +296,20 @@ NLJunctionControlBuilder::closeJunction()
     case TYPE_DEAD_END:
         junction = buildNoLogicJunction();
         break;
-#ifdef HAVE_INTERNAL_LANES
     case TYPE_INTERNAL:
+#ifdef HAVE_INTERNAL_LANES
         junction = buildInternalJunction();
-        break;
 #endif
+        break;
     default:
         MsgHandler::getErrorInstance()->inform("False junction type.");
         throw ProcessError();
     }
-    myJunctions->push_back(junction);
-    if(!MSJunction::dictionary(myActiveID, junction)) {
-        throw XMLIdAlreadyUsedException("junction", myActiveID);
+    if(junction!=0) {
+        myJunctions->push_back(junction);
+        if(!MSJunction::dictionary(myActiveID, junction)) {
+            throw XMLIdAlreadyUsedException("junction", myActiveID);
+        }
     }
 }
 
