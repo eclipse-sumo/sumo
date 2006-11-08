@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.3  2006/11/08 16:27:51  ericnicolay
+// change code for the cell-actor
+//
 // Revision 1.2  2006/07/05 11:23:39  ericnicolay
 // add code for change state of cphones and register them to the cells and las
 //
@@ -91,7 +94,7 @@ public:
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
     MSE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters, ActorType at, unsigned int areaid );
+        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type );
 
 
     /// Destructor. Clears containers.
@@ -154,9 +157,10 @@ public:
 
 protected:
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
-	const ActorType _type;
+	//const ActorType _type;
+	unsigned int _LAId;
 	unsigned int _AreaId;
-
+	unsigned int _ActorType;
 private:
 
     /// Hidden default constructor.

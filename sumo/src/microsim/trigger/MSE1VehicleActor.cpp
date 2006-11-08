@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/08 16:27:51  ericnicolay
+// change code for the cell-actor
+//
 // Revision 1.5  2006/10/12 08:06:35  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //
@@ -85,22 +88,16 @@ using namespace std;
 /* =========================================================================
 * method definitions
 * ======================================================================= */
-MSE1VehicleActor::MSE1VehicleActor( const string& id, MSLane* lane,
-								   SUMOReal positionInMeters, ActorType at, unsigned int areaid )
+MSE1VehicleActor::MSE1VehicleActor( const std::string& id, MSLane* lane,
+        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type )
 								   : MSMoveReminder(lane), MSTrigger(id),
-								   posM(positionInMeters),   _type( at ), _AreaId( areaid ){
+								   posM(positionInMeters),   _LAId( laid ), _AreaId( cellid ), _ActorType( type ){
     assert( posM >= 0 && posM <= laneM->length() );
 	//eintragen in MSPhoneNet
 	MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-	if ( _type == CELL ){
 		if ( pPhone->getMSPhoneCell( _AreaId ) == 0 )
-			pPhone->addMSPhoneCell( _AreaId );
-	}
-	else if ( _type == LA ){
-		if ( pPhone->getMSPhoneLA( _AreaId ) == 0 )
-			pPhone->addMSPhoneLA( _AreaId, 0 );
-	}
-
+			pPhone->addMSPhoneCell( _AreaId, _LAId );
+	
 }
 
 
@@ -120,40 +117,61 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 	}
 	// !!! do something
 	/*in welchen zustand ist das handy?????????*/
+	if( _ActorType == 1 ) { // 1 == cell/la
 	int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
-	for(int np=0; np<noCellPhones; np++) {
+	for(int np=0; np<noCellPhones; np++){
 		MSDevice_CPhone* cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-		if ( _type == LA ){
-			MSDevice_CPhone::State state = cp->GetState();
-			if(state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT){
-				MSPhoneLA * l   = pPhone->getMSPhoneLA( _AreaId );
-				l->addCall();
+		MSDevice_CPhone::State state = cp->GetState();
+		if(state!=MSDevice_CPhone::STATE_OFF){
+			MSPhoneLA * lold   = pPhone->getcurrentVehicleLA(veh.getID());
+			MSPhoneLA * lnew   = pPhone->getMSPhoneLA( _AreaId );
+			if(lold!=NULL){
+				if(lold!=lnew){
+					lold->remCall(veh.getID());
+					lnew->addCall(veh.getID());
+				}
 			}
+			else
+				lnew->addCall(veh.getID());
 		}
-		else{//_type == CELL
-			cp->setCurrentCellId( _AreaId );
-			MSPhoneCell * cold = pPhone->getcurrentVehicleCell( veh.getID() );
-			MSPhoneCell * cnew = pPhone->getMSPhoneCell( _AreaId );
-			switch(cp->GetState()){
-		case	MSDevice_CPhone::STATE_OFF:{
-			if ( cold != 0 )	cold->remCall( veh.getID() );
-			break;
-										   }
-		case	MSDevice_CPhone::STATE_IDLE:{
-			if ( cold != 0 )	cold->remCall( veh.getID() );
-			break;
-											}
-		case	MSDevice_CPhone::STATE_CONNECTED_IN:{
-			if ( cold != 0 ) cold->remCall( veh.getID() );
+		cp->setCurrentCellId( _AreaId );
+		MSPhoneCell * cold = pPhone->getcurrentVehicleCell( veh.getID() );
+		MSPhoneCell * cnew = pPhone->getMSPhoneCell( _AreaId );
+		switch(cp->GetState()){
+			case	MSDevice_CPhone::STATE_OFF:
+				if ( cold != 0 )
+					cold->remCall( veh.getID() );
+				break;
+			case	MSDevice_CPhone::STATE_IDLE:
+				if ( cold != 0 )	
+					cold->remCall( veh.getID() );
+				break;
+			case	MSDevice_CPhone::STATE_CONNECTED_IN:
+			if ( cold != 0 )
+				cold->remCall( veh.getID() );
 				cnew->addCall( veh.getID(), DYNIN );
 			break;
-													}
-		case	MSDevice_CPhone::STATE_CONNECTED_OUT:{
-			if ( cold != 0 ) cold->remCall( veh.getID() );
+		case	MSDevice_CPhone::STATE_CONNECTED_OUT:
+			if ( cold != 0 ) 
+				cold->remCall( veh.getID() );
 				cnew->addCall( veh.getID(), DYNOUT );
 			break;
-													}
+		}
+	}
+	}
+	else { 
+		int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
+		for(int np=0; np<noCellPhones; np++){
+			MSDevice_CPhone* cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+			MSDevice_CPhone::State state = cp->GetState();
+			if(state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT){
+				if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2))
+				MSCORN::saveTOSS2_CalledPositionData(
+					MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(), _id, 0); // !!! recheck quality indicator
+			if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL))
+				MSCORN::saveTOSS2SQL_CalledPositionData(
+					MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(), _id, 0); // !!! recheck quality indicator
 			}
 		}
 	}
