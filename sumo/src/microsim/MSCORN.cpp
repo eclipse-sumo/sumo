@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/11/08 16:18:44  ericnicolay
+// -change code for ss2-sql-output
+//
 // Revision 1.15  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -327,8 +330,18 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
                                      int quality)
 {
     if(myVehicleDeviceTOSS2Output!=0) {
+		std::string timestr="1970-01-01 ";
+		int tmp;
+		char buffer[64];
+		sprintf(buffer, "%02i:",(time/3600000));  
+		timestr+=buffer;
+		tmp=time%3600000;
+		sprintf(buffer, "%02i:",(tmp/60000));  
+		timestr+=buffer;
+		tmp=tmp%60000;
+		sprintf(buffer, "%02i", tmp);
         myVehicleDeviceTOSS2Output->getOStream()
-        << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
+            << "01;'" << timestr << "';" << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
     }
 }
 
@@ -338,13 +351,24 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
                                      int quality)
 {
     if(myVehicleDeviceTOSS2SQLOutput!=0) {
-        if(!MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL])
-            myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
-        else
-        MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
+		if(!MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL])
+			myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
+		std::string timestr="1970-01-01 ";
+		int tmp;
+		char buffer[64];
+		sprintf(buffer, "%02i:",(time/3600));  
+		timestr+=buffer;
+		tmp=time%3600;
+		sprintf(buffer, "%02i:",(tmp/60));  
+		timestr+=buffer;
+		tmp=tmp%60;
+		sprintf(buffer, "%02i", tmp);
+		timestr+=buffer;
         myVehicleDeviceTOSS2SQLOutput->getOStream()
-            << "(NULL, NULL, '" << time << "', NULL , NULL, '"
-            << time << ';' << callID << ';' << pos << ';' << quality << "',1);";
+		<< "(NULL, NULL, '" << timestr << "', NULL , NULL, '1;"
+        	<< timestr << ';' << callID << ';' << pos << ';' << quality << "',1)";
     }
 }
 
@@ -366,30 +390,54 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
 {
-    if(myCellTOSS2SQLOutput!=0) {
-        if(!MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL])
-            myCellTOSS2SQLOutput->getOStream() << "," << endl;
-        else
-            MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
-        myCellTOSS2SQLOutput->getOStream()
-            << "(NULL, \' \', " << time << ',' << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
-            << Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
-    }
+	if(myCellTOSS2SQLOutput!=0)
+	{
+		if(!MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL])
+			myCellTOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
+		std::string timestr="1970-01-01 ";
+		int tmp;
+		char buffer[64];
+		sprintf(buffer, "%02i:",(time/3600));  
+		timestr+=buffer;
+		tmp=time%3600;
+		sprintf(buffer, "%02i:",(tmp/60));  
+		timestr+=buffer;
+		tmp=tmp%60;
+		sprintf(buffer, "%02i", tmp);
+		timestr+=buffer;
+		myCellTOSS2SQLOutput->getOStream()
+			<< "(NULL, \' \', '" << timestr << "'," << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
+			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
+	}
 }
 
 void
 MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
-	if(myLATOSS2SQLOutput!=0) {
-        if(!MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL])
-            myLATOSS2SQLOutput->getOStream() << "," << endl;
-        else
-            MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
-        myLATOSS2SQLOutput->getOStream()
-            << "(NULL, \' \', " << time << ',' << position_id << ',' << dir << ',' << sum_changes << ','
-            << quality_id << ',' << intervall << ")";
-    }
+	if(myLATOSS2SQLOutput!=0)
+	{
+		if(!MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL])
+			myLATOSS2SQLOutput->getOStream() << "," << endl;
+		else
+			MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
+		std::string timestr="1970-01-01 ";
+		int tmp;
+		char buffer[64];
+		sprintf(buffer, "%02i:",(time/3600));  
+		timestr+=buffer;
+		tmp=time%3600;
+		sprintf(buffer, "%02i:",(tmp/60));  
+		timestr+=buffer;
+		tmp=tmp%60;
+		sprintf(buffer, "%02i", tmp);
+		timestr+=buffer;
+		myLATOSS2SQLOutput->getOStream()
+			<< "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
+			<< quality_id << ',' << intervall << ")";
+	}
 }
 
 void

@@ -64,7 +64,7 @@ MSPhoneCell::remCall( std::string id ){
 					Dyn_Calls_Out--;
 					break;
 			}
-			if(Sum_Calls<0)
+			if(Sum_Calls>0)
 				--Sum_Calls;
 			_Calls.erase( icalls );
 			break;
