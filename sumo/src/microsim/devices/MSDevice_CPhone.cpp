@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/11/08 17:25:46  ericnicolay
+// add getCallId
+//
 // Revision 1.14  2006/10/12 14:50:37  ericnicolay
 // add code for the ss2-sql-output
 //
@@ -123,6 +126,7 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle)
 {
 	myId = "";
 	mycurrentCellId = -1;
+	mycurrentLAId = -1;
 }
 
 //---------------------------------------------------------------------------
@@ -133,9 +137,12 @@ MSDevice_CPhone::~MSDevice_CPhone()
 	if ( mycurrentCellId != -1 ){
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		if ( pPhone != 0 ){
-			MSPhoneCell * cell = pPhone->getcurrentVehicleCell( myVehicle.getID() );
+			MSPhoneCell * cell = pPhone->getcurrentVehicleCell( myId );
 			if ( cell != 0 )
 				cell->remCall( myVehicle.getID() );
+			MSPhoneLA * la = pPhone->getcurrentVehicleLA( myId  );
+			if( la != 0 )
+				la->remCall( myId );
 		}
 	}
     if(myCommand!=0) {
@@ -217,9 +224,9 @@ MSDevice_CPhone::changeState()
 					MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 					MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 					if ( m_State == STATE_CONNECTED_IN )
-						cell->addCall( myVehicle.getID(), STATICIN );
+						cell->addCall( myId, STATICIN );
 					else
-						cell->addCall( myVehicle.getID(), STATICOUT );
+						cell->addCall( myId, STATICOUT );
 				}
 				next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
 				gCallID++;
@@ -243,9 +250,9 @@ MSDevice_CPhone::changeState()
 					MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 					MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 					if ( m_State == STATE_CONNECTED_IN )
-						cell->addCall( myVehicle.getID(), STATICIN );
+						cell->addCall( myId, STATICIN );
 					else
-						cell->addCall( myVehicle.getID(), STATICOUT );
+						cell->addCall( myId, STATICOUT );
 				}
 				next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
 				gCallID++;
@@ -279,17 +286,6 @@ MSDevice_CPhone::changeState()
 	default:
 		throw 1;
 	}
-	// TOL_SPEC_SS2 (1.2)
-	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
-		MSCORN::saveTOSS2_CalledPositionData(
-			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-			myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
-	}
-	if((m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT)&&MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)){
-		MSCORN::saveTOSS2SQL_CalledPositionData(
-			MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-			myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
-	}
 	return next;
 }
 
@@ -318,9 +314,9 @@ MSDevice_CPhone::onDepart()
 			MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 			MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
 			if ( m_State == STATE_CONNECTED_IN )
-				cell->addCall( myVehicle.getID(), STATICIN );
+				cell->addCall( myId, STATICIN );
 			else
-				cell->addCall( myVehicle.getID(), STATICOUT );
+				cell->addCall( myId, STATICOUT );
 		}
 
 		t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
@@ -332,20 +328,6 @@ MSDevice_CPhone::onDepart()
 		TempCell.m_LoS = -1;
 		m_ProvidedCells.push_back(TempCell);
 	}
-	// TOL_SPEC_SS2 (1.2)
-	if(m_State==STATE_CONNECTED_IN||m_State==STATE_CONNECTED_OUT){
-		if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)){
-			MSCORN::saveTOSS2_CalledPositionData(
-            MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-            myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
-		}
-		else if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)){
-			MSCORN::saveTOSS2SQL_CalledPositionData(
-            MSNet::getInstance()->getCurrentTimeStep(), gCallID,
-            myVehicle.getLane().getEdge()->getID(), 0); // !!! recheck quality indicator
-		}
-    }
-    //
     myCommand = new MyCommand(*this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
 		myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);

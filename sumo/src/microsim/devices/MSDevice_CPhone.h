@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/11/08 17:25:46  ericnicolay
+// add getCallId
+//
 // Revision 1.10  2006/09/18 11:34:20  dkrajzew
 // debugged building on Windows
 //
@@ -89,6 +92,7 @@ public:
 	int getCurrentCellId(){return mycurrentCellId;};
     void onDepart();
 	void setId(std::string id){myId=id;};
+	int getCallId(){return gCallID;};
 	std::string getId(){return myId;};
 	void invalidateCommand();
 
@@ -128,12 +132,13 @@ private:
     MSVehicle &myVehicle;
 
     static int gCallID;
-
+	int callid;
     MyCommand *myCommand;
 
 	/*this id reminds the cell-id the phone is currently in*/
 	/*if it is -1 the car still not cross a cellborder*/
 	int mycurrentCellId;
+	int mycurrentLAId;
 };
 
 
