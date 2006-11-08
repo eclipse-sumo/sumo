@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/08 16:55:09  ericnicolay
+// just changed for compiling
+//
 // Revision 1.1  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
 //
@@ -296,7 +299,7 @@ GUIE1VehicleActor::GUIE1VehicleActorPopupMenu::onCmdOpenManip(FXObject*, FXSelec
  * ----------------------------------------------------------------------- */
 GUIE1VehicleActor::GUIE1VehicleActor( const std::string& id, MSLane* lane,
         SUMOReal positionInMeters, ActorType at, unsigned int areaid )
-    : MSE1VehicleActor(id, lane, positionInMeters, at, areaid),
+    : MSE1VehicleActor(id, lane, positionInMeters, at, areaid, 1),
     GUIGlObject_AbstractAdd(gIDStorage, "actor:" + id, GLO_TRIGGER)
 {
     const Position2DVector &v = lane->getShape();
