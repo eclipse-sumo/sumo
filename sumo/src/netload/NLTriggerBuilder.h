@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/11/08 16:37:22  ericnicolay
+// change code for actortrigger
+//
 // Revision 1.15  2006/10/31 12:22:14  dkrajzew
 // code beautifying
 //
@@ -176,10 +179,12 @@ protected:
         SUMOReal prob, const std::string &file);
 
     /// builds a vehicle actor
-    virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
+    /*virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
         const std::string &id, MSLane *lane, SUMOReal pos,
-		unsigned int type, unsigned int areaid);
-
+		unsigned int type, unsigned int areaid);*/
+	virtual MSE1VehicleActor *buildVehicleActor(MSNet &net, 
+		const std::string &id, MSLane *lane, SUMOReal pos, 
+		unsigned int la, unsigned int cell, unsigned int type);
     //}
 
 protected:

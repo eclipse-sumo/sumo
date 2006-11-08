@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/08 16:37:22  ericnicolay
+// change code for actortrigger
+//
 // Revision 1.21  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -173,7 +176,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 		/*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
 		MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
 		if(tlane!=0)
-        t = parseAndBuildVehicleActor(net, attrs, base, helper);
+			t = parseAndBuildVehicleActor(net, attrs, base, helper);
     }
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);
@@ -277,9 +280,10 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "vehicle_actor", id);
-	unsigned int areaid = helper.getInt( attrs, SUMO_ATTR_TO );
-	unsigned int areatype = helper.getInt( attrs, SUMO_ATTR_TYPE );
-    return buildVehicleActor(net, id, lane, pos, areatype, areaid);
+	unsigned int cellid = helper.getInt( attrs, SUMO_ATTR_TO );
+	unsigned int laid = helper.getInt( attrs, SUMO_ATTR_XTO );
+	unsigned int type = helper.getInt( attrs, SUMO_ATTR_TYPE );
+    return buildVehicleActor(net, id, lane, pos, laid, cellid, type);
 }
 
 
@@ -370,14 +374,10 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 
 MSE1VehicleActor *
 NLTriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
-                                    MSLane *lane, SUMOReal pos, unsigned int type,
-									unsigned int areaid)
+                                    MSLane *lane, SUMOReal pos, unsigned int la,
+									unsigned int cell, unsigned int type)
 {
-	if ( type == 0 )
-		return new MSE1VehicleActor(id, lane, pos, LA, areaid);
-	else
-		return new MSE1VehicleActor(id, lane, pos, CELL, areaid);
-
+		return new MSE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
 
