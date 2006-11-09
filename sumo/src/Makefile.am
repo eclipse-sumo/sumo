@@ -253,12 +253,14 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
 ./utils/geoconv/libgeoconv.a \
+./foreign/proj/libproj.a \
+./utils/../utils/gui/div/libguiutilsdiv.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)
 endif
-
+# mentioning libguiutilsdiv.a twice with different paths is a hack to circumvent a gcc linker bug
 
 
 AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
