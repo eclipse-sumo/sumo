@@ -14,7 +14,7 @@
 class MMLayer {
 public:
     MMLayer() { }
-    ~MMLayer() { }
+    virtual ~MMLayer() { }
     virtual void simulationStep( SUMOTime start, SUMOTime step) = 0;
 
 };
