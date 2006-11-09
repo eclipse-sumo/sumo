@@ -1,1 +1,89 @@
 
+                           SUMO - Simulation of Urban MObility 
+
+
+
+What Is SUMO?
+=============
+
+"Simulation of Urban MObility" (SUMO) is an open source, highly portable, microscopic
+road traffic simulation package designed to handle large road networks. The project
+homepage can be found at
+
+        http://sumo.sourceforge.net/
+
+It is developed by employees of the Centre for Applied Informatics (ZAIK) and the
+Institute of Transport Research at the German Aerospace Centre.
+
+
+
+Where to get it?
+================
+
+You can download SUMO and all needed libraries from SourceForge via our downloads site:
+
+
+	http://sumo.sourceforge.net/downloads/downloads.shtml
+
+
+As the program is still under development and is extended continuously, we advice you to
+use the latest sources from our CVS. Using a command line CVS client the following
+command should work:
+
+        cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co -P sumo
+
+
+
+Mailing List.
+=============
+
+To stay informed, we have a mailing list for SUMO. To subscribe, send mail to
+sumo-users-request@lists.sourceforge.net with the word subscribe in the message body.
+Messages to the list can be sent to sumo-users@lists.sourceforge.net.
+SUMO announcements will be made through the sumo-announce@lists.sourceforge.net list;
+you can subscribe to this list by sending a message "subscribe" to the list server at
+sumo-announce-request@lists.sourceforge.net.
+
+
+
+Installation.
+=============
+
+For Windows compile we provide pre-compiled binaries and for the CVS users the MSVC
+project files. Using Linux a simple "./configure && make" should be enough for the
+distributions, if you have properly installed all needed libraries. Using CVS you
+need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
+the autoconf utilities creating configure and the Makefiles.
+If configure does not find the libraries or includes needed, please check
+"./configure --help" for information on how to specify the paths needed.
+
+
+
+Getting started.
+================
+
+To get started with SUMO, take a look at the data directory, which contains
+some example networks with routing data and configuration files.
+There is also user documentation provided in the docs/ directory and on the
+homepage.
+
+
+
+Bugs.
+=====
+
+Please use for bugs and requests the SourceForge Tracker
+
+        http://sourceforge.net/tracker/?group_id=45607&atid=443421
+
+or file them to the list sumo-users@lists.sourceforge.net.  Before
+filing a bug, please take a moment to check with the current CVS that the problem
+still persists.
+
+
+
+License.
+========
+
+SUMO is licensed under GPL.
+
