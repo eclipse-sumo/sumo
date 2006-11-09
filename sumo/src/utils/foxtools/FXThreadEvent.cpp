@@ -73,7 +73,7 @@ FXDEFMAP(FXThreadEvent) FXThreadEventMap[]={
   FXMAPFUNC(SEL_THREAD,0, FXThreadEvent::onThreadEvent),
   FXMAPFUNC(SEL_IO_READ,FXThreadEvent::ID_THREAD_EVENT,FXThreadEvent::onThreadSignal),
   };
-FXIMPLEMENT(FXThreadEvent,FXBaseObject,FXThreadEventMap,ARRAYNUMBER(FXThreadEventMap));
+FXIMPLEMENT(FXThreadEvent,FXBaseObject,FXThreadEventMap,ARRAYNUMBER(FXThreadEventMap))
 
 // FXThreadEvent : Constructor
 FXThreadEvent::FXThreadEvent(FXObject* tgt,FXSelector sel) : FXBaseObject(tgt,sel) {

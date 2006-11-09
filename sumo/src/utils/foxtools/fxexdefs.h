@@ -345,8 +345,8 @@ void convert_timeval(struct timeval *tv,FXuint ms);
 void convert_timespec(struct timespec *ts,FXuint ms);
 #endif
 
-}; // namespace FXUtils
-}; // namespace FXEX
+} // namespace FXUtils
+} // namespace FXEX
 
 #endif // FXEXDEFS_H
 

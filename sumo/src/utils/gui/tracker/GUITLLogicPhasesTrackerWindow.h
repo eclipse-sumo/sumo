@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/09 06:36:14  behrisch
+// Syntactic sugar
+//
 // Revision 1.6  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -122,8 +125,7 @@ public:
         ValueSource<CompletePhaseDef> *src);
 
     /// Constructor to show the complete phase diagram
-    GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-        GUIMainWindow &app,
+    GUITLLogicPhasesTrackerWindow(GUIMainWindow &app,
         MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
         const MSSimpleTrafficLightLogic::Phases &phases);
 

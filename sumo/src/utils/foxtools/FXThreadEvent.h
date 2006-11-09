@@ -111,7 +111,7 @@ namespace FXEX {
  *
  */
 class /*FXAPI */FXThreadEvent : public FXBaseObject {
-  FXDECLARE(FXThreadEvent);
+  FXDECLARE(FXThreadEvent)
 
 private:
   FXThreadEventHandle event;

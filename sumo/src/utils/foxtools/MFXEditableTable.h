@@ -26,7 +26,7 @@ struct MFXEditedTableItem {
 };
 
 enum {
-  EDITTABLE_NEXTROW     = 0x02000000,   /// Allow editing the next row (not all other)
+  EDITTABLE_NEXTROW     = 0x02000000   /// Allow editing the next row (not all other)
 };
 
 
