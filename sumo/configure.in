@@ -307,16 +307,16 @@ AC_ARG_WITH(gdal-includes,
     ])
 AC_MSG_CHECKING([for gdal-includes])
 if test x"$ac_gdal_includes" = x; then
-   if test -e /usr/include/gdal; then
+   if test -e /usr/include/gdal/ogrsf_frmts.h; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/include/gdal
-   elif test -e /usr/include/gdal.h; then
+   elif test -e /usr/include/ogrsf_frmts.h; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/include
-   elif test -e /usr/local/include/gdal; then
+   elif test -e /usr/local/include/gdal/ogrsf_frmts.h; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/local/include/gdal
-   elif test -e /usr/local/include/gdal.h; then
+   elif test -e /usr/local/include/ogrsf_frmts.h; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/local/include
    else
@@ -325,9 +325,7 @@ if test x"$ac_gdal_includes" = x; then
       AC_MSG_RESULT([Specify path with option --with-gdal-includes=DIR.])
    fi
 else
-   if test -e "$ac_gdal_includes/ogr/ogr_api.h"; then
-      AC_MSG_RESULT([yes])
-   elif test -e "$ac_gdal_includes/ogr_api.h"; then
+   if test -e "$ac_gdal_includes/ogrsf_frmts.h"; then
       AC_MSG_RESULT([yes])
    else
       AC_MSG_RESULT([no])
