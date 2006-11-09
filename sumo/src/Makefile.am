@@ -219,13 +219,13 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/dialogs/libguidialogs.a \
 ./gui/GUISupplementaryWeightsHandler.o \
+./utils/gui/windows/libguiutilsWindows.a \
+./utils/gui/globjects/libguiutilsglobjects.a \
 ./utils/gui/div/libguiutilsdiv.a \
 ./utils/gui/drawer/libguiutilsdrawer.a \
 ./utils/gui/events/libguiutilsevents.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
-./utils/gui/windows/libguiutilsWindows.a \
-./utils/gui/globjects/libguiutilsglobjects.a \
 ./utils/foxtools/libfoxtools.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -254,13 +254,11 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
 ./utils/geoconv/libgeoconv.a \
 ./foreign/proj/libproj.a \
-./utils/../utils/gui/div/libguiutilsdiv.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)
 endif
-# mentioning libguiutilsdiv.a twice with different paths is a hack to circumvent a gcc linker bug
 
 
 AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
