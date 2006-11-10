@@ -1,6 +1,11 @@
 #ifndef MSPHONENET_H
 #define MSPHONENET_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 #include <map>
 #include <string>
 #include "MSPhoneCell.h"

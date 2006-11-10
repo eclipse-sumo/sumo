@@ -1,6 +1,12 @@
 #ifndef MSPHONECELL_H
 #define MSPHONECELL_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <string>
 #include <vector>
 #include "MSCORN.h"

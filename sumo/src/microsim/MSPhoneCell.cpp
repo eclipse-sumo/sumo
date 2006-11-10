@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "MSPhoneCell.h"
 
 MSPhoneCell::MSPhoneCell( int id ):
@@ -92,7 +98,7 @@ MSPhoneCell::getCall( std::string id ){
 void
 MSPhoneCell::writeOutput( SUMOTime t ){
 	Intervall = t - last_time;
-	MSCORN::saveTOSS2_CellStateData( t, Cell_Id, Calls_In, Calls_Out, 
+	MSCORN::saveTOSS2_CellStateData( t, Cell_Id, Calls_In, Calls_Out,
 		Dyn_Calls_In, Dyn_Calls_Out, Sum_Calls, Intervall );
 	last_time = t;
 }
@@ -100,7 +106,7 @@ MSPhoneCell::writeOutput( SUMOTime t ){
 void
 MSPhoneCell::writeSQLOutput( SUMOTime t ){
 	Intervall = t - last_time;
-	MSCORN::saveTOSS2SQL_CellStateData( t, Cell_Id, Calls_In, Calls_Out, 
+	MSCORN::saveTOSS2SQL_CellStateData( t, Cell_Id, Calls_In, Calls_Out,
 		Dyn_Calls_In, Dyn_Calls_Out, Sum_Calls, Intervall );
 	last_time = t;
 }

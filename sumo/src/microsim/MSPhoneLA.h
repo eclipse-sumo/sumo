@@ -1,6 +1,10 @@
 #ifndef MSPHONELA_H
 #define MSPHONELA_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 #include "MSCORN.h"
 #include <string>
 #include <vector>

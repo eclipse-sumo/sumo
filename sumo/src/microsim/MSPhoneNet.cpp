@@ -1,11 +1,17 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 #include "MSPhoneNet.h"
 
 
-MSPhoneNet::MSPhoneNet(){
+MSPhoneNet::MSPhoneNet()
+{
 	_read_Stat_File=false;
 	OptionsCont &oc = OptionsSubSys::getOptions();
-	std::string fname = oc.getString("ss2-cellload-file");
-	if(fname.size()>0){
+    if(oc.isSet("ss2-cellload-file")) {
+	    std::string fname = oc.getString("ss2-cellload-file");
 		_fstat.open( fname.c_str(), std::ios_base::in);
 		if(_fstat.is_open()){
 			_read_Stat_File=true;
@@ -25,7 +31,7 @@ MSPhoneNet::~MSPhoneNet(){
     for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ )
         delete lit->second;
 }
-    
+
 MSPhoneCell*
 MSPhoneNet::getMSPhoneCell( int id ){
    // std::map< int, MSPhoneCell* >::iterator cit;

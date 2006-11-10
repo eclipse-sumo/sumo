@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.53  2006/11/10 13:10:35  dkrajzew
+// warnings removed; debugging
+//
 // Revision 1.52  2006/11/02 11:44:51  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -296,6 +299,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
     // devices
         // cell-phones
+    oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
     oc.doRegister("ss2-cell-output", new Option_FileName());
     oc.doRegister("ss2-la-output", new Option_FileName());

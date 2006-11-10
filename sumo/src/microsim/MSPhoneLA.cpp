@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "MSPhoneLA.h"
 
 MSPhoneLA::MSPhoneLA( int pos_id, int d ):
@@ -11,7 +17,7 @@ intervall( 0 )
 
 MSPhoneLA::~MSPhoneLA(){}
 
-void 
+void
 MSPhoneLA::addCall( ){
 	sum_changes++;
 }
@@ -66,7 +72,7 @@ MSPhoneLA::operator !=(MSPhoneLA * other){
 		return true;
 	else
 		return false;
-} 
+}
 
 void
 MSPhoneLA::writeOutput( SUMOTime t ){
