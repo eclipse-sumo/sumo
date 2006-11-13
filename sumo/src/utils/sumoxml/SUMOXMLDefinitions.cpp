@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/11/13 16:18:50  fxrb
+// support for TCP/IP iodevices using DataReel library
+//
 // Revision 1.36  2006/09/18 10:18:40  dkrajzew
 // debugging
 //
@@ -211,9 +214,9 @@ GenericSAX2Handler::Tag sumotags[54] =
 	  { "param",	        SUMO_TAG_PARAM }
 };
 
-size_t noSumoAttrs = 88;
+size_t noSumoAttrs = 91;
 
-AttributesHandler::Attr sumoattrs[88] =
+AttributesHandler::Attr sumoattrs[91] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -316,7 +319,11 @@ AttributesHandler::Attr sumoattrs[88] =
     { "seesEdges",      SUMO_ATTR_SEESEDGES },
 	{ "periodBegin",    SUMO_ATTR_PERIODBEGIN },
 	{ "viewDist",       SUMO_ATTR_VIEWDIST },
-	{ "oneShot",        SUMO_ATTR_ONESHOT }
+	{ "oneShot",        SUMO_ATTR_ONESHOT },
+
+	{ "host",			SUMO_ATTR_HOST },
+	{ "port",			SUMO_ATTR_PORT },
+	{ "protocol",		SUMO_ATTR_PROTOCOL }
 
 };
 

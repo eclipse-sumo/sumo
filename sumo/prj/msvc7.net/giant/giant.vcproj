@@ -47,10 +47,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib $(NOINHERIT) shell32.lib user32.lib"
+				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib user32.lib $(NOINHERIT)"
 				OutputFile=".\Release/giant.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;$(DREEL)\PRJ\MSVC.NET-71\Release&quot;"
 				GenerateDebugInformation="FALSE"
 				ProgramDatabaseFile=".\Release/giant.pdb"
 				SubSystem="1"
@@ -118,10 +119,11 @@ copy Release\giant.exe ..\..\..\bin\giant.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib $(NOINHERIT) shell32.lib user32.lib"
+				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib user32.lib $(NOINHERIT)"
 				OutputFile=".\Debug/giant.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;$(DREEL)\PRJ\MSVC.NET-71\Debug&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/giant.pdb"
 				SubSystem="1"

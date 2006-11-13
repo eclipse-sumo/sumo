@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/13 16:18:50  fxrb
+// support for TCP/IP iodevices using DataReel library
+//
 // Revision 1.7  2006/04/07 10:41:50  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -61,11 +64,13 @@
 
 #include <map>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <cassert>
 #include "SharedOutputDevices.h"
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
+#include "OutputDevice_Network.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 
@@ -150,6 +155,32 @@ SharedOutputDevices::getOutputDeviceChecking(const std::string &base,
 }
 
 
+
+#ifdef USE_SOCKETS
+
+OutputDevice *
+SharedOutputDevices::getOutputDevice(const std::string &host, const int port, const std::string &protocol)
+{
+	std::ostringstream os;
+	std::string deviceName;
+
+	os << port;
+	deviceName= host + "-" + os.str() + "-" + protocol;
+
+	// check wether this device does already exist
+    DeviceMap::iterator i = myOutputDevices.find(deviceName);
+	if(i!=myOutputDevices.end()) {
+        (*i).second->setNeedsDetectorName(true);
+        return (*i).second;
+    }
+
+	// create device
+    OutputDevice *dev = new OutputDevice_Network(host, port, protocol);
+    myOutputDevices[deviceName] = dev;
+    return dev;
+}
+
+#endif //#ifdef USE_SOCKETS
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

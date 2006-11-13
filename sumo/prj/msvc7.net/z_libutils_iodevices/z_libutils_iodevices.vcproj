@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="z_libutils_iodevices"
 	ProjectGUID="{F6C375A8-58FB-45D9-842B-41113D6C6A3D}"
+	RootNamespace="z_libutils_iodevices"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -22,8 +23,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="&quot;$(DREEL)\INCLUDE&quot;;..\..\..\src"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB;__WIN32__"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -40,6 +41,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				OutputFile=".\Debug\z_libutils_iodevices.lib"
+				AdditionalLibraryDirectories=""
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -74,8 +76,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="&quot;$(DREEL)\INCLUDE&quot;;..\..\..\src"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB;__WIN32__"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -92,6 +94,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				OutputFile=".\Release\z_libutils_iodevices.lib"
+				AdditionalLibraryDirectories=""
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -162,6 +165,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\iodevices\SharedOutputDevices.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -193,6 +199,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_File.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\SharedOutputDevices.h">

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2006/11/13 16:18:49  fxrb
+// support for TCP/IP iodevices using DataReel library
+//
 // Revision 1.16  2006/08/01 07:19:56  dkrajzew
 // removed build number information
 //
@@ -254,6 +257,17 @@
 #include <utils/dev/debug_new.h>
 #endif
 
+
+// conditionally add library search record to object file for DataReel
+#ifdef USE_SOCKETS
+#ifdef _WIN32
+#ifdef _DEBUG
+#pragma comment (lib, "gxcoded.lib")
+#else // _DEBUG
+#pragma comment (lib, "gxcode.lib")
+#endif // _DEBUG
+#endif // _WIN32
+#endif // USE_SOCKETS
 
 /* =========================================================================
  * used namespaces

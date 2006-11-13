@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.36  2006/11/03 23:05:34  behrisch
-// Syntactic sugar
+// Revision 1.37  2006/11/13 16:18:50  fxrb
+// support for TCP/IP iodevices using DataReel library
 //
 // Revision 1.35  2006/07/06 05:57:49  dkrajzew
 // removed unneeded values
@@ -261,7 +261,7 @@ enum TagEnum
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_WEIGHT,
 	SUMO_TAG_REROUTE_AGENT,
-	SUMO_TAG_PARAM
+	SUMO_TAG_PARAM,
 };
 
 
@@ -393,7 +393,14 @@ enum AttrEnum
     SUMO_ATTR_SEESEDGES,
     SUMO_ATTR_PERIODBEGIN,
     SUMO_ATTR_VIEWDIST,
-    SUMO_ATTR_ONESHOT
+    SUMO_ATTR_ONESHOT,
+
+	// IP host name as string or dotted IP address (aaa.bbb.ccc.ddd)
+	SUMO_ATTR_HOST,
+	// IP port number (1..65535)
+	SUMO_ATTR_PORT,
+	// IP protocol (either 'udp', 'tcp-client' or 'tcp-server')
+	SUMO_ATTR_PROTOCOL
 
 };
 
@@ -409,7 +416,7 @@ extern GenericSAX2Handler::Tag sumotags[54];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[88];
+extern AttributesHandler::Attr sumoattrs[91];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

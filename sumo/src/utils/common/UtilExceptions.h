@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/11/13 16:18:49  fxrb
+// support for TCP/IP iodevices using DataReel library
+//
 // Revision 1.12  2006/07/06 05:46:37  dkrajzew
 // added const declarations which were missing to make the methods be derived
 //
@@ -298,6 +301,23 @@ private:
 
 };
 
+
+
+class NetworkError : public UtilException {
+public:
+	// constructor
+	NetworkError(const std::string &message);
+
+	// destructor
+	~NetworkError();
+
+	// return the exceptions message
+	const std::string &msg() const;
+
+private:
+	// the exceptions message
+	std::string myMessage;
+};
 
 
 

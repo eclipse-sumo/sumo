@@ -28,6 +28,8 @@
 /* Version number of package */
 #define VERSION "0.9.4"
 
+/* define to use DataReel sockets libray */
+//#define USE_SOCKETS
 
 #define HAVE_INTERNAL_LANES 1
 

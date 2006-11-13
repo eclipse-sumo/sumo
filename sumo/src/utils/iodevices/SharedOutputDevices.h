@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/13 16:18:50  fxrb
+// support for TCP/IP iodevices using DataReel library
+//
 // Revision 1.6  2005/10/07 11:46:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -94,6 +97,11 @@ public:
     /// Returns the named file checking whether the path is completely given
     virtual OutputDevice *getOutputDeviceChecking(
         const std::string &base, const std::string &name);
+
+#ifdef USE_SOCKETS
+    // returns the netework target denoted by 'host', 'port' and 'protocol'
+	virtual OutputDevice *getOutputDevice(const std::string &host, const int port, const std::string &protocol);
+#endif //#ifdef USE_SOCKETS
 
 protected:
     /// the singleton instance
