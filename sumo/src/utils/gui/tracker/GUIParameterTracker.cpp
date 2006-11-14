@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/14 06:50:16  dkrajzew
+// debugging placement of the current value string
+//
 // Revision 1.13  2006/06/22 07:18:33  dkrajzew
 // false position of current value in the plot patched
 //
@@ -261,13 +264,9 @@ GUIParameterTracker::getMaxGLHeight() const
 void
 GUIParameterTracker::buildToolBar()
 {
-    myToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
-    myToolBar = new FXToolBar(this,myToolBarDrag,
-        LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
-        TOOLBARGRIP_DOUBLE);
-
+    myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
+    myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
     // save button
     new FXButton(myToolBar,"\t\tSave the data...",
         GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE,
@@ -585,10 +584,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glRotated(180, 1, 0, 0);
         pfSetPosition(0, 0);
         SUMOReal p = (SUMOReal) 0.8 -
-            ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * latest);
+            ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * (latest-desc.getMin()));
         glTranslated(-0.98, p+.02, 0);
         pfDrawString(StringUtils::trim(latest, 2).c_str());
-        glTranslated(0.98, p-.02, 0);
+        glTranslated(0.98, -(p+.02), 0);
     glRotated(-180, 1, 0, 0);
 
     // draw name
