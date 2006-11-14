@@ -8,7 +8,7 @@
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" emitedAt="6" endedAt="120">
+   <vehicle id="emitter_2_2" emitedAt="6" endedAt="119">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
@@ -32,7 +32,7 @@
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" emitedAt="24" endedAt="138">
+   <vehicle id="emitter_8_8" emitedAt="24" endedAt="137">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="no"?>
 <tripinfos>
-   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="171" duration="159" waited="8" />
-   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="173" duration="164" waited="6" />
-   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="178" duration="172" waited="4" />
+   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="171" duration="165" waited="4" />
+   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="173" duration="161" waited="8" />
+   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="178" duration="169" waited="6" />
    <tripinfo vehicle_id="emitter_7_7" start="21" wished="7" end="185" duration="164" waited="14" />
    <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="192" duration="192" waited="0" />
    <tripinfo vehicle_id="emitter_1_1" start="3" wished="1" end="195" duration="192" waited="2" />
