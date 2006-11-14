@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/11/14 06:45:41  dkrajzew
+// warnings removed
+//
 // Revision 1.28  2006/10/31 12:20:51  dkrajzew
 // code beautifying
 //
@@ -274,7 +277,7 @@ MSRouteHandler::myStartElement(int element, const std::string &name,
 
         // get the standing duration
         try {
-            stop.duration = getFloat(attrs, "duration");
+            stop.duration = (SUMOTime) getFloat(attrs, "duration"); // time-parser
         } catch(EmptyData&) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
