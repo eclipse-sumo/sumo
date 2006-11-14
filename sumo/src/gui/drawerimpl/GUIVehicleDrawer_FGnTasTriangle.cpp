@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/14 06:40:30  dkrajzew
+// removed unneeded code
+//
 // Revision 1.16  2006/10/12 09:28:14  dkrajzew
 // patched building under windows
 //
@@ -143,6 +146,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     MSLane::VehCont::const_iterator v;
     for(v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
+        /*
             if(true&&veh->isEquipped()) {
                 const MSVehicle::VehCont &neigh = veh->getConnections();
                 for(MSVehicle::VehCont::const_iterator q=neigh.begin(); q!=neigh.end(); ++q) {
@@ -154,6 +158,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                     glEnd();
                 }
             }
+            */
     }
 
     glPushMatrix();
@@ -180,6 +185,9 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
         glTranslated(0, -(vehiclePosition-positionOffset), 0);
             if(true&&veh->isEquipped()) {
                 int cluster = veh->getClusterId();
+				if(veh->getConnections().size()==0){
+					cluster = -1;
+				}
                 if(colorBla.find(cluster)==colorBla.end()) {
                     int r = (int) ((double) rand() / (double) RAND_MAX * 255.);
                     int g = (int) ((double) rand() / (double) RAND_MAX * 255.);
