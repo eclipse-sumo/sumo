@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/14 06:41:39  dkrajzew
+// some further work on lane changing
+//
 // Revision 1.21  2006/10/25 12:22:35  dkrajzew
 // updated
 //
@@ -124,10 +127,10 @@ size_t searchedtime = 21900;
 #endif // _DEBUG
 
 // 80km/h will be the swell for dividing between long/short foresight
-#define LOOK_FORWARD_SPEED_DIVIDER 12.22
+#define LOOK_FORWARD_SPEED_DIVIDER 14.
 
-#define LOOK_FORWARD_FAR  5
-#define LOOK_FORWARD_NEAR 15
+#define LOOK_FORWARD_FAR  5.
+#define LOOK_FORWARD_NEAR 15.
 
 
 
@@ -179,9 +182,9 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
-            currExtDist = curr.alllength;
+            currExtDist = curr.lane->length();//alllength;
             neighDist = currE[p-1].length;
-            neighExtDist = currE[p-1].alllength;
+            neighExtDist = currE[p-1].lane->length();//.alllength;
             best = currE[p+bestLaneOffset];
             currIdx = p;
         }
@@ -262,7 +265,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         myChangeProbability += 1. / (tdist / rv);
     }
     */
-    if( bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
+    if( fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed())
@@ -411,9 +414,9 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
-            currExtDist = curr.alllength;
+            currExtDist = curr.lane->length();//.alllength;
             neighDist = currE[p+1].length;
-            neighExtDist = currE[p+1].alllength;
+            neighExtDist = currE[p+1].lane->length();//.alllength;
             best = currE[p+bestLaneOffset];
             currIdx = p;
         }
@@ -494,7 +497,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         myChangeProbability -= 1. / (tdist / lv);
     }
     */
-    if( bestLaneOffset>0
+    if( fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset>0
         &&
         currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
         informBlocker(msgPass, blocked, LCA_MLEFT, neighLead, neighFollow);
