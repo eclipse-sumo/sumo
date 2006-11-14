@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/14 13:01:50  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -93,7 +96,7 @@ class GUITriggeredRerouter
     public GUIGlObject_AbstractAdd {
 public:
     /** constructor */
-    GUITriggeredRerouter(const std::string &id, MSNet &net,
+    GUITriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges, SUMOReal prob,
         const std::string &aXMLFilename);
 

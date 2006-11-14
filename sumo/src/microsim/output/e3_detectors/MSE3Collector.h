@@ -84,7 +84,7 @@ public:
     class MSE3EntryReminder : public MSMoveReminder
     {
     public:
-        MSE3EntryReminder(const std::string &id,
+        MSE3EntryReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
@@ -104,7 +104,7 @@ public:
     class MSE3LeaveReminder : public MSMoveReminder
     {
     public:
-        MSE3LeaveReminder(const std::string &id,
+        MSE3LeaveReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);

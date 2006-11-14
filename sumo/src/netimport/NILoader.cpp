@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/11/14 13:03:50  dkrajzew
+// warnings removed
+//
 // Revision 1.27  2006/09/18 10:11:35  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -322,8 +325,8 @@ NILoader::loadSUMO(OptionsCont &oc)
 
 
 void
-NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
-                        const string &type)
+NILoader::loadSUMOFiles(OptionsCont &, LoadFilter what, const string &/*files*/,
+                        const string &/*type*/)
 {
     // build the handlers to load the data
     std::vector<SUMOSAXHandler*> handlers;

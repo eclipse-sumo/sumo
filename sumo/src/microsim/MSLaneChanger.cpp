@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/11/14 13:01:57  dkrajzew
+// warnings removed
+//
 // Revision 1.34  2006/10/12 08:09:15  dkrajzew
 // fastened up lane changing
 //
@@ -908,10 +911,7 @@ MSLaneChanger::findTarget()
         }
     }
     assert( nearestTarget != myChanger.end() );
-
-    MSVehicle *vehicle = veh(myCandi);
     if ( distance( myCandi, nearestTarget ) > 0 ) {
-
         assert( myCandi + 1 != myChanger.end() );
         return myCandi + 1;
     }

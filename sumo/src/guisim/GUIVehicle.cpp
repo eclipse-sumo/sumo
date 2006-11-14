@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2006/11/14 13:01:53  dkrajzew
+// warnings removed
+//
 // Revision 1.45  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -302,9 +305,8 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
                        SUMOTime departTime,
                        const MSVehicleType* type,
-                       size_t noMeanData,
                        int repNo, int repOffset)
-    : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
+    : MSVehicle(id, route, departTime, type, repNo, repOffset),
     GUIGlObject(idStorage, "vehicle:"+id)
 {
     // compute both random colors

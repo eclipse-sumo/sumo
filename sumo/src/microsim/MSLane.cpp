@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.72  2006/11/14 13:01:56  dkrajzew
+// warnings removed
+//
 // Revision 1.71  2006/10/31 12:20:31  dkrajzew
 // further work on internal lanes
 //
@@ -542,12 +545,11 @@ MSLane::MSLane(string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
     myEdge( edge ),
     myMaxSpeed( maxSpeed ),
     myVehBuffer( 0 ),
-    myMeanData(),
 	myShape(shape),
     myLastState(10000, 10000),
-    myFirstUnsafe(0),
     myAllowedClasses(allowed),
-    myNotAllowedClasses(disallowed)
+    myNotAllowedClasses(disallowed),
+    myFirstUnsafe(0)
 {
         assert(myMaxSpeed>0);
 }
@@ -703,7 +705,7 @@ MSLane::detectCollisions( SUMOTime timestep )
                 handler = MsgHandler::getErrorInstance();
             }
             handler->inform(
-               "MSLane::detectCollision: Collision of " + ( *veh )->getID() + " with " + ( *pred )->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
+               "MSLane::detectCollision: Collision of " + vehV->getID() + " with " + predV->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
 //            DEBUG_OUT << ( *veh )->getID() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
 //            DEBUG_OUT << ( *pred )->getID() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
             if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
@@ -990,7 +992,6 @@ MSLane::setCritical()
     bool lastPopped = false;
     VehCont::iterator i;
     for(i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); i++) {
-        MSVehicle *v = *i;
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if(target!=this) {
@@ -1000,8 +1001,6 @@ MSLane::setCritical()
         } else {
             lastPopped = false;
         }
-//        (*i)->_assertPos();
-
     }
     for(int j = 0; j<to_pop; j++) {
         MSVehicle *v = *(myVehicles.end() - 1);
@@ -1248,8 +1247,10 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     if(nRouteEdge2==0||next_allowed==0) {
         return *(valid.begin());
     }
+    /*
     size_t best = 0;
     SUMOReal bestdist = 0;
+    */
     for(std::vector<MSLinkCont::const_iterator>::iterator i=valid.begin(); i!=valid.end(); ++i) {
         if ( find(next_allowed->begin(), next_allowed->end(), ( **i )->getLane())!=next_allowed->end()) {
             return *i;
@@ -1427,7 +1428,7 @@ MSLane::buildLaneWrapper(GUIGlObjectStorage &)
 
 
 void
-MSLane::init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition)
+MSLane::init(MSEdgeControl &, MSEdgeControl::LaneUsage *useDefinition)
 {
     myUseDefinition = useDefinition;
 }
@@ -1469,7 +1470,7 @@ MSLane::insertMeanData(unsigned int number)
 
 
 MSVehicle *
-MSLane::getLastVehicle(MSLaneChanger &lc) const
+MSLane::getLastVehicle(MSLaneChanger &) const
 {
     if(myVehicles.size()==0) {
         return 0;

@@ -274,7 +274,6 @@ struct MSDetectorHaltingMapWrapper
     typedef WrappedContainer InnerContainer;
 
     MSDetectorHaltingMapWrapper(
-  //      MSLane &lane,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
         )
@@ -283,12 +282,11 @@ struct MSDetectorHaltingMapWrapper
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
-        speedThresholdM( speedThreshold )/*,
-        myLane(lane)*/
+        speedThresholdM( speedThreshold )
         {}
 
     MSDetectorHaltingMapWrapper(
-        MSLane &lane,
+//        MSLane &lane,
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold
@@ -298,8 +296,7 @@ struct MSDetectorHaltingMapWrapper
         MSUpdateEachTimestep<
             MSDetectorHaltingMapWrapper >(),
         timeThresholdM( timeThreshold ),
-        speedThresholdM( speedThreshold )/*,
-        myLane(lane)*/
+        speedThresholdM( speedThreshold )
         {}
 
     void enterDetectorByMove( MSVehicle* veh )

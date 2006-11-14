@@ -79,7 +79,7 @@ protected:
                             vehCount -= (SUMOReal) (1.0 - corr);
                         }
                     }
-                    if(pos==containerM.containerM.size()-1) {
+                    if(pos==(int) containerM.containerM.size()-1) {
                         SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
                         if(corr!=0) {
                             vehCount -= (SUMOReal) (1.0 - corr);

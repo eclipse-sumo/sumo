@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/14 13:04:10  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -127,7 +130,7 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler()
 
 
 void
-NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
+NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name,
                                   const Attributes &attrs)
 {
     if(name=="connection") {
@@ -164,7 +167,7 @@ NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
 }
 
 void
-NIXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
+NIXMLConnectionsHandler::parseEdgeBound(const Attributes &/*attrs*/,
                                         NBEdge *from,
                                         NBEdge *to)
 {
@@ -220,14 +223,16 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
 
 
 void
-NIXMLConnectionsHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+NIXMLConnectionsHandler::myCharacters(int /*element*/,
+                                      const std::string &/*name*/,
+                                      const std::string &/*chars*/)
 {
 }
 
 
 void
-NIXMLConnectionsHandler::myEndElement(int element, const std::string &name)
+NIXMLConnectionsHandler::myEndElement(int /*element*/,
+                                      const std::string &/*name*/)
 {
 }
 

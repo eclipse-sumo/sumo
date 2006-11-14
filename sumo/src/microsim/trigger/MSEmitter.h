@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/14 13:02:59  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/07/06 07:23:45  dkrajzew
 // applied current microsim-APIs
 //
@@ -139,10 +142,10 @@ public:
         }
 
     protected:
+        MSEmitter &myParent;
         MSVehicleControl &myVehicleControl;
         RandomDistributor<MSRoute*> myRouteDist;
         RandomDistributor<MSVehicleType*> myVTypeDist;
-        MSEmitter &myParent;
         mutable SUMOReal myTimeOffset;
     };
 

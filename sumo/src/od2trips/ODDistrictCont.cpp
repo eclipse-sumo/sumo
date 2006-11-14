@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/14 13:04:14  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/04/07 05:25:15  dkrajzew
 // complete od2trips rework
 //
@@ -133,7 +136,6 @@ void
 ODDistrictCont::colorize()
 {
     const std::vector<ODDistrict*> &v = getTempVector();
-    size_t pos = 0;
     for(size_t i=0; i!=v.size(); i++) {
         v[i]->setColor((SUMOReal) i / (SUMOReal) v.size());
     }

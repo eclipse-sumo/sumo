@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/11/14 13:02:28  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -124,14 +127,10 @@ private:
 
         /// The time the vehicle should be moved virtually one lane further
         SUMOTime myProceedTime;
-/*
-        /// The next edge within the vehicle's route
-        MSEdge *myNextPossibleEdge;
-*/
+
         /// Constructor
-        VehicleInformation(MSVehicle *veh, SUMOTime insertTime, MSEdge *e)
-            : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)/*,
-            myNextPossibleEdge(e)*/
+        VehicleInformation(MSVehicle *veh, SUMOTime insertTime)
+            : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)
         { }
 
     };

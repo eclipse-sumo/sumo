@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/14 13:02:36  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
 // Revision 1.4  2005/09/22 13:45:51  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -79,7 +81,7 @@ public:
         int bestLaneOffset, SUMOReal bestDist,
         SUMOReal currentDist);
 
-    virtual void inform(LaneChangeAction lca, MSVehicle *sender) { }
+    virtual void inform(LaneChangeAction , MSVehicle * /*sender*/) { }
 
 
 };

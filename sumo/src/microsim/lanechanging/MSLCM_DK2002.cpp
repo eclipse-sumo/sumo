@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/14 13:02:32  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/07/06 07:13:23  dkrajzew
 // applied current microsim-APIs
 //
@@ -37,7 +40,6 @@ namespace
 //
 // Revision 1.3  2005/07/15 07:18:38  dkrajzew
 // code style applied
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -75,13 +77,13 @@ MSLCM_DK2002::~MSLCM_DK2002()
 }
 
 int
-MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
+MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &/*msgPass*/,
                                  int blocked,
                                  const MSVehicle * const leader,
                                  const MSVehicle * const neighLead,
-                                 const MSVehicle * const neighFollow,
+                                 const MSVehicle * const /*neighFollow*/,
                                  const MSLane &neighLane,
-                                 int bestLaneOffset, SUMOReal bestDist,
+                                 int bestLaneOffset, SUMOReal /*bestDist*/,
                                  SUMOReal currentDist)
 {
     // forced changing
@@ -147,13 +149,13 @@ MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
 
 int
-MSLCM_DK2002::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
+MSLCM_DK2002::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &/*msgPass*/,
                                 int blocked,
                                 const MSVehicle * const leader,
                                 const MSVehicle * const neighLead,
-                                const MSVehicle * const neighFollow,
+                                const MSVehicle * const /*neighFollow*/,
                                 const MSLane &neighLane,
-                                int bestLaneOffset, SUMOReal bestDist,
+                                int bestLaneOffset, SUMOReal /*bestDist*/,
                                 SUMOReal currentDist)
 {
     // forced changing

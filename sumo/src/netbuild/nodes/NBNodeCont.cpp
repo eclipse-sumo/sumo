@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/11/14 13:03:46  dkrajzew
+// warnings removed
+//
 // Revision 1.26  2006/09/19 11:48:24  dkrajzew
 // debugging junction-internal lanes
 //
@@ -1131,8 +1134,8 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
     if(oc.getBool("guess-obscure-ramps")) {
         for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
             NBNode *cur = (*i).second;
-            const EdgeVector &inc = (*i).second->getIncomingEdges();
-            const EdgeVector &out = (*i).second->getOutgoingEdges();
+            const EdgeVector &inc = cur->getIncomingEdges();
+            const EdgeVector &out = cur->getOutgoingEdges();
             if(inc.size()!=2||out.size()!=2) {
                 continue;
             }
@@ -1236,7 +1239,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
     if(oc.getBool("tls-guess.district-nodes")) {
         for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
             NBNode *cur = (*i).second;
-            if((*i).second->isNearDistrict()) {
+            if(cur->isNearDistrict()) {
                 setAsTLControlled((*i).first, tlc);
             }
         }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2006/11/14 13:03:09  dkrajzew
+// warnings removed
+//
 // Revision 1.54  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -616,7 +619,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     edge->_from->removeDoubleEdges();
     edge->_to->removeDoubleEdges();
     // add connections from the first to the second edge
-    size_t noLanes = one->getNoLanes();
     // check special case:
     //  one in, one out, the outgoing has one lane more
     if(noLanesFirstEdge==noLanesSecondEdge-1) {
@@ -642,10 +644,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     EdgesSplit++;
     return true;
 }
-
-
-
-
 
 
 void
@@ -998,7 +996,7 @@ NBEdgeCont::savePlain(const std::string &file)
 
 
 bool
-NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc)
+NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
 {
     //
     std::vector<NBEdge*> toRemove;

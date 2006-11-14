@@ -20,12 +20,14 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2006/11/14 13:04:21  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/01/26 08:54:59  dkrajzew
 // missing files added
 //
 // Revision 1.1  2006/01/09 13:38:36  dkrajzew
 // debugging vehicle color usage
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -66,7 +68,7 @@ public:
     SUMOBaseRouteHandler();
 
 	/// Destructor
-    ~SUMOBaseRouteHandler();
+    virtual ~SUMOBaseRouteHandler();
 
 protected:
     //{ parse helper (reporting errors)

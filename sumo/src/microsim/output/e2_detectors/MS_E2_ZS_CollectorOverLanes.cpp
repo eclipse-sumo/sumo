@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/14 13:02:46  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/09/18 10:03:58  dkrajzew
 // added vehicle class support to microsim
 //
@@ -226,7 +229,6 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
         LengthVector::iterator leni = myLengths.begin();
         LaneVectorVector::iterator lanei = myLaneCombinations.begin();
         DetectorVectorVector::iterator deti = myDetectorCombinations.begin();
-        size_t c = 0;
         for(; leni!=myLengths.end(); leni++, lanei++, deti++) {
             if((*leni)<length) {
                 done = false;
@@ -444,8 +446,6 @@ void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
                                             SUMOTime startTime, SUMOTime stopTime )
 {
-    MSUnit::Seconds lastNSeconds =
-		MSUnit::getInstance()->getSeconds( (MSUnit::Steps) (stopTime-startTime) )+1;
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
@@ -479,7 +479,7 @@ size_t bla = 0;
 
 std::string
 MS_E2_ZS_CollectorOverLanes::makeID( const std::string &baseID ,
-                                    size_t c, size_t r ) const
+                                    size_t /*col*/, size_t /*row*/ ) const
 {
     string add;
     switch(myUsage) {

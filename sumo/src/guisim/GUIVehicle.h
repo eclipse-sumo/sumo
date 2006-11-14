@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2006/11/14 13:01:53  dkrajzew
+// warnings removed
+//
 // Revision 1.29  2006/09/18 10:02:18  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -264,8 +267,7 @@ protected:
     /// Use this constructor only.
     GUIVehicle( GUIGlObjectStorage &idStorage,
         std::string id, MSRoute* route, SUMOTime departTime,
-        const MSVehicleType* type, size_t noMeanData,
-        int repNo, int repOffset);
+        const MSVehicleType* type, int repNo, int repOffset);
 
 private:
     /// random color #1 (build from name)

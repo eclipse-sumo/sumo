@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/14 13:03:54  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/04/05 05:32:26  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -94,7 +97,7 @@ NISUMOHandlerEdges::~NISUMOHandlerEdges()
 
 
 void
-NISUMOHandlerEdges::myStartElement(int element, const std::string &name,
+NISUMOHandlerEdges::myStartElement(int element, const std::string &/*name*/,
                                    const Attributes &attrs)
 {
     if(element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {

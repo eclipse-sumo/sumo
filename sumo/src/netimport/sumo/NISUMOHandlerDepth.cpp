@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/14 13:03:54  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2005/10/07 11:39:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -77,20 +80,20 @@ NISUMOHandlerDepth::~NISUMOHandlerDepth()
 
 
 void
-NISUMOHandlerDepth::myStartElement(int element, const std::string &name,
-                                   const Attributes &attrs)
+NISUMOHandlerDepth::myStartElement(int /*element*/, const std::string &/*name*/,
+                                   const Attributes &/*attrs*/)
 {
 }
 
 
 void
-NISUMOHandlerDepth::myCharacters(int element, const std::string &name,
-                                 const std::string &chars)
+NISUMOHandlerDepth::myCharacters(int /*element*/, const std::string &/*name*/,
+                                 const std::string &/*chars*/)
 {
 }
 
 void
-NISUMOHandlerDepth::myEndElement(int element, const std::string &name)
+NISUMOHandlerDepth::myEndElement(int /*element*/, const std::string &/*name*/)
 {
 }
 

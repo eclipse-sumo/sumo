@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/14 13:04:17  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
 // Revision 1.5  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -48,6 +50,7 @@
 #include <algorithm>
 #include <cassert>
 
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -57,7 +60,7 @@
 template<typename T>
 class InstancePool {
 public:
-    InstancePool(bool deleteOnQuit) { }
+    InstancePool(bool deleteOnQuit) : myDeleteOnQuit(deleteOnQuit) { }
     ~InstancePool() {
 	typedef typename std::vector<T*>::iterator It;
 	if(myDeleteOnQuit) {

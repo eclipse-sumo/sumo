@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/14 13:04:04  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -129,11 +132,9 @@ NIVissimDisturbance::dictionary(int id,
     if(id<0) {
         nid = myRunningID++;
     }
-    bool added = false;
     while(true) {
         NIVissimDisturbance *o =
-            new NIVissimDisturbance(nid, name, edge, by,
-                timegap, waygap, vmax);
+            new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
         if(!dictionary(nid, o)) {
             delete o;
             nid = myRunningID++;
@@ -275,7 +276,6 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         if(pcoe!=0&&pcie!=0&&pcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
             NBNode *node = e->getToNode();
-            size_t noLanes = e->getNoLanes();
             const EdgeVector &connected = e->getConnected();
             for(EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(
@@ -328,7 +328,6 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         if(bcoe!=0&&bcie!=0&&bcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
             NBNode *node = e->getToNode();
-            size_t noLanes = e->getNoLanes();
             const EdgeVector &connected = e->getConnected();
             for(EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(

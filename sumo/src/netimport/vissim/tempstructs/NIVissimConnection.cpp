@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/11/14 13:03:56  dkrajzew
+// warnings removed
+//
 // Revision 1.25  2006/07/06 06:18:42  dkrajzew
 // further debugging of VISSIM-import (unfinished)
 //
@@ -128,7 +131,7 @@ NIVissimConnection::NIVissimConnection(int id,
         const NIVissimExtendedEdgePoint &to_def,
         const Position2DVector &geom, Direction direction,
         SUMOReal dxnothalt, SUMOReal dxeinordnen,
-        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
+        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal /*seglength*/,
         const IntVector &assignedVehicles, const NIVissimClosedLanesVector &clv)
         : NIVissimAbstractEdge(id, geom),
         myName(name), myFromDef(from_def), myToDef(to_def),
@@ -209,7 +212,7 @@ NIVissimConnection::buildNodeClusters()
             assert(e->myBoundary!=0&&e->myBoundary->xmax()>e->myBoundary->xmin());
             IntVector connections =
                 NIVissimConnection::getWithin(*(e->myBoundary));
-            int id = NIVissimNodeCluster::dictionary(-1, -1, connections,
+            NIVissimNodeCluster::dictionary(-1, -1, connections,
                 IntVector(), true); // 19.5.!!! should be on a single edge
         }
     }
@@ -244,7 +247,7 @@ NIVissimConnection::computeBounding()
 
 
 IntVector
-NIVissimConnection::getForEdge(int edgeid, bool omitNodeAssigned)
+NIVissimConnection::getForEdge(int edgeid, bool /*omitNodeAssigned*/)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

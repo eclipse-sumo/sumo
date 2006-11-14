@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/14 13:01:42  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
 //
@@ -119,11 +122,11 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 
 
 MSTriggeredRerouter *
-GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
+GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string &file)
 {
-    return new GUITriggeredRerouter(id, net, edges, prob, file);
+    return new GUITriggeredRerouter(id, edges, prob, file);
 }
 
 

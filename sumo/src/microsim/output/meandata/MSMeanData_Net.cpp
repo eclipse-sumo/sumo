@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/14 13:02:56  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/09/18 10:03:58  dkrajzew
 // added vehicle class support to microsim
 //
@@ -133,7 +136,7 @@ MSMeanData_Net::~MSMeanData_Net()
 
 
 void
-MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime stopTime)
+MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
 {
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
@@ -258,9 +261,8 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     // calculate mean data
     SUMOReal traveltime = -42;
     SUMOReal meanSpeed = -43;
-    SUMOReal meanSpeedSquare = -44;
-    SUMOReal meanDensity = -45;
-    SUMOReal meanOccupancy = -46;
+    SUMOReal meanDensity = -44;
+    SUMOReal meanOccupancy = -45;
     conv(meanData, (stopTime-startTime+1),
         lane.myLength, lane.myMaxSpeed,
         traveltime, meanSpeed, meanDensity, meanOccupancy);
@@ -277,7 +279,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLHeader( XMLDevice &dev ) const
+MSMeanData_Net::writeXMLHeader( XMLDevice & ) const
 {
 }
 

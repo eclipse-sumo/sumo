@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/14 13:04:16  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/09/18 11:34:21  dkrajzew
 // debugged building on Windows
 //
@@ -144,7 +147,6 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     ODCell *first = *myContainer.begin();
     begin = MAX2(begin, first->begin);
     CellVector::iterator next = myContainer.begin();
-    int absN = 0;
     std::vector<ODVehicle> vehicles;
     // go through the time steps
     for(SUMOTime t=begin; t!=end; t++) {

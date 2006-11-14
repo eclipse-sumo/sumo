@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/14 13:02:05  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -275,7 +278,7 @@ MSRoute::dict_saveState(std::ostream &os, long what)
 
 
 void
-MSRoute::saveState(std::ostream &os, long what)
+MSRoute::saveState(std::ostream &os, long /*what*/)
 {
     FileHelpers::writeString(os, getID());
     FileHelpers::writeUInt(os, _edges.size());

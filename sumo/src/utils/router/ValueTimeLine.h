@@ -192,7 +192,7 @@ public:
 			begP->first.second = second;
 			myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
 
-/*		// check whether the new item is partially behind the end
+/		// check whether the new item is partially behind the end
 		if(endP==myValues.end()) {
 			// crop the old item (which will be the end-2 item)
 			if(begP->first.second>begin) {
@@ -244,7 +244,7 @@ public:
 		}
 		begP = myValues.erase(begP, endP);
 
-/*
+/
 			if(begP!=myValues.end()-1) {
 				myValues.erase(begP, endP);
 			}

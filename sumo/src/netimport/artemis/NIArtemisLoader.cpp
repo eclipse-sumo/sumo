@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/14 13:03:52  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/05/15 05:55:26  dkrajzew
 // added consective process messages
 //
@@ -266,15 +269,12 @@ NIArtemisLoader::~NIArtemisLoader()
 }
 
 
-void NIArtemisLoader::load(OptionsCont &options)
+void NIArtemisLoader::load(OptionsCont &)
 {
-    for( ParserVector::iterator i=mySingleDataParsers.begin();
-         i!=mySingleDataParsers.end(); i++) {
+    for( ParserVector::iterator i=mySingleDataParsers.begin(); i!=mySingleDataParsers.end(); i++) {
         (*i)->parse();
     }
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

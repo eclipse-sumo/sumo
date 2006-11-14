@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 13:03:00  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/11/14 06:44:51  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -118,8 +121,7 @@ using namespace std;
  * MSTriggeredRerouter::Setter - methods
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter *parent,
-                                    MSLane *lane,
-                                    const std::string &id)
+                                    MSLane *lane)
     : MSMoveReminder(lane), myParent(parent)
 {
 }
@@ -131,8 +133,8 @@ MSTriggeredRerouter::Setter::~Setter()
 
 
 bool
-MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-                                           SUMOReal newPos, SUMOReal newSpeed )
+MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
+                                           SUMOReal /*newPos*/, SUMOReal /*newSpeed*/ )
 {
     myParent->reroute(veh, laneM->getEdge());
     return false;
@@ -140,7 +142,7 @@ MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSTriggeredRerouter::Setter::dismissByLaneChange( MSVehicle& veh )
+MSTriggeredRerouter::Setter::dismissByLaneChange( MSVehicle&  )
 {
 }
 
@@ -157,7 +159,6 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange( MSVehicle& veh )
  * MSTriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
-                                         MSNet &net,
                                          const std::vector<MSEdge*> &edges,
                                          SUMOReal prob,
                                          const std::string &aXMLFilename)
@@ -182,8 +183,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
         std::vector<MSLane*>::const_iterator i;
         for(i=destLanes->begin(); i!=destLanes->end(); ++i) {
-            string sid = id + "_at_" + (*i)->getID();
-            mySetter.push_back(new Setter(this, (*i), sid));
+            mySetter.push_back(new Setter(this, (*i)));
         }
     }
 }
@@ -201,8 +201,9 @@ MSTriggeredRerouter::~MSTriggeredRerouter()
 
 // ------------ loading begin
 void
-MSTriggeredRerouter::myStartElement(int element, const std::string &name,
-                                   const Attributes &attrs)
+MSTriggeredRerouter::myStartElement(int /*element*/,
+                                    const std::string &name,
+                                    const Attributes &attrs)
 {
     if(name=="interval") {
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
@@ -296,6 +297,8 @@ MSTriggeredRerouter::myEndElement(int , const std::string &name)
         myIntervals.push_back(ri);
     }
 }
+
+
 // ------------ loading end
 
 
@@ -350,7 +353,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, MSVehicle &veh) const
 
 
 const MSTriggeredRerouter::RerouteInterval &
-MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const
+MSTriggeredRerouter::getCurrentReroute(SUMOTime ) const
 {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while(i!=myIntervals.end()) {

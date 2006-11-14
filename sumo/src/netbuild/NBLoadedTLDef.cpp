@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/14 13:03:10  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -415,7 +418,7 @@ NBLoadedTLDef::~NBLoadedTLDef()
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type, bool buildAll)
+NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type, bool /*buildAll*/)
 {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
@@ -558,7 +561,7 @@ bool
 NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
                          const NBConnection &possProhibited,
                          const std::bitset<64> &green,
-                         const std::bitset<64> &yellow,
+                         const std::bitset<64> &/*yellow*/,
                          size_t strmpos) const
 {
     // check whether the stream has red
@@ -612,7 +615,6 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
 void
 NBLoadedTLDef::collectNodes()
 {
-    size_t pos = 0;
     SignalGroupCont::const_iterator m;
     for(m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
         SignalGroup *group = (*m).second;

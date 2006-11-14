@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/14 13:04:17  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/08/01 07:52:46  dkrajzew
 // polyconvert added
 //
@@ -97,8 +100,8 @@ PCTypeDefHandler::~PCTypeDefHandler()
 
 
 void
-PCTypeDefHandler::myStartElement(int element, const std::string&name,
-                             const Attributes &attrs)
+PCTypeDefHandler::myStartElement(int /*element*/, const std::string &name,
+                                 const Attributes &attrs)
 {
     if(name=="polytype") {
         string id;
@@ -122,8 +125,8 @@ PCTypeDefHandler::myStartElement(int element, const std::string&name,
 
 
 void
-PCTypeDefHandler::myCharacters(int element, const std::string&,
-                           const std::string &chars)
+PCTypeDefHandler::myCharacters(int /*element*/, const std::string&,
+                               const std::string &)
 {
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/14 13:03:11  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/09/25 13:32:22  dkrajzew
 // patches for multi-junction - tls
 //
@@ -194,7 +197,6 @@ NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
                                  bool removeTurnArounds,
                                  LinkRemovalType removalType) const
 {
-    size_t noEdges = _incoming.size();
     // go through all links
     NBRequestEdgeLinkIterator cei1(this, joinLaneLinks, removeTurnArounds,
         removalType);
@@ -261,7 +263,7 @@ NBOwnTLDef::setParticipantsInformation()
 }
 
 void
-NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
+NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
 {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
@@ -277,17 +279,18 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
 
 
 void
-NBOwnTLDef::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
-                         const EdgeVector &outgoing)
+NBOwnTLDef::remapRemoved(NBEdge */*removed*/, const EdgeVector &/*incoming*/,
+                         const EdgeVector &/*outgoing*/)
 {
 }
 
 
 void
-NBOwnTLDef::replaceRemoved(NBEdge *removed, int removedLane,
-                           NBEdge *by, int byLane)
+NBOwnTLDef::replaceRemoved(NBEdge */*removed*/, int /*removedLane*/,
+                           NBEdge */*by*/, int /*byLane*/)
 {
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

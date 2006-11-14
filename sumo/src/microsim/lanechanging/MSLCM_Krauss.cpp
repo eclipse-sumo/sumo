@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/14 13:02:33  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/07/06 07:13:23  dkrajzew
 // applied current microsim-APIs
 //
@@ -37,7 +40,6 @@ namespace
 //
 // Revision 1.4  2005/07/15 07:18:39  dkrajzew
 // code style applied
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -73,13 +75,13 @@ MSLCM_Krauss::~MSLCM_Krauss()
 }
 
 int
-MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
-                                 int blocked,
+MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &/*msgPass*/,
+                                 int /*blocked*/,
                                  const MSVehicle * const leader,
                                  const MSVehicle * const neighLead,
-                                 const MSVehicle * const neighFollow,
-                                 const MSLane &neighLane,
-                                 int bestLaneOffset, SUMOReal bestDist,
+                                 const MSVehicle * const /*neighFollow*/,
+                                 const MSLane &/*neighLane*/,
+                                 int bestLaneOffset, SUMOReal /*bestDist*/,
                                  SUMOReal currentDist)
 {
     // forced changing
@@ -119,13 +121,13 @@ MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
 
 int
-MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
-                                int blocked,
+MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &/*msgPass*/,
+                                int /*blocked*/,
                                 const MSVehicle * const leader,
                                 const MSVehicle * const neighLead,
-                                const MSVehicle * const neighFollow,
-                                const MSLane &neighLane,
-                                int bestLaneOffset, SUMOReal bestDist,
+                                const MSVehicle * const /*neighFollow*/,
+                                const MSLane &/*neighLane*/,
+                                int bestLaneOffset, SUMOReal /*bestDist*/,
                                 SUMOReal currentDist)
 {
     // forced changing

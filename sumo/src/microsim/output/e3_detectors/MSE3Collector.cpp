@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/14 13:02:47  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/10/25 12:22:41  dkrajzew
 // updated
 //
@@ -90,7 +93,7 @@ std::string MSE3Collector::infoEndM = "</detector>";
 /* -------------------------------------------------------------------------
  * MSE3Collector::MSE3EntryReminder - definitions
  * ----------------------------------------------------------------------- */
-MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(const std::string &id,
+MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector)
     : MSMoveReminder(crossSection.laneM),
     collectorM( collector ), posM(crossSection.posM)
@@ -112,7 +115,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal ,
 
 
 void
-MSE3Collector::MSE3EntryReminder::dismissByLaneChange( MSVehicle& veh )
+MSE3Collector::MSE3EntryReminder::dismissByLaneChange( MSVehicle&  )
 {
     // nothing to do for E3
 }
@@ -129,7 +132,7 @@ MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh 
 /* -------------------------------------------------------------------------
  * MSE3Collector::MSE3LeaveReminder - definitions
  * ----------------------------------------------------------------------- */
-MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(const std::string &id,
+MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector)
     : MSMoveReminder(crossSection.laneM),
     collectorM( collector ), posM(crossSection.posM)
@@ -156,7 +159,7 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal ,
 
 
 void
-MSE3Collector::MSE3LeaveReminder::dismissByLaneChange( MSVehicle& veh )
+MSE3Collector::MSE3LeaveReminder::dismissByLaneChange( MSVehicle&  )
 {
     // nothing to do for E3
 }
@@ -205,10 +208,10 @@ MSE3Collector::MSE3Collector(const std::string &id,
 {
     // Set MoveReminders to entries and exits
     for ( CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1 ) {
-        entryRemindersM.push_back(new MSE3EntryReminder(id, *crossSec1, *this) );
+        entryRemindersM.push_back(new MSE3EntryReminder(*crossSec1, *this) );
     }
     for ( CrossSectionVectorConstIt crossSec2 = exits.begin(); crossSec2!=exits.end(); ++crossSec2 ) {
-        leaveRemindersM.push_back(new MSE3LeaveReminder(id, *crossSec2, *this) );
+        leaveRemindersM.push_back(new MSE3LeaveReminder(*crossSec2, *this) );
     }
 }
 

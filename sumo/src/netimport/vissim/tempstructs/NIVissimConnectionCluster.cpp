@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/11/14 13:04:01  dkrajzew
+// warnings removed
+//
 // Revision 1.27  2006/05/15 05:55:26  dkrajzew
 // added consective process messages
 //
@@ -310,7 +313,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
     // step1 - faster but no complete
     while(i!=myClusters.end()) {
         joinAble.clear();
-        bool restart = false;
         ContType::iterator j = i + 1;
 
         // check whether every combination has been processed
@@ -344,7 +346,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
     pos = 0;
     i = myClusters.begin();
     while(i!=myClusters.end()) {
-        bool restart = false;
         ContType::iterator j = i + 1;
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
@@ -380,7 +381,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
     pos = 0;
     i = myClusters.begin();
     while(i!=myClusters.end()) {
-        bool restart = false;
         ContType::iterator j = i + 1;
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
@@ -896,7 +896,6 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
     if(myNodeCluster>=0) {
         // try to find the nearest point on the edge
         //  !!! only the main geometry is regarded
-        NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
         NIVissimNodeDef *node =
             NIVissimNodeDef::dictionary(myNodeCluster);
         if(node!=0) {

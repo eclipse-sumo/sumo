@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 13:02:27  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/09/18 10:08:47  dkrajzew
 // debugging
 //
@@ -140,8 +143,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
 {
     myLoadedVehNo++;
     route->incReferenceCnt();
-    return new MSVehicle(id, route, departTime, type,
-        MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
+    return new MSVehicle(id, route, departTime, type, repNo, repOffset);
 }
 
 

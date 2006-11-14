@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/14 13:03:16  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/10/31 12:22:14  dkrajzew
 // code beautifying
 //
@@ -134,8 +137,8 @@ NBRequestEdgeLinkIterator::~NBRequestEdgeLinkIterator()
 
 void
 NBRequestEdgeLinkIterator::init(
-    const NBTrafficLightDefinition * const request, bool joinLaneLinks,
-    bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
+    const NBTrafficLightDefinition * const request, bool /*joinLaneLinks*/,
+    bool /*removeTurnArounds*/, NBOwnTLDef::LinkRemovalType /*removalType*/)
 {
     // build complete lists first
     const EdgeVector &incoming = request->_incoming;
@@ -343,7 +346,7 @@ NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos) const
 }
 
 size_t
-NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int dummy) const
+NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int /*dummy*/) const
 {
     // count the number of assigned links
     assert(pos<_positions.size());

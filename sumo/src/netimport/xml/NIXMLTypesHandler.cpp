@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/14 13:04:11  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/03/27 07:28:43  dkrajzew
 // edge types may now store the edge function
 //
@@ -208,14 +211,14 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
 
 
 void
-NIXMLTypesHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+NIXMLTypesHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+                                const std::string &/*chars*/)
 {
 }
 
 
 void
-NIXMLTypesHandler::myEndElement(int element, const std::string &name)
+NIXMLTypesHandler::myEndElement(int /*element*/, const std::string &/*name*/)
 {
 }
 

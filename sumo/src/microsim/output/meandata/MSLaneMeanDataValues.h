@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/14 13:02:56  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/07/10 06:11:18  dkrajzew
 // mean data reworked
 //
@@ -63,8 +66,8 @@ struct MSLaneMeanDataValues
         nVehLeftLane( 0 ),
         nVehEnteredLane( 0 ),
         speedSum( 0 ),
-        vehLengthSum( 0 ),
-        haltSum(0)
+        haltSum(0),
+        vehLengthSum( 0 )
         {}
 
     void reset() {
@@ -73,8 +76,8 @@ struct MSLaneMeanDataValues
         nVehLeftLane = 0;
         nVehEnteredLane = 0;
         speedSum = 0;
-        vehLengthSum = 0;
         haltSum = 0;
+        vehLengthSum = 0;
     }
 
     /// the number of vehicles that passed the entire lane

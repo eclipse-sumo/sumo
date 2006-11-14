@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/11/14 13:04:11  dkrajzew
+// warnings removed
+//
 // Revision 1.28  2006/09/25 13:33:57  dkrajzew
 // options to remove edges added
 //
@@ -641,14 +644,14 @@ NIXMLEdgesHandler::getSpreadFunction(const Attributes &attrs)
 
 
 void
-NIXMLEdgesHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+NIXMLEdgesHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+                                const std::string &/*chars*/)
 {
 }
 
 
 void
-NIXMLEdgesHandler::myEndElement(int element, const std::string &name)
+NIXMLEdgesHandler::myEndElement(int /*element*/, const std::string &/*name*/)
 {
 }
 

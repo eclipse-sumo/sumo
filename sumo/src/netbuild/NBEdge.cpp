@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.77  2006/11/14 13:03:07  dkrajzew
+// warnings removed
+//
 // Revision 1.76  2006/10/31 12:22:14  dkrajzew
 // code beautifying
 //
@@ -1849,7 +1852,6 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
     }
     // replace in _ToEdges
     {
-        bool found = true;
         // check if the edge to replace by was already connected
         bool have = _ToEdges.find(by)!=_ToEdges.end();
         // find the edge to replace
@@ -1958,7 +1960,6 @@ NBEdge::removeFromConnections(NBEdge *which)
     }
     // remove in _ToEdges
     {
-        bool found = true;
         std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges.find(which);
         if(j!=_ToEdges.end()) {
             _ToEdges.erase(which);

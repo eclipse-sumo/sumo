@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/14 13:01:56  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/09/18 10:06:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -116,7 +119,7 @@ public:
          corresponding junction about the fact that a vehicle uses them */
     virtual void moveNonCritical();
 
-    bool emit( MSVehicle& newVeh ) { throw 1; }
+    bool emit( MSVehicle& ) { throw 1; }
 
     void setPassPosition(SUMOReal passPos);
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/14 13:03:09  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -104,7 +107,7 @@ NBLinkCliqueContainer::~NBLinkCliqueContainer()
 
 
 NBTrafficLightPhases *
-NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *v,
+NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
                                      size_t noLinks,
                                      bool appendSmallestOnly,
                                      bool skipLarger) const

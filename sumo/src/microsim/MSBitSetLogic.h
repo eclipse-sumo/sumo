@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/11/14 13:01:55  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -148,7 +151,7 @@ public:
 
     /// Modifies the passed respond according to the request.
     void respond( const MSLogicJunction::Request& request,
-        const MSLogicJunction::InnerState& innerState,
+        const MSLogicJunction::InnerState& /*innerState*/,
         MSLogicJunction::Respond& respond ) const
     {
         size_t i;

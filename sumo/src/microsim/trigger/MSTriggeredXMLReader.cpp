@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/14 13:03:06  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/05/15 05:52:00  dkrajzew
 // the reader does not shut down the application if an error occures
 //
@@ -122,7 +125,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
                                            const std::string &filename)
     : MSTriggeredReader(net),
     SUMOSAXHandler("sumo-trigger values", filename),
-    myHaveMore(true), myParser(0)
+    myParser(0), myHaveMore(true)
 {
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         new MSTriggerCommand(*this), net.getCurrentTimeStep(),

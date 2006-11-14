@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/11/14 13:02:00  dkrajzew
+// warnings removed
+//
 // Revision 1.20  2006/10/31 12:20:31  dkrajzew
 // further work on internal lanes
 //
@@ -200,9 +203,19 @@ public:
     bool isApproached() const;
 
 private:
+    /// MSLink's destination lane.
+    MSLane* myLane;
+
 #ifdef HAVE_INTERNAL_LANES
-    bool myIsInternalEnd;
+    /// The following junction-internal lane if used
+    MSLane * const myJunctionInlane;
 #endif
+
+    /// MSLinks's default right of way, true for right of way MSLinks.
+    bool myPrio;
+
+    /// the approaching vehicle
+    MSVehicle *myApproaching;
 
     /// the request to set incoming request into
     MSLogicJunction::Request *myRequest;
@@ -216,28 +229,18 @@ private:
     /// the position within this respond
     size_t myRespondIdx;
 
+    /// The basic state of the link
+    LinkState myState;
+
     /// An abstract (hopefully human readable) definition of the link's direction
     LinkDirection myDirection;
 
 	/// Information whether the tl (if this link belongs to one) shows yellow
 	bool myAmYellow; // !!! deprecated
 
-    /// The basic state of the link
-    LinkState myState;
-
-    /// the approaching vehicle
-    MSVehicle *myApproaching;
-
-    /// MSLink's destination lane.
-    MSLane* myLane;
-
 #ifdef HAVE_INTERNAL_LANES
-    /// The following junction-internal lane if used
-    MSLane * const myJunctionInlane;
+    bool myIsInternalEnd;
 #endif
-
-    /// MSLinks's default right of way, true for right of way MSLinks.
-    bool myPrio;
 
 private:
     /// invalidated copy constructor

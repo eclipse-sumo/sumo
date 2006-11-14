@@ -208,7 +208,7 @@ namespace TD // timestep data
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer(SUMOTime currentTime)
+        SUMOTime freeContainer(SUMOTime )
             {
                 AggregatesContIter end = aggregatesM.end();
                 if ( aggregatesM.size() > deleteDataAfterStepsM ) {

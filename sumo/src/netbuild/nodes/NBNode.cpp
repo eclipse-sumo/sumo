@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/11/14 13:03:40  dkrajzew
+// warnings removed
+//
 // Revision 1.33  2006/10/12 10:14:29  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -754,7 +757,6 @@ NBNode::setPriorityJunctionPriorities()
         sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
         extractAndMarkFirst(bestOutgoing);
         // !!! version 2: mark all as major
-        /*
         // let's mark all these roads as the best (incoming and outgoing)
         while(bestIncoming.size()!=0) {
             extractAndMarkFirst(bestIncoming);
@@ -807,7 +809,7 @@ NBNode::setPriorityJunctionPriorities()
             sort(incoming.begin(), incoming.end(),
                 NBContHelper::edge_by_priority_sorter());
 //            best2 = extractAndMarkFirst(incoming);
-        /*} /*else {
+        } else {
             sort(incoming.begin(), incoming.end(),
                 NBContHelper::edge_opposite_direction_sorter(best1));
             best2 = extractAndMarkFirst(incoming);
@@ -823,7 +825,7 @@ NBNode::setPriorityJunctionPriorities()
             NBContHelper::edge_similar_direction_sorter(best1));
         bestBack1 = extractAndMarkFirst(outgoing);
     }
-    /*
+
     // for best2
     if(best2!=0&&outgoing.size()>0) {
         sort(outgoing.begin(), outgoing.end(),
@@ -1196,7 +1198,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                             }
                         }
 
-                        /*
+
                         SUMOReal p1 = begL.intersectsAtLength(endL);
                         cout << _id << " p1/1: " << fromE->getID() << "<->" << toE->getID()
                             << "; "
@@ -1215,7 +1217,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                         init.push_back(intersection);
                         //
                         //noInitialPoints--;
-                        /*
+
                         SUMOReal p2 = endL.intersectsAtLength(begL);
                         p2 = MAX2(p2-10, toE->getLaneShape(toL).getBegLine().length());
                         if(p2-.1>toE->getLaneShape(toL).getBegLine().length()) {
@@ -1276,7 +1278,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
             current.set(
                 current.x() * .85 + intersection.x() * .15,
                 current.y() * .85 + intersection.y() * .15);
-            /*
+
             current.add(intersection);
             current.mul(.75);
         }
@@ -1692,7 +1694,7 @@ NBNode::writeXML(ostream &into)
 
 void
 NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                     OptionsCont &oc)
+                     OptionsCont &)
 {
     if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
@@ -2085,7 +2087,6 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
     }
     // replace in values
     for(j=_blockedConnections.begin(); j!=_blockedConnections.end(); j++) {
-        const NBConnection &prohibited = (*j).first;
         NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection &sprohibiting = *k;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/14 13:03:19  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/09/25 13:32:22  dkrajzew
 // patches for multi-junction - tls
 //
@@ -378,13 +381,12 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
             << possProhibitedFrom->getID() << "->" << possProhibitedTo->getID();
         int bla;
     }
-    */
-
     if(possProhibitorFrom->getID()=="-53488232" && possProhibitorTo->getID()=="-53488245") {
         if(possProhibitedFrom->getID()=="53488385" && possProhibitedTo->getID()=="53488244") {
             int bla = 0;
         }
     }
+    */
 
     // retrieve both nodes
     NodeCont::const_iterator incoming =
@@ -434,12 +436,14 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
             if(incnode2!=outnode) {
                 continue;
             }
-    if(possProhibitorTo->getID()=="-53488245" && (*i)->getID()=="-53488290") {
-        if(possProhibitedFrom->getID()=="53488385" && possProhibitedTo->getID()=="53488244") {
-            int bla = 0;
-        }
-    }
-    bool ret1 = incnode2->foes(possProhibitorTo, *i,
+            /*
+            if(possProhibitorTo->getID()=="-53488245" && (*i)->getID()=="-53488290") {
+                if(possProhibitedFrom->getID()=="53488385" && possProhibitedTo->getID()=="53488244") {
+                    int bla = 0;
+                }
+            }
+            */
+            bool ret1 = incnode2->foes(possProhibitorTo, *i,
 		        possProhibitedFrom, possProhibitedTo);
             bool ret2 = incnode2->forbids(possProhibitorTo, *i,
 		        possProhibitedFrom, possProhibitedTo,

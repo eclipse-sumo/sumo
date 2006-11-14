@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 13:04:07  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -135,7 +138,6 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     // skip optional "Beschriftung"
     tag = overrideOptionalLabel(from, tag);
     //
-    int vwished = -1;
     int lsaid;
     IntVector groupids;
     if(tag=="lsa") {
@@ -172,7 +174,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     }
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
     //
-    NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
+    NIVissimTL::dictionary(lsaid); // !!! check whether someting is really done here
     NIVissimTL::NIVissimTLSignal *signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
             laneno, (SUMOReal) position, assignedVehicleTypes);

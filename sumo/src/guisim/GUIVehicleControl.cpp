@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/14 13:01:54  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -105,10 +108,8 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                int repNo, int repOffset)
 {
     myLoadedVehNo++;
-    MSNet *net = MSNet::getInstance();
     return new GUIVehicle(
-        gIDStorage, id, route, departTime, type,
-        net->getNDumpIntervalls(), repNo, repOffset);
+        gIDStorage, id, route, departTime, type, repNo, repOffset);
 }
 
 

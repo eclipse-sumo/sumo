@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/14 13:04:09  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/09/18 10:11:39  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -122,8 +125,8 @@ NIVisumParser_Districts::myDependentReport()
         string name = myLineParser.get("NAME");
         // get the information whether the source and the destination
         //  connections are weighted
-        bool sourcesWeighted = getWeightedBool("Proz_Q");
-        bool destWeighted = getWeightedBool("Proz_Z");
+        //bool sourcesWeighted = getWeightedBool("Proz_Q");
+        //bool destWeighted = getWeightedBool("Proz_Z");
         // get the node information
         SUMOReal x = getNamedFloat("XKoord");
         SUMOReal y = getNamedFloat("YKoord");

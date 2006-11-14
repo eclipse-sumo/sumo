@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/14 13:03:48  dkrajzew
+// warnings removed
+//
 // Revision 1.23  2006/09/18 10:09:29  dkrajzew
 // patching junction-internal state simulation
 //
@@ -329,8 +332,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 std::vector<NBEdge*>::iterator k =
                     find(newAll.begin(), newAll.end(), *j);
                 if(k!=newAll.end()) {
-                    NBEdge *ie = *i2;
-                    NBEdge *je = *j;
                     if(myNode.hasIncoming(*i2)) {
                         if(myNode.hasIncoming(*j)) {
                         } else {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/14 13:03:52  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -110,8 +113,7 @@ NIArtemisParser_Lanes::myDependentReport()
         TplConvert<char>::_2SUMOReal(myLineParser.get("End").c_str());
     string mvmt = myLineParser.get("Mvmt");
     // purpose omitted
-    NIArtemisTempEdgeLanes::add(link, lane,
-        section, start, end, mvmt);
+    NIArtemisTempEdgeLanes::add(link, lane, section, start, end, mvmt);
 }
 
 

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.29  2006/11/14 13:01:55  dkrajzew
+// warnings removed
+//
 // Revision 1.28  2006/11/14 06:44:51  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -345,7 +348,7 @@ public:
         return (*i).first;
     }
 
-	virtual bool prohibits(const MSVehicle *veh) const { return false; }
+	virtual bool prohibits(const MSVehicle *) const { return false; }
 
 
 	/// add a new neighborsEdge to this Edge

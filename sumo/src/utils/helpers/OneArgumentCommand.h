@@ -23,6 +23,9 @@
 
 
 // $Log$
+// Revision 1.4  2006/11/14 13:04:19  dkrajzew
+// warnings removed
+//
 // Revision 1.3  2006/03/17 09:15:11  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -117,7 +120,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute(SUMOTime currentTime)
+    SUMOTime execute(SUMOTime )
         {
             return ( myReceiver->*myOperation )( myArgument );
         }

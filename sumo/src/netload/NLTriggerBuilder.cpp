@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/14 13:04:13  dkrajzew
+// warnings removed
+//
 // Revision 1.23  2006/11/14 06:47:57  dkrajzew
 // code beautifying
 //
@@ -277,7 +280,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
 MSE1VehicleActor *
 NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
                                             const Attributes &attrs,
-                                            const std::string &base,
+                                            const std::string &/*base*/,
                                             const NLHandler &helper)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
@@ -356,18 +359,19 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 }
 
 
+
 MSTriggeredRerouter *
-NLTriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
+NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                 std::vector<MSEdge*> &edges,
                                 SUMOReal prob, const std::string &file)
 {
-    return new MSTriggeredRerouter(id, net, edges, prob, file);
+    return new MSTriggeredRerouter(id, edges, prob, file);
 }
 
 
-MSBusStop *
-NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
-                               const std::vector<std::string> &lines,
+MSBusStop*
+NLTriggerBuilder::buildBusStop(MSNet &, const std::string &id,
+                               const std::vector<std::string> &/*lines*/,
                                MSLane *lane,
                                SUMOReal frompos, SUMOReal topos)
 {
@@ -376,7 +380,7 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 
 
 MSE1VehicleActor *
-NLTriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
+NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                     MSLane *lane, SUMOReal pos, unsigned int la,
 									unsigned int cell, unsigned int type)
 {

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2006/11/14 13:02:30  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -331,22 +334,9 @@ public:
         return myTau;
     }
 
-    /*
-    /// Get the vehicle type's dawdle-probability. Out of [0,1]
-    SUMOReal getDawdleFactor() const {
-        return myDawdle;
-    }
-
-    /*
-    /// Returns precomputed 1 / ( 2 * decel )
-    SUMOReal getInverseTwoDecel( void ) const {
-        return myInverseTwoDecel;
-    }
-    */
 
     /// returns the name of the vehicle type
     const std::string &getID() const;
-
 
 
     //@{ static functions covering all loaded vehicle types
@@ -354,13 +344,6 @@ public:
     static SUMOReal getMinVehicleDecel() {
         return myMinDecel;
     }
-
-    /// Returns the maximum length of all vehicle-types.
-    /*
-    static SUMOReal getMaxVehicleLength() {
-        return myMaxLength;
-    }
-    */
     //@}
 
 
@@ -396,7 +379,7 @@ public:
 
 protected:
     /** Returns the SK-vsafe. */
-    SUMOReal _vsafe( SUMOReal currentSpeed, SUMOReal decelAbility,
+    SUMOReal _vsafe( SUMOReal currentSpeed, SUMOReal /*decelAbility*/,
                   SUMOReal gap2pred, SUMOReal predSpeed ) const {
         if(predSpeed==0&&gap2pred<0.01) {
             return 0;

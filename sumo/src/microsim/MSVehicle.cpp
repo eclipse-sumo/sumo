@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.101  2006/11/14 13:02:05  dkrajzew
+// warnings removed
+//
 // Revision 1.100  2006/11/14 06:46:07  dkrajzew
 // lane change speed-up; first steps towards car2car-based rerouting
 //
@@ -692,7 +695,6 @@ MSVehicle::MSVehicle( string id,
                       MSRoute* route,
                       SUMOTime departTime,
                       const MSVehicleType* type,
-                      size_t noMeanData,
                       int repNo, int repOffset) :
 #ifdef RAKNET_DEMO
     Vehicle(),
@@ -1076,13 +1078,7 @@ MSVehicle::moveFirstChecked()
                 return; // !!!detectore etc?
             }
         } else {
-            if(myStops.begin()->lane->getEdge()->getID()=="-565027836") {
-                int bla = 0;
-            }
             if(myStops.begin()->lane==myLane) {
-            if(myStops.begin()->lane->getEdge()->getID()=="-565027836") {
-                int bla = 0;
-            }
                 Stop &bstop = *myStops.begin();
                 SUMOReal endPos = bstop.pos;
                 bool busStopsMustHaveSpace = true;
@@ -1609,7 +1605,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
 			akt->edge = (*myCurrEdge)->getID();
 			akt->neededTime = 0;
 			akt->time = MSNet::getInstance()->getCurrentTimeStep();
-		}else{
+        } else {
             (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
 			(*i).second->neededTime = 0;
 		}
@@ -1626,12 +1622,18 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
             ri2++;
         }
         if(ri!=myRoute->end()) {
-            MSRoute *rep = new MSRoute(myRoute->getID() + "-", edges, true);
-            if(!MSRoute::dictionary(myRoute->getID() + "-", rep)) {
-                cout << "Error: Could not insert route ''" << endl;
-                return;
+            int rerouteIndex = 0;
+            if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
+                rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             }
-            replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+            string nid = myRoute->getID() + "#" + toString(rerouteIndex);
+            MSRoute *rep = new MSRoute(nid, edges, true);
+            if(!MSRoute::dictionary(nid, rep)) {
+                cout << "Error: Could not insert route ''" << endl;
+            } else {
+                MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
+                replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+            }
         }
 	}
 
@@ -1690,7 +1692,7 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::leaveLaneAtMove( SUMOReal driven )
+MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 {
 	if(isEquipped()){ //
 		(*myCurrEdge)->removeEquippedVehicle(getID());
@@ -1899,7 +1901,7 @@ MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 
 
 void
-MSVehicle::onTripEnd(bool wasAlreadySet)
+MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
 {
     SUMOReal pspeed = myState.mySpeed;
     SUMOReal pos = myState.myPos;
@@ -2141,10 +2143,10 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
 		SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
 		    (SUMOTime) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         myDoubleCORNMap[(MSCORN::Function) timeOffset] = (SUMOReal) simTime;
+        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
+            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     }
-    myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-    myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
-        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
@@ -2409,7 +2411,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
 
 
 void
-MSVehicle::interactWith(const std::vector<MSVehicle*> &vehicles)
+MSVehicle::interactWith(const std::vector<MSVehicle*> &)
 {
 }
 
@@ -2430,7 +2432,7 @@ MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 #endif
 
 void
-MSVehicle::saveState(std::ostream &os, long what)
+MSVehicle::saveState(std::ostream &os, long /*what*/)
 {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeInt(os, myLastLaneChangeOffset);

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/11/14 13:04:06  dkrajzew
+// warnings removed
+//
 // Revision 1.33  2006/08/01 07:08:58  dkrajzew
 // output patched
 //
@@ -203,7 +206,7 @@ int NIVissimEdge::myMaxID = 0;
 NIVissimEdge::NIVissimEdge(int id, const std::string &name,
                            const std::string &type, int noLanes,
                            SUMOReal zuschlag1, SUMOReal zuschlag2,
-                           SUMOReal length, const Position2DVector &geom,
+                           SUMOReal /*length*/, const Position2DVector &geom,
                            const NIVissimClosedLanesVector &clv)
     : NIVissimAbstractEdge(id, geom),
         myName(name), myType(type), myNoLanes(noLanes),
@@ -300,7 +303,6 @@ NIVissimEdge::buildConnectionClusters()
             outgoing
             ? NIVissimConnection::dictionary(*j)->getFromPosition()
             : NIVissimConnection::dictionary(*j)->getToPosition();
-        bool foundUnset = false;
         while(j!=connectors.end()&&NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
             j++;
         }
@@ -816,7 +818,7 @@ NIVissimEdge::recheckSpeedPatches()
             cot << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
         }
         //
-/*        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
+/        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
         speed = DoubleVectorHelper::sum(myPatchedSpeeds);
         speed /= (SUMOReal) myPatchedSpeeds.size();*/
 /*        return true;

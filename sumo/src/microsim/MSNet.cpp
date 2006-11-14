@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.91  2006/11/14 13:02:01  dkrajzew
+// warnings removed
+//
 // Revision 1.90  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -546,7 +549,7 @@ MSNet::getInstance( void )
 }
 
 
-MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
+MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
              SUMOReal tooSlowRTF, bool logExecTime)
     : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
 {
@@ -570,7 +573,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
 
 
 
-MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
+MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
              MSVehicleControl *vc,
              SUMOReal tooSlowRTF, bool logExecTime)
     : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
@@ -917,7 +920,6 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
         myEdges->detectCollisions( step );
     }
     // Check if mean-lane-data is due
-    long ve = SysUtils::getCurrentMillis();
     writeOutput();
     // execute endOfTimestepEvents
     myEndOfTimestepEvents.execute(myStep);

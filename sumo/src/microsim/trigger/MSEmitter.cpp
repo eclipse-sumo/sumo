@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/14 13:02:57  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/10/31 12:18:52  dkrajzew
 // emitter debugged
 //
@@ -113,9 +116,8 @@ using namespace std;
 MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
             MSNet &net, const std::string &aXMLFilename,
             MSEmitter &parent, MSVehicleControl &vc)
-    : MSEmitterChild(parent, vc),
-    MSTriggeredXMLReader(net, aXMLFilename), myHaveNext(false),
-    myFlow(-1), myRunningID(0), myHaveInitialisedFlow(false)
+    : MSTriggeredXMLReader(net, aXMLFilename), MSEmitterChild(parent, vc),
+    myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
 {
     myBeginTime = net.getCurrentTimeStep();
 }
@@ -127,7 +129,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild()
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime currentTime)
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime )
 {
     if(myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
@@ -183,8 +185,9 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 
 void
-MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::string &name,
-                                   const Attributes &attrs)
+MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
+                                                        const std::string &name,
+                                                        const Attributes &attrs)
 {
     if(name=="routedistelem") {
         // parse route distribution

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2006/11/14 13:04:14  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/11/14 06:47:57  dkrajzew
 // code beautifying
 //
@@ -113,7 +116,7 @@ public:
     NLTriggerBuilder();
 
     /// Destructor
-    ~NLTriggerBuilder();
+    virtual ~NLTriggerBuilder();
 
     /** @brief builds the specified trigger
         The certain type and purpose of the trigger is not yet known */

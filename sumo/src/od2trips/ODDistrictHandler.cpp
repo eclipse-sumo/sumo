@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/14 13:04:15  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/04/07 05:25:15  dkrajzew
 // complete od2trips rework
 //
@@ -102,7 +105,7 @@ ODDistrictHandler::~ODDistrictHandler()
 
 
 void
-ODDistrictHandler::myStartElement(int element, const std::string &name,
+ODDistrictHandler::myStartElement(int element, const std::string &/*name*/,
                                   const Attributes &attrs)
 {
     switch(element) {
@@ -120,7 +123,7 @@ ODDistrictHandler::myStartElement(int element, const std::string &name,
 
 
 void
-ODDistrictHandler::myEndElement(int element, const std::string &name)
+ODDistrictHandler::myEndElement(int element, const std::string &/*name*/)
 {
     if(element==SUMO_TAG_DISTRICT) {
         closeDistrict();
@@ -129,8 +132,8 @@ ODDistrictHandler::myEndElement(int element, const std::string &name)
 
 
 void
-ODDistrictHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+ODDistrictHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+                                const std::string &/*chars*/)
 {
 }
 

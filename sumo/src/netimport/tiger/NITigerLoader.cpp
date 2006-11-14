@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 13:03:56  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/09/18 10:11:39  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -128,7 +131,7 @@ NITigerLoader::~NITigerLoader()
 
 
 void
-NITigerLoader::load(OptionsCont &options)
+NITigerLoader::load(OptionsCont &)
 {
     LineReader tgr1r((_file + ".rt1").c_str());
     LineReader tgr2r((_file + ".rt2").c_str());

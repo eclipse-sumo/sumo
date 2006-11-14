@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/14 13:01:44  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -299,9 +302,9 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
-            MSNet &net, const std::vector<MSEdge*> &edges,
+            const std::vector<MSEdge*> &edges,
             SUMOReal prob, const std::string &aXMLFilename)
-    : MSTriggeredRerouter(id, net, edges, prob, aXMLFilename),
+    : MSTriggeredRerouter(id, edges, prob, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage, "rerouter:" + id, GLO_TRIGGER)
 {
     size_t k;

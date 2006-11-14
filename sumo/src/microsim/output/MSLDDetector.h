@@ -227,7 +227,7 @@ namespace LD
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer(SUMOTime currentTime)
+        SUMOTime freeContainer(SUMOTime )
             {
                 AggregatesContIter end =
                     getAggrContStartIterator( (MSUnit::Steps) deleteDataAfterStepsM );

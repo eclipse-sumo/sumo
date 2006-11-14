@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/11/14 13:04:12  dkrajzew
+// warnings removed
+//
 // Revision 1.36  2006/08/01 05:54:35  dkrajzew
 // E3 detectors refactored partially
 //
@@ -240,7 +243,7 @@ NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition()
  * NLDetectorBuilder-methods
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::NLDetectorBuilder(MSNet &net)
-    : myE3Definition(0), myNet(net)
+    : myNet(net), myE3Definition(0)
 {
 }
 
@@ -284,7 +287,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, int splInterval,
-        const std::string &style,
+        const std::string &/*style*/,
         OutputDevice *device,
         const std::string &measures,
         SUMOReal haltingTimeThreshold,
@@ -323,7 +326,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont,
         const MSTLLogicControl::TLSLogicVariants &tlls,
-        const std::string &style, OutputDevice *device,
+        const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
         SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -365,7 +368,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         bool cont,
         const MSTLLogicControl::TLSLogicVariants &tlls,
         const std::string &tolane,
-        const std::string &style, OutputDevice *device,
+        const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
         SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -454,7 +457,7 @@ void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
         OutputDevice *device, int splInterval,
         const std::string &measures,
-        SUMOReal haltingTimeThreshold,
+        SUMOReal /*haltingTimeThreshold*/,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds)
 {

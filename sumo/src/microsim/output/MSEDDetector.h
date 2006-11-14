@@ -26,6 +26,7 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -206,7 +207,7 @@ namespace ED
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer(SUMOTime currentTime)
+        SUMOTime freeContainer(SUMOTime )
             {
                 AggregatesContIter end =
                     getAggrContStartIterator( (MSUnit::Seconds) deleteDataAfterStepsM );

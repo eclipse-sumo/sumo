@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/14 13:03:02  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/10/12 08:06:36  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //
@@ -40,7 +43,6 @@
 //
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -92,7 +94,7 @@ class MSTriggeredRerouter :
 public:
     /** constructor */
     MSTriggeredRerouter(const std::string &id,
-        MSNet &net, const std::vector<MSEdge*> &edges,
+        const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &aXMLFilename);
 
     /** destructor */
@@ -105,8 +107,7 @@ public:
     class Setter : public MSMoveReminder {
     public:
         /// Constructor
-        Setter(MSTriggeredRerouter *parent, MSLane *lane,
-            const std::string &id);
+        Setter(MSTriggeredRerouter *parent, MSLane *lane);
 
         /// Destructor
         ~Setter();

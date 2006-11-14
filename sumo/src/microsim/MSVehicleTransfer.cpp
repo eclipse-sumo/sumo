@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/14 13:02:27  dkrajzew
+// warnings removed
+//
 // Revision 1.20  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -130,12 +133,9 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
         return;
     }
     // mark the next one
-    e = MSEdge::dictionary(veh->getEdge()->getID());
     myNoTransfered++;
-    assert(e!=0);
     // save information
-    myVehicles.push_back(
-        VehicleInformation(veh, MSNet::getInstance()->getCurrentTimeStep(), e));
+    myVehicles.push_back(VehicleInformation(veh, MSNet::getInstance()->getCurrentTimeStep()));
 }
 
 

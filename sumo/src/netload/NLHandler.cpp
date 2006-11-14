@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/14 13:04:12  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/11/14 06:57:14  dkrajzew
 // debugging loading of networks with no internal lanes information
 //
@@ -262,7 +265,7 @@ NLHandler::NLHandler(const std::string &file,
                            bool wantsVehicleColor)
 
     : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor),
-    myActionBuilder(net), myNet(net),
+    myNet(net), myActionBuilder(net),
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
@@ -1340,7 +1343,7 @@ NLHandler::allocateEdges(const std::string &chars)
     if(!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
         return;
     }
-    MSEdge *edge = myEdgeControlBuilder.addEdge(edgeid);
+    myEdgeControlBuilder.addEdge(edgeid);
 }
 
 

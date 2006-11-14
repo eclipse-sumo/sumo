@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/11/14 13:03:51  dkrajzew
+// warnings removed
+//
 // Revision 1.30  2006/10/25 12:22:42  dkrajzew
 // updated
 //
@@ -200,7 +203,6 @@ NIArcView_Loader::load(OptionsCont &)
     // begin file parsing
     OGRLayer  *poLayer = poDS->GetLayer(0);
     poLayer->ResetReading();
-    OGRFeatureDefn *poFDefn = poLayer->GetLayerDefn();
 
     // build coordinate transformation
     OGRSpatialReference *origTransf = poLayer->GetSpatialRef();
@@ -389,7 +391,7 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 
 size_t
 NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
-							SUMOReal speed, bool useNewLaneNumberInfoPlain)
+							SUMOReal speed, bool /*useNewLaneNumberInfoPlain*/)
 {
     if(myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*) (myOptions.getString("arcview.type-id").c_str())));
@@ -418,7 +420,7 @@ NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 
 
 int
-NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &edgeid)
+NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/)
 {
     if(myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getPriority(poFeature.GetFieldAsString((char*) (myOptions.getString("arcview.type-id").c_str())));

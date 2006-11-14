@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/14 13:03:26  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/02/23 11:32:54  dkrajzew
 // tls may have now several programs
 //
@@ -167,9 +170,9 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 
 void
-NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal distance,
+NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
                               std::string type,
-                              const std::set<string> &inLanes) const
+                              const std::set<string> &/*inLanes*/) const
 {
     into << "   <tl-logic type=\"" << type << "\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/14 13:03:53  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -115,8 +118,9 @@ NICellEdgesHandler::NICellEdgesHandler(NBNodeCont &nc,
                                        NBTypeCont &tc,
                                        const std::string &file,
                                        NBCapacity2Lanes capacity2Lanes)
-    : FileErrorReporter("cell-edges", file), _capacity2Lanes(capacity2Lanes),
-    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
+    : FileErrorReporter("cell-edges", file),
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
+    _capacity2Lanes(capacity2Lanes)
 {
 }
 
