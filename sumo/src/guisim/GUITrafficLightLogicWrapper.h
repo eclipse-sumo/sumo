@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/11/14 06:41:15  dkrajzew
+// tls tracker now support switches between logics
+//
 // Revision 1.10  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -110,9 +113,6 @@ public:
     /// Returns the boundary to which the object shall be centered
 	Boundary getCenteringBoundary() const;
     //@}
-
-    /// Returns the current phase definition
-    CompletePhaseDef getPhaseDef() const;
 
     /// Builds a GUITLLogicPhasesTrackerWindow which will receive new phases
     void begin2TrackPhases();

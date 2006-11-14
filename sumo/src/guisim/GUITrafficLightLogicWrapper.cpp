@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 06:41:15  dkrajzew
+// tls tracker now support switches between logics
+//
 // Revision 1.15  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -88,6 +91,7 @@ namespace
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/logging/FuncBinding_StringParam.h>
 #include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include "GUITrafficLightLogicWrapper.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -222,8 +226,8 @@ GUITrafficLightLogicWrapper::begin2TrackPhases()
 {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
-            new FunctionBinding<GUITrafficLightLogicWrapper, CompletePhaseDef>
-                (this, &GUITrafficLightLogicWrapper::getPhaseDef));
+            new FuncBinding_StringParam<MSTLLogicControl, CompletePhaseDef>
+            (&MSNet::getInstance()->getTLSControl(), &MSTLLogicControl::getPhaseDef, myTLLogic.getID()));
     window->create();
     window->show();
 }
@@ -238,15 +242,6 @@ GUITrafficLightLogicWrapper::showPhases()
     window->setBeginTime(0);
     window->create();
     window->show();
-}
-
-
-CompletePhaseDef
-GUITrafficLightLogicWrapper::getPhaseDef() const
-{
-    return CompletePhaseDef(
-        MSNet::getInstance()->getCurrentTimeStep(),
-        SimplePhaseDef(myTLLogic.allowed(), myTLLogic.yellowMask()));
 }
 
 

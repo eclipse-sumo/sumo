@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/14 06:41:15  dkrajzew
+// tls tracker now support switches between logics
+//
 // Revision 1.22  2006/10/12 09:28:14  dkrajzew
 // patched building under windows
 //
@@ -816,6 +819,14 @@ MSTLLogicControl::check2Switch(SUMOTime step)
 }
 
 
+CompletePhaseDef
+MSTLLogicControl::getPhaseDef(const std::string &tlid) const
+{
+    MSTrafficLightLogic *tl = getActive(tlid);
+    return CompletePhaseDef(
+        MSNet::getInstance()->getCurrentTimeStep(),
+        SimplePhaseDef(tl->allowed(), tl->yellowMask()));
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

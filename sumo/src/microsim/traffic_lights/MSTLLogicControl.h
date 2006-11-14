@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/11/14 06:41:15  dkrajzew
+// tls tracker now support switches between logics
+//
 // Revision 1.17  2006/09/20 09:18:33  jringel
 // stretch: some bugs removed
 //
@@ -97,6 +100,17 @@
 #include "MSSimpleTrafficLightLogic.h"
 #include <utils/helpers/Command.h>
 
+
+/* =========================================================================
+ * type definitions
+ * ======================================================================= */
+/** @brief Definition of a phase description
+    Within the first bitsets, all links having gree are marked, within the second
+    all links having yellow */
+typedef std::pair<std::bitset<64>, std::bitset<64> > SimplePhaseDef;
+
+/// Definition of a complete phase information, including the time
+typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
 
 
 /* =========================================================================
@@ -204,6 +218,13 @@ public:
      * Called from MSNet::simulationStep
      */
     void check2Switch(SUMOTime step);
+
+
+    /** @brief return the complete phase definition for a named traffic lights logic
+    */
+    CompletePhaseDef getPhaseDef(const std::string &tlid) const;
+
+
 
 protected:
     /**
@@ -324,10 +345,10 @@ protected:
          * If a switch shall be done, this method should return true.
          */
         virtual bool trySwitch(SUMOTime step) = 0;
-		
+
 		// checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
 		bool isPosAtGSP (SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
-		
+
 		// switches the given Logic directly to the given position
 		void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
 
@@ -397,7 +418,7 @@ protected:
 		void adaptLogic(SUMOTime step);
 
     protected:
-    
+
     };
 
 
@@ -420,11 +441,11 @@ protected:
         bool trySwitch(SUMOTime step);
 
 		void adaptLogic(SUMOTime step, SUMOReal position);
-		
-		// cuts (stauchen) the Logic to synchronize, 
+
+		// cuts (stauchen) the Logic to synchronize,
 		// returns false if cutting was imposible
 		void cutLogic(SUMOTime step, size_t position, size_t deltaToCut);
-		
+
 		// stretchs the logic to synchronize
 		void stretchLogic(SUMOTime step, size_t deltaToStretch);
 
@@ -450,7 +471,7 @@ protected:
          * The first bereich has normally the number "1", not "0"!
          */
         StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
-		
+
     };
 
 
