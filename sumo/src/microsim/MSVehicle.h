@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.62  2006/11/14 06:46:07  dkrajzew
+// lane change speed-up; first steps towards car2car-based rerouting
+//
 // Revision 1.61  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -784,7 +787,7 @@ public:
 
 
     /// return true if the vehicle is eqquiped with WLAN
-    bool isEquipped();
+    bool isEquipped() const;
 
 
     /// Returns the name of the vehicle
@@ -903,6 +906,7 @@ public:
         float wish;
         int dir;
         bool t1;
+        std::vector<MSLane*> joined;
     };
 
     const std::vector<std::vector<LaneQ> > &getBestLanes() const;
@@ -968,6 +972,9 @@ public:
 	typedef std::map<std::string, C2CConnection *> VehCont;
 
     const VehCont &getConnections() const;
+
+    SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
+
 /*
     SUMOTime getSendingTimeEnd() const;
     bool maySend() const;
@@ -1053,7 +1060,7 @@ protected:
 
 	//InfoCont getInfosToSend(void);
 
-    mutable MSLane *myLastBestLanesLane;
+    mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
 
 private:

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.100  2006/11/14 06:46:07  dkrajzew
+// lane change speed-up; first steps towards car2car-based rerouting
+//
 // Revision 1.99  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -564,6 +567,7 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/bindevice/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
+#include <utils/helpers/SUMODijkstraRouter.h>
 
 
 #include "devices/MSDevice_CPhone.h"
@@ -712,7 +716,7 @@ MSVehicle::MSVehicle( string id,
 	lastUp(0),
 	equipped(false),
 	clusterId(-1),
-    myLastBestLanesLane(0)
+    myLastBestLanesEdge(0)
 {
     if(myRepetitionNumber>0) {
         myRoute->incReferenceCnt();
@@ -1490,7 +1494,7 @@ MSVehicle::getID() const
 /////////////////////////////////////////////////////////////////////////////
 
 bool
-MSVehicle::isEquipped()
+MSVehicle::isEquipped() const
 {
     return equipped;
 }
@@ -1609,6 +1613,26 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
             (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
 			(*i).second->neededTime = 0;
 		}
+        // check whether to reroute
+        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
+        std::vector<const MSEdge*> edges;
+		router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
+            MSNet::getInstance()->getCurrentTimeStep(), edges);
+        // check whether the new route is the same as the prior
+        MSRouteIterator ri = myCurrEdge;
+        std::vector<const MSEdge*>::iterator ri2 = edges.begin();
+        while(*ri==*ri2&&ri!=myRoute->end()) {
+            ri++;
+            ri2++;
+        }
+        if(ri!=myRoute->end()) {
+            MSRoute *rep = new MSRoute(myRoute->getID() + "-", edges, true);
+            if(!MSRoute::dictionary(myRoute->getID() + "-", rep)) {
+                cout << "Error: Could not insert route ''" << endl;
+                return;
+            }
+            replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+        }
 	}
 
 
@@ -2174,40 +2198,53 @@ MSVehicle::rebuildAllowedLanes()
 const std::vector<std::vector<MSVehicle::LaneQ> > &
 MSVehicle::getBestLanes() const
 {
-  /*
-    if(myLastBestLanesLane==myLane) {
-        return myBestLanes;
-    }
-  */
-    myBestLanes.clear();
-    myLastBestLanesLane = myLane;
 #ifdef GUI_DEBUG
     if(gSelected.isSelected(GLO_VEHICLE, ((GUIVehicle*) this)->getGlID())) {
         int blb = 0;
     }
 #endif
+    if(myLastBestLanesEdge==myLane->getEdge()) {
+        std::vector<LaneQ> &lanes = *myBestLanes.begin();
+        std::vector<LaneQ>::iterator i;
+        for(i=lanes.begin(); i!=lanes.end(); ++i) {
+            SUMOReal v = 0;
+            for(std::vector<MSLane*>::const_iterator j=(*lanes.begin()).joined.begin(); j!=(*lanes.begin()).joined.end(); ++j) {
+                v += (*j)->getVehLenSum();
+            }
+            v += (*lanes.begin()).lane->getVehLenSum();
+            (*lanes.begin()).v = v;
+        }
+        return myBestLanes;
+    }
+
+    myBestLanes.clear();
+    myLastBestLanesEdge = myLane->getEdge();
     SUMOReal MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
     int seen = 0;
-    float dist = -getPositionOnLane();
+    float dist = -(*myLastBestLanesEdge->getLanes())[0]->length();//-getPositionOnLane();
     // compute initial list
     // each item in the list is a list of lane descriptions
     while(seen<4&&dist<MIN_DIST&&ce!=myRoute->end()) {
         const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
         myBestLanes.push_back(std::vector<LaneQ>());
         std::vector<LaneQ> &curr = *(myBestLanes.end()-1);
-        for(int i=0; i<lanes->size(); i++) {
+        bool gotOne = false;
+        int i;
+        for(i=0; i<lanes->size(); i++) {
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
             if((ce+1)!=myRoute->end()) {
                 const MSEdge::LaneCont *allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
                 if(allowed!=0&&find(allowed->begin(), allowed->end(), (*lanes)[i])!=allowed->end()) {
                     currQ.t1 = true;
+                    gotOne = true;
                 } else {
                     currQ.t1 = false;
                 }
             } else {
                 currQ.t1 = true;
+                gotOne = true;
             }
 
             currQ.length = (*lanes)[i]->length();
@@ -2237,17 +2274,80 @@ MSVehicle::getBestLanes() const
         std::vector<std::vector<LaneQ> >::reverse_iterator i;
         for(i=myBestLanes.rbegin()+1; i!=myBestLanes.rend(); ++i, --ce) {
             std::vector<LaneQ> &curr = *i;
-            for(int j=0; j<curr.size(); ++j) {
-                MSLane *lane = curr[j].lane;
-                const MSLinkCont &lc = lane->getLinkCont();
-                for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
+            int j;
+            std::vector<int> bestNext;
+            SUMOReal bestLength = -1;
+            bool gotOne = false;
+            for(j=0; j<curr.size(); ++j) {
+                if(curr[j].length>bestLength) {
+                    bestNext.clear();
+                    bestLength = curr[j].length;
+                    bestNext.push_back(j);
+                } else if(curr[j].length==bestLength) {
+                    bestNext.push_back(j);
+                }
+                if(!curr[j].t1) {
+                    continue;
+                }
+                std::vector<LaneQ> &next = *(i-1);
+                const MSLinkCont &lc = curr[j].lane->getLinkCont();
+                bool oneFound = false;
+                for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end()&&!oneFound; ++k) {
                     MSLane *c = (*k)->getLane();
-                    for(std::vector<LaneQ>::iterator l=(*(i-1)).begin(); l!=(*(i-1)).end(); ++l) {
-                        if((*l).lane==c&&curr[j].t1/*&&(*l).t1*/) {
+                    for(std::vector<LaneQ>::iterator l=next.begin(); l!=next.end()&&!oneFound; ++l) {
+                        if((*l).lane==c/*&&curr[j].t1*/&&(*l).t1) {
+                            gotOne = true;
+                            /*
+                            (*l).length += next[j].length;
+                            (*l).v += next[j].v;
+                            (*l).wish++;
+                            (*l).alllength += next[j].alllength;
+                            */
+                            oneFound = true;
                             curr[j].length += (*l).length;
                             curr[j].v += (*l).v;
                             curr[j].wish++;// += (*l).length;
                             curr[j].alllength = (*l).alllength;
+                            if((*l).joined.size()!=0) {
+                                copy((*l).joined.begin(), (*l).joined.end(), back_inserter(curr[j].joined));
+                            } else {
+                                (*l).joined.push_back((*l).lane);
+                            }
+                        }
+                    }
+                }
+            }
+            if(!gotOne) {
+                // ok, there was no direct matching connection
+                // first hack: get the first to the next edge
+                for(j=0; j<curr.size(); ++j) {
+                    if(!curr[j].t1) {
+                        continue;
+                    }
+                    std::vector<LaneQ> &next = *(i-1);
+                    const MSLinkCont &lc = curr[j].lane->getLinkCont();
+                    bool oneFound = false;
+                    for(MSLinkCont::const_iterator k=lc.begin(); k!=lc.end()&&!oneFound; ++k) {
+                        MSLane *c = (*k)->getLane();
+                        for(std::vector<LaneQ>::iterator l=next.begin(); l!=next.end(); ++l) {
+                            if((*l).lane==c/*&&curr[j].t1&&(*l).t1*/) {
+                                /*
+                                cout << "c3111 " << endl;
+                                (*l).length += next[j].lane->length();//.length;
+                                cout << "c3112 " << endl;
+                                (*l).v += next[j].lane->getDensity();//;
+                                cout << "c3113 " << endl;
+                                (*l).wish++;
+                                cout << "c3114 " << endl;
+                                (*l).alllength += next[j].lane->length();//.alllength;
+                                cout << "c3115 " << endl;
+                                */
+                                curr[j].length += (*l).lane->length();//.length;
+                                curr[j].v += (*l).lane->getDensity();//.v;
+                                curr[j].wish++;// += (*l).length;
+                                curr[j].alllength = (*l).alllength;
+                                (*l).joined.push_back((*l).lane);
+                            }
                         }
                     }
                 }
@@ -2622,6 +2722,16 @@ MSVehicle::transferInformation(std::string senderID, InfoCont infos, int NofP)
 			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
 		}
 	}
+}
+
+
+SUMOReal
+MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime t) const
+{
+    if(infoCont.find(e->getID())==infoCont.end()) {
+        return -1;
+    }
+    return infoCont.find(e->getID())->second->neededTime;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
