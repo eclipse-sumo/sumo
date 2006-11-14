@@ -23,8 +23,20 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/14 06:57:14  dkrajzew
+// debugging loading of networks with no internal lanes information
+//
 // Revision 1.20  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
+//
+// Revision 1.19  2006/10/31 12:22:47  dkrajzew
+// debugging internal lanes usage
+//
+// Revision 1.18  2006/10/12 09:28:14  dkrajzew
+// patched building under windows
+//
+// Revision 1.17  2006/10/04 13:18:18  dkrajzew
+// debugging internal lanes, multiple vehicle emission and net building
 //
 // Revision 1.16  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
@@ -581,7 +593,7 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
-                getIntSecure(attrs, "layer", 1),//!!!
+                getIntSecure(attrs, "layer", 1),// !!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                 getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
@@ -608,10 +620,10 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
-                getIntSecure(attrs, "layer", -1),//!!!
+                getIntSecure(attrs, "layer", -1),// !!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                getBoolSecure(attrs, "fill", false)); // !!!
+                getBoolSecure(attrs, "fill", false));// !!!
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
         } catch (NumberFormatException &) {
@@ -671,13 +683,17 @@ NLHandler::addLogicItem(const Attributes &attrs)
     }
     // parse the internal links information (when wished)
     string foes;
-    //if(MSGlobals::gUsingInternalLanes) {
-        try {
-            foes = getString(attrs, SUMO_ATTR_FOES);
-        } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform("Missing foes for a request");
-        }
-    bool cont = getBoolSecure(attrs, "cont", true);
+    try {
+        foes = getString(attrs, SUMO_ATTR_FOES);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing foes for a request");
+    }
+    bool cont = false;
+#ifdef HAVE_INTERNAL_LANES
+    if(MSGlobals::gUsingInternalLanes) {
+        cont = getBoolSecure(attrs, "cont", false);
+    }
+#endif
     // store received information
     if(request>=0 && response.length()>0) {
         myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
@@ -847,7 +863,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
-    
+
 	// check whether it is a detector storing data to a file or sending it over the network
 	bool isfd= true;
 	try {
@@ -883,15 +899,15 @@ NLHandler::addE1Detector(const Attributes &attrs)
 		}
 #else //#ifdef USE_SOCKETS
         myDetectorBuilder.buildInductLoop(id,
-	        getString(attrs, SUMO_ATTR_LANE),
-		    getFloat(attrs, SUMO_ATTR_POSITION),
-			getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+            getString(attrs, SUMO_ATTR_LANE),
+            getFloat(attrs, SUMO_ATTR_POSITION),
+            getInt(attrs, SUMO_ATTR_SPLINTERVAL),
             SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-	            _file, getString(attrs, SUMO_ATTR_FILE)),
+                _file, getString(attrs, SUMO_ATTR_FILE)),
 			getBoolSecure(attrs, "friendly_pos", false),
-			getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
+            getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
-	} catch (XMLBuildingException &e) {
+    } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
@@ -1476,6 +1492,9 @@ NLHandler::addIncomingLanes(const std::string &chars)
         string set = st.next();
         try {
             MSLane *lane = MSLane::dictionary(set);
+            if(!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+                continue;
+            }
             if(lane==0) {
                 throw XMLIdNotKnownException("lane", set);
             }
