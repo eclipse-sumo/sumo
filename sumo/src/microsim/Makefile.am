@@ -32,7 +32,8 @@ MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleQuitReminded.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
-MSVehicleType.cpp MSVehicleType.h
+MSVehicleType.cpp MSVehicleType.h \
+MSWeightsHandler.cpp MSWeightsHandler.h
 
 SUBDIRS = actions devices lanechanging logging output traffic_lights trigger
 

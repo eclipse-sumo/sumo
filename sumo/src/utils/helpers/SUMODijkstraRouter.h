@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/14 06:52:48  dkrajzew
+// first steps towards car2car-based rerouting
+//
 // Revision 1.6  2006/02/13 07:29:20  dkrajzew
 // made dijkstra-router checking for closures optionally
 //
@@ -109,15 +112,29 @@ public:
 
 /**
  * @class SUMODijkstraRouter
- * @brief Lays the given route over the edges using the dijkstra algorithm
+ * @brief Computes the shortest path through a network using the dijkstra algorithm.
+ *
+ * The template parameters are:
+ * @param E The edge class to use (MSEdge/ROEdge)
+ * @param V The vehicle class to use (MSVehicle/ROVehicle)
+ * @param PF The prohibition function to use (prohibited_withRestrictions/prohibited_noRestrictions)
+ * @param EC The class to retrieve the effort for an edge from
+ *
+ * The router is edge-based. It must know the number of edges for internal reasons
+ *  and whether a missing connection between two given edge (unbuild route) shall
+ *  be reported as an error or as a warning.
+ *
  */
-template<class E, class V, class PF >
+template<class E, class V, class PF, class EC>
 class SUMODijkstraRouter : public SUMOAbstractRouter<E, V>, public PF {
 public:
+    /// Type of the function that is used to retrieve the edge effort.
+    typedef SUMOReal ( EC::* Operation )(const V * const, SUMOTime) const;
+
     /// Constructor
-    SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly)
+    SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly, Operation operation )
         : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
-		myUnbuildIsWarningOnly(unbuildIsWarningOnly)
+		myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation( operation )
     { }
 
     /// Destructor
@@ -234,7 +251,8 @@ public:
 			//assert(minEdge->getNumericalID()<9);
             (*visited)[minEdge->getNumericalID()] = true;
             SUMOReal effort = (SUMOReal) (minimumKnot->effort
-		    	+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
+                + (minEdge->*myOperation)(vehicle, (SUMOTime) (time + minimumKnot->effort)) );
+//		    	+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
     		// check all ways from the node with the minimal length
             size_t i = 0;
             size_t length_size = minEdge->getNoFollowing();
@@ -357,6 +375,7 @@ protected:
 
 	bool myUnbuildIsWarningOnly;
 
+    Operation myOperation;
 
 };
 

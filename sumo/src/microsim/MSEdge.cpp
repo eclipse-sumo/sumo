@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.30  2006/11/14 06:44:51  dkrajzew
+// first steps towards car2car-based rerouting
+//
 // Revision 1.29  2006/10/31 12:19:39  dkrajzew
 // warnings removed
 //
@@ -620,7 +623,7 @@ MSEdge::getIncomingEdges() const
 
 
 SUMOReal
-MSEdge::getEffort(SUMOTime time) const
+MSEdge::getEffort(const MSVehicle * const v, SUMOTime time) const
 {
     return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
 }
@@ -672,6 +675,26 @@ const std::map<std::string, MSEdge*> &
 MSEdge::getNeighborEdges() const
 {
 	return neighborEdges;
+}
+
+
+void
+MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
+{
+    myOwnValueLine.add(timeBegin, timeEnd, value);
+}
+
+
+SUMOReal
+MSEdge::getC2CEffort(const MSVehicle * const v, SUMOTime t) const
+{
+    if(v->isEquipped()) {
+        SUMOReal teffort = v->getC2CEffort(this, t);
+        if(teffort>0) {
+            return teffort;
+        }
+    }
+    return getEffort(v, t);
 }
 
 

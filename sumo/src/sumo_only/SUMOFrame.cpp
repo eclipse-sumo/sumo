@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.53  2006/11/10 13:10:35  dkrajzew
-// warnings removed; debugging
+// Revision 1.54  2006/11/14 06:49:31  dkrajzew
+// first steps towards car2car-based rerouting
 //
 // Revision 1.52  2006/11/02 11:44:51  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
@@ -239,9 +239,11 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
     oc.addSynonyme("net-file", "net");
     oc.addSynonyme("route-files", "routes");
     oc.addSynonyme("additional-files", "additional");
+    oc.addSynonyme("weight-files", "weights");
     oc.addSynonyme("configuration-file", "configuration");
     // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
@@ -297,6 +299,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
     oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
+
     // devices
         // cell-phones
     oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe

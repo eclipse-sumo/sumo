@@ -895,6 +895,9 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSWeightsHandler.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -1108,6 +1111,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSVehicleType.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSWeightsHandler.h">
 			</File>
 		</Filter>
 	</Files>

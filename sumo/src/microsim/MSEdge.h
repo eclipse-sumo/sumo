@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.28  2006/11/14 06:44:51  dkrajzew
+// first steps towards car2car-based rerouting
+//
 // Revision 1.27  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -193,6 +196,7 @@
 #include "MSLinkCont.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/router/FloatValueTimeLine.h>
 
 
 /* =========================================================================
@@ -216,6 +220,7 @@ class MSEdge
 {
 public:
     /**
+     * @enum EdgeBasicFunction
      * For different purposes, it is necessary to know whether the edge
      * is a normal street or just a sink or a source
      * This information is represented by values from this enumeration
@@ -229,6 +234,7 @@ public:
         EDGEFUNCTION_SOURCE = 1,
         /// the edge is only used for vehicle deletion (end of trips)
         EDGEFUNCTION_SINK = 2,
+        /// the edge is an internal edge
         EDGEFUNCTION_INTERNAL = 3
     };
 
@@ -256,10 +262,6 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /* @brief Ask edge's lanes about collisions.
-        Shouldn't be neccessary if model is implemented correctly. */
-//    void detectCollisions( SUMOTime timestep );
-
     /** @brief Get the allowed lanes to reach the destination-edge.
         If there is no such edge, get 0. Then you are on the wrong edge. */
     const LaneCont* allowedLanes( const MSEdge& destination,
@@ -268,8 +270,6 @@ public:
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
     MSLane* leftLane( const MSLane* lane ) const;
     MSLane* rightLane( const MSLane* lane ) const;
-
-
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
@@ -330,7 +330,7 @@ public:
 
     const std::string &getID() { return myID; }
 
-    SUMOReal getEffort(SUMOTime time) const;
+    SUMOReal getEffort(const MSVehicle * const v, SUMOTime time) const;
 
     size_t getNumericalID() const { return myNumericalID; }
 
@@ -365,6 +365,11 @@ public:
     typedef std::map<std::string, MSVehicle*> DictTypeVeh;
 
     const DictTypeVeh &getEquippedVehs() const;
+
+    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
+
+    SUMOReal getC2CEffort(const MSVehicle * const v, SUMOTime t) const;
+
 
 protected:
     /// Unique ID.
@@ -405,6 +410,8 @@ protected:
     mutable SUMOTime myLastFailedEmissionTime;
 
     size_t myNumericalID;
+
+    FloatValueTimeLine myOwnValueLine;
 
 
 	// the Container of equipped vehicle driving on this Lane

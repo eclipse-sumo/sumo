@@ -301,6 +301,10 @@ SOURCE=..\..\..\src\microsim\MSVehicleTransfer.cpp
 
 SOURCE=..\..\..\src\microsim\MSVehicleType.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSWeightsHandler.cpp
+# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
@@ -592,6 +596,10 @@ SOURCE=..\..\..\src\microsim\MSVehicleTransfer.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSVehicleType.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSWeightsHandler.h
 # End Source File
 # End Group
 # End Target

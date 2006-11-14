@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/14 06:44:51  dkrajzew
+// first steps towards car2car-based rerouting
+//
 // Revision 1.9  2006/07/10 09:04:22  dkrajzew
 // dump-begin/dump-end renamed to dump-begins/dump-ends
 //
@@ -260,6 +263,7 @@ namespace
 #include <utils/common/XMLHelpers.h>
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/MSWeightsHandler.h> // !!! move to netload
 #include <sumo_only/SUMOFrame.h>
 #include <utils/bindevice/BinaryInputDevice.h>
 #include "NLGeomShapeBuilder.h"
@@ -308,7 +312,7 @@ NLBuilder::build()
         myEdgeBuilder, myJunctionBuilder, myShapeBuilder);
     */
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(myXMLHandler);
-    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("n"), *parser);
+    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser);
     // try to build the net
     if(ok) {
         ok = buildNet();
@@ -325,16 +329,44 @@ NLBuilder::build()
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
+    // load weights if wished
+    if(ok&&m_pOptions.isSet("weight-files")) {
+        if(!FileHelpers::checkFileList("weights", m_pOptions.getString("weight-files"))) {
+            ok = false;
+        }
+        // start parsing
+        MSWeightsHandler wh(m_pOptions, myNet, "", false);
+        parser->setContentHandler(&myXMLHandler);
+        parser->setErrorHandler(&myXMLHandler);
+        // for each file in the list
+        StringTokenizer st(m_pOptions.getString("weight-files"), ';');
+        while(st.hasNext()&&ok) {
+            string tmp = st.next();
+            // report about loading when wished
+            WRITE_MESSAGE("Loading weights from '" + tmp + "'...");
+            // check whether the file exists
+            if(!FileHelpers::exists(tmp)) {
+                // report error if not
+                MsgHandler::getErrorInstance()->inform("The file '" + tmp + "' does not exist!");
+                ok = false;
+            } else {
+                // parse the file
+                myXMLHandler.setFileName(tmp);
+                parser->parse(tmp.c_str());
+                ok = !(MsgHandler::getErrorInstance()->wasInformed());
+            }
+        }
+    }
     // load routes
-    if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
-        ok = load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
+    if(m_pOptions.isSet("route-files")&&ok&&m_pOptions.getInt("route-steps")<=0) {
+        ok = load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("route-files"),
             *parser);
     }
     // load additional net elements (sources, detectors, ...)
-    if(m_pOptions.isSet("a")&&ok) {
+    if(m_pOptions.isSet("additional-files")&&ok) {
         ok = load("additional elements",
             (NLLoadFilter) ((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
-            m_pOptions.getString("a"), *parser);
+            m_pOptions.getString("additional-files"), *parser);
     }
     subreport("Loading done.", "Loading failed.");
     delete parser;

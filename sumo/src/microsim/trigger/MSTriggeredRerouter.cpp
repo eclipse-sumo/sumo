@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/11/14 06:44:51  dkrajzew
+// first steps towards car2car-based rerouting
+//
 // Revision 1.14  2006/10/31 12:19:17  dkrajzew
 // rerouter debugged
 //
@@ -399,7 +402,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
             MSRoute *rep = MSRoute::dictionary(nid);
             veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
         } else {
-            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
+            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
             router.prohibit(rerouteDef.closed);
             std::vector<const MSEdge*> edges;
 			router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
@@ -412,7 +415,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
         }
     } else {
         // we can simply replace the vehicle route
-        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
+        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
         router.prohibit(rerouteDef.closed);
 		MSEdgeVector edges;
 		router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
