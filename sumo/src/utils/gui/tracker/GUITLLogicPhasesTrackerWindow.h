@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.7  2006/11/09 06:36:14  behrisch
-// Syntactic sugar
+// Revision 1.8  2006/11/14 06:50:35  dkrajzew
+// tls tracker now support switches between logics
 //
 // Revision 1.6  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
@@ -75,11 +75,13 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/helpers/ValueRetriever.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/foxtools/FXMutex.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/FXRealSpinDial.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -96,23 +98,11 @@ class GUITrafficLightLogicWrapper;
 
 
 /* =========================================================================
- * type definitions
- * ======================================================================= */
-/** @brief Definition of a phase description
-    Within the first bitsets, all links having gree are marked, within the second
-    all links having yellow */
-typedef std::pair<std::bitset<64>, std::bitset<64> > SimplePhaseDef;
-
-/// Definition of a complete phase information, including the time
-typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
-
-
-/* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
  * @class GUITLLogicPhasesTrackerWindow
- * This window displays a phase diagram for a chosen tl-logic.
+ * @brief This window displays a phase diagram for a chosen tl-logic.
  */
 class GUITLLogicPhasesTrackerWindow
         : public FXMainWindow,
@@ -125,12 +115,16 @@ public:
         ValueSource<CompletePhaseDef> *src);
 
     /// Constructor to show the complete phase diagram
-    GUITLLogicPhasesTrackerWindow(GUIMainWindow &app,
+    GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
+        GUIMainWindow &app,
         MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
         const MSSimpleTrafficLightLogic::Phases &phases);
 
     /// Destructor
     ~GUITLLogicPhasesTrackerWindow();
+
+    /// Creates the window (FOX-Toolkit)
+    void create();
 
     /// Returns the information about the largest width allowed for openGL-windows
     int getMaxGLWidth() const;
@@ -220,12 +214,6 @@ public:
     void drawValues(GUITLLogicPhasesTrackerPanel &caller);
 
 private:
-    /** @brief Computes the offsets that determine te first drawn item
-        The first offset is the index of the first item to draw within
-        the vector; the second offset is the offsets in pixels */
-    void computeOffsets(size_t width, size_t firstXPixelOffset);
-
-private:
     /// The main application
     GUIMainWindow *myApplication;
 
@@ -269,6 +257,15 @@ private:
 
     /// Information whether the tracking mode is on
     bool myAmInTrackingMode;
+
+    /// The tool bar drag (tracking mode)
+    FXToolBarShell *myToolBarDrag;
+
+    /// The tool bar (tracking mode)
+    FXToolBar *myToolBar;
+
+    /// The offset changer (tracking mode)
+    FXRealSpinDial *myBeginOffset;
 
 protected:
     /// protected constructor for FOX

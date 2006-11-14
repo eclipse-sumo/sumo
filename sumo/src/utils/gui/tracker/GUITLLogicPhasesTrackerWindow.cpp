@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/14 06:50:35  dkrajzew
+// tls tracker now support switches between logics
+//
 // Revision 1.10  2006/04/11 11:05:55  dkrajzew
 // all structures now return their id via getID()
 //
@@ -141,9 +144,19 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         20,20,300,200),
     myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true)
 {
-    myConnector = new GLObjectValuePassConnector<CompletePhaseDef>
-        (wrapper, src, this);
-    size_t height = myTLLogic->getLinks().size() * 20 + 30;
+    // build the toolbar
+    myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
+    myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
+        // interval manipulation
+    myBeginOffset = new FXRealSpinDial(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+    myBeginOffset->setFormatString("%.0fs");
+    myBeginOffset->setIncrements(1,10,100);
+    myBeginOffset->setRange(60,3600);
+    myBeginOffset->setValue(60);
+    //
+    myConnector = new GLObjectValuePassConnector<CompletePhaseDef>(wrapper, src, this);
+    size_t height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30;
     app.addChild(this, true);
     for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
@@ -156,6 +169,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
+    setHeight(height);
 }
 
 
@@ -165,10 +179,11 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         const MSSimpleTrafficLightLogic::Phases &phases)
     : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
         20,20,300,200),
-    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false)
+    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
+    myToolBarDrag(0), myBeginOffset(0)
 {
     myConnector = 0;
-    size_t height = myTLLogic->getLinks().size() * 20 + 30;
+    size_t height = myTLLogic->getLinks().size() * 20 + 30 + 8;
     setTitle("TLS-Tracker");
     app.addChild(this, true);
     for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
@@ -182,6 +197,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
+    setHeight(height);
 }
 
 
@@ -192,6 +208,17 @@ GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow()
     // just to quit cleanly on a failure
     if(myLock.locked()) {
         myLock.unlock();
+    }
+    delete myToolBarDrag;
+}
+
+
+void
+GUITLLogicPhasesTrackerWindow::create()
+{
+    FXMainWindow::create();
+    if(myToolBarDrag!=0) {
+        myToolBarDrag->create();
     }
 }
 
@@ -213,6 +240,11 @@ GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const
 void
 GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 {
+    // compute what shall be shown (what is visible)
+    myFirstPhase2Show = 0;
+    myFirstPhaseOffset = 0;
+    size_t leftOffset = 0;
+    myFirstTime2Show = 0;
     if(!myAmInTrackingMode) {
         myPhases.clear();
         myDurations.clear();
@@ -225,6 +257,31 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             myPhases.push_back(SimplePhaseDef((*j)->getDriveMask(), (*j)->getYellowMask()));
             myDurations.push_back((*j)->duration);
             myLastTime += (*j)->duration;
+        }
+    } else {
+        myBeginTime = myLastTime - (size_t) myBeginOffset->getValue();
+        myFirstTime2Show = myBeginTime;
+        // check whether no phases are known at all
+        if(myDurations.size()!=0) {
+            size_t durs = 0;
+            size_t phaseOffset = myDurations.size() - 1;
+            DurationsVector::reverse_iterator i=myDurations.rbegin();
+            while(/*noSecs>=0&&*/i!=myDurations.rend()) {
+                if(durs+(*i)>(size_t) myBeginOffset->getValue()) {
+                    myFirstPhase2Show = phaseOffset;
+                    myFirstPhaseOffset = (durs+(*i)) - (size_t) myBeginOffset->getValue();
+                    break;
+                }
+                durs += (*i);
+                phaseOffset--;
+                ++i;
+            }
+            if(i==myDurations.rend()) {
+                // there are too few information stored;
+                myFirstPhase2Show = 0;
+                myFirstPhaseOffset = 0;
+                leftOffset = (size_t) myBeginOffset->getValue() - durs;
+            }
         }
     }
     // begin drawing
@@ -255,7 +312,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d((SUMOReal) (30 / width), h);
+        glVertex2d((SUMOReal) (30. / width), h);
         glEnd();
         // draw the name
         if(i<myTLLogic->getLinks().size()) {
@@ -287,8 +344,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // disable value addition while drawing
     myLock.lock();
         // determine the initial offset
-    SUMOReal x = (SUMOReal) 31 / width;
-    computeOffsets((size_t) width, 31);
+    SUMOReal x = ((SUMOReal) 31. / width) ;
+    SUMOReal ta = (SUMOReal) leftOffset / width;
+    ta *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime))));
+    x += ta;
+
         // and the initial phase information
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
     DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show;
@@ -301,9 +361,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // compute the heigh and the width of the phase
         h = (SUMOReal) (1.0 - h10);
         SUMOReal a = (SUMOReal) duration / width;
-        if(!myAmInTrackingMode) {
-            a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
-        }
+        a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime))));
         SUMOReal x2 = x + a;
 
         // go through the links
@@ -361,38 +419,27 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 
     glColor3d(1, 1, 1);
     if(myPhases.size()!=0) {
-        int tickDist = 20;
+        int tickDist = 10;
+        // patch distances - hack
+        SUMOReal t = myBeginOffset!=0 ? (SUMOReal) myBeginOffset->getValue() : (SUMOReal) (myLastTime - myBeginTime);
+        while(t>(width-31.)/4.) {
+            tickDist += 10;
+            t -= (SUMOReal) ((width-31.)/4.);
+        }
         // draw time information
         h = (SUMOReal) (myTLLogic->getLinks().size() * 20 + 12);
         SUMOReal glh = (SUMOReal) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
             // current begin time
-        string timeStr = toString<SUMOTime>(myFirstTime2Show);
-        SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
+        //string timeStr = toString<SUMOTime>(myFirstTime2Show);
+        //SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
         pfSetScaleXY((SUMOReal) (.05*300./width), (SUMOReal) (.05*300./height));
-        glRotated(180, 1, 0, 0);
-            pfSetPosition(0, 0);
-            glTranslated(30./width-w/2., -glh+h20-h4, 0);
-            pfDrawString(timeStr.c_str());
-            glTranslated(-30./width+w/2., glh-h20+h4, 0);
-        glRotated(-180, 1, 0, 0);
             // time ticks
         SUMOTime currTime = myFirstTime2Show;
-        size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
+        int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
         SUMOReal glpos = (SUMOReal) pos / (SUMOReal) width;
         while(pos<width+50) {
-            SUMOReal a = (SUMOReal) tickDist / width;
-            if(!myAmInTrackingMode) {
-                a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
-            }
-            glpos += a;
-            SUMOReal a2 = (SUMOReal) tickDist;
-            if(!myAmInTrackingMode) {
-                a2 *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
-            }
-            pos += (size_t) a2;
-            currTime += tickDist;
-            timeStr = toString<SUMOTime>(currTime);
-            w = pfdkGetStringWidth(timeStr.c_str());
+            string timeStr = toString<SUMOTime>(currTime);
+            SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
             glRotated(180, 1, 0, 0);
                 pfSetPosition(0, 0);
                 glTranslated(glpos-w/2., -glh+h20-h4, 0);
@@ -404,45 +451,16 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             glVertex2d(glpos, glh);
             glVertex2d(glpos, glh-h4);
             glEnd();
+
+            SUMOReal a = (SUMOReal) tickDist / width;
+            a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime))));
+            glpos += a;
+            SUMOReal a2 = (SUMOReal) tickDist;
+            a2 *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime))));
+            pos += (size_t) a2;
+            currTime += tickDist;
         }
     }
-}
-
-
-void
-GUITLLogicPhasesTrackerWindow::computeOffsets(size_t width,
-                                              size_t firstXPixelOffset)
-{
-    myFirstPhase2Show = 0;
-    myFirstPhaseOffset = 0;
-    myFirstTime2Show = myBeginTime;
-    // check whether no phases are known at all
-    if(myDurations.size()==0) {
-        return;// std::pair<size_t, size_t>(0, 0);
-    }
-    // go through the phases starting at their end
-    int noSecs = width - firstXPixelOffset;
-    size_t timeOffset = 0;
-    DurationsVector::reverse_iterator i=myDurations.rbegin();
-    while(noSecs>=0&&i!=myDurations.rend()) {
-        timeOffset += (*i);
-        noSecs -= (*i++);
-    }
-    // check whether all known phases have enough place
-    if(i==myDurations.rend()) {
-        return;// std::pair<size_t, size_t>(0, 0);
-    }
-    // otherwise, return the offsets
-    i--;
-    size_t phaseOffset = distance(i, myDurations.rend()-1);
-    size_t firstOffset = (-noSecs);
-    myFirstTime2Show = myLastTime - (timeOffset-firstOffset);
-    if(*i==firstOffset) {
-        phaseOffset++;
-        firstOffset = 0;
-    }
-    myFirstPhase2Show = phaseOffset;
-    myFirstPhaseOffset = firstOffset;
 }
 
 
