@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/14 06:47:57  dkrajzew
+// code beautifying
+//
 // Revision 1.22  2006/11/08 16:37:22  ericnicolay
 // change code for actortrigger
 //
@@ -176,7 +179,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 		/*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
 		MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
 		if(tlane!=0)
-			t = parseAndBuildVehicleActor(net, attrs, base, helper);
+        t = parseAndBuildVehicleActor(net, attrs, base, helper);
     }
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/14 06:51:24  dkrajzew
+// code beautifying
+//
 // Revision 1.3  2006/03/27 07:23:36  dkrajzew
 // shape layers added
 //
@@ -33,8 +36,6 @@ namespace
 // Revision 1.1  2006/03/08 13:09:12  dkrajzew
 // possibility to insert pois on the gui added (danilo tet-boyom)
 //
-
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */

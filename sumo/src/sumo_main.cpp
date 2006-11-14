@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2006/11/14 06:54:27  dkrajzew
+// code beautifying
+//
 // Revision 1.45  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
 //
@@ -374,7 +377,7 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         // load the net
         MSNet *net = load(oc);
-	if(net!=0) {
+        if(net!=0) {
 #ifdef _RPC
 		if (oc.getInt("remote-port") != 0)
 		{
@@ -387,18 +390,18 @@ main(int argc, char **argv)
 		else
 		{
 #endif
-			// reporto the begin when wished
-			WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
-			// simulate
-			net->simulate(oc.getInt("b"), oc.getInt("e"));
-			// report the end when wished
-			WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
+            // report the begin when wished
+            WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
+            // simulate
+            net->simulate(oc.getInt("b"), oc.getInt("e"));
+            // report the end when wished
+            WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
 #ifdef _RPC
 		}
 #endif
-	delete net;
-	delete SharedOutputDevices::getInstance();
-	}
+            delete net;
+            delete SharedOutputDevices::getInstance();
+        }
 
 
 #ifndef _DEBUG
