@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.13  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -132,7 +135,7 @@ public:
     void setProbability(SUMOReal prop);
 
     /// Recomputes the costs of the route by summing up the costs for every edge
-    SUMOReal recomputeCosts(SUMOTime begin) const;
+    SUMOReal recomputeCosts(const ROVehicle *const, SUMOTime begin) const;
 
     /// Returns the information whether the given route matches to this one
     bool equals(RORoute *ro) const;

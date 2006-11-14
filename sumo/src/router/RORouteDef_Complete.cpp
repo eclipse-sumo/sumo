@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.10  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -146,7 +149,7 @@ RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
 
 
 void
-RORouteDef_Complete::addAlternative(RORoute *current, SUMOTime begin)
+RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin)
 {
     _startTime = begin;
     delete current;

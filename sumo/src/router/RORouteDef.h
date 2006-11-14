@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.16  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -144,7 +147,7 @@ public:
     /** @brief Adds an alternative to the list of routes
 	 *
      * (This may be the new route) */
-    virtual void addAlternative(RORoute *current, SUMOTime begin) = 0;
+    virtual void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin) = 0;
 
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;

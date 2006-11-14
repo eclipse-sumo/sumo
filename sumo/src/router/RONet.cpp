@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.32  2006/05/16 08:11:36  dkrajzew
 // spelling patched
 //
@@ -390,7 +393,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         mh->inform(" Prunned (now starting at '" + current->getFirst()->getID() + "').");
     }
     // add build route
-    routeDef->addAlternative(current, veh->getDepartureTime());
+    routeDef->addAlternative(veh, current, veh->getDepartureTime());
     return routeDef;
 }
 

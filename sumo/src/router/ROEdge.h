@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.23  2006/09/18 10:15:17  dkrajzew
 // changed vehicle class naming
 //
@@ -165,10 +168,10 @@ public:
     ROEdge *getFollower(size_t pos) const;
 
     /// retrieves the cost of this edge at the given time
-    SUMOReal getCost(SUMOTime time) const;
+    SUMOReal getCost(const ROVehicle *const, SUMOTime time) const;
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    SUMOReal getDuration(SUMOTime time) const;
+    SUMOReal getDuration(const ROVehicle *const, SUMOTime time) const;
 
     /// Adds a connection, marking the effort to pas the connection (!!!)
     bool addConnection(ROEdge *to, SUMOReal effort);
@@ -189,7 +192,7 @@ public:
     size_t getNumericalID() const;
 
     /// returns the effort for this edge only
-    virtual SUMOReal getEffort(SUMOTime time) const;
+    virtual SUMOReal getEffort(const ROVehicle *const, SUMOTime time) const;
 
     /// Takes pointers to FloatValueTimeLines and assigns them to the
     /// classes supplementary weights. You must provide all three

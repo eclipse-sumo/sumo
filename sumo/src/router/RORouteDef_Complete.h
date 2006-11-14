@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.9  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -125,7 +128,7 @@ public:
 	 *
      * Here, as in most cases, the alternative is the route that was build
      * as last and will stay the only route known */
-    void addAlternative(RORoute *current, SUMOTime begin);
+    void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /// Outputs the new (current) route
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;

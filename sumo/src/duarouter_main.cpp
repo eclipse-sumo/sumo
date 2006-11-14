@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/14 06:53:11  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.13  2006/08/01 07:19:56  dkrajzew
 // removed build number information
 //
@@ -264,11 +267,11 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if(net.hasRestrictions()) {
-        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-		        net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
+        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle>, ROEdge>(
+            net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     } else {
-        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-		    net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
+        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle>, ROEdge>(
+		    net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     }
     // build the router
     // initialise the loader

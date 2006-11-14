@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.9  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -126,7 +129,7 @@ public:
     /** @brief Adds the build route to the container
 	 *
      * Here, the currently new route is added */
-    void addAlternative(RORoute *current, SUMOTime begin);
+    void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;

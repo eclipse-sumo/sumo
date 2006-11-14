@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/14 06:49:20  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.3  2006/01/31 11:01:40  dkrajzew
 // patching incoherences; added possibility to end on non-sink-edges
 //
@@ -130,7 +133,7 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge *to,
             (int) into.size()<myMaxEdges) {
 
         into.push_back(current);
-        time += (SUMOTime) current->getDuration(time);
+        time += (SUMOTime) current->getDuration(vehicle, time);
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.15  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -166,9 +169,9 @@ RORoute::setCosts(SUMOReal costs)
 
 
 SUMOReal
-RORoute::recomputeCosts(SUMOTime begin) const
+RORoute::recomputeCosts(const ROVehicle *const v, SUMOTime begin) const
 {
-    return _route.recomputeCosts(begin);
+    return _route.recomputeCosts(v, begin);
 }
 
 

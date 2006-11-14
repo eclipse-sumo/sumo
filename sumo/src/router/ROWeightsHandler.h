@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -135,10 +138,6 @@ private:
 
     /// the edge the is currently being processed
     ROEdge *_currentEdge;
-
-    /** table of relationships between the attributes in their written
-        representation and their enumeration */
-    static Tag  _tags[3];
 
     /// aggregated value over the lanes read within the current edge
     SUMOReal myAggValue;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.11  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -213,7 +216,7 @@ RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
 	std::vector<const ROEdge*> edges;
 	router.compute(getFrom(), getTo(), &veh, begin, edges);
     RORoute *opt = new RORoute(_id, 0, 1, edges);
-    opt->setCosts(opt->recomputeCosts(begin));
+    opt->setCosts(opt->recomputeCosts(&veh, begin));
     // check whether the same route was already used
     _lastUsed = findRoute(opt);
     _newRoute = true;
@@ -247,7 +250,7 @@ RORouteDef_Alternatives::findRoute(RORoute *opt) const
 SUMOReal mquiet_NaN = numeric_limits<SUMOReal>::quiet_NaN();
 
 void
-RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
+RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
 {
     // add the route when it's new
     if(_lastUsed<0) {
@@ -263,7 +266,7 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
         if((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
-            SUMOReal newCosts = alt->recomputeCosts(begin);
+            SUMOReal newCosts = alt->recomputeCosts(veh, begin);
             alt->setCosts(_gawronBeta * newCosts + ((SUMOReal) 1.0 - _gawronBeta) * oldCosts);
         }
         assert(_alternatives.size()!=0);
@@ -375,7 +378,7 @@ RORouteDef_Alternatives::invalidateLast()
 
 
 void
-RORouteDef_Alternatives::addExplicite(RORoute *current, SUMOTime begin)
+RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
 {
 	_alternatives.push_back(current);
     if(myMaxRouteNumber>=0) {
@@ -394,7 +397,7 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, SUMOTime begin)
         if((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
-            SUMOReal newCosts = alt->recomputeCosts(begin);
+            SUMOReal newCosts = alt->recomputeCosts(veh, begin);
             alt->setCosts(_gawronBeta * newCosts + (SUMOReal) (1.0-_gawronBeta) * oldCosts);
         }
         if(_newRoute) {

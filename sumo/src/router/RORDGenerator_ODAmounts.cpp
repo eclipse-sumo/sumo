@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.17  2006/10/13 13:07:50  dkrajzew
 // added the option to not emit vehicles from flows using a fix frequency
 //
@@ -154,7 +157,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         SUMOTime period = myIntervalEnd - myIntervalBegin;
         myDepartures.reserve(myVehicle2EmitNumber);
         for(size_t i=0; i<myVehicle2EmitNumber; ++i) {
-            SUMOTime departure = (SUMOTime) (double) rand() / (double) RAND_MAX * (double) (period);
+            SUMOTime departure = (SUMOTime) ((double) rand() / (double) RAND_MAX * (double) (period));
             myDepartures.push_back(departure);
         }
         sort(myDepartures.begin(), myDepartures.end());

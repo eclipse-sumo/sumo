@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.17  2006/05/16 07:47:26  dkrajzew
 // debugged loop removal
 //
@@ -184,12 +187,12 @@ ROEdgeVector::getIDs() const
 
 
 SUMOReal
-ROEdgeVector::recomputeCosts(SUMOTime time) const
+ROEdgeVector::recomputeCosts(const ROVehicle *const v, SUMOTime time) const
 {
     SUMOReal costs = 0;
     for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        costs += (*i)->getCost(time);
-        time += ((SUMOTime) (*i)->getDuration(time));
+        costs += (*i)->getCost(v, time);
+        time += ((SUMOTime) (*i)->getDuration(v, time));
     }
     return costs;
 }

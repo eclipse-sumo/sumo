@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.13  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -86,6 +89,7 @@
  * class declarations
  * ======================================================================= */
 class ROEdge;
+class ROVehicle;
 
 
 /* =========================================================================
@@ -125,7 +129,7 @@ public:
     std::deque<std::string> getIDs() const;
 
     /// Computes the costs to pass the edges beginning at the given time
-    SUMOReal recomputeCosts(SUMOTime time) const;
+    SUMOReal recomputeCosts(const ROVehicle *const, SUMOTime time) const;
 
     /** @brief Returns the infomration whether both lists are equal
         @deprecated (Should be a comparison operator */

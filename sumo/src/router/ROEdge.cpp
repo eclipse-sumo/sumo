@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.29  2006/09/18 10:15:17  dkrajzew
 // changed vehicle class naming
 //
@@ -249,7 +252,7 @@ ROEdge::addFollower(ROEdge *s)
 
 
 SUMOReal
-ROEdge::getEffort(SUMOTime time) const
+ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
 {
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
@@ -325,16 +328,16 @@ ROEdge::isConnectedTo(ROEdge *e)
 
 
 SUMOReal
-ROEdge::getCost(SUMOTime time) const
+ROEdge::getCost(const ROVehicle *const v, SUMOTime time) const
 {
-    return getEffort(time);
+    return getEffort(v, time);
 }
 
 
 SUMOReal
-ROEdge::getDuration(SUMOTime time) const
+ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const
 {
-    return getEffort(time);
+    return getEffort(v, time);
 }
 
 

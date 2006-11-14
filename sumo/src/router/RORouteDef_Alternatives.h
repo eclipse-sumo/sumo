@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.10  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -136,7 +139,7 @@ public:
         ROVehicle &veh) const;
 
     /// Adds a build alternative
-    void addAlternative(RORoute *current, SUMOTime begin);
+    void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
@@ -145,7 +148,7 @@ public:
 
     void invalidateLast();
 
-	void addExplicite(RORoute *current, SUMOTime begin);
+	void addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin);
 
 	void removeLast();
 

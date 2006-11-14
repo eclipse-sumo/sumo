@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/14 06:48:58  dkrajzew
+// readapting changes in the router-API
+//
 // Revision 1.17  2006/02/13 07:26:18  dkrajzew
 // code beautifying
 //
@@ -246,7 +249,7 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
                 }
             } else {
                 // ok, only one alternative; let's write it plain
-                (*altos) << "         <route cost=\"" << routee.recomputeCosts(getDepartureTime());
+                (*altos) << "         <route cost=\"" << routee.recomputeCosts(this, getDepartureTime());
                 (*altos) << "\" probability=\"1";
                 (*altos) << "\">" << routee << "</route>" << endl;
             }
