@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/11/14 07:08:19  dkrajzew
+// debugging building under Linux
+//
 // Revision 1.13  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
 //
@@ -309,7 +312,7 @@ public:
 	NetworkError(const std::string &message);
 
 	// destructor
-	~NetworkError();
+        ~NetworkError() throw();
 
 	// return the exceptions message
 	const std::string &msg() const;

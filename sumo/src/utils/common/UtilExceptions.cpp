@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/14 07:08:19  dkrajzew
+// debugging building under Linux
+//
 // Revision 1.13  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
 //
@@ -211,7 +214,7 @@ NetworkError::NetworkError(const std::string &message) : myMessage(message)
 {
 }
 
-NetworkError::~NetworkError()
+NetworkError::~NetworkError() throw()
 {
 }
 
