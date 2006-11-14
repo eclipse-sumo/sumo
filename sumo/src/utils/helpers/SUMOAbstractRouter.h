@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/14 07:23:10  dkrajzew
+// debugging building under Linux
+//
 // Revision 1.1  2006/01/26 08:39:57  dkrajzew
 // made the abstract router usable within microsim and routers
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -69,13 +71,14 @@ public:
 		virtual ~ROAbstractEdgeEffortRetriever() { }
 
 		/// This function should return the effort to use
-		virtual SUMOReal getEffort(SUMOTime time, const E * const edge,
+		virtual SUMOReal getEffort(const V *const, SUMOTime time, const E * const edge,
             SUMOReal dist) = 0;
 
 		/// Returns the name of this retriever
 		virtual const std::string &getID() const = 0;
 
 	};
+
 
 public:
     /// Constructor
