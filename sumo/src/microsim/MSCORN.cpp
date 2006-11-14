@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/11/14 06:45:24  dkrajzew
+// prettier timestr format for TrafficOnline
+//
 // Revision 1.16  2006/11/08 16:18:44  ericnicolay
 // -change code for ss2-sql-output
 //
@@ -324,22 +327,31 @@ MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
 }
 
 
+
+inline
+std::string
+toDateTimeString(SUMOTime time)
+{
+    std::ostringstream oss;
+    char buffer[4];
+    sprintf(buffer, "%02i:",(time/3600));
+    oss << buffer;
+    time=time%3600;
+    sprintf(buffer, "%02i:",(time/60));
+    oss << buffer;
+    time=time%60;
+    sprintf(buffer, "%02i", time);
+    oss << buffer;
+    return oss.str();
+}
+
 void
 MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
                                      const std::string &pos,
                                      int quality)
 {
     if(myVehicleDeviceTOSS2Output!=0) {
-		std::string timestr="1970-01-01 ";
-		int tmp;
-		char buffer[64];
-		sprintf(buffer, "%02i:",(time/3600000));  
-		timestr+=buffer;
-		tmp=time%3600000;
-		sprintf(buffer, "%02i:",(tmp/60000));  
-		timestr+=buffer;
-		tmp=tmp%60000;
-		sprintf(buffer, "%02i", tmp);
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
         myVehicleDeviceTOSS2Output->getOStream()
             << "01;'" << timestr << "';" << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
     }
@@ -355,17 +367,7 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
 			myVehicleDeviceTOSS2SQLOutput->getOStream() << "," << endl;
 		else
 			MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
-		std::string timestr="1970-01-01 ";
-		int tmp;
-		char buffer[64];
-		sprintf(buffer, "%02i:",(time/3600));  
-		timestr+=buffer;
-		tmp=time%3600;
-		sprintf(buffer, "%02i:",(tmp/60));  
-		timestr+=buffer;
-		tmp=tmp%60;
-		sprintf(buffer, "%02i", tmp);
-		timestr+=buffer;
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
         myVehicleDeviceTOSS2SQLOutput->getOStream()
 		<< "(NULL, NULL, '" << timestr << "', NULL , NULL, '1;"
         	<< timestr << ';' << callID << ';' << pos << ';' << quality << "',1)";
@@ -379,8 +381,9 @@ MSCORN::saveTOSS2_CellStateData(SUMOTime time,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
 {
     if(myCellTOSS2Output!=0) {
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
         myCellTOSS2Output->getOStream()
-            << "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' <<
+            << "02;" << timestr << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' <<
             Dyn_Calls_In << ';' << Dyn_Calls_Out << ';' << Sum_Calls << ';' << Intervall << "\n";
     }
 }
@@ -396,17 +399,7 @@ MSCORN::saveTOSS2SQL_CellStateData(SUMOTime time,
 			myCellTOSS2SQLOutput->getOStream() << "," << endl;
 		else
 			MSCORN::myFirstCall[CORN_OUT_CELL_TO_SS2_SQL] = false;
-		std::string timestr="1970-01-01 ";
-		int tmp;
-		char buffer[64];
-		sprintf(buffer, "%02i:",(time/3600));  
-		timestr+=buffer;
-		tmp=time%3600;
-		sprintf(buffer, "%02i:",(tmp/60));  
-		timestr+=buffer;
-		tmp=tmp%60;
-		sprintf(buffer, "%02i", tmp);
-		timestr+=buffer;
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
 		myCellTOSS2SQLOutput->getOStream()
 			<< "(NULL, \' \', '" << timestr << "'," << Cell_Id << ',' << Calls_In << ',' << Calls_Out << ','
 			<< Dyn_Calls_In << ',' << Dyn_Calls_Out << ',' << Sum_Calls << ',' << Intervall << ")";
@@ -423,17 +416,7 @@ MSCORN::saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
 			myLATOSS2SQLOutput->getOStream() << "," << endl;
 		else
 			MSCORN::myFirstCall[CORN_OUT_LA_TO_SS2_SQL] = false;
-		std::string timestr="1970-01-01 ";
-		int tmp;
-		char buffer[64];
-		sprintf(buffer, "%02i:",(time/3600));  
-		timestr+=buffer;
-		tmp=time%3600;
-		sprintf(buffer, "%02i:",(tmp/60));  
-		timestr+=buffer;
-		tmp=tmp%60;
-		sprintf(buffer, "%02i", tmp);
-		timestr+=buffer;
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
 		myLATOSS2SQLOutput->getOStream()
 			<< "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
 			<< quality_id << ',' << intervall << ")";
@@ -445,8 +428,9 @@ MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
 	if(myLATOSS2Output!=0) {
+		std::string timestr="1970-01-01 " + toDateTimeString(time);
         myLATOSS2Output->getOStream()
-            << "03;" << ';' << time << ';' << position_id << ';' << dir << ';' << sum_changes
+            << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
             << ';' << quality_id << ';' << intervall << "\n";
     }
 }
