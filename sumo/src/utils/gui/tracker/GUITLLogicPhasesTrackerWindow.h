@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/11/15 21:29:43  behrisch
+// Debugged building under Linux
+//
 // Revision 1.8  2006/11/14 06:50:35  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -115,7 +118,7 @@ public:
         ValueSource<CompletePhaseDef> *src);
 
     /// Constructor to show the complete phase diagram
-    GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
+    GUITLLogicPhasesTrackerWindow(
         GUIMainWindow &app,
         MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
         const MSSimpleTrafficLightLogic::Phases &phases);
