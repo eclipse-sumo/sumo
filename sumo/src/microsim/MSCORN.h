@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/11/03 22:59:26  behrisch
 // Syntactic sugar
 //
@@ -191,11 +194,11 @@ public:
     static void saveEdgeNearInfoData(const std::string id,
 		const std::string neighbor, int quantity);
     static void saveSavedInformationData(SUMOTime step, const std::string veh,
-		const std::string edge, std::string type, int time, int nt, int a);
+		const std::string edge, std::string type, int time, SUMOReal nt, int a);
     static void saveTransmittedInformationData(SUMOTime step, const std::string from,
-		const std::string to, const std::string edge, int time, int nt, int a);
+		const std::string to, const std::string edge, int time, SUMOReal nt, int a);
     static void saveVehicleInRangeData(SUMOTime step, const std::string veh1,
-		const std::string veh2, int x1, int y1, int x2 , int y2, int a);
+		const std::string veh2, SUMOReal x1, SUMOReal y1, SUMOReal x2 , SUMOReal y2, int a);
 
 private:
     //

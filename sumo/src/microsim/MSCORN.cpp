@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/11/14 06:45:24  dkrajzew
 // prettier timestr format for TrafficOnline
 //
@@ -468,7 +471,7 @@ MSCORN::saveEdgeNearInfoData(const std::string id, const std::string neighbor, i
 
 void
 MSCORN::saveSavedInformationData(SUMOTime step, const std::string veh,
-				 const std::string edge, std::string type, int time, int nt, int a)
+				 const std::string edge, std::string type, int time, SUMOReal nt, int a)
 {
     if(mySavedInfoOutput!=0) {
         if(a==0){
@@ -489,7 +492,7 @@ MSCORN::saveSavedInformationData(SUMOTime step, const std::string veh,
 
 void
 MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string from, const std::string to,
-    const std::string edge, int time, int nt, int a)
+    const std::string edge, int time, SUMOReal nt, int a)
 {
     if(myTransmittedInfoOutput!=0) {
         if(a==0){
@@ -510,7 +513,7 @@ MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string from, co
 
 void
 MSCORN::saveVehicleInRangeData(SUMOTime step, const std::string veh1, const std::string veh2,
-    int x1, int y1, int x2 , int y2, int a)
+    SUMOReal x1, SUMOReal y1, SUMOReal x2 , SUMOReal y2, int a)
 {
     if(myVehicleInRangeOutput!=0) {
         if(a==0){

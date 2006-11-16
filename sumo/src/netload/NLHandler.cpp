@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/16 07:02:18  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/11/14 13:04:12  dkrajzew
 // warnings removed
 //
@@ -709,14 +712,14 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     size_t absDuration = 0;
     int requestSize = -1;
-    int detectorOffset = -1; // !!!
+    SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes();
     try {
         string type = getString(attrs, SUMO_ATTR_TYPE);
         // get the detector offset
         {
             try {
-                detectorOffset = (int) getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+                detectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(
                     "A detector offset of a traffic light logic is not numeric!");

@@ -93,7 +93,7 @@ private:
     Cont _cellsCont;
 
     /// The Number of Cells in x- and y-Direction
-    int _xsize, _ysize;
+    size_t _xsize, _ysize;
 
 	/// The sizes of each cell
     SUMOReal _xcellsize, _ycellsize;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -101,7 +104,7 @@ using namespace std;
  * MSCell - methods
  * ----------------------------------------------------------------------- */
 
-MSCell::MSCell(int xcellsize, int ycellsize)
+MSCell::MSCell(SUMOReal xcellsize, SUMOReal ycellsize)
     : _xcellsize(xcellsize), _ycellsize(ycellsize)
 {
 //	_edgesCont = 0;

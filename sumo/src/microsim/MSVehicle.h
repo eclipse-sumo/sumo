@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.64  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.63  2006/11/14 13:02:12  dkrajzew
 // warnings removed
 //
@@ -821,7 +824,7 @@ public:
 	struct Information {
 		std::string infoTyp;
 		std::string edge;
-		int neededTime; // how long needed the vehicle to travel on the edge
+		SUMOReal neededTime; // how long needed the vehicle to travel on the edge
 		int time; // the Time, when the Info was saved
 	};
 

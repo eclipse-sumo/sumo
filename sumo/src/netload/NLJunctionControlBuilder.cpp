@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/11/16 07:02:18  dkrajzew
+// warnings removed
+//
 // Revision 1.27  2006/11/06 10:30:30  dkrajzew
 // debugged handling of neworks with internal geometry in the case SUMO was build with no such support
 //
@@ -524,7 +527,7 @@ void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
                                                 size_t absDuration,
                                                 int requestSize,
-                                                int detectorOffset)
+                                                SUMOReal detectorOffset)
 {
     myActiveKey = "";
     myActiveSubKey = "";

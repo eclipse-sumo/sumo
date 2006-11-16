@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2006/11/16 07:02:18  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/09/18 10:14:04  dkrajzew
 // patching junction-internal state simulation
 //
@@ -206,7 +209,7 @@ public:
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const std::string &type,
-        size_t absDuration, int requestSize, int detectorOffset);
+        size_t absDuration, int requestSize, SUMOReal detectorOffset);
 
     /// adds a phase to the traffic lights logic currently build
     void addPhase(size_t duration, const std::bitset<64> &phase,

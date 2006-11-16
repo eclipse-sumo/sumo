@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.102  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.101  2006/11/14 13:02:05  dkrajzew
 // warnings removed
 //
@@ -1703,7 +1706,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 		float factor = (length/speed)*2;
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
 		if(i == infoCont.end()){ //noch nicht drin
-			float nt = MSNet::getInstance()->getCurrentTimeStep() - akt->time;
+			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
 			if(nt > factor){
 				Information *info = new Information;
 				info->infoTyp = akt->infoTyp;
@@ -1718,7 +1721,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 				delete akt;
 			}
 		}else{ // schon mal hier gefahren oder Information von einem andere
-			float nt = MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time;
+			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time);
 			if(nt > factor){
 				(*i).second->neededTime = nt;
 			}else{
@@ -2232,7 +2235,7 @@ MSVehicle::getBestLanes() const
         myBestLanes.push_back(std::vector<LaneQ>());
         std::vector<LaneQ> &curr = *(myBestLanes.end()-1);
         bool gotOne = false;
-        int i;
+        size_t i;
         for(i=0; i<lanes->size(); i++) {
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
@@ -2276,7 +2279,7 @@ MSVehicle::getBestLanes() const
         std::vector<std::vector<LaneQ> >::reverse_iterator i;
         for(i=myBestLanes.rbegin()+1; i!=myBestLanes.rend(); ++i, --ce) {
             std::vector<LaneQ> &curr = *i;
-            int j;
+            size_t j;
             std::vector<int> bestNext;
             SUMOReal bestLength = -1;
             bool gotOne = false;
@@ -2364,7 +2367,7 @@ MSVehicle::getBestLanes() const
             std::vector<LaneQ> &curr = *i;
             int best = 0;
             SUMOReal bestLength = 0;
-            int j;
+            size_t j;
             for(j=0; j<curr.size(); ++j) {
                 if(curr[j].length>bestLength) {
                     bestLength = curr[j].length;
@@ -2521,7 +2524,7 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
 	if(fabs(pos1.x()-pos2.x())<MSGlobals::gLANRange && fabs(pos1.y()-pos2.y())<MSGlobals::gLANRange){
-		int distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
+		SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
 		if((distance>0)&&(distance<=MSGlobals::gLANRange)){
 			b = true;
 		}
@@ -2678,12 +2681,9 @@ MSVehicle::numOfInfos(MSVehicle *veh1, MSVehicle* veh2)
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
 
-	int distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
-	int x = ((-2.3*distance + 1650)*MSGlobals::gNumberOfSendingPos)/1500; //approximation function
-	return x*MSGlobals::gInfoPerPaket;
-
-
-
+	SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
+	SUMOReal x = ((-2.3*distance + 1650.)*MSGlobals::gNumberOfSendingPos)/1500.; //approximation function
+	return (int) (x*MSGlobals::gInfoPerPaket);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/09/18 09:58:02  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -64,7 +67,7 @@ class GUIEdge;
 class MSCell {
 public:
     /// Constructor
-    MSCell(int xcellsize, int ycellsize);
+    MSCell(SUMOReal xcellsize, SUMOReal ycellsize);
 
     /// Destructor
     ~MSCell();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/16 07:02:17  dkrajzew
+// warnings removed
+//
 // Revision 1.3  2006/10/04 13:18:17  dkrajzew
 // debugging internal lanes, multiple vehicle emission and net building
 //
@@ -81,15 +84,15 @@ MSBuildCells::MSBuildCells(MSNet &net, Boundary boundary)
     : myNet(net), _boundary(boundary)
 {
 	_boundary = net.getConvBoundary();
-	_xsize = (_boundary.xmax()-_boundary.xmin())/MSGlobals::gLANRange;
-	_ysize = (_boundary.ymax()-_boundary.ymin())/MSGlobals::gLANRange;
+ 	_xsize = (size_t) ((_boundary.xmax()-_boundary.xmin())/MSGlobals::gLANRange) + 1;
+	_ysize = (size_t) ((_boundary.ymax()-_boundary.ymin())/MSGlobals::gLANRange) + 1;
 }
 
 
 MSBuildCells::~MSBuildCells()
 {
 	size_t size = _xsize*_ysize;
-	for(int i=0; i<size; i++) {
+	for(size_t i=0; i<size; i++) {
 		delete _cellsCont[i];
 	}
 }
@@ -126,7 +129,7 @@ MSBuildCells::build()
 void
 MSBuildCells::createCells(size_t size)
 {
-	for(int i=0; i<size; i++) {
+	for(size_t i=0; i<size; i++) {
 		MSCell *cell = new MSCell(_xcellsize,_xcellsize);
 		_cellsCont.push_back(cell);
 	}
@@ -191,9 +194,9 @@ MSBuildCells::computeLaneCells(size_t index, const Position2DVector &lane, MSEdg
                 bb1.add(lane[i]);
             }
     // compute the cells the lae is going through
-    for(int y=bb1.ymin()/_ycellsize; y<bb1.ymax()/_ycellsize+1&&y<_ysize; y++) {
+    for(int y=(int) (bb1.ymin()/_ycellsize); y<(int) ((bb1.ymax()/_ycellsize)+1)&&y<(int) _ysize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
-        for(int x=bb1.xmin()/_xcellsize; x<bb1.xmax()/_xcellsize+1&&x<_xsize; x++) {
+        for(int x=(int) (bb1.xmin()/_xcellsize); x<(int) ((bb1.xmax()/_xcellsize)+1)&&x<(int) _xsize; x++) {
             SUMOReal xpos1 = SUMOReal(x) * _xcellsize;
 
 			size_t offset = _xsize * y + x;
