@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.73  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.72  2006/11/14 13:01:56  dkrajzew
 // warnings removed
 //
@@ -537,6 +540,8 @@ MSLane::MSLane(string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
                size_t numericalID, const Position2DVector &shape,
                const std::vector<SUMOVehicleClass> &allowed,
                const std::vector<SUMOVehicleClass> &disallowed)  :
+    myLastState(10000, 10000),
+	myShape(shape),
     myApproaching(0),
     myID( id ),
     myNumericalID(numericalID),
@@ -545,8 +550,6 @@ MSLane::MSLane(string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
     myEdge( edge ),
     myMaxSpeed( maxSpeed ),
     myVehBuffer( 0 ),
-	myShape(shape),
-    myLastState(10000, 10000),
     myAllowedClasses(allowed),
     myNotAllowedClasses(disallowed),
     myFirstUnsafe(0)

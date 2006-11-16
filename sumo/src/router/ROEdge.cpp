@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.30  2006/11/14 06:48:58  dkrajzew
 // readapting changes in the router-API
 //
@@ -163,8 +166,7 @@ ROEdge::ROEdge(const std::string &id, int index)
       _supplementaryWeightAdd(0),
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
-      _hasSupplementaryWeights(false),
-      myIndex(index), myLength(-1),
+      myIndex(index), myLength(-1), _hasSupplementaryWeights(false),
       myPackedValueLine(0), myHaveBuildShortCut(false)
 {
 }

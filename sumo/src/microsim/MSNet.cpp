@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.93  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.92  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -963,7 +966,7 @@ void MSNet::computeCar2Car(void)
         if(eEquipped.size()>0){
 			std::map<std::string, MSVehicle*>::const_iterator k = eEquipped.begin();
 			// above all Equipped vehicle of this Edge
-			for(k; k!=eEquipped.end();++k){
+			for(; k!=eEquipped.end(); ++k){
 				// first update the neighbor list
 				(*k).second->updateInfos(myStep);
                 const std::map<std::string, MSEdge*> &neighborEdges = e->getNeighborEdges();
@@ -973,7 +976,7 @@ void MSNet::computeCar2Car(void)
 					if(nEquipped.size()>0){
 						std::map<std::string, MSVehicle*>::const_iterator m = nEquipped.begin();
 						// above all neighbors of this cells
-						for(m; m!=nEquipped.end();++m){
+						for(; m!=nEquipped.end(); ++m){
 							if((*k).second->getID() != (*m).second->getID()){
 								(*k).second->addVehNeighbors((*m).second, myStep);
 							}

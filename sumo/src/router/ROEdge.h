@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/14 06:48:58  dkrajzew
 // readapting changes in the router-API
 //
@@ -270,10 +273,6 @@ protected:
     /// information whether the time line shall be used instead of the length value
     bool _usingTimeLine;
 
-    mutable bool myHaveBuildShortCut;
-    mutable SUMOReal *myPackedValueLine;
-    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
-
 
     /// The type of the edge
     EdgeType myType;
@@ -281,15 +280,15 @@ protected:
     /// The index (numeric id) of the edge
     size_t myIndex;
 
+    /// The length of the edge
+    SUMOReal myLength;
+
     /// Flag that indicates, if the supplementary weights have been
     /// set. Initially false.
     bool _hasSupplementaryWeights;
 
     /// Information whether the edge has reported missing weights
     //bool myHaveWarned;
-
-    /// The length of the edge
-    SUMOReal myLength;
 
 	std::vector<ROLane*> myLanes;
 
@@ -301,6 +300,10 @@ protected:
 
     /// The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
+
+    mutable bool myHaveBuildShortCut;
+    mutable SUMOReal *myPackedValueLine;
+    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
 
 
 private:

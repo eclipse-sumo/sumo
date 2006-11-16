@@ -81,7 +81,7 @@ GeoConvHelper::remap(Position2D &from)
         SUMOReal x = (SUMOReal) (from.x() / 100000.0);
         SUMOReal y = (SUMOReal) (from.y() / 100000.0);
         SUMOReal ys = y;
-        if(myInitX=-1) {
+        if(myInitX==-1) {
             myInitX = x;
             myInitY = y;
         }

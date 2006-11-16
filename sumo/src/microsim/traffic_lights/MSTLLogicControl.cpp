@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.23  2006/11/14 06:41:15  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -177,24 +180,31 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTraffic
 	}
 }
 
+size_t
+MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos)
+{
+	MSSimpleTrafficLightLogic *myLogic = givenLogic;
+	size_t myPos = pos;
+	size_t stepOfMyPos = myLogic->getStepFromPos(myPos);
+	size_t startOfPhase = myLogic->getPosFromStep(stepOfMyPos);
+	MSPhaseDefinition myPhase = myLogic->getPhaseFromStep(stepOfMyPos);
+	size_t durOfPhase = myPhase.duration;
+
+	assert (myPos >= startOfPhase);
+	size_t diff = myPos - startOfPhase;
+	assert (diff <= durOfPhase);
+	return diff;
+}
+
 void
 MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t pos)
 {
 	MSSimpleTrafficLightLogic *myLogic = givenLogic;
 	size_t posTo = pos;
 	size_t stepTo = myLogic->getStepFromPos(posTo);
-	size_t posFromStep = myLogic->getPosFromStep(stepTo);
-
-	assert (posFromStep <= posTo);
-
+	size_t diff = getDiffToStartOfPhase (myLogic, posTo);
 	MSPhaseDefinition myPhase = myLogic->getPhaseFromStep(stepTo);
-	size_t dur = myPhase.duration;
-	// adapts the duration, if the phase has already started -> only the remaining duration shall be sended
-	if (posTo > posFromStep) {
-		size_t delta = posTo - posFromStep;
-		assert (dur > delta);
-		dur = dur - delta;
-	}
+	size_t dur = myPhase.duration - diff;
 	myLogic->changeStepAndDuration( myControl ,simStep, stepTo, dur);
 }
 
@@ -240,64 +250,46 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP()
 bool
 MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step)
 {
+	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
+	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
+	SUMOReal posTo = 0;
 	///switch to the next programm if the GSP is reached
-   	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
 	if (isPosAtGSP(step, LogicFrom)==true) {
-		adaptLogic(step);
+		posTo = getGSPValue(myTo);
+		if (mySwitchSynchron) {
+			adaptLogic(step);
+		}
+		else {
+			switchToPos(step, LogicTo, (size_t) posTo);
+		}
 		return true;
 	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 
 void
 MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
 {
-	SUMOTime actTime = step;
+	SUMOTime simStep = step;
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
-	size_t StepTo = myTo->getStepNo();
-	size_t CycleTimeTo = LogicTo->getCycleTime();
 	SUMOReal gspTo = getGSPValue(myTo);
-
-	if (mySwitchSynchron) {
-
-		//calculates the step of the phase, in which the GSP is reached the next time
-		//and the remainig phaseduration from the GSP
-		assert(gspTo <= CycleTimeTo);
-		size_t pos = 0;
-		size_t stepOfGsp = 0;
-		size_t durAfterGsp = 0;
-		for (size_t i=0; i < LogicTo->getPhases().size(); i++) {
-			pos = pos + LogicTo -> getPhaseFromStep(i).duration;
-			if (pos >= gspTo)	{
-				stepOfGsp = i;
-				durAfterGsp = (size_t) (pos - gspTo);
-				break;
-			}
-		}
-		// gets the actual position from the myToLogic
-		size_t actPosTo = LogicTo->getPosition(actTime);
-
-		//calculates the waiting time until the GSP is reached
-		//and the modified duration of the phase, in which the GSP is
-		size_t timeWaiting = 0;
-		if (gspTo >= actPosTo)	{
-			timeWaiting = (size_t) (gspTo - actPosTo);
-		}
-		else {
-			timeWaiting = (size_t) (CycleTimeTo - actPosTo + gspTo);
-		}
-		size_t newdur = timeWaiting + durAfterGsp;
-
-		//manipulates the step and duration of the toLogic
-		LogicTo->changeStepAndDuration( myControl ,step, stepOfGsp, newdur);
+	size_t stepTo = LogicTo->getStepFromPos((size_t) gspTo);
+	size_t cycleTimeTo = LogicTo->getCycleTime();
+	// gets the actual position from the myToLogic
+	size_t actPosTo = LogicTo->getPosition(simStep);
+	size_t deltaToStretch= 0;
+	size_t diff = getDiffToStartOfPhase(LogicTo, (size_t) gspTo);
+	if (gspTo >= actPosTo) {
+		deltaToStretch = (size_t) (gspTo - actPosTo);
 	}
 	else {
-		switchToPos(actTime, LogicTo, gspTo);
+		deltaToStretch = (size_t) (cycleTimeTo - actPosTo + gspTo);
 	}
+	size_t newdur = LogicTo->getPhaseFromStep(stepTo).duration - diff + deltaToStretch;
+	LogicTo->changeStepAndDuration (myControl, simStep, stepTo, newdur);
 }
+
 
 
 
@@ -326,35 +318,17 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch(SUMOTime step)
 	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
 	SUMOReal posTo = 0;
-
-	// compare logics
-	MSPhaseDefinition fromPhase = LogicFrom->getPhaseFromStep(LogicFrom ->getStepNo());
-	MSSimpleTrafficLightLogic::Phases toPhases = LogicTo->getPhases();
-	for(MSSimpleTrafficLightLogic::Phases::iterator i=toPhases.begin(); i!=toPhases.end(); ++i) {
-		bool test1 = false, test2 = false, test3 = false;
-		if (fromPhase.getDriveMask() == (*i)->getDriveMask()) {
-			test1=true;
-		}
-		if (fromPhase.getBreakMask() == (*i)->getBreakMask()) {
-			test2=true;
-		}
-		if (fromPhase.getYellowMask() == (*i)->getYellowMask()) {
-			test3=true;
-		}
-		if (test1 && test2 && test3){
-			adaptLogic(step, posTo);
-			return true;
-		}
-		posTo = posTo + (*i)->duration;
-	}
-
 	///switch to the next programm if the GSP is reached
 	if (isPosAtGSP(step, LogicFrom)==true) {
 		posTo = getGSPValue(myTo);
-		adaptLogic(step, posTo);
+		if (mySwitchSynchron) {
+			adaptLogic(step, posTo);
+		}
+		else {
+			switchToPos(step, LogicTo, (size_t) posTo);
+		}
 		return true;
 	}
-
 	return false;
 }
 
@@ -364,42 +338,43 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
 {
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
 	size_t cycleTime = LogicTo->getCycleTime();
-
 	// the position, in which the logic has to be switched
 	size_t startPos = (size_t) position;
-
 	// this is the position, where the Logic have to be after synchronisation
 	size_t posAfterSyn = LogicTo->getPosition(step);
 
-	// switch to the toLogic to the new startPosition
-	switchToPos(step, LogicTo, startPos);
+	// switch the toLogic to the startPosition
+	// fehlt!!!!
+	// erfolgt in cutLogic und/oder stretchLogic!
 
-	// synchronize the toLogic if necessary
-	if (mySwitchSynchron) {
-		// calculate the difference, that has to be equalized
-		size_t deltaToCut = 0;
-		if (posAfterSyn < startPos) {
-			deltaToCut = posAfterSyn + cycleTime - startPos;
-		}
-		else deltaToCut =  posAfterSyn - startPos;
-		// test, wheter cutting of the Signalplan is possible
-		size_t deltaPossible = 0;
-		int noBereiche = getStretchBereicheNo(myTo);
-		for(int i=0; i<noBereiche; i++) {
-        StretchBereichDef def = getStretchBereichDef(myTo, i+1);
-		assert (def.end >= def.begin) ;
-		deltaPossible = deltaPossible + (def.end - def.begin);
-		}
-		int stretchUmlaufAnz = TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
-		deltaPossible = stretchUmlaufAnz * deltaPossible;
-		if ((deltaPossible > deltaToCut)&&(deltaToCut < (cycleTime / 2))) {
-			cutLogic(step, startPos, deltaToCut);
-		}
-		else {
-			size_t deltaToStretch = cycleTime - deltaToCut;
-			stretchLogic(step, deltaToStretch);
-		}
+
+	// calculate the difference, that has to be equalized
+	size_t deltaToCut = 0;
+	if (posAfterSyn < startPos) {
+		deltaToCut = posAfterSyn + cycleTime - startPos;
 	}
+	else deltaToCut =  posAfterSyn - startPos;
+	// test, wheter cutting of the Signalplan is possible
+	size_t deltaPossible = 0;
+	int noBereiche = getStretchBereicheNo(myTo);
+	for(int i=0; i<noBereiche; i++) {
+        StretchBereichDef def = getStretchBereichDef(myTo, i+1);
+	    assert (def.end >= def.begin) ;
+	    deltaPossible = deltaPossible + (size_t) (def.end - def.begin);
+	}
+	int stretchUmlaufAnz = (int) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
+	deltaPossible = stretchUmlaufAnz * deltaPossible;
+	if ((deltaPossible > deltaToCut)&&(deltaToCut < (cycleTime / 2))) {
+		cutLogic(step, startPos, deltaToCut);
+	}
+	else {
+		size_t deltaToStretch = cycleTime - deltaToCut;
+		if (deltaToStretch == cycleTime) {
+			deltaToStretch = 0;
+		}
+		stretchLogic(step, startPos, deltaToStretch);
+	}
+
 }
 
 
@@ -409,12 +384,12 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
 	size_t actStep = LogicTo->getStepNo();
 	size_t allCutTime = deltaToCut;
-	// changes the actual phase, if there is a "Bereich"
+	// cuts the actual phase, if there is a "Bereich"
 	int noBereiche = getStretchBereicheNo(myTo);
     for(int i=0; i<noBereiche; i++) {
         StretchBereichDef def = getStretchBereichDef(myTo, i+1);
-        size_t begin = def.begin;
-		size_t end = def.end;
+        size_t begin = (size_t) def.begin;
+		size_t end = (size_t) def.end;
 		size_t stepOfBegin = LogicTo->getStepFromPos(begin);
 		if (stepOfBegin == actStep)	{
 			size_t toCut = 0;
@@ -439,16 +414,16 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 		currStep = 0;
 	}
 	while(allCutTime > 0) {
-		for(int i=currStep; i<LogicTo->getPhases().size(); i++) {
+		for(int i=currStep; i<(int) LogicTo->getPhases().size(); i++) {
 			size_t beginOfPhase = LogicTo->getPosFromStep(i);
 			size_t durOfPhase = LogicTo->getPhaseFromStep(i).duration;
 			size_t endOfPhase = beginOfPhase + durOfPhase;
 			for(int i=0; i<noBereiche; i++) {
 				StretchBereichDef def = getStretchBereichDef(myTo, i+1);
-				size_t begin = def.begin;
-				size_t end = def.end;
+				size_t begin = (size_t) def.begin;
+				size_t end = (size_t) def.end;
 				if((beginOfPhase <= begin) && (endOfPhase >= begin)) {
-					int maxCutOfPhase = end - begin;
+					size_t maxCutOfPhase = end - begin;
 					if (allCutTime< maxCutOfPhase) {
 						maxCutOfPhase = allCutTime;
 					}
@@ -464,44 +439,67 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 }
 
 void
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_t deltaToStretch)
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch)
 {
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
-	size_t currStep = LogicTo->getStepNo();
+	size_t currPos = startPos;
+	size_t currStep = LogicTo->getStepFromPos(currPos);
+	size_t durOfPhase = LogicTo->getPhaseFromStep(currStep).duration;
 	size_t allStretchTime = deltaToStretch;
 	size_t remainingStretchTime = allStretchTime;
-	size_t stretchUmlaufAnz = TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
+	int StretchTimeOfPhase = 0;
+	size_t stretchUmlaufAnz = (size_t) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
 	float facSum = 0;
 	int noBereiche = getStretchBereicheNo(myTo);
 	for(int x=0; x<noBereiche; x++) {
 				StretchBereichDef def = getStretchBereichDef(myTo, x+1);
-				size_t fac = def.fac;
+				size_t fac = (size_t) def.fac;
 				facSum = facSum + fac;
 	}
 	facSum = facSum * stretchUmlaufAnz;
-	int changeSwitchPhase = 0;
+
+
+	//switch to startPos and stretch this phase, if there is a end of "bereich" between startpos and end of phase
+	size_t diffToStart = getDiffToStartOfPhase(LogicTo, currPos);
+	for(int x=0; x<noBereiche; x++) {
+		StretchBereichDef def = getStretchBereichDef(myTo, x+1);
+		size_t end = (size_t) def.end;
+		size_t endOfPhase = (size_t) (currPos + durOfPhase - diffToStart);
+		if (end <= endOfPhase && end >= currPos) {
+			float fac = def.fac;
+			float actualfac = fac / facSum;
+			facSum = facSum - fac;
+			StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5);
+			remainingStretchTime = allStretchTime - StretchTimeOfPhase;
+		}
+	}
+	durOfPhase = durOfPhase - diffToStart + StretchTimeOfPhase;
+	myTo->changeStepAndDuration(myControl,step,currStep,durOfPhase);
+
+	currStep ++;
+	if (currStep >= LogicTo->getPhases().size() ) {
+		currStep = 0;
+	}
+
+	// stretch all other phases, if there is a "bereich"
 	while(remainingStretchTime > 0) {
-		for(int i=currStep; i<LogicTo->getPhases().size(); i++) {
+		for(int i=currStep; i<(int) LogicTo->getPhases().size(); i++) {
+			durOfPhase = LogicTo->getPhaseFromStep(i).duration;
 			size_t beginOfPhase = LogicTo->getPosFromStep(i);
-			size_t durOfPhase = LogicTo->getPhaseFromStep(i).duration;
 			size_t endOfPhase = beginOfPhase + durOfPhase;
-			changeSwitchPhase ++;
 			for(int j=0; j<noBereiche; j++) {
 				StretchBereichDef def = getStretchBereichDef(myTo, j+1);
-				size_t end = def.end;
-				float fac = def.fac;
+				size_t end = (size_t) def.end;
+				SUMOReal fac = def.fac;
 				if((beginOfPhase <= end) && (endOfPhase >= end)) {
 					float actualfac = fac / facSum;
-					int StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5) ;
+					StretchTimeOfPhase = (int)((float)remainingStretchTime * actualfac + 0.5) ;
 					facSum = facSum - fac;
 					durOfPhase = durOfPhase + StretchTimeOfPhase;
 					remainingStretchTime = remainingStretchTime - StretchTimeOfPhase;
 				}
 			}
-			if (changeSwitchPhase ==1) {
-				LogicTo->changeStepAndDuration(myControl, step, i, durOfPhase);
-			}
-			else LogicTo->addOverridingDuration(durOfPhase);
+			LogicTo->addOverridingDuration(durOfPhase);
 		}
 	currStep = 0;
 	}

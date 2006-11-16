@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/09/18 11:49:06  dkrajzew
 // code beautifying
 //
@@ -371,7 +374,7 @@ GUIDialog_ViewSettings::onCmdSave(FXObject*,FXSelector,void*)
 {
     string name = mySchemeName->getItemText(mySchemeName->getCurrentItem()).text();
     if(gSchemeStorage.contains(name)) {
-        if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Settings?","Overwrite existing settings '%s'?", mySchemeName->getItemText(mySchemeName->getCurrentItem()))) {
+        if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Settings?","Overwrite existing settings '%s'?", mySchemeName->getItemText(mySchemeName->getCurrentItem()).text())) {
             return 1;
         }
     }

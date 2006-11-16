@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.104  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.103  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -705,7 +708,6 @@ MSVehicle::MSVehicle( string id,
 #ifdef RAKNET_DEMO
     Vehicle(),
 #endif
-    myType(type),
     myLastLaneChangeOffset(0),
     myTarget(0),
     myWaitingTime( 0 ),
@@ -714,17 +716,18 @@ MSVehicle::MSVehicle( string id,
     myID(id),
     myRoute(route),
     myDesiredDepart(departTime),
-    myState(0, 0),
+    myState(0, 0), //
+	equipped(false),
+	lastUp(0),
+	clusterId(-1),
     myLane( 0 ),
+    myType(type),
+    myLastBestLanesEdge(0),
     myCurrEdge(0),
     myAllowedLanes(0),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
-    myOldLaneMoveReminderOffsets( 0 ),
-	lastUp(0),
-	equipped(false),
-	clusterId(-1),
-    myLastBestLanesEdge(0)
+    myOldLaneMoveReminderOffsets( 0 )
 {
     if(myRepetitionNumber>0) {
         myRoute->incReferenceCnt();
@@ -2653,7 +2656,7 @@ MSVehicle::sendInfos(SUMOTime time)
 		for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
 			int nofP = numOfInfos(this,(*i).second->connectedVeh);
 			if(nofP>numberOfInfo)
-				nofP=numberOfInfo;
+				nofP=(int) numberOfInfo;
 			(*i).second->connectedVeh->transferInformation(getID(),infoCont,nofP);
 		}
 		numberOfSendingPos = numberOfSendingPos - ceil(double(infoCont.size())/14.0);
@@ -2668,7 +2671,7 @@ MSVehicle::sendInfos(SUMOTime time)
 		   for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j) {
 				int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
 				if(nofP>numberOfInfo)
-					nofP=numberOfInfo;
+					nofP=(int) numberOfInfo;
 				(*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP);
 		   }
 		   numberOfSendingPos = numberOfSendingPos - ceil(double((*o)->connectedVeh->infoCont.size())/14.0);
@@ -2685,7 +2688,7 @@ MSVehicle::numOfInfos(MSVehicle *veh1, MSVehicle* veh2)
 	Position2D pos2 = veh2->getPosition();
 
 	SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
-	SUMOReal x = ((-2.3*distance + 1650.)*MSGlobals::gNumberOfSendingPos)/1500.; //approximation function
+	SUMOReal x = (SUMOReal) (((-2.3*distance + 1650.)*MSGlobals::gNumberOfSendingPos)/1500.); //approximation function
 	return (int) (x*MSGlobals::gInfoPerPaket);
 }
 

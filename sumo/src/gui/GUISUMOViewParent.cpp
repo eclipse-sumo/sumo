@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/16 10:50:42  dkrajzew
 // warnings removed
 //
@@ -219,9 +222,9 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXuint opts,
                                      FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
     : GUIGlChildWindow( p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200 ),
-    _zoomingFactor(100),
-    _showLegend(true), _allowRotation(false), _chooser(0),
-    myParent(parentWindow)
+    myParent(parentWindow), _zoomingFactor(100),
+    _showLegend(true), _allowRotation(false), _chooser(0)
+
 {
     myParent->addChild(this, false);
 }

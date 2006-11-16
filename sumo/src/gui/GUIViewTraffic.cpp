@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.62  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.61  2006/11/16 12:30:53  dkrajzew
 // warnings removed
 //
@@ -1010,7 +1013,7 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 				_net->getShapeContainer().add(1, p);
 				setSecondPoint(p);
 //!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);
-				SUMOReal dist= sqrt(pow((_firstPoint->x() - _secondPoint->x()),2) + pow((_firstPoint->y() - _secondPoint->y()),2));
+				SUMOReal dist = (SUMOReal) (sqrt(pow((_firstPoint->x() - _secondPoint->x()),2) + pow((_firstPoint->y() - _secondPoint->y()),2)));
 				update();
 			}
 			_firstPoint=0;
@@ -1021,7 +1024,6 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 	}else{
 		delete _popup;
 		_popup = 0;
-		FXEvent *ev=(FXEvent*)data;
 		ungrab();
 	}
 	_leftButtonPressed=false;
@@ -1032,9 +1034,11 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 long
 GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
 {
+    /*
     SUMOReal xpos = _changer->getXPos();
     SUMOReal ypos = _changer->getYPos();
     SUMOReal zoom = _changer->getZoom();
+    */
 	FXEvent *e=(FXEvent*)data;
 
 	if(_pointToMove!=0 && e->state&SHIFTMASK ){

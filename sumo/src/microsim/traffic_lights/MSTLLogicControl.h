@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/11/16 13:56:45  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/11/14 06:41:15  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -225,7 +228,6 @@ public:
     CompletePhaseDef getPhaseDef(const std::string &tlid) const;
 
 
-
 protected:
     /**
      * @class SwitchInitCommand
@@ -249,7 +251,7 @@ protected:
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime currentTime) {
+        SUMOTime execute(SUMOTime ) {
             return myParent.initWautSwitch(*this);
         }
 
@@ -349,6 +351,9 @@ protected:
 		// checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
 		bool isPosAtGSP (SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
 
+		/// Returns the difference between an given position and the start of the phase
+		size_t getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos);
+
 		// switches the given Logic directly to the given position
 		void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
 
@@ -444,10 +449,10 @@ protected:
 
 		// cuts (stauchen) the Logic to synchronize,
 		// returns false if cutting was imposible
-		void cutLogic(SUMOTime step, size_t position, size_t deltaToCut);
+		void cutLogic(SUMOTime step, size_t startPos, size_t deltaToCut);
 
 		// stretchs the logic to synchronize
-		void stretchLogic(SUMOTime step, size_t deltaToStretch);
+		void stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch);
 
     protected:
         /** @struct StretchBereichDef
