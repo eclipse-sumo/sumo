@@ -46,13 +46,15 @@
       <sect3 id="sumo_qa-building-getting_sources-cygwin_cvs_access">
         <title>How do I access the CVS using cygwin or Linux?</title>
 
-        <para><emphasis>Answer:</emphasis> Use the following commands:</para>
+        <para><emphasis>Answer:</emphasis> For the initial checkout use the following command:</para>
 
-        <screen>export CVS_RSH=ssh
-cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
+        <screen>cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co -P sumo</screen>
 
         <para>Press <keycode>RETURN</keycode> if you should be asked for a
         password.</para>
+
+        <para>For later updates go inside the sumo directory, which has been created,
+	and simply type cvs up -dPA.</para>
       </sect3>
 
       <sect3 id="sumo_qa-building-getting_sources-cvs_documentation">
@@ -109,7 +111,7 @@ cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co sumo</scr
         Error: Quitting (conversion failed).</para>
 
         <para><emphasis>Answer:</emphasis> Simply that the file you try to use
-        (&lt;PATH&gt;) does not exist. This is xercec' way to say "file not
+        (&lt;PATH&gt;) does not exist. This is xerces' way to say "file not
         found".</para>
       </sect3>
     </sect2>
