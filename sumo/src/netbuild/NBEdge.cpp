@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.78  2006/11/16 06:49:49  dkrajzew
+// removed unneeded code
+//
 // Revision 1.77  2006/11/14 13:03:07  dkrajzew
 // warnings removed
 //
@@ -2568,15 +2571,6 @@ NBEdge::getTurnDestination() const
     return _turnDestination;
 }
 
-
-void
-NBEdge::writeLaneContinuation(std::ostream &into, size_t lane,
-                              SUMOReal distance)
-{
-    // collect continuations
-    StringContMap continuations;
-    std::set<std::string> visited;
-}
 
 std::string
 NBEdge::getLaneID(size_t lane)

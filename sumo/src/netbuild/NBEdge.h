@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.53  2006/11/16 06:49:49  dkrajzew
+// removed unneeded code
+//
 // Revision 1.52  2006/11/03 23:05:34  behrisch
 // Syntactic sugar
 //
@@ -743,9 +746,6 @@ private:
 
     // !!! describe
     void writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx);
-
-
-    void writeLaneContinuation(std::ostream &into, size_t lane, SUMOReal distance);
 
 private:
     /** invalid copy constructor */
