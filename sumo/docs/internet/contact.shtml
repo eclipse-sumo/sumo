@@ -78,22 +78,22 @@ There are four lists available:
 	This is the first place you should ask your questions.
 	Several people are observing it and may give you some hints.<br>
 	Subscribe the list if you want to know what other people ask.<br>
-	Frequency: few mail per month<br>
+	Frequency: few mails per month<br>
 
 	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-cvs" class="SUMOInLineLink">sumo-cvs</a><br>
 	Subscribe the list if you want to get information about changes within the cvs.<br>
-	You should rather not post to the list<br>
+	You should rather not post to the list directly, it is meant to contain automatically generated informations
+      about changes in the CVS.<br>
 	Frequency: up to 100 messages/day (cvs-logs)<br>
 
 	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-devel" class="SUMOInLineLink">sumo-devel</a><br>
-	This list was meant to be used by developers to discuss next steps.
-	As almost everyone is working for himself, this list is almost completely unused.<br>
-	Frequency: not used.<br>
+	This list was meant to be used by developers to discuss next steps.<br>
+	Frequency: few mails per month<br>
 
 	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-announce" class="SUMOInLineLink">sumo-announce</a><br>
 	Subscribe the list if you want to get information about new releases or documents.<br>
-	Post to the list if you have to announce something by yourself<br>
-	Frequency: few per year<br>
+	Post to the list if you have to announce something by yourself.<br>
+	Frequency: few mails per year<br>
 
 </ul>
 </p>
