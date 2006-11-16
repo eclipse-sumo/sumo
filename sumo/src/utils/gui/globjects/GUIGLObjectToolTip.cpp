@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/11/16 10:50:52  dkrajzew
 // warnings removed
 //
@@ -150,7 +153,7 @@ GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
 
 
 long
-GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void* ptr)
+GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void* )
 {
     if(_object==0) {
         return 1;

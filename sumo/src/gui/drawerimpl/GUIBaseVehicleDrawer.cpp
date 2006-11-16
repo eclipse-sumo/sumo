@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/10/12 10:14:26  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -353,7 +356,7 @@ void
 GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         GUIBaseColorer<GUIVehicle> &colorer)
 {
-    /*
+    /
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {

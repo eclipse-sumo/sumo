@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -167,7 +170,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent)
+                                       GUISUMOAbstractView &)
 {
 	std::vector<std::string> s=myJunction.getNames();
 	int NumberOfRows =s.size();

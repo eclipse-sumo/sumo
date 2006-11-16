@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/11/14 13:02:05  dkrajzew
 // warnings removed
 //
@@ -290,7 +293,7 @@ MSRoute::saveState(std::ostream &os, long /*what*/)
 
 
 void
-MSRoute::dict_loadState(BinaryInputDevice &bis, long what)
+MSRoute::dict_loadState(BinaryInputDevice &bis, long /*what*/)
 {
     unsigned int noRoutes;
     bis >> noRoutes;

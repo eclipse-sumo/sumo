@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/03/17 08:53:17  dkrajzew
 // "Action" removed - was the same as Command; changed the Event-interface (execute now gets the current simulation time)
 //
@@ -110,10 +113,8 @@ Command_SaveTLCoupledLaneDet::execute(SUMOTime currentTime)
         return true;
     }
     if(myLink->getState()==MSLink::LINKSTATE_TL_RED) {
-        SUMOTime end =
-            MSNet::getInstance()->getCurrentTimeStep();
-        myDetector->writeXMLOutput( *myDevice, myStartTime, end );
-        myStartTime = end;
+        myDetector->writeXMLOutput( *myDevice, myStartTime, currentTime );
+        myStartTime = currentTime;
     }
     myLastState = myLink->getState();
     return true;

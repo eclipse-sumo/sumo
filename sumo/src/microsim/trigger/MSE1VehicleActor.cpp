@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/11/16 10:50:45  dkrajzew
 // warnings removed
 //
@@ -182,7 +185,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 
 
 void
-MSE1VehicleActor::dismissByLaneChange( MSVehicle& veh )
+MSE1VehicleActor::dismissByLaneChange( MSVehicle&  )
 {
 }
 

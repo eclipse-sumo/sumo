@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -148,7 +151,6 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
 
     MSLane::VehCont::const_iterator v;
     for(v=vehicles.begin(); v!=vehicles.end(); v++) {
-        MSVehicle *veh = *v;
         /*
             if(true&&veh->isEquipped()) {
                 const MSVehicle::VehCont &neigh = veh->getConnections();

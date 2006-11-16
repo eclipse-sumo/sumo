@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.92  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.91  2006/11/14 13:02:01  dkrajzew
 // warnings removed
 //
@@ -853,7 +856,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 
 
 void
-MSNet::simulationStep( SUMOTime start, SUMOTime step )
+MSNet::simulationStep( SUMOTime /*start*/, SUMOTime step )
 {
     myStep = step;
     debug_globaltime = step;
@@ -1004,7 +1007,7 @@ void MSNet::computeCar2Car(void)
 					}
 				}
 				clusterHeaders.push_back((*q));
-				int count = (*q)->buildMyCluster(myStep, clusterId);
+				//				int count = (*q)->buildMyCluster(myStep, clusterId);
 				clusterId++;
 			}
 		}

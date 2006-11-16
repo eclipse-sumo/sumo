@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -69,7 +71,7 @@ public:
         (i.*myOperation)();
     }
 
-	void setGlColor(SUMOReal val) const {
+	void setGlColor(SUMOReal ) const {
         glColor3d(1, 1, 0);
     }
 
@@ -77,7 +79,7 @@ public:
         return CST_STATIC;
     }
 
-    virtual void resetColor(const RGBColor &min) {
+    virtual void resetColor(const RGBColor &) {
     }
 
     virtual const RGBColor &getSingleColor() const {

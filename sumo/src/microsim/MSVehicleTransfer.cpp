@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/11/14 13:02:27  dkrajzew
 // warnings removed
 //
@@ -125,7 +128,6 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
     // let the vehicle be on the one
-    const MSLane &lane = veh->getLane();
     veh->leaveLaneAtLaneChange();
     veh->onTripEnd(/*lane*/);
     if(veh->proceedVirtualReturnWhetherEnded(MSEdge::dictionary(veh->succEdge(1)->getID()))) {

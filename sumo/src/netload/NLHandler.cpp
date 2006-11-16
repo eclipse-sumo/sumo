@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.23  2006/11/16 07:02:18  dkrajzew
 // warnings removed
 //
@@ -1335,7 +1338,7 @@ NLHandler::allocateEdges(const std::string &chars)
         string edgeid = chars.substr(beg, idx-beg);
         // skip internal edges if not wished
         if(MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
-            MSEdge *edge = myEdgeControlBuilder.addEdge(edgeid);
+            myEdgeControlBuilder.addEdge(edgeid);
         }
         beg = idx + 1;
         idx = chars.find(' ', beg);
@@ -1613,7 +1616,7 @@ NLHandler::closeEdge()
 {
     // do not process internal lanes if not wished
     if(!myCurrentIsInternalToSkip) {
-        MSEdge *edge = myEdgeControlBuilder.closeEdge();
+        myEdgeControlBuilder.closeEdge();
 #ifdef HAVE_MESOSIM
         if(MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());

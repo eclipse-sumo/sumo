@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.58  2006/08/10 11:12:53  dkrajzew
 // coordinate information is resetted when all windows are closed
 //
@@ -1100,7 +1103,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *e)
+GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *)
 {
     updateChildren();
     ostringstream str;
@@ -1297,7 +1300,7 @@ GUIApplicationWindow::loadOnStartup(const std::string &config, bool run)
 long
 GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
 {
-    /*
+    /
     GUIDialog_CutSwell *about =
         new GUIDialog_CutSwell(this, "Simulating...", 0, 0);
     about->create();

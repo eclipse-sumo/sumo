@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/09/18 10:08:33  dkrajzew
 // added vehicle class support to microsim
 //
@@ -287,7 +290,7 @@ MSVehicleType::dict_saveState(std::ostream &os, long what)
 
 
 void
-MSVehicleType::saveState(std::ostream &os, long what)
+MSVehicleType::saveState(std::ostream &os, long /*what*/)
 {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeFloat(os, myLength);
@@ -300,7 +303,7 @@ MSVehicleType::saveState(std::ostream &os, long what)
 
 
 void
-MSVehicleType::dict_loadState(BinaryInputDevice &bis, long what)
+MSVehicleType::dict_loadState(BinaryInputDevice &bis, long /*what*/)
 {
     unsigned int size;
     bis >> size;

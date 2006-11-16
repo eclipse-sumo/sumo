@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/11/14 06:44:51  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -375,7 +378,7 @@ NLBuilder::build()
 
 
 bool
-NLBuilder::buildNet(GNEImageProcWindow &t)
+NLBuilder::buildNet(GNEImageProcWindow &)
 {
     return buildNet();
 }

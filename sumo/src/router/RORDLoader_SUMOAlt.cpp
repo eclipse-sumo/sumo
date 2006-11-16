@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -223,7 +226,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
+RORDLoader_SUMOAlt::myCharacters(int element, const std::string &/*name*/,
                                  const std::string &chars)
 {
     // process routes only, all other elements do

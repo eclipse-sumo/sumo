@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.3  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -135,7 +138,7 @@ MSCell::addEdge(MSEdge *edge)
 
 /// Removes an edge from the Container
 void
-MSCell::removeEdge(MSEdge *edge)
+MSCell::removeEdge(MSEdge *)
 {
 }
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -71,11 +74,11 @@ class GUIColorer_SingleColor : public GUIBaseColorer<_T> {
 public:
 	GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }
 	virtual ~GUIColorer_SingleColor() { }
-	void setGlColor(const _T& i) const {
+	void setGlColor(const _T& ) const {
 		glColor3d(myColor.red(), myColor.green(), myColor.blue());
 	}
 
-	void setGlColor(SUMOReal val) const {
+	void setGlColor(SUMOReal ) const {
 		glColor3d(myColor.red(), myColor.green(), myColor.blue());
 	}
 

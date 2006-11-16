@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -166,7 +169,7 @@ MSBuildCells::computeEdgeCells(size_t index, MSEdge *edge)
 
 
 void
-MSBuildCells::computeLaneCells(size_t index, const Position2DVector &lane, MSEdge *edge)
+MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lane, MSEdge *edge)
 {
     // compute the outer and inner positions of the edge
     //  (meaning the real edge position and the position yielding from

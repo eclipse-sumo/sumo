@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -109,7 +112,7 @@ GUIMainWindow::~GUIMainWindow()
 
 
 void
-GUIMainWindow::addChild(FXMDIChild *child, bool updateOnSimStep)
+GUIMainWindow::addChild(FXMDIChild *child, bool /*updateOnSimStep !!!*/)
 {
     mySubWindows.push_back(child);
 }
@@ -127,7 +130,7 @@ GUIMainWindow::removeChild(FXMDIChild *child)
 
 
 void
-GUIMainWindow::addChild(FXMainWindow *child, bool updateOnSimStep)
+GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/)
 {
     myTrackerLock.lock();
     myTrackerWindows.push_back(child);

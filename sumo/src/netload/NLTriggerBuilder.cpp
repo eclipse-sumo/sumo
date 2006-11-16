@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/14 13:04:13  dkrajzew
 // warnings removed
 //
@@ -240,7 +243,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
 MSBusStop *
 NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
                                        const Attributes &attrs,
-                                       const std::string &base,
+                                       const std::string &/*base*/,
                                        const NLHandler &helper)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);

@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.36  2006/09/18 09:57:43  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -219,7 +222,6 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
     _step = start;
     _net->initialiseSimulation();
     // register message callbacks
-    OptionsCont &oc = OptionsSubSys::getOptions();
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);

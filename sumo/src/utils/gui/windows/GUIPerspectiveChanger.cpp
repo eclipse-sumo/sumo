@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/07/06 05:54:11  dkrajzew
 // refactoring
 //
@@ -152,7 +155,7 @@ GUIPerspectiveChanger::onRightBtnRelease(void*)
 
 
 void
-GUIPerspectiveChanger::onMouseMove(void *data)
+GUIPerspectiveChanger::onMouseMove(void *)
 {
 }
 

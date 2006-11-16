@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.37  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.36  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -293,7 +296,7 @@ public:
 	FXCursor *getDefaultCursor();
 
 protected:
-    virtual void addToWindowsMenu(FXMenuPane *p) { }
+    virtual void addToWindowsMenu(FXMenuPane *) { }
 
 private:
     /** starts to load a simulation */

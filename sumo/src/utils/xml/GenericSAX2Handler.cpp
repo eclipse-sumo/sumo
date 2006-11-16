@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -215,7 +218,7 @@ GenericSAX2Handler::characters(const XMLCh* const chars,
 
 void
 GenericSAX2Handler::ignorableWhitespace(const XMLCh* const /*chars*/,
-                                        const unsigned int length)
+                                        const unsigned int /*length*/)
 {
 }
 

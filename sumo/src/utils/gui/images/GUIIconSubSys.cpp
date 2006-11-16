@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/01/11 11:56:30  dkrajzew
 // added a colorwheel icon for visualization changer
 //
@@ -115,8 +118,10 @@ namespace
 #include "recenter_view.xpm"
 #include "show_legend.xpm"
 #include "allow_rotation.xpm"
+/*
 #include "colour_lane.xpm"
 #include "colour_vehicle.xpm"
+*/
 #include "show_grid.xpm"
 #include "show_tooltips.xpm"
 #include "show_geometry.xpm"

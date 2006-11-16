@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.37  2006/11/14 13:04:12  dkrajzew
 // warnings removed
 //
@@ -440,7 +443,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
 
 void
 NLDetectorBuilder::convContE2PosLength(const std::string &id,
-                                       MSLane *clane,
+                                       MSLane * /*clane*/,
                                        SUMOReal pos,
                                        SUMOReal length)
 {

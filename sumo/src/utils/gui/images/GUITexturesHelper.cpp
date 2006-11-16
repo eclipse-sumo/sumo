@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/01/09 13:37:29  dkrajzew
 // decals added
 //
@@ -75,7 +78,7 @@ namespace
 #include "pl_3.xpm"
 #include "pr_1.xpm"
 #include "pr_2.xpm"
-#include "pr_3.xpm"
+//#include "pr_3.xpm"
 #include "GUIImageGlobals.h"
 
 #ifdef _WIN32

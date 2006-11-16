@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -177,8 +180,7 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*)
 {
-    GUIParameterTableWindow *w =
-        myObject->getParameterWindow(*myApplication, *myParent);
+    myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameetrWindow would be more appropriate
     return 1;
 }
 

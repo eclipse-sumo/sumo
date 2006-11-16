@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.60  2006/11/16 10:50:42  dkrajzew
 // warnings removed
 //
@@ -337,7 +340,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
 
 
 void
-GUIViewTraffic::init(GUINet &net)
+GUIViewTraffic::init(GUINet &)
 {
     // build the artifact-instances-to-draw - tables
     _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
@@ -545,7 +548,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 
 
 long
-GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector sel,void*data)
+GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
 {
     char *dataC = (char*) data; // !!! unicode
     myVisualizationSettings = gSchemeStorage.get(dataC);
@@ -1092,7 +1095,7 @@ GUIViewTraffic::rename(GUIGlObject *o)
 }
 
 void
-GUIViewTraffic::moveTo(GUIGlObject *o)
+GUIViewTraffic::moveTo(GUIGlObject *)
 {
     /*
 	std::string n= o->getFullName();
@@ -1133,7 +1136,7 @@ GUIViewTraffic::moveTo(GUIGlObject *o)
 
 
 void
-GUIViewTraffic::changeCol(GUIGlObject *o)
+GUIViewTraffic::changeCol(GUIGlObject *)
 {
     /*
 	std::string n= o->getFullName();
@@ -1156,7 +1159,7 @@ GUIViewTraffic::changeCol(GUIGlObject *o)
 }
 
 void
-GUIViewTraffic::changeTyp(GUIGlObject *o)
+GUIViewTraffic::changeTyp(GUIGlObject *)
 {
     /*
 	std::string n= o->getFullName();
@@ -1198,7 +1201,7 @@ GUIViewTraffic::changeTyp(GUIGlObject *o)
 }
 
 void
-GUIViewTraffic::deleteObj(GUIGlObject *o)
+GUIViewTraffic::deleteObj(GUIGlObject *)
 {
     /*
 	std::string n= o->getFullName();

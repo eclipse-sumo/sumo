@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/10/06 07:13:40  dkrajzew
 // debugging internal lanes
 //
@@ -158,7 +161,7 @@ MSLogicJunction::postloadInit()
         // ... set information for every link
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                &myRespond, requestPos/*, clearInfo/);
+                &myRespond, requestPos/, clearInfo/);
             requestPos++;
         }
     }

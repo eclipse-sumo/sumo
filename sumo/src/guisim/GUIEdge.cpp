@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.32  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -294,7 +297,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
 
 
 GUIParameterTableWindow *
-GUIEdge::getParameterWindow(GUIMainWindow &app,
+GUIEdge::getParameterWindow(GUIMainWindow &,
                             GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;

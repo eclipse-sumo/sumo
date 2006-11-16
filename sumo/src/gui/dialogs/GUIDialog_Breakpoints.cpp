@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/07/06 05:35:54  dkrajzew
 // replaced exception throwing in unreachable places by something more friendly
 //
@@ -376,7 +379,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
         value = INVALID_VALUE_STR;
     }
     int row = i->row;
-    if(row==gBreakpoints.size()) {
+    if(row==(int) gBreakpoints.size()) {
         gBreakpoints.push_back(INVALID_VALUE);
     }
 

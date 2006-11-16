@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 12:30:53  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/07/06 06:26:45  dkrajzew
 // added blinker visualisation and vehicle tracking (unfinished)
 //
@@ -106,7 +109,7 @@ GUIVehicleDrawer_SGwTasTriangle::~GUIVehicleDrawer_SGwTasTriangle()
 
 void
 GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
-        GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool showBlinker)
+						   GUIBaseColorer<GUIVehicle> &colorer, float upscale, bool /*showBlinker !!!*/)
 {
     // retrieve vehicles from lane; disallow simulation
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();

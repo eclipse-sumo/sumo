@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 12:30:54  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/09/18 11:34:21  dkrajzew
 // debugged building on Windows
 //
@@ -164,7 +167,7 @@ DFDetectorFlows::knows( const std::string &det_id ) const
 
 
 bool
-DFDetectorFlows::knows( const std::string &det_id, SUMOTime time ) const
+DFDetectorFlows::knows( const std::string &det_id, SUMOTime /*time*/ ) const
 {
     if(myFastAccessFlows.find(det_id)==myFastAccessFlows.end()) {
         return false;

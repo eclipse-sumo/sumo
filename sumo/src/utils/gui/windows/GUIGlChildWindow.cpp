@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/16 12:30:55  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -88,7 +91,7 @@ GUIGlChildWindow::getBuildGLCanvas() const
 
 
 FXToolBar &
-GUIGlChildWindow::getToolBar(GUISUMOAbstractView &v)
+GUIGlChildWindow::getToolBar(GUISUMOAbstractView &)
 {
     return *myToolBar;
 }
