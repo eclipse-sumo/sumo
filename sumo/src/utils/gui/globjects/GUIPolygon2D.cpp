@@ -60,8 +60,8 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIPolygon2D::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent)
+GUIPolygon2D::getParameterWindow(GUIMainWindow &,
+                                       GUISUMOAbstractView &)
 {
     return 0;
 }

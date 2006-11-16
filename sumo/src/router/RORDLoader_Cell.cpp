@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/05/15 05:57:06  dkrajzew
 // added consective process messages
 //
@@ -337,7 +340,6 @@ RORDLoader_Cell::report(const std::string &result)
         } catch (EmptyData) {
         }
     } else {
-        unsigned long pos = _lineReader.getPosition();
         _routes.push_back(_lineReader.getPosition());
     }
     return true;
@@ -354,7 +356,7 @@ RORDLoader_Cell::initDriverFile()
     // check for header
     int mark = FileHelpers::readInt(_driverStrm, _isIntel);
     int offset = FileHelpers::readInt(_driverStrm, _isIntel);
-    int makeRouteTime = FileHelpers::readInt(_driverStrm, _isIntel);
+    /*int makeRouteTime = */FileHelpers::readInt(_driverStrm, _isIntel);
     if(mark==INT_MAX) {
         // skip header
         _driverStrm.seekg(offset, ios::beg);

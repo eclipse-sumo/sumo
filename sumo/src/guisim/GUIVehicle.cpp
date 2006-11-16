@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.46  2006/11/14 13:01:53  dkrajzew
 // warnings removed
 //
@@ -418,7 +421,7 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIVehicle::getParameterWindow(GUIMainWindow &app,
-                               GUISUMOAbstractView &parent)
+                               GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);

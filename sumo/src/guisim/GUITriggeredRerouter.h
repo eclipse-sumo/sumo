@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/11/14 13:01:50  dkrajzew
 // warnings removed
 //
@@ -181,15 +184,15 @@ public:
     private:
         GUIMainWindow *myParent;
 
-        FXRealSpinDial *myUsageProbabilityDial;
-
         FXint myChosenValue;
 
         FXDataTarget myChosenTarget;
 
-        FXDataTarget myUsageProbabilityTarget;
-
         SUMOReal myUsageProbability;
+
+        FXRealSpinDial *myUsageProbabilityDial;
+
+        FXDataTarget myUsageProbabilityTarget;
 
         GUITriggeredRerouter *myObject;
 

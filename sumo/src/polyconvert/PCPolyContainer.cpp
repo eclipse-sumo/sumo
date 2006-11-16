@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.3  2006/11/02 12:19:50  dkrajzew
 // added parsing of Elmar's pointcollections
 //
@@ -163,7 +166,7 @@ PCPolyContainer::report()
 
 
 void
-PCPolyContainer::save(const std::string &file, int layer)
+PCPolyContainer::save(const std::string &file, int /*layer*/)
 {
 	ofstream out(file.c_str());
     if(!out.good()) {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/10/25 12:22:41  dkrajzew
 // updated
 //
@@ -175,7 +178,7 @@ MSTrafficLightLogic::SwitchCommand::~SwitchCommand()
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute(SUMOTime currentTime)
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime )
 {
     // check whether this command has been descheduled
     if(!myAmValid) {
@@ -444,7 +447,6 @@ MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic)
 void
 MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params)
 {
-    int bla = params.size();
     myParameter = params;
 }
 
@@ -452,7 +454,6 @@ MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &para
 std::string
 MSTrafficLightLogic::getParameterValue(const std::string &key) const
 {
-    int bla = myParameter.size();
     if(myParameter.find(key)==myParameter.end()) {
         return "";
     }
@@ -475,8 +476,8 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay)
 
 
 void
-MSTrafficLightLogic::init(NLDetectorBuilder &nb,
-                                const MSEdgeContinuations &edgeContinuations)
+MSTrafficLightLogic::init(NLDetectorBuilder &,
+                          const MSEdgeContinuations &/*edgeContinuations*/)
 {
     MSJunction *j = MSJunction::dictionary(getID());
     if(j!=0) {

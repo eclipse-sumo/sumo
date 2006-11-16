@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -34,8 +37,6 @@ namespace
 //
 // Revision 1.2  2005/06/14 11:29:51  dksumo
 // documentation added
-//
-
 //
 /* =========================================================================
  * compiler pragmas
@@ -60,14 +61,14 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
+
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-
 GUIGlChildWindow::GUIGlChildWindow( FXMDIClient* p,
 								   FXMDIMenu *mdimenu, const FXString& name,
-								   FXIcon* ic, FXPopup* pup,
-								   FXuint opts,FXint x,FXint y,FXint w,FXint h)
+								   FXIcon* ic, FXPopup* /*pup*/,
+								   FXuint opts,FXint /*x*/,FXint /*y*/,FXint /*w*/,FXint /*h*/)
 	: FXMDIChild( p, name, ic, mdimenu, opts, 10, 10, 300, 200 ),
 	_view(0)
 {

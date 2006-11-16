@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -82,7 +85,6 @@ using namespace std;
 void
 IntVectorHelper::removeDouble(IntVector &v)
 {
-    size_t pos = 0;
     IntVector::iterator i=v.begin();
     while(i!=v.end()) {
         for(IntVector::iterator j=i+1; j!=v.end(); ) {

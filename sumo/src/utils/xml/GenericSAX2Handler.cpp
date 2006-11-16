@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/01/19 09:26:20  dkrajzew
 // debugging
 //
@@ -147,8 +150,8 @@ GenericSAX2Handler::unknownOccured() const
 
 
 void
-GenericSAX2Handler::startElement(const XMLCh* const uri,
-                                 const XMLCh* const localname,
+GenericSAX2Handler::startElement(const XMLCh* const /*uri*/,
+                                 const XMLCh* const /*localname*/,
                                  const XMLCh* const qname,
                                  const Attributes& attrs)
 {
@@ -165,8 +168,8 @@ GenericSAX2Handler::startElement(const XMLCh* const uri,
 
 
 void
-GenericSAX2Handler::endElement(const XMLCh* const uri,
-                               const XMLCh* const localname,
+GenericSAX2Handler::endElement(const XMLCh* const /*uri*/,
+                               const XMLCh* const /*localname*/,
                                const XMLCh* const qname)
 {
     string name = TplConvert<XMLCh>::_2str(qname);
@@ -211,7 +214,7 @@ GenericSAX2Handler::characters(const XMLCh* const chars,
 
 
 void
-GenericSAX2Handler::ignorableWhitespace(const XMLCh* const chars,
+GenericSAX2Handler::ignorableWhitespace(const XMLCh* const /*chars*/,
                                         const unsigned int length)
 {
 }
@@ -224,42 +227,42 @@ GenericSAX2Handler::resetDocument()
 
 
 void
-GenericSAX2Handler::warning(const SAXParseException& exception)
+GenericSAX2Handler::warning(const SAXParseException& )
 {
 }
 
 
 void
-GenericSAX2Handler::error(const SAXParseException& exception)
+GenericSAX2Handler::error(const SAXParseException& )
 {
 }
 
 
 void
-GenericSAX2Handler::fatalError(const SAXParseException& exception)
+GenericSAX2Handler::fatalError(const SAXParseException& )
 {
 }
 
 
 void
-GenericSAX2Handler::myStartElementDump(int element,
-                                       const std::string &name,
-                                       const Attributes &attrs)
+GenericSAX2Handler::myStartElementDump(int /*element*/,
+                                       const std::string &/*name*/,
+                                       const Attributes &/*attrs*/)
 {
 }
 
 
 void
-GenericSAX2Handler::myCharactersDump(int element,
-                                     const std::string &name,
-                                     const std::string &chars)
+GenericSAX2Handler::myCharactersDump(int /*element*/,
+                                     const std::string &/*name*/,
+                                     const std::string &/*chars*/)
 {
 }
 
 
 void
-GenericSAX2Handler::myEndElementDump(int element,
-                                     const std::string &name)
+GenericSAX2Handler::myEndElementDump(int /*element*/,
+                                     const std::string &/*name*/)
 {
 }
 

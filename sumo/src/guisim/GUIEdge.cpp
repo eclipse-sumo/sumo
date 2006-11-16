@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.31  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -292,7 +295,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
 
 GUIParameterTableWindow *
 GUIEdge::getParameterWindow(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent)
+                            GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;
 #ifdef HAVE_MESOSIM

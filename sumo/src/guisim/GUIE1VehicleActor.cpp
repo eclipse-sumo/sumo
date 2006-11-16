@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/11/08 16:55:09  ericnicolay
 // just changed for compiling
 //
 // Revision 1.1  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -338,8 +340,8 @@ GUIE1VehicleActor::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &parent)
+GUIE1VehicleActor::getParameterWindow(GUIMainWindow &,
+                                        GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -480,8 +482,8 @@ GUIE1VehicleActor::getBoundary() const
 
 
 GUIManipulator *
-GUIE1VehicleActor::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent)
+GUIE1VehicleActor::openManipulator(GUIMainWindow &,
+                                     GUISUMOAbstractView &)
 {
     /*
     GUIManip_LaneSpeedTrigger *gui =

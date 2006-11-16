@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/11/14 13:01:44  dkrajzew
 // warnings removed
 //
@@ -160,11 +163,10 @@ FXIMPLEMENT(GUITriggeredRerouter::GUIManip_TriggeredRerouter, GUIManipulator, GU
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
         GUIMainWindow &app,
         const std::string &name, GUITriggeredRerouter &o,
-        int xpos, int ypos)
-    : GUIManipulator(app, name, 0, 0), myChosenValue(0),
-    myParent(&app),
-    myChosenTarget(myChosenValue, this, MID_OPTION), myUsageProbabilityTarget(myUsageProbability),
-    myUsageProbability(o.getProbability()),
+        int /*xpos*/, int /*ypos*/)
+    : GUIManipulator(app, name, 0, 0), myParent(&app),
+    myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+    myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
     myObject(&o)
 {
     FXVerticalFrame *f1 =
@@ -356,8 +358,8 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUITriggeredRerouter::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &parent)
+GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
+                                        GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -503,7 +505,7 @@ GUITriggeredRerouter::getBoundary() const
 
 GUIManipulator *
 GUITriggeredRerouter::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent)
+                                     GUISUMOAbstractView &)
 {
     GUIManip_TriggeredRerouter *gui =
         new GUIManip_TriggeredRerouter(app, getFullName(), *this, 0, 0);

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -188,7 +191,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
         GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
-        size_t glID, GUI_E2_ZS_CollectorOverLanes &mustBe,
+        size_t glID, GUI_E2_ZS_CollectorOverLanes &,
         GUILaneWrapper &wrapper)
     : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID(), glID),
     myDetector(detector)
@@ -239,7 +242,7 @@ GUI_E2_ZS_Collector::MyWrapper::getBoundary() const
 
 GUIParameterTableWindow *
 GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-                                                   GUISUMOAbstractView &parent)
+                                                   GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 14);
@@ -294,7 +297,7 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal /*scale*/, SUMOReal upscale)
 {
     SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -334,7 +337,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal /*scale*/, SUMOReal upscale)
 {
     SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {

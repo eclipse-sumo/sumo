@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -145,7 +148,7 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUINetWrapper::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent)
+                                       GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);

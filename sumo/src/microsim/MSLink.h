@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/11/14 13:02:00  dkrajzew
 // warnings removed
 //
@@ -232,11 +235,11 @@ private:
     /// The basic state of the link
     LinkState myState;
 
-    /// An abstract (hopefully human readable) definition of the link's direction
-    LinkDirection myDirection;
-
 	/// Information whether the tl (if this link belongs to one) shows yellow
 	bool myAmYellow; // !!! deprecated
+
+    /// An abstract (hopefully human readable) definition of the link's direction
+    LinkDirection myDirection;
 
 #ifdef HAVE_INTERNAL_LANES
     bool myIsInternalEnd;

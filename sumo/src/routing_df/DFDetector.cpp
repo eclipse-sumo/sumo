@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -143,7 +146,7 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 
 
 void
-DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
+DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
                                          const DFDetectorFlows &flows,
 										 SUMOTime startTime,
                                          SUMOTime endTime,
@@ -166,7 +169,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
     }
 */
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+    //const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
     int time;
     for(time=startTime; time<endTime; time+=stepOffset) {
@@ -200,9 +203,9 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                             SUMOReal cflow = 0;
                             if(true) { // !!!
                                 cflow = (SUMOReal) detectors.getAggFlowFor(*k, time, 30*60, flows);
-                                /*
+                                /
                                 for(SUMOTime t2 = 0; t2<30*60&&t2+time<endTime; t2+=stepOffset) { // !!!
-                                    SUMOReal tmpFlow = (SUMOReal) detectors.getFlowFor(*k, (t2+time/*!!! + desc->duration2Last/), flows);
+                                    SUMOReal tmpFlow = (SUMOReal) detectors.getFlowFor(*k, (t2+time/!!! + desc->duration2Last/), flows);
                                     if(tmpFlow<0) {
                                         tmpFlow = 0;
                                     }
@@ -210,7 +213,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                 }
                                 /
                             } else {
-                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last/), flows);
+                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/!!! + desc->duration2Last/), flows);
                             }
                             if(cflow<0) {
                                 cflow = 0; // !!!
@@ -289,7 +292,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             //
             distanceFactor = distanceFactor * distanceFactor;
             rd->factor = rd->factor * rd->factor;
-            SUMOReal laneFactor = (noLanes/noEdges);
+            // SUMOReal laneFactor = (noLanes/noEdges);
             SUMOReal ovProb = (rd->factor * distanceFactor * length * edgeFactor * noLanes);
             into[time]->add(ovProb, index);
             (*ri)->overallProb = ovProb;
@@ -318,7 +321,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                     SUMOReal sumFlows = 0;
                     SUMOReal myFlow = 0;
                     for(std::vector<ROEdge*>::const_iterator k=possNext.begin(); k!=possNext.end(); ++k) {
-                        SUMOReal cflow = detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last/), flows);
+                        SUMOReal cflow = detectors.getFlowFor(*k, (time/!!! + desc->duration2Last/), flows);
     if(myID=="12") {
         cout << myID << " " << cflow << " " << (*k)->getID() << endl;
     }
@@ -355,7 +358,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             (*ri)->overallProb += destFlow;
         }
     }
-/*
+/
         std::vector<size_t> unset;
         size_t index = 0;
         for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
@@ -378,7 +381,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             }
         }
     }
-    /*
+    /
     myRoutes->sortByDistance();
     const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
     for(int time=startTime; time<endTime; time+=stepOffset) {
@@ -413,7 +416,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         }
     }
 
-    /*
+    /
 	RandomDistributor<size_t> *ret = new RandomDistributor<size_t>;
 	ret->add(1, 0); // !!!
     */
@@ -508,7 +511,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 			for(size_t car=0; car<carNo; ++car) {
 				// get the vehicle parameter
 				string type = "test";
-                SUMOReal v;
+                SUMOReal v = -1;
                 int destIndex = destDist->getOverallProb()>0 ? destDist->get() : -1;
 //!!! micro srcIndex = srcDist.get();
 //				std::vector<std::string> route = droutes[destIndex]->edges2Pass;

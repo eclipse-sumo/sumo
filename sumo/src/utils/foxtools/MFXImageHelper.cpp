@@ -85,7 +85,7 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file)
 // smell: yellow (the save functions may have additional options, not regarded)
 // Save file
 FXbool
-MFXImageHelper::saveimage(FXApp *a, const std::string& file,
+MFXImageHelper::saveimage(FXApp *, const std::string& file,
         int width, int height, FXColor *data)
 {
     FXString ext=FXFile::extension(file.c_str());
@@ -93,7 +93,6 @@ MFXImageHelper::saveimage(FXApp *a, const std::string& file,
     if(!stream.open(file.c_str(), FXStreamSave)){
         return false;
     }
-    FXImage *img=NULL;
     if(comparecase(ext,"gif")==0){
         return fxsaveGIF(stream,
             data, width, height, false /* !!! "fast" */);

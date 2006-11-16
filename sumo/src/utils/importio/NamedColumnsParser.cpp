@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/03/08 13:18:24  dkrajzew
 // debugging
 //
@@ -111,7 +114,7 @@ NamedColumnsParser::NamedColumnsParser()
 NamedColumnsParser::NamedColumnsParser(const std::string &def,
                                        const std::string &defDelim,
                                        const std::string &lineDelim,
-                                       bool prune, bool ignoreCase)
+                                       bool /*prune !!!*/, bool ignoreCase)
 {
     reinitMap(def, defDelim);
     myLineDelimiter = lineDelim;

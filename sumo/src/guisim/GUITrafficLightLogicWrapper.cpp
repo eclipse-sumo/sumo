@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.16  2006/11/14 06:41:15  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -246,8 +249,8 @@ GUITrafficLightLogicWrapper::showPhases()
 
 
 GUIParameterTableWindow *
-GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &app,
-                                                GUISUMOAbstractView &parent)
+GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
+                                                GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -285,7 +288,7 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to)
 {
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
-    size_t index = 0;
+    int index = 0;
     for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
         if(index==to) {
             myTLLogicControl.switchTo((*i).second->getID(), (*i).second->getSubID());

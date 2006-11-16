@@ -25,7 +25,7 @@ FXIMPLEMENT(MFXCheckableButton,FXButton,MFXCheckableButtonMap,ARRAYNUMBER(MFXChe
 MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        const FXString& text, FXIcon* ic,
                                        FXObject* tgt,FXSelector sel,
-                                       FXuint opts,
+                                       FXuint /*opts*/,
                                        FXint x,FXint y,FXint w,FXint h,
                                        FXint pl,FXint pr,FXint pt,FXint pb)
     : FXButton(p, text, ic, tgt, sel, BUTTON_DEFAULT, x, y, w,h, pl,pr,pt,pb),

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/09/18 10:18:23  dkrajzew
 // debugging
 //
@@ -309,9 +312,9 @@ public:
 
     void drawShapes(const ShapeContainer &sc, int maxLayer) ;
 
-    void remove(GUIDialog_EditViewport *d) { myViewportChooser = 0; }
+    void remove(GUIDialog_EditViewport *) { myViewportChooser = 0; }
 
-    void remove(GUIDialog_ViewSettings *d) { myVisualizationChanger = 0; }
+    void remove(GUIDialog_ViewSettings *) { myVisualizationChanger = 0; }
 
 
     SUMOReal getGridWidth() const;
@@ -433,7 +436,7 @@ protected:
 
 
 protected:
-    virtual void doPaintGL(int mode, SUMOReal scale) { }
+    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/) { }
 
     virtual void doInit() { }
 

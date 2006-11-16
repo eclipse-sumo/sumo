@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/03/17 08:52:27  dkrajzew
 // "Action" removed - was the same as Command
 //
@@ -91,7 +94,7 @@ Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
             const MSTLLogicControl::TLSLogicVariants &tlls,
             MSDetectorFileOutput *dtf, unsigned int begin,
             OutputDevice *device)
-    : myLogics(tlls), myDetector(dtf), myDevice(device),
+    : myDevice(device), myLogics(tlls), myDetector(dtf),
     myStartTime(begin)
 {
     for(std::map<std::string, MSTrafficLightLogic*>::const_iterator i=tlls.ltVariants.begin(); i!=tlls.ltVariants.end(); ++i) {

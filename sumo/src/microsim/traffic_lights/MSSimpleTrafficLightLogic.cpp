@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/09/08 12:31:28  jringel
 // Stretch added
 //
@@ -228,7 +231,6 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
 size_t
 MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
 {
-	assert (position >= 0);
 	assert (position <= myCycleTime);
 	size_t pos = position;
 	if (pos == myCycleTime) {
@@ -254,16 +256,15 @@ MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
 size_t
 MSSimpleTrafficLightLogic::getPosFromStep(size_t step)
 {
-	assert (step >=0);
 	assert (step < myPhases.size());
-	
+
 	size_t pos = 0;
 	size_t myStep = step;
-	
+
 	if (myStep == 0) {
 		return 0;
 	}
-	
+
 	for (size_t i=0; i < myStep; i++)	{
 			pos = pos + getPhaseFromStep(i).duration;
 	}
@@ -281,7 +282,6 @@ const MSPhaseDefinition &
 MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
 {
 	assert(myPhases.size()>givenStep);
-	assert(givenStep>=0);
     return *myPhases[givenStep];
 }
 

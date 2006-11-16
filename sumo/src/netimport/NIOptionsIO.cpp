@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/16 10:50:46  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/16 06:50:29  dkrajzew
 // finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
 //
@@ -339,7 +342,7 @@ NIOptionsIO::checkOptions(OptionsCont &oc)
 
 
 bool
-NIOptionsIO::checkCompleteDescription(OptionsCont &oc)
+NIOptionsIO::checkCompleteDescription(OptionsCont &)
 {
    return false;
 }

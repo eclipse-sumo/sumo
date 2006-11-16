@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/11/14 13:04:11  dkrajzew
 // warnings removed
 //
@@ -154,7 +157,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler()
 
 
 void
-NIXMLTypesHandler::myStartElement(int element, const std::string &name,
+NIXMLTypesHandler::myStartElement(int /*element*/, const std::string &name,
                                   const Attributes &attrs)
 {
     string id;

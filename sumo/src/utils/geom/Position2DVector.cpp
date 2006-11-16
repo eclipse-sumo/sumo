@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.38  2006/10/12 10:14:31  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -1043,7 +1046,7 @@ Position2DVector::move2side(SUMOReal amount, int index)
             Position2D to = myCont.at(index+1);
             std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
             myCont[index] = Position2D(from.x()-offsets.first, from.y()-offsets.second);
-        } else if(index==myCont.size()-1) {
+        } else if(index==(int) myCont.size()-1) {
             Position2D from = myCont.at(index-1);
             Position2D to = myCont.at(index);
             std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
@@ -1200,6 +1203,7 @@ Position2DVector::closePolygon()
 
 
 Position2DVector::Position2DVector(const Position2DVector &s)
+    : AbstractPoly(s)
 {
     myCont.assign(s.myCont.begin(), s.myCont.end());
 }

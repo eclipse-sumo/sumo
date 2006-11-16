@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/11/14 06:50:16  dkrajzew
 // debugging placement of the current value string
 //
@@ -196,8 +199,8 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
 
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
                                          const std::string &name,
-                                         GUIGlObject &o,
-                                         int xpos, int ypos)
+                                         GUIGlObject &/*o*/,
+                                         int /*xpos*/, int /*ypos*/)
     : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
     myApplication(&app)
 {
@@ -314,7 +317,7 @@ GUIParameterTracker::onPaint(FXObject *sender, FXSelector sel, void *data)
 
 
 long
-GUIParameterTracker::onSimStep(FXObject*sender,FXSelector,void*)
+GUIParameterTracker::onSimStep(FXObject*,FXSelector,void*)
 {
     update();
     return 1;
@@ -476,7 +479,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
-                                                         SUMOReal namePos)
+                                                         SUMOReal /*namePos*/)
 {
     // apply scaling
     glPushMatrix();

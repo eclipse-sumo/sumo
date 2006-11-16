@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -191,6 +194,11 @@ protected:
     /// The optional speed the vehicle shall start with
     SUMOReal mySpeed;
 
+    /** @brief Information whether empty destinations are allowed
+        This is a feature used for the handling of explicite routes within the
+        jp-router where the destination is not necessary */
+    bool myEmptyDestinationsAllowed;
+
     /// The time the vehicle shall start at
     SUMOTime myDepartureTime;
 
@@ -208,11 +216,6 @@ protected:
 
     /// The color of the vehicle
     RGBColor myColor;
-
-    /** @brief Information whether empty destinations are allowed
-        This is a feature used for the handling of explicite routes within the
-        jp-router where the destination is not necessary */
-    bool myEmptyDestinationsAllowed;
 
     /// The information whether the next route was read
     bool _nextRouteRead;

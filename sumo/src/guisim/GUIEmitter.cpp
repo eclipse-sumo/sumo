@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -222,7 +225,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
         mySource.init();
     }
     if(myVehicle==0) {
-        string aVehicleId = myParent.getID() + "_user_" +  toString(MSNet::getInstance()->getCurrentTimeStep());
+        string aVehicleId = myParent.getID() + "_user_" +  toString(currentTime);
         MSRoute *aRoute = myRouteDist.getOverallProb()!=0
             ? myRouteDist.get()
             : mySource.hasRoutes()
@@ -241,9 +244,8 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid vehicle type.");
             return 0;
         }
-        SUMOTime aEmitTime = MSNet::getInstance()->getCurrentTimeStep();
         myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aRoute, aEmitTime, aType, 0, 0);
+            aVehicleId, aRoute, currentTime, aType, 0, 0);
         myParent.schedule(this, myVehicle, -1);
         if(myDescheduleVehicle) {
             MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
@@ -269,10 +271,10 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::getUserFlow() const
 GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
         GUIMainWindow &app,
         const std::string &name, GUIEmitter &o,
-        int xpos, int ypos)
-    : GUIManipulator(app, name, 0, 0), myChosenValue(0),
-    myParent(&app), myFlowFactor(o.getUserFlow()),
-    myChosenTarget(myChosenValue, this, MID_OPTION), myFlowFactorTarget(myFlowFactor),
+        int /*xpos*/, int /*ypos*/)
+    : GUIManipulator(app, name, 0, 0), myParent(&app),
+    myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+    myFlowFactor(o.getUserFlow()), myFlowFactorTarget(myFlowFactor),
     myObject(&o)
 {
     FXVerticalFrame *f1 =
@@ -487,8 +489,8 @@ GUIEmitter::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIEmitter::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &parent)
+GUIEmitter::getParameterWindow(GUIMainWindow &,
+                                        GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -601,7 +603,7 @@ GUIEmitter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 
 void
 GUIEmitter::doPaint(const Position2D &pos, SUMOReal rot,
-                    SUMOReal scale, SUMOReal upscale)
+                    SUMOReal /*scale*/, SUMOReal upscale)
 {
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
@@ -649,7 +651,7 @@ GUIEmitter::getBoundary() const
 
 GUIManipulator *
 GUIEmitter::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent)
+                                     GUISUMOAbstractView &)
 {
     GUIManip_TriggeredEmitter *gui =
         new GUIManip_TriggeredEmitter(app, getFullName(), *this, 0, 0);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/16 10:50:42  dkrajzew
+// warnings removed
+//
 // Revision 1.23  2006/10/12 07:54:15  dkrajzew
 // snapshots debugged
 //
@@ -209,12 +212,12 @@ FXIMPLEMENT(GUISUMOViewParent, GUIGlChildWindow, GUISUMOViewParentMap, ARRAYNUMB
  * member method definitions
  * ======================================================================= */
 GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
-                                     FXGLCanvas *share,FXMDIMenu *mdimenu,
-                                     const FXString& name, GUINet &net,
+                                     FXGLCanvas * /*share!!!*/,FXMDIMenu *mdimenu,
+                                     const FXString& name, GUINet &/*net!!!*/,
                                      GUIMainWindow *parentWindow,
-                                     ViewType view, FXIcon* ic, FXPopup* pup,
+                                     ViewType /*view!!!*/, FXIcon* ic, FXPopup* /*pup!!!*/,
                                      FXuint opts,
-                                     FXint x, FXint y, FXint w, FXint h)
+                                     FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
     : GUIGlChildWindow( p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200 ),
     _zoomingFactor(100),
     _showLegend(true), _allowRotation(false), _chooser(0),
@@ -322,7 +325,7 @@ GUISUMOViewParent::onCmdShowLegend(FXObject*sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
+GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
@@ -385,7 +388,7 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateJunction(FXObject *sender,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
 {
     _view->getLocatorPopup(*this)->popdown();
     _view->getLocatorPopup(*this)->killFocus();
@@ -484,7 +487,7 @@ GUISUMOViewParent::getMaxGLHeight() const
 
 
 long
-GUISUMOViewParent::onSimStep(FXObject*sender,FXSelector,void*)
+GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*)
 {
     _view->update();
     return 1;

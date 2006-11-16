@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/10/12 08:09:15  dkrajzew
 // fastened up lane changing
 //
@@ -310,13 +313,13 @@ MSEdgeControl::getMultiLaneEdges() const
 
 
 void
-MSEdgeControl::saveState(std::ostream &os, long what)
+MSEdgeControl::saveState(std::ostream &/*os*/, long /*what*/)
 {
 }
 
 
 void
-MSEdgeControl::loadState(BinaryInputDevice &bis, long what)
+MSEdgeControl::loadState(BinaryInputDevice &/*bis*/, long /*what*/)
 {
 }
 

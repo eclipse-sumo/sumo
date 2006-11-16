@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/11/14 06:48:58  dkrajzew
 // readapting changes in the router-API
 //
@@ -141,8 +144,8 @@ RORouteDef_Complete::getTo() const
 
 
 RORoute *
-RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
-		SUMOTime begin, ROVehicle &veh) const
+RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &,
+		SUMOTime , ROVehicle &) const
 {
     return new RORoute(_id, 0, 1, _edges);
 }

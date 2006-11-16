@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -82,7 +85,7 @@ NIVissimSingleTypeParser_Startuhrzeit::~NIVissimSingleTypeParser_Startuhrzeit()
 
 
 bool
-NIVissimSingleTypeParser_Startuhrzeit::parse(std::istream &from)
+NIVissimSingleTypeParser_Startuhrzeit::parse(std::istream &)
 {
 	return true;
 }

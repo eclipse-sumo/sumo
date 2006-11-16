@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/11/14 06:48:58  dkrajzew
 // readapting changes in the router-API
 //
@@ -122,7 +125,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROVehicle::ROVehicle(ROVehicleBuilder &vb,
+ROVehicle::ROVehicle(ROVehicleBuilder &,
                      const std::string &id, RORouteDef *route,
                      unsigned int depart, ROVehicleType *type,
                      const RGBColor &color,

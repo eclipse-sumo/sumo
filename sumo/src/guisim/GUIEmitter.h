@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -214,15 +217,15 @@ public:
     private:
         GUIMainWindow *myParent;
 
-        FXRealSpinDial *myFlowFactorDial;
-
         FXint myChosenValue;
 
         FXDataTarget myChosenTarget;
 
+        SUMOReal myFlowFactor;
+
         FXDataTarget myFlowFactorTarget;
 
-        SUMOReal myFlowFactor;
+        FXRealSpinDial *myFlowFactorDial;
 
         GUIEmitter *myObject;
 

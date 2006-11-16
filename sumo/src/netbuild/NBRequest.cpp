@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.41  2006/10/25 12:22:42  dkrajzew
 // updated
 //
@@ -746,7 +749,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
          i!=_incoming->rend(); i++) {
 
         unsigned int noLanes = (*i)->getNoLanes();
-        for(unsigned int j=noLanes; j-->0; ) {
+        for(int j=noLanes; j-->0; ) {
             const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
             size_t size = connected.size();
             for(int k=size; k-->0; ) {
@@ -799,10 +802,11 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to)
                 if(to==0) {
                     os << '0';
                 } else {
-                    os <<
-                        foes(from, to, (*i), connected[k].edge)
-                        ? '1'
-                        : '0';
+                    if(foes(from, to, (*i), connected[k].edge)) {
+                        os << '1';
+                    } else {
+                        os << '0';
+                    }
                 }
             }
         }

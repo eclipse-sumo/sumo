@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -125,7 +128,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
 
 void
 RORDLoader_SUMOBase::myStartElement(int element,
-                                    const std::string &name,
+                                    const std::string &/*name*/,
                                     const Attributes &attrs)
 {
     switch(element) {
@@ -148,7 +151,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(int element, const std::string &name)
+RORDLoader_SUMOBase::myEndElement(int element, const std::string &/*name*/)
 {
     if(element==SUMO_TAG_VEHICLE) {
         closeVehicle();

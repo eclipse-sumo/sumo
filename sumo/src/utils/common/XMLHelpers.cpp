@@ -23,6 +23,9 @@ namespace
 		 "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,7 +130,7 @@ XMLHelpers::runParser(XERCES_CPP_NAMESPACE_QUALIFIER DefaultHandler &handler,
 
 void
 XMLHelpers::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
-                       const std::string &feature, bool value)
+                       const std::string &feature, bool /*value !!!*/)
 {
     XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
     reader.setFeature(xmlFeature, false );

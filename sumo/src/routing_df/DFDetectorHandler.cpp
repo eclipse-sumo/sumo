@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -100,8 +103,8 @@ DFDetectorHandler::~DFDetectorHandler()
 
 
 void
-DFDetectorHandler::myStartElement(int element, const std::string&name,
-                             const Attributes &attrs)
+DFDetectorHandler::myStartElement(int /*element*/, const std::string &name,
+                                  const Attributes &attrs)
 {
     if(name=="detector_definition") {
         string id;
@@ -153,7 +156,7 @@ DFDetectorHandler::myStartElement(int element, const std::string&name,
 
 void
 DFDetectorHandler::myCharacters(int element, const std::string&,
-                           const std::string &chars)
+                                const std::string &/*chars*/)
 {
     if(element==SUMO_TAG_EDGES) {
 //        preallocateEdges(chars);

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/04/05 05:28:49  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -82,7 +85,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSRouteLoader::MSRouteLoader(MSNet &net,
+MSRouteLoader::MSRouteLoader(MSNet &,
                              MSRouteHandler *handler)
     : myParser(0), _moreAvailable(true), myHandler(handler)
 {

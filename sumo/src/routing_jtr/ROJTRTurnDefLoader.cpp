@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.3  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -136,8 +139,8 @@ ROJTRTurnDefLoader::load(const std::string &file)
 
 
 void
-ROJTRTurnDefLoader::myStartElement(int element, const std::string &name,
-                                  const Attributes &attrs)
+ROJTRTurnDefLoader::myStartElement(int element, const std::string &/*name*/,
+                                   const Attributes &attrs)
 {
     switch(element) {
     case SUMO_TAG_INTERVAL:
@@ -154,7 +157,7 @@ ROJTRTurnDefLoader::myStartElement(int element, const std::string &name,
 
 
 void
-ROJTRTurnDefLoader::myCharacters(int element, const std::string &name,
+ROJTRTurnDefLoader::myCharacters(int element, const std::string &/*name*/,
                                 const std::string &chars)
 {
     switch(element) {
@@ -166,7 +169,7 @@ ROJTRTurnDefLoader::myCharacters(int element, const std::string &name,
 
 
 void
-ROJTRTurnDefLoader::myEndElement(int element, const std::string &name)
+ROJTRTurnDefLoader::myEndElement(int element, const std::string &/*name*/)
 {
     switch(element) {
     case SUMO_TAG_INTERVAL:

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/11/14 13:03:16  dkrajzew
 // warnings removed
 //
@@ -267,7 +270,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
         int tmpPos = int(pos) - 1;
         assert(pos<_fromEdges.size());
         assert(pos<_fromLanes.size());
-        while( pos>=0 &&
+        while( //!!! (tmppos): was : pos>=0 &&
                _fromEdges[pos]==_fromEdges[tmpPos] &&
                _fromLanes[pos]==_fromLanes[tmpPos] ) {
             if(!_isLeftMover[tmpPos--]) {

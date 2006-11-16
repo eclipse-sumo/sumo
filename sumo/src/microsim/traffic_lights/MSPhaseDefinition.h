@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -54,7 +56,7 @@
 class MSPhaseDefinition {
 public:
     /// the duration of the phase
-    SUMOTime          duration;
+    SUMOTime duration;
 
 	/// stores the timestep of the last on-switched of the phase
     SUMOTime _lastSwitch;
@@ -63,8 +65,8 @@ public:
     MSPhaseDefinition(size_t durationArg, const std::bitset<64> &driveMaskArg,
             const std::bitset<64> &breakMaskArg,
             const std::bitset<64> &yellowMaskArg)
-        : duration(durationArg), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMaskArg), _lastSwitch(0)
+        : duration(durationArg), _lastSwitch(0), driveMask(driveMaskArg),
+            breakMask(breakMaskArg), yellowMask(yellowMaskArg)
     {
 		_lastSwitch = OptionsSubSys::getOptions().getInt("b");
     }

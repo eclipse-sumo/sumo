@@ -24,9 +24,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/11/02 12:19:50  dkrajzew
 // added parsing of Elmar's pointcollections
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -81,7 +83,7 @@ using namespace std;
  * method defintions
  * ======================================================================= */
 PCElmarPoints::PCElmarPoints(PCPolyContainer &toFill,
-                 const Boundary &netBoundary, PCTypeMap &tm)
+			     const Boundary &/*netBoundary*/, PCTypeMap &tm)
 	: myCont(toFill), myTypeMap(tm)
 {
 }

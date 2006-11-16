@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.53  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.52  2006/09/18 10:01:07  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -260,8 +263,7 @@ GUINet::GUINet(SUMOTime startTimestep, SUMOTime stopTimestep,
     _grid(10, 10),
     myWrapper(new GUINetWrapper(gIDStorage, *this)),
     myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
-    myOverallSimDuration(0), myLastVehicleMovementCount(0),
-    myOverallVehicleCount(0)
+    myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0)
 {
 }
 

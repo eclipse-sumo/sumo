@@ -68,8 +68,8 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIPointOfInterest::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent)
+GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
+                                       GUISUMOAbstractView &)
 {
     return 0;
 }

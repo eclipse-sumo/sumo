@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/11/14 13:03:11  dkrajzew
 // warnings removed
 //
@@ -40,7 +43,6 @@ namespace
 //
 // Revision 1.8  2005/07/12 12:32:48  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -109,7 +111,7 @@ NBOwnTLDef::~NBOwnTLDef()
 
 
 NBTrafficLightLogicVector *
-NBOwnTLDef::myCompute(const NBEdgeCont &ec,
+NBOwnTLDef::myCompute(const NBEdgeCont &,
                       size_t breakingTime, std::string type, bool buildAll)
 {
     bool appendSmallestOnly = true;
@@ -279,15 +281,15 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
 
 
 void
-NBOwnTLDef::remapRemoved(NBEdge */*removed*/, const EdgeVector &/*incoming*/,
+NBOwnTLDef::remapRemoved(NBEdge * /*removed*/, const EdgeVector &/*incoming*/,
                          const EdgeVector &/*outgoing*/)
 {
 }
 
 
 void
-NBOwnTLDef::replaceRemoved(NBEdge */*removed*/, int /*removedLane*/,
-                           NBEdge */*by*/, int /*byLane*/)
+NBOwnTLDef::replaceRemoved(NBEdge * /*removed*/, int /*removedLane*/,
+                           NBEdge * /*by*/, int /*byLane*/)
 {
 }
 

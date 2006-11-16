@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,7 +130,6 @@ DoubleVectorHelper::set(DoubleVector &dv, SUMOReal to)
 void
 DoubleVectorHelper::removeDouble(DoubleVector &v)
 {
-    size_t pos = 0;
     DoubleVector::iterator i=v.begin();
     while(i!=v.end()) {
         for(DoubleVector::iterator j=i+1; j!=v.end(); ) {

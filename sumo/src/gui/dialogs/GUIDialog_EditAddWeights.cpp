@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/07/06 05:35:54  dkrajzew
 // replaced exception throwing in unreachable places by something more friendly
 //
@@ -437,7 +440,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     }
     GUIAddWeight aw;
     int row = i->row;
-    if(row==gAddWeightsStorage.size()) {
+    if(row==(int) gAddWeightsStorage.size()) {
         aw.edgeID = " ";
         aw.abs = INVALID_VALUE;
         aw.add = INVALID_VALUE;

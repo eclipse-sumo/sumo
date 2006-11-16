@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2006/11/02 12:20:16  dkrajzew
 // removed unneeded code
 //
@@ -91,7 +94,7 @@ using namespace std;
 /* =========================================================================
  * method defintions
  * ======================================================================= */
-PCElmar::PCElmar(PCPolyContainer &toFill, const Boundary &netBoundary,
+PCElmar::PCElmar(PCPolyContainer &toFill, const Boundary & /*netBoundary*/,
                  PCTypeMap &tm)
 	: myCont(toFill), myTypeMap(tm)
 {

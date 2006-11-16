@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -111,7 +114,7 @@ RORouteSnippletCont::get(ROEdge *from, ROEdge *to) const
 }
 
 bool
-RORouteSnippletCont::knows(ROEdge *from, ROEdge *to) const
+RORouteSnippletCont::knows(ROEdge * /*from*/, ROEdge * /*to*/) const
 {
     return false; // !!! should not be used until a validation of net statistics has been made
 /*    MapType::const_iterator i=_known.find(MapType::key_type(from, to));

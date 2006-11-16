@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/10/12 10:14:32  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -153,8 +156,6 @@ GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void* ptr)
         return 1;
     }
     _lock->lock();
-    FXint tw=0,th=0,iw=0,ih=0;
-    FXEvent *ev=(FXEvent*)ptr;
     // Start drawing
     FXDCWindow dc(this);
     const std::string &name = _object->getFullName();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/03/20 07:22:56  dkrajzew
 // added missing files
 //
@@ -132,11 +135,10 @@ GUIROWDrawer_FGnT::~GUIROWDrawer_FGnT()
 
 
 void
-GUIROWDrawer_FGnT::drawLinkRules(const GUINet &net,
+GUIROWDrawer_FGnT::drawLinkRules(const GUINet &,
                                  const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
-    SUMOReal visLength = -lane.visLength();
     const Position2D &end = lane.getShape().getEnd();
     const Position2D &f = lane.getShape()[-2];
     const Position2D &s = end;

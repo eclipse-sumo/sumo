@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/11/14 06:44:51  dkrajzew
 // first steps towards car2car-based rerouting
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -87,7 +89,7 @@ MSWeightsHandler::~MSWeightsHandler()
 }
 
 
-void MSWeightsHandler::myStartElement(int element, const std::string &name,
+void MSWeightsHandler::myStartElement(int element, const std::string &/*name*/,
                                       const Attributes &attrs)
 {
     switch(element) {
@@ -182,13 +184,13 @@ MSWeightsHandler::parseLane(const Attributes &attrs)
 }
 
 
-void MSWeightsHandler::myCharacters(int element, const std::string &name,
-                                    const std::string &chars)
+void MSWeightsHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+                                    const std::string &/*chars*/)
 {
 }
 
 
-void MSWeightsHandler::myEndElement(int element, const std::string &name)
+void MSWeightsHandler::myEndElement(int element, const std::string &/*name*/)
 {
     if(element==SUMO_TAG_EDGE) {
         _currentEdge->addWeight(myAggValue / (SUMOReal) myNoLanes,

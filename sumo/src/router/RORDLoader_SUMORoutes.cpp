@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -152,7 +155,7 @@ RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
+RORDLoader_SUMORoutes::myCharacters(int element, const std::string &/*name*/,
                                    const std::string &chars)
 {
     if(element==SUMO_TAG_ROUTE&&myCurrentRouteName.length()!=0) {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/09/18 10:18:23  dkrajzew
 // debugging
 //
@@ -777,7 +780,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 
 
 void
-GUISUMOAbstractView::displayLegend(bool flip)
+GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
 {
     // compute the scale bar length
     size_t length = 1;
@@ -981,7 +984,7 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector sel,void *data)
+GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
 {
     delete _popup;
     _popup = 0;
@@ -1011,7 +1014,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
+GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data)
 {
     delete _popup;
     _popup = 0;
@@ -1022,7 +1025,7 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject *o,FXSelector sel,void *data)
+GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data)
 {
     delete _popup;
     _popup = 0;
@@ -1033,7 +1036,7 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
+GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data)
 {
     delete _popup;
     _popup = 0;
@@ -1046,7 +1049,7 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject *o,FXSelector sel,void *data)
+GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data)
 {
     SUMOReal xpos = _changer->getXPos();
     SUMOReal ypos = _changer->getYPos();
@@ -1145,7 +1148,7 @@ GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
 
 
 long
-GUISUMOAbstractView::onSimStep(FXObject*sender,FXSelector,void*)
+GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*)
 {
     update();
     return 1;
@@ -1229,7 +1232,7 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	    gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
 	    gluTessBeginPolygon(tobj, NULL);
 		    gluTessBeginContour(tobj);
-            for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
+            for(size_t i=0; i!=polygon.getPosition2DVector().size(); ++i) {
                 points[3*i]  = polygon.getPosition2DVector()[i].x();
                 points[3*i+1]  = polygon.getPosition2DVector()[i].y();
                 points[3*i+2]  = 0;
@@ -1331,7 +1334,7 @@ GUISUMOAbstractView::getSnapshot()
 
 
 FXPopup *
-GUISUMOAbstractView::getLocatorPopup(GUIGlChildWindow &p)
+GUISUMOAbstractView::getLocatorPopup(GUIGlChildWindow &)
 {
     return myLocatorPopup;
 }
@@ -1414,27 +1417,27 @@ GUISUMOAbstractView::getGridHeight() const
 
 
 void
-GUISUMOAbstractView::rename(GUIGlObject *o)
+GUISUMOAbstractView::rename(GUIGlObject *)
 {
 }
 
 void
-GUISUMOAbstractView::moveTo(GUIGlObject *o)
+GUISUMOAbstractView::moveTo(GUIGlObject *)
 {
 }
 
 void
-GUISUMOAbstractView::changeCol(GUIGlObject *o)
+GUISUMOAbstractView::changeCol(GUIGlObject *)
 {
 }
 
 void
-GUISUMOAbstractView::changeTyp(GUIGlObject *o)
+GUISUMOAbstractView::changeTyp(GUIGlObject *)
 {
 }
 
 void
-GUISUMOAbstractView::deleteObj(GUIGlObject *o)
+GUISUMOAbstractView::deleteObj(GUIGlObject *)
 {
 }
 

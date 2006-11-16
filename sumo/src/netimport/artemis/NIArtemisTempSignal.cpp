@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:46  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -107,7 +110,7 @@ NIArtemisTempSignal::addPhase(const std::string &nodeid,
 void
 NIArtemisTempSignal::addConnectionPhases(const NBConnection &c,
                                          char startPhase, char endPhase,
-                                         const std::string &group)
+                                         const std::string &/*group*/)
 {
     myPhasesDict[c] =
         new ConnectionPhases(startPhase, endPhase);

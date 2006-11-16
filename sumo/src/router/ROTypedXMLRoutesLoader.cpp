@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -143,7 +146,7 @@ ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
 
 
 bool
-ROTypedXMLRoutesLoader::init(OptionsCont &options)
+ROTypedXMLRoutesLoader::init(OptionsCont &)
 {
     return _parser->parseFirst(_file.c_str(), _token);
 }

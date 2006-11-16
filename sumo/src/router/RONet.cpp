@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.33  2006/11/14 06:48:58  dkrajzew
 // readapting changes in the router-API
 //
@@ -177,7 +180,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RONet::RONet(bool multireferencedRoutes)
+RONet::RONet(bool /*multireferencedRoutes*/)
     : _vehicleTypes(new ROVehicleType_Krauss()),
     myRoutesOutput(0), myRouteAlternativesOutput(0),
     myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),

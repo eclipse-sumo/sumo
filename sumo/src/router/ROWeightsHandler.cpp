@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -128,7 +131,7 @@ ROWeightsHandler::~ROWeightsHandler()
 }
 
 
-void ROWeightsHandler::myStartElement(int element, const std::string &name,
+void ROWeightsHandler::myStartElement(int element, const std::string &/*name*/,
                                       const Attributes &attrs)
 {
     switch(element) {
@@ -223,13 +226,13 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
 }
 
 
-void ROWeightsHandler::myCharacters(int element, const std::string &name,
-                                    const std::string &chars)
+void ROWeightsHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+                                    const std::string &/*chars*/)
 {
 }
 
 
-void ROWeightsHandler::myEndElement(int element, const std::string &name)
+void ROWeightsHandler::myEndElement(int element, const std::string &/*name*/)
 {
     if(element==SUMO_TAG_EDGE) {
         _currentEdge->addWeight(myAggValue/(SUMOReal)myNoLanes,

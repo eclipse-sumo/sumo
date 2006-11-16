@@ -107,7 +107,7 @@ FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*)
 
 
 long
-FXSingleEventThread::onThreadEvent(FXObject*,FXSelector sel,void*)
+FXSingleEventThread::onThreadEvent(FXObject*,FXSelector ,void*)
 {
     myClient->eventOccured();
     /*

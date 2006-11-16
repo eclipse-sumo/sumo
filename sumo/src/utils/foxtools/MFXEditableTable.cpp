@@ -125,7 +125,7 @@ MFXEditableTable::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr)
 
 
 long
-MFXEditableTable::onLeftBtnClicked(FXObject* sender, FXSelector sel, void* ptr)
+MFXEditableTable::onLeftBtnClicked(FXObject* , FXSelector , void* ptr)
 {
     FXTablePos* e= (FXTablePos*)ptr;
     int r = e->row;
@@ -227,7 +227,7 @@ MFXEditableTable::editEnd()
 
 
 long
-MFXEditableTable::onEditEnd(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onEditEnd(FXObject *,FXSelector ,void *)
 {
     delete myEditedItem;
     myEditedItem = 0;
@@ -284,7 +284,7 @@ MFXEditableTable::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr)
 
 
 long
-MFXEditableTable::onEditFocusOut(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onEditFocusOut(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 0;
@@ -450,7 +450,7 @@ MFXEditableTable::onClipboardRequest(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onDoubleClicked(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onDoubleClicked(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -459,7 +459,7 @@ MFXEditableTable::onDoubleClicked(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onTripleClicked(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onTripleClicked(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -508,7 +508,7 @@ MFXEditableTable::onCmdVertGrid(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdDeleteColumn(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdDeleteColumn(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -517,7 +517,7 @@ MFXEditableTable::onCmdDeleteColumn(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onUpdDeleteColumn(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onUpdDeleteColumn(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -526,7 +526,7 @@ MFXEditableTable::onUpdDeleteColumn(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdDeleteRow(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdDeleteRow(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -535,7 +535,7 @@ MFXEditableTable::onCmdDeleteRow(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onUpdDeleteRow(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onUpdDeleteRow(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -544,7 +544,7 @@ MFXEditableTable::onUpdDeleteRow(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdInsertColumn(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdInsertColumn(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -553,7 +553,7 @@ MFXEditableTable::onCmdInsertColumn(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdInsertRow(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdInsertRow(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -652,7 +652,7 @@ MFXEditableTable::onCmdSelectRowIndex(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdSelectColumnIndex(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdSelectColumnIndex(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -661,7 +661,7 @@ MFXEditableTable::onCmdSelectColumnIndex(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdSelectColumn(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdSelectColumn(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -678,7 +678,7 @@ MFXEditableTable::onCmdSelectRow(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdSelectCell(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdSelectCell(FXObject *,FXSelector ,void *)
 {
 //    editEnd();
     return 1;
@@ -687,7 +687,7 @@ MFXEditableTable::onCmdSelectCell(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdSelectAll(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdSelectAll(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;
@@ -696,7 +696,7 @@ MFXEditableTable::onCmdSelectAll(FXObject *o,FXSelector s,void *d)
 
 
 long
-MFXEditableTable::onCmdDeselectAll(FXObject *o,FXSelector s,void *d)
+MFXEditableTable::onCmdDeselectAll(FXObject *,FXSelector ,void *)
 {
     editEnd();
     return 1;

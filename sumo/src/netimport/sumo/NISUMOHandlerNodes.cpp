@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:46  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/04/05 05:32:26  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -101,7 +104,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes()
 
 
 void
-NISUMOHandlerNodes::myStartElement(int element, const std::string &name,
+NISUMOHandlerNodes::myStartElement(int element, const std::string &/*name*/,
                                    const Attributes &attrs)
 {
     switch(element) {

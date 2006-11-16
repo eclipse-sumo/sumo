@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/11/14 13:04:09  dkrajzew
 // warnings removed
 //
@@ -222,7 +225,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
 
 bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseVAS(
-        int /*id*/, const std::string &name, int lsaid, std::istream &from)
+        int /*id*/, const std::string &/*name*/, int lsaid, std::istream &from)
 {
     WRITE_WARNING("VAS traffic lights are not supported (lsa=" + toString<int>(lsaid) + ")");
     string tag;

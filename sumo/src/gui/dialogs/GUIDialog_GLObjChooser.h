@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,14 +122,14 @@ private:
     /// the list that holds the ids
     FXList *myList;
 
-    /// the chosen id
-    GUIGlObject *mySelected;
-
     /// the artifact to choose
     GUIGlObjectType myObjectType;
 
     /// the parent window
     GUISUMOViewParent *myParent;
+
+    /// the chosen id
+    GUIGlObject *mySelected;
 
     /// The text field
     FXTextField *myTextEntry;

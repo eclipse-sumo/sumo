@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/11/14 13:03:09  dkrajzew
 // warnings removed
 //
@@ -240,7 +243,6 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
                 assert(j-1<(int) schnitt.size());
                 letzterSchnitt = schnitt[j-1];
                 assert(i<(*v).size());
-                assert(i>=0);
                 letzterSchnitt &= (*v)[i];
                 assert(j<(int) schnitt.size());
                 assert(j>=0);
@@ -272,7 +274,7 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         if(j<0) {
             i++;
             if(i<v->size()) {
-                assert(i>=0&&i<(*v).size());
+                assert(i<(*v).size());
                 schnitt[0] = (*v)[i];
             }
             idxKeller[0] = i;

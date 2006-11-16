@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -68,6 +71,8 @@ enum ColorSetType {
 
 class GUIBaseColorerInterface {
 public:
+    virtual ~GUIBaseColorerInterface() { }
+
     virtual void resetColor(const RGBColor &) = 0;
     virtual void resetColor(const RGBColor &, const RGBColor &) = 0;
     virtual void resetColor(const std::vector<RGBColor> &) = 0;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/03/17 08:58:36  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -130,7 +133,7 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
 /* -------------------------------------------------------------------------
  * MSTriggeredReader-methods
  * ----------------------------------------------------------------------- */
-MSTriggeredReader::MSTriggeredReader(MSNet &net)
+MSTriggeredReader::MSTriggeredReader(MSNet &)
     : _offset(0), myWasInitialised(false)
 {
 }

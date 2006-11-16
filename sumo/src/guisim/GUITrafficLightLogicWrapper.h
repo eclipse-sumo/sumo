@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/11/14 06:41:15  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -154,10 +157,10 @@ public:
     };
 
 private:
+    MSTLLogicControl &myTLLogicControl;
+
     /// The wrapped tl-logic
     MSTrafficLightLogic &myTLLogic;
-
-    MSTLLogicControl &myTLLogicControl;
 
     /// The main application
     GUIMainWindow *myApp;

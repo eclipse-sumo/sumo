@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/08/01 05:48:42  dkrajzew
 // added the possibility to make a polygon being filled or not
 //
@@ -91,7 +94,7 @@ public:
     NLGeomShapeBuilder(MSNet &net);
 
     /// Destructor
-    ~NLGeomShapeBuilder();
+    virtual ~NLGeomShapeBuilder();
 
     /** @brief Called when a polygon begins
         The values are stored in order to allocate the complete polygon after

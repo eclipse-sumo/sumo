@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:47  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -114,7 +117,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
 }
 
 bool
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream &from)
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream &)
 {
     return true;
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/09/18 10:15:40  dkrajzew
 // code beautifying
 //
@@ -307,9 +310,9 @@ DFRONet::hasSourceDetector(ROEdge *edge,
 
 
 void
-DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
+DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                           bool allEndFollower, bool keepUnfoundEnds,
-                          std::vector<ROEdge*> &visited,
+                          std::vector<ROEdge*> &/*visited*/,
                           const DFDetector &det, DFRORouteCont &into,
 						  const DFDetectorCon &detectors,
 						  std::vector<ROEdge*> &seen) const
@@ -470,7 +473,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
     if(true) {
         std::vector<DFRORouteDesc*>::iterator i;
         for(i=toDiscard.begin(); i!=toDiscard.end(); ++i) {
-            bool ok = into.removeRouteDesc(*i);
+            /*bool ok = */into.removeRouteDesc(*i);
 //!!!            assert(ok);
         }
     }
@@ -547,7 +550,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
                 }
             }
         }
-        /*
+        /
         std::vector<tree<ROEdge*>::iterator> toSolve;
         // a map of (unsolved) edges to the list of solving edges
         std::map<ROEdge*, std::vector<std::pair<ROEdge*, bool> > > split2Dets;
@@ -890,8 +893,8 @@ DFRONet::revalidateFlows(const DFDetectorCon &detectors,
 void
 DFRONet::removeEmptyDetectors(DFDetectorCon &detectors,
                          DFDetectorFlows &flows,
-                         SUMOTime startTime, SUMOTime endTime,
-                         SUMOTime stepOffset)
+                         SUMOTime /*startTime*/, SUMOTime /*endTime*/,
+                         SUMOTime /*stepOffset*/)
 {
     const std::vector<DFDetector*> &dets = detectors.getDetectors();
     for(std::vector<DFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ) {
@@ -1065,7 +1068,6 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge,
 
 	// let's check the edges in front
     const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
-    bool isall = true;
     size_t noOk = 0;
     size_t noFalse = 0;
     size_t noSkipped = 0;
@@ -1180,7 +1182,6 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 				if(detectors.getDetector(*i).getType()==BETWEEN_DETECTOR) {
 				    return false;
                 }
-				const DFDetector &d = detectors.getDetector(*i);
 				if(detectors.getDetector(*i).getType()==SOURCE_DETECTOR) {
 				    return true;
                 }

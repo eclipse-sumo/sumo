@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/11/14 06:50:35  dkrajzew
 // tls tracker now support switches between logics
 //
@@ -175,8 +178,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         GUIMainWindow &app,
-        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-        const MSSimpleTrafficLightLogic::Phases &phases)
+        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &/*wrapper*/,
+        const MSSimpleTrafficLightLogic::Phases &/*phases*/)
     : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
         20,20,300,200),
     myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
@@ -292,7 +295,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     glTranslated(-1, -1, 0);
     glScaled(2, 2, 0);
     glDisable(GL_TEXTURE_2D);
-    size_t run = 0;
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
@@ -507,7 +509,7 @@ GUITLLogicPhasesTrackerWindow::onPaint(FXObject *sender,
 
 
 long
-GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*sender,
+GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
                                          FXSelector,void*)
 {
     update();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.38  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -332,7 +335,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
-                                   GUISUMOAbstractView &parent)
+                                   GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 2);
@@ -453,7 +456,7 @@ GUILaneWrapper::buildAggregatedValuesStorage()
 
 SUMOReal
 GUILaneWrapper::getAggregatedNormed(E2::DetType what,
-                                    size_t aggregationPosition) const
+                                    size_t /*aggregationPosition !!!*/) const
 {
     if(myAggregatedValues==0) {
         return -1;
@@ -596,8 +599,6 @@ GUILaneWrapper::selectSucessors()
     Position2DVector poly;
     for(SUMOReal i=0; i<360; i += 40) {
         SUMOReal random1 = SUMOReal( rand() ) /
-            ( static_cast<SUMOReal>(RAND_MAX) + 1);
-        SUMOReal random2 = SUMOReal( rand() ) /
             ( static_cast<SUMOReal>(RAND_MAX) + 1);
         Position2D p = initPos;
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);

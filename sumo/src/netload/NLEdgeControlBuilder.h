@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/09/18 10:13:48  dkrajzew
 // added vehicle class support to microsim
 //
@@ -190,6 +193,12 @@ public:
 
 
 protected:
+    /// A running numer for lane numbering
+    size_t myCurrentNumericalLaneID;
+
+    /// A running numer for edge numbering
+    size_t myCurrentNumericalEdgeID;
+
     /** storage for edges; to allow the splitting of edges after their number
         is known, they are hold inside this vector and laterly moved into two
         vectors, one for single-lane-edges and one for multi-lane-edges
@@ -222,12 +231,6 @@ protected:
 
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
-
-    /// A running numer for lane numbering
-    size_t myCurrentNumericalLaneID;
-
-    /// A running numer for edge numbering
-    size_t myCurrentNumericalEdgeID;
 
 private:
     /** invalidated copy constructor */

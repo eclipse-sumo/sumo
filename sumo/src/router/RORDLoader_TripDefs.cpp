@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/09/25 13:34:21  dkrajzew
 // code beautifying
 //
@@ -165,7 +168,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs()
 
 
 void
-RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
+RORDLoader_TripDefs::myStartElement(int element, const std::string &/*name*/,
                                     const Attributes &attrs)
 {
     // check whether a trip definition shall be parsed
@@ -396,7 +399,7 @@ RORDLoader_TripDefs::getLane(const Attributes &attrs)
 
 
 void
-RORDLoader_TripDefs::myCharacters(int element, const std::string &name,
+RORDLoader_TripDefs::myCharacters(int element, const std::string &/*name*/,
                                   const std::string &chars)
 {
     if(element==SUMO_TAG_TRIPDEF) {
@@ -416,7 +419,7 @@ RORDLoader_TripDefs::myCharacters(int element, const std::string &name,
 
 
 void
-RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
+RORDLoader_TripDefs::myEndElement(int element, const std::string &/*name*/)
 {
     if(element==SUMO_TAG_TRIPDEF &&
        !MsgHandler::getErrorInstance()->wasInformed()) {

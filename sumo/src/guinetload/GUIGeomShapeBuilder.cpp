@@ -62,7 +62,7 @@ GUIGeomShapeBuilder::addPoint(const std::string &name,
 {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, name, type, pos, c);
-    if(!myShapeContainer.add(1, p)) {
+    if(!myShapeContainer.add(layer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.16  2006/08/01 05:57:09  dkrajzew
 // E3 detectors refactored partially
 //
@@ -151,12 +154,10 @@ GUIE3Collector::MyWrapper::~MyWrapper()
 
 GUIE3Collector::MyWrapper::SingleCrossingDefinition
 GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
-                                           bool exit)
+                                           bool /*exit!!!*/)
 {
     const MSLane *lane = section.laneM;
     SUMOReal pos = section.posM;
-    const GUILaneWrapper &lw =
-        static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(lane);
     const Position2DVector &v =
         static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(static_cast<const MSLane*>(lane)).getShape();
     Line2D l(v.getBegin(), v.getEnd());
@@ -179,7 +180,7 @@ GUIE3Collector::MyWrapper::getBoundary() const
 
 GUIParameterTableWindow *
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-                                              GUISUMOAbstractView &parent)
+                                              GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
@@ -222,7 +223,7 @@ GUIE3Collector::MyWrapper::active() const
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
+GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal /*scale*/, SUMOReal upscale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -238,7 +239,7 @@ GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal /*scale*/, SUMOReal upscale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;

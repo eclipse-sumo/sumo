@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -315,7 +318,7 @@ GUIBusStop::GUIBusStopPopupMenu::onCmdOpenManip(FXObject*, FXSelector, void*)
 /* -------------------------------------------------------------------------
  * GUIBusStop - methods
  * ----------------------------------------------------------------------- */
-GUIBusStop::GUIBusStop(const std::string &id, MSNet &net,
+GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
         const std::vector<std::string> &lines, MSLane &lane,
         SUMOReal frompos, SUMOReal topos)
     : MSBusStop(id, lines, lane, frompos, topos),
@@ -379,8 +382,8 @@ GUIBusStop::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUIBusStop::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &parent)
+GUIBusStop::getParameterWindow(GUIMainWindow &,
+                                        GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -427,7 +430,6 @@ GUIBusStop::doPaint(const Position2DVector &shape,
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(.5f);
-            SUMOReal w = pfdkGetStringWidth(myLines[i].c_str());
             //glRotated(180, 0, 1, 0);
             glTranslated(0, -(double)i*.5, 0);
             glScaled(1, -1, 1);
@@ -507,8 +509,8 @@ GUIBusStop::getBoundary() const
 
 
 GUIManipulator *
-GUIBusStop::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent)
+GUIBusStop::openManipulator(GUIMainWindow &,
+                                     GUISUMOAbstractView &)
 {
     /*
     GUIManip_LaneSpeedTrigger *gui =

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/07/06 05:52:15  dkrajzew
 // removed unused values
 //
@@ -147,17 +150,17 @@ private:
     /// The object to retrieve the information from
     GUIGlObject *myObject;
 
-    /// Values collected
-    std::vector<SUMOReal> myValues;
-
-    /// Collected values in their aggregated form
-    std::vector<SUMOReal> myAggregatedValues;
-
     /// The color to use when the value is set as "active"
     RGBColor myActiveCol;
 
     /// The color to use when the value is set as "inactive"
     RGBColor myInactiveCol;
+
+    /// Values collected
+    std::vector<SUMOReal> myValues;
+
+    /// Collected values in their aggregated form
+    std::vector<SUMOReal> myAggregatedValues;
 
     /// The minimum and the maximum of the value
     SUMOReal myMin, myMax;
@@ -171,14 +174,14 @@ private:
     /// Values like this shall not be counted on aggregation
     SUMOReal myInvalidValue;
 
-    /// Temporary storage for the last aggregation interval
-    SUMOReal myTmpLastAggValue;
-
     /// Counter for valid numbers within the current aggregation interval
     size_t myValidNo;
 
     /// The time step the values are added from
     size_t myRecordingBegin;
+
+    /// Temporary storage for the last aggregation interval
+    SUMOReal myTmpLastAggValue;
 
 };
 

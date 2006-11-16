@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/11/08 16:27:51  ericnicolay
 // change code for the cell-actor
 //
@@ -43,7 +46,6 @@ namespace
 //
 // Revision 1.1  2006/03/27 07:19:47  dkrajzew
 // vehicle actors added
-//
 //
 /* =========================================================================
 * compiler pragmas
@@ -97,7 +99,7 @@ MSE1VehicleActor::MSE1VehicleActor( const std::string& id, MSLane* lane,
 	MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		if ( pPhone->getMSPhoneCell( _AreaId ) == 0 )
 			pPhone->addMSPhoneCell( _AreaId, _LAId );
-	
+
 }
 
 
@@ -107,9 +109,9 @@ MSE1VehicleActor::~MSE1VehicleActor(){
 
 bool
 MSE1VehicleActor::isStillActive( MSVehicle& veh,
-								SUMOReal oldPos,
+								SUMOReal /*oldPos*/,
 								SUMOReal newPos,
-								SUMOReal newSpeed )
+								SUMOReal /*newSpeed*/ )
 {
 	if ( newPos < posM ) {
 		// detector not reached yet
@@ -144,7 +146,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 					cold->remCall( veh.getID() );
 				break;
 			case	MSDevice_CPhone::STATE_IDLE:
-				if ( cold != 0 )	
+				if ( cold != 0 )
 					cold->remCall( veh.getID() );
 				break;
 			case	MSDevice_CPhone::STATE_CONNECTED_IN:
@@ -153,14 +155,14 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 				cnew->addCall( veh.getID(), DYNIN );
 			break;
 		case	MSDevice_CPhone::STATE_CONNECTED_OUT:
-			if ( cold != 0 ) 
+			if ( cold != 0 )
 				cold->remCall( veh.getID() );
 				cnew->addCall( veh.getID(), DYNOUT );
 			break;
 		}
 	}
 	}
-	else { 
+	else {
 		int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
 		for(int np=0; np<noCellPhones; np++){
 			MSDevice_CPhone* cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.79  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.78  2006/11/16 06:49:49  dkrajzew
 // removed unneeded code
 //
@@ -1665,8 +1668,8 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     if(_step==INIT_REJECT_CONNECTIONS) {
         return;
     }
-    assert(dest_lane>=0&&dest_lane<=10);
-    assert(src_lane>=0&&src_lane<=10);
+    assert(dest_lane<=10);
+    assert(src_lane<=10);
     // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input

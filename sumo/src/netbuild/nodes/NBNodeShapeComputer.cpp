@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/16 10:50:46  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/14 13:03:48  dkrajzew
 // warnings removed
 //
@@ -436,7 +439,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 (*i)->setGeometry(g);
 
             }
-            /*
+            /
             if((*i)->getNoLanes()<(*cwi)->getNoLanes()&&myNode.hasIncoming(*i)) {
                 int diff = (*i)->getNoLanes() - (*cwi)->getNoLanes();
                 SUMOReal factor =

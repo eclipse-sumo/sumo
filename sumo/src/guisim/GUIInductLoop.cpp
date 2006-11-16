@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -181,7 +184,7 @@ GUIInductLoop::MyWrapper::getBoundary() const
 
 GUIParameterTableWindow *
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-                                             GUISUMOAbstractView &parent)
+                                             GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 7);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/11/14 06:52:48  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -104,7 +107,7 @@ protected:
 template<class E, class V>
 struct prohibited_noRestrictions {
 public:
-    inline bool operator()(const E *edge, const V *vehicle) {
+    inline bool operator()(const E *, const V *) {
         return false;
     }
 };

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.103  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.102  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -966,7 +969,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 void
 MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
-                                 const MSVehicle* neigh )
+                                 const MSVehicle* /*neigh*/ )
 {
 #ifdef GUI_DEBUG
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(this)->getGlID())) {
@@ -1414,14 +1417,14 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                     // leading vehicle is not overlapping
                     vsafePredNextLane =
                         MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
-                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! /);
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() / !!! decelAbility of leader! /);
                     if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
 
                         vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
                     }
                 } else {
                     // leading vehicle is overlapping (stands within the junction)
-                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/MAX2((SUMOReal) 0, seen-dist2Pred, 0);
                 }
             }
             */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2005/10/07 11:44:53  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -277,7 +280,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
 
 
 void
-GUISelectedStorage::addObjectChecking(size_t id, long withShift)
+GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
 {
     GUIGlObject *o =
         gIDStorage.getObjectBlocking(id);
@@ -294,7 +297,7 @@ GUISelectedStorage::addObjectChecking(size_t id, long withShift)
     //
     if(o->getType()==GLO_LANE&&withShift!=0) {
 		throw 1;
-		/*
+		/
         string name = o->microsimID();
         const GUIEdge &e =
             static_cast<const GUIEdge&>(MSLane::dictionary(name)->edge());
@@ -522,7 +525,7 @@ GUISelectedStorage::add2Update(GUIDialog_GLChosenEditor *ed)
 
 
 void
-GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *ed)
+GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *)
 {
     my2Update = 0;
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -64,6 +67,7 @@
 class AbstractPoly {
 public:
     AbstractPoly() { }
+    AbstractPoly(const AbstractPoly &s) { }
     virtual ~AbstractPoly() { }
     virtual bool around(const Position2D &p, SUMOReal offset=0) const = 0;
     virtual bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const = 0;

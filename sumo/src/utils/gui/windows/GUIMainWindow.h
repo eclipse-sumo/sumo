@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.8  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -111,9 +114,6 @@ protected:
     /// Font used for popup-menu titles
     FXFont *myBoldFont;
 
-    /// The openGL-maximum screen sizes
-    int myGLWidth, myGLHeight;
-
     /// The multi view panel
     FXMDIClient *myMDIClient;
 
@@ -127,6 +127,9 @@ protected:
 
     /// The gl-visual used
     FXGLVisual *myGLVisual;
+
+    /// The openGL-maximum screen sizes
+    int myGLWidth, myGLHeight;
 
     FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 

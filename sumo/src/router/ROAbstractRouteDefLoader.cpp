@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/04/05 05:34:39  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -116,7 +119,7 @@ ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
                                                    RONet &net,
                                                    SUMOTime begin,
                                                    SUMOTime end,
-                                                   const std::string &file)
+                                                   const std::string &/*file*/)
     : _net(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {
 }

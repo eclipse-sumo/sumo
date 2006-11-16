@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/06/22 07:13:51  dkrajzew
 // debugged interaction between user-defined and loaded values
 //
@@ -171,7 +174,7 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
 
 
 SUMOTime
-MSLaneSpeedTrigger::execute(SUMOTime currentTime)
+MSLaneSpeedTrigger::execute(SUMOTime )
 {
     return processCommand(true);
 }

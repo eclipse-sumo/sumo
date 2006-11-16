@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2006/03/09 10:57:00  dkrajzew
 // beautifying
 //
@@ -124,7 +127,7 @@ GUIROWDrawer_SGnT::~GUIROWDrawer_SGnT()
 
 
 void
-GUIROWDrawer_SGnT::drawLinkRules(const GUINet &net,
+GUIROWDrawer_SGnT::drawLinkRules(const GUINet &,
                                  const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/11/14 06:40:30  dkrajzew
 // removed unneeded code
 //
@@ -273,7 +276,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
                     glEnd();
                 }
             }
-                /*
+                /
                 const MSLane &l = veh->getLane();
                 SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
                 SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;

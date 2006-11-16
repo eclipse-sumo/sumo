@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/08/01 05:43:46  dkrajzew
 // cartesian and geocoordinates are shown; changed the APIs for this
 //
@@ -38,8 +41,6 @@ namespace
 // Revision 1.3  2005/06/14 11:29:51  dksumo
 // documentation added
 //
-
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -49,8 +50,6 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-
-
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>

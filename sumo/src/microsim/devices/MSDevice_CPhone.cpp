@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/11/08 17:25:46  ericnicolay
 // add getCallId
 //
@@ -30,7 +33,6 @@ namespace
 //
 // Revision 1.13  2006/09/18 10:02:55  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -93,7 +95,7 @@ MSDevice_CPhone::MyCommand::~MyCommand( void )
 
 
 SUMOTime
-MSDevice_CPhone::MyCommand::execute(SUMOTime currentTime)
+MSDevice_CPhone::MyCommand::execute(SUMOTime )
 {
     SUMOTime ret = 0;
     if(myAmActive) {

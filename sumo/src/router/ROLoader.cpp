@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.31  2006/10/26 10:27:30  dkrajzew
 // debugging
 //
@@ -233,7 +236,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 
 
 size_t
-ROLoader::openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA)
+ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
 {
     // build loader
         // load additional precomputed sumo-routes when wished

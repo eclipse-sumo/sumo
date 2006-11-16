@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -183,17 +186,17 @@ public:
     private:
         GUIMainWindow *myParent;
 
-        FXRealSpinDial *myUserDefinedSpeed;
-
-        FXComboBox *myPredefinedValues;
-
         FXint myChosenValue;
 
         FXDataTarget myChosenTarget;
 
+        SUMOReal mySpeed;
+
         FXDataTarget mySpeedTarget;
 
-        SUMOReal mySpeed;
+        FXRealSpinDial *myUserDefinedSpeed;
+
+        FXComboBox *myPredefinedValues;
 
         GUILaneSpeedTrigger *myObject;
 

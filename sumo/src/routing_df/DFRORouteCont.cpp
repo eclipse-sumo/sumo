@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/08/01 11:30:21  dkrajzew
 // patching building
 //
@@ -34,7 +37,6 @@ namespace
 //
 // Revision 1.6  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -132,7 +134,7 @@ DFRORouteCont::removeRouteDesc(DFRORouteDesc *desc)
 
 
 bool
-DFRORouteCont::readFrom(const std::string &file)
+DFRORouteCont::readFrom(const std::string &)
 {
     throw 1;
 }

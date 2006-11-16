@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2006/11/14 06:49:20  dkrajzew
 // readapting changes in the router-API
 //
@@ -120,7 +123,7 @@ ROJTRRouter::~ROJTRRouter()
 
 
 void
-ROJTRRouter::compute(const ROEdge *from, const ROEdge *to,
+ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
 					 const ROVehicle * const vehicle,
 					 SUMOTime time, std::vector<const ROEdge*> &into)
 {

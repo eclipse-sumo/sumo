@@ -224,7 +224,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c)
     case CT_INT:
         {
             register FXRealSpinDial *field;
-            register FXuint justify=0;
+            //register FXuint justify=0;
             field=new FXRealSpinDial(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
             // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
             // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
@@ -507,7 +507,7 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr)
 
 // Clicked in list
 long
-MFXAddEditTypedTable::onClicked(FXObject*o,FXSelector sel,void* ptr)
+MFXAddEditTypedTable::onClicked(FXObject*,FXSelector ,void* ptr)
 {
     if(editor){
         delete editor;

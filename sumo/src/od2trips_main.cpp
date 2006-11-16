@@ -287,7 +287,7 @@ readVMR(LineReader &lr, ODMatrix &into, float scale,
         }
         line = lr.readLine();
     } while(line[0]!='*');
-    assert(names.size()==districtNo);
+    assert((int) names.size()==districtNo);
     // parse the cells
     for(std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();

@@ -61,7 +61,7 @@ FXLinkLabel::~FXLinkLabel(){
     getApp()->removeTimeout(this,ID_TIMER);
 }
 
-long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void* ptr){
+long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void* ){
     FXString link = getTipText();
     if(link.length()){
         getApp()->beginWaitCursor();
@@ -75,7 +75,7 @@ long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void* ptr){
     return 1;
 }
 
-long FXLinkLabel::onTimer(FXObject*,FXSelector,void* ptr){
+long FXLinkLabel::onTimer(FXObject*,FXSelector,void* ){
     getApp()->endWaitCursor();
     return 1;
 }

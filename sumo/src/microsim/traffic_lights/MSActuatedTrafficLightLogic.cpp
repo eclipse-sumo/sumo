@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -196,14 +199,14 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
-        const MSEdgeContinuations &edgeContinuations)
+        const MSEdgeContinuations &/*edgeContinuations*/)
 {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
     // as the laneStateDetector shall end at the end of the lane, the position
     // is calculated, not given
-    SUMOTime laneStateDetectorInterval = 1; //
+    //!!!SUMOTime laneStateDetectorInterval = 1; //
 
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
@@ -236,10 +239,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             if(lslen>length) {
                 lslen = length;
             }
+            /*!!!!
             SUMOReal lspos = length - lslen;
             // Build the lane state detetcor and set it into the container
             std::string id = "TLS" + myID + "_" + mySubID + "_LaneStateOff_" + lane->getID();
-            /*!!!!
 
         if(myLaneStates.find(lane)==myLaneStates.end()) {
             MSLaneState* loop =

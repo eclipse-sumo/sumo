@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.41  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.40  2006/09/18 10:01:24  dkrajzew
 // removed deprecated c2c functions, added new made by Danilot Boyom
 //
@@ -330,7 +333,8 @@ protected:
     /// The step durations (simulation, /*visualisation, */idle)
     int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
 
-    long myLastVehicleMovementCount, myOverallSimDuration, myOverallVehicleCount;
+    long myLastVehicleMovementCount, myOverallVehicleCount;
+    long myOverallSimDuration;
 
 };
 

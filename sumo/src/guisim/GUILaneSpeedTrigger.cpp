@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.20  2006/10/12 07:57:14  dkrajzew
 // added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
 //
@@ -190,11 +193,10 @@ FXIMPLEMENT(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger, GUIManipulator, GUIM
 GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         GUIMainWindow &app,
         const std::string &name, GUILaneSpeedTrigger &o,
-        int xpos, int ypos)
-    : GUIManipulator(app, name, 0, 0), myChosenValue(0),
-    myParent(&app),
-    myChosenTarget(myChosenValue, this, MID_OPTION), mySpeedTarget(mySpeed),
-    mySpeed(o.getDefaultSpeed()),
+        int /*xpos*/, int /*ypos*/)
+    : GUIManipulator(app, name, 0, 0),
+    myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+    mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
     myObject(&o)
 {
     FXVerticalFrame *f1 =
@@ -429,7 +431,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &parent)
+                                        GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 1);
@@ -558,7 +560,7 @@ GUILaneSpeedTrigger::getBoundary() const
 
 GUIManipulator *
 GUILaneSpeedTrigger::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent)
+                                     GUISUMOAbstractView &)
 {
     GUIManip_LaneSpeedTrigger *gui =
         new GUIManip_LaneSpeedTrigger(app, getFullName(), *this, 0, 0);

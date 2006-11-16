@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.29  2006/11/14 13:04:11  dkrajzew
 // warnings removed
 //
@@ -236,7 +239,7 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler()
 
 
 void
-NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
+NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                                   const Attributes &attrs)
 {
     if(element==SUMO_TAG_EDGE) {

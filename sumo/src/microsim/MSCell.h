@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -115,65 +118,6 @@ private:
 
 	/// all the Neighbors of the Cell
 	CellCont _neighbors;
-
-    /// Builds the network grid
-    //void init();
-
-	/*
-
-    /// Returns the network's boundary
-    const Boundary &getBoundary() const;
-
-	///
-	void setBoundary(const Boundary &b);
-
-    /** @brief Fills the given containers with the wished information
-        The offsets and x/y-positions are used to determine the viewport.
-        The first int supplied ("what") determines the information about which
-        artifact shall be computed. They are filled into the given arrays.
-        The arrays must have the proper size (equals to the number of the
-        simulation's objects of each type) */
-	/*
-    void get(int what,
-        SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
-        size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
-
-    /// returns the number of cells in x-direction
-    int getNoXCells() const;
-
-    /// returns the number of cells in y-direction
-    int getNoYCells() const;
-
-    /// returns the size of each cell in x-direction
-    SUMOReal getXCellSize() const;
-
-    /// returns the size of each cell in y-direction
-    SUMOReal getYCellSize() const;
-
-
-    /// Adds an edge into the Container
-    void addEdge(GUIEdge *edge);
-
-	/// Removes an edge from the Container
-    void removeEdge(GUIEdge *edge);
-
-private
-
-
-    /// Computes the boundary of the network
-    Boundary computeBoundary();
-
-    /// Returns the list of cells containing an object with the given boundary
-    std::vector<size_t> getCellsContaining(Boundary boundary);
-
-    /// Builds the addition relationships
-    void buildRelationships();
-
-    /// Removes items from the cell at x/y which are included in the given cell
-    void removeFrom(GridCell &cont, int x, int y);
-
-	void closeBuilding();
-	*/
 
 };
 

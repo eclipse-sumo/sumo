@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/03/20 07:22:56  dkrajzew
 // added missing files
 //
@@ -140,7 +143,7 @@ GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
 
 void
 GUIBaseROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
-                                  size_t maxEdges, SUMOReal width,
+                                  size_t maxEdges, SUMOReal /*width !!!*/,
                                   bool withArrows)
 {
     // initialise drawing
@@ -176,7 +179,7 @@ void
 GUIBaseROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
                                              size_t *which,
                                              size_t maxEdges,
-                                             SUMOReal width,
+                                             SUMOReal /*width !!!*/,
                                              bool withArrows)
 {
     // initialise drawing

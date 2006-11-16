@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -217,7 +220,7 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
 
 
 bool
-RORDLoader_Artemis::init(OptionsCont &options)
+RORDLoader_Artemis::init(OptionsCont &)
 {
     // read the hv-destinations first
     myReadingHVDests = true;

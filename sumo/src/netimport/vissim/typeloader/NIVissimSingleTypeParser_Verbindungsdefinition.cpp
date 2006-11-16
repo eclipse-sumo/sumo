@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.13  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -139,7 +142,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
                 ));
             tag = myRead(from);
             try {
-                SUMOReal tmp = TplConvert<char>::_2SUMOReal(tag.c_str());
+                TplConvert<char>::_2SUMOReal(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException &) {
             }

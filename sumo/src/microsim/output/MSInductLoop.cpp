@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/10/12 08:06:35  dkrajzew
 // removed unneeded id member in MSMoveReminder
 //
@@ -381,7 +384,7 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 
 
 SUMOTime
-MSInductLoop::deleteOldData(SUMOTime currentTime)
+MSInductLoop::deleteOldData(SUMOTime )
 {
     SUMOReal deleteBeforeTimestep =
         (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);

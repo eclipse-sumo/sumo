@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.60  2006/11/16 10:50:42  dkrajzew
+// warnings removed
+//
 // Revision 1.59  2006/10/12 07:50:40  dkrajzew
 // c2c visualisation added (unfinished)
 //
@@ -606,12 +609,14 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
     const Boundary &nb = _net->getBoundary();
+    /*
     SUMOReal x = (nb.getCenter().x() - _changer->getXPos()); // center of view
     SUMOReal xoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to right
     SUMOReal y = (nb.getCenter().y() - _changer->getYPos()); // center of view
     SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
+        */
 	{
         SUMOReal width = nb.getWidth();
         SUMOReal height = nb.getHeight();

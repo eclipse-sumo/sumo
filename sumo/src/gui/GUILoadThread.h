@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/11/16 10:50:42  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/05/15 05:45:18  dkrajzew
 // beautifying: dead code removed
 //
@@ -118,7 +121,7 @@ protected:
     virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
     virtual void initDevices();
-    virtual void closeNetLoadingDependent(OptionsCont &oc, GUINet &net) { }
+    virtual void closeNetLoadingDependent(OptionsCont &, GUINet &) { }
 
 
     /** @brief Closes the loading process

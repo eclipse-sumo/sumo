@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2006/11/14 13:01:42  dkrajzew
 // warnings removed
 //
@@ -131,7 +134,7 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 
 
 MSE1VehicleActor *
-GUITriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
+GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                      MSLane *lane, SUMOReal pos,
                                      unsigned int type, unsigned int areaid)
 {

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/16 10:50:50  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/09/18 10:11:40  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -191,7 +194,7 @@ NIXMLNodesHandler::~NIXMLNodesHandler()
 
 
 void
-NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
+NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
                                   const Attributes &attrs)
 {
     if(tag!="node") {

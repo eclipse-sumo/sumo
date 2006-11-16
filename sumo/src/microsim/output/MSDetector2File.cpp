@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.10  2006/03/17 08:56:21  dkrajzew
 // changed the Event-interface (event handlers are non-static)
 //
@@ -198,7 +201,7 @@ MSDetector2File::write2file( IntervalsKey key )
     for ( DetectorFileVec::iterator it = dfVec.begin();
           it != dfVec.end(); ++it ) {
         MSDetectorFileOutput* det = it->first;
-        it->first->writeXMLOutput( *(it->second), startTime, stopTime-1 );
+        det->writeXMLOutput( *(it->second), startTime, stopTime-1 );
         it->second->closeInfo();
     }
     myLastCalls[interval] = MSNet::getInstance()->simSeconds();

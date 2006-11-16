@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -115,7 +118,7 @@ RORouteDefCont::add(RORouteDef *def)
 
 
 void
-RORouteDefCont::writeXML(std::ostream &os)
+RORouteDefCont::writeXML(std::ostream &)
 {
 }
 

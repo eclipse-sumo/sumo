@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2006/11/14 06:51:24  dkrajzew
 // code beautifying
 //
@@ -136,7 +139,7 @@ ShapeContainer::add(PointOfInterest *p)
 
 
 bool
-ShapeContainer::save(const std::string &file)
+ShapeContainer::save(const std::string &/*file*/)
 {
 
     /*

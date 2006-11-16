@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -66,9 +69,12 @@
  * ======================================================================= */
 class BaseSchemeInfoSource {
 public:
+    virtual ~BaseSchemeInfoSource() { }
+
     virtual void fill(FXComboBox &cb) = 0;
 	virtual ColorSetType getColorSetType(size_t index) const = 0;
 	virtual GUIBaseColorerInterface *getColorerInterface(size_t index) const = 0;
+
 };
 
 

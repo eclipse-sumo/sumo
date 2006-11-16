@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -217,7 +220,7 @@ void StringTokenizer::prepare(const string &tosplit, char token) {
     }
 }
 
-void StringTokenizer::prepare(const string &tosplit, const string &token, int dummy) {
+void StringTokenizer::prepare(const string &tosplit, const string &token, int /*dummy*/) {
     size_t beg = tosplit.find_first_not_of(token);
     while(beg!=string::npos&&beg<tosplit.length()) {
         size_t end = tosplit.find_first_of(token, beg);

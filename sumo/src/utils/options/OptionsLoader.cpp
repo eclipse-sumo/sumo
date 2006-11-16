@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.9  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -157,7 +160,7 @@ OptionsLoader::~OptionsLoader()
 }
 
 void OptionsLoader::startElement(const XMLCh* const name,
-                                 AttributeList& attributes)
+                                 AttributeList& /*attributes*/)
 {
     _item = TplConvert<XMLCh>::_2str(name);
     if( _item=="configuration" ||
@@ -244,7 +247,7 @@ OptionsLoader::setSecure(const std::string &name, const std::string &value)
 
 
 void
-OptionsLoader::endElement(const XMLCh* const name)
+OptionsLoader::endElement(const XMLCh* const /*name*/)
 {
     _item = "";
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.11  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -129,7 +132,7 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
                                            SUMOTime begin,
                                            SUMOTime end,
                                            bool removeFirst,
-                                           const std::string &file)
+                                           const std::string &)
     : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
     myCurrentTime(0), myRemoveFirst(removeFirst)
 {

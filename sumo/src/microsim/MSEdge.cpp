@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.31  2006/11/16 10:50:44  dkrajzew
+// warnings removed
+//
 // Revision 1.30  2006/11/14 06:44:51  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -509,7 +512,7 @@ MSEdge::isSource() const
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time) const
+MSEdge::emit(MSVehicle &v, SUMOTime ) const
 {
     if(_function!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
@@ -623,7 +626,7 @@ MSEdge::getIncomingEdges() const
 
 
 SUMOReal
-MSEdge::getEffort(const MSVehicle * const v, SUMOTime time) const
+MSEdge::getEffort(const MSVehicle * const , SUMOTime ) const
 {
     return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
 }

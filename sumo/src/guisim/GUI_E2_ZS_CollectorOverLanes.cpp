@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/11/16 10:50:43  dkrajzew
+// warnings removed
+//
 // Revision 1.19  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -162,8 +165,8 @@ GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes()
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
-                                            GUILaneWrapper &wrapper)
+GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &,
+                                            GUILaneWrapper &)
 {
     throw 1;
 }
@@ -232,7 +235,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getBoundary() const
 
 GUIParameterTableWindow *
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIMainWindow &app,
-                                                   GUISUMOAbstractView &parent)
+                                                   GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 12);
     // add items

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/16 10:50:51  dkrajzew
+// warnings removed
+//
 // Revision 1.16  2006/09/18 10:15:40  dkrajzew
 // code beautifying
 //
@@ -185,7 +188,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
 
 
 bool
-RODFFrame::checkOptions(OptionsCont &oc)
+RODFFrame::checkOptions(OptionsCont &)
 {
     return true;
 }

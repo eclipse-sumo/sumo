@@ -24,9 +24,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.1  2006/11/01 23:29:18  behrisch
 // MSE1MoveReminder needs complete definition of MSE1Collector
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -58,7 +60,7 @@ namespace
 
 template< bool isEntryReminder >
     MSE1MoveReminder< isEntryReminder >::MSE1MoveReminder(
-        std::string id
+        std::string /*id*/
         , MSCrossSection crossSection
         , MSE1Collector& collector
         )
@@ -128,7 +130,7 @@ template< bool isEntryReminder >
 
     // EntryReminder overload
 template< bool isEntryReminder >
-    void MSE1MoveReminder< isEntryReminder >::dismiss(MSVehicle& veh, Loki::Int2Type< true >)
+    void MSE1MoveReminder< isEntryReminder >::dismiss(MSVehicle& , Loki::Int2Type< true >)
         {}
 
     // LeaveReminder overload

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2006/07/06 05:58:08  dkrajzew
 // removed some old code
 //
@@ -34,7 +37,6 @@ namespace
 //
 // Revision 1.1  2006/01/09 13:38:36  dkrajzew
 // debugging vehicle color usage
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -70,7 +72,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 SUMOBaseRouteHandler::SUMOBaseRouteHandler()
-    : myAmInEmbeddedMode(false), myCurrentDepart(0)
+    : myCurrentDepart(0), myAmInEmbeddedMode(false)
 {
 }
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/11/16 10:50:46  dkrajzew
+// warnings removed
+//
 // Revision 1.34  2006/11/14 13:04:06  dkrajzew
 // warnings removed
 //
@@ -390,7 +393,7 @@ NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */)
             SUMOReal speed = -1;
             int j1 = i - 1; // !!! recheck - j1 may become negative?
             int j2 = i;
-            while(j2!=myLaneSpeeds.size()&&myLaneSpeeds[j2]==-1) {
+            while(j2!=(int) myLaneSpeeds.size()&&myLaneSpeeds[j2]==-1) {
                 j2++;
             }
             if(j1<0) {

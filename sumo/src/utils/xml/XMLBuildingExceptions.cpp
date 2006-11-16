@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/16 10:50:53  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/01/19 09:26:20  dkrajzew
 // debugging
 //
@@ -159,7 +162,7 @@ XMLIdNotKnownException::~XMLIdNotKnownException()
 
 
 string
-XMLIdNotKnownException::getMessage(const string &obj, const string &id)
+XMLIdNotKnownException::getMessage(const string &, const string &)
 {
     return "The object " + m_Object + " with the id " + m_Id
         + " is not known";
@@ -183,7 +186,7 @@ XMLIdAlreadyUsedException::~XMLIdAlreadyUsedException()
 
 
 string
-XMLIdAlreadyUsedException::getMessage(const string &obj, const string &id)
+XMLIdAlreadyUsedException::getMessage(const string &, const string &)
 {
   return "Another " + m_Object + " with the id " + m_Id + " exists";
 }
@@ -205,7 +208,7 @@ XMLDepartLaneDuplicationException::~XMLDepartLaneDuplicationException()
 
 
 string
-XMLDepartLaneDuplicationException::getMessage(const string &obj,
+XMLDepartLaneDuplicationException::getMessage(const string &,
                                               const string &id)
 {
   string _myId = id;

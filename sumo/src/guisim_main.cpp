@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2006/11/16 10:50:42  dkrajzew
+// warnings removed
+//
 // Revision 1.17  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
 //
@@ -330,7 +333,7 @@ initColoringSchemes()
         (size_t (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
         true, RGBColor(1,0,0), MSCORN::CORN_P_VEH_DEV_CPHONE, MSCORN::CORN_P_VEH_DEV_CPHONE));
 
-    /*
+    /
     sm.add("by device state",
         new GUIColorer_ByDeviceNumber<GUIVehicle>(
             (void (GUIVehicle::*)() const) &GUIVehicle::setDeviceStateColor));

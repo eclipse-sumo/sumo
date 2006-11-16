@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/11/14 13:02:32  dkrajzew
 // warnings removed
 //
 // Revision 1.6  2006/10/12 10:14:28  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -79,7 +81,7 @@ public:
         int bestLaneOffset, SUMOReal bestDist,
         SUMOReal currentDist);
 
-    virtual void inform(LaneChangeAction , MSVehicle */*sender*/) { }
+    virtual void inform(LaneChangeAction , MSVehicle * /*sender*/) { }
 
 
 };

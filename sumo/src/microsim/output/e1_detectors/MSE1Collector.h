@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.14  2006/10/25 12:22:39  dkrajzew
 // updated
 //
@@ -153,7 +156,7 @@ public:
     ///
     /// @param veh The vehicle to remove.
     ///
-    void removeOnTripEnd( MSVehicle *veh )
+    void removeOnTripEnd( MSVehicle * )
         {
             // MACHE IRGENDWAS
         }

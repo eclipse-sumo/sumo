@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/11/16 10:50:52  dkrajzew
+// warnings removed
+//
 // Revision 1.6  2006/07/06 05:51:39  dkrajzew
 // debugged handling of vehicles that left the simulation
 //
@@ -174,7 +177,6 @@ GUIGlObjectStorage::remove(size_t id)
         _lock.unlock();
 		return false;
     } else {
-        GUIGlObject *o = (*i).second;
         myMap.erase(id);
         _lock.unlock();
 		return true;

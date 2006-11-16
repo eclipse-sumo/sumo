@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/16 10:50:45  dkrajzew
+// warnings removed
+//
 // Revision 1.22  2006/11/14 06:41:39  dkrajzew
 // some further work on lane changing
 //
@@ -617,7 +620,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal vsafe)
+MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/)
 {
 #ifdef GUI_DEBUG
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
@@ -707,7 +710,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal v
 
 
 void *
-MSLCM_DK2004::inform(void *info, MSVehicle *sender)
+MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/)
 {
     Info *pinfo = (Info*) info;
     if(pinfo->second==LCA_UNBLOCK) {
