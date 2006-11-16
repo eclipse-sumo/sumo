@@ -225,6 +225,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\output\e1_detectors\MSE1MoveReminder.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\e2_detectors\MSE2Collector.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
