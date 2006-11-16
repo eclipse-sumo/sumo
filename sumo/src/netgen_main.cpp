@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/11/16 06:50:29  dkrajzew
+// finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
+//
 // Revision 1.30  2006/09/18 10:19:18  dkrajzew
 // debugging
 //
@@ -172,13 +175,13 @@ bool
 checkOptions(OptionsCont &oc)
 {
     // check whether the output is valid and can be build
-    if(!oc.isSet("o")) {
+    if(!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
-    std::ofstream tst(oc.getString("o").c_str());
+    std::ofstream tst(oc.getString("output-file").c_str());
     if(!tst.good()) {
-        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("o") + "' can not be build.");
+        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("output-file") + "' can not be build.");
         return false;
     }
     // check whether exactly one type of a network to build was wished
@@ -212,9 +215,6 @@ void
 fillOptions(OptionsCont &oc)
 {
     // register the file i/o options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-
     oc.doRegister("random-net", 'r', new Option_Bool(false));
     oc.addSynonyme("random-net", "random");
 
@@ -223,9 +223,6 @@ fillOptions(OptionsCont &oc)
 
     oc.doRegister("grid-net", 'g', new Option_Bool(false));
     oc.addSynonyme("grid-net", "grid");
-
-    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
-    oc.addSynonyme("output-file", "output");
 
     // register random-net options
     oc.doRegister("rand-iterations", new Option_Integer(2000));

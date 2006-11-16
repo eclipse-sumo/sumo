@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/16 06:50:29  dkrajzew
+// finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
+//
 // Revision 1.23  2006/09/18 10:11:36  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -278,6 +281,15 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("visum-file", new Option_FileName());
     oc.doRegister("vissim-file", new Option_FileName());
     oc.doRegister("artemis-path", new Option_FileName());
+    oc.addSynonyme("xml-node-files", "xml-nodes");
+    oc.addSynonyme("xml-edge-files", "xml-edges");
+    oc.addSynonyme("xml-connection-files", "xml-connections");
+    oc.addSynonyme("xml-type-files", "xml-types");
+    oc.addSynonyme("cell-node-file", "cell-nodes");
+    oc.addSynonyme("cell-edge-file", "cell-edges");
+    oc.addSynonyme("visum-file", "visum");
+    oc.addSynonyme("vissim-file", "vissim");
+    oc.addSynonyme("artemis-path", "artemis");
 
     oc.doRegister("arcview", new Option_FileName());
     oc.doRegister("arcview.street-id", new Option_String());
@@ -289,25 +301,6 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("arcview.utm", new Option_Integer(32));
     oc.doRegister("arcview.guess-projection", new Option_Bool(false));
 
-    oc.doRegister("use-projection", new Option_Bool(false));
-    oc.doRegister("proj.simple", new Option_Bool(false));
-    oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
-
-
-    oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("xml-node-files", "xml-nodes");
-    oc.addSynonyme("xml-edge-files", "xml-edges");
-    oc.addSynonyme("xml-connection-files", "xml-connections");
-    oc.addSynonyme("xml-type-files", "xml-types");
-    oc.addSynonyme("cell-node-file", "cell-nodes");
-    oc.addSynonyme("cell-edge-file", "cell-edges");
-    oc.addSynonyme("visum-file", "visum");
-    oc.addSynonyme("vissim-file", "vissim");
-    oc.addSynonyme("artemis-path", "artemis");
-    oc.addSynonyme("output-file", "output");
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.doRegister("binary-output", new Option_Bool(false));
     // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
     // register further vissim-options

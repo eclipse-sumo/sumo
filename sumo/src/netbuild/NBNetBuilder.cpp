@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/11/16 06:50:29  dkrajzew
+// finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
+//
 // Revision 1.41  2006/10/31 12:22:14  dkrajzew
 // code beautifying
 //
@@ -558,7 +561,13 @@ NBNetBuilder::saveMap(const string &path)
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+
     // register additional output options
+    oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
+    oc.addSynonyme("output-file", "output");
+    oc.doRegister("binary-output", new Option_Bool(false));
     oc.doRegister("plain-output", new Option_FileName());
     oc.doRegister("node-geometry-dump", new Option_FileName());
     oc.doRegister("map-output", 'M', new Option_FileName());
@@ -579,6 +588,11 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("log-file", 'l', new Option_FileName());
 
     // extended
+
+    oc.doRegister("use-projection", new Option_Bool(false));
+    oc.doRegister("proj.simple", new Option_Bool(false));
+    oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
+
     oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
     // register the data processing options
 
