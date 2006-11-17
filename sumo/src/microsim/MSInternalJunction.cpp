@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/11/17 14:21:43  dkrajzew
+// debugging usage of internal lanes
+//
 // Revision 1.8  2006/10/31 12:20:31  dkrajzew
 // further work on internal lanes
 //
@@ -122,13 +125,15 @@ MSInternalJunction::postloadInit()
 {
     // inform links where they have to report approaching vehicles to
     size_t requestPos = 0;
-    // going through the incoming lanes...
-    const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
-    // ... set information for every link
-    for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-        (*j)->setRequestInformation(&myRequest, requestPos,
-            &myRespond, requestPos/*, clearInfo*/);
-        requestPos++;
+    if(myIncomingLanes.size()!=0) {
+        // for the first incoming lane
+        const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
+        // ... set information for every link
+        for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            (*j)->setRequestInformation(&myRequest, requestPos,
+                &myRespond, requestPos/*, clearInfo*/);
+            requestPos++;
+        }
     }
     /*
 #ifdef HAVE_INTERNAL_LANES
@@ -156,6 +161,10 @@ MSInternalJunction::setAllowed()
     // Get myRespond from logic and check for deadlocks.
     myRespond.set(0, true);
     LaneCont::iterator i;
+
+    if(myIncomingLanes.size()==0) {
+        return true;
+    }
 
     // do nothing if there is no vehicle
     if(myIncomingLanes[0]->empty()) {
