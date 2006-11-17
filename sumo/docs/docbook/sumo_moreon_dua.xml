@@ -36,8 +36,8 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.5. We will try to keep it
-      up-to-date with the next versions.</para>
+      <para>This document fits to version 0.9.5. We will try to keep it up to
+      date with the next versions.</para>
     </sect1>
 
     <sect1 id="more_dua-intro-scope">
@@ -91,8 +91,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="center" fileref="./gfx/more/magdeburg_sumo.gif"
-                       format="GIF" />
+            <imagedata align="center" fileref="./gfx/more/magdeburg_small.png"
+                       format="PNG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -140,8 +140,9 @@ gnuplot&gt; plot "emissions_0.txt" u 1:4 w l, "emissions_5.txt" u 1:4 w l, \
 
             <mediaobject>
               <imageobject>
-                <imagedata align="center" fileref="./gfx/more/veh_time1.gif"
-                           format="GIF" />
+                <imagedata align="center"
+                           fileref="./gfx/more/veh_time1_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -193,8 +194,9 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
 
             <mediaobject>
               <imageobject>
-                <imagedata align="center" fileref="./gfx/more/veh_time2.gif"
-                           format="GIF" />
+                <imagedata align="center"
+                           fileref="./gfx/more/veh_time2_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -216,8 +218,9 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
 
             <mediaobject>
               <imageobject>
-                <imagedata align="center" fileref="./gfx/more/veh_time3.gif"
-                           format="GIF" />
+                <imagedata align="center"
+                           fileref="./gfx/more/veh_time3_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -247,13 +250,14 @@ gnuplot&gt; plot "emissions_30.txt" u 1:4 w l, "emissions_31.txt" u 1:4 w l, \
           vehicles get stocked in the simulation due to jams.</para>
 
           <figure id="img_magdeburg_ended_development">
-            <title>Development of ended vehicles over time and dua iteration
+            <title>Development of ended vehicles over time and DUA iteration
             step (iteration step number is increased by 5) (tbd)</title>
 
             <mediaobject>
               <imageobject>
-                <imagedata align="center" fileref="./gfx/more/ended_time1.gif"
-                           format="GIF" />
+                <imagedata align="center"
+                           fileref="./gfx/more/ended_time1_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -284,7 +288,8 @@ gnuplot&gt; plot "emissions_0.txt" u 1:6 w l, "emissions_5.txt" u 1:6 w l, \
             <mediaobject>
               <imageobject>
                 <imagedata align="center"
-                           fileref="./gfx/more/waiting_time1.gif" format="GIF" />
+                           fileref="./gfx/more/waiting_time1_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -309,8 +314,8 @@ gnuplot&gt; plot "emissions_0.txt" u 1:5 w l, "emissions_5.txt" u 1:5 w l, \
             <mediaobject>
               <imageobject>
                 <imagedata align="center"
-                           fileref="./gfx/more/meanwaitingtime_time1.gif"
-                           format="GIF" />
+                           fileref="./gfx/more/meanwaitingtime_time1_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -339,8 +344,8 @@ gnuplot&gt; plot "emissions_0.txt" u 1:7 w l, "emissions_5.txt" u 1:7 w l, \
             <mediaobject>
               <imageobject>
                 <imagedata align="center"
-                           fileref="./gfx/more/meantraveltime_time1.gif"
-                           format="GIF" />
+                           fileref="./gfx/more/meantraveltime_time1_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -363,8 +368,8 @@ gnuplot&gt; plot "emissions_0.txt" u 1:8 w l, "emissions_5.txt" u 1:8 w l, \
             <mediaobject>
               <imageobject>
                 <imagedata align="center"
-                           fileref="./gfx/more/meantraveltime_time2.gif"
-                           format="GIF" />
+                           fileref="./gfx/more/meantraveltime_time2_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>
@@ -388,8 +393,8 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
             <mediaobject>
               <imageobject>
                 <imagedata align="center"
-                           fileref="./gfx/more/meantraveltime_time3.gif"
-                           format="GIF" />
+                           fileref="./gfx/more/meantraveltime_time3_small.png"
+                           format="PNG" />
               </imageobject>
             </mediaobject>
           </figure>

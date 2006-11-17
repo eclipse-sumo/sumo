@@ -30,8 +30,8 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.5. We will try to keep it
-      up-to-date with the next versions.</para>
+      <para>This document fits to version 0.9.5. We will try to keep it up to
+      date with the next versions.</para>
     </sect1>
 
     <sect1 id="more_arcview-intro-scope">
@@ -372,7 +372,7 @@
    <sgmltag>&lt;type id="5"  priority="1" nolanes="1" speed="5"/&gt;</sgmltag>
    <sgmltag>&lt;!-- "Zone 30" (lower street with a speed limit of 30km/h) --&gt;</sgmltag>
    <sgmltag>&lt;type id="6"  priority="2" nolanes="1" speed="8.33"/&gt;</sgmltag>
-   <sgmltag>&lt;!-- "Spielstrasse" (lower street where children may play (10km/h)) --&gt;</sgmltag>
+   <sgmltag>&lt;!-- "Spielstrasse" (a street where children may play (10km/h)) --&gt;</sgmltag>
    <sgmltag>&lt;type id="7"  priority="1" nolanes="1" speed="1.39"/&gt;</sgmltag>
    <sgmltag>&lt;!-- "Fussgaengerzone" (pedestrains zone) --&gt;</sgmltag>
    <sgmltag>&lt;type id="8"  priority="0" nolanes="1" speed="0.1"/&gt;</sgmltag>
@@ -395,8 +395,9 @@
       projections, this was fixed. So the call (so far) looks like
       this:</para>
 
-      <screen>netconvert --arcview strassen -o frida.net.xml --arcview.street-id strShapeID \
-   -t frida.typ.xml --arcview.type-id strTypID --use-projection</screen>
+      <screen>netconvert --arcview strassen -o frida.net.xml \
+   --arcview.street-id strShapeID -t frida.typ.xml \
+   --arcview.type-id strTypID --use-projection</screen>
 
       <para>The network looks as shown below:</para>
 
@@ -471,7 +472,7 @@
       as wide as the highways themselves. Furthermore, all streets within the
       network are coded in just one direction. Extending them to be
       bidirectional solves the problem in inner-city areas, but yields in an
-      unacceptable reslt for highways. Still, if one wants to simulate only
+      unacceptable result for highways. Still, if one wants to simulate only
       the inner city traffic, the error made when inserting edges
       bidirectional should be small enough to get a working, realistic network
       at no cost.</para>

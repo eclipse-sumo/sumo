@@ -365,8 +365,8 @@
       process. In the latter case, please download the source distribution and
       compile it for your own. The description of the building process is
       found within a separate document located <ulink
-      url="http://sumo.sourceforge.net/docs/dev_chp02.html">here</ulink>. If
-      you have built the package on a system not included within our binary
+      url="http://sumo.sourceforge.net/docs/gen/sumo_howto_building.shtml">here</ulink>.
+      If you have built the package on a system not included within our binary
       distribution, please let us know and send it to us, so that we can
       include it into the pages.</para>
 
@@ -4313,8 +4313,8 @@
         <para>An example:</para>
 
         <figure id="img_randomnet1">
-          <title><command>netgen --random-net -o MySUMOFile.net.xml --rand-ite
-          rations=200 --abs-rand</command></title>
+          <title><command>netgen --random-net -o MySUMOFile.net.xml
+          --rand-iterations=200 --abs-rand</command></title>
 
           <mediaobject>
             <imageobject>
@@ -6947,8 +6947,8 @@ myDet1;0;10;2;100;80
 
           <para>or this way:</para>
 
-          <programlisting><sgmltag>&lt;e1-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>"
-   [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
+          <programlisting><sgmltag>&lt;e1-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
+   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
 
           <para>The id is any string that let's you know which detector is
           meant. The type indicates that a induct loop shall be build, here.
@@ -7035,17 +7035,17 @@ myDet1;0;10;2;100;80
 
           <para>An induct loop is defined the following way:</para>
 
-          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
-   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>"
+   pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>"
+   [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
 
           <para>or:</para>
 
-          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"]
-   [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
+   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"]
+   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
 
           <para>Most of the attributes have the same meaning as for induct
           loops. As an areal detector has a certain length, this length must
@@ -7081,17 +7081,18 @@ myDet1;0;10;2;100;80
           (use the attribute "<sgmltag>tl</sgmltag>" to specify the id)
           :</para>
 
-          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="[(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" tl="<replaceable>&lt;TL-ID&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"]
-   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="[(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+   pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" tl="<replaceable>&lt;TL-ID&gt;</replaceable>"
+   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
+   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
    [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
 
           <para>or:</para>
 
-          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>"
-   tl="<replaceable>&lt;TL-ID&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
-   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
+   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>"  tl="<replaceable>&lt;TL-ID&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"]
+   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
 
           <para>A further feature allows you to output values not for all
           switches of the traffic light the detector is attached to, but only
@@ -8648,14 +8649,22 @@ myDet1;0;10;2;100;80
    <sgmltag>&lt;subkey&gt;</sgmltag>0<sgmltag>&lt;/subkey&gt;</sgmltag>
    <sgmltag>&lt;phaseno&gt;</sgmltag>8<sgmltag>&lt;/phaseno&gt;</sgmltag>
    <sgmltag>&lt;offset&gt;</sgmltag>0<sgmltag>&lt;/offset&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="20" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="3" phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="20" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="3" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="0000111100001111" brake="1111110011111100" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000110000001100" brake="1111111111111111" \
+      yellow="0000001100000011"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="0000110000001100" brake="1111001111110011" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" \
+      yellow="0000110000001100"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="1111000011110000" brake="1100111111001111" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="1100000011000000" brake="1111111111111111" \
+      yellow="0011000000110000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="1100000011000000" brake="0011111100111111" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" \
+      yellow="1100000011000000"/&gt;</sgmltag>
 <sgmltag>&lt;/tl-logic&gt;</sgmltag></programlisting></para>
 
           <para>After you have defined a tls program, you can add it to one of
@@ -9109,7 +9118,7 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
-        <sect3 id="user_chp06-management-vclasses-defs">
+        <sect3 id="user_chp06-management-rerouter-closing">
           <title>Closing a Street</title>
 
           <para>A "<sgmltag>closing_reroute</sgmltag>" forces the rerouter to
@@ -9140,7 +9149,7 @@ myDet1;0;10;2;100;80
           </itemizedlist>
         </sect3>
 
-        <sect3 id="user_chp06-management-vclasses-defs">
+        <sect3 id="user_chp06-management-rerouter-dest_prob">
           <title>Assigning a new Destination</title>
 
           <para>A "<sgmltag>dest_prob_reroute</sgmltag>" forces the rerouter
@@ -9181,7 +9190,7 @@ myDet1;0;10;2;100;80
           </itemizedlist>
         </sect3>
 
-        <sect3 id="user_chp06-management-vclasses-defs">
+        <sect3 id="user_chp06-management-rerouter-route_prob">
           <title>Assigning a new Route</title>
 
           <para>A "<sgmltag>route_prob_reroute</sgmltag>" forces the rerouter
@@ -9433,8 +9442,8 @@ myDet1;0;10;2;100;80
 
           <para>You can assign a vehicle class to a vehicle by extending this
           vehicle's vehicle type. Assume you want to set a vehicle as being of
-          the class "bus". A vehicle type definition could look like this:
-          </para>
+          the class "bus". A vehicle type definition could look like
+          this:</para>
 
           <programlisting>    <sgmltag>&lt;vtype id="BUS" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70"
             color="1,1,0" vclass="public_bus"/&gt;</sgmltag>

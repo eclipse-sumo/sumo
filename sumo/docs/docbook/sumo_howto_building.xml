@@ -40,8 +40,8 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.5. We will try to keep it
-      up-to-date with the next versions.</para>
+      <para>This document fits to version 0.9.5. We will try to keep it up to
+      date with the next versions.</para>
     </sect1>
 
     <sect1 id="howto_build-intro-scope">
@@ -82,11 +82,12 @@
     <para>There are two possibilities to obtain the sources needed to build
     SUMO. The first is to download the latest distribution, located within the
     <ulink
-    url="http://sumo.sourceforge.net/downloads.html#sumo-latest">download</ulink>
+    url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>
     section of our <ulink url="http://sumo.sourceforge.net">internet
-    pages</ulink> internet pages. The other one is to checkout the <ulink
-    url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink> tree
-    (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
+    pages</ulink>. The other one is to checkout the <ulink
+    url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink> tree.
+    The server is <literal>sumo.cvs.sourceforge.net</literal>, modulname is
+    <literal>sumo</literal>.</para>
 
     <para>Normally, the CVS tree is stable and buildable and of course does
     contain the latest patches, the latest release may not contain.</para>
@@ -104,25 +105,21 @@
     url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
     to build SUMO from the cvs-sources.</para>
 
-    <para>We will also discuss how to add new option to
-    <literal>configure</literal> and how to modify
-    <literal>Makefile.am</literal> if new files or libraries are added.</para>
-
     <sect1 id="howto_build-linux-from_source_tarball">
       <title>Building SUMO from a sourcecode release</title>
 
       <procedure>
         <step>
           <para>Download the <ulink
-          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
-          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
+          (version 2.6 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
           (version 4.4.9), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
           Make sure you download the Linux-version of Xerces, the sources for
           FOX in the version 1.4.x and GDAL version 1.3.1.</para>
 
@@ -198,15 +195,15 @@ co -P sumo</screen>
 
         <step>
           <para>Download the <ulink
-          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
-          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
+          (version 2.6 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
           (version 4.4.9), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
           Make sure you download the Linux-version of Xerces, the sources for
           FOX in the version 1.4.x and GDAL version 1.3.1.</para>
 
@@ -295,15 +292,15 @@ co -P sumo</screen>
 
         <step>
           <para>Download the <ulink
-          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
-          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
+          (version 2.6 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
           (version 4.4.9), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
           Make sure you download the Windows-version of Xerces, the sources
           for FOX in the version 1.4.x and GDAL version 1.3.1.</para>
 
@@ -437,18 +434,9 @@ co -P sumo</screen>
   </chapter>
 
   <chapter id="howto_build-extending_linux">
-    <title>UNIX/Linux: SUMO and the GNU build process</title>
+    <title>UNIX/Linux: Extending the Makefiles</title>
 
-    <para>Here we describe how to use the <ulink
-    url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>, <ulink
-    url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
-    <ulink
-    url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
-    and <ulink
-    url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
-    to build SUMO from the cvs-sources.</para>
-
-    <para>We will also discuss how to add new option to
+    <para>It is discussed how to add new option to
     <literal>configure</literal> and how to modify
     <literal>Makefile.am</literal> if new files or libraries are added.</para>
 
@@ -471,9 +459,7 @@ co -P sumo</screen>
       are some SUMO-specific header/library-checks for the libraries SUMO
       uses. Take them as sample and consult the <ulink
       url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
-      for further insights. Take care of <ulink
-      url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
-      shell-code</ulink>.</para>
+      for further insights.</para>
     </sect1>
 
     <sect1 id="howto_build-extending_linux-makefile_modify">
@@ -537,7 +523,8 @@ EXTRA_DIST = distributed_but_not_compiled_file
 
 libxxx_a_SOURCES = header.h source.cpp
 
-AM_CPPFLAGS = -I$(top_srcdir)/src/helpers -I$(FOX_INCLUDES) \ -I$(XERCES_INCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src/helpers -I$(FOX_INCLUDES) \
+   -I$(XERCES_INCLUDES)
 
 SUBDIRS = icons</screen>
 

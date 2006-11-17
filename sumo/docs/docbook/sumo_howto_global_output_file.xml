@@ -328,7 +328,8 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
 {
     if(myVehicleDeviceTOSS2Output!=0) {
         myVehicleDeviceTOSS2Output-&gt;getOStream()
-            &lt;&lt; "01;" &lt;&lt; time &lt;&lt; ';' &lt;&lt; callID &lt;&lt; ';' &lt;&lt; pos &lt;&lt; ';' &lt;&lt; quality &lt;&lt; "\n";
+            &lt;&lt; "01;" &lt;&lt; time &lt;&lt; ';' &lt;&lt; callID &lt;&lt; ';' &lt;&lt; pos
+            &lt;&lt; ';' &lt;&lt; quality &lt;&lt; "\n";
     }
 }
 ...</programlisting>
@@ -347,7 +348,10 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
 
         <programlisting>...
     <remark>// TOL_SPEC_SS2 (1.2)</remark>
-    if(m_State==STATE_CONNECTED&amp;&amp;MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
+    if( m_State==STATE_CONNECTED
+        &amp;&amp;
+        MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
+
         MSCORN::saveTOSS2_CalledPositionData(
             MSNet::getInstance()-&gt;getCurrentTimeStep(), gCallID,
             myVehicle.getLane().edge().getID(), 0);

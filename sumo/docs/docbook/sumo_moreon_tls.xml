@@ -36,8 +36,8 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.5. We will try to keep it
-      up-to-date with the next versions.</para>
+      <para>This document fits to version 0.9.5. We will try to keep it up to
+      date with the next versions.</para>
     </sect1>
 
     <sect1 id="more_tls-intro-scope">
@@ -84,8 +84,21 @@
     <sect1 id="more_tls-intro-structure">
       <title>Document Structure</title>
 
-      <para>At first, a description about how traffic lights work in SUMO is
-      given.</para>
+      <para>At first, a description about how right-of-way rules are applied
+      and how traffic lights work in SUMO is given.</para>
+
+      <para>Then, tls-algorithms already implemented in SUMO are described
+      <remark>(TBD: incomplete)</remark>.</para>
+
+      <para>Then, it is shown how one can implement own tls algorithms
+      <remark>(TBD: incomplete)</remark>.</para>
+
+      <para>Then it is described how right-of-way rules and tls-algorithms are
+      loaded.</para>
+
+      <para>We close with some further information about how to deal with tls
+      within SUMO. These information are mainly answers to questions posted by
+      users.</para>
     </sect1>
   </chapter>
 
@@ -148,8 +161,9 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="center" fileref="./gfx/more/CD_Junctions.gif"
-                       format="GIF" />
+            <imagedata align="center"
+                       fileref="./gfx/more/CD_Junctions_small.png"
+                       format="PNG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -191,7 +205,8 @@
         <mediaobject>
           <imageobject>
             <imagedata align="center"
-                       fileref="./gfx/more/CD_TrafficLights.gif" format="GIF" />
+                       fileref="./gfx/more/CD_TrafficLights_small.png"
+                       format="PNG" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -210,14 +225,21 @@
       following steps:</para>
 
       <programlisting>SUMOTime execute() {
-   size_t step1 = myTLLogic-&gt;getStepNo(); // get the current phase index
-   SUMOTime next = myTLLogic-&gt;trySwitch(); // try to switch, get next duration
-   size_t step2 = myTLLogic-&gt;getStepNo(); // get the phase index after possible switch
-   if(step1!=step2) { // has the phase changed?
-      myTLLogic-&gt;onSwitch(); // yes -&gt; do some further actions (see below)
-      myTLLogic-&gt;setLinkPriorities(); // inform the links about current state
+   // get the current phase index
+   size_t step1 = myTLLogic-&gt;getStepNo();
+   // try to switch, get next duration
+   SUMOTime next = myTLLogic-&gt;trySwitch();
+   // get the phase index after possible switch
+   size_t step2 = myTLLogic-&gt;getStepNo();
+   // has the phase changed?
+   if(step1!=step2) {
+      // yes -&gt; do some further actions (see below)
+      myTLLogic-&gt;onSwitch();
+      // inform the links about current state
+      myTLLogic-&gt;setLinkPriorities();
    }
-   return next; // return period after which the tls shall be tried to switch again
+   // return period after which the tls shall be tried to switch again
+   return next;
 }
 </programlisting>
 
@@ -233,16 +255,15 @@
       <classname>MSTrafficLightLogic::setLinkPriorities</classname> function.
       The call to <function>onSwitch</function> should not bother you, herein.
       It is not a part of the tls-steering, but used to inform connected
-      structures about the phase change. By now, only assigned detectors (see
-      [!!!]) may be informed and their assignment is done separately from the
+      structures about the phase change. By now, only assigned detectors may
+      be informed and their assignment is done separately from the
       tls-implementations. The comparison between the step before and after
       trying to switch is needed, as maybe the tls decides not to switch, yet,
-      although the phases duration is over (see the <ulink
-      url="#more_tls-existing-static">description of the agentbased
-      tls</ulink>). After all has been done, we return the period to wait
-      until we again try to switch the tls. If you want, your implementation
-      of "<function>trySwitch</function>" may always return 1 in order to
-      check the tls each simulation step.</para>
+      although the phases duration is over <remark>(TBD: add a description of
+      agentbased tls)</remark>. After all has been done, we return the period
+      to wait until we again try to switch the tls. If you want, your
+      implementation of "<function>trySwitch</function>" may always return 1
+      in order to check the tls each simulation step.</para>
     </sect1>
 
     <sect1 id="more_tls-right_of_way-whole">
@@ -313,7 +334,7 @@
   </chapter>
 
   <chapter id="more_tls-existing_algorithms">
-    <title>Existing LSA-Algorithms in SUMO</title>
+    <title>Existing TLS-Algorithms in SUMO</title>
 
     <sect1 id="more_tls-existing_algorithms-static">
       <title>Static TLS (MSSimpleTrafficLightLogic)</title>
@@ -347,7 +368,7 @@ MSSimpleTrafficLightLogic::trySwitch()
   </chapter>
 
   <chapter id="more_tls-implement_own">
-    <title>Implementing Own TLS-Logics</title>
+    <title>Implementing Own TLS-Algorithms</title>
 
     <sect1 id="more_tls-implement_own-apis">
       <title>Existing APIs</title>
@@ -402,14 +423,22 @@ MSSimpleTrafficLightLogic::trySwitch()
    <sgmltag>&lt;subkey&gt;</sgmltag>0<sgmltag>&lt;/subkey&gt;</sgmltag>
    <sgmltag>&lt;phaseno&gt;</sgmltag>8<sgmltag>&lt;/phaseno&gt;</sgmltag>
    <sgmltag>&lt;offset&gt;</sgmltag>0<sgmltag>&lt;/offset&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="20" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="3" phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="20" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="3" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/&gt;</sgmltag>
-   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="0000111100001111" brake="1111110011111100" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000110000001100" brake="1111111111111111" \
+      yellow="0000001100000011"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="0000110000001100" brake="1111001111110011" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" \
+      yellow="0000110000001100"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="1111000011110000" brake="1100111111001111" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="1100000011000000" brake="1111111111111111" \
+      yellow="0011000000110000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="1100000011000000" brake="0011111100111111" \
+      yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" \
+      yellow="1100000011000000"/&gt;</sgmltag>
 <sgmltag>&lt;/tl-logic&gt;</sgmltag></programlisting></para>
 
         <para>This description is build during network conversion/generation
@@ -535,7 +564,7 @@ MSSimpleTrafficLightLogic::trySwitch()
           <title>Meanings of combinations of phase/brake/yellow</title>
 
           <tgroup cols="4">
-            <tbody>
+            <thead>
               <row>
                 <entry>phase</entry>
 
@@ -545,7 +574,9 @@ MSSimpleTrafficLightLogic::trySwitch()
 
                 <entry>meaning</entry>
               </row>
+            </thead>
 
+            <tbody>
               <row>
                 <entry>0 (may not pass)</entry>
 
@@ -683,7 +714,8 @@ MSSimpleTrafficLightLogic::trySwitch()
         (example from <filename>cross3ltl.net.xml</filename>):</para>
 
         <programlisting><sgmltag>&lt;succ edge="1si" lane="1si_0" junction="0"&gt;
-   &lt;succlane lane="3o_0" via=":0_12_0" tl="0" linkno="12" yield="1" dir="r" state="t"/&gt;
+   &lt;succlane lane="3o_0" via=":0_12_0" \
+      tl="0" linkno="12" yield="1" dir="r" state="t"/&gt;
 &lt;/succ&gt; </sgmltag></programlisting>
 
         <para>Let's consider the element "succlane" only, the element "succ"
@@ -740,12 +772,9 @@ MSSimpleTrafficLightLogic::trySwitch()
     <sect1 id="more_tls-loading-parsing">
       <title>Parsing the network description</title>
 
-      <para>As described in <ulink
-      url="http://sumo.sourceforge.net/docs/gen/dev_chp03.shtml#dev_chp03-loading">Developer
-      Docs - Chapter 3. SUMO - 3.2. Loading</ulink>, an instance of NLHandler
-      is used to parse the XML-descriptions of the network and of the
-      tls-logics contained herein. All elements related to traffic lights and
-      junctions at all are delegated to an instance of
+      <para>An instance of NLHandler is used to parse the XML-descriptions of
+      the network and of the tls-logics contained herein. All elements related
+      to traffic lights and junctions at all are delegated to an instance of
       NLJunctionControlBuilder (from version 0.9.0 on). Herein, the whole
       description is stored temporarily until the complete description has
       been read. Then, as the closing <sgmltag>tl-logic</sgmltag> tag occures,
