@@ -94,7 +94,7 @@
     <li><a class="SUMOInLineLink" href="http://www.xmlmind.com/xmleditor/">XMLMind XML Editor</a><br>
     An editor supporting DocBook.
 
-    <li><a class="SUMOInLineLink" href="http://supportweb.cs.bham.ac.uk/documentation/tutorials/docsystem/build/tutorials/docbooksys/segmentedhtml/index.html">DocBook - HowTo</a><br>
+    <li><a class="SUMOInLineLink" href="http://supportweb.cs.bham.ac.uk/docs/tutorials/docsystem/build/tutorials/docbooksys/docbooksys.html">DocBook - HowTo</a><br>
     A description of how to use DocBook, the format used for SUMO-documentation.
 </ul><br>
 
@@ -115,7 +115,7 @@
     <li><a class="SUMOInLineLink" href="http://www.cs.wustl.edu/~schmidt/ACE.html">ACE - The ADAPTIVE Communication Environment</a><br>
     A portable communication library used by an internal version of SUMO.
 
-    <li><a class="SUMOInLineLink" href="www.xmlrpc.com">XML - RPC</a><br>
+    <li><a class="SUMOInLineLink" href="http://www.xmlrpc.com">XML - RPC</a><br>
     A communication library used by the <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html" target="new">Institute of Telematics at the L&uuml;beck University</a>.
 
     <li><a class="SUMOInLineLink" href="http://www.boost.org">Boost</a><br>
