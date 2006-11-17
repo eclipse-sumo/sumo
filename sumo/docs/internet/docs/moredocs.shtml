@@ -110,7 +110,7 @@ The <b>"HowTos"</b> are brief descriptions how to handle a certain problem while
 		<td valign="top"><i>Developer</i></td>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_tests.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_testing.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre></td>
 		<td valign="top">Introduction to the test suite we use and a list of what the tests cover</td>
 		<td valign="top"><i>Developer</i></td>
 	</tr>
