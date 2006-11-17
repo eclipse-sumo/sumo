@@ -501,6 +501,42 @@ Package=<4>
 
 ###############################################################################
 
+Project: "polyconvert"=.\polyconvert\polyconvert.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name x_libforeign_proj
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_options
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_sumoxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_xml
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "sumo"=.\sumo\sumo.dsp - Package Owner=<4>
 
 Package=<5>
