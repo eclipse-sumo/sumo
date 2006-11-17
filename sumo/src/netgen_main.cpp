@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/11/17 11:13:40  dkrajzew
+// patched false output on error
+//
 // Revision 1.31  2006/11/16 06:50:29  dkrajzew
 // finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
 //
@@ -394,7 +397,7 @@ main(int argc, char **argv)
         nb.buildLoaded();
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getMessageInstance()->inform("Quitting (building failed).", false);
+        MsgHandler::getErrorInstance()->inform("Quitting (building failed).", false);
         ret = 1;
     }
 #endif
