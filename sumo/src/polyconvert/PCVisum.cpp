@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/11/17 11:14:34  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/08/02 10:27:21  dkrajzew
 // building under Linux patched
 //
@@ -126,7 +129,7 @@ PCVisum::loadVisum(OptionsCont &oc)
                     xKoord = rest.substr(0,rest.find(";"));
                     rest = rest.substr(rest.find(";")+1, rest.length());
 					yKoord = rest.substr(0,rest.find(";"));
-                    Position2D pos2D(atof(xKoord.c_str()),atof(yKoord.c_str()));
+                    Position2D pos2D((SUMOReal) atof(xKoord.c_str()), (SUMOReal) atof(yKoord.c_str()));
 					vec.push_back(pos2D);
                     throw 1;
 						/*!!!
