@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/11/17 11:13:57  dkrajzew
+// changes to the actor-API applied
+//
 // Revision 1.10  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -135,14 +138,10 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 
 MSE1VehicleActor *
 GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
-                                     MSLane *lane, SUMOReal pos,
-                                     unsigned int type, unsigned int areaid)
+                                    MSLane *lane, SUMOReal pos, unsigned int la,
+									unsigned int cell, unsigned int type)
 {
-	if ( type == 0 )
-		return new GUIE1VehicleActor(id, lane, pos, LA, areaid);
-	else
-		return new GUIE1VehicleActor(id, lane, pos, CELL, areaid);
-
+    return new GUIE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
 

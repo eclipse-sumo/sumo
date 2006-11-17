@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/17 11:13:57  dkrajzew
+// changes to the actor-API applied
+//
 // Revision 1.3  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -300,8 +303,8 @@ GUIE1VehicleActor::GUIE1VehicleActorPopupMenu::onCmdOpenManip(FXObject*, FXSelec
  * GUIE1VehicleActor - methods
  * ----------------------------------------------------------------------- */
 GUIE1VehicleActor::GUIE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters, ActorType at, unsigned int areaid )
-    : MSE1VehicleActor(id, lane, positionInMeters, at, areaid, 1),
+        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type )
+    : MSE1VehicleActor(id, lane, positionInMeters, laid, cellid, type ),
     GUIGlObject_AbstractAdd(gIDStorage, "actor:" + id, GLO_TRIGGER)
 {
     const Position2DVector &v = lane->getShape();

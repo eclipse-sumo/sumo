@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/11/17 11:13:57  dkrajzew
+// changes to the actor-API applied
+//
 // Revision 1.8  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
 //
@@ -99,9 +102,9 @@ protected:
         SUMOReal prob, const std::string &file);
 
     /// builds a vehicle actor
-    virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
-        const std::string &id, MSLane *lane, SUMOReal pos,
-		unsigned int type, unsigned int areaid);
+    virtual MSE1VehicleActor *buildVehicleActor(MSNet &, const std::string &id,
+                                    MSLane *lane, SUMOReal pos, unsigned int la,
+									unsigned int cell, unsigned int type);
 
     /// builds a bus stop
     virtual MSBusStop* buildBusStop(MSNet &net,

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/11/17 11:13:57  dkrajzew
+// changes to the actor-API applied
+//
 // Revision 1.1  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
 //
@@ -74,7 +77,7 @@ class GUIE1VehicleActor
 public:
     /** constructor */
     GUIE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters, ActorType at, unsigned int areaid );
+        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type );
 
     /** destructor */
     ~GUIE1VehicleActor();
