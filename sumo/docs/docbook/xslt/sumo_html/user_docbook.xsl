@@ -79,7 +79,6 @@
             <a href="user_chp08.shtml" class="SUMOSubSubLink">8. Tips+Tricks</a><br/>
             <a href="user_apa.shtml" class="SUMOSubSubLink">A. Conventions</a><br/>
             <a href="user_apb.shtml" class="SUMOSubSubLink">B. Included</a><br/>
-            <a href="user_apc.shtml" class="SUMOSubSubLink">C. Errors</a><br/>
 
             <a href="../moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
 
