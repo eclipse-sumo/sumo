@@ -77,75 +77,150 @@
 	<h2>Changes</h2>
 </center>
 
-<b>Changes from 0.9.3 to 0.9.4</b>
+<b>Changes from 0.9.4 to 0.9.5</b>
 <p>
-This release is rather a snapshot. Many things have changed and some will require some further revalidation. There are three major changes/extensions:<br>
+Due to several projects we had to work on in 2006, more than half a year passed since the last release.
+Release 0.9.5 brings a lot of new features that became needed in this time. The major changes are:<br>
 <br>
-<b>1.</b> The TLS-subsystem now allows having more than a single logic for a traffic light. One can describe the switch times and switch between them on the GUI. The user-description on this may be found under <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-trigger-traffic_lights">Traffic Lights</a>. There is no developer documentation on this, yet.<br>
-If you are parsing the networks by your own, you will see that traffic lights definitions have changed slightly. Instead of the sgmltag "logicno" a tag named "subkey" is used by now. Also, "inclanes" has been removed.<br>
+
+<b>1. Documentation.</b><br>
+The whole documentation has been updated. This opened the oppurtunity to revalidate some part of SUMO and make
+them so available to the public in a documented way. Two of those "found" features are vehicle rerouter and
+emitter. Both are also mentioned below.<br>
+For letting you what has changed quickly, the changed parts of the documentation are marked. Furthermore,
+documentation is now also available as .pdf-files.<br>
+The documentation may be found at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">http://sumo.sourceforge.net/docs/documentation.shtml</a><br>
 <br>
-<b>2.</b> A full support to import networks with positions encoded in geocoordinates. This makes the usage of two further libraries necessary, PROJ.4 and GDAL. The new building process is described here <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_howto_building.shtml">here</a>.
-A description about how to import geocoordinated files (despite of ArcView-files) can be found <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-further_options-geocoordinates">here</a>.<br>
-Together with this extension, the import of ArcView-files has been rechecked and now allows to import networks stored in other schemes than the one NavTeq uses.
-The new options are described <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-arcview">here</a>.
- Some further comments on importing ArcView-files are available <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml">here</a>. By now, they include only some comments on importing an open-source network of Osnabrück. You can take a look at this <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/screens/frida.shtml">here</a> and also download it from <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/downloads/add_data.shtml">here</a>.<br><br>
 
-<b>3.</b> The developer documentation has been split into several parts. It seems to be unmanageable to write a complete developer documentation. Due to this, we now offer some additional documentation on certain topics. Topics that were previously a part of the developer documentation may be now found within the <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/moredocs.shtml">More Docs</a> section.<br>
-
-<br><br><br>
-There are also some further changes which do not yet show their potentials, but are quite promising:<br>
+<b>2. Junction-internal vehicle movements.</b><br>
+Normally in SUMO vehicles jump over junctions. Since this release there is a support for simulating traffic
+as it takes place in real life - vehicles are entering a junction area and are running smoothly over the junctions.<br>
+This feature is not yet used by default. You have to force the building of junction-internal lane information within
+NETCONVERT/NETGEN using the option --add-internal-links. This is already done for all the networks within the examples.
+You also have to force the simulation to use this information and simulate vehicle movement over junctions. This
+is done by passing the option --use-internal-lanes to the simulation (SUMO/GUISIM).
+Due to this there are two versions of configuraion files supplied for each of the examples, one for the normal
+version, one that used internal lanes.<br>
+As you may already see by the option names, this feature is not yet completely stable.<br>
+Further information on building networks that contain inner-junction lanes may be found at
+<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-further_options-internal_lanes">4.4.9. Adding inner-junction Traffic</a>.<br>
 <br>
-<b>1.</b> The routing interface has been made abstract. This allows to use routing algorithms in both the simulation as in the routing applications and will hopefully yield implementations of some further routing algorithms - by now Dijkstra and a turning ration algorithm are available.<br><br>
 
-<b>2.</b> Some first steps towards making SUMO be aware of vehicle types have been done. It is now possible to allow/disallow vehicles by class to use certain lanes. This is now implemented in the NETCONVERT application and within DUAROUTER, but not yet in the simulation itself and due to this not yet documented. But, as you can see, we are working towards making SUMO multi-modal...<br><br>
+<b>3. Vehicle classes.</b><br>
+SUMO and the other applications from the package can now handle different "vehicle classes". Currently, these
+vehicle classes can only be used to disallow the usage of certain lanes or streets.<br>
+Further information may be found at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vclasses">6.3.5. Vehicle Classes</a><br>
+<br>
 
-The complete list of changes:
+<b>4. A better support for geocoordinates.</b><br>
+The GUI now shows information about the cursor's position both in cartesian and geocoordinates. APIS allow the
+retrieval of a vehicle's position in geocoordinates (although there's no SUMO-internal usage of these APIs, yet).<br>
+The usage of the libraries "GDAL" and "PROJ.4" allows a scientific usage of geo-projected networks.<br>
+Further information may be found at
+<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-further_options-geocoordinates">4.4.8. Converting from Geocoordinates</a>.<br>
+<br>
+
+<b>5. Visualisation of geometric objects in GUISIM.</b><br>
+Yes, you can now make your simulations more pretty by adding water or other polygons or points of interest.
+Still, they are only visualised, there is no further functionality behind them.<br>
+Further information may be found at
+<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp07.shtml#user_chp07-geometry_files">7.4. Additional Geometry Files</a>.<br>
+<br>
+
+<b>6. Vehicle emitter.</b><br>
+Vehicle emitter can be placed on a lane. They put vehicles exactly into the network at the place they are located
+at. The type of vehicle, its speed during emission and an exact emission time may be given explicitely for
+each vehicle to emit what allows using induction loop values from real world to generate realistic flows.<br>
+Further information may be found at
+<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-vehicle_handling-emitter">6.2.1. Emitter</a>.<br>
+<br>
+
+<b>7. Vehicle rerouter.</b><br>
+Vehicle rerouter can be placed on a street or a set of streets and give vehicles passing those streets a new route.
+Several possibilities for rerouting may be used.<br>
+Further information may be found at
+<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-rerouter">6.3.4. Rerouter</a>.<br>
+<br>
+
+
+<b><font color="#ff4400">!!! Warning !!!</font></b><br>
+There are also some things which are unfinished and should be handled with care. The major issues are:<br>
 <ul>
-	<li>Multimodality
+	<li>The DFROUTER is a new and promising tool; still, it is completely unverified
+	<li>One has to do some tweaks in order to get GDAL/PROJ.4 work; a description and patches will follow
+	<li>The GUI (GUISIM) is currently in work, so several things may not work. Furthermore the documentation is outdated
+</ul>
+Please commit the issues you find to the
+<a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607&atid=443421">Bug List</a>.<br>
+<br><br>
+
+
+<br><br>
+Other changes relevant for users:
+<ul>
+	<li>All
 	<ul>
-		<li>made lanes storing vehicle classes (additional XML-definition for lanes, Router is aware of vehicle classes) (undocumented)
-	</ul>
-	<li>Routing Interface
-	<ul>
-		<li>Router have been made abstract
-	</ul>
-	<li>GUI
-	<ul>
-		<li>the Grid now handles networks with negative positions
-		<li>debugging the visualization grid (unfinished)
-		<li>glu is now used to draw polygons in order to allo concave polygons
-		<li>pois may now be added and moved (using shift)
-		<li>Emitter may show their routes
-		<li>added option to change the exaggeratioln of POIs
-	</ul>
-	<li>Simulation
-	<ul>
-		<li>detector position may now be "friendly" (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-detectors-e1">E1-Detectors (Induct Loops)</a>)
-		<li>documentation on variable speed signs added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vss">Variable Speed Signs (VSS)</a>)
+		<li>added projection information to the network
 	</ul>
 	<li>NETCONVERT
 	<ul>
-		<li>Improved ArcView-import
-		<li>Additional option for importing NavTeq-networks (using ArcView/Elmar/Elmar2): new navteq lane number information may be now only used if not differing too much from the previous !!!
-		<li>ramp-guessing improved: no lanes are appended if there are enough
-		<li>Vision import added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-visum">Importing VISUM-networks</a>
-		<li>Positions of guessed TLS may now be saved as POIs (undocumented, yet)
-		<li>The edge function can be given (undocumented, yet)
+		<li>xml-types are now read prior to other formats (other XML-description afterwards); This allows to define edge properties before and own connections after a foreign network has been imported
+		<li>xml-edge-types may now store the edge function
+		<li>VISUM: lane connections for unsplitted lanes implemented, further refactoring
 	</ul>
-	<li>JTRROUTER
+	<li>GUI
 	<ul>
-		<li>default-percentages may now contain more than three items
-		<li>Examples added
-		<li>renamed "percentage" to probability
-		<li>Documentation updated (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-jtr">Using the Junction Turning Ratio - Router</a>
+		<li>shape layers added
+		<li>added blinker visualisation and vehicle tracking (unfinished)
+		<li>cartesian and geocoordinates are shown; changed the APIs for this
+		<li>tls tracker now support switches between logics
 	</ul>
-	<li>All
-		<li>documentation on meta information added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp03.shtml#user_chp03-sumo-meta">Available Meta-Information</a>)
+	<li>OD2TRIPS
 	<ul>
+		<li>complete rework
+	</ul>
+	<li>Simulation
+	<ul>
+		<li>Rerouter verified and described
+		<li>Emitter verified and described
+		<li>tls switches added
+	</ul>
+	<li>Router
+	<ul>
+		<li>Speeded up the dua-computation
+		<li>added the option to not emit vehicles from flows using a fix frequency (undocumented, yet)
 	</ul>
 </ul>
 
+<br><br><br>
+Other changes relevant for developers:
+<ul>
+	<li>Simulation
+	<ul>
+		<li>"Action" removed - was the same as Command
+		<li>changed the Event-interface: execute now gets the current simulation time, event handlers are non-static
+		<li>.icc-files removed
+		<li>vehicle actors added (undocumented, yet)
+		<li>removed the unneded "slow lane changer"
+		<li>retrieval of microsim ids is now also done using getID() instead of id()
+		<li>rerouter: patched the distribution usage; added possibility o load predefined routes
+		<li>began with the extraction of the car-following-model from MSVehicle
+		<li>added the possibility to stretch/change the current phase and consecutive phases
+		<li>made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
+	</ul>
+	<li>Utils
+	<ul>
+		<li>made access to positions in Position2DVector c++ compliant
+	</ul>
+	<li>All
+	<ul>
+		<li>removed build number information
+	</ul>
+</ul>
+
+
 Previous changes for version 0.9:<br>
+<a class="SUMOInLineLink" href="changes_093_094.shtml">from 0.9.3 to 0.9.4</a><br>
 <a class="SUMOInLineLink" href="changes_092_093.shtml">from 0.9.2 to 0.9.3</a><br>
 <a class="SUMOInLineLink" href="changes_091_092.shtml">from 0.9.1 to 0.9.2</a><br>
 <a class="SUMOInLineLink" href="changes_090_091.shtml">from 0.9.0 to 0.9.1</a><br>

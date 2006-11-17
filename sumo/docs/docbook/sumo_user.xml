@@ -5916,28 +5916,29 @@
 
       <para>After having generated the routes, we let the simulation run
       forcing it to generate edge- or lane-based dumps (see chapter 6, "<ulink
-      url="#user_chp06-output-edgelanestates">Aggregated Edge/Lane
-      States</ulink>"). In fact, edge-based dumps are the better choice,
-      because the route is not able to use lane-based dumps at all. Now, we
-      have the information about the state of the network, meaning the real
-      speeds that were driven within it, when all vehicles are using the same
-      route. Now we can pass this information to a second call to
-      <application>DUAROUTER</application> and now - instead of the previous
-      input file - we give the route alternatives file as input using the
-      option <option>--alternatives</option> (or <option>-a</option> for
-      short). Now, <application>DUAROUTER</application> is capable to compute
-      the new shortest routes, based on the real speeds within our simulation.
-      In order to avoid that again all vehicles will use the currently
-      shortest route only some of the drivers will get the new shortest route.
-      Again, two files are generated, a route file which contains the current
-      routes and a new route alternatives file. The entries within the new
-      alternatives file stay the same for all those drivers who keep their old
-      route. Those who got a new route assigned, will get this route stored
-      additionally to their previous route within the file. Whether a route is
-      replaced by a new, better route is depending on how much better the new
-      route is and how fast a driver shall forget his old one. There are two
-      parameters determining this: <option>--gBeta</option> and
-      <option>--gA</option>. Please see (see <ulink
+      url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-edgelanedump">Aggregated
+      Lane/Edge States (Edge/Lane-Dumps)</ulink>"). In fact, edge-based dumps
+      are the better choice, because the route is not able to use lane-based
+      dumps at all. Now, we have the information about the state of the
+      network, meaning the real speeds that were driven within it, when all
+      vehicles are using the same route. Now we can pass this information to a
+      second call to <application>DUAROUTER</application> and now - instead of
+      the previous input file - we give the route alternatives file as input
+      using the option <option>--alternatives</option> (or <option>-a</option>
+      for short). Now, <application>DUAROUTER</application> is capable to
+      compute the new shortest routes, based on the real speeds within our
+      simulation. In order to avoid that again all vehicles will use the
+      currently shortest route only some of the drivers will get the new
+      shortest route. Again, two files are generated, a route file which
+      contains the current routes and a new route alternatives file. The
+      entries within the new alternatives file stay the same for all those
+      drivers who keep their old route. Those who got a new route assigned,
+      will get this route stored additionally to their previous route within
+      the file. Whether a route is replaced by a new, better route is
+      depending on how much better the new route is and how fast a driver
+      shall forget his old one. There are two parameters determining this:
+      <option>--gBeta</option> and <option>--gA</option>. Please see (see
+      <ulink
       url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1">[Gawron1998_1]</ulink>)
       for further information.</para>
 
@@ -5963,7 +5964,8 @@
 
       <procedure>
         <step>
-          <para>Generate the network (see <ulink url="#user_chp04">chapter
+          <para>Generate the network (see <ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml">chapter
           4</ulink>)</para>
         </step>
 
@@ -5978,11 +5980,11 @@
 
         <step>
           <para>Simulate using the network and the routes (see <ulink
-          url="#user_chp06">chapter 6</ulink>) forcing
-          <application>SUMO</application> to write edge-based dumps (see
-          chapter 6, "<ulink
-          url="#user_chp06-output-edgelanestates">Aggregated Edge/Lane
-          States</ulink>")</para>
+          url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml">chapter
+          6</ulink>) forcing <application>SUMO</application> to write
+          edge-based dumps (see chapter 6, "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-edgelanedump">Aggregated
+          Lane/Edge States (Edge/Lane-Dumps)</ulink>")</para>
         </step>
 
         <step>
@@ -6918,7 +6920,7 @@ myDet1;0;10;2;100;80
         <para>We will not replicate the exact computation of the detector's
         values. A document describing this should be found on our pages within
         the <ulink
-        url="http://sumo.sourceforge.net/documentation.html">documentation</ulink>
+        url="http://sumo.sourceforge.net/docs/documentation.html">documentation</ulink>
         part. The next subchapters hold the information about how to set
         detectors onto a network only.</para>
 
@@ -9540,13 +9542,15 @@ myDet1;0;10;2;100;80
         <itemizedlist>
           <listitem>
             <para>Use variable speed signs to set a lane's maximum velocity
-            down (see chapter "<ulink url="#user_chp06-trigger-vss">Variable
+            down (see chapter "<ulink
+            url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vss">Variable
             Speed Signs</ulink>")</para>
           </listitem>
 
           <listitem>
             <para>Let a vehicle stop at a predefined position (see chapter
-            "<ulink url="#user_chp06-trigger-public">Public
+            "<ulink
+            url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-public">Public
             Transport</ulink>")</para>
           </listitem>
         </itemizedlist>
@@ -10822,8 +10826,9 @@ myDet1;0;10;2;100;80
           <application>DUAROUTER</application> and
           <application>SUMO</application> a given number of times and using
           the previous outputs. A detailed description may be found in the
-          subchapter "<ulink url="#user_chp05-dua-iterate">Automatic Iteration
-          using 'dua-iterate.pl'</ulink>".</para>
+          subchapter "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-dua-iterate">Automatic
+          Iteration using 'dua-iterate.pl'</ulink>".</para>
 
           <para><emphasis>Usage</emphasis>: <command>dua-iterate.pl
           <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;
@@ -10832,8 +10837,8 @@ myDet1;0;10;2;100;80
           </replaceable></command></para>
 
           <para><emphasis>Output</emphasis>: see "<ulink
-          url="#user_chp05-dua-iterate">Automatic Iteration using
-          'dua-iterate.pl'</ulink>"</para>
+          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-dua-iterate">Automatic
+          Iteration using 'dua-iterate.pl'</ulink>"</para>
 
           <para><emphasis>Location</emphasis>:
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools</filename></para>

@@ -90,7 +90,7 @@ You may find generated man-pages for the following applications, here:
     <li><a href="gen/man_sumo.shtml" class="SUMOInLineLink">sumo</a><br>
     <li><a href="gen/man_netconvert.shtml" class="SUMOInLineLink">netconvert</a><br>
     <li><a href="gen/man_netgen.shtml" class="SUMOInLineLink">netgen</a><br>
-    <li><a href="gen/man_dfrouter.shtml" class="SUMOInLineLink">duarouter</a><br>
+    <li><!-- a href="gen/man_dfrouter.shtml" class="SUMOInLineLink" -->dfrouter (currently not available)<!-- /a --><br>
     <li><a href="gen/man_duarouter.shtml" class="SUMOInLineLink">duarouter</a><br>
     <li><a href="gen/man_jtrrouter.shtml" class="SUMOInLineLink">jtrrouter</a><br>
 </ul>
