@@ -95,9 +95,11 @@
 
 
 							<p>
-								<h2>SUMO - Latest Developer Release (Version 0.9.4)</h2>
+								<h2>SUMO - Latest Developer Release (Version 0.9.5)</h2>
 								<br>
-								This is the version we are currently working on.<br>
+								<b>Release date: 17.11.2006.</b><br>
+								<b><font color="green">We highly advice you to download this release, not the "stable" release.
+								The "developer" release does not only contain less bugs, the "stable" release is also very outdated.</font></b><br>
 								Please report bugs to
 								<script language="JavaScript" type="text/javascript">
 <!--
@@ -120,7 +122,7 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.9.4.zip?download">[sumo-winbin-0.9.4.zip,
+										Download as: <a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.9.5.zip?download">[sumo-winbin-0.9.5.zip,
 											~5.0MB]</a><br>
 										<br>
 									<li>
@@ -128,12 +130,12 @@
 										Please use the source distribution; A compiled version is not supplied.<br>
 										<br>
 									<li>
-										The last stable source-tarball. This one was built on 07.10.2005. Includes
+										The last stable source-tarball. Includes
 										sources, examples, Linux-Makefiles and project workspaces for MSVC++ 6.0 and
 										MS Visual Studio .NET.<br>
 										Download as:
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.tar.gz?download">[sumo-src-0.9.4.tar.gz, ~5MB]</a>
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.zip?download">[sumo-src-0.9.4.zip, ~5.5MB]</a><br>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.5.tar.gz?download">[sumo-src-0.9.5.tar.gz, ~5MB]</a>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.5.zip?download">[sumo-src-0.9.5.zip, ~5.5MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>
@@ -196,10 +198,9 @@
 							<p>
 								<h2>SUMO - Latest Stable Release (Version 0.8.3)</h2>
 								<br>
-								"stable"; This is an outdated, old version of SUMO. Please use this only if
-								you have old networks/routes or other settings and want to reuse them.<br>
-								<br>
-								Included: sumo, netconvert, netgen, jtrrouter, duarouter, od2trips.<br>
+								<b>Release date: 6.10.2005.</b><br>
+								<font color="red"><b>This is an outdated, old version of SUMO. Please use this only if
+								you have old networks/routes or other settings and want to reuse them.</b></font><br>
 								<br>
 								Please report bugs to
 								<script language="JavaScript" type="text/javascript">
