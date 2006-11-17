@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.65  2006/11/17 11:15:05  dkrajzew
+// removed an unneeded method
+//
 // Revision 1.64  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -572,8 +575,6 @@ public:
 
 
 
-
-	void interactWith(const std::vector<MSVehicle*> &vehicles);
 
     //@{ Retrieval and setting of CORN values
     /// Gets the named CORN double value

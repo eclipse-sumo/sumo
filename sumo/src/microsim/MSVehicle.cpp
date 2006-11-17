@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.106  2006/11/17 11:15:05  dkrajzew
+// removed an unneeded method
+//
 // Revision 1.105  2006/11/17 09:09:58  dkrajzew
 // warnings removed
 //
@@ -2419,12 +2422,6 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     // write the route
     route2Write->writeEdgeIDs(os);
     os << "</route>" << endl;
-}
-
-
-void
-MSVehicle::interactWith(const std::vector<MSVehicle*> &)
-{
 }
 
 
