@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/11/17 11:14:48  dkrajzew
+// building under MSVC6 patched
+//
 // Revision 1.25  2006/11/17 09:09:58  dkrajzew
 // warnings removed
 //
@@ -453,7 +456,8 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_
 	size_t stretchUmlaufAnz = (size_t) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
 	float facSum = 0;
 	int noBereiche = getStretchBereicheNo(myTo);
-	for(int x=0; x<noBereiche; x++) {
+    int x;
+	for(x=0; x<noBereiche; x++) {
 				StretchBereichDef def = getStretchBereichDef(myTo, x+1);
 				size_t fac = (size_t) def.fac;
 				facSum = facSum + fac;
@@ -463,7 +467,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_
 
 	//switch to startPos and stretch this phase, if there is a end of "bereich" between startpos and end of phase
 	size_t diffToStart = getDiffToStartOfPhase(LogicTo, currPos);
-	for(int x=0; x<noBereiche; x++) {
+	for(x=0; x<noBereiche; x++) {
 		StretchBereichDef def = getStretchBereichDef(myTo, x+1);
 		size_t end = (size_t) def.end;
 		size_t endOfPhase = (size_t) (currPos + durOfPhase - diffToStart);
