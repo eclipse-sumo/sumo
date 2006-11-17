@@ -109,10 +109,6 @@ SOURCE=..\..\..\src\sumo_version.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\netgen_build.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\netgen_help.h
 # End Source File
 # End Group

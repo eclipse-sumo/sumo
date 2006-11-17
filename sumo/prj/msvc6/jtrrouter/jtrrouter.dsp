@@ -149,10 +149,6 @@ SOURCE=..\..\..\src\utils\router\IDSupplier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\jtrrouter_build.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\jtrrouter_help.h
 # End Source File
 # Begin Source File

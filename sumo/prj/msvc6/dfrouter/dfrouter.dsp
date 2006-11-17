@@ -193,10 +193,6 @@ SOURCE=..\..\..\src\routing_df\DFRORouteDesc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\dfrouter_build.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\dfrouter_help.h
 # End Source File
 # Begin Source File

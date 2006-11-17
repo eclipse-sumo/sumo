@@ -113,7 +113,7 @@ SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\sumo_build.h
+SOURCE=..\..\..\src\RemoteServer.h
 # End Source File
 # Begin Source File
 

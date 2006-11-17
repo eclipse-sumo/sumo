@@ -117,10 +117,6 @@ SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim_build.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\guisim_help.h
 # End Source File
 # Begin Source File

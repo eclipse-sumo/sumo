@@ -141,10 +141,6 @@ SOURCE=..\..\..\src\utils\common\NamedObjectCont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\od2trips_build.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\od2trips_help.h
 # End Source File
 # Begin Source File
