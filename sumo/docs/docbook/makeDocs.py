@@ -37,13 +37,19 @@ os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --st
 # more_on
 print "Building more on..."
 print " more on..."
+print "  ...arcview"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_arcview.html more_docbook.xsl sumo_moreon_arcview.xml")
+print "  ...tls"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_tls.html more_docbook.xsl sumo_moreon_tls.xml")
+print "  ...dua"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_dua.html more_docbook.xsl sumo_moreon_dua.xml")
+print "  ...testing"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_testing.html more_docbook.xsl sumo_moreon_testing.xml")
 
 print " how tos..."
+print "  ...global output file"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_howto_global_output_file.html more_docbook.xsl sumo_howto_global_output_file.xml")
+print "  ...building"
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_howto_building.html more_docbook.xsl sumo_howto_building.xml")
 
 
