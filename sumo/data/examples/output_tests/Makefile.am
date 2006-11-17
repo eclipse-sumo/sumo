@@ -1,5 +1,4 @@
 SUBDIRS =  cross3ltl_emissions cross3ltl_inductloops \
 cross3ltl_meandata_constrained cross3ltl_meandata_edges \
-cross3ltl_meandata_lanes cross3ltl_rawdump cross3ltl_tripinfo \
-cross3ltl_vehroutes straight1
+cross3ltl_meandata_lanes cross3ltl_rawdump cross3ltl_tripinfo
 
