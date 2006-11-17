@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.105  2006/11/17 09:09:58  dkrajzew
+// warnings removed
+//
 // Revision 1.104  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -2546,7 +2549,7 @@ MSVehicle::updateInfos(int time)
   std::vector<std::string> toErase;
 
   std::map<std::string, Information*>::iterator i = infoCont.begin();
-  for(i; i!= infoCont.end(); ++i) {
+  for(; i!= infoCont.end(); ++i) {
     if((*i).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
       toErase.push_back((*i).first);
       //			i = infoCont.erase(i);
@@ -2645,7 +2648,7 @@ MSVehicle::buildMyCluster(int myStep, int clId){
 
 ///!!!!!!!!!!!! Noch mal überdenken !!!!!!!!!
 void
-MSVehicle::sendInfos(SUMOTime time)
+MSVehicle::sendInfos(SUMOTime /*time*/)
 {
 	double numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
 	double infoPerPaket = MSGlobals::gInfoPerPaket; // 14
@@ -2734,7 +2737,7 @@ MSVehicle::transferInformation(std::string senderID, InfoCont infos, int NofP)
 
 
 SUMOReal
-MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime t) const
+MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime /*t*/) const
 {
     if(infoCont.find(e->getID())==infoCont.end()) {
         return -1;

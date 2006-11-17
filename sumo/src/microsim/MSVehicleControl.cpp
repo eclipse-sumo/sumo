@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/17 09:09:58  dkrajzew
+// warnings removed
+//
 // Revision 1.16  2006/11/14 13:02:27  dkrajzew
 // warnings removed
 //
@@ -269,7 +272,7 @@ MSVehicleControl::vehicleEmitted(MSVehicle *v)
 
 
 void
-MSVehicleControl::vehicleMoves(MSVehicle *v)
+MSVehicleControl::vehicleMoves(MSVehicle *)
 {
 }
 

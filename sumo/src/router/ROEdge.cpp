@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/11/17 09:09:58  dkrajzew
+// warnings removed
+//
 // Revision 1.31  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -154,8 +157,13 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 ROEdge::DictType ROEdge::myDict;
-bool myHaveWarned = false;
+bool myHaveWarned = false; // !!! make this static or so
+
 
 /* =========================================================================
  * method definitions
@@ -167,7 +175,7 @@ ROEdge::ROEdge(const std::string &id, int index)
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
       myIndex(index), myLength(-1), _hasSupplementaryWeights(false),
-      myPackedValueLine(0), myHaveBuildShortCut(false)
+      myHaveBuildShortCut(false), myPackedValueLine(0)
 {
 }
 
@@ -259,7 +267,6 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
     // check whether an absolute value shalle be used
-    bool hasAbsolutValue = false;
     if (_hasSupplementaryWeights) {
         searchResult = _supplementaryWeightAbsolut->getSearchStateAndValue( time );
         if (searchResult.first) {
@@ -283,7 +290,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
             }
         } else {
             value = myPackedValueLine[(time-myShortCutBegin)/myShortCutInterval];
-            SUMOReal value2 = _ownValueLine.getSearchStateAndValue(time).second;
+	    //            SUMOReal value2 = _ownValueLine.getSearchStateAndValue(time).second;
         }
     }
 

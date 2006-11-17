@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/17 09:09:58  dkrajzew
+// warnings removed
+//
 // Revision 1.24  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -224,7 +227,7 @@ MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::~WAUTSwitchProcedure_JustSwitc
 
 
 bool
-MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch(SUMOTime step)
+MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch(SUMOTime /*step*/)
 {
     return true;
 }
@@ -410,7 +413,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
     }
 	// changes the duration of all other phases
 	int currStep = actStep + 1;
-	if (currStep == LogicTo->getPhases().size() ) {
+	if (currStep == (int) LogicTo->getPhases().size() ) {
 		currStep = 0;
 	}
 	while(allCutTime > 0) {
@@ -431,7 +434,6 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 					durOfPhase = durOfPhase - maxCutOfPhase;
 				}
 			}
-			assert(durOfPhase >=0);
 			LogicTo->addOverridingDuration(durOfPhase);
 		}
 	currStep = 0;
@@ -794,7 +796,7 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         myCurrentlySwitched.push_back(p);
     }
     index++;
-    if(index==myWAUTs[wautid]->switches.size()) {
+    if(index==(int) myWAUTs[wautid]->switches.size()) {
         return 0;
     }
     return myWAUTs[wautid]->switches[index].when - myWAUTs[wautid]->switches[index-1].when;
