@@ -123,6 +123,10 @@ SOURCE=..\..\..\src\microsim\traffic_lights\MSAgentbasedTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\traffic_lights\MSSimpleTrafficLightLogic.h
 # End Source File
 # Begin Source File
