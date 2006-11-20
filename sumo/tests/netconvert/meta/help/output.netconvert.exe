@@ -1,6 +1,6 @@
 SUMO netconvert
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
- Version 0.9.5
+ Version 0.9.6
  Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: (sumo-)netconvert(.exe) [OPTION]*

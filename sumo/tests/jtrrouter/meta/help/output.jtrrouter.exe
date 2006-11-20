@@ -1,6 +1,6 @@
 SUMO jtrrouter
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
- Version 0.9.5
+ Version 0.9.6
  Router for the microscopic road traffic simulation SUMO based on
   junction turning ratios.
 

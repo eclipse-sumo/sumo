@@ -1,6 +1,6 @@
 SUMO od2trips
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
- Version 0.9.5
+ Version 0.9.6
  Importer of O/D-matrices for the road traffic simulation SUMO.
 
 Usage: (sumo-)od2trips(.exe) [OPTION]*

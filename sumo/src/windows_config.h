@@ -26,7 +26,7 @@
 #define SUMOReal float
 
 /* Version number of package */
-#define VERSION "0.9.4"
+#define VERSION "0.9.6"
 
 /* define to use DataReel sockets libray */
 //#define USE_SOCKETS

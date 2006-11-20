@@ -1,6 +1,6 @@
 SUMO dfrouter
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
- Version 0.9.5
+ Version 0.9.6
   Routes vehicles between detectors.
 
 Usage: (sumo-)dfrouter(.exe) [OPTION]*
