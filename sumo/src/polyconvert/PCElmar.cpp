@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/20 14:02:22  dkrajzew
+// warning while processing empty lines removed
+//
 // Revision 1.5  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -135,6 +138,9 @@ PCElmar::loadElmar(OptionsCont &oc)
 		getline(out,buff);
 
 		if(buff.find("#") != string::npos) { // work on the line without #-symbol
+            continue;
+        }
+        if(StringUtils::prune(buff)=="") {
             continue;
         }
 
