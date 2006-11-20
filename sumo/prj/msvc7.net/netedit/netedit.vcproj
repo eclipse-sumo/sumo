@@ -44,7 +44,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib odbc32.lib odbccp32.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="user32.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib odbc32.lib odbccp32.lib $(NOINHERIT)"
 				OutputFile=".\Debug/netedit.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -98,7 +98,7 @@ copy Debug\netedit.exe ..\..\..\bin\neteditD.exe
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
 				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -117,7 +117,7 @@ copy Debug\netedit.exe ..\..\..\bin\neteditD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="user32.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib $(NOINHERIT)"
 				OutputFile=".\Release/netedit.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -183,9 +183,6 @@ copy Release\netedit.exe ..\..\..\bin\netedit.exe
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.cpp">
 			</File>
 		</Filter>
@@ -194,9 +191,6 @@ copy Release\netedit.exe ..\..\..\bin\netedit.exe
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath="..\..\..\src\netedit_help.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h">

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/11/20 11:11:39  dkrajzew
+// bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
+//
 // Revision 1.38  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -152,7 +155,6 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <sumo_version.h>
 #include <iostream>
 #include <guisim/GUINet.h>
 #include <netload/NLBuilder.h>

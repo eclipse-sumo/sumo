@@ -240,9 +240,6 @@ copy Debug\od2trips.exe ..\..\..\bin\od2tripsD.exe
 			<File
 				RelativePath="..\..\..\src\od2trips\ODMatrix.cpp">
 			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -276,9 +273,6 @@ copy Debug\od2trips.exe ..\..\..\bin\od2tripsD.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\od2trips\ODmatrix.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\convert\TplConvert.h">

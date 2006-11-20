@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.60  2006/11/20 11:11:34  dkrajzew
+// bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
+//
 // Revision 1.59  2006/11/16 12:30:53  dkrajzew
 // warnings removed
 //
@@ -237,7 +240,6 @@ namespace
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
-#include <sumo_version.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
@@ -413,7 +415,7 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
 */
     // set the caption
-    string caption = "SUMO " + string(version) + " - no simulation loaded";
+    string caption = "SUMO " + string(VERSION) + " - no simulation loaded";
     setTitle(caption.c_str());
 
     // start the simulation-thread
@@ -1086,7 +1088,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         myViewNumber = 0;
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
         // set simulation name on the caption
-        string caption = "SUMO " + string(version) + " - " + ec->_file;
+        string caption = "SUMO " + string(VERSION) + " - " + ec->_file;
         setTitle( caption.c_str());
         ostringstream str;
         // set simulation step begin information
@@ -1246,7 +1248,7 @@ GUIApplicationWindow::closeAllWindows()
     delete gSimInfo;
     gSimInfo = 0;
     // reset the caption
-    string caption = "SUMO " + string(version) + " - no simulation loaded";
+    string caption = "SUMO " + string(VERSION) + " - no simulation loaded";
     setTitle( caption.c_str());
     // delete other children
     while(myTrackerWindows.size()!=0) {

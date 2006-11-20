@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/20 11:11:33  dkrajzew
+// bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
+//
 // Revision 1.3  2006/11/02 12:19:50  dkrajzew
 // added parsing of Elmar's pointcollections
 //
@@ -74,7 +77,6 @@ namespace
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
 #include "polyconvert_help.h"
-#include "sumo_version.h"
 #include <polyconvert/PCVisum.h>
 #include <polyconvert/PCElmar.h>
 #include <polyconvert/PCElmarPoints.h>
@@ -217,7 +219,7 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO polyconvert" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << version << endl;
+            cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
                 HelpPrinter::print(help);

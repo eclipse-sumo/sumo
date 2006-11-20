@@ -117,20 +117,12 @@ SOURCE=..\..\..\src\routing_dua\RODUAFrame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\..\..\src\duarouter_build.h
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\duarouter_help.h
@@ -166,10 +158,6 @@ SOURCE=..\..\..\src\routing_dua\RODUAEdgeBuilder.h
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_dua\RODUAFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\sumo_version.h
 # End Source File
 # Begin Source File
 

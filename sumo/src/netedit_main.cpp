@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/11/20 11:11:33  dkrajzew
+// bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
+//
 // Revision 1.13  2006/11/13 16:18:49  fxrb
 // support for TCP/IP iodevices using DataReel library
 //
@@ -63,6 +66,12 @@
 // 'netedit' and 'giant' added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -97,7 +106,6 @@
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
 #include "netedit_help.h"
-#include "sumo_version.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
@@ -145,7 +153,7 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO netedit" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << version << endl;
+            cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
                 HelpPrinter::print(help);

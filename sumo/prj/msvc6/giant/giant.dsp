@@ -101,10 +101,6 @@ SOURCE=..\..\..\src\giant_main.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 # End Source File
 # End Group

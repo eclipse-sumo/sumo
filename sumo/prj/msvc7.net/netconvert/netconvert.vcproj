@@ -179,18 +179,12 @@ copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath="..\..\..\src\netconvert_help.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 		</Filter>
 		<Filter

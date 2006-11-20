@@ -153,10 +153,6 @@ SOURCE=..\..\..\src\routing_df\RODFNetHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
 # End Source File
 # End Group
@@ -238,10 +234,6 @@ SOURCE=..\..\..\src\routing_df\RODFLoader.h
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_df\RODFNetHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\sumo_version.h
 # End Source File
 # Begin Source File
 

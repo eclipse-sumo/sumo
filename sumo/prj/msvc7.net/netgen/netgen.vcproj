@@ -178,18 +178,12 @@ copy Debug\netgen.exe ..\..\..\bin\netgenD.exe
 						BasicRuntimeChecks="3"/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath="..\..\..\src\netgen_help.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 		</Filter>
 		<Filter

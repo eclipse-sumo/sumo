@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/11/20 11:11:33  dkrajzew
+// bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
+//
 // Revision 1.46  2006/11/14 06:54:27  dkrajzew
 // code beautifying
 //
@@ -281,7 +284,6 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-#include "sumo_version.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/HelpPrinter.h>
@@ -360,7 +362,7 @@ main(int argc, char **argv)
         if(init_ret<0) {
             cout << "SUMO sumo" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << version << endl;
+            cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
                 HelpPrinter::print(help);

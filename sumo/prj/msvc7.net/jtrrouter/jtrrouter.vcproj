@@ -301,9 +301,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\router\TextHelpers.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -350,9 +347,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTRTurnDefLoader.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\router\TextHelpers.h">

@@ -179,9 +179,6 @@ copy Release\sumo.exe ..\..\..\bin\sumo.exe
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\sumo_version.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -222,9 +219,6 @@ copy Release\sumo.exe ..\..\..\bin\sumo.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_help.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\helpers\ValueRetriever.h">

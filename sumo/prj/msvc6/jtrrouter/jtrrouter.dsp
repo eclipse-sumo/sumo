@@ -129,10 +129,6 @@ SOURCE=..\..\..\src\routing_jtr\ROJTRTurnDefLoader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
 # End Source File
 # End Group

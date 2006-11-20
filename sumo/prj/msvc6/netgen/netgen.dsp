@@ -99,10 +99,6 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\netgen.exe ..\..\..\bin\netgenD.exe
 
 SOURCE=..\..\..\src\netgen_main.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 

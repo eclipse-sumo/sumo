@@ -115,10 +115,6 @@ SOURCE=..\..\..\src\od2trips\ODDistrictHandler.cpp
 
 SOURCE=..\..\..\src\od2trips\ODMatrix.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\sumo_version.cpp
-# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
