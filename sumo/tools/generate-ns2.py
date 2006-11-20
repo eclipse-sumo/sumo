@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # automating generation of ns2-tracefiles
 # author: thimor bohn <bohn@itm.uni-luebeck.de>
@@ -32,6 +33,7 @@ parser.add_option("--net",         "-n", action="store",  type="string", dest="n
 parser.add_option("--begin",       "-b", action="store",  type="string", dest="begintime",   help="time at which simulation starts")
 parser.add_option("--end",         "-e", action="store",  type="string", dest="endtime",     help="time at which simulation ends")
 parser.add_option("--penetration", "-p", action="append", type="float",  dest="penetration", help="penetration factor of vehicles in [0,1]")
+parser.add_option("--seed",        "-s", action="store",  type="int",    dest="seed", help="seed value for random generator")
 (options, args) = parser.parse_args()
 
 #
@@ -59,6 +61,10 @@ if (options.penetration==None):
     print "you have to specify penetration"
     ok = False
 
+if (options.seed==None):
+    print "no seed specified - defaulting to 0"
+    options.seed = 0
+    
 if (ok == False):
     sys.exit(1)
     
@@ -144,7 +150,7 @@ if (os.path.isfile("netstate.xml")==False):
 #
 for penetration in options.penetration:
     print "start: generation tracefile with penetration level of " + str(penetration)
-    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" +  str(penetration) + " -a activity_" +  str(penetration) + " -c config_" +  str(penetration) + ".tcl -p " + str(penetration))
+    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" +  str(penetration) + " -a activity_" +  str(penetration) + " -c config_" +  str(penetration) + ".tcl -p " + str(penetration) + "-s " + str(options.seed))
     if (os.path.isfile("mobility_" + str(penetration))==False or os.path.isfile("activity_" + str(penetration))==False or os.path.isfile("config_" + str(penetration)+".tcl")==False):
         print "error creating mobility, activity, config"
         sys.exit(1)

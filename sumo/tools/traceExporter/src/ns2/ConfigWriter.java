@@ -79,10 +79,10 @@ public class ConfigWriter {
 			out.println("set opt(stop) " + end);
 			out.println();
 			out.println("# set floor size");
-			out.println("set opt(x) " + xmax);
-			out.println("set opt(y) " + ymax);
-			out.println("set opt(min-x) " + xmin);
-			out.println("set opt(min-y) " + ymin);
+			out.println("set opt(x) " + (int) xmax);
+			out.println("set opt(y) " + (int) ymax);
+			out.println("set opt(min-x) " + (int) xmin);
+			out.println("set opt(min-y) " + (int) ymin);
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {
