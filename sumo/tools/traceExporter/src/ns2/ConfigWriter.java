@@ -28,22 +28,23 @@ public class ConfigWriter {
         	for (Lane lane: edge.lanes.values() ) {
 	        	if (first) {
 	        		first = false;
-	        		xmin = (lane.xfrom>lane.xto) ? lane.xto   : lane.xfrom;
-	        		xmax = (lane.xfrom>lane.xto) ? lane.xfrom : lane.xto;
-	        		ymin = (lane.yfrom>lane.yto) ? lane.yto   : lane.yfrom;
-	        		ymax = (lane.yfrom>lane.yto) ? lane.yfrom : lane.yto;
+	        		xmin = Math.min(lane.xfrom, lane.xto);
+	        		xmax = Math.max(lane.xfrom, lane.xto);
+	        		ymin = Math.min(lane.yfrom, lane.yto);
+	        		ymax = Math.max(lane.yfrom, lane.yto);
 	        	} else {
-	        		float _xmin = (lane.xfrom>lane.xto) ? lane.xto   : lane.xfrom;
-	        		float _xmax = (lane.xfrom>lane.xto) ? lane.xfrom : lane.xto;
-	        		float _ymin = (lane.yfrom>lane.yto) ? lane.yto   : lane.yfrom;
-	        		float _ymax = (lane.yfrom>lane.yto) ? lane.yfrom : lane.yto;
-	        		xmin = (xmin>_xmin) ? _xmin :  xmin;
-	        		xmax = (xmax>_xmax) ?  xmax : _xmax;
-	        		ymin = (ymin>_ymin) ? _ymin : ymin;
-	        		ymax = (ymax>_ymax) ?  ymax : _ymax;
+	        		xmin = Math.min(Math.min(lane.xfrom, lane.xto), xmin);
+	        		xmax = Math.max(Math.max(lane.xfrom, lane.xto), xmax);
+	        		ymin = Math.min(Math.min(lane.yfrom, lane.yto), ymin);
+	        		ymax = Math.max(Math.max(lane.yfrom, lane.yto), ymax);
 	        	}
         	}
         }
+        xmin = (float) Math.floor(xmin);
+        xmax = (float) Math.ceil(xmax);
+        ymin = (float) Math.floor(ymin);
+        ymax = (float) Math.ceil(ymax);
+        
 
         // duration of simulation
         first = true;
@@ -53,8 +54,8 @@ public class ConfigWriter {
         		start = vehicle.time_first;
         		end   = vehicle.time_last;
         	} else {
-        		start = (start<vehicle.time_first) ? start             : vehicle.time_first;
-        		end   = (end<vehicle.time_last)    ? vehicle.time_last : end;
+        		start = Math.min(vehicle.time_first, start) ;
+        		end   = Math.max(vehicle.time_last, end);
         	}
         }
 

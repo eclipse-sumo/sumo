@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -38,7 +39,8 @@ public class TraceReader {
 	public static void read(PrintWriter out, String trace,
 			List<Vehicle> vehicles, HashMap<String, Integer> vehicleIds,
 			HashMap<String, Integer> partialVehicleIds, List<Edge> edges,
-			List<Vehicle> equippedVehicles, double penetration) {
+			List<Vehicle> equippedVehicles, double penetration, long seed) {
+			Random rnd = new Random(seed);
 		try {
 			InputStream in = new FileInputStream(trace);
 			XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -142,7 +144,7 @@ public class TraceReader {
 							vehicleIds.put(id, vehicleIds.size());
 							// apply pentration factor
 							assert (penetration >= 0 && penetration <= 1);
-							if (Math.random() <= penetration) {
+							if (rnd.nextDouble() <= penetration) {
 								equippedVehicles.add(vehicle);
 							}
 						} else {
@@ -175,11 +177,11 @@ public class TraceReader {
 		} catch (IOException ex) {
 			System.out.println("IOException while parsing " + trace);
 		}
-		// remove vehicles existing only at time<=0
+		// remove vehicles existing only at time<0
 		Iterator<Vehicle> iter = vehicles.iterator();
 		while (iter.hasNext()) {
 			Vehicle vehicle = iter.next();
-			if (vehicle.getStopTime() <= vehicle.getStartTime()) {
+			if (vehicle.getStopTime() < vehicle.getStartTime()) {
 				equippedVehicles.remove(vehicle);
 				iter.remove();
 			}

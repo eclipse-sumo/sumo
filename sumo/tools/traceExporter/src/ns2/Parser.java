@@ -19,6 +19,7 @@ public class Parser {
 		String mobility    = "";
 		String config      = "";
 		double penetration = 0;
+		long seed          = 0;
 		
 		boolean hasNet         = false;
 		boolean hasTrace       = false;
@@ -26,6 +27,7 @@ public class Parser {
 		boolean hasMobility    = false;
 		boolean hasPenetration = false;
 		boolean hasConfig      = false;
+		//boolean hasSeed        = fase;
 		
 		for (int i=0; i<args.length; i++) {
 			if ("ns2".equals(args[i].toLowerCase())) {
@@ -94,6 +96,14 @@ public class Parser {
 					}
 				}
 			}
+			
+			if ("-s".equals(args[i])) {
+				// seed value
+				if (++i<args.length) {
+					seed = Long.parseLong(args[i]);
+					//hasSeed = true;
+				}
+			}
 		}
 		
 		// must have net file argument
@@ -126,6 +136,8 @@ public class Parser {
 			throw new IllegalArgumentException("no penetration specified!");
 		}
 		
-		return new Parameter(net, trace, activity, mobility, config, penetration);
+		// seed argument: optional
+		
+		return new Parameter(net, trace, activity, mobility, config, penetration, seed);
 	}
 }
