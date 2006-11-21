@@ -234,6 +234,12 @@ if test x"$ac_proj_includes" = x; then
    if test -e /usr/include/proj/src/proj_api.h; then
       AC_MSG_RESULT([yes])
       ac_proj_includes=/usr/include/proj/src/
+   elif test -e /usr/include/proj_api.h; then
+      AC_MSG_RESULT([yes])
+      ac_proj_includes=/usr/include/
+   elif test -e /usr/local/include/proj_api.h; then
+      AC_MSG_RESULT([yes])
+      ac_proj_includes=/usr/local/include/
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([proj-includes not found. Specify path with option --with-proj-includes=DIR.])
