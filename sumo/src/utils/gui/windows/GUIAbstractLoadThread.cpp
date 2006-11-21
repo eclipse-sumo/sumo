@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/21 08:19:08  dkrajzew
+// debugging
+//
 // Revision 1.4  2006/04/18 07:54:32  dkrajzew
 // unifying threads
 //
@@ -125,7 +128,6 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <sumo_version.h>
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
