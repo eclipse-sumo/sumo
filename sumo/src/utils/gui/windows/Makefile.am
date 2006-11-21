@@ -16,8 +16,8 @@ GUIMainWindow.cpp GUIMainWindow.h \
 GUIPerspectiveChanger.cpp GUIPerspectiveChanger.h \
 GUISUMOAbstractView.cpp GUISUMOAbstractView.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src/foreign/proj \
--I$(top_srcdir)/src -I$(FOX_INCLUDES) \
+AM_CPPFLAGS = \
+-I$(top_srcdir)/src -I$(FOX_INCLUDES) -I$(PROJ_INCLUDES) \
 -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)
 
 

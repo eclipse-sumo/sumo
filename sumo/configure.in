@@ -180,6 +180,75 @@ XERCES_INCLUDES_PRIOR_1_7="$ac_xerces_includes/xercesc"
 AC_SUBST(XERCES_INCLUDES)
 AC_SUBST(XERCES_INCLUDES_PRIOR_1_7)
 
+
+
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for proj.4
+dnl   ... for libs
+AC_ARG_WITH(proj-libraries,
+    [  --with-proj-libraries=DIR where the PROJ library is installed.],
+    [  ac_proj_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for proj-lib])
+if test x"$ac_proj_libraries" = x; then
+   if test -e /usr/lib/libproj.so; then
+      AC_MSG_RESULT([yes])
+      ac_proj_lib_path=/usr/lib
+      ac_projlib=proj
+   elif test -e /usr/local/lib/libproj.so; then
+      AC_MSG_RESULT([yes])
+      ac_proj_lib_path=/usr/local/lib
+      ac_projlib=proj
+   elif test -e /usr/local/xerces/lib/libproj.so; then
+      AC_MSG_RESULT([yes])
+      ac_proj_lib_path=/usr/local/xerces/lib/
+      ac_projlib=proj
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_proj_libraries/libproj.so"; then
+      AC_MSG_RESULT([yes])
+      ac_proj_lib_path="$ac_proj_libraries"
+      ac_projlib=proj
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([proj-lib not found in "$ac_proj_libraries".])
+   fi
+fi
+PROJ_LDFLAGS="$ac_proj_lib_path"
+AC_SUBST(PROJ_LDFLAGS)
+LIB_PROJ="$ac_projlib"
+AC_SUBST(LIB_PROJ)
+dnl   ... for includes
+AC_ARG_WITH(proj-includes,
+    [  --with-proj-includes=DIR  where the PROJ includes are. ],
+    [
+       ac_proj_includes="$withval"
+    ])
+
+AC_MSG_CHECKING([for proj-includes])
+if test x"$ac_proj_includes" = x; then
+   if test -e /usr/include/proj/src/proj_api.h; then
+      AC_MSG_RESULT([yes])
+      ac_proj_includes=/usr/include/proj/src/
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([proj-includes not found. Specify path with option --with-proj-includes=DIR.])
+   fi
+else
+   if test -e "$ac_proj_includes/proj_api.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([proj-includes not found in "$ac_proj_includes".])
+   fi
+fi
+PROJ_INCLUDES="$ac_proj_includes"
+AC_SUBST(PROJ_INCLUDES)
+
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
 dnl   ... for libs
@@ -552,7 +621,6 @@ prj/msvc6/od2trips/Makefile
 prj/msvc6/polyconvert/Makefile
 prj/msvc6/routeremapper/Makefile
 prj/msvc6/sumo/Makefile
-prj/msvc6/x_libforeign_proj/Makefile
 prj/msvc6/y_libgui/Makefile
 prj/msvc6/y_libguinetload/Makefile
 prj/msvc6/y_libguisim/Makefile
@@ -596,7 +664,6 @@ prj/msvc7.net/od2trips/Makefile
 prj/msvc7.net/polyconvert/Makefile
 prj/msvc7.net/routeremapper/Makefile
 prj/msvc7.net/sumo/Makefile
-prj/msvc7.net/x_libforeign_proj/Makefile
 prj/msvc7.net/y_libgui/Makefile
 prj/msvc7.net/y_libguinetload/Makefile
 prj/msvc7.net/y_libguisim/Makefile
@@ -626,7 +693,6 @@ prj/msvc7.net/z_libutils_xml/Makefile
 src/Makefile
 src/foreign/Makefile
 src/foreign/nvwa/Makefile
-src/foreign/proj/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile

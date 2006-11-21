@@ -1,5 +1,5 @@
 SUBDIRS =  dfrouter duarouter giant guisim jtrrouter netconvert netedit \
-netgen od2trips polyconvert routeremapper sumo x_libforeign_proj y_libgui \
+netgen od2trips polyconvert routeremapper sumo y_libgui \
 y_libguinetload y_libguisim y_libmicrosim y_libmultimodal y_libnetbuild \
 y_libnetedit y_libnetgen y_libnetimport y_libnetload y_librouter \
 z_libmicrosim_output z_libmicrosim_tls z_libutils_common z_libutils_dev \

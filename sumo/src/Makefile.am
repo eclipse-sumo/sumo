@@ -48,10 +48,9 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
 ./utils/geoconv/libgeoconv.a \
-./foreign/proj/libproj.a \
 $(MEM_LIBS) \
 $(XMLRPC_LIBS) \
--l$(LIB_GDAL) -l$(LIB_XERCES)
+-l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
 
 
 
@@ -76,7 +75,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/NINavTeqHelper.o \
 ./netbuild/libnetbuild.a \
 ./netbuild/nodes/libnodesnetbuild.a \
-./foreign/proj/libproj.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
@@ -86,7 +84,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_GDAL) -l$(LIB_XERCES)
+-l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
 
 
 
@@ -188,7 +186,6 @@ sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./polyconvert/libpolyconvert.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
-./foreign/proj/libproj.a \
 ./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
@@ -196,7 +193,7 @@ sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./utils/xml/libxml.a \
 ./utils/shapes/libshapes.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+-l$(LIB_XERCES) -l$(LIB_PROJ)
 
 
 if WITH_GUI
@@ -244,16 +241,15 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
 ./utils/geoconv/libgeoconv.a \
-./foreign/proj/libproj.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
-$(LIB_X11)
+$(LIB_X11) -l$(LIB_PROJ)
 endif
 
 
 AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
-$(GUI_INCS) -I$(top_srcdir)/src/foreign/proj
+$(GUI_INCS) -I$(PROJ_INCLUDES)
 
 
 SUBDIRS = foreign microsim multimodal \

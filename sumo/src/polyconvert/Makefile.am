@@ -8,6 +8,5 @@ PCPolyContainer.cpp PCPolyContainer.h \
 PCTypeDefHandler.cpp PCTypeDefHandler.h \
 PCTypeMap.cpp PCTypeMap.h PCVisum.cpp PCVisum.h
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
--I$(top_srcdir)/src/foreign/proj \
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(PROJ_INCLUDES) \
 -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)

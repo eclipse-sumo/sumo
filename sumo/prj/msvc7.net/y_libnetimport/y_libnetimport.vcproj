@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(XERCES)\include&quot;;&quot;$(XERCES)\include\xercesc&quot;;..\..\..\src;&quot;$(GDAL)\ogr&quot;;&quot;$(GDAL)\port&quot;;..\..\..\src\foreign\proj"
+				AdditionalIncludeDirectories="$(PROJ)\src,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src;$(GDAL)\ogr;$(GDAL)\port"
 				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -73,7 +73,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="&quot;$(XERCES)\include&quot;;&quot;$(XERCES)\include\xercesc&quot;;..\..\..\src;&quot;$(GDAL)\ogr&quot;;&quot;$(GDAL)\port&quot;;..\..\..\src\foreign\proj"
+				AdditionalIncludeDirectories="$(PROJ)\src,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src;$(GDAL)\ogr;$(GDAL)\port"
 				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
