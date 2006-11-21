@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/11/21 17:23:30  jringel
+// stretch: some bugs removed
+//
 // Revision 1.26  2006/11/17 11:14:48  dkrajzew
 // building under MSVC6 patched
 //
@@ -385,20 +388,21 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
 
 
 void
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t startPos, size_t deltaToCut)
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t pos, size_t deltaToCut)
 {
 	MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
-	size_t actStep = LogicTo->getStepNo();
+	size_t startPos = pos;
+	size_t actStep = LogicTo->getStepFromPos(startPos);
 	size_t allCutTime = deltaToCut;
-	// cuts the actual phase, if there is a "Bereich"
+	// switches to startPos and cuts this phase, if there is a "Bereich"
 	int noBereiche = getStretchBereicheNo(myTo);
+	size_t toCut = 0;
     for(int i=0; i<noBereiche; i++) {
         StretchBereichDef def = getStretchBereichDef(myTo, i+1);
         size_t begin = (size_t) def.begin;
 		size_t end = (size_t) def.end;
 		size_t stepOfBegin = LogicTo->getStepFromPos(begin);
 		if (stepOfBegin == actStep)	{
-			size_t toCut = 0;
 			if (begin < startPos) {
 				toCut = end - startPos;
 			}
@@ -408,12 +412,13 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 			if  (allCutTime < toCut) {
 				toCut = allCutTime;
 			}
-			size_t oldDur = LogicTo->getPhaseFromStep(actStep).duration;
-			size_t newDur = oldDur - toCut;
 			allCutTime = allCutTime - toCut;
-			myTo->changeStepAndDuration(myControl,step,actStep,newDur);
 		}
-    }
+	}
+	size_t remainingDur = LogicTo->getPhaseFromStep(actStep).duration - getDiffToStartOfPhase(LogicTo, startPos);
+	size_t newDur = remainingDur - toCut;
+	myTo->changeStepAndDuration(myControl,step,actStep,newDur);
+    
 	// changes the duration of all other phases
 	int currStep = actStep + 1;
 	if (currStep == (int) LogicTo->getPhases().size() ) {
@@ -428,7 +433,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, size_t st
 				StretchBereichDef def = getStretchBereichDef(myTo, i+1);
 				size_t begin = (size_t) def.begin;
 				size_t end = (size_t) def.end;
-				if((beginOfPhase <= begin) && (endOfPhase >= begin)) {
+				if((beginOfPhase <= begin) && (endOfPhase >= end)) {
 					size_t maxCutOfPhase = end - begin;
 					if (allCutTime< maxCutOfPhase) {
 						maxCutOfPhase = allCutTime;

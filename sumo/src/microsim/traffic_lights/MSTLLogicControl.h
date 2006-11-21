@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/11/21 17:23:30  jringel
+// stretch: some bugs removed
+//
 // Revision 1.19  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -449,7 +452,7 @@ protected:
 
 		// cuts (stauchen) the Logic to synchronize,
 		// returns false if cutting was imposible
-		void cutLogic(SUMOTime step, size_t startPos, size_t deltaToCut);
+		void cutLogic(SUMOTime step, size_t pos, size_t deltaToCut);
 
 		// stretchs the logic to synchronize
 		void stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch);
