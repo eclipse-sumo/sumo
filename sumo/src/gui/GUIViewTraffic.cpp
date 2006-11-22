@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.63  2006/11/22 13:06:33  dkrajzew
+// patching problems on choosing an object when using shapes within different layers
+//
 // Revision 1.62  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -960,7 +963,7 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
             } else {
                 Position2D point = getPositionInformation();
                 std::string Id= toString(point.x()) +  "," + toString(point.y());
-                GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
+                GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, 1, Id, "point",
                     Position2D(point.x(), point.y()),RGBColor(0,0,0) );
                 _net->getShapeContainer().add(1, p);
                 update();
@@ -1009,7 +1012,7 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 				Position2D point = getPositionInformation();
 				std::string Id= toString(point.x())+toString(point.y());
 				GUIPointOfInterest *p =
-                    new GUIPointOfInterest(gIDStorage, Id, "point", point, RGBColor(0,0,0) );
+                    new GUIPointOfInterest(gIDStorage, 1, Id, "point", point, RGBColor(0,0,0) );
 				_net->getShapeContainer().add(1, p);
 				setSecondPoint(p);
 //!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);

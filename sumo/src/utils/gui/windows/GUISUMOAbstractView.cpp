@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/22 13:06:34  dkrajzew
+// patching problems on choosing an object when using shapes within different layers
+//
 // Revision 1.23  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -602,8 +605,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     glInitNames();
     // compute new scale
     SUMOReal scale = SUMOReal(getMaxGLWidth())/SUMOReal(SENSITIVITY);
-    applyChanges(scale, _toolTipX+_mouseHotspotX,
-        _toolTipY+_mouseHotspotY);
+    applyChanges(scale, _toolTipX+_mouseHotspotX, _toolTipY+_mouseHotspotY);
     // paint in select mode
     bool tmp = _useToolTips;
     _useToolTips = true;
@@ -616,7 +618,8 @@ GUISUMOAbstractView::getObjectUnderCursor()
     }
     // Interpret results
     unsigned int idMax = 0;
-    GUIGlObjectType prevType = (GUIGlObjectType) 0;
+    //GUIGlObjectType prevType = (GUIGlObjectType) 0;
+    int prevLayer = -1000;
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
         unsigned int id = hits[i*4+3];
@@ -625,9 +628,34 @@ GUISUMOAbstractView::getObjectUnderCursor()
             continue;
         }
         GUIGlObjectType type = o->getType();
-        if((prevType<type)&&type!=0) {
-            idMax = id;
-            prevType = type;
+        if(type!=0) {
+            int clayer = (int) type;
+            // determine an "abstract" layer for shapes
+            //  this "layer" resembles the layer of the shape
+            //  taking into account the stac of other objects
+            if(type==GLO_SHAPE) {
+                if(dynamic_cast<GUIPolygon2D*>(o)!=0) {
+                    if(dynamic_cast<GUIPolygon2D*>(o)->getLayer()>0) {
+                        clayer = GLO_MAX + dynamic_cast<GUIPolygon2D*>(o)->getLayer();
+                    }
+                    if(dynamic_cast<GUIPolygon2D*>(o)->getLayer()<0) {
+                        clayer = dynamic_cast<GUIPolygon2D*>(o)->getLayer();
+                    }
+                }
+                if(dynamic_cast<GUIPointOfInterest*>(o)!=0) {
+                    if(dynamic_cast<GUIPointOfInterest*>(o)->getLayer()>0) {
+                        clayer = GLO_MAX + dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
+                    }
+                    if(dynamic_cast<GUIPointOfInterest*>(o)->getLayer()<0) {
+                        clayer = dynamic_cast<GUIPointOfInterest*>(o)->getLayer();
+                    }
+                }
+            }
+            // check whether the current object is above a previous one
+            if(prevLayer==-1000||prevLayer<clayer) {
+                idMax = id;
+                prevLayer = clayer;
+            }
         }
         gIDStorage.unblockObject(id);
         assert (i*4+3<NB_HITS_MAX);

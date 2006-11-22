@@ -44,7 +44,7 @@ void
 GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 {
     GUIPolygon2D *p =
-        new GUIPolygon2D(myIdStorage, myCurrentName, myCurrentType,
+        new GUIPolygon2D(myIdStorage, myCurrentLayer, myCurrentName, myCurrentType,
             myCurrentColor, shape, myFillPoly);
     if(!myShapeContainer.add(myCurrentLayer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
@@ -61,7 +61,7 @@ GUIGeomShapeBuilder::addPoint(const std::string &name,
 							 const std::string &lane, SUMOReal posOnLane)
 {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
-    GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, name, type, pos, c);
+    GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, layer, name, type, pos, c);
     if(!myShapeContainer.add(layer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;

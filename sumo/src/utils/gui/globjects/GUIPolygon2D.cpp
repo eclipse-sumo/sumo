@@ -1,4 +1,27 @@
+/***************************************************************************
+                          GUIPolygon2D.cpp
+    The GUI-version of a polygon
+                             -------------------
+    project              : SUMO - Simulation of Urban MObility
+    begin                : June 2006
+    copyright            : (C) 2006 by Daniel Krajzewicz
+    organisation         : IVF/DLR http://ivf.dlr.de
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.9  2006/11/22 13:06:46  dkrajzew
+// patching problems on choosing an object when using shapes within different layers
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -26,16 +49,23 @@
 #endif // _DEBUG
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
+                           int layer,
                            const std::string name, const std::string type,
                            const RGBColor &color,
                            const Position2DVector &Pos,
                            bool fill)
     : Polygon2D(name, type, color, Pos, fill),
-    GUIGlObject(idStorage, "poly:"+name)
+    GUIGlObject(idStorage, "poly:"+name), myLayer(layer)
 {
 }
 
@@ -54,7 +84,7 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-//    buildSelectionPopupEntry(ret);
+    buildSelectionPopupEntry(ret, false);
     return ret;
 }
 
@@ -77,7 +107,7 @@ GUIPolygon2D::getType() const
 const std::string &
 GUIPolygon2D::microsimID() const
 {
-    throw 1;
+    return myName;
 }
 
 
@@ -96,4 +126,18 @@ GUIPolygon2D::getCenteringBoundary() const
     b.grow(10);
     return b;
 }
+
+
+int
+GUIPolygon2D::getLayer() const
+{
+    return myLayer;
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 
