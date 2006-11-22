@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/22 13:07:25  dkrajzew
+// different visualizations for different types of actors
+//
 // Revision 1.4  2006/11/17 11:13:57  dkrajzew
 // changes to the actor-API applied
 //
@@ -336,7 +339,7 @@ GUIE1VehicleActor::getPopUpMenu(GUIMainWindow &app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret);
+    buildSelectionPopupEntry(ret, false);
     //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
     return ret;
 }
@@ -377,7 +380,13 @@ GUIE1VehicleActor::drawGL_FG(SUMOReal scale, SUMOReal upscale)
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
     // shape
-    glColor3f(0, 1, 1);
+    if(_ActorType==1) {
+        glColor3f(0, 1, 1);
+    } else if(_ActorType==2) {
+        glColor3f(1, 0, 1);
+    } else {
+        glColor3f(1, 0, 0);
+    }
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated( myFGRotation, 0, 0, 1 );

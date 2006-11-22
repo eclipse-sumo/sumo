@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.4  2006/11/22 13:07:25  dkrajzew
+// different visualizations for different types of actors
+//
 // Revision 1.3  2006/11/08 16:27:51  ericnicolay
 // change code for the cell-actor
 //
@@ -29,7 +32,6 @@
 //
 // Revision 1.1  2006/03/27 07:19:47  dkrajzew
 // vehicle actors added
-//
 //
 /* =========================================================================
  * compiler pragmas
