@@ -13,7 +13,7 @@ bool
 GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset)
 {
-    delete myProjection;
+    pj_free(myProjection);
     if(proj.length()==0||proj[0]=='!') {
         // use no projection
         myDisableProjection = true;
@@ -44,7 +44,7 @@ GeoConvHelper::initialised()
 void
 GeoConvHelper::close()
 {
-    delete myProjection;
+    pj_free(myProjection);
     myProjection = 0;
 }
 
