@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/22 13:07:50  dkrajzew
+// debugging right-click on shapes
+//
 // Revision 1.5  2006/11/16 10:50:52  dkrajzew
 // warnings removed
 //
@@ -214,6 +217,8 @@ GUISelectedStorage::isSelected(int type, size_t id)
         return mySelectedJunctions.isSelected(id);
     case GLO_TRIGGER:
         return mySelectedTriggers.isSelected(id);
+    case GLO_SHAPE:
+        return mySelectedShapes.isSelected(id);
     case GLO_ADDITIONAL:
         return
             mySelectedTriggers.isSelected(id)
@@ -263,6 +268,9 @@ GUISelectedStorage::select(int type, size_t id, bool update)
         break;
     case GLO_TRIGGER:
         mySelectedTriggers.select(id);
+        break;
+    case GLO_SHAPE:
+        mySelectedShapes.select(id);
         break;
     default:
         throw 1;
@@ -358,6 +366,9 @@ GUISelectedStorage::deselect(int type, size_t id)
     case GLO_TRIGGER:
         mySelectedTriggers.deselect(id);
         break;
+    case GLO_SHAPE:
+        mySelectedShapes.deselect(id);
+        break;
     default:
         throw 1;
     }
@@ -391,6 +402,7 @@ GUISelectedStorage::clear()
     mySelectedEdges.clear();
     mySelectedJunctions.clear();
     mySelectedTriggers.clear();
+    mySelectedShapes.clear();
     mySelected.clear();
     if(my2Update!=0) {
         my2Update->rebuildList();
@@ -427,6 +439,9 @@ GUISelectedStorage::load(int type, const std::string &filename)
             break;
         case GLO_TRIGGER:
             mySelectedTriggers.load(filename);
+            break;
+        case GLO_SHAPE:
+            mySelectedShapes.load(filename);
             break;
         default:
             throw 1;
@@ -466,6 +481,9 @@ GUISelectedStorage::save(int type, const std::string &filename)
         case GLO_TRIGGER:
             mySelectedTriggers.save(filename);
             break;
+        case GLO_SHAPE:
+            mySelectedShapes.save(filename);
+            break;
         default:
             throw 1;
         }
@@ -490,28 +508,22 @@ GUISelectedStorage::getSelected(int type) const
     switch(type) {
     case GLO_VEHICLE:
         return mySelectedVehicles.getSelected();
-        break;
     case GLO_TLLOGIC:
         return mySelectedTLLogics.getSelected();
-        break;
     case GLO_DETECTOR:
         return mySelectedDetectors.getSelected();
-        break;
     case GLO_EMITTER:
         return mySelectedEmitters.getSelected();
-        break;
     case GLO_LANE:
         return mySelectedLanes.getSelected();
-        break;
     case GLO_EDGE:
         return mySelectedEdges.getSelected();
-        break;
     case GLO_JUNCTION:
         return mySelectedJunctions.getSelected();
-        break;
     case GLO_TRIGGER:
         return mySelectedTriggers.getSelected();
-        break;
+    case GLO_SHAPE:
+        return mySelectedShapes.getSelected();
     }
     throw 1;
 }

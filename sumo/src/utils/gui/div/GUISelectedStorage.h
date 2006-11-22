@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/11/22 13:07:50  dkrajzew
+// debugging right-click on shapes
+//
 // Revision 1.4  2005/10/07 11:44:53  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -172,6 +175,9 @@ private:
 
     /// List of selected triggers
     SingleTypeSelections mySelectedTriggers;
+
+    /// List of selected shapes
+    SingleTypeSelections mySelectedShapes;
 
     /// List of selected objects
     std::vector<size_t> mySelected;
