@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/11/23 12:26:08  dkrajzew
+// parser for elmar deector definitions added
+//
 // Revision 1.10  2006/08/01 11:30:20  dkrajzew
 // patching building
 //
@@ -100,11 +103,7 @@ public:
         DFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
         SUMOTime stepOffset);
 
-
-
-#ifdef HAVE_MESOSIM
-    void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
-#endif
+    ROEdge *getEdge(const std::string &name) const;
 
 
 protected:

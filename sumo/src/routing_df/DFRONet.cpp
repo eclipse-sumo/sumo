@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/23 12:26:08  dkrajzew
+// parser for elmar deector definitions added
+//
 // Revision 1.20  2006/11/16 10:50:51  dkrajzew
 // warnings removed
 //
@@ -1276,53 +1279,12 @@ DFRONet::buildEdgeFlowMap(const DFDetectorFlows &flows,
 }
 
 
-#ifdef HAVE_MESOSIM
-void
-DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
+ROEdge *
+DFRONet::getEdge(const std::string &name) const
 {
-    buildDetectorEdgeDependencies(detectors);
-    std::map<ROEdge*, std::vector<std::string> >::iterator i;
-    for(i=myDetectorsOnEdges.begin(); i!=myDetectorsOnEdges.end(); ++i) {
-        ROEdge *into = (*i).first;
-        const std::vector<std::string> &dets = (*i).second;
-        std::map<SUMOReal, std::vector<std::string> > cliques;
-        // compute detector cliques
-        for(std::vector<std::string>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
-            const DFDetector &det = detectors.getDetector(*j);
-            bool found = false;
-            for(std::map<SUMOReal, std::vector<std::string> >::iterator k=cliques.begin(); !found&&k!=cliques.end(); ++k) {
-                if(fabs((*k).first-det.getPos())<10.) {
-                    (*k).second.push_back(*j);
-                    found = true;
-                }
-            }
-            if(!found) {
-                cliques[det.getPos()] = std::vector<std::string>();
-                cliques[det.getPos()].push_back(*j);
-            }
-        }
-        // join detector cliques
-        for(std::map<SUMOReal, std::vector<std::string> >::iterator m=cliques.begin(); m!=cliques.end(); ++m) {
-            std::vector<std::string> clique = (*m).second;
-            // do not join if only one
-            if(clique.size()==1) {
-                continue;
-            }
-            string nid;
-            for(std::vector<std::string>::iterator n=clique.begin(); n!=clique.end(); ++n) {
-                cout << *n << " ";
-                if(n!=clique.begin()) {
-                    nid = nid + "_";
-                }
-                nid = nid + *n;
-            }
-            cout << ":" << nid << endl;
-            flows.mesoJoin(nid, (*m).second);
-            detectors.mesoJoin(nid, (*m).second);
-        }
-    }
+    return ro->getEdge(name);
 }
-#endif
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/11/23 12:26:06  dkrajzew
+// parser for elmar deector definitions added
+//
 // Revision 1.20  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -185,39 +188,116 @@ loadNet(OptionsCont &oc)
 
 
 DFDetectorCon *
-readDetectors(OptionsCont &oc)
+readDetectors(OptionsCont &oc, DFRONet *optNet)
 {
-    if(!oc.isSet("detector-files")) {
+    if(!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
         MsgHandler::getErrorInstance()->inform("No detector file given (use --detector-files <FILE>).");
         throw ProcessError();
     }
     DFDetectorCon *cont = new DFDetectorCon();
-    string files = oc.getString("detector-files");
-    StringTokenizer st(files, ";");
-    while(st.hasNext()) {
-        string file = st.next();
-        if(!FileHelpers::exists(file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
+    // read definitions stored in XML-format
+    {
+        string files = oc.getString("detector-files");
+        StringTokenizer st(files, ";");
+        while(st.hasNext()) {
+            string file = st.next();
+            if(!FileHelpers::exists(file)) {
+                MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
+                delete cont;
+                throw ProcessError();
+            }
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
+            DFDetectorHandler handler(oc, *cont);
+            SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+            try {
+                parser->parse(file.c_str());
+                MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            } catch (SAXException &e) {
+                delete cont;
+                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+                throw ProcessError();
+            } catch (XMLException &e) {
+                delete cont;
+                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+                throw ProcessError();
+            }
+        }
+    }
+    // read definitions from Elmar-format
+    {
+        string files = oc.getString("elmar-detector-files");
+        StringTokenizer st(files, ";");
+        if(optNet==0) {
+            MsgHandler::getErrorInstance()->inform("You need a network in order to read elmar definitions.");
             delete cont;
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
-        DFDetectorHandler handler(oc, *cont);
-        SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
-        try {
-            parser->parse(file.c_str());
+        while(st.hasNext()) {
+            string file = st.next();
+            if(!FileHelpers::exists(file)) {
+                MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
+                delete cont;
+                throw ProcessError();
+            }
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
+            LineReader lr(file);
+            while(lr.hasMore()) {
+                string line = lr.readLine();
+                // skip comments and empty lines
+                if(line.length()==0||line[0]=='#') {
+                    continue;
+                }
+                // parse entries
+                StringTokenizer st(line, "\t");
+                vector<string> values = st.getVector();
+                // false number of values (error?)
+                if(values.size()<2) {
+                    continue;
+                }
+                // process detectors only
+                if(values[1]!="5") {
+                    continue;
+                }
+                // check
+                if(values.size()<6) {
+                    MsgHandler::getErrorInstance()->inform("Something is false with the following detector definition:\n " + line);
+                    delete cont;
+                    throw ProcessError();
+                }
+                // parse
+                string edge = values[5];
+                string defs = values[2];
+                StringTokenizer st2(defs, ";");
+                if(st2.size()<3) {
+                    MsgHandler::getErrorInstance()->inform("Something is false with the following detector definition:\n " + line);
+                    delete cont;
+                    throw ProcessError();
+                }
+                vector<string> values2 = st2.getVector();
+                string id = values2[0];
+                string dist = values2[2];
+                dist = dist.substr(8);
+                SUMOReal d = TplConvert<char>::_2SUMOReal(dist.c_str());
+                ROEdge *e = optNet->getEdge(edge);
+                if(e==0) {
+                    MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");
+                    continue;
+                }
+                for(int i=0; i<e->getLaneNo(); ++i) {
+                    string lane = edge + "_" + toString(i);
+                    string did = id + "_" + toString(i);
+                    DFDetector *detector = new DFDetector(did, lane, d, TYPE_NOT_DEFINED);
+                    if(!cont->addDetector(detector)) {
+                        MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
+	    	    	    delete detector;
+                    }
+                }
+            }
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        } catch (SAXException &e) {
-            delete cont;
-            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-            throw ProcessError();
-        } catch (XMLException &e) {
-            delete cont;
-            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-            throw ProcessError();
         }
     }
     return cont;
+
 }
 
 
@@ -256,8 +336,9 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon &dc)
 void
 startComputation(DFRONet *optNet, OptionsCont &oc)
 {
+    cout << "1" << endl;
     // read the detector definitions (mandatory)
-    DFDetectorCon *detectors = readDetectors(oc);
+    DFDetectorCon *detectors = readDetectors(oc, optNet);
     // read routes (optionally)
 	/*!!!
     DFRORouteCont *routes = new DFRORouteCont();
@@ -266,20 +347,27 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         routes->readFrom(oc.getString("routes-input"));
     }
 	*/
+    cout << "2" << endl;
 	DFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
-
+    cout << "3" << endl;
 
     // if a network was loaded... (mode1)
     if(optNet!=0) {
+        cout << "3a" << endl;
         if(oc.getBool("remove-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
             optNet->removeEmptyDetectors(*detectors, *flows, 0, 86400, 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
+        cout << "3b" << endl;
         // compute the detector types (optionally)
+        cout << "3b1 " << detectors << endl;
+        cout << "3b2 " << detectors->detectorsHaveCompleteTypes() << endl;
+        cout << "3b3 " << oc.isSet("revalidate-detectors") << endl;
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
             optNet->computeTypes(*detectors, oc.getBool("strict-sources"));
         }
+        cout << "3c" << endl;
         // compute routes between the detectors (optionally)
         if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
@@ -288,7 +376,9 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
                 oc.getBool("routes-for-all"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
+        cout << "3d" << endl;
     }
+    cout << "4" << endl;
 
     // check
 		// whether the detectors are valid
@@ -296,25 +386,30 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
 		throw ProcessError();
     }
+    cout << "5" << endl;
 		// whether the detectors have routes
     if(!detectors->detectorsHaveRoutes()) {
         MsgHandler::getErrorInstance()->inform("The emitters have no routes; use in combination with a network");
 		throw ProcessError();
     }
+    cout << "6" << endl;
 
     // save the detectors if wished
     if(oc.isSet("detectors-output")) {
         detectors->save(oc.getString("detectors-output"));
     }
+    cout << "7" << endl;
 	// save their positions as POIs if wished
     if(oc.isSet("detectors-poi-output")) {
         detectors->saveAsPOIs(oc.getString("detectors-poi-output"));
     }
+    cout << "8" << endl;
 
     // save the routes file if it was changed or it's wished
     if(detectors->detectorsHaveRoutes()&&oc.isSet("routes-output")) {
         detectors->saveRoutes(oc.getString("routes-output"));
     }
+    cout << "9" << endl;
 
 	// !!!
 	// save emitters if wished
@@ -331,6 +426,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 			oc.getBool("write-calibrators"));
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
 	}
+    cout << "10" << endl;
     // save end speed trigger if wished
 	if(oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
