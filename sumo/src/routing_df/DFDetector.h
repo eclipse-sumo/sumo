@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.17  2006/11/23 11:40:26  dkrajzew
+// removed unneeded code
+//
 // Revision 1.16  2006/08/01 11:30:20  dkrajzew
 // patching building
 //
@@ -179,10 +182,6 @@ public:
 
     int getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
         const DFDetectorFlows &flows) const;
-
-#ifdef HAVE_MESOSIM
-    void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
-#endif
 
 protected:
 	std::vector<DFDetector*> myDetectors;

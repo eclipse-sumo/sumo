@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.54  2006/11/23 11:40:24  dkrajzew
+// removed unneeded code
+//
 // Revision 1.53  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -237,10 +240,6 @@ namespace
 #include "GUIHelpingJunction.h"
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUIGridBuilder.h"
-
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -492,13 +491,6 @@ GUINet::getLinkTLID(MSLink *link) const
 void
 GUINet::guiSimulationStep()
 {
-    /*
-#ifdef HAVE_MESOSIM
-    if(!MSGlobals::gUseMesoSim) {
-        MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
-    }
-#endif
-    */
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SUMOReal> > >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
 }

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/23 11:40:25  dkrajzew
+// removed unneeded code
+//
 // Revision 1.24  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -242,10 +245,6 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -1617,11 +1616,6 @@ NLHandler::closeEdge()
     // do not process internal lanes if not wished
     if(!myCurrentIsInternalToSkip) {
         myEdgeControlBuilder.closeEdge();
-#ifdef HAVE_MESOSIM
-        if(MSGlobals::gUseMesoSim) {
-            MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());
-        }
-#endif
     }
 }
 

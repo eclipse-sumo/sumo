@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/23 11:40:25  dkrajzew
+// removed unneeded code
+//
 // Revision 1.23  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -1030,23 +1033,6 @@ DFDetectorCon::removeDetector(const std::string &id)
         }
         delete oldDet;
 }
-
-
-#ifdef HAVE_MESOSIM
-void
-DFDetectorCon::mesoJoin(const std::string &nid,
-                        const std::vector<std::string> &oldids)
-{
-    // build the new detector
-    const DFDetector &first = getDetector(*(oldids.begin()));
-    DFDetector *newDet = new DFDetector(nid, first);
-    addDetector(newDet);
-    // delete previous
-    for(std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
-        removeDetector(*i);
-    }
-}
-#endif
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

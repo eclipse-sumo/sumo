@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/23 11:40:26  dkrajzew
+// removed unneeded code
+//
 // Revision 1.17  2006/11/16 10:50:51  dkrajzew
 // warnings removed
 //
@@ -126,6 +129,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("configuration-file", "configuration");
     oc.doRegister("routes-input", 'r', new Option_FileName());
     oc.doRegister("detector-files", 'd', new Option_FileName());
+    oc.doRegister("elmar-detector-files", 'e', new Option_FileName());
     oc.addSynonyme("detector-files", "detectors");
     oc.doRegister("detector-flow-files", 'f', new Option_FileName());
     oc.addSynonyme("detector-flow-files", "detflows");
@@ -160,10 +164,6 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("remove-empty-detectors", new Option_Bool(false));
 
     oc.doRegister("strict-sources", new Option_Bool(false)); // undescribed
-
-#ifdef HAVE_MESOSIM
-    oc.doRegister("mesosim", new Option_Bool(false));
-#endif
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));

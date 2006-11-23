@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/11/23 11:40:26  dkrajzew
+// removed unneeded code
+//
 // Revision 1.18  2006/10/12 10:14:32  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -155,10 +158,6 @@ enum {
     //@{ Main Window Windows Control - IDs
     /// Open a new microscopic View
     MID_NEW_MICROVIEW,
-#ifdef HAVE_MESOSIM
-    /// Open a new edge meso View
-    MID_NEW_MESOVIEW,
-#endif
     //@}
 
     //@{ SubThread - IDs

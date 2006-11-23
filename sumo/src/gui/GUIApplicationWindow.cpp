@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2006/11/23 11:40:22  dkrajzew
+// removed unneeded code
+//
 // Revision 1.60  2006/11/20 11:11:34  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -265,10 +268,6 @@ namespace
 #include <guisim/GUINetWrapper.h>
 #include <guisim/GUISelectionLoader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

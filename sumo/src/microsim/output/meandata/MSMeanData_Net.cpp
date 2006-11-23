@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/11/23 11:40:25  dkrajzew
+// removed unneeded code
+//
 // Revision 1.22  2006/11/14 13:02:56  dkrajzew
 // warnings removed
 //
@@ -96,12 +99,6 @@ namespace
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
 #include <limits>
-
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

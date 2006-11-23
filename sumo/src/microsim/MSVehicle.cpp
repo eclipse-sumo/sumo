@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.107  2006/11/23 11:40:24  dkrajzew
+// removed unneeded code
+//
 // Revision 1.106  2006/11/17 11:15:05  dkrajzew
 // removed an unneeded method
 //
@@ -2434,12 +2437,6 @@ MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 }
 
 
-#ifdef HAVE_MESOSIM
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include "MSGlobals.h"
-#endif
-
 void
 MSVehicle::saveState(std::ostream &os, long /*what*/)
 {
@@ -2453,19 +2450,6 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     FileHelpers::writeUInt(os, (unsigned int) getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
-#ifdef HAVE_MESOSIM
-    // !!! several things may be missing
-    if(seg==0) {
-        FileHelpers::writeUInt(os, 0);
-        FileHelpers::writeFloat(os, tEvent);
-        FileHelpers::writeFloat(os, tLastEntry);
-    } else {
-        FileHelpers::writeUInt(os, seg->get_index());
-        FileHelpers::writeFloat(os, tEvent);
-        FileHelpers::writeFloat(os, tLastEntry);
-    }
-    FileHelpers::writeByte(os, inserted);
-#endif
 }
 
 

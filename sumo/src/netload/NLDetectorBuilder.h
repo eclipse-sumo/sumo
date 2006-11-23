@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.26  2006/11/23 11:40:25  dkrajzew
+// removed unneeded code
+//
 // Revision 1.25  2006/10/31 12:22:14  dkrajzew
 // code beautifying
 //
@@ -153,11 +156,6 @@ class MSDetectorControl;
 class MELoop;
 class MSLane;
 class MSEdgeContinuations;
-
-#ifdef HAVE_MESOSIM
-class MEInductLoop;
-class MESegment;
-#endif
 
 
 /* =========================================================================

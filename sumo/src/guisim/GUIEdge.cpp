@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/11/23 11:40:24  dkrajzew
+// removed unneeded code
+//
 // Revision 1.33  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -301,22 +304,6 @@ GUIEdge::getParameterWindow(GUIMainWindow &,
                             GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;
-#ifdef HAVE_MESOSIM
-    ret = new GUIParameterTableWindow(app, *this, 5);
-    // add items
-    ret->mkItem("length [m]", false, (SUMOReal) _laneGeoms[0]->getLength());
-    ret->mkItem("allowed speed [m/s]", false, (SUMOReal) getAllowedSpeed());
-    ret->mkItem("occupancy [%]", true,
-        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));
-    ret->mkItem("mean vehicle speed [m/s]", true,
-        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
-    ret->mkItem("flow [veh/h/lane]", true,
-        new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
-    ret->mkItem("#vehicles", true,
-        new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
-    // close building
-    ret->closeBuilding();
-#endif
     return ret;
 }
 
