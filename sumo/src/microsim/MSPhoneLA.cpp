@@ -32,7 +32,7 @@ MSPhoneLA::addCall(std::string id){
 
 void
 MSPhoneLA::remCall( std::string id ){
-	for ( icalls=_Calls.begin(); icalls!=_Calls.end(); (icalls++)){
+	for ( icalls=_Calls.begin(); icalls!=_Calls.end(); (icalls++) ){
 			if((*icalls).compare(id)==0){
 			if(sum_changes>0)
 				--sum_changes;

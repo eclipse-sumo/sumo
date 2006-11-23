@@ -22,9 +22,7 @@ MSPhoneCell::~MSPhoneCell(){
 
 int
 MSPhoneCell::getIntervall(){
-	int ret = 0;//currentTime - LastReadTime;
-	//LastReadTime = currentTime;
-	return ret;
+	return Intervall;
 }
 
 void
@@ -75,6 +73,37 @@ MSPhoneCell::remCall( std::string id ){
 			_Calls.erase( icalls );
 			break;
 		}
+	}
+}
+
+void 
+MSPhoneCell::setexpectCount( int interval, int statcallcount, int dyncallcount ){
+	vexpectCount.push_back( std::make_pair( interval, std::make_pair( statcallcount, dyncallcount ) ) );
+}
+
+void
+MSPhoneCell::setexpectDuration( int interval, float duration, float deviation ){
+	vexpectDuration.push_back( std::make_pair( interval, std::make_pair( duration, deviation ) ) );
+}
+
+
+void 
+MSPhoneCell::setnextexpectData(SUMOTime t){
+	itCount = vexpectCount.begin();
+	if( itCount !=vexpectCount.end() ){
+		Intervall = itCount->first;
+		statcallcount = itCount->second.first;
+		/*verteile ein/aus erstmal 50/50*/
+		Calls_In = statcallcount / 2;
+		Calls_Out = statcallcount / 2;
+		dyncallcount = itCount->second.second;
+		vexpectCount.erase(itCount);
+	}
+	itDuration = vexpectDuration.begin();
+	if( itDuration != vexpectDuration.end() && ( t % 3600 ) == 0 ){
+		dynduration = itDuration->second.first;
+		dyndeviation = itDuration->second.second;
+		vexpectDuration.erase( itDuration );
 	}
 }
 

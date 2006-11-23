@@ -8,17 +8,7 @@
 
 MSPhoneNet::MSPhoneNet()
 {
-	_read_Stat_File=false;
-	OptionsCont &oc = OptionsSubSys::getOptions();
-    if(oc.isSet("ss2-cellload-file")) {
-	    std::string fname = oc.getString("ss2-cellload-file");
-		_fstat.open( fname.c_str(), std::ios_base::in);
-		if(_fstat.is_open()){
-			_read_Stat_File=true;
-
-		}
-		_currTime = 0;
-	}
+	_currTime = 0;
 	_LAIntervall = 300;
 	_CellIntervall = 300;
 }
@@ -67,9 +57,13 @@ MSPhoneNet::getcurrentVehicleLA( std::string id ){
 void
 MSPhoneNet::addMSPhoneCell( int id )
 {
-    MSPhoneCell* c = new MSPhoneCell( id );
-    _mMSPhoneCells[id] = c;
-
+    /*MSPhoneCell* c = new MSPhoneCell( id );
+    _mMSPhoneCells[id] = c;*/
+	cit = _mMSPhoneCells.find( id );
+    if ( cit == _mMSPhoneCells.end() ){
+		MSPhoneCell* c = new MSPhoneCell( id );
+		_mMSPhoneCells[id] = c;
+	}
 }
 
 void
@@ -80,7 +74,6 @@ MSPhoneNet::addMSPhoneCell( int id, int la )
     {
 		MSPhoneCell* c = new MSPhoneCell( id );
 		_mMSPhoneCells[id] = c;
-		_mCell2LA[id] = la;
 	}
     lit = _mMSPhoneLAs.find( la );
     if ( lit == _mMSPhoneLAs.end() )
@@ -88,6 +81,14 @@ MSPhoneNet::addMSPhoneCell( int id, int la )
 		MSPhoneLA* l = new MSPhoneLA( la, 0 );
 		_mMSPhoneLAs[la] = l;
 	}
+	_mCell2LA[id] = la;
+}
+
+void
+MSPhoneNet::connectLA2Cell( int cell_ID, int la_ID ){
+	if( _mMSPhoneCells.find( cell_ID ) != _mMSPhoneCells.end() &&
+		_mMSPhoneLAs.find( la_ID ) != _mMSPhoneLAs.end() )
+		_mCell2LA[cell_ID] = la_ID;
 }
 
 void
@@ -141,6 +142,7 @@ MSPhoneNet::writeOutput( SUMOTime t ){
 		std::map< int, MSPhoneCell* >::iterator cit;
 		for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
 			cit->second->writeOutput( t);
+			//cit->second->setnextexpectData(t);
 		}
     }
 	if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2 ) && ( t % _LAIntervall ) == 0 ){
@@ -154,6 +156,7 @@ MSPhoneNet::writeOutput( SUMOTime t ){
 		std::map< int, MSPhoneCell* >::iterator cit;
 		for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
 			cit->second->writeSQLOutput( t);
+			//cit->second->setnextexpectData(t);
 		}
     }
 	if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2_SQL ) && ( t % _LAIntervall ) == 0 ){
@@ -162,20 +165,13 @@ MSPhoneNet::writeOutput( SUMOTime t ){
 			lit->second->writeSQLOutput( t );
 		}
 	}
-	setCellStatData();
+	setCellStatData(t);
 }
 
 void
-MSPhoneNet::setCellStatData(){
-	if(_read_Stat_File){
-		SUMOTime time=0;
-		while(_currTime == time ){
-		std::string bline;
-		char *buffer;
-		if(_fstat.eof())
-			return;
-		std::getline(_fstat, bline);
-		strcpy(buffer, bline.c_str());
-		}
+MSPhoneNet::setCellStatData(SUMOTime t){
+	std::map< int, MSPhoneCell* >::iterator cit;
+	for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
+		cit->second->setnextexpectData(t);
 	}
 }

@@ -30,8 +30,9 @@ public:
     void addMSPhoneCell( int id );
 	void addMSPhoneCell( int id , int la);
     void remMSPhoneCell( int id );
-	void writeOutput( SUMOTime t );
-	void setCellStatData();
+	void connectLA2Cell( int cell_ID, int la_ID );
+	void writeOutput( SUMOTime time );
+	void setCellStatData(SUMOTime time);
 private:
     std::map< int, MSPhoneCell* > _mMSPhoneCells;
     std::map< int, MSPhoneLA* > _mMSPhoneLAs;
@@ -40,9 +41,6 @@ private:
 	std::map< int, MSPhoneLA* >::iterator lit;
 	unsigned int _LAIntervall;
 	unsigned int _CellIntervall;
-	bool _read_Stat_File;
-	std::ifstream _fstat;
-	std::string _currline;
 	SUMOTime _currTime;
 };
 #endif

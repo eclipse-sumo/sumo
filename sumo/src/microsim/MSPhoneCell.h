@@ -33,8 +33,14 @@ public:
     //void remDynCallIn(std::string id)//{Dyn_Calls_In--; Sum_Calls--;};
 	bool getCall( std::string id );
     int  getIntervall();
-	void writeOutput( SUMOTime t );
-	void writeSQLOutput( SUMOTime t );
+	void setexpectCount( int interval, int statcallcount, int dyncallcount );
+	void setexpectDuration( int interval, float duration, float deviation );
+	void writeOutput( SUMOTime time );
+	void writeSQLOutput( SUMOTime time );
+	void setnextexpectData(SUMOTime time);
+	int getExpectDynCallCount(){return dyncallcount;};
+	void decrementDynCallCount(){--dyncallcount;};
+	
 private:
     int Cell_Id;
     int Calls_In;
@@ -44,8 +50,16 @@ private:
     int Sum_Calls;
     int Intervall;
     int last_time;
+	int statcallcount; 
+	int dyncallcount;
+	float dynduration;
+	float dyndeviation;
 	std::vector<Call> _Calls;
 	std::vector<Call>::iterator icalls;
+	std::vector<std::pair<int, std::pair<int, int> > > vexpectCount;
+	std::vector<std::pair<int, std::pair<int, int> > >::iterator itCount;
+	std::vector<std::pair<int, std::pair<float, float> > > vexpectDuration;
+	std::vector<std::pair<int, std::pair<float, float> > >::iterator itDuration;
 };
 #endif
 
