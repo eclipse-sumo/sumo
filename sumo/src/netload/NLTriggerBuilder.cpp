@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/11/24 15:01:24  dkrajzew
+// debugging TOL-functions
+//
 // Revision 1.25  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -183,9 +186,40 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         t = parseAndBuildBusStop(net, attrs, base, helper);
     } else if(type=="vehicle_actor") {
 		/*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
-		MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
-		if(tlane!=0)
-        t = parseAndBuildVehicleActor(net, attrs, base, helper);
+		if ( helper.getInt( attrs, SUMO_ATTR_TYPE ) == 3){
+			unsigned int cell_id   = helper.getInt( attrs, SUMO_ATTR_ID );
+			unsigned int interval  = helper.getInt( attrs, SUMO_ATTR_OBJECTID );
+			unsigned int statcount = helper.getInt( attrs, SUMO_ATTR_POS );
+//			unsigned int dyncount  = helper.getInt( attrs, SUMO_ATTR_TO );
+			//insert in MSPhoneNet
+			MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
+			/*if there is no instance of the cell, create it; hopefully there will be an actor created for this
+			  so its become a relation to its LA*/
+			if ( pPhone->getMSPhoneCell( cell_id ) == 0 )
+				pPhone->addMSPhoneCell( cell_id );
+			MSPhoneCell* pCell = pPhone->getMSPhoneCell( cell_id );
+			pCell->setStatParams( interval, statcount/*, -1 */);
+		}else if(helper.getInt(attrs, SUMO_ATTR_TYPE ) == 4){
+			/*this is the trigger for the duration for an interval for an hour*/
+			unsigned int cell_id   = helper.getInt( attrs, SUMO_ATTR_ID );
+			unsigned int interval  = helper.getInt ( attrs, SUMO_ATTR_OBJECTID );
+			unsigned int count = helper.getInt( attrs, SUMO_ATTR_POS );
+			float duration = helper.getFloat( attrs, SUMO_ATTR_TO );
+			float deviation  = helper.getFloat( attrs, SUMO_ATTR_XTO );
+			//insert in MSPhoneNet
+			MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
+			/*if there is no instance of the cell, create it; hopefully there will be an actor created for this
+			  so its become a relation to its LA*/
+			if ( pPhone->getMSPhoneCell( cell_id ) == 0 )
+				pPhone->addMSPhoneCell( cell_id );
+			MSPhoneCell* pCell = pPhone->getMSPhoneCell( cell_id );
+			pCell->setDynParams( interval, count, duration, deviation );
+		}else {
+			/*check that the depending lane realy exist. if not just forget this VehicleActor. */
+			MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
+			if(tlane!=0)
+			t = parseAndBuildVehicleActor(net, attrs, base, helper);
+		}
     }
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);

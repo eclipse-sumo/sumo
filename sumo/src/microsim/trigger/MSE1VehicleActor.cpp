@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/11/24 15:01:23  dkrajzew
+// debugging TOL-functions
+//
 // Revision 1.9  2006/11/24 10:34:59  dkrajzew
 // added Eric Nicolay's current code
 //
@@ -176,15 +179,19 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 		char buffer[65];
 		int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
 		for(int np=0; np<noCellPhones; np++){
-			MSDevice_CPhone* cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+			MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
 			MSDevice_CPhone::State state = cp->GetState();
-			if(state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT){
-				if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2))
-				MSCORN::saveTOSS2_CalledPositionData(
-					MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(), itoa(_AreaId, buffer, 10), 0); // !!! recheck quality indicator
-			if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL))
-				MSCORN::saveTOSS2SQL_CalledPositionData(
-					MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(), itoa(_AreaId, buffer, 10), 0); // !!! recheck quality indicator
+			if(state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
+                if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
+				    MSCORN::saveTOSS2_CalledPositionData(
+					    MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(),
+                        toString(_AreaId), 0); // !!! recheck quality indicator
+                }
+                if(MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)) {
+				    MSCORN::saveTOSS2SQL_CalledPositionData(
+					    MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(),
+                        toString(_AreaId), 0); // !!! recheck quality indicator
+                }
 			}
 		}
 	}

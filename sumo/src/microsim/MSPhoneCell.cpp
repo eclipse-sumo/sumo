@@ -76,33 +76,38 @@ MSPhoneCell::remCall( std::string id ){
 	}
 }
 
-void 
-MSPhoneCell::setexpectCount( int interval, int statcallcount, int dyncallcount ){
-	vexpectCount.push_back( std::make_pair( interval, std::make_pair( statcallcount, dyncallcount ) ) );
+void
+MSPhoneCell::setStatParams( int interval, int statcallcount/*, int dyncallcount */){
+	vexpectStatCount.push_back( std::make_pair( interval, /*std::make_pair( */statcallcount/*, dyncallcount ) */) );
 }
 
 void
-MSPhoneCell::setexpectDuration( int interval, float duration, float deviation ){
-	vexpectDuration.push_back( std::make_pair( interval, std::make_pair( duration, deviation ) ) );
+MSPhoneCell::setDynParams( int interval, int count, float duration, float deviation ){
+    DynParam p;
+    p.count = count;
+    p.deviation = deviation;
+    p.duration = duration;
+	vexpectDuration.push_back( std::make_pair( interval, p ) );// std::make_pair( duration, deviation ) ) );
 }
 
 
-void 
+void
 MSPhoneCell::setnextexpectData(SUMOTime t){
-	itCount = vexpectCount.begin();
-	if( itCount !=vexpectCount.end() ){
+	itCount = vexpectStatCount.begin();
+	if( itCount !=vexpectStatCount.end() && ( t % 300 ) == 0 ){
 		Intervall = itCount->first;
-		statcallcount = itCount->second.first;
+		statcallcount = itCount->second/*.first*/;
 		/*verteile ein/aus erstmal 50/50*/
 		Calls_In = statcallcount / 2;
 		Calls_Out = statcallcount / 2;
-		dyncallcount = itCount->second.second;
-		vexpectCount.erase(itCount);
+//		dyncallcount = itCount->second.second;
+		vexpectStatCount.erase(itCount);
 	}
 	itDuration = vexpectDuration.begin();
 	if( itDuration != vexpectDuration.end() && ( t % 3600 ) == 0 ){
-		dynduration = itDuration->second.first;
-		dyndeviation = itDuration->second.second;
+        dyncallcount = itDuration->second.count;
+		dynduration = itDuration->second.duration;
+		dyndeviation = itDuration->second.deviation;
 		vexpectDuration.erase( itDuration );
 	}
 }
