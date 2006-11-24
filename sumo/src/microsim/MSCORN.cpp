@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/11/24 10:34:59  dkrajzew
+// added Eric Nicolay's current code
+//
 // Revision 1.18  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -372,8 +375,10 @@ MSCORN::saveTOSS2SQL_CalledPositionData(SUMOTime time, int callID,
 			MSCORN::myFirstCall[CORN_OUT_DEVICE_TO_SS2_SQL] = false;
 		std::string timestr="1970-01-01 " + toDateTimeString(time);
         myVehicleDeviceTOSS2SQLOutput->getOStream()
-		<< "(NULL, NULL, '" << timestr << "', NULL , NULL, '1;"
-        	<< timestr << ';' << callID << ';' << pos << ';' << quality << "',1)";
+			<< "(NULL, NULL, '" << timestr << "', " << pos << ", " << callID
+			<< ", " << quality << ")";
+		//<< "(NULL, NULL, '" << timestr << "', NULL , NULL, '1;"
+        //	<< timestr << ';' << callID << ';' << pos << ';' << quality << "',1)";
     }
 }
 

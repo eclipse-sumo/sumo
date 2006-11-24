@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2006/11/24 10:34:59  dkrajzew
+// added Eric Nicolay's current code
+//
 // Revision 1.54  2006/11/14 06:49:31  dkrajzew
 // first steps towards car2car-based rerouting
 //
@@ -359,19 +362,18 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     // initialise TrafficOnline-outputs
     if( ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0 ){
         (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-		    << "DROP TABLE IF EXISTS `COLLECTOR`;\n"
-            << "CREATE TABLE `COLLECTOR` (\n"
+		    << "DROP TABLE IF EXISTS `COLLECTORPOS`;\n"
+            << "CREATE TABLE `COLLECTORPOS` (\n"
             << "`ID` int(11) NOT NULL auto_increment,\n"
             << "`TID` varchar(20) NOT NULL default '',\n"
-            << "`Zeitstempel` datetime NOT NULL default '0000-00-00 00:00:00',\n"
-            << "`IP` varchar(20) NOT NULL default '',\n"
-            << "`Port` int(11) NOT NULL default '0',\n"
-            << "`incoming` text NOT NULL,\n"
-            << "`handled` int(11) NOT NULL default '0',\n"
-            << "PRIMARY KEY  (`ID`,`TID`)\n"
+            << "`DATE_TIME` datetime NOT NULL default '0000-00-00 00:00:00',\n"
+			<< "'POSITIONS_ID' int(5) NOT NULL default '0',\n"
+			<< "'CALL_ID' int(5) NOT NULL default '0',\n"
+			<< "'QUALITY_ID' int(5) NOT NULL default '30',\n"
+            << "PRIMARY KEY  (`ID`)\n"
             << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
         (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-		    << "INSERT INTO `COLLECTOR` (`ID`,`TID`,`Zeitstempel`,`IP`,`Port`,`incoming`,`handled`) VALUES "
+		    << "INSERT INTO `COLLECTOR` (`ID`,`TID`,`DATE_TIME`, `POSITIONS_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
             << endl;
     }
     if( ret[MSNet::OS_CELL_TO_SS2_SQL]!=0 ){

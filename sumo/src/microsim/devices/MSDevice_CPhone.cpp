@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/11/24 10:34:59  dkrajzew
+// added Eric Nicolay's current code
+//
 // Revision 1.16  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -288,50 +291,62 @@ MSDevice_CPhone::changeState()
 	default:
 		throw 1;
 	}
+	if ( m_State == STATE_OFF){
+		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+		MSPhoneLA * lold   = pPhone->getcurrentVehicleLA(myId);
+		if(lold!=NULL)
+			lold->remCall(myId);
+	}
 	return next;
 }
 
 void
 MSDevice_CPhone::onDepart()
 {
-    SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
-	SUMOReal r2 = rand()/(SUMOReal) RAND_MAX;
-    SUMOTime t1;
-    if(r1<0.1) {
-		// 10% are off
-		m_State = STATE_OFF;
-		t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // switch on after long time
-	} else if(r1<0.2) {
-		// 70% are idle
+	SUMOTime t1;
+	if( mycurrentCellId == -1 ){
 		m_State = STATE_IDLE;
 		t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // start telephoning after some time
-	} else {
-		// 20% are connected
-		if ( r2 > 0.5 )
-			m_State = STATE_CONNECTED_IN;
-		else
-			m_State = STATE_CONNECTED_OUT;
-
-		if ( mycurrentCellId != -1 ){
-			MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-			MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
-			if ( m_State == STATE_CONNECTED_IN )
-				cell->addCall( myId, STATICIN );
+	}else{
+		SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
+		SUMOReal r2 = rand()/(SUMOReal) RAND_MAX;
+		SUMOTime t1;
+		if(r1<0.1) {
+			// 10% are off
+			m_State = STATE_OFF;
+			t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // switch on after long time
+		} else if(r1<0.2) {
+			// 70% are idle
+			m_State = STATE_IDLE;
+			t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // start telephoning after some time
+		} else {
+			// 20% are connected
+			if ( r2 > 0.5 )
+				m_State = STATE_CONNECTED_IN;
 			else
-				cell->addCall( myId, STATICOUT );
-		}
+				m_State = STATE_CONNECTED_OUT;
 
-		t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
-		gCallID++;
+			if ( mycurrentCellId != -1 ){
+				MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+				MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
+				if ( m_State == STATE_CONNECTED_IN )
+					cell->addCall( myId, STATICIN );
+				else
+					cell->addCall( myId, STATICOUT );
+			}
+
+			t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
+			gCallID++;
+		}
+		CPhoneBroadcastCell TempCell;
+		for(int i=0;i<7;i++){
+			TempCell.m_CellID = 0;
+			TempCell.m_LoS = -1;
+			m_ProvidedCells.push_back(TempCell);
+		}
 	}
-	CPhoneBroadcastCell TempCell;
-	for(int i=0;i<7;i++){
-		TempCell.m_CellID = 0;
-		TempCell.m_LoS = -1;
-		m_ProvidedCells.push_back(TempCell);
-	}
-    myCommand = new MyCommand(*this);
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+	myCommand = new MyCommand(*this);
+	MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
 		myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
