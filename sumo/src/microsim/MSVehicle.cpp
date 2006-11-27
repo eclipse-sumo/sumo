@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.108  2006/11/27 14:08:52  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.107  2006/11/23 11:40:24  dkrajzew
 // removed unneeded code
 //
@@ -674,6 +677,8 @@ MSVehicle::State::State( SUMOReal pos, SUMOReal speed ) :
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
+	MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), getID(),
+		                                 totalNrOfSavedInfos);
     // remove move reminder
     for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
@@ -702,6 +707,7 @@ MSVehicle::~MSVehicle()
         }
     }
     delete myLaneChangeModel;
+	delete akt;
 	myNeighbors.clear();
 	infoCont.clear();
 	clusterCont.clear();
@@ -729,6 +735,10 @@ MSVehicle::MSVehicle( string id,
 	equipped(false),
 	lastUp(0),
 	clusterId(-1),
+	totalNrOfSavedInfos(0),
+	timeSinceStop(0),
+	lastTimeStep(0),
+	akt(0),
     myLane( 0 ),
     myType(type),
     myLastBestLanesEdge(0),
@@ -1618,6 +1628,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
 
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
         if(i==infoCont.end()){
+			akt = 0;
 			akt = new Information;
 			akt->infoTyp = "congestion";
 			akt->edge = (*myCurrEdge)->getID();
@@ -1730,18 +1741,26 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 				info->time = akt->time;
 				infoCont[(*myCurrEdge)->getID()] = info;
 				delete akt;
+				akt = 0;
 				MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
 							    	getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,nt,-1);
+				totalNrOfSavedInfos++;
 			}else{
 				delete akt;
+				akt = 0;
 			}
 		}else{ // schon mal hier gefahren oder Information von einem andere
 			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time);
 			if(nt > factor){
 				(*i).second->neededTime = nt;
+				MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+					getID(),(*myCurrEdge)->getID(),(*i).second->infoTyp,(*i).second->time,nt,-1);
+				totalNrOfSavedInfos++;
 			}else{
 				infoCont.erase((*myCurrEdge)->getID());
 			}
+			delete akt;
+			akt = 0;
 		}
 	}
 
@@ -2001,6 +2020,13 @@ MSVehicle::onDepart()
 void
 MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 {
+    if(getID()=="88"&&dynamic_cast<MSVehicle*>(r)->getID()=="160") {
+        int bla = 0;
+    }
+    if(getID()=="160"&&dynamic_cast<MSVehicle*>(r)->getID()=="88") {
+        int bla = 0;
+    }
+    assert(find(myQuitReminded.begin(), myQuitReminded.end(), r)==myQuitReminded.end());
     myQuitReminded.push_back(r);
 }
 
@@ -2008,7 +2034,14 @@ MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 void
 MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 {
+    if(getID()=="88"&&dynamic_cast<MSVehicle*>(r)->getID()=="160") {
+        int bla = 0;
+    }
+    if(getID()=="160"&&dynamic_cast<MSVehicle*>(r)->getID()=="88") {
+        int bla = 0;
+    }
     QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
+    assert(i!=myQuitReminded.end());
     if(i!=myQuitReminded.end()) {
         myQuitReminded.erase(i);
     }
@@ -2458,6 +2491,12 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
 void
 MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 {
+    if(getID()=="88"&&veh->getID()=="160") {
+        int bla = 0;
+    }
+    if(getID()=="160"&&veh->getID()=="88") {
+        int bla = 0;
+    }
 	if(computeDistance(this, veh)){
 		Position2D pos1 = this->getPosition();
 	    Position2D pos2 = veh->getPosition();
@@ -2470,9 +2509,13 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 			con->timeSinceConnect = 0;
 			con->lastTimeSeen = time;
 			myNeighbors[veh->getID()] = con;
+            // the other car must inform THIS vehicle if it's removed from the network
             veh->quitRemindedEntered(this);
 		}else{
-			 (*i).second->lastTimeSeen = time;
+            string bla1 = (*i).first;
+            C2CConnection *c = (*i).second;
+            // !!! assert(find(veh->myQuitReminded.begin(), veh->myQuitReminded.end(), this)!=veh->myQuitReminded.end());
+            (*i).second->lastTimeSeen = time;
 		}
 		MSCORN::saveVehicleInRangeData(time, getID(), veh->getID(),pos1.x(),pos1.y(),
 										pos2.x(),pos2.y(),-1);
@@ -2483,27 +2526,34 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 void
 MSVehicle::cleanUpConnections(int time)
 {
-  // storage for connections to erase
-  std::vector<std::string> toErase;
-
-  std::map<std::string, C2CConnection*>::iterator i;
-  for(i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
-    if((*i).second->lastTimeSeen != time) {
-      MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)->quitRemindedLeft(this);
-      toErase.push_back((*i).first);
-      //      i = myNeighbors.erase(i);
-    } else {
-      ((*i).second->timeSinceSeen)++;
-      if(((*i).second->state != dialing)&&((*i).second->state != disconnected)){
-	((*i).second->timeSinceConnect)++;
-      }
+    if(getID()=="88"||getID()=="160") {
+        int bla = 0;
     }
-  }
+    // storage for connections to erase
+    std::vector<std::string> toErase;
+    std::map<std::string, C2CConnection*>::iterator i;
+    for(i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+        MSVehicle *neigh = MSNet::getInstance()->getVehicleControl().getVehicle((*i).first);
+        if(neigh==0) {
+            // the other vehicle was removed without letting us know?
+            int bla = 0;
+        }
+        if((*i).second->lastTimeSeen != time) {
+            // the other vehicle must no longer inform us about being removed from the network
+            MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)->quitRemindedLeft(this);
+            toErase.push_back((*i).first);
+        } else {
+            ((*i).second->timeSinceSeen)++;
+            if(((*i).second->state != dialing)&&((*i).second->state != disconnected)){
+	            ((*i).second->timeSinceConnect)++;
+            }
+        }
+    }
 
-  // go through the list of invalid connections, erase them
-  for(vector<string>::iterator j=toErase.begin(); j!=toErase.end(); ++j) {
-    myNeighbors.erase(myNeighbors.find(*j));
-  }
+    // go through the list of invalid connections, erase them
+    for(vector<string>::iterator j=toErase.begin(); j!=toErase.end(); ++j) {
+        myNeighbors.erase(myNeighbors.find(*j));
+    }
 }
 
 
@@ -2526,21 +2576,65 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 void
 MSVehicle::updateInfos(int time)
 {
+
+	// Speicherung der Information, obwohl er die Route noch nicht vollständig
+	// befahren hat.
+
+
+   // first, count how long the vehicle is waiting at the same position
+
+   if(lastTimeStep != time){
+	   if(myLastPosition == getPositionOnLane()){
+		   timeSinceStop++;
+		   cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
+	   }else{
+		   timeSinceStop = 0;
+	   }
+   }
+
+   lastTimeStep = time;
+   myLastPosition = getPositionOnLane();
+
+   // second, save the Information as "Congestion", if the Vehicle is at the same
+   // position longer as 5 minutes
+   if(timeSinceStop > 300){
+	    timeSinceStop = 0;
+	    cout<<" !!!!!!!! Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
+	   	std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+		if(i == infoCont.end()){ //noch nicht drin
+			Information *info = new Information;
+			info->infoTyp = "congestion";
+			info->edge = (*myCurrEdge)->getID();
+			info->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
+			info->time = MSNet::getInstance()->getCurrentTimeStep();
+			infoCont[(*myCurrEdge)->getID()] = info;
+			MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+							    getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,0,-1);
+			totalNrOfSavedInfos++;
+		}else{ // schon mal hier gefahren oder Information von einem andere
+			(*i).second->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
+		    (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
+			/*MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+				getID(),(*myCurrEdge)->getID(),(*i).second->infoTyp,(*i).second->time,0,-1);
+			totalNrOfSavedInfos++;*/
+		}
+   }
+
+
+
   // storage for information to erase
   std::vector<std::string> toErase;
 
-  std::map<std::string, Information*>::iterator i = infoCont.begin();
-  for(; i!= infoCont.end(); ++i) {
-    if((*i).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
-      toErase.push_back((*i).first);
+  std::map<std::string, Information*>::iterator j = infoCont.begin();
+  for(j; j!= infoCont.end(); ++j) {
+    if((*j).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
+      toErase.push_back((*j).first);
       //			i = infoCont.erase(i);
-    }/*else{
-			i++;
-			}*/
+    }
   }
   // go through the list of invalid information, erase them
-  for(vector<string>::iterator j=toErase.begin(); j!=toErase.end(); ++j) {
-    infoCont.erase(infoCont.find(*j));
+  for(vector<string>::iterator k=toErase.begin(); k!=toErase.end(); ++k) {
+    infoCont.erase(infoCont.find(*k));
   }
 }
 
@@ -2556,9 +2650,15 @@ MSVehicle::removeAllVehNeighbors(void)
 void
 MSVehicle::removeOnTripEnd( MSVehicle *veh )
 {
-    quitRemindedLeft(veh);
+    if(getID()=="88"&&veh->getID()=="160") {
+        int bla = 0;
+    }
+    if(getID()=="160"&&veh->getID()=="88") {
+        int bla = 0;
+    }
     assert(myNeighbors.find(veh->getID())!=myNeighbors.end());
     myNeighbors.erase(myNeighbors.find(veh->getID()));
+    quitRemindedLeft(veh);
 }
 
 
@@ -2635,12 +2735,12 @@ MSVehicle::sendInfos(SUMOTime /*time*/)
 	double infoPerPaket = MSGlobals::gInfoPerPaket; // 14
 	double numberOfInfo = numberOfSendingPos*infoPerPaket; // 10248
 
-	if(infoCont.size()>0 && infoCont.size()<numberOfInfo && numberOfSendingPos>0){
+	if(infoCont.size()>0 && numberOfSendingPos>0){
 		// Als ClusterHeader, sende ich als erste
 		for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
 			int nofP = numOfInfos(this,(*i).second->connectedVeh);
 			if(nofP>numberOfInfo)
-				nofP=(int) numberOfInfo;
+				nofP=numberOfInfo;
 			(*i).second->connectedVeh->transferInformation(getID(),infoCont,nofP);
 		}
 		numberOfSendingPos = numberOfSendingPos - ceil(double(infoCont.size())/14.0);
@@ -2651,11 +2751,11 @@ MSVehicle::sendInfos(SUMOTime /*time*/)
 	for(ClusterCont::const_iterator o=clusterCont.begin(); o!=clusterCont.end(); ++o) {
 		//MSVehicle::InfoCont info2 = (*o)->connectedVeh->getInfosToSend();
 	   //count = count+(*o)->connectedVeh->infoCont.size();
-	   if((*o)->connectedVeh->infoCont.size()>0 && (*o)->connectedVeh->infoCont.size()<numberOfInfo && numberOfSendingPos>0){
-		   for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j) {
+	   if((*o)->connectedVeh->infoCont.size()>0 && numberOfSendingPos>0){
+		   for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j){
 				int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
 				if(nofP>numberOfInfo)
-					nofP=(int) numberOfInfo;
+					nofP=numberOfInfo;
 				(*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP);
 		   }
 		   numberOfSendingPos = numberOfSendingPos - ceil(double((*o)->connectedVeh->infoCont.size())/14.0);
@@ -2702,13 +2802,15 @@ MSVehicle::transferInformation(std::string senderID, InfoCont infos, int NofP)
 	std::map<std::string, Information *>::iterator i;
 	for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
 		std::map<std::string, Information *>::iterator j = infoCont.find((*i).first);
-		if(j!= infoCont.end() && (*i).second->time > (*j).second->time ){
+		if(j!= infoCont.end() && ((*i).second->time > (*j).second->time)
+			                  &&  (*i).second->neededTime > 0){
             delete infoCont[(*i).first];
 			//infoCont.erase(j);  // wenn Info älter ist als die neue info, dann ersetzen
 			infoCont[(*i).first] = new Information(*(*i).second);
+			count++;
 			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
 		}
-		if(j== infoCont.end()){ // wenn noch nicht eine Info über diese Edge vorhanden, dann speichern
+		if(j== infoCont.end() && (*i).second->neededTime > 0){ // wenn noch nicht eine Info über diese Edge vorhanden, dann speichern
 			infoCont[(*i).first] = new Information(*(*i).second);
 		    count++;
 			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);

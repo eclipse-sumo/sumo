@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/11/27 14:08:51  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.16  2006/11/16 07:02:17  dkrajzew
 // warnings removed
 //
@@ -114,6 +117,7 @@ public:
         CORN_OUT_CLUSTER_INFO,
         CORN_OUT_EDGE_NEAR,
         CORN_OUT_SAVED_INFO,
+		CORN_OUT_SAVED_INFO_FREQ,
         CORN_OUT_TRANS_INFO,
         CORN_OUT_VEH_IN_RANGE,
 
@@ -162,6 +166,7 @@ public:
     static void setClusterInfoOutput(OutputDevice *s);
     static void setEdgeNearInfoOutput(OutputDevice *s);
     static void setSavedInfoOutput(OutputDevice *s);
+	static void setSavedInfoOutputFreq(OutputDevice *s);
     static void setTransmittedInfoOutput(OutputDevice *s);
 	static void setVehicleInRangeOutput(OutputDevice *s);
 
@@ -195,6 +200,8 @@ public:
 		const std::string neighbor, int quantity);
     static void saveSavedInformationData(SUMOTime step, const std::string veh,
 		const std::string edge, std::string type, int time, SUMOReal nt, int a);
+    static void saveSavedInformationDataFreq(SUMOTime step, const std::string veh,
+		int numberOfInfos);
     static void saveTransmittedInformationData(SUMOTime step, const std::string from,
 		const std::string to, const std::string edge, int time, SUMOReal nt, int a);
     static void saveVehicleInRangeData(SUMOTime step, const std::string veh1,
@@ -215,6 +222,7 @@ private:
 	static OutputDevice *myClusterInfoOutput;
     static OutputDevice *myEdgeNearInfoOutput;
 	static OutputDevice *mySavedInfoOutput;
+	static OutputDevice *mySavedInfoOutputFreq;
 	static OutputDevice *myTransmittedInfoOutput;
 	static OutputDevice *myVehicleInRangeOutput;
 

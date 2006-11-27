@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/11/27 14:08:51  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.19  2006/11/24 10:34:59  dkrajzew
 // added Eric Nicolay's current code
 //
@@ -117,6 +120,7 @@ OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myClusterInfoOutput= 0;
 OutputDevice *MSCORN::myEdgeNearInfoOutput= 0;
 OutputDevice *MSCORN::mySavedInfoOutput= 0;
+OutputDevice *MSCORN::mySavedInfoOutputFreq = 0;
 OutputDevice *MSCORN::myTransmittedInfoOutput= 0;
 OutputDevice *MSCORN::myVehicleInRangeOutput= 0;
 
@@ -150,6 +154,7 @@ MSCORN::init()
     mySavedInfoOutput = 0;
     myTransmittedInfoOutput = 0;
     myVehicleInRangeOutput = 0;
+	mySavedInfoOutputFreq = 0;
 }
 
 
@@ -172,6 +177,7 @@ MSCORN::clear()
     delete mySavedInfoOutput;
     delete myTransmittedInfoOutput;
     delete myVehicleInRangeOutput;
+	delete mySavedInfoOutputFreq;
 }
 
 
@@ -283,6 +289,12 @@ void
 MSCORN::setSavedInfoOutput(OutputDevice *s)
 {
     mySavedInfoOutput = s;
+}
+
+void
+MSCORN::setSavedInfoOutputFreq(OutputDevice *s)
+{
+	mySavedInfoOutputFreq = s;
 }
 
 void
@@ -473,6 +485,16 @@ MSCORN::saveEdgeNearInfoData(const std::string id, const std::string neighbor, i
             <<">"<<neighbor<<" </edge>"<< "\n";
     }
 }
+
+void
+MSCORN::saveSavedInformationDataFreq(SUMOTime step, const std::string veh, int numberOfInfos)
+{
+    if(mySavedInfoOutputFreq!=0) {
+		mySavedInfoOutputFreq->getOStream()
+				<< "	<vehicle id=\"" << veh << "\""<<" timestep=\""<<step<<"\""<<" numberOfInfos=\""<<numberOfInfos<<"\" "<<"/>"<<"\n";
+	}
+}
+
 
 void
 MSCORN::saveSavedInformationData(SUMOTime step, const std::string veh,

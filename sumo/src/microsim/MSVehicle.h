@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.66  2006/11/27 14:08:52  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.65  2006/11/17 11:15:05  dkrajzew
 // removed an unneeded method
 //
@@ -876,6 +879,12 @@ protected:
         runs in ms */
     size_t myWaitingTime;
 
+	// my Last Position on the Lane
+	float myLastPosition;
+
+	// The time the vehicle waits, may mean the same like myWaitingTime
+	int timeSinceStop;
+
     /// The number of cars that shall be emitted with the same settings
     int myRepetitionNumber;
 
@@ -907,8 +916,11 @@ protected:
 	//wird erst gespiechert, wenn vehicle die Lane verlässt !!!!!!!!!
 	Information *akt;
 
-	// a Pointer on the actual sender in the Cluster
-	//MSVehicle* actSender;
+	// count how much Informations this vehicle have saved during the simulation
+	int totalNrOfSavedInfos;
+
+	//
+	int lastTimeStep;
 
     /// The lane the vehicle is on
     MSLane* myLane;

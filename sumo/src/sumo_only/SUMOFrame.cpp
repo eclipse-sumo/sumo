@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.56  2006/11/24 15:01:24  dkrajzew
-// debugging TOL-functions
+// Revision 1.57  2006/11/27 14:08:53  dkrajzew
+// added Danilot's current changes
 //
 // Revision 1.55  2006/11/24 10:34:59  dkrajzew
 // added Eric Nicolay's current code
@@ -325,6 +325,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("c2x.cluster-info", new Option_FileName());
     oc.doRegister("c2x.edge-near-info", new Option_FileName());
     oc.doRegister("c2x.saved-info", new Option_FileName());
+	oc.doRegister("c2x.saved-info-freq", new Option_FileName());
     oc.doRegister("c2x.transmitted-info", new Option_FileName());
     oc.doRegister("c2x.vehicle-in-range", new Option_FileName());
 
@@ -359,6 +360,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_CLUSTER_INFO] = buildStream(oc, "c2x.cluster-info");
     ret[MSNet::OS_EDGE_NEAR] = buildStream(oc, "c2x.edge-near-info");
     ret[MSNet::OS_SAVED_INFO] = buildStream(oc, "c2x.saved-info");
+    ret[MSNet::OS_SAVED_INFO_FREQ] = buildStream(oc, "c2x.saved-info-freq");
     ret[MSNet::OS_TRANS_INFO] = buildStream(oc, "c2x.transmitted-info");
     ret[MSNet::OS_VEH_IN_RANGE] = buildStream(oc, "c2x.vehicle-in-range");
 

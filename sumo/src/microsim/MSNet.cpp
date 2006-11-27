@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.94  2006/11/27 14:08:51  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.93  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -630,6 +633,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 	MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
 	MSCORN::setEdgeNearInfoOutput(streams[OS_EDGE_NEAR]);
 	MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
+	MSCORN::setSavedInfoOutputFreq(streams[OS_SAVED_INFO_FREQ]);
 	MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
 	MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
 
@@ -789,6 +793,12 @@ MSNet::initialiseSimulation()
             << "<savedInfos>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
     }
+	if ( myOutputStreams[OS_SAVED_INFO_FREQ]!=0 ) {
+		myOutputStreams[OS_SAVED_INFO_FREQ]->getOStream()
+            << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
+            << "<savedInfosFreq>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
+    }
 	if ( myOutputStreams[OS_TRANS_INFO]!=0 ) {
 		myOutputStreams[OS_TRANS_INFO]->getOStream()
             << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
@@ -842,6 +852,9 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     }
 	if ( myOutputStreams[OS_SAVED_INFO]!=0 ) {
 		myOutputStreams[OS_SAVED_INFO]->getOStream() << "</savedInfos>" << endl;
+    }
+	if ( myOutputStreams[OS_SAVED_INFO_FREQ]!=0 ) {
+		myOutputStreams[OS_SAVED_INFO_FREQ]->getOStream() << "</savedInfosFreq>" << endl;
     }
 	if ( myOutputStreams[OS_TRANS_INFO]!=0 ) {
 		myOutputStreams[OS_TRANS_INFO]->getOStream() << "</transmittedInfos>" << endl;

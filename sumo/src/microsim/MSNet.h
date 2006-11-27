@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.68  2006/11/27 14:08:51  dkrajzew
+// added Danilot's current changes
+//
 // Revision 1.67  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -452,6 +455,8 @@ public:
 		OS_EDGE_NEAR,
 		/// Saved Informations output
 		OS_SAVED_INFO,
+		/// Saved Informations output
+		OS_SAVED_INFO_FREQ,
 		/// Transmitted Informations output
 		OS_TRANS_INFO,
 		/// Vehicle in range
