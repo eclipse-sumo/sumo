@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/11/28 12:15:41  dkrajzew
+// documented TOL-classes and made them faster
+//
 // Revision 1.11  2006/11/08 17:25:46  ericnicolay
 // add getCallId
 //
@@ -27,7 +30,6 @@
 //
 // Revision 1.9  2006/09/18 10:02:55  dkrajzew
 // documentation added
-//
 //
 /* =========================================================================
  * compiler pragmas

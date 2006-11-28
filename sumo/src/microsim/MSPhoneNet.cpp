@@ -1,122 +1,190 @@
+/***************************************************************************
+                          MSPhoneNet.cpp  -
+    The cellular network (GSM)
+                             -------------------
+    begin                : 2006
+    copyright            : (C) 2006 by DLR http://www.dlr.de
+    author               : Eric Nicolay
+    email                : Eric.Nicolay@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2006/11/28 12:15:40  dkrajzew
+// documented TOL-classes and made them faster
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
 #include "MSPhoneNet.h"
+#include "MSCORN.h"
+#include <fstream>
+#include "utils/options/OptionsCont.h"
+#include "utils/options/OptionsSubSys.h"
+#include "MSPhoneCell.h"
+#include "MSPhoneLA.h"
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSPhoneNet::MSPhoneNet()
 {
-	_currTime = 0;
-	_LAIntervall = 300;
-	_CellIntervall = 300;
+    _LAIntervall = 300;
+    _CellIntervall = 300;
 }
 
-MSPhoneNet::~MSPhoneNet(){
+
+MSPhoneNet::~MSPhoneNet()
+{
     std::map< int, MSPhoneCell* >::iterator cit;
-    for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ )
+    for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
         delete cit->second;
+    }
     std::map< int, MSPhoneLA* >::iterator lit;
-    for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ )
+    for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
         delete lit->second;
+    }
 }
 
+
 MSPhoneCell*
-MSPhoneNet::getMSPhoneCell( int id ){
-   // std::map< int, MSPhoneCell* >::iterator cit;
-    if ( _mMSPhoneCells.find( id ) != _mMSPhoneCells.end() )
+MSPhoneNet::getMSPhoneCell( int id )
+{
+    if ( _mMSPhoneCells.find( id ) != _mMSPhoneCells.end() ) {
         return _mMSPhoneCells[id];
-    else
-        return 0;
+    }
+    return 0;
 }
 
+
 MSPhoneCell*
-MSPhoneNet::getcurrentVehicleCell( std::string id ){
-	MSPhoneCell * ret = 0;
-	//std::map< int, MSPhoneCell* >::iterator cit;
-	for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end() ; cit++ ){
-		if ( cit->second->getCall( id ) ){
-			ret =  cit->second;
-			break;
-		}
-	}
-	return ret;
+MSPhoneNet::getCurrentVehicleCell(const std::string &id )
+{
+    MSPhoneCell * ret = 0;
+    std::map< int, MSPhoneCell* >::iterator cit;
+    for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end() ; cit++ ){
+        if ( cit->second->hasCall( id ) ){
+            ret =  cit->second;
+            break;
+        }
+    }
+    return ret;
 }
+
+
 MSPhoneLA*
-MSPhoneNet::getcurrentVehicleLA( std::string id ){
-	MSPhoneLA * ret = 0;
-	for(lit=_mMSPhoneLAs.begin(); lit!=_mMSPhoneLAs.end(); lit++){
-		if(lit->second->getCall(id))
-			ret = lit->second;
-		break;
-	}
-	return ret;
+MSPhoneNet::getCurrentVehicleLA(const std::string &id )
+{
+    MSPhoneLA * ret = 0;
+    std::map< int, MSPhoneLA* >::iterator lit;
+    for(lit=_mMSPhoneLAs.begin(); lit!=_mMSPhoneLAs.end(); lit++){
+        if(lit->second->hasCall(id)) {
+            ret = lit->second;
+            break;
+        }
+    }
+    return ret;
 }
+
 
 void
 MSPhoneNet::addMSPhoneCell( int id )
 {
     /*MSPhoneCell* c = new MSPhoneCell( id );
     _mMSPhoneCells[id] = c;*/
-	cit = _mMSPhoneCells.find( id );
+    std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find( id );
     if ( cit == _mMSPhoneCells.end() ){
-		MSPhoneCell* c = new MSPhoneCell( id );
-		_mMSPhoneCells[id] = c;
-	}
+        MSPhoneCell* c = new MSPhoneCell( id );
+        _mMSPhoneCells[id] = c;
+    }
 }
+
 
 void
 MSPhoneNet::addMSPhoneCell( int id, int la )
 {
-	cit = _mMSPhoneCells.find( id );
-    if ( cit == _mMSPhoneCells.end() )
-    {
-		MSPhoneCell* c = new MSPhoneCell( id );
-		_mMSPhoneCells[id] = c;
-	}
-    lit = _mMSPhoneLAs.find( la );
-    if ( lit == _mMSPhoneLAs.end() )
-    {
-		MSPhoneLA* l = new MSPhoneLA( la, 0 );
-		_mMSPhoneLAs[la] = l;
-	}
-	_mCell2LA[id] = la;
+    std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find( id );
+    if ( cit == _mMSPhoneCells.end() ) {
+        MSPhoneCell* c = new MSPhoneCell( id );
+        _mMSPhoneCells[id] = c;
+    }
+    std::map< int, MSPhoneLA* >::iterator lit = _mMSPhoneLAs.find( la );
+    if ( lit == _mMSPhoneLAs.end() ) {
+        MSPhoneLA* l = new MSPhoneLA( la, 0 );
+        _mMSPhoneLAs[la] = l;
+    }
+    _mCell2LA[id] = la;
 }
 
+
 void
-MSPhoneNet::connectLA2Cell( int cell_ID, int la_ID ){
-	if( _mMSPhoneCells.find( cell_ID ) != _mMSPhoneCells.end() &&
-		_mMSPhoneLAs.find( la_ID ) != _mMSPhoneLAs.end() )
-		_mCell2LA[cell_ID] = la_ID;
+MSPhoneNet::connectLA2Cell( int cell_ID, int la_ID )
+{
+    if( _mMSPhoneCells.find( cell_ID ) != _mMSPhoneCells.end() && _mMSPhoneLAs.find( la_ID ) != _mMSPhoneLAs.end() ) {
+        _mCell2LA[cell_ID] = la_ID;
+    }
 }
+
 
 void
 MSPhoneNet::remMSPhoneCell( int id )
 {
     std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find( id );
-    if ( cit != _mMSPhoneCells.end() )
-    {
+    if ( cit != _mMSPhoneCells.end() ) {
         delete cit->second;
         _mMSPhoneCells.erase( id );
     }
 }
 
+
 MSPhoneLA*
 MSPhoneNet::getMSPhoneLA( int id )
 {
-
     std::map<int, int>::iterator it;
-	it = _mCell2LA.find(id);
-	if ( it != _mCell2LA.end()){
-		if ( _mMSPhoneLAs.find( it->second ) != _mMSPhoneLAs.end() )
-			return _mMSPhoneLAs[it->second];
-	    else
-	        return 0;
-	}
-	else
-		return 0;
+    it = _mCell2LA.find(id);
+    if ( it != _mCell2LA.end()) {
+        if ( _mMSPhoneLAs.find( it->second ) != _mMSPhoneLAs.end() ) {
+            return _mMSPhoneLAs[it->second];
+        }
+        return 0;
+    }
+    return 0;
 }
+
 
 void
 MSPhoneNet::addMSPhoneLA( int id, int dir )
@@ -125,53 +193,65 @@ MSPhoneNet::addMSPhoneLA( int id, int dir )
     _mMSPhoneLAs[id] = la;
 }
 
+
 void
 MSPhoneNet::remMSPhoneLA( int id )
 {
     std::map< int, MSPhoneLA* >::iterator lit = _mMSPhoneLAs.find( id );
-    if ( lit != _mMSPhoneLAs.end() )
-    {
+    if ( lit != _mMSPhoneLAs.end() ) {
         delete lit->second;
         _mMSPhoneLAs.erase( id );
     }
 }
 
-void
-MSPhoneNet::writeOutput( SUMOTime t ){
-	if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2 ) && ( t % _CellIntervall  ) == 0 ){
-		std::map< int, MSPhoneCell* >::iterator cit;
-		for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
-			cit->second->writeOutput( t);
-			//cit->second->setnextexpectData(t);
-		}
-    }
-	if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2 ) && ( t % _LAIntervall ) == 0 ){
-		std::map< int, MSPhoneLA* >::iterator lit;
-		for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ){
-			lit->second->writeOutput( t );
-		}
-	}
-	/*the same but for the sql version*/
-	if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2_SQL ) && ( t % _CellIntervall  ) == 0 ){
-		std::map< int, MSPhoneCell* >::iterator cit;
-		for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
-			cit->second->writeSQLOutput( t);
-			//cit->second->setnextexpectData(t);
-		}
-    }
-	if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2_SQL ) && ( t % _LAIntervall ) == 0 ){
-		std::map< int, MSPhoneLA* >::iterator lit;
-		for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ){
-			lit->second->writeSQLOutput( t );
-		}
-	}
-	setCellStatData(t);
-}
 
 void
-MSPhoneNet::setCellStatData(SUMOTime t){
-	std::map< int, MSPhoneCell* >::iterator cit;
-	for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ){
-		cit->second->setnextexpectData(t);
-	}
+MSPhoneNet::writeOutput( SUMOTime t )
+{
+    if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2 ) && ( t % _CellIntervall  ) == 0 ) {
+        std::map< int, MSPhoneCell* >::iterator cit;
+        for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
+            cit->second->writeOutput( t);
+            //cit->second->setnextexpectData(t);
+        }
+    }
+    if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2 ) && ( t % _LAIntervall ) == 0 ) {
+        std::map< int, MSPhoneLA* >::iterator lit;
+        for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
+            lit->second->writeOutput( t );
+        }
+    }
+	/*the same but for the sql version*/
+    if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2_SQL ) && ( t % _CellIntervall  ) == 0 ) {
+        std::map< int, MSPhoneCell* >::iterator cit;
+        for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
+            cit->second->writeSQLOutput( t);
+            //cit->second->setnextexpectData(t);
+        }
+    }
+    if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2_SQL ) && ( t % _LAIntervall ) == 0 ) {
+        std::map< int, MSPhoneLA* >::iterator lit;
+        for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
+            lit->second->writeSQLOutput( t );
+        }
+    }
+    setCellStatData(t);
 }
+
+
+void
+MSPhoneNet::setCellStatData(SUMOTime t)
+{
+    std::map< int, MSPhoneCell* >::iterator cit;
+    for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
+        cit->second->setnextexpectData(t);
+    }
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
+

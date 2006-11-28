@@ -22,8 +22,8 @@ namespace
          "$Id$";
 }
 // $Log$
-// Revision 1.26  2006/11/24 15:01:24  dkrajzew
-// debugging TOL-functions
+// Revision 1.27  2006/11/28 12:16:11  dkrajzew
+// documented TOL-classes and made them faster
 //
 // Revision 1.25  2006/11/16 12:30:54  dkrajzew
 // warnings removed
@@ -134,6 +134,7 @@ namespace
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <microsim/trigger/MSE1VehicleActor.h>
+#include <microsim/MSPhoneCell.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>

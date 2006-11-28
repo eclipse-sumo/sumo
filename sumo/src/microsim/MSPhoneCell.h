@@ -1,14 +1,48 @@
 #ifndef MSPHONECELL_H
 #define MSPHONECELL_H
+/***************************************************************************
+                          MSPhoneCell.h  -
+    A cell of a cellular network (GSM)
+                             -------------------
+    begin                : 2006
+    copyright            : (C) 2006 by DLR http://www.dlr.de
+    author               : Eric Nicolay
+    email                : Eric.Nicolay@dlr.de
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+// $Log$
+// Revision 1.7  2006/11/28 12:15:39  dkrajzew
+// documented TOL-classes and made them faster
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
+#include <map>
 #include "MSCORN.h"
 
 enum CallType{
@@ -20,26 +54,57 @@ enum CallType{
 
 struct Call{
 	CallType ct;
-	std::string id;
+//	std::string id;
 };
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class MSPhoneCell
+ * @brief A cell of a cellular network (GSM)
+ */
 class MSPhoneCell{
 public:
+    /// Constructor
     MSPhoneCell(int ID);
+
+    /// Destructor
     ~MSPhoneCell();
-	void addCall(std::string id, CallType);//{Calls_In++; Sum_Calls++;};
-    //void addDynCallIn(std::string id);//{Dyn_Calls_In++; Sum_Calls++;};
-	void remCall(std::string id);//{Calls_In--; Sum_Calls--;};
-    //void remDynCallIn(std::string id)//{Dyn_Calls_In--; Sum_Calls--;};
-	bool getCall( std::string id );
+
+    /// Adds a call (?!!!)
+    void addCall(const std::string &id, CallType);
+
+    /// Removes a named call from the cell
+    void remCall(const std::string &id);
+
+    /// Returns the information whether the named call takes place in this cell
+    bool hasCall(const std::string &id);
+
+    /// !!!?
     int  getIntervall();
-	void setStatParams( int interval, int statcallcount/*, int dyncallcount */);
-	void setDynParams( int interval, int count, float duration, float deviation );
-	void writeOutput( SUMOTime time );
-	void writeSQLOutput( SUMOTime time );
-	void setnextexpectData(SUMOTime time);
-	int getExpectDynCallCount(){return dyncallcount;};
-	void decrementDynCallCount(){--dyncallcount;};
+
+    /// Sets the number of static calls for the given period
+    void setStatParams(int interval, int statcallcount);
+
+    /// Sets the parameter of dynamic calls for the given period
+    void setDynParams(int interval, int count, float duration, float deviation);
+
+    /// !!!?
+    void writeOutput(SUMOTime time);
+
+    /// !!!?
+    void writeSQLOutput(SUMOTime time);
+
+    /// !!!?
+    void setnextexpectData(SUMOTime time);
+
+    /// !!!?
+    int getExpectDynCallCount() { return dyncallcount; }
+
+    /// !!!?
+    void decrementDynCallCount(){ --dyncallcount; }
 
 private:
     int Cell_Id;
@@ -61,12 +126,20 @@ private:
         float deviation;
     };
 
-	std::vector<Call> _Calls;
-	std::vector<Call>::iterator icalls;
-	std::vector<std::pair<int, /*std::pair<int, int>*/ int > > vexpectStatCount;
-	std::vector<std::pair<int, /*std::pair<int, int>*/ int > >::iterator itCount;
-	std::vector<std::pair<int, DynParam/*std::pair<float, float>*/ > > vexpectDuration;
-	std::vector<std::pair<int, DynParam/*std::pair<float, float>*/ > >::iterator itDuration;
+    std::map<std::string, Call> _Calls;
+	std::vector<std::pair<int, int > > vexpectStatCount;
+	std::vector<std::pair<int, int > >::iterator itCount;
+	std::vector<std::pair<int, DynParam> > vexpectDuration;
+	std::vector<std::pair<int, DynParam> >::iterator itDuration;
 };
+
+
+/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/11/28 12:15:41  dkrajzew
+// documented TOL-classes and made them faster
+//
 // Revision 1.17  2006/11/24 10:34:59  dkrajzew
 // added Eric Nicolay's current code
 //
@@ -60,6 +63,8 @@ namespace
 #include "../MSNet.h"
 #include "../MSVehicle.h"
 #include "../MSLane.h"
+#include "../MSPhoneCell.h"
+#include "../MSPhoneLA.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -142,10 +147,10 @@ MSDevice_CPhone::~MSDevice_CPhone()
 	if ( mycurrentCellId != -1 ){
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		if ( pPhone != 0 ){
-			MSPhoneCell * cell = pPhone->getcurrentVehicleCell( myId );
+			MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
 			if ( cell != 0 )
 				cell->remCall( myVehicle.getID() );
-			MSPhoneLA * la = pPhone->getcurrentVehicleLA( myId  );
+			MSPhoneLA * la = pPhone->getCurrentVehicleLA( myId  );
 			if( la != 0 )
 				la->remCall( myId );
 		}
@@ -293,7 +298,7 @@ MSDevice_CPhone::changeState()
 	}
 	if ( m_State == STATE_OFF){
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-		MSPhoneLA * lold   = pPhone->getcurrentVehicleLA(myId);
+		MSPhoneLA * lold   = pPhone->getCurrentVehicleLA(myId);
 		if(lold!=NULL)
 			lold->remCall(myId);
 	}

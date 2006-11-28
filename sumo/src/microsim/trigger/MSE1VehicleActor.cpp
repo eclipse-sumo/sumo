@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.10  2006/11/24 15:01:23  dkrajzew
-// debugging TOL-functions
+// Revision 1.11  2006/11/28 12:15:41  dkrajzew
+// documented TOL-classes and made them faster
 //
 // Revision 1.9  2006/11/24 10:34:59  dkrajzew
 // added Eric Nicolay's current code
@@ -84,6 +84,8 @@ namespace
 #include <microsim/MSPhoneNet.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include "../MSPhoneCell.h"
+#include "../MSPhoneLA.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -139,7 +141,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		MSDevice_CPhone::State state = cp->GetState();
 		if(state!=MSDevice_CPhone::STATE_OFF){
-			MSPhoneLA * lold   = pPhone->getcurrentVehicleLA(veh.getID());
+			MSPhoneLA * lold   = pPhone->getCurrentVehicleLA(veh.getID());
 			MSPhoneLA * lnew   = pPhone->getMSPhoneLA( _AreaId );
 			if(lold!=NULL){
 				if(lold!=lnew){
@@ -151,7 +153,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 				lnew->addCall(veh.getID());
 		}
 		cp->setCurrentCellId( _AreaId );
-		MSPhoneCell * cold = pPhone->getcurrentVehicleCell( veh.getID() );
+		MSPhoneCell * cold = pPhone->getCurrentVehicleCell( veh.getID() );
 		MSPhoneCell * cnew = pPhone->getMSPhoneCell( _AreaId );
 		switch(cp->GetState()){
 			case	MSDevice_CPhone::STATE_OFF:
@@ -176,7 +178,6 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 	}
 	}
 	else { // TOL_SA
-		char buffer[65];
 		int noCellPhones = ( int ) veh.getCORNDoubleValue( (MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE );
 		for(int np=0; np<noCellPhones; np++){
 			MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
