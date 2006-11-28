@@ -350,30 +350,33 @@
   <chapter id="user_chp02">
     <title>First Steps</title>
 
-    <sect1 id="user_chp02-install">
+    <sect1 id="user_chp02-install" revision="0.9.6">
       <title>Installing SUMO</title>
 
       <para>From version 0.8 on, we want not only supply the sources, but also
-      the compiled binaries at least for MS Windows. We have abandonned the
-      idea of releasing binaries for Linux due to large variety of the target
+      the compiled binaries for MS Windows. We have abandonned the idea of
+      releasing binaries for Linux due to large variety of the target
       systems.</para>
 
       <para>If you are a Windows user, you should decide whether you primary
       want to use the software only or also extend it. In the first case, you
-      should download the binaries. All needed libraries will be included and
-      - if necessary - a script should guide you through the installation
-      process. In the latter case, please download the source distribution and
-      compile it for your own. The description of the building process is
-      found within a separate document located <ulink
+      should download the binaries. All needed libraries are included. In the
+      latter case, please download the source distribution and compile it for
+      your own. The description of the building process is found within a
+      separate document located <ulink
       url="http://sumo.sourceforge.net/docs/gen/sumo_howto_building.shtml">here</ulink>.
       If you have built the package on a system not included within our binary
       distribution, please let us know and send it to us, so that we can
       include it into the pages.</para>
 
-      <para>There are also some scripts available, located within the
-      <filename>tools</filename>-folder. To execute them you'll need to have
-      <ulink url="http://www.python.org/">python</ulink> and/or <ulink
-      url="http://www.perl.org/">perl</ulink> installed.</para>
+      <para>When using Linux, you probably have to compile SUMO from the
+      sources. A description about how to do this is located <ulink
+      url="http://sumo.sourceforge.net/docs/gen/sumo_howto_building.shtml">here</ulink>.</para>
+
+      <para>The SUMO-package also contains some further scripts which are
+      located within the <filename>tools</filename>-folder. To execute them
+      you'll need to have <ulink url="http://www.python.org/">python</ulink>
+      and/or <ulink url="http://www.perl.org/">perl</ulink> installed.</para>
     </sect1>
 
     <sect1 id="user_chp02-running_examples">
@@ -382,15 +385,17 @@
       <para>All examples are located within the
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data</filename> -
       folder and its subfolders. All examples come with a configuration-file
-      for network building and running the simulation and some contain also a
-      configuration-file for building the routes. Read chapter "<ulink
+      for network building and for running the simulation. Some of the
+      examples also contain a configuration-file for building the routes. Read
+      chapter "<ulink
       url="http://sumo.sourceforge.net/docs/gen/user_chp08.shtml#user_chp08-configs">Using
       Configuration Files</ulink>" for further information on how to use
-      configuration files. Some of the examples also contain .bat-files which
-      contain the call to the applications so you may take a look into these
-      files to see how the applications are run. Please remark that almost all
-      applications are command line tools, what means that no window pops up
-      if you start it, you have to open a shell window first.</para>
+      configuration files. !!!Some of the examples also contain .bat-files
+      which contain the call to the applications so you may take a look into
+      these files to see how the applications are run!!!. Please remark that
+      almost all applications are command line tools, what means that no
+      window pops up if you start it, you have to open a shell window
+      first.</para>
 
       <para>You may also run the examples in batch mode. For this, change into
       the folder you have extracted the package into
@@ -10654,18 +10659,19 @@ myDet1;0;10;2;100;80
       - folder. We will now introduce some of them. The following chapters are
       devided by the topic the tools cover.</para>
 
-      <sect2 id="user_chp08-tools-polyconvert">
+      <sect2 id="user_chp08-tools-polyconvert" revision="0.9.6">
         <title>Polygon Conversion</title>
 
         <para>Since version 0.9.5 a further application was added to the
         suite: <application>POLYCONVERT</application>, a tool which allows you
         to convert polygons from Elmar's format into a description that may be
-        used by SUMO. As the offset that was appied to the network during the
-        conversion using <application>NETCONVERT</application> is needed, one
-        has to supply the network name using <option>--net-file
+        used by SUMO. As the offset that was applied (automatically, see!!!)
+        to the network during the conversion using
+        <application>NETCONVERT</application> is needed, one has to supply the
+        network name using <option>--net-file
         <replaceable>&lt;SUMO_NET&gt;</replaceable></option>
         (<option>--net</option> or <option>-n</option> for short).
-        Additionally the name of the file containing the polygons to import
+        Additionally the name of the file that contains the polygons to import
         must be given using <option>--elmar
         <replaceable>&lt;ELMAR_POLYGON_FILE&gt;</replaceable></option>. The
         conversion from geocoordinates to cartesian is recommended, initiated
@@ -10683,15 +10689,16 @@ myDet1;0;10;2;100;80
         <replaceable>&lt;PREFIX&gt;</replaceable></option>, and <option>--type
         <replaceable>&lt;TYPENAME&gt;</replaceable></option>, respectively. As
         the non-water polygons contain different polygon types, you can also
-        use a type map which defines which values shall be set in dependance
-        to the type. A single entry for this typemap should look like this:
-        <sgmltag>&lt;polytype
+        use a file which contains a type map which defines which values shall
+        be set in dependance to the type. A single entry for this typemap
+        should look like this: <sgmltag>&lt;polytype
         id="<replaceable>&lt;PREVIOUS_NAME&gt;</replaceable>"
         name="<replaceable>&lt;NEW_NAME&gt;</replaceable>"
         color="<replaceable>&lt;COLORDEF&gt;</replaceable>"
         fill="<replaceable>&lt;BOOL&gt;</replaceable>"
-        layer="<replaceable>&lt;LAYER_NO&gt;</replaceable>"/&gt;</sgmltag>.
-        The values are:</para>
+        layer="<replaceable>&lt;LAYER_NO&gt;</replaceable>"
+        discard="<replaceable>&lt;BOOL&gt;</replaceable>"/&gt;</sgmltag>. The
+        values are:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -10716,10 +10723,43 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>layer: Layer to use for this type of polygons</para>
           </listitem>
+
+          <listitem>
+            <para>discard: Information whether polygons of this type shall not
+            be written to output</para>
+          </listitem>
         </itemizedlist>
 
         <para>An example type-map for Elmar's polygons can be found in
         <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>add/elmar_type_map.xml.</para>
+
+        <para>Since version 0.9.6, <application>POLYCONVERT</application> can
+        also import single points of interest from Elmar's pointcollection
+        files. To import such a file use the option <option>--elmar-points
+        <replaceable>&lt;FILENAME&gt;</replaceable></option>, where
+        <option><replaceable>&lt;FILENAME&gt;</replaceable></option> is the
+        name of the file to import. You can use a type map in this case, too.
+        In this case, the attribute "filled" will be ignored, all other
+        attributes are processed as in the case of importing polygons.</para>
+
+        <para>In some cases, it is wished not to import all polygons/pois. You
+        can constrain which polygons/pois shall be written using the by
+        assigning the attribute "<sgmltag>discard</sgmltag>" to certain types
+        of polygons(pois within the type-map. You can also prune those
+        polygons/pois that are not lying within a certain bounding box. This
+        is done by calling <application>POLYCONVERT</application> with the
+        option <option>--prune.boundary
+        <replaceable>&lt;BOUNDARY&gt;</replaceable></option>.
+        <option><replaceable>&lt;BOUNDARY&gt;</replaceable></option> is in
+        this case the bounding box in which a polygon/poi must be located in
+        order to be written into the output. It is a list of four floats,
+        separated using ',' that describe the minimum x-value, the minimum
+        y-value, the maximum x-value, and the maximum y-value of the bounding
+        box. If one wishes to use the network's dimensions as the bounding
+        box, he/she can do this using the option
+        <option>--prune.on-net</option>. Additionally, one can supply offsets
+        to the network's dimensions using <option>--prune.on-net.offsets
+        <replaceable>&lt;BOUNDARY&gt;</replaceable></option>.</para>
 
         <para>All options (#TBD excluded loading configuration and output
         options, see #):</para>
@@ -10740,8 +10780,18 @@ myDet1;0;10;2;100;80
             <replaceable>&lt;ELMAR_POLYGON_FILE&gt;</replaceable></option></term>
 
             <listitem>
-              <para>The elmar polygons-file to import. <remark>Mandatory,
+              <para>The elmar polygons-file to import. <remark>Optional,
               type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--elmar-points
+            <replaceable>&lt;ELMAR_POI_FILE&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>The elmar pointcollection-file to import.
+              <remark>Optional, type:filename, default: none</remark></para>
             </listitem>
           </varlistentry>
 
@@ -10766,7 +10816,8 @@ myDet1;0;10;2;100;80
           </varlistentry>
 
           <varlistentry>
-            <term><option>--color &lt;COLORDEF&gt;</option></term>
+            <term><option>--color
+            <replaceable>&lt;COLORDEF&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines the color to use as default. <remark>Optional
@@ -10776,7 +10827,8 @@ myDet1;0;10;2;100;80
           </varlistentry>
 
           <varlistentry>
-            <term><option>--layer &lt;LAYER_NO&gt;</option></term>
+            <term><option>--layer
+            <replaceable>&lt;LAYER_NO&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines into which layer the polygons shall be put by
@@ -10786,7 +10838,8 @@ myDet1;0;10;2;100;80
           </varlistentry>
 
           <varlistentry>
-            <term><option>--prefix &lt;PREFIX&gt;</option></term>
+            <term><option>--prefix
+            <replaceable>&lt;PREFIX&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines the type-dependant prefix to apply to polygons.
@@ -10796,12 +10849,45 @@ myDet1;0;10;2;100;80
           </varlistentry>
 
           <varlistentry>
-            <term><option>--type &lt;TYPENAME&gt;</option></term>
+            <term><option>--type
+            <replaceable>&lt;TYPENAME&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines the name of the type to set for the polygons.
               <remark>Optional (pregiven), type:string, default:
               "water"</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--prune.boundary
+            <replaceable>&lt;BOUNDARY&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Defines the clipping bounding box in which a polygon/pois
+              must lie in order to be written to the output. <remark>Optional,
+              type:boundary definition, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--prune.on-net</option></term>
+
+            <listitem>
+              <para>Let POLYCONVERT use the network dimensions as the clipping
+              bounding box. <remark>Optional (pregiven), type:bool, default:
+              false</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--prune.on-net.offsets
+            <replaceable>&lt;BOUNDARY&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Defines additional offsets that are added to the network
+              dimensions' components. <remark>Optional, type:boundary
+              definition, default: "0,0,0,0"</remark></para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -10812,6 +10898,21 @@ myDet1;0;10;2;100;80
           <listitem>
             <para><application>POLYCONVERT</application> is available since
             version 0.9.5</para>
+          </listitem>
+
+          <listitem>
+            <para>Please remark that both, the elamr-file as well as the
+            elmar-points-file do not have to be given (are optional)</para>
+          </listitem>
+
+          <listitem>
+            <para>Since version 0.9.6, <application>POLYCONVERT</application>
+            is able to import Elmar's pointcollection files</para>
+          </listitem>
+
+          <listitem>
+            <para>The possibility to constrain the imported points using
+            bounding boxes was introduced in version 0.9.6</para>
           </listitem>
         </itemizedlist>
       </sect2>

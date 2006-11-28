@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2006/11/28 14:51:48  dkrajzew
+// possibility to prune the plygons to import on a bounding box added
+//
 // Revision 1.2  2006/11/02 12:19:50  dkrajzew
 // added parsing of Elmar's pointcollections
 //
@@ -51,6 +54,7 @@
 #include <map>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/shapes/PointOfInterest.h>
+#include <utils/geom/Boundary.h>
 
 
 /* =========================================================================
@@ -63,7 +67,7 @@
 class PCPolyContainer {
 public:
     /// Constructor
-    PCPolyContainer();
+    PCPolyContainer(bool prune, const Boundary &prunningBoundary);
 
     /// Destructor
     ~PCPolyContainer();
@@ -116,6 +120,9 @@ public:
     /// A map from poi to layer
     std::map<PointOfInterest*, int> myPOILayerMap;
 
+
+    Boundary myPrunningBoundary;
+    bool myDoPrunne;
 
 private:
     /** invalid copy constructor */

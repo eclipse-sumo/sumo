@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/28 14:51:48  dkrajzew
+// possibility to prune the plygons to import on a bounding box added
+//
 // Revision 1.4  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -81,7 +84,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-PCPolyContainer::PCPolyContainer()
+PCPolyContainer::PCPolyContainer(bool prune, const Boundary &prunningBoundary)
+    : myPrunningBoundary(prunningBoundary), myDoPrunne(prune)
 {
 }
 
@@ -95,6 +99,15 @@ PCPolyContainer::~PCPolyContainer()
 bool
 PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
 {
+    // check whether the polygon lies within the wished area
+    //  - if such an area was given
+    if(myDoPrunne) {
+        Boundary b = poly->getPosition2DVector().getBoxBoundary();
+        if(!b.partialWithin(myPrunningBoundary)) {
+            return true;
+        }
+    }
+    //
     PolyCont::iterator i=myPolyCont.find(key);
     if(i!=myPolyCont.end()) {
         return false;
@@ -108,6 +121,14 @@ PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
 bool
 PCPolyContainer::insert(std::string key, PointOfInterest *poi, int layer)
 {
+    // check whether the poi lies within the wished area
+    //  - if such an area was given
+    if(myDoPrunne) {
+        if(!myPrunningBoundary.around(*poi)) {
+            return true;
+        }
+    }
+    //
     POICont::iterator i=myPOICont.find(key);
     if(i!=myPOICont.end()) {
         return false;

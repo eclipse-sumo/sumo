@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/28 14:51:48  dkrajzew
+// possibility to prune the plygons to import on a bounding box added
+//
 // Revision 1.4  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -132,6 +135,12 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("proj.simple", new Option_Bool(false));
     oc.doRegister("proj", new Option_String());
 
+    // prunning options
+    oc.doRegister("prune.on-net", new Option_Bool(false));
+    oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
+    oc.doRegister("prune.boundary", new Option_String());
+
+
     // default values
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.doRegister("prefix", new Option_String(""));
@@ -142,9 +151,8 @@ fillOptions(OptionsCont &oc)
     RandHelper::insertRandOptions(oc);
 }
 
-
 Boundary
-getNetworkOrigBoundary(const std::string &file)
+getNamedNetworkBoundary(const std::string &file, const std::string &name)
 {
     LineReader lr(file);
     if(!lr.good()) {
@@ -153,14 +161,36 @@ getNetworkOrigBoundary(const std::string &file)
     }
     while(lr.hasMore()) {
         string line = lr.readLine();
-        if(line.find("<orig-boundary>")!=string::npos) {
+        if(line.find("<" + name + ">")!=string::npos) {
             size_t beg = line.find('>');
             size_t end = line.find('<', beg);
             string my = line.substr(beg+1, end-beg-1);
             return GeomConvHelper::parseBoundary(my);
         }
     }
-    MsgHandler::getErrorInstance()->inform("Could not find projection description in net.");
+    throw ProcessError();
+}
+
+Boundary
+getNetworkOrigBoundary(const std::string &file)
+{
+    try {
+        return getNamedNetworkBoundary(file, "orig-boundary");
+    } catch (ProcessError &) {
+    }
+    MsgHandler::getErrorInstance()->inform("Could not find the original boundary in net.");
+    throw ProcessError();
+}
+
+
+Boundary
+getNetworkConvBoundary(const std::string &file)
+{
+    try {
+        return getNamedNetworkBoundary(file, "conv-boundary");
+    } catch (ProcessError &) {
+    }
+    MsgHandler::getErrorInstance()->inform("Could not find the converted boundary in net.");
     throw ProcessError();
 }
 
@@ -235,13 +265,10 @@ main(int argc, char **argv)
         // retrieve the options // gibt die Options aus der container zurück
         OptionsCont &oc = OptionsSubSys::getOptions();
 
-		PCPolyContainer toFill;
-
         // build the projection
         Boundary origNetBoundary;
         Position2D netOffset;
         string proj;
-
         if(!oc.getBool("use-projection")) {
             GeoConvHelper::init("!", Position2D());
         } else if(oc.getBool("proj.simple")) {
@@ -260,6 +287,30 @@ main(int argc, char **argv)
                 throw ProcessError();
             }
         }
+
+        // check whether the input shall be prunned
+        bool prune = false;
+        Boundary prunningBoundary;
+        if(oc.getBool("prune.on-net")) {
+            if(!oc.isSet("net")) {
+                MsgHandler::getErrorInstance()->inform("In order to prune the input on the net, you have to supply a network.");
+                throw ProcessError();
+            }
+            prunningBoundary = getNetworkConvBoundary(oc.getString("net"));
+            Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
+            prunningBoundary = Boundary(
+                prunningBoundary.xmin()+offsets.xmin(),
+                prunningBoundary.ymin()+offsets.ymin(),
+                prunningBoundary.xmax()+offsets.xmax(),
+                prunningBoundary.ymax()+offsets.ymax());
+            prune = true;
+        }
+        if(oc.isSet("prune.boundary")) {
+            prunningBoundary = GeomConvHelper::parseBoundary(oc.getString("prune.boundary"));
+            prune = true;
+        }
+
+		PCPolyContainer toFill(prune, prunningBoundary);
 
         // read in the type defaults
         PCTypeMap tm;
