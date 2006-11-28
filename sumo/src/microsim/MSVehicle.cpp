@@ -22,8 +22,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.108  2006/11/27 14:08:52  dkrajzew
-// added Danilot's current changes
+// Revision 1.109  2006/11/28 12:16:31  dkrajzew
+// debugged c2c-communication failures on vehicle teleportation
 //
 // Revision 1.107  2006/11/23 11:40:24  dkrajzew
 // removed unneeded code
@@ -1973,6 +1973,8 @@ MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
         (*i)->removeOnTripEnd(this);
     }
     myQuitReminded.clear();
+    // remove c2c connections // !!! delete them ,too!!!
+    myNeighbors.clear();
 }
 
 
@@ -2491,12 +2493,6 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
 void
 MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 {
-    if(getID()=="88"&&veh->getID()=="160") {
-        int bla = 0;
-    }
-    if(getID()=="160"&&veh->getID()=="88") {
-        int bla = 0;
-    }
 	if(computeDistance(this, veh)){
 		Position2D pos1 = this->getPosition();
 	    Position2D pos2 = veh->getPosition();
@@ -2526,9 +2522,6 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 void
 MSVehicle::cleanUpConnections(int time)
 {
-    if(getID()=="88"||getID()=="160") {
-        int bla = 0;
-    }
     // storage for connections to erase
     std::vector<std::string> toErase;
     std::map<std::string, C2CConnection*>::iterator i;
@@ -2650,12 +2643,6 @@ MSVehicle::removeAllVehNeighbors(void)
 void
 MSVehicle::removeOnTripEnd( MSVehicle *veh )
 {
-    if(getID()=="88"&&veh->getID()=="160") {
-        int bla = 0;
-    }
-    if(getID()=="160"&&veh->getID()=="88") {
-        int bla = 0;
-    }
     assert(myNeighbors.find(veh->getID())!=myNeighbors.end());
     myNeighbors.erase(myNeighbors.find(veh->getID()));
     quitRemindedLeft(veh);
