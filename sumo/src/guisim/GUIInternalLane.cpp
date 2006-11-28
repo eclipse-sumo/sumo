@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/11/28 12:10:40  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.28  2006/09/18 10:00:07  dkrajzew
 // patching junction-internal state simulation
 //
@@ -129,7 +132,6 @@ namespace
 
 #include <string>
 #include <utility>
-#include <utils/foxtools/FXMutex.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSLane.h>

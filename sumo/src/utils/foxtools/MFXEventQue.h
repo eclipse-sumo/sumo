@@ -9,7 +9,7 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include "FXMutex.h"
+#include <fx.h>
 #include <list>
 
 class MFXEventQue {
@@ -23,7 +23,7 @@ public:
     size_t size();
     bool empty();
 private:
-    FXEX::FXMutex myMutex;
+    FXMutex myMutex;
     std::list<void*> myEvents;
 };
 

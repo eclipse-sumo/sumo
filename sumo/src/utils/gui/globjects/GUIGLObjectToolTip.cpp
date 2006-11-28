@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/28 12:10:44  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.7  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -75,8 +78,6 @@ namespace
 
 #include <iostream>
 #include <string>
-//#include <guisim/GUINet.h>
-#include <utils/foxtools/FXMutex.h>
 #include "GUIGlObjectStorage.h"
 #include "GUIGlObject.h"
 #include "GUIGLObjectToolTip.h"
@@ -108,7 +109,7 @@ FXIMPLEMENT(GUIGLObjectToolTip,FXToolTip,GUIGLObjectToolTipMap,ARRAYNUMBER(GUIGL
 GUIGLObjectToolTip::GUIGLObjectToolTip(FXWindow *a)
     : FXToolTip(a->getApp(), /*TOOLTIP_NORMAL*/TOOLTIP_PERMANENT, 0, 0, 200, 200),
     myLastX(-1), myLastY(-1),
-    _lock(new FXEX::FXMutex()), myFont(a->getApp()->getNormalFont()),
+    _lock(new FXMutex()), myFont(a->getApp()->getNormalFont()),
     _object(0)
 {
     setBackColor((255)|(204<<8)|(0<<16));

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/28 12:10:41  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.6  2006/08/01 07:31:35  dkrajzew
 // API adaptations
 //
@@ -55,7 +58,6 @@
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/shapes/Polygon2D.h>
-#include <utils/foxtools/FXMutex.h>
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>

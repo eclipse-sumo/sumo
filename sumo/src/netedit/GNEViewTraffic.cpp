@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/28 12:10:41  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.7  2006/01/09 11:58:37  dkrajzew
 // new visualization settings implemented
 //
@@ -199,7 +202,6 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
 	FXEvent *e = (FXEvent*) data;
 	//new Andreas
 	if(/*e->state&&*/_inEditMode){
-		_lock.lock();
 		if(makeCurrent())
 	{
         // initialise the select mode
@@ -217,7 +219,6 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
         }
         makeNonCurrent();
     }
-	_lock.unlock();
 	}
 
 	//new Andreas

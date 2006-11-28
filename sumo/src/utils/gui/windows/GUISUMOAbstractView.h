@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.20  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -170,7 +173,6 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
-#include <utils/foxtools/FXMutex.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include "GUIGrid.h"
@@ -502,9 +504,6 @@ protected:
     /// Offset to the mouse-hotspot from the mouse position
     int _mouseHotspotX, _mouseHotspotY;
 
-    /// A lock for drawing operations
-    FXEX::FXMutex _lock;
-
     /// _widthInPixels / _heightInPixels
     SUMOReal _ratio;
 
@@ -536,9 +535,9 @@ protected:
     GUIDialog_ViewSettings *myVisualizationChanger;
 
     std::vector<Decal> myDecals;
-    FXEX::FXMutex myDecalsLock;
+    FXMutex myDecalsLock;
 
-	mutable FXEX::FXMutex myPolyDrawLock;
+	mutable FXMutex myPolyDrawLock;
 
     enum VehicleOperationType {
         VO_TRACK,

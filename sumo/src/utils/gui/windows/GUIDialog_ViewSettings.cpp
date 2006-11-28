@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.12  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -126,7 +129,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             BaseSchemeInfoSource *laneEdgeModeSource,
             BaseSchemeInfoSource *vehicleModeSource,
             std::vector<GUISUMOAbstractView::Decal> *decals,
-            FXEX::FXMutex *decalsLock)
+            FXMutex *decalsLock)
     : FXDialogBox( parent, "Application Settings" ),
     myMainWindow(mainWindow), myParent(parent), mySettings(settings),
     myLaneColoringInfoSource(laneEdgeModeSource),

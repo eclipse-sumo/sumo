@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/11/28 12:10:40  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.10  2006/09/18 10:00:08  dkrajzew
 // patching junction-internal state simulation
 //
@@ -76,7 +79,6 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -156,7 +158,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable FXEX::FXMutex _lock;
+    mutable FXMutex _lock;
 
 };
 

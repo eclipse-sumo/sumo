@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.9  2006/11/15 21:29:43  behrisch
 // Debugged building under Linux
 //
@@ -82,7 +85,6 @@
 #include <utils/helpers/ValueRetriever.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <utils/foxtools/FXMutex.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 
@@ -197,9 +199,6 @@ public:
         /// The parent window
         GUITLLogicPhasesTrackerWindow *myParent;
 
-        /// A lock for drawing operations
-        FXEX::FXMutex _lock; // !!! (same as in abstract view)
-
         /// the sizes of the window
         int _widthInPixels, _heightInPixels;
 
@@ -233,7 +232,7 @@ private:
     GUITLLogicPhasesTrackerPanel *myPanel;
 
     /// A lock to avoid addition of new values while drawing
-    FXEX::FXMutex myLock;
+    FXMutex myLock;
 
     /** @brief The names of links
         This holds an enumeration only - used to avoid time consuming

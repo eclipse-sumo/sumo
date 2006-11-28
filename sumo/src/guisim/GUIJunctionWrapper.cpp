@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/11/28 12:10:40  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.23  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -114,7 +117,6 @@ namespace
 
 #include <string>
 #include <utility>
-#include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>

@@ -167,46 +167,6 @@
 				RelativePath="..\..\..\src\utils\foxtools\FXLinkLabel.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLockable.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXMutex.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXRealSpinDial.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -407,12 +367,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXLinkLabel.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLockable.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXMutex.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXRealSpinDial.h">

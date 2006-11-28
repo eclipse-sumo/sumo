@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/28 12:10:44  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.6  2006/11/02 21:01:56  behrisch
 // Missing class declarations
 //
@@ -63,7 +66,6 @@
 
 #include <fx.h>
 #include <utils/geom/Boundary.h>
-#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -112,7 +114,7 @@ private:
     int myLastX, myLastY;
 
     /// A lock to avoid parallel setting and removing
-    FXEX::FXMutex *_lock;
+    FXMutex *_lock;
 
     /// The height of the displayed text
     int _textHeight;

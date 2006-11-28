@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.5  2006/11/03 13:28:18  behrisch
 // Missing and wrong includes and classes corrected
 //
@@ -67,10 +70,8 @@
 #include <string>
 #include <iostream>
 #include <fx.h>
-#include <fx.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXRealSpinDial.h>
-#include <utils/foxtools/FXMutex.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/SUMOTime.h>
@@ -186,7 +187,7 @@ protected:
 
     FXEX::FXThreadEvent &myEventThrow;
 
-    FXEX::FXMutex mySimulationLock;
+    FXMutex mySimulationLock;
 
 };
 

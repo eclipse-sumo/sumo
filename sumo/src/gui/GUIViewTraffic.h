@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.31  2006/11/28 12:10:40  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.30  2006/07/06 06:26:44  dkrajzew
 // added blinker visualisation and vehicle tracking (unfinished)
 //
@@ -127,7 +130,6 @@
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/shapes/Polygon2D.h>
-#include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>

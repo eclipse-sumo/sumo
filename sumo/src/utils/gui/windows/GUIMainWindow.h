@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.9  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -61,7 +64,6 @@
 
 #include <fx.h>
 #include <vector>
-#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -109,7 +111,7 @@ protected:
 	std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
-    FXEX::FXMutex myTrackerLock;
+    FXMutex myTrackerLock;
 
     /// Font used for popup-menu titles
     FXFont *myBoldFont;

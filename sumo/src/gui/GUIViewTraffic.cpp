@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.64  2006/11/28 12:10:40  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.63  2006/11/22 13:06:33  dkrajzew
 // patching problems on choosing an object when using shapes within different layers
 //
@@ -930,7 +933,6 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 	_leftButtonPressed=true;
 	if(e->state&CAPSLOCKMASK) {
 		if(makeCurrent()) {
-			_lock.lock();
 			unsigned int id = getObjectUnderCursor();
 			if(id!=0){
 				GUIGlObject *o = gIDStorage.getObjectBlocking(id);
@@ -941,13 +943,11 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 			}else{
 				FXMessageBox::error(myApp,MBOX_OK,"Error Get Point","No Point at the Position","");
 			}
-			_lock.unlock();
 			makeNonCurrent();
 		}
 	}
 
     if((e->state&SHIFTMASK)!=0) {
-        _lock.lock();
          // try to get the object-id if so
         if(makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
@@ -969,7 +969,6 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                 update();
             }
         }
-        _lock.unlock();
         return 1;
     }
     return GUISUMOAbstractView::onLeftBtnPress(o, sel, data);
@@ -997,7 +996,6 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
     long ret = GUISUMOAbstractView::onLeftBtnRelease(o, sel, data);
 	FXEvent *e = (FXEvent*) data;
 	if(_leftButtonPressed && _firstPoint!=0 && e->state&CAPSLOCKMASK){
-		_lock.lock();
 		if(makeCurrent()) {
 			unsigned int id = getObjectUnderCursor();
 			if(id==-1){
@@ -1021,7 +1019,6 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 			}
 			_firstPoint=0;
 			makeNonCurrent();
-			_lock.unlock();
 		}
 
 	}else{

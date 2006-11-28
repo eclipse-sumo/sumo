@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.12  2006/11/16 10:50:52  dkrajzew
 // warnings removed
 //
@@ -550,10 +553,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTra
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel()
 {
-    // just to quit cleanly on a failure
-    if(_lock.locked()) {
-        _lock.unlock();
-    }
 }
 
 
@@ -575,7 +574,6 @@ long
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
         FXObject*,FXSelector,void*)
 {
-    _lock.lock();
     if(makeCurrent()) {
         _widthInPixels = myParent->getMaxGLWidth();
         _heightInPixels = myParent->getMaxGLHeight();
@@ -590,7 +588,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
         glLineWidth(1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-    _lock.unlock();
     return 1;
 }
 
@@ -602,10 +599,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
     if(!isEnabled()) {
         return 1;
     }
-    if(_lock.locked()) {
-        return 1;
-    }
-    _lock.lock();
     if(makeCurrent()) {
         _widthInPixels = getWidth();
         _heightInPixels = getHeight();
@@ -628,7 +621,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
         }
         makeNonCurrent();
     }
-    _lock.unlock();
     return 1;
 }
 

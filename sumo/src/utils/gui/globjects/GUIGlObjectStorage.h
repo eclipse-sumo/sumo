@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/11/28 12:10:44  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -62,7 +65,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <map>
-#include <utils/foxtools/FXMutex.h>
+#include <fx.h>
 
 
 /* =========================================================================
@@ -139,7 +142,7 @@ private:
     size_t myAktID;
 
     /// A lock to avoid parallel access on the storages
-    FXEX::FXMutex _lock;
+    FXMutex _lock;
 
 private:
     /// Invalidated copy constructor

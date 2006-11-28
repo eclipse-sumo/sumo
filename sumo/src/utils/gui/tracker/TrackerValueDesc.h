@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.6  2006/11/16 10:50:52  dkrajzew
 // warnings removed
 //
@@ -71,11 +74,11 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <fx.h>
 #include <string>
 #include <vector>
 #include <utils/gfx/RGBColor.h>
 #include <utils/helpers/ValueRetriever.h>
-#include <utils/foxtools/FXMutex.h>
 
 
 /* =========================================================================
@@ -166,7 +169,7 @@ private:
     SUMOReal myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
-    FXEX::FXMutex myLock;
+    FXMutex myLock;
 
     /// The aggregation interval
     size_t myAggregationInterval;

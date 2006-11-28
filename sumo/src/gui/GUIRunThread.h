@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/11/28 12:10:39  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.12  2006/10/12 10:14:26  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -76,7 +79,6 @@
 #include <fx.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXRealSpinDial.h>
-#include <utils/foxtools/FXMutex.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/SUMOTime.h>
@@ -198,7 +200,7 @@ protected:
 
     FXEX::FXThreadEvent &myEventThrow;
 
-    FXEX::FXMutex mySimulationLock;
+    FXMutex mySimulationLock;
 
 };
 

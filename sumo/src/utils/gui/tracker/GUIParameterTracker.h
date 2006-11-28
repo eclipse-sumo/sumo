@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.8  2006/10/12 10:14:32  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -92,7 +95,6 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/foxtools/FXMutex.h>
 #include "TrackerValueDesc.h"
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 
@@ -202,9 +204,6 @@ public:
     private:
         /// The parent window
         GUIParameterTracker *myParent;
-
-        /// A lock for drawing operations
-        FXEX::FXMutex _lock; // !!! (same as in abstract view)
 
         /// the sizes of the window
         int _widthInPixels, _heightInPixels;

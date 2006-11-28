@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/28 12:10:41  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.15  2006/09/18 10:01:58  dkrajzew
 // added vehicle class support to microsim
 //
@@ -91,7 +94,6 @@ namespace
 #include <string>
 #include <iostream> // !!!
 #include <utility>
-#include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>

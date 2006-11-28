@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2006/11/28 12:10:41  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.28  2006/09/18 10:00:08  dkrajzew
 // patching junction-internal state simulation
 //
@@ -129,7 +132,6 @@
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
-#include <utils/foxtools/FXMutex.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/drawer/GUILaneRepresentation.h>

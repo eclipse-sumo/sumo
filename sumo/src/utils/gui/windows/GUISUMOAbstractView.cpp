@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.24  2006/11/22 13:06:34  dkrajzew
 // patching problems on choosing an object when using shapes within different layers
 //
@@ -412,10 +415,6 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
 {
     delete _changer;
     delete _toolTip;
-    // just to quit cleanly on a failure
-    if(_lock.locked()) {
-        _lock.unlock();
-    }
     delete myViewportChooser;
     delete myVisualizationChanger;
 }
@@ -434,7 +433,6 @@ GUISUMOAbstractView::updateToolTip()
     if(!_useToolTips) {
         return;
     }
-    _lock.lock();
     if(makeCurrent()) {
         // initialise the select mode
         unsigned int id = getObjectUnderCursor();
@@ -442,7 +440,6 @@ GUISUMOAbstractView::updateToolTip()
         makeNonCurrent();
     }
     // mark end-of-drawing
-    _lock.unlock();
 }
 
 
@@ -939,9 +936,7 @@ GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
 FXbool
 GUISUMOAbstractView::makeCurrent()
 {
-    _lock.lock();
     FXbool ret = FXGLCanvas::makeCurrent();
-    _lock.unlock();
     return ret;
 }
 
@@ -972,7 +967,6 @@ long
 GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
 {
     if(makeCurrent()) {
-        _lock.lock();
         _widthInPixels = myApp->getMaxGLWidth();
         _heightInPixels = myApp->getMaxGLHeight();
         _ratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
@@ -986,7 +980,6 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
-        _lock.unlock();
     }
     return 1;
 }
@@ -998,15 +991,10 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
     if(!isEnabled()||!myAmInitialised) {
         return 1;
     }
-    if(_lock.locked()) {
-        return 1;
-    }
-    _lock.lock();
     if(makeCurrent()) {
         paintGL();
         makeNonCurrent();
     }
-    _lock.unlock();
     return 1;
 }
 
@@ -1019,7 +1007,6 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
     FXEvent *e = (FXEvent*) data;
     // check whether the selection-mode is activated
     if(e->state&ALTMASK) {
-        _lock.lock();
         // try to get the object-id if so
         if(makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
@@ -1033,7 +1020,6 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
                 update();
             }
         }
-        _lock.unlock();
     }
     _changer->onLeftBtnPress(data);
     grab();
@@ -1104,7 +1090,6 @@ GUISUMOAbstractView::openObjectDialog()
     if(!isEnabled()||!myAmInitialised) {
         return;
     }
-    _lock.lock();
     if(makeCurrent()) {
         // initialise the select mode
         unsigned int id = getObjectUnderCursor();
@@ -1124,7 +1109,6 @@ GUISUMOAbstractView::openObjectDialog()
         }
         makeNonCurrent();
     }
-    _lock.unlock();
 }
 
 

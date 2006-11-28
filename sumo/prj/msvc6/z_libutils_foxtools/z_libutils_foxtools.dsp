@@ -99,14 +99,6 @@ SOURCE=..\..\..\src\utils\foxtools\FXLinkLabel.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\foxtools\FXLockable.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\foxtools\FXMutex.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\foxtools\FXRealSpinDial.cpp
 # End Source File
 # Begin Source File
@@ -168,14 +160,6 @@ SOURCE=..\..\..\src\utils\foxtools\FXLCDLabel.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\foxtools\FXLinkLabel.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\foxtools\FXLockable.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\foxtools\FXMutex.h
 # End Source File
 # Begin Source File
 

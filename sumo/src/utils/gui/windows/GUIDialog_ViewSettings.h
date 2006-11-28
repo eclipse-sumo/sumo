@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/11/28 12:10:45  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.5  2006/09/18 10:18:23  dkrajzew
 // debugging
 //
@@ -81,7 +84,7 @@ public:
         BaseSchemeInfoSource *laneEdgeModeSource,
         BaseSchemeInfoSource *vehicleModeSource,
         std::vector<GUISUMOAbstractView::Decal> *decals,
-        FXEX::FXMutex *decalsLock);
+        FXMutex *decalsLock);
 
     /// destructor
     ~GUIDialog_ViewSettings();
@@ -115,7 +118,7 @@ private:
     BaseSchemeInfoSource *myLaneColoringInfoSource;
     BaseSchemeInfoSource *myVehicleColoringInfoSource;
     std::vector<GUISUMOAbstractView::Decal> *myDecals;
-    FXEX::FXMutex *myDecalsLock;
+    FXMutex *myDecalsLock;
     FXComboBox *mySchemeName;
 
     FXColorWell *myBackgroundColor;

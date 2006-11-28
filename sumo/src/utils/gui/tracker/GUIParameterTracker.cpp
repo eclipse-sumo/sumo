@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/28 12:10:44  dkrajzew
+// got rid of FXEX-Mutex (now using the one supplied in FOX)
+//
 // Revision 1.15  2006/11/16 10:50:52  dkrajzew
 // warnings removed
 //
@@ -440,10 +443,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel()
 {
-    // just to quit cleanly on a failure
-    if(_lock.locked()) {
-        _lock.unlock();
-    }
 }
 
 
@@ -691,9 +690,7 @@ long
 GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
                                                            FXSelector,void*)
 {
-//    return 1;
     if(makeCurrent()) {
-//        _lock.lock();
         _widthInPixels = myParent->getMaxGLWidth();
         _heightInPixels = myParent->getMaxGLHeight();
         glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
@@ -707,7 +704,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
         glLineWidth(1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         makeNonCurrent();
-//        _lock.unlock();
     }
     return 1;
 }
@@ -720,10 +716,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
     if(!isEnabled()) {
         return 1;
     }
-    if(_lock.locked()) {
-        return 1;
-    }
-    _lock.lock();
     if(makeCurrent()) {
         _widthInPixels = getWidth();
         _heightInPixels = getHeight();
@@ -746,7 +738,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
         }
         makeNonCurrent();
     }
-    _lock.unlock();
     return 1;
 }
 
