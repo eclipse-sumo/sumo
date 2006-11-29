@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/11/29 07:50:42  dkrajzew
+// debugging
+//
 // Revision 1.21  2006/11/23 12:26:06  dkrajzew
 // parser for elmar deector definitions added
 //
@@ -336,7 +339,6 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon &dc)
 void
 startComputation(DFRONet *optNet, OptionsCont &oc)
 {
-    cout << "1" << endl;
     // read the detector definitions (mandatory)
     DFDetectorCon *detectors = readDetectors(oc, optNet);
     // read routes (optionally)
@@ -347,38 +349,28 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         routes->readFrom(oc.getString("routes-input"));
     }
 	*/
-    cout << "2" << endl;
 	DFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
-    cout << "3" << endl;
 
     // if a network was loaded... (mode1)
     if(optNet!=0) {
-        cout << "3a" << endl;
         if(oc.getBool("remove-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
             optNet->removeEmptyDetectors(*detectors, *flows, 0, 86400, 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
-        cout << "3b" << endl;
         // compute the detector types (optionally)
-        cout << "3b1 " << detectors << endl;
-        cout << "3b2 " << detectors->detectorsHaveCompleteTypes() << endl;
-        cout << "3b3 " << oc.isSet("revalidate-detectors") << endl;
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
             optNet->computeTypes(*detectors, oc.getBool("strict-sources"));
         }
-        cout << "3c" << endl;
         // compute routes between the detectors (optionally)
-        if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
+        if(!detectors->detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
             optNet->buildRoutes(*detectors,
                 oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"),
                 oc.getBool("routes-for-all"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
-        cout << "3d" << endl;
     }
-    cout << "4" << endl;
 
     // check
 		// whether the detectors are valid
@@ -386,32 +378,28 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
 		throw ProcessError();
     }
-    cout << "5" << endl;
 		// whether the detectors have routes
     if(!detectors->detectorsHaveRoutes()) {
         MsgHandler::getErrorInstance()->inform("The emitters have no routes; use in combination with a network");
 		throw ProcessError();
     }
-    cout << "6" << endl;
 
     // save the detectors if wished
     if(oc.isSet("detectors-output")) {
         detectors->save(oc.getString("detectors-output"));
     }
-    cout << "7" << endl;
 	// save their positions as POIs if wished
     if(oc.isSet("detectors-poi-output")) {
         detectors->saveAsPOIs(oc.getString("detectors-poi-output"));
     }
-    cout << "8" << endl;
 
     // save the routes file if it was changed or it's wished
     if(detectors->detectorsHaveRoutes()&&oc.isSet("routes-output")) {
         detectors->saveRoutes(oc.getString("routes-output"));
     }
-    cout << "9" << endl;
 
-	// !!!
+
+
 	// save emitters if wished
 	if(oc.isSet("emitters-output")) {
         optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
@@ -426,7 +414,6 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 			oc.getBool("write-calibrators"));
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
 	}
-    cout << "10" << endl;
     // save end speed trigger if wished
 	if(oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");

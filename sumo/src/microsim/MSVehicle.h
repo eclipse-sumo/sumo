@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.67  2006/11/29 07:48:36  dkrajzew
+// debugging
+//
 // Revision 1.66  2006/11/27 14:08:52  dkrajzew
 // added Danilot's current changes
 //
@@ -710,7 +713,8 @@ public:
 
     /** Update of members if vehicle enters a new lane in the move step.
         @param Pointer to the entered Lane. */
-    void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
+    void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven,
+        bool inBetweenJump=false);
 
     /** Update of members if vehicle enters a new lane in the emit step.
         @param Pointer to the entered Lane. */

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.110  2006/11/29 07:48:36  dkrajzew
+// debugging
+//
 // Revision 1.109  2006/11/28 12:16:31  dkrajzew
 // debugged c2c-communication failures on vehicle teleportation
 //
@@ -1172,7 +1175,7 @@ MSVehicle::moveFirstChecked()
         myState.myPos -= approachedLane->length();
         assert(myState.myPos>0);
         if(approachedLane!=myLane) {
-            enterLaneAtMove(approachedLane, driven);
+            enterLaneAtMove(approachedLane, driven, true);
             driven += approachedLane->length();
         }
         // proceed to the next lane
@@ -1581,7 +1584,7 @@ MSVehicle::onAllowed( ) const
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
+MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven, bool inBetweenJump )
 {
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
@@ -1638,30 +1641,33 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
             (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
 			(*i).second->neededTime = 0;
 		}
-        // check whether to reroute
-        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
-        std::vector<const MSEdge*> edges;
-		router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
-            MSNet::getInstance()->getCurrentTimeStep(), edges);
-        // check whether the new route is the same as the prior
-        MSRouteIterator ri = myCurrEdge;
-        std::vector<const MSEdge*>::iterator ri2 = edges.begin();
-        while(*ri==*ri2&&ri!=myRoute->end()) {
-            ri++;
-            ri2++;
-        }
-        if(ri!=myRoute->end()) {
-            int rerouteIndex = 0;
-            if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
-                rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+
+        if(!inBetweenJump) {
+            // check whether to reroute
+            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
+            std::vector<const MSEdge*> edges;
+		    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
+                MSNet::getInstance()->getCurrentTimeStep(), edges);
+            // check whether the new route is the same as the prior
+            MSRouteIterator ri = myCurrEdge;
+            std::vector<const MSEdge*>::iterator ri2 = edges.begin();
+            while(*ri==*ri2&&ri!=myRoute->end()) {
+                ri++;
+                ri2++;
             }
-            string nid = myRoute->getID() + "#" + toString(rerouteIndex);
-            MSRoute *rep = new MSRoute(nid, edges, true);
-            if(!MSRoute::dictionary(nid, rep)) {
-                cout << "Error: Could not insert route ''" << endl;
-            } else {
-                MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
-                replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+            if(ri!=myRoute->end()) {
+                int rerouteIndex = 0;
+                if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
+                    rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+                }
+                string nid = myRoute->getID() + "#" + toString(rerouteIndex);
+                MSRoute *rep = new MSRoute(nid, edges, true);
+                if(!MSRoute::dictionary(nid, rep)) {
+                    cout << "Error: Could not insert route ''" << endl;
+                } else {
+                    MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
+                    replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+                }
             }
         }
 	}
@@ -2022,12 +2028,6 @@ MSVehicle::onDepart()
 void
 MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 {
-    if(getID()=="88"&&dynamic_cast<MSVehicle*>(r)->getID()=="160") {
-        int bla = 0;
-    }
-    if(getID()=="160"&&dynamic_cast<MSVehicle*>(r)->getID()=="88") {
-        int bla = 0;
-    }
     assert(find(myQuitReminded.begin(), myQuitReminded.end(), r)==myQuitReminded.end());
     myQuitReminded.push_back(r);
 }
@@ -2036,12 +2036,6 @@ MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 void
 MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 {
-    if(getID()=="88"&&dynamic_cast<MSVehicle*>(r)->getID()=="160") {
-        int bla = 0;
-    }
-    if(getID()=="160"&&dynamic_cast<MSVehicle*>(r)->getID()=="88") {
-        int bla = 0;
-    }
     QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
     assert(i!=myQuitReminded.end());
     if(i!=myQuitReminded.end()) {
@@ -2579,7 +2573,7 @@ MSVehicle::updateInfos(int time)
    if(lastTimeStep != time){
 	   if(myLastPosition == getPositionOnLane()){
 		   timeSinceStop++;
-		   cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
+		   //cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
 	   }else{
 		   timeSinceStop = 0;
 	   }
