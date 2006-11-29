@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.5  2005/10/07 11:42:28  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -66,7 +69,8 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RODUAEdgeBuilder::RODUAEdgeBuilder()
+RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride)
+    : myUseBoundariesOnOverride(useBoundariesOnOverride)
 {
 }
 
@@ -79,7 +83,7 @@ RODUAEdgeBuilder::~RODUAEdgeBuilder()
 ROEdge *
 RODUAEdgeBuilder::buildEdge(const std::string &name)
 {
-    return new ROEdge(name, getCurrentIndex());
+    return new ROEdge(name, getCurrentIndex(), myUseBoundariesOnOverride);
 }
 
 

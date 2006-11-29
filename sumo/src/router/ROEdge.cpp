@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.32  2006/11/17 09:09:58  dkrajzew
 // warnings removed
 //
@@ -168,13 +171,14 @@ bool myHaveWarned = false; // !!! make this static or so
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROEdge::ROEdge(const std::string &id, int index)
+ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride)
     : _id(id), _dist(0), _speed(-1),
       _supplementaryWeightAbsolut(0),
       _supplementaryWeightAdd(0),
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
       myIndex(index), myLength(-1), _hasSupplementaryWeights(false),
+      myUseBoundariesOnOverride(useBoundariesOnOverride),
       myHaveBuildShortCut(false), myPackedValueLine(0)
 {
 }
@@ -280,17 +284,30 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
     SUMOReal value = (SUMOReal) (_dist / _speed);
     if(_usingTimeLine) {
         if(!myHaveBuildShortCut) {
-            myPackedValueLine = _ownValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myShortCutInterval);
+            myPackedValueLine = _ownValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
             myHaveBuildShortCut = true;
         }
         if(myShortCutBegin>time||myShortCutEnd<time) {
-            if(!myHaveWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using edge's length / edge's speed.");
-                myHaveWarned = true;
+            if(myUseBoundariesOnOverride) {
+                if(!myHaveWarned) {
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using first/last entry.");
+                    myHaveWarned = true;
+                }
+                if(myShortCutBegin>time) {
+                    value = myPackedValueLine[0];
+                } else {
+                    value = myPackedValueLine[myLastPackedIndex];
+                }
+            } else {
+                // value is already set
+                //  warn if wished
+                if(!myHaveWarned) {
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using edge's length / edge's speed.");
+                    myHaveWarned = true;
+                }
             }
         } else {
             value = myPackedValueLine[(time-myShortCutBegin)/myShortCutInterval];
-	    //            SUMOReal value2 = _ownValueLine.getSearchStateAndValue(time).second;
         }
     }
 

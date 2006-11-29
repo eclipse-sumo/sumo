@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.15  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -241,7 +244,7 @@ RONet *
 loadNet(ROLoader &loader, OptionsCont &oc)
 {
     // load the net
-    RODUAEdgeBuilder builder;
+    RODUAEdgeBuilder builder(oc.getBool("expand-weights"));
     RONet *net = loader.loadNet(builder);
     if(net==0) {
         throw ProcessError();

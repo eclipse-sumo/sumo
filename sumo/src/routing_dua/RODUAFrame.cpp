@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/29 07:51:23  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.7  2006/01/09 13:30:06  dkrajzew
 // debugging
 //
@@ -132,6 +135,7 @@ RODUAFrame::addImportOptions(OptionsCont &oc)
     oc.doRegister("save-cell-rindex", new Option_Bool(false));
     oc.doRegister("intel-cell", new Option_Bool(false));
     oc.doRegister("no-last-cell", new Option_Bool(false));
+    oc.doRegister("expand-weights", new Option_Bool(false));
 }
 
 

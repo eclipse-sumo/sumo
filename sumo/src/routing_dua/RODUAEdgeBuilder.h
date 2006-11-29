@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.4  2005/10/07 11:42:28  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,13 +72,17 @@ class ROEdge;
 class RODUAEdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /// Constructor
-    RODUAEdgeBuilder();
+    RODUAEdgeBuilder(bool useBoundariesOnOverride);
 
     /// Destructor
     ~RODUAEdgeBuilder();
 
     /// Builds the dua-edge
     ROEdge *buildEdge(const std::string &name);
+
+protected:
+    /// Information whether to use the first/last entry of the time in case it is too short
+    bool myUseBoundariesOnOverride;
 
 };
 

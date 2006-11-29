@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/11/29 07:51:23  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.3  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -105,7 +108,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROJTREdge::ROJTREdge(const std::string &id, int index)
-    : ROEdge(id, index)
+    : ROEdge(id, index, false)
 {
 }
 

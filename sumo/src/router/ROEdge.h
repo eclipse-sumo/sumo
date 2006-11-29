@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.25  2006/11/16 13:56:45  dkrajzew
 // warnings removed
 //
@@ -147,7 +150,7 @@ public:
 
 
     /// Constructor
-    ROEdge(const std::string &id, int index);
+    ROEdge(const std::string &id, int index, bool useBoundariesOnOverride);
 
     /// Desturctor
     virtual ~ROEdge();
@@ -301,9 +304,11 @@ protected:
     /// The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
 
+    bool myUseBoundariesOnOverride;
     mutable bool myHaveBuildShortCut;
     mutable SUMOReal *myPackedValueLine;
     mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
+    mutable size_t myLastPackedIndex;
 
 
 private:

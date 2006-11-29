@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/11/29 07:51:22  dkrajzew
+// added the possibility to use the loaded weights outside their boundaries
+//
 // Revision 1.4  2006/10/12 10:14:30  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -72,7 +75,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RODFEdge::RODFEdge(const std::string &id, int index)
-    : ROEdge(id, index)
+    : ROEdge(id, index, false)
 {
 }
 
