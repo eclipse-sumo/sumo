@@ -394,7 +394,7 @@ public:
     }
 
 
-    T *buildShortCut(SUMOTime &begin, SUMOTime &end, SUMOTime &interval) const {
+    T *buildShortCut(SUMOTime &begin, SUMOTime &end, size_t &maxIndex, SUMOTime &interval) const {
         T *ret;
         // make it simple: assume we use only weights that have the same intervals
         //  in this case!
@@ -407,6 +407,7 @@ public:
         for(size_t i=0; i<myValues.size(); i++) {
             ret[i] = myValues[i].second;
         }
+        maxIndex = myValues.size() - 1;
         return ret;
     }
 
