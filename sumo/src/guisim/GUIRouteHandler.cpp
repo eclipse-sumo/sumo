@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.11  2006/09/18 10:01:39  dkrajzew
 // added vehicle class support to microsim
 //
@@ -113,8 +116,9 @@ using namespace std;
  * ======================================================================= */
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
                                  MSVehicleControl &vc,
-                                 bool addVehiclesDirectly)
-    : MSRouteHandler(file, vc, addVehiclesDirectly, true)
+                                 bool addVehiclesDirectly,
+                                 int incDUAStage)
+    : MSRouteHandler(file, vc, addVehiclesDirectly, true, incDUAStage)
 {
 }
 

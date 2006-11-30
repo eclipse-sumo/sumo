@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.15  2006/09/18 10:07:54  dkrajzew
 // added vehicle class support to microsim
 //
@@ -116,7 +119,8 @@ class MSRouteHandler : public SUMOSAXHandler, public SUMOBaseRouteHandler
 public:
     /// standard constructor
     MSRouteHandler(const std::string &file, MSVehicleControl &vc,
-        bool addVehiclesDirectly, bool wantsVehicleColor);
+        bool addVehiclesDirectly, bool wantsVehicleColor,
+        int incDUAStage);
 
     /// standard destructor
     virtual ~MSRouteHandler();
@@ -211,6 +215,19 @@ protected:
 
     /// List of the stops the vehicle will make
     std::vector<MSVehicle::Stop> myVehicleStops;
+
+
+    /// Information whether not all vehicle shall be emitted due to inc-dua
+    bool myAmUsingIncrementalDUA;
+
+    /// The current vehicle number (for inc-dua)
+    size_t myRunningVehicleNumber;
+
+    /// The base for inc-dua
+    int myIncrementalBase;
+
+    /// The current stage of inc-dua
+    int myIncrementalStage;
 
 private:
     /** invalid copy constructor */

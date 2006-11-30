@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.7  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -192,9 +195,10 @@ GUIHandler::GUIHandler(const std::string &file,
                              NLTriggerBuilder &triggerBuilder,
                              NLEdgeControlBuilder &edgeBuilder,
                              NLJunctionControlBuilder &junctionBuilder,
-                             NLGeomShapeBuilder &shapeBuilder)
+                             NLGeomShapeBuilder &shapeBuilder,
+                             int incDUAStage)
     : NLHandler(file, net, detBuilder, triggerBuilder,
-        edgeBuilder, junctionBuilder, shapeBuilder, true) // wants vehicle color
+        edgeBuilder, junctionBuilder, shapeBuilder, true, incDUAStage) // wants vehicle color
 {
 }
 

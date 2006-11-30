@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.95  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.94  2006/11/27 14:08:51  dkrajzew
 // added Danilot's current changes
 //
@@ -1208,14 +1211,14 @@ MSNet::loadState(BinaryInputDevice &bis, long what)
 
 
 MSRouteLoader *
-MSNet::buildRouteLoader(const std::string &file)
+MSNet::buildRouteLoader(const std::string &file, int incDUAStage)
 {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) not using colors
     // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false));
+    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false, incDUAStage));
 }
 
 

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.11  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -496,7 +499,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
         st.reinit();
         while(st.hasNext()) {
             string file = st.next();
-            loaders.push_back(myNet.buildRouteLoader(file));
+            loaders.push_back(myNet.buildRouteLoader(file, oc.getInt("incremental-dua-step")));
         }
     }
     // build the route control

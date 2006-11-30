@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.29  2006/11/14 06:45:41  dkrajzew
 // warnings removed
 //
@@ -178,13 +181,18 @@ using namespace std;
 MSRouteHandler::MSRouteHandler(const std::string &file,
                                MSVehicleControl &vc,
                                bool addVehiclesDirectly,
-                               bool wantsVehicleColor)
+                               bool wantsVehicleColor,
+                               int incDUAStage)
     : SUMOSAXHandler("sumo-network/routes", file),
     myVehicleControl(vc),
     myLastDepart(0), myLastReadVehicle(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myWantVehicleColor(wantsVehicleColor),
-    myCurrentEmbeddedRoute(0)
+    myCurrentEmbeddedRoute(0),
+    myAmUsingIncrementalDUA(incDUAStage>0),
+    myRunningVehicleNumber(0),
+    myIncrementalBase(10),
+    myIncrementalStage(incDUAStage)
 {
     myActiveRoute.reserve(100);
 }
@@ -471,23 +479,41 @@ MSRouteHandler::closeVehicle()
         MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
         throw ProcessError();
     }
-    //
+
+    // try to build the vehicle
     MSVehicle *vehicle = 0;
     if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
-        vehicle =
-            MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
-                route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
-        if(myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-            vehicle->setCORNColor(
-                myCurrentVehicleColor.red(),
-                myCurrentVehicleColor.green(),
-                myCurrentVehicleColor.blue());
+        // ok there was no other vehicle with the same id, yet
+        // maybe we do not want this vehicle to be emitted due to using incremental dua
+        bool add = true;
+        if(myAmUsingIncrementalDUA) {
+            if((int) (myRunningVehicleNumber%myIncrementalBase)>=(int) myIncrementalStage) {
+                add = false;
+            }
+            myRunningVehicleNumber++;
         }
-        myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
+        if(add) {
+            vehicle =
+                MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
+                    route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+            // check whether the color information shall be set
+            if(myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+                vehicle->setCORNColor(
+                    myCurrentVehicleColor.red(),
+                    myCurrentVehicleColor.green(),
+                    myCurrentVehicleColor.blue());
+            }
+            // add the vehicle to the vehicle control
+            myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
+        }
     } else {
+        // strange: another vehicle with the same id already exists
         if(!MSGlobals::gStateLoaded) {
+            // and was not loaded while loading a simulation state
+            // -> error
             throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
         } else {
+            // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;
         }
     }

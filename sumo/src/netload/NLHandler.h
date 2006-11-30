@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.10  2006/11/03 23:05:34  behrisch
 // Syntactic sugar
 //
@@ -221,7 +224,7 @@ public:
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
         NLGeomShapeBuilder &shapeBuilder,
-        bool wantsVehicleColor);
+        bool wantsVehicleColor, int incDUAStage);
 
     /// Destructor
     virtual ~NLHandler();

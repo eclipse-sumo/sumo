@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.3  2006/10/12 10:14:27  dkrajzew
 // synchronized with internal CVS (mainly the documentation has changed)
 //
@@ -125,7 +128,7 @@ public:
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
-        NLGeomShapeBuilder &shapeBuilder);
+        NLGeomShapeBuilder &shapeBuilder, int incDUAStage);
 
     /// standard destructor
     ~GUIHandler();

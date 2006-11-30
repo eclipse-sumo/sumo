@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.11  2006/05/15 05:53:33  dkrajzew
 // debugging saving/loading of states
 //
@@ -144,7 +147,6 @@ public:
     void decReferenceCnt() {
         myReferenceNo--;
     }
-
 
 public:
     /** @brief Adds a route to the dictionary

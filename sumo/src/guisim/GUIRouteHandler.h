@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.7  2006/09/18 10:01:39  dkrajzew
 // added vehicle class support to microsim
 //
@@ -74,7 +77,7 @@ class GUIRouteHandler : public MSRouteHandler
 public:
     /// standard constructor
     GUIRouteHandler(const std::string &file, MSVehicleControl &vc,
-        bool addVehiclesDirectly);
+        bool addVehiclesDirectly, int incDUAStage);
 
     /// standard destructor
     virtual ~GUIRouteHandler();

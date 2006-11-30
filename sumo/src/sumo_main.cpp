@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.49  2006/11/21 07:16:00  dkrajzew
 // icons added; bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -337,7 +340,7 @@ load(OptionsCont &oc)
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb(*net);
-    NLHandler handler("", *net, db, tb, eb, jb, sb, false);
+    NLHandler handler("", *net, db, tb, eb, jb, sb, false, oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if(!builder.build()) {
         delete net;

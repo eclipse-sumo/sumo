@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.25  2006/11/23 11:40:25  dkrajzew
 // removed unneeded code
 //
@@ -260,16 +263,15 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandler::NLHandler(const std::string &file,
-                           MSNet &net,
-                           NLDetectorBuilder &detBuilder,
-                           NLTriggerBuilder &triggerBuilder,
-                           NLEdgeControlBuilder &edgeBuilder,
-                           NLJunctionControlBuilder &junctionBuilder,
-                           NLGeomShapeBuilder &shapeBuilder,
-                           bool wantsVehicleColor)
-
-    : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor),
+NLHandler::NLHandler(const std::string &file, MSNet &net,
+                     NLDetectorBuilder &detBuilder,
+                     NLTriggerBuilder &triggerBuilder,
+                     NLEdgeControlBuilder &edgeBuilder,
+                     NLJunctionControlBuilder &junctionBuilder,
+                     NLGeomShapeBuilder &shapeBuilder,
+                     bool wantsVehicleColor,
+                     int incDUAStage)
+    : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor, incDUAStage),
     myNet(net), myActionBuilder(net),
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
@@ -287,7 +289,7 @@ NLHandler::~NLHandler()
 
 void
 NLHandler::myStartElement(int element, const std::string &name,
-                             const Attributes &attrs)
+                          const Attributes &attrs)
 {
     // check static net information
     if(wanted(LOADFILTER_NET)) {

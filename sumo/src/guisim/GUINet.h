@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.42  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.41  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -292,7 +295,7 @@ public:
 
 	bool hasPosition(GUIVehicle *v) const;
 
-    MSRouteLoader *buildRouteLoader(const std::string &file);
+    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUAStage);
 
 
 private:

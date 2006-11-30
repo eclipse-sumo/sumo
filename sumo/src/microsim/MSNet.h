@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.69  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.68  2006/11/27 14:08:51  dkrajzew
 // added Danilot's current changes
 //
@@ -655,7 +658,7 @@ public:
 
     ShapeContainer &getShapeContainer() const { return *myShapeContainer; }
 
-    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUAStage);
 
     SUMOReal getTooSlowRTF() const;
 

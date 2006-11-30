@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.57  2006/11/27 14:08:53  dkrajzew
 // added Danilot's current changes
 //
@@ -275,6 +278,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.doRegister("check-accidents", new Option_Bool(false));
     oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
+    oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
     oc.doRegister("time-to-teleport", new Option_Integer(300));
     oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
     oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe

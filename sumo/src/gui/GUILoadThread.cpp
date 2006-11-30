@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.39  2006/11/20 11:11:39  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -255,7 +258,7 @@ GUILoadThread::run()
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
     GUITriggerBuilder tb;
-    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
+    GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
 #ifndef _DEBUG
     try {

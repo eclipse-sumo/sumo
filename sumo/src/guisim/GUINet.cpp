@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2006/11/30 07:43:35  dkrajzew
+// added the inc-dua option in order to increase dua-computation
+//
 // Revision 1.54  2006/11/23 11:40:24  dkrajzew
 // removed unneeded code
 //
@@ -620,13 +623,13 @@ GUINet::setIdleDuration(int val)
 
 
 MSRouteLoader *
-GUINet::buildRouteLoader(const std::string &file)
+GUINet::buildRouteLoader(const std::string &file, int incDUAStage)
 {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) using colors
-    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false));
+    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false, incDUAStage));
 }
 
 
