@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/11/30 12:47:36  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.18  2006/10/12 08:09:15  dkrajzew
 // fastened up lane changing
 //
@@ -192,7 +195,6 @@ bool
 MSSourceLane::emitTry( MSVehicle& veh )
 {
     // on sources, no vehicles may arrive from the back
-    veh.enterLaneAtEmit( this, MSVehicle::State(0, 0) );
     myVehicles.push_front( &veh );
     myUseDefinition->noVehicles++;
     myUseDefinition->vehLenSum += veh.getLength();

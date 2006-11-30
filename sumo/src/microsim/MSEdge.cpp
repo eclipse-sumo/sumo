@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.32  2006/11/30 12:47:35  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.31  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -636,23 +639,22 @@ MSEdge::getEffort(const MSVehicle * const , SUMOTime ) const
 void
 MSEdge::addEquippedVehicle(string id, MSVehicle *vehicle) const
 {
-
-	map<std::string, MSVehicle *>::const_iterator cur  = myEquippedVeh.find(id);
-	if(cur==myEquippedVeh.end()){
-         myEquippedVeh[id]=vehicle;
-	}
-
-
+    map<std::string, MSVehicle *>::const_iterator cur  = myEquippedVeh.find(id);
+    assert(cur==myEquippedVeh.end());
+    if(cur==myEquippedVeh.end()){
+        myEquippedVeh[id]=vehicle;
+    }
 }
 
 //remove a vehicle with this id from the container
 void
 MSEdge::removeEquippedVehicle(string id) const
 {
-	map<std::string, MSVehicle *>::iterator cur  = myEquippedVeh.find(id);
-	if(cur!=myEquippedVeh.end()){
-         myEquippedVeh.erase(cur);
-	}
+    map<std::string, MSVehicle *>::iterator cur  = myEquippedVeh.find(id);
+    assert(cur!=myEquippedVeh.end());
+    if(cur!=myEquippedVeh.end()){
+        myEquippedVeh.erase(cur);
+    }
 }
 
 
@@ -667,17 +669,16 @@ void
 MSEdge::addNeighborEdge(std::string id, MSEdge *edge)
 {
     std::map<std::string, MSEdge*>::iterator i = neighborEdges.find(id);
-	if(i== neighborEdges.end()){
-		neighborEdges[id]=edge;
-	}
-
+    if(i== neighborEdges.end()){
+        neighborEdges[id]=edge;
+    }
 }
 
 
 const std::map<std::string, MSEdge*> &
 MSEdge::getNeighborEdges() const
 {
-	return neighborEdges;
+    return neighborEdges;
 }
 
 

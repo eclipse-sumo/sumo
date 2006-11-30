@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.68  2006/11/30 12:47:36  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.67  2006/11/29 07:48:36  dkrajzew
 // debugging
 //
@@ -829,9 +832,14 @@ public:
     bool knowsEdgeTest(MSEdge &edge) const;
 
 
-	struct Information {
+	class Information {
+    public:
+        Information(const std::string &infoTyp_, const MSEdge * const edge_,
+            SUMOReal neededTime_, int time_)
+            : infoTyp(infoTyp_), edge(edge_), neededTime(neededTime_), time(time_) { }
+
 		std::string infoTyp;
-		std::string edge;
+		const MSEdge * const edge;
 		SUMOReal neededTime; // how long needed the vehicle to travel on the edge
 		int time; // the Time, when the Info was saved
 	};
@@ -855,6 +863,7 @@ public:
     const VehCont &getConnections() const;
 
     SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
+    void checkReroute(SUMOTime t);
 
 /*
     SUMOTime getSendingTimeEnd() const;
@@ -919,6 +928,8 @@ protected:
 	//Aktuelle Information
 	//wird erst gespiechert, wenn vehicle die Lane verlässt !!!!!!!!!
 	Information *akt;
+    SUMOTime myLastInfoTime;
+    bool myHaveRouteInfo;
 
 	// count how much Informations this vehicle have saved during the simulation
 	int totalNrOfSavedInfos;
@@ -942,8 +953,11 @@ protected:
 	typedef std::vector<C2CConnection*> ClusterCont;
 	ClusterCont clusterCont;
 
+    bool willPass(const MSEdge * const edge) const;
+
     // transfert the N Information in infos into my own InformationsContainer
-    void transferInformation(std::string senderID, InfoCont infos, int N);
+    void transferInformation(const std::string &senderID, const InfoCont &infos, int N,
+        SUMOTime currentTime);
 
 	//compute accordant the distance, the Number of Infos that can be transmit
 	int numOfInfos(MSVehicle *veh1, MSVehicle* veh2);

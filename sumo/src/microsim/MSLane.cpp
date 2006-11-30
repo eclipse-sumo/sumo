@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.75  2006/11/30 12:47:36  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.74  2006/11/17 09:09:58  dkrajzew
 // warnings removed
 //
@@ -1038,6 +1041,9 @@ MSLane::setCritical()
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
             veh->removeApproachingInformationOnKill();
+            if(veh->isEquipped()) {
+                veh->getEdge()->removeEquippedVehicle(veh->getID());
+            }
             vt->addVeh(veh);
         }
     }

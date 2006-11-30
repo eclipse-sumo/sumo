@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.111  2006/11/30 12:47:36  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.110  2006/11/29 07:48:36  dkrajzew
 // debugging
 //
@@ -696,7 +699,7 @@ MSVehicle::~MSVehicle()
     if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
         int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         for(int i=0; i<noReroutes; ++i) {
-	  delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
+            delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
         }
     }
         // devices
@@ -711,9 +714,24 @@ MSVehicle::~MSVehicle()
     }
     delete myLaneChangeModel;
 	delete akt;
-	myNeighbors.clear();
-	infoCont.clear();
-	clusterCont.clear();
+    {
+        for(VehCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+            delete (*i).second;
+        }
+	    myNeighbors.clear();
+    }
+    {
+        for(ClusterCont::iterator i=clusterCont.begin(); i!=clusterCont.end(); ++i) {
+            delete (*i);
+        }
+	    clusterCont.clear();
+    }
+    {
+        for(InfoCont::iterator i=infoCont.begin(); i!=infoCont.end(); ++i) {
+            delete (*i).second;
+        }
+	    infoCont.clear();
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -742,6 +760,8 @@ MSVehicle::MSVehicle( string id,
 	timeSinceStop(0),
 	lastTimeStep(0),
 	akt(0),
+    myLastInfoTime(0),
+    myHaveRouteInfo(false),
     myLane( 0 ),
     myType(type),
     myLastBestLanesEdge(0),
@@ -1507,6 +1527,9 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
 Position2D
 MSVehicle::getPosition() const
 {
+    if(myLane==0) {
+        return Position2D(-1000, -1000);
+    }
 	return myLane->getShape().positionAtLengthPosition(myState.pos());
 }
 
@@ -1631,48 +1654,20 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven, bool inBetween
 
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
         if(i==infoCont.end()){
-			akt = 0;
-			akt = new Information;
+            delete akt;
+			akt = new Information("congestion", *myCurrEdge, 0, MSNet::getInstance()->getCurrentTimeStep());
+            /*
 			akt->infoTyp = "congestion";
 			akt->edge = (*myCurrEdge)->getID();
 			akt->neededTime = 0;
 			akt->time = MSNet::getInstance()->getCurrentTimeStep();
+            */
         } else {
             (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
 			(*i).second->neededTime = 0;
 		}
 
-        if(!inBetweenJump) {
-            // check whether to reroute
-            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
-            std::vector<const MSEdge*> edges;
-		    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
-                MSNet::getInstance()->getCurrentTimeStep(), edges);
-            // check whether the new route is the same as the prior
-            MSRouteIterator ri = myCurrEdge;
-            std::vector<const MSEdge*>::iterator ri2 = edges.begin();
-            while(*ri==*ri2&&ri!=myRoute->end()) {
-                ri++;
-                ri2++;
-            }
-            if(ri!=myRoute->end()) {
-                int rerouteIndex = 0;
-                if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
-                    rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-                }
-                string nid = myRoute->getID() + "#" + toString(rerouteIndex);
-                MSRoute *rep = new MSRoute(nid, edges, true);
-                if(!MSRoute::dictionary(nid, rep)) {
-                    cout << "Error: Could not insert route ''" << endl;
-                } else {
-                    MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
-                    replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
-                }
-            }
-        }
 	}
-
-
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
@@ -1708,19 +1703,16 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
 
     // for Car2Car
 	if(isEquipped()){
+        delete akt;
+        akt = 0;
 		(*myCurrEdge)->addEquippedVehicle(getID(), this);
 
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
-        if(i==infoCont.end()){
-			akt = new Information;
-			akt->infoTyp = "congestion";
-			akt->edge = (*myCurrEdge)->getID();
-			akt->neededTime = 0;
-			akt->time = MSNet::getInstance()->getCurrentTimeStep();
-		}else{
+        if(i!=infoCont.end()){
             (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
 			(*i).second->neededTime = 0;
 		}
+        akt = new Information("congestion", (*myCurrEdge), 0, MSNet::getInstance()->getCurrentTimeStep());
 	}
 }
 
@@ -1738,23 +1730,28 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 		float factor = (length/speed)*2;
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
 		if(i == infoCont.end()){ //noch nicht drin
+            if(akt==0) {
+                int bla = 0;
+            } else {
 			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
 			if(nt > factor){
-				Information *info = new Information;
+				Information *info = new Information(*akt);
+                info->neededTime = nt;
+                /*
 				info->infoTyp = akt->infoTyp;
 				info->edge = akt->edge;
 				info->neededTime = nt;
 				info->time = akt->time;
+                */
 				infoCont[(*myCurrEdge)->getID()] = info;
-				delete akt;
-				akt = 0;
 				MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
 							    	getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,nt,-1);
 				totalNrOfSavedInfos++;
 			}else{
+			}
+            }
 				delete akt;
 				akt = 0;
-			}
 		}else{ // schon mal hier gefahren oder Information von einem andere
 			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time);
 			if(nt > factor){
@@ -1980,7 +1977,24 @@ MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
     }
     myQuitReminded.clear();
     // remove c2c connections // !!! delete them ,too!!!
-    myNeighbors.clear();
+    {
+        for(VehCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+            delete (*i).second;
+        }
+	    myNeighbors.clear();
+    }
+    {
+        for(ClusterCont::iterator i=clusterCont.begin(); i!=clusterCont.end(); ++i) {
+            delete (*i);
+        }
+	    clusterCont.clear();
+    }
+    {
+        for(InfoCont::iterator i=infoCont.begin(); i!=infoCont.end(); ++i) {
+            delete (*i).second;
+        }
+	    infoCont.clear();
+    }
 }
 
 
@@ -2487,7 +2501,11 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
 void
 MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
 {
-	if(computeDistance(this, veh)){
+    if(&veh->getLane()==0||myLane==0) {
+        // obviously, one of the vehicles is being teleported
+        return;
+    }
+    if(computeDistance(this, veh)){
 		Position2D pos1 = this->getPosition();
 	    Position2D pos2 = veh->getPosition();
 		std::map<std::string, C2CConnection*>::iterator i = myNeighbors.find(veh->getID());
@@ -2550,6 +2568,9 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 	bool b = false;
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
+    if(pos1.x()==-1000||pos2.x()==-1000) {
+        return false;
+    }
 	if(fabs(pos1.x()-pos2.x())<MSGlobals::gLANRange && fabs(pos1.y()-pos2.y())<MSGlobals::gLANRange){
 		SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
 		if((distance>0)&&(distance<=MSGlobals::gLANRange)){
@@ -2586,14 +2607,15 @@ MSVehicle::updateInfos(int time)
    // position longer as 5 minutes
    if(timeSinceStop > 300){
 	    timeSinceStop = 0;
-	    cout<<" !!!!!!!! Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
-	   	std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+	   	map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
 		if(i == infoCont.end()){ //noch nicht drin
-			Information *info = new Information;
+			Information *info = new Information("congestion", (*myCurrEdge), 1, MSNet::getInstance()->getCurrentTimeStep());
+            /*
 			info->infoTyp = "congestion";
 			info->edge = (*myCurrEdge)->getID();
 			info->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
 			info->time = MSNet::getInstance()->getCurrentTimeStep();
+            */
 			infoCont[(*myCurrEdge)->getID()] = info;
 			MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
 							    getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,0,-1);
@@ -2710,7 +2732,7 @@ MSVehicle::buildMyCluster(int myStep, int clId){
 
 ///!!!!!!!!!!!! Noch mal überdenken !!!!!!!!!
 void
-MSVehicle::sendInfos(SUMOTime /*time*/)
+MSVehicle::sendInfos(SUMOTime time)
 {
 	double numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
 	double infoPerPaket = MSGlobals::gInfoPerPaket; // 14
@@ -2722,7 +2744,7 @@ MSVehicle::sendInfos(SUMOTime /*time*/)
 			int nofP = numOfInfos(this,(*i).second->connectedVeh);
 			if(nofP>numberOfInfo)
 				nofP=numberOfInfo;
-			(*i).second->connectedVeh->transferInformation(getID(),infoCont,nofP);
+			(*i).second->connectedVeh->transferInformation(getID(), infoCont, nofP, time);
 		}
 		numberOfSendingPos = numberOfSendingPos - ceil(double(infoCont.size())/14.0);
 		numberOfInfo = numberOfInfo - infoCont.size();// (NumberOfInfo/NofP)*transmit;
@@ -2737,7 +2759,7 @@ MSVehicle::sendInfos(SUMOTime /*time*/)
 				int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
 				if(nofP>numberOfInfo)
 					nofP=numberOfInfo;
-				(*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP);
+				(*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP, time);
 		   }
 		   numberOfSendingPos = numberOfSendingPos - ceil(double((*o)->connectedVeh->infoCont.size())/14.0);
 		   numberOfInfo = numberOfInfo - (*o)->connectedVeh->infoCont.size();
@@ -2774,13 +2796,21 @@ MSVehicle::getInfosToSend(void)
 */
 
 
-
+bool
+MSVehicle::willPass(const MSEdge * const edge) const
+{
+    return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
+}
 
 void
-MSVehicle::transferInformation(std::string senderID, InfoCont infos, int NofP)
+MSVehicle::transferInformation(const std::string &senderID, const InfoCont &infos,
+                               int NofP, SUMOTime currentTime)
 {
+    if(NofP>0&&infos.size()>0) {
+        myLastInfoTime = currentTime;
+    }
 	int count = 0;
-	std::map<std::string, Information *>::iterator i;
+	std::map<std::string, Information *>::const_iterator i;
 	for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
 		std::map<std::string, Information *>::iterator j = infoCont.find((*i).first);
 		if(j!= infoCont.end() && ((*i).second->time > (*j).second->time)
@@ -2793,6 +2823,7 @@ MSVehicle::transferInformation(std::string senderID, InfoCont infos, int NofP)
 		}
 		if(j== infoCont.end() && (*i).second->neededTime > 0){ // wenn noch nicht eine Info über diese Edge vorhanden, dann speichern
 			infoCont[(*i).first] = new Information(*(*i).second);
+            myHaveRouteInfo |= willPass((*i).second->edge);
 		    count++;
 			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
 		}
@@ -2808,6 +2839,51 @@ MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime /*t*/) const
     }
     return infoCont.find(e->getID())->second->neededTime;
 }
+
+
+void
+MSVehicle::checkReroute(SUMOTime t)
+{
+    // do not try to reroute when no new information is available
+    if(myLastInfoTime!=t) {
+        return;
+    }
+    // do not try to reroute when no information about the own route is available
+    if(!myHaveRouteInfo) {
+        return;
+    }
+    // try to reroute
+
+    if(myStops.size()==0) {
+        // check whether to reroute
+        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
+        std::vector<const MSEdge*> edges;
+        router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
+            MSNet::getInstance()->getCurrentTimeStep(), edges);
+        // check whether the new route is the same as the prior
+        MSRouteIterator ri = myCurrEdge;
+        std::vector<const MSEdge*>::iterator ri2 = edges.begin();
+        while(ri!=myRoute->end()&&ri2!=edges.end()&&*ri==*ri2) {
+            ri++;
+            ri2++;
+        }
+        if(ri!=myRoute->end()||ri2!=edges.end()) {
+            int rerouteIndex = 0;
+            if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
+                rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            }
+            string nid = myRoute->getID() + "#" + toString(rerouteIndex);
+            MSRoute *rep = new MSRoute(nid, edges, true);
+            if(!MSRoute::dictionary(nid, rep)) {
+                //cout << "Error: Could not insert route ''" << endl;
+            } else {
+                MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
+                replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
+            }
+        }
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

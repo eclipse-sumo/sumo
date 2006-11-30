@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.96  2006/11/30 12:47:35  dkrajzew
+// debugging c2c based rerouting
+//
 // Revision 1.95  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -993,7 +996,7 @@ void MSNet::computeCar2Car(void)
 						std::map<std::string, MSVehicle*>::const_iterator m = nEquipped.begin();
 						// above all neighbors of this cells
 						for(; m!=nEquipped.end(); ++m){
-							if((*k).second->getID() != (*m).second->getID()){
+							if((*k).second != (*m).second){
 								(*k).second->addVehNeighbors((*m).second, myStep);
 							}
 						}
@@ -1040,6 +1043,15 @@ void MSNet::computeCar2Car(void)
 			(*q)->sendInfos(myStep);
 		}
 	}
+
+    // Rerouting?
+    {
+		std::vector<MSVehicle*>::iterator q1;
+		for(q1 = connected.begin();q1!=connected.end();q1++){
+            (*q1)->checkReroute(myStep);
+        }
+    }
+
 	connected.clear();
     clusterHeaders.clear();
 
