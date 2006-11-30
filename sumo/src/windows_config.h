@@ -31,8 +31,9 @@
 /* define to use DataReel sockets libray */
 //#define USE_SOCKETS
 
-#define HAVE_INTERNAL_LANES 1
+/* define to use XML-RPC */
+//#define _RPC
 
-#define SUMOReal float
+#define HAVE_INTERNAL_LANES 1
 
 #endif
