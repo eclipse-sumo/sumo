@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/12/01 14:42:10  dkrajzew
+// added some visualization
+//
 // Revision 1.5  2006/11/22 13:07:25  dkrajzew
 // different visualizations for different types of actors
 //
@@ -82,6 +85,7 @@ namespace
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/glutils/polyfonts.h>
@@ -339,17 +343,31 @@ GUIE1VehicleActor::getPopUpMenu(GUIMainWindow &app,
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
-    //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
 
 GUIParameterTableWindow *
-GUIE1VehicleActor::getParameterWindow(GUIMainWindow &,
+GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
                                         GUISUMOAbstractView &)
 {
-    return 0;
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this, 9);
+    // add items
+    ret->mkItem("_ActorType", false, _LAId);
+    ret->mkItem("LA-ID", false, _LAId);
+    ret->mkItem("Area-ID", false, _AreaId);
+    ret->mkItem("passed vehicles [#]", true,
+        new CastingFunctionBinding<MSE1VehicleActor, SUMOReal, unsigned int>(this, &MSE1VehicleActor::getPassedVehicleNumber));
+    ret->mkItem("passed cphones [#]", true,
+        new CastingFunctionBinding<MSE1VehicleActor, SUMOReal, unsigned int>(this, &MSE1VehicleActor::getPassedCPhoneNumber));
+    ret->mkItem("passed connected cphones [#]", true,
+        new CastingFunctionBinding<MSE1VehicleActor, SUMOReal, unsigned int>(this, &MSE1VehicleActor::getPassedConnectedCPhoneNumber));
+    // close building
+    ret->closeBuilding();
+    return ret;
 }
 
 

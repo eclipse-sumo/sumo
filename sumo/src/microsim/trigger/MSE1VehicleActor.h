@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.5  2006/12/01 14:42:11  dkrajzew
+// added some visualization
+//
 // Revision 1.4  2006/11/22 13:07:25  dkrajzew
 // different visualizations for different types of actors
 //
@@ -157,12 +160,31 @@ public:
     bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
     //@}
 
+    /// Returns the number of vehicles that have passed this actor
+    unsigned int getPassedVehicleNumber() const { return myPassedVehicleNo; }
+
+    /// Returns the number of mobile phones that have passed this actor
+    unsigned int getPassedCPhoneNumber() const { return myPassedCPhonesNo; }
+
+    /// Returns the number of mobile phones that have passed this actor being in connected mode
+    unsigned int getPassedConnectedCPhoneNumber() const { return myPassedConnectedCPhonesNo; }
+
 protected:
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
 	//const ActorType _type;
 	unsigned int _LAId;
 	unsigned int _AreaId;
 	unsigned int _ActorType;
+
+    /// The number of vehicles that have passed this actor
+    unsigned int myPassedVehicleNo;
+
+    /// The number of mobile phones that have passed this actor
+    unsigned int myPassedCPhonesNo;
+
+    /// The number of mobile phones that have passed this actor being in connected mode
+    unsigned int myPassedConnectedCPhonesNo;
+
 private:
 
     /// Hidden default constructor.
