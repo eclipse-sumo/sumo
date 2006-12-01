@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.45  2006/12/01 07:06:30  dkrajzew
+// removed unneeded classes
+//
 // Revision 1.44  2006/10/31 12:20:31  dkrajzew
 // further work on internal lanes
 //
@@ -345,9 +348,6 @@ class MSLane
 public:
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
-
-    /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
-    friend class GUILaneChanger;
 
     /// needs direct access to maxSpeed
     friend class MSLaneSpeedTrigger;

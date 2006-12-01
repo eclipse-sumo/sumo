@@ -9,7 +9,7 @@ GUIHelpingJunction.cpp GUIHelpingJunction.h \
 GUIInductLoop.cpp GUIInductLoop.h \
 GUIInternalLane.cpp GUIInternalLane.h \
 GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
-GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
+GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUILaneStateReporter.cpp GUILaneStateReporter.h \
 GUILaneWrapper.cpp GUILaneWrapper.h \
