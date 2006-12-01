@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/12/01 09:14:42  dkrajzew
+// debugging cell phones
+//
 // Revision 1.11  2006/11/28 12:15:41  dkrajzew
 // documented TOL-classes and made them faster
 //
@@ -141,38 +144,38 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
 		MSDevice_CPhone::State state = cp->GetState();
 		if(state!=MSDevice_CPhone::STATE_OFF){
-			MSPhoneLA * lold   = pPhone->getCurrentVehicleLA(veh.getID());
-			MSPhoneLA * lnew   = pPhone->getMSPhoneLA( _AreaId );
+			MSPhoneLA * lold   = pPhone->getCurrentVehicleLA(cp->getId());
+			MSPhoneLA * lnew   = pPhone->getMSPhoneLA(_AreaId);
 			if(lold!=NULL){
 				if(lold!=lnew){
-					lold->remCall(veh.getID());
-					lnew->addCall(veh.getID());
+					lold->remCall(cp->getId());
+					lnew->addCall(cp->getId());
 				}
 			}
 			else
-				lnew->addCall(veh.getID());
+				lnew->addCall(cp->getId());
 		}
 		cp->setCurrentCellId( _AreaId );
-		MSPhoneCell * cold = pPhone->getCurrentVehicleCell( veh.getID() );
-		MSPhoneCell * cnew = pPhone->getMSPhoneCell( _AreaId );
+		MSPhoneCell * cold = pPhone->getCurrentVehicleCell(cp->getId());
+		MSPhoneCell * cnew = pPhone->getMSPhoneCell(_AreaId);
 		switch(cp->GetState()){
 			case	MSDevice_CPhone::STATE_OFF:
 				if ( cold != 0 )
-					cold->remCall( veh.getID() );
+					cold->remCall(cp->getId());
 				break;
 			case	MSDevice_CPhone::STATE_IDLE:
 				if ( cold != 0 )
-					cold->remCall( veh.getID() );
+					cold->remCall(cp->getId());
 				break;
 			case	MSDevice_CPhone::STATE_CONNECTED_IN:
 			if ( cold != 0 )
-				cold->remCall( veh.getID() );
-				cnew->addCall( veh.getID(), DYNIN );
+				cold->remCall(cp->getId());
+				cnew->addCall(cp->getId(), DYNIN );
 			break;
 		case	MSDevice_CPhone::STATE_CONNECTED_OUT:
 			if ( cold != 0 )
-				cold->remCall( veh.getID() );
-				cnew->addCall( veh.getID(), DYNOUT );
+				cold->remCall(cp->getId());
+				cnew->addCall(cp->getId(), DYNOUT );
 			break;
 		}
 	}

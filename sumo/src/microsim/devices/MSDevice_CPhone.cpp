@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/12/01 09:14:42  dkrajzew
+// debugging cell phones
+//
 // Revision 1.19  2006/12/01 07:07:15  dkrajzew
 // warnings removed
 //
@@ -134,10 +137,9 @@ MSDevice_CPhone::MyCommand::setInactivated()
 /* -------------------------------------------------------------------------
  * MSDevice_CPhone-methods
  * ----------------------------------------------------------------------- */
-MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle)
-    : myVehicle(vehicle), myCommand(0)
+MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
+    : myVehicle(vehicle), myCommand(0), myId(id)
 {
-	myId = "";
 	mycurrentCellId = -1;
 	mycurrentLAId = -1;
 }
@@ -146,18 +148,22 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle)
 
 MSDevice_CPhone::~MSDevice_CPhone()
 {
-	/*if registered to a cell then deregist from it*/
-	if ( mycurrentCellId != -1 ){
-		MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-		if ( pPhone != 0 ){
-			MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
-			if ( cell != 0 )
-				cell->remCall( myVehicle.getID() );
-			MSPhoneLA * la = pPhone->getCurrentVehicleLA( myId  );
-			if( la != 0 )
-				la->remCall( myId );
-		}
-	}
+    /*if registered to a cell then deregist from it*/
+    MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+    if ( pPhone != 0 ) {
+        MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
+        if ( cell != 0 ) {
+            cell->remCall( myId );
+        } else {
+            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+        }
+        MSPhoneLA * la = pPhone->getCurrentVehicleLA( myId  );
+        if( la != 0 ) {
+            la->remCall( myId );
+        } else {
+            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+        }
+    }
     if(myCommand!=0) {
         myCommand->setInactivated();
     }

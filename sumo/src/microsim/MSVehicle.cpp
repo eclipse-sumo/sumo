@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.112  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.111  2006/11/30 12:47:36  dkrajzew
 // debugging c2c based rerouting
 //
@@ -796,14 +799,10 @@ MSVehicle::initDevices()
                 + oc.getFloat("device.cell-phone.amount.min"));
             myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE] =
                 (SUMOReal) noCellPhones;
-			std::string phoneid;
             for(int np=0; np<noCellPhones; np++) {
+                string phoneid = getID() + "_cphone#" + toString( np );
     		    myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)] =
-                    (void*) new MSDevice_CPhone(*this);
-				phoneid = this->getID();
-				phoneid.append( toString( np ) );
-				MSDevice_CPhone * tmp =	((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
-				tmp->setId( phoneid );
+                    (void*) new MSDevice_CPhone(*this, phoneid);
             }
         }
     }

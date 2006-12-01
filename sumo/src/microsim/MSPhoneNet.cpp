@@ -22,9 +22,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.6  2006/11/28 12:15:40  dkrajzew
 // documented TOL-classes and made them faster
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -43,8 +45,10 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include "MSPhoneNet.h"
 #include "MSCORN.h"
+#include <iostream>
 #include <fstream>
 #include "utils/options/OptionsCont.h"
 #include "utils/options/OptionsSubSys.h"
@@ -176,6 +180,7 @@ MSPhoneNet::getMSPhoneLA( int id )
 {
     std::map<int, int>::iterator it;
     it = _mCell2LA.find(id);
+    assert(it!=_mCell2LA.end());
     if ( it != _mCell2LA.end()) {
         if ( _mMSPhoneLAs.find( it->second ) != _mMSPhoneLAs.end() ) {
             return _mMSPhoneLAs[it->second];

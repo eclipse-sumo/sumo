@@ -22,9 +22,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.7  2006/11/28 12:15:39  dkrajzew
 // documented TOL-classes and made them faster
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -110,9 +112,12 @@ void
 MSPhoneCell::remCall(const std::string &id )
 {
     std::map<std::string, Call>::iterator icalls = _Calls.find(id);
+    assert(icalls!=_Calls.end());
+    /*
     if(icalls==_Calls.end()) {
         return;
     }
+    */
     switch ( (*icalls).second.ct ) {
     case STATICIN:
         Calls_In--;

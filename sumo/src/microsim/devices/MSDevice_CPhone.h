@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/12/01 09:14:42  dkrajzew
+// debugging cell phones
+//
 // Revision 1.12  2006/11/28 12:15:41  dkrajzew
 // documented TOL-classes and made them faster
 //
@@ -83,7 +86,7 @@ public:
         int m_LoS;          //Level of Service
     };
 
-    MSDevice_CPhone(MSVehicle &vehicle);
+    MSDevice_CPhone(MSVehicle &vehicle, const std::string &id);
     ~MSDevice_CPhone();
     const std::vector<CPhoneBroadcastCell> &GetProvidedCells() const;
     State GetState() const;
@@ -93,7 +96,6 @@ public:
 	void setCurrentCellId( unsigned int id ){ mycurrentCellId = id; };
 	int getCurrentCellId(){return mycurrentCellId;};
     void onDepart();
-	void setId(std::string id){myId=id;};
 	int getCallId(){return gCallID;};
 	std::string getId(){return myId;};
 	void invalidateCommand();

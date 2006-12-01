@@ -19,9 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.6  2006/11/28 12:15:40  dkrajzew
 // documented TOL-classes and made them faster
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -84,6 +86,9 @@ public:
 
     /// comparison operator
     bool operator!=( MSPhoneLA* );
+
+    /// Returns the number of vehicles calling within this cell
+    size_t getVehicleNumber() const { return _Calls.size(); }
 
 private:
     int last_time;

@@ -22,9 +22,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.6  2006/11/28 12:15:39  dkrajzew
 // documented TOL-classes and made them faster
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -43,6 +45,7 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include "MSPhoneLA.h"
 
 
@@ -86,9 +89,8 @@ void
 MSPhoneLA::remCall(const std::string &id )
 {
     std::map<std::string, int>::iterator icalls = _Calls.find(id);
-    if(icalls!=_Calls.end()) {
-        _Calls.erase(icalls);
-    }
+    assert(icalls!=_Calls.end());
+    _Calls.erase(icalls);
 }
 
 
@@ -130,6 +132,8 @@ MSPhoneLA::writeOutput( SUMOTime t )
     sum_changes = 0;
 }
 
+
+#include <microsim/MSNet.h>
 
 void
 MSPhoneLA::writeSQLOutput( SUMOTime t )

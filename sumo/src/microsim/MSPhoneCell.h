@@ -19,9 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/12/01 09:14:41  dkrajzew
+// debugging cell phones
+//
 // Revision 1.7  2006/11/28 12:15:39  dkrajzew
 // documented TOL-classes and made them faster
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -105,6 +107,9 @@ public:
 
     /// !!!?
     void decrementDynCallCount(){ --dyncallcount; }
+
+    /// Returns the number of vehicles calling within this cell
+    size_t getVehicleNumber() const { return _Calls.size(); }
 
 private:
     int Cell_Id;
