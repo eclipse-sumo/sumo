@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/12/01 07:07:15  dkrajzew
+// warnings removed
+//
 // Revision 1.18  2006/11/28 12:15:41  dkrajzew
 // documented TOL-classes and made them faster
 //
@@ -315,7 +318,6 @@ MSDevice_CPhone::onDepart()
 	}else{
 		SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
 		SUMOReal r2 = rand()/(SUMOReal) RAND_MAX;
-		SUMOTime t1;
 		if(r1<0.1) {
 			// 10% are off
 			m_State = STATE_OFF;

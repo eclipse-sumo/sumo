@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/12/01 07:07:15  dkrajzew
+// warnings removed
+//
 // Revision 1.12  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -165,8 +168,9 @@ NIXMLTypesHandler::myStartElement(int /*element*/, const std::string &name,
         try {
             // parse the id
             id = getString(attrs, SUMO_ATTR_ID);
-            int priority, noLanes;
-            SUMOReal speed;
+            int priority = 0;
+            int noLanes = 0;
+            SUMOReal speed = 0;
             // get the priority
             try {
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
