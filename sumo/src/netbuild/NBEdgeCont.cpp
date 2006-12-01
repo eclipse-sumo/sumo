@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2006/12/01 07:05:10  dkrajzew
+// debugged connections for on-ramps which already have the right number of lanes
+//
 // Revision 1.55  2006/11/14 13:03:09  dkrajzew
 // warnings removed
 //
@@ -551,11 +554,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
     if(pos<=0) {
         return false;
     }
-    /*
-    if(pos>edge->getGeometry().length()) {
-        pos = edge->getGeometry().length()-10; // !!!! bla!!!
-    }
-    */
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
         noLanesFirstEdge, noLanesSecondEdge);
         //!!! does not regard the real edge geometry

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/12/01 07:05:11  dkrajzew
+// debugged connections for on-ramps which already have the right number of lanes
+//
 // Revision 1.27  2006/11/14 13:03:46  dkrajzew
 // warnings removed
 //
@@ -887,7 +890,14 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
+            //
             cont->invalidateConnections(true);
+            const EdgeVector &o1 = cont->getToNode()->getOutgoingEdges();
+            if(o1.size()==1&&o1[0]->getNoLanes()<cont->getNoLanes()) {
+                cont->addLane2LaneConnections(cont->getNoLanes()-o1[0]->getNoLanes(),
+                    o1[0], 0, o1[0]->getNoLanes(), false);
+            }
+            //
             if(cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = cont->getGeometry();
                 g.move2side(SUMO_const_laneWidthAndOffset);
