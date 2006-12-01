@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2006/12/01 09:17:32  dkrajzew
+// patching a tiny fault (using and checking an int where an unsigned should be used)
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -126,11 +129,9 @@ MSVehicleContainer::DepartFinder::operator()
 /* -------------------------------------------------------------------------
  * methods from MSVehicleContainer
  * ----------------------------------------------------------------------- */
-MSVehicleContainer::MSVehicleContainer(int capacity)
+MSVehicleContainer::MSVehicleContainer(size_t capacity)
     : currentSize(0), array( capacity + 1, VehicleDepartureVector() )
 {
-    if(capacity<1)
-        throw 1;
 }
 
 

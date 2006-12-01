@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/12/01 09:17:32  dkrajzew
+// patching a tiny fault (using and checking an int where an unsigned should be used)
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -97,7 +100,7 @@ public:
 
 public:
     /// Constructor
-    MSVehicleContainer(int capacity=10);
+    MSVehicleContainer(size_t capacity=10);
 
     /// Destructor
     ~MSVehicleContainer();
