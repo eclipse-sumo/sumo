@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/12/01 09:16:00  dkrajzew
+// debugged memory leak in polygon visualization
+//
 // Revision 1.25  2006/11/28 12:10:45  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -1233,8 +1236,8 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
     }
 	RGBColor color = polygon.getColor();
 	glColor3d(color.red(), color.green(), color.blue());
-	double *points = new double[polygon.getPosition2DVector().size()*3];
     if(polygon.fill()) {
+    	double *points = new double[polygon.getPosition2DVector().size()*3];
 	    GLUtesselator *tobj = gluNewTess();
 	    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
 	    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);
