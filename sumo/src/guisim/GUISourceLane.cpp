@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/12/01 09:16:26  dkrajzew
+// replaced a throw by an error message
+//
 // Revision 1.16  2006/11/28 12:10:41  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -176,9 +179,10 @@ GUISourceLane::isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &v
 
 
 bool
-GUISourceLane::push( MSVehicle*  )
+GUISourceLane::push( MSVehicle *veh  )
 {
-    throw 1;
+    MsgHandler::getErrorInstance()->inform("Vehicle '" + veh->getID() + "' was tried to be pushed on source lane '" + getID() + "'.");
+    return false;
 }
 
 
