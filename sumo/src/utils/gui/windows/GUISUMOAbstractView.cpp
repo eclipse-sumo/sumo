@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/12/01 11:08:25  behrisch
+// Linux needs CALLBACK definition
+//
 // Revision 1.26  2006/12/01 09:16:00  dkrajzew
 // debugged memory leak in polygon visualization
 //
@@ -252,6 +255,7 @@ namespace
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geoconv/GeoConvHelper.h>
+#include <utils/foxtools/fxexdefs.h>
 
 
 #ifdef _WIN32
