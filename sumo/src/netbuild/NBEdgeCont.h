@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.29  2006/12/04 13:37:15  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.28  2006/07/06 06:48:00  dkrajzew
 // changed the retrieval of connections-API; some unneeded variables removed
 //
@@ -257,7 +260,7 @@ public:
     void writeXMLStep1(std::ostream &into);
 
     /** writes the successor definitions of edges */
-    void writeXMLStep2(std::ostream &into);
+    void writeXMLStep2(std::ostream &into, bool includeInternal);
 
     /** returns the size of the edges */
     int size();

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2006/12/04 13:37:15  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.56  2006/12/01 07:05:10  dkrajzew
 // debugged connections for on-ramps which already have the right number of lanes
 //
@@ -489,10 +492,10 @@ NBEdgeCont::writeXMLStep1(std::ostream &into)
 
 
 void
-NBEdgeCont::writeXMLStep2(std::ostream &into)
+NBEdgeCont::writeXMLStep2(std::ostream &into, bool includeInternal)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        (*i).second->writeXMLStep2(into);
+        (*i).second->writeXMLStep2(into, includeInternal);
     }
     into << endl;
 }

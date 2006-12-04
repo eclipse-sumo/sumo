@@ -98,19 +98,19 @@
 
 
    <succ edge="1" lane="1_0" junction="dr">
-      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">
-      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="3_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="tl">
-      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="4_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="4" lane="4_0" junction="dl">
-      <succlane lane="1_0" via=":dl_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1_0" yield="0" dir="l" state="M"/>
    </succ>
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.54  2006/12/04 13:37:15  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.53  2006/11/16 06:49:49  dkrajzew
 // removed unneeded code
 //
@@ -391,7 +394,7 @@ public:
     void writeXMLStep1(std::ostream &into);
 
     /** writes the succeeding lane information */
-    void writeXMLStep2(std::ostream &into);
+    void writeXMLStep2(std::ostream &into, bool includeInternal);
 
     bool hasRestrictions() const;
     void writeLanesPlain(std::ostream &into);
@@ -540,6 +543,8 @@ public:
     void addGeometryPoint(int index, const Position2D &p);
 
     void incLaneNo(int by);
+
+    void decLaneNo(int by);
 
     void copyConnectionsFrom(NBEdge *src);
 
@@ -742,10 +747,12 @@ private:
     void writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes);
 
     // !!! describe
-    void writeSucceeding(std::ostream &into, size_t lane);
+    void writeSucceeding(std::ostream &into, size_t lane,
+        bool includeInternal);
 
     // !!! describe
-    void writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx);
+    void writeSingleSucceeding(std::ostream &into,
+        size_t fromlane, size_t destidx, bool includeInternal);
 
 private:
     /** invalid copy constructor */

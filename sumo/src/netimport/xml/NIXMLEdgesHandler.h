@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/12/04 13:37:16  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.13  2006/03/27 07:28:43  dkrajzew
 // edge types may now store the edge function
 //
@@ -114,6 +117,7 @@ class NBNode;
 class NBNodeCont;
 class NBEdgeCont;
 class NBTypeCont;
+class NBDistrictCont;
 
 
 /* =========================================================================
@@ -127,7 +131,7 @@ class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
     NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-		NBTypeCont &tc,OptionsCont &options);
+		NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
 
     /// Destructor
     ~NIXMLEdgesHandler();
@@ -236,6 +240,8 @@ private:
 	NBEdgeCont &myEdgeCont;
 
 	NBTypeCont &myTypeCont;
+
+	NBDistrictCont &myDistrictCont;
 
 private:
     /** invalid copy constructor */

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.80  2006/12/04 13:37:14  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.79  2006/11/16 10:50:45  dkrajzew
 // warnings removed
 //
@@ -477,9 +480,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _type(StringUtils::convertUmlaute(type)),
     _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
     _priority(priority), _speed(speed),
-    _name(StringUtils::convertUmlaute(name)), //_ToEdges(0),
-    _turnDestination(0), //_reachable(0),
-    /*_linkIsPriorised(0),*/ //_succeedinglanes(0),
+    _name(StringUtils::convertUmlaute(name)),
+    _turnDestination(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
     _basicType(basic), myLaneSpreadFunction(spread),
 	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
@@ -502,10 +504,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     // prepare container
 //    _reachable = new NBEdge::ReachableFromLaneVector();
     _reachable.resize(_nolanes, EdgeLaneVector());
-//    _linkIsPriorised = new NBEdge::ReachablePrioritiesFromLaneVector();
-//    _linkIsPriorised->resize(_nolanes, BoolVector());
-//    _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
-//    _ToEdges = new map<NBEdge*, vector<size_t> >();
     if(_length<=0) {
         _length = GeomHelper::distance(_from->getPosition(), _to->getPosition());
     }
@@ -539,11 +537,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _type(StringUtils::convertUmlaute(type)),
     _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
     _priority(priority), _speed(speed),
-    _name(StringUtils::convertUmlaute(name)),
-    //_ToEdges(0),
-    _turnDestination(0),
-    //_reachable(0),
-/*    _linkIsPriorised(0), *///_succeedinglanes(0),
+    _name(StringUtils::convertUmlaute(name)), _turnDestination(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
     _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
 	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
@@ -566,12 +560,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
     // prepare container
-//    _reachable = new NBEdge::ReachableFromLaneVector();
     _reachable.resize(_nolanes, EdgeLaneVector());
-//    _linkIsPriorised = new NBEdge::ReachablePrioritiesFromLaneVector();
-//    _linkIsPriorised->resize(_nolanes, BoolVector());
-//    _succeedinglanes = new NBEdge::LanesThatSucceedEdgeCont();
-//    _ToEdges = new map<NBEdge*, vector<size_t> >();
     if(_length<=0) {
         _length = GeomHelper::distance(
             _from->getPosition(), _to->getPosition());
@@ -831,10 +820,10 @@ NBEdge::writeXMLStep1(std::ostream &into)
 
 
 void
-NBEdge::writeXMLStep2(std::ostream &into)
+NBEdge::writeXMLStep2(std::ostream &into, bool includeInternal)
 {
     for(size_t i=0; i<_nolanes; i++) {
-        writeSucceeding(into, i);
+        writeSucceeding(into, i, includeInternal);
     }
 }
 
@@ -1079,7 +1068,6 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
     if(edge==0) {
         return;
     }
-    //into << "      <cedge id=\"" << edge->getID() << "\" via=\":" << _to->getID() << "\">";
     into << "      <cedge id=\"" << edge->getID() << "\">";
     size_t noApproachers = lanes.size();
     for(size_t i=0; i<noApproachers; i++) {
@@ -1094,7 +1082,8 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
 
 
 void
-NBEdge::writeSucceeding(std::ostream &into, size_t lane)
+NBEdge::writeSucceeding(std::ostream &into, size_t lane,
+                        bool includeInternal)
 {
     into << "   <succ edge=\"" << _id << "\" lane=\"" << _id << "_"
         << lane << "\" junction=\"" << _to->getID() << "\">" << endl;
@@ -1108,14 +1097,15 @@ NBEdge::writeSucceeding(std::ostream &into, size_t lane)
     // output list of connected lanes
         // go through each connected edge
     for(size_t j=0; j<noApproached; j++) {
-        writeSingleSucceeding(into, lane, j);
+        writeSingleSucceeding(into, lane, j, includeInternal);
     }
     into << "   </succ>" << endl << endl;
 }
 
 
 void
-NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx)
+NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx,
+                              bool includeInternal)
 {
     // check whether the connected lane is invalid
     //  (should not happen; this is an artefact left from previous versions)
@@ -1129,13 +1119,13 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     }
     // write the id
     into << "      <succlane lane=\""
-//        << _to->getInternalLaneID(this, fromlane, _reachable[fromlane][destidx].edge)
-//        <<
         << _reachable[fromlane][destidx].edge->getID() << '_'
         << _reachable[fromlane][destidx].lane << '\"'; // !!! classe LaneEdge mit getLaneID
-    into << " via=\""
-        << _to->getInternalLaneID(this, fromlane, _reachable[fromlane][destidx].edge, _reachable[fromlane][destidx].lane)
-        << "_0\"";
+    if(includeInternal) {
+        into << " via=\""
+            << _to->getInternalLaneID(this, fromlane, _reachable[fromlane][destidx].edge, _reachable[fromlane][destidx].lane)
+            << "_0\"";
+    }
     // set information about the controlling tl if any
     if(_reachable[fromlane][destidx].tlID!="") {
         into << " tl=\"" << _reachable[fromlane][destidx].tlID << "\"";
@@ -2644,6 +2634,26 @@ NBEdge::incLaneNo(int by)
     for(EdgeVector::const_iterator i=incs.begin(); i!=incs.end(); ++i) {
         (*i)->invalidateConnections(true);
     }
+    invalidateConnections(true);
+}
+
+
+void
+NBEdge::decLaneNo(int by)
+{
+    _nolanes -= by;
+    _reachable.resize(_nolanes, EdgeLaneVector());
+    while(myLaneSpeeds.size()>_nolanes) {
+        myLaneSpeeds.pop_back();
+		myAllowedOnLanes.pop_back();
+		myNotAllowedOnLanes.pop_back();
+    }
+    computeLaneShapes();
+    const EdgeVector &incs = _from->getIncomingEdges();
+    for(EdgeVector::const_iterator i=incs.begin(); i!=incs.end(); ++i) {
+        (*i)->invalidateConnections(true);
+    }
+    invalidateConnections(true);
 }
 
 

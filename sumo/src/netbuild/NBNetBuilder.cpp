@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2006/12/04 13:37:15  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.42  2006/11/16 06:50:29  dkrajzew
 // finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
 //
@@ -531,7 +534,7 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
             myNodeCont.writeXMLInternalNodes(res);
         }
         // write the successors of lanes
-        myEdgeCont.writeXMLStep2(res);
+        myEdgeCont.writeXMLStep2(res, oc.getBool("add-internal-links"));
         if(oc.getBool("add-internal-links")) {
             myNodeCont.writeXMLInternalSuccInfos(res);
         }

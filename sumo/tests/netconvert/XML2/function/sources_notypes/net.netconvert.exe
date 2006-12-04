@@ -130,22 +130,22 @@
 
 
    <succ edge="1" lane="1_0" junction="dr">
-      <succlane lane="sink_0" via=":dr_0_0" yield="0" dir="s" state="M"/>
-      <succlane lane="sink_1" via=":dr_1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="sink_2" via=":dr_2_0" yield="0" dir="s" state="M"/>
-      <succlane lane="2_0" via=":dr_3_0" yield="0" dir="l" state="M"/>
+      <succlane lane="sink_0" yield="0" dir="s" state="M"/>
+      <succlane lane="sink_1" yield="0" dir="s" state="M"/>
+      <succlane lane="sink_2" yield="0" dir="s" state="M"/>
+      <succlane lane="2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">
-      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="3_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="tl">
-      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="4_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="4" lane="4_0" junction="dl">
-      <succlane lane="1_0" via=":dl_1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="sink" lane="sink_0" junction="sink">
@@ -161,7 +161,7 @@
    </succ>
 
    <succ edge="source" lane="source_0" junction="dl">
-      <succlane lane="1_0" via=":dl_0_0" yield="1" dir="s" state="m"/>
+      <succlane lane="1_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="source" lane="source_1" junction="dl">

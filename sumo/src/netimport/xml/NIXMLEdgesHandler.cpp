@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/12/04 13:37:16  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.30  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -225,10 +228,11 @@ using namespace std;
 NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
 									 NBEdgeCont &ec,
 									 NBTypeCont &tc,
+                                     NBDistrictCont &dc,
 									 OptionsCont &options)
     : SUMOSAXHandler("xml-edges - file"),
     _options(options),
-    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc)
 {
 }
 
@@ -306,10 +310,21 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
     if(element==SUMO_TAG_LANE) {
 		NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
 		if(edge==0) {
-//			addError("Additional lane information could not been set.");
+			addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
 			return;
 		}
 		int lane = getIntSecure(attrs, "id", -1);
+        if(lane<0) {
+			addError("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
+			return;
+        }
+        // check whether this lane exists
+        /*
+        if(edge->getNoLanes()<lane) {
+            edge->incLaneNo(lane - edge->getNoLanes());
+        }
+        */
+        // set information about allwed / disallowed vehicle classes
 		string disallowed = getStringSecure(attrs, "disallow", "");
 		string allowed = getStringSecure(attrs, "allow", "");
 		if(disallowed!="") {
@@ -329,6 +344,94 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
 				}
 			}
 		}
+        // set information about later beginning lanes
+
+        SUMOReal forcedLength = getFloatSecure(attrs, "forceLength", -1);
+        // to split?
+        if(forcedLength>0) {
+            // maybe the edge has already been split at this position
+            string nid = myCurrentID + "/" +  toString(forcedLength);
+            if(myNodeCont.retrieve(nid)==0) {
+                SUMOReal splitLength = forcedLength;
+                // split only if not
+                //  get the proper edge - it may be a previously splitted edge
+                bool toNext = true;
+                do {
+                    toNext = true;
+                    if(edge->getToNode()->getOutgoingEdges().size()!=1) {
+                        toNext = false;
+                        break;
+                    }
+                    string nextID = edge->getToNode()->getOutgoingEdges()[0]->getID();
+                    if(nextID.substr(0, myCurrentID.length()+1)!=myCurrentID+"/") {
+                        toNext = false;
+                        break;
+                    }
+                    SUMOReal dist = TplConvert<char>::_2SUMOReal(nextID.substr(myCurrentID.length()+1).c_str());
+                    if(forcedLength>dist) {
+                        toNext = false;
+                        splitLength -= dist;
+                        break;
+                    } else {
+                    }
+                    if(toNext) {
+//                        forcedLength -= edge->getGeometry().length();
+                        edge = edge->getToNode()->getOutgoingEdges()[0];
+                    }
+                } while(toNext);
+                // check whether it still may be split
+                if(edge->getLength()-splitLength>10) {
+                    //  build the node
+                    Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getGeometry().length() - splitLength);
+                    NBNode *rn = new NBNode(nid, p);
+                    if(myNodeCont.insert(rn)) {
+                        //  split the edge
+                        myEdgeCont.splitAt(myDistrictCont, edge, splitLength, rn,
+                            edge->getID(), nid,
+                            edge->getNoLanes(), edge->getNoLanes());
+                    } else {
+                        // hmm, the node could not be build!?
+                        delete rn;
+    		        	addError("Could not insert node '" + nid + "' for edge splitting.");
+	        	    	return;
+                    }
+                    // set the proper lane number on previous edges
+                    /*
+                    NBEdge *e = myEdgeCont.retrieve(pid);
+                    int laneDiff = lane-myEdgeCont.retrieve(pid)->getNoLanes()+1;
+                    if(laneDiff<0) {
+//                        myEdgeCont.retrieve(pid)->decLaneNo(-laneDiff);
+                    }
+                    if(lane>=myEdgeCont.retrieve(nid)->getNoLanes()) {
+                        myEdgeCont.retrieve(nid)->incLaneNo(laneDiff);
+                    }
+                    */
+            NBEdge *e = myEdgeCont.retrieve(nid);
+            bool cont = true;
+            do {
+                cont = false;
+                const EdgeVector &ev = e->getFromNode()->getIncomingEdges();
+                if(ev.size()==1) {
+                    NBEdge *prev = ev[0];
+                    string idp = prev->getID();
+                    string idp2 = idp.substr(0, idp.find('/'));
+                    string idc = e->getID();
+                    string idc2 = idc.substr(0, idc.find('/'));
+                    if(idp2==idc2) {
+                        e = prev;
+                        if(prev->getNoLanes()>1) {
+                            assert(prev->getNoLanes()>1);
+                            prev->decLaneNo(1);
+                        } else {
+                            cout << "No: " << prev->getID() << endl;
+                        }
+                        cont = true;
+                    }
+                }
+            } while(cont);
+                }
+            }
+        }
 	}
 }
 

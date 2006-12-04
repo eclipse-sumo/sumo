@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/12/04 13:37:16  dkrajzew
+// fixed problems on loading non-internal networks whenusing the internal option in simulation
+//
 // Revision 1.28  2006/11/14 13:03:50  dkrajzew
 // warnings removed
 //
@@ -361,8 +364,8 @@ NILoader::loadXML(OptionsCont &oc)
     if(oc.isUsableFileList("xml-edge-files")) {
         NIXMLEdgesHandler *handler =
             new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-			    myNetBuilder.getEdgeCont(),
-				myNetBuilder.getTypeCont(), oc);
+			    myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
+                myNetBuilder.getDistrictCont(), oc);
         loadXMLType(handler, oc.getString("xml-edge-files"), "edges");
         myNetBuilder.getEdgeCont().report();
     }
