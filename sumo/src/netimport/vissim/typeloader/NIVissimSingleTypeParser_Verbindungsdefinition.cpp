@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/12/04 08:00:23  dkrajzew
+// removed some warnings
+//
 // Revision 1.14  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -158,7 +161,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     zuschlag1 = zuschlag2 = 0;
     SUMOReal seglength = 0;
     tag = myRead(from);
-    NIVissimConnection::Direction direction;
+    NIVissimConnection::Direction direction = NIVissimConnection::NIVC_DIR_ALL;
     while(tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="auswertung"&&tag!="DATAEND") {
         if(tag=="rechts") {
             direction = NIVissimConnection::NIVC_DIR_RIGHT;

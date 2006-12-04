@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/12/04 08:00:22  dkrajzew
+// removed some warnings
+//
 // Revision 1.37  2006/11/16 12:30:53  dkrajzew
 // warnings removed
 //
@@ -231,7 +234,8 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 FXint
 GUIRunThread::run()
 {
-    SUMOTime beg, end;
+    SUMOTime beg = 0;
+    SUMOReal end = 0;
     SUMOTime end2 = -1;
     // perform an endless loop
     while(!_quit) {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/12/04 08:00:22  dkrajzew
+// removed some warnings
+//
 // Revision 1.20  2006/12/01 09:14:42  dkrajzew
 // debugging cell phones
 //
@@ -138,7 +141,7 @@ MSDevice_CPhone::MyCommand::setInactivated()
  * MSDevice_CPhone-methods
  * ----------------------------------------------------------------------- */
 MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
-    : myVehicle(vehicle), myCommand(0), myId(id)
+    : myVehicle(vehicle), myId(id), myCommand(0)
 {
 	mycurrentCellId = -1;
 	mycurrentLAId = -1;
