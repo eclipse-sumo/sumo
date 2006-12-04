@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.113  2006/12/04 08:00:47  dkrajzew
+// debugging of c2c-rerouting
+//
 // Revision 1.112  2006/12/01 09:14:41  dkrajzew
 // debugging cell phones
 //
@@ -2128,6 +2131,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         myCurrEdge = myRoute->find(currentEdge);
         myAllowedLanes.clear();
         rebuildAllowedLanes();
+        myLastBestLanesEdge = 0;
         // save information that the vehicle was rerouted
         myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
             // ... maybe the route information shall be saved for output?
@@ -2145,6 +2149,8 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
         myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
             myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+        myAllowedLanes.clear();
+        rebuildAllowedLanes();
     }
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
@@ -2190,6 +2196,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     myCurrEdge = myRoute->find(currentEdge);
     myAllowedLanes.clear();
     rebuildAllowedLanes();
+    myLastBestLanesEdge = 0;
     // save information that the vehicle was rerouted
     myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
     // ... maybe the route information shall be saved for output?
@@ -2583,67 +2590,67 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 void
 MSVehicle::updateInfos(int time)
 {
-
-	// Speicherung der Information, obwohl er die Route noch nicht vollständig
-	// befahren hat.
-
-
-   // first, count how long the vehicle is waiting at the same position
-
-   if(lastTimeStep != time){
-	   if(myLastPosition == getPositionOnLane()){
-		   timeSinceStop++;
-		   //cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
-	   }else{
-		   timeSinceStop = 0;
-	   }
-   }
-
-   lastTimeStep = time;
-   myLastPosition = getPositionOnLane();
-
-   // second, save the Information as "Congestion", if the Vehicle is at the same
-   // position longer as 5 minutes
-   if(timeSinceStop > 300){
-	    timeSinceStop = 0;
-	   	map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
-		if(i == infoCont.end()){ //noch nicht drin
-			Information *info = new Information("congestion", (*myCurrEdge), 1, MSNet::getInstance()->getCurrentTimeStep());
+    // Speicherung der Information, obwohl er die Route noch nicht vollständig
+    // befahren hat.
+    // first, count how long the vehicle is waiting at the same position
+    if(lastTimeStep != time){
+        if(myState.speed()<1.) {
+//	   if(myLastPosition == getPositionOnLane()){
+            timeSinceStop++;
+            //cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
+        } else {
+            timeSinceStop = 0;
+        }
+    }
+    lastTimeStep = time;
+    myLastPosition = getPositionOnLane(); // !!! may be removed
+    // second, save the Information as "Congestion", if the Vehicle is at the same
+    // position longer as 5 minutes
+    if(timeSinceStop > 300){
+//        timeSinceStop = 0;
+        SUMOReal timeByMeanSpeed1 = timeSinceStop;
+        if(akt!=0&&myLane!=0) {
+            SUMOReal neededTime = (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
+            timeByMeanSpeed1 = (myState.pos()/neededTime) * myLane->length();
+        }
+        //SUMOReal timeByMeanSpeed2 = (myState.pos()/neededTime) * myLane->length();
+        SUMOReal estimatedTime = timeByMeanSpeed1;//MIN2(timeByMeanSpeed1, timeByMeanSpeed2);
+        map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
+        if(i == infoCont.end()){ //noch nicht drin
+            Information *info = new Information("congestion", (*myCurrEdge),
+                /*1*/ estimatedTime, MSNet::getInstance()->getCurrentTimeStep());
             /*
-			info->infoTyp = "congestion";
-			info->edge = (*myCurrEdge)->getID();
-			info->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
-			info->time = MSNet::getInstance()->getCurrentTimeStep();
+            info->infoTyp = "congestion";
+            info->edge = (*myCurrEdge)->getID();
+            info->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
+            info->time = MSNet::getInstance()->getCurrentTimeStep();
             */
-			infoCont[(*myCurrEdge)->getID()] = info;
-			MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-							    getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,0,-1);
-			totalNrOfSavedInfos++;
-		}else{ // schon mal hier gefahren oder Information von einem andere
-			(*i).second->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
-		    (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
-			/*MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+            infoCont[(*myCurrEdge)->getID()] = info;
+            MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+                getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,0,-1);
+            totalNrOfSavedInfos++;
+        } else { // schon mal hier gefahren oder Information von einem andere
+            (*i).second->neededTime = estimatedTime; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
+            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
+            /*MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
 				getID(),(*myCurrEdge)->getID(),(*i).second->infoTyp,(*i).second->time,0,-1);
 			totalNrOfSavedInfos++;*/
 		}
    }
 
-
-
-  // storage for information to erase
-  std::vector<std::string> toErase;
-
-  std::map<std::string, Information*>::iterator j = infoCont.begin();
-  for(j; j!= infoCont.end(); ++j) {
-    if((*j).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
-      toErase.push_back((*j).first);
+    // storage for information to erase
+    std::vector<std::string> toErase;
+    std::map<std::string, Information*>::iterator j = infoCont.begin();
+    for(j; j!= infoCont.end(); ++j) {
+        if((*j).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
+            toErase.push_back((*j).first);
       //			i = infoCont.erase(i);
+        }
     }
-  }
-  // go through the list of invalid information, erase them
-  for(vector<string>::iterator k=toErase.begin(); k!=toErase.end(); ++k) {
-    infoCont.erase(infoCont.find(*k));
-  }
+    // go through the list of invalid information, erase them
+    for(vector<string>::iterator k=toErase.begin(); k!=toErase.end(); ++k) {
+        infoCont.erase(infoCont.find(*k));
+    }
 }
 
 
@@ -2808,25 +2815,27 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
     if(NofP>0&&infos.size()>0) {
         myLastInfoTime = currentTime;
     }
-	int count = 0;
-	std::map<std::string, Information *>::const_iterator i;
-	for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
-		std::map<std::string, Information *>::iterator j = infoCont.find((*i).first);
-		if(j!= infoCont.end() && ((*i).second->time > (*j).second->time)
-			                  &&  (*i).second->neededTime > 0){
+    int count = 0;
+    std::map<std::string, Information *>::const_iterator i;
+    // go through the saved information
+    for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
+        std::map<std::string, Information *>::iterator j = infoCont.find((*i).first);
+        if(j!= infoCont.end() && ((*i).second->time > (*j).second->time) &&  (*i).second->neededTime > 0){
+            // save the information about a previously known edge
+            //  (it is newer than the stored)
             delete infoCont[(*i).first];
-			//infoCont.erase(j);  // wenn Info älter ist als die neue info, dann ersetzen
-			infoCont[(*i).first] = new Information(*(*i).second);
-			count++;
-			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
-		}
-		if(j== infoCont.end() && (*i).second->neededTime > 0){ // wenn noch nicht eine Info über diese Edge vorhanden, dann speichern
-			infoCont[(*i).first] = new Information(*(*i).second);
+            infoCont[(*i).first] = new Information(*(*i).second);
+            count++;
+            MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
+        }
+        if(j== infoCont.end() && (*i).second->neededTime > 0) {
+            // save the information about a previously unknown edge
+            infoCont[(*i).first] = new Information(*(*i).second);
             myHaveRouteInfo |= willPass((*i).second->edge);
-		    count++;
-			MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
-		}
-	}
+            count++;
+            MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first,(*i).second->time,(*i).second->neededTime,-1);
+        }
+    }
 }
 
 
