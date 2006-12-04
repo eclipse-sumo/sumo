@@ -1,4 +1,4 @@
-binary:D:\projects\TrafficTower\sumo\bin\od2trips.exe
+binary:D:\projects\sumo\sumo\bin\od2trips.exe
 home_operating_system:nt
 copy_test_path:input_net.net.xml
 

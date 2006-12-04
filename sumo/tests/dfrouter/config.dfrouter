@@ -1,4 +1,4 @@
-binary:D:\projects\TrafficTower\sumo\bin\dfrouter.exe
+binary:D:\projects\sumo\sumo\bin\dfrouter.exe
 home_operating_system:nt
 copy_test_path:input_net.net.xml
 copy_test_path:input_detectors.det.xml

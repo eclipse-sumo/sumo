@@ -1,4 +1,4 @@
-binary:D:\projects\TrafficTower\sumo\bin\duarouter.exe
+binary:D:\projects\sumo\sumo\bin\duarouter.exe
 home_operating_system:nt
 copy_test_path:input_alts.rou.xml.alt
 copy_test_path:input_routes.rou.xml

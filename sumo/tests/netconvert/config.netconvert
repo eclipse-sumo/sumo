@@ -1,4 +1,4 @@
-binary:D:\projects\TrafficTower\sumo\bin\netconvert.exe
+binary:D:\projects\sumo\sumo\bin\netconvert.exe
 home_operating_system:nt
 copy_test_path:input_nodes.nod.xml
 copy_test_path:input_edges.edg.xml
