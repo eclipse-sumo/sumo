@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2006/12/06 16:55:21  ericnicolay
+// added new file option cellphone_dump
+//
 // Revision 1.58  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -319,6 +322,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
     oc.doRegister("ss2-sql-cell-output", new Option_FileName());
     oc.doRegister("ss2-sql-la-output", new Option_FileName());
+	oc.doRegister("cellphone-dump", new Option_FileName());
     oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
@@ -360,6 +364,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
     ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
 	ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
+	ret[MSNet::OS_CELLPHONE_DUMP_TO] = buildStream(oc, "cellphone-dump");
     // c2x-outputs
     ret[MSNet::OS_CLUSTER_INFO] = buildStream(oc, "c2x.cluster-info");
     ret[MSNet::OS_EDGE_NEAR] = buildStream(oc, "c2x.edge-near-info");
