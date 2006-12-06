@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/12/06 08:24:39  dkrajzew
+// further work in order to import ORINOKO definitions
+//
 // Revision 1.31  2006/12/04 13:37:16  dkrajzew
 // fixed problems on loading non-internal networks whenusing the internal option in simulation
 //
@@ -380,7 +383,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                     }
                 } while(toNext);
                 // check whether it still may be split
-                if(edge->getLength()-splitLength>10) {
+                if(edge->getLength()-splitLength>15) {
                     //  build the node
                     Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getGeometry().length() - splitLength);
                     NBNode *rn = new NBNode(nid, p);

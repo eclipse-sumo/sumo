@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/12/06 08:24:39  dkrajzew
+// further work in order to import ORINOKO definitions
+//
 // Revision 1.13  2006/11/14 13:04:10  dkrajzew
 // warnings removed
 //
@@ -94,6 +97,7 @@ namespace
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/nodes/NBNode.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
@@ -213,7 +217,25 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             if(!from->addLane2LaneConnection(fromLane, to, toLane, false)) {
-                WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
+                NBEdge *nFrom = from;
+                bool toNext = true;
+                do {
+                    if(nFrom->getToNode()->getOutgoingEdges().size()!=1) {
+                        toNext = false;
+                        break;
+                    }
+                    NBEdge *t = nFrom->getToNode()->getOutgoingEdges()[0];
+                    if(t->getID().substr(0, t->getID().find('/'))!=nFrom->getID().substr(0, nFrom->getID().find('/'))) {
+                        toNext = false;
+                        break;
+                    }
+                    if(toNext) {
+                        nFrom = t;
+                    }
+                } while(toNext);
+                if(nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, false)) {
+                    WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
+                }
             }
         } catch (NumberFormatException) {
             addError("At least one of the defined lanes was not numeric");

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.81  2006/12/06 08:24:39  dkrajzew
+// further work in order to import ORINOKO definitions
+//
 // Revision 1.80  2006/12/04 13:37:14  dkrajzew
 // fixed problems on loading non-internal networks whenusing the internal option in simulation
 //
@@ -2623,6 +2626,7 @@ void
 NBEdge::incLaneNo(int by)
 {
     _nolanes += by;
+    _reachable.clear();
     _reachable.resize(_nolanes, EdgeLaneVector());
     while(myLaneSpeeds.size()<_nolanes) {
         myLaneSpeeds.push_back(_speed);
@@ -2642,6 +2646,7 @@ void
 NBEdge::decLaneNo(int by)
 {
     _nolanes -= by;
+    _reachable.clear();
     _reachable.resize(_nolanes, EdgeLaneVector());
     while(myLaneSpeeds.size()>_nolanes) {
         myLaneSpeeds.pop_back();
