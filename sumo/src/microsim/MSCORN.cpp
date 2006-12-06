@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/12/06 16:56:36  ericnicolay
+// added new output for cellphone_dump
+//
 // Revision 1.20  2006/11/27 14:08:51  dkrajzew
 // added Danilot's current changes
 //
@@ -116,6 +119,7 @@ OutputDevice *MSCORN::myLATOSS2Output = 0;
 OutputDevice *MSCORN::myVehicleDeviceTOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myCellTOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
+OutputDevice *MSCORN::myCELLPHONEDUMPOutput = 0;
 // c2x output files
 OutputDevice *MSCORN::myClusterInfoOutput= 0;
 OutputDevice *MSCORN::myEdgeNearInfoOutput= 0;
@@ -270,6 +274,12 @@ void
 MSCORN::setLATOSS2SQLOutput(OutputDevice *s)
 {
     myLATOSS2SQLOutput = s;
+}
+
+void
+MSCORN::setCELLPHONEDUMPOutput(OutputDevice *s)
+{
+	 myCELLPHONEDUMPOutput = s;
 }
 
 //car2car
@@ -454,6 +464,16 @@ MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
             << ';' << quality_id << ';' << intervall << "\n";
     }
 }
+
+void 
+MSCORN::saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_type)
+{/*event_type describes if a connection begins(0), changecell(1) or ends(2) */
+	if(myCELLPHONEDUMPOutput != 0){
+		myCELLPHONEDUMPOutput->getOStream()
+			<< time << ';' << call_id << ';' << cell_id << ';' << event_type << "\n";
+	}
+}
+
 
 //car2car
 void

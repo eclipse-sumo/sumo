@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.70  2006/12/06 16:58:00  ericnicolay
+// added new output for cellphone_dump
+//
 // Revision 1.69  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -452,6 +455,8 @@ public:
 		OS_CELL_TO_SS2_SQL,
         /// TrafficOnline-SS2-SQL LA output
 		OS_LA_TO_SS2_SQL,
+		/// TrafficOnline-Cellphone output
+		OS_CELLPHONE_DUMP_TO,
 		/// Cluster's Information output
 		OS_CLUSTER_INFO,
 		/// Edge Neighborhood output

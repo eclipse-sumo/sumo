@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/12/06 16:56:36  ericnicolay
+// added new output for cellphone_dump
+//
 // Revision 1.17  2006/11/27 14:08:51  dkrajzew
 // added Danilot's current changes
 //
@@ -113,6 +116,7 @@ public:
         CORN_OUT_DEVICE_TO_SS2_SQL,
         CORN_OUT_CELL_TO_SS2_SQL,
         CORN_OUT_LA_TO_SS2_SQL,
+		CORN_OUT_CELLPHONE_DUMP_TO,
         // c2x-output
         CORN_OUT_CLUSTER_INFO,
         CORN_OUT_EDGE_NEAR,
@@ -162,6 +166,7 @@ public:
 	static void setVehicleDeviceTOSS2SQLOutput(OutputDevice *s);
 	static void setCellTOSS2SQLOutput(OutputDevice *s);
 	static void setLATOSS2SQLOutput(OutputDevice *s);
+	static void setCELLPHONEDUMPOutput(OutputDevice *s);
     // Car2Car
     static void setClusterInfoOutput(OutputDevice *s);
     static void setEdgeNearInfoOutput(OutputDevice *s);
@@ -193,6 +198,8 @@ public:
 	static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall);
 
+	static void saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_type);
+
 	//car2car
     static void saveClusterInfoData(SUMOTime step, int id,
 		const std::string vehs, int quantity, int a);
@@ -218,6 +225,7 @@ private:
 	static OutputDevice *myVehicleDeviceTOSS2SQLOutput;
 	static OutputDevice *myCellTOSS2SQLOutput;
 	static OutputDevice *myLATOSS2SQLOutput;
+	static OutputDevice *myCELLPHONEDUMPOutput;
 	//Car2car
 	static OutputDevice *myClusterInfoOutput;
     static OutputDevice *myEdgeNearInfoOutput;

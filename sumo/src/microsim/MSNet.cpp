@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.97  2006/12/06 16:58:00  ericnicolay
+// added new output for cellphone_dump
+//
 // Revision 1.96  2006/11/30 12:47:35  dkrajzew
 // debugging c2c based rerouting
 //
@@ -635,6 +638,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setVehicleDeviceTOSS2SQLOutput(streams[OS_DEVICE_TO_SS2_SQL]);
 	MSCORN::setCellTOSS2SQLOutput(streams[OS_CELL_TO_SS2_SQL]);
 	MSCORN::setLATOSS2SQLOutput( streams[OS_LA_TO_SS2_SQL]);
+	MSCORN::setCELLPHONEDUMPOutput(streams[OS_CELLPHONE_DUMP_TO]);
 	//car2car
 	MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
 	MSCORN::setEdgeNearInfoOutput(streams[OS_EDGE_NEAR]);
@@ -780,6 +784,10 @@ MSNet::initialiseSimulation()
 	if ( myOutputStreams[OS_LA_TO_SS2_SQL]!=0 ) {
         MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2_SQL);
     }
+	// ... the same for TrafficOnline cellphone-dump
+	if ( myOutputStreams[OS_CELLPHONE_DUMP_TO] != 0 ) {
+		MSCORN::setWished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO);
+	}
 	//car2car
 	if ( myOutputStreams[OS_CLUSTER_INFO]!=0 ) {
 		myOutputStreams[OS_CLUSTER_INFO]->getOStream()
