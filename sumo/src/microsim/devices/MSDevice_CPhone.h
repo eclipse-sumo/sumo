@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/12/06 17:02:23  ericnicolay
+// added documentation
+//
 // Revision 1.13  2006/12/01 09:14:42  dkrajzew
 // debugging cell phones
 //
@@ -95,8 +98,10 @@ public:
     SUMOTime changeState();
 	void setCurrentCellId( unsigned int id ){ mycurrentCellId = id; };
 	int getCurrentCellId(){return mycurrentCellId;};
+    void setCurrentLAId( unsigned int id ){ mycurrentLAId = id; };
+	int getCurrentLAId(){return mycurrentLAId;};
     void onDepart();
-	int getCallId(){return gCallID;};
+	int getCallId(){return callid;};
 	std::string getId(){return myId;};
 	void invalidateCommand();
 
