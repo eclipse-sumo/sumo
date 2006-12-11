@@ -50,6 +50,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/common/XMLHelpers.h>
+#include <utils/common/StringUtils.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
 #include "od2trips_help.h"
@@ -107,7 +108,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("spread.uniform", new Option_Bool(false));
     oc.doRegister("vtype", new Option_String(""));
     oc.doRegister("prefix", new Option_String(""));
-    oc.doRegister("timeline", new Option_String(""));
+    oc.doRegister("timeline", new Option_String());
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
 
     // add rand and dev options
@@ -258,24 +259,27 @@ parseTime(const std::string &time)
 
 
 void
-readVMR(LineReader &lr, ODMatrix &into, float scale,
-        std::string vehType)
+readV(LineReader &lr, ODMatrix &into, float scale,
+      std::string vehType, bool matrixHasVehType)
 {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
     // parse first defs
-    string line = getNextNonCommentLine(lr);
-    int type = TplConvert<char>::_2int(line.c_str());
-    if(vehType=="") {
-        vehType = toString(type);
+    string line;
+    if(matrixHasVehType) {
+        line = getNextNonCommentLine(lr);
+        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
+        if(vehType=="") {
+            vehType = toString(type);
+        }
     }
     line = getNextNonCommentLine(lr);
     StringTokenizer st(line, StringTokenizer::WHITECHARS);
     int begin = parseTime(st.next());
     int end = parseTime(st.next());
     line = getNextNonCommentLine(lr);
-    SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+    SUMOReal factor = TplConvert<char>::_2SUMOReal(StringUtils::prune(line).c_str()) * scale;
     line = getNextNonCommentLine(lr);
-    int districtNo = TplConvert<char>::_2int(line.c_str());
+    int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
     std::vector<std::string> names;
     line = getNextNonCommentLine(lr);
@@ -317,14 +321,20 @@ readVMR(LineReader &lr, ODMatrix &into, float scale,
 
 
 void
-readOR(LineReader &lr, ODMatrix &into, float scale,
-       std::string vehType)
+readO(LineReader &lr, ODMatrix &into, float scale,
+      std::string vehType, bool matrixHasVehType)
 {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
     // parse first defs
-    string line = getNextNonCommentLine(lr);
-//    int type = TplConvert<char>::_2int(line.c_str());
-//    line = getNextNonCommentLine(lr);
+    string line;
+    if(matrixHasVehType) {
+        line = getNextNonCommentLine(lr);
+        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
+        if(vehType=="") {
+            vehType = toString(type);
+        }
+    }
+    line = getNextNonCommentLine(lr);
     StringTokenizer st(line, StringTokenizer::WHITECHARS);
     int begin = parseTime(st.next());
     int end = parseTime(st.next());
@@ -384,12 +394,22 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
             type = type.substr(0, type.find(';'));
         }
         // parse type-dependant
-        if(type=="$VMR") {
-            readVMR(lr, into, oc.getFloat("scale"), oc.getString("vtype"));
-        } else if(type=="$OR") {
-            readOR(lr, into, oc.getFloat("scale"), oc.getString("vtype"));
+        if(type.length()>1 && type[1]=='V') {
+            // process ptv's 'V'-matrices
+            if(type.find('N')!=string::npos) {
+                MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError();
+            }
+            readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
+        } else if(type.length()>1 && type[1]=='O') {
+            // process ptv's 'O'-matrices
+            if(type.find('N')!=string::npos) {
+                MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError();
+            }
+            readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
         } else {
-            MsgHandler::getErrorInstance()->inform("Unknown matrix type '" + type + "'.");
+            MsgHandler::getErrorInstance()->inform("'" + *i + "' uses an unknown matrix type '" + type + "'.");
             throw ProcessError();
         }
     }
