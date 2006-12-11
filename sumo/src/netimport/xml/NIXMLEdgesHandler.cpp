@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/12/11 09:06:53  dkrajzew
+// added current patches to process the ORINOKO network
+//
 // Revision 1.32  2006/12/06 08:24:39  dkrajzew
 // further work in order to import ORINOKO definitions
 //
@@ -354,6 +357,9 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
         if(forcedLength>0) {
             // maybe the edge has already been split at this position
             string nid = myCurrentID + "/" +  toString(forcedLength);
+            if(myCurrentID=="53091023") {
+                int bla = 0;
+            }
             if(myNodeCont.retrieve(nid)==0) {
                 SUMOReal splitLength = forcedLength;
                 // split only if not
@@ -378,60 +384,49 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                     } else {
                     }
                     if(toNext) {
-//                        forcedLength -= edge->getGeometry().length();
                         edge = edge->getToNode()->getOutgoingEdges()[0];
                     }
                 } while(toNext);
-                // check whether it still may be split
-                if(edge->getLength()-splitLength>15) {
-                    //  build the node
+
+                //  build the node
+                if(edge->getGeometry().length()-splitLength>0) {
                     Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getGeometry().length() - splitLength);
                     NBNode *rn = new NBNode(nid, p);
                     if(myNodeCont.insert(rn)) {
                         //  split the edge
                         myEdgeCont.splitAt(myDistrictCont, edge, splitLength, rn,
-                            edge->getID(), nid,
-                            edge->getNoLanes(), edge->getNoLanes());
+                            edge->getID(), nid, edge->getNoLanes(), edge->getNoLanes());
                     } else {
                         // hmm, the node could not be build!?
                         delete rn;
-    		        	addError("Could not insert node '" + nid + "' for edge splitting.");
-	        	    	return;
+    		            addError("Could not insert node '" + nid + "' for edge splitting.");
+	        	        return;
                     }
-                    // set the proper lane number on previous edges
-                    /*
-                    NBEdge *e = myEdgeCont.retrieve(pid);
-                    int laneDiff = lane-myEdgeCont.retrieve(pid)->getNoLanes()+1;
-                    if(laneDiff<0) {
-//                        myEdgeCont.retrieve(pid)->decLaneNo(-laneDiff);
-                    }
-                    if(lane>=myEdgeCont.retrieve(nid)->getNoLanes()) {
-                        myEdgeCont.retrieve(nid)->incLaneNo(laneDiff);
-                    }
-                    */
-            NBEdge *e = myEdgeCont.retrieve(nid);
-            bool cont = true;
-            do {
-                cont = false;
-                const EdgeVector &ev = e->getFromNode()->getIncomingEdges();
-                if(ev.size()==1) {
-                    NBEdge *prev = ev[0];
-                    string idp = prev->getID();
-                    string idp2 = idp.substr(0, idp.find('/'));
-                    string idc = e->getID();
-                    string idc2 = idc.substr(0, idc.find('/'));
-                    if(idp2==idc2) {
-                        e = prev;
-                        if(prev->getNoLanes()>1) {
-                            assert(prev->getNoLanes()>1);
-                            prev->decLaneNo(1);
-                        } else {
-                            cout << "No: " << prev->getID() << endl;
+                    NBEdge *e = myEdgeCont.retrieve(nid);
+                    bool cont = true;
+                    do {
+                        cont = false;
+                        const EdgeVector &ev = e->getFromNode()->getIncomingEdges();
+                        if(ev.size()==1) {
+                            NBEdge *prev = ev[0];
+                            string idp = prev->getID();
+                            string idp2 = idp.substr(0, idp.find('/'));
+                            string idc = e->getID();
+                            string idc2 = idc.substr(0, idc.find('/'));
+                            if(idp2==idc2) {
+                                e = prev;
+                                if(prev->getNoLanes()>1) {
+                                    assert(prev->getNoLanes()>1);
+                                    prev->decLaneNo(1);
+                                } else {
+                                    MsgHandler::getWarningInstance()->inform("Could not split edge '" + prev->getID() + "'.");
+                                }
+                                cont = true;
+                            }
                         }
-                        cont = true;
-                    }
-                }
-            } while(cont);
+                    } while(cont);
+                } else {
+                    MsgHandler::getWarningInstance()->inform("Could not split edge '" + edge->getID() + "'.");
                 }
             }
         }

@@ -22,6 +22,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/12/11 09:06:13  dkrajzew
+// added current patches to process the ORINOKO network
+//
 // Revision 1.22  2006/12/06 17:02:23  ericnicolay
 // added documentation
 //
@@ -161,15 +164,15 @@ MSDevice_CPhone::~MSDevice_CPhone()
         MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
         if ( cell != 0 ) {
             cell->remCall( myId );
-        } else {
+        } /*else {
             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-        }
+        }*/
         MSPhoneLA * la = pPhone->getCurrentVehicleLA( myId  );
         if( la != 0 ) {
             la->remCall( myId );
-        } else {
+        }/* else {
             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-        }
+        }*/
     }
     if(myCommand!=0) {
         myCommand->setInactivated();
@@ -235,7 +238,7 @@ MSDevice_CPhone::changeState()
 
     /*first find out that we have a cell_id unlike -1*/
     if(mycurrentCellId!=-1) {
-        switch(m_State) 
+        switch(m_State)
         {
         case STATE_OFF:
             {
