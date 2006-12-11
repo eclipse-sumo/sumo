@@ -31,13 +31,12 @@
   <chapter id="user_chp01">
     <title>Introduction</title>
 
-    <sect1 id="user_chp01-sumo">
+    <sect1 id="user_chp01-sumo" revision="0.9.6">
       <title>What is SUMO?</title>
 
-      <para>SUMO is a traffic simulation tool. It was primarily designed for
-      urban street networks, but it may also be used for highway traffic
-      simulations. In the near future it will be extended to model other
-      transit modes simultaneously with ordinary car traffic.</para>
+      <para>SUMO is a microscopic road traffic simulation package. In the near
+      future it will be extended to model other transit modes simultaneously
+      with ordinary car traffic.</para>
     </sect1>
 
     <sect1 id="user_chp01-opensource">
@@ -382,7 +381,7 @@
     <sect1 id="user_chp02-running_examples">
       <title>Running the Examples</title>
 
-      <para>All examples are located within the
+      <para>!!!rework!!! All examples are located within the
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data</filename> -
       folder and its subfolders. All examples come with a configuration-file
       for network building and for running the simulation. Some of the
@@ -4331,14 +4330,14 @@
       </sect2>
     </sect1>
 
-    <sect1 id="user_chp04-closing" revision="0.9.5">
+    <sect1 id="user_chp04-closing" revision="0.9.6">
       <title>Closing Thoughts (so far)</title>
 
       <para><application>NETGEN</application> allows to create networks in a
       very comfortable way. For some small-sized tests of rerouting
-      strategies, tls-signals etc. this is probably the best solution to get a
-      network one can run some simulations at. The clear naming of the streets
-      also eases defining own routes.</para>
+      strategies, tls-signals etc., this is probably the best solution to get
+      a network one can run some simulations at. The clear naming of the
+      streets also eases defining own routes.</para>
 
       <para>Still, most examples within the data-section were written by hand
       for several reasons. At first, the examples are small enough and one may
@@ -4347,24 +4346,65 @@
       using XML-data is more flexible. <application>NETGEN</application> is of
       course useless as soon as you want to simulate the reality.</para>
 
-      <para>Each of the maps we've got from NavTech, being encoded in the
-      ArcView database format, describes an area of a single state or federal
-      state. This is much too large for our purposes, as we are mainly
-      interested in urban traffic. In fact, we have not tried out which
-      resources are needed to perform the simulation of a single German
-      federal state with SUMO, although this should be possible at all. Due to
-      this, one has at first to extract an area of interest. Our first
-      approaches to do this by using postal numbers is not as sophisticated as
-      firstly though to be: some interesting parts of the cities, above all
-      major highways do not belong to the postal code area of the regarded
-      city (Magdeburg and Munich within this test). When using real life
-      networks, we really advice guessing on- and off-ramps and traffic
-      lights. The on- off-ramps are guessed quite well, we can not state this
-      for the tls, because we don't have made any comparisons with real
+      <para>Our current state-of-the-art approach for building networks is the
+      following:</para>
+
+      <procedure>
+        <step>
+          <para>Get a plain (no tls, no link-2-link-connections, etc.) network
+          from our NavTeq database</para>
+        </step>
+
+        <step>
+          <para>Import it using NETCONVERT and write the list of imported
+          edges/nodes using the --plain-output option</para>
+        </step>
+
+        <step>
+          <para>Build the network from the list of edges/nodes (normally
+          setting the options --guess-ramps and --use-laneno-as-priority to
+          true)</para>
+        </step>
+
+        <step>
+          <para>Load the network into GUISIM, try to determine where tls are
+          located and which connections between edges/lanes are false; A nice
+          possibility to do this is to use Google Earth besides to investigate
+          how the network looks in reality</para>
+        </step>
+
+        <step>
+          <para>Add type="traffic_light" attribute to those nodes in your
+          plain file which were found to be controlled by a tls</para>
+        </step>
+
+        <step>
+          <para>Add lane-to-lane connections in a previously generated
+          connections-file</para>
+        </step>
+
+        <step>
+          <para>Build the network from the modified edges/nodes/connection
+          files</para>
+        </step>
+
+        <step>
+          <para>Continue with step 4. until the network is as it shoud
+          be</para>
+        </step>
+      </procedure>
+
+      <para>A good idea is to let some vehicles run through the network while
+      investigating it. This will show possible bottleneck that arised from a
+      false modelling of the network.</para>
+
+      <para>When using real life networks, we really advice guessing on- and
+      off-ramps The on- off-ramps are guessed quite well, we can not state
+      this for the tls, because we don't have made any comparisons with real
       life.</para>
     </sect1>
 
-    <sect1 id="user_chp04-changes" revision="0.9.5">
+    <sect1 id="user_chp04-changes" revision="0.9.6">
       <title>Recent Changes</title>
 
       <para>The following list contains recent changes in the naming or
@@ -4466,6 +4506,17 @@
             <listitem>
               <para>The possibility to define which vehicle classes are
               allowed on a lane was added in version 0.9.5</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Changes in version 0.9.6</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Described our current procedure of importing
+              networks</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -4665,20 +4716,20 @@
         have one edge in between!</para>
       </caution>
 
-      <sect2 id="user_chp05-explicit">
+      <sect2 id="user_chp05-explicit" revision="0.9.6">
         <title>Generating own, explicit Routes</title>
 
         <para>There are three possibilities to describe own routes. The most
-        trivial one is to do this by hand. The first one id the usage of trip
-        definitions, the second one the usage of flow descriptions. Trip
-        definitions describe the movement of a single vehicle giving the
-        departure time, and both the origin and the destination edges via
-        their id. Flow descriptions use these values too, but instead of
-        describing only one vehicle, the description is used for a defined
-        number of vehicles to be emitted within a described interval. Due to
-        this, instead of the departure time, the period's begin and end times
-        must be supplied and the number of vehicles to emit within this
-        interval.</para>
+        trivial one is to do this by hand. The first way to make more vehicle
+        trips more automatically is the usage of trip definitions, the second
+        one the usage of flow descriptions. Trip definitions describe the
+        movement of a single vehicle giving the departure time, and both the
+        origin and the destination edges via their id. Flow descriptions use
+        these values too, but instead of describing only one vehicle, the
+        description is used for a defined number of vehicles to be emitted
+        within a described interval. Due to this, instead of the departure
+        time, the period's begin and end times must be supplied and the number
+        of vehicles to emit within this interval.</para>
 
         <figure id="img_trips2routes">
           <title>Building routes from trips</title>
@@ -4704,8 +4755,9 @@
           physical properties, a route the vehicle shall take, and the vehicle
           itself. Both routes and vehicle types can be shared by several
           vehicles. In this case, routes need a further information. Assume
-          you want to build a routes file "routes.rou.xml". Herein, you can
-          define a vehicle type as following:</para>
+          you want to build a routes file
+          "<filename>routes.rou.xml</filename>". Herein, you can define a
+          vehicle type as following:</para>
 
           <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
@@ -4761,9 +4813,9 @@
           <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
 
-   &lt;vehicle id="0" type="type1" depart="0" color="1,0,0"&gt;
-      &lt;route&gt;beg middle end rend&lt;/route&gt;
-   &lt;/vehicle&gt;
+   <sgmltag>&lt;vehicle id="0" type="type1" depart="0" color="1,0,0"&gt;</sgmltag>
+      <sgmltag>&lt;route&gt;beg middle end rend&lt;/route&gt;</sgmltag>
+   <sgmltag>&lt;/vehicle&gt;</sgmltag>
 
 <sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
 
@@ -4809,10 +4861,10 @@
           <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
 
-   &lt;route id="route0" multi_ref="x" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;
+   <sgmltag>&lt;route id="route0" multi_ref="x" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;</sgmltag>
 
-   &lt;vehicle id="0" type="type1" route="route0" depart="0" color="1,0,0"/&gt;
-   &lt;vehicle id="1" type="type1" route="route0" depart="0" color="0,1,0"/&gt;
+   <sgmltag>&lt;vehicle id="0" type="type1" route="route0" depart="0" color="1,0,0"/&gt;</sgmltag>
+   <sgmltag>&lt;vehicle id="1" type="type1" route="route0" depart="0" color="0,1,0"/&gt;</sgmltag>
 
 <sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
 
@@ -4867,7 +4919,8 @@
           the route, but every n seconds (where n is the number defined in
           period), a vehicle using this route will be emitted. The number of
           vehicles to emit using this route may be additionally constrained
-          using <sgmltag>repno</sgmltag>. Otherwise, it is unlimited.</para>
+          using <sgmltag>repno</sgmltag>. Otherwise, it is unlimited. !!! test
+          !!!</para>
 
           <para>Let's review a trip's parameter:</para>
 
@@ -5033,7 +5086,8 @@
               <sgmltag><replaceable>&lt;begin&gt;</replaceable></sgmltag>;
               vehicles will be emitted between
               <sgmltag><replaceable>&lt;begin&gt;</replaceable></sgmltag> and
-              <sgmltag><replaceable>&lt;end&gt;</replaceable></sgmltag>-1</para>
+              <sgmltag><replaceable>&lt;end&gt;</replaceable></sgmltag>-1 !!!
+              test!!!!</para>
             </listitem>
 
             <listitem>
@@ -5129,7 +5183,7 @@
         </sect3>
       </sect2>
 
-      <sect2 id="user_chp05-own_routes-random">
+      <sect2 id="user_chp05-own_routes-random" revision="0.9.6">
         <title>Generating random Routes</title>
 
         <para>Random routes are the easiest, but also the most inaccurate way
@@ -5178,14 +5232,14 @@
           </mediaobject>
         </figure>
 
-        <para>There is also another problem with random routes: By definition,
-        in 50% of the cases, the route starts in the opposite direction of the
-        destination - on the wrong side of the road. This yields in a large
-        amount of vehicles that want to turn back using the first possibility.
-        This is of course also not common in the real world, especially not in
-        areas as the one shown before. To avoid this, we remove the first and
-        the last edge from the route per default when generating random
-        routes.</para>
+        <para>There is also another problem with random routes: Often, the
+        route starts in the opposite direction of the destination - on the
+        wrong side of the road. This yields in a large amount of vehicles that
+        want to turn back using the first possibility. This is of course also
+        not common in the real world, especially not in areas as the one shown
+        above. To avoid this, we remove the first and the last edge from the
+        route per default when generating random routes. !!! revalidate
+        this!!!</para>
 
         <para>Options:</para>
 
@@ -5378,7 +5432,7 @@
         <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/jtrrouter/</filename>.</para>
       </sect2>
 
-      <sect2 id="user_chp05-od2trips" revision="0.9.5">
+      <sect2 id="user_chp05-od2trips" revision="0.9.6">
         <title>Using OD2TRIPS</title>
 
         <para><application>OD2TRIPS</application> computes trips tables from
@@ -5415,16 +5469,18 @@
         of matrices to <application>OD2TRIPS</application> using the
         <option>--od-files</option> (<option>--od</option> or
         <option>-d</option> for short) option followed by the list of files
-        separated using a ';', or - when importing a Vissim simulation - using
-        <option>--vissim
+        separated using a ';', or - when importing routes from a Vissim
+        simulation - using <option>--vissim
         <replaceable>&lt;VISSIM_SIMULATION_FILE&gt;</replaceable></option> to
-        read the matrices referred in this network file.</para>
+        read the matrices referred in this simulation file.</para>
 
         <para><application>OD2TRIPS</application> reads all matrices and
-        generates trip definitions as those described in "<link
+        generates trip definitions as described in "<link
         linkend="user_chp05-explicite-trips">Using Trip Definitions</link>".
-        The generated trip definitions are numbered starting at zero. As
-        usual, they are written to the output file named using the
+        The generated trip definitions are numbered starting at zero. You can
+        also add a prefix to the generated trip definition names using
+        <option>--prefix <replaceable>&lt;STRING&gt;</replaceable></option>.
+        As usual, they are written to the output file named using the
         <option>--output-file</option> option (<option>--output</option> or
         <option>-o</option> for short). <application>OD2TRIPS</application>
         colors the trip definitions. To remove this feature, use
@@ -5433,13 +5489,11 @@
         by the type name. Please remark that vehicles will have no type unless
         not given in the O/D-matrices or defined using this option. This
         option overrides type names given in the O/D-matrices. The type itself
-        will not be generated. You can also add a prefix to the generated trip
-        definition names using <option>--prefix</option>. Vehicles will be
-        generated for the time period between <option>--begin</option>
-        (<option>-b</option>) and <option>--end</option>
-        (<option>-e</option>), having 0 and 86400 as default values,
-        respectively. The meaning is the simulation step in seconds, as
-        usual.</para>
+        will not be generated. Vehicles will be generated for the time period
+        between <option>--begin</option> (<option>-b</option>) and
+        <option>--end</option> (<option>-e</option>), having 0 and 86400 as
+        default values, respectively. The meaning is the simulation step in
+        seconds, as usual.</para>
 
         <para>Because each O/D-matrix cell describes the amount of vehicles to
         emit within a certain time period, <application>OD2TRIPS</application>
@@ -5647,18 +5701,17 @@
         <sect3 id="user_chp05-od2trips-districts">
           <title>Describing the Districts</title>
 
-          <para><application>OD2TRIPS</application> computes trips tables from
-          O/D (origin/destination) matrices.
-          <application>OD2TRIPS</application> assumes the matrix/matrices to
-          be coded as amount of vehicles that drive from one district to
-          another within a certain time period. Because the generated trips
-          must start and end at edges, <application>OD2TRIPS</application>
-          requires a mapping of districts to edges. During conversion of VISUM
-          networks which conversion was the base of the
-          <application>OD2TRIPS</application> development, districts stored in
-          the VISUM input file are parsed and stored within the network file.
-          If you have to generate districts by your own, you must build a
-          districts file by your own. Such a file looks as following:</para>
+          <para><application>OD2TRIPS</application> assumes the
+          matrix/matrices to be coded as amount of vehicles that drive from
+          one district to another within a certain time period. Because the
+          generated trips must start and end at edges,
+          <application>OD2TRIPS</application> requires a mapping of districts
+          to edges. During conversion of VISUM networks which conversion was
+          the base of the <application>OD2TRIPS</application> development,
+          districts stored in the VISUM input file are parsed and stored
+          within the network file. If you have to generate districts by your
+          own, you must build a districts file by your own. Such a file looks
+          as following:</para>
 
           <programlisting><sgmltag>&lt;districts&gt;</sgmltag>
    <sgmltag>&lt;district id="<replaceable>&lt;DISTRICT_ID&gt;</replaceable>"&gt;</sgmltag>
@@ -5696,17 +5749,20 @@
           according destination district within the described time
           period.</para>
 
-          <para>All of the ptv formats store some additional information
-          first, this information may contain the vehicle type, and the time
-          period. Comment lines use the prefix character '*'.</para>
+          <para>The formats used by ptv are described in the
+          VISUM-documentation more detailed. All start with a line where the
+          type of the O/D-matrix is given, appended to a '$'. The first
+          following character tells in which format the table is stored. Then,
+          further characters follow which describe which values are supplied
+          additionally within the matrix. For further information we ask you
+          to consult the documentation supported by ptv. Herein, only the
+          supported variants are described.</para>
 
-          <para>The VMR-format stores the O/D matrix by giving the number of
+          <para>The V-format stores the O/D matrix by giving the number of
           districts first and then naming them. After this, for each of the
           named districts, a list of vehicle amounts that leave this district
           is given, sorted by the destination district names as given in the
-          district name list. An example may look like this, please remark
-          that the type of the O/D-matrix is given in the first line, appended
-          to a '$':</para>
+          district name list. An example may look like this:</para>
 
           <programlisting>$VMR
 <remark>* vehicle type</remark>
@@ -5731,15 +5787,18 @@
 <remark>* District 1 Sum = 24</remark>
          7          8          9 </programlisting>
 
-          <para>Please remark that both the names list and the lists
-          containing the amounts are written in a way that no more than 10
-          fields are stored in the same line. Each of the entries they contain
-          seems to be left-alogned to a boundary of 11 characters (possibly 10
-          for the name and one space character). Both constraints are not
-          mandatory for the importer used in
-          <application>OD2TRIPS</application>.</para>
+          <para>The 'M' in the type name indicates that a vehicle type is
+          used, the "R" that the values shall be rounded randomly. The second
+          information is not processed by <application>OD2TRIPS</application>
+          what means that you can parse both V-, VR-, VMR, and VM-matrices.
+          Please remark that both the names list and the lists containing the
+          amounts are written in a way that no more than 10 fields are stored
+          in the same line. Each of the entries they contain seems to be
+          left-alogned to a boundary of 11 characters (possibly 10 for the
+          name and one space character). Both constraints are not mandatory
+          for the importer used in <application>OD2TRIPS</application>.</para>
 
-          <para>The OR-format instead simply lists each origin and each
+          <para>The O-format instead simply lists each origin and each
           destination together with the amount in one line (please remark that
           we currently ignore the string after the ';' that occures after the
           type identifier "$OR" in the first line):</para>
@@ -5768,16 +5827,17 @@
           <title>Splitting large matrices</title>
 
           <para>Since version 0.9.5 <application>OD2TRIPS</application> allows
-          splitting large matrices into smaller parts. There are two ways of
-          defining the amounts the matrix shall be split into. The first
-          possibility is to use the option <option>--timeline</option>
-          directly. In this case, it should be followed by a list of times and
-          probabilities, separated by ';'. Each time and probability field is
-          made up of two values, an integer time being the simulation time in
-          seconds and a floating point number describing the probability.
-          These two values are separated using a ','. At least two values must
-          be supplied making the definition of a timeline in this case being
-          decribeable by the following BNF-formula:</para>
+          splitting matrices defining a long tie period into parts that dure
+          less long. There are two ways of defining the amounts the matrix
+          shall be split into. The first possibility is to use the option
+          <option>--timeline</option> directly. In this case, it should be
+          followed by a list of times and probabilities, separated by ';'.
+          Each time and probability field is made up of two values, an integer
+          time being the simulation time in seconds and a floating point
+          number describing the probability. These two values are separated
+          using a ','. At least two values must be supplied making the
+          definition of a timeline in this case being decribeable by the
+          following BNF-formula:</para>
 
           <para>&lt;TIME&gt;,&lt;AMOUNT&gt;[;&lt;TIME&gt;,&lt;AMOUNT&gt;]+</para>
 
@@ -5855,7 +5915,7 @@
         "<filename>foo.rinfo</filename>", write
         <option>--cell=foo</option>.</para>
 
-        <para>FastLanes stores routes within a very large file what makes the
+        <para>FastLane stores routes within a very large file what makes the
         process quite slow. If you want to speed it up for the future, you can
         tell SUMO-ROUTER to save some temporary files using
         <option>--save-cell-rindex</option>. A further file named
@@ -5883,8 +5943,10 @@
       </sect2>
     </sect1>
 
-    <sect1 id="user_chp05-dua">
+    <sect1 id="user_chp05-dua" revision="0.9.6">
       <title>Dynamic User Assignment and Alternative Routes</title>
+
+      <para>!!! Weights fehlen!!!</para>
 
       <para>Dynamic Assignment is used to find out which routes the simulated
       driver really would take. One could assume that everyone is traing to
@@ -5920,30 +5982,30 @@
       knows - are stored.</para>
 
       <para>After having generated the routes, we let the simulation run
-      forcing it to generate edge- or lane-based dumps (see chapter 6, "<ulink
+      forcing it to generate edge-based dumps (see chapter 6, "<ulink
       url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-edgelanedump">Aggregated
-      Lane/Edge States (Edge/Lane-Dumps)</ulink>"). In fact, edge-based dumps
-      are the better choice, because the route is not able to use lane-based
-      dumps at all. Now, we have the information about the state of the
-      network, meaning the real speeds that were driven within it, when all
-      vehicles are using the same route. Now we can pass this information to a
-      second call to <application>DUAROUTER</application> and now - instead of
-      the previous input file - we give the route alternatives file as input
-      using the option <option>--alternatives</option> (or <option>-a</option>
-      for short). Now, <application>DUAROUTER</application> is capable to
-      compute the new shortest routes, based on the real speeds within our
-      simulation. In order to avoid that again all vehicles will use the
-      currently shortest route only some of the drivers will get the new
-      shortest route. Again, two files are generated, a route file which
-      contains the current routes and a new route alternatives file. The
-      entries within the new alternatives file stay the same for all those
-      drivers who keep their old route. Those who got a new route assigned,
-      will get this route stored additionally to their previous route within
-      the file. Whether a route is replaced by a new, better route is
-      depending on how much better the new route is and how fast a driver
-      shall forget his old one. There are two parameters determining this:
-      <option>--gBeta</option> and <option>--gA</option>. Please see (see
-      <ulink
+      Lane/Edge States (Edge/Lane-Dumps)</ulink>"). The router is In fact,
+      edge-based dumps are the better choice, because the route is not able to
+      use lane-based dumps at all. Now, we have the information about the
+      state of the network, meaning the real speeds that were driven within
+      it, when all vehicles are using the same route. Now we can pass this
+      information to a second call to <application>DUAROUTER</application> and
+      now - instead of the previous input file - we give the route
+      alternatives file as input using the option
+      <option>--alternatives</option> (or <option>-a</option> for short). Now,
+      <application>DUAROUTER</application> is capable to compute the new
+      shortest routes, based on the real speeds within our simulation. In
+      order to avoid that again all vehicles will use the currently shortest
+      route only some of the drivers will get the new shortest route. Again,
+      two files are generated, a route file which contains the current routes
+      and a new route alternatives file. The entries within the new
+      alternatives file stay the same for all those drivers who keep their old
+      route. Those who got a new route assigned, will get this route stored
+      additionally to their previous route within the file. Whether a route is
+      replaced by a new, better route is depending on how much better the new
+      route is and how fast a driver shall forget his old one. There are two
+      parameters determining this: <option>--gBeta</option> and
+      <option>--gA</option>. Please see (see <ulink
       url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1">[Gawron1998_1]</ulink>)
       for further information.</para>
 
@@ -6008,15 +6070,10 @@
       are running mostly about 20 iterations, but this is just a hint. One may
       say, that the dua is finished if there is no further change in the
       aggregated vehicles trip duration. DUA is definitely still a research
-      topic and if you are interested in more details than note the next
-      note...</para>
-
-      <note>
-        <para>There is some further reading on DUA within our More On... -
-        section. See "<ulink
-        url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_dua.shtml">More
-        On... Dynamic User Assignment</ulink>".</para>
-      </note>
+      topic. If you are interested in more details than you maybe should take
+      a look at "<ulink
+      url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_dua.shtml">More
+      On... Dynamic User Assignment</ulink>".</para>
 
       <para>Specific options:</para>
 
@@ -6083,19 +6140,20 @@
         </listitem>
       </itemizedlist>
 
-      <sect2 id="user_chp05-dua-iterate">
+      <sect2 id="user_chp05-dua-iterate" revision="0.9.6">
         <title>Automatic Iteration using 'dua-iterate.pl'</title>
 
-        <para>"dua-iterate.pl" helps you to perform the computation of a
-        dynamic user assignment. The script needs at least two parameter: the
-        path to the folder where you have located your SUMO-binaries in and
-        the number of iteration steps to perform. When started with these to
-        options, the script computes the given number of dua-steps. As input
-        two files have to be located in the same folder as the script: a
-        SUMO-network named "net.net.xml" and a set of trip definitions named
-        "trips.trips.xml". if you want to start with another routes
-        definition, you have to change this within the script's source
-        code.</para>
+        <para>"<command>dua-iterate.pl</command>" helps you to perform the
+        computation of a dynamic user assignment. The script needs at least
+        two parameter: the path to the folder where your SUMO-binaries are
+        located and the number of iteration steps to perform. When started
+        with these two options, the script computes the given number of
+        dua-steps. As input two files have to be located in the same folder as
+        the script: a SUMO-network named "<filename>net.net.xml</filename>"
+        and a set of trip definitions named
+        "<filename>trips.trips.xml</filename>". if you want to start with
+        another routes definition, you have to change this within the script's
+        source code.</para>
 
         <para>Within each iteration step, the script generates a configuration
         file for the <application>DUAROUTER</application> and starts
@@ -6121,7 +6179,34 @@
 
         <para>Synopsis:</para>
 
-        <screen>./dua-iterate.pl <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;</replaceable> <optional>[<replaceable>&lt;BEGIN_ITERATION_STEP&gt;</replaceable>]</optional> <replaceable>&lt;END_ITERATION_STEP&gt;</replaceable></screen>
+        <screen>dua-iterate.pl <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;</replaceable> <optional>[<replaceable>&lt;BEGIN_ITERATION_STEP&gt;</replaceable>]</optional> <replaceable>&lt;END_ITERATION_STEP&gt;</replaceable></screen>
+
+        <sect3 id="user_chp05-dua-iterate-printProgress" revision="0.9.6">
+          <title>Tracking the progress online using "printProgress.pl"</title>
+
+          <para>printProgress.pl is a small script which, started in the
+          folder the dua-iterate.pl - iteration takes place - shows how many
+          vehicles were running at the end of the simulation. This helps to
+          see how good the current assignment is (see also "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_dua.shtml">More
+          On... Dynamic User Assignment</ulink>").</para>
+
+          <para>This script is located in
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools/</filename>.</para>
+
+          <para>Synopsis:</para>
+
+          <screen>printProgress.pl</screen>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><command>printProgress.pl</command> is a part of the
+              distribution since version 0.9.6.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
     </sect1>
 
@@ -6157,10 +6242,6 @@
    ... further intervals ...
 
 <sgmltag>&lt;/supplementary-weights&gt;</sgmltag></programlisting>
-
-      <caution>
-        <para>The option name may be changed in the near future...</para>
-      </caution>
 
       <caution>
         <para>The attribute "absolut" is misspelled and will be changed in the
@@ -6705,12 +6786,8 @@ myDet1;0;10;2;100;80
       fill the simulation fast. This has been done for most of the examples
       within the example data. Trying to generate own OD-matrices is not to be
       adviced, because handling of such is not really well supported by the
-      package. In fact, the OD2TRIPS tool definitely needs a complete
-      redesign. Until this has happened, you should try to get your
-      OD-matrices converted into flow-definitions if you really have to
-      operate with OD-matrices. Using flows generated by hand may be a
-      possibility, but for small scenarios, flows seem more clumsy than
-      routes.</para>
+      package. Using flows generated by hand may be a possibility, but for
+      small scenarios, flows seem more clumsy than routes.</para>
 
       <para>In some cases, flows at each junction are counted and how many
       vehicles are driving in which direction. This is exactly what
@@ -6739,9 +6816,6 @@ myDet1;0;10;2;100;80
               <sgmltag><replaceable>&lt;begin&gt;</replaceable></sgmltag> and
               ending at
               <sgmltag><replaceable>&lt;end&gt;</replaceable></sgmltag>-1.</para>
-
-              <para><emphasis>Reason:</emphasis> The prior behaviour was not
-              correct</para>
             </listitem>
 
             <listitem>
@@ -6749,9 +6823,46 @@ myDet1;0;10;2;100;80
               "KRAUSS_DEFAULT". This has been patched. Now the type you
               specify will be used and only if no type information was given,
               "KRAUSS_DEFAULT" will be used.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
 
-              <para><emphasis>Reason:</emphasis> Definitions should be
-              kept...</para>
+        <listitem>
+          <para>Changes in version 0.9.5</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><application>OD2TRIPS</application> was rewritten for the
+              0.9.5. version. Most things still should work as well with older
+              versions, but the options <option>--vtype</option>,
+              <option>--prefix</option>, <option>--timeline</option>, and
+              <option>--timeline.day-in-hours</option> were not
+              available.</para>
+            </listitem>
+
+            <listitem>
+              <para>The usage of <option>--od-files</option> and
+              <option>--vissim</option> within
+              <application>OD2TRIPS</application> differs from prior
+              versions.</para>
+            </listitem>
+
+            <listitem>
+              <para><option>--od-files</option> was named
+              <option>--od-file</option> in
+              <application>OD2TRIPS</application> versions prior to
+              0.9.5.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Changes in version 0.9.6</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><command>printProgress.pl</command> is a part of the
+              distribution since version 0.9.6.</para>
             </listitem>
           </itemizedlist>
         </listitem>
