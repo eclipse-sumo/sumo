@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/12/12 12:14:39  dkrajzew
+// set .5 hour as the time to keep information in mind
+//
 // Revision 1.12  2006/11/02 11:44:50  dkrajzew
 // added Danilo Teta-Boyom's changes to car2car-communication
 //
@@ -109,7 +112,7 @@ SUMOReal MSGlobals::gNumberOfSendingPos = 732;
 
 SUMOReal MSGlobals::gInfoPerPaket = 14;
 
-SUMOReal MSGlobals::gLANRefuseOldInfosOffset = 15 * 60;
+SUMOReal MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
