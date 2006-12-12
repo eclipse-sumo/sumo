@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/12/12 12:11:04  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.19  2006/11/23 11:40:26  dkrajzew
 // removed unneeded code
 //
@@ -265,8 +268,6 @@ enum {
     MID_SHOWTOOLTIPS,
 	/// Graph Edit Button
 	MID_EDIT_GRAPH,
-    /// Show Full Geom - Button
-    MID_SHOWFULLGEOM,
     /// Make Snapshot - Button
     MID_MAKESNAPSHOT,
     //@}

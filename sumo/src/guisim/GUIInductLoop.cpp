@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/12/12 12:10:45  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.22  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -159,13 +162,9 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
     myFGPosition = v.positionAtLengthPosition(pos);
     Line2D l(v.getBegin(), v.getEnd());
     SUMOReal sgPos = pos / v.length() * l.length();
-    mySGPosition = l.getPositionAtDistance(sgPos);
     myBoundary.add(myFGPosition.x()+(SUMOReal) 5.5, myFGPosition.y()+(SUMOReal) 5.5);
     myBoundary.add(myFGPosition.x()-(SUMOReal) 5.5, myFGPosition.y()-(SUMOReal) 5.5);
-    myBoundary.add(mySGPosition.x()+(SUMOReal) 5.5, mySGPosition.y()+(SUMOReal) 5.5);
-    myBoundary.add(mySGPosition.x()-(SUMOReal) 5.5, mySGPosition.y()-(SUMOReal) 5.5);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
-    mySGRotation = -l.atan2DegreeAngle();
 }
 
 
@@ -224,58 +223,7 @@ GUIInductLoop::MyWrapper::active() const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    SUMOReal width = (SUMOReal) 2.0 * scale;
-    glLineWidth(1.0);
-    // shape
-    glColor3f(1, 1, 0);
-    glPushMatrix();
-    glScaled(upscale, upscale, upscale);
-    glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
-    glRotated( mySGRotation, 0, 0, 1 );
-    glBegin( GL_QUADS );
-    glVertex2d(0-1.0, 2);
-    glVertex2d(-1.0, -2);
-    glVertex2d(1.0, -2);
-    glVertex2d(1.0, 2);
-    glEnd();
-    glBegin( GL_LINES);
-    // without the substracted offsets, lines are partially longer
-    //  than the boxes
-    glVertex2d(0, 2.0-.1);
-    glVertex2d(0, -2.0+.1);
-    glEnd();
-
-
-    // outline
-    if(width*upscale>1) {
-        glColor3f(1, 1, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin( GL_QUADS );
-        glVertex2f(0-1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-
-    // position indicator
-    if(width*upscale>1) {
-        glRotated( 90, 0, 0, -1 );
-        glColor3f(1, 1, 1);
-        glBegin( GL_LINES);
-        glVertex2d(0, 1.7);
-        glVertex2d(0, -1.7);
-        glEnd();
-    }
-    glPopMatrix();
-}
-
-
-void
-GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
@@ -297,7 +245,6 @@ GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
     glVertex2d(0, 2-.1);
     glVertex2d(0, -2+.1);
     glEnd();
-
 
     // outline
     if(width*upscale>1) {

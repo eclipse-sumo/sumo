@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/12/12 12:19:23  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.7  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -97,9 +100,9 @@ public:
             glColor3f(0.5, 0.5, 0.5);
         } else {
             if(val<0) {
-                val = 0; // !!! Aua!!!
+                val = 0;
             } else if(val>1) {
-                val = 1; // !!! Aua!!!
+                val = 1;
             }
             int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
             assert(idx<myGradient.size());
@@ -109,9 +112,9 @@ public:
 
 	void setGlColor(SUMOReal val) const {
         if(val<0) {
-            val = 0; // !!! Aua!!!
+            val = 0;
         } else if(val>1) {
-            val = 1; // !!! Aua!!!
+            val = 1;
         }
         int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
         assert(idx<(int) myGradient.size());

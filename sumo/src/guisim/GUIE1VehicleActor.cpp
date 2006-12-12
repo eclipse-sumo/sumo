@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.6  2006/12/01 14:42:10  dkrajzew
 // added some visualization
 //
@@ -356,9 +359,9 @@ GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);
     // add items
-    ret->mkItem("_ActorType", false, _LAId);
-    ret->mkItem("LA-ID", false, _LAId);
-    ret->mkItem("Area-ID", false, _AreaId);
+    ret->mkItem("_ActorType", false, (SUMOReal) _LAId);
+    ret->mkItem("LA-ID", false, (SUMOReal) _LAId);
+    ret->mkItem("Area-ID", false, (SUMOReal) _AreaId);
     ret->mkItem("passed vehicles [#]", true,
         new CastingFunctionBinding<MSE1VehicleActor, SUMOReal, unsigned int>(this, &MSE1VehicleActor::getPassedVehicleNumber));
     ret->mkItem("passed cphones [#]", true,
@@ -393,7 +396,7 @@ GUIE1VehicleActor::getPosition() const
 
 
 void
-GUIE1VehicleActor::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUIE1VehicleActor::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
@@ -420,57 +423,6 @@ GUIE1VehicleActor::drawGL_FG(SUMOReal scale, SUMOReal upscale)
     //  than the boxes
     glVertex2d(0, 2-.1);
     glVertex2d(0, -2+.1);
-    glEnd();
-
-
-    // outline
-    if(width*upscale>1) {
-        glColor3f(1, 1, 1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin( GL_QUADS );
-        glVertex2f(0-1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
-        glEnd();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-
-    // position indicator
-    if(width*upscale>1) {
-        glRotated( 90, 0, 0, -1 );
-        glColor3f(1, 1, 1);
-        glBegin( GL_LINES);
-        glVertex2d(0, 1.7);
-        glVertex2d(0, -1.7);
-        glEnd();
-    }
-    glPopMatrix();
-}
-
-
-void
-GUIE1VehicleActor::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    SUMOReal width = (SUMOReal) 2.0 * scale;
-    glLineWidth(1.0);
-    // shape
-    glColor3f(0, 1, 1);
-    glPushMatrix();
-    glScaled(upscale, upscale, upscale);
-    glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
-    glRotated( mySGRotation, 0, 0, 1 );
-    glBegin( GL_QUADS );
-    glVertex2d(0-1.0, 2);
-    glVertex2d(-1.0, -2);
-    glVertex2d(1.0, -2);
-    glVertex2d(1.0, 2);
-    glEnd();
-    glBegin( GL_LINES);
-    // without the substracted offsets, lines are partially longer
-    //  than the boxes
-    glVertex2d(0, 2.0-.1);
-    glVertex2d(0, -2.0+.1);
     glEnd();
 
 

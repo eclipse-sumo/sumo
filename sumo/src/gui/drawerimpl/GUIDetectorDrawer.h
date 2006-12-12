@@ -1,12 +1,12 @@
-#ifndef GUIDetectorDrawer_FGwT_h
-#define GUIDetectorDrawer_FGwT_h
+#ifndef GUIDetectorDrawer_h
+#define GUIDetectorDrawer_h
 //---------------------------------------------------------------------------//
-//                        GUIDetectorDrawer_FGwT.h -
-//  Class for drawing detectors with tooltips
+//                        GUIDetectorDrawer.h -
+//  Base class for detector drawing
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 02.09.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  begin                : Wed, 14.Jan 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,32 +20,32 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.9  2006/01/09 11:50:21  dkrajzew
+// Revision 1.1  2006/12/12 12:10:39  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
+// Revision 1.8  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
-// Revision 1.8  2005/10/07 11:36:48  dkrajzew
+// Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
-// Revision 1.7  2005/09/22 13:30:40  dkrajzew
+// Revision 1.6  2005/09/22 13:30:40  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
-// Revision 1.6  2005/09/15 11:05:28  dkrajzew
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
-// Revision 1.5  2005/04/27 09:44:26  dkrajzew
+// Revision 1.4  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
-// Revision 1.4  2004/07/02 08:12:12  dkrajzew
+// Revision 1.3  2004/07/02 08:12:12  dkrajzew
 // detector drawers now also draw other additional items
 //
-// Revision 1.3  2004/01/26 06:39:18  dkrajzew
+// Revision 1.2  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
+// Revision 1.1  2004/01/26 06:39:41  dkrajzew
 // visualisation of e3-detectors added; documentation added
-//
-// Revision 1.2  2003/09/25 08:59:28  dkrajzew
-// documentation patched
-//
-// Revision 1.1  2003/09/23 14:28:16  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
 //
 /* =========================================================================
  * compiler pragmas
@@ -64,38 +64,46 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include "GUIBaseDetectorDrawer.h"
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/glutils/GLHelper.h>
 
 
-class GUIAbstractAddGlObject;
+
+class GUIGlObject_AbstractAdd;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/**
- * @class GUIDetectorDrawer_FGwT
- * Derived from GUIBaseDetectorDrawer, this class implements the method that
- *  draws the detectors. For each detector two steps are performed:
- *  The tooltip information is set first. Then, the method to draw the detector
- *  in full geometry mode is called.
- */
-class GUIDetectorDrawer_FGwT
-        : public GUIBaseDetectorDrawer
+class GUIDetectorDrawer
 {
 public:
-    ///  Constructor
-    GUIDetectorDrawer_FGwT(const std::vector<GUIGlObject_AbstractAdd*> &additionals)
-        : GUIBaseDetectorDrawer(additionals) { }
+    /// Constructor
+    GUIDetectorDrawer(const std::vector<GUIGlObject_AbstractAdd*> &additionals);
 
     /// Destructor
-    ~GUIDetectorDrawer_FGwT() { }
+    virtual ~GUIDetectorDrawer();
 
-protected:
-    /// Draws the detectors
-    void myDrawGLDetectors(size_t *which, size_t maxDetectors,
+    /// Draws all detectors
+    void drawGLDetectors(size_t *which, size_t maxDetectors,
         SUMOReal scale, SUMOReal upscale);
 
+    void setGLID(bool val);
+
+protected:
+    /** @brief Inititialises the drawing process
+        The textures have to be initialised */
+    void initStep();
+
+protected:
+    /// The list of detectors to consider at drawing
+    const std::vector<GUIGlObject_AbstractAdd*> &myAdditionals;
+
+    /// Information whether the gl-id shall be set
+    bool myShowToolTips;
+
 };
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

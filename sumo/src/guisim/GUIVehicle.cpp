@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2006/12/12 12:11:03  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.47  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -202,7 +205,7 @@ namespace
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <gui/GUIViewTraffic.h>
+//#include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 
@@ -253,7 +256,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->showRoute(static_cast<GUIVehicle*>(myObject), -1);
+    myParent->showRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
 }
 
@@ -262,7 +265,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->hideRoute(static_cast<GUIVehicle*>(myObject), -1);
+    myParent->hideRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
 }
 
@@ -271,7 +274,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->showRoute(static_cast<GUIVehicle*>(myObject), 0);
+    myParent->showRoute(static_cast<GUIVehicle*>(myObject), 0);
     return 1;
 }
 
@@ -280,7 +283,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
+    myParent->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
     return 1;
 }
 
@@ -288,7 +291,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
+    myParent->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
     return 1;
 }
 
@@ -296,7 +299,7 @@ long
 GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
-    static_cast<GUIViewTraffic*>(myParent)->stopTrack();
+    myParent->stopTrack();
     return 1;
 }
 
@@ -392,27 +395,24 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
-    if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, 0)) {
+    if(parent.amShowingRouteFor(this, 0)) {
         new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
     } else {
         new FXMenuCommand(ret, "Show Current Route", 0, ret, MID_SHOW_CURRENTROUTE);
     }
-    if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, -1)) {
+    if(parent.amShowingRouteFor(this, -1)) {
         new FXMenuCommand(ret, "Hide All Routes", 0, ret, MID_HIDE_ALLROUTES);
     } else {
         new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
     }
     new FXMenuSeparator(ret);
-    GUIViewTraffic *view = dynamic_cast<GUIViewTraffic*>(&parent);
-    if(view!=0) {
-        int trackedID = view->getTrackedID();
-        if(trackedID<0||(size_t)trackedID!=getGlID()) {
-            new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
-        } else {
-            new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
-        }
-        new FXMenuSeparator(ret);
+    int trackedID = parent.getTrackedID();
+    if(trackedID<0||(size_t)trackedID!=getGlID()) {
+        new FXMenuCommand(ret, "Start Tracking", 0, ret, MID_START_TRACK);
+    } else {
+        new FXMenuCommand(ret, "Stop Tracking", 0, ret, MID_STOP_TRACK);
     }
+    new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret, false);
     return ret;

@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/12/12 12:11:01  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.12  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -117,8 +120,9 @@ using namespace std;
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
                                  MSVehicleControl &vc,
                                  bool addVehiclesDirectly,
+                                 int incDUABase,
                                  int incDUAStage)
-    : MSRouteHandler(file, vc, addVehiclesDirectly, true, incDUAStage)
+    : MSRouteHandler(file, vc, addVehiclesDirectly, true, incDUABase, incDUAStage)
 {
 }
 

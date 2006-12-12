@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/12/12 12:11:03  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.7  2006/11/28 12:10:41  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -61,7 +64,6 @@
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/gui/drawer/GUIBaseLaneDrawer.h>
 #include <gui/GUIViewTraffic.h>
 
 #ifdef _WIN32

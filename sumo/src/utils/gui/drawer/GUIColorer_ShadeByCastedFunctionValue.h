@@ -1,12 +1,12 @@
-#ifndef GUIColorer_ShadeByFunctionValue1_h
-#define GUIColorer_ShadeByFunctionValue1_h
+#ifndef GUIColorer_ShadeByCastedFunctionValue_h
+#define GUIColorer_ShadeByCastedFunctionValue_h
 //---------------------------------------------------------------------------//
-//                        GUIColorer_ShadeByFunctionValue1.h -
+//                        GUIColorer_ShadeByCastedFunctionValue.h -
 //
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  begin                : Fri, 12.12.2006
+//  copyright            : (C) 2006 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,23 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.7  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
+// Revision 1.1  2006/12/12 12:19:26  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
 //
-// Revision 1.6  2005/10/07 11:45:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:07:54  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:19:10  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/07/12 12:49:08  dkrajzew
-// code style adapted
-//
-// Revision 1.3  2005/06/14 11:29:50  dksumo
-// documentation added
 //
 /* =========================================================================
  * compiler pragmas
@@ -47,6 +33,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -65,32 +52,33 @@
 #include <GL/gl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
-template<class _T, class _P, class _PC>
-class GUIColorer_ShadeByFunctionValue1 : public GUIBaseColorer<_T> {
+template<class _T, class _C>
+class GUIColorer_ShadeByCastedFunctionValue : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
-    typedef SUMOReal ( _T::* Operation )(_PC) const;
+    typedef _C ( _T::* Operation )() const;
 
-    GUIColorer_ShadeByFunctionValue1(SUMOReal min, SUMOReal max,
+    GUIColorer_ShadeByCastedFunctionValue(SUMOReal min, SUMOReal max,
         const RGBColor &minC, const RGBColor &maxC,
-        Operation operation, _P param)
+        Operation operation)
         : myMin(min), myMax(max), myMinColor(minC), myMaxColor(maxC),
-            myOperation(operation), myParameter(param)
+            myOperation(operation)
     {
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
-	virtual ~GUIColorer_ShadeByFunctionValue1() { }
+	virtual ~GUIColorer_ShadeByCastedFunctionValue() { }
 
 	void setGlColor(const _T& i) const {
-        SUMOReal val = (i.*myOperation)((_PC) myParameter) - myMin;
+        SUMOReal val = (SUMOReal) (i.*myOperation)() - myMin;
+        std::cout << val << endl;
         if(val==-1) {
-            glColor3f(0.5, 0.5, 0.5);
+            glColor3f(0.8f, 0.8f, 0.8f);
         } else {
             if(val<myMin) {
-                val = myMin; // !!! Aua!!!
+                val = myMin;
             } else if(val>myMax) {
-                val = myMax; // !!! Aua!!!
+                val = myMax;
             }
             val = val * myScale;
             RGBColor c =
@@ -100,17 +88,37 @@ public:
 	}
 
 	void setGlColor(SUMOReal val) const {
-        if(val<myMin) {
-            val = myMin; // !!! Aua!!!
-        } else if(val>myMax) {
-            val = myMax; // !!! Aua!!!
+        if(val==-1) {
+            glColor3f(0.8f, 0.8f, 0.8f);
+        } else {
+            if(val<myMin) {
+                val = myMin;
+            } else if(val>myMax) {
+                val = myMax;
+            }
+            val = val * myScale;
+            RGBColor c =
+                (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+            glColor3d(c.red(), c.green(), c.blue());
         }
-        val = val * myScale;
-        RGBColor c =
-            (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
-        glColor3d(c.red(), c.green(), c.blue());
     }
 
+    virtual ColorSetType getSetType() const {
+        return CST_MINMAX;
+    }
+
+    virtual void resetColor(const RGBColor &min, const RGBColor &max) {
+        myMinColor = min;
+        myMaxColor = max;
+    }
+
+    virtual const RGBColor &getMinColor() const {
+        return myMinColor;
+    }
+
+    virtual const RGBColor &getMaxColor() const {
+        return myMaxColor;
+    }
 
 protected:
     SUMOReal myMin, myMax, myScale;
@@ -119,8 +127,6 @@ protected:
     /// The object's operation to perform.
     Operation myOperation;
 
-    ///
-    _P myParameter;
 
 };
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

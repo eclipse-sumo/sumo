@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/12 12:19:23  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.2  2006/11/03 22:58:16  behrisch
 // Templates need explicit member reference (this->)
 //
 // Revision 1.1  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -78,16 +80,16 @@ public:
 	void setGlColor(const _T& i) const {
         if(!(i.*myHasOperation)((_P) myParameter)) {
             if(myCatchNo) {
-                this->mglColor(myNoColor);
+                glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
-                this->mglColor(myMinColor);
+                glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
             SUMOReal val = (i.*myNumberOperation)((_P) myParameter) - myMin;
             if(val<myMin) {
-                val = myMin; // !!! Aua!!!
+                val = myMin;
             } else if(val>myMax) {
-                val = myMax; // !!! Aua!!!
+                val = myMax;
             }
             val = val * myScale;
             RGBColor c =

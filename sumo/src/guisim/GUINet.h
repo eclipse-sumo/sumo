@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.43  2006/12/12 12:11:01  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.42  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -295,7 +298,7 @@ public:
 
 	bool hasPosition(GUIVehicle *v) const;
 
-    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUAStage);
+    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
 
 private:

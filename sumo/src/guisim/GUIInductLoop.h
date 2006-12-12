@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/12/12 12:10:45  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.20  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -141,10 +144,7 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-        /// Draws the detector in simple-geometry mode
-        void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+        void drawGL(SUMOReal scale, SUMOReal upscale);
 
         GUIParameterTableWindow *getParameterWindow(
             GUIMainWindow &app, GUISUMOAbstractView &parent);
@@ -173,12 +173,6 @@ public:
 
         /// The rotation in full-geometry mode
         SUMOReal myFGRotation;
-
-        /// The position in simple-geometry mode
-        Position2D mySGPosition;
-
-        /// The rotation in simple-geometry mode
-        SUMOReal mySGRotation;
 
         /// The position on the lane
         SUMOReal myPosition;

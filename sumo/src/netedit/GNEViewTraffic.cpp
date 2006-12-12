@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/12/12 12:11:03  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.8  2006/11/28 12:10:41  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -77,10 +80,6 @@ namespace
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/shapes/Polygon2D.h>
-#include <utils/gui/drawer/GUILaneDrawer_SGwT.h>
-#include <utils/gui/drawer/GUILaneDrawer_SGnT.h>
-#include <utils/gui/drawer/GUILaneDrawer_FGwT.h>
-#include <utils/gui/drawer/GUILaneDrawer_FGnT.h>
 #include "GNEViewTraffic.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>

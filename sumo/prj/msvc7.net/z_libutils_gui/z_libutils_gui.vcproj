@@ -235,9 +235,6 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIBaseLaneDrawer.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_GradientByFunctionValue.h">
 			</File>
 			<File
@@ -340,16 +337,7 @@
 				RelativePath="..\..\..\src\utils\gui\div\GUIIOGlobals.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGwT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGwT.h">
+				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneRepresentation.h">

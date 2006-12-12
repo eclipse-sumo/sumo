@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.17  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -134,13 +137,11 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
     CrossSectionVectorConstIt i;
     for(i=entries.begin(); i!=entries.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i, false);
-        myBoundary.add(def.mySGPosition);
         myBoundary.add(def.myFGPosition);
         myEntryDefinitions.push_back(def);
     }
     for(i=exits.begin(); i!=exits.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i, true);
-        myBoundary.add(def.mySGPosition);
         myBoundary.add(def.myFGPosition);
         myExitDefinitions.push_back(def);
     }
@@ -163,8 +164,6 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
     Line2D l(v.getBegin(), v.getEnd());
 
     SingleCrossingDefinition def;
-    def.mySGPosition = l.getPositionAtDistance(pos);
-    def.mySGRotation = -l.atan2DegreeAngle();
     def.myFGPosition = v.positionAtLengthPosition(pos);
     def.myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
     return def;
@@ -223,23 +222,7 @@ GUIE3Collector::MyWrapper::active() const
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal /*scale*/, SUMOReal upscale)
-{
-    typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
-    CrossingDefinitions::const_iterator i;
-    glColor3d(0, .8, 0);
-    for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, upscale);
-    }
-    glColor3d(.8, 0, 0);
-    for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, upscale);
-    }
-}
-
-
-void
-GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal /*scale*/, SUMOReal upscale)
+GUIE3Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;

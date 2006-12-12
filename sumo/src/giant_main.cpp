@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/12/12 12:15:24  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.14  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -98,7 +101,7 @@
 #include <gui/GUIThreadFactory.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
+#include <gui/drawerimpl/GUIVehicleDrawer.h>
 #include "giant_help.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>

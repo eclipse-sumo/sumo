@@ -91,35 +91,7 @@ SOURCE=..\..\..\src\gui\GUIApplicationWindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.cpp
+SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -151,11 +123,7 @@ SOURCE=..\..\..\src\gui\GUIGlobals.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.cpp
+SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -167,19 +135,7 @@ SOURCE=..\..\..\src\gui\GUIManipulator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.cpp
+SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -199,19 +155,7 @@ SOURCE=..\..\..\src\gui\GUIThreadFactory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
+SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer.cpp
 # End Source File
 # Begin Source File
 
@@ -231,39 +175,11 @@ SOURCE=..\..\..\src\gui\GUIApplicationWindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ColorRetrival.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.h
+SOURCE=..\..\..\src\gui\drawerimpl\GUIDetectorDrawer.h
 # End Source File
 # Begin Source File
 
@@ -295,11 +211,7 @@ SOURCE=..\..\..\src\gui\GUIGlobals.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.h
+SOURCE=..\..\..\src\gui\drawerimpl\GUIJunctionDrawer.h
 # End Source File
 # Begin Source File
 
@@ -311,19 +223,7 @@ SOURCE=..\..\..\src\gui\GUIManipulator.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.h
+SOURCE=..\..\..\src\gui\drawerimpl\GUIROWDrawer.h
 # End Source File
 # Begin Source File
 
@@ -343,19 +243,7 @@ SOURCE=..\..\..\src\gui\GUIThreadFactory.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
+SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer.h
 # End Source File
 # Begin Source File
 

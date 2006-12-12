@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.20  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -291,19 +294,10 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_SG(scale, upscale);
-    }
-}
-
-
-void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
-{
-    for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_FG(scale, upscale);
+        (*i)->drawGL(scale, upscale);
     }
 }
 

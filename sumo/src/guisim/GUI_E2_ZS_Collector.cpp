@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/12/12 12:10:43  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.23  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -205,11 +208,6 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
 {
     const Position2DVector &v = wrapper.getShape();
     Line2D l(v.getBegin(), v.getEnd());
-    mySGPosition = l.getPositionAtDistance(detector.getStartPos());
-    Position2D endPos = l.getPositionAtDistance(detector.getEndPos());
-    mySGRotation = -l.atan2DegreeAngle();
-    mySGLength = GeomHelper::distance(mySGPosition, endPos);
-
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //
@@ -223,8 +221,6 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();
-    myBoundary.add(mySGPosition);
-    myBoundary.add(endPos);
 }
 
 
@@ -297,47 +293,7 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal /*scale*/, SUMOReal upscale)
-{
-    SUMOReal myWidth = 1;
-    if(myDetector.getUsageType()==DU_TL_CONTROL) {
-        myWidth = (SUMOReal) 0.3;
-        glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
-    } else {
-        glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
-    }
-    SUMOReal width=2; // !!!
-    if(width*upscale>1.0) {
-        glPushMatrix();
-        glScaled(upscale, upscale, upscale);
-        glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
-        glRotated( mySGRotation, 0, 0, 1 );
-        glBegin( GL_QUADS );
-        glVertex2d(-myWidth, 0);
-        glVertex2d(-myWidth, -mySGLength);
-        glVertex2d(myWidth, -mySGLength);
-        glVertex2d(myWidth, 0);
-        glEnd();
-        glBegin( GL_LINES);
-        glVertex2d(0, 0);
-        glVertex2d(0, -mySGLength);
-        glEnd();
-        glPopMatrix();
-    } else {
-        glPushMatrix();
-        glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
-        glRotated( mySGRotation, 0, 0, 1 );
-        glBegin( GL_LINES);
-        glVertex2d(0, 0);
-        glVertex2d(0, -mySGLength);
-        glEnd();
-        glPopMatrix();
-    }
-}
-
-
-void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal /*scale*/, SUMOReal upscale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
 {
     SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {

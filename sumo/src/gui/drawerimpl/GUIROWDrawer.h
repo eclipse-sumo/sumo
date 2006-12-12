@@ -1,8 +1,8 @@
-#ifndef GUIDetectorDrawer_FGnT_h
-#define GUIDetectorDrawer_FGnT_h
+#ifndef GUIROWDrawer_h
+#define GUIROWDrawer_h
 //---------------------------------------------------------------------------//
-//                        GUIDetectorDrawer_FGnT.h -
-//  Class for drawing detectors with no tooltip information
+//                        GUIROWDrawer.h -
+//  Base class for drawing right of way - rules
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2006/12/12 12:10:42  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
+// Revision 1.11  2006/05/16 07:48:29  dkrajzew
+// code beautifying
+//
 // Revision 1.10  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -32,23 +38,23 @@
 // Revision 1.7  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
-// Revision 1.6  2005/07/12 11:37:41  dkrajzew
-// level 3 warnings removed; code style adapted
-//
-// Revision 1.5  2005/04/27 09:44:26  dkrajzew
+// Revision 1.6  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
-// Revision 1.4  2004/07/02 08:12:12  dkrajzew
-// detector drawers now also draw other additional items
+// Revision 1.5  2004/11/23 10:05:21  dkrajzew
+// removed some warnings and adapted the new class hierarchy
 //
-// Revision 1.3  2004/01/26 06:39:18  dkrajzew
-// visualisation of e3-detectors added; documentation added
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
 //
-// Revision 1.2  2003/09/25 08:59:28  dkrajzew
-// documentation patched
+// Revision 1.3  2003/11/12 13:45:25  dkrajzew
+// visualisation of tl-logics added
 //
-// Revision 1.1  2003/09/23 14:28:16  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
+// Revision 1.2  2003/09/17 06:45:11  dkrajzew
+// some documentation added/patched
+//
+// Revision 1.1  2003/09/05 14:50:39  dkrajzew
+// implementations of artefact drawers moved to folder "drawerimpl"
 //
 /* =========================================================================
  * compiler pragmas
@@ -67,41 +73,75 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include "GUIBaseDetectorDrawer.h"
+#include <map>
+#include <utils/gfx/RGBColor.h>
+#include <microsim/MSLink.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/glutils/GLHelper.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class GUIAbstractAddGlObject;
+class GUILaneWrapper;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class GUIDetectorDrawer_FGnT
- * Derived from GUIBaseDetectorDrawer, this class implements the method that
- *  draws the detectors. For each detector the method to draw the detector in
- *  full geometry mode is called.
+ * Draws lanes as simple, one-colored straights
  */
-class GUIDetectorDrawer_FGnT
-        : public GUIBaseDetectorDrawer
-{
+class GUIROWDrawer {
 public:
-    /// Constructor
-    GUIDetectorDrawer_FGnT(const std::vector<GUIGlObject_AbstractAdd*> &additionals)
-        : GUIBaseDetectorDrawer(additionals) { }
+    /// constructor
+    GUIROWDrawer(std::vector<GUIEdge*> &edges);
 
-    /// Destructor
-    ~GUIDetectorDrawer_FGnT() { }
+    /// destructor
+    virtual ~GUIROWDrawer();
+
+    void drawGLROWs(const GUINet &net,
+        size_t *which, size_t maxEdges, SUMOReal width, bool showLane2Lane,
+        bool withArrows);
+
+    void setGLID(bool val);
 
 protected:
-    /// Draws the detectors
-    void myDrawGLDetectors(size_t *which, size_t maxDetectors,
-        SUMOReal scale, SUMOReal upscale);
+    void drawGLROWs_Only(const GUINet &net,
+        size_t *which, size_t maxEdges, SUMOReal width,
+        bool withArrows);
+
+    void drawGLROWs_WithConnections(const GUINet &net,
+        size_t *which, size_t maxEdges, SUMOReal width,
+        bool withArrows);
+
+private:
+    /// initialises the drawing
+    virtual void initStep();
+
+    /// Function that realises the drawing of lik rules
+    virtual void drawLinkRules(const GUINet &net, const GUILaneWrapper &lane);
+
+    void initTexture(size_t no);
+
+    virtual void drawArrows(const GUILaneWrapper &lane);
+
+    /// Information whether the gl-id shall be set
+    bool myShowToolTips;
+
+protected:
+    /// Definition of a storage for link colors
+    typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
+
+    /// The colors to use for certain link types
+    LinkColorMap myLinkColors;
+
+protected:
+    /// The list of edges to consider at drawing
+    std::vector<GUIEdge*> &myEdges;
 
 };
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
@@ -110,3 +150,4 @@ protected:
 // Local Variables:
 // mode:C++
 // End:
+

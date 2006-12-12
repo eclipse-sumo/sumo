@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/12/12 12:11:02  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.12  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -315,10 +318,8 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
         GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
         no += gedge->getLanes()->size();
     }
-    mySGPositions.reserve(no);
     myFGPositions.reserve(no);
     myFGRotations.reserve(no);
-    mySGRotations.reserve(no);
     for(k=0; k<edges.size(); k++) {
         GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
         const MSEdge::LaneCont * const lanes = gedge->getLanes();
@@ -329,9 +330,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
             Line2D l(v.getBegin(), v.getEnd());
-            mySGPositions.push_back(l.getPositionAtDistance(pos));
             myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(pos));
-            mySGRotations.push_back(-l.atan2DegreeAngle());
         }
     }
 }
@@ -387,27 +386,11 @@ GUITriggeredRerouter::getPosition() const
 
 
 void
-GUITriggeredRerouter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(myFGPositions, myFGRotations, scale, upscale);
-}
-
-
-void
-GUITriggeredRerouter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(mySGPositions, mySGRotations, scale, upscale);
-}
-
-
-void
-GUITriggeredRerouter::doPaint(const PosCont &poss,
-                              const RotCont rots,
-                              SUMOReal scale, SUMOReal upscale)
-{
-    for(size_t i=0; i<poss.size(); ++i) {
-        const Position2D &pos = poss[i];
-        SUMOReal rot = rots[i];
+    for(size_t i=0; i<myFGPositions.size(); ++i) {
+        const Position2D &pos = myFGPositions[i];
+        SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(upscale, upscale, upscale);
         glTranslated(pos.x(), pos.y(), 0);
@@ -513,7 +496,6 @@ GUITriggeredRerouter::openManipulator(GUIMainWindow &app,
     gui->show();
     return gui;
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

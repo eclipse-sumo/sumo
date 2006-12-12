@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/12/12 12:11:00  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.21  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -389,10 +392,8 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     GUIGlObject_AbstractAdd(gIDStorage, "speedtrigger:" + id, GLO_TRIGGER),
     myShowAsKMH(true), myLastValue(-1)
 {
-    mySGPositions.reserve(destLanes.size());
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
-    mySGRotations.reserve(destLanes.size());
     vector<MSLane*>::const_iterator i;
     for(i=destLanes.begin(); i!=destLanes.end(); ++i) {
         const GUIEdge * const edge = static_cast<const GUIEdge * const>((*i)->getEdge());
@@ -400,9 +401,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
             edge->getLaneGeometry((const MSLane *) (*i)).getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
         Line2D l(v.getBegin(), v.getEnd());
-        mySGPositions.push_back(l.getPositionAtDistance(0));
         myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
-        mySGRotations.push_back(-l.atan2DegreeAngle());
         myDefaultSpeed = (*i)->maxSpeed();
         mySpeedOverrideValue = (*i)->maxSpeed();
     }
@@ -466,26 +465,11 @@ GUILaneSpeedTrigger::getPosition() const
 
 
 void
-GUILaneSpeedTrigger::drawGL_FG(SUMOReal scale, SUMOReal upscale)
+GUILaneSpeedTrigger::drawGL(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(myFGPositions, myFGRotations, scale, upscale);
-}
-
-
-void
-GUILaneSpeedTrigger::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(mySGPositions, mySGRotations, scale, upscale);
-}
-
-
-void
-GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
-                             SUMOReal scale, SUMOReal upscale)
-{
-    for(size_t i=0; i<poss.size(); ++i) {
-        const Position2D &pos = poss[i];
-        SUMOReal rot = rots[i];
+    for(size_t i=0; i<myFGPositions.size(); ++i) {
+        const Position2D &pos = myFGPositions[i];
+        SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(upscale, upscale, upscale);
         glTranslated(pos.x(), pos.y(), 0);

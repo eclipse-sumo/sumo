@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        GUIDetectorDrawer_FGnT.cpp -
+//                        GUILaneStateReporter.cpp -
 //
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.18  2006/12/12 12:11:01  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.17  2005/11/29 13:25:06  dkrajzew
 // mispelled "floating" patched
 //
@@ -31,11 +34,11 @@
 // Revision 1.14  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
-//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.3  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -103,10 +106,7 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-    /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+    void drawGL(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -116,10 +116,6 @@ public:
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
-
-private:
-    void doPaint(const Position2DVector &shape, const DoubleVector &rots,
-        const DoubleVector &lengths, const Position2D &spos, SUMOReal scale, SUMOReal upscale);
 
 public:
     class GUIBusStopPopupMenu : public GUIGLObjectPopupMenu {

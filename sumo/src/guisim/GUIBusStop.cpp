@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.9  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -341,24 +344,6 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
         tmp.move2side(1.5);
         myFGSignPos = tmp.center();
     }
-    // simple geometry
-    {
-        mySGShape.push_back(lane.getShape()[0]);
-        mySGShape.push_back(lane.getShape()[-1]);
-        mySGShape.move2side((SUMOReal) 1.65);
-        mySGShape = mySGShape.getSubpart(frompos, topos);
-        myFGShapeRotations.reserve(mySGShape.size()-1);
-        myFGShapeLengths.reserve(mySGShape.size()-1);
-        for(size_t i=0; i<mySGShape.size()-1; i++) {
-            const Position2D &f = mySGShape[i];
-            const Position2D &s = mySGShape[i+1];
-            mySGShapeLengths.push_back(GeomHelper::distance(f, s));
-            mySGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
-        }
-        Position2DVector tmp = mySGShape;
-        tmp.move2side(1.5);
-        mySGSignPos = tmp.center();
-    }
 }
 
 
@@ -411,22 +396,19 @@ GUIBusStop::getPosition() const
 
 
 void
-GUIBusStop::doPaint(const Position2DVector &shape,
-                    const DoubleVector &rots,
-                    const DoubleVector &lengths,
-                    const Position2D &spos, SUMOReal scale, SUMOReal upscale)
+GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     // draw the area
     glColor3f((SUMOReal) (76./255.), (SUMOReal) (170./255.), (SUMOReal) (50./255.));
     size_t i;
-    GLHelper::drawBoxLines(shape, rots, lengths, 1.0);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw the lines
     if(scale>=35) {
         glColor3f((SUMOReal) (76./255.), (SUMOReal) (170./255.), (SUMOReal) (50./255.));
         for(i=0; i!=myLines.size(); ++i) {
             glPushMatrix();
             glScaled(upscale, upscale, upscale);
-            glTranslated(spos.x()+1.2, spos.y()+0.8, 0);
+            glTranslated(myFGSignPos.x()+1.2, myFGSignPos.y()+0.8, 0);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(.5f);
@@ -441,7 +423,7 @@ GUIBusStop::doPaint(const Position2DVector &shape,
     // draw the sign
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
-    glTranslated(spos.x(), spos.y(), 0);
+    glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
     //glRotated( rot, 0, 0, 1 );
     //glTranslated(0, -1.5, 0);
     int noPoints = 9;
@@ -474,26 +456,6 @@ GUIBusStop::doPaint(const Position2DVector &shape,
     glTranslated(-w/2., 0.4, 0);
     pfDrawString("H");
     glPopMatrix();
-}
-
-
-void
-GUIBusStop::drawGL_FG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, scale, upscale);
-}
-
-
-void
-GUIBusStop::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, scale, upscale);
-    /*
-    glColor3f(76./255., 170./255., 50./255.);
-    for(size_t i=0; i<mySGShape.size()-1; i++) {
-	    GLHelper::drawBoxLine(mySGShape.at(i), mySGShapeRotations[i], mySGShapeLengths[i], .4);
-    }
-    */
 }
 
 

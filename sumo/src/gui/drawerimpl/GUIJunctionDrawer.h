@@ -1,7 +1,7 @@
-#ifndef GUIBaseJunctionDrawer_h
-#define GUIBaseJunctionDrawer_h
+#ifndef GUIJunctionDrawer_h
+#define GUIJunctionDrawer_h
 //---------------------------------------------------------------------------//
-//                        GUIBaseJunctionDrawer.h -
+//                        GUIJunctionDrawer.h -
 //  Base class for drawing junctions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2006/12/12 12:10:40  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -60,17 +63,21 @@
 
 class GUIJunctionWrapper;
 
-class GUIBaseJunctionDrawer
+class GUIJunctionDrawer
 {
 public:
-    GUIBaseJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions);
-    virtual ~GUIBaseJunctionDrawer();
+    GUIJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions);
+    virtual ~GUIJunctionDrawer();
     virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
-        GUISUMOAbstractView::JunctionColoringScheme scheme) = 0;
+        GUISUMOAbstractView::JunctionColoringScheme scheme);
+    void setGLID(bool val);
 
 protected:
     /// The list of junctions to consider at drawing
     std::vector<GUIJunctionWrapper*> &myJunctions;
+
+    /// Information whether the gl-id shall be set
+    bool myShowToolTips;
 
 };
 

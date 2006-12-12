@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2006/12/12 12:11:01  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.55  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -417,6 +420,10 @@ GUINet::initTLMap()
     for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
+        if(tll->getID()=="454") {
+            string bla = tll->getSubID();
+            int b = 0;
+        }
         // get the links
         const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
         if(links.size()==0) {
@@ -487,6 +494,10 @@ GUINet::getLinkTLID(MSLink *link) const
 {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     assert(i!=myLinks2Logic.end());
+    if(myLogics2Wrapper.find(myLogics->getActive((*i).second))==myLogics2Wrapper.end()) {
+        myLogics->getActive((*i).second);
+        return -1;
+    }
     return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getGlID();
 }
 
@@ -623,13 +634,13 @@ GUINet::setIdleDuration(int val)
 
 
 MSRouteLoader *
-GUINet::buildRouteLoader(const std::string &file, int incDUAStage)
+GUINet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage)
 {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) using colors
-    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false, incDUAStage));
+    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false, incDUABase, incDUAStage));
 }
 
 

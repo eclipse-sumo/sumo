@@ -1,8 +1,8 @@
-#ifndef GUIBaseROWDrawer_h
-#define GUIBaseROWDrawer_h
+#ifndef GUIVehicleDrawer_h
+#define GUIVehicleDrawer_h
 //---------------------------------------------------------------------------//
-//                        GUIBaseROWDrawer.h -
-//  Base class for drawing right of way - rules
+//                        GUIVehicleDrawer.h -
+//  Base class for vehicle drawing
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -20,17 +20,20 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.11  2006/05/16 07:48:29  dkrajzew
-// code beautifying
+// Revision 1.1  2006/12/12 12:10:43  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
 //
-// Revision 1.10  2006/01/09 11:50:21  dkrajzew
+// Revision 1.11  2006/07/06 06:26:44  dkrajzew
+// added blinker visualisation and vehicle tracking (unfinished)
+//
+// Revision 1.10  2006/01/31 10:51:18  dkrajzew
+// unused methods documented out (kept for further use)
+//
+// Revision 1.9  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
-// Revision 1.9  2005/10/07 11:36:48  dkrajzew
+// Revision 1.8  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
 // Revision 1.7  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
@@ -41,11 +44,11 @@
 // Revision 1.5  2004/11/23 10:05:21  dkrajzew
 // removed some warnings and adapted the new class hierarchy
 //
-// Revision 1.4  2004/03/19 12:34:30  dkrajzew
-// porting to FOX
+// Revision 1.4  2004/08/02 11:30:54  dkrajzew
+// refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
 //
-// Revision 1.3  2003/11/12 13:45:25  dkrajzew
-// visualisation of tl-logics added
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
 //
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
@@ -70,66 +73,62 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <map>
-#include <utils/gfx/RGBColor.h>
-#include <microsim/MSLink.h>
+#include <vector>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/glutils/GLHelper.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class GUILaneWrapper;
+class GUIVehicle;
+class GUIEdge;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * Draws lanes as simple, one-colored straights
+ * Draws vehicles as coloured triangles
  */
-class GUIBaseROWDrawer {
+class GUIVehicleDrawer {
 public:
     /// constructor
-    GUIBaseROWDrawer(std::vector<GUIEdge*> &edges);
+    GUIVehicleDrawer(const std::vector<GUIEdge*> &edges);
 
     /// destructor
-    virtual ~GUIBaseROWDrawer();
+    virtual ~GUIVehicleDrawer();
 
-    void drawGLROWs(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width, bool showLane2Lane,
-        bool withArrows);
+    /// Draws the vehicles that are on the marked edges
+    void drawGLVehicles(size_t *onWhich, size_t maxEdges,
+        GUISUMOAbstractView::VisualizationSettings &settings/*,
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
+
+    void setGLID(bool val);
+
+    /// Returns the list of available coloring schemes
+    static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
 
 protected:
-    void drawGLROWs_Only(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width,
-        bool withArrows);
-
-    void drawGLROWs_WithConnections(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width,
-        bool withArrows);
-
-private:
     /// initialises the drawing
-    virtual void initStep();
+    void initStep();
 
-    /// Function that realises the drawing of lik rules
-    virtual void drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) = 0;
-
-    void initTexture(size_t no);
-
-    virtual void drawArrows(const GUILaneWrapper &lane) = 0;
-
-protected:
-    /// Definition of a storage for link colors
-    typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
-
-    /// The colors to use for certain link types
-    LinkColorMap myLinkColors;
+    /// Draws all vehicles that are on the given lane
+    virtual void drawLanesVehicles(GUILaneWrapper &lane,
+        const GUISUMOAbstractView::VisualizationSettings &settings);
 
 protected:
     /// The list of edges to consider at drawing
-    std::vector<GUIEdge*> &myEdges;
+    const std::vector<GUIEdge*> &myEdges;
+
+    /** @brief The list of coloring schemes that may be used
+        They are not fixed as they may change in dependence to the available parameter */
+    static GUIColoringSchemesMap<GUIVehicle> myColoringSchemes;
+
+    /// Information whether the gl-id shall be set
+    bool myShowToolTips;
 
 };
 

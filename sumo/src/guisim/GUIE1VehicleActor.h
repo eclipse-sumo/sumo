@@ -19,12 +19,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.2  2006/11/17 11:13:57  dkrajzew
 // changes to the actor-API applied
 //
 // Revision 1.1  2006/10/12 07:55:28  dkrajzew
 // added tol-actor visualisation
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -100,10 +102,7 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-    /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+    void drawGL(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;

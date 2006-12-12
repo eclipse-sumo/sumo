@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/12/12 12:11:04  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.21  2006/11/28 12:10:45  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -321,6 +324,17 @@ public:
 
     SUMOReal getGridWidth() const;
     SUMOReal getGridHeight() const;
+
+        /// shows a vehicle route
+    virtual void showRoute(GUIVehicle *v, int index=-1) { }
+
+    /// hides a vehicle route
+    virtual void hideRoute(GUIVehicle *v, int index=-1) { }
+
+    virtual void startTrack(int id) { }
+    virtual void stopTrack() { }
+    virtual int getTrackedID() const { return -1; }
+    virtual bool amShowingRouteFor(GUIVehicle *v, int index=-1) { return false; }
 
 public:
     /**

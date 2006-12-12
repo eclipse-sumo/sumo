@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/12/12 12:11:02  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.8  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -124,10 +127,7 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-    /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+    void drawGL(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -207,9 +207,6 @@ private:
 
     /// Definition of a rotation container
     typedef std::vector<SUMOReal> RotCont;
-
-private:
-    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale, SUMOReal upscale);
 
 private:
     /// The positions in full-geometry mode

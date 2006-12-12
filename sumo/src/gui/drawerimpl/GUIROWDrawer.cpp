@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        GUIBaseROWDrawer.h -
+//                        GUIROWDrawer.h -
 //  Base class for drawing right of way-rules
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2006/12/12 12:10:40  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.12  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -83,7 +86,8 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
 #include <utils/glutils/GLHelper.h>
-#include "GUIBaseROWDrawer.h"
+#include "GUIROWDrawer.h"
+#include <utils/gui/images/GUITexturesHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -105,7 +109,7 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIBaseROWDrawer::GUIBaseROWDrawer(std::vector<GUIEdge*> &edges)
+GUIROWDrawer::GUIROWDrawer(std::vector<GUIEdge*> &edges)
     : myEdges(edges)
 {
     myLinkColors[MSLink::LINKSTATE_TL_GREEN] = RGBColor(0, 1, 0);
@@ -120,13 +124,20 @@ GUIBaseROWDrawer::GUIBaseROWDrawer(std::vector<GUIEdge*> &edges)
 }
 
 
-GUIBaseROWDrawer::~GUIBaseROWDrawer()
+GUIROWDrawer::~GUIROWDrawer()
 {
 }
 
 
 void
-GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
+GUIROWDrawer::setGLID(bool val)
+{
+    myShowToolTips = val;
+}
+
+
+void
+GUIROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
                              size_t maxEdges, SUMOReal width,
                              bool showLane2Lane, bool withArrows)
 {
@@ -142,7 +153,7 @@ GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
 
 
 void
-GUIBaseROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
+GUIROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
                                   size_t maxEdges, SUMOReal /*width !!!*/,
                                   bool withArrows)
 {
@@ -176,7 +187,7 @@ GUIBaseROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
 
 
 void
-GUIBaseROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
+GUIROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
                                              size_t *which,
                                              size_t maxEdges,
                                              SUMOReal /*width !!!*/,
@@ -230,10 +241,133 @@ GUIBaseROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
 
 
 void
-GUIBaseROWDrawer::initStep()
+GUIROWDrawer::initStep()
 {
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+
+void
+GUIROWDrawer::drawLinkRules(const GUINet &net,
+                                 const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    if(noLinks==0) {
+        if(myShowToolTips) {
+            glPushName(lane.getGlID());
+        }
+        // draw a grey bar if no links are on the street
+        glColor3f(0.5, 0.5, 0.5);
+        glPushMatrix();
+        glTranslated(end.x(), end.y(), 0);
+        glRotated( rot, 0, 0, 1 );
+        glBegin( GL_QUADS );
+        glVertex2d(-SUMO_const_halfLaneWidth, 0.0);
+        glVertex2d(-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(SUMO_const_halfLaneWidth, 0.0);
+        glEnd();
+        glPopMatrix();
+        if(myShowToolTips) {
+            glPopName();
+        }
+        return;
+    }
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = 0;
+    glPushMatrix();
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        SUMOReal x2 = x1 + w;
+        MSLink::LinkState state = lane.getLinkState(i);
+        if(myShowToolTips) {
+            switch(state) {
+            case MSLink::LINKSTATE_TL_GREEN:
+            case MSLink::LINKSTATE_TL_RED:
+            case MSLink::LINKSTATE_TL_YELLOW:
+            case MSLink::LINKSTATE_TL_OFF_BLINKING:
+                glPushName(lane.getLinkTLID(net, i));
+                break;
+            case MSLink::LINKSTATE_MAJOR:
+            case MSLink::LINKSTATE_MINOR:
+            case MSLink::LINKSTATE_EQUAL:
+            case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+            default:
+                glPushName(lane.getGlID());
+                break;
+            }
+        }
+        const RGBColor &color = myLinkColors.find(state)->second;
+        glColor3d(color.red(), color.green(), color.blue());
+        glBegin( GL_QUADS );
+        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.0);
+        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth,0.0);
+        glEnd();
+        if(myShowToolTips) {
+            glPopName();
+        }
+        x1 = x2;
+        x2 += w;
+    }
+    glPopMatrix();
+}
+
+
+void
+GUIROWDrawer::drawArrows(const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    if(noLinks==0) {
+        return;
+    }
+    // draw all links
+    const Position2D &end = lane.getShape().getEnd();
+    const Position2D &f = lane.getShape()[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glPushMatrix();
+    if(myShowToolTips) {
+        glPushName(lane.getGlID());
+    }
+    glColor3f(1, 1, 1);
+    glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    glDisable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        MSLink::LinkDirection dir = lane.getLinkDirection(i);
+        MSLink::LinkState state = lane.getLinkState(i);
+        if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
+            continue;
+        }
+        GUITexturesHelper::drawDirectionArrow((GUITexture) dir,
+            1.5, 4.0, -1.5, 1);
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    if(myShowToolTips) {
+        glPopName();
+    }
+    glPopMatrix();
 }
 
 

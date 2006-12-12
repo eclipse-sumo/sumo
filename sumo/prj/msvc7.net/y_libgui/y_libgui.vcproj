@@ -130,164 +130,7 @@
 				RelativePath="..\..\..\src\gui\GUIApplicationWindow.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.cpp">
@@ -413,44 +256,7 @@
 				RelativePath="..\..\..\src\gui\GUIGlobals.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUILoadThread.cpp">
@@ -459,84 +265,7 @@
 				RelativePath="..\..\..\src\gui\GUIManipulator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIRunThread.cpp">
@@ -585,84 +314,7 @@
 				RelativePath="..\..\..\src\gui\GUIThreadFactory.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp">
@@ -695,31 +347,10 @@
 				RelativePath="..\..\..\src\gui\GUIApplicationWindow.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseDetectorDrawer.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseJunctionDrawer.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIColoringSchemesMap.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.h">
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIDetectorDrawer.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.h">
@@ -746,10 +377,7 @@
 				RelativePath="..\..\..\src\gui\GUIGlobals.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_nT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer_wT.h">
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIJunctionDrawer.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUILoadThread.h">
@@ -758,16 +386,7 @@
 				RelativePath="..\..\..\src\gui\GUIManipulator.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGwT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGnT.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_SGwT.h">
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIRunThread.h">
@@ -785,16 +404,7 @@
 				RelativePath="..\..\..\src\gui\GUIThreadFactory.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGnTasTriangle.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_FGwTasTriangle.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h">
+				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.h">

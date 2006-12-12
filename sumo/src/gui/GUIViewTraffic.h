@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.32  2006/12/12 12:10:35  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.31  2006/11/28 12:10:40  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -133,7 +136,12 @@
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/gui/drawer/GUIBaseLaneDrawer.h>
+#include <utils/gui/drawer/GUILaneDrawer.h>
+#include "drawerimpl/GUIVehicleDrawer.h"
+#include "drawerimpl/GUIDetectorDrawer.h"
+#include "drawerimpl/GUIROWDrawer.h"
+#include "drawerimpl/GUIJunctionDrawer.h"
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -151,10 +159,6 @@ class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
-class GUIBaseVehicleDrawer;
-class GUIBaseDetectorDrawer;
-class GUIBaseJunctionDrawer;
-class GUIBaseROWDrawer;
 
 
 
@@ -190,7 +194,6 @@ public:
     void stopTrack();
     int getTrackedID() const;
 
-    long onCmdShowFullGeom(FXObject*,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
     long onLeftBtnRelease(FXObject*,FXSelector,void*);
@@ -235,35 +238,32 @@ protected:
     /** @brief Instances of the vehicle drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseVehicleDrawer* myVehicleDrawer[8];
+    GUIVehicleDrawer myVehicleDrawer;
 
     /** @brief Instances of the lane drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseLaneDrawer<GUIEdge, GUIEdge, GUILaneWrapper> *myLaneDrawer[8];
+    GUILaneDrawer<GUIEdge, GUIEdge, GUILaneWrapper> myLaneDrawer;
 
     /** @brief Instances of the junction drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseJunctionDrawer *myJunctionDrawer[8];
+    GUIJunctionDrawer myJunctionDrawer;
 
     /** @brief Instances of the detectors drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseDetectorDrawer *myDetectorDrawer[8];
+    GUIDetectorDrawer myDetectorDrawer;
 
     /** @brief Instances of the right of way drawers
         A drawer is chosen in dependence to whether the full or the simple
         geometry shall be used and whether to show tooltips or not */
-    GUIBaseROWDrawer *myROWDrawer[8];
+    GUIROWDrawer myROWDrawer;
 
     /// The coloring scheme of junctions to use
     JunctionColoringScheme _junctionColScheme;
 
     int myTrackedID;
-
-    /// Information whether the full or the simle geometry shall be used
-    bool myUseFullGeom;
 
     /** @brief Pointers to tables holding the information which of the items are visible
         All vehicles on visible edges will be drawn */
@@ -284,7 +284,15 @@ protected:
 	GUINet *_net;
 
 protected:
-    GUIViewTraffic() { }
+    std::vector<GUIEdge*> myEmptyEdges;
+    std::vector<GUIJunctionWrapper*> myEmptyJunctions;
+
+    GUIViewTraffic()
+        : myVehicleDrawer(myEmptyEdges), myLaneDrawer(myEmptyEdges),
+        myJunctionDrawer(myEmptyJunctions),
+        myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
+        myROWDrawer(myEmptyEdges) { }
+
 };
 
 

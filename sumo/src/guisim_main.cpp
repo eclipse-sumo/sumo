@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2006/12/12 12:15:24  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.19  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -233,7 +236,7 @@
 #include <gui/GUIThreadFactory.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
+#include <gui/drawerimpl/GUIVehicleDrawer.h>
 #include "guisim_help.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
@@ -246,9 +249,11 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByCastedFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ColorRetrival.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
 #include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
+#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 //#include <utils/gui/drawer/GUIColorer_ByDeviceState.h>
 #include <guisim/GUIVehicle.h>
 
@@ -287,70 +292,97 @@ void
 initColoringSchemes()
 {
     // insert possible vehicle coloring schemes
-    GUIColoringSchemesMap<GUIVehicle> &sm = GUIBaseVehicleDrawer::getSchemesMap();
-    sm.add("given vehicle color",
+    GUIColoringSchemesMap<GUIVehicle> &sm = GUIVehicleDrawer::getSchemesMap();
+        // from read/assigned colors
+    sm.add("given/assigned vehicle color",
         new GUIColorer_ColorSettingFunction<GUIVehicle>(
             (void (GUIVehicle::*)() const) &GUIVehicle::setOwnDefinedColor));
-
-    sm.add("given type color",
+    sm.add("given/assigned type color",
         new GUIColorer_ColorSettingFunction<GUIVehicle>(
             (void (GUIVehicle::*)() const) &GUIVehicle::setOwnTypeColor));
-
-    sm.add("given route color",
+    sm.add("given/assigned route color",
         new GUIColorer_ColorSettingFunction<GUIVehicle>(
             (void (GUIVehicle::*)() const) &GUIVehicle::setOwnRouteColor));
-
+        // from a vehicle's standard values
     sm.add("by speed",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
             0, (SUMOReal) (150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));
-
     sm.add("by waiting time",
-        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
             0, (SUMOReal) (5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
-            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));//!!!!
-
+            (size_t (GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
     sm.add("by time since last lanechange",
-        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
             0, (SUMOReal) (5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
-            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getSpeed));//!!!!
-
-    /*
-    sm.add("by device number",
-        new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-            (size_t (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
-            true, 1, 10,
-            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
-            MSCORN::CORN_VEH_DEV_NO_CPHONE));
-            */
-
+            (size_t (GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
     sm.add("by max speed",
         new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
             0, (SUMOReal) (150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
-/*
-    GUIColorer_ByDeviceState *c1 = new GUIColorer_ByDeviceState<GUIVehicle, MSCORN::Function>(
-        (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-        (size_t (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
-        true, RGBColor(1,0,0), MSCORN::CORN_P_VEH_DEV_CPHONE, MSCORN::CORN_P_VEH_DEV_CPHONE));
-
-    /
-    sm.add("by device state",
-        new GUIColorer_ByDeviceNumber<GUIVehicle>(
-            (void (GUIVehicle::*)() const) &GUIVehicle::setDeviceStateColor));
-*/
-
-
+        // ... and some not always used values
+    sm.add("by reroute number",
+        new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            true, 1, 10,
+            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+            MSCORN::CORN_VEH_NUMBERROUTE));
     /*
-    sm.add("random#1", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("random#2", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("device #", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("device state", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-*/
-//    sm.add("reroute off", GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET);
-//    sm.add("reroute #", GUISUMOAbstractView::VCS_ROUTECHANGENUMBER);
-//    sm.add("lanechange#4", GUISUMOAbstractView::VCS_LANECHANGE4);
+    sm.add("by time since last reroute",
+        new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            true, 1, 10,
+            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+            MSCORN::CORN_VEH_NUMBERROUTE));
+            */
+        // using TOL-extensions
+    sm.add("TOL: by device number",
+        new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            true, 1, 10,
+            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+            MSCORN::CORN_VEH_DEV_NO_CPHONE));
+    /*
+    sm.add("by device state",
+        new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            true, 1, 10,
+            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+            MSCORN::CORN_VEH_DEV_NO_CPHONE));
+            */
+        // using C2C extensions
+    sm.add("C2C: by having a device",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+            0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
+            (bool (GUIVehicle::*)() const) &GUIVehicle::isEquipped));
+    sm.add("C2C: by number of all information",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, int>(
+            0, (SUMOReal) (10), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (int (GUIVehicle::*)() const) &GUIVehicle::getTotalInformationNumber)); // !!!
+    sm.add("C2C: by information number",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+            0, (SUMOReal) (200), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (size_t (GUIVehicle::*)() const) &GUIVehicle::getInformationNumber));
+    sm.add("C2C: by connections number",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+            0, (SUMOReal) (3), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (size_t (GUIVehicle::*)() const) &GUIVehicle::getConnectionsNumber));
+    sm.add("C2C: by having a route information",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+            0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
+            (bool (GUIVehicle::*)() const) &GUIVehicle::hasRouteInformation));
+    /*
+    sm.add("C2C: by last information time",
+        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+            0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
+            (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
+            */
+
+    // initialise gradients
 	myDensityGradient =
 		gGradients->getRGBColors(
 			GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
@@ -362,7 +394,7 @@ initColoringSchemes()
 void
 deleteColoringSchemes()
 {
-    delete &GUIBaseVehicleDrawer::getSchemesMap();
+    delete &GUIVehicleDrawer::getSchemesMap();
 }
 
 

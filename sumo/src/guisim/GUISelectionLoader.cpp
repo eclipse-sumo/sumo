@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.7  2006/12/12 12:11:02  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.6  2006/07/06 06:40:38  dkrajzew
 // applied current microsim-APIs
 //
@@ -27,8 +30,6 @@
 //
 // Revision 1.4  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
-//
-//
 //
 /* =========================================================================
  * compiler pragmas

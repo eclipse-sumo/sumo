@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.15  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,12 +82,6 @@ class GUIBaseDetectorDrawer;
  * position only or additionally a length, different display mechanisms are
  * necessary. These must be implemented in class erived from this one,
  * according to the wrapped detectors' properties.
- *
- * The following methods must be implemented by derived classes:
- * drawGL_SG: This method shall draw the detector when simple geometry is used
- * drawGL_FG: This method shall draw the detector when full geometry is used
- * getPosition2D: shall return the position of the detector in order to make
- *  a zoom at the detector possible
  */
 class GUIDetectorWrapper
     : public GUIGlObject_AbstractAdd {

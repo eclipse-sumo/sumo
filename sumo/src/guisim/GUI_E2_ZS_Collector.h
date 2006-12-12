@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/12/12 12:10:43  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.18  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -166,10 +169,7 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-        /// Draws the detector in simple-geometry mode
-        void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+        void drawGL(SUMOReal scale, SUMOReal upscale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -202,15 +202,6 @@ public:
 
         /// The detector's boundary //!!!what about SG/FG
         Boundary myBoundary;
-
-        /// The position in simple-geometry mode
-        Position2D mySGPosition;
-
-        /// The rotation in simple-geometry mode
-        SUMOReal mySGRotation;
-
-        /// The length in simple-geometry mode
-        SUMOReal mySGLength;
 
         /// A sequence of positions in full-geometry mode
         Position2DVector myFullGeometry;

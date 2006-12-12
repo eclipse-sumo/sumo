@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/12/12 12:11:01  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.10  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -125,10 +128,7 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-    /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+    void drawGL(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -213,20 +213,11 @@ private:
     typedef std::vector<SUMOReal> RotCont;
 
 private:
-    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale, SUMOReal upscale);
-
-private:
     /// The positions in full-geometry mode
     PosCont myFGPositions;
 
     /// The rotations in full-geometry mode
     RotCont myFGRotations;
-
-    /// The positions in simple-geometry mode
-    PosCont mySGPositions;
-
-    /// The rotations in simple-geometry mode
-    RotCont mySGRotations;
 
     /// The information whether the speed shall be shown in m/s or km/h
     bool myShowAsKMH;

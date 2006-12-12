@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/12/12 12:19:23  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -80,7 +83,7 @@ public:
         if(gSelected.isSelected(i.getType(), i.getGlID())) {
             glColor3f(0, .4f, .8f);
         } else {
-            glColor3f(0, 0, 0);
+            glColor3f(0.7f, 0.7f, 0.7f);
         }
 	}
 

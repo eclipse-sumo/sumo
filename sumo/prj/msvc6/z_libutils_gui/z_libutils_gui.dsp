@@ -259,10 +259,6 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIBaseColorer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gui\drawer\GUIBaseLaneDrawer.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_GradientByFunctionValue.h
 # End Source File
 # Begin Source File
@@ -411,19 +407,7 @@ SOURCE=..\..\..\src\utils\gui\div\GUIIOGlobals.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_FGwT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGnT.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer_SGwT.h
+SOURCE=..\..\..\src\utils\gui\drawer\GUILaneDrawer.h
 # End Source File
 # Begin Source File
 

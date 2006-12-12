@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/12/12 12:10:45  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.18  2006/11/16 10:50:43  dkrajzew
 // warnings removed
 //
@@ -424,9 +427,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
     }
     myFGPosition = v.positionAtLengthPosition(pos);
     Line2D l(v.getBegin(), v.getEnd());
-    mySGPosition = l.getPositionAtDistance(0);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
-    mySGRotation = -l.atan2DegreeAngle();
 
     myUserEmitChild =
         new GUIEmitterChild_UserTriggeredChild(
@@ -549,66 +550,12 @@ GUIEmitter::getEdgeProbs() const
 
 
 void
-GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(myFGPosition, myFGRotation, scale, upscale);
-	if(!myDrawRoutes) {
-		return;
-	}
-    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
-    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
-        double c = (*k).second;
-		glColor3d(1.-c, 1.-c, 0);
-        const MSEdge *e = (*k).first;
-		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-		const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
-    }
-}
-
-
-void
-GUIEmitter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
-{
-    doPaint(mySGPosition, mySGRotation, scale, upscale);
-	if(!myDrawRoutes) {
-		return;
-	}
-    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
-    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
-        double c = (*k).second;
-		glColor3d(1.-c, 1.-c, 0);
-        const MSEdge *e = (*k).first;
-		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-        glPushMatrix();
-        const Position2D &beg = lane.getBegin();
-		glTranslated(beg.x(), beg.y(), 0);
-		glRotated( lane.getRotation(), 0, 0, 1 );
-	    SUMOReal visLength = -lane.visLength();
-		glBegin( GL_QUADS );
-		glVertex2d(-SUMO_const_halfLaneWidth, 0);
-	    glVertex2d(-SUMO_const_halfLaneWidth, visLength);
-		glVertex2d(SUMO_const_halfLaneWidth, visLength);
-	    glVertex2d(SUMO_const_halfLaneWidth, 0);
-		glEnd();
-		glBegin( GL_LINES);
-	    glVertex2d(0, 0);
-		glVertex2d(0, visLength);
-		glEnd();
-	    glPopMatrix(); // !!! all this is also done in lane drawer
-    }
-}
-
-
-void
-GUIEmitter::doPaint(const Position2D &pos, SUMOReal rot,
-                    SUMOReal /*scale*/, SUMOReal upscale)
+GUIEmitter::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
-    glTranslated(pos.x(), pos.y(), 0);
-    glRotated( rot, 0, 0, 1 );
+    glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
+    glRotated( myFGRotation, 0, 0, 1 );
 
     glBegin(GL_TRIANGLES);
     glColor3f(1, 0, 0);
@@ -636,6 +583,19 @@ GUIEmitter::doPaint(const Position2D &pos, SUMOReal rot,
 
     glEnd();
     glPopMatrix();
+
+	if(!myDrawRoutes) {
+		return;
+	}
+    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
+    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
+        double c = (*k).second;
+		glColor3d(1.-c, 1.-c, 0);
+        const MSEdge *e = (*k).first;
+		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+		const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
+    }
 }
 
 

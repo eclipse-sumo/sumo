@@ -1,7 +1,7 @@
-#ifndef GUIBaseLaneDrawer_h
-#define GUIBaseLaneDrawer_h
+#ifndef GUILaneDrawer_h
+#define GUILaneDrawer_h
 //---------------------------------------------------------------------------//
-//                        GUIBaseLaneDrawer.h -
+//                        GUILaneDrawer.h -
 //  Base class for lane drawing;
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2006/12/12 12:19:26  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.11  2006/10/26 10:27:30  dkrajzew
 // debugging
 //
@@ -113,16 +116,19 @@ class GUILaneRepresentation;
  * Draws lanes as simple, one-colored straights
  */
 template<class _E1, class _E2, class _L1>
-class GUIBaseLaneDrawer {
+class GUILaneDrawer {
 public:
     /// constructor
-    GUIBaseLaneDrawer(const std::vector<_E1*> &edges)
+    GUILaneDrawer(const std::vector<_E1*> &edges)
 		: myEdges(edges) { }
 
 
     /// destructor
-	virtual ~GUIBaseLaneDrawer() { }
+	virtual ~GUILaneDrawer() { }
 
+    void setGLID(bool val) {
+        myShowToolTips = val;
+    }
 
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
         SUMOReal width, GUIBaseColorer<_L1> &colorer,
@@ -141,7 +147,9 @@ public:
 					_E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
 	                size_t noLanes = edge->nLanes();
                     if(settings.laneShowBorders&&width>1.) {
-		                glPushName(edge->getGlID());
+                        if(myShowToolTips) {
+                            glPushName(edge->getGlID());
+                        }
                         glColor3d(1,1,1);
                         // draw white boundings
                         size_t k;
@@ -160,18 +168,20 @@ public:
                                 glPushMatrix();
                                 glTranslated(geom[i].x(), geom[i].y(), 0);
                                 glRotated( rots[i], 0, 0, 1 );
-                                for(SUMOReal t=0; t<lengths[i]; t+=2) {
+                                for(SUMOReal t=0; t<lengths[i]; t+=6) {
                                     glBegin(GL_QUADS);
-                                    glVertex2d(-1.7, -t);
-                                    glVertex2d(-1.7, -t-1);
-                                    glVertex2d(1.5, -t-1);
-                                    glVertex2d(1.5, -t);
+                                    glVertex2d(-1.8, -t);
+                                    glVertex2d(-1.8, -t-3.);
+                                    glVertex2d(1.8, -t-3.);
+                                    glVertex2d(1.8, -t);
                                     glEnd();
                                 }
                                 glPopMatrix();
                             }
                         }
-	                    glPopName();
+                        if(myShowToolTips) {
+                            glPopName();
+                        }
                     }
 		            // go through the current edge's lanes
                     if(true) {
@@ -209,19 +219,76 @@ protected:
 		glColor3d(0, 0, 0);
 	}
 
-    /// draws a single lane as a box
-    virtual void drawLane(const _L1 &lane, SUMOReal mult) const = 0;
+    /// draws a single lane as a box list
+    void drawLane(const _L1 &lane, SUMOReal mult) const
+	{
+        if(myShowToolTips) {
+            glPushName(lane.getGlID());
+        }
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
+        if(myShowToolTips) {
+            glPopName();
+        }
+	}
 
-    /// draws a single edge as a box
-    virtual void drawEdge(const _E2 &edge, SUMOReal mult) const = 0;
+    /// draws a single edge as a box list
+    void drawEdge(const _E2 &edge, SUMOReal mult) const
+	{
+        if(myShowToolTips) {
+            glPushName(edge.getGlID());
+        }
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+        GLHelper::drawBoxLines(lane1.getShape(), lane2.getShape(), lane1.getShapeRotations(), lane1.getShapeLengths(), (SUMOReal) edge.nLanes()*SUMO_const_halfLaneAndOffset*mult);
+        if(myShowToolTips) {
+            glPopName();
+        }
+	}
 
-    /// draws a single lane/edge as a line
-    virtual void drawLine(const _L1 &lane) const = 0;
-    virtual void drawLine(const _E2 &edge) const = 0;
+    /// draws a lane as a line
+    void drawLine(const _L1 &lane) const
+	{
+        if(myShowToolTips) {
+            glPushName(lane.getGlID());
+        }
+		const DoubleVector &rots = lane.getShapeRotations();
+		const DoubleVector &lengths = lane.getShapeLengths();
+		const Position2DVector &geom = lane.getShape();
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawLine(geom[i], rots[i], lengths[i]);
+		}
+        if(myShowToolTips) {
+            glPopName();
+        }
+	}
+
+    /// draws an edge as a line
+    void drawLine(const _E2 &edge) const
+	{
+        if(myShowToolTips) {
+            glPushName(edge.getGlID());
+        }
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+		const DoubleVector &rots = lane1.getShapeRotations();
+	    const DoubleVector &lengths = lane1.getShapeLengths();
+		const Position2DVector &geom1 = lane1.getShape();
+        const Position2DVector &geom2 = lane2.getShape();
+        for(size_t i=0; i<geom1.size()-1; i++) {
+		    GLHelper::drawLine(geom1[i], geom2[i], rots[i], lengths[i]);
+		}
+        if(myShowToolTips) {
+            glPopName();
+        }
+	}
+
 
 protected:
     /// The list of edges to consider at drawing
     const std::vector<_E1*> &myEdges;
+
+    /// Information whether the gl-id shall be set
+    bool myShowToolTips;
 
 };
 

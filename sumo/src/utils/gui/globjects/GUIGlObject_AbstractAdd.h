@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/12/12 12:11:04  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.6  2006/01/09 13:36:33  dkrajzew
 // further visualization options added
 //
@@ -91,10 +94,7 @@ public:
     GUIGlObjectType getType() const;
 
     /// Draws the detector in full-geometry mode
-    virtual void drawGL_FG(SUMOReal scale, SUMOReal upscale) = 0;
-
-    /// Draws the detector in simple-geometry mode
-    virtual void drawGL_SG(SUMOReal scale, SUMOReal upscale) = 0;
+    virtual void drawGL(SUMOReal scale, SUMOReal upscale) = 0;
 
     /// Returns the detector's coordinates
     virtual Position2D getPosition() const = 0;

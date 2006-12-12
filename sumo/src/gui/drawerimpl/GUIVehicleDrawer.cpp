@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2006/12/12 12:10:43  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.19  2006/11/16 12:30:53  dkrajzew
 // warnings removed
 //
@@ -103,10 +106,11 @@ namespace
 #include <guisim/GUIRoute.h>
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
-#include "GUIBaseVehicleDrawer.h"
+#include "GUIVehicleDrawer.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/lanechanging/MSLCM_DK2004.h>
-
+#include <utils/glutils/GLHelper.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>
 
 #ifdef _WIN32
@@ -123,31 +127,30 @@ namespace
 /* =========================================================================
  * static members definitions
  * ======================================================================= */
-GUIColoringSchemesMap<GUIVehicle> GUIBaseVehicleDrawer::myColoringSchemes;
+GUIColoringSchemesMap<GUIVehicle> GUIVehicleDrawer::myColoringSchemes;
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIBaseVehicleDrawer::GUIBaseVehicleDrawer(const std::vector<GUIEdge*> &edges)
+GUIVehicleDrawer::GUIVehicleDrawer(const std::vector<GUIEdge*> &edges)
     : myEdges(edges)
 {
 }
 
 
-GUIBaseVehicleDrawer::~GUIBaseVehicleDrawer()
+std::map<int, FXColor> colorBla;
+
+
+GUIVehicleDrawer::~GUIVehicleDrawer()
 {
 }
 
 
 void
-GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
-                                     GUISUMOAbstractView::VisualizationSettings &settings)
-//        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
+GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
+                                 GUISUMOAbstractView::VisualizationSettings &settings)
 {
-    GUIBaseColorer<GUIVehicle> &colorer = *getSchemesMap().getColorer(settings.vehicleMode);
-    SUMOReal upscale = settings.vehicleExaggeration;
-    bool showBlinker = settings.showBlinker;
     initStep();
     // go through edges
     for(size_t i=0; i<maxEdges; i++ ) {
@@ -165,7 +168,7 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-                    drawLanesVehicles(laneGeom, colorer, upscale, showBlinker);
+                    drawLanesVehicles(laneGeom, settings);
                 }
             }
         }
@@ -173,17 +176,226 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
 }
 
 
+inline void
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
+{
+    SUMOReal length = veh.getLength();
+    glPushMatrix();
+    glScaled(upscale, upscale, upscale);
+    if(length<8) {
+        glScaled(1, length, 1);
+        glBegin( GL_TRIANGLES );
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 1);
+            glVertex2d(0+1.25, 1);
+        glEnd();
+    } else {
+        glBegin( GL_TRIANGLES );
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+2);
+            glVertex2d(0+1.25, 0+2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0-1.25, length);
+            glVertex2d(0+1.25, length);
+            glVertex2d(0+1.25, 2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0+1.25, length);
+        glEnd();
+    }
+    glPopMatrix();
+}
+
+#define BLINKER_POS_FRONT 1.
+#define BLINKER_POS_BACK 1.
+
+inline void
+drawAction_drawVehicleBlinker(const GUIVehicle &veh)
+{
+    int state = veh.getLaneChangeModel().getState();
+    glColor3f(1, .5, 0);
+    if((state&LCA_URGENT)==0) {
+        glColor3f(.8f, .4f, 0);
+    }
+    if((state&LCA_LEFT)!=0) {
+        glTranslated(1, BLINKER_POS_FRONT, 0);
+        GLHelper::drawFilledCircle(.5, 6);
+        glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+        GLHelper::drawFilledCircle(.5, 6);
+        glTranslated(-1, +BLINKER_POS_BACK-veh.getLength(), 0);
+    } else if((state&LCA_RIGHT)!=0) {
+        glTranslated(-1, .5, 0);
+        GLHelper::drawFilledCircle(.5, 6);
+        glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+        GLHelper::drawFilledCircle(.5, 6);
+        glTranslated(1, +BLINKER_POS_BACK-veh.getLength(), 0);
+    } else {
+        MSLinkCont::const_iterator link = veh.getLane().succLinkSec( veh, 1, veh.getLane() );
+        if(link!=veh.getLane().getLinkCont().end()) {
+            switch((*link)->getDirection()) {
+            case MSLink::LINKDIR_TURN:
+            case MSLink::LINKDIR_LEFT:
+            case MSLink::LINKDIR_PARTLEFT:
+                glTranslated(1, BLINKER_POS_FRONT, 0);
+                GLHelper::drawFilledCircle(.5, 6);
+                glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+                GLHelper::drawFilledCircle(.5, 6);
+                glTranslated(-1, +BLINKER_POS_BACK-veh.getLength(), 0);
+                break;
+            case MSLink::LINKDIR_RIGHT:
+            case MSLink::LINKDIR_PARTRIGHT:
+                glTranslated(-1, BLINKER_POS_FRONT, 0);
+                GLHelper::drawFilledCircle(.5, 6);
+                glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+                GLHelper::drawFilledCircle(.5, 6);
+                glTranslated(1, +BLINKER_POS_BACK-veh.getLength(), 0);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+
+inline void
+drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
+{
+    if(veh.isEquipped()) {
+        /*
+        int cluster = veh->getClusterId();
+        if(veh->getConnections().size()==0){
+            cluster = -1;
+        }
+        if(colorBla.find(cluster)==colorBla.end()) {
+            int r = (int) ((double) rand() / (double) RAND_MAX * 255.);
+            int g = (int) ((double) rand() / (double) RAND_MAX * 255.);
+            int b = (int) ((double) rand() / (double) RAND_MAX * 255.);
+            colorBla[cluster] = FXRGB(r, g, b);
+        }
+        FXColor c = colorBla[cluster];
+        glColor3f(
+		    (float) ((float) FXREDVAL(c) /255.),
+			(float) ((float) FXGREENVAL(c) /255.),
+			(float) ((float) FXBLUEVAL(c) /255.));
+            */
+        GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
+    }
+}
+
+
+
+
 void
-GUIBaseVehicleDrawer::initStep()
+GUIVehicleDrawer::initStep()
 {
     glMatrixMode( GL_MODELVIEW );
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 
+void
+GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
+        const GUISUMOAbstractView::VisualizationSettings &settings)
+{
+    // retrieve vehicles from lane; disallow simulation
+    const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
+    const DoubleVector &lengths = lane.getShapeLengths();
+    const DoubleVector &rots = lane.getShapeRotations();
+    const Position2DVector &geom = lane.getShape();
+    const Position2D &laneBeg = geom[0];
+
+    MSLane::VehCont::const_iterator v;
+    glPushMatrix();
+    glTranslated(laneBeg.x(), laneBeg.y(), 0);
+    glRotated(rots[0], 0, 0, 1);
+    // go through the vehicles
+    size_t shapePos = 0;
+    SUMOReal positionOffset = 0;
+    for(v=vehicles.begin(); v!=vehicles.end(); v++) {
+        GUIVehicle *veh = static_cast<GUIVehicle*>(*v);
+        SUMOReal vehiclePosition = veh->getPositionOnLane();
+        while( shapePos<rots.size()-1 && vehiclePosition>positionOffset+lengths[shapePos]) {
+            glPopMatrix();
+            positionOffset += lengths[shapePos];
+            shapePos++;
+            glPushMatrix();
+            glTranslated(geom[shapePos].x(), geom[shapePos].y(), 0);
+            glRotated(rots[shapePos], 0, 0, 1);
+        }
+        glPushMatrix();
+        glTranslated(0, -(vehiclePosition-positionOffset), 0);
+
+        // begin drawing
+            // set the gl-id if wished
+        if(myShowToolTips) {
+            glPushName(veh->getGlID());
+        }
+            // set color
+        GUIVehicleDrawer::getSchemesMap().getColorer(settings.vehicleMode)->setGlColor(*veh);
+            // draw the vehicle
+        SUMOReal upscale = settings.vehicleExaggeration;
+        drawAction_drawVehicleAsTrianglePlus(*veh, upscale);
+            // draw the blinker if wished
+        if(settings.showBlinker) {
+            drawAction_drawVehicleBlinker(*veh);
+        }
+            // draw the c2c-circle
+        if(true) { // !!!
+            drawAction_C2CdrawVehicleRadius(*veh);
+        }
+            // draw the wish to change the lane
+        if(true) {//!!!
+            MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+            glColor3f(.5, .5, 1);
+            glBegin(GL_LINES);
+            glVertex2f(0, 0);
+            glVertex2f(m.getChangeProbability(), .5);
+            glEnd();
+        }
+            // draw best lanes
+        if(true) {
+            /*
+            const MSLane &l = veh->getLane();
+            SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
+            SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
+            SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
+            SUMOReal mmax = MAX3(r1, r2, r3);
+            glBegin(GL_LINES);
+            glVertex2f(0, 0);
+            glVertex2f(0, r1/mmax/2.);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2f(.4, 0);
+            glVertex2f(.4, r2/mmax/2.);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2f(-.4, 0);
+            glVertex2f(-.4, r3/mmax/2.);
+            glEnd();
+            */
+        }
+            // removed the gl-id if wished
+        if(myShowToolTips) {
+            glPopName();
+        }
+        glPopMatrix();
+    }
+    // allow lane simulation
+    lane.releaseVehicles();
+    glPopMatrix();
+}
+
+
+void
+GUIVehicleDrawer::setGLID(bool val)
+{
+    myShowToolTips = val;
+}
+
+
     /*
 RGBColor
-GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
+GUIVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         GUIBaseColorer<GUIVehicle> &colorer)
 {
     return colorer.getMinColor();
@@ -353,7 +565,7 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
 
 /*
 void
-GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
+GUIVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         GUIBaseColorer<GUIVehicle> &colorer)
 {
     /
@@ -522,7 +734,7 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
 
 
 void
-GUIBaseVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
+GUIVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
 {
     // vehicles are red if the lane change is urgent
     if((vehicle.getLaneChangeModel().getState()&LCA_URGENT)!=0) {
@@ -541,7 +753,7 @@ GUIBaseVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
 
 
 void
-GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
+GUIVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 {
     // vehicle side will be yellow on their right side if changing to right,
     if((vehicle.getLaneChangeModel().getState()&(LCA_RIGHT|LCA_URGENT))!=0) {
@@ -580,7 +792,7 @@ GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 
 
 void
-GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
+GUIVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
 {
     if((vehicle.getLaneChangeModel().getState()&(LCA_LEFT|LCA_URGENT))!=0) {
         glColor3d(1, 1, 0);
@@ -618,7 +830,7 @@ GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
 */
 
 GUIColoringSchemesMap<GUIVehicle> &
-GUIBaseVehicleDrawer::getSchemesMap()
+GUIVehicleDrawer::getSchemesMap()
 {
     return myColoringSchemes;
 }

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/12/12 12:10:44  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.15  2006/05/15 05:49:29  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -169,10 +172,7 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(SUMOReal scale, SUMOReal upscale);
-
-        /// Draws the detector in simple-geometry mode
-        void drawGL_SG(SUMOReal scale, SUMOReal upscale);
+        void drawGL(SUMOReal scale, SUMOReal upscale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(

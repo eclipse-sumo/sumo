@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/12/12 12:11:02  dkrajzew
+// removed simple/full geometry options; everything is now drawn using full geometry
+//
 // Revision 1.8  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -77,7 +80,7 @@ class GUIRouteHandler : public MSRouteHandler
 public:
     /// standard constructor
     GUIRouteHandler(const std::string &file, MSVehicleControl &vc,
-        bool addVehiclesDirectly, int incDUAStage);
+        bool addVehiclesDirectly, int incDUABase, int incDUAStage);
 
     /// standard destructor
     virtual ~GUIRouteHandler();
