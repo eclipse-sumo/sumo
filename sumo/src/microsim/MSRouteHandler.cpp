@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/12/12 12:04:11  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.30  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -182,6 +185,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
                                MSVehicleControl &vc,
                                bool addVehiclesDirectly,
                                bool wantsVehicleColor,
+                               int incDUABase,
                                int incDUAStage)
     : SUMOSAXHandler("sumo-network/routes", file),
     myVehicleControl(vc),
@@ -191,7 +195,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myCurrentEmbeddedRoute(0),
     myAmUsingIncrementalDUA(incDUAStage>0),
     myRunningVehicleNumber(0),
-    myIncrementalBase(10),
+    myIncrementalBase(incDUABase),
     myIncrementalStage(incDUAStage)
 {
     myActiveRoute.reserve(100);

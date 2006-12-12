@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.71  2006/12/12 12:04:10  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.70  2006/12/06 16:58:00  ericnicolay
 // added new output for cellphone_dump
 //
@@ -663,7 +666,7 @@ public:
 
     ShapeContainer &getShapeContainer() const { return *myShapeContainer; }
 
-    virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUAStage);
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
     SUMOReal getTooSlowRTF() const;
 

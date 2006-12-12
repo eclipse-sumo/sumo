@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/12/12 12:04:11  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.11  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -224,7 +227,7 @@ public:
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
         NLGeomShapeBuilder &shapeBuilder,
-        bool wantsVehicleColor, int incDUAStage);
+        bool wantsVehicleColor, int incDUABase, int incDUAStage);
 
     /// Destructor
     virtual ~NLHandler();

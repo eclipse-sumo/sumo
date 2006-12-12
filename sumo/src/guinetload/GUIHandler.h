@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/12/12 12:04:09  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.4  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -128,7 +131,7 @@ public:
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
-        NLGeomShapeBuilder &shapeBuilder, int incDUAStage);
+        NLGeomShapeBuilder &shapeBuilder, int incDUABase, int incDUAStage);
 
     /// standard destructor
     ~GUIHandler();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.60  2006/12/12 12:04:11  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.59  2006/12/06 16:55:21  ericnicolay
 // added new file option cellphone_dump
 //
@@ -282,6 +285,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("check-accidents", new Option_Bool(false));
     oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
     oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
+    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
     oc.doRegister("time-to-teleport", new Option_Integer(300));
     oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
     oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe

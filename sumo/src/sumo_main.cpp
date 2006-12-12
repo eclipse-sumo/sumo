@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/12/12 12:04:06  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.50  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -340,7 +343,7 @@ load(OptionsCont &oc)
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb(*net);
-    NLHandler handler("", *net, db, tb, eb, jb, sb, false, oc.getInt("incremental-dua-step"));
+    NLHandler handler("", *net, db, tb, eb, jb, sb, false, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if(!builder.build()) {
         delete net;

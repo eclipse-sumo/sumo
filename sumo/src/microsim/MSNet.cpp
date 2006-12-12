@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.98  2006/12/12 12:04:10  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.97  2006/12/06 16:58:00  ericnicolay
 // added new output for cellphone_dump
 //
@@ -1231,14 +1234,14 @@ MSNet::loadState(BinaryInputDevice &bis, long what)
 
 
 MSRouteLoader *
-MSNet::buildRouteLoader(const std::string &file, int incDUAStage)
+MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage)
 {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) not using colors
     // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false, incDUAStage));
+    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false, incDUABase, incDUAStage));
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/12/12 12:04:09  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.8  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -196,9 +199,10 @@ GUIHandler::GUIHandler(const std::string &file,
                              NLEdgeControlBuilder &edgeBuilder,
                              NLJunctionControlBuilder &junctionBuilder,
                              NLGeomShapeBuilder &shapeBuilder,
+                             int incDUABase,
                              int incDUAStage)
     : NLHandler(file, net, detBuilder, triggerBuilder,
-        edgeBuilder, junctionBuilder, shapeBuilder, true, incDUAStage) // wants vehicle color
+        edgeBuilder, junctionBuilder, shapeBuilder, true, incDUABase, incDUAStage) // wants vehicle color
 {
 }
 

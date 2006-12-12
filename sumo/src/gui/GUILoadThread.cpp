@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/12/12 12:04:09  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.40  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -258,7 +261,7 @@ GUILoadThread::run()
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
     GUITriggerBuilder tb;
-    GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-step"));
+    GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
 #ifndef _DEBUG
     try {

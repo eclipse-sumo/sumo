@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/12/12 12:04:11  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.12  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -499,7 +502,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
         st.reinit();
         while(st.hasNext()) {
             string file = st.next();
-            loaders.push_back(myNet.buildRouteLoader(file, oc.getInt("incremental-dua-step")));
+            loaders.push_back(myNet.buildRouteLoader(file, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step")));
         }
     }
     // build the route control

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/12/12 12:07:34  dkrajzew
+// made the base value for incremental dua changeable
+//
 // Revision 1.16  2006/11/30 07:43:35  dkrajzew
 // added the inc-dua option in order to increase dua-computation
 //
@@ -502,7 +505,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             GUIDetectorBuilder db(*net);
             GUITriggerBuilder tb;
             GUIGeomShapeBuilder sb(*net, gIDStorage);
-            GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-step"));
+            GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
             NLBuilder builder(oc2, *net, *eb, jb, db, tb, sb, handler);
             try {
                 MsgHandler::getErrorInstance()->clear();
@@ -510,7 +513,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 MsgHandler::getMessageInstance()->clear();
 //                initDevices();
                 SUMOFrame::setMSGlobals(oc);
-                GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-step"));
+                GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
                 handler.setWanted(LOADFILTER_NET);
                 // ... and the parser
                 SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
