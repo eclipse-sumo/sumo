@@ -1,7 +1,7 @@
 #ifndef GUIManipulator_h
 #define GUIManipulator_h
 //---------------------------------------------------------------------------//
-//                        GUILaneDrawer_FGnT.h -
+//                        GUIManipulator.h -
 //  Abstract GUI manipulation class
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/12 12:12:28  dkrajzew
+// comments patched
+//
 // Revision 1.2  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
