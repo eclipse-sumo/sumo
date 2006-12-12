@@ -9,7 +9,6 @@
 #include <string>
 #include <fx.h>
 #include "MFXImageHelper.h"
-#include <sstream>
 
 #include <cassert>
 
