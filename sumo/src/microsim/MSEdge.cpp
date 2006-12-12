@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.33  2006/12/12 12:14:07  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.32  2006/11/30 12:47:35  dkrajzew
 // debugging c2c based rerouting
 //
@@ -238,7 +241,8 @@ std::vector<MSEdge*> MSEdge::myEdges;
  * ======================================================================= */
 MSEdge::MSEdge(const std::string &id, size_t numericalID)
     : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0),
-    myLastFailedEmissionTime(-1), myNumericalID(numericalID)
+    myLastFailedEmissionTime(-1), myNumericalID(numericalID),
+    myHaveBuildShortCut(false), myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
 {
 }
 
@@ -628,9 +632,38 @@ MSEdge::getIncomingEdges() const
 }
 
 
+bool myHaveWarned; // !!!
+
 SUMOReal
-MSEdge::getEffort(const MSVehicle * const , SUMOTime ) const
+MSEdge::getEffort(const MSVehicle * const , SUMOTime t) const
 {
+    if(myHaveBuildShortCut) {
+        if(myShortCutBegin>t||myShortCutEnd<t) {
+            if(myUseBoundariesOnOverride) {
+                if(!myHaveWarned) {
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using first/last entry.");
+                    myHaveWarned = true;
+                }
+                if(myShortCutBegin>t) {
+                    return myPackedValueLine[0];
+                } else {
+                    return myPackedValueLine[myLastPackedIndex];
+                }
+            } else {
+                // value is already set
+                //  warn if wished
+                if(!myHaveWarned) {
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
+                    myHaveWarned = true;
+                }
+            }
+        } else {
+            return myPackedValueLine[(t-myShortCutBegin)/myShortCutInterval];
+        }
+    } else if(!myOwnValueLine.empty()) {
+        myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
+        myHaveBuildShortCut = true;
+    }
     return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
 }
 
@@ -687,7 +720,6 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
     myOwnValueLine.add(timeBegin, timeEnd, value);
 }
-
 
 SUMOReal
 MSEdge::getC2CEffort(const MSVehicle * const v, SUMOTime t) const

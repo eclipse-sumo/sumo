@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.30  2006/12/12 12:14:08  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.29  2006/11/14 13:01:55  dkrajzew
 // warnings removed
 //
@@ -415,6 +418,11 @@ protected:
     size_t myNumericalID;
 
     FloatValueTimeLine myOwnValueLine;
+    mutable bool myHaveBuildShortCut;
+    mutable SUMOReal *myPackedValueLine;
+    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
+    mutable size_t myLastPackedIndex;
+    bool myUseBoundariesOnOverride;
 
 
 	// the Container of equipped vehicle driving on this Lane

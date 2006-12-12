@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/12/12 12:14:08  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.13  2006/12/12 12:04:11  dkrajzew
 // made the base value for incremental dua changeable
 //
@@ -345,8 +348,8 @@ NLBuilder::build()
         }
         // start parsing
         MSWeightsHandler wh(m_pOptions, myNet, "", false);
-        parser->setContentHandler(&myXMLHandler);
-        parser->setErrorHandler(&myXMLHandler);
+        parser->setContentHandler(&wh);
+        parser->setErrorHandler(&wh);
         // for each file in the list
         StringTokenizer st(m_pOptions.getString("weight-files"), ';');
         while(st.hasNext()&&ok) {

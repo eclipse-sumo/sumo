@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.114  2006/12/12 12:14:08  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.113  2006/12/04 08:00:47  dkrajzew
 // debugging of c2c-rerouting
 //
@@ -1727,16 +1730,14 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
 		(*myCurrEdge)->removeEquippedVehicle(getID());
 
 		// save required Informations
-		float length = (*((*myCurrEdge)->getLanes()))[0]->length();
-        float speed  = (*((*myCurrEdge)->getLanes()))[0]->maxSpeed();
-		float factor = (length/speed)*2;
+		float factor = (*myCurrEdge)->getEffort(this, MSNet::getInstance()->getCurrentTimeStep());
 		std::map<std::string, Information *>::iterator i = infoCont.find((*myCurrEdge)->getID());
 		if(i == infoCont.end()){ //noch nicht drin
             if(akt==0) {
                 int bla = 0;
             } else {
 			float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-			if(nt > factor){
+            if(nt > factor*1.2){ // !!!
 				Information *info = new Information(*akt);
                 info->neededTime = nt;
                 /*
@@ -2863,6 +2864,7 @@ MSVehicle::checkReroute(SUMOTime t)
     // try to reroute
 
     if(myStops.size()==0) {
+        myHaveRouteInfo = false;
         // check whether to reroute
         SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
         std::vector<const MSEdge*> edges;

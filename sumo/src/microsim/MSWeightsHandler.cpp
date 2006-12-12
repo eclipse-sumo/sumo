@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/12/12 12:14:08  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.2  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -80,7 +83,7 @@ MSWeightsHandler::MSWeightsHandler(const OptionsCont &oc, MSNet &net,
     _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
     myUseLanes(useLanes)
 {
-    _scheme = _options.getString("scheme");
+    _scheme = "speed";//_options.getString("scheme");
 }
 
 

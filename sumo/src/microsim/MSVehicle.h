@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.69  2006/12/12 12:14:08  dkrajzew
+// debugging of loading weights
+//
 // Revision 1.68  2006/11/30 12:47:36  dkrajzew
 // debugging c2c based rerouting
 //
@@ -864,6 +867,13 @@ public:
 
     SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
     void checkReroute(SUMOTime t);
+
+    int getTotalInformationNumber() const { return totalNrOfSavedInfos; }
+    bool hasRouteInformation() const { return myHaveRouteInfo; }
+    SUMOTime getLastInfoTime() const { return myLastInfoTime; }
+    size_t getConnectionsNumber() const { return clusterCont.size(); }
+    size_t getInformationNumber() const { return infoCont.size(); }
+
 
 /*
     SUMOTime getSendingTimeEnd() const;
