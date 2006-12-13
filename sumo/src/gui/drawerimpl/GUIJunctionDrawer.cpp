@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/12/13 07:01:50  dkrajzew
+// debugging building
+//
 // Revision 1.1  2006/12/12 12:10:40  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -72,6 +75,13 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+#include <GL/gl.h>
+
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================
