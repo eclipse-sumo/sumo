@@ -150,8 +150,8 @@ if (os.path.isfile("netstate.xml")==False):
 #
 for penetration in options.penetration:
     print "start: generation tracefile with penetration level of " + str(penetration)
-    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" +  str(penetration) + " -a activity_" +  str(penetration) + " -c config_" +  str(penetration) + ".tcl -p " + str(penetration) + "-s " + str(options.seed))
-    if (os.path.isfile("mobility_" + str(penetration))==False or os.path.isfile("activity_" + str(penetration))==False or os.path.isfile("config_" + str(penetration)+".tcl")==False):
+    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" +  str(penetration) + ".tcl -a activity_" +  str(penetration) + ".tcl -c config_" +  str(penetration) + ".tcl -p " + str(penetration) + "-s " + str(options.seed))
+    if (os.path.isfile("mobility_" + str(penetration) + ".tcl")==False or os.path.isfile("activity_" + str(penetration) + ".tcl")==False or os.path.isfile("config_" + str(penetration)+".tcl")==False):
         print "error creating mobility, activity, config"
         sys.exit(1)
     else:
