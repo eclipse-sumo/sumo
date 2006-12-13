@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/12/13 07:22:20  dkrajzew
+// removed unneeded coloring options
+//
 // Revision 1.9  2006/12/12 12:19:23  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -53,7 +56,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -68,16 +70,25 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-
 #include <GL/gl.h>
+
 #include <utils/gui/div/GUIGlobalSelection.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GUIColorer_ShadeByFunctionValue
+ * @brief Colors by using a retrieved value; the function must return a SUMOReal
+ */
 template<class _T>
 class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
     typedef SUMOReal ( _T::* Operation )() const;
 
+    /// Constructor
     GUIColorer_ShadeByFunctionValue(SUMOReal min, SUMOReal max,
         const RGBColor &minC, const RGBColor &maxC,
         Operation operation)
@@ -87,9 +98,13 @@ public:
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
-	virtual ~GUIColorer_ShadeByFunctionValue() { }
+    /// Destructor
+    virtual ~GUIColorer_ShadeByFunctionValue() { }
 
-	void setGlColor(const _T& i) const {
+
+    ///{ from GUIBaseColorer
+    /// Sets the color using a value from the given instance of _T
+    void setGlColor(const _T& i) const {
         SUMOReal val = (i.*myOperation)() - myMin;
         if(val==-1) {
             glColor3f(0.8f, 0.8f, 0.8f);
@@ -100,13 +115,13 @@ public:
                 val = myMax;
             }
             val = val * myScale;
-            RGBColor c =
-                (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+            RGBColor c = (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
             glColor3d(c.red(), c.green(), c.blue());
         }
-	}
+    }
 
-	void setGlColor(SUMOReal val) const {
+    /// Sets the color using the given value
+    void setGlColor(SUMOReal val) const {
         if(val==-1) {
             glColor3f(0.8f, 0.8f, 0.8f);
         } else {
@@ -116,38 +131,49 @@ public:
                 val = myMax;
             }
             val = val * myScale;
-            RGBColor c =
-                (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+            RGBColor c = (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
             glColor3d(c.red(), c.green(), c.blue());
         }
     }
 
+    /// Returns the type of this class (CST_MINMAX)
     virtual ColorSetType getSetType() const {
         return CST_MINMAX;
     }
+    ///}
 
+
+    ///{ from GUIBaseColorerInterface
+    /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &min, const RGBColor &max) {
         myMinColor = min;
         myMaxColor = max;
     }
 
+    /// Returns the color used for minimum values
     virtual const RGBColor &getMinColor() const {
         return myMinColor;
     }
 
+    /// Returns the color used for maximum values
     virtual const RGBColor &getMaxColor() const {
         return myMaxColor;
     }
+    ///}
 
 protected:
+    /// The ranges and the resulting scale
     SUMOReal myMin, myMax, myScale;
+
+    /// The colors to use
     RGBColor myMinColor, myMaxColor;
 
     /// The object's operation to perform.
     Operation myOperation;
 
-
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
