@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2006/12/18 14:41:41  dkrajzew
+// warnings removed
+//
 // Revision 1.21  2006/12/18 08:25:24  dkrajzew
 // consolidation of setting colors
 //
@@ -390,7 +393,7 @@ initVehicleColoringSchemes()
             */
     // build the colors map
     {
-        for(int i=0; i<sm.size(); i++) {
+        for(size_t i=0; i<sm.size(); i++) {
             vehColMap[i] = vector<RGBColor>();
             switch(sm.getColorSetType(i)) {
             case CST_SINGLE:
@@ -458,7 +461,7 @@ initLaneColoringSchemes()
         */
     // build the colors map
     {
-        for(int i=0; i<sm.size(); i++) {
+        for(size_t i=0; i<sm.size(); i++) {
             laneColMap[i] = vector<RGBColor>();
             switch(sm.getColorSetType(i)) {
             case CST_SINGLE:
