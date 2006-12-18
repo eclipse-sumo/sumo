@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.66  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.65  2006/12/12 12:10:35  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -256,12 +259,6 @@ namespace
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
-#include <utils/gui/drawer/GUIColorer_SingleColor.h>
-#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
-#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
-#include "GUIColorer_LaneByPurpose.h"
-#include "GUIColorer_LaneByVehKnowledge.h"
-#include "GUIColorer_LaneNeighEdges.h"
 #include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <utils/glutils/polyfonts.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -287,6 +284,13 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
+GUIColoringSchemesMap<GUIVehicle> GUIViewTraffic::myVehicleColoringSchemes;
+GUIColoringSchemesMap<GUILaneWrapper> GUIViewTraffic::myLaneColoringSchemes;
 
 
 /* =========================================================================
@@ -354,42 +358,8 @@ GUIViewTraffic::init(GUINet &)
     _additional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
     _additional2Show = new size_t[_additional2ShowSize];
     clearUsetable(_additional2Show, _additional2ShowSize);
-    // insert possible lane coloring schemes
-        //
-	myLaneColoringSchemes.add("uniform",
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
-	myLaneColoringSchemes.add("by selection (lanewise)",
-		new GUIColorer_LaneBySelection<GUILaneWrapper>());
-	myLaneColoringSchemes.add("by purpose (lanewise)",
-		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
-        // from a lane's standard values
-	myLaneColoringSchemes.add("by allowed speed (lanewise)",
-		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, (SUMOReal) (150.0/3.6),
-            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
-	myLaneColoringSchemes.add("by current density (lanewise)",
-		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, (SUMOReal) .95,
-            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
-	myLaneColoringSchemes.add("by first vehicle waiting time (lanewise)",
-		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, 200,
-            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
-	myLaneColoringSchemes.add("by lane number (streetwise)",
-		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, (SUMOReal) 5,
-            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
-        // using C2C extensions
-	myLaneColoringSchemes.add("C2C: by vehicle knowledge",
-		new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
-	myLaneColoringSchemes.add("C2C: by edge neighborhood",
-		new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
     // initialise default scheme
-    myVisualizationSettings = gSchemeStorage.get(gSchemeStorage.getNames()[0]);
+    myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
 
@@ -484,25 +454,37 @@ long
 GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
 {
     char *dataC = (char*) data; // !!! unicode
-    myVisualizationSettings = gSchemeStorage.get(dataC);
+    myVisualizationSettings = &gSchemeStorage.get(dataC);
     // lanes
-    switch(myLaneColoringSchemes.getColorSetType(myVisualizationSettings.laneEdgeMode)) {
+    switch(myLaneColoringSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
     case CST_SINGLE:
-        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings.laneEdgeMode)->resetColor(myVisualizationSettings.singleLaneColor);
+        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
+            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0]);
         break;
     case CST_MINMAX:
-        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings.laneEdgeMode)->resetColor(myVisualizationSettings.minLaneColor, myVisualizationSettings.maxLaneColor);
+        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
+            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0],
+            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][1]);
         break;
     default:
         break;
     }
     // vehicles
-    switch(GUIVehicleDrawer::getSchemesMap().getColorSetType(myVisualizationSettings.vehicleMode)) {
+    switch(myVehicleColoringSchemes.getColorSetType(myVisualizationSettings->vehicleMode)) {
     case CST_SINGLE:
-        GUIVehicleDrawer::getSchemesMap().getColorerInterface(myVisualizationSettings.vehicleMode)->resetColor(myVisualizationSettings.singleVehicleColor);
+        myVehicleColoringSchemes.getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0]);
         break;
     case CST_MINMAX:
-        GUIVehicleDrawer::getSchemesMap().getColorerInterface(myVisualizationSettings.vehicleMode)->resetColor(myVisualizationSettings.minVehicleColor, myVisualizationSettings.maxVehicleColor);
+        myVehicleColoringSchemes.getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0],
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][1]);
+        break;
+    case CST_MINMAX_OPT:
+        myVehicleColoringSchemes.getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0],
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][1],
+            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][2]);
         break;
     default:
         break;
@@ -534,21 +516,12 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
     const Boundary &nb = _net->getBoundary();
-    /*
-    SUMOReal x = (nb.getCenter().x() - _changer->getXPos()); // center of view
-    SUMOReal xoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
-        / _addScl; // offset to right
-    SUMOReal y = (nb.getCenter().y() - _changer->getYPos()); // center of view
-    SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
-        / _addScl; // offset to top
-        */
 	{
         SUMOReal width = nb.getWidth();
         SUMOReal height = nb.getHeight();
         SUMOReal mzoom = _changer->getZoom();
         SUMOReal cy = _changer->getYPos();//cursorY;
         SUMOReal cx = _changer->getXPos();//cursorY;
-
 
         // compute the visible area in horizontal direction
         SUMOReal mratioX = 1;
@@ -579,17 +552,17 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             + mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
         symax -= cy;
 
-
-    // reset the tables of things to show if the viewport has changed
-    if(myViewportSettings.differ(sxmin, symin, sxmax, symax)) {
-        clearUsetable(_edges2Show, _edges2ShowSize);
-        clearUsetable(_junctions2Show, _junctions2ShowSize);
-        _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
-			sxmin, symin, sxmax, symax,
-            _edges2Show, _junctions2Show, _additional2Show);
-        myViewportSettings.set(sxmin, symin, sxmax, symax);
-    }
+        // reset the tables of things to show if the viewport has changed
+        if(myViewportSettings.differ(sxmin, symin, sxmax, symax)) {
+            clearUsetable(_edges2Show, _edges2ShowSize);
+            clearUsetable(_junctions2Show, _junctions2ShowSize);
+            _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
+			    sxmin, symin, sxmax, symax,
+                _edges2Show, _junctions2Show, _additional2Show);
+            myViewportSettings.set(sxmin, symin, sxmax, symax);
+        }
 	}
+
     // compute lane width
     SUMOReal width = m2p(3.0) * scale;
     // compute which drawer shall be used
@@ -632,12 +605,12 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     myJunctionDrawer.drawGLJunctions(_junctions2Show, _junctions2ShowSize,
         _junctionColScheme);
     myLaneDrawer.drawGLLanes(_edges2Show, _edges2ShowSize, width,
-        *myLaneColoringSchemes.getColorer(myVisualizationSettings.laneEdgeMode),
-        myVisualizationSettings);
+        *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
+        *myVisualizationSettings);
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
-        width, myVisualizationSettings.addExaggeration);
+        width, myVisualizationSettings->addExaggeration);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
-        myVisualizationSettings.showLane2Lane, myVisualizationSettings.showLinkDecals);
+        myVisualizationSettings->showLane2Lane, myVisualizationSettings->showLinkDecals);
     //
     for(std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
@@ -670,8 +643,9 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     // draw the Polygons
     drawShapes(_net->getShapeContainer(), 10);
     // draw vehicles only when they're visible
-    if(scale*m2p(3)>myVisualizationSettings.minVehicleSize) {
-        myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize, myVisualizationSettings);
+    if(scale*m2p(3)>myVisualizationSettings->minVehicleSize) {
+        myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize,
+            myVehicleColoringSchemes, *myVisualizationSettings);
     }
     glPopMatrix();
 }
@@ -730,7 +704,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
     if(_useToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
-    GUIVehicleDrawer::getSchemesMap().getColorer(myVisualizationSettings.vehicleMode)->setGlColor(*(vo.vehicle));
+    myVehicleColoringSchemes.getColorer(myVisualizationSettings->vehicleMode)->setGlColor(*(vo.vehicle));
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
     colors[0] -= darken;
@@ -831,8 +805,8 @@ GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
     if(myVisualizationChanger==0) {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
-                myApp, this, &myVisualizationSettings,
-                &myLaneColoringSchemes, &GUIVehicleDrawer::getSchemesMap(),
+                myApp, this, myVisualizationSettings,
+                &myLaneColoringSchemes, &myVehicleColoringSchemes,
                 &myDecals, &myDecalsLock);
         myVisualizationChanger->create();
     }
@@ -1147,6 +1121,19 @@ GUIViewTraffic::setSecondPoint(PointOfInterest *p){
 	_secondPoint=p;
 }
 
+
+GUIColoringSchemesMap<GUIVehicle> &
+GUIViewTraffic::getVehiclesSchemesMap()
+{
+    return myVehicleColoringSchemes;
+}
+
+
+GUIColoringSchemesMap<GUILaneWrapper> &
+GUIViewTraffic::getLaneSchemesMap()
+{
+    return myLaneColoringSchemes;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.33  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.32  2006/12/12 12:10:35  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -145,8 +148,8 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#include <GL/gl.h>
 #endif
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -159,7 +162,6 @@ class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
-
 
 
 /* =========================================================================
@@ -218,6 +220,13 @@ public:
 
     virtual long onCmdEditView(FXObject*,FXSelector,void*);
 
+    /// Returns the list of available vehicle coloring schemes
+    static GUIColoringSchemesMap<GUIVehicle> &getVehiclesSchemesMap();
+
+    /// Returns the list of available lane coloring schemes
+    static GUIColoringSchemesMap<GUILaneWrapper> &getLaneSchemesMap();
+
+
 protected:
     void doPaintGL(int mode, SUMOReal scale);
 
@@ -272,9 +281,6 @@ protected:
     /// The absolut numbers of the array sizes
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
-    GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
-
-
     PointOfInterest *_pointToMove;
 	PointOfInterest *_secondPoint; // first's Line Point
 	PointOfInterest *_firstPoint;  // second's Line Point
@@ -282,6 +288,13 @@ protected:
 	bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
 
 	GUINet *_net;
+
+    /** @brief The list of vehicle coloring schemes that may be used */
+    static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
+
+    /** @brief The list of coloring schemes that may be used */
+    static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
+
 
 protected:
     std::vector<GUIEdge*> myEmptyEdges;

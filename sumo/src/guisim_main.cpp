@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.20  2006/12/12 12:15:24  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -234,6 +237,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <gui/GUIThreadFactory.h>
+#include <guisim/GUIEdge.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIVehicleDrawer.h>
@@ -245,16 +249,18 @@
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/common/HelpPrinter.h>
+#include <gui/GUIViewTraffic.h>
 
-#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <gui/GUIColorer_LaneByPurpose.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <gui/GUIColorer_LaneByVehKnowledge.h>
+#include <gui/GUIColorer_LaneNeighEdges.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByCastedFunctionValue.h>
-#include <utils/gui/drawer/GUIColorer_ColorRetrival.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
 #include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
 #include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
-//#include <utils/gui/drawer/GUIColorer_ByDeviceState.h>
 #include <guisim/GUIVehicle.h>
 
 
@@ -286,13 +292,14 @@ using namespace std;
 
 
 /* -------------------------------------------------------------------------
- * build options
+ * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
-void
-initColoringSchemes()
+map<int, vector<RGBColor> >
+initVehicleColoringSchemes()
 {
+    map<int, vector<RGBColor> > vehColMap;
     // insert possible vehicle coloring schemes
-    GUIColoringSchemesMap<GUIVehicle> &sm = GUIVehicleDrawer::getSchemesMap();
+    GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap();
         // from read/assigned colors
     sm.add("given/assigned vehicle color",
         new GUIColorer_ColorSettingFunction<GUIVehicle>(
@@ -381,20 +388,117 @@ initColoringSchemes()
             0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
             (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
             */
+    // build the colors map
+    {
+        for(int i=0; i<sm.size(); i++) {
+            vehColMap[i] = vector<RGBColor>();
+            switch(sm.getColorSetType(i)) {
+            case CST_SINGLE:
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+                break;
+            case CST_MINMAX:
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                break;
+            case CST_MINMAX_OPT:
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                vehColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    return vehColMap;
+}
 
+
+map<int, vector<RGBColor> >
+initLaneColoringSchemes()
+{
+    map<int, vector<RGBColor> > laneColMap;
+    // insert possible lane coloring schemes
+    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap();
+    // insert possible lane coloring schemes
+        //
+	sm.add("uniform",
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
+	sm.add("by selection (lanewise)",
+		new GUIColorer_LaneBySelection<GUILaneWrapper>());
+	sm.add("by purpose (lanewise)",
+		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+        // from a lane's standard values
+	sm.add("by allowed speed (lanewise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, (SUMOReal) (150.0/3.6),
+            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+	sm.add("by current density (lanewise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, (SUMOReal) .95,
+            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
+	sm.add("by first vehicle waiting time (lanewise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, 200,
+            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
+	sm.add("by lane number (streetwise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, (SUMOReal) 5,
+            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+        // using C2C extensions
+    /*
+	sm.add("C2C: by vehicle knowledge",
+		new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
+	sm.add("C2C: by edge neighborhood",
+		new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
+        */
+    // build the colors map
+    {
+        for(int i=0; i<sm.size(); i++) {
+            laneColMap[i] = vector<RGBColor>();
+            switch(sm.getColorSetType(i)) {
+            case CST_SINGLE:
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+                break;
+            case CST_MINMAX:
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                break;
+            case CST_MINMAX_OPT:
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                laneColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    return laneColMap;
+}
+
+
+void
+initColoringSchemes()
+{
+    map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
+    map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
     // initialise gradients
-	myDensityGradient =
-		gGradients->getRGBColors(
-			GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
-	//
-    gSchemeStorage.init();
+	myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
+	// initialise available coloring schemes
+    gSchemeStorage.init(vehColMap, laneColMap);
 }
 
 
 void
 deleteColoringSchemes()
 {
-    delete &GUIVehicleDrawer::getSchemesMap();
+    delete &GUIViewTraffic::getVehiclesSchemesMap();
+    delete &GUIViewTraffic::getLaneSchemesMap();
 }
 
 

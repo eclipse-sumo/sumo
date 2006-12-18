@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.8  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -65,39 +68,63 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-
 #include <GL/gl.h>
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GUIColorer_SingleColor
+ * @brief Uses a single color for coloring
+ */
 template<class _T>
 class GUIColorer_SingleColor : public GUIBaseColorer<_T> {
 public:
+    /// Constructor
 	GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }
+
+    /// Destructor
 	virtual ~GUIColorer_SingleColor() { }
+
+
+    ///{ from GUIBaseColorer
+    /// Sets the color using a value from the given instance of _T
 	void setGlColor(const _T& ) const {
 		glColor3d(myColor.red(), myColor.green(), myColor.blue());
 	}
 
+    /// Sets the color using the given value
 	void setGlColor(SUMOReal ) const {
 		glColor3d(myColor.red(), myColor.green(), myColor.blue());
 	}
 
+    /// Returns the type of this class (CST_SINGLE)
     virtual ColorSetType getSetType() const {
         return CST_SINGLE;
     }
+    ///}
 
+
+    ///{ from GUIBaseColorerInterface
+    /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &c) {
         myColor = c;
     }
 
+    /// Returns the single color used
     virtual const RGBColor &getSingleColor() const {
         return myColor;
     }
+    ///}
 
 private:
+    /// The color to use
 	RGBColor myColor;
 
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif

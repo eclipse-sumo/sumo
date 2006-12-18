@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.2  2006/11/02 14:16:51  behrisch
 // Missing includes
 //
@@ -85,7 +88,7 @@
 template<class _T>
 class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<_T> {
 public:
-	GUIColorer_LaneByVehKnowledge(GUIViewTraffic *parent) : myParent(parent) { }
+	GUIColorer_LaneByVehKnowledge(GUISUMOAbstractView *parent) : myParent(parent) { }
 
     virtual ~GUIColorer_LaneByVehKnowledge() { }
 
@@ -116,7 +119,7 @@ public:
         return CST_STATIC; // !!! (should be "set")
     }
 
-    GUIViewTraffic *myParent;
+    GUISUMOAbstractView *myParent;
 };
 
 

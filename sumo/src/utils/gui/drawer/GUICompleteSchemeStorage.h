@@ -24,7 +24,7 @@ public:
         mySettings[name] = scheme;
     }
 
-    const GUISUMOAbstractView::VisualizationSettings &get(const std::string &name) const {
+    GUISUMOAbstractView::VisualizationSettings &get(const std::string &name) {
         return mySettings.find(name)->second;
     }
 
@@ -32,11 +32,12 @@ public:
         return mySettings.find(name)!=mySettings.end();
     }
 
-    const std::vector<std::string> getNames() const  {
+    const std::vector<std::string> &getNames() const  {
         return mySortedSchemeNames;
     }
 
-    void init();
+    void init(const std::map<int, std::vector<RGBColor> > &vehColMap,
+        const std::map<int, std::vector<RGBColor> > &laneColMap);
 
     const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &getItems() const {
         return mySettings;

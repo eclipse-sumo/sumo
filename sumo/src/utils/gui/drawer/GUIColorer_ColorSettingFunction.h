@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/18 08:25:24  dkrajzew
+// consolidation of setting colors
+//
 // Revision 1.2  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -35,7 +38,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -50,43 +52,61 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
-
 #include <GL/gl.h>
+
 #include <utils/gui/div/GUIGlobalSelection.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GUIColorer_ColorSettingFunction
+ * @brief Does not set a color directly, but calls a function that does it
+ */
 template<class _T>
 class GUIColorer_ColorSettingFunction : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
     typedef void ( _T::* Operation )() const;
 
+    /// Constructor
     GUIColorer_ColorSettingFunction(Operation operation)
         : myOperation(operation)
     {
     }
 
+    /// Destructor
 	virtual ~GUIColorer_ColorSettingFunction() { }
 
+    ///{ from GUIBaseColorer
+    /// Sets the color using a value from the given instance of _T
 	void setGlColor(const _T& i) const {
         (i.*myOperation)();
     }
 
+    /// Sets the color using the given value
 	void setGlColor(SUMOReal ) const {
         glColor3d(1, 1, 0);
     }
 
+    /// Returns the type of this class (CST_STATIC)
     virtual ColorSetType getSetType() const {
         return CST_STATIC;
     }
+    ///}
 
+    ///{ from GUIBaseColorerInterface
     virtual void resetColor(const RGBColor &) {
     }
 
     virtual const RGBColor &getSingleColor() const {
         throw 1;
     }
+    ///}
 
 protected:
+    /// The operation that sets the color
     Operation myOperation;
 
 };
