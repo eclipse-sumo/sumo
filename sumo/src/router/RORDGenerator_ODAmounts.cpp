@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/12/18 14:46:12  dkrajzew
+// removed memory leaks
+//
 // Revision 1.19  2006/11/16 10:50:51  dkrajzew
 // warnings removed
 //
@@ -171,6 +174,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
 
 RORDGenerator_ODAmounts::FlowDef::~FlowDef()
 {
+    delete myVehicle;
 }
 
 
@@ -249,6 +253,9 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
 
 RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts()
 {
+    for(FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
+        delete (*i);
+    }
 }
 
 
