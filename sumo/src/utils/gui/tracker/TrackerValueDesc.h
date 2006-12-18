@@ -2,7 +2,7 @@
 #define TrackerValueDesc_h
 //---------------------------------------------------------------------------//
 //                        TrackerValueDesc.h -
-//  Storage for a tracked value
+//  Representation of a timeline of floats with their names and moments
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/12/18 08:22:56  dkrajzew
+// comments added
+//
 // Revision 1.7  2006/11/28 12:10:45  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -91,7 +94,11 @@ class GUIGlObject;
  * class definitions
  * ======================================================================= */
 /**
+ * @class TrackerValueDesc
+ * @brief Representation of a timeline of floats with their names and moments
  *
+ * This class contains the information needed to display a time line of
+ *  float values.
  */
 class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:

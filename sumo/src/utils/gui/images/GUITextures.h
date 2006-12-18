@@ -2,7 +2,7 @@
 #define GUITextures_h
 //---------------------------------------------------------------------------//
 //                        GUITextures.h -
-//  The base class for a view
+//  An enumeration of internally used textures
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/12/18 08:22:56  dkrajzew
+// comments added
+//
 // Revision 1.4  2005/10/07 11:45:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,7 +35,6 @@
 // Revision 1.2  2005/06/14 11:29:50  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -56,14 +58,26 @@
 /* =========================================================================
  * enumeration
  * ======================================================================= */
+/**
+ * @enum GUITexture
+ * @brief An enumeration of internally used textures
+ */
 enum GUITexture {
-    TEXTURE_LINKDIR_STRAIGHT = MSLink::LINKDIR_STRAIGHT ,
+    /// a straight arrow
+    TEXTURE_LINKDIR_STRAIGHT = MSLink::LINKDIR_STRAIGHT,
+    /// a turn around arrow
     TEXTURE_LINKDIR_TURN = MSLink::LINKDIR_TURN,
+    /// a turn left arrow
     TEXTURE_LINKDIR_LEFT = MSLink::LINKDIR_LEFT,
+    /// a turn right arrow
     TEXTURE_LINKDIR_RIGHT = MSLink::LINKDIR_RIGHT,
+    /// a partially turn left arrow
     TEXTURE_LINKDIR_PARTLEFT = MSLink::LINKDIR_PARTLEFT,
+    /// a partially turn right arrow
     TEXTURE_LINKDIR_PARTRIGHT = MSLink::LINKDIR_PARTRIGHT,
+    /// maximum value
     TEXTURE_MAX
+
 };
 
 

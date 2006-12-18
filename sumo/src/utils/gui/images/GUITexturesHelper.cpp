@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/12/18 08:22:56  dkrajzew
+// comments added
+//
 // Revision 1.7  2006/11/16 12:30:55  dkrajzew
 // warnings removed
 //
@@ -78,7 +81,6 @@ namespace
 #include "pl_3.xpm"
 #include "pr_1.xpm"
 #include "pr_2.xpm"
-//#include "pr_3.xpm"
 #include "GUIImageGlobals.h"
 
 #ifdef _WIN32
@@ -127,18 +129,12 @@ GUITexturesHelper::assignTextures()
     }
     // build texture images
     glGenTextures(6, myTextureIDs);
-    myTextures[MSLink::LINKDIR_STRAIGHT] =
-        new FXXPMImage(myApp, p_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_TURN] =
-        new FXXPMImage(myApp, pl_3_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_LEFT] =
-        new FXXPMImage(myApp, pl_2_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_RIGHT] =
-        new FXXPMImage(myApp, pr_2_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_PARTLEFT] =
-        new FXXPMImage(myApp, pl_1_xpm, IMAGE_KEEP);
-    myTextures[MSLink::LINKDIR_PARTRIGHT] =
-        new FXXPMImage(myApp, pr_1_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_STRAIGHT] = new FXXPMImage(myApp, p_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_TURN] = new FXXPMImage(myApp, pl_3_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_LEFT] = new FXXPMImage(myApp, pl_2_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_RIGHT] = new FXXPMImage(myApp, pr_2_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_PARTLEFT] = new FXXPMImage(myApp, pl_1_xpm, IMAGE_KEEP);
+    myTextures[MSLink::LINKDIR_PARTRIGHT] = new FXXPMImage(myApp, pr_1_xpm, IMAGE_KEEP);
     // allocate in gl (bind)
     for(size_t i=0; i<TEXTURE_MAX; i++) {
         glBindTexture(GL_TEXTURE_2D,myTextureIDs[i]);
@@ -180,8 +176,8 @@ GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size)
 
 void
 GUITexturesHelper::drawDirectionArrow(unsigned int which,
-                                   SUMOReal sizeX1, SUMOReal sizeY1,
-                                   SUMOReal sizeX2, SUMOReal sizeY2)
+                                      SUMOReal sizeX1, SUMOReal sizeY1,
+                                      SUMOReal sizeX2, SUMOReal sizeY2)
 {
     drawTexturedBox(myTextureIDs[which], sizeX1, sizeY1, sizeX2, sizeY2);
 }
