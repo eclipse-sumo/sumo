@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.70  2006/12/18 08:23:18  dkrajzew
+// fastened c2c storages
+//
 // Revision 1.69  2006/12/12 12:14:08  dkrajzew
 // debugging of loading weights
 //
@@ -861,7 +864,7 @@ public:
 		std::vector<Information *> transmitted;
 		std::vector<Information *>::iterator nextToSend;
 	};
-	typedef std::map<std::string, C2CConnection *> VehCont;
+	typedef std::map<MSVehicle * const, C2CConnection *> VehCont;
 
     const VehCont &getConnections() const;
 
@@ -957,7 +960,7 @@ protected:
 
 	VehCont myNeighbors;
 
-	typedef std::map<std::string, Information *> InfoCont;
+	typedef std::map<const MSEdge * const, Information *> InfoCont;
 	InfoCont infoCont;
 
 	typedef std::vector<C2CConnection*> ClusterCont;
