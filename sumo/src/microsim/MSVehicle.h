@@ -20,8 +20,8 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.70  2006/12/18 08:23:18  dkrajzew
-// fastened c2c storages
+// Revision 1.71  2006/12/18 14:43:58  dkrajzew
+// debugging c2c
 //
 // Revision 1.69  2006/12/12 12:14:08  dkrajzew
 // debugging of loading weights
@@ -491,31 +491,30 @@ public:
     //@}
 
     // add a new Vehicle
-	void addVehNeighbors(MSVehicle *veh, int time);
+	void addVehNeighbors(MSVehicle *veh, SUMOTime time);
 
-	    // delete all vehicle in the list
-	void removeAllVehNeighbors(void);
-
-	/// update the list of neighbors each timestep
-	//void updateNeighbors(int time);
-	void cleanUpConnections(int time);
+	/// update the list of neighbors
+	void cleanUpConnections(SUMOTime time);
 
 	/// compute the distance between two equipped vehicle
 	bool computeDistance(MSVehicle* veh1, MSVehicle* veh2);
 
-	// erase the Information, if the information is older than 30 minutes
-	void updateInfos(int time);
+    /** C2C: update own information
+     * a) insert the current edge if the vehicle is standing for a long period
+     * b) remove information older then a specified amount of time (MSGlobals::gLANRefuseOldInfosOffset)
+     */
+	void updateInfos(SUMOTime time);
 
 	// set the Id of the Cluster to them the vehicle belong
 	void setClusterId(int Id);
 
 	// get the Id of the Cluster
-	int getClusterId(void);
+	int getClusterId(void) const;
 
 	void sendInfos(SUMOTime time);
 
 	// Build a Cluster for the WLAN simulation
-	/* A Cluster is a set of Vehicle, where all vehicle is or the Neighbor of this Vehicle
+	/* A Cluster is a set of vehicles, where all vehicles or the Neighbor of this Vehicle
 	 * other the Neighbor of the Neighbor of this Vehicle.
 	 * A Vehicle cannot belong to two different cluster
 	 */
@@ -840,12 +839,12 @@ public:
 
 	class Information {
     public:
-        Information(const std::string &infoTyp_, const MSEdge * const edge_,
+        Information(/*const std::string &infoTyp_, const MSEdge * const edge_,*/
             SUMOReal neededTime_, int time_)
-            : infoTyp(infoTyp_), edge(edge_), neededTime(neededTime_), time(time_) { }
+            : /*infoTyp(infoTyp_), edge(edge_), */ neededTime(neededTime_), time(time_) { }
 
-		std::string infoTyp;
-		const MSEdge * const edge;
+//		std::string infoTyp;
+//		const MSEdge * const edge;
 		SUMOReal neededTime; // how long needed the vehicle to travel on the edge
 		int time; // the Time, when the Info was saved
 	};
@@ -857,12 +856,9 @@ public:
 	struct C2CConnection {
 		MSVehicle  *connectedVeh;
 		C2CConnectionState state;
-		int timeSinceSeen;
-		int timeSinceConnect;
+		// int timeSinceSeen; !!!
+		// int timeSinceConnect; !!!
 		int lastTimeSeen;
-		std::vector<Information *> toSend;
-		std::vector<Information *> transmitted;
-		std::vector<Information *>::iterator nextToSend;
 	};
 	typedef std::map<MSVehicle * const, C2CConnection *> VehCont;
 
@@ -905,9 +901,6 @@ protected:
         runs in ms */
     size_t myWaitingTime;
 
-	// my Last Position on the Lane
-	float myLastPosition;
-
 	// The time the vehicle waits, may mean the same like myWaitingTime
 	int timeSinceStop;
 
@@ -946,9 +939,6 @@ protected:
 
 	// count how much Informations this vehicle have saved during the simulation
 	int totalNrOfSavedInfos;
-
-	//
-	int lastTimeStep;
 
     /// The lane the vehicle is on
     MSLane* myLane;

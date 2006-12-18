@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/12/18 14:43:55  dkrajzew
+// debugging c2c
+//
 // Revision 1.2  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -278,9 +281,8 @@ inline void
 drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 {
     if(veh.isEquipped()) {
-        /*
-        int cluster = veh->getClusterId();
-        if(veh->getConnections().size()==0){
+        int cluster = veh.getClusterId();
+        if(veh.getConnections().size()==0){
             cluster = -1;
         }
         if(colorBla.find(cluster)==colorBla.end()) {
@@ -294,7 +296,6 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 		    (float) ((float) FXREDVAL(c) /255.),
 			(float) ((float) FXGREENVAL(c) /255.),
 			(float) ((float) FXBLUEVAL(c) /255.));
-            */
         GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
     }
 }

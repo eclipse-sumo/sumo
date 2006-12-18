@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.116  2006/12/18 14:43:57  dkrajzew
+// debugging c2c
+//
 // Revision 1.115  2006/12/18 08:23:15  dkrajzew
 // fastened c2c storages
 //
@@ -770,7 +773,6 @@ MSVehicle::MSVehicle( string id,
 	clusterId(-1),
 	totalNrOfSavedInfos(0),
 	timeSinceStop(0),
-	lastTimeStep(0),
 	akt(0),
     myLastInfoTime(0),
     myHaveRouteInfo(false),
@@ -1659,22 +1661,8 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven, bool inBetween
 
 	if(isEquipped()){
 		(*myCurrEdge)->addEquippedVehicle(getID(), this);
-
-		std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
-        if(i==infoCont.end()){
-            delete akt;
-			akt = new Information("congestion", *myCurrEdge, 0, MSNet::getInstance()->getCurrentTimeStep());
-            /*
-			akt->infoTyp = "congestion";
-			akt->edge = (*myCurrEdge)->getID();
-			akt->neededTime = 0;
-			akt->time = MSNet::getInstance()->getCurrentTimeStep();
-            */
-        } else {
-            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
-			(*i).second->neededTime = 0;
-		}
-
+        delete akt;
+        akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
 	}
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
@@ -1712,15 +1700,8 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
     // for Car2Car
 	if(isEquipped()){
         delete akt;
-        akt = 0;
 		(*myCurrEdge)->addEquippedVehicle(getID(), this);
-
-		std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
-        if(i!=infoCont.end()){
-            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
-			(*i).second->neededTime = 0;
-		}
-        akt = new Information("congestion", (*myCurrEdge), 0, MSNet::getInstance()->getCurrentTimeStep());
+        akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
 	}
 }
 
@@ -1734,43 +1715,34 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
         int blb = 0;
     }
 #endif
-    if(isEquipped()){ //
+    if(isEquipped()){
+        // leave the c2c-edge
         (*myCurrEdge)->removeEquippedVehicle(getID());
-        // save required Informations
+        // checke whether the vehicle needed longer than expected
         float factor = (*myCurrEdge)->getEffort(this, MSNet::getInstance()->getCurrentTimeStep());
-        std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
-        if(i == infoCont.end()){
-            // the information is new
-            float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-            if(nt > factor*1.2){
-                // the information induces a jam or something
+//        std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
+        float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
+        if(nt>factor*1.2){
+            // if so, check whether an information about the edge was already existing
+            std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
+            if(i==infoCont.end()) {
+                // no, add the new information
                 Information *info = new Information(*akt);
                 info->neededTime = nt;
-                /*
-				info->infoTyp = akt->infoTyp;
-				info->edge = akt->edge;
-				info->neededTime = nt;
-				info->time = akt->time;
-                */
                 infoCont[*myCurrEdge] = info;
-                MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-                    getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,nt,-1);
-                totalNrOfSavedInfos++;
-            }
-        } else {
-            // an information about the left edge already existed
-            float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - (*i).second->time);
-            if(nt > factor*1.2){
-                // teh travel time was larger than assumed
+                i = infoCont.find(*myCurrEdge);
+            } else {
+                // yes, update the existing information
                 (*i).second->neededTime = nt;
-                MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-                    getID(),(*myCurrEdge)->getID(),(*i).second->infoTyp,(*i).second->time,nt,-1);
-                totalNrOfSavedInfos++;
-            } else{
-                // ok, we could pass the edge without standing; remove the information
-                infoCont.erase(*myCurrEdge);
             }
-		}
+            // save the information
+            MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
+                getID(),(*myCurrEdge)->getID(),"congestion",(*i).second->time,nt,-1);
+            totalNrOfSavedInfos++;
+        } else if(infoCont.find(*myCurrEdge)!=infoCont.end()) {
+            // ok, we could pass the edge faster than assumed; remove the information
+            infoCont.erase(*myCurrEdge);
+        }
         delete akt;
 		akt = 0;
 	}
@@ -2511,62 +2483,60 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
 
 
 void
-MSVehicle::addVehNeighbors(MSVehicle *veh, int time)
+MSVehicle::addVehNeighbors(MSVehicle *veh, SUMOTime time)
 {
     if(&veh->getLane()==0||myLane==0) {
         // obviously, one of the vehicles is being teleported
         return;
     }
-    if(computeDistance(this, veh)){
-		Position2D pos1 = this->getPosition();
+
+    // check whether the other vehicle is in range
+    if(computeDistance(this, veh)) {
+        Position2D pos1 = getPosition();
 	    Position2D pos2 = veh->getPosition();
 		std::map<MSVehicle * const, C2CConnection*>::iterator i = myNeighbors.find(veh);
-		if(i== myNeighbors.end()){
+		if(i==myNeighbors.end()) {
+            // the vehicles will establish a new connection
 			C2CConnection *con = new C2CConnection;
-			con->connectedVeh=veh;
+            con->connectedVeh = veh;
 			con->state = disconnected;
-			con->timeSinceSeen = 1;
-			con->timeSinceConnect = 0;
+//			con->timeSinceSeen = 1;
+//			con->timeSinceConnect = 0;
 			con->lastTimeSeen = time;
 			myNeighbors[veh] = con;
             // the other car must inform THIS vehicle if it's removed from the network
             veh->quitRemindedEntered(this);
 		}else{
-            /*
-            string bla1 = (*i).first;
-            C2CConnection *c = (*i).second;
-            */
-            // !!! assert(find(veh->myQuitReminded.begin(), veh->myQuitReminded.end(), this)!=veh->myQuitReminded.end());
+            // ok, the vehicles already interact
+            //  increment the connection time
             (*i).second->lastTimeSeen = time;
 		}
-		MSCORN::saveVehicleInRangeData(time, getID(), veh->getID(),pos1.x(),pos1.y(),
-										pos2.x(),pos2.y(),-1);
+		MSCORN::saveVehicleInRangeData(time, getID(), veh->getID(),
+            pos1.x(),pos1.y(), pos2.x(),pos2.y(),-1);
 	}
 }
 
 
 void
-MSVehicle::cleanUpConnections(int time)
+MSVehicle::cleanUpConnections(SUMOTime time)
 {
-    // storage for connections to erase
     std::vector<MSVehicle *> toErase;
     std::map<MSVehicle * const, C2CConnection*>::iterator i;
+    // recheck connections
     for(i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
-        MSVehicle * const neigh = (*i).first;//MSNet::getInstance()->getVehicleControl().getVehicle((*i).first);
-        if(neigh==0) {
-            // the other vehicle was removed without letting us know?
-            int bla = 0;
-        }
+        MSVehicle * const neigh = (*i).first;
         if((*i).second->lastTimeSeen != time) {
+            // the vehicle is not longer in range
+            toErase.push_back(neigh);
             // the other vehicle must no longer inform us about being removed from the network
-            neigh->quitRemindedLeft(this);//MSNet::getInstance()->getVehicleControl().getVehicle((*i).first)->quitRemindedLeft(this);
-            toErase.push_back((*i).first);
-        } else {
+            neigh->quitRemindedLeft(this);
+        }/* !!! else {
+            // the vehicle is still in range
             ((*i).second->timeSinceSeen)++;
-            if(((*i).second->state != dialing)&&((*i).second->state != disconnected)){
+            if(((*i).second->state!=dialing) && ((*i).second->state!=disconnected)){
 	            ((*i).second->timeSinceConnect)++;
             }
-        }
+        }*/
     }
 
     // go through the list of invalid connections, erase them
@@ -2596,77 +2566,51 @@ MSVehicle::computeDistance(MSVehicle* veh1, MSVehicle* veh2)
 
 
 void
-MSVehicle::updateInfos(int time)
+MSVehicle::updateInfos(SUMOTime time)
 {
-    // Speicherung der Information, obwohl er die Route noch nicht vollständig
-    // befahren hat.
     // first, count how long the vehicle is waiting at the same position
-    if(lastTimeStep != time){
-        if(myState.speed()<1.) {
-//	   if(myLastPosition == getPositionOnLane()){
-            timeSinceStop++;
-            //cout<<" Vehicle "<<getID()<<" timesincestop "<<timeSinceStop<<endl;
-        } else {
-            timeSinceStop = 0;
-        }
+    if(myState.speed()<1.) {
+        timeSinceStop++;
+    } else {
+        timeSinceStop = 0;
     }
-    lastTimeStep = time;
-    myLastPosition = getPositionOnLane(); // !!! may be removed
-    // second, save the Information as "Congestion", if the Vehicle is at the same
+
+    // second, save the information as "Congestion", if the vehicle is at the same
     // position longer as 5 minutes
-    if(timeSinceStop > 300){
-//        timeSinceStop = 0;
-        SUMOReal timeByMeanSpeed1 = timeSinceStop;
+    if(timeSinceStop > 300) {
+        SUMOReal timeByMeanSpeed1 = (SUMOReal) timeSinceStop;
         if(akt!=0&&myLane!=0) {
-            SUMOReal neededTime = (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
+            SUMOReal neededTime = (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
             timeByMeanSpeed1 = (myState.pos()/neededTime) * myLane->length();
         }
-        //SUMOReal timeByMeanSpeed2 = (myState.pos()/neededTime) * myLane->length();
-        SUMOReal estimatedTime = timeByMeanSpeed1;//MIN2(timeByMeanSpeed1, timeByMeanSpeed2);
+        SUMOReal estimatedTime = timeByMeanSpeed1;
         map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
-        if(i == infoCont.end()){ //noch nicht drin
-            Information *info = new Information("congestion", (*myCurrEdge),
-                /*1*/ estimatedTime, MSNet::getInstance()->getCurrentTimeStep());
-            /*
-            info->infoTyp = "congestion";
-            info->edge = (*myCurrEdge)->getID();
-            info->neededTime = 1; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
-            info->time = MSNet::getInstance()->getCurrentTimeStep();
-            */
+        if(i == infoCont.end()){
+            // this is a new information about an edge where speed is too low
+            Information *info = new Information(estimatedTime, time);
             infoCont[*myCurrEdge] = info;
-            MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-                getID(),(*myCurrEdge)->getID(),info->infoTyp,info->time,0,-1);
+            MSCORN::saveSavedInformationData(time, getID(), (*myCurrEdge)->getID(), "congestion", info->time, 0, -1);
             totalNrOfSavedInfos++;
-        } else { // schon mal hier gefahren oder Information von einem andere
-            (*i).second->neededTime = estimatedTime; // nur damit die Info auch beim empfänger gespeichert wird, sehe transfertInfo
-            (*i).second->time = MSNet::getInstance()->getCurrentTimeStep();
-            /*MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-				getID(),(*myCurrEdge)->getID(),(*i).second->infoTyp,(*i).second->time,0,-1);
-			totalNrOfSavedInfos++;*/
+        } else {
+            // this edge is already known as being too slow
+            // - replace prior information by own
+            (*i).second->neededTime = estimatedTime;
+            (*i).second->time = time;
 		}
-   }
+    }
 
-    // storage for information to erase
+    // remove information older than wished
     std::vector<const MSEdge * > toErase;
     std::map<const MSEdge * const, Information*>::iterator j = infoCont.begin();
-    for(j; j!= infoCont.end(); ++j) {
-        if((*j).second->time < time - MSGlobals::gLANRefuseOldInfosOffset){
+    for(; j!= infoCont.end(); ++j) {
+        if((*j).second->time < time - MSGlobals::gLANRefuseOldInfosOffset) {
             toErase.push_back((*j).first);
-      //			i = infoCont.erase(i);
         }
     }
-    // go through the list of invalid information, erase them
+        // go through the list of invalid information, erase them
     for(vector<const MSEdge *>::iterator k=toErase.begin(); k!=toErase.end(); ++k) {
         infoCont.erase(infoCont.find(*k));
     }
-}
-
-
-void
-MSVehicle::removeAllVehNeighbors(void)
-{
-	myNeighbors.clear();
-
 }
 
 
@@ -2692,122 +2636,134 @@ MSVehicle::getConnections() const
     return myNeighbors;
 }
 
+
 void
 MSVehicle::setClusterId(int Id)
 {
 	clusterId = Id;
 }
 
+
 int
-MSVehicle::getClusterId(void)
+MSVehicle::getClusterId(void) const
 {
 	return clusterId;
 }
 
-int
-MSVehicle::buildMyCluster(int myStep, int clId){
-	int count = 1; // sich selbst erst mal zählen
-    clusterId = clId;
-	std::map<MSVehicle * const, C2CConnection*>::iterator i;
-	std::string vehs=getID();
-	for(i=myNeighbors.begin(); i!=myNeighbors.end(); i++){
-		if((*i).second->connectedVeh->getClusterId()<0){
-			count++;
-			vehs=vehs+" "+(*i).second->connectedVeh->getID();
-			(*i).second->connectedVeh->setClusterId(clId);
-			clusterCont.push_back((*i).second);
-			std::map<MSVehicle * const, C2CConnection*>::iterator j;
-			for(j=(*i).second->connectedVeh->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++){
-				if((*j).second->connectedVeh->getClusterId()<0){
-					vehs=vehs+" "+(*j).second->connectedVeh->getID();
-                    count++;
-					(*j).second->connectedVeh->setClusterId(clId);
-					clusterCont.push_back((*j).second);
-				}
-			}
-		}else if((*i).second->connectedVeh->getClusterId()==clusterId){
-			// du bist zwar mein Nachbarn, aber du würdest von einem anderen Nachbarn von mir schon eingeladen,
-	        // dann werde ich deine nachbarn einladen.
-			std::map<MSVehicle * const, C2CConnection*>::iterator j;
-			for(j=(*i).second->connectedVeh->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++){
-				if((*j).second->connectedVeh->getClusterId()<0){
-					vehs=vehs+" "+(*j).second->connectedVeh->getID();
-                    count++;
-					(*j).second->connectedVeh->setClusterId(clId);
-					clusterCont.push_back((*j).second);
-				}
-			}
 
-		}
-	}
-	MSCORN::saveClusterInfoData(myStep, clId, vehs, count, -1);
+int
+MSVehicle::buildMyCluster(int myStep, int clId)
+{
+    int count = 1;
+    // build the cluster
+    {
+        clusterId = clId;
+        std::map<MSVehicle * const, C2CConnection*>::iterator i;
+        for(i=myNeighbors.begin(); i!=myNeighbors.end(); i++){
+            if((*i).first->getClusterId()<0){
+                count++;
+                (*i).second->connectedVeh->setClusterId(clId);
+                clusterCont.push_back((*i).second);
+                std::map<MSVehicle * const, C2CConnection*>::iterator j;
+                for(j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++){
+                    if((*i).first->getClusterId()<0){
+                        count++;
+                        (*i).first->setClusterId(clId);
+                        clusterCont.push_back((*j).second);
+                    }
+                }
+            } else if((*i).second->connectedVeh->getClusterId()==clusterId){
+                // du bist zwar mein Nachbarn, aber du würdest von einem anderen Nachbarn von mir schon eingeladen,
+                // dann werde ich deine nachbarn einladen.
+                std::map<MSVehicle * const, C2CConnection*>::iterator j;
+                for(j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++){
+                    if((*i).first->getClusterId()<0){
+                        count++;
+                        (*i).first->setClusterId(clId);
+                        clusterCont.push_back((*j).second);
+                    }
+                }
+            }
+        }
+    }
+
+    // write output
+    {
+        ostringstream vehs;
+        for(std::vector<C2CConnection*>::const_iterator i=clusterCont.begin(); i!=clusterCont.end(); ++i) {
+            if(i!=clusterCont.begin()) {
+                vehs << ' ';
+            }
+            vehs << (*i)->connectedVeh->getID();
+        }
+	    MSCORN::saveClusterInfoData(myStep, clId, vehs.str(), count, -1);
+    }
 	return count;
 }
 
-///!!!!!!!!!!!! Noch mal überdenken !!!!!!!!!
+
 void
 MSVehicle::sendInfos(SUMOTime time)
 {
+    // the number of possible packets
 	double numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
+    // the number of information per packet
 	double infoPerPaket = MSGlobals::gInfoPerPaket; // 14
 	double numberOfInfo = numberOfSendingPos*infoPerPaket; // 10248
 
 	if(infoCont.size()>0 && numberOfSendingPos>0){
-		// Als ClusterHeader, sende ich als erste
+		// send information to direct neighbors
 		for(VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
-			int nofP = numOfInfos(this,(*i).second->connectedVeh);
-			if(nofP>numberOfInfo)
-				nofP=numberOfInfo;
-			(*i).second->connectedVeh->transferInformation(getID(), infoCont, nofP, time);
+            // compute the number of netto-sendable packets
+            // !!! maybe it would be prettier to have computed this by the retriever
+			int nofP = numOfInfos(this, (*i).first);
+            if(nofP>numberOfInfo) {
+				nofP = (int) numberOfInfo;
+            }
+            // send the computed number of information to the neighbor
+			(*i).first->transferInformation(getID(), infoCont, nofP, time);
 		}
-		numberOfSendingPos = numberOfSendingPos - ceil(double(infoCont.size())/14.0);
-		numberOfInfo = numberOfInfo - infoCont.size();// (NumberOfInfo/NofP)*transmit;
+        // reduce the number of packets that still may be sent
+        size_t sentBruttoP = MIN2(ceil((SUMOReal) (infoCont.size())/(SUMOReal) infoPerPaket), numberOfSendingPos);
+		numberOfSendingPos = numberOfSendingPos - sentBruttoP;
+		numberOfInfo = numberOfInfo - infoCont.size();
 	}
 
-    // Alle Vehicle in mein Cluster das Senden erlauben.
-	for(ClusterCont::const_iterator o=clusterCont.begin(); o!=clusterCont.end(); ++o) {
-		//MSVehicle::InfoCont info2 = (*o)->connectedVeh->getInfosToSend();
-	   //count = count+(*o)->connectedVeh->infoCont.size();
-	   if((*o)->connectedVeh->infoCont.size()>0 && numberOfSendingPos>0){
-		   for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j){
-				int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
-				if(nofP>numberOfInfo)
-					nofP=numberOfInfo;
-				(*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP, time);
-		   }
-		   numberOfSendingPos = numberOfSendingPos - ceil(double((*o)->connectedVeh->infoCont.size())/14.0);
-		   numberOfInfo = numberOfInfo - (*o)->connectedVeh->infoCont.size();
-		}
-	}
+    if(numberOfInfo<=0) {
+        return;
+    }
+
+    // now let all neighbors send
+    for(ClusterCont::const_iterator o=clusterCont.begin(); o!=clusterCont.end()&&numberOfInfo>0&&numberOfSendingPos>0; ++o) {
+        if((*o)->connectedVeh->infoCont.size()>0 && numberOfSendingPos>0){
+            for(VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j){
+                // compute the number of netto-sendable packets
+                // !!! maybe it would be prettier to have computed this by the retriever
+                int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
+                if(nofP>numberOfInfo) {
+                    nofP = (int) numberOfInfo;
+                }
+                // send the computed number of information to the neighbor
+                (*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP, time);
+            }
+            size_t sentBruttoP = MIN2(ceil((SUMOReal) ((*o)->connectedVeh->infoCont.size())/(SUMOReal) infoPerPaket), numberOfSendingPos);
+		    numberOfSendingPos = numberOfSendingPos - sentBruttoP;
+            numberOfInfo = numberOfInfo - (*o)->connectedVeh->infoCont.size();
+        }
+    }
 	clusterCont.clear();
 }
+
 
 int
 MSVehicle::numOfInfos(MSVehicle *veh1, MSVehicle* veh2)
 {
 	Position2D pos1 = veh1->getPosition();
 	Position2D pos2 = veh2->getPosition();
-
 	SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
 	SUMOReal x = (SUMOReal) (((-2.3*distance + 1650.)*MSGlobals::gNumberOfSendingPos)/1500.); //approximation function
 	return (int) (x*MSGlobals::gInfoPerPaket);
 }
-
-
-/*
-MSVehicle::InfoCont
-MSVehicle::getInfosToSend(void)
-{
-	InfoCont infos;
-	InfoCont::iterator i;
-	for(i = infoCont.begin(); i != infoCont.end(); ++i){
-		if((*i).second->neededTime>0){ // wenn er die Strasse schon vollständig befahren hat
-			infos[(*i).first] = (*i).second;
-		}
-	}
-	return infos;
-}
-*/
 
 
 bool
@@ -2815,6 +2771,7 @@ MSVehicle::willPass(const MSEdge * const edge) const
 {
     return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
 }
+
 
 void
 MSVehicle::transferInformation(const std::string &senderID, const InfoCont &infos,
@@ -2826,23 +2783,18 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
     int count = 0;
     std::map<const MSEdge * const, Information *>::const_iterator i;
     // go through the saved information
-    for(i = infos.begin(); i != infos.end() && count < NofP; ++i){
+    for(i=infos.begin(); i!=infos.end() && count<NofP; ++i) {
         std::map<const MSEdge * const, Information *>::iterator j = infoCont.find((*i).first);
         if(j!= infoCont.end() && ((*i).second->time > (*j).second->time) &&  (*i).second->neededTime > 0){
             // save the information about a previously known edge
             //  (it is newer than the stored)
             delete infoCont[(*i).first];
-            infoCont[(*i).first] = new Information(*(*i).second);
-            count++;
-            MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
         }
-        if(j== infoCont.end() && (*i).second->neededTime > 0) {
-            // save the information about a previously unknown edge
-            infoCont[(*i).first] = new Information(*(*i).second);
-            myHaveRouteInfo |= willPass((*i).second->edge);
-            count++;
-            MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
-        }
+        infoCont[(*i).first] = new Information(*(*i).second);
+        count++;
+        MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
+        // if the edge is on the route, mark that a relevant information has been added
+        myHaveRouteInfo |= willPass((*i).first);
     }
 }
 

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/12/18 14:43:56  dkrajzew
+// debugging c2c
+//
 // Revision 1.21  2006/12/06 16:56:36  ericnicolay
 // added new output for cellphone_dump
 //
@@ -465,7 +468,7 @@ MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
     }
 }
 
-void 
+void
 MSCORN::saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_type)
 {/*event_type describes if a connection begins(0), changecell(1) or ends(2) */
 	if(myCELLPHONEDUMPOutput != 0){
@@ -477,7 +480,8 @@ MSCORN::saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_typ
 
 //car2car
 void
-MSCORN::saveClusterInfoData(SUMOTime step, int id, const std::string vehs, int quantity, int a)
+MSCORN::saveClusterInfoData(SUMOTime step, int id, const std::string &vehs,
+                            int quantity, int a)
 {
     if(myClusterInfoOutput!=0) {
         if(a==0){

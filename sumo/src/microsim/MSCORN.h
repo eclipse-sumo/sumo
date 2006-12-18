@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/12/18 14:43:56  dkrajzew
+// debugging c2c
+//
 // Revision 1.18  2006/12/06 16:56:36  ericnicolay
 // added new output for cellphone_dump
 //
@@ -202,7 +205,7 @@ public:
 
 	//car2car
     static void saveClusterInfoData(SUMOTime step, int id,
-		const std::string vehs, int quantity, int a);
+		const std::string &vehs, int quantity, int a);
     static void saveEdgeNearInfoData(const std::string id,
 		const std::string neighbor, int quantity);
     static void saveSavedInformationData(SUMOTime step, const std::string veh,
