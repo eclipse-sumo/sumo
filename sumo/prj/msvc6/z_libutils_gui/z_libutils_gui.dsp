@@ -259,14 +259,6 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIBaseColorer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_GradientByFunctionValue.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_GradientByTimedFV.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_LaneBySelection.h
 # End Source File
 # Begin Source File
@@ -275,15 +267,7 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue1.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_SingleColor.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\gui\div\GUIColoringSchemesMap.h
 # End Source File
 # Begin Source File
 
