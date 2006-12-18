@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/12/18 14:42:00  dkrajzew
+// debugging nvwa usage
+//
 // Revision 1.2  2006/12/13 07:01:50  dkrajzew
 // debugging building
 //
@@ -71,6 +74,7 @@ namespace
 #include <guisim/GUIJunctionWrapper.h>
 #include <utils/glutils/GLHelper.h>
 #include "GUIJunctionDrawer.h"
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -80,8 +84,6 @@ namespace
 #include <windows.h>
 #endif
 #include <GL/gl.h>
-
-#include <utils/gui/div/GUIGlobalSelection.h>
 
 
 /* =========================================================================

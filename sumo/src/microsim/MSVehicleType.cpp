@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2006/12/18 14:42:00  dkrajzew
+// debugging nvwa usage
+//
 // Revision 1.16  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -165,15 +168,15 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
-
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <cassert>
 #include <utils/bindevice/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
