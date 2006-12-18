@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/12/18 14:42:29  dkrajzew
+// code beautifying
+//
 // Revision 1.2  2006/12/18 08:25:24  dkrajzew
 // consolidation of setting colors
 //
 // Revision 1.1  2006/12/12 12:19:26  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
-//
 //
 /* =========================================================================
  * compiler pragmas
