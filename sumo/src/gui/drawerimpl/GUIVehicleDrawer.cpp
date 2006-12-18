@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
+//
 // Revision 1.1  2006/12/12 12:10:43  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -112,6 +115,7 @@ namespace
 #include <utils/glutils/GLHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -122,12 +126,6 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-
-
-/* =========================================================================
- * static members definitions
- * ======================================================================= */
-GUIColoringSchemesMap<GUIVehicle> GUIVehicleDrawer::myColoringSchemes;
 
 
 /* =========================================================================
@@ -149,6 +147,7 @@ GUIVehicleDrawer::~GUIVehicleDrawer()
 
 void
 GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
+                                 const GUIColoringSchemesMap<GUIVehicle> &schemes,
                                  GUISUMOAbstractView::VisualizationSettings &settings)
 {
     initStep();
@@ -168,7 +167,7 @@ GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-                    drawLanesVehicles(laneGeom, settings);
+                    drawLanesVehicles(laneGeom, schemes, settings);
                 }
             }
         }
@@ -258,6 +257,24 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
 
 
 inline void
+drawAction_drawVehicleName(const GUIVehicle &veh)
+{
+    glPushMatrix();
+    glTranslated(0, veh.getLength() / 2., 0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    pfSetPosition(0, 0);
+    pfSetScale(1);
+    glColor3d(1, 1, 1);
+    SUMOReal w = pfdkGetStringWidth(veh.microsimID().c_str());
+    glRotated(180, 0, 1, 0);
+    glTranslated(-w/2., 0.4, 0);
+    pfDrawString(veh.microsimID().c_str());
+    glPopMatrix();
+}
+
+
+
+inline void
 drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 {
     if(veh.isEquipped()) {
@@ -295,6 +312,7 @@ GUIVehicleDrawer::initStep()
 
 void
 GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
+        const GUIColoringSchemesMap<GUIVehicle> &schemes,
         const GUISUMOAbstractView::VisualizationSettings &settings)
 {
     // retrieve vehicles from lane; disallow simulation
@@ -331,7 +349,7 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             glPushName(veh->getGlID());
         }
             // set color
-        GUIVehicleDrawer::getSchemesMap().getColorer(settings.vehicleMode)->setGlColor(*veh);
+        schemes.getColorer(settings.vehicleMode)->setGlColor(*veh);
             // draw the vehicle
         SUMOReal upscale = settings.vehicleExaggeration;
         drawAction_drawVehicleAsTrianglePlus(*veh, upscale);
@@ -340,11 +358,11 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             drawAction_drawVehicleBlinker(*veh);
         }
             // draw the c2c-circle
-        if(true) { // !!!
+        if(settings.drawcC2CRadius) {
             drawAction_C2CdrawVehicleRadius(*veh);
         }
             // draw the wish to change the lane
-        if(true) {//!!!
+        if(settings.drawLaneChangePreference) {
             MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
             glColor3f(.5, .5, 1);
             glBegin(GL_LINES);
@@ -373,6 +391,9 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             glVertex2f(-.4, r3/mmax/2.);
             glEnd();
             */
+        }
+        if(settings.drawVehicleName) {
+            drawAction_drawVehicleName(*veh);
         }
             // removed the gl-id if wished
         if(myShowToolTips) {
@@ -828,12 +849,6 @@ GUIVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
     }
 }
 */
-
-GUIColoringSchemesMap<GUIVehicle> &
-GUIVehicleDrawer::getSchemesMap()
-{
-    return myColoringSchemes;
-}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

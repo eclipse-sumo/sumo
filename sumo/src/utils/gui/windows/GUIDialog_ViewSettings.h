@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
+//
 // Revision 1.6  2006/11/28 12:10:45  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -136,7 +139,7 @@ private:
     FXVerticalFrame *myVehicleColorSettingFrame;
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker;
+    FXCheckButton *myShowBlinker, *myShowC2CRadius, *myShowLaneChangePreference, *myShowVehicleName;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
 

@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.27  2006/12/01 11:08:25  behrisch
-// Linux needs CALLBACK definition
+// Revision 1.28  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
 //
 // Revision 1.26  2006/12/01 09:16:00  dkrajzew
 // debugged memory leak in polygon visualization
@@ -255,7 +255,6 @@ namespace
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geoconv/GeoConvHelper.h>
-#include <utils/foxtools/fxexdefs.h>
 
 
 #ifdef _WIN32
@@ -546,28 +545,26 @@ GUISUMOAbstractView::paintGL()
     }
     // draw
     glClearColor(
-        myVisualizationSettings.backgroundColor.red(),
-        myVisualizationSettings.backgroundColor.green(),
-        myVisualizationSettings.backgroundColor.blue(),
+        myVisualizationSettings->backgroundColor.red(),
+        myVisualizationSettings->backgroundColor.green(),
+        myVisualizationSettings->backgroundColor.blue(),
         1);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    if(myVisualizationSettings.dither) {
+    if(myVisualizationSettings->dither) {
         glEnable(GL_DITHER);
     } else {
         glDisable(GL_DITHER);
     }
-    if(myVisualizationSettings.antialiase) {
+    if(myVisualizationSettings->antialiase) {
         glEnable(GL_BLEND);
         glEnable(GL_POLYGON_SMOOTH);
         glEnable(GL_LINE_SMOOTH);
-//        glDisable (GL_DEPTH_TEST);
     } else {
         glDisable(GL_BLEND);
         glDisable(GL_POLYGON_SMOOTH);
         glDisable(GL_LINE_SMOOTH);
-//        glEnable (GL_DEPTH_TEST);
     }
 
     applyChanges(1.0, 0, 0);
@@ -622,7 +619,6 @@ GUISUMOAbstractView::getObjectUnderCursor()
     }
     // Interpret results
     unsigned int idMax = 0;
-    //GUIGlObjectType prevType = (GUIGlObjectType) 0;
     int prevLayer = -1000;
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
@@ -698,7 +694,6 @@ GUISUMOAbstractView::paintGLGrid()
     SUMOReal xpos = xmin;
     SUMOReal xend = (myGrid->getNoXCells()) * myGrid->getXCellSize() + myGrid->getBoundary().xmin();
     SUMOReal yend = (myGrid->getNoYCells()) * myGrid->getYCellSize() + myGrid->getBoundary().ymin();
-
 
 	// draw boxes
 	{
@@ -843,10 +838,6 @@ GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
 
-    /*
-    GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
-    GUITexturesHelper::getFontRenderer().SetColor(0, 0, 0);
-    */
     SUMOReal len = (SUMOReal) pixelSize / (SUMOReal) (myApp->getMaxGLWidth()-1) * (SUMOReal) 2.0;
     glColor3f(0, 0, 0);
     glBegin( GL_LINES );
@@ -979,9 +970,9 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
         _ratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
         glViewport( 0, 0, myApp->getMaxGLWidth()-1, myApp->getMaxGLHeight()-1 );
         glClearColor(
-            myVisualizationSettings.backgroundColor.red(),
-            myVisualizationSettings.backgroundColor.green(),
-            myVisualizationSettings.backgroundColor.blue(),
+            myVisualizationSettings->backgroundColor.red(),
+            myVisualizationSettings->backgroundColor.green(),
+            myVisualizationSettings->backgroundColor.blue(),
             1);
         _changer->applyCanvasSize(width, height);
         doInit();
@@ -1288,7 +1279,7 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p) const
     glColor3d(p.red(),p.green(),p.blue());
     glTranslated(p.x(), p.y(), 0);
     GLHelper::drawFilledCircle(
-		(SUMOReal) 1.3*myVisualizationSettings.poiExaggeration, 16);
+		(SUMOReal) 1.3*myVisualizationSettings->poiExaggeration, 16);
     glTranslated(-p.x(), -p.y(), 0);
     if(_useToolTips) {
         glPopName();
@@ -1303,28 +1294,26 @@ GUISUMOAbstractView::getSnapshot()
     // draw
     // draw
     glClearColor(
-        myVisualizationSettings.backgroundColor.red(),
-        myVisualizationSettings.backgroundColor.green(),
-        myVisualizationSettings.backgroundColor.blue(),
+        myVisualizationSettings->backgroundColor.red(),
+        myVisualizationSettings->backgroundColor.green(),
+        myVisualizationSettings->backgroundColor.blue(),
         1);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    if(myVisualizationSettings.dither) {
+    if(myVisualizationSettings->dither) {
         glEnable(GL_DITHER);
     } else {
         glDisable(GL_DITHER);
     }
-    if(myVisualizationSettings.antialiase) {
+    if(myVisualizationSettings->antialiase) {
         glEnable(GL_BLEND);
         glEnable(GL_POLYGON_SMOOTH);
         glEnable(GL_LINE_SMOOTH);
-//        glDisable (GL_DEPTH_TEST);
     } else {
         glDisable(GL_BLEND);
         glDisable(GL_POLYGON_SMOOTH);
         glDisable(GL_LINE_SMOOTH);
-//        glEnable (GL_DEPTH_TEST);
     }
 
     applyChanges(1.0, 0, 0);

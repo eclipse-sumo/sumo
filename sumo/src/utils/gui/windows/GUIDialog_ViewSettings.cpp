@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
+//
 // Revision 1.13  2006/11/28 12:10:45  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -184,20 +187,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         laneEdgeModeSource->fill(*myLaneEdgeColorMode);
-        /*
-        c1->appendItem("single color");
-        c1->appendItem("average speed (lane)");
-        c1->appendItem("average speed (edge)");
-        c1->appendItem("density (lane)");
-        c1->appendItem("density (edge)");
-        c1->appendItem("allowed speed (lane)");
-        c1->appendItem("type (edge)");
-        c1->appendItem("allowed - average speed (lane)");
-        c1->appendItem("allowed - average / allowed speed (lane)");
-        c1->appendItem("by allowed vehicle classes (lane)");
-        c1->appendItem("LOS (lane)");
-        c1->appendItem("LOS (edge)");
-        */
         myLaneEdgeColorMode->setNumVisible(10);
         myLaneColorSettingFrame =
             new FXVerticalFrame(s2, LAYOUT_FIX_HEIGHT|LAYOUT_FIX_Y|LAYOUT_FILL_Y,  0,0,  0,0, 10,10,10,10, 5,2);
@@ -252,10 +241,18 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                     0,0,0,0, 10,10,10,10, 5,5);
             myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowBlinker->setCheck(mySettings->showBlinker);
+            myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
+            myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
+            myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
+            myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
+            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE);
+            myShowVehicleName->setCheck(mySettings->drawVehicleName);
+            /*
             FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
             tmpc->disable();
             tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
             tmpc->disable();
+            */
 
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -397,7 +394,7 @@ long
 GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 {
     FXString dataS = (char*) data; // !!!unicode
-    // check whether this item has bben added twice
+    // check whether this item has been added twice
     if(dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {
         for(int i=0; i<mySchemeName->getNumItems()-1; ++i) {
             if(dataS==mySchemeName->getItemText(i)) {
@@ -406,7 +403,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
         }
     }
     myBackup = gSchemeStorage.get(dataS.text());
-    (*mySettings) = gSchemeStorage.get(dataS.text());
+    mySettings = &gSchemeStorage.get(dataS.text());
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
@@ -420,6 +417,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
     myShowBlinker->setCheck(mySettings->showBlinker);
+    myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
+    myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
+    myShowVehicleName->setCheck(mySettings->drawVehicleName);
 
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
@@ -434,13 +434,14 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     // lanes
     switch(myLaneColoringInfoSource->getColorSetType(myBackup.laneEdgeMode)) {
     case CST_SINGLE:
-        mySingleLaneColor->setRGBA(convert(mySettings->singleLaneColor));
-        myLaneColoringInfoSource->getColorerInterface(myBackup.laneEdgeMode)->resetColor(myBackup.singleLaneColor);
+        mySingleLaneColor->setRGBA(convert(
+            mySettings->laneColorings[mySettings->laneEdgeMode][0]));
         break;
     case CST_MINMAX:
-        myMinLaneColor->setRGBA(convert(mySettings->minLaneColor));
-        myMaxLaneColor->setRGBA(convert(mySettings->maxLaneColor));
-        myLaneColoringInfoSource->getColorerInterface(myBackup.laneEdgeMode)->resetColor(myBackup.minLaneColor, myBackup.maxLaneColor);
+        myMinLaneColor->setRGBA(convert(
+            mySettings->laneColorings[mySettings->laneEdgeMode][0]));
+        myMaxLaneColor->setRGBA(convert(
+            mySettings->laneColorings[mySettings->laneEdgeMode][1]));
         break;
     default:
         break;
@@ -449,13 +450,14 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     if(myVehicleColoringInfoSource!=0) {
         switch(myVehicleColoringInfoSource->getColorSetType(myBackup.vehicleMode)) {
         case CST_SINGLE:
-            mySingleVehicleColor->setRGBA(convert(mySettings->singleVehicleColor));
-            myVehicleColoringInfoSource->getColorerInterface(myBackup.vehicleMode)->resetColor(myBackup.singleVehicleColor);
+            mySingleVehicleColor->setRGBA(convert(
+                mySettings->vehicleColorings[mySettings->vehicleMode][0]));
             break;
         case CST_MINMAX:
-            myMinVehicleColor->setRGBA(convert(mySettings->minVehicleColor));
-            myMaxVehicleColor->setRGBA(convert(mySettings->maxVehicleColor));
-            myVehicleColoringInfoSource->getColorerInterface(myBackup.vehicleMode)->resetColor(myBackup.minVehicleColor, myBackup.maxVehicleColor);
+            myMinVehicleColor->setRGBA(convert(
+                mySettings->vehicleColorings[mySettings->vehicleMode][0]));
+            myMaxVehicleColor->setRGBA(convert(
+                mySettings->vehicleColorings[mySettings->vehicleMode][1]));
             break;
         default:
             break;
@@ -486,6 +488,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
         mySettings->showBlinker = myShowBlinker->getCheck()!=0;
+        mySettings->drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
+        mySettings->drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
+        mySettings->drawVehicleName = myShowVehicleName->getCheck()!=0;
     }
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
@@ -505,13 +510,16 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     // lanes
     switch(myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
     case CST_SINGLE:
-        mySettings->singleLaneColor = convert(mySingleLaneColor->getRGBA());
-        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(mySettings->singleLaneColor);
+        mySettings->laneColorings[mySettings->laneEdgeMode][0] = convert(mySingleLaneColor->getRGBA());
+        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(
+            mySettings->laneColorings[mySettings->laneEdgeMode][0]);//mySettings->singleLaneColor);
         break;
     case CST_MINMAX:
-        mySettings->minLaneColor = convert(myMinLaneColor->getRGBA());
-        mySettings->maxLaneColor = convert(myMaxLaneColor->getRGBA());
-        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(mySettings->minLaneColor, mySettings->maxLaneColor);
+        mySettings->laneColorings[mySettings->laneEdgeMode][0] = convert(myMinLaneColor->getRGBA());
+        mySettings->laneColorings[mySettings->laneEdgeMode][1] = convert(myMaxLaneColor->getRGBA());
+        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(
+            mySettings->laneColorings[mySettings->laneEdgeMode][0],
+            mySettings->laneColorings[mySettings->laneEdgeMode][1]);
         break;
     default:
         break;
@@ -520,13 +528,16 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     if(myVehicleColoringInfoSource!=0) {
         switch(myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
         case CST_SINGLE:
-            mySettings->singleVehicleColor = convert(mySingleVehicleColor->getRGBA());
-            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(mySettings->singleVehicleColor);
+            mySettings->vehicleColorings[mySettings->vehicleMode][0] = convert(mySingleVehicleColor->getRGBA());
+            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(
+                mySettings->vehicleColorings[mySettings->vehicleMode][0]);
             break;
         case CST_MINMAX:
-            mySettings->minVehicleColor = convert(myMinVehicleColor->getRGBA());
-            mySettings->maxVehicleColor = convert(myMaxVehicleColor->getRGBA());
-            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(mySettings->minVehicleColor, mySettings->maxVehicleColor);
+            mySettings->vehicleColorings[mySettings->vehicleMode][0] = convert(myMinVehicleColor->getRGBA());
+            mySettings->vehicleColorings[mySettings->vehicleMode][1] = convert(myMaxVehicleColor->getRGBA());
+            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(
+                mySettings->vehicleColorings[mySettings->vehicleMode][0],
+                mySettings->vehicleColorings[mySettings->vehicleMode][1]);
             break;
         default:
             break;
@@ -657,23 +668,20 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         myMaxLaneColor = 0;
         switch(myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
         case CST_SINGLE:
-            mySettings->singleLaneColor = myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->getSingleColor();
             new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
-            mySingleLaneColor = new FXColorWell(m , convert(mySettings->singleLaneColor),
+            mySingleLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
             break;
         case CST_MINMAX:
-            mySettings->minLaneColor = myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->getMinColor();
-            mySettings->maxLaneColor = myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->getMaxColor();
             new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
-            myMinLaneColor = new FXColorWell(m , convert(mySettings->minLaneColor),
+            myMinLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
             new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
-            myMaxLaneColor = new FXColorWell(m , convert(mySettings->maxLaneColor),
+            myMaxLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][1]),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
@@ -700,23 +708,20 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             myMaxVehicleColor = 0;
             switch(myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
             case CST_SINGLE:
-                mySettings->singleVehicleColor = myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->getSingleColor();
                 new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
-                mySingleVehicleColor = new FXColorWell(m , convert(mySettings->singleVehicleColor),
+                mySingleVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
                     this, MID_SIMPLE_VIEW_COLORCHANGE,
                     LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                     0, 0, 100, 0,   0, 0, 0, 0);
                 break;
             case CST_MINMAX:
-                mySettings->minVehicleColor = myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->getMinColor();
-                mySettings->maxVehicleColor = myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->getMaxColor();
                 new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
-                myMinVehicleColor = new FXColorWell(m , convert(mySettings->minVehicleColor),
+                myMinVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
                     this, MID_SIMPLE_VIEW_COLORCHANGE,
                     LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                     0, 0, 100, 0,   0, 0, 0, 0);
                 new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
-                myMaxVehicleColor = new FXColorWell(m , convert(mySettings->maxVehicleColor),
+                myMaxVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][1]),
                     this, MID_SIMPLE_VIEW_COLORCHANGE,
                     LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                     0, 0, 100, 0,   0, 0, 0, 0);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
+//
 // Revision 1.1  2006/12/12 12:10:43  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -103,13 +106,11 @@ public:
 
     /// Draws the vehicles that are on the marked edges
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
+        const GUIColoringSchemesMap<GUIVehicle> &schemes,
         GUISUMOAbstractView::VisualizationSettings &settings/*,
         GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
 
     void setGLID(bool val);
-
-    /// Returns the list of available coloring schemes
-    static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
 
 protected:
     /// initialises the drawing
@@ -117,15 +118,12 @@ protected:
 
     /// Draws all vehicles that are on the given lane
     virtual void drawLanesVehicles(GUILaneWrapper &lane,
+        const GUIColoringSchemesMap<GUIVehicle> &schemes,
         const GUISUMOAbstractView::VisualizationSettings &settings);
 
 protected:
     /// The list of edges to consider at drawing
     const std::vector<GUIEdge*> &myEdges;
-
-    /** @brief The list of coloring schemes that may be used
-        They are not fixed as they may change in dependence to the available parameter */
-    static GUIColoringSchemesMap<GUIVehicle> myColoringSchemes;
 
     /// Information whether the gl-id shall be set
     bool myShowToolTips;

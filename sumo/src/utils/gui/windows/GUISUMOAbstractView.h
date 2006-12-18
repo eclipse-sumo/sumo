@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2006/12/18 08:24:58  dkrajzew
+// made several visualization things optional
+//
 // Revision 1.22  2006/12/12 12:11:04  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -179,6 +182,7 @@
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include "GUIGrid.h"
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -388,46 +392,77 @@ public:
 
     /**
      * @struct VisualizationSettings
-     * This class stores the information about how to visualize the structures
+     * @brief This class stores the information about how to visualize the structures
      */
     struct VisualizationSettings {
+        /// Information whether antialiase shall be enabled
         bool antialiase;
+        /// Information whether dithering shall be enabled
         bool dither;
 
+        /// The background color to use
         RGBColor backgroundColor;
+        /// Information whether background decals (textures) shall be used
         bool showBackgroundDecals;
 
+        ///{ lane visualization settings
+        /// The lane visualization scheme
         int laneEdgeMode;
-        RGBColor singleLaneColor;
-        RGBColor minLaneColor;
-        RGBColor maxLaneColor;
+        /// The map if used colors (scheme->used colors)
+        std::map<int, std::vector<RGBColor> > laneColorings;
+        /// Information whether lane borders shall be drawn
         bool laneShowBorders;
-        std::vector<RGBColor> laneGradient;
+        /// Information whether link textures (arrows) shall be drawn
         bool showLinkDecals;
         int laneEdgeExaggMode;
         SUMOReal minExagg;
         SUMOReal maxExagg;
+        /// Information whether rails shall be drawn
         bool showRails;
+        ///}
 
+        ///{ vehicle visualization settings
+        /// The vehicle visualization scheme
         int vehicleMode;
+        /// The minimum size of vehicles to let them be drawn
         float minVehicleSize;
+        /// The vehicle exaggeration (upscale)
         float vehicleExaggeration;
-        RGBColor singleVehicleColor;
-        RGBColor minVehicleColor;
-        RGBColor maxVehicleColor;
-        std::vector<RGBColor> vehicleGradient;
+        /// The map if used colors (scheme->used colors)
+        std::map<int, std::vector<RGBColor> > vehicleColorings;
+        /// Information whether vehicle blinkers shall be drawn
         bool showBlinker;
+        /// Information whether the c2c radius shall be drawn
+        bool drawcC2CRadius;
+        /// Information whether the lane change preference shall be drawn
+        bool drawLaneChangePreference;
+        /// Information whether the vehicle name shall be drawn
+        bool drawVehicleName;
+        ///}
 
+        ///{ junction visualization settings
+        /// The junction visualization scheme
         int junctionMode;
+        ///}
 
+        /// Information whether lane-to-lane arrows shall be drawn
         bool showLane2Lane;
 
+        ///{ additional structures visualization settings
+        /// The additional structures visualization scheme
         int addMode;
+        /// The minimum size of additional structures to let them be drawn
         float minAddSize;
+        /// The additional structures exaggeration (upscale)
         float addExaggeration;
+        ///}
 
+        ///{ shapes visualization settings
+        /// The minimum size of shapes to let them be drawn
         float minPOISize;
+        /// The additional shapes (upscale)
         float poiExaggeration;
+        ///}
 
     };
 
@@ -464,9 +499,6 @@ protected:
 
     /// draws the legend
     void displayLegend(bool flip=false);
-
-    /// centers the view to the given position and size
-//    void centerTo(Position2D pos, SUMOReal radius);
 
     /// centers the given boundary
     void centerTo(Boundary bound);
@@ -536,7 +568,7 @@ protected:
     /// the description of the viewport
     ViewportSettings myViewportSettings;
 
-    VisualizationSettings myVisualizationSettings;
+    VisualizationSettings *myVisualizationSettings;
 
     /// Internal information whether doInit() was called
     bool myAmInitialised;
