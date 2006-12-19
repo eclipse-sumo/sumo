@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.117  2006/12/19 08:03:34  dkrajzew
+// debugging c2c
+//
 // Revision 1.116  2006/12/18 14:43:57  dkrajzew
 // debugging c2c
 //
@@ -1608,12 +1611,7 @@ MSVehicle::onAllowed( ) const
     return ( compare != myAllowedLanes[0]->end() );
 }
 
-	struct Information {
-		std::string InfoTyp;
-		MSEdge *edge;
-		int neededTime; // how long needed the vehicle to travel on the edge
-		int time; // the Time, when the Info was saved
-	};
+
 /////////////////////////////////////////////////////////////////////////////
 
 void
@@ -2706,10 +2704,10 @@ void
 MSVehicle::sendInfos(SUMOTime time)
 {
     // the number of possible packets
-	double numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
+	size_t numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
     // the number of information per packet
-	double infoPerPaket = MSGlobals::gInfoPerPaket; // 14
-	double numberOfInfo = numberOfSendingPos*infoPerPaket; // 10248
+	size_t infoPerPaket = MSGlobals::gInfoPerPaket; // 14
+	size_t numberOfInfo = numberOfSendingPos*infoPerPaket; // 10248
 
 	if(infoCont.size()>0 && numberOfSendingPos>0){
 		// send information to direct neighbors
@@ -2724,7 +2722,7 @@ MSVehicle::sendInfos(SUMOTime time)
 			(*i).first->transferInformation(getID(), infoCont, nofP, time);
 		}
         // reduce the number of packets that still may be sent
-        size_t sentBruttoP = MIN2(ceil((SUMOReal) (infoCont.size())/(SUMOReal) infoPerPaket), numberOfSendingPos);
+        size_t sentBruttoP = MIN2((size_t) ceil((SUMOReal) (infoCont.size())/(SUMOReal) infoPerPaket), (size_t) numberOfSendingPos);
 		numberOfSendingPos = numberOfSendingPos - sentBruttoP;
 		numberOfInfo = numberOfInfo - infoCont.size();
 	}
@@ -2746,7 +2744,7 @@ MSVehicle::sendInfos(SUMOTime time)
                 // send the computed number of information to the neighbor
                 (*j).second->connectedVeh->transferInformation((*o)->connectedVeh->getID(),(*o)->connectedVeh->infoCont, nofP, time);
             }
-            size_t sentBruttoP = MIN2(ceil((SUMOReal) ((*o)->connectedVeh->infoCont.size())/(SUMOReal) infoPerPaket), numberOfSendingPos);
+            size_t sentBruttoP = MIN2((size_t) ceil((SUMOReal) ((*o)->connectedVeh->infoCont.size())/(SUMOReal) infoPerPaket), (size_t) numberOfSendingPos);
 		    numberOfSendingPos = numberOfSendingPos - sentBruttoP;
             numberOfInfo = numberOfInfo - (*o)->connectedVeh->infoCont.size();
         }

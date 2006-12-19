@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.100  2006/12/19 08:03:34  dkrajzew
+// debugging c2c
+//
 // Revision 1.99  2006/12/18 14:43:57  dkrajzew
 // debugging c2c
 //
@@ -1048,7 +1051,7 @@ MSNet::computeCar2Car(void)
 					}
 				}
 				clusterHeaders.push_back((*q));
-				//(*q)->buildMyCluster(myStep, clusterId);
+				(*q)->buildMyCluster(myStep, clusterId);
 				clusterId++;
 			}
 		}
