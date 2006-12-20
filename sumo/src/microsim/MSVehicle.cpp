@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.118  2006/12/20 08:38:04  dkrajzew
+// removed memory leaks
+//
 // Revision 1.117  2006/12/19 08:03:34  dkrajzew
 // debugging c2c
 //
@@ -2539,7 +2542,9 @@ MSVehicle::cleanUpConnections(SUMOTime time)
 
     // go through the list of invalid connections, erase them
     for(vector<MSVehicle *>::iterator j=toErase.begin(); j!=toErase.end(); ++j) {
-        myNeighbors.erase(myNeighbors.find(*j));
+        i = myNeighbors.find(*j);
+        delete (*i).second;
+        myNeighbors.erase(i);
     }
 }
 
@@ -2616,7 +2621,9 @@ void
 MSVehicle::removeOnTripEnd( MSVehicle *veh )
 {
     assert(myNeighbors.find(veh)!=myNeighbors.end());
-    myNeighbors.erase(myNeighbors.find(veh));
+    std::map<MSVehicle * const, C2CConnection*>::iterator i = myNeighbors.find(veh);
+    delete (*i).second;
+    myNeighbors.erase(i);
     quitRemindedLeft(veh);
 }
 
@@ -2787,8 +2794,8 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
             // save the information about a previously known edge
             //  (it is newer than the stored)
             delete infoCont[(*i).first];
+            infoCont[(*i).first] = new Information(*(*i).second);
         }
-        infoCont[(*i).first] = new Information(*(*i).second);
         count++;
         MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
         // if the edge is on the route, mark that a relevant information has been added
