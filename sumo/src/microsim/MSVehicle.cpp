@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.119  2006/12/20 10:47:10  dkrajzew
+// debugging c2c
+//
 // Revision 1.118  2006/12/20 08:38:04  dkrajzew
 // removed memory leaks
 //
@@ -2790,7 +2793,11 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
     // go through the saved information
     for(i=infos.begin(); i!=infos.end() && count<NofP; ++i) {
         std::map<const MSEdge * const, Information *>::iterator j = infoCont.find((*i).first);
-        if(j!= infoCont.end() && ((*i).second->time > (*j).second->time) &&  (*i).second->neededTime > 0){
+        if(j==infoCont.end()) {
+            if((*i).second->neededTime > 0) {
+                infoCont[(*i).first] = new Information(*(*i).second);
+            }
+        } else if(((*i).second->time > (*j).second->time) &&  (*i).second->neededTime > 0){
             // save the information about a previously known edge
             //  (it is newer than the stored)
             delete infoCont[(*i).first];
