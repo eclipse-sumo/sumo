@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/12/20 08:37:29  dkrajzew
+// title text fixed
+//
 // Revision 1.6  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -82,7 +85,7 @@ GUIDialog_SimSettings::GUIDialog_SimSettings(FXMainWindow* parent,
                                              bool *quitOnEnd,
                                              bool *surpressEnd,
                                              bool *allowFloating)
-    : FXDialogBox( parent, "Application Settings" ),
+    : FXDialogBox( parent, "Simulation Settings" ),
     myAppQuitOnEnd(*quitOnEnd), mySurpressEnd(*surpressEnd),
     myAllowFloating(*allowFloating),
     mySetAppQuitOnEnd(quitOnEnd), mySetSurpressEnd(surpressEnd),

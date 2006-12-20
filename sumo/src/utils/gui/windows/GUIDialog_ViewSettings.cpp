@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/12/20 08:37:30  dkrajzew
+// title text fixed
+//
 // Revision 1.14  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -133,7 +136,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             BaseSchemeInfoSource *vehicleModeSource,
             std::vector<GUISUMOAbstractView::Decal> *decals,
             FXMutex *decalsLock)
-    : FXDialogBox( parent, "Application Settings" ),
+    : FXDialogBox( parent, "View Settings" ),
     myMainWindow(mainWindow), myParent(parent), mySettings(settings),
     myLaneColoringInfoSource(laneEdgeModeSource),
     myVehicleColoringInfoSource(vehicleModeSource),
