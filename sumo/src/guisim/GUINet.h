@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.45  2006/12/21 13:33:39  dkrajzew
+// documentation added; removed unneeded methods
+//
 // Revision 1.44  2006/12/21 13:23:54  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -296,9 +299,7 @@ public:
     /// Initialises gui wrappers
     void initGUIStructures();
 
-    s
-	bool hasPosition(GUIVehicle *v) const;
-
+    /// Builds an appropriate route loader for this type of a net
     MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
 
@@ -337,11 +338,18 @@ protected:
     /// A detector dictionary
     std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
 
-    /// A link2tl-logic map
+
+    /// Definition of a link-to-logic-id map
     typedef std::map<MSLink*, std::string> Links2LogicMap;
+    /// The link-to-logic-id map
     Links2LogicMap myLinks2Logic;
+
+
+    /// Definition of a traffic light-to-wrapper map
     typedef std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*> Logics2WrapperMap;
+    /// The traffic light-to-wrapper map
     Logics2WrapperMap myLogics2Wrapper;
+
 
     /// The step durations (simulation, /*visualisation, */idle)
     int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;

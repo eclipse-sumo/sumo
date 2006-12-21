@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2006/12/21 13:33:38  dkrajzew
+// documentation added; removed unneeded methods
+//
 // Revision 1.57  2006/12/21 13:23:54  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -415,20 +418,6 @@ GUINet::getJunctionPosition(const std::string &name) const
     return Position2D(junction->getPosition());
 }
 
-
-bool
-GUINet::hasPosition(GUIVehicle *vehicle) const
-{
-    const GUIEdge * const edge =
-        static_cast<const GUIEdge * const>(vehicle->getEdge());
-    if(edge==0) {
-        return false;
-    }
-	if(&(vehicle->getLane())==0) {
-        return false;
-	}
-    return true;
-}
 
 bool
 GUINet::vehicleExists(const std::string &name) const

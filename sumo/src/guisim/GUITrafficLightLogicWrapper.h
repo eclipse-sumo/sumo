@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.13  2006/12/21 13:23:55  dkrajzew
-// added visualization of tls/junction link indices
+// Revision 1.14  2006/12/21 13:33:39  dkrajzew
+// documentation added; removed unneeded methods
 //
 // Revision 1.12  2006/11/16 10:50:44  dkrajzew
 // warnings removed
@@ -113,11 +113,12 @@ public:
     const std::string &microsimID() const;
 
     /// Returns the information whether this object is still active
-	bool active() const;
+    bool active() const;
 
     /// Returns the boundary to which the object shall be centered
-	Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const;
     //@}
+
 
     /// Builds a GUITLLogicPhasesTrackerWindow which will receive new phases
     void begin2TrackPhases();
@@ -128,6 +129,7 @@ public:
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void switchTLSLogic(int to);
 
+    /// Returns the index of the given link within the according tls
     int getLinkIndex(MSLink *link) const;
 
 public:
@@ -161,6 +163,7 @@ public:
     };
 
 private:
+    /// Reference to the according tls
     MSTLLogicControl &myTLLogicControl;
 
     /// The wrapped tl-logic
