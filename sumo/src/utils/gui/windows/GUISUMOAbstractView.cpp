@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/12/21 08:14:09  dkrajzew
+// debugged building under Linux
+//
 // Revision 1.28  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -259,6 +262,10 @@ namespace
 
 #ifdef _WIN32
 #include <windows.h>
+#else
+#ifndef CALLBACK
+#define CALLBACK
+#endif
 #endif
 
 #include <GL/gl.h>
