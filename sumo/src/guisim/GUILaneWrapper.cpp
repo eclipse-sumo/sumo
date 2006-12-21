@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUILaneWrapper.cpp -
-//  Holds geometrical values for a lane
+//  A MSLane extended for visualisation purposes.
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Mon, 25 Nov 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.40  2006/11/28 12:10:40  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -411,10 +414,18 @@ GUILaneWrapper::getLinkDirection(size_t pos) const
     return myLane.getLinkCont()[pos]->getDirection();
 }
 
+
 MSLane *
 GUILaneWrapper::getLinkLane(size_t pos) const
 {
     return myLane.getLinkCont()[pos]->getLane();
+}
+
+
+int
+GUILaneWrapper::getLinkRespondIndex(size_t pos) const
+{
+    return myLane.getLinkCont()[pos]->getRespondIndex();
 }
 
 
@@ -539,6 +550,14 @@ GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
 {
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
 }
+
+
+int
+GUILaneWrapper::getLinkTLIndex(const GUINet &net, size_t pos) const
+{
+    return net.getLinkTLIndex(myLane.getLinkCont()[pos]);
+}
+
 
 const MSEdge * const
 GUILaneWrapper::getMSEdge() const

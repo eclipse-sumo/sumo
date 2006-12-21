@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/12/21 13:23:55  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.16  2006/11/16 10:50:45  dkrajzew
 // warnings removed
 //
@@ -485,6 +488,21 @@ MSTrafficLightLogic::init(NLDetectorBuilder &,
     }
 }
 
+
+int
+MSTrafficLightLogic::getLinkIndex(MSLink *link) const
+{
+    int index = 0;
+    for(LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1, ++index) {
+        const LinkVector &l = (*i1);
+        for(LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            if((*i2)==link) {
+                return index;
+            }
+        }
+    }
+    return -1;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

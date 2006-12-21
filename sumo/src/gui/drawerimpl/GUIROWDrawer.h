@@ -2,7 +2,7 @@
 #define GUIROWDrawer_h
 //---------------------------------------------------------------------------//
 //                        GUIROWDrawer.h -
-//  Base class for drawing right of way - rules
+//  Draws links (mainly their right-of-way)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.1  2006/12/12 12:10:42  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -90,7 +93,21 @@ class GUILaneWrapper;
  * class definitions
  * ======================================================================= */
 /**
- * Draws lanes as simple, one-colored straights
+ * @class GUIROWDrawer
+ * @brief Draws links (mainly their right-of-way)
+ *
+ * This class goes through all lanes of all visible edges and draws their
+ *  links. Right-Of-Way for each link is always drawn, additionally the
+ *  visualisation settings are asked whether
+ * a) the link decal (the arrows that display the driving direction)
+ * b) the link's junction index
+ * c) the link's tls index
+ * d) connections between lanes
+ * shall be drawn.
+ *
+ * All methods that realise the drawing of those features are externalised
+ *  from the method that calls them and are only defined in the cpp-file
+ *  (are not exported).
  */
 class GUIROWDrawer {
 public:
@@ -100,43 +117,24 @@ public:
     /// destructor
     virtual ~GUIROWDrawer();
 
-    void drawGLROWs(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width, bool showLane2Lane,
-        bool withArrows);
+    /// draws the right-of-way rules
+    void drawGLROWs(const GUINet &net, size_t *which, size_t maxEdges,
+        SUMOReal width, GUISUMOAbstractView::VisualizationSettings &settings);
 
+    /// Informs the drawer whether glids shall be set
     void setGLID(bool val);
 
-protected:
-    void drawGLROWs_Only(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width,
-        bool withArrows);
-
-    void drawGLROWs_WithConnections(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width,
-        bool withArrows);
+    /// Definition of a storage for link colors
+    typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
 
 private:
-    /// initialises the drawing
-    virtual void initStep();
-
-    /// Function that realises the drawing of lik rules
-    virtual void drawLinkRules(const GUINet &net, const GUILaneWrapper &lane);
-
-    void initTexture(size_t no);
-
-    virtual void drawArrows(const GUILaneWrapper &lane);
-
     /// Information whether the gl-id shall be set
     bool myShowToolTips;
 
 protected:
-    /// Definition of a storage for link colors
-    typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
-
     /// The colors to use for certain link types
     LinkColorMap myLinkColors;
 
-protected:
     /// The list of edges to consider at drawing
     std::vector<GUIEdge*> &myEdges;
 

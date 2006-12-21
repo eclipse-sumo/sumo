@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2006/12/21 13:23:55  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.22  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -193,6 +196,9 @@ public:
 
     /// Returns the connected lane
     MSLane *getLane() const;
+
+    /// Return the respond index (for visualization)
+    size_t getRespondIndex() const;
 
 #ifdef HAVE_INTERNAL_LANES
     /// Returns the innerlane following

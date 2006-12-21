@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUIROWDrawer.h -
-//  Base class for drawing right of way-rules
+//  Draws links (mainly their right-of-way)
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.1  2006/12/12 12:10:40  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -88,6 +91,7 @@ namespace
 #include <utils/glutils/GLHelper.h>
 #include "GUIROWDrawer.h"
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -137,120 +141,91 @@ GUIROWDrawer::setGLID(bool val)
 
 
 void
-GUIROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
-                             size_t maxEdges, SUMOReal width,
-                             bool showLane2Lane, bool withArrows)
+ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
 {
-    if(width<1.0) {
+    size_t noLinks = lane.getLinkNumber();
+    if(noLinks==0) {
         return;
     }
-    if(showLane2Lane) {
-        drawGLROWs_WithConnections(net, which, maxEdges, width, withArrows);
-    } else {
-        drawGLROWs_Only(net, which, maxEdges, width, withArrows);
+
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = SUMO_const_laneWidth / 2.;
+    glPushMatrix();
+    glColor3d(1, 0, 0);
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        SUMOReal x2 = x1 - w/2.;
+        int linkNo = lane.getLinkRespondIndex(i);
+        glPushMatrix();
+        //glTranslated(0, veh.getLength() / 2., 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(1);
+        glColor3d(1, 0, 0);
+        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
+        glRotated(180, 0, 1, 0);
+        glTranslated(x2-tw/2., 0.5, 0);
+        pfDrawString(toString(linkNo).c_str());
+        glPopMatrix();
+        x1 -= w;
     }
+    glPopMatrix();
 }
 
 
 void
-GUIROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
-                                  size_t maxEdges, SUMOReal /*width !!!*/,
-                                  bool withArrows)
+ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
 {
-    // initialise drawing
-    initStep();
-    // go through edges
-    for(size_t i=0; i<maxEdges; i++ ) {
-        if(which[i]==0) {
+    size_t noLinks = lane.getLinkNumber();
+    if(noLinks==0) {
+        return;
+    }
+
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = SUMO_const_laneWidth / 2.;
+    glPushMatrix();
+    glColor3d(1, 0, 0);
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glTranslated(end.x(), end.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        SUMOReal x2 = x1 - w/2.;
+        int linkNo = lane.getLinkTLIndex(net, i);
+        if(linkNo<0) {
             continue;
         }
-        size_t pos = 1;
-        for(size_t j=0; j<32; j++, pos<<=1) {
-            if((which[i]&pos)!=0) {
-                GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
-                size_t noLanes = edge->nLanes();
-                // go through the current edge's lanes
-                for(size_t k=0; k<noLanes; k++) {
-                    const GUILaneWrapper &lane = edge->getLaneGeometry(k);
-                    if(lane.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-                        continue;
-                    }
-                    drawLinkRules(net, lane);
-                    if(withArrows) {
-                        drawArrows(lane);
-                    }
-                }
-            }
-        }
+        glPushMatrix();
+        //glTranslated(0, veh.getLength() / 2., 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(1);
+        glColor3d(1, 0, 0);
+        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
+        glRotated(180, 0, 1, 0);
+        glTranslated(x2-tw/2., 0.5, 0);
+        pfDrawString(toString(linkNo).c_str());
+        glPopMatrix();
+        x1 -= w;
     }
+    glPopMatrix();
 }
 
 
 void
-GUIROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
-                                             size_t *which,
-                                             size_t maxEdges,
-                                             SUMOReal /*width !!!*/,
-                                             bool withArrows)
-{
-    // initialise drawing
-    initStep();
-    // go through edges
-    for(size_t i=0; i<maxEdges; i++ ) {
-        if(which[i]==0) {
-            continue;
-        }
-        size_t pos = 1;
-        for(size_t j=0; j<32; j++, pos<<=1) {
-            if((which[i]&pos)!=0) {
-                GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
-                size_t noLanes = edge->nLanes();
-                // go through the current edge's lanes
-                for(size_t k=0; k<noLanes; k++) {
-                    const GUILaneWrapper &lane = edge->getLaneGeometry(k);
-                    if(lane.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-                        continue;
-                    }
-                    drawLinkRules(net, lane);
-                    if(withArrows) {
-                        drawArrows(lane);
-                    }
-                    // this should be independent to the geometry:
-                    //  draw from end of first to the begin of second
-                    size_t noLinks = lane.getLinkNumber();
-                    for(size_t i=0; i<noLinks; i++) {
-                        MSLink::LinkState state = lane.getLinkState(i);
-                        const RGBColor &color = myLinkColors.find(state)->second;
-                        glColor3d(color.red(), color.green(), color.blue());
-                        const MSLane *connected = lane.getLinkLane(i);
-                        if(connected!=0) {
-                            glBegin(GL_LINES);
-                            const Position2D &p1 = lane.getShape()[-1];
-                            const Position2D &p2 = connected->getShape()[0];
-                            glVertex2f(p1.x(), p1.y());
-                            glVertex2f(p2.x(), p2.y());
-                            glEnd();
-                            GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-void
-GUIROWDrawer::initStep()
-{
-    glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-
-void
-GUIROWDrawer::drawLinkRules(const GUINet &net,
-                                 const GUILaneWrapper &lane)
+ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
+                            bool showToolTips, const GUIROWDrawer::LinkColorMap &lc)
 {
     size_t noLinks = lane.getLinkNumber();
     const Position2DVector &g = lane.getShape();
@@ -259,7 +234,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     if(noLinks==0) {
-        if(myShowToolTips) {
+        if(showToolTips) {
             glPushName(lane.getGlID());
         }
         // draw a grey bar if no links are on the street
@@ -274,7 +249,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
         glVertex2d(SUMO_const_halfLaneWidth, 0.0);
         glEnd();
         glPopMatrix();
-        if(myShowToolTips) {
+        if(showToolTips) {
             glPopName();
         }
         return;
@@ -288,7 +263,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
     for(size_t i=0; i<noLinks; i++) {
         SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
-        if(myShowToolTips) {
+        if(showToolTips) {
             switch(state) {
             case MSLink::LINKSTATE_TL_GREEN:
             case MSLink::LINKSTATE_TL_RED:
@@ -305,7 +280,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
                 break;
             }
         }
-        const RGBColor &color = myLinkColors.find(state)->second;
+        const RGBColor &color = lc.find(state)->second;
         glColor3d(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
         glVertex2d(x1-SUMO_const_halfLaneWidth, 0.0);
@@ -313,7 +288,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
         glVertex2d(x2-SUMO_const_halfLaneWidth, 0.5);
         glVertex2d(x2-SUMO_const_halfLaneWidth,0.0);
         glEnd();
-        if(myShowToolTips) {
+        if(showToolTips) {
             glPopName();
         }
         x1 = x2;
@@ -324,7 +299,7 @@ GUIROWDrawer::drawLinkRules(const GUINet &net,
 
 
 void
-GUIROWDrawer::drawArrows(const GUILaneWrapper &lane)
+ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips)
 {
     size_t noLinks = lane.getLinkNumber();
     if(noLinks==0) {
@@ -336,7 +311,7 @@ GUIROWDrawer::drawArrows(const GUILaneWrapper &lane)
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glPushMatrix();
-    if(myShowToolTips) {
+    if(showToolTips) {
         glPushName(lane.getGlID());
     }
     glColor3f(1, 1, 1);
@@ -364,10 +339,87 @@ GUIROWDrawer::drawArrows(const GUILaneWrapper &lane)
             1.5, 4.0, -1.5, 1);
     }
     glBindTexture(GL_TEXTURE_2D, 0);
-    if(myShowToolTips) {
+    if(showToolTips) {
         glPopName();
     }
     glPopMatrix();
+}
+
+
+void
+ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane,
+                                       const GUIROWDrawer::LinkColorMap &lc)
+{
+    size_t noLinks = lane.getLinkNumber();
+    for(size_t i=0; i<noLinks; i++) {
+        MSLink::LinkState state = lane.getLinkState(i);
+        const RGBColor &color = lc.find(state)->second;
+        glColor3d(color.red(), color.green(), color.blue());
+        const MSLane *connected = lane.getLinkLane(i);
+        if(connected!=0) {
+            glBegin(GL_LINES);
+            const Position2D &p1 = lane.getShape()[-1];
+            const Position2D &p2 = connected->getShape()[0];
+            glVertex2f(p1.x(), p1.y());
+            glVertex2f(p2.x(), p2.y());
+            glEnd();
+            GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
+        }
+    }
+}
+
+
+
+void
+GUIROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
+                         size_t maxEdges, SUMOReal width,
+                         GUISUMOAbstractView::VisualizationSettings &settings)
+{
+    if(width<1.0) {
+        return;
+    }
+    bool showLane2Lane = settings.showLane2Lane;
+    bool withArrows = settings.showLinkDecals;
+    bool withJunctionIndex = settings.drawLinkJunctionIndex;
+    bool withTLSIndex = settings.drawLinkTLIndex;
+    // initialise drawing
+    glLineWidth(1);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // go through edges
+    for(size_t i=0; i<maxEdges; i++ ) {
+        if(which[i]==0) {
+            continue;
+        }
+        size_t pos = 1;
+        for(size_t j=0; j<32; j++, pos<<=1) {
+            if((which[i]&pos)!=0) {
+                GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                size_t noLanes = edge->nLanes();
+                // go through the current edge's lanes
+                for(size_t k=0; k<noLanes; k++) {
+                    const GUILaneWrapper &lane = edge->getLaneGeometry(k);
+                    if(lane.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                        continue;
+                    }
+                    ROWdrawAction_drawLinkRules(net, lane, myShowToolTips, myLinkColors);
+                    if(withArrows) {
+                        ROWdrawAction_drawArrows(lane, myShowToolTips);
+                    }
+                    if(showLane2Lane) {
+                        // this should be independent to the geometry:
+                        //  draw from end of first to the begin of second
+                        ROWdrawAction_drawLane2LaneConnections(lane, myLinkColors);
+                    }
+                    if(withJunctionIndex) {
+                        ROWdrawAction_drawLinkNo(lane);
+                    }
+                    if(withTLSIndex) {
+                        ROWdrawAction_drawTLSLinkNo(net, lane);
+                    }
+                }
+            }
+        }
+    }
 }
 
 

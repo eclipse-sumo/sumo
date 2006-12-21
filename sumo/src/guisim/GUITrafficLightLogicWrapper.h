@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/12/21 13:23:55  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.12  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -85,8 +88,7 @@ class GUIMainWindow;
  * This class is responsible for the visualisation of tl-logics and the
  *  interaction with them.
  */
-class GUITrafficLightLogicWrapper
-    : public GUIGlObject {
+class GUITrafficLightLogicWrapper : public GUIGlObject {
 public:
     /// Constructor
     GUITrafficLightLogicWrapper(GUIGlObjectStorage &idStorage,
@@ -125,6 +127,8 @@ public:
 
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void switchTLSLogic(int to);
+
+    int getLinkIndex(MSLink *link) const;
 
 public:
     /**

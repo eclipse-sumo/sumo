@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/12/21 13:23:56  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.7  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -140,6 +143,8 @@ private:
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton *myShowBlinker, *myShowC2CRadius, *myShowLaneChangePreference, *myShowVehicleName;
+
+    FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
 

@@ -2,7 +2,7 @@
 #define GUILaneWrapper_h
 //---------------------------------------------------------------------------//
 //                        GUILaneWrapper.h -
-//  Holds geometrical values for a lane
+//  A MSLane extended for visualisation purposes.
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Mon, 25 Nov 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.29  2006/11/28 12:10:41  dkrajzew
 // got rid of FXEX-Mutex (now using the one supplied in FOX)
 //
@@ -153,7 +156,9 @@ class MSEdge;
  * ======================================================================= */
 /**
  * @class GUILaneWrapper
- * An extended MSLane. The extensions consist of information about the position
+ * @brief A MSLane extended for visualisation purposes.
+ *
+ * The extensions consist of information about the position
  * of the lane and it's direction. Further, a mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
@@ -234,6 +239,9 @@ public:
     const MSLane::VehCont &getVehiclesSecure();
     void releaseVehicles();
 
+
+    //{ access to a lane's links
+    /// Returns the number of links
     size_t getLinkNumber() const;
 
     /// Returns the state of the numbered link
@@ -242,10 +250,19 @@ public:
     /// Returns the direction of the numbered link
     MSLink::LinkDirection getLinkDirection(size_t pos) const;
 
+    /// Returns the lane approached by the numbered link
     MSLane *getLinkLane(size_t pos) const;
 
-    /// Returns the tl-logic the numbered link is controlled by
+    /// Returns the numbered link's respond (junction) index
+    int getLinkRespondIndex(size_t pos) const;
+
+    /// Returns the tl-logic's gl-id the numbered link is controlled by
     unsigned int getLinkTLID(const GUINet &net, size_t pos) const;
+
+    /// Returns the numbered link's tls index
+    int getLinkTLIndex(const GUINet &net, size_t pos) const;
+    //}
+
 
     SUMOReal getAggregatedNormed(E2::DetType what,
         size_t aggregationPosition) const;

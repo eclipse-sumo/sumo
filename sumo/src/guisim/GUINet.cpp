@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.56  2006/12/12 12:11:01  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -306,47 +309,7 @@ GUINet::getBoundary() const
     return _boundary;
 }
 
-/*
-void
-GUINet::preInitGUINet( SUMOTime startTimeStep,
-                      MSVehicleControl *vc)
-{
-    myInstance = new GUINet();
-    MSNet::preInit(startTimeStep, vc);
-}
 
-
-void
-GUINet::initGUINet(std::string id, MSEdgeControl* ec,
-                   MSJunctionControl* jc,
-                   MSRouteLoaderControl *rlc,
-                   MSTLLogicControl *tlc,
-                   MSDetectorControl *dc,
-                   MSTriggerControl *tc,
-                   bool logExecutionTime,
-                   const std::vector<OutputDevice*> &streams,
-                   TimeVector stateDumpTimes,
-                   std::string stateDumpFiles,
-                   TimeVector dumpMeanDataIntervalls,
-                   std::string baseNameDumpFiles,
-                   TimeVector laneDumpMeanDataIntervalls,
-                   std::string baseNameLaneDumpFiles,
-                   const std::vector<int> &dumpBegins,
-                   const std::vector<int> &dumpEnds)
-{
-    MSNet::init(id, ec, jc, rlc, tlc, dc, tc, logExecutionTime, streams,
-        stateDumpTimes, stateDumpFiles,
-        dumpMeanDataIntervalls, baseNameDumpFiles,
-        laneDumpMeanDataIntervalls, baseNameLaneDumpFiles,
-        dumpBegins, dumpEnds);
-    GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
-    // initialise edge storage for gui
-    GUIEdge::fill(net->myEdgeWrapper);
-    // initialise junction storage for gui
-    GUIHelpingJunction::fill(net->myJunctionWrapper, gIDStorage);
-}
-
-*/
 void
 GUINet::initDetectors()
 {
@@ -482,7 +445,7 @@ GUINet::getEdgeBoundary(const std::string &name) const
 }
 
 
-GUINetWrapper *
+GUINetWrapper * const
 GUINet::getWrapper() const
 {
     return myWrapper;
@@ -493,12 +456,27 @@ unsigned int
 GUINet::getLinkTLID(MSLink *link) const
 {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
-    assert(i!=myLinks2Logic.end());
+    if(i==myLinks2Logic.end()) {
+        return -1;
+    }
     if(myLogics2Wrapper.find(myLogics->getActive((*i).second))==myLogics2Wrapper.end()) {
-        myLogics->getActive((*i).second);
         return -1;
     }
     return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getGlID();
+}
+
+
+int
+GUINet::getLinkTLIndex(MSLink *link) const
+{
+    Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
+    if(i==myLinks2Logic.end()) {
+        return -1;
+    }
+    if(myLogics2Wrapper.find(myLogics->getActive((*i).second))==myLogics2Wrapper.end()) {
+        return -1;
+    }
+    return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getLinkIndex(link);
 }
 
 

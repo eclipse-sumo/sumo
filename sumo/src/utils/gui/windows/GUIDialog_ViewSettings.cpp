@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/12/21 13:23:56  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.15  2006/12/20 08:37:30  dkrajzew
 // title text fixed
 //
@@ -279,6 +282,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab4 = new FXTabItem(tabbook,"Nodes",NULL);
         FXVerticalFrame *frame4 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
+        new FXHorizontalSeparator(frame4,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
+        FXMatrix *m33 =
+            new FXMatrix(frame4,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+            0,0,0,0, 10,10,10,10, 5,5);
+        myShowTLIndex = new FXCheckButton(m33, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
+        myShowJunctionIndex = new FXCheckButton(m33, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
     }
     {
         FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL);
@@ -424,6 +437,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     myShowVehicleName->setCheck(mySettings->drawVehicleName);
 
+    myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
+    myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
+
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
 
@@ -494,6 +510,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
         mySettings->drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
         mySettings->drawVehicleName = myShowVehicleName->getCheck()!=0;
+        mySettings->drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
+        mySettings->drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
     }
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();

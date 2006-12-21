@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2006/12/21 13:23:56  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.23  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -443,6 +446,10 @@ public:
         ///{ junction visualization settings
         /// The junction visualization scheme
         int junctionMode;
+        /// Information whether a link's tls index shall be drawn
+        bool drawLinkTLIndex;
+        /// Information whether a link's junction index shall be drawn
+        bool drawLinkJunctionIndex;
         ///}
 
         /// Information whether lane-to-lane arrows shall be drawn

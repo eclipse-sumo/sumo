@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/12/21 13:23:55  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.15  2006/08/02 11:58:23  dkrajzew
 // first try to make junctions tls-aware
 //
@@ -238,6 +241,9 @@ public:
 
     virtual void init(NLDetectorBuilder &nb,
         const MSEdgeContinuations &edgeContinuations);
+
+    /// Returns the index of the given link
+    int getLinkIndex(MSLink *link) const;
 
 
 protected:

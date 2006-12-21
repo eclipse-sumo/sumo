@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.17  2006/11/16 10:50:44  dkrajzew
 // warnings removed
 //
@@ -295,6 +298,13 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to)
             return;
         }
     }
+}
+
+
+int
+GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const
+{
+    return myTLLogic.getLinkIndex(link);
 }
 
 

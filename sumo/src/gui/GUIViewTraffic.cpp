@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.67  2006/12/21 13:23:53  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.66  2006/12/18 08:25:24  dkrajzew
 // consolidation of setting colors
 //
@@ -610,7 +613,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
         width, myVisualizationSettings->addExaggeration);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
-        myVisualizationSettings->showLane2Lane, myVisualizationSettings->showLinkDecals);
+        *myVisualizationSettings);
     //
     for(std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;

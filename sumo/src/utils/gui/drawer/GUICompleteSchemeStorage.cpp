@@ -18,13 +18,11 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.dither = false;
 
         vs.backgroundColor = RGBColor(1, 1, 1);
-        vs.showLinkDecals = true;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
-//        vs.singleLaneColor = RGBColor(0,0,0);
         vs.laneShowBorders = false;
-        vs.showLinkDecals = true; // !!! used?
+        vs.showLinkDecals = true;
         vs.laneEdgeExaggMode = 0; // !!! used?
         vs.minExagg = 1; // !!! used?
         vs.maxExagg = 1; // !!! used?
@@ -34,16 +32,14 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.vehicleColorings = vehColMap;
         vs.minVehicleSize = 1;
         vs.vehicleExaggeration = 1;
-        /*
-        vs.minVehicleColor = RGBColor(1,0,0);
-        vs.maxVehicleColor = RGBColor(0,1,0);
-        */
         vs.showBlinker = true;
         vs.drawcC2CRadius = true;
         vs.drawLaneChangePreference = true;
         vs.drawVehicleName = false;
 
         vs.junctionMode = 0;
+        vs.drawLinkTLIndex = false;
+        vs.drawLinkJunctionIndex = false;
 
         vs.showLane2Lane = false;
 
@@ -61,13 +57,11 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.dither = false;
 
         vs.backgroundColor = RGBColor(1, 1, 1);
-        vs.showLinkDecals = false;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
-//        vs.singleLaneColor = RGBColor(0,0,0);
         vs.laneShowBorders = false;
-        vs.showLinkDecals = true; // !!! used?
+        vs.showLinkDecals = false;
         vs.laneEdgeExaggMode = 0; // !!! used?
         vs.minExagg = 1; // !!! used?
         vs.maxExagg = 1; // !!! used?
@@ -77,16 +71,14 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.vehicleColorings = vehColMap;
         vs.minVehicleSize = 1;
         vs.vehicleExaggeration = 1;
-        /*
-        vs.minVehicleColor = RGBColor(1,0,0);
-        vs.maxVehicleColor = RGBColor(0,1,0);
-        */
         vs.showBlinker = true;
         vs.drawcC2CRadius = true;
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
 
         vs.junctionMode = 0;
+        vs.drawLinkTLIndex = false;
+        vs.drawLinkJunctionIndex = false;
 
         vs.showLane2Lane = false;
 
@@ -104,11 +96,9 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.dither = true;
 
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
-        vs.showLinkDecals = true;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
-//        vs.singleLaneColor = RGBColor((SUMOReal) .3, (SUMOReal) .3, (SUMOReal) .4);
         vs.laneShowBorders = true;
         vs.showLinkDecals = true;
         vs.laneEdgeExaggMode = 0; // !!! used?
@@ -131,6 +121,8 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawVehicleName = false;
 
         vs.junctionMode = 0;
+        vs.drawLinkTLIndex = false;
+        vs.drawLinkJunctionIndex = false;
 
         vs.showLane2Lane = false;
 

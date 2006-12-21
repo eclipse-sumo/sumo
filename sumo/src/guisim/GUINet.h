@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.44  2006/12/21 13:23:54  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.43  2006/12/12 12:11:01  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -199,11 +202,14 @@ class MSVehicleControl;
  * ======================================================================= */
 /**
  * @class GUINet
+ * @brief A MSNet extended by some values for usage within the gui
+ *
  * This gui version of the network allows the retrieval of some more
  * information than the normal network version does. Due to this, not only
  * these retrival, but also some further initialisation methods must have
  * been implemented. Nonethenless, this class has almost the same functions
  * as the MSNet-class.
+ *
  * Some microsimulation items are wrapped in certain classes to allow their
  * drawing and their enumerated access. This enumeration is realised by
  * inserting the wrapped items into vectors and is needed to fasten the
@@ -267,38 +273,39 @@ public:
 
     /// Sets the duration of the last step's idle part
     void setIdleDuration(int val);
-
     //}
 
-    size_t getDetectorWrapperNo() const;
 
-    GUINetWrapper *getWrapper() const;
+    /// Returns the gui network wrapper
+    GUINetWrapper * const getWrapper() const;
 
+    /** Returns the gl-id of the traffic light that controls the given link
+     * valid only if the link is controlled by a tls */
     unsigned int getLinkTLID(MSLink *link) const;
 
+    /** Returns the index of the link within the junction that controls the given link;
+     * Returns -1 if the link is not controlled by a tls */
+    int getLinkTLIndex(MSLink *link) const;
+
+    /// Returns the gl-ids of all junctions within the net
     std::vector<size_t> getJunctionIDs() const; // !!! should not be done herein
 
+    /// Returns the gl-ids of all additional things within the net
     std::vector<size_t> getAdditionalIDs() const;
+
+    /// Initialises gui wrappers
+    void initGUIStructures();
+
+    s
+	bool hasPosition(GUIVehicle *v) const;
+
+    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
 
     friend class GUIViewTraffic; // !!!
     friend class GUISUMOAbstractView; // !!!
     friend class GUIViewMesoEdges; // !!!
     friend class GUIGridBuilder;
-
-    /*
-    virtual void closeBuilding(MSEdgeControl *edges,
-        MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-        MSTLLogicControl *tlc, std::vector<OutputDevice*> streams,
-        const MSMeanData_Net_Cont &meanData, TimeVector stateDumpTimes,
-        std::string stateDumpFiles);
-        */
-
-    void initGUIStructures();
-
-	bool hasPosition(GUIVehicle *v) const;
-
-    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
 
 private:

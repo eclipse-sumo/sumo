@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/12/21 13:23:55  dkrajzew
+// added visualization of tls/junction link indices
+//
 // Revision 1.21  2006/11/01 08:12:42  dkrajzew
 // debugged building under Linux
 //
@@ -272,6 +275,13 @@ MSLink::resetInternalPriority()
     myPrio = opened();
 }
 #endif
+
+
+size_t
+MSLink::getRespondIndex() const
+{
+    return myRespondIdx;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
