@@ -1,4 +1,4 @@
 EXTRA_DIST =
 
-SUBDIRS = docbook internet man
+SUBDIRS = docbook graphviz internet man
 

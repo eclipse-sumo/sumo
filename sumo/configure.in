@@ -598,6 +598,7 @@ docs/docbook/gfx/user/Makefile
 docs/docbook/tools/Makefile
 docs/docbook/xslt/Makefile
 docs/docbook/xslt/sumo_html/Makefile
+docs/graphviz/Makefile
 docs/internet/Makefile
 docs/internet/css/Makefile
 docs/internet/docs/Makefile
