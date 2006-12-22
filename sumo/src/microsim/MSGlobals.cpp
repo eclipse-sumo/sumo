@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/12/22 12:08:10  dkrajzew
+// made c2c defaults variable
+//
 // Revision 1.13  2006/12/12 12:14:39  dkrajzew
 // set .5 hour as the time to keep information in mind
 //
@@ -112,7 +115,10 @@ SUMOReal MSGlobals::gNumberOfSendingPos = 732;
 
 SUMOReal MSGlobals::gInfoPerPaket = 14;
 
-SUMOReal MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
+SUMOTime MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
+
+SUMOReal MSGlobals::gAddInfoFactor = (SUMOReal) 1.2;
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

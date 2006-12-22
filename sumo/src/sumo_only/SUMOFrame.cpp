@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2006/12/22 12:08:11  dkrajzew
+// made c2c defaults variable
+//
 // Revision 1.60  2006/12/12 12:04:11  dkrajzew
 // made the base value for incremental dua changeable
 //
@@ -332,14 +335,17 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
         // c2x
-    oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! check, describe
-    oc.doRegister("device.c2x.knownveh", new Option_String());//!!! check, describe
-    oc.doRegister("c2x.cluster-info", new Option_FileName());
-    oc.doRegister("c2x.edge-near-info", new Option_FileName());
-    oc.doRegister("c2x.saved-info", new Option_FileName());
-	oc.doRegister("c2x.saved-info-freq", new Option_FileName());
-    oc.doRegister("c2x.transmitted-info", new Option_FileName());
-    oc.doRegister("c2x.vehicle-in-range", new Option_FileName());
+    oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! describe
+    oc.doRegister("device.c2x.range", new Option_Float(100.));//!!! describe
+    oc.doRegister("device.c2x.keep-duration", new Option_Integer(30 * 60));//!!! describe
+    oc.doRegister("device.c2x.insert-info-factor", new Option_Float((SUMOReal) 1.2));//!!! describe
+    oc.doRegister("device.c2x.knownveh", new Option_String());//!!! describe
+    oc.doRegister("c2x.cluster-info", new Option_FileName());//!!! describe
+    oc.doRegister("c2x.edge-near-info", new Option_FileName());//!!! describe
+    oc.doRegister("c2x.saved-info", new Option_FileName());//!!! describe
+	oc.doRegister("c2x.saved-info-freq", new Option_FileName());//!!! describe
+    oc.doRegister("c2x.transmitted-info", new Option_FileName());//!!! describe
+    oc.doRegister("c2x.vehicle-in-range", new Option_FileName());//!!! describe
 
     // debug
     oc.doRegister("track", new Option_Float(0.));//!!! check, describe
@@ -511,6 +517,9 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     //
     MSGlobals::gUsingC2C = oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh");
+    MSGlobals::gLANRange = oc.getFloat("device.c2x.range");
+    MSGlobals::gLANRefuseOldInfosOffset = oc.getInt("device.c2x.keep-duration");
+    MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
 }
 
 

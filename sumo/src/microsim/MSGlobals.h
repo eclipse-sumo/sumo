@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2006/12/22 12:08:11  dkrajzew
+// made c2c defaults variable
+//
 // Revision 1.14  2006/11/03 22:59:26  behrisch
 // Syntactic sugar
 //
@@ -70,6 +73,7 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <utils/common/SUMOTime.h>
 #include <cstddef>
 
 
@@ -122,10 +126,13 @@ public:
 	/// the standard WLAN range
 	static SUMOReal gLANRange;
 	/// the Number of Sending possibility per TimeStep
-	static SUMOReal gNumberOfSendingPos ;
+	static SUMOReal gNumberOfSendingPos;
 	/// the Number Of Infos per Paket
 	static SUMOReal gInfoPerPaket;
-	static SUMOReal gLANRefuseOldInfosOffset;
+    /// duration until which an information is kept
+	static SUMOTime gLANRefuseOldInfosOffset;
+    /// factor over which the real duration over an edge must lie over the estimated to be inserted
+	static SUMOReal gAddInfoFactor;
 
 };
 

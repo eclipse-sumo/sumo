@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.120  2006/12/22 12:08:11  dkrajzew
+// made c2c defaults variable
+//
 // Revision 1.119  2006/12/20 10:47:10  dkrajzew
 // debugging c2c
 //
@@ -1726,7 +1729,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
         float factor = (*myCurrEdge)->getEffort(this, MSNet::getInstance()->getCurrentTimeStep());
 //        std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
         float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-        if(nt>factor*1.2){
+        if(nt>factor*MSGlobals::gAddInfoFactor){
             // if so, check whether an information about the edge was already existing
             std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
             if(i==infoCont.end()) {
