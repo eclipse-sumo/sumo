@@ -1,5 +1,5 @@
 Microsoft Developer Studio Workspace File, Format Version 6.00
-# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
 
 ###############################################################################
 
@@ -53,6 +53,18 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_common
     End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "toMakeActors"=.\zz_toMakeActors\zz_toMakeActors.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
 }}}
 
 ###############################################################################

@@ -13,6 +13,8 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/StringTokenizer.h>
 
 #pragma warning(disable :4996)
 #pragma warning(disable :4786)
@@ -144,15 +146,129 @@ findNearest(std::map<std::string, Position2DVector> &emap, const Position2D &p)
 }
 
 
+bool
+hasAny(const vector<string> &edges)
+{
+    vector<string>::const_iterator c;
+    for(c=edges.begin(); c!=edges.end()-1; ++c) {
+        if(mcedge.find(*c)!=mcedge.end()) {
+            return true;
+        }
+        if(mcedge.find("-" + *c)!=mcedge.end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+vector<string>
+buildDirectedEdges(const vector<string> &edges)
+{
+    vector<string> ret;
+    vector<string>::const_iterator c;
+    string lastE;
+    for(c=edges.begin(); c!=edges.end()-1; ++c) {
+        bool found = false;
+
+
+        // check: no '-' on from, no '-' on to
+        if(!found) {
+            string firstE = *c;
+            string afE = firstE + "-AddedOffRampEdge";
+            if(mcedge.find(afE)!=mcedge.end()) {
+                firstE = afE;
+            }
+            string nextE = *(c+1);
+            string anE = nextE + "-AddedOnRampEdge";
+            if(mcedge.find(anE)!=mcedge.end()) {
+                nextE = anE;
+            }
+            if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
+                found = true;
+                ret.push_back(firstE);
+                lastE = nextE;
+            }
+        }
+        // check: no '-' on from, a '-' on to
+        if(!found) {
+            string firstE = *c;
+            string afE = firstE + "-AddedOffRampEdge";
+            if(mcedge.find(afE)!=mcedge.end()) {
+                firstE = afE;
+            }
+            string nextE = "-" + *(c+1);
+            string anE = nextE + "-AddedOnRampEdge";
+            if(mcedge.find(anE)!=mcedge.end()) {
+                nextE = anE;
+            }
+            if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
+                found = true;
+                ret.push_back(firstE);
+                lastE = nextE;
+            }
+        }
+        // check: a '-' on from, a '-' on to
+        if(!found) {
+            string firstE = "-" + *c;
+            string afE = firstE + "-AddedOffRampEdge";
+            if(mcedge.find(afE)!=mcedge.end()) {
+                firstE = afE;
+            }
+            string nextE = "-" + *(c+1);
+            string anE = nextE + "-AddedOnRampEdge";
+            if(mcedge.find(anE)!=mcedge.end()) {
+                nextE = anE;
+            }
+            if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
+                found = true;
+                ret.push_back(firstE);
+                lastE = nextE;
+            }
+        }
+        // check: a '-' on from, no '-' on to
+        if(!found) {
+            string firstE = "-" + *c;
+            string afE = firstE + "-AddedOffRampEdge";
+            if(mcedge.find(afE)!=mcedge.end()) {
+                firstE = afE;
+            }
+            string nextE = *(c+1);
+            string anE = nextE + "-AddedOnRampEdge";
+            if(mcedge.find(anE)!=mcedge.end()) {
+                nextE = anE;
+            }
+            if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
+                found = true;
+                ret.push_back(firstE);
+                lastE = nextE;
+            }
+        }
+
+        if(!found) {
+            cout << "No connection found between '" << *c << "' and '" << *(c+1) << "'." << endl;
+            return ret;
+        }
+    }
+    ret.push_back(lastE);
+    return ret;
+}
+
+
+
+
 
 int main(int ac, char * av[]){
 	ifstream fin, fnet, fla, fseg, ftol;
 	ofstream fout;
-	if(ac<6){
+	if(ac<7){
 		cout << "no input-file-name given\n";
 		cout << "pointcollection netfile la2cell segmente tolpoints"<<endl;
 		return -1;
 	}
+
+    ofstream logF("log.txt");
+
 	fout.open("sumo.add.xml", ios_base::out);
 
     /*erstmal aus der netzdatei alle edges und die anzahl der lanes raus schreiben.
@@ -161,6 +277,7 @@ int main(int ac, char * av[]){
 	fnet.open(av[2], ios_base::in);
 	if(!fnet.is_open()){
 		cout << "cant open file " << av[2] << endl;
+        logF << "cant open file " << av[2] << endl;
 		return -2;
 	}
 	map<string, pair< string, double> > medge;
@@ -184,7 +301,6 @@ int main(int ac, char * av[]){
 
 		}
 		if( strcmp(bline.substr(0,6).c_str(), "<edge ")==0 ){
-			//cout << bline << endl;
 			strcpy(foo, bline.c_str());
 			strtok(foo, "\"");
 			id=strtok(NULL, "\"");
@@ -198,13 +314,8 @@ int main(int ac, char * av[]){
 			++count;
 
             //
-            if(id=="77291696") {
-                int bla = 0;
-            }
-
             edgeBegins[id] = getPosition(bline, "XFrom", "YFrom");
             edgeEnds[id] = getPosition(bline, "XTo", "YTo");
-
 		}
 		else if( strcmp(bline.substr(0,7).c_str(), "<cedge ")==0 ){
 			strcpy(foo, bline.c_str());
@@ -221,13 +332,15 @@ int main(int ac, char * av[]){
 	}
 
 	cout << "count medge="<< medge.size()<< "\t\t"<<count << endl;
+    logF << "count medge="<< medge.size()<< "\t\t"<<count << endl;
 
 
     // Parse the la2cells
     cout << "Parsing la2cell '" << av[3] << "'." << endl;
 	fla.open(av[3], ios_base::in);
-	if(!fnet.is_open()){
+	if(!fla.is_open()){
 		cout << "cant open file " << av[3] << endl;
+        logF << "cant open file " << av[3] << endl;
 		return -2;
 	}
 	map<string, string> mla2cell;
@@ -250,13 +363,16 @@ int main(int ac, char * av[]){
 	string lane, pos, to, objid, la;
     string offid, onid;
 
+    vector<string> cells;
+
     // At first, build actors for street/cell crossings
     //
 	/*lese die pointcoll von elmar ein und erzeuge fuer jeden schnittpunkt einen aktor*/
-    cout << "Parsing cell/street crossings '" << av[3] << "'." << endl;
+    cout << "Parsing cell/street crossings '" << av[1] << "'." << endl;
 	fin.open(av[1], ios_base::in);
 	if(!fin.is_open()){
 		cout << "cant open file " << av[1] << endl;
+        logF << "cant open file " << av[1] << endl;
 		return -2;
 	}
 	while(!fin.eof()){
@@ -265,10 +381,15 @@ int main(int ac, char * av[]){
 			continue;
 		strcpy(foo, bline.c_str());
 
-		strtok(foo, "\t");
-		strtok(NULL, "\t");
+		string l = strtok(foo, "\t");
+		string type = strtok(NULL, "\t");
+        if(type!="10") {
+            continue;
+        }
 		la=strtok(NULL, ";");
 		to=strtok(NULL, ";");
+        if(find(cells.begin(), cells.end(), to)==cells.end())
+            cells.push_back(to);
 		pos=strtok(NULL, ";");
 		pos=strtok(NULL, ";");
 		pos=strtok(NULL, ";");
@@ -279,7 +400,7 @@ int main(int ac, char * av[]){
         if(medge.find(id)==medge.end())
             continue;
 
-        if(id=="-565028875") {
+        if(to=="-565028875") {
             int bla = 0;
         }
         // get the position on the edge
@@ -319,6 +440,7 @@ int main(int ac, char * av[]){
         if(!posFound) {
             pos="-1";
             cout << "edge " << id << " is too short" << endl;
+            logF  << "edge " << id << " is too short" << endl;
         }
 
         count=atoi(medge[id].first.c_str());
@@ -342,7 +464,7 @@ int main(int ac, char * av[]){
 	}
 
 
-
+    fout << endl;
 
     /* ----------------------------------------
      * build actors for tol-sas
@@ -355,6 +477,7 @@ int main(int ac, char * av[]){
 	ftol.open(av[5], ios_base::in);
 	if(!ftol.is_open()){
 		cout << "cant open file " << av[5] << endl;
+        logF << "cant open file " << av[5] << endl;
 		return -2;
 	}
 	while(!ftol.eof()){
@@ -381,6 +504,7 @@ int main(int ac, char * av[]){
 	fseg.open(av[4], ios_base::in);
 	if(!ftol.is_open()){
 		cout << "cant open file " << av[4] << endl;
+        logF << "cant open file " << av[4] << endl;
 		return -2;
 	}
     std::vector<std::string> missingKnown;
@@ -409,6 +533,8 @@ int main(int ac, char * av[]){
 	}
     cout << "Number of missing sa-ids lying on known edges: " << missingKnown.size() << endl;
     cout << "Number of missing sa-ids lying on unknown edges: " << missingUnknown.size() << endl;
+    logF << "Number of missing sa-ids lying on known edges: " << missingKnown.size() << endl;
+    logF << "Number of missing sa-ids lying on unknown edges: " << missingUnknown.size() << endl;
 
 
 	/*einlesen der positionen*/
@@ -416,6 +542,7 @@ int main(int ac, char * av[]){
 	ifstream fpos(av[6], ios_base::in);
 	if(!fpos.is_open()){
 		cout << "cant open file " << av[6] << endl;
+        logF << "cant open file " << av[6] << endl;
 		return -2;
 	}
     std::map<string, Position2D> poses;
@@ -439,30 +566,35 @@ int main(int ac, char * av[]){
     size_t bla = mtol.size();
 	for(ittol=mtol.begin(); ittol!=mtol.end(); ittol++){
 
+        if(!hasAny(ittol->second.edges)) {
+            continue;
+        }
+        vector<string> nEdges = buildDirectedEdges(ittol->second.edges);
         /*da wir in der net die richtung durch ein - angezeigt ist muessen wir erst eraus-
 		finden welche richting wir nehmen*/
         string bla = ittol->first;
         string beginEdge1 = "";
-        vector<string>::iterator begIt = ittol->second.edges.begin();
-        while(begIt!=ittol->second.edges.end()&&medge.find(*begIt)==medge.end()) {
+        vector<string>::iterator begIt = nEdges.begin();
+        while(begIt!=nEdges.end()&&medge.find(*begIt)==medge.end()) {
             ++begIt;
         }
-        if(begIt!=ittol->second.edges.end()) {
+        if(begIt!=nEdges.end()) {
             beginEdge1 = *begIt;
         }
 
         string endEdge1 = "";
-        vector<string>::reverse_iterator endIt = ittol->second.edges.rbegin();
-        while(endIt!=ittol->second.edges.rend()&&medge.find(*endIt)==medge.end()) {
+        vector<string>::reverse_iterator endIt = nEdges.rbegin();
+        while(endIt!=nEdges.rend()&&medge.find(*endIt)==medge.end()) {
             ++endIt;
         }
-        if(endIt!=ittol->second.edges.rend()) {
+        if(endIt!=nEdges.rend()) {
             endEdge1 = *endIt;
         }
 
         if(beginEdge1==""||endEdge1=="") {
             if(beginEdge1!=""||endEdge1!="") {
                 cout << "ups - found only one edge (" << beginEdge1 << "/" << endEdge1 << "); what to do?" << endl;
+                logF << "ups - found only one edge (" << beginEdge1 << "/" << endEdge1 << "); what to do?" << endl;
             }
             continue;
         }
@@ -470,6 +602,7 @@ int main(int ac, char * av[]){
         string beginPoint = ittol->second.bpoint;
         string endPoint = ittol->second.epoint;
 
+        /*
         bool keepDir = true;
         if(beginEdge1==endEdge1) {
             // case1: there is only one edge in the list;
@@ -484,6 +617,7 @@ int main(int ac, char * av[]){
                 if(begM||endM) {
                     if(!begM||!endM) {
                         cout << "Ups - One point is assumed to be mirrored, the other not!?" << endl;
+                        logF << "Ups - One point is assumed to be mirrored, the other not!?" << endl;
                     }
                     beginEdge1 = "-" + beginEdge1;
                     endEdge1 = "-" + endEdge1;
@@ -498,6 +632,7 @@ int main(int ac, char * av[]){
             //cout << connected << " " << iconnected << endl;
             if(connected&&iconnected) {
                 cout << "Ups - both connections exist, normal and inversed!?" << endl;
+                logF << "Ups - both connections exist, normal and inversed!?" << endl;
             }
             if(!connected&&iconnected) {
                 // inverse connection exists, forward not -> flip
@@ -506,6 +641,7 @@ int main(int ac, char * av[]){
                 keepDir = false;
             }
         }
+        */
 
         vector<string>::iterator it;
         /*
@@ -515,15 +651,18 @@ int main(int ac, char * av[]){
         cout << endl;
         */
         std::map<string, Position2DVector> shapes;
-        for(it=ittol->second.edges.begin(); it!=ittol->second.edges.end(); ++it) {
+        for(it=nEdges.begin(); it!=nEdges.end(); ++it) {
             string edge = *it;
+            /*
             if(!keepDir) {
                 edge = "-" + edge;
             }
+            */
             if(edgeShapes.find(edge)!=edgeShapes.end()) {
                 shapes[edge] = edgeShapes[edge];
             } else {
                 cout << "No shape for edge " << edge << endl;
+                logF << "No shape for edge " << edge << endl;
             }
         }
 
@@ -533,10 +672,12 @@ int main(int ac, char * av[]){
         string endEdge2 = findNearest(shapes, endPointPos);
 
         if(beginEdge2=="") {
-            cout << " Could not find begin edge" << endl;
+            cout << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            logF << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
         }
         if(endEdge2=="") {
-            cout << " Could not find begin edge" << endl;
+            cout << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            logF << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
         }
         // !!! beinhaltet noch keine off/on-ramps
 
@@ -559,7 +700,7 @@ int main(int ac, char * av[]){
 		    for(int i=0; i!=count;i++){
                 fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << endPoint << '_' << i
 	        	    <<"\" objectid=\"" << endEdge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
-		        	<< beginPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+		        	<< endPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
             }
         }
 
@@ -605,7 +746,72 @@ int main(int ac, char * av[]){
         }
         */
 	}
-	fout << "</additional>"<<endl;
+
+
+    /* ----------------------------------------
+     * build static call amounts
+     * ---------------------------------------- */
+    cout << "Parsing static call statistics '" << av[7] << "'." << endl;
+    fout << endl;
+	ifstream fcs(av[7], ios_base::in);
+	if(!fcs.is_open()){
+		cout << "cant open file " << av[7] << endl;
+        logF << "cant open file " << av[7] << endl;
+		return -2;
+	}
+    getline(fcs, bline);
+	while(!fcs.eof()){
+        getline(fcs, bline);
+        if(bline.length()<2)
+            continue;
+        // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
+        StringTokenizer st(bline, ";");
+        int time = TplConvert<char>::_2int(st.next().c_str());
+        int cell = TplConvert<char>::_2int(st.next().c_str());
+        if(find(cells.begin(), cells.end(), toString(cell))==cells.end())
+            continue;
+        int no   = TplConvert<char>::_2int(st.next().c_str());
+        fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
+            <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
+            << -1 << "\" xto=\"" << -1 << "\" type=\"3\"/>" << endl;
+    }
+    fcs.close();
+
+    /* ----------------------------------------
+     * build moving call amounts/durations
+     * ---------------------------------------- */
+    cout << "Parsing dynamic call statistics '" << av[8] << "'." << endl;
+    fout << endl;
+	fcs.open(av[8], ios_base::in);
+	if(!fcs.is_open()){
+		cout << "cant open file " << av[8] << endl;
+        logF << "cant open file " << av[8] << endl;
+		return -2;
+	}
+    getline(fcs, bline);
+	while(!fcs.eof()){
+        getline(fcs, bline);
+        if(bline.length()<2)
+            continue;
+        // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
+        StringTokenizer st(bline, ";");
+        int time = TplConvert<char>::_2int(st.next().c_str());
+        int cell = TplConvert<char>::_2int(st.next().c_str());
+        if(find(cells.begin(), cells.end(), toString(cell))==cells.end())
+            continue;
+        int no   = TplConvert<char>::_2int(st.next().c_str());
+        st.next(); // count_entries
+        st.next(); // count_exits
+        st.next(); // count_starts
+        st.next(); // count_ends
+        SUMOReal mean = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal dev  = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
+            <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
+            << mean << "\" xto=\"" << dev << "\" type=\"4\"/>" << endl;
+    }
+
+    fout << "</additional>"<<endl;
 	fout.close();
 	fin.close();
 	fnet.close();
