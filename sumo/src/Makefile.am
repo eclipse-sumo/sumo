@@ -22,7 +22,7 @@ EXTRA_PROGRAMS =
 sumo_SOURCES = sumo_main.cpp sumo_help.h \
 RemoteServer.h
 
-sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -56,7 +56,7 @@ $(XMLRPC_LIBS) \
 
 sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h
 
-sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS)
+sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geoconv/libgeoconv.a \
@@ -180,7 +180,7 @@ $(MEM_LIBS) \
 
 sumo_polyconvert_SOURCES = polyconvert_main.cpp polyconvert_help.h
 
-sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(PROJ_LDFLAGS)
 
 sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./polyconvert/libpolyconvert.a \
