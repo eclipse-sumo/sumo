@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2007/01/01 22:58:37  behrisch
+// missing include
+//
 // Revision 1.3  2006/12/18 08:25:24  dkrajzew
 // consolidation of setting colors
 //
@@ -77,6 +80,7 @@
 
 #include <microsim/MSEdge.h>
 #include <guisim/GUILaneWrapper.h>
+#include <guisim/GUIVehicle.h>
 #include <GL/gl.h>
 
 /* =========================================================================
