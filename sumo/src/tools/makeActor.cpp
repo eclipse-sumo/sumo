@@ -782,15 +782,16 @@ int main(int ac, char * av[]){
      * ---------------------------------------- */
     cout << "Parsing dynamic call statistics '" << av[8] << "'." << endl;
     fout << endl;
-	fcs.open(av[8], ios_base::in);
-	if(!fcs.is_open()){
+	//fcs.open(av[8], ios_base::in);
+    ifstream fcd(av[8], ios_base::in);
+	if(!fcd.is_open()){
 		cout << "cant open file " << av[8] << endl;
         logF << "cant open file " << av[8] << endl;
 		return -2;
 	}
-    getline(fcs, bline);
-	while(!fcs.eof()){
-        getline(fcs, bline);
+    getline(fcd, bline);
+	while(!fcd.eof()){
+        getline(fcd, bline);
         if(bline.length()<2)
             continue;
         // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
