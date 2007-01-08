@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.3  2006/11/17 11:14:34  dkrajzew
 // warnings removed
 //
@@ -90,53 +93,49 @@ PCVisum::~PCVisum()
 
 
 void
-PCVisum::loadVisum(OptionsCont &oc)
+PCVisum::load(OptionsCont &oc)
 {
     std::string file = oc.getString("visum-file");
-	ifstream out(file.c_str());
-	if(!out) {
-		MsgHandler::getErrorInstance()->inform("Can not open visum-file '" + file + "'.");
-		throw ProcessError();
-	}
+    ifstream out(file.c_str());
+    if(!out) {
+        MsgHandler::getErrorInstance()->inform("Can not open visum-file '" + file + "'.");
+        throw ProcessError();
+    }
     // Polygon's Attributes
-	std::string id;
-    std::string index;
-	std::string xKoord;
-	std::string yKoord;
+    std::string id, index, xKoord, yKoord;
     Position2DVector vec;
 
-	std::string buff;
-	std::string rest;
-	std::string tab = "\t";
+    std::string buff, rest;
+    std::string tab = "\t";
     int l = 0;
 
-	while(out.good()) {
-		getline(out,buff);
+    while(out.good()) {
+        getline(out,buff);
 
-		if(buff.find("$BEZIRKPOLY") != string::npos){
+        if(buff.find("$BEZIRKPOLY") != string::npos){
 
-		 	  while(buff.find("*") == string::npos){
-					l++;
-					getline(out,buff);
-					if(buff.find("*") == string::npos){
-                        continue;
-                    }// in the order to not read the last line
+            while(buff.find("*") == string::npos){
+                l++;
+                getline(out,buff);
+                if(buff.find("*") == string::npos){
+                    continue;
+                }// in the order to not read the last line
 
-                    id = buff.substr(0,buff.find(";"));
-                    rest = buff.substr(buff.find(";")+1, buff.length());
-					index = rest.substr(0,rest.find(";"));
-                    rest = rest.substr(rest.find(";")+1, rest.length());
-                    xKoord = rest.substr(0,rest.find(";"));
-                    rest = rest.substr(rest.find(";")+1, rest.length());
-					yKoord = rest.substr(0,rest.find(";"));
-                    Position2D pos2D((SUMOReal) atof(xKoord.c_str()), (SUMOReal) atof(yKoord.c_str()));
-					vec.push_back(pos2D);
-                    throw 1;
-						/*!!!
-						Polygon2D *poly = new Polygon2D(id, atoi(index.c_str()), vec);
-						vec.clear();
-						myCont.insert(id.append(index),poly);
-						*/
+                id = buff.substr(0,buff.find(";"));
+                rest = buff.substr(buff.find(";")+1, buff.length());
+                index = rest.substr(0,rest.find(";"));
+                rest = rest.substr(rest.find(";")+1, rest.length());
+                xKoord = rest.substr(0,rest.find(";"));
+                rest = rest.substr(rest.find(";")+1, rest.length());
+                yKoord = rest.substr(0,rest.find(";"));
+                Position2D pos2D((SUMOReal) atof(xKoord.c_str()), (SUMOReal) atof(yKoord.c_str()));
+                vec.push_back(pos2D);
+                throw 1;
+                    /*!!!
+					Polygon2D *poly = new Polygon2D(id, atoi(index.c_str()), vec);
+					vec.clear();
+					myCont.insert(id.append(index),poly);
+					*/
 			  }
 		}
 	}

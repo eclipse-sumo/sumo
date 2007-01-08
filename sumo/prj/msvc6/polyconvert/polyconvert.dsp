@@ -121,6 +121,10 @@ SOURCE=..\..\..\src\polyconvert\PCVisum.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\polyconvert\PCVisumPoints.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\polyconvert_main.cpp
 # End Source File
 # End Group
@@ -150,6 +154,10 @@ SOURCE=..\..\..\src\polyconvert\PCTypeMap.h
 # Begin Source File
 
 SOURCE=..\..\..\src\polyconvert\PCVisum.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\polyconvert\PCVisumPoints.h
 # End Source File
 # Begin Source File
 

@@ -265,6 +265,9 @@ copy Release\polyconvert.exe ..\..\..\bin\polyconvert.exe
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\polyconvert_main.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -305,6 +308,9 @@ copy Release\polyconvert.exe ..\..\..\bin\polyconvert.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\polyconvert\PCVisum.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\polyconvert_help.h">

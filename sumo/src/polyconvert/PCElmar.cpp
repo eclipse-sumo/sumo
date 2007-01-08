@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.6  2006/11/20 14:02:22  dkrajzew
 // warning while processing empty lines removed
 //
@@ -110,71 +113,69 @@ PCElmar::~PCElmar()
 
 
 void
-PCElmar::loadElmar(OptionsCont &oc)
+PCElmar::load(OptionsCont &oc)
 {
     RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     std::string file = oc.getString("elmar");
-	// load the polygons
-	ifstream out(file.c_str());
-	if(!out) {
-		MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
-		throw ProcessError();
-	}
+    // load the polygons
+    ifstream out(file.c_str());
+    if(!out) {
+        MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
+        throw ProcessError();
+    }
 
-	// Attributes of the Polygon
-	std::string id;
-    std::string name;
-	std::string type;
-	std::string ort;
-	Position2DVector vec;
+    // Attributes of the polygon
+    std::string id, name, type, ort;
+    Position2DVector vec;
 
-	std::string buff;
-	std::string rest; // rest after doing substring
-	std::string tab = "\t";
+    std::string buff, rest; // rest after doing substring
+    std::string tab = "\t";
     int l = 0;
 
+    while(out.good()) {
+        getline(out,buff);
 
-	while(out.good()) {
-		getline(out,buff);
-
-		if(buff.find("#") != string::npos) { // work on the line without #-symbol
+        // do not parse comment lines
+        if(buff.find("#") != string::npos) {
             continue;
         }
+        // ... and empty lines
         if(StringUtils::prune(buff)=="") {
             continue;
         }
 
         l++;
-		id = buff.substr(0,buff.find(tab));
+        id = buff.substr(0,buff.find(tab));
         rest = buff.substr(buff.find(tab)+1, buff.length());
 
-		ort = rest.substr(0,rest.find(tab));
+        ort = rest.substr(0,rest.find(tab));
         rest = rest.substr(rest.find(tab)+1, rest.length());
 
-		type = rest.substr(0,rest.find(tab));
+        type = rest.substr(0,rest.find(tab));
         rest = rest.substr(rest.find(tab)+1, rest.length());
 
         name = rest.substr(0,rest.find(tab));
         rest = rest.substr(rest.find(tab)+1, rest.length());
 
-		std::string xpos;
-		std::string ypos;
-		while(rest.find(tab)!=string::npos){ // now collecting the Positions
+        std::string xpos, ypos;
+        // now collect the positions
+        while(rest.find(tab)!=string::npos){
             xpos = rest.substr(0,rest.find(tab));
-			rest = rest.substr(rest.find(tab)+1, rest.length());
+            rest = rest.substr(rest.find(tab)+1, rest.length());
             ypos = rest.substr(0,rest.find(tab));
 
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-			SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
 
             Position2D pos(x, y);
             GeoConvHelper::remap(pos);
-            vec.push_back/*_noDoublePos*/(pos);
+            vec.push_back(pos);
             rest = rest.substr(rest.find(tab)+1);
         }
+
         name = StringUtils::convertUmlaute(name);
-		if(name=="noname"||myCont.contains(name)) {
-		    name = name + "#" + toString(myCont.getEnumIDFor(name));
+        if(name=="noname"||myCont.contains(name)) {
+            name = name + "#" + toString(myCont.getEnumIDFor(name));
         }
 
         // check the polygon
@@ -209,9 +210,8 @@ PCElmar::loadElmar(OptionsCont &oc)
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
             myCont.insert(name, poly, layer);
         }
-    	vec.clear();
-	}
-
+        vec.clear();
+    }
     out.close();
 }
 

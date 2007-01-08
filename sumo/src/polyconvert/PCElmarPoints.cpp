@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.2  2006/11/16 10:50:50  dkrajzew
 // warnings removed
 //
@@ -84,7 +87,7 @@ using namespace std;
  * ======================================================================= */
 PCElmarPoints::PCElmarPoints(PCPolyContainer &toFill,
 			     const Boundary &/*netBoundary*/, PCTypeMap &tm)
-	: myCont(toFill), myTypeMap(tm)
+    : myCont(toFill), myTypeMap(tm)
 {
 }
 
@@ -95,47 +98,44 @@ PCElmarPoints::~PCElmarPoints()
 
 
 void
-PCElmarPoints::loadElmar(OptionsCont &oc)
+PCElmarPoints::load(OptionsCont &oc)
 {
     RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     std::string file = oc.getString("elmar-points");
-	// load the polygons
-	ifstream out(file.c_str());
-	if(!out) {
-		MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
-		throw ProcessError();
-	}
+    // load the pois
+    ifstream out(file.c_str());
+    if(!out) {
+        MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
+        throw ProcessError();
+    }
 
-	// Attributes of the Polygon
-	std::string name;
-    std::string desc;
-	std::string type;
-	std::string ort;
-	Position2DVector vec;
+    // Attributes of the poi
+    std::string name, desc, type, ort;
+    Position2DVector vec;
 
-	std::string buff;
-	std::string rest; // rest after doing substring
-	std::string xpos;
-    std::string ypos;
-	std::string tab = "\t";
+    std::string buff, rest; // rest after doing substring
+    std::string xpos, ypos;
+    std::string tab = "\t";
     int l = 0;
 
 
-	while(out.good()) {
-		getline(out,buff);
+    while(out.good()) {
+        getline(out,buff);
 
-		if(buff.find("#") != string::npos) { // work on the line without #-symbol
+        // do not parse comment lines
+        if(buff.find("#") != string::npos) {
             continue;
         }
+        // ... and empty lines
         if(StringUtils::prune(buff)=="") {
             continue;
         }
 
         l++;
-		name = buff.substr(0,buff.find(tab));
+        name = buff.substr(0,buff.find(tab));
         rest = buff.substr(buff.find(tab)+1, buff.length());
 
-		type = rest.substr(0,rest.find(tab));
+        type = rest.substr(0,rest.find(tab));
         rest = rest.substr(rest.find(tab)+1, rest.length());
 
         desc = rest.substr(0,rest.find(tab));
@@ -147,19 +147,12 @@ PCElmarPoints::loadElmar(OptionsCont &oc)
         ypos = rest.substr(0,rest.find(tab));
 
         SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-		SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+        SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
 
         Position2D pos(x, y);
         GeoConvHelper::remap(pos);
 
-        /*
-        name = StringUtils::convertUmlaute(name);
-		if(name=="noname"||myCont.contains(name)) {
-		    name = name + "#" + toString(myCont.getEnumIDFor(name));
-        }
-        */
-
-        // check the polygon
+        // check the poi
         if(name=="") {
             MsgHandler::getErrorInstance()->inform("The name of a poi is missing.");
             continue;
@@ -185,8 +178,8 @@ PCElmarPoints::loadElmar(OptionsCont &oc)
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             myCont.insert(name, poi, layer);
         }
-    	vec.clear();
-	}
+        vec.clear();
+    }
 
     out.close();
 }

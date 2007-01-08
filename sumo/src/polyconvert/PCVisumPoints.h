@@ -1,8 +1,8 @@
-#ifndef PCElmarPoints_h
-#define PCElmarPoints_h
+#ifndef PCVisumPoints_h
+#define PCVisumPoints_h
 /***************************************************************************
-                          PCElmarPoints.h
-    A reader of pois stored in elmar-format
+                          PCVisumPoints.h
+    A reader of pois stored in visum-format
                              -------------------
     project              : SUMO
     subproject           : PolyConvert
@@ -21,11 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2007/01/08 14:43:58  dkrajzew
+// Revision 1.1  2007/01/08 14:43:59  dkrajzew
 // code beautifying; prliminary import for Visum points added
 //
-// Revision 1.1  2006/11/02 12:19:50  dkrajzew
-// added parsing of Elmar's pointcollections
 //
 /* =========================================================================
  * compiler pragmas
@@ -67,21 +65,17 @@ class OptionsCont;
  * class declarations
  * ======================================================================= */
 /**
- * @class PCElmarPoints
- * @brief A reader of pois stored in elmar-format
- *
- * Reads pois stored in "pointcollection.txt",
- *  applies the given projection and network offset and stores the so build
- *  pois into the given map.
+ * @class PCVisumPoints
+ * @brief A reader of pois stored in visum-format
  */
-class PCElmarPoints {
+class PCVisumPoints {
 public:
     /// Constructor
-    PCElmarPoints(PCPolyContainer &toFill,
+    PCVisumPoints(PCPolyContainer &toFill,
         const Boundary &netBoundary, PCTypeMap &tm);
 
     /// Destructor
-    ~PCElmarPoints();
+    ~PCVisumPoints();
 
     /// loads Elmar's data parsed from GDF
     void load(OptionsCont &oc);

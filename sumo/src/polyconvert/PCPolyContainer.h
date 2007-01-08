@@ -2,7 +2,7 @@
 #define PCPolyContainer_h
 /***************************************************************************
                           PCPolyContainer.h
-    A storage for loaded polygons
+    A storage for loaded polygons and pois
                              -------------------
     project              : SUMO
     subproject           : PolyConvert
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.3  2006/11/28 14:51:48  dkrajzew
 // possibility to prune the plygons to import on a bounding box added
 //
@@ -61,7 +64,7 @@
  * class definitions
  * ======================================================================= */
 /**
- * @class
+ * @class PCPolyContainer
  * @brief A storage for loaded polygons
  */
 class PCPolyContainer {
@@ -91,28 +94,28 @@ public:
     void report();
 
     /// Returns the information whether a polygon with the given key is in the container
-	bool contains(const std::string &key);
+    bool contains(const std::string &key);
 
     /// Saves the stored polygons into the given file
-	void save(const std::string &file, int layer);
+    void save(const std::string &file, int layer);
 
     /// Retuns a unique id for a given name
-	int getEnumIDFor(const std::string &key);
+    int getEnumIDFor(const std::string &key);
 
 
 public:
     /** a container of types, accessed by the string key */
     typedef std::map<std::string, Polygon2D*> PolyCont;
-	/** the container of types**/
+    /** the container of types**/
     PolyCont myPolyCont;
 
     /** a container of types, accessed by the string key */
     typedef std::map<std::string, PointOfInterest*> POICont;
-	/** the container of types**/
+    /** the container of types**/
     POICont myPOICont;
 
-	/// An id to int map for proper enumeration
-	std::map<std::string, int> myIDEnums;
+    /// An id to int map for proper enumeration
+    std::map<std::string, int> myIDEnums;
 
     /// A map from polygon to layer
     std::map<Polygon2D*, int> myPolyLayerMap;
@@ -121,7 +124,10 @@ public:
     std::map<PointOfInterest*, int> myPOILayerMap;
 
 
+    /// The boundary that described the rectangle within which an object must be in order to be kept
     Boundary myPrunningBoundary;
+
+    /// Information whether the prunning boundary shall be used
     bool myDoPrunne;
 
 private:

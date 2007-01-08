@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2007/01/08 14:43:59  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.1  2006/08/01 07:52:47  dkrajzew
 // polyconvert added
 //
@@ -79,14 +82,15 @@ public:
     void load(std::string opt, std::string file);
 
     /** loads data from visum-input-file */
-    void loadVisum(OptionsCont &oc);
+    void load(OptionsCont &oc);
 
 
 protected:
     /// Container to store the read polygons into
-	PCPolyContainer &myCont;
+    PCPolyContainer &myCont;
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

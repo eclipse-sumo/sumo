@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.3  2006/11/02 12:20:16  dkrajzew
 // removed unneeded code
 //
@@ -89,12 +92,12 @@ public:
     ~PCElmar();
 
     /// loads Elmar's data parsed from GDF
-    void loadElmar(OptionsCont &oc);
+    void load(OptionsCont &oc);
 
 
 private:
     /// The container to store the converted polygons into
-	PCPolyContainer &myCont;
+    PCPolyContainer &myCont;
 
     /// The type map to use
     PCTypeMap &myTypeMap;

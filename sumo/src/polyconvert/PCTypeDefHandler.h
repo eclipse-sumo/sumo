@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.1  2006/08/01 07:52:47  dkrajzew
 // polyconvert added
 //
@@ -73,7 +76,7 @@ public:
     /// Constructor
     PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con);
 
-    /// Destrcutor
+    /// Destructor
     virtual ~PCTypeDefHandler();
 
 

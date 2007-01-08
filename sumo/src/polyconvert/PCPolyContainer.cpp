@@ -1,6 +1,6 @@
 /***************************************************************************
                           PCPolyContainer.cpp
-    A storage for loaded polygons
+    A storage for loaded polygons and pois
                              -------------------
     project              : SUMO
     subproject           : PolyConvert
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2007/01/08 14:43:58  dkrajzew
+// code beautifying; prliminary import for Visum points added
+//
 // Revision 1.5  2006/11/28 14:51:48  dkrajzew
 // possibility to prune the plygons to import on a bounding box added
 //
@@ -189,18 +192,18 @@ PCPolyContainer::report()
 void
 PCPolyContainer::save(const std::string &file, int /*layer*/)
 {
-	ofstream out(file.c_str());
+    ofstream out(file.c_str());
     if(!out.good()) {
         MsgHandler::getErrorInstance()->inform("Output file '" + file + "' could not be build.");
         throw ProcessError();
     }
-	out << "<shapes>" << endl;
+    out << "<shapes>" << endl;
     // write polygons
     {
         for(PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
             out << setprecision(2);
             out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
-    			<< (*i).second->getType() << "\" color=\""
+                << (*i).second->getType() << "\" color=\""
                 << (*i).second->getColor() << "\" fill=\""
                 << (*i).second->fill() << "\"";
             out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
@@ -213,7 +216,7 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
         for(POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
             out << setprecision(2);
             out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
-    			<< (*i).second->getType() << "\" color=\""
+                << (*i).second->getType() << "\" color=\""
                 << *static_cast<RGBColor*>((*i).second) << '"';
             out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";
             out << setprecision(10);
@@ -223,21 +226,22 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
         }
     }
     //
-	out << "</shapes>" << endl;
+    out << "</shapes>" << endl;
 }
 
 
 int
 PCPolyContainer::getEnumIDFor(const std::string &key)
 {
-	if(myIDEnums.find(key)==myIDEnums.end()) {
-		myIDEnums[key] = 0;
-		return 0;
-	} else {
-		myIDEnums[key] = myIDEnums[key] + 1;
-		return myIDEnums[key];
-	}
+    if(myIDEnums.find(key)==myIDEnums.end()) {
+        myIDEnums[key] = 0;
+        return 0;
+    } else {
+        myIDEnums[key] = myIDEnums[key] + 1;
+        return myIDEnums[key];
+    }
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
