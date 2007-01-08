@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2007/01/08 12:11:19  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.8  2006/12/21 13:23:56  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -147,8 +150,10 @@ private:
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
+    FXCheckButton *myShowAddName;
 
-    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer;
+    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer, *myPOINameSizeDialer;
+    FXCheckButton *myShowPOIName;
 
     FXCheckButton *myShowLane2Lane;
     FXCheckButton *myAntialiase;

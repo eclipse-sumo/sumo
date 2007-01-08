@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2007/01/08 12:11:19  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.29  2006/12/21 08:14:09  dkrajzew
 // debugged building under Linux
 //
@@ -1278,15 +1281,26 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 
 
 void
-GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p) const
+GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p, SUMOReal width) const
 {
     if(_useToolTips) {
         glPushName(static_cast<const GUIPointOfInterest&>(p).getGlID());
     }
     glColor3d(p.red(),p.green(),p.blue());
     glTranslated(p.x(), p.y(), 0);
-    GLHelper::drawFilledCircle(
-		(SUMOReal) 1.3*myVisualizationSettings->poiExaggeration, 16);
+    GLHelper::drawFilledCircle((SUMOReal) 1.3*myVisualizationSettings->poiExaggeration, 16);
+    if(myVisualizationSettings->drawPOIName) {
+        SUMOReal viewExagg = myVisualizationSettings->poiNameSize / width;
+        glColor3d(0, 0, 0);
+        glPushMatrix();
+        glTranslated((SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, (SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(viewExagg);//myVisualizationSettings->poiExaggeration*4.);
+        glRotated(180, 1, 0, 0);
+        pfDrawString(static_cast<const GUIPointOfInterest&>(p).getID().c_str());
+        glPopMatrix();
+    }
     glTranslated(-p.x(), -p.y(), 0);
     if(_useToolTips) {
         glPopName();
@@ -1382,7 +1396,7 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 
 
 void
-GUISUMOAbstractView::drawShapesLayer(const ShapeContainer &sc, int layer)
+GUISUMOAbstractView::drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width)
 {
     {
         const std::vector<Polygon2D*> &pv = sc.getPolygonCont(layer).buildAndGetStaticVector();
@@ -1395,23 +1409,23 @@ GUISUMOAbstractView::drawShapesLayer(const ShapeContainer &sc, int layer)
         const std::vector<PointOfInterest*> &pv = sc.getPOICont(layer).buildAndGetStaticVector();
         std::vector<PointOfInterest*>::const_iterator pi = pv.begin();
         for(; pi!=pv.end(); pi++) {
-            drawPOI2D(**pi);
+            drawPOI2D(**pi, width);
         }
     }
 }
 
 
 void
-GUISUMOAbstractView::drawShapes(const ShapeContainer &sc, int maxLayer)
+GUISUMOAbstractView::drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width)
 {
     if(maxLayer<=0&&sc.getMinLayer()<=0) {
         for(int i=sc.getMinLayer(); i<=0; i++) {
-            drawShapesLayer(sc, i);
+            drawShapesLayer(sc, i, width);
         }
     }
     if(maxLayer>0&&sc.getMaxLayer()>0) {
         for(int i=0; i<=sc.getMaxLayer(); i++) {
-            drawShapesLayer(sc, i);
+            drawShapesLayer(sc, i, width);
         }
     }
 }

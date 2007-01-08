@@ -46,9 +46,13 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addMode = 0;
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
+        vs.drawAddName = false;
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;
+        vs.drawPOIName = false;
+        vs.poiNameSize = 50;
+
         gSchemeStorage.add("standard", vs);
     }
     {
@@ -85,9 +89,13 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addMode = 0;
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
+        vs.drawAddName = false;
 
         vs.poiExaggeration = 1;
         vs.minPOISize = 0;
+        vs.drawPOIName = false;
+        vs.poiNameSize = 50;
+
         gSchemeStorage.add("faster standard", vs);
     }
     {
@@ -129,9 +137,12 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addMode = 0;
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
+        vs.drawAddName = false;
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;
+        vs.drawPOIName = false;
+        vs.poiNameSize = 50;
 
         gSchemeStorage.add("real world", vs);
     }

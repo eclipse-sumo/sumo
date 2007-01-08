@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2007/01/08 12:11:18  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.1  2006/12/12 12:10:37  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -76,6 +79,7 @@ namespace
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUIDetectorDrawer.h"
 #include <guisim/GUIDetectorWrapper.h>
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -112,10 +116,11 @@ GUIDetectorDrawer::setGLID(bool val)
 
 void
 GUIDetectorDrawer::drawGLDetectors(size_t *which,
-                                       size_t maxDetectors,
-                                       SUMOReal scale,
-                                       SUMOReal upscale)
+                                   size_t maxDetectors,
+                                   SUMOReal scale,
+                                   GUISUMOAbstractView::VisualizationSettings &settings)
 {
+    SUMOReal upscale = settings.addExaggeration;
     initStep();
     for(size_t i=0; i<maxDetectors; i++ ) {
         if(which[i]==0) {
@@ -128,6 +133,21 @@ GUIDetectorDrawer::drawGLDetectors(size_t *which,
                     glPushName(myAdditionals[j+(i<<5)]->getGlID());
                 }
                 myAdditionals[j+(i<<5)]->drawGL(scale, upscale);
+                // draw name if wished
+                if(settings.drawAddName) {
+                    glPushMatrix();
+                    Position2D p = myAdditionals[j+(i<<5)]->getPosition();
+                    glTranslated(p.x(), p.y(), 0);
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    pfSetPosition(0, 0);
+                    pfSetScale(1);
+                    glColor3d(1, 1, 1);
+                    SUMOReal w = pfdkGetStringWidth(myAdditionals[j+(i<<5)]->microsimID().c_str());
+                    glRotated(180, 0, 1, 0);
+                    glTranslated(-w/2., 0.4, 0);
+                    pfDrawString(myAdditionals[j+(i<<5)]->microsimID().c_str());
+                    glPopMatrix();
+                }
                 if(myShowToolTips) {
                     glPopName();
                 }

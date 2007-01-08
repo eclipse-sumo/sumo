@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.68  2007/01/08 12:11:18  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.67  2006/12/21 13:23:53  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -603,7 +606,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
         myDecalsLock.unlock();
     }
-    drawShapes(_net->getShapeContainer(), 0);
+    drawShapes(_net->getShapeContainer(), 0, width);
 
     myJunctionDrawer.drawGLJunctions(_junctions2Show, _junctions2ShowSize,
         _junctionColScheme);
@@ -611,7 +614,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
         *myVisualizationSettings);
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
-        width, myVisualizationSettings->addExaggeration);
+        width, *myVisualizationSettings);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
         *myVisualizationSettings);
     //
@@ -644,7 +647,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
     }
     // draw the Polygons
-    drawShapes(_net->getShapeContainer(), 10);
+    drawShapes(_net->getShapeContainer(), 10, width);
     // draw vehicles only when they're visible
     if(scale*m2p(3)>myVisualizationSettings->minVehicleSize) {
         myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize,

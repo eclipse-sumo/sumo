@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2007/01/08 12:11:19  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.16  2006/12/21 13:23:56  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -312,6 +315,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                 LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myDetectorUpscaleDialer->setRange(1, 100);
         myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
+        myShowAddName = new FXCheckButton(m51, "Show detector name", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowAddName->setCheck(mySettings->drawAddName);
     }
     {
         FXTabItem *tab6 = new FXTabItem(tabbook,"Further",NULL);
@@ -351,6 +356,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                 LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOIUpscaleDialer->setRange(1, 100);
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
+        myShowPOIName = new FXCheckButton(m63, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowPOIName->setCheck(mySettings->drawPOIName);
+        myPOINameSizeDialer =
+            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myPOINameSizeDialer->setRange(10, 1000);
+        myPOINameSizeDialer->setValue(mySettings->poiNameSize);
     }
     FXHorizontalFrame *f2 = new FXHorizontalFrame(contentFrame, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&Use",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
@@ -442,9 +454,12 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
+    myShowAddName->setCheck(mySettings->drawPOIName);
 
     myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
     myPOIMinSizeDialer->setValue(mySettings->minPOISize);
+    myShowPOIName->setCheck(mySettings->drawPOIName);
+    myPOINameSizeDialer->setValue(mySettings->poiNameSize);
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myAntialiase->setCheck(mySettings->antialiase);
@@ -516,9 +531,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
+    mySettings->drawAddName = myShowAddName->getCheck()!=0;
 
     mySettings->poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     mySettings->minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
+    mySettings->drawPOIName = myShowPOIName->getCheck()!=0;
+    mySettings->poiNameSize = (SUMOReal) myPOINameSizeDialer->getValue();
 
     mySettings->showLane2Lane = myShowLane2Lane->getCheck()!=0;
     mySettings->antialiase = myAntialiase->getCheck()!=0;

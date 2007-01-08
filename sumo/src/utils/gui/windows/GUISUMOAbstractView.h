@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2007/01/08 12:11:19  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.24  2006/12/21 13:23:56  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -322,7 +325,7 @@ public:
     /// Builds the popup-menu containing the location-menu
     virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
 
-    void drawShapes(const ShapeContainer &sc, int maxLayer) ;
+    void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 
     void remove(GUIDialog_EditViewport *) { myViewportChooser = 0; }
 
@@ -417,9 +420,9 @@ public:
         bool laneShowBorders;
         /// Information whether link textures (arrows) shall be drawn
         bool showLinkDecals;
-        int laneEdgeExaggMode;
-        SUMOReal minExagg;
-        SUMOReal maxExagg;
+        int laneEdgeExaggMode; // !!! unused
+        SUMOReal minExagg; // !!! unused
+        SUMOReal maxExagg; // !!! unused
         /// Information whether rails shall be drawn
         bool showRails;
         ///}
@@ -462,6 +465,8 @@ public:
         float minAddSize;
         /// The additional structures exaggeration (upscale)
         float addExaggeration;
+        /// Information whether the additional's name shall be drawn
+        bool drawAddName;
         ///}
 
         ///{ shapes visualization settings
@@ -469,6 +474,10 @@ public:
         float minPOISize;
         /// The additional shapes (upscale)
         float poiExaggeration;
+        /// Information whether the poi's name shall be drawn
+        bool drawPOIName;
+        /// The size of the poi name
+        float poiNameSize;
         ///}
 
     };
@@ -481,8 +490,8 @@ protected:
     /// Draws the given polygon
     void drawPolygon2D(const Polygon2D &polygon) const;
 
-    /// Draws the given polygon
-    void drawPOI2D(const PointOfInterest &p) const;
+    /// Draws the given poi
+    void drawPOI2D(const PointOfInterest &p, SUMOReal width) const;
 
     void updatePositionInformation() const;
 
@@ -490,7 +499,7 @@ protected:
 
     Position2D getPositionInformation(int x, int y) const;
 
-    void drawShapesLayer(const ShapeContainer &sc, int layer);
+    void drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width);
 
 
 protected:

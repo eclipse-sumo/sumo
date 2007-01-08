@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2007/01/08 12:11:18  dkrajzew
+// visualization of poi and detector names added
+//
 // Revision 1.1  2006/12/12 12:10:39  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -86,7 +89,7 @@ public:
 
     /// Draws all detectors
     void drawGLDetectors(size_t *which, size_t maxDetectors,
-        SUMOReal scale, SUMOReal upscale);
+        SUMOReal scale, GUISUMOAbstractView::VisualizationSettings &settings);
 
     void setGLID(bool val);
 
