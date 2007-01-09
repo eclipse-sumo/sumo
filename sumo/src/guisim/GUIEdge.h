@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2007/01/09 12:05:52  dkrajzew
+// names are now drawn after all lanes and junctions have been drawn
+//
 // Revision 1.22  2006/09/18 09:57:01  dkrajzew
 // removed unneeded code
 //
@@ -231,6 +234,7 @@ private:
 
     /// invalidated assignment operator
     GUIEdge &operator=(const GUIEdge &s);
+
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.70  2007/01/09 12:05:49  dkrajzew
+// names are now drawn after all lanes and junctions have been drawn
+//
 // Revision 1.69  2007/01/09 11:12:00  dkrajzew
 // the names of nodes, additional structures, vehicles, edges, pois may now be shown
 //
@@ -612,10 +615,18 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     drawShapes(_net->getShapeContainer(), 0, width);
 
     myJunctionDrawer.drawGLJunctions(_junctions2Show, _junctions2ShowSize,
-        width, _junctionColScheme, *myVisualizationSettings);
+        _junctionColScheme, *myVisualizationSettings);
     myLaneDrawer.drawGLLanes(_edges2Show, _edges2ShowSize, width,
         *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
         *myVisualizationSettings);
+    if(myVisualizationSettings->drawJunctionName) {
+        myJunctionDrawer.drawGLJunctionNames(_junctions2Show, _junctions2ShowSize,
+            width, _junctionColScheme, *myVisualizationSettings);
+    }
+    if(myVisualizationSettings->drawEdgeName) {
+        myLaneDrawer.drawGLLaneNames(_edges2Show, _edges2ShowSize, width,
+            *myVisualizationSettings);
+    }
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
         width, *myVisualizationSettings);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,

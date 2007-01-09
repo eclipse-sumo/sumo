@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2007/01/09 12:05:52  dkrajzew
+// names are now drawn after all lanes and junctions have been drawn
+//
 // Revision 1.2  2007/01/09 11:12:01  dkrajzew
 // the names of nodes, additional structures, vehicles, edges, pois may now be shown
 //
@@ -131,10 +134,12 @@ public:
     /// destructor
 	virtual ~GUILaneDrawer() { }
 
+    /// Sets the information whether the gl-id shall be set
     void setGLID(bool val) {
         myShowToolTips = val;
     }
 
+    /// Draws the lanes
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
         SUMOReal width, GUIBaseColorer<_L1> &colorer,
         GUISUMOAbstractView::VisualizationSettings &settings)
@@ -214,30 +219,50 @@ public:
                             drawLine(*edge);
                         }
                     }
-                    // check whether the name shall be drawn
-                    if(settings.drawEdgeName) {
-                        const _L1 &lane = edge->getLaneGeometry((int) 0);
-                        glPushMatrix();
-                        Position2D p = lane.getShape().positionAtLengthPosition(lane.getShape().length()/2.);
-                        glTranslated(p.x(), p.y(), 0);
-                        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                        pfSetPosition(0, 0);
-                        pfSetScale(settings.junctionNameSize / width);
-                        glColor3d(1, .5, 0);
-                        SUMOReal w = pfdkGetStringWidth(edge->microsimID().c_str());
-                        glRotated(180, 1, 0, 0);
-                        SUMOReal angle = lane.getShape().rotationDegreeAtLengthPosition(lane.getShape().length()/2.);
-                        angle += 90;
-                        if(angle>90&&angle<270) {
-                            glColor3d(1, 0, .5);
-                            angle -= 180;
-                        }
-                        glRotated(angle, 0, 0, 1);
-                        glTranslated(-w/2., 0.4, 0);
-                        pfDrawString(edge->microsimID().c_str());
-                        glPopMatrix();
-                    }
 	            }
+		    }
+	    }
+	}
+
+    /// Draws all lanes' names
+    virtual void drawGLLaneNames(size_t *which, size_t maxEdges,
+        SUMOReal width, GUISUMOAbstractView::VisualizationSettings &settings)
+	{
+	    // initialise drawing
+		initStep();
+	    // go through edges
+		for(size_t i=0; i<maxEdges; i++ ) {
+			if(which[i]==0) {
+				continue;
+	        }
+		    size_t pos = 1;
+			for(size_t j=0; j<32; j++, pos<<=1) {
+				if((which[i]&pos)!=0) {
+                    _E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
+                    const _L1 &lane1 = edge->getLaneGeometry((int) 0);
+                    const _L1 &lane2 = edge->getLaneGeometry(edge->nLanes()-1);
+                    glPushMatrix();
+                    Position2D p = lane1.getShape().positionAtLengthPosition(lane1.getShape().length()/2.);
+                    p.add(lane2.getShape().positionAtLengthPosition(lane2.getShape().length()/2.));
+                    p.mul(.5);
+                    glTranslated(p.x(), p.y(), 0);
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    pfSetPosition(0, 0);
+                    pfSetScale(settings.edgeNameSize / width);
+                    glColor3d(1, .5, 0);
+                    SUMOReal w = pfdkGetStringWidth(edge->microsimID().c_str());
+                    glRotated(180, 1, 0, 0);
+                    SUMOReal angle = lane1.getShape().rotationDegreeAtLengthPosition(lane1.getShape().length()/2.);
+                    angle += 90;
+                    if(angle>90&&angle<270) {
+                        glColor3d(1, 0, .5);
+                        angle -= 180;
+                    }
+                    glRotated(angle, 0, 0, 1);
+                    glTranslated(-w/2., .2*settings.edgeNameSize / width, 0);
+                    pfDrawString(edge->microsimID().c_str());
+                    glPopMatrix();
+                }
 		    }
 	    }
 	}

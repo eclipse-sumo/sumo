@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2007/01/09 12:05:51  dkrajzew
+// names are now drawn after all lanes and junctions have been drawn
+//
 // Revision 1.2  2007/01/09 11:12:01  dkrajzew
 // the names of nodes, additional structures, vehicles, edges, pois may now be shown
 //
@@ -89,6 +92,11 @@ public:
 
     /// Draws the junctions
     virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
+        GUISUMOAbstractView::JunctionColoringScheme scheme,
+        GUISUMOAbstractView::VisualizationSettings &settings);
+
+    /// Draws the junctions
+    virtual void drawGLJunctionNames(size_t *which, size_t maxJunctions,
         SUMOReal scale,
         GUISUMOAbstractView::JunctionColoringScheme scheme,
         GUISUMOAbstractView::VisualizationSettings &settings);
