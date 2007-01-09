@@ -40,7 +40,7 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.5. We will try to keep it up to
+      <para>This document fits to version 0.9.6. We will try to keep it up to
       date with the next versions.</para>
     </sect1>
 
@@ -73,6 +73,9 @@
 
       <para>The fourth chapter describes how to extend the Makefiles in the
       case you work under Linux/UNIX.</para>
+
+      <para>The fifth chapter shows how to enable some further features, both
+      when using Windows or Linux.</para>
     </sect1>
   </chapter>
 
@@ -93,7 +96,7 @@
     contain the latest patches, the latest release may not contain.</para>
   </chapter>
 
-  <chapter id="howto_build-linux">
+  <chapter id="howto_build-linux" revision="0.9.6">
     <title>UNIX/Linux: SUMO and the GNU build process</title>
 
     <para>Here we describe how to use the <ulink
@@ -112,16 +115,14 @@
         <step>
           <para>Download the <ulink
           url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
-          (version 2.6 or greater), the <ulink
+          (version 2.7 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
-          (version 4.4.9), and the <ulink
+          (version 4.5.0), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
-          Make sure you download the Linux-version of Xerces, the sources for
-          FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.</para>
 
           <caution>
             <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
@@ -164,6 +165,16 @@
           <para><option>--with-gdal-libraries=<replaceable>&lt;PATH_TO_GDAL_LIBS&gt;</replaceable></option></para>
 
           <para><option>--with-gdal-includes=<replaceable>&lt;PATH_TO_GDAL_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-libraries=<replaceable>&lt;PATH_TO_PROJ_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-includes=<replaceable>&lt;PATH_TO_PROJ_INCLUDES&gt;</replaceable></option></para>
+
+          <caution>
+            <para>Please remark that version 0.9.6 needs to know where the
+            proj-includes and libraries are located. This was not needed in
+            earlier versions.</para>
+          </caution>
         </step>
 
         <step>
@@ -174,7 +185,16 @@
 
       <para>If everything was build, the applications may be found in
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
-      Enjoy!</para>
+      You can also install SUMO by calling <command>make install</command>.
+      The default location is <filename>/usr/local/</filename> (you will need
+      root grant for this). You can also choose another location to install
+      SUMO using
+      <option>--prefix=<replaceable>&lt;LOCATION&gt;</replaceable></option>
+      when running <command>configure</command>. Run
+      <command>configure</command> with <option>--help</option> for further
+      information.</para>
+
+      <para>Enjoy!</para>
     </sect1>
 
     <sect1 id="howto_build-linux-from_cvs">
@@ -196,16 +216,14 @@ co -P sumo</screen>
         <step>
           <para>Download the <ulink
           url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
-          (version 2.6 or greater), the <ulink
+          (version 2.7 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
-          (version 4.4.9), and the <ulink
+          (version 4.5.0), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
-          Make sure you download the Linux-version of Xerces, the sources for
-          FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.</para>
 
           <caution>
             <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
@@ -254,6 +272,16 @@ co -P sumo</screen>
           <para><option>--with-gdal-libraries=<replaceable>&lt;PATH_TO_GDAL_LIBS&gt;</replaceable></option></para>
 
           <para><option>--with-gdal-includes=<replaceable>&lt;PATH_TO_GDAL_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-libraries=<replaceable>&lt;PATH_TO_PROJ_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-includes=<replaceable>&lt;PATH_TO_PROJ_INCLUDES&gt;</replaceable></option></para>
+
+          <caution>
+            <para>Please remark that version 0.9.6 needs to know where the
+            proj-includes and libraries are located. This was not needed in
+            earlier versions.</para>
+          </caution>
         </step>
 
         <step>
@@ -264,11 +292,127 @@ co -P sumo</screen>
 
       <para>If everything was build, the applications may be found in
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
-      Enjoy!</para>
+      You can also install SUMO by calling <command>make install</command>.
+      The default location is <filename>/usr/local/</filename> (you will need
+      root grant for this). You can also choose another location to install
+      SUMO using
+      <option>--prefix=<replaceable>&lt;LOCATION&gt;</replaceable></option>
+      when running <command>configure</command>. Run
+      <command>configure</command> with <option>--help</option> for further
+      information.</para>
+
+      <para>Enjoy!</para>
+    </sect1>
+
+    <sect1 id="howto_build-linux-from_cvs">
+      <title>Building SUMO from CVS</title>
+
+      <procedure>
+        <step>
+          <para>Download the sources from <ulink
+          url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
+          The cvs-server is <literal>sumo.cvs.sourceforge.net</literal>, the
+          module name is <literal>sumo</literal>. An example session could
+          be:</para>
+
+          <screen>cvs -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo login
+cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo
+co -P sumo</screen>
+        </step>
+
+        <step>
+          <para>Download the <ulink
+          url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
+          (version 2.7 or greater), the <ulink
+          url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+          1.4.x), the <ulink
+          url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
+          (version 4.5.0), and the <ulink
+          url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
+          (version 1.3.1). All libraries are also available at our <ulink
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.</para>
+
+          <caution>
+            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
+            will also not need the PROJ and the GDAL library.</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Install all libraries into desired folder (FOX and GDAL must
+          be build, Xerces possibly not)</para>
+        </step>
+
+        <step>
+          <para><literal>cd</literal> into the directory
+          <literal>sumo</literal>.</para>
+        </step>
+
+        <step>
+          <para>Execute <command>make -f Makefile.cvs</command>. This will
+          create the <filename>configure</filename>-script from
+          <filename>configure.in</filename> and
+          <filename>Makefile.in</filename> for each
+          <filename>Makefile.am</filename> by calling the GNU
+          Autotools.</para>
+        </step>
+
+        <step>
+          <para>Call <command>./configure</command>. You can get a list of
+          <command>configure</command>-option by calling <command>./configure
+          --help</command>. <command>./configure</command> builds a
+          <filename>Makefile</filename> for each
+          <filename>Makefile.in</filename>.</para>
+
+          <para>Normally, you have to supply the places the includes and the
+          libraries are located at, for all libraries. This is done
+          using:</para>
+
+          <para><option>--with-xerces-libraries=<replaceable>&lt;PATH_TO_XERCES_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-xerces-includes=<replaceable>&lt;PATH_TO_XERCES_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-libraries=<replaceable>&lt;PATH_TO_FOX_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-includes=<replaceable>&lt;PATH_TO_FOX_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-gdal-libraries=<replaceable>&lt;PATH_TO_GDAL_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-gdal-includes=<replaceable>&lt;PATH_TO_GDAL_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-libraries=<replaceable>&lt;PATH_TO_PROJ_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-proj-includes=<replaceable>&lt;PATH_TO_PROJ_INCLUDES&gt;</replaceable></option></para>
+
+          <caution>
+            <para>Please remark that version 0.9.6 needs to know where the
+            proj-includes and libraries are located. This was not needed in
+            earlier versions.</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Call <command>make</command> to build all applications within
+          the SUMO package.</para>
+        </step>
+      </procedure>
+
+      <para>If everything was build, the applications may be found in
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
+      You can also install SUMO by calling <command>make install</command>.
+      The default location is <filename>/usr/local/</filename> (you will need
+      root grant for this). You can also choose another location to install
+      SUMO using
+      <option>--prefix=<replaceable>&lt;LOCATION&gt;</replaceable></option>
+      when running <command>configure</command>. Run
+      <command>configure</command> with <option>--help</option> for further
+      information.</para>
+
+      <para>Enjoy!</para>
     </sect1>
   </chapter>
 
-  <chapter id="howto_build-windows">
+  <chapter id="howto_build-windows" revision="0.9.6">
     <title>Windows</title>
 
     <sect1 id="howto_build-windows-msvc6">
@@ -293,16 +437,14 @@ co -P sumo</screen>
         <step>
           <para>Download the <ulink
           url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
-          (version 2.6 or greater), the <ulink
+          (version 2.7 or greater), the <ulink
           url="http://www.fox-toolkit.org">FOX</ulink>-library (version
           1.4.x), the <ulink
           url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
-          (version 4.4.9), and the <ulink
+          (version 4.5.0), and the <ulink
           url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
           (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.
-          Make sure you download the Windows-version of Xerces, the sources
-          for FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.</para>
 
           <caution>
             <para>If you use SUMO 0.8.x you have to use FOX 1.2 instead. You
@@ -311,8 +453,8 @@ co -P sumo</screen>
         </step>
 
         <step>
-          <para>Install all libraries into desired folder (FOX and GDAL must
-          be build, Xerces and PROJ possibly not)</para>
+          <para>Install all libraries into desired folder (FOX, PROJ, and GDAL
+          must be build, Xerces possibly not)</para>
         </step>
 
         <step>
@@ -337,7 +479,7 @@ co -P sumo</screen>
 
           <para><envar>FOX14=<replaceable>&lt;PATH_TO_FOX&gt;</replaceable></envar></para>
 
-          <para>Example: If you have installed fox to
+          <para>Example: If you have installed FOX to
           <filename>D:\libs\fox-1.4.x</filename>, then your environment
           variables should contain
           <envar>FOX14=D:\libs\fox-1.4.x</envar></para>
@@ -361,7 +503,7 @@ co -P sumo</screen>
 
           <para><envar>GDAL=<replaceable>&lt;PATH_TO_GDAL&gt;</replaceable></envar></para>
 
-          <para>Example: If you have installed fox to
+          <para>Example: If you have installed GDAL to
           <filename>D:\libs\gdal-1.3.1\</filename>, then your environment
           variables should contain
           <envar>GDAL=D:\libs\gdal-1.3.1\</envar></para>
@@ -383,12 +525,29 @@ co -P sumo</screen>
         </step>
 
         <step>
-          <para>Copy <filename>proj.dll</filename> into the folder your
-          binaries are located in or into your windows-system folder.</para>
+          <para>Set environment variables for the PROJ library:</para>
+
+          <para><envar>PROJ=<replaceable>&lt;PATH_TO_PROJ&gt;</replaceable></envar></para>
+
+          <para>Example: If you have installed PROJ to
+          <filename>D:\libs\proj-4.5.0\</filename>, then your environment
+          variables should contain
+          <envar>PROJ=D:\libs\proj-4.5.0\</envar></para>
 
           <caution>
-            <para>If you use SUMO version 0.8.x, you do not have to install
-            the PROJ library (this step may be skipped)</para>
+            <para>If you use SUMO version prior to 0.9.6, you do not have to
+            install the PROJ library (this step may be skipped)</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Compile the PROJ-library and copy
+          <filename>proj.dll</filename> into the folder your binaries are
+          located in or into your windows-system folder.</para>
+
+          <caution>
+            <para>If you use SUMO version prior to 0.9.6, you do not have to
+            install the PROJ library (this step may be skipped)</para>
           </caution>
         </step>
 
@@ -404,6 +563,12 @@ co -P sumo</screen>
         </step>
       </procedure>
 
+      <caution>
+        <para>Please remark that version 0.9.6 needs to know where the
+        proj-includes and libraries are located. This was not needed in
+        earlier versions.</para>
+      </caution>
+
       <para>If everything was build, the applications may be found in
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/bin</filename>.
       Enjoy!</para>
@@ -412,7 +577,7 @@ co -P sumo</screen>
     <sect1 id="howto_build-windows-msvc7">
       <title>Using MS Studio 7.0 .NET</title>
 
-      <para>Follow steps 2-11 as described for <application
+      <para>Follow steps 2-12 as described for <application
       class="software">MSVC++ 6.0</application>. Then continue as
       follows:</para>
 
@@ -428,6 +593,12 @@ co -P sumo</screen>
           All</guimenuitem></para>
         </step>
       </procedure>
+
+      <caution>
+        <para>Please remark that version 0.9.6 needs to know where the
+        proj-includes and libraries are located. This was not needed in
+        earlier versions.</para>
+      </caution>
 
       <para>Enjoy!</para>
     </sect1>
@@ -568,5 +739,211 @@ SUBDIRS = icons</screen>
         <literal>prg_LDADD</literal>.</para>
       </sect2>
     </sect1>
+  </chapter>
+
+  <chapter id="howto_build-features" revision="0.9.6">
+    <title>Enabling non-default Features!!! uncomplete</title>
+
+    <para>SUMO has several features that are not enabled by default. Herein,
+    it is only discussed how to enable them, not exactly what they do.</para>
+
+    <sect1 id="howto_build-windows-msvc6">
+      <title>Usage of XML-RPC</title>
+
+      <para>This feature enables SUMO to communicate with ns-2.</para>
+
+      <sect2>
+        <title>Windows</title>
+
+        <procedure>
+          <step>
+            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
+          </step>
+
+          <step>
+            <para>Uncomment the following define-statement:</para>
+
+            <programlisting><remark>/* define to use XML-RPC */</remark>
+//#define _RPC
+</programlisting>
+          </step>
+        </procedure>
+      </sect2>
+
+      <sect2>
+        <title>Linux/Unix</title>
+
+        <procedure>
+          <step>
+            <para>Call <command>configure</command> with
+            <option>--enable-rpc</option></para>
+          </step>
+        </procedure>
+      </sect2>
+    </sect1>
+
+    <sect1 id="howto_build-windows-msvc6">
+      <title>Geometry Computation Debugging</title>
+
+      <para>This feature enables some additional checks while computing road
+      and junction geometries in <application>NETCONVERT</application>. To be
+      exact, when enabled, <application>NETCONVERT</application> will check
+      all geometries for not containing the same point twice after each
+      other.</para>
+
+      <sect2>
+        <title>Windows!!!</title>
+
+        <procedure>
+          <step>
+            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
+          </step>
+
+          <step>
+            <para>Uncomment the following define-statement:!!!</para>
+
+            <programlisting><remark>/* define to use XML-RPC */</remark>
+//#define _RPC
+</programlisting>
+          </step>
+        </procedure>
+      </sect2>
+
+      <sect2>
+        <title>Linux/Unix!!!</title>
+
+        <procedure>
+          <step>
+            <para>Call <command>configure</command> with
+            <option>--enable-rpc</option></para>
+          </step>
+        </procedure>
+      </sect2>
+    </sect1>
+
+    <sect1 id="howto_build-windows-msvc6">
+      <title>Geometry Computation Debugging</title>
+
+      <para>This feature enables some additional checks while computing road
+      and junction geometries in <application>NETCONVERT</application>. To be
+      exact, when enabled, <application>NETCONVERT</application> will check
+      all geometries for not containing the same point twice after each
+      other.</para>
+
+      <sect2>
+        <title>Windows!!!</title>
+
+        <procedure>
+          <step>
+            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
+          </step>
+
+          <step>
+            <para>Uncomment the following define-statement:!!!</para>
+
+            <programlisting><remark>/* define to use XML-RPC */</remark>
+//#define _RPC
+</programlisting>
+          </step>
+        </procedure>
+      </sect2>
+
+      <sect2>
+        <title>Linux/Unix!!!</title>
+
+        <procedure>
+          <step>
+            <para>Call <command>configure</command> with
+            <option>--enable-rpc</option></para>
+          </step>
+        </procedure>
+      </sect2>
+    </sect1>
+
+    <sect1 id="howto_build-windows-msvc6">
+      <title>Geometry Computation Debugging</title>
+
+      <para>This feature enables some additional checks while computing road
+      and junction geometries in <application>NETCONVERT</application>. To be
+      exact, when enabled, <application>NETCONVERT</application> will check
+      all geometries for not containing the same point twice after each
+      other.</para>
+
+      <sect2>
+        <title>Windows!!!</title>
+
+        <procedure>
+          <step>
+            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
+          </step>
+
+          <step>
+            <para>Uncomment the following define-statement:!!!</para>
+
+            <programlisting><remark>/* define to use XML-RPC */</remark>
+//#define _RPC
+</programlisting>
+          </step>
+        </procedure>
+      </sect2>
+
+      <sect2>
+        <title>Linux/Unix!!!</title>
+
+        <procedure>
+          <step>
+            <para>Call <command>configure</command> with
+            <option>--enable-rpc</option></para>
+          </step>
+        </procedure>
+      </sect2>
+    </sect1>
+
+    <sect1 id="howto_build-windows-msvc6">
+      <title>Geometry Computation Debugging</title>
+
+      <para>This feature enables some additional checks while computing road
+      and junction geometries in <application>NETCONVERT</application>. To be
+      exact, when enabled, <application>NETCONVERT</application> will check
+      all geometries for not containing the same point twice after each
+      other.</para>
+
+      <sect2>
+        <title>Windows!!!</title>
+
+        <procedure>
+          <step>
+            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
+          </step>
+
+          <step>
+            <para>Uncomment the following define-statement:!!!</para>
+
+            <programlisting><remark>/* define to use XML-RPC */</remark>
+//#define _RPC
+</programlisting>
+          </step>
+        </procedure>
+      </sect2>
+
+      <sect2>
+        <title>Linux/Unix!!!</title>
+
+        <procedure>
+          <step>
+            <para>Call <command>configure</command> with
+            <option>--enable-rpc</option></para>
+          </step>
+        </procedure>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="howto_build-extending_linux">
+    <title>Troubleshooting</title>
+
+    <para>Some further information and solutions for problems can be found in
+    the FAQ (<ulink
+    url="http://sumo.sourceforge.net/docs/gen/faq.shtml#sumo_qa-building">http://sumo.sourceforge.net/docs/gen/faq.shtml#sumo_qa-building</ulink>).</para>
   </chapter>
 </book>

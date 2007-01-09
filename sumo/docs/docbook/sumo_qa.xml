@@ -13,8 +13,6 @@
     <sect2 id="sumo_qa-general-what_is">
       <title>What is SUMO?</title>
 
-      <para><emphasis>Question: </emphasis>What is SUMO?</para>
-
       <para><emphasis>Answer:</emphasis> SUMO is a traffic simulation package.
       It is meant to be used to simulate networks of a city's size, but you
       can of course use it for smaller networks and larger, too, if your
@@ -46,15 +44,16 @@
       <sect3 id="sumo_qa-building-getting_sources-cygwin_cvs_access">
         <title>How do I access the CVS using cygwin or Linux?</title>
 
-        <para><emphasis>Answer:</emphasis> For the initial checkout use the following command:</para>
+        <para><emphasis>Answer:</emphasis> For the initial checkout use the
+        following command:</para>
 
         <screen>cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co -P sumo</screen>
 
         <para>Press <keycode>RETURN</keycode> if you should be asked for a
         password.</para>
 
-        <para>For later updates go inside the sumo directory, which has been created,
-	and simply type cvs up -dPA.</para>
+        <para>For later updates go inside the sumo directory, which has been
+        created, and simply type cvs up -dPA.</para>
       </sect3>
 
       <sect3 id="sumo_qa-building-getting_sources-cvs_documentation">
@@ -63,6 +62,30 @@
         <para><emphasis>Answer:</emphasis> Look under <ulink
         url="http://sourceforge.net/docman/?group_id=1">Sourceforge
         documentation</ulink> in Section F.</para>
+      </sect3>
+    </sect2>
+
+    <sect2 id="sumo_qa-building-getting_sources">
+      <title>Compilation under Linux</title>
+
+      <sect3 id="sumo_qa-building-getting_sources-cvs_documentation">
+        <title>Build reports unresolved references to openGL-functions</title>
+
+        <para><emphasis>Question:</emphasis> When i send the make command, i
+        get back many errors, all look like the following:<screen>./utils/glutils/libglutils.a(GLHelper.o): In function
+`GLHelper::drawOutlineCircle(float, float, int, float, float)':
+/home/smartie/sumo-0.9.5/src/utils/glutils/GLHelper.cpp:352:
+undefined reference to `glEnd'
+</screen></para>
+
+        <para><emphasis>Answer:</emphasis> SUMO needs FOX-toolkit to be build
+        with openGL-support enabled. Do this by compiling FOX-toolkit as
+        following:</para>
+
+        <screen>tar xzf fox-1.4.34.tar.gz
+cd fox-1.4.34
+./configure --with-opengl=yes --prefix=$HOME &amp;&amp; make install
+</screen>
       </sect3>
     </sect2>
   </sect1>

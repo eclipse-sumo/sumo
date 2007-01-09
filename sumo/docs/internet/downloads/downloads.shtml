@@ -200,7 +200,8 @@
 								<br>
 								<b>Release date: 6.10.2005.</b><br>
 								<font color="red"><b>This is an outdated, old version of SUMO. Please use this only if
-								you have old networks/routes or other settings and want to reuse them.</b></font><br>
+								you have old networks/routes or other settings and want to reuse them.<br>
+								The documentation only describes the current version (0.9.x)</b></font><br>
 								<br>
 								Please report bugs to
 								<script language="JavaScript" type="text/javascript">
