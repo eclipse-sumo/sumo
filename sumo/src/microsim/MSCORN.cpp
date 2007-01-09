@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2007/01/09 14:44:12  dkrajzew
+// added output of reroutes number ond devices to tripinfo
+//
 // Revision 1.22  2006/12/18 14:43:56  dkrajzew
 // debugging c2c
 //
@@ -335,7 +338,33 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
         << "end=\"" << time << "\" "
         << "duration=\"" << time-realDepart << "\" "
         << "waited=\"" << realDepart-v->desiredDepart() << "\" "
-        << "/>" << endl;
+    // write reroutes
+        << "reroutes=\"";
+    if(v->hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+        myTripDurationsOutput->getOStream()
+            << (int) v->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
+    } else {
+        myTripDurationsOutput->getOStream() << '0';
+    }
+    myTripDurationsOutput->getOStream() << "\" ";
+    // write devices
+    myTripDurationsOutput->getOStream() << "devices=\"";
+    bool addSem = false;
+    if(v->hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+        myTripDurationsOutput->getOStream()
+            << "cphones=" << (int) v->getCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
+        addSem = true;
+    }
+    if(v->isEquipped()) {
+        if(addSem) {
+            myTripDurationsOutput->getOStream() << ';';
+        }
+        myTripDurationsOutput->getOStream() << "c2c";
+        addSem = true;
+    }
+    myTripDurationsOutput->getOStream() << '"';
+    //
+    myTripDurationsOutput->getOStream() << "/>" << endl;
 }
 
 
