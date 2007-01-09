@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.3  2006/12/18 14:43:55  dkrajzew
 // debugging c2c
 //
@@ -150,6 +153,7 @@ GUIVehicleDrawer::~GUIVehicleDrawer()
 
 void
 GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
+                                 SUMOReal scale,
                                  const GUIColoringSchemesMap<GUIVehicle> &schemes,
                                  GUISUMOAbstractView::VisualizationSettings &settings)
 {
@@ -170,7 +174,7 @@ GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-                    drawLanesVehicles(laneGeom, schemes, settings);
+                    drawLanesVehicles(laneGeom, scale, schemes, settings);
                 }
             }
         }
@@ -260,14 +264,14 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
 
 
 inline void
-drawAction_drawVehicleName(const GUIVehicle &veh)
+drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
 {
     glPushMatrix();
     glTranslated(0, veh.getLength() / 2., 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     pfSetPosition(0, 0);
-    pfSetScale(1);
-    glColor3d(1, 1, 1);
+    pfSetScale(size);
+    glColor3d(.8, .6, 0);
     SUMOReal w = pfdkGetStringWidth(veh.microsimID().c_str());
     glRotated(180, 0, 1, 0);
     glTranslated(-w/2., 0.4, 0);
@@ -313,6 +317,7 @@ GUIVehicleDrawer::initStep()
 
 void
 GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
+        SUMOReal scale,
         const GUIColoringSchemesMap<GUIVehicle> &schemes,
         const GUISUMOAbstractView::VisualizationSettings &settings)
 {
@@ -394,7 +399,7 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             */
         }
         if(settings.drawVehicleName) {
-            drawAction_drawVehicleName(*veh);
+            drawAction_drawVehicleName(*veh, settings.vehicleNameSize / scale);
         }
             // removed the gl-id if wished
         if(myShowToolTips) {

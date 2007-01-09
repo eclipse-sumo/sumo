@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2007/01/09 11:12:02  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.30  2007/01/08 12:11:19  dkrajzew
 // visualization of poi and detector names added
 //
@@ -1290,13 +1293,12 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p, SUMOReal width) const
     glTranslated(p.x(), p.y(), 0);
     GLHelper::drawFilledCircle((SUMOReal) 1.3*myVisualizationSettings->poiExaggeration, 16);
     if(myVisualizationSettings->drawPOIName) {
-        SUMOReal viewExagg = myVisualizationSettings->poiNameSize / width;
-        glColor3d(0, 0, 0);
+        glColor3d(.2, .2, .2);
         glPushMatrix();
         glTranslated((SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, (SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
-        pfSetScale(viewExagg);//myVisualizationSettings->poiExaggeration*4.);
+        pfSetScale(myVisualizationSettings->poiNameSize / width);
         glRotated(180, 1, 0, 0);
         pfDrawString(static_cast<const GUIPointOfInterest&>(p).getID().c_str());
         glPopMatrix();

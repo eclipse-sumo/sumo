@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.2  2006/12/18 08:24:58  dkrajzew
 // made several visualization things optional
 //
@@ -106,6 +109,7 @@ public:
 
     /// Draws the vehicles that are on the marked edges
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
+        SUMOReal scale,
         const GUIColoringSchemesMap<GUIVehicle> &schemes,
         GUISUMOAbstractView::VisualizationSettings &settings/*,
         GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
@@ -118,6 +122,7 @@ protected:
 
     /// Draws all vehicles that are on the given lane
     virtual void drawLanesVehicles(GUILaneWrapper &lane,
+        SUMOReal scale,
         const GUIColoringSchemesMap<GUIVehicle> &schemes,
         const GUISUMOAbstractView::VisualizationSettings &settings);
 

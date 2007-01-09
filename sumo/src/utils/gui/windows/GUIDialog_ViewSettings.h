@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2007/01/09 11:12:02  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.9  2007/01/08 12:11:19  dkrajzew
 // visualization of poi and detector names added
 //
@@ -137,19 +140,21 @@ private:
     FXComboBox *myLaneEdgeColorMode;
     FXVerticalFrame *myLaneColorSettingFrame;
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
-    FXCheckButton *myShowLaneBorders;
-    FXCheckButton *myShowLaneDecals;
-    FXCheckButton *myShowRails;
+    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName;
+    FXRealSpinDial *myEdgeNameSizeDialer;
 
     FXComboBox *myVehicleColorMode;
     FXVerticalFrame *myVehicleColorSettingFrame;
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton *myShowBlinker, *myShowC2CRadius, *myShowLaneChangePreference, *myShowVehicleName;
+    FXRealSpinDial *myVehicleNameSizeDialer;
 
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
+    FXCheckButton *myShowJunctionName;
+    FXRealSpinDial *myJunctionNameSizeDialer;
 
-    FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
+    FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer, *myAddNameSizeDialer;
     FXCheckButton *myShowAddName;
 
     FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer, *myPOINameSizeDialer;

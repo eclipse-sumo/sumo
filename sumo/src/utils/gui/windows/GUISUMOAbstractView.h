@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2007/01/09 11:12:02  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.25  2007/01/08 12:11:19  dkrajzew
 // visualization of poi and detector names added
 //
@@ -425,6 +428,10 @@ public:
         SUMOReal maxExagg; // !!! unused
         /// Information whether rails shall be drawn
         bool showRails;
+        /// Information whether the edge's name shall be drawn
+        bool drawEdgeName;
+        /// The size of the edge name
+        float edgeNameSize;
         ///}
 
         ///{ vehicle visualization settings
@@ -442,8 +449,10 @@ public:
         bool drawcC2CRadius;
         /// Information whether the lane change preference shall be drawn
         bool drawLaneChangePreference;
-        /// Information whether the vehicle name shall be drawn
+        /// Information whether the vehicle's name shall be drawn
         bool drawVehicleName;
+        /// The size of the vehicle name
+        float vehicleNameSize;
         ///}
 
         ///{ junction visualization settings
@@ -453,6 +462,10 @@ public:
         bool drawLinkTLIndex;
         /// Information whether a link's junction index shall be drawn
         bool drawLinkJunctionIndex;
+        /// Information whether the junction's name shall be drawn
+        bool drawJunctionName;
+        /// The size of the junction name
+        float junctionNameSize;
         ///}
 
         /// Information whether lane-to-lane arrows shall be drawn
@@ -467,6 +480,8 @@ public:
         float addExaggeration;
         /// Information whether the additional's name shall be drawn
         bool drawAddName;
+        /// The size of the additional's name
+        float addNameSize;
         ///}
 
         ///{ shapes visualization settings

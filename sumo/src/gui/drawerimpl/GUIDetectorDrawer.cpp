@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.2  2007/01/08 12:11:18  dkrajzew
 // visualization of poi and detector names added
 //
@@ -140,10 +143,10 @@ GUIDetectorDrawer::drawGLDetectors(size_t *which,
                     glTranslated(p.x(), p.y(), 0);
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                     pfSetPosition(0, 0);
-                    pfSetScale(1);
-                    glColor3d(1, 1, 1);
+                    pfSetScale(settings.addNameSize / scale);
+                    glColor3d(0, 0, 1);
                     SUMOReal w = pfdkGetStringWidth(myAdditionals[j+(i<<5)]->microsimID().c_str());
-                    glRotated(180, 0, 1, 0);
+                    glRotated(180, 1, 0, 0);
                     glTranslated(-w/2., 0.4, 0);
                     pfDrawString(myAdditionals[j+(i<<5)]->microsimID().c_str());
                     glPopMatrix();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2007/01/09 11:11:59  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.3  2006/12/18 08:25:24  dkrajzew
 // consolidation of setting colors
 //
@@ -101,7 +104,7 @@ public:
                 return;
             }
             const MSEdge *vehicleEdge = o->getLane().getEdge();
-            const std::map<std::string, MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
+            const std::vector<MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
             if(neigh.find(i.getMSEdge()->getID())!=neigh.end()) {
                 glColor3d(0,1,0);
             } else {

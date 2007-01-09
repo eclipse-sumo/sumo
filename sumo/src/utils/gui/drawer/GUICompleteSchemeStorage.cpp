@@ -27,6 +27,8 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minExagg = 1; // !!! used?
         vs.maxExagg = 1; // !!! used?
         vs.showRails = true;
+        vs.drawEdgeName = false;
+        vs.edgeNameSize = 50;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -36,10 +38,13 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawcC2CRadius = true;
         vs.drawLaneChangePreference = true;
         vs.drawVehicleName = false;
+        vs.vehicleNameSize = 50;
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
+        vs.drawJunctionName = false;
+        vs.junctionNameSize = 50;
 
         vs.showLane2Lane = false;
 
@@ -47,6 +52,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
         vs.drawAddName = false;
+        vs.addNameSize = 50;
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;
@@ -70,6 +76,8 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minExagg = 1; // !!! used?
         vs.maxExagg = 1; // !!! used?
         vs.showRails = false;
+        vs.drawEdgeName = false;
+        vs.edgeNameSize = 50;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -79,10 +87,13 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawcC2CRadius = true;
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
+        vs.vehicleNameSize = 50;
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
+        vs.drawJunctionName = false;
+        vs.junctionNameSize = 50;
 
         vs.showLane2Lane = false;
 
@@ -90,6 +101,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
         vs.drawAddName = false;
+        vs.addNameSize = 50;
 
         vs.poiExaggeration = 1;
         vs.minPOISize = 0;
@@ -113,6 +125,8 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minExagg = 1; // !!! used?
         vs.maxExagg = 1; // !!! used?
         vs.showRails = true;
+        vs.drawEdgeName = false;
+        vs.edgeNameSize = 50;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -127,10 +141,13 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawcC2CRadius = true;
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
+        vs.vehicleNameSize = 50;
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
+        vs.drawJunctionName = false;
+        vs.junctionNameSize = 50;
 
         vs.showLane2Lane = false;
 
@@ -138,6 +155,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.minAddSize = 1;
         vs.addExaggeration = 1;
         vs.drawAddName = false;
+        vs.addNameSize = 50;
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;

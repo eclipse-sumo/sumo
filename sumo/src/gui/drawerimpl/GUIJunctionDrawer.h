@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.1  2006/12/12 12:10:40  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -61,15 +64,36 @@
 #include <vector>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class GUIJunctionWrapper;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class GUIJunctionDrawer
+ * @brief Base class for drawing junctions
+ */
 class GUIJunctionDrawer
 {
 public:
+    /// Constructor
     GUIJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions);
+
+    /// Destructor
     virtual ~GUIJunctionDrawer();
+
+    /// Draws the junctions
     virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
-        GUISUMOAbstractView::JunctionColoringScheme scheme);
+        SUMOReal scale,
+        GUISUMOAbstractView::JunctionColoringScheme scheme,
+        GUISUMOAbstractView::VisualizationSettings &settings);
+
+    /// sets the information whether the gl-id shall be set
     void setGLID(bool val);
 
 protected:
@@ -81,4 +105,10 @@ protected:
 
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:

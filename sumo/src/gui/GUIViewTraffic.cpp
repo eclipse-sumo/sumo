@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.69  2007/01/09 11:12:00  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.68  2007/01/08 12:11:18  dkrajzew
 // visualization of poi and detector names added
 //
@@ -609,7 +612,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     drawShapes(_net->getShapeContainer(), 0, width);
 
     myJunctionDrawer.drawGLJunctions(_junctions2Show, _junctions2ShowSize,
-        _junctionColScheme);
+        width, _junctionColScheme, *myVisualizationSettings);
     myLaneDrawer.drawGLLanes(_edges2Show, _edges2ShowSize, width,
         *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
         *myVisualizationSettings);
@@ -650,7 +653,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     drawShapes(_net->getShapeContainer(), 10, width);
     // draw vehicles only when they're visible
     if(scale*m2p(3)>myVisualizationSettings->minVehicleSize) {
-        myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize,
+        myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize, width,
             myVehicleColoringSchemes, *myVisualizationSettings);
     }
     glPopMatrix();

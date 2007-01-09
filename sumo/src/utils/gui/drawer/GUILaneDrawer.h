@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.1  2006/12/12 12:19:26  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -98,8 +101,10 @@
 #include <utils/common/StdDefs.h>
 #include "GUIGradients.h"
 #include "GUIBaseColorer.h"
+#include <utils/glutils/polyfonts.h>
 
 #include <GL/gl.h>
+
 
 /* =========================================================================
  * class declarations
@@ -146,6 +151,8 @@ public:
 				if((which[i]&pos)!=0) {
 					_E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
 	                size_t noLanes = edge->nLanes();
+
+                    // check whether lane boundaries shall be drawn
                     if(settings.laneShowBorders&&width>1.) {
                         if(myShowToolTips) {
                             glPushName(edge->getGlID());
@@ -183,6 +190,7 @@ public:
                             glPopName();
                         }
                     }
+
 		            // go through the current edge's lanes
                     if(true) {
         			        for(size_t k=0; k<noLanes; k++) {
@@ -205,6 +213,29 @@ public:
                         } else {
                             drawLine(*edge);
                         }
+                    }
+                    // check whether the name shall be drawn
+                    if(settings.drawEdgeName) {
+                        const _L1 &lane = edge->getLaneGeometry((int) 0);
+                        glPushMatrix();
+                        Position2D p = lane.getShape().positionAtLengthPosition(lane.getShape().length()/2.);
+                        glTranslated(p.x(), p.y(), 0);
+                        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                        pfSetPosition(0, 0);
+                        pfSetScale(settings.junctionNameSize / width);
+                        glColor3d(1, .5, 0);
+                        SUMOReal w = pfdkGetStringWidth(edge->microsimID().c_str());
+                        glRotated(180, 1, 0, 0);
+                        SUMOReal angle = lane.getShape().rotationDegreeAtLengthPosition(lane.getShape().length()/2.);
+                        angle += 90;
+                        if(angle>90&&angle<270) {
+                            glColor3d(1, 0, .5);
+                            angle -= 180;
+                        }
+                        glRotated(angle, 0, 0, 1);
+                        glTranslated(-w/2., 0.4, 0);
+                        pfDrawString(edge->microsimID().c_str());
+                        glPopMatrix();
                     }
 	            }
 		    }

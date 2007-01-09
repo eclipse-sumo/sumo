@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUIJunctionDrawer.cpp -
-//  Base class for lane drawing;
+//  BBase class for drawing junctions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2007/01/09 11:12:01  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.3  2006/12/18 14:42:00  dkrajzew
 // debugging nvwa usage
 //
@@ -75,6 +78,8 @@ namespace
 #include <utils/glutils/GLHelper.h>
 #include "GUIJunctionDrawer.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/glutils/polyfonts.h>
+#include <microsim/MSJunction.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -110,10 +115,11 @@ GUIJunctionDrawer::setGLID(bool val)
 
 void
 GUIJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
-                                   GUISUMOAbstractView::JunctionColoringScheme )
+                                   SUMOReal scale,
+                                   GUISUMOAbstractView::JunctionColoringScheme,
+                                   GUISUMOAbstractView::VisualizationSettings &settings)
 {
     glLineWidth(1);
-    glColor3f(0, 0, 0);
     // go through edges
     for(size_t i=0; i<maxJunctions; i++ ) {
         if(which[i]==0) {
@@ -125,7 +131,22 @@ GUIJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
                 if(myShowToolTips) {
                     glPushName(myJunctions[j+(i<<5)]->getGlID());
                 }
+                glColor3f(0, 0, 0);
                 GLHelper::drawFilledPoly(myJunctions[j+(i<<5)]->getShape(), true);
+                if(settings.drawJunctionName) {
+                    glPushMatrix();
+                    Position2D p = myJunctions[j+(i<<5)]->getJunction().getPosition();
+                    glTranslated(p.x(), p.y(), 0);
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    pfSetPosition(0, 0);
+                    pfSetScale(settings.junctionNameSize / scale);
+                    glColor3d(0, 1, 0);
+                    SUMOReal w = pfdkGetStringWidth(myJunctions[j+(i<<5)]->microsimID().c_str());
+                    glRotated(180, 1, 0, 0);
+                    glTranslated(-w/2., 0.4, 0);
+                    pfDrawString(myJunctions[j+(i<<5)]->microsimID().c_str());
+                    glPopMatrix();
+                }
                 if(myShowToolTips) {
                     glPopName();
                 }

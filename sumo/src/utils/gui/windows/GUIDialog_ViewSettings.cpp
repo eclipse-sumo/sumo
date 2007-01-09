@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2007/01/09 11:12:02  dkrajzew
+// the names of nodes, additional structures, vehicles, edges, pois may now be shown
+//
 // Revision 1.17  2007/01/08 12:11:19  dkrajzew
 // visualization of poi and detector names added
 //
@@ -203,14 +206,24 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
         FXMatrix *m22 =
-            new FXMatrix(frame2,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+            new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         myShowLaneDecals = new FXCheckButton(m22, "Show link decals", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneDecals->setCheck(mySettings->showLinkDecals);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowRails->setCheck(mySettings->showRails);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+        myShowEdgeName = new FXCheckButton(m22, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowEdgeName->setCheck(mySettings->drawEdgeName);
+        myEdgeNameSizeDialer =
+            new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myEdgeNameSizeDialer->setRange(10, 1000);
+        myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
     }
     {
         if(myVehicleColoringInfoSource!=0) {
@@ -246,16 +259,24 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
             FXMatrix *m33 =
-                new FXMatrix(frame3,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
             myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowBlinker->setCheck(mySettings->showBlinker);
+            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
             myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
+            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
             myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
-            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE);
+            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
             myShowVehicleName->setCheck(mySettings->drawVehicleName);
+            myVehicleNameSizeDialer =
+                new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                    CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
+            myVehicleNameSizeDialer->setRange(10, 1000);
+            myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
             /*
             FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
             tmpc->disable();
@@ -286,15 +307,22 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXVerticalFrame *frame4 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
-        new FXHorizontalSeparator(frame4,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
         FXMatrix *m33 =
-            new FXMatrix(frame4,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+            new FXMatrix(frame4,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
             0,0,0,0, 10,10,10,10, 5,5);
         myShowTLIndex = new FXCheckButton(m33, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
         myShowJunctionIndex = new FXCheckButton(m33, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        myShowJunctionName = new FXCheckButton(m33, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowJunctionName->setCheck(mySettings->drawJunctionName);
+        myJunctionNameSizeDialer =
+            new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
+        myJunctionNameSizeDialer->setRange(10, 1000);
+        myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
     }
     {
         FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL);
@@ -315,8 +343,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                 LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myDetectorUpscaleDialer->setRange(1, 100);
         myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
-        myShowAddName = new FXCheckButton(m51, "Show detector name", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowAddName = new FXCheckButton(m51, "Show detector names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowAddName->setCheck(mySettings->drawAddName);
+        myAddNameSizeDialer =
+            new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
+        myAddNameSizeDialer->setRange(10, 1000);
+        myAddNameSizeDialer->setValue(mySettings->addNameSize);
     }
     {
         FXTabItem *tab6 = new FXTabItem(tabbook,"Further",NULL);
@@ -440,6 +473,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     myShowRails->setCheck(mySettings->showRails);
+    myShowEdgeName->setCheck(mySettings->drawEdgeName);
+    myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
@@ -448,13 +483,17 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     myShowVehicleName->setCheck(mySettings->drawVehicleName);
+    myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
 
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
     myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
+    myShowJunctionName->setCheck(mySettings->drawJunctionName);
+    myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
 
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
-    myShowAddName->setCheck(mySettings->drawPOIName);
+    myShowAddName->setCheck(mySettings->drawAddName);
+    myAddNameSizeDialer->setValue(mySettings->addNameSize);
 
     myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
     myPOIMinSizeDialer->setValue(mySettings->minPOISize);
@@ -516,6 +555,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->laneShowBorders = myShowLaneBorders->getCheck()!=0;
     mySettings->showLinkDecals = myShowLaneDecals->getCheck()!=0;
     mySettings->showRails = myShowRails->getCheck()!=0;
+    mySettings->drawEdgeName = myShowEdgeName->getCheck()!=0;
+    mySettings->edgeNameSize = myEdgeNameSizeDialer->getValue();
 
     if(myVehicleColoringInfoSource!=0) {
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
@@ -525,13 +566,18 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
         mySettings->drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
         mySettings->drawVehicleName = myShowVehicleName->getCheck()!=0;
-        mySettings->drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
-        mySettings->drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
+        mySettings->vehicleNameSize = myVehicleNameSizeDialer->getValue();
     }
+
+    mySettings->drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
+    mySettings->drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
+    mySettings->drawJunctionName = myShowJunctionName->getCheck()!=0;
+    mySettings->junctionNameSize = myJunctionNameSizeDialer->getValue();
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
     mySettings->drawAddName = myShowAddName->getCheck()!=0;
+    mySettings->addNameSize = myAddNameSizeDialer->getValue();
 
     mySettings->poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     mySettings->minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
