@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2007/01/09 11:12:24  dkrajzew
+// debugged empty first parameter bug
+//
 // Revision 1.12  2006/10/31 12:25:27  dkrajzew
 // debugging
 //
@@ -171,7 +174,7 @@ OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
                 ok &= oc->set(convert(arg1[i]), true);
             } else {
                 // process non-boolean switches
-                return processNonBooleanSingleSwitch(oc, arg1+i);
+                ok &= processNonBooleanSingleSwitch(oc, arg1+i);
             }
         }
     } else {
