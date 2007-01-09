@@ -1,7 +1,6 @@
 /***************************************************************************
                           polyconvert_main.cpp
-			  The main procedure for the conversion /
-			  building of polygons
+    The main procedure for the conversion building of polygons
                              -------------------
     project              : SUMO
     subproject           : PolyConvert
@@ -25,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2007/01/09 14:43:06  dkrajzew
+// added missing changes (was: Visum point import)
+//
 // Revision 1.5  2006/11/28 14:51:48  dkrajzew
 // possibility to prune the plygons to import on a bounding box added
 //
@@ -81,6 +83,7 @@ namespace
 #include <utils/geom/Boundary.h>
 #include "polyconvert_help.h"
 #include <polyconvert/PCVisum.h>
+#include <polyconvert/PCVisumPoints.h>
 #include <polyconvert/PCElmar.h>
 #include <polyconvert/PCElmarPoints.h>
 #include <polyconvert/PCTypeMap.h>
@@ -125,6 +128,7 @@ fillOptions(OptionsCont &oc)
         // visum import
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
+    oc.doRegister("visum-points", new Option_FileName());
         // typemap reading
     oc.doRegister("typemap", new Option_FileName());
         // output
@@ -140,7 +144,6 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
     oc.doRegister("prune.boundary", new Option_String());
 
-
     // default values
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.doRegister("prefix", new Option_String(""));
@@ -150,6 +153,7 @@ fillOptions(OptionsCont &oc)
     // random initialisation (not used!!!)
     RandHelper::insertRandOptions(oc);
 }
+
 
 Boundary
 getNamedNetworkBoundary(const std::string &file, const std::string &name)
@@ -170,6 +174,7 @@ getNamedNetworkBoundary(const std::string &file, const std::string &name)
     }
     throw ProcessError();
 }
+
 
 Boundary
 getNetworkOrigBoundary(const std::string &file)
@@ -323,17 +328,22 @@ main(int argc, char **argv)
             // elmar's polygons
         if(oc.isSet("elmar")) {
             PCElmar pce(toFill, origNetBoundary, tm);
-            pce.loadElmar(oc);
+            pce.load(oc);
         }
             // elmar's points
         if(oc.isSet("elmar-points")) {
             PCElmarPoints pce(toFill, origNetBoundary, tm);
-            pce.loadElmar(oc);
+            pce.load(oc);
         }
             // visum
         if(oc.isSet("visum-file")) {
 		    PCVisum pcv(toFill);
-            pcv.loadVisum(oc);
+            pcv.load(oc);
+        }
+            // visum-points
+        if(oc.isSet("visum-points")) {
+		    PCVisumPoints pcv(toFill, origNetBoundary, tm);
+            pcv.load(oc);
         }
 
         // check whether any errors occured

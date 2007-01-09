@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2007/01/09 14:43:06  dkrajzew
+// added missing changes (was: Visum point import)
+//
 // Revision 1.2  2006/09/18 10:19:29  dkrajzew
 // changed the way geocoordinates are processed
 //
@@ -67,6 +70,7 @@ char *help[] = {
     "   -c, --configuration FILE       FILE will be used as configuration",
     "   -n, --net-file FILE            FILE is a network file",
     "   --elmar FILE                   Import polygons from FILE",
+    // !!!
     "   --typemap FILE                 Load types from FILE",
     " ",
     " Output files:",
