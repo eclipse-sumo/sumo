@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2007/01/09 14:44:30  dkrajzew
+// removed unneeded code
+//
 // Revision 1.58  2006/12/21 13:33:38  dkrajzew
 // documentation added; removed unneeded methods
 //
@@ -386,10 +389,6 @@ GUINet::initTLMap()
     for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
-        if(tll->getID()=="454") {
-            string bla = tll->getSubID();
-            int b = 0;
-        }
         // get the links
         const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
         if(links.size()==0) {

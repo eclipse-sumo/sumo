@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2007/01/09 14:44:30  dkrajzew
+// removed unneeded code
+//
 // Revision 1.48  2006/12/12 12:11:03  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -205,7 +208,6 @@ namespace
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-//#include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 
