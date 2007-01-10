@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.121  2007/01/10 08:29:34  dkrajzew
+// Debugged the c2x.saved-info-freq-output problems occuring when when not all vehicles have left the simulation
+//
 // Revision 1.120  2006/12/22 12:08:11  dkrajzew
 // made c2c defaults variable
 //
@@ -710,8 +713,6 @@ MSVehicle::State::State( SUMOReal pos, SUMOReal speed ) :
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
-	MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), getID(),
-		                                 totalNrOfSavedInfos);
     // remove move reminder
     for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
@@ -2029,7 +2030,6 @@ MSVehicle::onDepart()
 void
 MSVehicle::quitRemindedEntered(MSVehicleQuitReminded *r)
 {
-    assert(find(myQuitReminded.begin(), myQuitReminded.end(), r)==myQuitReminded.end());
     myQuitReminded.push_back(r);
 }
 
@@ -2038,7 +2038,6 @@ void
 MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 {
     QuitRemindedVector::iterator i = find(myQuitReminded.begin(), myQuitReminded.end(), r);
-    assert(i!=myQuitReminded.end());
     if(i!=myQuitReminded.end()) {
         myQuitReminded.erase(i);
     }
