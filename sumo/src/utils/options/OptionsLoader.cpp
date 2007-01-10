@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2007/01/10 08:31:53  dkrajzew
+// added missing output informing the user when a value has been tried to be set twice in a configuration file
+//
 // Revision 1.10  2006/11/16 10:50:53  dkrajzew
 // warnings removed
 //
@@ -201,9 +204,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
                         }
                         string tmp = st.next();
                         if(!FileHelpers::isAbsolute(value)) {
-                            tmp =
-                                FileHelpers::getConfigurationRelative(
-                                    _file, tmp);
+                            tmp = FileHelpers::getConfigurationRelative(_file, tmp);
                         }
                         conv += tmp;
                     }
@@ -213,11 +214,11 @@ void OptionsLoader::characters(const XMLCh* const chars,
                 }
             }
             if(!isWriteable) {
+                MsgHandler::getErrorInstance()->inform("Could not set option '" + _item + "' (probably defined twice).");
                 _error = true;
             }
         } catch (InvalidArgument e) {
-            MsgHandler::getErrorInstance()->inform(
-                e.msg());
+            MsgHandler::getErrorInstance()->inform(e.msg());
             _error = true;
         }
     }
