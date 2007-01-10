@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.15  2007/01/10 07:15:07  dkrajzew
+// made handling of an empty file name less aggressive
+//
 // Revision 1.14  2006/12/12 12:14:08  dkrajzew
 // debugging of loading weights
 //
@@ -359,7 +362,7 @@ NLBuilder::build()
             // check whether the file exists
             if(!FileHelpers::exists(tmp)) {
                 // report error if not
-                MsgHandler::getErrorInstance()->inform("The file '" + tmp + "' does not exist!");
+                MsgHandler::getErrorInstance()->inform("The weights file '" + tmp + "' does not exist!");
                 ok = false;
             } else {
                 // parse the file
@@ -456,7 +459,7 @@ NLBuilder::parse(const std::string &mmlWhat,
         // check whether the file exists
         if(!FileHelpers::exists(tmp)) {
             // report error if not
-            MsgHandler::getErrorInstance()->inform("The file '" + tmp + "' does not exist!");
+            MsgHandler::getErrorInstance()->inform("The " + mmlWhat + " file '" + tmp + "' does not exist!");
             return false;
         } else {
             // parse the file

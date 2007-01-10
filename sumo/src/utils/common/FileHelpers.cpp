@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2007/01/10 07:15:08  dkrajzew
+// made handling of an empty file name less aggressive
+//
 // Revision 1.10  2006/06/13 13:18:29  dkrajzew
 // added an error if a file to determine his type does not exist
 //
@@ -176,8 +179,12 @@ FileHelpers::checkFileList(const std::string &optionName,
     while(st.hasNext()) {
         string file = st.next();
         if(!exists(file)) {
-            MsgHandler::getErrorInstance()->inform("File '" + file + "' does not exist.");
-            ok = false;
+            if(file!="") {
+                MsgHandler::getErrorInstance()->inform("File '" + file + "' does not exist.");
+                ok = false;
+            } else {
+                MsgHandler::getWarningInstance()->inform("Empty file name given; ignoring.");
+            }
         }
     }
     return ok;
