@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2007/01/10 08:33:02  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.9  2006/01/09 13:38:04  dkrajzew
 // debugging error handling
 //
@@ -115,7 +118,7 @@ bool
 OptionsSubSys::guiInit(fill_options *fill_f, const std::string &conf)
 {
     (*fill_f)(myOptions);
-    myOptions.set("c", conf);
+    myOptions.set("configuration-file", conf);
     // parse options
     if(!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
         // the options could not be parsed

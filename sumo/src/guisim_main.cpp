@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.23  2007/01/10 08:33:04  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.22  2006/12/18 14:41:41  dkrajzew
 // warnings removed
 //
@@ -552,9 +555,8 @@ main(int argc, char **argv)
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
-        bool useConfig = oc.isSet("c");
-        string configFile =
-            useConfig ? oc.getString("c") : "";
+        bool useConfig = oc.isSet("configuration-file");
+        string configFile = useConfig ? oc.getString("configuration-file") : "";
         bool runAfterLoad = !oc.isSet("no-start");
 
         // build the main window

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2007/01/10 08:33:02  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.15  2006/08/01 07:22:23  dkrajzew
 // removed build number information
 //
@@ -161,7 +164,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
         MsgHandler::getMessageInstance()->report2cerr(false);
     }
         // then, check whether be verbose
-    if(!gui&&!OptionsSubSys::getOptions().getBool("v")) {
+    if(!gui&&!OptionsSubSys::getOptions().getBool("verbose")) {
         MsgHandler::getMessageInstance()->report2cout(false);
     }
         // check whether to suppress warnings

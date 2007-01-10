@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.23  2007/01/10 08:33:03  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.22  2006/11/29 07:50:42  dkrajzew
 // debugging
 //
@@ -398,21 +401,32 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         detectors->saveRoutes(oc.getString("routes-output"));
     }
 
-
+    // guess flows if wished
+    if(oc.getBool("guess-empty-flows")) {
+        optNet->buildDetectorDependencies(*detectors);
+        detectors->guessEmptyFlows(*flows);
+    }
 
 	// save emitters if wished
-	if(oc.isSet("emitters-output")) {
+	if(oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
         optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
         if(oc.getBool("revalidate-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
             optNet->revalidateFlows(*detectors, *flows, 0, 86400, 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
-		detectors->writeEmitters(oc.getString("emitters-output"), *flows,
-			0, 86400, 60,
-			oc.getBool("write-calibrators"));
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        if(oc.isSet("emitters-output")) {
+            MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
+	    	detectors->writeEmitters(oc.getString("emitters-output"), *flows,
+		    	0, 86400, 60, oc.getBool("write-calibrators"));
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        }
+        if(oc.isSet("emitters-poi-output")) {
+            MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
+	    	detectors->writeEmitterPOIs(oc.getString("emitters-poi-output"), *flows,
+		    	0, 86400, 60);
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        }
 	}
     // save end speed trigger if wished
 	if(oc.isSet("speed-trigger-output")) {

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2007/01/10 08:33:04  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.15  2006/12/12 12:15:24  dkrajzew
 // removed simple/full geometry options; everything is now drawn using full geometry
 //
@@ -187,7 +190,7 @@ main(int argc, char **argv)
         GNEApplicationWindow * window =
             new GNEApplicationWindow(&application, tf,
                 oc.getInt("w"), oc.getInt("h"),
-                oc.getString("c"));
+                oc.getString("configuration-file"));
 		gGradients = new GUIGradientStorage(window);
         // delete startup-options
         OptionsSubSys::close();

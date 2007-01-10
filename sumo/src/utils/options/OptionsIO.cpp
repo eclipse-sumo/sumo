@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2007/01/10 08:33:02  dkrajzew
+// expanded the some option names when asking for them
+//
 // Revision 1.17  2006/06/13 13:19:11  dkrajzew
 // made output about loading the configuration more pretty
 //
@@ -211,13 +214,13 @@ OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
 bool
 OptionsIO::loadConfiguration(OptionsCont *oc)
 {
-    if(!oc->exists("c") || !oc->isSet("c")) {
+    if(!oc->exists("configuration-file") || !oc->isSet("configuration-file")) {
         return true;
     }
     bool ok = true;
-    string path = oc->getString("c");
+    string path = oc->getString("configuration-file");
     if(!FileHelpers::exists(path)) {
-        MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("c") + "'.");
+        MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("configuration-file") + "'.");
         return false;
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading configuration...");
@@ -227,7 +230,7 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
-    OptionsLoader handler(oc, path.c_str(), oc->getBool("v"));
+    OptionsLoader handler(oc, path.c_str(), oc->getBool("verbose"));
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
