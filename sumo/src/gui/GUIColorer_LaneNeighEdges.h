@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2007/01/11 23:14:46  behrisch
+// Map.find vs find in Vector
+//
 // Revision 1.4  2007/01/09 11:11:59  dkrajzew
 // the names of nodes, additional structures, vehicles, edges, pois may now be shown
 //
@@ -105,7 +108,7 @@ public:
             }
             const MSEdge *vehicleEdge = o->getLane().getEdge();
             const std::vector<MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
-            if(neigh.find(i.getMSEdge()->getID())!=neigh.end()) {
+            if(find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
                 glColor3d(0,1,0);
             } else {
                 glColor3d(.4,0,.4);
