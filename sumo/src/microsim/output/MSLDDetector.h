@@ -162,12 +162,12 @@ namespace LD
 
         /// Predicate for searching in a container<TimeValue>.
         struct TimeLesser :
-            public std::binary_function< TimeValue, MSUnit::Seconds, bool >
+            public std::binary_function< TimeValue, TimeValue, bool >
         {
-            bool operator()( const TimeValue& aTimeValue,
-                             MSUnit::Seconds timeBound ) const
+            bool operator()( const TimeValue& firstTimeValue,
+                             const TimeValue& secondTimeValue ) const
                 {
-                    return aTimeValue.leaveSecM < timeBound;
+                    return firstTimeValue.leaveSecM < secondTimeValue.leaveSecM;
                 }
         };
 
@@ -185,7 +185,7 @@ namespace LD
             {
                 return std::lower_bound(
                     aggregatesM.begin(), aggregatesM.end(),
-                    getStartTime( lastNTimesteps ),
+                    TimeValue( getStartTime( lastNTimesteps ), 0 ),
                     TimeLesser() );
             }
 

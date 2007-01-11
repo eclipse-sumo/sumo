@@ -142,12 +142,12 @@ namespace ED
 
         /// Predicate for searching in a container<TimeValue>.
         struct TimeLesser :
-            public std::binary_function< TimeValue, MSUnit::Seconds, bool >
+            public std::binary_function< TimeValue, TimeValue, bool >
         {
-            bool operator()( const TimeValue& aTimeValue,
-                             MSUnit::Seconds timeBound ) const
+            bool operator()( const TimeValue& firstTimeValue,
+                             const TimeValue& secondTimeValue ) const
                 {
-                    return aTimeValue.secondM < timeBound;
+                    return firstTimeValue.secondM < secondTimeValue.secondM;
                 }
         };
 
@@ -165,7 +165,7 @@ namespace ED
             {
                 return std::lower_bound(
                     aggregatesM.begin(), aggregatesM.end(),
-                    getStartTime( lastNTimesteps ),
+                    TimeValue( getStartTime( lastNTimesteps ), 0),
                     TimeLesser() );
             }
 
