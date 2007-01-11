@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.24  2006/11/23 11:40:25  dkrajzew
-// removed unneeded code
+// Revision 1.25  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
 //
 // Revision 1.23  2006/11/16 12:30:54  dkrajzew
 // warnings removed
@@ -428,6 +428,43 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
     */
 //	return ret;
 }
+
+
+const std::vector<DFRORouteDesc*> &
+DFDetector::getRouteVector() const
+{
+    return myRoutes->get();
+}
+
+
+void
+DFDetector::addPriorDetector(DFDetector *det)
+{
+    myPriorDetectors.push_back(det);
+}
+
+
+void
+DFDetector::addFollowingDetector(DFDetector *det)
+{
+    myFollowingDetectors.push_back(det);
+}
+
+
+const std::vector<DFDetector*> &
+DFDetector::getPriorDetectors() const
+{
+    return myPriorDetectors;
+}
+
+
+const std::vector<DFDetector*> &
+DFDetector::getFollowerDetectors() const
+{
+    return myFollowingDetectors;
+}
+
+
 
 bool
 DFDetector::writeEmitterDefinition(const std::string &file,
@@ -860,6 +897,51 @@ DFDetectorCon::writeEmitters(const std::string &file,
 }
 
 
+void
+DFDetectorCon::writeEmitterPOIs(const std::string &file,
+                                const DFDetectorFlows &flows,
+                                SUMOTime startTime, SUMOTime endTime,
+                                SUMOTime stepOffset)
+{
+	ofstream strm(file.c_str());
+	if(!strm.good()) {
+		MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
+		throw ProcessError();
+	}
+	strm << "<additional>" << endl;
+	for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+		DFDetector *det = *i;
+        SUMOReal flow = flows.getFlowSumSecure(det->getID());
+        SUMOReal col = flow / flows.getMaxDetectorFlow();
+        col = col / 2. + .5;
+        SUMOReal r, g, b;
+        r = g = b = 0;
+		strm << "   <poi id=\"" << (*i)->getID() << ":" << flow;
+        switch((*i)->getType()) {
+        case BETWEEN_DETECTOR:
+            strm << "\" type=\"between_detector_position\" color=\"0,0," << col << "\"";
+            break;
+        case SOURCE_DETECTOR:
+            strm << "\" type=\"source_detector_position\" color=\"0," << col << ",0\"";
+            break;
+        case HIGHWAY_SOURCE_DETECTOR:
+            strm << "\" type=\"highway_source_detector_position\" color=\".5," << col << ",.5\"";
+            break;
+        case SINK_DETECTOR:
+            strm << "\" type=\"sink_detector_position\" color=\"" << col << ",0,0\"";
+            break;
+		case DISCARDED_DETECTOR:
+            strm << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
+            break;
+        default:
+            throw 1;
+        }
+        strm << " lane=\"" << (*i)->getLaneID()<< "\" pos=\"" << (*i)->getPos() << "\"/>" << endl;
+	}
+	strm << "</additional>" << endl;
+}
+
+
 int
 DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
                           const DFDetectorFlows &) const
@@ -1033,6 +1115,52 @@ DFDetectorCon::removeDetector(const std::string &id)
         }
         delete oldDet;
 }
+
+
+void
+DFDetectorCon::guessEmptyFlows(DFDetectorFlows &flows)
+{
+        // routes must be built (we have ensured this in main)
+        // detector followers/prior must be build (we have ensured this in main)
+    //
+    bool changed = true;
+    while(changed) {
+    	for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+	    	DFDetector *det = *i;
+            const vector<DFDetector*> &prior = det->getPriorDetectors();
+            const vector<DFDetector*> &follower = det->getFollowerDetectors();
+            size_t noFollowerWithRoutes = 0;
+            size_t noPriorWithRoutes = 0;
+            // count occurences of detectors with/without routes
+            vector<DFDetector*>::const_iterator j;
+            for(j=prior.begin(); j!=prior.end(); ++j) {
+                if(flows.knows((*j)->getID())) {
+                    ++noPriorWithRoutes;
+                }
+            }
+            assert(noPriorWithRoutes<=prior.size());
+            for(j=follower.begin(); j!=follower.end(); ++j) {
+                if(flows.knows((*j)->getID())) {
+                    ++noFollowerWithRoutes;
+                }
+            }
+            assert(noFollowerWithRoutes<=follower.size());
+
+            // do not process detectors which have no routes
+            if(!flows.knows(det->getID())) {
+                continue;
+            }
+
+            // plain case: some of the following detectors have no routes
+            if(noFollowerWithRoutes==follower.size()) {
+                // the number of vehicles is the sum of all vehicles on prior
+                continue;
+            }
+
+        }
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

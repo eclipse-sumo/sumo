@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
+//
 // Revision 1.8  2006/08/01 11:30:21  dkrajzew
 // patching building
 //
@@ -32,7 +35,6 @@
 //
 // Revision 1.5  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas

@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
+//
 // Revision 1.1  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
-//
 //
 /* =========================================================================
  * compiler pragmas

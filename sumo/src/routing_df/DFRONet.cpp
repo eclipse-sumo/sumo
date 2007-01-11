@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.21  2006/11/23 12:26:08  dkrajzew
-// parser for elmar deector definitions added
+// Revision 1.22  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
 //
 // Revision 1.20  2006/11/16 10:50:51  dkrajzew
 // warnings removed
@@ -1283,6 +1283,54 @@ ROEdge *
 DFRONet::getEdge(const std::string &name) const
 {
     return ro->getEdge(name);
+}
+
+
+void
+DFRONet::buildDetectorDependencies(DFDetectorCon &detectors)
+{
+    // !!! this will not work when several detectors are lying on the same edge on different positions
+
+
+    buildDetectorEdgeDependencies(detectors);
+    // for each detector, compute the lists of predecessor and following detectors
+    std::map<std::string, ROEdge*>::const_iterator i;
+	for(i=myDetectorEdges.begin(); i!=myDetectorEdges.end(); ++i) {
+		const DFDetector &det = detectors.getDetector((*i).first);
+        if(!det.hasRoutes()) {
+            continue;
+        }
+        // mark current detectors
+        vector<DFDetector*> last;
+        {
+            const vector<string> &detNames = myDetectorsOnEdges.find((*i).second)->second;
+            for(vector<string>::const_iterator j=detNames.begin(); j!=detNames.end(); ++j) {
+                last.push_back((DFDetector*) &detectors.getDetector(*j));
+            }
+        }
+        // iterate over the current detector's routes
+        const std::vector<DFRORouteDesc*> &routes = det.getRouteVector();
+        for(std::vector<DFRORouteDesc*>::const_iterator j=routes.begin(); j!=routes.end(); ++j) {
+            const std::vector<ROEdge*> &edges2Pass = (*j)->edges2Pass;
+            for(std::vector<ROEdge*>::const_iterator k=edges2Pass.begin()+1; k!=edges2Pass.end(); ++k) {
+                if(myDetectorsOnEdges.find(*k)!=myDetectorsOnEdges.end()) {
+                    const vector<string> &detNames = myDetectorsOnEdges.find(*k)->second;
+                    // ok, consecutive detector found
+                    for(vector<DFDetector*>::iterator l=last.begin(); l!=last.end(); ++l) {
+                        // mark as follower of current
+                        for(vector<string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
+                            ((DFDetector*) &detectors.getDetector(*m))->addPriorDetector((DFDetector*) &(*l));
+                            (*l)->addFollowingDetector((DFDetector*) &detectors.getDetector(*m));
+                        }
+                    }
+                    last.clear();
+                    for(vector<string>::const_iterator m=detNames.begin(); m!=detNames.end(); ++m) {
+                        last.push_back((DFDetector*) &detectors.getDetector(*m));
+                    }
+                }
+            }
+        }
+    }
 }
 
 

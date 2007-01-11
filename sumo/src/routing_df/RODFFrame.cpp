@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.18  2006/11/23 11:40:26  dkrajzew
-// removed unneeded code
+// Revision 1.19  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
 //
 // Revision 1.17  2006/11/16 10:50:51  dkrajzew
 // warnings removed
@@ -129,7 +129,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("configuration-file", "configuration");
     oc.doRegister("routes-input", 'r', new Option_FileName());
     oc.doRegister("detector-files", 'd', new Option_FileName());
-    oc.doRegister("elmar-detector-files", 'e', new Option_FileName());
+    oc.doRegister("elmar-detector-files", 'e', new Option_FileName()); // !!! describe
     oc.addSynonyme("detector-files", "detectors");
     oc.doRegister("detector-flow-files", 'f', new Option_FileName());
     oc.addSynonyme("detector-flow-files", "detflows");
@@ -142,12 +142,16 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("detectors-output", new Option_FileName());
     oc.doRegister("detectors-poi-output", new Option_FileName());
 	oc.doRegister("emitters-output", new Option_FileName());
+	oc.doRegister("emitters-poi-output", new Option_FileName()); // !!! describe
 	oc.doRegister("speed-trigger-output", new Option_FileName());
     oc.doRegister("end-reroute-output", new Option_FileName());
 	oc.doRegister("validation-output", new Option_FileName());
 	oc.doRegister("validation-output.add-sources", new Option_Bool(false));
 
     // register processing options
+        // to guess empty flows
+    oc.doRegister("guess-empty-flows", new Option_Bool(false)); // !!! describe
+        // for guessing source/sink detectors
     oc.doRegister("highway-mode", 'h', new Option_Bool(false));
         // for detector type computation
     oc.doRegister("revalidate-detectors", new Option_Bool(false));

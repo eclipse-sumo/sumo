@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
+//
 // Revision 1.8  2006/08/02 11:59:02  dkrajzew
 // warnings removed
 //
@@ -29,7 +32,6 @@
 //
 // Revision 1.6  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -104,6 +106,8 @@ public:
     const std::vector<FlowDef> &getFlowDefs( const std::string &id ) const;
     bool knows( const std::string &det_id ) const;
     bool knows( const std::string &det_id, SUMOTime time ) const;
+    SUMOReal getFlowSumSecure(const std::string &id) const;
+    SUMOReal getMaxDetectorFlow() const;
 
 
     //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
@@ -111,6 +115,7 @@ protected:
 //    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrentFlows;
     std::map<std::string, std::vector<FlowDef> > myFastAccessFlows;
     SUMOTime myBeginTime, myEndTime, myStepOffset;
+    mutable SUMOReal myMaxDetectorFlow;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
+//
 // Revision 1.8  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -70,7 +73,8 @@ using namespace std;
  * ======================================================================= */
 DFDetectorFlows::DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
-    : myBeginTime(startTime), myEndTime(endTime), myStepOffset(stepOffset)
+    : myBeginTime(startTime), myEndTime(endTime), myStepOffset(stepOffset),
+    myMaxDetectorFlow(-1)
 {
 }
 
@@ -214,6 +218,45 @@ DFDetectorFlows::getFlowDefs( const std::string &id ) const
     assert(myFastAccessFlows.find(id)->second.size()!=0);
     return myFastAccessFlows.find(id)->second;
 }
+
+
+SUMOReal
+DFDetectorFlows::getFlowSumSecure(const std::string &id) const
+{
+    SUMOReal ret = 0;
+    if(knows(id)) {
+        const std::vector<FlowDef> &flows = getFlowDefs(id);
+        for(std::vector<FlowDef>::const_iterator i=flows.begin(); i!=flows.end(); ++i) {
+            ret += (*i).qPKW;
+            ret += (*i).qLKW;
+        }
+    }
+    return ret;
+}
+
+
+SUMOReal
+DFDetectorFlows::getMaxDetectorFlow() const
+{
+    if(myMaxDetectorFlow<0) {
+        SUMOReal max = 0;
+        std::map<std::string, std::vector<FlowDef> >::const_iterator j;
+        for(j=myFastAccessFlows.begin(); j!=myFastAccessFlows.end(); ++j) {
+            SUMOReal curr = 0;
+            const std::vector<FlowDef> &flows = (*j).second;
+            for(std::vector<FlowDef>::const_iterator i=flows.begin(); i!=flows.end(); ++i) {
+                curr += (*i).qPKW;
+                curr += (*i).qLKW;
+            }
+            if(max<curr) {
+                max = curr;
+            }
+        }
+        myMaxDetectorFlow = max;
+    }
+    return myMaxDetectorFlow;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
+//
 // Revision 1.6  2006/04/05 05:35:27  dkrajzew
 // further work on the dfrouter
 //
@@ -29,7 +32,6 @@
 //
 // Revision 1.4  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas

@@ -21,8 +21,8 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.17  2006/11/23 11:40:26  dkrajzew
-// removed unneeded code
+// Revision 1.18  2007/01/11 12:39:56  dkrajzew
+// debugging building (missing, unfinished classes added)
 //
 // Revision 1.16  2006/08/01 11:30:20  dkrajzew
 // patching building
@@ -38,7 +38,6 @@
 //
 // Revision 1.9  2006/03/17 09:04:18  dksumo
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -125,6 +124,11 @@ public:
 		const DFDetectorFlows &flows,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
     void writeEndRerouterDetectors(const std::string &file);
+	const std::vector<DFRORouteDesc*> &getRouteVector() const;
+    void addPriorDetector(DFDetector *det);
+    void addFollowingDetector(DFDetector *det);
+    const std::vector<DFDetector*> &getPriorDetectors() const;
+    const std::vector<DFDetector*> &getFollowerDetectors() const;
 
 protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,
@@ -140,6 +144,7 @@ protected:
 	SUMOReal myPosition;
 	dfdetector_type myType;
 	DFRORouteCont *myRoutes;
+    std::vector<DFDetector*> myPriorDetectors, myFollowingDetectors;
 
 };
 
@@ -168,6 +173,9 @@ public:
 		const DFDetectorFlows &flows,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
 		bool writeCalibrators);
+    void writeEmitterPOIs(const std::string &file,
+        const DFDetectorFlows &flows,
+        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
 	void writeSpeedTrigger(const std::string &file,
 		const DFDetectorFlows &flows,
@@ -182,6 +190,8 @@ public:
 
     int getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
         const DFDetectorFlows &flows) const;
+
+    void guessEmptyFlows(DFDetectorFlows &flows);
 
 protected:
 	std::vector<DFDetector*> myDetectors;
