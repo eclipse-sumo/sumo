@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2007/01/11 06:35:50  dkrajzew
+// debugging building under linux
+//
 // Revision 1.3  2007/01/09 12:05:52  dkrajzew
 // names are now drawn after all lanes and junctions have been drawn
 //
@@ -239,7 +242,7 @@ public:
 			for(size_t j=0; j<32; j++, pos<<=1) {
 				if((which[i]&pos)!=0) {
                     _E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
-                    const _L1 &lane1 = edge->getLaneGeometry((int) 0);
+                    const _L1 &lane1 = edge->getLaneGeometry((size_t) 0);
                     const _L1 &lane2 = edge->getLaneGeometry(edge->nLanes()-1);
                     glPushMatrix();
                     Position2D p = lane1.getShape().positionAtLengthPosition(lane1.getShape().length()/2.);
