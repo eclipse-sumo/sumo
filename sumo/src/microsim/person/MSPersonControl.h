@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2007/01/11 06:34:11  dkrajzew
+// some work on person simulation
+//
 // Revision 1.1  2006/09/18 10:04:43  dkrajzew
 // first steps towards a person-based multimodal simulation
 //
@@ -89,7 +92,7 @@ public:
     typedef std::vector<MSPerson*> PersonVector;
 
     /// constructor
-    MSPersonControl(const std::vector<MSPerson*> &cont);
+    MSPersonControl();
 
     /// destructor
     ~MSPersonControl();
@@ -97,8 +100,11 @@ public:
     /// adds a single person to the list of walking persons
     void add(SUMOTime now, MSPerson *person);
 
+    ///
+    bool hasWaitingPersons(SUMOTime time) const;
+
     /// returns the list of persons which waiting or walking period is over
-    const PersonVector &getPersons(SUMOTime time) const;
+    const PersonVector &getWaitingPersons(SUMOTime time) const;
 
     /**
      * The class holds the list of persons which all arrive/stop waiting at

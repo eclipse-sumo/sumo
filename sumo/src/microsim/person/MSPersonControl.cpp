@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2007/01/11 06:34:11  dkrajzew
+// some work on person simulation
+//
 // Revision 1.1  2006/09/18 10:04:43  dkrajzew
 // first steps towards a person-based multimodal simulation
 //
@@ -78,6 +81,9 @@
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * MSPersonControl::SameDepartureTimeCont - methods
+ * ----------------------------------------------------------------------- */
 MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont(SUMOTime time)
     : m_uiArrivalTime(time)
 {
@@ -120,12 +126,11 @@ MSPersonControl::SameDepartureTimeCont::getPersons() const
 }
 
 
-
-
-MSPersonControl::MSPersonControl(const MSPersonControl::PersonVector &cont)
-//    : myWaiting(cont)
+/* -------------------------------------------------------------------------
+ * MSPersonControl - methods
+ * ----------------------------------------------------------------------- */
+MSPersonControl::MSPersonControl()
 {
-    // !!! copy from comt
 }
 
 
@@ -150,25 +155,29 @@ MSPersonControl::add(SUMOTime when, MSPerson *person)
 }
 
 
-const MSPersonControl::PersonVector &
-MSPersonControl::getPersons(SUMOTime time) const
+bool
+MSPersonControl::hasWaitingPersons(SUMOTime time) const
 {
-    /*!!!
-    WaitingPersons::iterator i = myWaiting.begin();
-    if(i==myWaiting.end()) return 0;
-    if((*i).getTime()!=time) return 0;
+    WaitingPersons::const_iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(time));
+    if(i==myWaiting.end()) return false;
+    return true;
+}
+
+
+const MSPersonControl::PersonVector &
+MSPersonControl::getWaitingPersons(SUMOTime time) const
+{
+    WaitingPersons::const_iterator i = std::find_if(myWaiting.begin(), myWaiting.end(), equal(time));
     return (*i).getPersons();
-    */
-    throw 1;
 }
 
 
 void
 MSPersonControl::push(SUMOTime time, const MSPersonControl::PersonVector &list)
 {
-    SameDepartureTimeCont *toPush = new SameDepartureTimeCont(time);
-    toPush->add(list);
-    push(*toPush);
+    SameDepartureTimeCont toPush(time);
+    toPush.add(list);
+    push(toPush);
 }
 
 

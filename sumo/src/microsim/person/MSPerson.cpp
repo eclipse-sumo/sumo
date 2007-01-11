@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2007/01/11 06:34:11  dkrajzew
+// some work on person simulation
+//
 // Revision 1.1  2006/09/18 10:04:43  dkrajzew
 // first steps towards a person-based multimodal simulation
 //
@@ -79,6 +82,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * MSPerson::MSPersonStage - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage::MSPersonStage(const MSEdge &destination)
     : m_pDestination(destination)
 {
@@ -97,8 +103,9 @@ MSPerson::MSPersonStage::getDestination() const
 }
 
 
-
-
+/* -------------------------------------------------------------------------
+ * MSPerson::MSPersonStage_Walking - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const MSEdge &destination,
                                                        SUMOTime walkingTime)
     : MSPersonStage(destination), m_uiWalkingTime(walkingTime)
@@ -128,9 +135,9 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet *net,
 
 
 
-
-
-
+/* -------------------------------------------------------------------------
+ * MSPerson::MSPersonStage_PublicVehicle - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_PublicVehicle::MSPersonStage_PublicVehicle(const MSEdge &destination,
                                                                    const string &lineId)
     : MSPersonStage(destination), m_LineId(lineId)
@@ -158,8 +165,9 @@ MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet *net, MSPerson *person,
 
 
 
-
-
+/* -------------------------------------------------------------------------
+ * MSPerson::MSPersonStage_PrivateVehicle - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_PrivateVehicle::MSPersonStage_PrivateVehicle(
         const MSEdge &destination,
         const std::string &routeId, const std::string &vehicleId,
@@ -208,10 +216,9 @@ MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet *net, MSPerson *person,
 }
 
 
-
-
-
-
+/* -------------------------------------------------------------------------
+ * MSPerson::MSPersonStage_Waiting - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge &destination,
                                                        SUMOTime waitingTime)
     : MSPersonStage(destination), m_uiWaitingTime(waitingTime)
@@ -239,9 +246,15 @@ MSPerson::MSPersonStage_Waiting::proceed(MSNet *net, MSPerson *person,
 }
 
 
+/* -------------------------------------------------------------------------
+ * MSPerson - static variables
+ * ----------------------------------------------------------------------- */
 MSPerson::DictType MSPerson::myDict;
 
 
+/* -------------------------------------------------------------------------
+ * MSPerson - methods
+ * ----------------------------------------------------------------------- */
 MSPerson::MSPerson(const std::string &id, MSPersonRoute *route)
     : m_uiTravelTime(0),
     m_Id(id),
