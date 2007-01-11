@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.72  2007/01/11 06:33:54  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.71  2006/12/18 14:43:58  dkrajzew
 // debugging c2c
 //
@@ -839,12 +842,8 @@ public:
 
 	class Information {
     public:
-        Information(/*const std::string &infoTyp_, const MSEdge * const edge_,*/
-            SUMOReal neededTime_, int time_)
-            : /*infoTyp(infoTyp_), edge(edge_), */ neededTime(neededTime_), time(time_) { }
-
-//		std::string infoTyp;
-//		const MSEdge * const edge;
+        Information(SUMOReal neededTime_, int time_)
+            : neededTime(neededTime_), time(time_) { }
 		SUMOReal neededTime; // how long needed the vehicle to travel on the edge
 		int time; // the Time, when the Info was saved
 	};
@@ -856,8 +855,6 @@ public:
 	struct C2CConnection {
 		MSVehicle  *connectedVeh;
 		C2CConnectionState state;
-		// int timeSinceSeen; !!!
-		// int timeSinceConnect; !!!
 		int lastTimeSeen;
 	};
 	typedef std::map<MSVehicle * const, C2CConnection *> VehCont;
@@ -872,6 +869,10 @@ public:
     SUMOTime getLastInfoTime() const { return myLastInfoTime; }
     size_t getConnectionsNumber() const { return clusterCont.size(); }
     size_t getInformationNumber() const { return infoCont.size(); }
+
+    size_t getNoGot() const;
+    size_t getNoSent() const;
+    size_t getNoGotRelevant() const;
 
 
 /*
@@ -1017,6 +1018,8 @@ private:
 
     std::map<MSCORN::Function, SUMOReal> myDoubleCORNMap;
 	std::map<MSCORN::Pointer, void*> myPointerCORNMap;
+
+    size_t myNoGot, myNoSent, myNoGotRelevant;
 
 };
 

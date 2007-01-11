@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.122  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.121  2007/01/10 08:29:34  dkrajzew
 // Debugged the c2x.saved-info-freq-output problems occuring when when not all vehicles have left the simulation
 //
@@ -796,7 +799,8 @@ MSVehicle::MSVehicle( string id,
     myAllowedLanes(0),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
-    myOldLaneMoveReminderOffsets( 0 )
+    myOldLaneMoveReminderOffsets( 0 ),
+    myNoGot(0), myNoSent(0), myNoGotRelevant(0)
 {
     if(myRepetitionNumber>0) {
         myRoute->incReferenceCnt();
@@ -1730,7 +1734,7 @@ MSVehicle::leaveLaneAtMove( SUMOReal /*driven*/ )
         float factor = (*myCurrEdge)->getEffort(this, MSNet::getInstance()->getCurrentTimeStep());
 //        std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
         float nt = (float) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-        if(nt>factor*MSGlobals::gAddInfoFactor){
+        if(nt>10&&nt>factor*MSGlobals::gAddInfoFactor){ // !!! explicite
             // if so, check whether an information about the edge was already existing
             std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
             if(i==infoCont.end()) {
@@ -2584,12 +2588,12 @@ MSVehicle::updateInfos(SUMOTime time)
     }
 
     // second, save the information as "Congestion", if the vehicle is at the same
-    // position longer as 5 minutes
-    if(timeSinceStop > 300) {
+    // position longer as 2 minutes
+    if(timeSinceStop > 120) {
         SUMOReal timeByMeanSpeed1 = (SUMOReal) timeSinceStop;
         if(akt!=0&&myLane!=0) {
             SUMOReal neededTime = (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-            timeByMeanSpeed1 = (myState.pos()/neededTime) * myLane->length();
+            timeByMeanSpeed1 = myLane->length() / (myState.pos()/neededTime);
         }
         SUMOReal estimatedTime = timeByMeanSpeed1;
         map<const MSEdge * const, Information *>::iterator i = infoCont.find(*myCurrEdge);
@@ -2735,6 +2739,7 @@ MSVehicle::sendInfos(SUMOTime time)
 		}
         // reduce the number of packets that still may be sent
         size_t sentBruttoP = MIN2((size_t) ceil((SUMOReal) (infoCont.size())/(SUMOReal) infoPerPaket), (size_t) numberOfSendingPos);
+        myNoSent += sentBruttoP;
 		numberOfSendingPos = numberOfSendingPos - sentBruttoP;
 		numberOfInfo = numberOfInfo - infoCont.size();
 	}
@@ -2798,17 +2803,23 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
         if(j==infoCont.end()) {
             if((*i).second->neededTime > 0) {
                 infoCont[(*i).first] = new Information(*(*i).second);
+                ++myNoGot;
             }
         } else if(((*i).second->time > (*j).second->time) &&  (*i).second->neededTime > 0){
             // save the information about a previously known edge
             //  (it is newer than the stored)
             delete infoCont[(*i).first];
             infoCont[(*i).first] = new Information(*(*i).second);
+            ++myNoGot;
         }
         count++;
         MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
         // if the edge is on the route, mark that a relevant information has been added
-        myHaveRouteInfo |= willPass((*i).first);
+        bool bWillPass = willPass((*i).first);
+        if(bWillPass) {
+            myHaveRouteInfo = true;
+            ++myNoGotRelevant;
+        }
     }
 }
 
@@ -2870,6 +2881,27 @@ MSVehicle::checkReroute(SUMOTime t)
             }
         }
     }
+}
+
+
+size_t
+MSVehicle::getNoGot() const
+{
+    return myNoGot;
+}
+
+
+size_t
+MSVehicle::getNoSent() const
+{
+    return myNoSent;
+}
+
+
+size_t
+MSVehicle::getNoGotRelevant() const
+{
+    return myNoGotRelevant;
 }
 
 

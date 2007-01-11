@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.31  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.30  2006/12/12 12:14:08  dkrajzew
 // debugging of loading weights
 //
@@ -355,10 +358,10 @@ public:
 
 
 	/// add a new neighborsEdge to this Edge
-	void addNeighborEdge(std::string id, MSEdge *edge);
+	void addNeighborEdge(MSEdge *edge);
 
 	/// return  neighborsEdge
-    const std::map<std::string, MSEdge*> & getNeighborEdges() const;
+    const std::vector<MSEdge*> & getNeighborEdges() const;
 
 
 	// add a new vehicle into the container
@@ -427,10 +430,11 @@ protected:
 
 	// the Container of equipped vehicle driving on this Lane
 	mutable DictTypeVeh myEquippedVeh;
+
 	    /// Definition of the Edge vector
-    typedef std::map<std::string, MSEdge*> EdgeCont;
+    typedef std::vector<MSEdge*> EdgeCont;
 	/// the list of all neighborsEdge of this Edge
-	EdgeCont neighborEdges;
+	EdgeCont myNeighborEdges;
 
 
 

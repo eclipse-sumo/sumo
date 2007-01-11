@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.19  2006/12/18 14:43:56  dkrajzew
 // debugging c2c
 //
@@ -210,8 +213,7 @@ public:
 		const std::string neighbor, int quantity);
     static void saveSavedInformationData(SUMOTime step, const std::string veh,
 		const std::string edge, std::string type, int time, SUMOReal nt, int a);
-    static void saveSavedInformationDataFreq(SUMOTime step, const std::string veh,
-		int numberOfInfos);
+    static void saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh);
     static void saveTransmittedInformationData(SUMOTime step, const std::string from,
 		const std::string to, const std::string edge, int time, SUMOReal nt, int a);
     static void saveVehicleInRangeData(SUMOTime step, const std::string veh1,

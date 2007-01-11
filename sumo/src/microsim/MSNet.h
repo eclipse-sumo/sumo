@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.72  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.71  2006/12/12 12:04:10  dkrajzew
 // made the base value for incremental dua changeable
 //
@@ -387,6 +390,7 @@
 #include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
+#include "person/MSPersonControl.h"
 #include "MSEventControl.h"
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
@@ -485,16 +489,6 @@ public:
     /// List of times (intervals or similar)
     typedef std::vector< SUMOTime > TimeVector;
 
-    /*
-     * @brief Create unique instance of MSNet and initialize with the
-     * beginning timestep.
-     * To finish the initialization call &ref init.
-     * @param startTimestep Timestep the simulation will start with.
-     */
-    /*
-    static void preInitMSNet( SUMOTime startTimestep,
-        MSVehicleControl *vc);
-*/
     MSNet(SUMOTime startTimestep, SUMOTime stopTimestep,
         SUMOReal tooSlowRTF, bool logExecTime);
     MSNet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc,
@@ -555,16 +549,10 @@ public:
         GUI-dump. */
     unsigned getNDumpIntervalls( void );
 
-    // adds an item that must be initialised every time the simulation starts
-//    void addPreStartInitialisedItem(PreStartInitialised *preinit);
-
     long getSimStepDurationInMillis() const;
 
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
-
-    /// The current simulation time for debugging purposes
-//    static SUMOTime globaltime;
 
     /// ----------------- debug variables -------------
     /*
@@ -605,6 +593,7 @@ public:
         }
 
     MSVehicleControl &getVehicleControl() const;
+    MSPersonControl &getPersonControl() const;
 
     void writeOutput();
 
@@ -738,6 +727,7 @@ protected:
 
     /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;
+    MSPersonControl *myPersonControl;
     MSDetectorControl *myDetectorControl;
     MSTriggerControl *myTriggerControl;
     MSEventControl myBeginOfTimestepEvents;
@@ -768,6 +758,10 @@ protected:
     Position2D myOffset;
     Boundary myOrigBoundary, myConvBoundary;
     std::string myOrigProj;
+
+    std::vector<MSVehicle*> myConnected;
+    std::vector<MSVehicle*> myClusterHeaders;
+    std::vector<MSEdge*> myAllEdges;
 
 private:
     /// Copy constructor.

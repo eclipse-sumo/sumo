@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2007/01/11 06:33:54  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.18  2007/01/10 08:29:34  dkrajzew
 // Debugged the c2x.saved-info-freq-output problems occuring when when not all vehicles have left the simulation
 //
@@ -164,8 +167,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if(MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
         MSCORN::compute_VehicleRouteOutput(v);
     }
-	MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(),
-        v->getID(), v->getTotalInformationNumber());
+	MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), *v);
     // check whether to save information about the vehicle's trip
     if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=

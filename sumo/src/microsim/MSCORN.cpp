@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.23  2007/01/09 14:44:12  dkrajzew
 // added output of reroutes number ond devices to tripinfo
 //
@@ -540,11 +543,20 @@ MSCORN::saveEdgeNearInfoData(const std::string id, const std::string neighbor, i
 }
 
 void
-MSCORN::saveSavedInformationDataFreq(SUMOTime step, const std::string veh, int numberOfInfos)
+MSCORN::saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh)
 {
     if(mySavedInfoOutputFreq!=0) {
+        int noReroutes = veh.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)
+            ? (int) veh.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
 		mySavedInfoOutputFreq->getOStream()
-				<< "	<vehicle id=\"" << veh << "\""<<" timestep=\""<<step<<"\""<<" numberOfInfos=\""<<numberOfInfos<<"\" "<<"/>"<<"\n";
+				<< "	<vehicle id=\"" << veh.getID()
+                << "\" timestep=\"" << step
+                << "\" numberOfInfos=\"" << veh.getTotalInformationNumber()
+                << "\" numberRelevant=\"" << veh.getNoGotRelevant()
+                << "\" got=\"" << veh.getNoGot()
+                << "\" sent=\"" << veh.getNoSent()
+                << "\" reroutes=\"" << noReroutes
+                << "\"/>"<<"\n";
 	}
 }
 

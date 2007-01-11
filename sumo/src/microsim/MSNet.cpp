@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.101  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.100  2006/12/19 08:03:34  dkrajzew
 // debugging c2c
 //
@@ -990,12 +993,16 @@ MSNet::computeCar2Car(void)
 	MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,0);
 	MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,0);
 
-	std::vector<std::string> edgeNames = myEdges->getEdgeNames();
-    std::vector<MSVehicle*> connected;
-    std::vector<MSVehicle*> clusterHeaders;
+    if(myAllEdges.size()==0) {
+        myAllEdges = myEdges->getMultiLaneEdges();
+        const std::vector<MSEdge*> &add = myEdges->getSingleLaneEdges();
+        copy(add.begin(), add.end(), back_inserter(myAllEdges));
+    }
+    myConnected.clear();
+    myClusterHeaders.clear();
 
-	for(std::vector<std::string>::iterator i=edgeNames.begin(); i!=edgeNames.end(); ++i) {
-		MSEdge *e = MSEdge::dictionary(*i);
+	for(std::vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
+		MSEdge *e = *i;
         const MSEdge::DictTypeVeh &eEquipped = e->getEquippedVehs();
         if(eEquipped.size()>0){
 			std::map<std::string, MSVehicle*>::const_iterator k = eEquipped.begin();
@@ -1007,9 +1014,9 @@ MSNet::computeCar2Car(void)
 				(*k).second->updateInfos(myStep);
 
                 // go through the neighbors of this vehicle's edge
-                const std::map<std::string, MSEdge*> &neighborEdges = e->getNeighborEdges();
-				for(std::map<std::string, MSEdge*>::const_iterator l=neighborEdges.begin(); l!=neighborEdges.end(); ++l){
-                    const MSEdge::DictTypeVeh &nEquipped = (*l).second->getEquippedVehs();
+                const std::vector<MSEdge*> &neighborEdges = e->getNeighborEdges();
+				for(std::vector<MSEdge*>::const_iterator l=neighborEdges.begin(); l!=neighborEdges.end(); ++l){
+                    const MSEdge::DictTypeVeh &nEquipped = (*l)->getEquippedVehs();
 					if(nEquipped.size()>0){
 						std::map<std::string, MSVehicle*>::const_iterator m = nEquipped.begin();
                         // go through all vehicles on neighbor edge
@@ -1025,12 +1032,12 @@ MSNet::computeCar2Car(void)
                 // remove connections to vehicles which are no longer in range
 				(*k).second->cleanUpConnections(myStep);
 
+                // ...reset the cluster id
+				(*k).second->setClusterId(-1);
                 // for each vehicle with communication partners...
                 if((*k).second->getConnections().size()!=0) {
-                    // ...reset the cluster id
-					(*k).second->setClusterId(-1);
                     // ...add the vehicle to list of connected vehicles
-                    connected.push_back((*k).second);
+                    myConnected.push_back((*k).second);
                 }
 			}
 		}
@@ -1039,19 +1046,21 @@ MSNet::computeCar2Car(void)
 	// build the clusters
 	{
         int clusterId = 1;
-        std::vector<MSVehicle*>::iterator q, q1, q2;
-        for(q1=connected.begin(); q1!=connected.end(); q1++) {
+        std::vector<MSVehicle*>::iterator q1;//, q1, q2;
+        for(q1=myConnected.begin(); q1!=myConnected.end(); q1++) {
             if((*q1)->getClusterId()<0) {
+                /*
                 q = q1;
-                for(q2=connected.begin(); q2!=connected.end(); q2++) {
+                for(q2=myConnected.begin(); q2!=connected.end(); q2++) {
                     int size1 = (*q1)->getConnections().size();
                     int size2 = (*q2)->getConnections().size();
 					if((*q2)->getClusterId() < 0 && size1 < size2){
 						q = q2;
 					}
 				}
-				clusterHeaders.push_back((*q));
-				(*q)->buildMyCluster(myStep, clusterId);
+                */
+				myClusterHeaders.push_back(*q1);
+				(*q1)->buildMyCluster(myStep, clusterId);
 				clusterId++;
 			}
 		}
@@ -1060,7 +1069,7 @@ MSNet::computeCar2Car(void)
 	// send information
 	{
 		std::vector<MSVehicle*>::iterator q;
-		for(q= clusterHeaders.begin();q!=clusterHeaders.end();q++){
+		for(q= myClusterHeaders.begin();q!=myClusterHeaders.end();q++){
 			(*q)->sendInfos(myStep);
 		}
 	}
@@ -1068,13 +1077,10 @@ MSNet::computeCar2Car(void)
     // Rerouting?
     {
 		std::vector<MSVehicle*>::iterator q1;
-		for(q1 = connected.begin();q1!=connected.end();q1++){
+		for(q1 = myConnected.begin();q1!=myConnected.end();q1++){
             (*q1)->checkReroute(myStep);
         }
     }
-
-	connected.clear();
-    clusterHeaders.clear();
 	//close XML-tags
     MSCORN::saveClusterInfoData(myStep,0,"",0,1);
 	MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,1);

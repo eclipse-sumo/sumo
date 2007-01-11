@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.34  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.33  2006/12/12 12:14:07  dkrajzew
 // debugging of loading weights
 //
@@ -699,19 +702,19 @@ MSEdge::getEquippedVehs() const
 
 
 void
-MSEdge::addNeighborEdge(std::string id, MSEdge *edge)
+MSEdge::addNeighborEdge(MSEdge *edge)
 {
-    std::map<std::string, MSEdge*>::iterator i = neighborEdges.find(id);
-    if(i== neighborEdges.end()){
-        neighborEdges[id]=edge;
+    std::vector<MSEdge*>::iterator i = find(myNeighborEdges.begin(), myNeighborEdges.end(), edge);
+    if(i==myNeighborEdges.end()){
+        myNeighborEdges.push_back(edge);
     }
 }
 
 
-const std::map<std::string, MSEdge*> &
+const std::vector<MSEdge*> &
 MSEdge::getNeighborEdges() const
 {
-    return neighborEdges;
+    return myNeighborEdges;
 }
 
 

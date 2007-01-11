@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2007/01/11 06:33:53  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.4  2006/11/16 12:30:54  dkrajzew
 // warnings removed
 //
@@ -173,7 +176,7 @@ MSCell::setEdgesNeighbors(void)
 		for(std::vector<MSCell*>::iterator j=_neighbors.begin(); j!=_neighbors.end(); j++) {
 			 // all Edges in others Cells
 			for(std::vector<MSEdge*>::iterator k=((*j)->_edgesCont).begin(); k!=((*j)->_edgesCont).end(); k++) {
-				(*i)->addNeighborEdge((*k)->getID(),*k);
+				(*i)->addNeighborEdge(*k);
 				anzahl++;
 				neighbor=neighbor+" "+(*k)->getID();
 			}

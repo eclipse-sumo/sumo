@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2007/01/11 06:33:54  dkrajzew
+// speeded up c2c computation
+//
 // Revision 1.12  2006/12/01 09:17:32  dkrajzew
 // patching a tiny fault (using and checking an int where an unsigned should be used)
 //
@@ -147,8 +150,7 @@ MSVehicleContainer::add( MSVehicle *veh )
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
-        find_if(array.begin()+1, array.begin()+currentSize+1,
-            DepartFinder(veh->desiredDepart()));
+        find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(veh->desiredDepart()));
     if(currentSize==0 || i==array.begin()+currentSize+1) {
         // a new heap-item is necessary
         VehicleDepartureVector newElem(veh->desiredDepart(), VehicleVector());
@@ -223,8 +225,7 @@ bool
 MSVehicleContainer::anyWaitingFor(SUMOTime time) const
 {
     VehicleHeap::const_iterator j =
-        find_if(array.begin()+1, array.begin()+currentSize+1,
-            DepartFinder(time));
+        find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(time));
     return j!=array.begin()+currentSize+1;
 }
 
