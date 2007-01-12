@@ -1352,61 +1352,36 @@
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-connections">
-        <title>Connection Descriptions</title>
+        <title revision="0.9.6">Connection Descriptions</title>
 
-        <para>If you have tried the version 0.7 you have possibly missed the
-        possibility to specify the connections between the edges for yourself.
-        This is now possible using a further file, the connections file. The
-        connection file specifies which edges outgoing from a junction may be
-        reached by a certain edge incoming into this junction and optionally
-        also which lanes shall be used on both sides.</para>
+        <sect3 id="user_chp04-xml_descriptions-connections-connections">
+          <title>Explicite setting which Edge / Lane is connected to
+          which</title>
 
-        <para>If you only want to describe which edges may be reached from a
-        certain edge, this definition could look something like this:
-        <sgmltag>&lt;connection
-        from="<replaceable>&lt;FROM_EDGE_ID&gt;</replaceable>"
-        to="<replaceable>&lt;T0_EDGE_ID&gt;</replaceable>"/&gt;</sgmltag>.
-        This tells <application>NETCONVERT</application> not only that
-        vehicles shall be allowed to drive from the edge named
-        <sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag> to
-        the edge named
-        <sgmltag><replaceable>&lt;TO_EDGE_ID&gt;</replaceable></sgmltag>, but
-        also prohibits all movements to other edges from
-        <sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag>,
-        unless they are specified within this file. Let's repeat the
-        parameters:</para>
+          <para>If you have tried the version 0.7 you have possibly missed the
+          possibility to specify the connections between the edges for
+          yourself. This is now possible using a further file, the connections
+          file. The connection file specifies which edges outgoing from a
+          junction may be reached by a certain edge incoming into this
+          junction and optionally also which lanes shall be used on both
+          sides.</para>
 
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para><sgmltag>from</sgmltag>: The name of the edge the vehicles
-            leave</para>
-          </listitem>
+          <para>If you only want to describe which edges may be reached from a
+          certain edge, this definition could look something like this:
+          <sgmltag>&lt;connection
+          from="<replaceable>&lt;FROM_EDGE_ID&gt;</replaceable>"
+          to="<replaceable>&lt;T0_EDGE_ID&gt;</replaceable>"/&gt;</sgmltag>.
+          This tells <application>NETCONVERT</application> not only that
+          vehicles shall be allowed to drive from the edge named
+          <sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag>
+          to the edge named
+          <sgmltag><replaceable>&lt;TO_EDGE_ID&gt;</replaceable></sgmltag>,
+          but also prohibits all movements to other edges from
+          <sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag>,
+          unless they are specified within this file. Let's repeat the
+          parameters:</para>
 
-          <listitem>
-            <para><sgmltag>to</sgmltag>: The name of the edge the vehicles may
-            reach when leaving "from"</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>When using this kind of input,
-        <application>NETCONVERT</application> will compute which lanes shall
-        be used if any of the connected edges has more than one lane. If you
-        also want to override this computation and set the lanes by hand, use
-        the following: <sgmltag>&lt;connection from="&lt;FROM_EDGE_ID&gt;"
-        to="&lt;T0_EDGE_ID&gt;"
-        lane="&lt;INT_1&gt;:&lt;INT_2&gt;"/&gt;</sgmltag>. Here, a connection
-        from the edge's
-        "<sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag>"
-        lane with the number
-        <sgmltag><replaceable>&lt;INT_1&gt;</replaceable></sgmltag> is build
-        to the lane
-        <sgmltag><replaceable>&lt;INT_2&gt;</replaceable></sgmltag> of the
-        edge
-        "<sgmltag><replaceable>&lt;TO_EDGE_ID</replaceable>&gt;</sgmltag>".
-        Lanes are counted from the right (outer) to the left (inner) side of
-        the road beginning with 0. Again the parameter:</para>
-
-        <para><itemizedlist spacing="compact">
+          <itemizedlist spacing="compact">
             <listitem>
               <para><sgmltag>from</sgmltag>: The name of the edge the vehicles
               leave</para>
@@ -1416,43 +1391,73 @@
               <para><sgmltag>to</sgmltag>: The name of the edge the vehicles
               may reach when leaving "from"</para>
             </listitem>
+          </itemizedlist>
 
-            <listitem>
-              <para><sgmltag>lane</sgmltag>: the numbers of the connected
-              lanes, separated with ':'; lanes are counter from right to left
-              beginning with 0</para>
-            </listitem>
-          </itemizedlist></para>
+          <para>When using this kind of input,
+          <application>NETCONVERT</application> will compute which lanes shall
+          be used if any of the connected edges has more than one lane. If you
+          also want to override this computation and set the lanes by hand,
+          use the following: <sgmltag>&lt;connection
+          from="&lt;FROM_EDGE_ID&gt;" to="&lt;T0_EDGE_ID&gt;"
+          lane="&lt;INT_1&gt;:&lt;INT_2&gt;"/&gt;</sgmltag>. Here, a
+          connection from the edge's
+          "<sgmltag><replaceable>&lt;FROM_EDGE_ID&gt;</replaceable></sgmltag>"
+          lane with the number
+          <sgmltag><replaceable>&lt;INT_1&gt;</replaceable></sgmltag> is build
+          to the lane
+          <sgmltag><replaceable>&lt;INT_2&gt;</replaceable></sgmltag> of the
+          edge
+          "<sgmltag><replaceable>&lt;TO_EDGE_ID</replaceable>&gt;</sgmltag>".
+          Lanes are counted from the right (outer) to the left (inner) side of
+          the road beginning with 0. Again the parameter:</para>
 
-        <para>There are two examples within the distribution. Both use the
-        nodes and edges descriptions from the example located in
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>".
-        The junction in the center of this example looks like shown within the
-        next figure. We will now call it the "unconstrained network" because
-        all connections and turnarounds are computed using the default
-        values.</para>
+          <para><itemizedlist spacing="compact">
+              <listitem>
+                <para><sgmltag>from</sgmltag>: The name of the edge the
+                vehicles leave</para>
+              </listitem>
 
-        <figure id="img_connections_unconstrained">
-          <title>Unconstrained Network</title>
+              <listitem>
+                <para><sgmltag>to</sgmltag>: The name of the edge the vehicles
+                may reach when leaving "from"</para>
+              </listitem>
 
-          <mediaobject>
-            <imageobject>
-              <imagedata align="center"
-                         fileref="./gfx/user/cross3l_unconstrained.gif"
-                         format="GIF" />
-            </imageobject>
-          </mediaobject>
-        </figure>
+              <listitem>
+                <para><sgmltag>lane</sgmltag>: the numbers of the connected
+                lanes, separated with ':'; lanes are counter from right to
+                left beginning with 0</para>
+              </listitem>
+            </itemizedlist></para>
 
-        <para>The example
-        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>"
-        shows what happens when one uses connections to limit the number of
-        reachable edges. To do this we built a connections file where we say
-        that the horizontal edges ("1si" and "2si") have only connections to
-        the edges right to them and the edge in straight direction. The file
-        looks like this:</para>
+          <para>There are two examples within the distribution. Both use the
+          nodes and edges descriptions from the example located in
+          "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>".
+          The junction in the center of this example looks like shown within
+          the next figure. We will now call it the "unconstrained network"
+          because all connections and turnarounds are computed using the
+          default values.</para>
 
-        <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
+          <figure id="img_connections_unconstrained">
+            <title>Unconstrained Network (zoom=2200)</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center"
+                           fileref="./gfx/user/cross3l_unconstrained_small.gif"
+                           format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>The example
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>"
+          shows what happens when one uses connections to limit the number of
+          reachable edges. To do this we built a connections file where we say
+          that the horizontal edges ("1si" and "2si") have only connections to
+          the edges right to them and the edge in straight direction. The file
+          looks like this:</para>
+
+          <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
 
    <sgmltag>&lt;connection from="1si" to="3o"/&gt;</sgmltag>
    <sgmltag>&lt;connection from="1si" to="2o"/&gt;</sgmltag>
@@ -1463,28 +1468,28 @@
 <sgmltag>&lt;/connections&gt;</sgmltag>
 </programlisting>
 
-        <para>As you may see in the next picture, the horizontal edges within
-        the result network contain no left-moving connections.</para>
+          <para>As you may see in the next picture, the horizontal edges
+          within the result network contain no left-moving connections.</para>
 
-        <figure id="img_connections_edge2edge">
-          <title>Network with explicit edge-2-edge connections</title>
+          <figure id="img_connections_edge2edge">
+            <title>Network with explicit edge-2-edge connections</title>
 
-          <mediaobject>
-            <imageobject>
-              <imagedata align="center"
-                         fileref="./gfx/user/cross3l_edge2edge_conns.gif"
-                         format="GIF" />
-            </imageobject>
-          </mediaobject>
-        </figure>
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center"
+                           fileref="./gfx/user/cross3l_edge2edge_conns_small.gif"
+                           format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <para>In the second example located in
-        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_laneslane_conns/</filename>"
-        we additionally describe which lanes shall be connected. The according
-        connections file says that the connections going straight shall be
-        start at the second lane of the incoming edges:</para>
+          <para>In the second example located in
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_laneslane_conns/</filename>"
+          we additionally describe which lanes shall be connected. The
+          according connections file says that the connections going straight
+          shall be start at the second lane of the incoming edges:</para>
 
-        <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
+          <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
 
    <sgmltag>&lt;connection from="1si" to="3o" lane="0:0"/&gt;</sgmltag>
    <sgmltag>&lt;connection from="1si" to="2o" lane="2:0"/&gt;</sgmltag>
@@ -1495,50 +1500,136 @@
 <sgmltag>&lt;/connections&gt;</sgmltag>
 </programlisting>
 
-        <para>The built network looks like this:</para>
+          <para>The built network looks like this:</para>
 
-        <figure id="img_connections_lane2lane">
-          <title>Network with explicit lane-2-lane connections</title>
+          <figure id="img_connections_lane2lane">
+            <title>Network with explicit lane-2-lane connections</title>
 
-          <mediaobject>
-            <imageobject>
-              <imagedata align="center"
-                         fileref="./gfx/user/cross3l_lane2lane_conns.gif"
-                         format="GIF" />
-            </imageobject>
-          </mediaobject>
-        </figure>
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center"
+                           fileref="./gfx/user/cross3l_lane2lane_conns_small.gif"
+                           format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
 
-        <warning>
-          <para>Please do not use both types of connection declarations (those
-          with an <sgmltag>lane</sgmltag> attribute and those without) for the
-          same from-edge! The behaviour is not verified and tested for these
-          settings.</para>
-        </warning>
+          <warning>
+            <para>Please do not use both types of connection declarations
+            (those with an <sgmltag>lane</sgmltag> attribute and those
+            without) for the same from-edge! The behaviour is not verified and
+            tested for these settings.</para>
+          </warning>
 
-        <para>Examples (compare both to
-        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/netbuild/cross_notypes/</filename>):</para>
+          <para>Examples (compare both to
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_unconstrained/</filename>):</para>
 
-        <itemizedlist>
-          <listitem>
-            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>
-            shows how edge-to-edge connections may be specified</para>
-          </listitem>
+          <itemizedlist>
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>
+              shows how edge-to-edge connections may be specified</para>
+            </listitem>
 
-          <listitem>
-            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_lane2lane_conns/</filename>
-            shows how lane-to-lane connections may be specified</para>
-          </listitem>
-        </itemizedlist>
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_lane2lane_conns/</filename>
+              shows how lane-to-lane connections may be specified</para>
+            </listitem>
+          </itemizedlist>
 
-        <para>Recent Changes:</para>
+          <para>Recent Changes:</para>
 
-        <itemizedlist>
-          <listitem>
-            <para>A bug which sometimes yielded in a reassignment of
-            connections is patched in version 0.9.3</para>
-          </listitem>
-        </itemizedlist>
+          <itemizedlist>
+            <listitem>
+              <para>A bug which sometimes yielded in a reassignment of
+              connections is patched in version 0.9.3</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp04-xml_descriptions-connections-prohibitions">
+          <title>Setting Connection Priorities</title>
+
+          <para>Since version 0.9.6 you can also let vehicles passing a
+          connection between two edges wait for another stream. Let's take
+          another look at "Network with explicit edge-2-edge connections"
+          above. Here, all right-moving vehicles may drive. The following
+          definition within the connections file lets vehicles on vertical
+          edges moving right wait for those which move straight on horizontal
+          edges:</para>
+
+          <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
+
+   <remark>&lt;!-- The next four connection definitions are same as in
+        "Network with explicit edge-2-edge connections" --&gt;</remark>
+   <sgmltag>&lt;connection from="1si" to="3o"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="1si" to="2o"/&gt;</sgmltag>
+
+   <sgmltag>&lt;connection from="2si" to="4o"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="2si" to="1o"/&gt;</sgmltag>
+
+   <remark>&lt;!-- now, let's prohibit the vertical connections by the horizontal --&gt;</remark>
+   <remark>&lt;!-- prohibit moving right from top to left by straight from right to left --&gt;</remark>
+   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;1o"/&gt;
+   <remark>&lt;!-- prohibit moving straight from top to bottom by straight from right to left --&gt;</remark>
+   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;3o"/&gt;
+   <remark>&lt;!-- prohibit moving left from top to right by straight from right to left --&gt;</remark>
+   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;2o"/&gt;
+
+   <remark>&lt;!-- prohibit moving right from bottom to right by straight from left to right --&gt;</remark>
+   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;2o"/&gt;
+   <remark>&lt;!-- prohibit moving straight from bottom to top by straight from left to right --&gt;</remark>
+   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;4o"/&gt;
+   <remark>&lt;!-- prohibit moving left from bottom to right by straight from left to right --&gt;</remark>
+   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;1o"/&gt;
+
+<sgmltag>&lt;/connections&gt;</sgmltag>
+</programlisting>
+
+          <para>As one may see, it was necessary to prohibit all connections
+          from a vertical edge by the counter-clockwise straight connection on
+          a horizontal edge because otherwise the vehicles on the horizontal
+          edge want to wait due to right-before-left - rule. The network looks
+          like this:</para>
+
+          <figure id="img_connections_prohibitions">
+            <title>Network with explicite prohibitions</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata align="center"
+                           fileref="./gfx/user/cross3l_prohibitions_small.gif"
+                           format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>The syntax of a prohibition-tag is: <sgmltag>&lt;prohibition
+          prohibitor="<replaceable>&lt;PROHIBITING_FROM_EDGE_ID&gt;</replaceable>-&gt;<replaceable>&lt;PROHIBITING_TO_EDGE_ID&gt;</replaceable>"
+          prohibited="<replaceable>&lt;PROHIBITED_FROM_EDGE_ID&gt;</replaceable>-&gt;<replaceable>&lt;PROHIBITED_TO_EDGE_ID&gt;</replaceable>"/&gt;</sgmltag>.
+          This means we define two connections (edge-to-edge), the prohibiting
+          one (<sgmltag>prohibitor</sgmltag>) and the prohibited
+          (<sgmltag>prohibited</sgmltag>). Each connection is defined by a
+          from-edge and a to-edge, divided by "-&gt;".</para>
+
+          <para>Examples (compare to
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_unconstrained/</filename>):</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_prohibitions/</filename>
+              shows how prohibitions may be specified</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent Changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>The possibility to add prohibitions was implemented for
+              version 0.9.6</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-running" revision="0.9.5">

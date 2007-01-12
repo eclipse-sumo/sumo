@@ -1,8 +1,12 @@
 EXTRA_DIST =  3sims.gif allow_rotation.gif attention_small.gif \
 basic_coordinates.gif bulb.gif bus_stop1.gif colour_lane.gif \
-colour_vehicle.gif contdisc.gif cross3l_edge2edge_conns.gif \
-cross3l_lane2lane_conns.gif cross3l_no_turnarounds.gif \
-cross3l_unconstrained.gif dua_step1.gif dua_steps.gif ivf.gif \
+colour_vehicle.gif contdisc.gif \
+cross3l_edge2edge_conns_small.gif cross3l_edge2edge_conns.gif \
+cross3l_lane2lane_conns_small.gif cross3l_lane2lane_conns.gif \
+cross3l_no_turnarounds_small.gif cross3l_no_turnarounds.gif \
+cross3l_prohibitions_small.gif cross3l_prohibitions.gif \
+cross3l_unconstrained_small.gif cross3l_unconstrained.gif \
+dua_step1.gif dua_steps.gif ivf.gif \
 locate_edge.gif locate_junction.gif locate_vehicle.gif manip.gif \
 netgen_grid1.gif netgen_grid2.gif netgen_random1.gif netgen_spider1.gif \
 netgen_spider2.gif new_window.gif no.gif ok.gif parameter_window.gif \
