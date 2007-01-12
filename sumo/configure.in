@@ -946,6 +946,8 @@ tests/netconvert/XML2/connections/Makefile
 tests/netconvert/XML2/connections/cross3l_edge2edge_conns/Makefile
 tests/netconvert/XML2/connections/cross3l_lane2lane_conns/Makefile
 tests/netconvert/XML2/connections/cross3l_no_turnarounds/Makefile
+tests/netconvert/XML2/connections/cross3l_prohibitions/Makefile
+tests/netconvert/XML2/connections/cross3l_unconstrained/Makefile
 tests/netconvert/XML2/function/Makefile
 tests/netconvert/XML2/function/sources_notypes/Makefile
 tests/netconvert/XML2/function/sources_withtypes/Makefile
