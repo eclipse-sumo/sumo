@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2007/01/12 08:14:24  dkrajzew
+// [ feature-request-1599821 ] Right-of-way in Junctions implemented
+//
 // Revision 1.14  2006/12/06 08:24:39  dkrajzew
 // further work in order to import ORINOKO definitions
 //
@@ -133,6 +136,55 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler()
 }
 
 
+NBConnection
+NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const string &def)
+{
+    // split from/to
+    size_t div = def.find("->");
+    if(div==string::npos) {
+        addError("Missing connection divider in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    string fromDef = def.substr(0, div);
+    string toDef = def.substr(div+2);
+
+    // retrieve the edges
+        // check whether the definition includes a lane information (do not process it)
+    if(fromDef.find('_')!=string::npos) {
+        fromDef = fromDef.substr(0, fromDef.find('_'));
+    }
+    if(toDef.find('_')!=string::npos) {
+        toDef = fromDef.substr(0, toDef.find('_'));
+    }
+        // retrieve them now
+    NBEdge *fromE = myEdgeCont.retrieve(fromDef);
+    NBEdge *toE = myEdgeCont.retrieve(toDef);
+        // check
+    if(fromE==0) {
+        addError("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    if(toE==0) {
+        addError("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    return NBConnection(fromE, toE);
+}
+
+
+NBNode *
+NIXMLConnectionsHandler::getNode(const string &def)
+{
+    // split from/to (we can omit some checks as they already have been done in parseConnection)
+    size_t div = def.find("->");
+    string fromDef = def.substr(0, div);
+    if(fromDef.find('_')!=string::npos) {
+        fromDef = fromDef.substr(0, fromDef.find('_'));
+    }
+    return myEdgeCont.retrieve(fromDef)->getToNode();
+}
+
+
 void
 NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name,
                                   const Attributes &attrs)
@@ -141,8 +193,7 @@ NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
         if(from.length()==0||to.length()==0) {
-            addError(
-                "Either a from-edge or a to-edge is not specified within one of the connections");
+            addError("Either a from-edge or a to-edge is not specified within one of the connections");
             return;
         }
         // extract edges
@@ -167,6 +218,18 @@ NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name
         } else {
             addError("Unknown type of connection");
         }
+    }
+    if(name=="prohibition") {
+        string prohibitor = getStringSecure(attrs, "prohibitor", "");
+        string prohibited = getStringSecure(attrs, "prohibited", "");
+        NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
+        NBConnection prohibitedC = parseConnection("prohibited", prohibited);
+        if(prohibitorC.getFrom()==0||prohibitedC.getFrom()==0) {
+            // something failed
+            return;
+        }
+        NBNode *n = getNode(prohibitor);
+        n->addSortedLinkFoes(prohibitorC, prohibitedC);
     }
 }
 

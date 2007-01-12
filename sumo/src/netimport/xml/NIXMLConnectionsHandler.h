@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2007/01/12 08:14:24  dkrajzew
+// [ feature-request-1599821 ] Right-of-way in Junctions implemented
+//
 // Revision 1.5  2005/10/07 11:41:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -60,6 +63,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <netbuild/NBConnection.h>
 
 /* =========================================================================
  * class declarations
@@ -99,6 +103,19 @@ private:
     // parses a connection when it describes a lane-2-lane relationship
     void parseLaneBound(const Attributes &attrs,NBEdge *from,
         NBEdge *to);
+
+    /** @brief returns the connection described by def
+     *
+     * def should have the following format <FROM_EDGE_ID>[_<FROM_LANE_NO>]-><TO_EDGE_ID>[_<TO_LANE_NO>]
+     */
+    NBConnection parseConnection(const std::string &defRole, const std::string &def);
+
+    /** @brief Returns the node over which the connection defined by def goes
+     *
+     * def should have the following format <FROM_EDGE_ID>[_<FROM_LANE_NO>]-><TO_EDGE_ID>[_<TO_LANE_NO>]
+     * As node the node the from-edge is incoming to is chosen
+     */
+    NBNode *getNode(const std::string &def);
 
 private:
     NBEdgeCont &myEdgeCont;
