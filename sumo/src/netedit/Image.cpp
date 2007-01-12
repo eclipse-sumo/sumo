@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2007/01/12 13:55:25  dkrajzew
+// patched building under Windows using MSVC6
+//
 // Revision 1.13  2007/01/12 11:35:54  behrisch
 // Enable MSVC8 compilation
 //
@@ -326,7 +329,8 @@ void Image::CreateSkeleton()
     {
     any_changes=false;
         //Betrachte alle Pixel des Bildes ohne den Rand
-        for(int i=1 ; i<wid-1 ; ++i)
+        int i;
+        for(i=1 ; i<wid-1 ; ++i)
         {
             for(int j=1 ; j<hei-1 ; ++j)
             {
@@ -378,7 +382,7 @@ void Image::CreateSkeleton()
         //Kopiere das Bearbeitungsimage in das Anzeigeimage
         Copy(m_transimg,m_img);
         //Betrachte alle Pixel des Bildes außer dem Rand
-        for(int i=1 ; i<wid-1 ; ++i)
+        for(i=1 ; i<wid-1 ; ++i)
         {
             for(int j=1 ; j<hei-1 ; ++j)
             {
@@ -832,12 +836,13 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 	{
 		if (delta_x!=0)
 		{
-			for (int j=b-1; j<=b+1; j++)
+            int j;
+			for (j=b-1; j<=b+1; j++)
 				if (m_img->getPixel(a+delta_x,j)==FXRGB(255,0,0))
 				{
 					return NULL;
 				}
-			for (int j=b-1; j<=b+1; j++)
+			for (j=b-1; j<=b+1; j++)
 				if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(a+delta_x,j);
@@ -846,12 +851,13 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 		}
 		if (delta_y!=0)
 		{
-			for (int i=a-1; i<=a+1; i++)
+            int i;
+			for (i=a-1; i<=a+1; i++)
 				if (m_img->getPixel(i,b+delta_y)==FXRGB(255,0,0))
 				{
 					return NULL;
 				}
-			for (int i=a-1; i<=a+1; i++)
+			for (i=a-1; i<=a+1; i++)
 				if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(i,b+delta_y);
