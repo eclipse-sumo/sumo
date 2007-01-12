@@ -539,6 +539,8 @@ data/examples/netbuild/connections/Makefile
 data/examples/netbuild/connections/cross3l_edge2edge_conns/Makefile
 data/examples/netbuild/connections/cross3l_lane2lane_conns/Makefile
 data/examples/netbuild/connections/cross3l_no_turnarounds/Makefile
+data/examples/netbuild/connections/cross3l_prohibitions/Makefile
+data/examples/netbuild/connections/cross3l_unconstrained/Makefile
 data/examples/netbuild/shapes/Makefile
 data/examples/netbuild/shapes/hokkaido-japan/Makefile
 data/examples/netbuild/speed_in_kmh/Makefile
