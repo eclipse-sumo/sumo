@@ -1,1 +1,0 @@
-..\..\..\..\..\bin\netconvert.exe --xml-edge-files=cross3l_lane2lane_conns.edg.xml --xml-node-files=cross3l_lane2lane_conns.nod.xml --xml-connection-files=cross3l_lane2lane_conns.con.xml --output-file=cross3l_lane2lane_conns.net.xml --speed-in-kmh
