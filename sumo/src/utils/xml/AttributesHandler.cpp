@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2007/01/12 11:35:54  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.8  2006/04/07 10:42:44  dkrajzew
 // speeded up trip definition loading
 //
@@ -360,14 +363,14 @@ AttributesHandler::check(int id) const
 }
 
 
-unsigned short *
+XMLCh*
 AttributesHandler::convert(const std::string &name) const
 {
    size_t len = name.length();
-   unsigned short *ret = new unsigned short[len+1];
+   XMLCh *ret = new XMLCh[len+1];
    size_t i=0;
    for(; i<len; i++) {
-      ret[i] = (unsigned short) name.at(i);
+      ret[i] = (XMLCh) name.at(i);
    }
    ret[i] = 0;
    return ret;

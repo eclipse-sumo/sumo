@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.123  2007/01/12 11:35:52  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.122  2007/01/11 06:33:53  dkrajzew
 // speeded up c2c computation
 //
@@ -795,7 +798,7 @@ MSVehicle::MSVehicle( string id,
     myLane( 0 ),
     myType(type),
     myLastBestLanesEdge(0),
-    myCurrEdge(0),
+    myCurrEdge(myRoute->begin()),
     myAllowedLanes(0),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
@@ -805,7 +808,6 @@ MSVehicle::MSVehicle( string id,
     if(myRepetitionNumber>0) {
         myRoute->incReferenceCnt();
     }
-    myCurrEdge = myRoute->begin();
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init cell phones

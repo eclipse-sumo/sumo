@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2007/01/12 11:35:54  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.12  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -375,7 +378,7 @@ void Image::CreateSkeleton()
         //Kopiere das Bearbeitungsimage in das Anzeigeimage
         Copy(m_transimg,m_img);
         //Betrachte alle Pixel des Bildes auﬂer dem Rand
-        for(i=1 ; i<wid-1 ; ++i)
+        for(int i=1 ; i<wid-1 ; ++i)
         {
             for(int j=1 ; j<hei-1 ; ++j)
             {
@@ -834,7 +837,7 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 				{
 					return NULL;
 				}
-			for (j=b-1; j<=b+1; j++)
+			for (int j=b-1; j<=b+1; j++)
 				if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(a+delta_x,j);
@@ -848,7 +851,7 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 				{
 					return NULL;
 				}
-			for (i=a-1; i<=a+1; i++)
+			for (int i=a-1; i<=a+1; i++)
 				if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(i,b+delta_y);

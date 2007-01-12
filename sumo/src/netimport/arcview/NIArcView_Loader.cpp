@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2007/01/12 11:35:52  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.31  2006/11/14 13:03:51  dkrajzew
 // warnings removed
 //
@@ -144,11 +147,7 @@ namespace
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geoconv/GeoConvHelper.h>
 
-#ifdef WIN32
-#include <ogrsf_frmts/ogrsf_frmts.h>
-#else
 #include <ogrsf_frmts.h>
-#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

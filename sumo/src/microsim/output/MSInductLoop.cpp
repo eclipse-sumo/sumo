@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2007/01/12 11:35:54  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.18  2006/11/16 10:50:45  dkrajzew
 // warnings removed
 //
@@ -389,11 +392,12 @@ MSInductLoop::deleteOldData(SUMOTime )
     SUMOReal deleteBeforeTimestep =
         (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);
     if ( deleteBeforeTimestep > 0 ) {
+		MSVehicle *v = 0; // TODO: clean up
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
             lower_bound( vehicleDataContM.begin(),
                          vehicleDataContM.end(),
-                         deleteBeforeTimestep,
+                         VehicleData( *v, 0.0f, deleteBeforeTimestep ),
                          leaveTimeLesser() ) );
         dismissedContM.erase(
             dismissedContM.begin(),
@@ -414,9 +418,10 @@ MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
             MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
             MSNet::deltaT();
     }
+	MSVehicle *v = 0; // TODO: clean up
     return lower_bound( vehicleDataContM.begin(),
                         vehicleDataContM.end(),
-                        startTime,
+                        VehicleData( *v, 0.0f, startTime ),
                         leaveTimeLesser() );
 }
 

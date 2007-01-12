@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2007/01/12 11:35:54  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.12  2006/04/07 10:42:44  dkrajzew
 // speeded up trip definition loading
 //
@@ -178,7 +181,7 @@ public:
     void check(int id) const;
 
     /** converts from c++-string into unicode */
-    unsigned short *convert(const std::string &name) const;
+    XMLCh *convert(const std::string &name) const;
 private:
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
@@ -207,13 +210,13 @@ private:
 
 private:
     /** the type of the map from ids to their unicode-string representation */
-    typedef std::map<int, unsigned short*> AttrMap;
+    typedef std::map<int, XMLCh*> AttrMap;
 
     /** the map from ids to their unicode-string representation */
     AttrMap myPredefinedTags;
 
     /** the type of the map from ids to their unicode-string representation */
-    typedef std::map<std::string, unsigned short*> StrAttrMap;
+    typedef std::map<std::string, XMLCh*> StrAttrMap;
 
     /** the map from ids to their unicode-string representation */
     mutable StrAttrMap myStrTags;

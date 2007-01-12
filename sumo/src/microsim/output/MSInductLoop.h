@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.13  2007/01/12 11:35:54  behrisch
+// Enable MSVC8 compilation
+//
 // Revision 1.12  2006/11/03 22:59:26  behrisch
 // Syntactic sugar
 //
@@ -419,10 +422,10 @@ protected:
     struct leaveTimeLesser :
             public std::binary_function< VehicleData, SUMOReal, bool >
     {
-        bool operator()( const VehicleData& data,
-                         SUMOReal leaveTimeBound ) const
+        bool operator()( const VehicleData& firstVData,
+                         const VehicleData& secondVData ) const
         {
-            return data.leaveTimeM < leaveTimeBound;
+            return firstVData.leaveTimeM < secondVData.leaveTimeM;
         }
     };
 
