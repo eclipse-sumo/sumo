@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2007/01/12 13:57:28  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2007/01/11 06:34:11  dkrajzew
 // some work on person simulation
 //
@@ -144,12 +147,12 @@ private:
      */
     class my_greater : public std::unary_function<SameDepartureTimeCont, bool> {
     public:
-        my_greater(unsigned int value) : m_value(value){}
+        my_greater(SUMOTime value) : m_value(value){}
 
         bool operator() (SameDepartureTimeCont arg) const { return m_value > arg.getTime(); }
 
     private:
-        unsigned int m_value;
+        SUMOTime m_value;
 
     };
 

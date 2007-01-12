@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2007/01/12 13:57:28  dkrajzew
+// warnings removed
+//
 // Revision 1.2  2006/12/21 13:23:54  dkrajzew
 // added visualization of tls/junction link indices
 //
@@ -150,7 +153,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
 
     // draw all links
     SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
-    SUMOReal x1 = SUMO_const_laneWidth / 2.;
+    SUMOReal x1 = SUMO_const_laneWidth / (SUMOReal) 2.;
     glPushMatrix();
     glColor3d(1, 0, 0);
     const Position2DVector &g = lane.getShape();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2007/01/12 13:57:28  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2007/01/11 06:35:50  dkrajzew
 // debugging building under linux
 //
@@ -245,8 +248,8 @@ public:
                     const _L1 &lane1 = edge->getLaneGeometry((size_t) 0);
                     const _L1 &lane2 = edge->getLaneGeometry(edge->nLanes()-1);
                     glPushMatrix();
-                    Position2D p = lane1.getShape().positionAtLengthPosition(lane1.getShape().length()/2.);
-                    p.add(lane2.getShape().positionAtLengthPosition(lane2.getShape().length()/2.));
+                    Position2D p = lane1.getShape().positionAtLengthPosition(lane1.getShape().length()/(SUMOReal) 2.);
+                    p.add(lane2.getShape().positionAtLengthPosition(lane2.getShape().length()/(SUMOReal) 2.));
                     p.mul(.5);
                     glTranslated(p.x(), p.y(), 0);
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -255,7 +258,7 @@ public:
                     glColor3d(1, .5, 0);
                     SUMOReal w = pfdkGetStringWidth(edge->microsimID().c_str());
                     glRotated(180, 1, 0, 0);
-                    SUMOReal angle = lane1.getShape().rotationDegreeAtLengthPosition(lane1.getShape().length()/2.);
+                    SUMOReal angle = lane1.getShape().rotationDegreeAtLengthPosition(lane1.getShape().length()/(SUMOReal) 2.);
                     angle += 90;
                     if(angle>90&&angle<270) {
                         glColor3d(1, 0, .5);
