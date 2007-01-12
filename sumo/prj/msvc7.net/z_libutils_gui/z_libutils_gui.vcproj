@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="$(PROJ)\src,$(FOX14)\include,..\..\..\src;$(GDAL)\ogr;$(GDAL)\port"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_LIB;FOXDLL"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(PROJ)\src,$(FOX14)\include,..\..\..\src;$(GDAL)\ogr;$(GDAL)\port"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_LIB;FOXDLL"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"

@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(PROJ)\src,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -44,7 +44,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ)\src\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(GDAL)\gdal_i.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT)"
 				OutputFile=".\Debug/netconvert.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -96,7 +96,7 @@ copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
-				AdditionalIncludeDirectories="$(PROJ)\src,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -115,7 +115,7 @@ copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ)\src\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(GDAL)\gdal_i.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT)"
 				OutputFile=".\Release/netconvert.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
