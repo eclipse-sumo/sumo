@@ -1,0 +1,33 @@
+#!/bin/bash
+export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -Wno-unknown-pragmas -g -O2"
+MAKELOG=$HOME/DLR/sumomake.log
+RUNLOG=$HOME/DLR/sumologs.tar.gz
+MAKEALLLOG=$HOME/DLR/sumomakeall.log
+
+cd $HOME/DLR/sumo
+make distclean &> /dev/null
+make -f Makefile.cvs clean &> /dev/null
+svn up &> $MAKELOG
+make -f Makefile.cvs >> $MAKELOG 2>&1
+./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
+--with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
+--with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
+>> $MAKELOG 2>&1
+make >> $MAKELOG 2>&1
+gzip -f $MAKELOG
+scp -q $MAKELOG.gz shell.sf.net:sumo-www/
+
+find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
+find data/examples/ -newer $MAKELOG.gz -type f > /tmp/sumo_examples 2> /dev/null
+tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
+scp -q $RUNLOG shell.sf.net:sumo-www/
+
+# --enable-rpc --enable-memcheck
+./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
+--with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
+--with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
+--enable-geomcheck --enable-debug --enable-speedcheck &> $MAKEALLLOG
+make clean all >> $MAKEALLLOG 2>&1
+gzip -f $MAKEALLLOG
+scp -q $MAKEALLLOG.gz shell.sf.net:sumo-www/
+
