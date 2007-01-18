@@ -413,6 +413,10 @@ MSRouteHandler::addRouteElements(const std::string &name,
         }
         myActiveRoute.push_back(edge);
     }
+    if(myActiveRoute.size()<3) {
+        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least three edges long.");
+        throw ProcessError();
+    }
 }
 
 
