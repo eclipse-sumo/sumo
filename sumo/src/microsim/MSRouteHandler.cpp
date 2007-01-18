@@ -413,8 +413,9 @@ MSRouteHandler::addRouteElements(const std::string &name,
         }
         myActiveRoute.push_back(edge);
     }
-    if(myActiveRoute.size()<3) {
-        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least three edges long.");
+    // check whether the route is long enough
+    if(myActiveRoute.size()<2) {
+        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least two edges long ('" + name + "' has " + toString(myActiveRoute.size()) + ").");
         throw ProcessError();
     }
 }
@@ -485,6 +486,14 @@ MSRouteHandler::closeVehicle()
     if(route==0) {
         // nothing found? -> error
         MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        throw ProcessError();
+    }
+
+    // check whether the first edge is long enough for the vehicle
+    const MSEdge *firstEdge = (*route)[0];
+    if((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
+        // the vehicle is too long -> report an error
+        MsgHandler::getErrorInstance()->inform("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
         throw ProcessError();
     }
 
