@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: MSPhoneLA.cpp,v $
 // Revision 1.7  2006/12/01 09:14:41  dkrajzew
 // debugging cell phones
 //
@@ -73,6 +73,7 @@ MSPhoneLA::~MSPhoneLA()
 void
 MSPhoneLA::addCall( )
 {
+    assert(true);
     sum_changes++;
 }
 
@@ -133,7 +134,7 @@ MSPhoneLA::writeOutput( SUMOTime t )
 }
 
 
-#include <microsim/MSNet.h>
+//#include <microsim/MSNet.h>
 
 void
 MSPhoneLA::writeSQLOutput( SUMOTime t )
@@ -141,7 +142,7 @@ MSPhoneLA::writeSQLOutput( SUMOTime t )
     intervall = t - last_time;
     MSCORN::saveTOSS2SQL_LA_ChangesData( t, position_id, dir, sum_changes, quality_id, intervall );
     last_time = t;
-	sum_changes = 0;
+    sum_changes = 0;
 }
 
 

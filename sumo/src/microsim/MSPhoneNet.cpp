@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: MSPhoneNet.cpp,v $
 // Revision 1.7  2006/12/01 09:14:41  dkrajzew
 // debugging cell phones
 //
@@ -101,7 +101,7 @@ MSPhoneNet::getCurrentVehicleCell(const std::string &id )
     MSPhoneCell * ret = 0;
     std::map< int, MSPhoneCell* >::iterator cit;
     for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end() ; cit++ ){
-        if ( cit->second->hasCall( id ) ){
+        if ( cit->second->hasCPhone(  id ) ){
             ret =  cit->second;
             break;
         }
@@ -213,13 +213,18 @@ MSPhoneNet::remMSPhoneLA( int id )
 void
 MSPhoneNet::writeOutput( SUMOTime t )
 {
+    std::map< int, MSPhoneCell* >::iterator cit;
+    for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
+        cit->second->setnextexpectData(t);
+    }
+
     if ( MSCORN::wished( MSCORN::CORN_OUT_CELL_TO_SS2 ) && ( t % _CellIntervall  ) == 0 ) {
         std::map< int, MSPhoneCell* >::iterator cit;
         for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
             cit->second->writeOutput( t);
-            //cit->second->setnextexpectData(t);
         }
     }
+
     if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2 ) && ( t % _LAIntervall ) == 0 ) {
         std::map< int, MSPhoneLA* >::iterator lit;
         for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
@@ -231,16 +236,21 @@ MSPhoneNet::writeOutput( SUMOTime t )
         std::map< int, MSPhoneCell* >::iterator cit;
         for ( cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++ ) {
             cit->second->writeSQLOutput( t);
-            //cit->second->setnextexpectData(t);
         }
     }
+
     if( MSCORN::wished( MSCORN::CORN_OUT_LA_TO_SS2_SQL ) && ( t % _LAIntervall ) == 0 ) {
-        std::map< int, MSPhoneLA* >::iterator lit;
+        /*std::map< int, MSPhoneLA* >::iterator lit;
         for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
             lit->second->writeSQLOutput( t );
+        }*/
+        std::map< std::string, int >::iterator lit;
+        for ( lit = myLAChanges.begin(); lit != myLAChanges.end(); lit++ ){
+            MSCORN::saveTOSS2SQL_LA_ChangesData( t, atoi( lit->first.c_str() ), 0, lit->second, 30, _LAIntervall );
         }
+        myLAChanges.clear();
     }
-    setCellStatData(t);
+    //setCellStatData(t);
 }
 
 
@@ -252,6 +262,17 @@ MSPhoneNet::setCellStatData(SUMOTime t)
         cit->second->setnextexpectData(t);
     }
 }
+
+void 
+MSPhoneNet::addLAChange( std::string & pos_id )
+{
+    std::map< std::string, int >::iterator it = myLAChanges.find( pos_id );
+    if ( it == myLAChanges.end() )
+        myLAChanges.insert( make_pair ( pos_id, 1 ) );
+    else
+        myLAChanges[pos_id]++;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

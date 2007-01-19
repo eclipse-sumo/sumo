@@ -18,7 +18,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: MSPhoneNet.h,v $
 // Revision 1.5  2006/11/28 12:15:40  dkrajzew
 // documented TOL-classes and made them faster
 //
@@ -112,7 +112,12 @@ public:
     /// Adapts the previously loaded statistics
 	void setCellStatData(SUMOTime time);
 
+
+    void addLAChange( std::string &pos_id );
+
 private:
+    void CallReminding( SUMOTime &t);
+
     /// A map of phone cells
     std::map< int, MSPhoneCell* > _mMSPhoneCells;
 
@@ -127,6 +132,8 @@ private:
 
     /// The used adaptation interval for cells (!!! fix)
 	unsigned int _CellIntervall;
+
+    std::map< std::string, int > myLAChanges;
 
 };
 

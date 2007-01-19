@@ -18,7 +18,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: MSPhoneLA.h,v $
 // Revision 1.7  2006/12/01 09:14:41  dkrajzew
 // debugging cell phones
 //
@@ -86,7 +86,8 @@ public:
 
     /// comparison operator
     bool operator!=( MSPhoneLA* );
-
+    
+    int getPositionId(){return position_id;};
     /// Returns the number of vehicles calling within this cell
     size_t getVehicleNumber() const { return _Calls.size(); }
 

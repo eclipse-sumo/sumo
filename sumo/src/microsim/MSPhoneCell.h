@@ -18,7 +18,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: MSPhoneCell.h,v $
 // Revision 1.8  2006/12/01 09:14:41  dkrajzew
 // debugging cell phones
 //
@@ -46,6 +46,7 @@
 #include <vector>
 #include <map>
 #include "MSCORN.h"
+#include "devices\MSDevice_CPhone.h"
 
 enum CallType{
 	STATICIN,
@@ -76,13 +77,13 @@ public:
     ~MSPhoneCell();
 
     /// Adds a call (?!!!)
-    void addCall(const std::string &id, CallType);
+    void addCall(int callid, CallType ct);
 
     /// Removes a named call from the cell
-    void remCall(const std::string &id);
+    void remCall(int callid);
 
     /// Returns the information whether the named call takes place in this cell
-    bool hasCall(const std::string &id);
+    bool hasCall(int callid);
 
     /// !!!?
     int  getIntervall();
@@ -103,39 +104,56 @@ public:
     void setnextexpectData(SUMOTime time);
 
     /// !!!?
-    int getExpectDynCallCount() { return dyncallcount; }
+    //int getExpectDynCallCount() { return dyncallcount; }
 
     /// !!!?
-    void decrementDynCallCount(){ --dyncallcount; }
+    //void decrementDynCallCount(){ --dyncallcount; }
 
     /// Returns the number of vehicles calling within this cell
-    size_t getVehicleNumber() const { return _Calls.size(); }
+    size_t getVehicleNumber() const { return myCalls.size(); }
 
+    void addCPhone( const std::string &device_id, MSDevice_CPhone* device_pointer );
+    bool hasCPhone( const std::string &device_id );
+    void remCPhone( const std::string &device_id );
 private:
-    int Cell_Id;
-    int Calls_In;
-    int Calls_Out;
-    int Dyn_Calls_In;
-    int Dyn_Calls_Out;
-    int Sum_Calls;
-    int Intervall;
-    int last_time;
-	int statcallcount;
-	int dyncallcount;
-	float dynduration;
-	float dyndeviation;
-
+    int myCellId;                   /* the id of the gsm-cell */
+    int myStaticCallsIn;            /* the number of stacic incoming calls for this interval */
+    int myStaticCallsOut;           /* the number of stativ outgoing calls for this interval */
+    int myDynCallsIn;               /* the number of dynamic incomming / outgoing calls for this... */
+    int myDynCallsOut;              /* ... interval which where singaled by a cphone.*/
+    int mySumCalls;                 /* the total number of calls in this interval.*/
+    int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
+    int myIntervalBegin;            /* the begintime of the current interval*/
+    int myIntervalEnd;              /* the endtime of the current interval*/
+    int myOutputIntervalBegin;      /*????????????????????????????????????*/     
+    int myCurrentExpectedCallCount;
+    float myCallDuration;
+    float myCallDeviation;
+    bool myConnectionTypSelector;
+    float myCallProbability;
+    
+    /*myConnectionTypSelector is for selecting if a connection is
+      going in( == true ) or out ( == false ).*/
     struct DynParam {
         int count;
         float duration;
         float deviation;
     };
+    
+    std::map<int, CallType> myCalls;
+    std::map<int, CallType>::iterator myitCalls;
 
-    std::map<std::string, Call> _Calls;
-	std::vector<std::pair<int, int > > vexpectStatCount;
-	std::vector<std::pair<int, int > >::iterator itCount;
+
+    std::map< int, int > myExpectedStaticCalls;
+
+    std::map< int, DynParam> myExpectedDynamicCalls;
+
+	//std::vector<std::pair<int, int > > vexpectStatCount;
+	//std::vector<std::pair<int, int > >::iterator itCount;
 	std::vector<std::pair<int, DynParam> > vexpectDuration;
 	std::vector<std::pair<int, DynParam> >::iterator itDuration;
+
+    std::map<std::string, MSDevice_CPhone*> myRegisteredDevices;
 };
 
 
