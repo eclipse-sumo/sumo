@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
         "$Id$";
 }
-// $Log$
+// $Log: MSDevice_CPhone.cpp,v $
 // Revision 1.23  2006/12/11 09:06:13  dkrajzew
 // added current patches to process the ORINOKO network
 //
@@ -128,9 +128,9 @@ MSDevice_CPhone::MyCommand::execute(SUMOTime )
         return 0;
     }
     // assert that this device is not removed from the event handler
-    if(ret==0) {
-        ret = 1;
-    }
+    //if(ret==0) {
+      //  ret = 1;
+    //}
     // return the time to next call
     return ret;
 }
@@ -151,7 +151,9 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
 {
     mycurrentCellId = -1;
     mycurrentLAId = -1;
-    callid = -1;
+    myCallId = -1;
+    m_State = STATE_IDLE;
+ 
 }
 
 //---------------------------------------------------------------------------
@@ -163,7 +165,13 @@ MSDevice_CPhone::~MSDevice_CPhone()
     if ( pPhone != 0 ) {
         MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
         if ( cell != 0 ) {
-            cell->remCall( myId );
+            if ( m_State!=STATE_IDLE && m_State!=STATE_OFF ){
+                cell->remCall( myCallId );
+                if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO ) ){
+                   MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
+                }
+            }
+            cell->remCPhone( myId );
         } /*else {
             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
         }*/
@@ -227,134 +235,61 @@ MSDevice_CPhone::SetState(int ActualState)
     return 1;
 }
 
+int
+MSDevice_CPhone::SetState( State s, int dur ){
+    assert(mycurrentCellId != -1);
+    /*wenn s == dynin oder dynout starte ein neues gespraech.*/
+    /*setze den gewuenschten status*/
+    m_State = s; 
+    /*pruefe, dass das cphone wirklich eine aktuelle zelle hat.*/
+        /*gib den cphone eine eindeutige verbindungsnummer*/
+    myCallId = ++gCallID;
+    MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+    MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
+    if ( m_State == STATE_CONNECTED_IN )
+        cell->addCall( myCallId, DYNIN );
+    else
+        cell->addCall( myCallId, DYNOUT );
+    
+    //SUMOTime next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
+    /*erzeuge einen neuen Event, damit das cphone aufhoehrt zu telefonieren*/
+    myCommand = new MyCommand(*this);
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION );
+    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
+        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 0);
+    }
+    return dur;
+}
 //---------------------------------------------------------------------------
 
+/*stop the current call*/
 SUMOTime
 MSDevice_CPhone::changeState()
 {
-    SUMOTime next;
-    SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
-    SUMOReal r2 = rand()/(SUMOReal) RAND_MAX;
+    assert ( myCallId != -1 );
+    assert ( mycurrentCellId != -1 );
 
-    /*first find out that we have a cell_id unlike -1*/
-    if(mycurrentCellId!=-1) {
-        switch(m_State)
-        {
-        case STATE_OFF:
-            {
-                if(r1>0.5) {
-                    // some people wait for a call
-                    m_State = STATE_IDLE;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // no calls for some time
-                } else {
-                    // some start telephoning
-                    if ( r2 > 0.5 )
-                        m_State = STATE_CONNECTED_IN;
-                    else
-                        m_State = STATE_CONNECTED_OUT;
-
-                    if ( mycurrentCellId != -1 ){
-                        MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-                        MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
-                        if ( m_State == STATE_CONNECTED_IN )
-                            cell->addCall( myId, STATICIN );
-                        else
-                            cell->addCall( myId, STATICOUT );
-                    }
-
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
-                    callid = ++gCallID;
-
-                    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-                        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  callid, 2);
-                    }
-                }
-            }
-            break;
-        case STATE_IDLE:
-            {
-                if(r1>0.8) {
-                    // some people switch off
-                    m_State = STATE_OFF;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
-                } else {
-                    // most start telephoning
-                    if ( r2 > 0.5 )
-                        m_State = STATE_CONNECTED_IN;
-                    else
-                        m_State = STATE_CONNECTED_OUT;
-
-                    if ( mycurrentCellId != -1 ){
-                        MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-                        MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
-                        if ( m_State == STATE_CONNECTED_IN )
-                            cell->addCall( myId, STATICIN );
-                        else
-                            cell->addCall( myId, STATICOUT );
-                    }
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
-                    callid = ++gCallID;
-
-                    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-                        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  callid, 2);
-                    }
-                }
-            }
-            break;
-        case STATE_CONNECTED_IN:
-            {
-                if(r1>0.1) {
-                    // most people stop telephonig
-                    m_State = STATE_IDLE;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // no calls for some time
-                } else {
-                    // some switch off
-                    m_State = STATE_OFF;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
-                }
-                /*the call is aborted, so we write out its end*/
-                if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-                    MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  callid, 0);
-                }
-            }
-            break;
-        case STATE_CONNECTED_OUT:
-            {
-                if(r1>0.1) {// most people stop telephonig
-                    m_State = STATE_IDLE;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // no calls for some time
-                } else {// some switch off
-                    /*if a mobile is zwitched off it loose its connection to its current LA*/
-
-                    m_State = STATE_OFF;
-                    next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
-                }
-                /*the call is aborted, so we write out its end*/
-                if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-                    MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  callid, 0);
-                }
-            }
-            break;
-        default:
-            throw 1;
-        }
-    } else { /*we have no valid providing_cell*/
-        next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
+    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
+        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
     }
-    if ( m_State == STATE_OFF){
-        MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-        MSPhoneLA * lold   = pPhone->getCurrentVehicleLA(myId);
-        if(lold!=NULL)
-            lold->remCall(myId);
-    }
-    return next;
+    
+    MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
+    MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
+    if ( m_State == STATE_CONNECTED_IN || m_State == STATE_CONNECTED_OUT )
+        cell->remCall( myCallId );
+
+    myCallId = -1;
+    m_State = STATE_IDLE;
+
+    return (SUMOTime)0;
 }
 
 void
 MSDevice_CPhone::onDepart()
 {
-    SUMOTime t1;
-    if( mycurrentCellId == -1 ){
+    //SUMOTime t1 = 100;
+    /*if( mycurrentCellId == -1 ){
         m_State = STATE_IDLE;
         t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // start telephoning after some time
     }else{
@@ -393,10 +328,10 @@ MSDevice_CPhone::onDepart()
             TempCell.m_LoS = -1;
             m_ProvidedCells.push_back(TempCell);
         }
-    }
-    myCommand = new MyCommand(*this);
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
+    }*/
+    //myCommand = new MyCommand(*this);
+    //MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+      //  myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 

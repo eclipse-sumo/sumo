@@ -18,7 +18,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: MSDevice_CPhone.h,v $
 // Revision 1.14  2006/12/06 17:02:23  ericnicolay
 // added documentation
 //
@@ -95,13 +95,14 @@ public:
     State GetState() const;
     int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
+    int SetState(State s, int Duration );
     SUMOTime changeState();
 	void setCurrentCellId( unsigned int id ){ mycurrentCellId = id; };
 	int getCurrentCellId(){return mycurrentCellId;};
     void setCurrentLAId( unsigned int id ){ mycurrentLAId = id; };
 	int getCurrentLAId(){return mycurrentLAId;};
     void onDepart();
-	int getCallId(){return callid;};
+	int getCallId(){return myCallId;};
 	std::string getId(){return myId;};
 	void invalidateCommand();
 
@@ -141,7 +142,7 @@ private:
     MSVehicle &myVehicle;
 
     static int gCallID;
-	int callid;
+	int myCallId;
     MyCommand *myCommand;
 
 	/*this id reminds the cell-id the phone is currently in*/
