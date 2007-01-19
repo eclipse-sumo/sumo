@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: MSE1VehicleActor.cpp,v $
 // Revision 1.14  2006/12/06 17:00:24  ericnicolay
 // added new output for cellphone_dump
 //
@@ -144,8 +144,7 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
         // detector not reached yet
         return true;
     }
-
-    /*in welchen zustand ist das handy?????????*/
+    
     if( _ActorType == 1 ) { /* 1 == cell/la */
         /*get a pointer to the PhoneNet*/
         MSPhoneNet *pPhone = MSNet::getInstance()->getMSPhoneNet();
@@ -155,6 +154,10 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
         /*now change each mobile for the old cell to the new one*/
         for(int np=0; np<noCellPhones; np++){
             MSDevice_CPhone *cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+            assert( cp != 0 );
+
+            /* first buffer the old la, if we might change it*/
+            int oldLAId = cp->getCurrentLAId();
             
             /* set the current cell id an LA id*/
             cp->setCurrentCellId(_AreaId);
@@ -164,55 +167,61 @@ MSE1VehicleActor::isStillActive( MSVehicle& veh,
 			MSDevice_CPhone::State state = cp->GetState();
             
             if(state!=MSDevice_CPhone::STATE_OFF) {
+                // at first we have a look on the current la_id and the old one. if they are equal the is no reason
+                // to do anything.
+                if ( oldLAId != _LAId && oldLAId != -1 ){
+                    pPhone->addLAChange( toString ( oldLAId ) + toString( _LAId ) );
+                }
+                /*
                 // move to the next la if the phone is not off
                 MSPhoneLA *oldLA = pPhone->getCurrentVehicleLA(cp->getId());
                 MSPhoneLA *newLA = pPhone->getMSPhoneLA(_AreaId);
                 assert(newLA!=0);
-                /*if the pointer to the old LA is NULL this mobile wasnt in a LA befor, in this case we dont have
-                  o deregister it from the old cell*/
-                if( oldLA!=0 ){/*be sure, that the old la isnt the same as the new la; 
-                                 if true there is no reason for a change*/
+                //if the pointer to the old LA is NULL this mobile wasnt in a LA befor, in this case we dont have
+                  //o deregister it from the old cell
+                if( oldLA!=0 ){//be sure, that the old la isnt the same as the new la; 
+                               //if true there is no reason for a change
                     if(oldLA!=newLA){
                         oldLA->remCall(cp->getId());
                         newLA->addCall(cp->getId());
+                        pPhone->addLAChange( toString( oldLA->getPositionId() ) + toString( newLA->getPositionId() ) );
                     }
-                } else {/*there is no old LA*/
+                } else //there is no old LA
 				    newLA->addCall(cp->getId());
-                }
+                }*/
             }
 
             MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getId());
             MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
-            assert(newCell!=0);
+            
+            if( oldCell != 0 )
+                oldCell->remCPhone( cp->getId() );
+            assert ( newCell != 0 );
+            newCell->addCPhone( cp->getId(), cp );
+
             switch(cp->GetState())
 			{
             case MSDevice_CPhone::STATE_OFF:
-                // remove the call from the old cell if the phone is switched off
-                if ( oldCell != 0 ) {
-                    oldCell->remCall(cp->getId());
-                }
                 break;
             case MSDevice_CPhone::STATE_IDLE:
-                // remove the call from the old cell if the phone is in idle mode
-                if ( oldCell != 0 ) {
-                    oldCell->remCall(cp->getId());
-                }
                 break;
             case MSDevice_CPhone::STATE_CONNECTED_IN:
+                assert ( cp->getCallId() != -1 );
                 // remove the call from the old cell
                 if ( oldCell != 0 ) {
-                    oldCell->remCall(cp->getId());
+                    oldCell->remCall(cp->getCallId());
                 }
                 // move to the new cell if the phone is connected
-                newCell->addCall(cp->getId(), DYNIN );
+                newCell->addCall(cp->getCallId(), DYNIN );
                 myPassedConnectedCPhonesNo++;
                 break;
             case MSDevice_CPhone::STATE_CONNECTED_OUT:
+                assert ( cp->getCallId() != -1 );
                 // move to the new cell if the phone is connected
                 if ( oldCell != 0 ) {
-                    oldCell->remCall(cp->getId());
+                    oldCell->remCall(cp->getCallId());
                 }
-                newCell->addCall(cp->getId(), DYNOUT );
+                newCell->addCall(cp->getCallId(), DYNOUT );
                 myPassedConnectedCPhonesNo++;
 			    break;
             }
