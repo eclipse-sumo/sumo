@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+  <edge fromnode="1" id="1to2" tonode="2" />
+
+  <edge fromnode="2" id="out" tonode="3" />
+</edges>

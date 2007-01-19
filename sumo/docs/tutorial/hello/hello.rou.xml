@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+  <vtype accel="1.0" decel="5.0" id="Car" length="2.0" maxspeed="100.0"
+         sigma="0" />
+
+  <route id="route0">1to2 out</route>
+
+  <vehicle depart="1" id="veh0" route="route0" type="Car" />
+</routes>
