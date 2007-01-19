@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: MSNet.cpp,v $
 // Revision 1.101  2007/01/11 06:33:53  dkrajzew
 // speeded up c2c computation
 //
@@ -690,21 +690,22 @@ MSNet::~MSNet()
     for(MSMeanData_Net_Cont::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
         delete *i1;
     }
-    // close outputs
-    for(size_t i2=0; i2<OS_MAX&&i2<myOutputStreams.size(); i2++) {
-        delete myOutputStreams[i2];
-    }
     myMeanData.clear();
     delete myEdges;
     delete myEmitter;
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
+    delete myMSPhoneNet;
+    myMSPhoneNet = 0;
     delete myShapeContainer;
     delete myTriggerControl;
-	delete myMSPhoneNet;
 	delete myCellsBuilder;
-	myMSPhoneNet = 0;
+	// close outputs
+    for(size_t i2=0; i2<OS_MAX&&i2<myOutputStreams.size(); i2++) {
+        delete myOutputStreams[i2];
+    }
+    
     clearAll();
     GeoConvHelper::close();
 }
