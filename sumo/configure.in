@@ -90,7 +90,22 @@ AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
 dnl ---------------------------------------------
 dnl check for libraries...
 dnl - - - - - - - - - - - - - - - - - - - - - - -
+search_path="/usr /usr/local /opt"
+
 dnl  ... for xerces
+AC_ARG_WITH(xerces,
+    [  --with-xerces=DIR           where Xerces-C is installed (libraries in DIR/lib, headers in DIR/include).],
+    [  ac_xerces="$withval"
+    ])
+if test x"$ac_xerces" != x; then
+   if test x"$ac_xerces_libraries" = x; then
+      ac_xerces_libraries=$ac_xerces/lib
+   fi
+   if test x"$ac_xerces_includes" = x; then
+      ac_xerces_includes=$ac_xerces/include
+   fi
+fi
+
 dnl   ... for libs
 AC_ARG_WITH(xerces-libraries,
     [  --with-xerces-libraries=DIR where the Xerces library is installed.],
@@ -99,30 +114,27 @@ AC_ARG_WITH(xerces-libraries,
 
 AC_MSG_CHECKING([for xerces-lib])
 if test x"$ac_xerces_libraries" = x; then
-   if test -e /usr/lib/libxerces.so; then
+   for xerces_path in $search_path ; do
+      if test -e $xerces_path/lib/libxerces.so; then
+         ac_xerces_lib_path=$xerces_path/lib
+         ac_xerceslib=xerces
+         break
+      elif test -e $xerces_path/lib/libxerces-c.so; then
+         ac_xerces_lib_path=$xerces_path/lib
+         ac_xerceslib=xerces-c
+         break
+      elif test -e $xerces_path/xerces/lib/libxerces.so; then
+         ac_xerces_lib_path=$xerces_path/xerces/lib
+         ac_xerceslib=xerces
+         break
+      elif test -e $xerces_path/xerces/lib/libxerces-c.so; then
+         ac_xerces_lib_path=$xerces_path/xerces/lib
+         ac_xerceslib=xerces-c
+         break
+      fi
+   done
+   if test x"$ac_xerces_lib_path" != x; then
       AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/lib
-      ac_xerceslib=xerces
-   elif test -e /usr/lib/libxerces-c.so; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/lib
-      ac_xerceslib=xerces-c
-   elif test -e /usr/local/lib/libxerces.so; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/local/lib
-      ac_xerceslib=xerces
-   elif test -e /usr/local/lib/libxerces-c.so; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/local/lib
-      ac_xerceslib=xerces-c
-   elif test -e /usr/local/xerces/lib/libxerces.so; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/local/xerces/lib/
-      ac_xerceslib=xerces
-   elif test -e /usr/local/xerces/lib/libxerces-c.so; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path=/usr/local/xerces/lib/
-      ac_xerceslib=xerces-c
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
@@ -154,15 +166,17 @@ AC_ARG_WITH(xerces-includes,
 
 AC_MSG_CHECKING([for xerces-includes])
 if test x"$ac_xerces_includes" = x; then
-   if test -e /usr/include/xercesc; then
+   for xerces_path in $search_path ; do
+      if test -e $xerces_path/include/xercesc; then
+         ac_xerces_includes=$xerces_path/include
+         break
+      elif test -e $xerces_path/xerces/include; then
+         ac_xerces_includes=$xerces_path/xerces/include
+         break
+      fi
+   done
+   if test x"$ac_xerces_includes" != x; then
       AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/include
-   elif test -e /usr/local/include/xercesc; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/include
-   elif test -e /usr/local/xerces/include; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_includes=/usr/local/xerces/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])
@@ -183,26 +197,46 @@ AC_SUBST(XERCES_INCLUDES_PRIOR_1_7)
 
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for proj and gdal
+AC_ARG_WITH(proj-gdal,
+    [  --with-proj-gdal=DIR        where PROJ and GDAL are installed (libraries in DIR/lib, headers in DIR/include).],
+    [  ac_proj_gdal="$withval"
+    ])
+if test x"$ac_proj_gdal" != x; then
+   if test x"$ac_proj_libraries" = x; then
+      ac_proj_libraries=$ac_proj_gdal/lib
+   fi
+   if test x"$ac_proj_includes" = x; then
+      ac_proj_includes=$ac_proj_gdal/include
+   fi
+   if test x"$ac_gdal_libraries" = x; then
+      ac_gdal_libraries=$ac_proj_gdal/lib
+   fi
+   if test x"$ac_gdal_includes" = x; then
+      ac_gdal_includes=$ac_proj_gdal/include
+   fi
+fi
+
 dnl  ... for proj.4
 dnl   ... for libs
 AC_ARG_WITH(proj-libraries,
-    [  --with-proj-libraries=DIR where the PROJ library is installed.],
+    [  --with-proj-libraries=DIR   where the PROJ library is installed (overrides previous settings).],
     [  ac_proj_libraries="$withval"
     ])
 
 AC_MSG_CHECKING([for proj-lib])
 if test x"$ac_proj_libraries" = x; then
-   if test -e /usr/lib/libproj.so; then
+   for proj_path in $search_path ; do
+      if test -e $proj_path/lib/libproj.so; then
+         ac_proj_lib_path=$proj_path/lib
+         break
+      elif test -e $proj_path/proj/lib/libproj.so; then
+         ac_proj_lib_path=$proj_path/proj/lib
+         break
+      fi
+   done
+   if test x"$ac_proj_lib_path" != x; then
       AC_MSG_RESULT([yes])
-      ac_proj_lib_path=/usr/lib
-      ac_projlib=proj
-   elif test -e /usr/local/lib/libproj.so; then
-      AC_MSG_RESULT([yes])
-      ac_proj_lib_path=/usr/local/lib
-      ac_projlib=proj
-   elif test -e /usr/local/xerces/lib/libproj.so; then
-      AC_MSG_RESULT([yes])
-      ac_proj_lib_path=/usr/local/xerces/lib/
       ac_projlib=proj
    else
       AC_MSG_RESULT([no])
@@ -224,22 +258,24 @@ LIB_PROJ="$ac_projlib"
 AC_SUBST(LIB_PROJ)
 dnl   ... for includes
 AC_ARG_WITH(proj-includes,
-    [  --with-proj-includes=DIR  where the PROJ includes are. ],
+    [  --with-proj-includes=DIR    where the PROJ includes are (overrides previous settings).],
     [
        ac_proj_includes="$withval"
     ])
 
 AC_MSG_CHECKING([for proj-includes])
 if test x"$ac_proj_includes" = x; then
-   if test -e /usr/include/proj/src/proj_api.h; then
+   for proj_path in $search_path ; do
+      if test -e $proj_path/include/proj/src/proj_api.h; then
+         ac_proj_includes=$proj_path/include/proj/src/
+         break
+      elif test -e $proj_path/include/proj_api.h; then
+         ac_proj_includes=$proj_path/include/
+         break
+      fi
+   done
+   if test x"$ac_proj_includes" != x; then
       AC_MSG_RESULT([yes])
-      ac_proj_includes=/usr/include/proj/src/
-   elif test -e /usr/include/proj_api.h; then
-      AC_MSG_RESULT([yes])
-      ac_proj_includes=/usr/include/
-   elif test -e /usr/local/include/proj_api.h; then
-      AC_MSG_RESULT([yes])
-      ac_proj_includes=/usr/local/include/
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([proj-includes not found. Specify path with option --with-proj-includes=DIR.])
@@ -256,10 +292,85 @@ PROJ_INCLUDES="$ac_proj_includes"
 AC_SUBST(PROJ_INCLUDES)
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for gdal
+dnl   ... for libs
+AC_ARG_WITH(gdal-libraries,
+    [  --with-gdal-libraries=DIR   where the GDAL library is installed (overrides previous settings).],
+    [  ac_gdal_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for gdal-libraries])
+if test x"$ac_gdal_libraries" = x; then
+   for gdal_path in $search_path ; do
+      if test -e $gdal_path/lib/libgdal.so; then
+         ac_gdal_lib_path=$gdal_path/lib
+         break
+      elif test -e $gdal_path/gdal/lib/libgdal.so; then
+         ac_gdal_lib_path=$gdal_path/gdal/lib
+         break
+      fi
+   done
+   if test x"$ac_gdal_lib_path" != x; then
+      AC_MSG_RESULT([yes])
+      ac_gdallib=gdal
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_gdal_libraries/libgdal.so"; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_lib_path="$ac_gdal_libraries"
+      ac_gdallib=gdal
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-lib not found in "$ac_gdal_libraries".])
+   fi
+fi
+GDAL_LDFLAGS="$ac_gdal_lib_path"
+AC_SUBST(GDAL_LDFLAGS)
+LIB_GDAL="$ac_gdallib"
+AC_SUBST(LIB_GDAL)
+
+dnl   ... for includes
+AC_ARG_WITH(gdal-includes,
+    [  --with-gdal-includes=DIR    where the GDAL includes are (overrides previous settings).],
+    [
+       ac_gdal_includes="$withval"
+    ])
+AC_MSG_CHECKING([for gdal-includes])
+if test x"$ac_gdal_includes" = x; then
+   for gdal_path in $search_path ; do
+      if test -e $gdal_path/include/gdal; then
+         ac_gdal_includes=$gdal_path/include/gdal
+         break
+      elif test -e $gdal_path/include/ogrsf_frmts.h; then
+         ac_gdal_includes=$gdal_path/include/
+         break
+      fi
+   done
+   if test x"$ac_gdal_includes" != x; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])
+   fi
+else
+   if test -e "$ac_gdal_includes/ogrsf_frmts.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-includes not found in "$ac_gdal_includes".])
+   fi
+fi
+GDAL_INCLUDES="$ac_gdal_includes"
+AC_SUBST(GDAL_INCLUDES)
+
+dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
 dnl   ... for libs
 AC_ARG_WITH(fox-libraries,
-    [  --with-fox-libraries=DIR where the FOX library is installed.],
+    [  --with-fox-libraries=DIR    where the Fox library is installed.],
     [  ac_fox_libraries="$withval"
     ])
 
@@ -301,7 +412,7 @@ AC_SUBST(LIB_FOX)
 
 dnl   ... for includes
 AC_ARG_WITH(fox-includes,
-    [  --with-fox-includes=DIR  where the Fox includes are. ],
+    [  --with-fox-includes=DIR     where the Fox includes are. ],
     [
        ac_fox_includes="$withval"
     ])
@@ -331,86 +442,6 @@ fi
 FOX_INCLUDES="$ac_fox_includes"
 AC_SUBST(FOX_INCLUDES)
 AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_lib_path" != x])
-
-dnl - - - - - - - - - - - - - - - - - - - - - - -
-dnl  ... for gdal
-dnl   ... for libs
-AC_ARG_WITH(gdal-libraries,
-    [  --with-gdal-libraries=DIR where the GDAL library is installed.],
-    [  ac_gdal_libraries="$withval"
-    ])
-
-AC_MSG_CHECKING([for gdal-libraries])
-if test x"$ac_gdal_libraries" = x; then
-   if test -e /usr/lib/libgdal.so; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_lib_path=/usr/lib
-      ac_gdallib=gdal
-   elif test -e /usr/local/lib/libgdal.so; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_lib_path=/usr/local/lib
-      ac_gdallib=gdal
-   elif test -e /usr/local/gdal/lib/libgdal.so; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_lib_path=/usr/local/gdal/lib/
-      ac_gdallib=gdal
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_RESULT([gdal-lib not found.])
-      AC_MSG_ERROR([Specify path with option --with-gdal-libraries=DIR.])
-   fi
-else
-   if test -e "$ac_gdal_libraries/libgdal.so"; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_lib_path="$ac_gdal_libraries"
-      ac_gdallib=gdal
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([gdal-lib not found in "$ac_gdal_libraries".])
-   fi
-fi
-GDAL_LDFLAGS="$ac_gdal_lib_path"
-AC_SUBST(GDAL_LDFLAGS)
-LIB_GDAL="$ac_gdallib"
-AC_SUBST(LIB_GDAL)
-
-dnl   ... for includes
-AC_ARG_WITH(gdal-includes,
-    [  --with-gdal-includes=DIR  where the GDAL includes are. ],
-    [
-       ac_gdal_includes="$withval"
-    ])
-AC_MSG_CHECKING([for gdal-includes])
-if test x"$ac_gdal_includes" = x; then
-   if test -e /usr/include/gdal; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_includes=/usr/include/gdal
-   elif test -e /usr/include/gdal.h; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_includes=/usr/include
-   elif test -e /usr/local/include/gdal; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_includes=/usr/local/include/gdal
-   elif test -e /usr/local/include/gdal.h; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_includes=/usr/local/include
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_RESULT([gdal-includes not found.])
-      AC_MSG_RESULT([Specify path with option --with-gdal-includes=DIR.])
-   fi
-else
-   if test -e "$ac_gdal_includes/ogr/ogr_api.h"; then
-      AC_MSG_RESULT([yes])
-   elif test -e "$ac_gdal_includes/ogr_api.h"; then
-      AC_MSG_RESULT([yes])
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([gdal-includes not found in "$ac_gdal_includes".])
-   fi
-fi
-GDAL_INCLUDES="$ac_gdal_includes"
-AC_SUBST(GDAL_INCLUDES)
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for XmlRpc++
