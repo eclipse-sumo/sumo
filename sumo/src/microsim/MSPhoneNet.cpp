@@ -264,7 +264,7 @@ MSPhoneNet::setCellStatData(SUMOTime t)
 }
 
 void 
-MSPhoneNet::addLAChange( std::string & pos_id )
+MSPhoneNet::addLAChange( const std::string & pos_id )
 {
     std::map< std::string, int >::iterator it = myLAChanges.find( pos_id );
     if ( it == myLAChanges.end() )

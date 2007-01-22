@@ -113,7 +113,7 @@ public:
 	void setCellStatData(SUMOTime time);
 
 
-    void addLAChange( std::string &pos_id );
+    void addLAChange( const std::string &pos_id );
 
 private:
     void CallReminding( SUMOTime &t);
