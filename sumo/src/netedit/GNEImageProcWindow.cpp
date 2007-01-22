@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: GNEImageProcWindow.cpp,v $
 // Revision 1.17  2006/12/12 12:07:34  dkrajzew
 // made the base value for incremental dua changeable
 //
@@ -451,7 +451,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             OptionsCont &oc = OptionsSubSys::getOptions();
             oc.clear();
             myNetBuilder->insertNetBuildOptions(oc);
-            // add rand and dev options
+            // add rand options
             RandHelper::insertRandOptions(oc);
             oc.set("verbose", true);
             //
