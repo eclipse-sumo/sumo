@@ -154,8 +154,8 @@ using namespace std;
 GUIAbstractRunThread::GUIAbstractRunThread(GUIApplicationWindow *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
-    : FXSingleEventThread(parent->getApp(), parent), //_parent(parent),
-    _net(0), _quit(false), _simulationInProgress(false), _ok(false),
+    : FXSingleEventThread(parent->getApp(), parent), 
+    _net(0), _quit(false), _simulationInProgress(false), _ok(true),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIAbstractRunThread>(this,

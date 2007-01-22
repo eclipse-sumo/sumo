@@ -187,8 +187,8 @@ using namespace std;
 GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
-    : FXSingleEventThread(gFXApp, parent), //_parent(parent),
-    _net(0), _quit(false), _simulationInProgress(false), _ok(false),
+    : FXSingleEventThread(gFXApp, parent), 
+    _net(0), _quit(false), _simulationInProgress(false), _ok(true),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
@@ -216,8 +216,6 @@ GUIRunThread::~GUIRunThread()
 void
 GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 {
-    // delete a maybe existing simulation
-//    deleteSim();
     // assign new values
     _net = net;
     _simStartTime = start;
@@ -247,12 +245,16 @@ GUIRunThread::run()
                     getNet().setIdleDuration((int) (beg-end2));
                 }
             }
+            // check whether we shall stop at this step
             bool haltAfter =
                 find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
+            // do the step
             makeStep();
+            // stop if wished
             if(haltAfter) {
                 stop();
             }
+            // wait if wanted
             SUMOReal val = (SUMOReal) mySimDelay.getValue();
             if(getNet().logSimulationDuration()) {
                 end = SysUtils::getCurrentMillis();
@@ -263,7 +265,7 @@ GUIRunThread::run()
                 sleep((int) val);
             }
         } else {
-            // sleep otherwise
+            // sleep if the siulation is not running
             sleep(500);
         }
     }
@@ -368,7 +370,6 @@ GUIRunThread::begin()
 #ifndef _DEBUG
     try {
 #endif
-        _simulationInProgress = true;
         _step = _simStartTime;
         _single = false;
         _halting = false;
