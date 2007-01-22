@@ -7,4 +7,5 @@ sumo.doxyconf
 
 dist-hook:
 	cd $(srcdir)
+	cp --parents `find prj/msvc6 -name "*.dsw" -o -name "*.dsp"` $(distdir)
 	cp --parents `find prj -name "*.vcproj" -o -name "*.sln"` $(distdir)
