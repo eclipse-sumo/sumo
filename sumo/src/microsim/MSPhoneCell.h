@@ -46,7 +46,7 @@
 #include <vector>
 #include <map>
 #include "MSCORN.h"
-#include "devices\MSDevice_CPhone.h"
+#include "devices/MSDevice_CPhone.h"
 
 enum CallType{
 	STATICIN,
