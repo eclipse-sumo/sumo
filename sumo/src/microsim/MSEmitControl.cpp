@@ -23,7 +23,7 @@ namespace
     "$Id$";
 }
 
-// $Log$
+// $Log: MSEmitControl.cpp,v $
 // Revision 1.17  2006/07/06 07:33:22  dkrajzew
 // rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
 //
@@ -247,20 +247,17 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
         // Successful emission.
 		noEmitted++;
         veh->onDepart();
-            // Check whether another vehicle shall be
-            //  emitted with the same parameter
+        // Check whether another vehicle shall be
+        //  emitted with the same parameter
         if(veh->periodical()) {
             MSVehicle *nextPeriodical = veh->getNextPeriodical();
             if(nextPeriodical!=0) {
                 myNewPeriodicalAdds.push_back(nextPeriodical);
-                // !!! add some kind of a check and an error
-                //  handler, here
                 myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
             }
         }
     } else {
-        // Emission not successful. Store for next-timestep
-        // retry in the next step
+        // Emission not successful, retry in the next step
         refusedEmits.push_back(veh);
         edge.setLastFailedEmissionTime(time);
     }
