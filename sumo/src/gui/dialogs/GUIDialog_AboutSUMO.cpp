@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: GUIDialog_AboutSUMO.cpp,v $
 // Revision 1.10  2006/03/08 12:59:35  dkrajzew
 // add a link to the "about" dialog
 //
@@ -252,7 +252,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
 
     new FXLabel(f3, "(c) Institute of Transportation Research/DLR and ZAIK",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,5,0);
-    new FXLabel(f3, "2000-2006",
+    new FXLabel(f3, "2000-2007",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
     FXLinkLabel *link = new FXLinkLabel(f3, "http://sumo.sourceforge.net",
