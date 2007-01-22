@@ -27,10 +27,10 @@ You can download SUMO and all needed libraries from SourceForge via our download
 
 
 As the program is still under development and is extended continuously, we advice you to
-use the latest sources from our CVS. Using a command line CVS client the following
-command should work:
+use the latest sources from our Subversion repository. Using a command line svn client
+the following command should work:
 
-        cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo co -P sumo
+        svn co https://sumo.svn.sourceforge.net/svnroot/sumo/trunk/sumo
 
 
 
@@ -49,13 +49,17 @@ sumo-announce-request@lists.sourceforge.net.
 Installation.
 =============
 
-For Windows compile we provide pre-compiled binaries and for the CVS users the MSVC
-project files. Using Linux a simple "./configure && make" should be enough for the
-distributions, if you have properly installed all needed libraries. Using CVS you
+For Windows provide pre-compiled binaries and MSVC project files (version 6,7, and 8).
+Using Linux a simple "./configure && make" should be enough for the distributions, if you
+have installed all needed libraries properly. Using the repository checkout you
 need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
 the autoconf utilities creating configure and the Makefiles.
 If configure does not find the libraries or includes needed, please check
 "./configure --help" for information on how to specify the paths needed.
+
+For detailed build instructions have a look at our wiki:
+
+        http://sumo.sourceforge.net/wiki/
 
 
 
