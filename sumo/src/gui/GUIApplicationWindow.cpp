@@ -687,11 +687,11 @@ GUIApplicationWindow::buildToolBars()
             LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
             TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar4, "Delay:", 0, LAYOUT_CENTER_X);
+        new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_X);
         mySimDelayTarget =
-            new FXRealSpinDial(myToolBar4, 10, 0, MID_SIMDELAY,
+            new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
             LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        mySimDelayTarget->setFormatString("%.0fms");
+        mySimDelayTarget->setNumberFormat(0);
         mySimDelayTarget->setIncrements(1,10,10);
         mySimDelayTarget->setRange(0,1000);
         mySimDelayTarget->setValue(0);
