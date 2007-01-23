@@ -1,74 +1,79 @@
 SUMO duarouter
- (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  Version 0.9.6
- Shortest path router for the microscopic road traffic simulation SUMO.
+ 
+Shortest path router and DUE computer for the microscopic road traffic
+  simulation SUMO.
 
-Usage: (sumo-)duarouter(.exe) [OPTION]*
+Usage: duarouter.exe [OPTION]*
+ 
+ Example:
+  duarouter.exe -c <CONFIGURATION>
+ 
+ Configuration Options:
+  -c, --configuration-file FILE       Loads the named config on startup
 
-Examples:
-  sumo-duarouter -c routes_munich.cfg
+ Input Options:
+  -n, --net-file FILE                 Use FILE as SUMO-network to route on
+  -a, --alternatives FILE             Read alternatives from FILE
+  -w, --weights FILE                  Read network weights from FILE
+  -l, --lane-weights FILE             Read lane-weights from FILE
+  -t, --trip-defs FILE                Read trip-definitions from FILE
+  -f, --flow-definition FILE          Read flow-definitions from FILE
+  -s, --sumo-input FILE               Read sumo-routes from FILE
+  --cell-input FILE                   Read cell-routes from FILE
+  --artemis-input FILE                Read artemis-routes from FILE
+  --save-cell-rindex                  Save Cell route indices
+  --intel-cell                        Flip byte order on reading Cell-routes
+  --no-last-cell                      Use best, not the last cell-route
+  -S, --supplementary-weights FILE    Read additional weights from FILE
 
-Options:
- Input files:
-  Configuration
-   -c, --configuration FILE    FILE will be used as configuration
-
-  Network description:
-   -n, --net-file FILE         FILE containing the SUMO-net
-   -w, --weights FILE          FILE containing the weights of the net
-   -S, --supplementary-weights FILE
-                                 FILE containing the supplementary-weights
-                                   of the net
-
-  Route descriptions:
-   -t, --trip-defs FILE        FILE containing trip definitions
-   -f, --flow-definition FILE  FILE containing flow definition
-   -a, --alternatives FILE     FILE containing route alternatives
-   -s, --sumo-input FILE       FILE containing SUMO-routes
-   --cell-input FILE           FILE containing cell routes
-   --artemis-input FILE        FILE containing cell routes
-   -R, --random-per-second FLOAT   Builds (additional) random routes
-
- Output files:
-   -o, --output-file FILE      Generated routes will be written to FILE
-                                 Additionally, a file with route
-                                 alternatives will be generated as
-                                 'FILE.alt'
-   --save-cell-rindex          The index to cell-routes will be saved
-
- Time Description Options:
-   -b, --begin INT             The begin time of routing
-   -e, --end INT               The end time of routing
-
- Computation Variables Settings:
-   --gBeta FLOAT               Gawron-Beta for DUA
-   --gA FLOAT                  Gawron-A for DUA
-   --intel-cell                Set, when reading cell-routes computed
-                                 on an Intel-machine
-   --no-last-cell              Use best, not the last cell-route
+ Output Options:
+  -o, --output-file FILE              Write generated routes to FILE
 
  Processing Options:
-   --unsorted                  The routes are assumed to be unsorted
-   --continue-on-unbuild       Continue if a route could not be build
-   --move-on-short              Move vehicles on too short edges forward
- Defaults:
-   -V, --krauss-vmax FLOAT    Default value for krauss' vmax
-   -A, --krauss-a FLOAT       Default value for krauss' max. accel
-   -B, --krauss-b FLOAT       Default value for krauss' max. decel
-   -L, --krauss-length FLOAT  Default value for krauss' vehicle length
-   -E, --krauss-eps FLOAT     Default value for krauss' driver imperf.
+  --continue-on-unbuild               Continue if a route could not be build
+  --unsorted                          Set to process unsorted lists
+  --randomize-flows                   
+  --move-on-short                     Move vehicles to the next edge if the
+                                        first is too short
+  --max-alternatives INT              Prune the number of alternatives to INT
+  -R, --random-per-second FLOAT       Emit FLOAT random vehicles per second
+  --prune-random                      
+  --remove-loops                      
+  --expand-weights                    Expand weight behind the simulation's end
+  -x, --scheme STR                    
+  --gBeta FLOAT                       Use FLOAT as Gawron's beta
+  --gA FLOAT                          Use FLOAT as Gawron's alpha
+
+ Generated Vehicles Options:
+  -V, --krauss-vmax FLOAT             Defines emitted vehicles' max. velocity
+  -A, --krauss-a FLOAT                Defines emitted vehicles' max.
+                                        acceleration
+  -B, --krauss-b FLOAT                Defines emitted vehicles' max.
+                                        deceleration
+  -L, --krauss-length FLOAT           Defines emitted vehicles' length
+  -E, --krauss-eps FLOAT              Defines emitted vehicles' driver
+                                        imperfection
+
+ Time Options:
+  -b, --begin INT                     Defines the begin time;
+                                        Previous trips will be discarded
+  -e, --end INT                       Defines the end time;
+                                        Later trips will be discarded
+
+ Report Options:
+  -v, --verbose                       Switches to verbose output
+  -W, --suppress-warnings             Disables output of warnings
+  -p, --print-options                 Prints option values before processing
+  -?, --help                          Prints this screen
+  --log-file FILE                     Writes all messages to FILE
+  --stats-period INT                  Defines how often statistics shall be
+                                        printed
 
  Random Number Options:
-   --srand INT                 Initialises the random number generator
-                                 with the given value
-   --abs-rand                  Set this when the current time shall be
-                                 used for random number initialisation
+  --srand INT                         Initialises the random number generator
+                                        with the given value
+  --abs-rand                          Initialises the random number generator
+                                        with the current system time
 
- Report options:
-   -v, --verbose              Verbose reports
-   -W, -suppress-warnings     No warnings will be printed
-   -l, -log-file FILE         Writes all messages to the file
-   -p, -print-options         Prints option values before processing
-   -?, --help                 This screen
-   --version                       Prints the program version
-   --stats-period INT         Step number to pass between status output

@@ -4,6 +4,9 @@
 # Tests what happens if an unknown option is passed
 unknown_option
 
+# Tests what happens the first parameter is missing
+missing_first_param
+
 # Tests what happens if mean data constrains are incomplete (first begin is missing)
 meandata_edges_missing_begin1
 
@@ -24,6 +27,12 @@ meandata_edges_missing_end_divider
 
 # Tests what happens if the order is false (begin>=end)
 meandata_edges_false_order
+
+# Tests what happens if the user uses a route containing only one edge
+one_edge_route
+
+# Tests what happens if a vehicle is longer that the route it shall start at
+too_long_vehicle
 
 
 

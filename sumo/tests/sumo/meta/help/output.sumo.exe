@@ -1,94 +1,125 @@
 SUMO sumo
- (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  Version 0.9.6
- A microscopic road traffic simulation.
+ 
+A microscopic road traffic simulation.
 
-Usage: sumo(.exe) [OPTION]*
+Usage: sumo.exe [OPTION]*
+ 
+ Examples:
+  sumo.exe -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo.exe -c munich_config.cfg
+  sumo.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
+  sumo.exe --help
+ 
+ Configuration Options:
+  -c, --configuration-file FILE       Loads the named config on startup
 
+ Input Options:
+  -n, --net-file FILE                 Load road network description from FILE
+  -r, --route-files FILE              Load further descriptions from FILE(s)
+  -r, --route-files FILE              Load further descriptions from FILE(s)
+  -w, --weight-files FILE             Load weights from FILE
+  --load-state FILE                   Loads a network state from FILE
 
-Examples:
-  sumo -b 0 -e 1000 -n net.xml -r routes.xml -C
-  sumo -c munich_config.cfg
-  sumo --version
-  sumo --help
+ Output Options:
+  --netstate-dump FILE                Save complete network states into FILE
+  --emissions-output FILE             Save aggregated vehicle emission inf.
+                                        into FILE
+  --tripinfo-output FILE              Save single vehicle trip inf. into FILE
+  --vehroute-output FILE              Save single vehicle route inf. into FILE
+  --dump-intervals INT[]              Build edge-based network dumps for given
+                                        intervals
+  --dump-basename FILE                Save edge-based network dumps with FILE
+                                        as prefix
+  --lanedump-intervals INT[]          Build lane-based network dumps for given
+                                        intervals
+  --lanedump-basename FILE            Save lane-based network dumps with FILE
+                                        as prefix
+  --dump-empty-edges                  Write also empty edges completely when
+                                        dumping
+  --dump-begins INT[]                 Use INT[] as times at which a dump must
+                                        begin in order to be written
+  --dump-ends INT[]                   Use INT[] as times at which a dump must
+                                        end in order to be written
+  --save-state.times INT[]            Use INT[] as times at which a network
+                                        state written
+  --save-state.prefix FILE            Prefix for network states
 
-Options:
- Input files:
-   -n, --net-file FILE             FILE is a network file
-   -r, --route-files FILE[;FILE]*  FILE is a route file
-   -a, --additional-files FILE...  FILE is a detector file
-   -c, --configuration FILE        FILE will be used as configuration
-                                    1. Default: ./sumo.cfg
+ Time Options:
+  -b, --begin INT                     Defines the begin time;
+                                        The simulation starts at this time
+  -e, --end INT                       Defines the end time;
+                                        The simulation ends at this time
 
- Output files:
-   --emissions FILE                Writes statistics about vehicle emissions
-                                    to FILE
-   --tripinfo FILE                 Writes trip information for each vehicle
-                                    to FILE
-   --vehroutes FILE                Writes route information for each vehicle
-                                    to FILE
+ Processing Options:
+  -s, --route-steps INT               Load routes for the next INT steps ahead
+  -I, --use-internal-links            Enable internal links (must be in the
+                                        network)
+  --quit-on-accident                  Quit (with an error) if an accident
+                                        occures
+  --check-accidents                   Check whether accidents occure more
+                                        deeply
+  --too-slow-rtf FLOAT                Quit simulation if the rtf gets too small
+  --incremental-dua-step INT          Perform the simulation as a step in
+                                        incremental DUA
+  --incremental-dua-base INT          Base value for incremental DUA
+  --time-to-teleport INT              
+  --time-to-teleport INT              
+  --time-to-teleport INT              
+  --time-to-teleport INT              
+  --default-lanechange-model STR      
+  --no-duration-log                   
 
-   --dump-basename PATH            PATH is the name and path prefix that
-                                    of edge-based net loads destination
-                                   To use in conjunction with --dump-intervals
-   --dump-intervals UINT[;UINT]*   UINT is a positive integer time interval
-                                    of edge-based net loads
-                                   To use in conjunction with --dump-basename
+ TLS Defaults Options:
+  --agent-tl.detector-len FLOAT       
+  --agent-tl.learn-horizon INT        
+  --agent-tl.decision-horizon INT     
+  --agent-tl.min-diff FLOAT           
+  --agent-tl.tcycle INT               
+  --actuated-tl.detector-pos FLOAT    
+  --actuated-tl.max-gap FLOAT         
+  --actuated-tl.detector-gap FLOAT    
+  --actuated-tl.passing-time FLOAT    
 
-   --lanedump-basename PATH        PATH is the name and path prefix that
-                                    of lane-based net loads destination
-                                   To use in c. with --lanedump-intervals
-   --lanedump-intervals UINT...    UINT is a positive integer time interval
-                                    of lane-based net loads
-                                   To use in c. with --lanedump-basename
+ C2C Options:
+  --device.c2x.probability FLOAT      The probability for a vehicle to have c2c
+  --device.c2x.knownveh STR           Assign a device to named vehicles
+  --device.c2x.range FLOAT            The range of the c2c device
+  --device.c2x.keep-duration INT      Duration of keeping messages
+  --device.c2x.insert-info-factor FLOAT  Factor for adding messages
+  --c2x.cluster-info FILE             Save cluster information into FILE
+  --c2x.edge-near-info FILE           Save 'connected' edges into FILE
+  --c2x.saved-info FILE               
+  --c2x.saved-info-freq FILE          
+  --c2x.transmitted-info FILE         Save transmitted information into FILE
+  --c2x.vehicle-in-range FILE         Save names of connected vehicles into
+                                        FILE
 
-   --dump-begins UINT[;UINT]*      Begin time steps dump for writing dumps
-   --dump-ends UINT[;UINT]*        End time steps dump for writing dumps
+ Cellular Options:
+  --ss2-cellload-file FILE            
+  --ss2-output FILE                   
+  --ss2-cell-output FILE              
+  --ss2-la-output FILE                
+  --ss2-sql-output FILE               
+  --ss2-sql-cell-output FILE          
+  --ss2-sql-la-output FILE            
+  --cellphone-dump FILE               
+  --device.cell-phone.knownveh STR    
+  --device.cell-phone.probability FLOAT  
+  --device.cell-phone.amount.min FLOAT  
+  --device.cell-phone.amount.max FLOAT  
 
-   --netstate-dump  FILE           FILE is the raw output destination file
-   --dump-empty-edges              Forces SUMO to write edges in dump even
-                                    if they are empty.
-
- Simulation timing:
-   -b, --begin INT                 First time step of the simulation
-   -e, --end INT                   Last time step of the simulation
-   -s, --route-steps INT           The number of steps to read routes in
-                                   forward (default=0: read all routes)
- Simulation options:
-   --quit-on-accident              Quits when an accident occures
-   --time-to-teleport              Specifies maximum waiting time before
-                                    a vehicle is being teleported
-
- Traffic Lights Options:
-   --actuated-tl.detector-pos <FLOAT> The position of the detectors in front
-                                    of an actuated tls
-   --actuated-tl.max-gap <FLOAT>   The max gap an actuated tls shall use
-   --actuated-tl.detector-gap <FLOAT> unknown meaning
-   --actuated-tl.passing-time <FLOAT> The passing time used
-
-   --agent-tl.detector-len <FLOAT> The length of the e2-detectors that
-                                    compute the jam used by a agent based
-                                    traffic light logic in m
-   --agent-tl.learn-horizon <FLOAT> The learning horizon in s
-   --agent-tl.decision-horizon <FLOAT> The decision horizon
-   --agent-tl.min-diff <FLOAT>     The minimum difference in jam lengths
-                                   to make the tls react in m
-   --agent-tl.tcycle <FLOAT>       The cycle length of a tls in s
-
+ Report Options:
+  -v, --verbose                       Switches to verbose output
+  -W, --suppress-warnings             Disables output of warnings
+  -p, --print-options                 Prints option values before processing
+  -?, --help                          Prints this screen
+  -l, --log-file FILE                 Writes all messages to FILE
 
  Random Number Options:
-   --srand INT                 Initialises the random number generator
-                                 with the given value
-   --abs-rand                  Set this when the current time shall be
-                                 used for random number initialisation
- Report Options:
-   -v, --verbose                   SUMO will report what it does
-   -W, --suppress-warnings         No warnings will be printed
-   -l, --log-file FILE             Writes all messages to the file
-   -p, --print-options             Prints option values before processing
-   -?, --help                      This screen
-   --version                       Prints the program version
+  --srand INT                         Initialises the random number generator
+                                        with the given value
+  --abs-rand                          Initialises the random number generator
+                                        with the current system time
 
-
- RemoteServer Options:
-   --remote-port INT               Server port for remote controlled simulation runs
