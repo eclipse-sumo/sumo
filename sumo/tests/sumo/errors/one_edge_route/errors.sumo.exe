@@ -1,0 +1,1 @@
+Error: SUMO assumes each route to be at least two edges long ('route' has 1).
