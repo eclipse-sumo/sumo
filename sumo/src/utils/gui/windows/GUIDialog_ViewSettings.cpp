@@ -556,7 +556,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->showLinkDecals = myShowLaneDecals->getCheck()!=0;
     mySettings->showRails = myShowRails->getCheck()!=0;
     mySettings->drawEdgeName = myShowEdgeName->getCheck()!=0;
-    mySettings->edgeNameSize = myEdgeNameSizeDialer->getValue();
+    mySettings->edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
 
     if(myVehicleColoringInfoSource!=0) {
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
@@ -566,18 +566,18 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
         mySettings->drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
         mySettings->drawVehicleName = myShowVehicleName->getCheck()!=0;
-        mySettings->vehicleNameSize = myVehicleNameSizeDialer->getValue();
+        mySettings->vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
     }
 
     mySettings->drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
     mySettings->drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
     mySettings->drawJunctionName = myShowJunctionName->getCheck()!=0;
-    mySettings->junctionNameSize = myJunctionNameSizeDialer->getValue();
+    mySettings->junctionNameSize = (SUMOReal) myJunctionNameSizeDialer->getValue();
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
     mySettings->drawAddName = myShowAddName->getCheck()!=0;
-    mySettings->addNameSize = myAddNameSizeDialer->getValue();
+    mySettings->addNameSize = (SUMOReal) myAddNameSizeDialer->getValue();
 
     mySettings->poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     mySettings->minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();

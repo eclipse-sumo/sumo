@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: ROLoader.cpp,v $
 // Revision 1.32  2006/11/16 10:50:51  dkrajzew
 // warnings removed
 //
@@ -538,9 +538,8 @@ ROLoader::loadSupplementaryWeights( RONet& net )
 void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
 {
-    if(_options.getBool("v")) {
-        SUMOReal perc =
-            (SUMOReal) (time-start) / (SUMOReal) absNo;
+    if(_options.getBool("verbose")) {
+        SUMOReal perc = (SUMOReal) (time-start) / (SUMOReal) absNo;
         cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
         cout.setf ( ios::showpoint ) ; // print decimal point
         cout << setprecision( 2 );

@@ -913,7 +913,7 @@ DFDetectorCon::writeEmitterPOIs(const std::string &file,
 		DFDetector *det = *i;
         SUMOReal flow = flows.getFlowSumSecure(det->getID());
         SUMOReal col = flow / flows.getMaxDetectorFlow();
-        col = col / 2. + .5;
+        col = (SUMOReal) (col / 2. + .5);
         SUMOReal r, g, b;
         r = g = b = 0;
 		strm << "   <poi id=\"" << (*i)->getID() << ":" << flow;
