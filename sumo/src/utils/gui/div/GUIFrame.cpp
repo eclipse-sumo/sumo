@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: GUIFrame.cpp,v $
 // Revision 1.7  2006/08/01 07:35:30  dkrajzew
 // removed build number information
 //
@@ -71,24 +71,53 @@ namespace
 
 
 /* =========================================================================
- * member method definitions
+ * methods
  * ======================================================================= */
-
 void
 GUIFrame::fillInitOptions(OptionsCont &oc)
 {
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
+
+    
     oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
+    oc.addDescription("max-gl-width", "Open GL", ""); // !!!
+
     oc.doRegister("max-gl-height", 'h', new Option_Integer(1024));
+    oc.addDescription("max-gl-height", "Open GL", ""); // !!!
+
+
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
+    oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
+
     oc.doRegister("surpress-end-info", 'S', new Option_Bool(false));
+    oc.addDescription("surpress-end-info", "Process", "Suppresses the information about the simulation's end");
+
     oc.doRegister("no-start", 'N', new Option_Bool(false));
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("configuration", 'c', new Option_FileName());
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
-    oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
-    oc.doRegister("disable-textures", 'T', new Option_Bool(false));
+    oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
+
+
+    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false)); // !!!
+    oc.addDescription("allow-floating-aggregated-views", "Visualisation", "");
+
+    oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false)); // !!!
+    oc.addDescription("disable-aggregated-views", "Visualisation", "");
+
+    oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
+    oc.addDescription("disable-textures", "Visualisation", "");
+
+
+        // register report options
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
 }
 
 
