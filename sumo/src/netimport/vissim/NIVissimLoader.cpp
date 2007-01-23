@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: NIVissimLoader.cpp,v $
 // Revision 1.27  2006/02/13 07:20:23  dkrajzew
 // code beautifying
 //
@@ -410,7 +410,7 @@ NIVissimLoader::load(OptionsCont &options)
     if(!readContents(strm)) {
         return;
     }
-    postLoadBuild(options.getFloat("vissim-offset"));
+    postLoadBuild(options.getFloat("vissim.offset"));
 }
 
 

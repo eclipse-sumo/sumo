@@ -1559,7 +1559,7 @@
 
           <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
 
-   <remark>&lt;!-- The next four connection definitions are same as in
+   <remark>&lt;!-- The next four connection definitions are same as in 
         "Network with explicit edge-2-edge connections" --&gt;</remark>
    <sgmltag>&lt;connection from="1si" to="3o"/&gt;</sgmltag>
    <sgmltag>&lt;connection from="1si" to="2o"/&gt;</sgmltag>
@@ -2461,16 +2461,16 @@
         <para>Vissim-networks do possibly not contain explicit definitions of
         an edge's speed. We have to propagate once set velocities, but even
         then some edges' speeds may not be defined. The option
-        "<option>--vissim-default-speed</option>" may change the default speed
+        "<option>--vissim.default-speed</option>" may change the default speed
         used in the case an edge's speed is not defined. The default value for
         this parameter is 13.89m/s, being around 50km/h. The second parameter
-        "<option>--vissim-speed-norm</option>" describes the factor to
+        "<option>--vissim.speed-norm</option>" describes the factor to
         multiply a described flows maximum velocity to gain the velocity to
         use. The default value is 1.</para>
 
         <para>Furthermore, as we have to use geometrical heuristics, a further
         factor steers the process of converting Vissim-networks: simply
-        spoken, "<option>--vissim-offset</option>" holds the information how
+        spoken, "<option>--vissim.offset</option>" holds the information how
         near two nodes must be (in meters) to be joined.</para>
 
         <para>During import, different actions must be done which may yield in
@@ -2493,7 +2493,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option>--vissim-speed-norm
+            <term><option>--vissim.speed-norm
             <replaceable>&lt;SPEED_NORM_FACTOR&gt;</replaceable></option></term>
 
             <listitem>
@@ -2505,7 +2505,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option>--vissim-default-speed
+            <term><option>--vissim.default-speed
             <replaceable>&lt;DEFAULT_SPEED&gt;</replaceable></option></term>
 
             <listitem>
@@ -2516,7 +2516,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option>--vissim-offset
+            <term><option>--vissim.offset
             <replaceable>&lt;MAX_JOIN_DISTANCE&gt;</replaceable></option></term>
 
             <listitem>
@@ -2547,6 +2547,14 @@
 
         <para>Examples: none yet (we do not own a network we could give away
         for legal reasons)</para>
+
+        <para>Recent changes:</para>
+
+        <para>!!!</para>
+
+        <para>--vissim.speed-norm, --vissim.default-speed, and --vissim.offset
+        were named --vissim-speed-norm, --vissim-default-speed, and
+        --vissim-offset in version prior to 0.9.6.</para>
       </sect2>
 
       <sect2 id="user_chp04-other_input-visum">

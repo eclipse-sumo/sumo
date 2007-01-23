@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: NIVissimNodeCluster.cpp,v $
 // Revision 1.18  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -225,8 +225,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
                 "actuated_traffic_light");
         }
     }*/
-    NBNode *node = new NBNode(getNodeName(), pos,
-        NBNode::NODETYPE_PRIORITY_JUNCTION);
+    NBNode *node = new NBNode(getNodeName(), pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
     if(!nc.insert(node)) {
         delete node;
         throw 1;
