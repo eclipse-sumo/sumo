@@ -21,7 +21,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: Option.h,v $
 // Revision 1.9  2005/10/07 11:46:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,17 +112,21 @@ typedef std::vector<int> IntVector;
  * @class Option
  * The base class for a single program option. All options which hold values
  * are derived from this class as the type may differ.
+ *
  * When set, the value is valid. May be set with an initial, default value.
+ *
  * Usage:
  * As the options should only be used during the program initialisation, some
  * methods do output error messages to cout. Error messages may be printed,
  * when a default value is overwritten.
+ *
  * Most of the getter- and setter-methods throw exceptions as this base class
  * is not meant to hold any values by itself. Theses are stored in the derived
  * classes. This class does only supply common access for a common base class
  * while the real access methods are implemented in the derived classes.
  * The access of the proper valuetype for each of the derived class must be
  * validated by the programmer.
+ *
  * Exceptions:
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */
@@ -177,8 +181,12 @@ public:
         to be a default value */
     friend class OptionsCont;
 
+    const std::string &getDescription() const;
+    virtual std::string getTypeName() const;
+
+
 protected:
-    /** sets the "_set" - information. returns whether the option was a
+    /** sets the "myAmSet" - information. returns whether the option was a
         default option */
     bool markSet(bool isDefault);
 
@@ -194,13 +202,15 @@ protected:
 
 private:
     /** information whether the value is set */
-    bool          _set;
+    bool myAmSet;
 
     /** information whether the value is the default value (is then set) */
-    bool          _default;
+    bool myHaveTheDefaultValue;
 
     /** information whether the value may be changed */
-    bool          _writeable;
+    bool myAmWritable;
+
+    std::string myDescription;
 
 };
 
@@ -210,7 +220,7 @@ private:
  */
 class Option_Integer : public Option {
  private:
-    /** the value, valid only when the base-classes "_set"-member is true */
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
     int      _value;
  public:
     /** constructor; the value will be invalid (unset) */
@@ -229,11 +239,12 @@ class Option_Integer : public Option {
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */
     std::string getValue() const;
+    virtual std::string getTypeName() const;
 };
 
 class Option_Long : public Option {
  private:
-    /** the value, valid only when the base-classes "_set"-member is true */
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
     long      _value;
  public:
     /** constructor; the value will be invalid (unset) */
@@ -252,12 +263,13 @@ class Option_Long : public Option {
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */
     std::string getValue() const;
+    virtual std::string getTypeName() const;
 };
 
 
 class Option_String : public Option {
  protected:
-    /** the value, valid only when the base-classes "_set"-member is true */
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
     std::string      _value;
  public:
     /** constructor; the value will be invalid (unset) */
@@ -276,12 +288,13 @@ class Option_String : public Option {
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */
     std::string getValue() const;
+    virtual std::string getTypeName() const;
 };
 
 
 class Option_Float : public Option {
  private:
-    /** the value, valid only when the base-classes "_set"-member is true */
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
     SUMOReal       _value;
  public:
     /** constructor; the value will be invalid (unset) */
@@ -300,12 +313,13 @@ class Option_Float : public Option {
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */
     std::string getValue() const;
+    virtual std::string getTypeName() const;
 };
 
 
 class Option_Bool : public Option {
  private:
-    /** the value, valid only when the base-classes "_set"-member is true */
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
     bool        _value;
  public:
     /** constructor; the value will be invalid (unset) */
@@ -326,6 +340,7 @@ class Option_Bool : public Option {
     std::string getValue() const;
     /** returns always true */
     bool isBool() const;
+    virtual std::string getTypeName() const;
 };
 
 class Option_FileName : public Option_String {
@@ -342,6 +357,7 @@ public:
     Option_FileName &operator=(const Option_FileName &s);
     /// returns the information whether this option is a file name
     bool isFileName() const;
+    virtual std::string getTypeName() const;
 };
 
 
@@ -370,6 +386,7 @@ public:
     /** returns the values string-representation */
     std::string getValue() const;
     std::string getString() const;
+    virtual std::string getTypeName() const;
 };
 
 

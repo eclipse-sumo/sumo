@@ -2,9 +2,7 @@
 #define OptionsCont_h
 /***************************************************************************
                           OptionsCont.h
-              A container for options.
-              Allows the access of the values of the stored options
-              using different option names.
+              A storage for options.
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -21,7 +19,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: OptionsCont.h,v $
 // Revision 1.10  2005/10/07 11:46:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,6 +94,7 @@
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================
@@ -121,14 +120,20 @@
  * ======================================================================= */
 /**
  * @class OptionsCont
- * A storage for options.
+ * @brief A storage for options.
+ *
  * Once stored inside this container, options will not be visible to the
- * world and are deleted by the container. Only values and stati of the
- * options may be returned. While accessing the options, the programmer
- * must assure that he asks for the right value (only Option_Bool is able
- * to return a boolean value, other option types do throw exceptions).
- * Further, options added to the container must not be deleted outside
- * this container as they get invalid and cause segmentation violations then.
+ *  world and are deleted by the container. Only values and stati of the
+ *  options may be returned. While accessing the options, the programmer
+ *  must assure that he asks for the right value (only Option_Bool is able
+ *  to return a boolean value, other option types will throw exceptions).
+ *  Further, options added to the container must not be deleted outside
+ *  this container as they get invalid and cause segmentation violations then.
+ *
+ * For being printed in the help screen, a description together with the
+ *  subtopic the option belongs to must be given to OptionsCont. Further
+ *  information on the application may be added, too.
+ *
  * Exceptions:
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */
@@ -148,6 +153,10 @@ public:
 
     /** adds a synonymes for an options name (any order) */
     void addSynonyme(const std::string &name1, const std::string &name2);
+
+    /** adds a synonymes for an options name (any order) */
+    void addDescription(const std::string &name, const std::string &subtopic, 
+        const std::string &description);
 
     /** returns the information whether the named option is known */
     bool exists(const std::string &name) const;
@@ -216,6 +225,25 @@ public:
     /** removes all previous information from the container */
     void clear();
 
+    /// Sets the application name
+    void setApplicationName(const std::string &appName);
+
+    /// Sets the application description
+    void setApplicationDescription(const std::string &appDesc);
+
+    /// Add a call example
+    void addCallExample(const std::string &example);
+
+    /// Sets an additional message to be printed at the begin of the help screen
+    void setAdditionalHelpMessage(const std::string &add);
+
+    /// Adds an option subtopic
+    void addOptionSubTopic(const std::string &topic);
+
+    /// Prints the help
+    void printHelp(std::ostream &os);
+
+
 private:
     /** returns the named option */
     Option *getSecure(const std::string &name) const;
@@ -226,6 +254,12 @@ private:
     /** converts an abbreviation into a name */
     std::string convertChar(char abbr) const;
 
+    /** @brief writes the given string 'formatted' meaning that it will
+     * be wrapped at ';' or ' ' whenever it is longer than a line */
+    void splitLines(std::ostream &os, std::string what, 
+        size_t offset, size_t nextOffset);
+
+
 private:
     /** definition of the type that stores the addresses of used options */
     typedef std::vector<Option*> ItemAddressContType;
@@ -234,10 +268,36 @@ private:
     typedef std::map<std::string, Option*> KnownContType;
 
     /** storage for option-addresses */
-    ItemAddressContType _addresses;
+    ItemAddressContType myAddresses;
 
     /** access map of options */
-    KnownContType       _values;
+    KnownContType myValues;
+
+    /// some information on the application
+    std::string myAppName, myAppDescription, myAdditionalMessage;
+
+    /// lists of call examples and option subtopics
+    std::vector<std::string> myCallExamples, mySubTopics;
+
+    /// A map from subtopic to option
+    std::map<std::string, std::vector<std::string> > mySubTopicEntries;
+
+private:
+    /**
+     * @class abbreviation_finder
+     * @brief A class to find abbreviated option names (length=1)
+     */
+    class abbreviation_finder {
+    public:
+        /** constructor */
+        explicit abbreviation_finder() { }
+
+        /** the comparing function */
+        bool operator() (const std::string &s) {
+            return s.length()==1;
+        }
+    };
+
 
 private:
     /** invalid copy constructor */

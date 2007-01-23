@@ -24,7 +24,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: Option.cpp,v $
 // Revision 1.12  2006/08/01 07:38:46  dkrajzew
 // revalidation of options messaging
 //
@@ -144,13 +144,14 @@ using namespace std;
  * Option - methods
  * ----------------------------------------------------------------------- */
 Option::Option(bool set)
-    : _set(set), _default(true), _writeable(true)
+    : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true)
 {
 }
 
 
 Option::Option(const Option &s)
-    : _set(s._set), _default(s._default), _writeable(s._writeable)
+    : myAmSet(s.myAmSet), myHaveTheDefaultValue(s.myHaveTheDefaultValue), 
+    myAmWritable(s.myAmWritable)
 {
 }
 
@@ -166,9 +167,9 @@ Option::operator=(const Option &s)
     if(this==&s) {
         return *this;
     }
-    _set = s._set;
-    _default = s._default;
-    _writeable = s._writeable;
+    myAmSet = s.myAmSet;
+    myHaveTheDefaultValue = s.myHaveTheDefaultValue;
+    myAmWritable = s.myAmWritable;
     return *this;
 }
 
@@ -176,7 +177,7 @@ Option::operator=(const Option &s)
 bool
 Option::isSet() const
 {
-    return _set;
+    return myAmSet;
 }
 
 
@@ -239,10 +240,10 @@ Option::set(bool, bool)
 bool
 Option::markSet(bool isDefault)
 {
-    bool ret = _writeable;
-    _default = isDefault;
-    _set = true;
-    _writeable = isDefault;
+    bool ret = myAmWritable;
+    myHaveTheDefaultValue = isDefault;
+    myAmSet = true;
+    myAmWritable = isDefault;
     return ret;
 }
 
@@ -264,7 +265,7 @@ Option::isBool() const
 bool
 Option::isDefault() const
 {
-    return _default;
+    return myHaveTheDefaultValue;
 }
 
 
@@ -278,8 +279,23 @@ Option::isFileName() const
 bool
 Option::isWriteable() const
 {
-    return _writeable;
+    return myAmWritable;
 }
+
+
+const std::string &
+Option::getDescription() const
+{
+    return myDescription;
+}
+
+
+std::string 
+Option::getTypeName() const
+{
+    throw InvalidArgument("This is an abstract class.");
+}
+
 
 
 /* -------------------------------------------------------------------------
@@ -347,6 +363,12 @@ Option_Integer::getValue() const
     return s.str();
 }
 
+
+std::string 
+Option_Integer::getTypeName() const
+{
+    return "INT";
+}
 
 
 /* -------------------------------------------------------------------------
@@ -417,6 +439,14 @@ Option_Long::getValue() const
 }
 
 
+std::string 
+Option_Long::getTypeName() const
+{
+    return "LONG";
+}
+
+
+
 /* -------------------------------------------------------------------------
  * Option_String - methods
  * ----------------------------------------------------------------------- */
@@ -475,6 +505,13 @@ string
 Option_String::getValue() const
 {
     return _value;
+}
+
+
+std::string 
+Option_String::getTypeName() const
+{
+    return "STR";
 }
 
 
@@ -544,6 +581,13 @@ Option_Float::getValue() const
     ostringstream s;
     s << _value;
     return s.str();
+}
+
+
+std::string 
+Option_Float::getTypeName() const
+{
+    return "FLOAT";
 }
 
 
@@ -619,6 +663,14 @@ Option_Bool::isBool() const
 }
 
 
+std::string 
+Option_Bool::getTypeName() const
+{
+    return "BOOL";
+}
+
+
+
 /* -------------------------------------------------------------------------
  * Option_FileName - methods
  * ----------------------------------------------------------------------- */
@@ -653,9 +705,19 @@ Option_FileName::operator=(const Option_FileName &s)
 }
 
 
-bool Option_FileName::isFileName() const {
+bool 
+Option_FileName::isFileName() const 
+{
     return true;
 }
+
+
+std::string 
+Option_FileName::getTypeName() const
+{
+    return "FILE";
+}
+
 
 
 /* -------------------------------------------------------------------------
@@ -744,6 +806,13 @@ std::string
 Option_IntVector::getString() const
 {
     return getValue();
+}
+
+
+std::string 
+Option_IntVector::getTypeName() const
+{
+    return "INT[]";
 }
 
 

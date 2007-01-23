@@ -84,7 +84,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/LogFile.h>
-#include <utils/common/HelpPrinter.h>
 #include "RandHelper.h"
 
 #ifdef _DEBUG

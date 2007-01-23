@@ -5,7 +5,7 @@ EXTRA_DIST = DoubleVector.h StdDefs.h SUMOTime.h
 libcommon_a_SOURCES = AbstractMutex.h \
 BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
-HelpPrinter.h IntVector.cpp IntVector.h InstancePool.h \
+IntVector.cpp IntVector.h InstancePool.h \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.cpp UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \

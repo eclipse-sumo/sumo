@@ -24,7 +24,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: OptionsCont.cpp,v $
 // Revision 1.16  2006/08/01 07:38:46  dkrajzew
 // revalidation of options messaging
 //
@@ -129,6 +129,7 @@ namespace
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================
@@ -172,9 +173,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 OptionsCont::OptionsCont()
-    : _addresses(), _values()
+    : myAddresses(), myValues()
 {
 }
+
 
 OptionsCont::~OptionsCont()
 {
@@ -186,11 +188,11 @@ void
 OptionsCont::doRegister(const string &name1, Option *v)
 {
     assert(v!=0);
-    ItemAddressContType::iterator i = find(_addresses.begin(), _addresses.end(), v);
-    if(i==_addresses.end()) {
-        _addresses.push_back(v);
+    ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
+    if(i==myAddresses.end()) {
+        myAddresses.push_back(v);
     }
-    _values.insert(KnownContType::value_type(name1, v));
+    myValues.insert(KnownContType::value_type(name1, v));
 }
 
 
@@ -205,25 +207,21 @@ OptionsCont::doRegister(const string &name1, char abbr, Option *v)
 void
 OptionsCont::addSynonyme(const string &name1, const string &name2)
 {
-    KnownContType::iterator i1 = _values.find(name1);
-    KnownContType::iterator i2 = _values.find(name2);
-    if(i1==_values.end()&&i2==_values.end()) {
-        throw InvalidArgument(
-            "Neither the option '" + name1 + "' nor the option '"
-            + name2 + "' is known yet");
+    KnownContType::iterator i1 = myValues.find(name1);
+    KnownContType::iterator i2 = myValues.find(name2);
+    if(i1==myValues.end()&&i2==myValues.end()) {
+        throw InvalidArgument("Neither the option '" + name1 + "' nor the option '" + name2 + "' is known yet");
     }
-    if(i1!=_values.end()&&i2!=_values.end()) {
+    if(i1!=myValues.end()&&i2!=myValues.end()) {
         if((*i1).second==(*i2).second) {
             return;
         }
-        throw InvalidArgument(
-            "Both options '" + name1 + "' and '" + name2
-            + "' do exist and differ.");
+        throw InvalidArgument("Both options '" + name1 + "' and '" + name2 + "' do exist and differ.");
     }
-    if(i1==_values.end()&&i2!=_values.end()) {
+    if(i1==myValues.end()&&i2!=myValues.end()) {
         doRegister(name1, (*i2).second);
     }
-    if(i1!=_values.end()&&i2==_values.end()) {
+    if(i1!=myValues.end()&&i2==myValues.end()) {
         doRegister(name2, (*i1).second);
     }
 }
@@ -232,16 +230,16 @@ OptionsCont::addSynonyme(const string &name1, const string &name2)
 bool
 OptionsCont::exists(const string &name) const
 {
-    KnownContType::const_iterator i = _values.find(name);
-    return i!=_values.end();
+    KnownContType::const_iterator i = myValues.find(name);
+    return i!=myValues.end();
 }
 
 
 bool
 OptionsCont::isSet(const string &name) const
 {
-    KnownContType::const_iterator i = _values.find(name);
-    if(i==_values.end()) {
+    KnownContType::const_iterator i = myValues.find(name);
+    if(i==myValues.end()) {
         return false;
     }
     return (*i).second->isSet();
@@ -251,8 +249,8 @@ OptionsCont::isSet(const string &name) const
 bool
 OptionsCont::isDefault(const std::string &name) const
 {
-    KnownContType::const_iterator i = _values.find(name);
-    if(i==_values.end()) {
+    KnownContType::const_iterator i = myValues.find(name);
+    if(i==myValues.end()) {
         return false;
     }
     return (*i).second->isDefault();
@@ -262,8 +260,8 @@ OptionsCont::isDefault(const std::string &name) const
 Option *
 OptionsCont::getSecure(const string &name) const
 {
-    KnownContType::const_iterator i = _values.find(name);
-    if(i==_values.end()) {
+    KnownContType::const_iterator i = myValues.find(name);
+    if(i==myValues.end()) {
         throw InvalidArgument("No option with the name '" + name + "' exists.");
     }
     return (*i).second;
@@ -309,6 +307,7 @@ OptionsCont::getBool(const string &name) const
     return o->getBool();
 }
 
+
 const IntVector &
 OptionsCont::getIntVector(const std::string &name) const
 {
@@ -335,6 +334,7 @@ OptionsCont::set(const string &name, const string &value, bool isDefault)
     }
     return true;
 }
+
 
 bool
 OptionsCont::set(const string &name, bool value, bool isDefault)
@@ -364,7 +364,7 @@ OptionsCont::getSynonymes(const string &name) const
 {
     Option *o = getSecure(name);
     vector<string> v(0);
-    for(KnownContType::const_iterator i=_values.begin(); i!=_values.end(); i++) {
+    for(KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
         if((*i).second==o&&name!=(*i).first) {
             v.push_back((*i).first);
         }
@@ -378,8 +378,8 @@ operator<<( ostream& os, const OptionsCont& oc)
 {
     vector<string> done;
     os << "Options set:" << endl;
-    for(OptionsCont::KnownContType::const_iterator i=oc._values.begin();
-            i!=oc._values.end(); i++) {
+    for(OptionsCont::KnownContType::const_iterator i=oc.myValues.begin();
+            i!=oc.myValues.end(); i++) {
         vector<string>::iterator j = find(done.begin(), done.end(), (*i).first);
         if(j==done.end()) {
             vector<string> synonymes = oc.getSynonymes((*i).first);
@@ -474,8 +474,8 @@ OptionsCont::isBool(const string &name) const
 void
 OptionsCont::resetWritable()
 {
-    for(ItemAddressContType::iterator i=_addresses.begin(); i!=_addresses.end(); i++) {
-        (*i)->_writeable = true;
+    for(ItemAddressContType::iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
+        (*i)->myAmWritable = true;
     }
 }
 
@@ -491,12 +491,187 @@ OptionsCont::isWriteable(const std::string &name)
 void
 OptionsCont::clear()
 {
-    for(ItemAddressContType::iterator i=_addresses.begin();
-            i!=_addresses.end(); i++) {
+    for(ItemAddressContType::iterator i=myAddresses.begin();
+            i!=myAddresses.end(); i++) {
         delete (*i);
     }
-    _addresses.clear();
-    _values.clear();
+    myAddresses.clear();
+    myValues.clear();
+}
+
+
+void 
+OptionsCont::addDescription(const std::string &name, 
+                            const std::string &subtopic, 
+                            const std::string &description)
+{
+    Option *o = getSecure(name);
+    o->myDescription = description;
+    mySubTopicEntries[subtopic].push_back(name);
+}
+
+
+void 
+OptionsCont::setApplicationName(const std::string &appName)
+{
+    myAppName = appName;
+}
+
+
+void 
+OptionsCont::setApplicationDescription(const std::string &appDesc)
+{
+    myAppDescription = appDesc;
+}
+
+
+void 
+OptionsCont::addCallExample(const std::string &example)
+{
+    myCallExamples.push_back(example);
+}
+
+
+void 
+OptionsCont::setAdditionalHelpMessage(const std::string &add)
+{
+    myAdditionalMessage = add;
+}
+
+
+void 
+OptionsCont::addOptionSubTopic(const std::string &topic)
+{
+    mySubTopics.push_back(topic);
+    mySubTopicEntries[topic] = vector<string>();
+}
+
+
+void
+OptionsCont::splitLines(std::ostream &os, std::string what, 
+                        size_t offset, size_t nextOffset)
+{
+    while(what.length()>0) {
+        if(what.length()>79-offset) {
+            size_t splitPos = what.rfind(';', 79-offset);
+            if(splitPos==string::npos) {
+                splitPos = what.rfind(' ', 79-offset);
+            } else {
+                splitPos++;
+            }
+            if(splitPos!=string::npos) {
+                os << what.substr(0, splitPos) << endl;
+                what = what.substr(splitPos);
+                for(size_t r=0; r<nextOffset+1; ++r) {
+                    os << ' ';
+                }
+            } else {
+                os << what;
+                what = "";
+            }
+            offset = nextOffset;
+        } else {
+            os << what;
+            what = "";
+        }
+    }
+    os << endl;
+}
+
+
+void 
+OptionsCont::printHelp(std::ostream &os)
+{
+    vector<string>::const_iterator i, j;
+    // print application description
+    os << ' ' << endl;
+    splitLines(os, myAppDescription , 0, 0);
+    os << endl;
+    // print usage BNF
+    os << "Usage: " << myAppName << " [OPTION]*" << endl;
+    os << ' ' << endl;
+    // print usage examples
+    if(myCallExamples.size()>1) {
+        os << " Examples:" << endl;
+    } else if(myCallExamples.size()!=0) {
+        os << " Example:" << endl;
+    }
+    if(myCallExamples.size()!=0) {
+        for(i=myCallExamples.begin(); i!=myCallExamples.end(); ++i) {
+            os << "  " << myAppName << ' ' << (*i) << endl;
+        }
+    }
+    os << ' ' << endl;
+    // print additional text if any
+    if(myAdditionalMessage.length()>0) {
+        os << myAdditionalMessage << endl << ' ' << endl;
+    }
+    // print the options
+        // check their sizes first
+        //  we want to know how large the largest not-too-large-entry will be
+    size_t tooLarge = 40;
+    size_t maxSize = 0;
+    for(i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        const vector<string> &entries = mySubTopicEntries[*i];
+        for(j=entries.begin(); j!=entries.end(); ++j) {
+            Option *o = getSecure(*j);
+            // name, two leading spaces and "--"
+            size_t csize = (*j).length() + 2 + 4;
+            // abbreviation length ("-X, "->4chars) if any
+            vector<string> synonymes = getSynonymes(*j);
+            if(find_if(synonymes.begin(), synonymes.end(), abbreviation_finder())!=synonymes.end()) {
+                csize += 4;
+            }
+            // the type name
+            if(!o->isBool()) {
+                csize += 1 + o->getTypeName().length();
+            }
+            // divider
+            csize += 2;
+            if(csize<tooLarge&&maxSize<csize) {
+                maxSize = csize;
+            }
+        }
+    }
+
+    for(i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        os << ' ' << *i << " Options:" << endl;
+        const vector<string> &entries = mySubTopicEntries[*i];
+        for(j=entries.begin(); j!=entries.end(); ++j) {
+            // start length computation
+            size_t csize = (*j).length() + 2;
+            Option *o = getSecure(*j);
+            os << "  ";
+            // write abbreviation if given
+            vector<string> synonymes = getSynonymes(*j);
+            vector<string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
+            if(a!=synonymes.end()) {
+                os << '-' << (*a) << ", ";
+                csize += 4;
+            }
+            // write leading '-'/"--"
+            os << "--";
+            csize += 2;
+            // write the name
+            os << *j;
+            // write the type if not a bool option
+            if(!o->isBool()) {
+                os << ' ' << o->getTypeName();
+                csize += 1 + o->getTypeName().length();
+            }
+            csize += 2;
+            // write the description formatting it
+            os << "  ";
+            size_t r;
+            for(r=maxSize; r>csize; --r) {
+                os << ' ';
+            }
+            string desc = o->getDescription();
+            size_t offset = csize > tooLarge ? csize : maxSize;
+            splitLines(os, desc, offset, maxSize);
+        }
+        os << endl;
+    }
 }
 
 

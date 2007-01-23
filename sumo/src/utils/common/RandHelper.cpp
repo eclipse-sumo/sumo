@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: RandHelper.cpp,v $
 // Revision 1.5  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -64,10 +64,16 @@ namespace
  * member method definitions
  * ======================================================================= */
 void
-RandHelper::insertRandOptions(OptionsCont &options)
+RandHelper::insertRandOptions(OptionsCont &oc)
 {
-    options.doRegister("srand", new Option_Integer(23423));
-    options.doRegister("abs-rand", new Option_Bool(false));
+    // registers random number options
+    oc.addOptionSubTopic("Random Number");
+
+    oc.doRegister("srand", new Option_Integer(23423));
+    oc.addDescription("srand", "Random Number", "Initialises the random number generator with the given value");
+
+    oc.doRegister("abs-rand", new Option_Bool(false));
+    oc.addDescription("abs-rand", "Random Number", "Initialises the random number generator with the current system time");
 }
 
 

@@ -158,9 +158,11 @@ OptionsLoader::OptionsLoader(OptionsCont *oc,
 {
 }
 
+
 OptionsLoader::~OptionsLoader()
 {
 }
+
 
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
@@ -173,6 +175,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
         _item = "";
     }
 }
+
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const unsigned int length)
