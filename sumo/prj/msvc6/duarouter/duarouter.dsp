@@ -125,15 +125,7 @@ SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\duarouter_help.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\router\FloatValueTimeLine.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\common\HelpPrinter.h
 # End Source File
 # Begin Source File
 

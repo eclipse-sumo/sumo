@@ -145,10 +145,6 @@ SOURCE=..\..\..\src\utils\router\IDSupplier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\jtrrouter_help.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\routing_jtr\ROJTREdge.h
 # End Source File
 # Begin Source File

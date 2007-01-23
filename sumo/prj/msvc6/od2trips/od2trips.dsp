@@ -125,19 +125,11 @@ SOURCE=..\..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\common\HelpPrinter.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\common\Named.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\NamedObjectCont.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips_help.h
 # End Source File
 # Begin Source File
 

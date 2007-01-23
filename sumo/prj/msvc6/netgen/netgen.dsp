@@ -103,10 +103,6 @@ SOURCE=..\..\..\src\netgen_main.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\..\..\src\netgen_help.h
-# End Source File
 # End Group
 # Begin Group "Ressourcendateien"
 

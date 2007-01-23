@@ -191,10 +191,6 @@ SOURCE=..\..\..\src\utils\geoconv\GeoConvHelper.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\common\HelpPrinter.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\common\InstancePool.h
 # End Source File
 # Begin Source File

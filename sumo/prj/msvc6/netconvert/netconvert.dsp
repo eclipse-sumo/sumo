@@ -104,10 +104,6 @@ SOURCE=..\..\..\src\netconvert_main.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\..\..\src\netconvert_help.h
-# End Source File
 # End Group
 # Begin Group "Ressourcendateien"
 

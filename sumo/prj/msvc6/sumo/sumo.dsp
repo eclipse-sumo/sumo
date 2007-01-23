@@ -111,10 +111,6 @@ SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 
 SOURCE=..\..\..\src\RemoteServer.h
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\sumo_help.h
-# End Source File
 # End Group
 # Begin Group "Ressourcendateien"
 

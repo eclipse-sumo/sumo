@@ -159,10 +159,6 @@ SOURCE=..\..\..\src\polyconvert\PCVisum.h
 
 SOURCE=..\..\..\src\polyconvert\PCVisumPoints.h
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\polyconvert_help.h
-# End Source File
 # End Group
 # Begin Group "Ressourcendateien"
 
