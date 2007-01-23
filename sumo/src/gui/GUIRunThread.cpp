@@ -233,7 +233,7 @@ FXint
 GUIRunThread::run()
 {
     SUMOTime beg = 0;
-    SUMOReal end = 0;
+    SUMOTime end = 0;
     SUMOTime end2 = -1;
     // perform an endless loop
     while(!_quit) {
