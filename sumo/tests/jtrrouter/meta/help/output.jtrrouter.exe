@@ -1,68 +1,68 @@
 SUMO jtrrouter
- (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  Version 0.9.6
- Router for the microscopic road traffic simulation SUMO based on
-  junction turning ratios.
+ 
+Router for the microscopic road traffic simulation SUMO based on junction
+  turning ratios.
 
-Usage: (sumo-)jtrrouter(.exe) [OPTION]*
+Usage: jtrrouter.exe [OPTION]*
+ 
+ Example:
+  jtrrouter.exe -c <CONFIGURATION>
+ 
+ Configuration Options:
+  -c, --configuration-file FILE    Loads the named config on startup
 
-Examples:
-  sumo-jtrrouter -c routes_munich.cfg
+ Input Options:
+  -n, --net-file FILE              Use FILE as SUMO-network to route on
+  -a, --alternatives FILE          Read alternatives from FILE
+  -w, --weights FILE               Read network weights from FILE
+  -l, --lane-weights FILE          Read lane-weights from FILE
 
-Options:
- Input files:
-  Configuration
-   -c, --configuration FILE       FILE will be used as configuration
-                                    1. Default: ./sumo-netcovert.cfg
-  Network description:
-   -n, --net-file FILE           FILE containing the SUMO-net
+ Output Options:
+  -o, --output-file FILE           Write generated routes to FILE
 
-  Route descriptions:
-   -s, --sumo-input FILE          FILE containing SUMO-routes
-   -t, --trip-defs FILE           FILE containing trip definitions
-   -a, --alternatives FILE        FILE containing route alternatives
-   -f, --flow-definitions FILE    FILE containing flow definitions
-   --cell-input FILE              FILE containing cell routes
-   --artemis-input FILE           FILE containing cell routes
+ Processing Options:
+  --continue-on-unbuild            Continue if a route could not be build
+  --unsorted                       Set to process unsorted lists
+  --randomize-flows                
+  --move-on-short                  Move vehicles to the next edge if the first
+                                     is too short
+  --max-alternatives INT           Prune the number of alternatives to INT
+  -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
+  --prune-random                   
+  --remove-loops                   
+  --max-edges-factor FLOAT         
+  -T, --turn-defaults STR          Use STR as default turn definition
+  -s, --sinks STR                  Use STR as sink list
+  --accept-all-destinations        
 
- Output files:
-   -o, --output-file FILE         Generated routes will be written to FILE
-                                   Additionally, a file with route
-                                   alternatives will be generated as
-                                   'FILE.alt'
+ Generated Vehicles Options:
+  -V, --krauss-vmax FLOAT          Defines emitted vehicles' max. velocity
+  -A, --krauss-a FLOAT             Defines emitted vehicles' max. acceleration
+  -B, --krauss-b FLOAT             Defines emitted vehicles' max. deceleration
+  -L, --krauss-length FLOAT        Defines emitted vehicles' length
+  -E, --krauss-eps FLOAT           Defines emitted vehicles' driver
+                                     imperfection
 
- Deafults:
-   -V, --krauss-vmax FLOAT    Default value for krauss' vmax
-   -A, --krauss-a FLOAT       Default value for krauss' max. accel
-   -B, --krauss-b FLOAT       Default value for krauss' max. decel
-   -L, --krauss-length FLOAT  Default value for krauss' vehicle length
-   -E, --krauss-eps FLOAT     Default value for krauss' driver imperf.
+ Time Options:
+  -b, --begin INT                  Defines the begin time;
+                                     Previous trips will be discarded
+  -e, --end INT                    Defines the end time;
+                                     Later trips will be discarded
 
- Process Options:
-   -b, --begin INT                The begin time of routing
-   -e, --end INT                  The end time of routing
-   -R, --random-per-second FLOAT  Builds (additional) random routes
-   --gBeta FLOAT                  Gawron-Beta for DUE
-   --gA FLOAT                     Gawron-A for DUE
-   --unsorted                     The routes are assumed to be unsorted
-   --save-cell-rindex             The index to cell-routes will be saved
-   --intel-cell                   Set, when reading cell-routes computed
-                                   on an Intel-machine
-   --no-last-cell                 Use best, not the last cell-route
-   --continue-on-unbuild          Continue if a route could not be build
-   --move-on-short                Moves vehicles edges further if the edge
-                                   is too short for vehicle emission
+ Report Options:
+  -v, --verbose                    Switches to verbose output
+  -W, --suppress-warnings          Disables output of warnings
+  -p, --print-options              Prints option values before processing
+  -?, --help                       Prints this screen
+  --log-file FILE                  Writes all messages to FILE
+  --stats-period INT               Defines how often statistics shall be
+                                     printed
 
  Random Number Options:
-  --srand INT                     Initialises the random number generator
-                                   with the given value
-  --abs-rand                      Set this when the current time shall be
-                                   used for random number initialisation
+  --srand INT                      Initialises the random number generator with
+                                     the given value
+  --abs-rand                       Initialises the random number generator with
+                                     the current system time
 
- Report options:
-   -v, --verbose                   SUMO-ROUTER will report what it does
-   -W, --suppress-warnings         No warnings will be printed
-   -l, --log-file FILE             Writes all messages to the file
-   -p, --print-options             Prints option values before processing
-   -?, --help                      This screen
-   --stats-period INT          Step number to pass between status output
