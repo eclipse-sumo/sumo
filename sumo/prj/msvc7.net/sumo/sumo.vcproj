@@ -218,9 +218,6 @@ copy Release\sumo.exe ..\..\..\bin\sumo.exe
 				RelativePath="..\..\..\src\helpers\OneArgumentCommand.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\sumo_help.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\helpers\ValueRetriever.h">
 			</File>
 			<File

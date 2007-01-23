@@ -259,9 +259,6 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 				RelativePath="..\..\..\src\routing_df\DFRORouteDesc.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\dfrouter_help.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\Named.h">
 			</File>
 			<File

@@ -248,16 +248,10 @@ copy Debug\od2trips.exe ..\..\..\bin\od2tripsD.exe
 				RelativePath="..\..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\HelpPrinter.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\Named.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\od2trips_help.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\od2trips\ODCell.h">

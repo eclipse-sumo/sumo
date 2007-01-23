@@ -312,9 +312,6 @@ copy Release\polyconvert.exe ..\..\..\bin\polyconvert.exe
 			<File
 				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.h">
 			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert_help.h">
-			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"

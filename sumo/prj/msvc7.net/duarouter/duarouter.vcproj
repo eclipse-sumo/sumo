@@ -227,9 +227,6 @@ copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\duarouter_help.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\Named.h">
 			</File>
 			<File
