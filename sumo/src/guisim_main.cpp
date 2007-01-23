@@ -261,7 +261,6 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByCastedFunctionValue.h>
-#include <utils/gui/drawer/GUIColorer_ShadeByParametrisedFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
 #include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
 #include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
