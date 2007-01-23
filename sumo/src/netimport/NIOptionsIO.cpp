@@ -24,7 +24,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: NIOptionsIO.cpp,v $
 // Revision 1.25  2006/11/16 10:50:46  dkrajzew
 // warnings removed
 //
@@ -271,54 +271,137 @@ using namespace std;
 void
 NIOptionsIO::fillOptions(OptionsCont &oc)
 {
+    // give some application descriptions
+    oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("netconvert.exe");
+#else
+    oc.setApplicationName("sumo-netconvert");
+#endif
+    oc.addCallExample("-c <CONFIGURATION>");
+    oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
+
+    
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Projection");
+    oc.addOptionSubTopic("TLS Building");
+    oc.addOptionSubTopic("Ramp Guessing");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Report");
+
+    // register options
+        // register I/O options
     oc.doRegister("sumo-net", 's', new Option_FileName());
+    oc.addDescription("sumo-net", "Input", "Read SUMO-net from FILE");
+
     oc.doRegister("xml-node-files", 'n', new Option_FileName());
-    oc.doRegister("xml-edge-files", 'e', new Option_FileName());
-    oc.doRegister("xml-connection-files", 'x', new Option_FileName());
-    oc.doRegister("xml-type-files", 't', new Option_FileName());
-    oc.doRegister("elmar", new Option_FileName());
-    oc.doRegister("elmar2", new Option_FileName());
-    oc.doRegister("tiger", new Option_FileName());
-    oc.doRegister("cell-node-file", new Option_FileName());
-    oc.doRegister("cell-edge-file", new Option_FileName());
-    oc.doRegister("visum-file", new Option_FileName());
-    oc.doRegister("vissim-file", new Option_FileName());
-    oc.doRegister("artemis-path", new Option_FileName());
     oc.addSynonyme("xml-node-files", "xml-nodes");
+    oc.addDescription("xml-node-files", "Input", "Read XML-node defs from FILE");
+
+    oc.doRegister("xml-edge-files", 'e', new Option_FileName());
     oc.addSynonyme("xml-edge-files", "xml-edges");
+    oc.addDescription("xml-edge-files", "Input", "Read XML-edge defs from FILE");
+
+    oc.doRegister("xml-connection-files", 'x', new Option_FileName());
     oc.addSynonyme("xml-connection-files", "xml-connections");
+    oc.addDescription("xml-connection-files", "Input", "Read XML-connection defs from FILE");
+
+    oc.doRegister("xml-type-files", 't', new Option_FileName());
     oc.addSynonyme("xml-type-files", "xml-types");
-    oc.addSynonyme("cell-node-file", "cell-nodes");
-    oc.addSynonyme("cell-edge-file", "cell-edges");
-    oc.addSynonyme("visum-file", "visum");
-    oc.addSynonyme("vissim-file", "vissim");
-    oc.addSynonyme("artemis-path", "artemis");
+    oc.addDescription("xml-type-files", "Input", "Read XML-type defs from FILE");
 
     oc.doRegister("arcview", new Option_FileName());
-    oc.doRegister("arcview.street-id", new Option_String());
-    oc.doRegister("arcview.from-id", new Option_String());
-    oc.doRegister("arcview.to-id", new Option_String());
-    oc.doRegister("arcview.type-id", new Option_String());
-    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false));
-    oc.doRegister("arcview.all-bidi", new Option_Bool(false));
-    oc.doRegister("arcview.utm", new Option_Integer(32));
-    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
+    oc.addDescription("arcview", "Input", "Read ARCVIEW-net from files starting with 'FILE'");
 
-    // register computation variables
-    oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
-    // register further vissim-options
-    oc.doRegister("vissim-offset", new Option_Float(5.0f));
-    oc.doRegister("vissim-default-speed", new Option_Float(50.0f/3.6f));
-    oc.doRegister("vissim-speed-norm", new Option_Float(1.0f));
-	// register further navteq-options
-	oc.doRegister("navtech-rechecklanes", new Option_Bool(false));
-    // register the data processing options
-    oc.doRegister("speed-in-kmh", new Option_Bool(false));
+    oc.doRegister("elmar", new Option_FileName());
+    oc.addDescription("elmar", "Input", "Read splitted Elmar-network from path 'FILE'");
 
+    oc.doRegister("elmar2", new Option_FileName());
+    oc.addDescription("elmar2", "Input", "Read unsplitted Elmar-network from path 'FILE'");
+
+    oc.doRegister("tiger", new Option_FileName());
+    oc.addDescription("tiger", "Input", "Read Tiger-network from path 'FILE'");
+
+    oc.doRegister("cell-node-file", new Option_FileName());
+    oc.addSynonyme("cell-node-file", "cell-nodes");
+    oc.addDescription("cell-node-file", "Input", "Read Cell-nodes from FILE");
+
+    oc.doRegister("cell-edge-file", new Option_FileName());
+    oc.addSynonyme("cell-edge-file", "cell-edges");
+    oc.addDescription("cell-edge-file", "Input", "Read Cell-edges from FILE");
+
+    oc.doRegister("visum-file", new Option_FileName());
+    oc.addSynonyme("visum-file", "visum");
+    oc.addDescription("visum-file", "Input", "Read VISUM-net from FILE");
+
+    oc.doRegister("vissim-file", new Option_FileName());
+    oc.addSynonyme("vissim-file", "vissim");
+    oc.addDescription("vissim-file", "Input", "Read VISSIM-net from FILE");
+
+    oc.doRegister("artemis-path", new Option_FileName());
+    oc.addSynonyme("artemis-path", "artemis");
+    oc.addDescription("artemis-path", "Input", "Read ARTEMIS-net from path 'FILE'");
+
+
+        // register processing options
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
-    // add netbuilding options
+    oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
+
+    oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
+    oc.addDescription("capacity-norm", "Processing", "The factor for flow to no. lanes conv. (Cell)");
+
+    oc.doRegister("speed-in-kmh", new Option_Bool(false));
+    oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
+
+
+    oc.doRegister("arcview.street-id", new Option_String());
+    oc.addDescription("arcview.street-id", "Processing", "Read edge ids from column STR (ArcView)");
+    
+    oc.doRegister("arcview.from-id", new Option_String());
+    oc.addDescription("arcview.from-id", "Processing", "Read from-node ids from column STR (ArcView)");
+    
+    oc.doRegister("arcview.to-id", new Option_String());
+    oc.addDescription("arcview.to-id", "Processing", "Read to-node ids from column STR (ArcView)");
+    
+    oc.doRegister("arcview.type-id", new Option_String());
+    oc.addDescription("arcview.type-id", "Processing", "Read type ids from column STR (ArcView)");
+    
+    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false));
+    oc.addDescription("arcview.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems (ArcView)");
+    
+    oc.doRegister("arcview.all-bidi", new Option_Bool(false));
+    oc.addDescription("arcview.all-bidi", "Processing", "Insert edges in both directions (ArcView)");
+    
+    oc.doRegister("arcview.utm", new Option_Integer(32));
+    oc.addDescription("arcview.utm", "Processing", "Use INT as UTM zone (ArcView)");
+    
+    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
+    oc.addDescription("arcview.guess-projection", "Processing", "Guess the proper projection (ArcView)");
+
+        // register further vissim-options
+    oc.doRegister("vissim.offset", new Option_Float(5.0f));
+    oc.addDescription("vissim.offset", "Processing", "Structure join offset (VISSIM)");
+    
+    oc.doRegister("vissim.default-speed", new Option_Float(50.0f/3.6f));
+    oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed (VISSIM)");
+
+    oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
+    oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity (VISSIM)");
+	
+        // register further navteq-options
+	oc.doRegister("navtech.rechecklanes", new Option_Bool(false));
+    oc.addDescription("navtech.rechecklanes", "Processing", "");
+    
+        // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
-    // add rand and dev options
+
+        // add rand options
     RandHelper::insertRandOptions(oc);
 }
 

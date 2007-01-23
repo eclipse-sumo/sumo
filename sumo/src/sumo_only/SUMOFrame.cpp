@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: SUMOFrame.cpp,v $
 // Revision 1.61  2006/12/22 12:08:11  dkrajzew
 // made c2c defaults variable
 //
@@ -252,100 +252,264 @@ using namespace std;
 void
 SUMOFrame::fillOptions(OptionsCont &oc)
 {
+    // give some application descriptions
+    oc.setApplicationDescription("A microscopic road traffic simulation.");
+#ifdef WIN32
+    oc.setApplicationName("sumo.exe");
+#else
+    oc.setApplicationName("sumo");
+#endif
+    oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
+    oc.addCallExample("-c munich_config.cfg");
+    oc.addCallExample("--spider-net [spider-network opts] -o <OUTPUTFILE>");
+    oc.addCallExample("--help");
+
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("TLS Defaults");
+    oc.addOptionSubTopic("C2C");
+    oc.addOptionSubTopic("Cellular");
+    oc.addOptionSubTopic("Report");
+
+
+        // register configuration options
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
+
+
     // register input options
     oc.doRegister("net-file", 'n', new Option_FileName());
-    oc.doRegister("route-files", 'r', new Option_FileName());
-    oc.doRegister("additional-files", 'a', new Option_FileName());
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
     oc.addSynonyme("net-file", "net");
+    oc.addDescription("net-file", "Input", "Load road network description from FILE");
+
+    oc.doRegister("route-files", 'r', new Option_FileName());
     oc.addSynonyme("route-files", "routes");
+    oc.addDescription("route-files", "Input", "Load routes descriptions from FILE(s)");
+
+    oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
+    oc.addDescription("route-files", "Input", "Load further descriptions from FILE(s)");
+
+    oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
     oc.addSynonyme("weight-files", "weights");
-    oc.addSynonyme("configuration-file", "configuration");
-    // register output options
+    oc.addDescription("weight-files", "Input", "Load weights from FILE");
+
+    oc.doRegister("load-state", new Option_FileName());//!!! check, describe
+    oc.addDescription("load-state", "Input", "Loads a network state from FILE");
+
+
+        // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
     oc.addSynonyme("netstate-dump", "netstate");
+    oc.addDescription("netstate-dump", "Output", "Save complete network states into FILE");
+
     oc.doRegister("emissions-output", new Option_FileName());
     oc.addSynonyme("emissions-output", "emissions");
+    oc.addDescription("emissions-output", "Output", "Save aggregated vehicle emission inf. into FILE");
+
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
+    oc.addDescription("tripinfo-output", "Output", "Save single vehicle trip inf. into FILE");
+
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
+    oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
+
     oc.doRegister("dump-intervals", new Option_IntVector(""));
+    oc.addDescription("dump-intervals", "Output", "Build edge-based network dumps for given intervals");
     oc.doRegister("dump-basename", new Option_FileName());
+    oc.addDescription("dump-basename", "Output", "Save edge-based network dumps with FILE as prefix");
+
     oc.doRegister("lanedump-intervals", new Option_IntVector(""));
+    oc.addDescription("lanedump-intervals", "Output", "Build lane-based network dumps for given intervals");
     oc.doRegister("lanedump-basename", new Option_FileName());
+    oc.addDescription("lanedump-basename", "Output", "Save lane-based network dumps with FILE as prefix");
+
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
+    oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
+
     oc.doRegister("dump-begins", new Option_IntVector(""));
+    oc.addDescription("dump-begins", "Output", "Use INT[] as times at which a dump must begin in order to be written");
     oc.doRegister("dump-ends", new Option_IntVector(""));
-    // register the simulation settings
-    oc.doRegister("begin", 'b', new Option_Integer(0));
-    oc.doRegister("end", 'e', new Option_Integer(86400));
-    oc.doRegister("route-steps", 's', new Option_Integer(200));
-    oc.doRegister("quit-on-accident", new Option_Bool(false));
-    oc.doRegister("check-accidents", new Option_Bool(false));
-    oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
-    oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
-    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
-    oc.doRegister("time-to-teleport", new Option_Integer(300));
-    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
-    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
-    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
-    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
-    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
-    // register the report options
-    oc.doRegister("no-duration-log", new Option_Bool(false));//!!! check, describe
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    // register some research options
-    //    oc.doRegister("initial-density", new Option_Float());
-    //    oc.doRegister("initial-speed", new Option_Float());
-    // register the data processing options
-    oc.doRegister("load-state", new Option_FileName());//!!! check, describe
+    oc.addDescription("dump-ends", "Output", "Use INT[] as times at which a dump must end in order to be written");
+
     oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
+    oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
-    // tls
-    oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck
-    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));//!!! recheck
-    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));//!!! recheck
-    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));//!!! recheck
-    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));//!!! recheck
-    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));//!!! recheck
-    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
-    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
-    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
+    oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
+
+    
+        // register the simulation settings
+    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.addDescription("begin", "Time", "Defines the begin time; The simulation starts at this time");
+    
+    oc.doRegister("end", 'e', new Option_Integer(86400));
+    oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
+
+
+        // register the processing options
+    oc.doRegister("route-steps", 's', new Option_Integer(200));
+    oc.addDescription("route-steps", "Processing", "Load routes for the next INT steps ahead");
+
+    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
+    oc.addDescription("use-internal-links", "Processing", "Enable internal links (must be in the network)");
+
+    oc.doRegister("quit-on-accident", new Option_Bool(false));
+    oc.addDescription("quit-on-accident", "Processing", "Quit (with an error) if an accident occures");
+
+    oc.doRegister("check-accidents", new Option_Bool(false));
+    oc.addDescription("check-accidents", "Processing", "Check whether accidents occure more deeply");
+
+    oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
+    oc.addDescription("too-slow-rtf", "Processing", "Quit simulation if the rtf gets too small");
+
+    oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
+    oc.addDescription("incremental-dua-step", "Processing", "Perform the simulation as a step in incremental DUA");
+    oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
+    oc.addDescription("incremental-dua-base", "Processing", "Base value for incremental DUA");
+
+    oc.doRegister("time-to-teleport", new Option_Integer(300));
+    oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported");
+
+    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
+    oc.addDescription("time-to-teleport", "Processing", "");
+    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
+    oc.addDescription("time-to-teleport", "Processing", "");
+    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
+    oc.addDescription("time-to-teleport", "Processing", "");
+
+    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
+    oc.addDescription("default-lanechange-model", "Processing", "");
+
+    oc.doRegister("no-duration-log", new Option_Bool(false));//!!! check, describe
+    oc.addDescription("no-duration-log", "Processing", "");
+
 
     // devices
-        // cell-phones
-    oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe
-    oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
-    oc.doRegister("ss2-cell-output", new Option_FileName());
-    oc.doRegister("ss2-la-output", new Option_FileName());
-    oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
-    oc.doRegister("ss2-sql-cell-output", new Option_FileName());
-    oc.doRegister("ss2-sql-la-output", new Option_FileName());
-	oc.doRegister("cellphone-dump", new Option_FileName());
-    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
-    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
-    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
-    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
         // c2x
     oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! describe
-    oc.doRegister("device.c2x.range", new Option_Float(100.));//!!! describe
-    oc.doRegister("device.c2x.keep-duration", new Option_Integer(30 * 60));//!!! describe
-    oc.doRegister("device.c2x.insert-info-factor", new Option_Float((SUMOReal) 1.2));//!!! describe
+    oc.addDescription("device.c2x.probability", "C2C", "The probability for a vehicle to have c2c");
+    
     oc.doRegister("device.c2x.knownveh", new Option_String());//!!! describe
+    oc.addDescription("device.c2x.knownveh", "C2C", "Assign a device to named vehicles");
+    
+    oc.doRegister("device.c2x.range", new Option_Float(100.));//!!! describe
+    oc.addDescription("device.c2x.range", "C2C", "The range of the c2c device");
+    
+    oc.doRegister("device.c2x.keep-duration", new Option_Integer(30 * 60));//!!! describe
+    oc.addDescription("device.c2x.keep-duration", "C2C", "Duration of keeping messages");
+    
+    oc.doRegister("device.c2x.insert-info-factor", new Option_Float((SUMOReal) 1.2));//!!! describe
+    oc.addDescription("device.c2x.insert-info-factor", "C2C", "Factor for adding messages");
+    
     oc.doRegister("c2x.cluster-info", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.cluster-info", "C2C", "Save cluster information into FILE");
+    
     oc.doRegister("c2x.edge-near-info", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.edge-near-info", "C2C", "Save 'connected' edges into FILE");
+    
     oc.doRegister("c2x.saved-info", new Option_FileName());//!!! describe
-	oc.doRegister("c2x.saved-info-freq", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.saved-info", "C2C", "");
+	
+    oc.doRegister("c2x.saved-info-freq", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.saved-info-freq", "C2C", "");
+    
     oc.doRegister("c2x.transmitted-info", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.transmitted-info", "C2C", "Save transmitted information into FILE");
+    
     oc.doRegister("c2x.vehicle-in-range", new Option_FileName());//!!! describe
+    oc.addDescription("c2x.vehicle-in-range", "C2C", "Save names of connected vehicles into FILE");
+
+
+        // cell-phones
+    oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe
+    oc.addDescription("ss2-cellload-file", "Cellular", "");
+    
+    oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
+    oc.addDescription("ss2-output", "Cellular", "");
+    
+    oc.doRegister("ss2-cell-output", new Option_FileName());
+    oc.addDescription("ss2-cell-output", "Cellular", "");
+    
+    oc.doRegister("ss2-la-output", new Option_FileName());
+    oc.addDescription("ss2-la-output", "Cellular", "");
+    
+    oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
+    oc.addDescription("ss2-sql-output", "Cellular", "");
+    
+    oc.doRegister("ss2-sql-cell-output", new Option_FileName());
+    oc.addDescription("ss2-sql-cell-output", "Cellular", "");
+    
+    oc.doRegister("ss2-sql-la-output", new Option_FileName());
+    oc.addDescription("ss2-sql-la-output", "Cellular", "");
+	
+    oc.doRegister("cellphone-dump", new Option_FileName());
+    oc.addDescription("cellphone-dump", "Cellular", "");
+    
+    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
+    oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
+    
+    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
+    oc.addDescription("device.cell-phone.probability", "Cellular", "");
+    
+    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
+    oc.addDescription("device.cell-phone.amount.min", "Cellular", "");
+    
+    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
+    oc.addDescription("device.cell-phone.amount.max", "Cellular", "");
+
+
+        // tls
+    oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck
+    oc.addDescription("agent-tl.detector-len", "TLS Defaults", "");
+
+    oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));//!!! recheck
+    oc.addDescription("agent-tl.learn-horizon", "TLS Defaults", "");
+    
+    oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));//!!! recheck
+    oc.addDescription("agent-tl.decision-horizon", "TLS Defaults", "");
+    
+    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));//!!! recheck
+    oc.addDescription("agent-tl.min-diff", "TLS Defaults", "");
+    
+    oc.doRegister("agent-tl.tcycle", new Option_Integer(90));//!!! recheck
+    oc.addDescription("agent-tl.tcycle", "TLS Defaults", "");
+    
+    oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));//!!! recheck
+    oc.addDescription("actuated-tl.detector-pos", "TLS Defaults", "");
+    
+    oc.doRegister("actuated-tl.max-gap", new Option_Float(3.1f));//!!! recheck
+    oc.addDescription("actuated-tl.max-gap", "TLS Defaults", "");
+    
+    oc.doRegister("actuated-tl.detector-gap", new Option_Float(3.0f));//!!! recheck
+    oc.addDescription("actuated-tl.detector-gap", "TLS Defaults", "");
+    
+    oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));//!!! recheck
+    oc.addDescription("actuated-tl.passing-time", "TLS Defaults", "");
+
+
+        // register report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+
 
     // debug
     oc.doRegister("track", new Option_Float(0.));//!!! check, describe
@@ -353,7 +517,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
 
-    // add rand and dev options
+    // add rand options
     RandHelper::insertRandOptions(oc);
 }
 

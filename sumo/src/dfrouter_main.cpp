@@ -23,7 +23,7 @@ namespace
     const char rcsid[] =
         "$Id$";
 }
-// $Log$
+// $Log: dfrouter_main.cpp,v $
 // Revision 1.23  2007/01/10 08:33:03  dkrajzew
 // expanded the some option names when asking for them
 //
@@ -133,7 +133,6 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_df/RODFLoader.h>
@@ -144,7 +143,6 @@ namespace
 #include <routing_df/DFRORouteCont.h>
 #include <routing_df/DFDetectorFlow.h>
 #include <routing_df/DFDetFlowLoader.h>
-#include "dfrouter_help.h"
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/FileHelpers.h>
 
@@ -476,11 +474,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, RODFFrame::fillOptions);
         if(init_ret<0) {
             cout << "SUMO dfrouter" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

@@ -19,7 +19,7 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-// $Log$
+// $Log: RODUAFrame.h,v $
 // Revision 1.4  2005/10/07 11:42:28  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,10 +67,7 @@ class OptionsCont;
  */
 class RODUAFrame {
 public:
-    /// Builds the simulation options
-    static void fillOptions_basicImport(OptionsCont &oc);
-
-    static void fillOptions_fullImport(OptionsCont &oc);
+    static void fillOptions(OptionsCont &oc);
 
     static bool checkOptions(OptionsCont &oc);
 

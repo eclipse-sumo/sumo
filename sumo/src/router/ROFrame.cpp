@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: ROFrame.cpp,v $
 // Revision 1.14  2006/10/13 13:07:50  dkrajzew
 // added the option to not emit vehicles from flows using a fix frequency
 //
@@ -118,54 +118,103 @@ using namespace std;
 void
 ROFrame::fillOptions(OptionsCont &oc)
 {
-    // add rand and dev options
-    RandHelper::insertRandOptions(oc);
-    // register the file i/o options
+    // register options
+        // register configuration options
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
 
+
+        // register I/O options
     oc.doRegister("output", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
 
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
+    oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
 
     oc.doRegister("alternatives", 'a', new Option_FileName());
+    oc.addDescription("alternatives", "Input", "Read alternatives from FILE");
 
     oc.doRegister("weights", 'w', new Option_FileName());
     oc.addSynonyme("weights", "weight-files");
+    oc.addDescription("weights", "Input", "Read network weights from FILE");
 
     oc.doRegister("lane-weights", 'l', new Option_FileName());
+    oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE");
 
-    // register the simulation settings
+
+        // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
+
     oc.doRegister("end", 'e', new Option_Integer(864000));
+    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
 
-    // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
-    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
-    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
-    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
-    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
 
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.doRegister("stats-period", new Option_Integer(-1));
-
-    // register the data processing options
+        // register the processing options
     oc.doRegister("continue-on-unbuild", new Option_Bool(false));
+    oc.addDescription("continue-on-unbuild", "Processing", "Continue if a route could not be build");
+    
     oc.doRegister("unsorted", new Option_Bool(false));
+    oc.addDescription("unsorted", "Processing", "Set to process unsorted lists");
+    
     oc.doRegister("randomize-flows", new Option_Bool(false)); // !!! undescibed
+    oc.addDescription("randomize-flows", "Processing", "");
+    
     oc.doRegister("move-on-short", new Option_Bool(false));
+    oc.addDescription("move-on-short", "Processing", "Move vehicles to the next edge if the first is too short");
+    
     oc.doRegister("max-alternatives", new Option_Integer(5));
+    oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
+    
     // add possibility to insert random vehicles
     oc.doRegister("random-per-second", 'R', new Option_Float());
+    oc.addDescription("random-per-second", "Processing", "Emit FLOAT random vehicles per second");
+    
     oc.doRegister("prune-random", new Option_Bool(false));
+    oc.addDescription("prune-random", "Processing", "");
+    
     oc.doRegister("remove-loops", new Option_Bool(false)); // !!! undescibed
+    oc.addDescription("remove-loops", "Processing", "");
+
+
+        // register vehicle type defaults
+    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
+    oc.addDescription("krauss-vmax", "Generated Vehicles", "Defines emitted vehicles' max. velocity");
+
+    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
+    oc.addDescription("krauss-a", "Generated Vehicles", "Defines emitted vehicles' max. acceleration");
+
+    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
+    oc.addDescription("krauss-b", "Generated Vehicles", "Defines emitted vehicles' max. deceleration");
+
+    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
+    oc.addDescription("krauss-length", "Generated Vehicles", "Defines emitted vehicles' length");
+
+    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
+    oc.addDescription("krauss-eps", "Generated Vehicles", "Defines emitted vehicles' driver imperfection");
+
+
+        // register report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+
+    oc.doRegister("stats-period", new Option_Integer(-1));
+    oc.addDescription("stats-period", "Report", "Defines how often statistics shall be printed");
 }
 
 
@@ -196,16 +245,11 @@ void
 ROFrame::setDefaults(OptionsCont &oc)
 {
     // insert the krauss-values
-    ROVehicleType_Krauss::myDefault_A =
-        oc.getFloat("krauss-a");
-    ROVehicleType_Krauss::myDefault_B =
-        oc.getFloat("krauss-b");
-    ROVehicleType_Krauss::myDefault_EPS =
-        oc.getFloat("krauss-eps");
-    ROVehicleType_Krauss::myDefault_LENGTH =
-        oc.getFloat("krauss-length");
-    ROVehicleType_Krauss::myDefault_MAXSPEED =
-        oc.getFloat("krauss-vmax");
+    ROVehicleType_Krauss::myDefault_A = oc.getFloat("krauss-a");
+    ROVehicleType_Krauss::myDefault_B = oc.getFloat("krauss-b");
+    ROVehicleType_Krauss::myDefault_EPS = oc.getFloat("krauss-eps");
+    ROVehicleType_Krauss::myDefault_LENGTH = oc.getFloat("krauss-length");
+    ROVehicleType_Krauss::myDefault_MAXSPEED = oc.getFloat("krauss-vmax");
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

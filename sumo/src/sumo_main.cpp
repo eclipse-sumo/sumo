@@ -23,7 +23,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: sumo_main.cpp,v $
 // Revision 1.51  2006/12/12 12:04:06  dkrajzew
 // made the base value for incremental dua changeable
 //
@@ -283,20 +283,16 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
-#include "sumo_help.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
-#include <utils/common/HelpPrinter.h>
 
 #ifdef _RPC
 #include <RemoteServer.h>
-//class RemoteServer;
 #endif
 
 #ifdef _DEBUG
@@ -367,11 +363,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, SUMOFrame::fillOptions);
         if(init_ret<0) {
             cout << "SUMO sumo" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

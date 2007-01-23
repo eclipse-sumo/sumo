@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: netgen_main.cpp,v $
 // Revision 1.33  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -159,8 +159,6 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
-#include "netgen_help.h"
-#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -219,89 +217,148 @@ checkOptions(OptionsCont &oc)
 void
 fillOptions(OptionsCont &oc)
 {
-    // register the file i/o options
-    oc.doRegister("random-net", 'r', new Option_Bool(false));
-    oc.addSynonyme("random-net", "random");
+    // give some application descriptions
+    oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("netgen.exe");
+#else
+    oc.setApplicationName("sumo-netgen");
+#endif
+    oc.addCallExample("-c <CONFIGURATION>");
+    oc.addCallExample("--grid-net [grid-network options] -o <OUTPUTFILE>");
+    oc.addCallExample("--spider-net [spider-network opts] -o <OUTPUTFILE>");
+    oc.addCallExample("--random-net [random-network opts] -o <OUTPUTFILE>");
 
-    oc.doRegister("spider-net", 's', new Option_Bool(false));
-    oc.addSynonyme("spider-net", "spider");
+    oc.setAdditionalHelpMessage(" Either \"--grid-net\", \"--spider-net\" or \"--random-net\" must be \n  supplied. In dependance to these switches other options are used.");
 
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Grid Network");
+    oc.addOptionSubTopic("Spider Network");
+    oc.addOptionSubTopic("Random Network");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Projection"); // !!! in netgen?
+    oc.addOptionSubTopic("TLS Building");
+    oc.addOptionSubTopic("Ramp Guessing");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Report");
+
+
+    // register the options
+        // register grid-net options
     oc.doRegister("grid-net", 'g', new Option_Bool(false));
     oc.addSynonyme("grid-net", "grid");
+    oc.addDescription("grid-net", "Grid Network", "Forces NETGEN to build a grid-like network");
 
-    // register random-net options
-    oc.doRegister("rand-iterations", new Option_Integer(2000));
-    oc.addSynonyme("rand-iterations", "iterations");
-
-    oc.doRegister("rand-max-distance", new Option_Float(250));
-    oc.addSynonyme("rand-max-distance", "max-dist");
-
-    oc.doRegister("rand-min-distance", new Option_Float(100));
-    oc.addSynonyme("rand-min-distance", "min-dist");
-
-    oc.doRegister("rand-min-angle", new Option_Float((SUMOReal) (45.0/180.0*PI)));
-    oc.addSynonyme("rand-min-angle", "min-angle");
-
-    oc.doRegister("rand-num-tries", new Option_Integer(50));
-    oc.addSynonyme("rand-num-tries", "num-tries");
-
-    oc.doRegister("rand-connectivity", new Option_Float((SUMOReal) 0.95));
-    oc.addSynonyme("rand-connectivity", "connectivity");
-
-    oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
-    oc.addSynonyme("rand-neighbor-dist1", "dist1");
-
-    oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
-    oc.addSynonyme("rand-neighbor-dist2", "dist2");
-
-    oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
-    oc.addSynonyme("rand-neighbor-dist3", "dist3");
-
-    oc.doRegister("rand-neighbor-dist4", new Option_Float(10));
-    oc.addSynonyme("rand-neighbor-dist4", "dist4");
-
-    oc.doRegister("rand-neighbor-dist5", new Option_Float(2));
-    oc.addSynonyme("rand-neighbor-dist5", "dist5");
-
-    oc.doRegister("rand-neighbor-dist6", new Option_Float(1));
-    oc.addSynonyme("rand-neighbor-dist6", "dist6");
-
-    // register spider-net options
-    oc.doRegister("spider-arm-number", new Option_Integer(13));
-    oc.addSynonyme("spider-arm-number", "arms");
-
-    oc.doRegister("spider-circle-number", new Option_Integer(20));
-    oc.addSynonyme("spider-circle-number", "circles");
-
-    oc.doRegister("spider-space-rad", new Option_Float(100));
-    oc.addSynonyme("spider-space-rad", "radius");
-
-    // register grid-net options
     oc.doRegister("grid-number", new Option_Integer(5));
     oc.addSynonyme("grid-number", "number");
+    oc.addDescription("grid-number", "Grid Network", "The number of junctions in both dirs");
 
     oc.doRegister("grid-length", new Option_Float(100));
     oc.addSynonyme("grid-length", "length");
+    oc.addDescription("grid-length", "Grid Network", "The length of streets in both dirs");
 
     oc.doRegister("grid-x-number", new Option_Integer(5));
     oc.addSynonyme("grid-x-number", "x-no");
+    oc.addDescription("grid-x-number", "Grid Network", "The number of junctions in x-dir; Overrides --grid-number");
 
     oc.doRegister("grid-y-number", new Option_Integer(5));
     oc.addSynonyme("grid-y-number", "y-no");
+    oc.addDescription("grid-y-number", "Grid Network", "The number of junctions in y-dir; Overrides --grid-number");
 
     oc.doRegister("grid-x-length", new Option_Float(100));
     oc.addSynonyme("grid-x-length", "x-length");
+    oc.addDescription("grid-x-length", "Grid Network", "The length of horizontal streets; Overrides --grid-length");
 
     oc.doRegister("grid-y-length", new Option_Float(100));
     oc.addSynonyme("grid-y-length", "y-length");
+    oc.addDescription("grid-x-length", "Grid Network", "The length of vertical streets; Overrides --grid-length");
 
-    // register building options
-    oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
-    oc.addSynonyme("default-junction-type", "junctions");
+
+        // register spider-net options
+    oc.doRegister("spider-net", 's', new Option_Bool(false));
+    oc.addSynonyme("spider-net", "spider");
+    oc.addDescription("spider-net", "Spider Network", "Forces NETGEN to build a spider-net-like network");
+
+    oc.doRegister("spider-arm-number", new Option_Integer(13));
+    oc.addSynonyme("spider-arm-number", "arms");
+    oc.addDescription("spider-arm-number", "Spider Network", "The number of axes within the net");
+
+    oc.doRegister("spider-circle-number", new Option_Integer(20));
+    oc.addSynonyme("spider-circle-number", "circles");
+    oc.addDescription("spider-circle-number", "Spider Network", "The number of circles of the net");
+
+    oc.doRegister("spider-space-rad", new Option_Float(100));
+    oc.addSynonyme("spider-space-rad", "radius");
+    oc.addDescription("spider-space-rad", "Spider Network", "The distances between the circles");
+
+
+        // register random-net options
+    oc.doRegister("random-net", 'r', new Option_Bool(false));
+    oc.addSynonyme("random-net", "random");
+    oc.addDescription("random-net", "Random Network", "Forces NETGEN to build a random network");
+
+    oc.doRegister("rand-iterations", new Option_Integer(2000));
+    oc.addSynonyme("rand-iterations", "iterations");
+    oc.addDescription("rand-iterations", "Random Network", "Describes how many times an edge shall be added to the net");
+
+    oc.doRegister("rand-max-distance", new Option_Float(250));
+    oc.addSynonyme("rand-max-distance", "max-dist");
+    oc.addDescription("rand-max-distance", "Random Network", "");
+
+    oc.doRegister("rand-min-distance", new Option_Float(100));
+    oc.addSynonyme("rand-min-distance", "min-dist");
+    oc.addDescription("rand-min-distance", "Random Network", "");
+
+    oc.doRegister("rand-min-angle", new Option_Float((SUMOReal) (45.0/180.0*PI)));
+    oc.addSynonyme("rand-min-angle", "min-angle");
+    oc.addDescription("rand-min-angle", "Random Network", "");
+
+    oc.doRegister("rand-num-tries", new Option_Integer(50));
+    oc.addSynonyme("rand-num-tries", "num-tries");
+    oc.addDescription("rand-num-tries", "Random Network", "");
+
+    oc.doRegister("rand-connectivity", new Option_Float((SUMOReal) 0.95));
+    oc.addSynonyme("rand-connectivity", "connectivity");
+    oc.addDescription("rand-connectivity", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
+    oc.addSynonyme("rand-neighbor-dist1", "dist1");
+    oc.addDescription("rand-neighbor-dist1", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
+    oc.addSynonyme("rand-neighbor-dist2", "dist2");
+    oc.addDescription("rand-neighbor-dist2", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
+    oc.addSynonyme("rand-neighbor-dist3", "dist3");
+    oc.addDescription("rand-neighbor-dist3", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist4", new Option_Float(10));
+    oc.addSynonyme("rand-neighbor-dist4", "dist4");
+    oc.addDescription("rand-neighbor-dist4", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist5", new Option_Float(2));
+    oc.addSynonyme("rand-neighbor-dist5", "dist5");
+    oc.addDescription("rand-neighbor-dist5", "Random Network", "");
+
+    oc.doRegister("rand-neighbor-dist6", new Option_Float(1));
+    oc.addSynonyme("rand-neighbor-dist6", "dist6");
+    oc.addDescription("rand-neighbor-dist6", "Random Network", "");
+
 
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
-    // add rand and dev options
+    // register building options
+    oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
+    oc.addSynonyme("default-junction-type", "junctions");
+    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|actuated|agentbased] Determines the type of the build junctions");
+
+
+    // add rand options
     RandHelper::insertRandOptions(oc);
 }
 
@@ -370,11 +427,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if(init_ret<0) {
             cout << "SUMO netgen" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

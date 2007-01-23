@@ -564,108 +564,240 @@ NBNetBuilder::saveMap(const string &path)
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
+    // ! THE options-sub-topic "Configuration" must be set previously !
+        // register configuration options
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
 
-    // register additional output options
+        // register additional output options
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
     oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
+
     oc.doRegister("binary-output", new Option_Bool(false));
+    oc.addDescription("binary-output", "Output", "");
+
     oc.doRegister("plain-output", new Option_FileName());
+    oc.addDescription("plain-output", "Output", "Prefix of files to write nodes and edges to");
+
     oc.doRegister("node-geometry-dump", new Option_FileName());
+    oc.addDescription("plain-output", "Output", "Writes node corner positions to FILE");
+
     oc.doRegister("map-output", 'M', new Option_FileName());
+    oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
+
     oc.doRegister("tls-poi-output", new Option_FileName());
-    oc.doRegister("disable-normalize-node-positions", new Option_Bool(false));
+    oc.addDescription("tls-poi-output", "Output", "Writes pois of tls positions to FILE");
 
-    // register building defaults
+    oc.doRegister("node-type-output", new Option_FileName());
+    oc.addDescription("node-type-output", "Output", "Writes pois of node types to FILE"); // !!! describe, rename
+
+    
+
+        // register building defaults
     oc.doRegister("type", 'T', new Option_String("Unknown"));
+    oc.addDescription("type", "Building Defaults", "The default name for an edges type");
+
     oc.doRegister("lanenumber", 'L', new Option_Integer(1));
+    oc.addDescription("lanenumber", "Building Defaults", "The default number of lanes in an edge");
+
     oc.doRegister("speed", 'S', new Option_Float((SUMOReal) 13.9));
+    oc.addDescription("speed", "Building Defaults", "The default speed on an edge (in m/s)");
+
     oc.doRegister("priority", 'P', new Option_Integer(1));
+    oc.addDescription("priority", "Building Defaults", "The default priority of an edge");
 
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
 
-    // extended
-
+        // projection options
     oc.doRegister("use-projection", new Option_Bool(false));
+    oc.addDescription("use-projection", "Projection", "Enables reprojection from geo to cartesian");
+
     oc.doRegister("proj.simple", new Option_Bool(false));
+    oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
+
     oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
+    oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
-    oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
-    // register the data processing options
 
+        // register the data processing options
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
+    oc.addDescription("omit-corrupt-edges", "Processing", "Continues though corrupt edges");
+
     oc.doRegister("flip-y", new Option_Bool(false));
+    oc.addDescription("flip-y", "Processing", "Flips the y-coordinate along zero");
+
     oc.doRegister("dismiss-vclasses", new Option_Bool(false));
+    oc.addDescription("dismiss-vclasses", "Processing", "");
 
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false)); // !!! not described
-
-    oc.doRegister("x-offset-to-apply", new Option_Float(0));
-    oc.doRegister("y-offset-to-apply", new Option_Float(0));
-    oc.doRegister("rotation-to-apply", new Option_Float(0));
+    oc.addDescription("use-laneno-as-priority", "Processing", "Uses the number of lanes priority hint");
 
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
+    oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");
+
     oc.doRegister("no-turnarounds", new Option_Bool(false));
+    oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
+
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false)); // !!! not described
+    oc.addDescription("add-internal-links", "Processing", "Adds internal links");
+
     oc.doRegister("split-geometry", new Option_Bool(false)); // !!!not described
+    oc.addDescription("split-geometry", "Processing", "Splits edges across geometry nodes");
+
+    oc.doRegister("disable-normalize-node-positions", new Option_Bool(false));
+    oc.addDescription("disable-normalize-node-positions", "Processing", "Turn off normalizing node positions");
+
+    oc.doRegister("x-offset-to-apply", new Option_Float(0));
+    oc.addDescription("x-offset-to-apply", "Processing", "Adds FLOAT to net x-positions");
+
+    oc.doRegister("y-offset-to-apply", new Option_Float(0));
+    oc.addDescription("y-offset-to-apply", "Processing", "Adds FLOAT to net y-positions");
+
+    oc.doRegister("rotation-to-apply", new Option_Float(0));
+    oc.addDescription("rotation-to-apply", "Processing", "Rotates net around FLOAT degrees");
 
 
-    // tls setting options
-        // computational
-    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
-    oc.doRegister("all-logics", new Option_Bool(false));
-    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
-    oc.doRegister("traffic-light-green", new Option_Integer());
-    oc.doRegister("traffic-light-yellow", new Option_Integer());
-
-        // tls-guessing
-    oc.doRegister("guess-tls", new Option_Bool(false));
-    oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
-    oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
-    oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
-    oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
-    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((SUMOReal) (40/3.6)));
-    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((SUMOReal)(69/3.6)));
-    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((SUMOReal)(40/3.6)));
-    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((SUMOReal)(69/3.6)));
-    oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
-        // tls-shifts
-    oc.doRegister("tl-logics.half-offset", new Option_String());
-    oc.doRegister("tl-logics.quarter-offset", new Option_String());
-        // explicite tls
+        // tls setting options
+            // explicite tls
     oc.doRegister("explicite-tls", new Option_String());
+    oc.addDescription("explicite-tls", "TLS Building", "Interprets STR as list of junctions to be controlled by TLS");
+
     oc.doRegister("explicite-no-tls", new Option_String());
+    oc.addDescription("explicite-no-tls", "TLS Building", "Interprets STR as list of junctions to be not controlled by TLS");
 
-    // edge constraints
+            // tls-guessing
+    oc.doRegister("guess-tls", new Option_Bool(false));
+    oc.addDescription("guess-tls", "TLS Building", "Turns on TLS guessing");
+    
+    oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
+    oc.addDescription("tls-guess.no-incoming-min", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
+    oc.addDescription("tls-guess.no-incoming-max", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
+    oc.addDescription("tls-guess.no-outgoing-min", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
+    oc.addDescription("tls-guess.no-outgoing-max", "TLS Building", "Min/max of incoming/outgoing edges a junction may have in order to be tls-controlled.");
+    
+    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((SUMOReal) (40/3.6)));
+    oc.addDescription("tls-guess.min-incoming-speed", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((SUMOReal)(69/3.6)));
+    oc.addDescription("tls-guess.max-incoming-speed", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((SUMOReal)(40/3.6)));
+    oc.addDescription("tls-guess.min-outgoing-speed", "TLS Building", "");
+    
+    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((SUMOReal)(69/3.6)));
+    oc.addDescription("tls-guess.max-outgoing-speed", "TLS Building", "Min/max speeds that incoming/outgoing edges must allowed in order to make their junction TLS-controlled.");
+    
+    oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
+    oc.addDescription("tls-guess.district-nodes", "TLS Building", ""); // !!! describe
+
+            // computational
+    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
+    oc.addDescription("min-decel", "TLS Building", "Defines smallest vehicle deceleration");
+
+    oc.doRegister("all-logics", new Option_Bool(false));
+    oc.addDescription("all-logics", "TLS Building", "");
+
+    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
+    oc.addDescription("keep-small-tyellow", "TLS Building", "Given yellow times are kept even if being too short");
+
+    oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.addDescription("traffic-light-green", "TLS Building", "Use INT as green phase duration");
+
+    oc.doRegister("traffic-light-yellow", new Option_Integer());
+    oc.addDescription("traffic-light-yellow", "TLS Building", "Set INT as fixed time for yellow phase durations");
+
+            // tls-shifts
+    oc.doRegister("tl-logics.half-offset", new Option_String());
+    oc.addDescription("traffic-light-yellow", "TLS Building", "TLSs in STR will be shifted by half-phase");
+
+    oc.doRegister("tl-logics.quarter-offset", new Option_String());
+    oc.addDescription("traffic-light-yellow", "TLS Building", "TLSs in STR will be shifted by quarter-phase");
+
+
+        // edge constraints
     oc.doRegister("edges-min-speed", new Option_Float());
-    oc.doRegister("keep-edges", new Option_String());
-    oc.doRegister("keep-edges.input-file", new Option_FileName());
-    oc.doRegister("keep-edges.postload", new Option_Bool(false));
-    oc.doRegister("remove-edges.by-type", new Option_String());
+    oc.addDescription("edges-min-speed", "Edge Removal", "Remove edges with speed < FLOAT");
+
     oc.doRegister("remove-edges", new Option_String());
+    oc.addDescription("remove-edges", "Edge Removal", "Remove edges in STR");
 
-    // unregulated nodes options
+    oc.doRegister("keep-edges", new Option_String());
+    oc.addDescription("keep-edges", "Edge Removal", "Remove edges not in STR");
+
+    oc.doRegister("keep-edges.input-file", new Option_FileName());
+    oc.addDescription("keep-edges.input-file", "Edge Removal", "Removed edges not in FILE");
+
+    oc.doRegister("keep-edges.postload", new Option_Bool(false));
+    oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
+
+    oc.doRegister("remove-edges.by-type", new Option_String());
+    oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where vclass def is not in STR");
+    
+
+        // unregulated nodes options
     oc.doRegister("keep-unregulated", new Option_Bool(false));
-    oc.doRegister("keep-unregulated.nodes", new Option_String());
-    oc.doRegister("keep-unregulated.district-nodes", new Option_Bool(false));
+    oc.addDescription("keep-unregulated", "Unregulated Nodes", "All nodes will be not regulated");
 
-    // ramp guessing options
+    oc.doRegister("keep-unregulated.nodes", new Option_String());
+    oc.addDescription("keep-unregulated.nodes", "Unregulated Nodes", "Do not regulate nodes in STR");
+    
+    oc.doRegister("keep-unregulated.district-nodes", new Option_Bool(false));
+    oc.addDescription("keep-unregulated.district-nodes", "Unregulated Nodes", "Do not regulate district nodes");
+
+
+        // ramp guessing options
     oc.doRegister("guess-ramps", new Option_Bool(false));
+    oc.addDescription("guess-ramps", "Ramp Guessing", "Enable ramp-guessing");
+    
     oc.doRegister("ramp-guess.max-ramp-speed", new Option_Float(-1));
+    oc.addDescription("ramp-guess.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
+    
     oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((SUMOReal) (79/3.6)));
+    oc.addDescription("ramp-guess.min-highway-speed", "Ramp Guessing", "Treat edges with speed < FLOAT as no highways");
+    
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
+    oc.addDescription("ramp-guess.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
 
     oc.doRegister("guess-obscure-ramps", new Option_Bool(false)); // !!! not described
-    oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false)); // !!! not described
-    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal) (100/3.6))); // !!! not described
+    oc.addDescription("guess-obscure-ramps", "Ramp Guessing", "");
 
+    oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false)); // !!! not described
+    oc.addDescription("obscure-ramps.add-ramp", "Ramp Guessing", "");
+    
+    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal) (100/3.6))); // !!! not described
+    oc.addDescription("obscure-ramps.min-highway-speed", "Ramp Guessing", "");
+
+
+    // register report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+
+    oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
+    oc.addDescription("print-node-positions", "Report", "Prints the positions of read nodes");
 
     oc.doRegister("netbuild.debug", new Option_Integer(0)); // !!! not described
+    oc.addDescription("netbuild.debug", "Report", "Enable debug mode");
 
 }
 

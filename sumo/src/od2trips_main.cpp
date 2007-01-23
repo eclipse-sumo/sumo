@@ -45,7 +45,6 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
@@ -53,12 +52,10 @@
 #include <utils/common/StringUtils.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
-#include "od2trips_help.h"
 #include <od2trips/ODmatrix.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/importio/LineReader.h>
 
 #ifdef _DEBUG
@@ -78,40 +75,96 @@ using namespace std;
 void
 fillOptions(OptionsCont &oc)
 {
+    // give some application descriptions
+    oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("od2trips.exe");
+#else
+    oc.setApplicationName("sumo-od2trips");
+#endif
+    oc.addCallExample("-c <CONFIGURATION>");
+
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Report");
+
+
+        // register configuration options
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
 
-    // register the file i/o options
+        // register the file i/o options
     oc.doRegister("net-file", 'n', new Option_FileName());
 	oc.addSynonyme("net-file", "net");
+    oc.addDescription("net-file", "Input", "Loads network (districts) from FILE");
 
     oc.doRegister("od-files", 'd', new Option_FileName());
 	oc.addSynonyme("od-files", "od");
+    oc.addDescription("od-files", "Input", "Loads O/D-files from FILE(s)");
 
 	oc.doRegister("vissim", new Option_FileName());
+    oc.addDescription("vissim", "Input", "Uses FILE to determine which O/D-matrices to load");
+
 
     oc.doRegister("output-file", 'o', new Option_FileName());
 	oc.addSynonyme("output-file", "output");
+    oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
 
-    // register the report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
 
-    // register the data processing options
+        // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
-    oc.doRegister("end", 'e', new Option_Integer(86400));
-    oc.doRegister("scale", 's', new Option_Float(1));
-    oc.doRegister("no-color", new Option_Bool(false));
-    oc.doRegister("spread.uniform", new Option_Bool(false));
-    oc.doRegister("vtype", new Option_String(""));
-    oc.doRegister("prefix", new Option_String(""));
-    oc.doRegister("timeline", new Option_String());
-    oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
+    oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    // add rand and dev options
+    oc.doRegister("end", 'e', new Option_Integer(86400));
+    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
+
+
+        // register the data processing options
+    oc.doRegister("scale", 's', new Option_Float(1));
+    oc.addDescription("scale", "Processing", "Scales the loaded flows by FLOAT");
+
+    oc.doRegister("no-color", new Option_Bool(false));
+    oc.addDescription("no-color", "Processing", "Disables writing color information for vehicles");
+
+    oc.doRegister("spread.uniform", new Option_Bool(false));
+    oc.addDescription("spread.uniform", "Processing", "Spreads trips uniformly over each time period");
+
+    oc.doRegister("vtype", new Option_String(""));
+    oc.addDescription("vtype", "Processing", "Defines the name of the vehicle type to use");
+
+    oc.doRegister("prefix", new Option_String(""));
+    oc.addDescription("prefix", "Processing", "Defines the prefix for vehicle names");
+
+    oc.doRegister("timeline", new Option_String());
+    oc.addDescription("timeline", "Processing", "Uses STR as a timeline definition");
+
+    oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
+    oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
+
+
+        // register report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+
+
+    // add rand options
     RandHelper::insertRandOptions(oc);
 }
 
@@ -235,7 +288,7 @@ getVissimDynUMLMatrices(const std::string file)
 }
 
 
-string
+string 
 getNextNonCommentLine(LineReader &lr)
 {
     string line;
@@ -430,11 +483,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if(init_ret<0) {
             cout << "SUMO od2trips" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;
@@ -467,7 +520,7 @@ main(int argc, char **argv)
             throw ProcessError();
         }
         ostrm << "<tripdefs>" << endl;
-        matrix.write(oc.getInt("begin"), oc.getInt("end"),
+        matrix.write(oc.getInt("begin"), oc.getInt("end"), 
             ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");

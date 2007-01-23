@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
         "$Id$";
 }
-// $Log$
+// $Log: jtrrouter_main.cpp,v $
 // Revision 1.18  2006/11/20 11:11:33  dkrajzew
 // bug [ 1598346 ] (Versioning information in many places) patched - Version number is now read from windows_config.h/config.h
 //
@@ -145,7 +145,6 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
@@ -155,8 +154,6 @@ namespace
 #include <routing_jtr/ROJTRTurnDefLoader.h>
 #include <routing_jtr/ROJTRHelpers.h>
 #include <routing_jtr/ROJTRFrame.h>
-#include "jtrrouter_help.h"
-#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -304,11 +301,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, ROJTRFrame::fillOptions);
         if(init_ret<0) {
             cout << "SUMO jtrrouter" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: RODUAFrame.cpp,v $
 // Revision 1.8  2006/11/29 07:51:23  dkrajzew
 // added the possibility to use the loaded weights outside their boundaries
 //
@@ -81,6 +81,7 @@ namespace
 #include <utils/common/ToString.h>
 #include "RODUAFrame.h"
 #include <router/ROFrame.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -97,59 +98,95 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 void
-RODUAFrame::fillOptions_basicImport(OptionsCont &oc)
+RODUAFrame::fillOptions(OptionsCont &oc)
 {
-	ROFrame::fillOptions(oc);
-	addDUAOptions(oc);
-}
+    // give some application descriptions
+    oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("duarouter.exe");
+#else
+    oc.setApplicationName("sumo-duarouter");
+#endif
+    oc.addCallExample("-c <CONFIGURATION>");
+
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Generated Vehicles");
+    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic("Report");
 
 
-void
-RODUAFrame::fillOptions_fullImport(OptionsCont &oc)
-{
+    // insert options
 	ROFrame::fillOptions(oc);
 	addImportOptions(oc);
 	addDUAOptions(oc);
+    // add rand options
+    RandHelper::insertRandOptions(oc);
 }
 
 
 void
 RODUAFrame::addImportOptions(OptionsCont &oc)
 {
+        // register import options
     oc.doRegister("trip-defs", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-defs");
+    oc.addDescription("trip-defs", "Input", "Read trip-definitions from FILE");
 
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
     oc.addSynonyme("flow-definition", "flow-defs");
+    oc.addDescription("flow-definition", "Input", "Read flow-definitions from FILE");
 
     oc.doRegister("sumo-input", 's', new Option_FileName());
     oc.addSynonyme("sumo", "sumo-input");
+    oc.addDescription("sumo-input", "Input", "Read sumo-routes from FILE");
 
     oc.doRegister("cell-input", new Option_FileName());
     oc.addSynonyme("cell", "cell-input");
+    oc.addDescription("cell-input", "Input", "Read cell-routes from FILE");
 
     oc.doRegister("artemis-input", new Option_FileName());
     oc.addSynonyme("artemis", "artemis-input");
+    oc.addDescription("artemis-input", "Input", "Read artemis-routes from FILE");
 
     oc.doRegister("save-cell-rindex", new Option_Bool(false));
+    oc.addDescription("save-cell-rindex", "Input", "Save Cell route indices");
+
     oc.doRegister("intel-cell", new Option_Bool(false));
+    oc.addDescription("intel-cell", "Input", "Flip byte order on reading Cell-routes");
+    
     oc.doRegister("no-last-cell", new Option_Bool(false));
+    oc.addDescription("no-last-cell", "Input", "Use best, not the last cell-route");
+
+
+        // register further processing options
+        // ! The subtopic "Processing" must be initialised earlier !
     oc.doRegister("expand-weights", new Option_Bool(false));
+    oc.addDescription("expand-weights", "Processing", "Expand weight behind the simulation's end");
 }
 
 
 void
 RODUAFrame::addDUAOptions(OptionsCont &oc)
 {
+    // register additional options
     oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
     oc.addSynonyme("supplementary-weights", "add");
+    oc.addDescription("supplementary-weights", "Input", "Read additional weights from FILE");
 
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
+    oc.addDescription("scheme", "Processing", "");
 
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
+    oc.addDescription("gBeta", "Processing", "Use FLOAT as Gawron's beta");
+
     oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));
+    oc.addDescription("gA", "Processing", "Use FLOAT as Gawron's alpha");
 }
 
 

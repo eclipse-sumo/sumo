@@ -19,7 +19,7 @@ sumo-od2trips sumo-polyconvert $(GUI_APPS)
 
 EXTRA_PROGRAMS =
 
-sumo_SOURCES = sumo_main.cpp sumo_help.h \
+sumo_SOURCES = sumo_main.cpp \
 RemoteServer.h
 
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
@@ -54,7 +54,7 @@ $(XMLRPC_LIBS) \
 
 
 
-sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h
+sumo_netconvert_SOURCES = netconvert_main.cpp
 
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
 
@@ -88,7 +88,7 @@ $(MEM_LIBS) \
 
 
 
-sumo_netgen_SOURCES = netgen_main.cpp netgen_help.h
+sumo_netgen_SOURCES = netgen_main.cpp
 
 sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
 
@@ -106,7 +106,7 @@ $(MEM_LIBS) \
 
 
 
-sumo_duarouter_SOURCES = duarouter_main.cpp duarouter_help.h
+sumo_duarouter_SOURCES = duarouter_main.cpp
 
 sumo_duarouter_LDFLAGS = -L$(XERCES_LDFLAGS)
 
@@ -124,7 +124,7 @@ $(MEM_LIBS) \
 
 
 
-sumo_dfrouter_SOURCES = dfrouter_main.cpp dfrouter_help.h
+sumo_dfrouter_SOURCES = dfrouter_main.cpp
 
 sumo_dfrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
 
@@ -143,7 +143,7 @@ $(MEM_LIBS) \
 
 
 
-sumo_jtrrouter_SOURCES = jtrrouter_main.cpp jtrrouter_help.h
+sumo_jtrrouter_SOURCES = jtrrouter_main.cpp
 
 sumo_jtrrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
 
@@ -161,7 +161,7 @@ $(MEM_LIBS) \
 
 
 
-sumo_od2trips_SOURCES = od2trips_main.cpp od2trips_help.h
+sumo_od2trips_SOURCES = od2trips_main.cpp
 
 sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
 
@@ -178,7 +178,7 @@ $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
-sumo_polyconvert_SOURCES = polyconvert_main.cpp polyconvert_help.h
+sumo_polyconvert_SOURCES = polyconvert_main.cpp
 
 sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(PROJ_LDFLAGS)
 
@@ -197,7 +197,7 @@ $(MEM_LIBS) \
 
 
 if WITH_GUI
-sumo_guisim_SOURCES = guisim_main.cpp guisim_help.h
+sumo_guisim_SOURCES = guisim_main.cpp
 
 sumo_guisim_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
 
@@ -258,9 +258,9 @@ od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
-giant_help.h giant_main.cpp \
+giant_main.cpp \
 guisim.rc \
-netedit_help.h netedit_main.cpp \
+netedit_main.cpp \
 tagreader.cpp \
 windows_config.h
 

@@ -19,7 +19,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// $Log$
+// $Log: netedit_main.cpp,v $
 // Revision 1.16  2007/01/10 08:33:05  dkrajzew
 // expanded the some option names when asking for them
 //
@@ -100,7 +100,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/xml/XMLSubSys.h>
@@ -111,13 +110,11 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIVehicleDrawer.h>
-#include "netedit_help.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
-#include <utils/common/HelpPrinter.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -145,6 +142,38 @@
 using namespace std;
 
 
+/* =========================================================================
+ * methods
+ * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * options initialisation
+ * ----------------------------------------------------------------------- */
+void
+fillOptions(OptionsCont &oc)
+{
+    // give some application descriptions
+    oc.setApplicationDescription("A graphical network editor.");
+#ifdef WIN32
+    oc.setApplicationName("netedit.exe");
+#else
+    oc.setApplicationName("sumo-netedit");
+#endif
+    oc.addCallExample("");
+    oc.addCallExample("-c <CONFIGURATION>");
+
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Process");
+    oc.addOptionSubTopic("Visualisation");
+    oc.addOptionSubTopic("Open GL");
+    oc.addOptionSubTopic("Report");
+
+
+    // insert options
+    GUIFrame::fillInitOptions(oc);
+}
+
+
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
@@ -155,14 +184,14 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     try {
 #endif
-        int init_ret = SystemFrame::init(true, argc, argv, GUIFrame::fillInitOptions);
+        int init_ret = SystemFrame::init(true, argc, argv, fillOptions);
         if(init_ret<0) {
             cout << "SUMO netedit" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

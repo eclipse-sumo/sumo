@@ -23,7 +23,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: polyconvert_main.cpp,v $
 // Revision 1.6  2007/01/09 14:43:06  dkrajzew
 // added missing changes (was: Visum point import)
 //
@@ -77,11 +77,9 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
-#include "polyconvert_help.h"
 #include <polyconvert/PCVisum.h>
 #include <polyconvert/PCVisumPoints.h>
 #include <polyconvert/PCElmar.h>
@@ -109,46 +107,117 @@ using namespace std;
 void
 fillOptions(OptionsCont &oc)
 {
-    // add process options
+    oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("polyconvert.exe");
+#else
+    oc.setApplicationName("sumo-polyconvert");
+#endif
+    oc.addCallExample("-c <CONFIGURATION>");
+
+    // insert options sub-topics
+    oc.addOptionSubTopic("Configuration");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Projection");
+    oc.addOptionSubTopic("Prunning");
+    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Report");
+
+
+    // register options
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
 
-    // add i/o options
-        // original network
+        // add i/o options
+            // original network
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-        // elmar import
+    oc.addDescription("net-file", "Input", "Loads SUMO-network FILE as reference to offset and projection");
+
+            // elmar import
 	oc.doRegister("elmar", new Option_FileName());
-	oc.doRegister("elmar-points", new Option_FileName());
-        // visum import
+    oc.addDescription("elmar", "Input", "Reads polygons from FILE assuming they're coded in Elmar-format");
+
+    oc.doRegister("elmar-points", new Option_FileName());
+    oc.addDescription("elmar-points", "Input", "Reads pois from FILE assuming they're coded in Elmar-format");
+
+            // visum import
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
+    oc.addDescription("visum-file", "Input", "Reads polygons from FILE assuming it's a Visum-net");
+
     oc.doRegister("visum-points", new Option_FileName());
-        // typemap reading
+    oc.addDescription("visum-points", "Input", "Reads pois from FILE assuming it's a Visum-net");
+
+            // typemap reading
     oc.doRegister("typemap", new Option_FileName());
+    oc.addDescription("typemap", "Input", "Reads types from FILE");
+
         // output
     oc.doRegister("output", 'o', new Option_FileName("polygons.xml"));
+    oc.addDescription("output", "Output", "Write generated polygons/pois to FILE");
 
-    // projection options
+
+        // projection options
+    oc.addOptionSubTopic("Projection");
+
     oc.doRegister("use-projection", new Option_Bool(false));
+    oc.addDescription("use-projection", "Projection", "Enables reprojection from geo to cartesian");
+
     oc.doRegister("proj.simple", new Option_Bool(false));
+    oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
+
     oc.doRegister("proj", new Option_String());
+    oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
-    // prunning options
+
+        // prunning options
+    oc.addOptionSubTopic("Prunning");
+
     oc.doRegister("prune.on-net", new Option_Bool(false));
-    oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
-    oc.doRegister("prune.boundary", new Option_String());
+    oc.addDescription("prune.on-net", "Prunning", "Enables prunning on net boundaries");
 
-    // default values
+    oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
+    oc.addDescription("prune.on-net.offsets", "Prunning", "Uses STR as offset definition added to the net boundaries");
+
+    oc.doRegister("prune.boundary", new Option_String());
+    oc.addDescription("prune.boundary", "Prunning", "Uses STR as prunning boundary");
+
+
+        // building defaults options
+    oc.addOptionSubTopic("Building Defaults");
+
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
+    oc.addDescription("color", "Building Defaults", "Sets STR as default color");
+
     oc.doRegister("prefix", new Option_String(""));
+    oc.addDescription("prefix", "Building Defaults", "Sets STR as default prefix");
+    
     oc.doRegister("type", new Option_String("unknown"));
+    oc.addDescription("type", "Building Defaults", "Sets STR as default type");
+    
     oc.doRegister("layer", new Option_Integer(-1));
+    oc.addDescription("layer", "Building Defaults", "Sets INT as default layer");
+
+
+        // register report options
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
+
 
     // random initialisation (not used!!!)
     RandHelper::insertRandOptions(oc);
@@ -253,11 +322,11 @@ main(int argc, char **argv)
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions, 0);
         if(init_ret<0) {
             cout << "SUMO polyconvert" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

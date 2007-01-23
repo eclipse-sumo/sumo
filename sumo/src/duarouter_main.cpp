@@ -23,7 +23,7 @@ namespace
     const char rcsid[] =
         "$Id$";
 }
-// $Log$
+// $Log: duarouter_main.cpp,v $
 // Revision 1.16  2006/11/29 07:51:22  dkrajzew
 // added the possibility to use the loaded weights outside their boundaries
 //
@@ -211,12 +211,9 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_dua/RODUAFrame.h>
-#include "duarouter_help.h"
-#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -317,14 +314,14 @@ main(int argc, char **argv)
 #endif
         // initialise the application system (messaging, xml, options)
         int init_ret =
-            SystemFrame::init(false, argc, argv, RODUAFrame::fillOptions_fullImport);
+            SystemFrame::init(false, argc, argv, RODUAFrame::fillOptions);
         if(init_ret<0) {
             cout << "SUMO duarouter" << endl;
-            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
             switch(init_ret) {
             case -2:
-                HelpPrinter::print(help);
+                OptionsSubSys::getOptions().printHelp(cout);
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;
