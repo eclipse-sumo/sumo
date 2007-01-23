@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<vehicleroutes>
+   <vehicle id="horizontal21" emitedAt="100" endedAt="332">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal11" emitedAt="100" endedAt="333">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal01" emitedAt="100" endedAt="335">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+</vehicleroutes>

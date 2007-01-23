@@ -1,0 +1,39 @@
+<routes>
+   <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
+
+   <route id="horizontal" multi_ref="x">2fi 2si 1o 1fi 1si 2o 2fi</route>
+
+   <vehicle id="horizontal01" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal02" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal03" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal04" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal05" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal06" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal07" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal08" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal09" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal10" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+
+   <vehicle id="horizontal11" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal12" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal13" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal14" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal15" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal16" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal17" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal18" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal19" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal20" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+
+   <vehicle id="horizontal21" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal22" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal23" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal24" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal25" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal26" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal27" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal28" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal29" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+   <vehicle id="horizontal30" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="100"/>
+
+</routes>

@@ -1,0 +1,1 @@
+-b 0 --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --vehroutes=vehroutes.xml --incremental-dua-step 10
