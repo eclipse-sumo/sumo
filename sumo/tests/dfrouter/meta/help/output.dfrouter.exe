@@ -1,42 +1,83 @@
 SUMO dfrouter
- (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  Version 0.9.6
-  Routes vehicles between detectors.
+ 
+Builds vehicle routes for SUMO using detector values.
 
-Usage: (sumo-)dfrouter(.exe) [OPTION]*
+Usage: dfrouter.exe [OPTION]*
+ 
+ Example:
+  dfrouter.exe -c <CONFIGURATION>
+ 
+ Configuration Options:
+  -c, --configuration-file FILE      Loads the named config on startup
 
-Examples:
-  dfrouter -c routes_munich.cfg
+ Input Options:
+  -n, --net-file FILE                Loads the SUMO-network FILE
+  -r, --routes-input FILE            Loads SUMO-routes from FILE
+  -d, --detector-files FILE          Loads detector descriptions from FILE
+  -E, --elmar-detector-files FILE    Loads elmar detector descriptions from
+                                       FILE
+  -f, --detector-flow-files FILE     Loads detector flows from FILE(s)
 
-Options:
- Input files:
-  Configuration
-   -c, --configuration FILE    FILE will be used as configuration
+ Output Options:
+  -o, --routes-output FILE           Saves computed routes to FILE
+  --routes-for-all                   Forces DFROUTER to compute routes for
+                                       in-between detectors
+  --detectors-output FILE            Saves typed detectors to FILE
+  --detectors-poi-output FILE        Saves detector positions as pois to FILE
+  --emitters-output FILE             Saves emitter definitions for source
+                                       detectors to FILE
+  --emitters-poi-output FILE         Saves emitter positions as pois to FILE
+  --speed-trigger-output FILE        Saves variable seed sign definitions for
+                                       sink detectors to FILE
+  --end-reroute-output FILE          Saves rerouter definitions for sink
+                                       detectors to FILE
+  --validation-output FILE           
+  --validation-output.add-sources    
 
-  Network description:
-   -n, --net-file FILE         FILE containing the SUMO-net
+ Processing Options:
+  --guess-empty-flows                
+  -h, --highway-mode                 Switches to highway-mode
+  --revalidate-detectors             Recomputes detector types even if given
+  --revalidate-routes                Recomputes routes even if given
+  --all-end-follower                 Continues routes till the first street
+                                       after a sink
+  --keep-unfound-ends                Keeps routes ending at no sinks
+  --fast-flows                       Assumes flows to be stored in a less
+                                       complex format
+  --time-offset INT                  Subtracts INT from flow times
+  --write-calibrators                
+  --revalidate-flows                 
+  --remove-empty-detectors           Removes empty detectors from the list
+  --strict-sources                   
 
-  Route descriptions:
-   -r, --routes-input FILE       FILE containing SUMO-routes
+ Generated Vehicles Options:
+  -V, --krauss-vmax FLOAT            Defines emitted vehicles' max. velocity
+  -A, --krauss-a FLOAT               Defines emitted vehicles' max.
+                                       acceleration
+  -B, --krauss-b FLOAT               Defines emitted vehicles' max.
+                                       deceleration
+  -L, --krauss-length FLOAT          Defines emitted vehicles' length
+  --krauss-eps FLOAT                 Defines emitted vehicles' driver
+                                       imperfection
 
- Detector files:
-   -d, --detector-definitions FILE FILE containing detector definition
-   -f, --flow-definitions        FILE containing flow definition
+ Time Options:
+  -b, --begin INT                    Defines the begin time;
+                                       Previous defs will be discarded
+  -e, --end INT                      Defines the end time;
+                                       Later defs will be discarded
 
- Output files:
-   -o, --output-file FILE      Generated routes will be written to FILE
-                                 Additionally, a file with route
-                                 alternatives will be generated as
-                                 'FILE.alt'
+ Report Options:
+  -v, --verbose                      Switches to verbose output
+  -W, --suppress-warnings            Disables output of warnings
+  -p, --print-options                Prints option values before processing
+  -?, --help                         Prints this screen
+  -l, --log-file FILE                Writes all messages to FILE
 
- Process Options:
-   -b, --begin INT             The begin time of routing
-   -e, --end INT               The end time of routing
+ Random Number Options:
+  --srand INT                        Initialises the random number generator
+                                       with the given value
+  --abs-rand                         Initialises the random number generator
+                                       with the current system time
 
- Report options:
-   -v, --verbose              Verbose reports
-   -W, -suppress-warnings     No warnings will be printed
-   -l, -log-file FILE         Writes all messages to the file
-   -p, -print-options         Prints option values before processing
-   -?, --help                 This screen
-   --stats-period INT         Step number to pass between status output
