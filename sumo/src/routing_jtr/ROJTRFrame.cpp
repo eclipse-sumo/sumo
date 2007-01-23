@@ -74,6 +74,7 @@ namespace
 #include <utils/common/ToString.h>
 #include "ROJTRFrame.h"
 #include <router/ROFrame.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -113,6 +114,8 @@ ROJTRFrame::fillOptions(OptionsCont &oc)
 
     ROFrame::fillOptions(oc);
     addJTROptions(oc);
+    // add rand options
+    RandHelper::insertRandOptions(oc);
 }
 
 
