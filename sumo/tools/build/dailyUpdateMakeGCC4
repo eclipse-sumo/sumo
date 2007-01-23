@@ -13,6 +13,7 @@ make -f Makefile.cvs >> $MAKELOG 2>&1
 --with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
 --with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
 >> $MAKELOG 2>&1
+make dist >> $MAKELOG 2>&1
 make >> $MAKELOG 2>&1
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz shell.sf.net:sumo-www/
