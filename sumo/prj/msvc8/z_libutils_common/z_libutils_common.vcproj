@@ -508,10 +508,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\HelpPrinter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\InstancePool.h"
 				>
 			</File>

@@ -273,10 +273,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\giant_help.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h"
 				>
 			</File>

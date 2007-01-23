@@ -252,10 +252,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\netedit_help.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h"
 				>
 			</File>

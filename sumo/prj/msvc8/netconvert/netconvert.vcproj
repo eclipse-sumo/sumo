@@ -246,10 +246,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\netconvert_help.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"

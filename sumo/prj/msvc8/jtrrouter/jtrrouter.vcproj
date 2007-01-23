@@ -428,10 +428,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\jtrrouter_help.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTREdge.h"
 				>
 			</File>

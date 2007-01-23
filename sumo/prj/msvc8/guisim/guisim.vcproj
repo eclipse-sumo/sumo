@@ -306,14 +306,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim_help.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\HelpPrinter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSExtendedTrafficLightLogic.h"
 				>
 			</File>

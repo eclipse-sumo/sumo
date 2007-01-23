@@ -292,10 +292,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\sumo_help.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\helpers\ValueRetriever.h"
 				>
 			</File>
