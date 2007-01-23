@@ -1,1 +1,0 @@
-EXTRA_DIST = elmar_type_map.xml

@@ -1,1 +1,0 @@
-SUBDIRS = add cfg_templates examples

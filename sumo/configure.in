@@ -140,11 +140,11 @@ if test x"$ac_xerces_libraries" = x; then
       AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
    fi
 else
-   if test -e "$ac_xerces_libraries/libxerces.so"; then
+   if test -e "$ac_xerces_libraries/libxerces.so" -o -e "$ac_xerces_libraries/libxerces.dll.a"; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces
-   elif test -e "$ac_xerces_libraries/libxerces-c.so"; then
+   elif test -e "$ac_xerces_libraries/libxerces-c.so" -o -e "$ac_xerces_libraries/libxerces-c.dll.a"; then
       AC_MSG_RESULT([yes])
       ac_xerces_lib_path="$ac_xerces_libraries"
       ac_xerceslib=xerces-c
@@ -243,7 +243,7 @@ if test x"$ac_proj_libraries" = x; then
       AC_MSG_ERROR([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])
    fi
 else
-   if test -e "$ac_proj_libraries/libproj.so"; then
+   if test -e "$ac_proj_libraries/libproj.so" -o -e "$ac_proj_libraries/libproj.a"; then
       AC_MSG_RESULT([yes])
       ac_proj_lib_path="$ac_proj_libraries"
       ac_projlib=proj
@@ -318,7 +318,7 @@ if test x"$ac_gdal_libraries" = x; then
       AC_MSG_ERROR([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])
    fi
 else
-   if test -e "$ac_gdal_libraries/libgdal.so"; then
+   if test -e "$ac_gdal_libraries/libgdal.so" -o -e "$ac_gdal_libraries/libgdal.a"; then
       AC_MSG_RESULT([yes])
       ac_gdal_lib_path="$ac_gdal_libraries"
       ac_gdallib=gdal
@@ -529,98 +529,6 @@ dnl AC_ARG_PROGRAM
 dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
 bin/Makefile
-data/Makefile
-data/add/Makefile
-data/cfg_templates/Makefile
-data/examples/Makefile
-data/examples/dua/Makefile
-data/examples/dua/due2s_automatic/Makefile
-data/examples/dua/due2s_automatic/aggregated/Makefile
-data/examples/dua/due2s_singlestep/Makefile
-data/examples/dua/due2s_singlestep/aggregated/Makefile
-data/examples/dua/due3s_automatic/Makefile
-data/examples/dua/due3s_automatic/aggregated/Makefile
-data/examples/dua/due3s_singlestep/Makefile
-data/examples/dua/due3s_singlestep/aggregated/Makefile
-data/examples/duarouter/Makefile
-data/examples/duarouter/flows2routes/Makefile
-data/examples/duarouter/flows2routes_100s_interval/Makefile
-data/examples/duarouter/flows2routes_100s_interval_ext/Makefile
-data/examples/duarouter/flows2routes_200s_interval/Makefile
-data/examples/duarouter/trips2routes/Makefile
-data/examples/duarouter/trips2routes_repetition/Makefile
-data/examples/emissions/Makefile
-data/examples/emissions/emitters/Makefile
-data/examples/emissions/normal/Makefile
-data/examples/emissions/sources/Makefile
-data/examples/extended/Makefile
-data/examples/extended/3busses1/Makefile
-data/examples/extended/busses1/Makefile
-data/examples/extended/variable_speed_signs/Makefile
-data/examples/extended/vehicle_stops/Makefile
-data/examples/jtrrouter/Makefile
-data/examples/jtrrouter/definite_csv/Makefile
-data/examples/jtrrouter/definite_xml/Makefile
-data/examples/jtrrouter/no_turnarounds/Makefile
-data/examples/jtrrouter/plain/Makefile
-data/examples/jtrrouter/straight_only/Makefile
-data/examples/jtrrouter/straight_only_sinks/Makefile
-data/examples/netbuild/Makefile
-data/examples/netbuild/connections/Makefile
-data/examples/netbuild/connections/cross3l_edge2edge_conns/Makefile
-data/examples/netbuild/connections/cross3l_lane2lane_conns/Makefile
-data/examples/netbuild/connections/cross3l_no_turnarounds/Makefile
-data/examples/netbuild/connections/cross3l_prohibitions/Makefile
-data/examples/netbuild/connections/cross3l_unconstrained/Makefile
-data/examples/netbuild/shapes/Makefile
-data/examples/netbuild/shapes/hokkaido-japan/Makefile
-data/examples/netbuild/speed_in_kmh/Makefile
-data/examples/netbuild/speed_in_kmh/cross_notypes_kmh/Makefile
-data/examples/netbuild/speed_in_kmh/cross_usingtypes_kmh/Makefile
-data/examples/netbuild/types/Makefile
-data/examples/netbuild/types/cross_notypes/Makefile
-data/examples/netbuild/types/cross_usingtypes/Makefile
-data/examples/output_tests/Makefile
-data/examples/output_tests/cross3ltl_emissions/Makefile
-data/examples/output_tests/cross3ltl_emissions/output/Makefile
-data/examples/output_tests/cross3ltl_inductloops/Makefile
-data/examples/output_tests/cross3ltl_inductloops/output/Makefile
-data/examples/output_tests/cross3ltl_meandata_constrained/Makefile
-data/examples/output_tests/cross3ltl_meandata_constrained/output/Makefile
-data/examples/output_tests/cross3ltl_meandata_edges/Makefile
-data/examples/output_tests/cross3ltl_meandata_edges/output/Makefile
-data/examples/output_tests/cross3ltl_meandata_lanes/Makefile
-data/examples/output_tests/cross3ltl_meandata_lanes/output/Makefile
-data/examples/output_tests/cross3ltl_rawdump/Makefile
-data/examples/output_tests/cross3ltl_rawdump/output/Makefile
-data/examples/output_tests/cross3ltl_tripinfo/Makefile
-data/examples/output_tests/cross3ltl_tripinfo/output/Makefile
-data/examples/output_tests/cross3ltl_vehroutes/Makefile
-data/examples/output_tests/cross3ltl_vehroutes/output/Makefile
-data/examples/real_world/Makefile
-data/examples/real_world/dlr-testtrack/Makefile
-data/examples/real_world/hokkaido-japan/Makefile
-data/examples/simple_nets/Makefile
-data/examples/simple_nets/box/Makefile
-data/examples/simple_nets/box/box1l/Makefile
-data/examples/simple_nets/box/box2l/Makefile
-data/examples/simple_nets/box/box3l/Makefile
-data/examples/simple_nets/box/box4l/Makefile
-data/examples/simple_nets/cross/Makefile
-data/examples/simple_nets/cross/cross1l/Makefile
-data/examples/simple_nets/cross/cross1ltl/Makefile
-data/examples/simple_nets/cross/cross3l/Makefile
-data/examples/simple_nets/cross/cross3ltl/Makefile
-data/examples/simple_nets/eight/Makefile
-data/examples/simple_nets/eight/eight1l/Makefile
-data/examples/simple_nets/eight/eight1ltl/Makefile
-data/examples/simple_nets/eight/eight3l/Makefile
-data/examples/simple_nets/eight/eight3ltl/Makefile
-data/examples/traffic_lights/Makefile
-data/examples/traffic_lights/cross3l_actuated/Makefile
-data/examples/traffic_lights/cross3l_agentbased/Makefile
-data/examples/traffic_lights/cross3l_simpletl/Makefile
-data/examples/traffic_lights/cross3l_simpletl_1add/Makefile
 docs/Makefile
 docs/docbook/Makefile
 docs/docbook/gfx/Makefile

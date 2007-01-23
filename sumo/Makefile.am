@@ -1,4 +1,4 @@
-SUBDIRS = bin data docs src tests tools
+SUBDIRS = bin docs src tests tools
 
 AUTOMAKE_OPTIONS = gnu dist-zip #1.6
 
@@ -9,3 +9,5 @@ dist-hook:
 	cd $(srcdir)
 	cp --parents `find prj/msvc6 -name "*.dsw" -o -name "*.dsp"` $(distdir)
 	cp --parents `find prj -name "*.vcproj" -o -name "*.sln"` $(distdir)
+	cp --parents `find data -regextype posix-awk -regex ".*\.(nod|edg|rou|add|def)\.xml"` $(distdir)
+	cp --parents `find data -name "*.cfg"` $(distdir)
