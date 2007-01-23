@@ -1,6 +1,6 @@
 EXTRA_DIST =
 
-SUBDIRS = images gfx
+SUBDIRS =  gfx images
 
 
 

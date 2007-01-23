@@ -79,11 +79,11 @@
 <hr class="thin"/>
 
 <p><b>News</b><br>
-<!-- 0 --> 17.11.2006: "developer" version 0.9.5 released<br/>
-<!-- 1 --> 16.05.2006: <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a> supplies a daily rebuild <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen class documentation</a><br/>
-<!-- 2 --> 18.04.2006: moved all downloads to sourceforge's download center<br/>
-<!-- 3 --> 16.03.2006: "developer" version 0.9.4 released<br/>
-<!-- 4 --> 01.02.2006: fixed some broken links<br/>
+<!-- 0 --> 16.01.2007: moved to SVN, see <a class="SUMOInLineLink" href="http://sourceforge.net/svn/?group_id=45607">http://sourceforge.net/svn/?group_id=45607</a><br/>
+<!-- 1 --> 17.11.2006: "developer" version 0.9.5 released<br/>
+<!-- 2 --> 16.05.2006: <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a> supplies a daily rebuild <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen class documentation</a><br/>
+<!-- 3 --> 18.04.2006: moved all downloads to sourceforge's download center<br/>
+<!-- 4 --> 16.03.2006: "developer" version 0.9.4 released<br/>
 </p>
 
 <hr class="thin"/>
