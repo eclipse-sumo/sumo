@@ -475,7 +475,7 @@ NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) con
     if(dist==0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         WRITE_WARNING(". Using default.");
-        return OptionsSubSys::getOptions().getFloat("vissim.default-speed");;
+        return OptionsSubSys::getOptions().getFloat("vissim.default-speed");
     }
     assert(dist!=0);
     SUMOReal speed = dist->getMax();
