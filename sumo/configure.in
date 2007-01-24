@@ -23,39 +23,25 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE(rpc,
-              [  --enable-rpc          enable compilation of rpc features [default=no].],
-              [AC_DEFINE(_RPC, 1,
-                         [Define to 1 in order to enable sumo debugging code.])
-	      ])
+AC_ARG_ENABLE([rpc], [AS_HELP_STRING([--enable-rpc],[enable compilation of rpc features [default=no].])],
+              [AC_DEFINE(_RPC, 1, [Define to 1 in order to enable rpc features.])])
 AM_CONDITIONAL([WITH_XMLRPC], [test "$rpc" = "1"])
 
-AC_ARG_ENABLE(geomcheck,
-              [  --enable-geomcheck          enable compilation of geometry checks [default=no].],
-              [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1, [Define to 1 in order to enable geometry checking.])
-	      ])
+AC_ARG_ENABLE([geomcheck], [AS_HELP_STRING([--enable-geomcheck],[enable compilation of geometry checks [default=no].])],
+              [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1, [Define to 1 in order to enable geometry checking.])])
 AM_CONDITIONAL(CHECK_UNIQUE_POINTS_GEOMETRY, test x$CHECK_UNIQUE_POINTS_GEOMETRY = x1)
 
-AC_ARG_ENABLE(memcheck,
-              [  --enable-memcheck          enable compilation of memory leak checks [default=no].],
-              [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])
-	      ])
+AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])],
+              [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])])
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$CHECK_MEMORY_LEAKS = x1)
 
-AC_ARG_ENABLE(debug,
-              [  --enable-debug          enable sumo debugging code [default=no].],
-              [AC_DEFINE(_DEBUG, 1,
-                         [Define to 1 in order to enable sumo debugging code.])
-	      ])
+AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
+              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])])
 
-AC_ARG_ENABLE(speedcheck,
-              [  --enable-speedcheck     enable sumo speedchecking code [default=no].],
-              [AC_DEFINE(_SPEEDCHECK, 1,
-                         [Define to 1 in order to enable simulation-speed checking.])
-	      ])
+AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])],
+              [AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])])
 
-AC_ARG_ENABLE([internal-lanes],
-              [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes])],
+AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes])],
               [],[AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])])
 
 AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
@@ -67,10 +53,9 @@ dnl - - - - - - - - - - - - - - - - - - - - - - -
 search_path="/usr /usr/local /opt"
 
 dnl  ... for xerces
-AC_ARG_WITH(xerces,
-    [  --with-xerces=DIR           where Xerces-C is installed (libraries in DIR/lib, headers in DIR/include).],
-    [  ac_xerces="$withval"
-    ])
+AC_ARG_WITH([xerces],
+            [AS_HELP_STRING([--with-xerces=DIR],[where Xerces-C is installed (libraries in DIR/lib, headers in DIR/include).])],
+            [ac_xerces="$withval"])
 if test x"$ac_xerces" != x; then
    if test x"$ac_xerces_libraries" = x; then
       ac_xerces_libraries=$ac_xerces/lib
