@@ -1,4 +1,4 @@
-SUBDIRS = bin docs src tests tools
+SUBDIRS = bin docs src tools
 
 AUTOMAKE_OPTIONS = gnu dist-zip #1.6
 

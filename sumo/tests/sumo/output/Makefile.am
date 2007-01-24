@@ -1,7 +1,0 @@
-SUBDIRS =  cross3ltl_e3 cross3ltl_emissions cross3ltl_meandata_edges \
-cross3ltl_meandata_edges_constrained cross3ltl_meandata_lanes \
-cross3ltl_meandata_lanes_constrained cross3ltl_rawdump \
-cross3ltl_rawdump_withempty cross3ltl_tripinfo cross3ltl_vehroutes
-
-EXTRA_DIST =  testsuite.sumo
-

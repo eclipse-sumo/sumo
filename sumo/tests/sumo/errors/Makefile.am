@@ -1,7 +1,0 @@
-SUBDIRS =  meandata_edges_false_order meandata_edges_missing_begin1 \
-meandata_edges_missing_begin2 meandata_edges_missing_begin_divider \
-meandata_edges_missing_end1 meandata_edges_missing_end2 \
-meandata_edges_missing_end_divider missing_first_param unknown_option
-
-EXTRA_DIST =  testsuite.sumo
-
