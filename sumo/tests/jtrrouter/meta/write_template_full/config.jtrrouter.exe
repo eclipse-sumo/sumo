@@ -1,0 +1,56 @@
+<configuration>
+
+   <input>
+      <net-file></net-file>
+      <alternatives></alternatives>
+      <weights></weights>
+      <lane-weights></lane-weights>
+   </input>
+
+   <output>
+      <output-file></output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>false</continue-on-unbuild>
+      <unsorted>false</unsorted>
+      <randomize-flows>false</randomize-flows>
+      <move-on-short>false</move-on-short>
+      <max-alternatives>5</max-alternatives>
+      <random-per-second>0</random-per-second>
+      <prune-random>false</prune-random>
+      <remove-loops>false</remove-loops>
+      <max-edges-factor>2</max-edges-factor>
+      <turn-defaults>30;50;20</turn-defaults>
+      <sinks></sinks>
+      <accept-all-destinations>false</accept-all-destinations>
+   </processing>
+
+   <generated_vehicles>
+      <krauss-vmax>70</krauss-vmax>
+      <krauss-a>2.6</krauss-a>
+      <krauss-b>4.5</krauss-b>
+      <krauss-length>5</krauss-length>
+      <krauss-eps>0.5</krauss-eps>
+   </generated_vehicles>
+
+   <time>
+      <begin>0</begin>
+      <end>864000</end>
+   </time>
+
+   <report>
+      <verbose>false</verbose>
+      <suppress-warnings>false</suppress-warnings>
+      <print-options>false</print-options>
+      <help>false</help>
+      <log-file></log-file>
+      <stats-period>-1</stats-period>
+   </report>
+
+   <random_number>
+      <srand>23423</srand>
+      <abs-rand>false</abs-rand>
+   </random_number>
+
+</configuration>

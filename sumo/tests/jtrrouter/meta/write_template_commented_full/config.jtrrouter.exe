@@ -1,0 +1,120 @@
+<configuration>
+
+   <input>
+      <!-- Use FILE as SUMO-network to route on -->
+      <net-file></net-file>
+
+      <!-- Read alternatives from FILE -->
+      <alternatives></alternatives>
+
+      <!-- Read network weights from FILE -->
+      <weights></weights>
+
+      <!-- Read lane-weights from FILE -->
+      <lane-weights></lane-weights>
+
+   </input>
+
+   <output>
+      <!-- Write generated routes to FILE -->
+      <output-file></output-file>
+
+   </output>
+
+   <processing>
+      <!-- Continue if a route could not be build -->
+      <continue-on-unbuild>false</continue-on-unbuild>
+
+      <!-- Assume input is unsorted -->
+      <unsorted>false</unsorted>
+
+      <!--  -->
+      <randomize-flows>false</randomize-flows>
+
+      <!-- Move vehicles to the next edge if the first is too short -->
+      <move-on-short>false</move-on-short>
+
+      <!-- Prune the number of alternatives to INT -->
+      <max-alternatives>5</max-alternatives>
+
+      <!-- Emit FLOAT random vehicles per second -->
+      <random-per-second>0</random-per-second>
+
+      <!--  -->
+      <prune-random>false</prune-random>
+
+      <!--  -->
+      <remove-loops>false</remove-loops>
+
+      <!--  -->
+      <max-edges-factor>2</max-edges-factor>
+
+      <!-- Use STR as default turn definition -->
+      <turn-defaults>30;50;20</turn-defaults>
+
+      <!-- Use STR as sink list -->
+      <sinks></sinks>
+
+      <!--  -->
+      <accept-all-destinations>false</accept-all-destinations>
+
+   </processing>
+
+   <generated_vehicles>
+      <!-- Defines emitted vehicles' max. velocity -->
+      <krauss-vmax>70</krauss-vmax>
+
+      <!-- Defines emitted vehicles' max. acceleration -->
+      <krauss-a>2.6</krauss-a>
+
+      <!-- Defines emitted vehicles' max. deceleration -->
+      <krauss-b>4.5</krauss-b>
+
+      <!-- Defines emitted vehicles' length -->
+      <krauss-length>5</krauss-length>
+
+      <!-- Defines emitted vehicles' driver imperfection -->
+      <krauss-eps>0.5</krauss-eps>
+
+   </generated_vehicles>
+
+   <time>
+      <!-- Defines the begin time; Previous trips will be discarded -->
+      <begin>0</begin>
+
+      <!-- Defines the end time; Later trips will be discarded -->
+      <end>864000</end>
+
+   </time>
+
+   <report>
+      <!-- Switches to verbose output -->
+      <verbose>false</verbose>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints this screen -->
+      <help>false</help>
+
+      <!-- Writes all messages to FILE -->
+      <log-file></log-file>
+
+      <!-- Defines how often statistics shall be printed -->
+      <stats-period>-1</stats-period>
+
+   </report>
+
+   <random_number>
+      <!-- Initialises the random number generator with the given value -->
+      <srand>23423</srand>
+
+      <!-- Initialises the random number generator with the current system time -->
+      <abs-rand>false</abs-rand>
+
+   </random_number>
+
+</configuration>
