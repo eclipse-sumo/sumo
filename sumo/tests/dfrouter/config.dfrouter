@@ -9,5 +9,5 @@ detector_defs:detectors_def.det.xml
 routes:routes.rou.xml
 pois:detectors.poi.xml
 emitters:emitters.add.xml
-
+config:config.cfg
 
