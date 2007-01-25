@@ -84,11 +84,18 @@ class LogFile;
  */
 class SystemFrame {
 public:
+    static void addConfigurationOptions(OptionsCont &oc);
+
     /** @brief Initialises the application's subsystems
-        Initialises the xml-subsystem, the options subsystem and the messaging.
-        Returns 0 (zero) if everything's ok, -1 if the application shall be quit
-        be quit normally (because the help screen has been printed, f.e.)
-        and a value >0 if an error occured */
+     *
+     * Initialises the xml-subsystem, the options subsystem and the messaging.
+     *   The return codes are:
+     * 0: everything's fine
+     * 1: a problem occured while processing an option (error message was already printed) 
+     * 2: the XML-subsystem could not be initialised 
+     * -2: the help screen shall be printed
+     * -3: no options were given or were false
+     * -4: a template was saved */
     static int init(bool gui, int argc, char **argv,
         fill_options *fill_f, check_options *check_f=0);
 

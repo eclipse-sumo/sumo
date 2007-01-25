@@ -137,6 +137,34 @@ SystemFrame::init(bool gui, int argc, char **argv,
     if(OptionsSubSys::getOptions().getBool("print-options")) {
         cout << OptionsSubSys::getOptions();
     }
+    // check whether something has to be done with options
+        // whether the current options shall be saved
+    if(OptionsSubSys::getOptions().isSet("save-configuration")) {
+        ofstream out(OptionsSubSys::getOptions().getString("save-configuration").c_str());
+        if(!out.good()) {
+            MsgHandler::getErrorInstance()->inform("Could not save configuration to '" + OptionsSubSys::getOptions().getString("save-configuration") + "'");
+            if(OptionsSubSys::getOptions().getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written configuration to '" + OptionsSubSys::getOptions().getString("save-configuration") + "'");
+            }
+            return 1;
+        } else {
+            OptionsSubSys::getOptions().writeConfiguration(out, true, false, false);
+        }
+    }
+        // whether the template shall be saved
+    if(OptionsSubSys::getOptions().isSet("save-template")) {
+        ofstream out(OptionsSubSys::getOptions().getString("save-template").c_str());
+        if(!out.good()) {
+            MsgHandler::getErrorInstance()->inform("Could not save template to '" + OptionsSubSys::getOptions().getString("save-template") + "'");
+            return 1;
+        } else {
+            OptionsSubSys::getOptions().writeConfiguration(out, false, true, OptionsSubSys::getOptions().getBool("save-template.commented"));
+            if(OptionsSubSys::getOptions().getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written template to '" + OptionsSubSys::getOptions().getString("save-template") + "'");
+            }
+            return -4;
+        }
+    }
 
     // were the options ok?
     if(!iret) {
@@ -203,6 +231,32 @@ SystemFrame::close()
     OptionsSubSys::close();
     // delete messages
     MsgHandler::cleanupOnEnd();
+}
+
+
+void 
+SystemFrame::addConfigurationOptions(OptionsCont &oc)
+{
+    oc.addOptionSubTopic("Configuration");
+
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
+
+    oc.doRegister("save-configuration", new Option_FileName());
+    oc.addSynonyme("save-config", "save-configuration");
+    oc.addDescription("save-configuration", "Configuration", "Saves current configuration into FILE");
+
+    oc.doRegister("save-template", new Option_FileName());
+    oc.addDescription("save-template", "Configuration", "Saves a configuration template (empty) into FILE");
+
+    /*
+    oc.doRegister("save-template.mandatory-only", new Option_Bool(false));
+    oc.addDescription("save-template.mandatory-only", "Configuration", "Saves only mandatory values into template");
+    */
+
+    oc.doRegister("save-template.commented", new Option_Bool(false));
+    oc.addDescription("save-template.commented", "Configuration", "Adds comments to saved template");
 }
 
 
