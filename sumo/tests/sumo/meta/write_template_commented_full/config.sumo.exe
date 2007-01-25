@@ -1,0 +1,246 @@
+<configuration>
+
+   <input>
+      <!-- Load road network description from FILE -->
+      <net-file></net-file>
+
+      <!-- Load further descriptions from FILE(s) -->
+      <route-files></route-files>
+
+      <!-- Load further descriptions from FILE(s) -->
+      <route-files></route-files>
+
+      <!-- Load weights from FILE -->
+      <weight-files></weight-files>
+
+      <!-- Loads a network state from FILE -->
+      <load-state></load-state>
+
+   </input>
+
+   <output>
+      <!-- Save complete network states into FILE -->
+      <netstate-dump></netstate-dump>
+
+      <!-- Save aggregated vehicle emission inf. into FILE -->
+      <emissions-output></emissions-output>
+
+      <!-- Save single vehicle trip inf. into FILE -->
+      <tripinfo-output></tripinfo-output>
+
+      <!-- Save single vehicle route inf. into FILE -->
+      <vehroute-output></vehroute-output>
+
+      <!-- Build edge-based network dumps for given intervals -->
+      <dump-intervals></dump-intervals>
+
+      <!-- Save edge-based network dumps with FILE as prefix -->
+      <dump-basename></dump-basename>
+
+      <!-- Build lane-based network dumps for given intervals -->
+      <lanedump-intervals></lanedump-intervals>
+
+      <!-- Save lane-based network dumps with FILE as prefix -->
+      <lanedump-basename></lanedump-basename>
+
+      <!-- Write also empty edges completely when dumping -->
+      <dump-empty-edges>false</dump-empty-edges>
+
+      <!-- Use INT[] as times at which a dump must begin in order to be written -->
+      <dump-begins></dump-begins>
+
+      <!-- Use INT[] as times at which a dump must end in order to be written -->
+      <dump-ends></dump-ends>
+
+      <!-- Use INT[] as times at which a network state written -->
+      <save-state.times></save-state.times>
+
+      <!-- Prefix for network states -->
+      <save-state.prefix></save-state.prefix>
+
+   </output>
+
+   <time>
+      <!-- Defines the begin time; The simulation starts at this time -->
+      <begin>0</begin>
+
+      <!-- Defines the end time; The simulation ends at this time -->
+      <end>86400</end>
+
+   </time>
+
+   <processing>
+      <!-- Load routes for the next INT steps ahead -->
+      <route-steps>200</route-steps>
+
+      <!-- Enable internal links (must be in the network) -->
+      <use-internal-links>false</use-internal-links>
+
+      <!-- Quit (with an error) if an accident occures -->
+      <quit-on-accident>false</quit-on-accident>
+
+      <!-- Check whether accidents occure more deeply -->
+      <check-accidents>false</check-accidents>
+
+      <!-- Quit simulation if the rtf gets too small -->
+      <too-slow-rtf>-1</too-slow-rtf>
+
+      <!-- Perform the simulation as a step in incremental DUA -->
+      <incremental-dua-step>-1</incremental-dua-step>
+
+      <!-- Base value for incremental DUA -->
+      <incremental-dua-base>10</incremental-dua-base>
+
+      <!--  -->
+      <time-to-teleport>300</time-to-teleport>
+
+      <!--  -->
+      <time-to-teleport>300</time-to-teleport>
+
+      <!--  -->
+      <time-to-teleport>300</time-to-teleport>
+
+      <!--  -->
+      <time-to-teleport>300</time-to-teleport>
+
+      <!--  -->
+      <default-lanechange-model>dk1</default-lanechange-model>
+
+      <!--  -->
+      <no-duration-log>false</no-duration-log>
+
+   </processing>
+
+   <tls_defaults>
+      <!--  -->
+      <agent-tl.detector-len>75</agent-tl.detector-len>
+
+      <!--  -->
+      <agent-tl.learn-horizon>3</agent-tl.learn-horizon>
+
+      <!--  -->
+      <agent-tl.decision-horizon>1</agent-tl.decision-horizon>
+
+      <!--  -->
+      <agent-tl.min-diff>0.1</agent-tl.min-diff>
+
+      <!--  -->
+      <agent-tl.tcycle>90</agent-tl.tcycle>
+
+      <!--  -->
+      <actuated-tl.detector-pos>100</actuated-tl.detector-pos>
+
+      <!--  -->
+      <actuated-tl.max-gap>3.1</actuated-tl.max-gap>
+
+      <!--  -->
+      <actuated-tl.detector-gap>3</actuated-tl.detector-gap>
+
+      <!--  -->
+      <actuated-tl.passing-time>1.9</actuated-tl.passing-time>
+
+   </tls_defaults>
+
+   <c2c>
+      <!-- The probability for a vehicle to have c2c -->
+      <device.c2x.probability>0</device.c2x.probability>
+
+      <!-- Assign a device to named vehicles -->
+      <device.c2x.knownveh></device.c2x.knownveh>
+
+      <!-- The range of the c2c device -->
+      <device.c2x.range>100</device.c2x.range>
+
+      <!-- Duration of keeping messages -->
+      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
+
+      <!-- Factor for adding messages -->
+      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
+
+      <!-- Save cluster information into FILE -->
+      <c2x.cluster-info></c2x.cluster-info>
+
+      <!-- Save 'connected' edges into FILE -->
+      <c2x.edge-near-info></c2x.edge-near-info>
+
+      <!--  -->
+      <c2x.saved-info></c2x.saved-info>
+
+      <!--  -->
+      <c2x.saved-info-freq></c2x.saved-info-freq>
+
+      <!-- Save transmitted information into FILE -->
+      <c2x.transmitted-info></c2x.transmitted-info>
+
+      <!-- Save names of connected vehicles into FILE -->
+      <c2x.vehicle-in-range></c2x.vehicle-in-range>
+
+   </c2c>
+
+   <cellular>
+      <!--  -->
+      <ss2-cellload-file></ss2-cellload-file>
+
+      <!--  -->
+      <ss2-output></ss2-output>
+
+      <!--  -->
+      <ss2-cell-output></ss2-cell-output>
+
+      <!--  -->
+      <ss2-la-output></ss2-la-output>
+
+      <!--  -->
+      <ss2-sql-output></ss2-sql-output>
+
+      <!--  -->
+      <ss2-sql-cell-output></ss2-sql-cell-output>
+
+      <!--  -->
+      <ss2-sql-la-output></ss2-sql-la-output>
+
+      <!--  -->
+      <cellphone-dump></cellphone-dump>
+
+      <!--  -->
+      <device.cell-phone.knownveh></device.cell-phone.knownveh>
+
+      <!--  -->
+      <device.cell-phone.probability>0</device.cell-phone.probability>
+
+      <!--  -->
+      <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
+
+      <!--  -->
+      <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
+
+   </cellular>
+
+   <report>
+      <!-- Switches to verbose output -->
+      <verbose>false</verbose>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints this screen -->
+      <help>false</help>
+
+      <!-- Writes all messages to FILE -->
+      <log-file></log-file>
+
+   </report>
+
+   <random_number>
+      <!-- Initialises the random number generator with the given value -->
+      <srand>23423</srand>
+
+      <!-- Initialises the random number generator with the current system time -->
+      <abs-rand>false</abs-rand>
+
+   </random_number>
+
+</configuration>

@@ -1,0 +1,102 @@
+<configuration>
+
+   <input>
+      <net-file></net-file>
+      <route-files></route-files>
+      <route-files></route-files>
+      <weight-files></weight-files>
+      <load-state></load-state>
+   </input>
+
+   <output>
+      <netstate-dump></netstate-dump>
+      <emissions-output></emissions-output>
+      <tripinfo-output></tripinfo-output>
+      <vehroute-output></vehroute-output>
+      <dump-intervals></dump-intervals>
+      <dump-basename></dump-basename>
+      <lanedump-intervals></lanedump-intervals>
+      <lanedump-basename></lanedump-basename>
+      <dump-empty-edges>false</dump-empty-edges>
+      <dump-begins></dump-begins>
+      <dump-ends></dump-ends>
+      <save-state.times></save-state.times>
+      <save-state.prefix></save-state.prefix>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <processing>
+      <route-steps>200</route-steps>
+      <use-internal-links>false</use-internal-links>
+      <quit-on-accident>false</quit-on-accident>
+      <check-accidents>false</check-accidents>
+      <too-slow-rtf>-1</too-slow-rtf>
+      <incremental-dua-step>-1</incremental-dua-step>
+      <incremental-dua-base>10</incremental-dua-base>
+      <time-to-teleport>300</time-to-teleport>
+      <time-to-teleport>300</time-to-teleport>
+      <time-to-teleport>300</time-to-teleport>
+      <time-to-teleport>300</time-to-teleport>
+      <default-lanechange-model>dk1</default-lanechange-model>
+      <no-duration-log>false</no-duration-log>
+   </processing>
+
+   <tls_defaults>
+      <agent-tl.detector-len>75</agent-tl.detector-len>
+      <agent-tl.learn-horizon>3</agent-tl.learn-horizon>
+      <agent-tl.decision-horizon>1</agent-tl.decision-horizon>
+      <agent-tl.min-diff>0.1</agent-tl.min-diff>
+      <agent-tl.tcycle>90</agent-tl.tcycle>
+      <actuated-tl.detector-pos>100</actuated-tl.detector-pos>
+      <actuated-tl.max-gap>3.1</actuated-tl.max-gap>
+      <actuated-tl.detector-gap>3</actuated-tl.detector-gap>
+      <actuated-tl.passing-time>1.9</actuated-tl.passing-time>
+   </tls_defaults>
+
+   <c2c>
+      <device.c2x.probability>0</device.c2x.probability>
+      <device.c2x.knownveh></device.c2x.knownveh>
+      <device.c2x.range>100</device.c2x.range>
+      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
+      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
+      <c2x.cluster-info></c2x.cluster-info>
+      <c2x.edge-near-info></c2x.edge-near-info>
+      <c2x.saved-info></c2x.saved-info>
+      <c2x.saved-info-freq></c2x.saved-info-freq>
+      <c2x.transmitted-info></c2x.transmitted-info>
+      <c2x.vehicle-in-range></c2x.vehicle-in-range>
+   </c2c>
+
+   <cellular>
+      <ss2-cellload-file></ss2-cellload-file>
+      <ss2-output></ss2-output>
+      <ss2-cell-output></ss2-cell-output>
+      <ss2-la-output></ss2-la-output>
+      <ss2-sql-output></ss2-sql-output>
+      <ss2-sql-cell-output></ss2-sql-cell-output>
+      <ss2-sql-la-output></ss2-sql-la-output>
+      <cellphone-dump></cellphone-dump>
+      <device.cell-phone.knownveh></device.cell-phone.knownveh>
+      <device.cell-phone.probability>0</device.cell-phone.probability>
+      <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
+      <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
+   </cellular>
+
+   <report>
+      <verbose>false</verbose>
+      <suppress-warnings>false</suppress-warnings>
+      <print-options>false</print-options>
+      <help>false</help>
+      <log-file></log-file>
+   </report>
+
+   <random_number>
+      <srand>23423</srand>
+      <abs-rand>false</abs-rand>
+   </random_number>
+
+</configuration>
