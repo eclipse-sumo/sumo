@@ -4,4 +4,5 @@ copy_test_path:input_net.net.xml
 
 
 [collate_file]
+config:config.cfg
 
