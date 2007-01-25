@@ -82,6 +82,7 @@ namespace
 #include "RODUAFrame.h"
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SystemFrame.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -110,7 +111,7 @@ RODUAFrame::fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
@@ -166,7 +167,7 @@ RODUAFrame::addImportOptions(OptionsCont &oc)
         // register further processing options
         // ! The subtopic "Processing" must be initialised earlier !
     oc.doRegister("expand-weights", new Option_Bool(false));
-    oc.addDescription("expand-weights", "Processing", "Expand weight behind the simulation's end");
+    oc.addDescription("expand-weights", "Processing", "Expand weights behind the simulation's end");
 }
 
 

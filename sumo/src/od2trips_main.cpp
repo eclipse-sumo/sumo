@@ -85,7 +85,7 @@ fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Time");
@@ -93,15 +93,11 @@ fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Report");
 
 
-        // register configuration options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
         // register the file i/o options
     oc.doRegister("net-file", 'n', new Option_FileName());
 	oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads network (districts) from FILE");
+    oc.setMandatory("net-file");
 
     oc.doRegister("od-files", 'd', new Option_FileName());
 	oc.addSynonyme("od-files", "od");
@@ -114,14 +110,17 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("output-file", 'o', new Option_FileName());
 	oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
+    oc.setMandatory("output-file");
 
 
         // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
+    oc.setMandatory("begin");
 
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
+    oc.setMandatory("end");
 
 
         // register the data processing options
@@ -488,6 +487,8 @@ main(int argc, char **argv)
             switch(init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
+                break;
+            case -4:
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

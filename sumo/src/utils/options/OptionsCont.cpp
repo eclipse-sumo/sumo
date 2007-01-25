@@ -511,6 +511,14 @@ OptionsCont::addDescription(const std::string &name,
 }
 
 
+void
+OptionsCont::setMandatory(const std::string &name)
+{
+    Option *o = getSecure(name);
+    o->myAmMandatory = true;
+}
+
+
 void 
 OptionsCont::setApplicationName(const std::string &appName)
 {
@@ -672,6 +680,53 @@ OptionsCont::printHelp(std::ostream &os)
         }
         os << endl;
     }
+}
+
+
+void 
+OptionsCont::writeConfiguration(std::ostream &os, bool filled, 
+                                bool complete, bool addComments)
+{
+    vector<string>::const_iterator i, j;
+    os << "<configuration>" << endl << endl;
+    for(i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        string subtopic = *i;
+        if(subtopic=="Configuration") {
+            continue;
+        }
+        for(size_t k=0; k<subtopic.length(); ++k) {
+            if(subtopic[k]==' ') {
+                subtopic[k] = '_';
+            }
+            if(subtopic[k]>='A'&&subtopic[k]<='Z') {
+                subtopic[k] = subtopic[k] - 'A' + 'a';
+            }
+        }
+        const vector<string> &entries = mySubTopicEntries[*i];
+        bool hadOne = false;
+        for(j=entries.begin(); j!=entries.end(); ++j) {
+            Option *o = getSecure(*j);
+            bool write = complete || (filled&&!o->isDefault()) || (!filled&&o->isMandatory());
+            if(!write) {
+                continue;
+            }
+            if(!hadOne) {
+                os << "   <" << subtopic << ">" << endl;
+            }
+            if(addComments) {
+                os << "      <!-- " << o->getDescription() << " -->" << endl;
+            }
+            os << "      <" << *j << ">" << o->getValue() << "</" << *j << ">" << endl;
+            if(addComments) {
+                os << endl;
+            }
+            hadOne = true;
+        }
+        if(hadOne) {
+            os << "   </" << subtopic << ">" << endl << endl;
+        }
+    }
+    os << "</configuration>" << endl;
 }
 
 

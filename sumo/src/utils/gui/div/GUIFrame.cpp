@@ -76,11 +76,6 @@ namespace
 void
 GUIFrame::fillInitOptions(OptionsCont &oc)
 {
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
-    
     oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
     oc.addDescription("max-gl-width", "Open GL", ""); // !!!
 

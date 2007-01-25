@@ -564,12 +564,6 @@ NBNetBuilder::saveMap(const string &path)
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
-    // ! THE options-sub-topic "Configuration" must be set previously !
-        // register configuration options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
         // register additional output options
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
     oc.addSynonyme("output-file", "output");

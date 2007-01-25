@@ -234,6 +234,7 @@ namespace
 #include <microsim/MSGlobals.h>
 #include <utils/common/RandHelper.h>
 #include "SUMOFrame.h"
+#include <utils/common/SystemFrame.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -265,7 +266,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addCallExample("--help");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Time");
@@ -277,11 +278,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
 
         // register configuration options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
-
     // register input options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");

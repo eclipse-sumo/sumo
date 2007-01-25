@@ -108,6 +108,9 @@
 typedef std::vector<int> IntVector;
 
 
+/* -------------------------------------------------------------------------
+ * Option
+ * ----------------------------------------------------------------------- */
 /**
  * @class Option
  * The base class for a single program option. All options which hold values
@@ -181,8 +184,14 @@ public:
         to be a default value */
     friend class OptionsCont;
 
+    /// Returns the description of what this option does
     const std::string &getDescription() const;
-    virtual std::string getTypeName() const;
+
+    /// Returns a the type name of this option
+    virtual const std::string &getTypeName() const;
+
+    /// Returns whether the option has to be set
+    bool isMandatory() const;
 
 
 protected:
@@ -200,6 +209,10 @@ protected:
     /** assignment operator */
     virtual Option &operator=(const Option &s);
 
+protected:
+    /// A type name for this option (has presets, but may be overwritten)
+    std::string myTypeName;
+
 private:
     /** information whether the value is set */
     bool myAmSet;
@@ -210,183 +223,272 @@ private:
     /** information whether the value may be changed */
     bool myAmWritable;
 
+    /// The description what this option does */
     std::string myDescription;
+
+    /// Information whether the option must be set
+    bool myAmMandatory;
 
 };
 
+
+/* -------------------------------------------------------------------------
+ * Option_Integer
+ * ----------------------------------------------------------------------- */
 /**
  * @class Option_Integer
- * An integer-option
+ * @brief An integer-option
  */
 class Option_Integer : public Option {
- private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    int      _value;
  public:
     /** constructor; the value will be invalid (unset) */
     Option_Integer();
+
     /** constructor; the default value is given */
     Option_Integer(int value);
+
     /** copy constructor */
     Option_Integer(const Option_Integer &s);
+
     /** destructor */
     ~Option_Integer();
+
     /** assignment operator */
     Option_Integer &operator=(const Option_Integer &s);
+
     /** returns the integer value */
     int getInt() const;
+
     /** sets the given value (converts it to int) */
     bool set(std::string v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
-    virtual std::string getTypeName() const;
-};
 
-class Option_Long : public Option {
+
  private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
-    long      _value;
+    int      myValue;
+
+};
+
+
+/* -------------------------------------------------------------------------
+ * Option_Long
+ * ----------------------------------------------------------------------- */
+class Option_Long : public Option {
  public:
     /** constructor; the value will be invalid (unset) */
     Option_Long();
+
     /** constructor; the default value is given */
     Option_Long(long value);
+
     /** copy constructor */
     Option_Long(const Option_Long &s);
+
     /** destructor */
     ~Option_Long();
+
     /** assignment operator */
     Option_Long &operator=(const Option_Long &s);
+
     /** returns the long value */
     long getLong() const;
+
     /** sets the given value (converts it to long) */
     bool set(std::string v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
-    virtual std::string getTypeName() const;
+
+
+ private:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    long      myValue;
+
 };
 
 
+/* -------------------------------------------------------------------------
+ * Option_String
+ * ----------------------------------------------------------------------- */
 class Option_String : public Option {
- protected:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    std::string      _value;
  public:
     /** constructor; the value will be invalid (unset) */
     Option_String();
+
     /** constructor; the default value is given */
     Option_String(std::string value);
+
     /** copy constructor */
     Option_String(const Option_String &s);
+
     /** destructor */
     virtual ~Option_String();
+
     /** assignment operator */
     Option_String &operator=(const Option_String &s);
+
     /** returns the string value */
     std::string getString() const;
+
     /** sets the given value */
     bool set(std::string v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
-    virtual std::string getTypeName() const;
+
+
+ protected:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    std::string      myValue;
+
 };
 
 
+/* -------------------------------------------------------------------------
+ * Option_Float
+ * ----------------------------------------------------------------------- */
 class Option_Float : public Option {
- private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    SUMOReal       _value;
  public:
     /** constructor; the value will be invalid (unset) */
     Option_Float();
+
     /** constructor; the default value is given */
     Option_Float(SUMOReal value);
+
     /** copy constructor */
     Option_Float(const Option_Float &s);
+
     /** destructor */
     ~Option_Float();
+
     /** assignment operator */
     Option_Float &operator=(const Option_Float &s);
+
     /** returns the SUMOReal value */
     SUMOReal getFloat() const;
+
     /** sets the given value (converts it to SUMOReal) */
     bool set(std::string v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
-    virtual std::string getTypeName() const;
+
+
+ private:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    SUMOReal       myValue;
+
 };
 
 
+/* -------------------------------------------------------------------------
+ * Option_Bool
+ * ----------------------------------------------------------------------- */
 class Option_Bool : public Option {
- private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    bool        _value;
  public:
     /** constructor; the value will be invalid (unset) */
     Option_Bool();
+
     /** constructor; the default value is given */
     Option_Bool(bool value);
+
     /** copy constructor */
     Option_Bool(const Option_Bool &s);
+
     /** destructor */
     ~Option_Bool();
+
     /** assignment operator */
     Option_Bool &operator=(const Option_Bool &s);
+
     /** returns the boolean value */
     bool getBool() const;
+
     /** sets the given value (converts it to bool) */
     bool set(bool v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
+
     /** returns always true */
     bool isBool() const;
-    virtual std::string getTypeName() const;
+
+
+ private:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    bool        myValue;
+
 };
 
+
+/* -------------------------------------------------------------------------
+ * Option_FileName
+ * ----------------------------------------------------------------------- */
 class Option_FileName : public Option_String {
 public:
     /** constructor; the value will be invalid (unset) */
     Option_FileName();
+
     /** constructor; the default value is given */
     Option_FileName(std::string value);
+
     /** copy constructor */
     Option_FileName(const Option_String &s);
+
     /** destructor */
     virtual ~Option_FileName();
+
     /** assignment operator */
     Option_FileName &operator=(const Option_FileName &s);
+
     /// returns the information whether this option is a file name
     bool isFileName() const;
-    virtual std::string getTypeName() const;
+
 };
 
 
+/* -------------------------------------------------------------------------
+ * Option_IntVector
+ * ----------------------------------------------------------------------- */
 class Option_IntVector : public Option {
-protected:
-    IntVector _value;
 public:
     /** constructor; the value will be invalid (unset) */
     Option_IntVector();
+
     /** constructor; the default value is given */
     Option_IntVector(const IntVector &value);
+
     /** constructor;
         the default value will be parsed from the string
         use ';' as delimiters */
     Option_IntVector(const std::string &value);
+
     /** copy constructor */
     Option_IntVector(const Option_IntVector &s);
+
     /** destructor */
     virtual ~Option_IntVector();
+
     /** assignment operator */
     Option_IntVector &operator=(const Option_IntVector &s);
 
+    /// Returns the parsed vector of ints
     const IntVector &getIntVector() const;
+
     /** sets the given value (converts it to int) */
     bool set(std::string v, bool isDefault=false);
+
     /** returns the values string-representation */
     std::string getValue() const;
+
     std::string getString() const;
-    virtual std::string getTypeName() const;
+
+
+protected:
+    IntVector myValue;
 };
 
 

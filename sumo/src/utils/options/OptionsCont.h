@@ -158,6 +158,10 @@ public:
     void addDescription(const std::string &name, const std::string &subtopic, 
         const std::string &description);
 
+    /// Sets the named option as mandatory
+    void setMandatory(const std::string &name);
+
+
     /** returns the information whether the named option is known */
     bool exists(const std::string &name) const;
 
@@ -243,6 +247,9 @@ public:
     /// Prints the help
     void printHelp(std::ostream &os);
 
+    // writes the configuration
+    void writeConfiguration(std::ostream &os, bool filled, 
+        bool complete, bool addComments);
 
 private:
     /** returns the named option */

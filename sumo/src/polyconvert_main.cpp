@@ -116,7 +116,7 @@ fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Projection");
@@ -126,10 +126,6 @@ fillOptions(OptionsCont &oc)
 
 
     // register options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
         // add i/o options
             // original network
     oc.doRegister("net-file", 'n', new Option_FileName());
@@ -327,6 +323,8 @@ main(int argc, char **argv)
             switch(init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
+                break;
+            case -4:
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

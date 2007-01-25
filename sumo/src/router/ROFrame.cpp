@@ -119,12 +119,6 @@ void
 ROFrame::fillOptions(OptionsCont &oc)
 {
     // register options
-        // register configuration options
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
-
         // register I/O options
     oc.doRegister("output", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
@@ -158,7 +152,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.addDescription("continue-on-unbuild", "Processing", "Continue if a route could not be build");
     
     oc.doRegister("unsorted", new Option_Bool(false));
-    oc.addDescription("unsorted", "Processing", "Set to process unsorted lists");
+    oc.addDescription("unsorted", "Processing", "Assume input is unsorted");
     
     oc.doRegister("randomize-flows", new Option_Bool(false)); // !!! undescibed
     oc.addDescription("randomize-flows", "Processing", "");

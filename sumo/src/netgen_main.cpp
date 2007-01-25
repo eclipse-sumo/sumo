@@ -232,7 +232,7 @@ fillOptions(OptionsCont &oc)
     oc.setAdditionalHelpMessage(" Either \"--grid-net\", \"--spider-net\" or \"--random-net\" must be \n  supplied. In dependance to these switches other options are used.");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Grid Network");
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
@@ -432,6 +432,8 @@ main(int argc, char **argv)
             switch(init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
+                break;
+            case -4:
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

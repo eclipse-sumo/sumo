@@ -254,6 +254,8 @@ main(int argc, char **argv)
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
                 break;
+            case -4:
+                break;
             default:
                 cout << " Use --help to get the list of options." << endl;
             }

@@ -525,7 +525,7 @@ fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Process");
     oc.addOptionSubTopic("Visualisation");
     oc.addOptionSubTopic("Open GL");
@@ -557,6 +557,8 @@ main(int argc, char **argv)
             switch(init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
+                break;
+            case -4:
                 break;
             default:
                 cout << " Use --help to get the list of options." << endl;

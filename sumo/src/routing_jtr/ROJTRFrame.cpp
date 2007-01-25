@@ -75,6 +75,7 @@ namespace
 #include "ROJTRFrame.h"
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SystemFrame.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -103,7 +104,7 @@ ROJTRFrame::fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");

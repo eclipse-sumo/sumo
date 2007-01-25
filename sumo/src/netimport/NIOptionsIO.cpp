@@ -253,6 +253,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <netbuild/NBNetBuilder.h>
+#include <utils/common/SystemFrame.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -283,7 +284,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
 
     
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Projection");

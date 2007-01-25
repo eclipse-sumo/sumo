@@ -168,12 +168,14 @@ void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
 {
     _item = TplConvert<XMLCh>::_2str(name);
+    /*
     if( _item=="configuration" ||
         _item=="files" ||
         _item=="defaults" ||
         _item=="reports") {
         _item = "";
     }
+    */
 }
 
 

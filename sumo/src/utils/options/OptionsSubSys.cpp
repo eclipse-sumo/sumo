@@ -67,6 +67,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
+#include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/StringTokenizer.h>

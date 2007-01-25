@@ -102,6 +102,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/SystemFrame.h>
 #include "RODFFrame.h"
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
@@ -134,7 +135,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    oc.addOptionSubTopic("Configuration");
+    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
@@ -144,12 +145,6 @@ RODFFrame::fillOptions(OptionsCont &oc)
 
 
     // register the options
-        // register configuration options; will be filled later on
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
-
-
         // register input-options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
