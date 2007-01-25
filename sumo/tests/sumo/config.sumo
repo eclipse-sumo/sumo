@@ -17,4 +17,5 @@ rawdump:rawdump.xml
 tripinfos:tripinfos.xml
 vehroutes:vehroutes.xml
 tls_state:tls_state.xml
+config:config.cfg
 
