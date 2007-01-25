@@ -1,0 +1,65 @@
+<configuration>
+
+   <input>
+      <net-file></net-file>
+      <routes-input></routes-input>
+      <detector-files></detector-files>
+      <elmar-detector-files></elmar-detector-files>
+      <detector-flow-files></detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output></routes-output>
+      <routes-for-all>false</routes-for-all>
+      <detectors-output></detectors-output>
+      <detectors-poi-output></detectors-poi-output>
+      <emitters-output></emitters-output>
+      <emitters-poi-output></emitters-poi-output>
+      <speed-trigger-output></speed-trigger-output>
+      <end-reroute-output></end-reroute-output>
+      <validation-output></validation-output>
+      <validation-output.add-sources>false</validation-output.add-sources>
+   </output>
+
+   <processing>
+      <guess-empty-flows>false</guess-empty-flows>
+      <highway-mode>false</highway-mode>
+      <revalidate-detectors>false</revalidate-detectors>
+      <revalidate-routes>false</revalidate-routes>
+      <all-end-follower>false</all-end-follower>
+      <keep-unfound-ends>false</keep-unfound-ends>
+      <fast-flows>false</fast-flows>
+      <time-offset>0</time-offset>
+      <write-calibrators>false</write-calibrators>
+      <revalidate-flows>false</revalidate-flows>
+      <remove-empty-detectors>false</remove-empty-detectors>
+      <strict-sources>false</strict-sources>
+   </processing>
+
+   <generated_vehicles>
+      <krauss-vmax>70</krauss-vmax>
+      <krauss-a>2.6</krauss-a>
+      <krauss-b>4.5</krauss-b>
+      <krauss-length>5</krauss-length>
+      <krauss-eps>0.5</krauss-eps>
+   </generated_vehicles>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <report>
+      <verbose>false</verbose>
+      <suppress-warnings>false</suppress-warnings>
+      <print-options>false</print-options>
+      <help>false</help>
+      <log-file></log-file>
+   </report>
+
+   <random_number>
+      <srand>23423</srand>
+      <abs-rand>false</abs-rand>
+   </random_number>
+
+</configuration>

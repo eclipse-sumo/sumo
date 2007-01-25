@@ -1,0 +1,147 @@
+<configuration>
+
+   <input>
+      <!-- Loads the SUMO-network FILE -->
+      <net-file></net-file>
+
+      <!-- Loads SUMO-routes from FILE -->
+      <routes-input></routes-input>
+
+      <!-- Loads detector descriptions from FILE -->
+      <detector-files></detector-files>
+
+      <!-- Loads elmar detector descriptions from FILE -->
+      <elmar-detector-files></elmar-detector-files>
+
+      <!-- Loads detector flows from FILE(s) -->
+      <detector-flow-files></detector-flow-files>
+
+   </input>
+
+   <output>
+      <!-- Saves computed routes to FILE -->
+      <routes-output></routes-output>
+
+      <!-- Forces DFROUTER to compute routes for in-between detectors -->
+      <routes-for-all>false</routes-for-all>
+
+      <!-- Saves typed detectors to FILE -->
+      <detectors-output></detectors-output>
+
+      <!-- Saves detector positions as pois to FILE -->
+      <detectors-poi-output></detectors-poi-output>
+
+      <!-- Saves emitter definitions for source detectors to FILE -->
+      <emitters-output></emitters-output>
+
+      <!-- Saves emitter positions as pois to FILE -->
+      <emitters-poi-output></emitters-poi-output>
+
+      <!-- Saves variable seed sign definitions for sink detectors to FILE -->
+      <speed-trigger-output></speed-trigger-output>
+
+      <!-- Saves rerouter definitions for sink detectors to FILE -->
+      <end-reroute-output></end-reroute-output>
+
+      <!--  -->
+      <validation-output></validation-output>
+
+      <!--  -->
+      <validation-output.add-sources>false</validation-output.add-sources>
+
+   </output>
+
+   <processing>
+      <!--  -->
+      <guess-empty-flows>false</guess-empty-flows>
+
+      <!-- Switches to highway-mode -->
+      <highway-mode>false</highway-mode>
+
+      <!-- Recomputes detector types even if given -->
+      <revalidate-detectors>false</revalidate-detectors>
+
+      <!-- Recomputes routes even if given -->
+      <revalidate-routes>false</revalidate-routes>
+
+      <!-- Continues routes till the first street after a sink -->
+      <all-end-follower>false</all-end-follower>
+
+      <!-- Keeps routes ending at no sinks -->
+      <keep-unfound-ends>false</keep-unfound-ends>
+
+      <!-- Assumes flows to be stored in a less complex format -->
+      <fast-flows>false</fast-flows>
+
+      <!-- Subtracts INT from flow times -->
+      <time-offset>0</time-offset>
+
+      <!--  -->
+      <write-calibrators>false</write-calibrators>
+
+      <!--  -->
+      <revalidate-flows>false</revalidate-flows>
+
+      <!-- Removes empty detectors from the list -->
+      <remove-empty-detectors>false</remove-empty-detectors>
+
+      <!--  -->
+      <strict-sources>false</strict-sources>
+
+   </processing>
+
+   <generated_vehicles>
+      <!-- Defines emitted vehicles' max. velocity -->
+      <krauss-vmax>70</krauss-vmax>
+
+      <!-- Defines emitted vehicles' max. acceleration -->
+      <krauss-a>2.6</krauss-a>
+
+      <!-- Defines emitted vehicles' max. deceleration -->
+      <krauss-b>4.5</krauss-b>
+
+      <!-- Defines emitted vehicles' length -->
+      <krauss-length>5</krauss-length>
+
+      <!-- Defines emitted vehicles' driver imperfection -->
+      <krauss-eps>0.5</krauss-eps>
+
+   </generated_vehicles>
+
+   <time>
+      <!-- Defines the begin time; Previous defs will be discarded -->
+      <begin>0</begin>
+
+      <!-- Defines the end time; Later defs will be discarded -->
+      <end>86400</end>
+
+   </time>
+
+   <report>
+      <!-- Switches to verbose output -->
+      <verbose>false</verbose>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints this screen -->
+      <help>false</help>
+
+      <!-- Writes all messages to FILE -->
+      <log-file></log-file>
+
+   </report>
+
+   <random_number>
+      <!-- Initialises the random number generator with the given value -->
+      <srand>23423</srand>
+
+      <!-- Initialises the random number generator with the current system time -->
+      <abs-rand>false</abs-rand>
+
+   </random_number>
+
+</configuration>
