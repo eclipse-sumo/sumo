@@ -1,0 +1,41 @@
+<configuration>
+
+   <input>
+      <net-file></net-file>
+      <od-files></od-files>
+      <vissim></vissim>
+   </input>
+
+   <output>
+      <output-file></output-file>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <processing>
+      <scale>1</scale>
+      <no-color>false</no-color>
+      <spread.uniform>false</spread.uniform>
+      <vtype></vtype>
+      <prefix></prefix>
+      <timeline></timeline>
+      <timeline.day-in-hours>false</timeline.day-in-hours>
+   </processing>
+
+   <report>
+      <verbose>false</verbose>
+      <suppress-warnings>false</suppress-warnings>
+      <print-options>false</print-options>
+      <help>false</help>
+      <log-file></log-file>
+   </report>
+
+   <random_number>
+      <srand>23423</srand>
+      <abs-rand>false</abs-rand>
+   </random_number>
+
+</configuration>

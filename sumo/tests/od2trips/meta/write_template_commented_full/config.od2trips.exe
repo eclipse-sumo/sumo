@@ -1,0 +1,81 @@
+<configuration>
+
+   <input>
+      <!-- Loads network (districts) from FILE -->
+      <net-file></net-file>
+
+      <!-- Loads O/D-files from FILE(s) -->
+      <od-files></od-files>
+
+      <!-- Uses FILE to determine which O/D-matrices to load -->
+      <vissim></vissim>
+
+   </input>
+
+   <output>
+      <!-- Writes trip definitions into FILE -->
+      <output-file></output-file>
+
+   </output>
+
+   <time>
+      <!-- Defines the begin time; Previous trips will be discarded -->
+      <begin>0</begin>
+
+      <!-- Defines the end time; Later trips will be discarded -->
+      <end>86400</end>
+
+   </time>
+
+   <processing>
+      <!-- Scales the loaded flows by FLOAT -->
+      <scale>1</scale>
+
+      <!-- Disables writing color information for vehicles -->
+      <no-color>false</no-color>
+
+      <!-- Spreads trips uniformly over each time period -->
+      <spread.uniform>false</spread.uniform>
+
+      <!-- Defines the name of the vehicle type to use -->
+      <vtype></vtype>
+
+      <!-- Defines the prefix for vehicle names -->
+      <prefix></prefix>
+
+      <!-- Uses STR as a timeline definition -->
+      <timeline></timeline>
+
+      <!-- Uses STR as a 24h-timeline definition -->
+      <timeline.day-in-hours>false</timeline.day-in-hours>
+
+   </processing>
+
+   <report>
+      <!-- Switches to verbose output -->
+      <verbose>false</verbose>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints this screen -->
+      <help>false</help>
+
+      <!-- Writes all messages to FILE -->
+      <log-file></log-file>
+
+   </report>
+
+   <random_number>
+      <!-- Initialises the random number generator with the given value -->
+      <srand>23423</srand>
+
+      <!-- Initialises the random number generator with the current system time -->
+      <abs-rand>false</abs-rand>
+
+   </random_number>
+
+</configuration>
