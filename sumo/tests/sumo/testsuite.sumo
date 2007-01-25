@@ -11,6 +11,9 @@ extended
 # tests for the traffic lights subsystem
 tls
 
+# traffic online checks
+traffic_online
+
 # testing meta processing
 meta
 

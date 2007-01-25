@@ -18,4 +18,6 @@ tripinfos:tripinfos.xml
 vehroutes:vehroutes.xml
 tls_state:tls_state.xml
 config:config.cfg
+tol_sql:tol_sql.txt
+tol_plain:tol_plain.txt
 

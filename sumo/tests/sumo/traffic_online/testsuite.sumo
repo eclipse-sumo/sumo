@@ -1,0 +1,5 @@
+# check whether static calls are processed properly
+static1
+
+# check whether the tol-point output works
+tol_points
