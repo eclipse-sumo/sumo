@@ -12,6 +12,10 @@ Usage: duarouter.exe [OPTION]*
  
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup
+  --save-configuration FILE           Saves current configuration into FILE
+  --save-template FILE                Saves a configuration template (empty)
+                                        into FILE
+  --save-template.commented           Adds comments to saved template
 
  Input Options:
   -n, --net-file FILE                 Use FILE as SUMO-network to route on
@@ -33,7 +37,7 @@ Usage: duarouter.exe [OPTION]*
 
  Processing Options:
   --continue-on-unbuild               Continue if a route could not be build
-  --unsorted                          Set to process unsorted lists
+  --unsorted                          Assume input is unsorted
   --randomize-flows                   
   --move-on-short                     Move vehicles to the next edge if the
                                         first is too short
@@ -41,7 +45,8 @@ Usage: duarouter.exe [OPTION]*
   -R, --random-per-second FLOAT       Emit FLOAT random vehicles per second
   --prune-random                      
   --remove-loops                      
-  --expand-weights                    Expand weight behind the simulation's end
+  --expand-weights                    Expand weights behind the simulation's
+                                        end
   -x, --scheme STR                    
   --gBeta FLOAT                       Use FLOAT as Gawron's beta
   --gA FLOAT                          Use FLOAT as Gawron's alpha
