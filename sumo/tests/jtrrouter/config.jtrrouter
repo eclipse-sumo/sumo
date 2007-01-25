@@ -8,5 +8,6 @@ copy_test_path:input_turns.turns.csv
 [collate_file]
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
+config:config.cfg
 
 
