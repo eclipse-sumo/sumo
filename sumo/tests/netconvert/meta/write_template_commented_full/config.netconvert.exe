@@ -1,0 +1,336 @@
+<configuration>
+
+   <input>
+      <!-- Read SUMO-net from FILE -->
+      <sumo-net></sumo-net>
+
+      <!-- Read XML-node defs from FILE -->
+      <xml-node-files></xml-node-files>
+
+      <!-- Read XML-edge defs from FILE -->
+      <xml-edge-files></xml-edge-files>
+
+      <!-- Read XML-connection defs from FILE -->
+      <xml-connection-files></xml-connection-files>
+
+      <!-- Read XML-type defs from FILE -->
+      <xml-type-files></xml-type-files>
+
+      <!-- Read ARCVIEW-net from files starting with 'FILE' -->
+      <arcview></arcview>
+
+      <!-- Read splitted Elmar-network from path 'FILE' -->
+      <elmar></elmar>
+
+      <!-- Read unsplitted Elmar-network from path 'FILE' -->
+      <elmar2></elmar2>
+
+      <!-- Read Tiger-network from path 'FILE' -->
+      <tiger></tiger>
+
+      <!-- Read Cell-nodes from FILE -->
+      <cell-node-file></cell-node-file>
+
+      <!-- Read Cell-edges from FILE -->
+      <cell-edge-file></cell-edge-file>
+
+      <!-- Read VISUM-net from FILE -->
+      <visum-file></visum-file>
+
+      <!-- Read VISSIM-net from FILE -->
+      <vissim-file></vissim-file>
+
+      <!-- Read ARTEMIS-net from path 'FILE' -->
+      <artemis-path></artemis-path>
+
+   </input>
+
+   <output>
+      <!-- The generated net will be written to FILE -->
+      <output-file>net.net.xml</output-file>
+
+      <!--  -->
+      <binary-output>false</binary-output>
+
+      <!-- Writes node corner positions to FILE -->
+      <plain-output></plain-output>
+
+      <!-- Writes node corner positions to FILE -->
+      <plain-output></plain-output>
+
+      <!-- Writes joined edges information to FILE -->
+      <map-output></map-output>
+
+      <!-- Writes pois of tls positions to FILE -->
+      <tls-poi-output></tls-poi-output>
+
+      <!-- Writes pois of node types to FILE -->
+      <node-type-output></node-type-output>
+
+   </output>
+
+   <projection>
+      <!-- Enables reprojection from geo to cartesian -->
+      <use-projection>false</use-projection>
+
+      <!-- Uses a simple method for projection -->
+      <proj.simple>false</proj.simple>
+
+      <!-- Uses STR as proj.4 definition for projection -->
+      <proj>+proj=utm +zone=33 +ellps=bessel +units=m</proj>
+
+   </projection>
+
+   <tls_building>
+      <!-- Interprets STR as list of junctions to be controlled by TLS -->
+      <explicite-tls></explicite-tls>
+
+      <!-- Interprets STR as list of junctions to be not controlled by TLS -->
+      <explicite-no-tls></explicite-no-tls>
+
+      <!-- Turns on TLS guessing -->
+      <guess-tls>false</guess-tls>
+
+      <!--  -->
+      <tls-guess.no-incoming-min>2</tls-guess.no-incoming-min>
+
+      <!--  -->
+      <tls-guess.no-incoming-max>5</tls-guess.no-incoming-max>
+
+      <!--  -->
+      <tls-guess.no-outgoing-min>1</tls-guess.no-outgoing-min>
+
+      <!-- Min/max of incoming/outgoing edges a junction may have in order to be tls-controlled. -->
+      <tls-guess.no-outgoing-max>5</tls-guess.no-outgoing-max>
+
+      <!--  -->
+      <tls-guess.min-incoming-speed>11.1111</tls-guess.min-incoming-speed>
+
+      <!--  -->
+      <tls-guess.max-incoming-speed>19.1667</tls-guess.max-incoming-speed>
+
+      <!--  -->
+      <tls-guess.min-outgoing-speed>11.1111</tls-guess.min-outgoing-speed>
+
+      <!-- Min/max speeds that incoming/outgoing edges must allowed in order to make their junction TLS-controlled. -->
+      <tls-guess.max-outgoing-speed>19.1667</tls-guess.max-outgoing-speed>
+
+      <!--  -->
+      <tls-guess.district-nodes>false</tls-guess.district-nodes>
+
+      <!-- Defines smallest vehicle deceleration -->
+      <min-decel>3</min-decel>
+
+      <!--  -->
+      <all-logics>false</all-logics>
+
+      <!-- Given yellow times are kept even if being too short -->
+      <keep-small-tyellow>false</keep-small-tyellow>
+
+      <!-- Use INT as green phase duration -->
+      <traffic-light-green>0</traffic-light-green>
+
+      <!-- TLSs in STR will be shifted by quarter-phase -->
+      <traffic-light-yellow>0</traffic-light-yellow>
+
+      <!-- TLSs in STR will be shifted by quarter-phase -->
+      <traffic-light-yellow>0</traffic-light-yellow>
+
+      <!-- TLSs in STR will be shifted by quarter-phase -->
+      <traffic-light-yellow>0</traffic-light-yellow>
+
+   </tls_building>
+
+   <ramp_guessing>
+      <!-- Enable ramp-guessing -->
+      <guess-ramps>false</guess-ramps>
+
+      <!-- Treat edges with speed > FLOAT as no ramps -->
+      <ramp-guess.max-ramp-speed>-1</ramp-guess.max-ramp-speed>
+
+      <!-- Treat edges with speed < FLOAT as no highways -->
+      <ramp-guess.min-highway-speed>21.9444</ramp-guess.min-highway-speed>
+
+      <!-- Use FLOAT as ramp-length -->
+      <ramp-guess.ramp-length>100</ramp-guess.ramp-length>
+
+      <!--  -->
+      <guess-obscure-ramps>false</guess-obscure-ramps>
+
+      <!--  -->
+      <obscure-ramps.add-ramp>false</obscure-ramps.add-ramp>
+
+      <!--  -->
+      <obscure-ramps.min-highway-speed>27.7778</obscure-ramps.min-highway-speed>
+
+   </ramp_guessing>
+
+   <edge_removal>
+      <!-- Remove edges with speed < FLOAT -->
+      <edges-min-speed>0</edges-min-speed>
+
+      <!-- Remove edges in STR -->
+      <remove-edges></remove-edges>
+
+      <!-- Remove edges not in STR -->
+      <keep-edges></keep-edges>
+
+      <!-- Removed edges not in FILE -->
+      <keep-edges.input-file></keep-edges.input-file>
+
+      <!-- Remove edges after joining -->
+      <keep-edges.postload>false</keep-edges.postload>
+
+      <!-- Remove edges where vclass def is not in STR -->
+      <remove-edges.by-type></remove-edges.by-type>
+
+   </edge_removal>
+
+   <unregulated_nodes>
+      <!-- All nodes will be not regulated -->
+      <keep-unregulated>false</keep-unregulated>
+
+      <!-- Do not regulate nodes in STR -->
+      <keep-unregulated.nodes></keep-unregulated.nodes>
+
+      <!-- Do not regulate district nodes -->
+      <keep-unregulated.district-nodes>false</keep-unregulated.district-nodes>
+
+   </unregulated_nodes>
+
+   <processing>
+      <!-- Continue on broken input -->
+      <dismiss-loading-errors>false</dismiss-loading-errors>
+
+      <!-- The factor for flow to no. lanes conv. (Cell) -->
+      <capacity-norm>20000</capacity-norm>
+
+      <!-- vmax is parsed as given in km/h (some) -->
+      <speed-in-kmh>false</speed-in-kmh>
+
+      <!-- Read edge ids from column STR (ArcView) -->
+      <arcview.street-id></arcview.street-id>
+
+      <!-- Read from-node ids from column STR (ArcView) -->
+      <arcview.from-id></arcview.from-id>
+
+      <!-- Read to-node ids from column STR (ArcView) -->
+      <arcview.to-id></arcview.to-id>
+
+      <!-- Read type ids from column STR (ArcView) -->
+      <arcview.type-id></arcview.type-id>
+
+      <!-- Uses edge type defaults on problems (ArcView) -->
+      <arcview.use-defaults-on-failure>false</arcview.use-defaults-on-failure>
+
+      <!-- Insert edges in both directions (ArcView) -->
+      <arcview.all-bidi>false</arcview.all-bidi>
+
+      <!-- Use INT as UTM zone (ArcView) -->
+      <arcview.utm>32</arcview.utm>
+
+      <!-- Guess the proper projection (ArcView) -->
+      <arcview.guess-projection>false</arcview.guess-projection>
+
+      <!-- Structure join offset (VISSIM) -->
+      <vissim.offset>5</vissim.offset>
+
+      <!-- Use FLOAT as default speed (VISSIM) -->
+      <vissim.default-speed>13.8889</vissim.default-speed>
+
+      <!-- Factor for edge velocity (VISSIM) -->
+      <vissim.speed-norm>1</vissim.speed-norm>
+
+      <!--  -->
+      <navtech.rechecklanes>false</navtech.rechecklanes>
+
+      <!-- Continues though corrupt edges -->
+      <omit-corrupt-edges>false</omit-corrupt-edges>
+
+      <!-- Flips the y-coordinate along zero -->
+      <flip-y>false</flip-y>
+
+      <!--  -->
+      <dismiss-vclasses>false</dismiss-vclasses>
+
+      <!-- Uses the number of lanes priority hint -->
+      <use-laneno-as-priority>false</use-laneno-as-priority>
+
+      <!-- Removes geometry information from edges -->
+      <remove-geometry>false</remove-geometry>
+
+      <!-- Disables building turnarounds -->
+      <no-turnarounds>false</no-turnarounds>
+
+      <!-- Adds internal links -->
+      <add-internal-links>false</add-internal-links>
+
+      <!-- Splits edges across geometry nodes -->
+      <split-geometry>false</split-geometry>
+
+      <!-- Turn off normalizing node positions -->
+      <disable-normalize-node-positions>false</disable-normalize-node-positions>
+
+      <!-- Adds FLOAT to net x-positions -->
+      <x-offset-to-apply>0</x-offset-to-apply>
+
+      <!-- Adds FLOAT to net y-positions -->
+      <y-offset-to-apply>0</y-offset-to-apply>
+
+      <!-- Rotates net around FLOAT degrees -->
+      <rotation-to-apply>0</rotation-to-apply>
+
+   </processing>
+
+   <building_defaults>
+      <!-- The default name for an edges type -->
+      <type>Unknown</type>
+
+      <!-- The default number of lanes in an edge -->
+      <lanenumber>1</lanenumber>
+
+      <!-- The default speed on an edge (in m/s) -->
+      <speed>13.9</speed>
+
+      <!-- The default priority of an edge -->
+      <priority>1</priority>
+
+   </building_defaults>
+
+   <report>
+      <!-- Switches to verbose output -->
+      <verbose>false</verbose>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints option values before processing -->
+      <print-options>false</print-options>
+
+      <!-- Prints this screen -->
+      <help>false</help>
+
+      <!-- Writes all messages to FILE -->
+      <log-file></log-file>
+
+      <!-- Prints the positions of read nodes -->
+      <print-node-positions>false</print-node-positions>
+
+      <!-- Enable debug mode -->
+      <netbuild.debug>0</netbuild.debug>
+
+   </report>
+
+   <random_number>
+      <!-- Initialises the random number generator with the given value -->
+      <srand>23423</srand>
+
+      <!-- Initialises the random number generator with the current system time -->
+      <abs-rand>false</abs-rand>
+
+   </random_number>
+
+</configuration>
