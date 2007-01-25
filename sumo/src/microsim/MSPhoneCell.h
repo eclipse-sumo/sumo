@@ -125,7 +125,6 @@ private:
     int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
     int myIntervalBegin;            /* the begintime of the current interval*/
     int myIntervalEnd;              /* the endtime of the current interval*/
-    int myOutputIntervalBegin;      /*????????????????????????????????????*/     
     int myCurrentExpectedCallCount;
     float myCallDuration;
     float myCallDeviation;
