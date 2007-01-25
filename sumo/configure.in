@@ -15,7 +15,6 @@ if test "x$prefix" = "xNONE"; then
 fi
 
 dnl Checks for programs.
-AC_PROG_CXX
 AC_PROG_INSTALL
 
 dnl enable libtool-support
@@ -36,7 +35,8 @@ AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilatio
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$CHECK_MEMORY_LEAKS = x1)
 
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
-              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])])
+              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])], [CXXFLAGS="-O2"])
+AC_PROG_CXX
 
 AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])],
               [AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])])
