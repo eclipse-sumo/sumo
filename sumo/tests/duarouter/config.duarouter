@@ -10,5 +10,6 @@ copy_test_path:input_net.net.xml
 [collate_file]
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
+config:config.cfg
 
 
