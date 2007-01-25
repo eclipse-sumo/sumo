@@ -1,0 +1,17 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests --help
+help
+
+# Tests no input
+noop
+
+# Tests full template writing
+write_template_full
+
+# Tests commented, full template writing
+write_template_commented_full
+
+
+

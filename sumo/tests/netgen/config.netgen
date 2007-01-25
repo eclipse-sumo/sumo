@@ -1,0 +1,7 @@
+binary:D:\projects\sumo\sumo\bin\netgen.exe
+home_operating_system:nt
+copy_test_path:input_net.net.xml
+
+[collate_file]
+net:net.net.xml
+config:config.cfg

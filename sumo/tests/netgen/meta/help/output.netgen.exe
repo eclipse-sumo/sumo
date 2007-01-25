@@ -1,0 +1,171 @@
+SUMO netgen
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
+ Version 0.9.6
+ 
+Road network generator for the microscopic road traffic simulation SUMO.
+
+Usage: netgen.exe [OPTION]*
+ 
+ Examples:
+  netgen.exe -c <CONFIGURATION>
+  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
+  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
+  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
+ 
+ Either "--grid-net", "--spider-net" or "--random-net" must be 
+  supplied. In dependance to these switches other options are used.
+ 
+ Configuration Options:
+  -c, --configuration-file FILE        Loads the named config on startup
+  --save-configuration FILE            Saves current configuration into FILE
+  --save-template FILE                 Saves a configuration template (empty)
+                                         into FILE
+  --save-template.commented            Adds comments to saved template
+
+ Grid Network Options:
+  -g, --grid-net                       Forces NETGEN to build a grid-like
+                                         network
+  --grid-number INT                    The number of junctions in both dirs
+  --grid-length FLOAT                  The length of streets in both dirs
+  --grid-x-number INT                  The number of junctions in x-dir;
+                                         Overrides --grid-number
+  --grid-y-number INT                  The number of junctions in y-dir;
+                                         Overrides --grid-number
+  --grid-x-length FLOAT                The length of vertical streets;
+                                         Overrides --grid-length
+  --grid-x-length FLOAT                The length of vertical streets;
+                                         Overrides --grid-length
+
+ Spider Network Options:
+  -s, --spider-net                     Forces NETGEN to build a spider-net-like
+                                         network
+  --spider-arm-number INT              The number of axes within the net
+  --spider-circle-number INT           The number of circles of the net
+  --spider-space-rad FLOAT             The distances between the circles
+
+ Random Network Options:
+  -r, --random-net                     Forces NETGEN to build a random network
+  --rand-iterations INT                Describes how many times an edge shall
+                                         be added to the net
+  --rand-max-distance FLOAT            
+  --rand-min-distance FLOAT            
+  --rand-min-angle FLOAT               
+  --rand-num-tries INT                 
+  --rand-connectivity FLOAT            
+  --rand-neighbor-dist1 FLOAT          
+  --rand-neighbor-dist2 FLOAT          
+  --rand-neighbor-dist3 FLOAT          
+  --rand-neighbor-dist4 FLOAT          
+  --rand-neighbor-dist5 FLOAT          
+  --rand-neighbor-dist6 FLOAT          
+
+ Output Options:
+  -o, --output-file FILE               The generated net will be written to
+                                         FILE
+  --binary-output                      
+  --plain-output FILE                  Writes node corner positions to FILE
+  --plain-output FILE                  Writes node corner positions to FILE
+  -M, --map-output FILE                Writes joined edges information to FILE
+  --tls-poi-output FILE                Writes pois of tls positions to FILE
+  --node-type-output FILE              Writes pois of node types to FILE
+
+ Projection Options:
+  --use-projection                     Enables reprojection from geo to
+                                         cartesian
+  --proj.simple                        Uses a simple method for projection
+  --proj STR                           Uses STR as proj.4 definition for
+                                         projection
+
+ TLS Building Options:
+  --explicite-tls STR                  Interprets STR as list of junctions to
+                                         be controlled by TLS
+  --explicite-no-tls STR               Interprets STR as list of junctions to
+                                         be not controlled by TLS
+  --guess-tls                          Turns on TLS guessing
+  --tls-guess.no-incoming-min INT      
+  --tls-guess.no-incoming-max INT      
+  --tls-guess.no-outgoing-min INT      
+  --tls-guess.no-outgoing-max INT      Min/max of incoming/outgoing edges a
+                                         junction may have in order to be
+                                         tls-controlled.
+  --tls-guess.min-incoming-speed FLOAT  
+  --tls-guess.max-incoming-speed FLOAT  
+  --tls-guess.min-outgoing-speed FLOAT  
+  --tls-guess.max-outgoing-speed FLOAT  Min/max speeds that incoming/outgoing
+                                         edges must allowed in order to make
+                                         their junction TLS-controlled.
+  --tls-guess.district-nodes           
+  -D, --min-decel FLOAT                Defines smallest vehicle deceleration
+  --all-logics                         
+  --keep-small-tyellow                 Given yellow times are kept even if
+                                         being too short
+  --traffic-light-green INT            Use INT as green phase duration
+  --traffic-light-yellow INT           TLSs in STR will be shifted by
+                                         quarter-phase
+  --traffic-light-yellow INT           TLSs in STR will be shifted by
+                                         quarter-phase
+  --traffic-light-yellow INT           TLSs in STR will be shifted by
+                                         quarter-phase
+
+ Ramp Guessing Options:
+  --guess-ramps                        Enable ramp-guessing
+  --ramp-guess.max-ramp-speed FLOAT    Treat edges with speed > FLOAT as no
+                                         ramps
+  --ramp-guess.min-highway-speed FLOAT  Treat edges with speed < FLOAT as no
+                                         highways
+  --ramp-guess.ramp-length FLOAT       Use FLOAT as ramp-length
+  --guess-obscure-ramps                
+  --obscure-ramps.add-ramp             
+  --obscure-ramps.min-highway-speed FLOAT  
+
+ Edge Removal Options:
+  --edges-min-speed FLOAT              Remove edges with speed < FLOAT
+  --remove-edges STR                   Remove edges in STR
+  --keep-edges STR                     Remove edges not in STR
+  --keep-edges.input-file FILE         Removed edges not in FILE
+  --keep-edges.postload                Remove edges after joining
+  --remove-edges.by-type STR           Remove edges where vclass def is not in
+                                         STR
+
+ Unregulated Nodes Options:
+  --keep-unregulated                   All nodes will be not regulated
+  --keep-unregulated.nodes STR         Do not regulate nodes in STR
+  --keep-unregulated.district-nodes    Do not regulate district nodes
+
+ Processing Options:
+  --omit-corrupt-edges                 Continues though corrupt edges
+  --flip-y                             Flips the y-coordinate along zero
+  --dismiss-vclasses                   
+  --use-laneno-as-priority             Uses the number of lanes priority hint
+  -R, --remove-geometry                Removes geometry information from edges
+  --no-turnarounds                     Disables building turnarounds
+  -I, --add-internal-links             Adds internal links
+  --split-geometry                     Splits edges across geometry nodes
+  --disable-normalize-node-positions   Turn off normalizing node positions
+  --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
+  --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
+  --rotation-to-apply FLOAT            Rotates net around FLOAT degrees
+
+ Building Defaults Options:
+  -T, --type STR                       The default name for an edges type
+  -L, --lanenumber INT                 The default number of lanes in an edge
+  -S, --speed FLOAT                    The default speed on an edge (in m/s)
+  -P, --priority INT                   The default priority of an edge
+  -j, --default-junction-type STR      [traffic_light|priority|actuated|agentbased] Determines the type of the build junctions
+
+ Report Options:
+  -v, --verbose                        Switches to verbose output
+  -W, --suppress-warnings              Disables output of warnings
+  -p, --print-options                  Prints option values before processing
+  -p, --print-options                  Prints option values before processing
+  -?, --help                           Prints this screen
+  -l, --log-file FILE                  Writes all messages to FILE
+  --print-node-positions               Prints the positions of read nodes
+  --netbuild.debug INT                 Enable debug mode
+
+ Random Number Options:
+  --srand INT                          Initialises the random number generator
+                                         with the given value
+  --abs-rand                           Initialises the random number generator
+                                         with the current system time
+

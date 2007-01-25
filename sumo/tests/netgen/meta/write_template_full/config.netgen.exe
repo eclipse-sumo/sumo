@@ -1,0 +1,138 @@
+<configuration>
+
+   <grid_network>
+      <grid-net>false</grid-net>
+      <grid-number>5</grid-number>
+      <grid-length>100</grid-length>
+      <grid-x-number>5</grid-x-number>
+      <grid-y-number>5</grid-y-number>
+      <grid-x-length>100</grid-x-length>
+      <grid-x-length>100</grid-x-length>
+   </grid_network>
+
+   <spider_network>
+      <spider-net>false</spider-net>
+      <spider-arm-number>13</spider-arm-number>
+      <spider-circle-number>20</spider-circle-number>
+      <spider-space-rad>100</spider-space-rad>
+   </spider_network>
+
+   <random_network>
+      <random-net>false</random-net>
+      <rand-iterations>2000</rand-iterations>
+      <rand-max-distance>250</rand-max-distance>
+      <rand-min-distance>100</rand-min-distance>
+      <rand-min-angle>0.785398</rand-min-angle>
+      <rand-num-tries>50</rand-num-tries>
+      <rand-connectivity>0.95</rand-connectivity>
+      <rand-neighbor-dist1>0</rand-neighbor-dist1>
+      <rand-neighbor-dist2>0</rand-neighbor-dist2>
+      <rand-neighbor-dist3>10</rand-neighbor-dist3>
+      <rand-neighbor-dist4>10</rand-neighbor-dist4>
+      <rand-neighbor-dist5>2</rand-neighbor-dist5>
+      <rand-neighbor-dist6>1</rand-neighbor-dist6>
+   </random_network>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+      <binary-output>false</binary-output>
+      <plain-output></plain-output>
+      <plain-output></plain-output>
+      <map-output></map-output>
+      <tls-poi-output></tls-poi-output>
+      <node-type-output></node-type-output>
+   </output>
+
+   <projection>
+      <use-projection>false</use-projection>
+      <proj.simple>false</proj.simple>
+      <proj>+proj=utm +zone=33 +ellps=bessel +units=m</proj>
+   </projection>
+
+   <tls_building>
+      <explicite-tls></explicite-tls>
+      <explicite-no-tls></explicite-no-tls>
+      <guess-tls>false</guess-tls>
+      <tls-guess.no-incoming-min>2</tls-guess.no-incoming-min>
+      <tls-guess.no-incoming-max>5</tls-guess.no-incoming-max>
+      <tls-guess.no-outgoing-min>1</tls-guess.no-outgoing-min>
+      <tls-guess.no-outgoing-max>5</tls-guess.no-outgoing-max>
+      <tls-guess.min-incoming-speed>11.1111</tls-guess.min-incoming-speed>
+      <tls-guess.max-incoming-speed>19.1667</tls-guess.max-incoming-speed>
+      <tls-guess.min-outgoing-speed>11.1111</tls-guess.min-outgoing-speed>
+      <tls-guess.max-outgoing-speed>19.1667</tls-guess.max-outgoing-speed>
+      <tls-guess.district-nodes>false</tls-guess.district-nodes>
+      <min-decel>3</min-decel>
+      <all-logics>false</all-logics>
+      <keep-small-tyellow>false</keep-small-tyellow>
+      <traffic-light-green>0</traffic-light-green>
+      <traffic-light-yellow>0</traffic-light-yellow>
+      <traffic-light-yellow>0</traffic-light-yellow>
+      <traffic-light-yellow>0</traffic-light-yellow>
+   </tls_building>
+
+   <ramp_guessing>
+      <guess-ramps>false</guess-ramps>
+      <ramp-guess.max-ramp-speed>-1</ramp-guess.max-ramp-speed>
+      <ramp-guess.min-highway-speed>21.9444</ramp-guess.min-highway-speed>
+      <ramp-guess.ramp-length>100</ramp-guess.ramp-length>
+      <guess-obscure-ramps>false</guess-obscure-ramps>
+      <obscure-ramps.add-ramp>false</obscure-ramps.add-ramp>
+      <obscure-ramps.min-highway-speed>27.7778</obscure-ramps.min-highway-speed>
+   </ramp_guessing>
+
+   <edge_removal>
+      <edges-min-speed>0</edges-min-speed>
+      <remove-edges></remove-edges>
+      <keep-edges></keep-edges>
+      <keep-edges.input-file></keep-edges.input-file>
+      <keep-edges.postload>false</keep-edges.postload>
+      <remove-edges.by-type></remove-edges.by-type>
+   </edge_removal>
+
+   <unregulated_nodes>
+      <keep-unregulated>false</keep-unregulated>
+      <keep-unregulated.nodes></keep-unregulated.nodes>
+      <keep-unregulated.district-nodes>false</keep-unregulated.district-nodes>
+   </unregulated_nodes>
+
+   <processing>
+      <omit-corrupt-edges>false</omit-corrupt-edges>
+      <flip-y>false</flip-y>
+      <dismiss-vclasses>false</dismiss-vclasses>
+      <use-laneno-as-priority>false</use-laneno-as-priority>
+      <remove-geometry>false</remove-geometry>
+      <no-turnarounds>false</no-turnarounds>
+      <add-internal-links>false</add-internal-links>
+      <split-geometry>false</split-geometry>
+      <disable-normalize-node-positions>false</disable-normalize-node-positions>
+      <x-offset-to-apply>0</x-offset-to-apply>
+      <y-offset-to-apply>0</y-offset-to-apply>
+      <rotation-to-apply>0</rotation-to-apply>
+   </processing>
+
+   <building_defaults>
+      <type>Unknown</type>
+      <lanenumber>1</lanenumber>
+      <speed>13.9</speed>
+      <priority>1</priority>
+      <default-junction-type>priority</default-junction-type>
+   </building_defaults>
+
+   <report>
+      <verbose>false</verbose>
+      <suppress-warnings>false</suppress-warnings>
+      <print-options>false</print-options>
+      <print-options>false</print-options>
+      <help>false</help>
+      <log-file></log-file>
+      <print-node-positions>false</print-node-positions>
+      <netbuild.debug>0</netbuild.debug>
+   </report>
+
+   <random_number>
+      <srand>23423</srand>
+      <abs-rand>false</abs-rand>
+   </random_number>
+
+</configuration>
