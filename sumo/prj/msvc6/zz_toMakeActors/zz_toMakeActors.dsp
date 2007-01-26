@@ -142,10 +142,6 @@ SOURCE=..\..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\options\OptionsSaveStorage.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\options\OptionsSubSys.cpp
 # End Source File
 # Begin Source File
@@ -187,10 +183,6 @@ SOURCE=..\..\..\src\utils\options\OptionsLoader.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\options\OptionsParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\options\OptionsSaveStorage.h
 # End Source File
 # Begin Source File
 
