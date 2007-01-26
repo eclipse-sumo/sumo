@@ -195,9 +195,8 @@ else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$ac_proj_libraries"
    export LDFLAGS
-   AC_CHECK_LIB(proj, main, [], [AC_MSG_ERROR([proj-lib not found in "$ac_proj_libraries".])])
-   LDFLAGS=save_ldflags
-   PROJ_LDFLAGS="$ac_proj_libraries"
+   AC_CHECK_LIB(proj, main, [PROJ_LDFLAGS="$ac_proj_libraries"], [AC_MSG_ERROR([proj-lib not found in "$ac_proj_libraries".])])
+   LDFLAGS=$save_ldflags
    AC_SUBST(PROJ_LDFLAGS)
 fi
 LIB_PROJ="proj"
