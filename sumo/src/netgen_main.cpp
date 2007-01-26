@@ -189,9 +189,9 @@ checkOptions(OptionsCont &oc)
     }
     // check whether exactly one type of a network to build was wished
     int no = 0;
-    if(oc.getBool("s")) no++;
-    if(oc.getBool("g")) no++;
-    if(oc.getBool("r")) no++;
+    if(oc.getBool("spider-net")) no++;
+    if(oc.getBool("grid-net")) no++;
+    if(oc.getBool("random-net")) no++;
     if(no==0) {
         MsgHandler::getErrorInstance()->inform("You have to specify the type of network to generate.");
         return false;
@@ -377,7 +377,7 @@ buildNetwork(NBNetBuilder &nb)
         return net;
     }
     // grid-net
-    if(oc.getBool("g")) {
+    if(oc.getBool("grid-net")) {
         int xNo = oc.getInt("x-no");
         int yNo = oc.getInt("y-no");
         SUMOReal xLength = oc.getFloat("x-length");

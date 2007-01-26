@@ -247,8 +247,8 @@ loadNet(ROLoader &loader, OptionsCont &oc)
         throw ProcessError();
     }
     // load the weights when wished/available
-    if(oc.isSet("w")) {
-        loader.loadWeights(*net, oc.getString("w"), false);
+    if(oc.isSet("weights")) {
+        loader.loadWeights(*net, oc.getString("weights"), false);
     }
     if(oc.isSet("lane-weights")) {
         loader.loadWeights(*net, oc.getString("lane-weights"), true);
@@ -287,11 +287,11 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     net.openOutput(oc.getString("output"), true);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
-        loader.processRoutesStepWise(oc.getInt("b"), oc.getInt("e"), net, *router);
+        loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
     }
     // the routes are not sorted: load all and process
     else {
-        loader.processAllRoutes(oc.getInt("b"), oc.getInt("e"), net, *router);
+        loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
     }
     // end the processing
     loader.closeReading();

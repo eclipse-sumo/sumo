@@ -388,18 +388,18 @@ main(int argc, char **argv)
 		if (oc.getInt("remote-port") != 0)
 		{
 			//cout <<endl<< "oc.remote-port: " <<oc.getInt("remote-port")<< endl;
-			cout <<"Run from "<<oc.getInt("b")<<" To 0"<<endl;
-			net->simulate(oc.getInt("b"), 0);
+			cout <<"Run from "<<oc.getInt("begin")<<" To 0"<<endl;
+			net->simulate(oc.getInt("begin"), 0);
 			cout << "Done!"<<endl;
-			RemoteServer *rs = new RemoteServer(oc.getInt("remote-port"),oc.getInt("e"));
+			RemoteServer *rs = new RemoteServer(oc.getInt("remote-port"),oc.getInt("end"));
 		}
 		else
 		{
 #endif
             // report the begin when wished
-            WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
+            WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
             // simulate
-            net->simulate(oc.getInt("b"), oc.getInt("e"));
+            net->simulate(oc.getInt("begin"), oc.getInt("end"));
             // report the end when wished
             WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
 #ifdef _RPC

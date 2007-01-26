@@ -167,9 +167,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
     myTable->setTableSize(20,1);
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setCellType(0, CT_INT);
-    myTable->setNumberCellParams(0,
-        OptionsSubSys::getOptions().getInt("b"),
-        OptionsSubSys::getOptions().getInt("e"),
+    myTable->setNumberCellParams(0, OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
         1, 10, 100, "%.0f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();

@@ -209,7 +209,7 @@ ROLoader::~ROLoader()
 RONet *
 ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
-    std::string file = _options.getString("n");
+    std::string file = _options.getString("net-file");
     if(file=="") {
         MsgHandler::getErrorInstance()->inform("Missing definition of network to load!");
         return 0;
@@ -518,7 +518,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
 void
 ROLoader::loadSupplementaryWeights( RONet& net )
 {
-    string filename = _options.getString( "S" );
+    string filename = _options.getString("supplementary-weights");
     if( ! FileHelpers::exists( filename ) ) {
         MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!" );
         throw ProcessError();

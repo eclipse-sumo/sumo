@@ -68,7 +68,7 @@ public:
         : duration(durationArg), _lastSwitch(0), driveMask(driveMaskArg),
             breakMask(breakMaskArg), yellowMask(yellowMaskArg)
     {
-		_lastSwitch = OptionsSubSys::getOptions().getInt("b");
+		_lastSwitch = OptionsSubSys::getOptions().getInt("begin");
     }
 
     /// destructor

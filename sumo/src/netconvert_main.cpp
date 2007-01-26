@@ -268,7 +268,7 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         NBNetBuilder nb;
         // initialise the (default) types
-        nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
+        nb.getTypeCont().setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
         // load data
         nb.preCheckOptions(oc);
         NILoader nl(nb);

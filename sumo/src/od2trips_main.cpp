@@ -241,7 +241,7 @@ loadDistricts(OptionsCont &oc)
     // build the container
     ODDistrictCont *ret = new ODDistrictCont();
     // get the file name and set it
-    string file = oc.getString("n");
+    string file = oc.getString("net-file");
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
     ODDistrictHandler handler(*ret);
