@@ -1,0 +1,12 @@
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+   </input>
+
+   <output>
+      <detectors-poi-output>detectors.poi.xml</detectors-poi-output>
+   </output>
+
+</configuration>

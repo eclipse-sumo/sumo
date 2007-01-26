@@ -1,0 +1,16 @@
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+      <turn-defaults>50;50;0;0</turn-defaults>
+   </processing>
+
+</configuration>

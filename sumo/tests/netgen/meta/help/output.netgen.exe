@@ -31,9 +31,9 @@ Usage: netgen.exe [OPTION]*
                                          Overrides --grid-number
   --grid-y-number INT                  The number of junctions in y-dir;
                                          Overrides --grid-number
-  --grid-x-length FLOAT                The length of vertical streets;
+  --grid-x-length FLOAT                The length of horizontal streets;
                                          Overrides --grid-length
-  --grid-x-length FLOAT                The length of vertical streets;
+  --grid-y-length FLOAT                The length of vertical streets;
                                          Overrides --grid-length
 
  Spider Network Options:
@@ -63,8 +63,9 @@ Usage: netgen.exe [OPTION]*
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --binary-output                      
-  --plain-output FILE                  Writes node corner positions to FILE
-  --plain-output FILE                  Writes node corner positions to FILE
+  --plain-output FILE                  Prefix of files to write nodes and edges
+                                         to
+  --node-geometry-dump FILE            Writes node corner positions to FILE
   -M, --map-output FILE                Writes joined edges information to FILE
   --tls-poi-output FILE                Writes pois of tls positions to FILE
   --node-type-output FILE              Writes pois of node types to FILE
@@ -100,11 +101,11 @@ Usage: netgen.exe [OPTION]*
   --keep-small-tyellow                 Given yellow times are kept even if
                                          being too short
   --traffic-light-green INT            Use INT as green phase duration
-  --traffic-light-yellow INT           TLSs in STR will be shifted by
-                                         quarter-phase
-  --traffic-light-yellow INT           TLSs in STR will be shifted by
-                                         quarter-phase
-  --traffic-light-yellow INT           TLSs in STR will be shifted by
+  --traffic-light-yellow INT           Set INT as fixed time for yellow phase
+                                         durations
+  --tl-logics.half-offset STR          TLSs in STR will be shifted by
+                                         half-phase
+  --tl-logics.quarter-offset STR       TLSs in STR will be shifted by
                                          quarter-phase
 
  Ramp Guessing Options:
@@ -156,7 +157,6 @@ Usage: netgen.exe [OPTION]*
  Report Options:
   -v, --verbose                        Switches to verbose output
   -W, --suppress-warnings              Disables output of warnings
-  -p, --print-options                  Prints option values before processing
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
   -l, --log-file FILE                  Writes all messages to FILE

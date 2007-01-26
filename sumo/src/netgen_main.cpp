@@ -275,7 +275,7 @@ fillOptions(OptionsCont &oc)
 
     oc.doRegister("grid-y-length", new Option_Float(100));
     oc.addSynonyme("grid-y-length", "y-length");
-    oc.addDescription("grid-x-length", "Grid Network", "The length of vertical streets; Overrides --grid-length");
+    oc.addDescription("grid-y-length", "Grid Network", "The length of vertical streets; Overrides --grid-length");
 
 
         // register spider-net options

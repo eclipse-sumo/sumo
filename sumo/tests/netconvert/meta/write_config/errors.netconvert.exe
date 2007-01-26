@@ -1,0 +1,5 @@
+Error: File 'input_nodes.nod.xml' does not exist.
+Error: File 'input_edges.edg.xml' does not exist.
+Error: File 'input_connections.con.xml' does not exist.
+Error: No nodes loaded.
+Quitting (conversion failed).

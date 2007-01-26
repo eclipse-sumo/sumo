@@ -13,5 +13,7 @@ write_template_full
 # Tests commented, full template writing
 write_template_commented_full
 
+# Tests configuration wirting
+write_config
 
 

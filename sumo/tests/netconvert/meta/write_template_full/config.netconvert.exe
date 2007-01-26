@@ -21,7 +21,7 @@
       <output-file>net.net.xml</output-file>
       <binary-output>false</binary-output>
       <plain-output></plain-output>
-      <plain-output></plain-output>
+      <node-geometry-dump></node-geometry-dump>
       <map-output></map-output>
       <tls-poi-output></tls-poi-output>
       <node-type-output></node-type-output>
@@ -51,8 +51,8 @@
       <keep-small-tyellow>false</keep-small-tyellow>
       <traffic-light-green>0</traffic-light-green>
       <traffic-light-yellow>0</traffic-light-yellow>
-      <traffic-light-yellow>0</traffic-light-yellow>
-      <traffic-light-yellow>0</traffic-light-yellow>
+      <tl-logics.half-offset></tl-logics.half-offset>
+      <tl-logics.quarter-offset></tl-logics.quarter-offset>
    </tls_building>
 
    <ramp_guessing>
@@ -120,7 +120,6 @@
    <report>
       <verbose>false</verbose>
       <suppress-warnings>false</suppress-warnings>
-      <print-options>false</print-options>
       <print-options>false</print-options>
       <help>false</help>
       <log-file></log-file>

@@ -52,11 +52,11 @@
       <!--  -->
       <binary-output>false</binary-output>
 
-      <!-- Writes node corner positions to FILE -->
+      <!-- Prefix of files to write nodes and edges to -->
       <plain-output></plain-output>
 
       <!-- Writes node corner positions to FILE -->
-      <plain-output></plain-output>
+      <node-geometry-dump></node-geometry-dump>
 
       <!-- Writes joined edges information to FILE -->
       <map-output></map-output>
@@ -130,14 +130,14 @@
       <!-- Use INT as green phase duration -->
       <traffic-light-green>0</traffic-light-green>
 
-      <!-- TLSs in STR will be shifted by quarter-phase -->
+      <!-- Set INT as fixed time for yellow phase durations -->
       <traffic-light-yellow>0</traffic-light-yellow>
 
-      <!-- TLSs in STR will be shifted by quarter-phase -->
-      <traffic-light-yellow>0</traffic-light-yellow>
+      <!-- TLSs in STR will be shifted by half-phase -->
+      <tl-logics.half-offset></tl-logics.half-offset>
 
       <!-- TLSs in STR will be shifted by quarter-phase -->
-      <traffic-light-yellow>0</traffic-light-yellow>
+      <tl-logics.quarter-offset></tl-logics.quarter-offset>
 
    </tls_building>
 
@@ -303,9 +303,6 @@
 
       <!-- Disables output of warnings -->
       <suppress-warnings>false</suppress-warnings>
-
-      <!-- Prints option values before processing -->
-      <print-options>false</print-options>
 
       <!-- Prints option values before processing -->
       <print-options>false</print-options>

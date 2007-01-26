@@ -3,7 +3,7 @@
    <input>
       <net-file></net-file>
       <route-files></route-files>
-      <route-files></route-files>
+      <additional-files></additional-files>
       <weight-files></weight-files>
       <load-state></load-state>
    </input>
@@ -38,9 +38,9 @@
       <incremental-dua-step>-1</incremental-dua-step>
       <incremental-dua-base>10</incremental-dua-base>
       <time-to-teleport>300</time-to-teleport>
-      <time-to-teleport>300</time-to-teleport>
-      <time-to-teleport>300</time-to-teleport>
-      <time-to-teleport>300</time-to-teleport>
+      <lc-teleport.min-dist>100</lc-teleport.min-dist>
+      <lc-teleport.veh-maxv>-1</lc-teleport.veh-maxv>
+      <lc-teleport.lane-min-vmax>22.2222</lc-teleport.lane-min-vmax>
       <default-lanechange-model>dk1</default-lanechange-model>
       <no-duration-log>false</no-duration-log>
    </processing>

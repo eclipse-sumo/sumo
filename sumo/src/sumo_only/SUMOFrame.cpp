@@ -289,7 +289,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
-    oc.addDescription("route-files", "Input", "Load further descriptions from FILE(s)");
+    oc.addDescription("additional-files", "Input", "Load further descriptions from FILE(s)");
 
     oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
     oc.addSynonyme("weight-files", "weights");
@@ -374,11 +374,11 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported");
 
     oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
-    oc.addDescription("time-to-teleport", "Processing", "");
+    oc.addDescription("lc-teleport.min-dist", "Processing", "");
     oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
-    oc.addDescription("time-to-teleport", "Processing", "");
+    oc.addDescription("lc-teleport.veh-maxv", "Processing", "");
     oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));//!!! check, describe
-    oc.addDescription("time-to-teleport", "Processing", "");
+    oc.addDescription("lc-teleport.lane-min-vmax", "Processing", "");
 
     oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
     oc.addDescription("default-lanechange-model", "Processing", "");

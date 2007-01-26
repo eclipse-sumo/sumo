@@ -576,7 +576,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.addDescription("plain-output", "Output", "Prefix of files to write nodes and edges to");
 
     oc.doRegister("node-geometry-dump", new Option_FileName());
-    oc.addDescription("plain-output", "Output", "Writes node corner positions to FILE");
+    oc.addDescription("node-geometry-dump", "Output", "Writes node corner positions to FILE");
 
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
@@ -709,10 +709,10 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
             // tls-shifts
     oc.doRegister("tl-logics.half-offset", new Option_String());
-    oc.addDescription("traffic-light-yellow", "TLS Building", "TLSs in STR will be shifted by half-phase");
+    oc.addDescription("tl-logics.half-offset", "TLS Building", "TLSs in STR will be shifted by half-phase");
 
     oc.doRegister("tl-logics.quarter-offset", new Option_String());
-    oc.addDescription("traffic-light-yellow", "TLS Building", "TLSs in STR will be shifted by quarter-phase");
+    oc.addDescription("tl-logics.quarter-offset", "TLS Building", "TLSs in STR will be shifted by quarter-phase");
 
 
         // edge constraints
@@ -777,8 +777,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
 
     oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.addDescription("print-options", "Report", "Prints option values before processing");
-
     oc.addDescription("print-options", "Report", "Prints option values before processing");
 
     oc.doRegister("help", '?', new Option_Bool(false));

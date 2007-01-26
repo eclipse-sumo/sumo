@@ -1,0 +1,13 @@
+<configuration>
+
+   <grid_network>
+      <grid-net>true</grid-net>
+      <grid-number>10</grid-number>
+      <grid-length>400</grid-length>
+   </grid_network>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+</configuration>

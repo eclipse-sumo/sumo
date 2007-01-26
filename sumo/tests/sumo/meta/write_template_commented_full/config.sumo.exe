@@ -4,11 +4,11 @@
       <!-- Load road network description from FILE -->
       <net-file></net-file>
 
-      <!-- Load further descriptions from FILE(s) -->
+      <!-- Load routes descriptions from FILE(s) -->
       <route-files></route-files>
 
       <!-- Load further descriptions from FILE(s) -->
-      <route-files></route-files>
+      <additional-files></additional-files>
 
       <!-- Load weights from FILE -->
       <weight-files></weight-files>
@@ -91,17 +91,17 @@
       <!-- Base value for incremental DUA -->
       <incremental-dua-base>10</incremental-dua-base>
 
-      <!--  -->
+      <!-- Specify how long a vehicle may wait until being teleported -->
       <time-to-teleport>300</time-to-teleport>
 
       <!--  -->
-      <time-to-teleport>300</time-to-teleport>
+      <lc-teleport.min-dist>100</lc-teleport.min-dist>
 
       <!--  -->
-      <time-to-teleport>300</time-to-teleport>
+      <lc-teleport.veh-maxv>-1</lc-teleport.veh-maxv>
 
       <!--  -->
-      <time-to-teleport>300</time-to-teleport>
+      <lc-teleport.lane-min-vmax>22.2222</lc-teleport.lane-min-vmax>
 
       <!--  -->
       <default-lanechange-model>dk1</default-lanechange-model>

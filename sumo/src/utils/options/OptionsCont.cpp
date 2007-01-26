@@ -506,6 +506,9 @@ OptionsCont::addDescription(const std::string &name,
                             const std::string &description)
 {
     Option *o = getSecure(name);
+    if(o->myDescription!="") {
+        throw InvalidArgument("The description was set before");
+    }
     o->myDescription = description;
     mySubTopicEntries[subtopic].push_back(name);
 }

@@ -1,0 +1,1 @@
+--save-configuration config.cfg --net-file=input_net.net.xml --detector-files=input_detectors.det.xml --detectors-poi-output detectors.poi.xml
