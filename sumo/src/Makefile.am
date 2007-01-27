@@ -10,7 +10,7 @@ XMLRPC_LIBS = $(XMLRPC_LDFLAGS)/libXmlRpc.a
 endif
 
 if CHECK_MEMORY_LEAKS
-MEM_LIBS  = ./foreign/nvwa/nvwalib.a
+MEM_LIBS  = ./foreign/nvwa/libnvwa.a
 endif
 
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
@@ -22,7 +22,7 @@ EXTRA_PROGRAMS =
 sumo_SOURCES = sumo_main.cpp \
 RemoteServer.h
 
-sumo_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
+sumo_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -56,7 +56,7 @@ $(XMLRPC_LIBS) \
 
 sumo_netconvert_SOURCES = netconvert_main.cpp
 
-sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS) -L$(PROJ_LDFLAGS)
+sumo_netconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geoconv/libgeoconv.a \
@@ -90,7 +90,7 @@ $(MEM_LIBS) \
 
 sumo_netgen_SOURCES = netgen_main.cpp
 
-sumo_netgen_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_netgen_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./netbuild/nodes/libnodesnetbuild.a \
@@ -108,7 +108,7 @@ $(MEM_LIBS) \
 
 sumo_duarouter_SOURCES = duarouter_main.cpp
 
-sumo_duarouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
@@ -126,7 +126,7 @@ $(MEM_LIBS) \
 
 sumo_dfrouter_SOURCES = dfrouter_main.cpp
 
-sumo_dfrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./router/librouter.a \
@@ -145,7 +145,7 @@ $(MEM_LIBS) \
 
 sumo_jtrrouter_SOURCES = jtrrouter_main.cpp
 
-sumo_jtrrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_jtrrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
@@ -163,7 +163,7 @@ $(MEM_LIBS) \
 
 sumo_od2trips_SOURCES = od2trips_main.cpp
 
-sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_od2trips_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/sumoxml/libsumoxml.a \
@@ -180,7 +180,7 @@ $(MEM_LIBS) \
 
 sumo_polyconvert_SOURCES = polyconvert_main.cpp
 
-sumo_polyconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(PROJ_LDFLAGS)
+sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./polyconvert/libpolyconvert.a \
@@ -199,7 +199,7 @@ $(MEM_LIBS) \
 if WITH_GUI
 sumo_guisim_SOURCES = guisim_main.cpp
 
-sumo_guisim_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
+sumo_guisim_LDFLAGS = $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(X_LDFLAGS)
 
 sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \

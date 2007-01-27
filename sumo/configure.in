@@ -22,17 +22,13 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE([rpc], [AS_HELP_STRING([--enable-rpc],[enable compilation of rpc features [default=no].])],
-              [AC_DEFINE(_RPC, 1, [Define to 1 in order to enable rpc features.])])
-AM_CONDITIONAL([WITH_XMLRPC], [test "$rpc" = "1"])
-
 AC_ARG_ENABLE([geomcheck], [AS_HELP_STRING([--enable-geomcheck],[enable compilation of geometry checks [default=no].])],
               [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1, [Define to 1 in order to enable geometry checking.])])
-AM_CONDITIONAL(CHECK_UNIQUE_POINTS_GEOMETRY, test x$CHECK_UNIQUE_POINTS_GEOMETRY = x1)
+AM_CONDITIONAL(CHECK_UNIQUE_POINTS_GEOMETRY, test x$enable_geomcheck = xyes)
 
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])],
               [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])])
-AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$CHECK_MEMORY_LEAKS = x1)
+AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
 
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
               [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])], [CXXFLAGS="-O2"])
@@ -74,51 +70,18 @@ AC_ARG_WITH(xerces-libraries,
     [  --with-xerces-libraries=DIR where the Xerces library is installed.],
     [  ac_xerces_libraries="$withval"
     ])
-dnl AC_CHECK_LIB(xerces-c,main)
 AC_MSG_CHECKING([for xerces-lib])
 if test x"$ac_xerces_libraries" = x; then
-   for xerces_path in $search_path ; do
-      if test -e $xerces_path/lib/libxerces.so; then
-         ac_xerces_lib_path=$xerces_path/lib
-         ac_xerceslib=xerces
-         break
-      elif test -e $xerces_path/lib/libxerces-c.so; then
-         ac_xerces_lib_path=$xerces_path/lib
-         ac_xerceslib=xerces-c
-         break
-      elif test -e $xerces_path/xerces/lib/libxerces.so; then
-         ac_xerces_lib_path=$xerces_path/xerces/lib
-         ac_xerceslib=xerces
-         break
-      elif test -e $xerces_path/xerces/lib/libxerces-c.so; then
-         ac_xerces_lib_path=$xerces_path/xerces/lib
-         ac_xerceslib=xerces-c
-         break
-      fi
-   done
-   if test x"$ac_xerces_lib_path" != x; then
-      AC_MSG_RESULT([yes])
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])
-   fi
+   AC_CHECK_LIB([xerces-c], [main], [true], [AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])])
 else
-   if test -e "$ac_xerces_libraries/libxerces.so" -o -e "$ac_xerces_libraries/libxerces.dll.a"; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path="$ac_xerces_libraries"
-      ac_xerceslib=xerces
-   elif test -e "$ac_xerces_libraries/libxerces-c.so" -o -e "$ac_xerces_libraries/libxerces-c.dll.a"; then
-      AC_MSG_RESULT([yes])
-      ac_xerces_lib_path="$ac_xerces_libraries"
-      ac_xerceslib=xerces-c
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])
-   fi
+   save_ldflags=$LDFLAGS
+   LDFLAGS="-L$ac_xerces_libraries"
+   export LDFLAGS
+   AC_CHECK_LIB([xerces-c], [main], [XERCES_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xerces-lib not found in "$ac_xerces_libraries".])])
+   LDFLAGS=$save_ldflags
+   AC_SUBST(XERCES_LDFLAGS)
 fi
-XERCES_LDFLAGS="$ac_xerces_lib_path"
-AC_SUBST(XERCES_LDFLAGS)
-LIB_XERCES="$ac_xerceslib"
+LIB_XERCES="xerces-c"
 AC_SUBST(LIB_XERCES)
 dnl   ... for includes
 AC_ARG_WITH(xerces-includes,
@@ -190,12 +153,12 @@ AC_ARG_WITH(proj-libraries,
 
 AC_MSG_CHECKING([for proj-lib])
 if test x"$ac_proj_libraries" = x; then
-   AC_CHECK_LIB(proj, main, [], [AC_MSG_ERROR([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
+   AC_CHECK_LIB([proj], [main], [true], [AC_MSG_ERROR([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$ac_proj_libraries"
    export LDFLAGS
-   AC_CHECK_LIB(proj, main, [PROJ_LDFLAGS="$ac_proj_libraries"], [AC_MSG_ERROR([proj-lib not found in "$ac_proj_libraries".])])
+   AC_CHECK_LIB([proj], [main], [PROJ_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([proj-lib not found in "$ac_proj_libraries".])])
    LDFLAGS=$save_ldflags
    AC_SUBST(PROJ_LDFLAGS)
 fi
@@ -246,35 +209,16 @@ AC_ARG_WITH(gdal-libraries,
 
 AC_MSG_CHECKING([for gdal-libraries])
 if test x"$ac_gdal_libraries" = x; then
-   for gdal_path in $search_path ; do
-      if test -e $gdal_path/lib/libgdal.so; then
-         ac_gdal_lib_path=$gdal_path/lib
-         break
-      elif test -e $gdal_path/gdal/lib/libgdal.so; then
-         ac_gdal_lib_path=$gdal_path/gdal/lib
-         break
-      fi
-   done
-   if test x"$ac_gdal_lib_path" != x; then
-      AC_MSG_RESULT([yes])
-      ac_gdallib=gdal
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])
-   fi
+   AC_CHECK_LIB([gdal], [main], [true], [AC_MSG_ERROR([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
 else
-   if test -e "$ac_gdal_libraries/libgdal.so" -o -e "$ac_gdal_libraries/libgdal.a"; then
-      AC_MSG_RESULT([yes])
-      ac_gdal_lib_path="$ac_gdal_libraries"
-      ac_gdallib=gdal
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([gdal-lib not found in "$ac_gdal_libraries".])
-   fi
+   save_ldflags=$LDFLAGS
+   LDFLAGS="-L$ac_gdal_libraries"
+   export LDFLAGS
+   AC_CHECK_LIB([gdal], [main], [GDAL_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([gdal-lib not found in "$ac_gdal_libraries".])])
+   LDFLAGS=$save_ldflags
+   AC_SUBST(GDAL_LDFLAGS)
 fi
-GDAL_LDFLAGS="$ac_gdal_lib_path"
-AC_SUBST(GDAL_LDFLAGS)
-LIB_GDAL="$ac_gdallib"
+LIB_GDAL="gdal"
 AC_SUBST(LIB_GDAL)
 
 dnl   ... for includes
@@ -313,6 +257,18 @@ AC_SUBST(GDAL_INCLUDES)
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
+AC_ARG_WITH([fox],
+            [AS_HELP_STRING([--with-fox=DIR],[where FOX is installed (libraries in DIR/lib, headers in DIR/include).])],
+            [ac_fox="$withval"])
+if test x"$ac_fox" != x; then
+   if test x"$ac_fox_libraries" = x; then
+      ac_fox_libraries=$ac_fox/lib
+   fi
+   if test x"$ac_fox_includes" = x; then
+      ac_fox_includes=$ac_fox/include
+   fi
+fi
+
 dnl   ... for libs
 AC_ARG_WITH(fox-libraries,
     [  --with-fox-libraries=DIR    where the Fox library is installed.],
@@ -321,38 +277,16 @@ AC_ARG_WITH(fox-libraries,
 
 AC_MSG_CHECKING([for fox-libraries])
 if test x"$ac_fox_libraries" = x; then
-   if test -e /usr/lib/libFOX-1.4.so; then
-      AC_MSG_RESULT([yes])
-      ac_fox_lib_path=/usr/lib
-      ac_foxlib=FOX-1.4
-   elif test -e /usr/local/lib/libFOX-1.4.so; then
-      AC_MSG_RESULT([yes])
-      ac_fox_lib_path=/usr/local/lib
-      ac_foxlib=FOX-1.4
-   elif test -e /usr/local/fox/lib/libFOX-1.4.so; then
-      AC_MSG_RESULT([yes])
-      ac_fox_lib_path=/usr/local/fox/lib/
-      ac_foxlib=FOX-1.4
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_RESULT([---------------------------])
-      AC_MSG_RESULT([fox-lib not found.])
-      AC_MSG_RESULT([Specify path with option --with-fox-libraries=DIR for gui-enabled applications.])
-      AC_MSG_RESULT([---------------------------])
-   fi
+   AC_CHECK_LIB([FOX-1.4], [main], [ac_fox_libraries=true], [AC_MSG_RESULT([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
 else
-   if test -e "$ac_fox_libraries/libFOX-1.4.so"; then
-      AC_MSG_RESULT([yes])
-      ac_fox_lib_path="$ac_fox_libraries"
-      ac_foxlib=FOX-1.4
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])
-   fi
+   save_ldflags=$LDFLAGS
+   LDFLAGS="-L$ac_fox_libraries"
+   export LDFLAGS
+   AC_CHECK_LIB([FOX-1.4], [main], [FOX_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])])
+   LDFLAGS=$save_ldflags
+   AC_SUBST(FOX_LDFLAGS)
 fi
-FOX_LDFLAGS="$ac_fox_lib_path"
-AC_SUBST(FOX_LDFLAGS)
-LIB_FOX="$ac_foxlib"
+LIB_FOX="FOX-1.4"
 AC_SUBST(LIB_FOX)
 
 dnl   ... for includes
@@ -386,10 +320,25 @@ else
 fi
 FOX_INCLUDES="$ac_fox_includes"
 AC_SUBST(FOX_INCLUDES)
-AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_lib_path" != x])
+AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_libraries" != x])
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for XmlRpc++
+AC_ARG_WITH([xmlrpc],
+            [AS_HELP_STRING([--with-xmlrpc=DIR],[where XmlRpc is installed (libraries in DIR/lib, headers in DIR/include).])],
+            [ac_xmlrpc="$withval"])
+if test x"$ac_xmlrpc" != x; then
+   if test x"$ac_xmlrpc" != xyes; then
+      if test x"$ac_xmlrpc_libraries" = x; then
+         ac_xmlrpc_libraries=$ac_xmlrpc/lib
+      fi
+      if test x"$ac_xmlrpc_includes" = x; then
+         ac_xmlrpc_includes=$ac_xmlrpc/include
+      fi
+   fi
+   AC_DEFINE(_RPC, 1, [Define to 1 in order to enable rpc features.])
+fi
+AM_CONDITIONAL([WITH_XMLRPC], [test x"$ac_xmlrpc" != x])
 dnl   ... for libs
 AC_ARG_WITH(xmlrpc-libraries,
     [  --with-xmlrpc-libraries=DIR where the XmlRpc++ library is installed.],
@@ -398,36 +347,16 @@ AC_ARG_WITH(xmlrpc-libraries,
 
 AC_MSG_CHECKING([for xmlrpc-libraries])
 if test x"$ac_xmlrpc_libraries" = x; then
-   if test -e /usr/lib/libXmlRpc.a; then
-      AC_MSG_RESULT([yes])
-      ac_xmlrpc_lib_path=/usr/lib
-      ac_xmlrpclib=xmlrpc
-   elif test -e /usr/local/lib/libXmlRpc.a; then
-      AC_MSG_RESULT([yes])
-      ac_xmlrpc_lib_path=/usr/local/lib
-      ac_xmlrpclib=xmlrpc
-   elif test -e /usr/local/lib/xmlrpc/libXmlRpc.a; then
-      AC_MSG_RESULT([yes])
-      ac_xmlrpc_lib_path=/usr/local/lib/xmlrpc
-      ac_xmlrpclib=xmlrpc
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_RESULT([xmlrpc-lib not found.])
-      AC_MSG_RESULT([Specify path with option --with-xmlrpc-libraries=DIR.])
-   fi
+   AC_CHECK_LIB([XmlRpc], [main], [ac_xmlrpc_libraries=true], [AC_MSG_RESULT([xmlrpc-lib not found. Specify path with option --with-xmlrpc-libraries=DIR to enable XML-RPC.])])
 else
-   if test -e "$ac_xmlrpc_libraries/libXmlRpc.a"; then
-      AC_MSG_RESULT([yes])
-      ac_xmlrpc_lib_path="$ac_xmlrpc_libraries"
-      ac_xmlrpclib=xmlrpc
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([xmlrpc-lib not found in "$ac_xmlrpc_libraries".])
-   fi
+   save_ldflags=$LDFLAGS
+   LDFLAGS="-L$ac_xmlrpc_libraries"
+   export LDFLAGS
+   AC_CHECK_LIB([XmlRpc], [main], [XMLRPC_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xmlrpc-lib not found in "$ac_xmlrpc_libraries".])])
+   LDFLAGS=$save_ldflags
+   AC_SUBST(XMLRPC_LDFLAGS)
 fi
-XMLRPC_LDFLAGS="$ac_xmlrpc_lib_path"
-AC_SUBST(XMLRPC_LDFLAGS)
-LIB_XMLRPC="$ac_xmlrpclib"
+LIB_XMLRPC="XmlRpc"
 AC_SUBST(LIB_XMLRPC)
 
 dnl   ... for includes

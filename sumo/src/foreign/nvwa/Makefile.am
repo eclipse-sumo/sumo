@@ -1,4 +1,8 @@
-EXTRA_DIST = \
+noinst_LIBRARIES = libnvwa.a
+
+EXTRA_DIST =
+
+libnvwa_a_SOURCES = \
 bool_array.cpp bool_array.h class_level_lock.h cont_ptr_utils.h \
 debug_new.cpp debug_new.h fast_mutex.h fixed_mem_pool.h \
 mem_pool_base.cpp mem_pool_base.h \
