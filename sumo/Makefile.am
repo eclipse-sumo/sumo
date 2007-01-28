@@ -1,4 +1,4 @@
-SUBDIRS = bin docs src tools
+SUBDIRS = docs src tools
 
 AUTOMAKE_OPTIONS = gnu dist-zip #1.6
 
@@ -12,3 +12,4 @@ dist-hook:
 	cp --parents `find data tests -regextype posix-awk -regex ".*\.(nod|edg|rou|add|def)\.xml"` $(distdir)
 	cp --parents `find data tests -name "*.cfg"` $(distdir)
 	cp --parents `find data tests -regextype posix-awk -name .svn -prune -o -regex ".*/(errors|output|options|testsuite)\..*" -print` $(distdir)
+	mkdir $(distdir)/bin
