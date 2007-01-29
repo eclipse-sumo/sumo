@@ -21,8 +21,11 @@
 *********************************************************************************/
 #ifndef FXLCDLABEL_H
 #define FXLCDLABEL_H
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
-#ifndef FXHORIZONTALFRAME_H
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -31,6 +34,9 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+
+
+#ifndef FXHORIZONTALFRAME_H
 #include <FXHorizontalFrame.h>
 using namespace FX;
 #endif

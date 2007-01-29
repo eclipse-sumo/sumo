@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* Subroutine to generate a Bezier curve.
     Copyright (c) 2000 David F. Rogers. All rights reserved.
 

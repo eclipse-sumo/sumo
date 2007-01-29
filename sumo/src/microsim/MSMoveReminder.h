@@ -83,6 +83,12 @@
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
