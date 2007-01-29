@@ -19,6 +19,18 @@
 * License along with this library; if not, write to the Free Software           *
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
 *********************************************************************************/
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
+
 /* #ifdef WIN32
 #include <windows_config.h>
 #else

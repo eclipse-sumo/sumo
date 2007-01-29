@@ -1,6 +1,17 @@
 #ifndef FXLinkLabel_h
 #define FXLinkLabel_h
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 
 /** A label which points to a link.
