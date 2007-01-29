@@ -1094,6 +1094,14 @@ Position2DVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                                  NBEdge *toE, size_t toL)
 {
+    if(fromL>=fromE->getNoLanes()) {
+        MsgHandler::getErrorInstance()->inform("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
+        throw ProcessError();
+    }
+    if(toL>=toE->getNoLanes()) {
+        MsgHandler::getErrorInstance()->inform("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
+        throw ProcessError();
+    }
     bool noSpline = false;
  //   bool recheck = false;
     Position2DVector ret;
