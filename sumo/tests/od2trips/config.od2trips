@@ -1,4 +1,4 @@
-binary:D:\projects\sumo\sumo\bin\od2trips.exe
+binary:$OD2TRIPS_BINARY
 home_operating_system:nt
 copy_test_path:input_net.net.xml
 
