@@ -50,7 +50,7 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
- #ifdef HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else

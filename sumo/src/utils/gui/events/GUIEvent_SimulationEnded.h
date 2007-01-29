@@ -45,6 +45,12 @@
 // user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H

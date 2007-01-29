@@ -75,6 +75,12 @@
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H

@@ -1,5 +1,11 @@
 #ifndef GUIIOGlobals_h
 #define GUIIOGlobals_h
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32

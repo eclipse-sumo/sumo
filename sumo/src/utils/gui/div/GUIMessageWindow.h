@@ -45,6 +45,12 @@
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H

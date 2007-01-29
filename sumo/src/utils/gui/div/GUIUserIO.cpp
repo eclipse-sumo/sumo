@@ -1,4 +1,8 @@
-#include "GUIUserIO.h"
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 
 /* =========================================================================
@@ -14,6 +18,9 @@
 
 #ifdef WIN32
 #include <windows.h>
+
+#include "GUIUserIO.h"
+
 
 void
 GUIUserIO::copyToClipboard(FXApp *app, const std::string &text)
