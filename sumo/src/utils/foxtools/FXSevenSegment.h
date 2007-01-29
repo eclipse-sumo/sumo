@@ -22,7 +22,11 @@
 #ifndef FXSEVENSEGMENT_H
 #define FXSEVENSEGMENT_H
 
-#ifndef FXFRAME_H
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -30,6 +34,8 @@
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
+
+#ifndef FXFRAME_H
 
 #include <FXFrame.h>
 using namespace FX;

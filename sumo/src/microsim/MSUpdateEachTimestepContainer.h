@@ -1,5 +1,10 @@
 #ifndef MSUPDATEEACHTIMESTEPCONTAINER_H
 #define MSUPDATEEACHTIMESTEPCONTAINER_H
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /**
  * @file   MSUpdateEachTimestepContainer.h

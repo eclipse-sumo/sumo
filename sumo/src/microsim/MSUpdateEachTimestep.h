@@ -1,5 +1,10 @@
 #ifndef MSUPDATEEACHTIMESTEP_H
 #define MSUPDATEEACHTIMESTEP_H
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /**
  * @file   MSUpdateEachTimestep.h

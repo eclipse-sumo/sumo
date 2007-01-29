@@ -22,6 +22,11 @@
 #ifndef FXBASEOBJECT_H
 #define FXBASEOBJECT_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
