@@ -24,8 +24,7 @@ tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
 scp -q $RUNLOG shell.sf.net:sumo-www/
 
 ./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
---with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
---with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
+--with-proj-gdal=$HOME/DLR --with-xmlrpc=$HOME/DLR/xmlrpc++0.7 --enable-double-precision \
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
 make clean all >> $MAKEALLLOG 2>&1
 gzip -f $MAKEALLLOG
