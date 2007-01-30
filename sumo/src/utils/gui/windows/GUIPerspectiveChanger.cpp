@@ -165,13 +165,13 @@ GUIPerspectiveChanger::onMouseMove(void *)
 {
 }
 
-
+/*
 void 
 GUIPerspectiveChanger::onMouseLeft()
 {
     myMouseXPosition = myMouseYPosition = -10000;
 }
-
+*/
 
 int
 GUIPerspectiveChanger::getMouseXPosition() const
