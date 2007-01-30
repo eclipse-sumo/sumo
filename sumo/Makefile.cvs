@@ -1,7 +1,7 @@
 default: all
 
 all:
-	autoreconf -is
+	autoreconf -i
 
 clean:
 	rm -r aclocal.m4 autom4te.cache/ config.* configure depcomp install-sh missing src/config.h.in ltmain.sh INSTALL ; \

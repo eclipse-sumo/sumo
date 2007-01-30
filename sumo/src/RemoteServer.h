@@ -24,7 +24,7 @@
 
 //#pragma once
 
-#include "/usr/local/include/xmlrpc/XmlRpc.h"
+#include "XmlRpc.h"
 
 #include <iostream>
 #include <stdlib.h>
