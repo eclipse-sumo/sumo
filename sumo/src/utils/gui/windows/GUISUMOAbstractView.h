@@ -301,6 +301,7 @@ public:
     virtual long onRightBtnPress(FXObject*,FXSelector,void*);
     virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
     virtual long onMouseMove(FXObject*,FXSelector,void*);
+    virtual long onMouseLeft(FXObject*,FXSelector,void*);
     virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
     virtual long onCmdEditViewport(FXObject*,FXSelector,void*);
     virtual long onCmdEditView(FXObject*,FXSelector,void*) = 0;

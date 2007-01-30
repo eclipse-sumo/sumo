@@ -72,6 +72,7 @@
 
 #include <fx.h>
 #include <utils/geom/Boundary.h>
+#include <string>
 
 
 /* =========================================================================
@@ -84,9 +85,14 @@ class GUISUMOAbstractView;
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * @class GUIGLObjectToolTip
+ * @brief The tooltip class for displaying information about gl-objects
+ */
 class GUIGLObjectToolTip : public FXToolTip
 {
     FXDECLARE(GUIGLObjectToolTip)
+
 public:
     /// Constructor
     GUIGLObjectToolTip(FXWindow *a);
@@ -99,6 +105,8 @@ public:
     friend class GUIRouterSUMOAbstractView;
 
     long onPaint(FXObject*,FXSelector,void* ptr);
+    long onTipShow(FXObject*,FXSelector,void*);
+    long onTipHide(FXObject*,FXSelector,void*);
 
     FXint getDefaultWidth();
 
@@ -116,23 +124,29 @@ private:
     /// The parent window
     GUISUMOAbstractView *myParent;
 
-    /// The last position of the tooltip
-    int myLastX, myLastY;
-
-    /// A lock to avoid parallel setting and removing
-    FXMutex *_lock;
-
     /// The height of the displayed text
-    int _textHeight;
+    int myTextHeight;
 
+    /// The used font
     FXFont *myFont;
-    GUIGlObject *_object;
 
-    FXint _width, _height;
+    /// The name of the object currently displayed
+    std::string myObjectName;
 
+    /// The current width and height
+    FXint myWidth, myHeight;
+
+    /// The last position of the tool tip
+    FXint myLastXPos, myLastYPos;
+
+    /// The object for which the tool tip is displayed
+    GUIGlObject *myObject;
 
 protected:
+    /// FOX default constructor
     GUIGLObjectToolTip() { }
+
+
 };
 
 

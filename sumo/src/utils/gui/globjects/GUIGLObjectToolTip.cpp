@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUIGLObjectToolTip.cpp -
-//  A tooltip floating over a window
+//  The tooltip class for displaying information about gl-objects
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -114,12 +114,11 @@ FXIMPLEMENT(GUIGLObjectToolTip,FXToolTip,GUIGLObjectToolTipMap,ARRAYNUMBER(GUIGL
  * ======================================================================= */
 GUIGLObjectToolTip::GUIGLObjectToolTip(FXWindow *a)
     : FXToolTip(a->getApp(), /*TOOLTIP_NORMAL*/TOOLTIP_PERMANENT, 0, 0, 200, 200),
-    myLastX(-1), myLastY(-1),
-    _lock(new FXMutex()), myFont(a->getApp()->getNormalFont()),
-    _object(0)
+    myFont(a->getApp()->getNormalFont()),
+    myObject(0)
 {
     setBackColor((255)|(204<<8)|(0<<16));
-    _textHeight = myFont->getFontHeight();
+    myTextHeight = myFont->getFontHeight();
     create();
     hide();
 }
@@ -127,57 +126,60 @@ GUIGLObjectToolTip::GUIGLObjectToolTip(FXWindow *a)
 
 GUIGLObjectToolTip::~GUIGLObjectToolTip()
 {
-    // just to quit cleanly on a failure
-    if(_lock->locked()) {
-        _lock->unlock();
-    }
-    delete _lock;
 }
 
 void
 GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
                                  size_t x, size_t y)
 {
-    _object = object;
+    // check whether the object has changed
+    bool objectChanged = (myObject!=object);
+    // save current object
+    myObject = object;
     if(object==0) {
+        // hide the tool tip if there is no object below
         hide();
         return;
     }
-    _lock->lock();
-    myLastX = x;
-    myLastY = y;
-
-    const std::string &name = object->getFullName();
-    _width = myFont->getTextWidth(name.c_str(), name.length())+6;
-    _height = _textHeight+6;
-    position(x+15, y-20, _width, _height);
+    // if the object has changed
+    if(objectChanged) {
+        // get the new name and width
+        myObjectName = object->getFullName();
+        label = myObjectName.c_str();
+        myWidth = myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+6;
+    }
+    myHeight = myTextHeight+6;
+    position(x+15, y-20, 1, 1);
+    position(x+15, y-20, myWidth, myHeight);
     if(!shown()) {
         show();
+    } else {
+        if(objectChanged) {
+            recalc();
+        }
+        update();
     }
-    update();
-    _lock->unlock();
+    myLastXPos = x;
+    myLastYPos = y;
 }
 
 
 long
 GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void* )
 {
-    if(_object==0) {
+    if(myObject==0) {
         return 1;
     }
-    _lock->lock();
     // Start drawing
     FXDCWindow dc(this);
-    const std::string &name = _object->getFullName();
     dc.setForeground(backColor);
-    dc.fillRectangle(0, 0,
-        myFont->getTextWidth(name.c_str(), name.length())+6, _textHeight+6);
+    dc.fillRectangle(1, 1,
+        myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+4, myTextHeight+4);
     dc.setFont(myFont);
     dc.setForeground(0);
-    dc.drawText(3, _textHeight,
-        _object->getFullName().c_str(), _object->getFullName().length());
-    dc.drawRectangle(0, 0, myFont->getTextWidth(name.c_str(), name.length())+5, _textHeight+5);
-    _lock->unlock();
+    dc.drawText(3, myTextHeight,
+        myObjectName.c_str(), myObject->getFullName().length());
+    dc.drawRectangle(0, 0, myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+5, myTextHeight+5);
     return 1;
 }
 
@@ -185,14 +187,28 @@ GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void* )
 FXint
 GUIGLObjectToolTip::getDefaultWidth()
 {
-    return _width;
+    return myWidth;
 }
 
 
 FXint
 GUIGLObjectToolTip::getDefaultHeight()
 {
-    return _height;
+    return myHeight;
+}
+
+
+long 
+GUIGLObjectToolTip::onTipShow(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long 
+GUIGLObjectToolTip::onTipHide(FXObject*,FXSelector,void*)
+{
+    return 1;
 }
 
 

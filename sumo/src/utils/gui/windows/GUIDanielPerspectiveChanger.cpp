@@ -302,7 +302,9 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data)
         }
         break;
     default:
-        myCallback.updateToolTip();
+        if(xdiff!=0||ydiff!=0) {
+            myCallback.updateToolTip();
+        }
         break;
     }
     myMouseXPosition = e->win_x;

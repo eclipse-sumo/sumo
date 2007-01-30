@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: GUISUMOAbstractView.cpp,v $
 // Revision 1.31  2007/01/09 11:12:02  dkrajzew
 // the names of nodes, additional structures, vehicles, edges, pois may now be shown
 //
@@ -350,6 +350,7 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
     FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
     FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
+    FXMAPFUNC(SEL_LEAVE,               0,                 GUISUMOAbstractView::onMouseLeft),
     FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
@@ -452,13 +453,7 @@ GUISUMOAbstractView::updateToolTip()
     if(!_useToolTips) {
         return;
     }
-    if(makeCurrent()) {
-        // initialise the select mode
-        unsigned int id = getObjectUnderCursor();
-        showToolTipFor(id);
-        makeNonCurrent();
-    }
-    // mark end-of-drawing
+    update();
 }
 
 
@@ -556,6 +551,13 @@ GUISUMOAbstractView::paintGL()
     if(_widthInPixels==0||_heightInPixels==0) {
         return;
     }
+
+
+    unsigned int id = 0;
+    if(_useToolTips) {
+        id = getObjectUnderCursor();
+    }
+
     // draw
     glClearColor(
         myVisualizationSettings->backgroundColor.red(),
@@ -591,25 +593,27 @@ GUISUMOAbstractView::paintGL()
     }
     // check whether the select mode /tooltips)
     //  shall be computed, too
-    if(!_useToolTips) {
-        glFlush();
-        swapBuffers();
-        return;
+    glFlush();
+    swapBuffers();
+    if(_useToolTips) {
+        showToolTipFor(id);
     }
-
-    glFlush();
-    swapBuffers();
-    // get the object under the cursor
-    unsigned int id = getObjectUnderCursor();
-    showToolTipFor(id);
-    glFlush();
-    swapBuffers();
 }
 
 
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor()
 {
+    int xpos = _toolTipX+_mouseHotspotX;
+    int ypos = _toolTipY+_mouseHotspotY;
+    if(xpos<0||xpos>=_widthInPixels) {
+        return 0;
+    }
+    if(ypos<0||ypos>=_heightInPixels) {
+        return 0;
+    }
+
+
     const int SENSITIVITY = 4;
     const int NB_HITS_MAX = 1000;
     // Prepare the selection mode
@@ -1090,6 +1094,17 @@ GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data)
 
     }
     updatePositionInformation();
+    return 1;
+}
+
+
+long
+GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void *data)
+{
+    if(myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
+        _changer->onMouseLeft();
+        _toolTip->setObjectTip(0, -1, -1);
+    }
     return 1;
 }
 
