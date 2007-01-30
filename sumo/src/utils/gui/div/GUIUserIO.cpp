@@ -16,10 +16,10 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include "GUIUserIO.h"
+
 #ifdef WIN32
 #include <windows.h>
-
-#include "GUIUserIO.h"
 
 
 void
