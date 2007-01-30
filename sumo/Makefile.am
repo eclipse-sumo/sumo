@@ -2,8 +2,7 @@ SUBDIRS = docs src tools
 
 AUTOMAKE_OPTIONS = gnu dist-zip #1.6
 
-EXTRA_DIST = NEWS README ChangeLog AUTHORS COPYING INSTALL TODO \
-sumo.doxyconf
+EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
 dist-hook:
 	cd $(srcdir)
