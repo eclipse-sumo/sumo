@@ -2,7 +2,7 @@
 #define GUIGLObjectToolTip_h
 //---------------------------------------------------------------------------//
 //                        GUIGLObjectToolTip.h -
-//  A tooltip floating over a window
+//  The tooltip class for displaying information about gl-objects
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
