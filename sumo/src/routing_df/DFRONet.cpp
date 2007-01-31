@@ -1196,6 +1196,9 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
         }
 	}
 
+    if(myApproachedEdges.find(edge)==myApproachedEdges.end()) {
+        return false;
+    }
 
     const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
     bool isall = false;
