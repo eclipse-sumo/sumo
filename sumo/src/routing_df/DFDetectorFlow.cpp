@@ -257,6 +257,26 @@ DFDetectorFlows::getMaxDetectorFlow() const
     return myMaxDetectorFlow;
 }
 
+#ifdef HAVE_MESOSIM
+void
+DFDetectorFlows::mesoJoin(const std::string &nid,
+                        const std::vector<std::string> &oldids)
+{
+    for(std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
+        if(!knows(*i)) {
+            continue;
+        }
+        std::map<std::string, std::vector<FlowDef> >::iterator j = myFastAccessFlows.find(*i);
+        std::vector<FlowDef> &flows = (*j).second;
+        size_t index = 0;
+        for(SUMOTime t=myBeginTime; t!=myEndTime; t+=myStepOffset) {
+            addFlow(nid, t/myStepOffset, flows[index++]); // !!!
+        }
+        myFastAccessFlows.erase(j);
+    }
+}
+#endif
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

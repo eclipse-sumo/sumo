@@ -106,6 +106,10 @@ public:
     ROEdge *getEdge(const std::string &name) const;
 
     void buildDetectorDependencies(DFDetectorCon &detectors);
+#ifdef HAVE_MESOSIM
+    void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
+#endif
+
 
 
 protected:

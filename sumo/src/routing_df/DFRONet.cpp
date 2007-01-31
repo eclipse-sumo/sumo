@@ -1336,6 +1336,53 @@ DFRONet::buildDetectorDependencies(DFDetectorCon &detectors)
     }
 }
 
+#ifdef HAVE_MESOSIM
+void
+DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
+{
+    buildDetectorEdgeDependencies(detectors);
+    std::map<ROEdge*, std::vector<std::string> >::iterator i;
+    for(i=myDetectorsOnEdges.begin(); i!=myDetectorsOnEdges.end(); ++i) {
+        ROEdge *into = (*i).first;
+        const std::vector<std::string> &dets = (*i).second;
+        std::map<SUMOReal, std::vector<std::string> > cliques;
+        // compute detector cliques
+        for(std::vector<std::string>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
+            const DFDetector &det = detectors.getDetector(*j);
+            bool found = false;
+            for(std::map<SUMOReal, std::vector<std::string> >::iterator k=cliques.begin(); !found&&k!=cliques.end(); ++k) {
+                if(fabs((*k).first-det.getPos())<10.) {
+                    (*k).second.push_back(*j);
+                    found = true;
+                }
+            }
+            if(!found) {
+                cliques[det.getPos()] = std::vector<std::string>();
+                cliques[det.getPos()].push_back(*j);
+            }
+        }
+        // join detector cliques
+        for(std::map<SUMOReal, std::vector<std::string> >::iterator m=cliques.begin(); m!=cliques.end(); ++m) {
+            std::vector<std::string> clique = (*m).second;
+            // do not join if only one
+            if(clique.size()==1) {
+                continue;
+            }
+            string nid;
+            for(std::vector<std::string>::iterator n=clique.begin(); n!=clique.end(); ++n) {
+                cout << *n << " ";
+                if(n!=clique.begin()) {
+                    nid = nid + "_";
+                }
+                nid = nid + *n;
+            }
+            cout << ":" << nid << endl;
+            flows.mesoJoin(nid, (*m).second);
+            detectors.mesoJoin(nid, (*m).second);
+        }
+    }
+}
+#endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

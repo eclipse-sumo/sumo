@@ -143,6 +143,13 @@ namespace
 #include "NLTriggerBuilder.h"
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/METriggeredCalibrator.h>
+#include <mesosim/METriggeredScaler.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -222,6 +229,13 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 			t = parseAndBuildVehicleActor(net, attrs, base, helper);
 		}
     }
+#ifdef HAVE_MESOSIM
+    else if(type=="calibrator"&&MSGlobals::gUseMesoSim) {
+        t = parseAndBuildCalibrator(net, attrs, base, helper);
+    } else if(type=="scaler"&&MSGlobals::gUseMesoSim) {
+        t = parseAndBuildScaler(net, attrs, base, helper);
+    }
+#endif
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);
     }
@@ -331,6 +345,73 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
 }
 
 
+#ifdef HAVE_MESOSIM
+METriggeredCalibrator *
+NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
+                                          const Attributes &attrs,
+                                          const std::string &base,
+                                          const NLHandler &helper)
+{
+    // get the file name to read further definitions from
+    string file = getFileName(attrs, base, helper);
+
+    string rfile = helper.getStringSecure(attrs, "rfile", "");
+    if(rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
+        rfile = FileHelpers::getConfigurationRelative(base, rfile);
+    }
+
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    MSLane *lane = getLane(attrs, helper, "calibrator", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
+
+
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
+        MESegment *prev = s;
+        SUMOReal cpos = 0;
+        while(cpos<pos&&s!=0) {
+            prev = s;
+            cpos += s->getLength();
+            s = s->getNextSegment();
+        }
+        SUMOReal rpos = pos-cpos-prev->getLength();
+
+    return buildCalibrator(net, id, prev, rpos, rfile, file);
+}
+
+
+METriggeredScaler *
+NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
+									  const Attributes &attrs,
+									  const std::string &/*base*/,
+									  const NLHandler &helper)
+{
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    MSLane *lane = getLane(attrs, helper, "scaler", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "scaler", id);
+
+    SUMOReal scale;
+    try {
+        scale = helper.getFloatSecure(attrs, SUMO_TAG_WEIGHT, 1);
+    } catch(NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid scale in definition of METriggeredScaler '" + id + "'.");
+        throw ProcessError();
+    }
+
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
+        MESegment *prev = s;
+        SUMOReal cpos = 0;
+        while(cpos<pos&&s!=0) {
+            prev = s;
+            cpos += s->getLength();
+            s = s->getNextSegment();
+        }
+        SUMOReal rpos = pos-cpos-prev->getLength();
+
+    return buildScaler(net, id, prev, rpos, scale);
+}
+#endif
+
+
 MSTriggeredRerouter *
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
                                         const Attributes &attrs,
@@ -396,6 +477,28 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
     return new MSEmitter(id, net, destLane, pos, file);
 }
 
+
+#ifdef HAVE_MESOSIM
+METriggeredCalibrator *
+NLTriggerBuilder::buildCalibrator(MSNet &net,
+                                  const std::string &id,
+                                  MESegment *edge, SUMOReal pos,
+                                  const std::string &rfile,
+                                  const std::string &file)
+{
+    return new METriggeredCalibrator(id, net, edge, rfile, file);
+}
+
+
+METriggeredScaler *
+NLTriggerBuilder::buildScaler(MSNet &net,
+							  const std::string &id,
+							  MESegment *edge, SUMOReal pos,
+							  SUMOReal scale)
+{
+    return new METriggeredScaler(id, net, edge, scale);
+}
+#endif
 
 
 MSTriggeredRerouter *

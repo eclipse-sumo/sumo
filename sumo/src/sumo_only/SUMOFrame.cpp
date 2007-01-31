@@ -512,6 +512,12 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
+    //
+#ifdef HAVE_MESOSIM
+    oc.doRegister("mesosim", new Option_Bool(false));
+    oc.doRegister("mesosim-edgelength", new Option_Float(98.0f));
+    oc.doRegister("meso-lanescale", new Option_Float(1.0f));
+#endif
 
     // add rand options
     RandHelper::insertRandOptions(oc);
@@ -680,6 +686,10 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gLANRange = oc.getFloat("device.c2x.range");
     MSGlobals::gLANRefuseOldInfosOffset = oc.getInt("device.c2x.keep-duration");
     MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
+    //
+#ifdef HAVE_MESOSIM
+    MSGlobals::gUseMesoSim = oc.getBool("mesosim");
+#endif
 }
 
 

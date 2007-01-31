@@ -102,6 +102,12 @@ class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
 
+#ifdef HAVE_MESOSIM
+class METriggeredCalibrator;
+class MESegment;
+class METriggeredScaler;
+#endif
+
 
 /* =========================================================================
  * class definitions
@@ -153,6 +159,18 @@ protected:
     MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
         const Attributes &attrs, const std::string &base,
         const NLHandler &helper);
+
+#ifdef HAVE_MESOSIM
+    /// Builds a mesoscopic calibrator
+    METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLHandler &helper);
+
+    /// Builds a mesoscopic scaler
+    METriggeredScaler *parseAndBuildScaler(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLHandler &helper);
+#endif
     //}
 
 protected:
@@ -178,6 +196,18 @@ protected:
     virtual MSBusStop* buildBusStop(MSNet &net,
         const std::string &id, const std::vector<std::string> &lines,
         MSLane *lane, SUMOReal frompos, SUMOReal topos);
+
+#ifdef HAVE_MESOSIM
+    /// builds a calibrator
+    virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
+        const std::string &id, MESegment *edge, SUMOReal pos,
+        const std::string &rfile, const std::string &file);
+
+    /// builds a scaler
+    virtual METriggeredScaler *buildScaler(MSNet &net,
+        const std::string &id, MESegment *edge, SUMOReal pos,
+        SUMOReal scale);
+#endif
 
     /// builds an emitter
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,

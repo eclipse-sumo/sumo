@@ -203,6 +203,11 @@ namespace
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MEInductLoop.h>
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -267,6 +272,9 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     if(pos<0) {
         pos = clane->length() + pos;
     }
+#ifdef HAVE_MESOSIM
+    if(!MSGlobals::gUseMesoSim) {
+#endif
      // get the output style
 //   MSDetector::OutputStyle cstyle = convertStyle(id, style);
      // check whether the file must be converted into a relative path
@@ -282,6 +290,29 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
     // add the file output
     myNet.getDetectorControl().add(loop, device, splInterval);
+#ifdef HAVE_MESOSIM
+    } else {
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
+        MESegment *prev = s;
+        SUMOReal cpos = 0;
+        while(cpos+prev->getLength()<pos&&s!=0) {
+            prev = s;
+            cpos += s->getLength();
+            s = s->getNextSegment();
+        }
+        SUMOReal rpos = pos-cpos;//-prev->getLength();
+        if(rpos>prev->getLength()||rpos<0) {
+		    if(friendly_pos) {
+			    rpos = prev->getLength() - (SUMOReal) 0.1;
+		    } else {
+			    throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane + "' length.");
+		    }
+        }
+        MEInductLoop *loop =
+            createMEInductLoop(id, prev, rpos, splInterval);
+        myNet.getDetectorControl().add(loop, device, splInterval);
+    }
+#endif
 }
 
 
@@ -663,6 +694,15 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 }
 
 
+#ifdef HAVE_MESOSIM
+MEInductLoop *
+NLDetectorBuilder::createMEInductLoop(const std::string &id,
+                                      MESegment *s, SUMOReal pos,
+                                      int splInterval)
+{
+    return new MEInductLoop(id, s, pos, splInterval);
+}
+#endif
 
 
 MSE2Collector *

@@ -192,6 +192,10 @@ public:
         const DFDetectorFlows &flows) const;
 
     void guessEmptyFlows(DFDetectorFlows &flows);
+#ifdef HAVE_MESOSIM
+    void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
+#endif
+
 
 protected:
 	std::vector<DFDetector*> myDetectors;

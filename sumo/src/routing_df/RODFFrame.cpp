@@ -240,6 +240,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("strict-sources", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("strict-sources", "Processing", "");
 
+#ifdef HAVE_MESOSIM
+    oc.doRegister("mesosim", new Option_Bool(false));
+#endif
 
         // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));

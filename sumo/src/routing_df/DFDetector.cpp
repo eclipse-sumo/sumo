@@ -1162,6 +1162,22 @@ DFDetectorCon::guessEmptyFlows(DFDetectorFlows &flows)
 }
 
 
+#ifdef HAVE_MESOSIM
+void
+DFDetectorCon::mesoJoin(const std::string &nid,
+                        const std::vector<std::string> &oldids)
+{
+    // build the new detector
+    const DFDetector &first = getDetector(*(oldids.begin()));
+    DFDetector *newDet = new DFDetector(nid, first);
+    addDetector(newDet);
+    // delete previous
+    for(std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
+        removeDetector(*i);
+    }
+}
+#endif
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
