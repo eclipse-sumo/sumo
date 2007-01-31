@@ -1174,11 +1174,6 @@ GUISUMOAbstractView::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
 }
 
 
-#include <microsim/MSNet.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSEdgeControl.h>
-#include <utils/foxtools/MFXImageHelper.h>
-SUMOTime myShowingBlaTime;
 long
 GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
 {
@@ -1186,41 +1181,6 @@ GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
     button->setChecked(!button->amChecked());
     _showGrid = button->amChecked();
     update();
-    MSNet *net = MSNet::getInstance();
-    MSEdge *edge = net->getEdgeControl().getMultiLaneEdges()[0];
-    std::pair<SUMOTime, SUMOTime> begInfo = edge->myOwnValueLine.getRangeAtPosition(0);
-    std::pair<SUMOTime, SUMOTime> secInfo = edge->myOwnValueLine.getRangeAtPosition(1);
-    std::pair<SUMOTime, SUMOTime> endInfo = edge->myOwnValueLine.getLastRange().first;
-    for(SUMOTime i=begInfo.first; i<endInfo.first; i += (secInfo.first-begInfo.first)) {
-        myShowingBlaTime = i;
-        FXColor *buf = getSnapshot();
-        // mirror
-        size_t mwidth = getWidth();
-        size_t mheight = getHeight();
-        FXColor *paa = buf;
-        FXColor *pbb = buf + mwidth * (mheight-1);
-        do {
-            FXColor *pa=paa;
-            paa+=mwidth;
-            FXColor *pb=pbb;
-            pbb-=mwidth;
-            do {
-                FXColor t=*pa;
-                *pa++=*pb;
-                *pb++=t;
-            } while(pa<paa);
-        } while(paa<pbb);
-        // save
-        string file = "d:\\test_" + toString(i) + ".gif";
-        try {
-            MFXImageHelper::saveimage(getApp(), file, getWidth(), getHeight(), buf);
-        } catch (...) {
-            string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
-            FXMessageBox::error(this, MBOX_OK, "Saving failed.",
-                msg.c_str());
-        }
-        FXFREE(&buf);
-    }
     return 1;
 }
 
