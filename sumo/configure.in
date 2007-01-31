@@ -505,15 +505,5 @@ src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
-tools/Makefile
-tools/dua_tools/Makefile
-tools/route_tools/Makefile
-tools/tls_tools/Makefile
-tools/traceExporter/Makefile
-tools/traceExporter/libs/Makefile
-tools/traceExporter/src/Makefile
-tools/traceExporter/src/ansim/Makefile
-tools/traceExporter/src/ns2/Makefile
-tools/trip_tools/Makefile
 Makefile)
 
