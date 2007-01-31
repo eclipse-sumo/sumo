@@ -1,0 +1,4 @@
+Error: On processing option '--write-configuration':
+ No option with the name 'write-configuration' exists.
+Error: The parameter 'config.cfg' is not allowed in this context
+Error: Switch or parameter name expected.

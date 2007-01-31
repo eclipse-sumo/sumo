@@ -1,0 +1,12 @@
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+   </processing>
+
+</configuration>
