@@ -1,2 +1,2 @@
 call testEnv.bat
-texttest.py -a netgen.exe -gx
+texttest.py -a netgen -gx

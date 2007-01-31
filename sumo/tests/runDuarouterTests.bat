@@ -1,2 +1,2 @@
 call testEnv.bat
-texttest.py -a duarouter.exe -gx
+texttest.py -a duarouter -gx

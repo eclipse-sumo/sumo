@@ -1,2 +1,2 @@
 call testEnv.bat
-texttest.py -a sumo.exe -gx
+texttest.py -a sumo -gx

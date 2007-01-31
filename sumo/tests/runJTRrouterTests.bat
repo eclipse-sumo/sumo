@@ -1,2 +1,2 @@
 call testEnv.bat
-texttest.py -a jtrrouter.exe -gx
+texttest.py -a jtrrouter -gx

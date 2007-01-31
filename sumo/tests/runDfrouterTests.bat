@@ -1,2 +1,2 @@
 call testEnv.bat
-texttest.py -a dfrouter.exe -gx
+texttest.py -a dfrouter -gx
