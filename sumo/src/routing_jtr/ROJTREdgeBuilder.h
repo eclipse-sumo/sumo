@@ -1,82 +1,61 @@
-#ifndef ROJTREdgeBuilder_h
-#define ROJTREdgeBuilder_h
-//---------------------------------------------------------------------------//
-//                        ROJTREdgeBuilder.h -
-//      The builder for jp-edges
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 20 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROJTREdgeBuilder.h
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Jan 2004
+/// @version $Id: $
+///
+// The builder for jp-edges
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.1  2005/10/10 12:09:36  dkrajzew
-// renamed ROJP*-classes to ROJTR*
-//
-// Revision 1.5  2005/10/07 11:42:39  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:05:34  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/02/06 08:43:46  dkrajzew
-// new naming applied to the folders (jp-router is now called jtr-router)
-//
-// Revision 1.1  2004/01/26 06:09:11  dkrajzew
-// initial commit for jp-classes
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef ROJTREdgeBuilder_h
+#define ROJTREdgeBuilder_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <router/ROAbstractEdgeBuilder.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class ROEdge;
 class RONet;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class ROJTREdgeBuilder
  * This class builds edges that may be used by the junction-percantage
  *  router.
  */
-class ROJTREdgeBuilder : public ROAbstractEdgeBuilder {
+class ROJTREdgeBuilder : public ROAbstractEdgeBuilder
+{
 public:
     /// Constructor
     ROJTREdgeBuilder();
@@ -89,7 +68,7 @@ public:
 
     /** Post process the edges */
     void setTurningDefinitions(RONet &net,
-        const std::vector<SUMOReal> &turn_defs);
+                               const std::vector<SUMOReal> &turn_defs);
 
 private:
     /// The turn definitions
@@ -98,11 +77,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

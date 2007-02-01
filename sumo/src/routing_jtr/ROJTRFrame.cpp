@@ -1,68 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROJTRFrame.cpp -
-//  Some helping methods for usage within sumo and sumo-gui
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROJTRFrame.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Some helping methods for usage within sumo and sumo-gui
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log: ROJTRFrame.cpp,v $
-// Revision 1.6  2006/01/31 11:01:40  dkrajzew
-// patching incoherences; added possibility to end on non-sink-edges
-//
-// Revision 1.5  2005/10/07 11:42:39  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:05:34  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:26:59  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:50:31  dksumo
-// added 'flows' synonyme
-//
-// Revision 1.1  2004/10/22 12:50:29  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <fstream>
@@ -82,15 +52,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 ROJTRFrame::fillOptions(OptionsCont &oc)
 {
@@ -141,7 +111,7 @@ ROJTRFrame::addJTROptions(OptionsCont &oc)
     oc.doRegister("sinks", 's', new Option_String());
     oc.addDescription("sinks", "Processing", "Use STR as sink list");
 
-	oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
+    oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
     oc.addDescription("accept-all-destinations", "Processing", "");
 }
 
@@ -153,10 +123,6 @@ ROJTRFrame::checkOptions(OptionsCont &oc)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

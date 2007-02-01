@@ -1,89 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROJTRRouter.cpp -
-//      The junction-percentage router
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 20 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROJTRRouter.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Jan 2004
+/// @version $Id: $
+///
+// The junction-percentage router
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.4  2006/11/14 06:49:20  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.3  2006/01/31 11:01:40  dkrajzew
-// patching incoherences; added possibility to end on non-sink-edges
-//
-// Revision 1.2  2006/01/26 08:47:17  dkrajzew
-// adapted the new router API
-//
-// Revision 1.1  2005/10/10 12:09:36  dkrajzew
-// renamed ROJP*-classes to ROJTR*
-//
-// Revision 1.6  2005/10/07 11:42:39  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:05:34  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2004/11/23 10:26:59  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/02/06 08:43:46  dkrajzew
-// new naming applied to the folders (jp-router is now called jtr-router)
-//
-// Revision 1.4  2004/02/02 16:20:16  dkrajzew
-// catched the problems with dead end edges
-//
-// Revision 1.3  2004/01/28 14:19:16  dkrajzew
-// allowed to specify the maximum edge number in a route by a factor
-//
-// Revision 1.2  2004/01/26 09:58:15  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further container
-//
-// Revision 1.1  2004/01/26 06:09:11  dkrajzew
-// initial commit for jp-classes
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <router/RONet.h>
 #include "ROJTRRouter.h"
@@ -97,39 +46,38 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
-						 bool acceptAllDestinations)
-    : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
-	myAcceptAllDestination(acceptAllDestinations)
+                         bool acceptAllDestinations)
+        : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
+        myAcceptAllDestination(acceptAllDestinations)
 {
-    myMaxEdges = (int) (
-        ((SUMOReal) net.getEdgeNo()) *
-         OptionsSubSys::getOptions().getFloat("max-edges-factor"));
+    myMaxEdges = (int)(
+                     ((SUMOReal) net.getEdgeNo()) *
+                     OptionsSubSys::getOptions().getFloat("max-edges-factor"));
 }
 
 
 ROJTRRouter::~ROJTRRouter()
-{
-}
+{}
 
 
 void
 ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
-					 const ROVehicle * const vehicle,
-					 SUMOTime time, std::vector<const ROEdge*> &into)
+                     const ROVehicle * const vehicle,
+                     SUMOTime time, std::vector<const ROEdge*> &into)
 {
     const ROJTREdge *current = static_cast<const ROJTREdge*>(from);
     // route until a sinks has been found
-    while(  current!=0
+    while (current!=0
             &&
             current->getType()!=ROEdge::ET_SINK
             &&
@@ -140,30 +88,26 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found
-    if((int) into.size()>=myMaxEdges) {
-		if(myAcceptAllDestination) {
-			return;
-		} else {
-	        MsgHandler *mh = 0;
-		    if(myUnbuildIsWarningOnly) {
-			    mh = MsgHandler::getWarningInstance();
-	        } else {
-		        mh = MsgHandler::getErrorInstance();
-			}
-			mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
-		}
+    if ((int) into.size()>=myMaxEdges) {
+        if (myAcceptAllDestination) {
+            return;
+        } else {
+            MsgHandler *mh = 0;
+            if (myUnbuildIsWarningOnly) {
+                mh = MsgHandler::getWarningInstance();
+            } else {
+                mh = MsgHandler::getErrorInstance();
+            }
+            mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+        }
     }
     // append the sink
-    if(current!=0) {
+    if (current!=0) {
         into.push_back(current);
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,68 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROJTREdgeBuilder.cpp -
-//      The builder for jp-edges
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 20 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROJTREdgeBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Jan 2004
+/// @version $Id: $
+///
+// The builder for jp-edges
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.1  2005/10/10 12:09:36  dkrajzew
-// renamed ROJP*-classes to ROJTR*
-//
-// Revision 1.6  2005/10/07 11:42:39  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:05:34  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2004/07/02 09:40:36  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
-//
-// Revision 1.1  2004/02/06 08:43:46  dkrajzew
-// new naming applied to the folders (jp-router is now called jtr-router)
-//
-// Revision 1.1  2004/01/26 06:09:11  dkrajzew
-// initial commit for jp-classes
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <router/RONet.h>
 #include "ROJTREdge.h"
@@ -73,23 +43,21 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROJTREdgeBuilder::ROJTREdgeBuilder()
-{
-}
+{}
 
 
 ROJTREdgeBuilder::~ROJTREdgeBuilder()
-{
-}
+{}
 
 
 ROEdge *
@@ -102,18 +70,15 @@ ROJTREdgeBuilder::buildEdge(const std::string &name)
 
 void
 ROJTREdgeBuilder::setTurningDefinitions(RONet &net,
-                                       const std::vector<SUMOReal> &turn_defs)
+                                        const std::vector<SUMOReal> &turn_defs)
 {
-    for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
+    for (vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
         ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge((*i)));
         edge->setTurnDefaults(turn_defs);
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
