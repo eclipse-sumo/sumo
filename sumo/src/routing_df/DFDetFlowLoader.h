@@ -1,69 +1,40 @@
+/****************************************************************************/
+/// @file    DFDetFlowLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 16.03.2006
+/// @version $Id: $
+///
+// A loader for detector flows
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef DFDetFlowLoader_h
 #define DFDetFlowLoader_h
-/***************************************************************************
-                          DFDetFlowLoader.h
-    A loader for detector flows
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 16.03.2006
-    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-// $Log$
-// Revision 1.8  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/05/15 05:57:45  dkrajzew
-// further work on dfrouter
-//
-// Revision 1.7  2006/05/08 11:15:01  dkrajzew
-// further work on the dfrouter
-//
-// Revision 1.6  2006/04/07 10:44:18  dkrajzew
-// multiple detector and flows definitions can be read
-//
-// Revision 1.5  2006/04/05 05:35:27  dkrajzew
-// further work on the dfrouter
-//
-// Revision 1.4  2006/03/17 09:04:26  dkrajzew
-// class-documentation added/patched
-//
-// Revision 1.3  2006/03/08 12:51:29  dkrajzew
-// further work on the dfrouter
-//
-// Revision 1.2  2006/02/13 07:27:06  dkrajzew
-// current work on the DFROUTER added (unfinished)
-//
-// Revision 1.1  2006/01/19 17:42:59  ericnicolay
-// base classes for the reading of the detectorflows
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -75,32 +46,33 @@
 #include <routing_df/DFDetectorFlow.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Options;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class DFDetFlowLoader
  * A loader for Detector Flows
  */
 class DFDetFlowLoader :
-            public LineHandler{
+            public LineHandler
+{
 public:
     /// Constructor
-	///!!!DFDetFlowLoader();
-	DFDetFlowLoader(DFDetectorCon &dets, DFDetectorFlows &into,
-        SUMOTime startTime, SUMOTime endTime,
-        int timeOffset);
+    ///!!!DFDetFlowLoader();
+    DFDetFlowLoader(DFDetectorCon &dets, DFDetectorFlows &into,
+                    SUMOTime startTime, SUMOTime endTime,
+                    int timeOffset);
 
     /// Destructor
     ~DFDetFlowLoader();
 
-	void read(const std::string &file, bool fast);
+    void read(const std::string &file, bool fast);
 
     /* ----- from the LineHandler - "interface" ----- */
     /** @brief Receives input from a line reader (watch full description!)
@@ -122,7 +94,7 @@ private:
     /// The used reader
     LineReader myReader;
 
-        /// Information whether the next line is the first one
+    /// Information whether the next line is the first one
     bool myFirstLine;
 
 /// The value extractor
@@ -134,17 +106,13 @@ private:
     /// The path information is found under
     //std::string fname;
 //	DFDetectorFlows * mydetFlows;
-	DFDetectorCon &myDetectorContainer;
+    DFDetectorCon &myDetectorContainer;
 
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

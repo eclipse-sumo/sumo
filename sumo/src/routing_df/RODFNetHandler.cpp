@@ -1,48 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RODFNetHandler.cpp -
-//  The handler for SUMO-Networks
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 27.03.2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RODFNetHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 27.03.2006
+/// @version $Id: $
+///
+// The handler for SUMO-Networks
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.1  2006/03/28 06:17:18  dkrajzew
-// extending the dfrouter by distance/length factors
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/options/OptionsCont.h>
@@ -61,50 +51,43 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RODFNetHandler::RODFNetHandler(OptionsCont &oc, RONet &net,
-                           ROAbstractEdgeBuilder &eb)
-    : RONetHandler(oc, net, eb)
-{
-}
+                               ROAbstractEdgeBuilder &eb)
+        : RONetHandler(oc, net, eb)
+{}
 
 
 RODFNetHandler::~RODFNetHandler()
-{
-}
+{}
 
 
 void
 RODFNetHandler::myCharacters(int element, const std::string&name,
-                           const std::string &chars)
+                             const std::string &chars)
 {
     RONetHandler::myCharacters(element, name, chars);
-    switch(element) {
-    case SUMO_TAG_LANE:
-        {
-            Position2DVector p = GeomConvHelper::parseShape(chars);
-            static_cast<RODFEdge*>(_currentEdge)->setFromPosition(p[0]);
-            static_cast<RODFEdge*>(_currentEdge)->setToPosition(p[-1]);
-        }
-        break;
+    switch (element) {
+    case SUMO_TAG_LANE: {
+        Position2DVector p = GeomConvHelper::parseShape(chars);
+        static_cast<RODFEdge*>(_currentEdge)->setFromPosition(p[0]);
+        static_cast<RODFEdge*>(_currentEdge)->setToPosition(p[-1]);
+    }
+    break;
     default:
         break;
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

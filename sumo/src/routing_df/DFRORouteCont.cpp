@@ -1,59 +1,38 @@
-/***************************************************************************
-                          DFRORouteCont.cpp
-    A container for routes
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 16.03.2006
-    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.10  2006/11/16 10:50:51  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    DFRORouteCont.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 16.03.2006
+/// @version $Id: $
+///
+// A container for routes
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.9  2006/08/01 11:30:21  dkrajzew
-// patching building
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.8  2006/04/07 05:29:44  dksumo
-// removed some warnings
-//
-// Revision 1.7  2006/03/27 07:32:19  dksumo
-// some further work...
-//
-// Revision 1.6  2006/03/17 09:04:18  dksumo
-// class-documentation added/patched
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fstream>
 #include <cassert>
@@ -62,18 +41,17 @@ namespace
 #include <router/ROEdge.h>
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 DFRORouteCont::DFRORouteCont()
-{
-}
+{}
 
 /*
 DFRORouteCont::DFRORouteCont(const DFRORouteCont &s)
@@ -95,9 +73,9 @@ DFRORouteCont::DFRORouteCont(const DFRORouteCont &s)
 DFRORouteCont::~DFRORouteCont()
 {
     {
-    	for(std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
-	    	delete (*j);
-	    }
+        for (std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
+            delete(*j);
+        }
     }
 }
 
@@ -105,14 +83,14 @@ DFRORouteCont::~DFRORouteCont()
 void
 DFRORouteCont::addRouteDesc(DFRORouteDesc *desc)
 {
-	/*
-    ROEdge *start = desc.edges2Pass[0];
-    if(myRoutes.find(start)==myRoutes.end()) {
-        myRoutes[start] = std::vector<DFRORouteDesc>();
-    }
-	*/
+    /*
+       ROEdge *start = desc.edges2Pass[0];
+       if(myRoutes.find(start)==myRoutes.end()) {
+           myRoutes[start] = std::vector<DFRORouteDesc>();
+       }
+    */
     // routes may be duplicate as in-between routes may have different starting points
-    if(find_if(myRoutes.begin(), myRoutes.end(), route_by_id_finder(*desc))==myRoutes.end()) {
+    if (find_if(myRoutes.begin(), myRoutes.end(), route_by_id_finder(*desc))==myRoutes.end()) {
         myRoutes.push_back(desc);
     } else {
         DFRORouteDesc *prev = *find_if(myRoutes.begin(), myRoutes.end(), route_by_id_finder(*desc));
@@ -126,7 +104,7 @@ DFRORouteCont::removeRouteDesc(DFRORouteDesc *desc)
 {
     std::vector<DFRORouteDesc*>::const_iterator j =
         find(myRoutes.begin(), myRoutes.end(), desc);
-    if(j==myRoutes.end()) {
+    if (j==myRoutes.end()) {
         return false;
     }
     return true;
@@ -142,40 +120,40 @@ DFRORouteCont::readFrom(const std::string &)
 
 bool
 DFRORouteCont::save(std::vector<std::string> &saved,
-					const std::string &prependix, std::ostream &os/*const std::string &file*/)
+                    const std::string &prependix, std::ostream &os/*const std::string &file*/)
 {
-	/*
-    ofstream strm(file.c_str());
-    if(!strm.good()) {
-        return false;
-    }
-    //strm << "<routes>" << endl;
-//    for(std::map<ROEdge*, std::vector<DFRORouteDesc> >::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
-//        const std::vector<DFRORouteDesc> &routes = (*i).second;
-*/
-	bool haveSavedOnAtLeast = false;
-        for(std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
-            const DFRORouteDesc *desc = (*j);
-			if(find(saved.begin(), saved.end(), (*j)->routename)!=saved.end()) {
-				continue;
-			}
-			saved.push_back((*j)->routename);
-            assert(desc->edges2Pass.size()>=1);
-            os << "   <route id=\"" << prependix << (*j)->routename << "\" multi_ref=\"x\">";
-            for(std::vector<ROEdge*>::const_iterator k=desc->edges2Pass.begin(); k!=desc->edges2Pass.end(); k++) {
-                if(k!=desc->edges2Pass.begin()) {
-                    os << ' ';
-                }
-                os << (*k)->getID();
-            }
-            os << "</route>" << endl;
-			haveSavedOnAtLeast = true;
+    /*
+       ofstream strm(file.c_str());
+       if(!strm.good()) {
+           return false;
+       }
+       //strm << "<routes>" << endl;
+    //    for(std::map<ROEdge*, std::vector<DFRORouteDesc> >::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
+    //        const std::vector<DFRORouteDesc> &routes = (*i).second;
+    */
+    bool haveSavedOnAtLeast = false;
+    for (std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
+        const DFRORouteDesc *desc = (*j);
+        if (find(saved.begin(), saved.end(), (*j)->routename)!=saved.end()) {
+            continue;
         }
-/*        strm << endl;
-  //  }
-    //strm << "</routes>" << endl;
-    return true;*/
-	return haveSavedOnAtLeast;
+        saved.push_back((*j)->routename);
+        assert(desc->edges2Pass.size()>=1);
+        os << "   <route id=\"" << prependix << (*j)->routename << "\" multi_ref=\"x\">";
+        for (std::vector<ROEdge*>::const_iterator k=desc->edges2Pass.begin(); k!=desc->edges2Pass.end(); k++) {
+            if (k!=desc->edges2Pass.begin()) {
+                os << ' ';
+            }
+            os << (*k)->getID();
+        }
+        os << "</route>" << endl;
+        haveSavedOnAtLeast = true;
+    }
+    /*        strm << endl;
+      //  }
+        //strm << "</routes>" << endl;
+        return true;*/
+    return haveSavedOnAtLeast;
 }
 
 
@@ -188,9 +166,9 @@ DFRORouteCont::computed() const
 
 const std::vector<DFRORouteDesc*> &
 DFRORouteCont::get() const
-{
-	return myRoutes;
-}
+    {
+        return myRoutes;
+    }
 
 
 void
@@ -217,32 +195,30 @@ DFRORouteCont::getDets2Follow() const
 void
 DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 {
-    for(std::vector<DFRORouteDesc*>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ) {
+    for (std::vector<DFRORouteDesc*>::iterator i=myRoutes.begin(); i!=myRoutes.end();) {
         DFRORouteDesc *desc = *i;
         bool remove = false;
-        for(std::vector<std::vector<ROEdge*> >::const_iterator j=illegals.begin(); !remove&&j!=illegals.end(); ++j) {
+        for (std::vector<std::vector<ROEdge*> >::const_iterator j=illegals.begin(); !remove&&j!=illegals.end(); ++j) {
             int noFound = 0;
-            for(std::vector<ROEdge*>::const_iterator k=(*j).begin(); !remove&&k!=(*j).end(); ++k) {
-                if(find(desc->edges2Pass.begin(), desc->edges2Pass.end(), *k)!=desc->edges2Pass.end()) {
+            for (std::vector<ROEdge*>::const_iterator k=(*j).begin(); !remove&&k!=(*j).end(); ++k) {
+                if (find(desc->edges2Pass.begin(), desc->edges2Pass.end(), *k)!=desc->edges2Pass.end()) {
                     noFound++;
-                    if(noFound>1) {
+                    if (noFound>1) {
                         remove = true;
                     }
                 }
             }
         }
-        if(remove) {
+        if (remove) {
             i = myRoutes.erase(i);
-        } else {
+        }
+        else {
             ++i;
         }
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

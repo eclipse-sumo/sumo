@@ -1,59 +1,53 @@
-#ifndef RODFLoader_h
-#define RODFLoader_h
-//---------------------------------------------------------------------------//
-//                        RODFLoader.h -
-//  Loader used while online-routing
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 17 Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RODFLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17 Jun 2004
+/// @version $Id: $
+///
+// Loader used while online-routing
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.2  2007/01/11 12:39:56  dkrajzew
-// debugging building (missing, unfinished classes added)
-//
-// Revision 1.1  2006/03/28 06:17:18  dkrajzew
-// extending the dfrouter by distance/length factors
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RODFLoader_h
+#define RODFLoader_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <router/ROLoader.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-class RODFLoader : public ROLoader {
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class RODFLoader : public ROLoader
+{
 public:
     /// Constructor
     RODFLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-        bool emptyDestinationsAllowed);
+               bool emptyDestinationsAllowed);
 
     /// Destructor
     ~RODFLoader();
@@ -63,11 +57,8 @@ public:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

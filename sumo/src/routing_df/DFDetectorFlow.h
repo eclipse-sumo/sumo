@@ -1,54 +1,40 @@
-#ifndef DFDETECTOR_FLOW_h
-#define DFDETECTOR_FLOW_h
-/***************************************************************************
-                          DFDetector.h
-    Storage for flows within the DFROUTER
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 16.03.2006
-    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-// $Log$
-// Revision 1.9  2007/01/11 12:39:56  dkrajzew
-// debugging building (missing, unfinished classes added)
+/****************************************************************************/
+/// @file    DFDetectorFlow.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 16.03.2006
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.8  2006/08/02 11:59:02  dkrajzew
-// warnings removed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.7  2006/04/05 05:35:25  dksumo
-// further work on the dfrouter
-//
-// Revision 1.6  2006/03/17 09:04:18  dksumo
-// class-documentation added/patched
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef DFDetectorFlow_h
+#define DFDetectorFlow_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/SUMOTime.h>
 #include <map>
@@ -56,14 +42,15 @@
 #include <vector>
 
 
-/* =========================================================================
- * struct definitions
- * ======================================================================= */
+// ===========================================================================
+// struct definitions
+// ===========================================================================
 /**
  * @class FlowDef
  * @brief Definition of the traffic during a certain time containing the flows and speeds
  */
-struct FlowDef {
+struct FlowDef
+{
     // Number of passenger vehicles that passed within the described time
     SUMOReal qPKW;
     // Number of heavy duty vehicles that passed within the described time
@@ -83,9 +70,9 @@ struct FlowDef {
 };
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class DFDetector
  * @brief A container for flows
@@ -93,19 +80,19 @@ struct FlowDef {
 class DFDetectorFlows
 {
 public:
-	DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
-        SUMOTime stepOffset);
-	~DFDetectorFlows();
-	void addFlow(const std::string &detector_id, int timestamp,
-        const FlowDef &fd );
-	void removeFlow(const std::string &detector_id);
-	void setFlows(const std::string &detector_id, std::vector<FlowDef> & );
-	//const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
-	//const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
+    DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
+                    SUMOTime stepOffset);
+    ~DFDetectorFlows();
+    void addFlow(const std::string &detector_id, int timestamp,
+                 const FlowDef &fd);
+    void removeFlow(const std::string &detector_id);
+    void setFlows(const std::string &detector_id, std::vector<FlowDef> &);
+    //const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
+    //const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
 
-    const std::vector<FlowDef> &getFlowDefs( const std::string &id ) const;
-    bool knows( const std::string &det_id ) const;
-    bool knows( const std::string &det_id, SUMOTime time ) const;
+    const std::vector<FlowDef> &getFlowDefs(const std::string &id) const;
+    bool knows(const std::string &det_id) const;
+    bool knows(const std::string &det_id, SUMOTime time) const;
     SUMOReal getFlowSumSecure(const std::string &id) const;
     SUMOReal getMaxDetectorFlow() const;
 
@@ -123,10 +110,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
