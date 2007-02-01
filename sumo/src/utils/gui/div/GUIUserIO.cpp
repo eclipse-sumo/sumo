@@ -60,7 +60,7 @@ void
 GUIUserIO::copyToClipboard(FXApp *, const std::string &)
 {}
 
-
+#endif
 
 /****************************************************************************/
 
