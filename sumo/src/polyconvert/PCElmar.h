@@ -1,80 +1,63 @@
+/****************************************************************************/
+/// @file    PCElmar.h
+/// @author  unknown_author
+/// @date    Mon, 05 Dec 2005
+/// @version $Id: $
+///
+// A reader of polygons stored in elmar-format
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef PCElmar_h
 #define PCElmar_h
-/***************************************************************************
-                          PCElmar.h
-    A reader of polygons stored in elmar-format
-                             -------------------
-    project              : SUMO
-    subproject           : PolyConvert
-    begin                : Mon, 05 Dec 2005
-    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-    author               : Danilo Boyom
-    email                : Danilot.Tete-Boyom@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.4  2007/01/08 14:43:58  dkrajzew
-// code beautifying; prliminary import for Visum points added
-//
-// Revision 1.3  2006/11/02 12:20:16  dkrajzew
-// removed unneeded code
-//
-// Revision 1.2  2006/09/18 10:14:35  dkrajzew
-// changed the way geocoordinates are processed
-//
-// Revision 1.1  2006/08/01 07:52:46  dkrajzew
-// polyconvert added
-//
-// Revision 1.2  2006/03/27 07:36:34  dksumo
-// some further work...
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "PCPolyContainer.h"
 #include "PCTypeMap.h"
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class OptionsCont;
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 /**
  * @class PCElmar
  * @brief A reader of polygons stored in elmar-format
@@ -83,7 +66,8 @@ class OptionsCont;
  *  applies the given projection and network offset and stores the so build
  *  polygons into the given map.
  */
-class PCElmar {
+class PCElmar
+{
 public:
     /// Constructor
     PCElmar(PCPolyContainer &toFill, const Boundary &netBoundary, PCTypeMap &tm);
@@ -104,10 +88,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

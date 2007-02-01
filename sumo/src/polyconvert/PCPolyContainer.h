@@ -1,57 +1,40 @@
+/****************************************************************************/
+/// @file    PCPolyContainer.h
+/// @author  unknown_author
+/// @date    Mon, 05 Dec 2005
+/// @version $Id: $
+///
+// A storage for loaded polygons and pois
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef PCPolyContainer_h
 #define PCPolyContainer_h
-/***************************************************************************
-                          PCPolyContainer.h
-    A storage for loaded polygons and pois
-                             -------------------
-    project              : SUMO
-    subproject           : PolyConvert
-    begin                : Mon, 05 Dec 2005
-    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-    author               : Danilo Boyom
-    email                : Danilot.Tete-Boyom@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.4  2007/01/08 14:43:58  dkrajzew
-// code beautifying; prliminary import for Visum points added
-//
-// Revision 1.3  2006/11/28 14:51:48  dkrajzew
-// possibility to prune the plygons to import on a bounding box added
-//
-// Revision 1.2  2006/11/02 12:19:50  dkrajzew
-// added parsing of Elmar's pointcollections
-//
-// Revision 1.1  2006/08/01 07:52:46  dkrajzew
-// polyconvert added
-//
-// Revision 1.1  2006/03/27 07:22:27  dksumo
-// initial checkin
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -60,14 +43,15 @@
 #include <utils/geom/Boundary.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class PCPolyContainer
  * @brief A storage for loaded polygons
  */
-class PCPolyContainer {
+class PCPolyContainer
+{
 public:
     /// Constructor
     PCPolyContainer(bool prune, const Boundary &prunningBoundary);
@@ -139,10 +123,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,56 +1,40 @@
+/****************************************************************************/
+/// @file    PCTypeDefHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 16.03.2006
+/// @version $Id: $
+///
+// A handler for loading polygon type maps
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef PCTypeDefHandler_h
 #define PCTypeDefHandler_h
-/***************************************************************************
-                          PCTypeDefHandler.h
-    A handler for loading polygon type maps
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 16.03.2006
-    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.2  2007/01/08 14:43:58  dkrajzew
-// code beautifying; prliminary import for Visum points added
-//
-// Revision 1.1  2006/08/01 07:52:47  dkrajzew
-// polyconvert added
-//
-// Revision 1.3  2006/03/17 09:04:18  dksumo
-// class-documentation added/patched
-//
-// Revision 1.2  2006/01/26 11:24:17  dksumo
-// debugging building under linux
-//
-// Revision 1.1  2006/01/16 13:45:21  dksumo
-// initial work on the dfrouter
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -58,20 +42,21 @@
 #include "PCTypeDefHandler.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class PCTypeToDef;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class PCTypeDefHandler
  * @brief A handler for loading polygon type maps
  */
-class PCTypeDefHandler : public SUMOSAXHandler {
+class PCTypeDefHandler : public SUMOSAXHandler
+{
 public:
     /// Constructor
     PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con);
@@ -83,11 +68,11 @@ public:
 protected:
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
+                        const Attributes &attrs);
 
     /** the user-implemented handler method for characters */
     void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                      const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
@@ -98,7 +83,7 @@ protected:
     OptionsCont &myOptions;
 
     /// The type map to fill
-	PCTypeMap &myContainer;
+    PCTypeMap &myContainer;
 
 
 private:
@@ -111,11 +96,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,69 +1,38 @@
-/***************************************************************************
-                          PCElmar.cpp
-    A reader of polygons stored in elmar-format
-                             -------------------
-    project              : SUMO
-    subproject           : PolyConvert
-    begin                : Mon, 05 Dec 2005
-    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-    author               : Danilo Boyom
-    email                : Danilot.Tete-Boyom@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2007/01/08 14:43:58  dkrajzew
-// code beautifying; prliminary import for Visum points added
+/****************************************************************************/
+/// @file    PCElmar.cpp
+/// @author  unknown_author
+/// @date    Mon, 05 Dec 2005
+/// @version $Id: $
+///
+// A reader of polygons stored in elmar-format
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.6  2006/11/20 14:02:22  dkrajzew
-// warning while processing empty lines removed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.5  2006/11/16 10:50:50  dkrajzew
-// warnings removed
-//
-// Revision 1.4  2006/11/02 12:20:16  dkrajzew
-// removed unneeded code
-//
-// Revision 1.3  2006/09/18 10:14:35  dkrajzew
-// changed the way geocoordinates are processed
-//
-// Revision 1.2  2006/08/02 10:27:21  dkrajzew
-// building under Linux patched
-//
-// Revision 1.1  2006/08/01 07:52:46  dkrajzew
-// polyconvert added
-//
-// Revision 1.2  2006/03/27 07:36:34  dksumo
-// some further work...
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -91,25 +60,23 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method defintions
- * ======================================================================= */
+// ===========================================================================
+// method defintions
+// ===========================================================================
 PCElmar::PCElmar(PCPolyContainer &toFill, const Boundary & /*netBoundary*/,
                  PCTypeMap &tm)
-	: myCont(toFill), myTypeMap(tm)
-{
-}
+        : myCont(toFill), myTypeMap(tm)
+{}
 
 
 PCElmar::~PCElmar()
-{
-}
+{}
 
 
 void
@@ -119,7 +86,7 @@ PCElmar::load(OptionsCont &oc)
     std::string file = oc.getString("elmar");
     // load the polygons
     ifstream out(file.c_str());
-    if(!out) {
+    if (!out) {
         MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
         throw ProcessError();
     }
@@ -132,15 +99,15 @@ PCElmar::load(OptionsCont &oc)
     std::string tab = "\t";
     int l = 0;
 
-    while(out.good()) {
+    while (out.good()) {
         getline(out,buff);
 
         // do not parse comment lines
-        if(buff.find("#") != string::npos) {
+        if (buff.find("#") != string::npos) {
             continue;
         }
         // ... and empty lines
-        if(StringUtils::prune(buff)=="") {
+        if (StringUtils::prune(buff)=="") {
             continue;
         }
 
@@ -159,7 +126,7 @@ PCElmar::load(OptionsCont &oc)
 
         std::string xpos, ypos;
         // now collect the positions
-        while(rest.find(tab)!=string::npos){
+        while (rest.find(tab)!=string::npos) {
             xpos = rest.substr(0,rest.find(tab));
             rest = rest.substr(rest.find(tab)+1, rest.length());
             ypos = rest.substr(0,rest.find(tab));
@@ -174,16 +141,16 @@ PCElmar::load(OptionsCont &oc)
         }
 
         name = StringUtils::convertUmlaute(name);
-        if(name=="noname"||myCont.contains(name)) {
+        if (name=="noname"||myCont.contains(name)) {
             name = name + "#" + toString(myCont.getEnumIDFor(name));
         }
 
         // check the polygon
-        if(vec.size()==0) {
+        if (vec.size()==0) {
             MsgHandler::getWarningInstance()->inform("The polygon '" + id + "' is empty.");
             continue;
         }
-        if(id=="") {
+        if (id=="") {
             MsgHandler::getErrorInstance()->inform("The name of a polygon is missing.");
             continue;
         }
@@ -193,7 +160,7 @@ PCElmar::load(OptionsCont &oc)
         bool discard = false;
         int layer = oc.getInt("layer");
         RGBColor color;
-        if(myTypeMap.has(type)) {
+        if (myTypeMap.has(type)) {
             const PCTypeMap::TypeDef &def = myTypeMap.get(type);
             name = def.prefix + name;
             type = def.id;
@@ -206,7 +173,7 @@ PCElmar::load(OptionsCont &oc)
             type = oc.getString("type");
             color = c;
         }
-        if(!discard) {
+        if (!discard) {
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
             myCont.insert(name, poly, layer);
         }
@@ -216,11 +183,6 @@ PCElmar::load(OptionsCont &oc)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
-
+/****************************************************************************/
 

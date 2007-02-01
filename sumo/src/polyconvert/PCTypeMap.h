@@ -1,56 +1,48 @@
+/****************************************************************************/
+/// @file    PCTypeMap.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 05 Dec 2005
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef PCTypeMap_h
 #define PCTypeMap_h
-/***************************************************************************
-                          PCElmar.h
-    A storage for type mappings
-                             -------------------
-    project              : SUMO
-    subproject           : PolyConvert
-    begin                : Mon, 05 Dec 2005
-    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.2  2007/01/08 14:43:58  dkrajzew
-// code beautifying; prliminary import for Visum points added
-//
-// Revision 1.1  2006/08/01 07:52:47  dkrajzew
-// polyconvert added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 /**
  * @class PCTypeMap
  * @brief A storage for type mappings
@@ -58,7 +50,8 @@
  * This class holds the mappings between names of read polygon types and the
  *  values (color, new type name etc.) that shall be assigned to them.
  */
-class PCTypeMap {
+class PCTypeMap
+{
 public:
     /// Constructor
     PCTypeMap();
@@ -70,7 +63,8 @@ public:
      * @struct TypeDef
      * @brief a single definition of values resulting from a type
      */
-    struct TypeDef {
+    struct TypeDef
+    {
         /// The new type id to use
         std::string id;
         /// The color to use
@@ -88,7 +82,7 @@ public:
 
     /// Adds a type definition
     bool add(const std::string &id, const std::string &newid, const std::string &color,
-        const std::string &prefix, int layer, bool discard, bool allowFill);
+                 const std::string &prefix, int layer, bool discard, bool allowFill);
 
     /** @brief Returns a type definition
      *
@@ -107,10 +101,8 @@ protected:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
