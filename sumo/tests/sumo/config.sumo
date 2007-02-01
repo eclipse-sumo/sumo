@@ -21,3 +21,5 @@ config:config.cfg
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 
+[run_dependent_text]
+output:\r{REPLACE \n}
