@@ -1,79 +1,58 @@
-#ifndef MSMeanData_Net_Cont_h
-#define MSMeanData_Net_Cont_h
-//---------------------------------------------------------------------------//
-//                        MSMeanData_Net_Cont.cpp -
-//  Definitions of a container for a networks mean data
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 10.05.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSMeanData_Net_Cont.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10.05.2004
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 11:08:51  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:13:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
-//
-// Revision 1.1  2004/08/02 12:05:34  dkrajzew
-// moved meandata to an own folder
-//
-// Revision 1.1  2004/07/02 09:01:44  dkrajzew
-// microsim output refactoring (moved to a subfolder)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSMeanData_Net_Cont_h
+#define MSMeanData_Net_Cont_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSMeanData_Net;
 class MSEdgeControl;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 typedef std::vector< MSMeanData_Net* > MSMeanData_Net_Cont;
 
 
-//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

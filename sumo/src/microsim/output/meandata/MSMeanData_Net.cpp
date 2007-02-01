@@ -1,95 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSMeanData_Net.cpp -
-//  Redirector for mean data output (net->edgecontrol)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 10.05.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSMeanData_Net.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10.05.2004
+/// @version $Id: $
+///
+// Redirector for mean data output (net->edgecontrol)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.23  2006/11/23 11:40:25  dkrajzew
-// removed unneeded code
-//
-// Revision 1.22  2006/11/14 13:02:56  dkrajzew
-// warnings removed
-//
-// Revision 1.21  2006/09/18 10:03:58  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.20  2006/08/01 11:30:20  dkrajzew
-// patching building
-//
-// Revision 1.19  2006/07/10 09:04:19  dkrajzew
-// dump-begin/dump-end renamed to dump-begins/dump-ends
-//
-// Revision 1.18  2006/07/10 06:11:18  dkrajzew
-// mean data reworked
-//
-// Revision 1.17  2006/07/06 07:18:34  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.16  2006/04/11 10:59:07  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.15  2006/04/05 05:27:37  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.14  2006/01/26 08:30:29  dkrajzew
-// patched MSEdge in order to work with a generic router
-//
-// Revision 1.13  2006/01/16 13:35:52  dkrajzew
-// output formats updated for the next release
-//
-// Revision 1.12  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.10  2005/09/15 11:08:51  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/07/15 07:18:40  dkrajzew
-// code style applied
-//
-// Revision 1.8  2005/07/12 12:21:56  dkrajzew
-// debugging vehicle emission
-//
-// Revision 1.7  2005/07/12 12:14:39  dkrajzew
-// edge-based mean data implemented; previous lane-based is now optional
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <microsim/MSEdgeControl.h>
@@ -105,31 +48,29 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
                                MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,
                                bool useLanes,
-                               bool addHeaderTail )
-    : myInterval( t ), myUseHeader(addHeaderTail), myIndex(index),
-    myEdges(edges), myAmEdgeBased(!useLanes),
-    myDumpBegins(dumpBegins), myDumpEnds(dumpEnds)
-{
-}
+                               bool addHeaderTail)
+        : myInterval(t), myUseHeader(addHeaderTail), myIndex(index),
+        myEdges(edges), myAmEdgeBased(!useLanes),
+        myDumpBegins(dumpBegins), myDumpEnds(dumpEnds)
+{}
 
 
 MSMeanData_Net::~MSMeanData_Net()
-{
-}
+{}
 
 
 void
@@ -137,7 +78,7 @@ MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
 {
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
-    for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+    for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
         MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
         meanData.reset();
     }
@@ -151,12 +92,12 @@ MSMeanData_Net::resetOnly(SUMOTime stopTime)
     MSEdgeControl::EdgeCont::const_iterator edg;
     // single lane edges
     const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
-    for ( edg = ec1.begin(); edg != ec1.end(); ++edg ) {
+    for (edg = ec1.begin(); edg != ec1.end(); ++edg) {
         resetOnly(*(*edg), stopTime);
     }
     // multi lane edges
     const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
-    for ( edg = ec2.begin(); edg != ec2.end(); ++edg ) {
+    for (edg = ec2.begin(); edg != ec2.end(); ++edg) {
         resetOnly(*(*edg), stopTime);
     }
 }
@@ -167,30 +108,30 @@ MSMeanData_Net::write(XMLDevice &dev,
                       SUMOTime startTime, SUMOTime stopTime)
 {
     // the folowing may happen on closure
-    if(stopTime==startTime) {
+    if (stopTime==startTime) {
         return;
     }
     bool found = myDumpBegins.size()==0;
-    for(unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
-        if(!((myDumpBegins[i]>=0&&myDumpBegins[i]>stopTime)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
+    for (unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
+        if (!((myDumpBegins[i]>=0&&myDumpBegins[i]>stopTime)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
             found = true;
         }
     }
-    if(!found) {
+    if (!found) {
         resetOnly(stopTime);
         return;
     }
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
-        // single lane edges
+    // single lane edges
     const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
-    for ( edg = ec1.begin(); edg != ec1.end(); ++edg ) {
+    for (edg = ec1.begin(); edg != ec1.end(); ++edg) {
         writeEdge(dev, *(*edg), startTime, stopTime);
     }
-        // multi lane edges
+    // multi lane edges
     const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
-    for ( edg = ec2.begin(); edg != ec2.end(); ++edg ) {
+    for (edg = ec2.begin(); edg != ec2.end(); ++edg) {
         writeEdge(dev, *(*edg), startTime, stopTime);
     }
     // interval end
@@ -204,9 +145,9 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
 {
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
-    if(!myAmEdgeBased) {
+    if (!myAmEdgeBased) {
         dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString("\">\n");
-        for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
             writeLane(dev, *(*lane), startTime, stopTime);
         }
         dev.writeString("      </edge>\n");
@@ -217,7 +158,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         SUMOReal noStopsS = 0;
         SUMOReal nVehS = 0;
         SUMOReal meanOccupancyS = 0;
-        for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
             MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
             // calculate mean data
             SUMOReal traveltime = -42;
@@ -225,8 +166,8 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
             SUMOReal meanDensity = -45;
             SUMOReal meanOccupancy = -46;
             conv(meanData, (stopTime-startTime+1),
-                (*lane)->myLength, (*lane)->myMaxSpeed,
-                traveltime, meanSpeed, meanDensity, meanOccupancy);
+                 (*lane)->myLength, (*lane)->myMaxSpeed,
+                 traveltime, meanSpeed, meanDensity, meanOccupancy);
             traveltimeS += traveltime;
             meanSpeedS += meanSpeed;
             meanDensityS += meanDensity;
@@ -238,12 +179,12 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         assert(lanes->size()!=0);
         dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
             "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
-            "\" nSamples=\"").writeString(toString(nVehS)).writeString(
-            "\" density=\"").writeString(toString(meanDensityS)).writeString(
-            "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
-            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-            "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
-            "\"/>\n");
+                "\" nSamples=\"").writeString(toString(nVehS)).writeString(
+                    "\" density=\"").writeString(toString(meanDensityS)).writeString(
+                        "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
+                            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
+                                "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
+                                    "\"/>\n");
     }
 }
 
@@ -261,24 +202,23 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     SUMOReal meanDensity = -44;
     SUMOReal meanOccupancy = -45;
     conv(meanData, (stopTime-startTime+1),
-        lane.myLength, lane.myMaxSpeed,
-        traveltime, meanSpeed, meanDensity, meanOccupancy);
+         lane.myLength, lane.myMaxSpeed,
+         traveltime, meanSpeed, meanDensity, meanOccupancy);
     dev.writeString("         <lane id=\"").writeString(lane.getID()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
-        "\" nSamples=\"").writeString(toString(meanData.nSamples)).writeString(
-        "\" density=\"").writeString(toString(meanDensity)).writeString(
-        "\" occupancy=\"").writeString(toString(meanOccupancy)).writeString(
-        "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(
-        "\" speed=\"").writeString(toString(meanSpeed)).writeString(
-        "\"/>\n");
+            "\" nSamples=\"").writeString(toString(meanData.nSamples)).writeString(
+                "\" density=\"").writeString(toString(meanDensity)).writeString(
+                    "\" occupancy=\"").writeString(toString(meanOccupancy)).writeString(
+                        "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(
+                            "\" speed=\"").writeString(toString(meanSpeed)).writeString(
+                                "\"/>\n");
     meanData.reset();
 }
 
 
 void
-MSMeanData_Net::writeXMLHeader( XMLDevice & ) const
-{
-}
+MSMeanData_Net::writeXMLHeader(XMLDevice &) const
+    {}
 
 
 void
@@ -287,8 +227,8 @@ MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
 {
     dev.writeString("   <interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\" ");
-    if(dev.needsDetectorName()) {
+            toString(stopTime)).writeString("\" ");
+    if (dev.needsDetectorName()) {
         dev.writeString("id=\"dump_").writeString(toString(myInterval)).writeString("\" ");
     }
     dev.writeString(">\n");
@@ -298,29 +238,26 @@ MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLDetectorInfoStart( XMLDevice &dev ) const
+MSMeanData_Net::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
     dev.writeString("<netstats>");
 }
 
 
 void
-MSMeanData_Net::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
+MSMeanData_Net::writeXMLDetectorInfoEnd(XMLDevice &dev) const
 {
     dev.writeString("</netstats>");
 }
 
 
 SUMOTime
-MSMeanData_Net::getDataCleanUpSteps( void ) const
+MSMeanData_Net::getDataCleanUpSteps(void) const
 {
     return myInterval;
 }
 
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+/****************************************************************************/
 
-// Local Variables:
-// mode:C++
-// End:

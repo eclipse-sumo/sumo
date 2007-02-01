@@ -1,69 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSMeanData_Net_Utils.cpp -
-//  Utilities for building the lanes' mean data output
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 10.05.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSMeanData_Net_Utils.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10.05.2004
+/// @version $Id: $
+///
+// Utilities for building the lanes' mean data output
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/08/01 06:56:56  dkrajzew
-// error checks for dump-begins/dump-ends added
-//
-// Revision 1.13  2006/04/18 08:05:44  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.12  2006/04/11 10:59:07  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.11  2006/04/05 05:27:37  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.10  2006/01/16 13:35:52  dkrajzew
-// output formats updated for the next release
-//
-// Revision 1.9  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 11:08:51  dkrajzew
-// LARGE CODE RECHECK
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSMeanData_Net.h"
 #include "MSMeanData_Net_Utils.h"
@@ -83,15 +52,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSMeanData_Net_Cont
 MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 MSEdgeControl &ec,
@@ -103,31 +72,31 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 const std::vector<int> &dumpEnds)
 {
     // check constraints
-    if(dumpBegins.size()!=dumpEnds.size()) {
+    if (dumpBegins.size()!=dumpEnds.size()) {
         MsgHandler::getErrorInstance()->inform("The number of entries in dump-begins must be the same as in dump-ends.");
         throw ProcessError();
     }
     size_t noConstraints = dumpBegins.size();
-    for(size_t i=0; i<noConstraints; i++) {
-        if(dumpBegins[i]>=dumpEnds[i]) {
+    for (size_t i=0; i<noConstraints; i++) {
+        if (dumpBegins[i]>=dumpEnds[i]) {
             MsgHandler::getErrorInstance()->inform("The dump-begin at position " + toString(i+1) + " is not smaller than the according dump-end.");
             throw ProcessError();
         }
     }
     // build mean data
     MSMeanData_Net_Cont ret;
-    if ( dumpMeanDataIntervalls.size() > 0 ) {
+    if (dumpMeanDataIntervalls.size() > 0) {
         MSMeanData_Net_Cont tmp =
             buildList(det2file, ec,
-                dumpMeanDataIntervalls, baseNameDumpFiles,
-                dumpBegins, dumpEnds, false);
+                      dumpMeanDataIntervalls, baseNameDumpFiles,
+                      dumpBegins, dumpEnds, false);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
-    if ( laneDumpMeanDataIntervalls.size() > 0 ) {
+    if (laneDumpMeanDataIntervalls.size() > 0) {
         MSMeanData_Net_Cont tmp =
             buildList(det2file, ec,
-                laneDumpMeanDataIntervalls, baseNameLaneDumpFiles,
-                dumpBegins, dumpEnds, true);
+                      laneDumpMeanDataIntervalls, baseNameLaneDumpFiles,
+                      dumpBegins, dumpEnds, true);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     return ret;
@@ -144,20 +113,20 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 bool useLanes)
 {
     MSMeanData_Net_Cont ret;
-    if ( dumpMeanDataIntervalls.size() > 0 ) {
+    if (dumpMeanDataIntervalls.size() > 0) {
         dumpMeanDataIntervalls = buildUniqueList(dumpMeanDataIntervalls);
-        sort( dumpMeanDataIntervalls.begin(),
-              dumpMeanDataIntervalls.end() );
+        sort(dumpMeanDataIntervalls.begin(),
+             dumpMeanDataIntervalls.end());
 
         // Prepare MeanData container, e.g. assign intervals and open files.
-        for ( std::vector<int>::iterator it =
-                  dumpMeanDataIntervalls.begin();
-              it != dumpMeanDataIntervalls.end(); ++it ) {
+        for (std::vector<int>::iterator it =
+                    dumpMeanDataIntervalls.begin();
+                it != dumpMeanDataIntervalls.end(); ++it) {
 
-            string fileName   = baseNameDumpFiles + "_" + toString( *it ) + ".xml";
+            string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
             OutputDevice* dev =
-                SharedOutputDevices::getInstance()->getOutputDevice( fileName );
-            if( dev==0 ) {
+                SharedOutputDevices::getInstance()->getOutputDevice(fileName);
+            if (dev==0) {
                 MsgHandler::getErrorInstance()->inform("The following file containing aggregated values could not been build:\n" + fileName);
                 throw ProcessError();
             }
@@ -193,9 +162,9 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 "-->\n" ;
             */
             MSMeanData_Net *det =
-                new MSMeanData_Net( *it, ret.size(), ec,
-                    dumpBegins, dumpEnds, useLanes, true);
-            ret.push_back( det );
+                new MSMeanData_Net(*it, ret.size(), ec,
+                                   dumpBegins, dumpEnds, useLanes, true);
+            ret.push_back(det);
             det2file.addDetectorAndInterval(det, dev, *it);
         }
     }
@@ -205,13 +174,13 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
 
 std::vector<int>
 MSMeanData_Net_Utils::buildUniqueList(
-            std::vector<int> dumpMeanDataIntervalls)
+    std::vector<int> dumpMeanDataIntervalls)
 {
     vector<int> ret;
     set<int> u;
     copy(dumpMeanDataIntervalls.begin(), dumpMeanDataIntervalls.end(),
-        inserter(u, u.begin()));
-    if(dumpMeanDataIntervalls.size()!=u.size()) {
+         inserter(u, u.begin()));
+    if (dumpMeanDataIntervalls.size()!=u.size()) {
         WRITE_WARNING("Removed duplicate dump-intervalls");
     }
     copy(u.begin(), u.end(), back_inserter(ret));
@@ -219,8 +188,6 @@ MSMeanData_Net_Utils::buildUniqueList(
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,43 +1,40 @@
-#ifndef MSE3COLLECTOR_H
-#define MSE3COLLECTOR_H
-
-///
+/****************************************************************************/
 /// @file    MSE3Collector.h
-/// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Tue Dec 02 2003 22:17 CET
-/// @version $Id$
+/// @author  Christian Roessel
+/// @date    Tue Dec 02 2003 22:17 CET
+/// @version $Id: $
 ///
-/// @brief
-///
-///
-
-/* Copyright (C) 2003, 2004 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+// / @author  Christian Roessel <christian.roessel@dlr.de>
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSE3Collector_h
+#define MSE3Collector_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -60,9 +57,9 @@
 #include <utils/common/UtilExceptions.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /// Collection of E3-detectors. E3-detectors are defined by a set of
 /// in-cross-sections and out-cross-sections. Vehicles, that pass an
 /// in- and out-cross-section are detected when they pass the
@@ -75,13 +72,13 @@
 /// MSDetector2File::addDetectorAndInterval().
 ///
 class MSE3Collector : public MSDetectorFileOutput,
-                      public MSVehicleQuitReminded
+            public MSVehicleQuitReminded
 {
 public:
     /**
     *
     */
-    class MSE3EntryReminder : public MSMoveReminder
+class MSE3EntryReminder : public MSMoveReminder
     {
     public:
         MSE3EntryReminder(
@@ -89,9 +86,9 @@ public:
 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
-        void dismissByLaneChange( MSVehicle& veh );
+        void dismissByLaneChange(MSVehicle& veh);
 
-        bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
 
     private:
         MSE3Collector& collectorM;
@@ -101,7 +98,7 @@ public:
 
 
 
-    class MSE3LeaveReminder : public MSMoveReminder
+class MSE3LeaveReminder : public MSMoveReminder
     {
     public:
         MSE3LeaveReminder(
@@ -109,9 +106,9 @@ public:
 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
-        void dismissByLaneChange( MSVehicle& veh );
+        void dismissByLaneChange(MSVehicle& veh);
 
-        bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
 
     private:
         MSE3Collector& collectorM;
@@ -128,8 +125,8 @@ public:
         MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE,
         NUMBER_OF_VEHICLES,
         ALL        ///< Use this to generate all possible
-                                ///detectors in
-                                ///MSE3Collector::addDetector().
+        ///detectors in
+        ///MSE3Collector::addDetector().
     };
 
     /// Increment operator that allows us to iterate over the
@@ -139,7 +136,7 @@ public:
     ///
     /// @return The detector that follows det.
     ///
-    friend MSE3Collector::DetType& operator++( MSE3Collector::DetType& det );
+    friend MSE3Collector::DetType& operator++(MSE3Collector::DetType& det);
 
     ///
     /// Collection of different "vehicle" containers used by MSE3Collector.
@@ -157,7 +154,7 @@ public:
     ///
     /// @return The container that follows cont.
 
-    friend MSE3Collector::Containers& operator++( MSE3Collector::Containers& cont );
+    friend MSE3Collector::Containers& operator++(MSE3Collector::Containers& cont);
 
 
     typedef LD::MSDetectorInterface LDDetector;
@@ -185,12 +182,12 @@ public:
     /// deleteDataAfterSeconds.
     ///
     MSE3Collector(const std::string &id,
-        const CrossSectionVector &entries, const CrossSectionVector &exits,
-        MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOTime deleteDataAfterSeconds);
+                  const CrossSectionVector &entries, const CrossSectionVector &exits,
+                  MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold,
+                  SUMOTime deleteDataAfterSeconds);
 
     /// Dtor. Deletes the created detectors.
-    virtual ~MSE3Collector( void );
+    virtual ~MSE3Collector(void);
 
     /// Call if a vehicle touches an entry-cross-section. Usually
     /// called by LD::MSMoveReminder. Inserts vehicle into internal
@@ -198,7 +195,7 @@ public:
     ///
     /// @param veh The entering vehicle.
     ///
-    void enter( MSVehicle& veh );
+    void enter(MSVehicle& veh);
 
     /// Call if a vehicle passes a leave-cross-section. Usually called
     /// by LD::MSMoveReminder. Removed vehicle from internal
@@ -206,7 +203,7 @@ public:
     ///
     /// @param veh The leaving vehicle.
     ///
-    void leave( MSVehicle& veh );
+    void leave(MSVehicle& veh);
 
     /// Add, i.e. create the requested detector or all detectors out
     /// of E3::DetType.
@@ -215,7 +212,7 @@ public:
     /// all detectors.
     /// @param detId Optional id of the newly created detector(s).
     ///
-    void addDetector( DetType type, std::string detId = "" );
+    void addDetector(DetType type, std::string detId = "");
 
     /// Checks if the requested detector is present.
     ///
@@ -223,7 +220,7 @@ public:
     ///
     /// @return True if the detector exists, false otherwise.
     ///
-    bool hasDetector( DetType type );
+    bool hasDetector(DetType type);
 
     /// Get the aggregated value of a detector. If the detector
     /// doesn't exist, create it and return -1 for this first call.
@@ -235,7 +232,7 @@ public:
     /// @return If the detector exists, return it's aggregated value,
     /// else return -1.
     ///
-    SUMOReal getAggregate( DetType type, MSUnit::Seconds lastNSeconds );
+    SUMOReal getAggregate(DetType type, MSUnit::Seconds lastNSeconds);
 
     /// Get the detectors unique id.
     ///
@@ -249,14 +246,14 @@ public:
     ///
     /// @param veh The vehicle to remove.
     ///
-    void removeOnTripEnd( MSVehicle *veh );
+    void removeOnTripEnd(MSVehicle *veh);
 
     /// Get a header for file output which shall contain some
     /// explanation of the output generated by getXMLOutput.
     ///
     /// @return The member xmlHeaderM.
     ///
-    void writeXMLHeader( XMLDevice &dev ) const;
+    void writeXMLHeader(XMLDevice &dev) const;
 
     /// Get the XML-formatted output of the concrete detector.  Calls
     /// resetQueueLengthAheadOfTrafficLights() if the detector
@@ -268,26 +265,26 @@ public:
     /// @return XML-output of all existing concrete detectors. Except
     /// APPROACHING_VEHICLES_STATES.
     ///
-    void writeXMLOutput( XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime );
+    void writeXMLOutput(XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime);
 
     /// Get an opening XML-tag containing information about the detector.
     ///
     /// @return String describing the detetctor-collection.
     ///
-    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
+    void writeXMLDetectorInfoStart(XMLDevice &dev) const;
 
     /// Get an closing XML-tag corresponding to the opening tag from
     /// getXMLDetectorInfoStart().
     ///
     /// @return The member infoEndM.
     ///
-    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
+    void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
 
     /// Get the clean-up interval length.
     ///
     /// @return Interval-length in steps.
     ///
-    SUMOTime getDataCleanUpSteps( void ) const;
+    SUMOTime getDataCleanUpSteps(void) const;
 
     /// @}
 
@@ -300,7 +297,7 @@ protected:
     /// @return If the detector exists, a pointer to the valid object,
     /// 0 otherwise.
     ///
-    LDDetector* getDetector( DetType type ) const;
+    LDDetector* getDetector(DetType type) const;
 
     std::string idM;            ///< The detector's unique id.
 
@@ -311,12 +308,12 @@ protected:
     LeaveReminders leaveRemindersM; ///< Container of leaveReminders.
 
     MSUnit::Steps haltingTimeThresholdM; ///< Time-theshold to
-                                         ///determine if a vehicle is
-                                         ///halting.
+    ///determine if a vehicle is
+    ///halting.
     MSUnit::CellsPerStep haltingSpeedThresholdM; ///< Speed-theshold
-                                                 ///to determine if a
-                                                 ///vehicle is
-                                                 ///halting.
+    ///to determine if a
+    ///vehicle is
+    ///halting.
     SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
 
     DetectorCont detectorsM;    ///< Container of E3-detectors.
@@ -334,7 +331,7 @@ protected:
     ///
     /// @param type The container you are interested in.
     ///
-    void createContainer( Containers type );
+    void createContainer(Containers type);
 
     /// Create a detector out of E3::DetType. The created detector is
     /// put into member detectorsM. On creation, the detector gets one
@@ -343,7 +340,7 @@ protected:
     /// @param type The detector you are interested in.
     /// @param detId Detector-id, need not be unique.
     ///
-    void createDetector( DetType type, std::string detId );
+    void createDetector(DetType type, std::string detId);
 
     /// Get aggregated XML-output for all detectors in a container.
     ///
@@ -353,16 +350,17 @@ protected:
     /// @return A XML-formatted string.
     ///
     template< class Cont >
-    void writeXMLOutput( XMLDevice &dev, Cont& container,
-                        SUMOTime startTime, SUMOTime stopTime) {
+    void writeXMLOutput(XMLDevice &dev, Cont& container,
+                        SUMOTime startTime, SUMOTime stopTime)
+    {
         MSUnit::Seconds lastNSeconds = (MSUnit::Seconds) stopTime-startTime+1;
-        for ( typename Cont::iterator it = container.begin(); it != container.end(); ++it ) {
-            if ( *it == 0 ) {
+        for (typename Cont::iterator it = container.begin(); it != container.end(); ++it) {
+            if (*it == 0) {
                 continue;
             }
             dev.writeString((*it)->getName()).writeString("=\"").writeString(
-                toString( (*it)->getAggregate( lastNSeconds ))).writeString(
-                "\" ");
+                toString((*it)->getAggregate(lastNSeconds))).writeString(
+                    "\" ");
         }
     }
 
@@ -371,9 +369,10 @@ protected:
     /// @param cont The container whose elements shall be deleted.
     ///
     template< class Cont >
-    void deleteContainer( Cont& cont ) {
-        for ( typename Cont::iterator it = cont.begin(); it != cont.end(); ++it ) {
-            if ( *it != 0 ) {
+    void deleteContainer(Cont& cont)
+    {
+        for (typename Cont::iterator it = cont.begin(); it != cont.end(); ++it) {
+            if (*it != 0) {
                 delete *it;
             }
         }
@@ -382,11 +381,7 @@ protected:
 };
 
 
+#endif
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+/****************************************************************************/
 
-// Local Variables:
-// mode:C++
-// End:
-
-#endif // MSE3COLLECTOR_H

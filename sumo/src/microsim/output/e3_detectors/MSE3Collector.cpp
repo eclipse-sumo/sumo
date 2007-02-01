@@ -1,69 +1,37 @@
-///
+/****************************************************************************/
 /// @file    MSE3Collector.cpp
-/// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Tue Dec 02 2003 22:17 CET
-/// @version $Id$
+/// @author  Christian Roessel
+/// @date    Tue Dec 02 2003 22:17 CET
+/// @version $Id: $
 ///
-/// @brief
-///
-///
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+// / @author  Christian Roessel <christian.roessel@dlr.de>
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/11/14 13:02:47  dkrajzew
-// warnings removed
-//
-// Revision 1.10  2006/10/25 12:22:41  dkrajzew
-// updated
-//
-// Revision 1.9  2006/10/12 08:06:35  dkrajzew
-// removed unneeded id member in MSMoveReminder
-//
-// Revision 1.8  2006/08/01 05:54:35  dkrajzew
-// E3 detectors refactored partially
-//
-// Revision 1.7  2006/04/11 10:59:07  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.6  2005/10/07 11:37:46  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 11:08:38  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/15 07:18:40  dkrajzew
-// code style applied
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSE3Collector.h"
 
@@ -72,57 +40,56 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * variable declarations
- * ======================================================================= */
+// ===========================================================================
+// variable declarations
+// ===========================================================================
 std::string MSE3Collector::xmlHeaderM(
-"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-"<!--\n"
-"- nVehicles [veh]\n"
-"- meanTraveltime [s]\n"
-"- meanNHaltsPerVehicle [n]\n"
-"-->\n\n");
+    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+    "<!--\n"
+    "- nVehicles [veh]\n"
+    "- meanTraveltime [s]\n"
+    "- meanNHaltsPerVehicle [n]\n"
+    "-->\n\n");
 
 
 std::string MSE3Collector::infoEndM = "</detector>";
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * MSE3Collector::MSE3EntryReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
-            const MSCrossSection &crossSection, MSE3Collector& collector)
-    : MSMoveReminder(crossSection.laneM),
-    collectorM( collector ), posM(crossSection.posM)
-{
-}
+    const MSCrossSection &crossSection, MSE3Collector& collector)
+        : MSMoveReminder(crossSection.laneM),
+        collectorM(collector), posM(crossSection.posM)
+{}
 
 
 bool
 MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal ,
-                                                SUMOReal newPos, SUMOReal)
+        SUMOReal newPos, SUMOReal)
 {
-    if ( newPos <= posM ) {
+    if (newPos <= posM) {
         // crossSection not yet reached
         return true;
     }
-    collectorM.enter( veh );
+    collectorM.enter(veh);
     return false;
 }
 
 
 void
-MSE3Collector::MSE3EntryReminder::dismissByLaneChange( MSVehicle&  )
+MSE3Collector::MSE3EntryReminder::dismissByLaneChange(MSVehicle&)
 {
     // nothing to do for E3
 }
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh )
+MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 {
     return veh.getPositionOnLane() <= posM;
 }
@@ -133,24 +100,23 @@ MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh 
  * MSE3Collector::MSE3LeaveReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
-            const MSCrossSection &crossSection, MSE3Collector& collector)
-    : MSMoveReminder(crossSection.laneM),
-    collectorM( collector ), posM(crossSection.posM)
-{
-}
+    const MSCrossSection &crossSection, MSE3Collector& collector)
+        : MSMoveReminder(crossSection.laneM),
+        collectorM(collector), posM(crossSection.posM)
+{}
 
 
 bool
 MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal ,
-                                                SUMOReal newPos, SUMOReal)
+        SUMOReal newPos, SUMOReal)
 {
-    if ( newPos <= posM ) {
+    if (newPos <= posM) {
         // crossSection not yet reached
         return true;
     }
-    if ( newPos - veh.getLength() > posM ) {
+    if (newPos - veh.getLength() > posM) {
         // crossSection completely left
-        collectorM.leave( veh );
+        collectorM.leave(veh);
         return false;
     }
     // crossSection partially left
@@ -159,14 +125,14 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal ,
 
 
 void
-MSE3Collector::MSE3LeaveReminder::dismissByLaneChange( MSVehicle&  )
+MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&)
 {
     // nothing to do for E3
 }
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh )
+MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 {
     return veh.getPositionOnLane() - veh.getLength() <= posM;
 }
@@ -177,16 +143,16 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange( MSVehicle& veh 
  * definitions of operators
  * ----------------------------------------------------------------------- */
 MSE3Collector::DetType&
-operator++( MSE3Collector::DetType& det )
+operator++(MSE3Collector::DetType& det)
 {
-    return det = ( MSE3Collector::ALL == det ) ? MSE3Collector::MEAN_TRAVELTIME : MSE3Collector::DetType( det + 1 );
+    return det = (MSE3Collector::ALL == det) ? MSE3Collector::MEAN_TRAVELTIME : MSE3Collector::DetType(det + 1);
 }
 
 
 MSE3Collector::Containers&
-operator++( MSE3Collector::Containers& cont )
+operator++(MSE3Collector::Containers& cont)
 {
-    return cont = ( MSE3Collector::TRAVELTIME == cont ) ? MSE3Collector::VEHICLES : MSE3Collector::Containers( cont + 1 );
+    return cont = (MSE3Collector::TRAVELTIME == cont) ? MSE3Collector::VEHICLES : MSE3Collector::Containers(cont + 1);
 }
 
 
@@ -200,37 +166,37 @@ MSE3Collector::MSE3Collector(const std::string &id,
                              MSUnit::Seconds haltingTimeThreshold,
                              MSUnit::MetersPerSecond haltingSpeedThreshold,
                              SUMOTime deleteDataAfterSeconds)
-    : idM( id ), entriesM( entries ), exitsM( exits ),
-    haltingTimeThresholdM(MSUnit::getInstance()->getSteps( haltingTimeThreshold ) ),
-    haltingSpeedThresholdM(MSUnit::getInstance()->getCellsPerStep( haltingSpeedThreshold ) ),
-    deleteDataAfterSecondsM( deleteDataAfterSeconds ),
-    detectorsM(3), containersM(3)
+        : idM(id), entriesM(entries), exitsM(exits),
+        haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
+        haltingSpeedThresholdM(MSUnit::getInstance()->getCellsPerStep(haltingSpeedThreshold)),
+        deleteDataAfterSecondsM(deleteDataAfterSeconds),
+        detectorsM(3), containersM(3)
 {
     // Set MoveReminders to entries and exits
-    for ( CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1 ) {
-        entryRemindersM.push_back(new MSE3EntryReminder(*crossSec1, *this) );
+    for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1) {
+        entryRemindersM.push_back(new MSE3EntryReminder(*crossSec1, *this));
     }
-    for ( CrossSectionVectorConstIt crossSec2 = exits.begin(); crossSec2!=exits.end(); ++crossSec2 ) {
-        leaveRemindersM.push_back(new MSE3LeaveReminder(*crossSec2, *this) );
+    for (CrossSectionVectorConstIt crossSec2 = exits.begin(); crossSec2!=exits.end(); ++crossSec2) {
+        leaveRemindersM.push_back(new MSE3LeaveReminder(*crossSec2, *this));
     }
 }
 
 
-MSE3Collector::~MSE3Collector( void )
+MSE3Collector::~MSE3Collector(void)
 {
-    deleteContainer( entryRemindersM );
-    deleteContainer( leaveRemindersM );
-    deleteContainer( detectorsM );
-    deleteContainer( containersM );
+    deleteContainer(entryRemindersM);
+    deleteContainer(leaveRemindersM);
+    deleteContainer(detectorsM);
+    deleteContainer(containersM);
 }
 
 
 void
-MSE3Collector::enter( MSVehicle& veh )
+MSE3Collector::enter(MSVehicle& veh)
 {
-    for ( ContainerContIter it = containersM.begin(); it != containersM.end(); ++it ) {
-        if ( *it != 0 ) {
-            (*it)->enterDetectorByMove( &veh );
+    for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
+        if (*it != 0) {
+            (*it)->enterDetectorByMove(&veh);
         }
     }
     veh.quitRemindedEntered(this);
@@ -238,16 +204,16 @@ MSE3Collector::enter( MSVehicle& veh )
 
 
 void
-MSE3Collector::leave( MSVehicle& veh )
+MSE3Collector::leave(MSVehicle& veh)
 {
-    for ( DetContIter det = detectorsM.begin(); det != detectorsM.end(); ++det ) {
-        if ( *det != 0 ) {
-            (*det)->leave( veh );
+    for (DetContIter det = detectorsM.begin(); det != detectorsM.end(); ++det) {
+        if (*det != 0) {
+            (*det)->leave(veh);
         }
     }
-    for ( ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont ) {
-        if ( *cont != 0 ) {
-            (*cont)->leaveDetectorByMove( &veh );
+    for (ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont) {
+        if (*cont != 0) {
+            (*cont)->leaveDetectorByMove(&veh);
         }
     }
     veh.quitRemindedLeft(this);
@@ -255,35 +221,35 @@ MSE3Collector::leave( MSVehicle& veh )
 
 
 void
-MSE3Collector::addDetector( DetType type, std::string detId)
+MSE3Collector::addDetector(DetType type, std::string detId)
 {
-    if ( detId == "" ) {
+    if (detId == "") {
         detId = idM;
     }
-    if ( type != ALL ) {
-        createDetector( type, detId );
+    if (type != ALL) {
+        createDetector(type, detId);
     } else {
-        for ( DetType typ = MEAN_TRAVELTIME; typ <ALL; ++typ ){
-            createDetector( typ, detId );
+        for (DetType typ = MEAN_TRAVELTIME; typ <ALL; ++typ) {
+            createDetector(typ, detId);
         }
     }
 }
 
 
 bool
-MSE3Collector::hasDetector( DetType type )
+MSE3Collector::hasDetector(DetType type)
 {
-    return getDetector( type ) != 0;
+    return getDetector(type) != 0;
 }
 
 
 SUMOReal
-MSE3Collector::getAggregate( DetType type, MSUnit::Seconds lastNSeconds )
+MSE3Collector::getAggregate(DetType type, MSUnit::Seconds lastNSeconds)
 {
-    assert( type != ALL );
-    LDDetector* det = getDetector( type );
-    if ( det != 0 ){
-        return det->getAggregate( lastNSeconds );
+    assert(type != ALL);
+    LDDetector* det = getDetector(type);
+    if (det != 0) {
+        return det->getAggregate(lastNSeconds);
     }
     // requested type not present
     // create it and return nonsens value for the first access
@@ -300,163 +266,156 @@ MSE3Collector::getID() const
 
 
 void
-MSE3Collector::removeOnTripEnd( MSVehicle *veh )
+MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 {
-    for ( ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont  ) {
-        if ( *cont != 0 ) {
-            (*cont)->removeOnTripEnd( veh );
+    for (ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont) {
+        if (*cont != 0) {
+            (*cont)->removeOnTripEnd(veh);
         }
     }
 }
 
 
 void
-MSE3Collector::writeXMLHeader( XMLDevice &dev ) const
+MSE3Collector::writeXMLHeader(XMLDevice &dev) const
 {
     dev.writeString(xmlHeaderM);
 }
 
 
 void
-MSE3Collector::writeXMLOutput( XMLDevice &dev,
-                              SUMOTime startTime, SUMOTime stopTime )
+MSE3Collector::writeXMLOutput(XMLDevice &dev,
+                              SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\" ");
-    if(dev.needsDetectorName()) {
+            toString(stopTime)).writeString("\" ");
+    if (dev.needsDetectorName()) {
         dev.writeString("id=\"").writeString(idM).writeString("\" ");
     }
-    writeXMLOutput( dev, detectorsM, startTime, stopTime );
+    writeXMLOutput(dev, detectorsM, startTime, stopTime);
     dev.writeString("/>");
 }
 
 
 void
-MSE3Collector::writeXMLDetectorInfoStart( XMLDevice &dev ) const
+MSE3Collector::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
     dev.writeString("<detector type=\"E3_Collector\" id=\"");
     dev.writeString(idM).writeString("\" >\n");
     std::string entries;
     CrossSectionVectorConstIt crossSec;
-    for ( crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec ) {
+    for (crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec) {
         dev.writeString("  <entry lane=\"").writeString(
             crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-            toString( crossSec->posM )).writeString("\" />\n");
+                toString(crossSec->posM)).writeString("\" />\n");
     }
     std::string exits;
-    for ( crossSec = exitsM.begin(); crossSec != exitsM.end(); ++crossSec ) {
+    for (crossSec = exitsM.begin(); crossSec != exitsM.end(); ++crossSec) {
         dev.writeString("  <exit lane=\"").writeString(
             crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-            toString( crossSec->posM )).writeString("\" />\n");
+                toString(crossSec->posM)).writeString("\" />\n");
     }
 }
 
 
 void
-MSE3Collector::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
+MSE3Collector::writeXMLDetectorInfoEnd(XMLDevice &dev) const
 {
     dev.writeString(infoEndM);
 }
 
 
 SUMOTime
-MSE3Collector::getDataCleanUpSteps( void ) const
+MSE3Collector::getDataCleanUpSteps(void) const
 {
     return deleteDataAfterSecondsM; // !!! Konvertierung
 }
 
 
 MSE3Collector::LDDetector*
-MSE3Collector::getDetector( DetType type ) const
+MSE3Collector::getDetector(DetType type) const
 {
-    assert( type != ALL );
+    assert(type != ALL);
     return detectorsM[ type ];
 }
 
 
 void
-MSE3Collector::createContainer( Containers type )
+MSE3Collector::createContainer(Containers type)
 {
-    switch( type ){
-    case VEHICLES:
-        {
-            if ( containersM[ VEHICLES ] == 0 ) {
-                containersM[ VEHICLES ] = new DetectorContainer::VehicleMap();
-            }
-            break;
+    switch (type) {
+    case VEHICLES: {
+        if (containersM[ VEHICLES ] == 0) {
+            containersM[ VEHICLES ] = new DetectorContainer::VehicleMap();
         }
-    case TRAVELTIME:
-        {
-            if ( containersM[ TRAVELTIME ] == 0 ) {
-                containersM[ TRAVELTIME ] = new DetectorContainer::TimeMap();
-            }
-            break;
+        break;
+    }
+    case TRAVELTIME: {
+        if (containersM[ TRAVELTIME ] == 0) {
+            containersM[ TRAVELTIME ] = new DetectorContainer::TimeMap();
         }
-    case HALTINGS:
-        {
-            if ( containersM[ HALTINGS ] == 0 ) {
-                containersM[ HALTINGS ] = new DetectorContainer::HaltingsMap(
-                    haltingTimeThresholdM, haltingSpeedThresholdM );
-            }
-            break;
+        break;
+    }
+    case HALTINGS: {
+        if (containersM[ HALTINGS ] == 0) {
+            containersM[ HALTINGS ] = new DetectorContainer::HaltingsMap(
+                                          haltingTimeThresholdM, haltingSpeedThresholdM);
         }
-    default:
-        {
-            assert( 0 );
-        }
+        break;
+    }
+    default: {
+        assert(0);
+    }
     }
 }
 
 
 void
-MSE3Collector::createDetector( DetType type, std::string detId )
+MSE3Collector::createDetector(DetType type, std::string detId)
 {
-    if ( hasDetector( type ) ) {
+    if (hasDetector(type)) {
         return;
+// ===========================================================================
+// used namespaces
+// ===========================================================================
     }
     using namespace Detector;
-    switch ( type ) {
-    case MEAN_TRAVELTIME:
-        {
-            createContainer( TRAVELTIME );
-            detectorsM[ MEAN_TRAVELTIME ] =
-                new E3Traveltime(
-                    E3Traveltime::getDetectorName() + detId,
-                    (MSUnit::Seconds) deleteDataAfterSecondsM,
-                    *static_cast< DetectorContainer::TimeMap* >(containersM[ TRAVELTIME ] ) );
-            break;
-        }
-    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
-        {
-            createContainer( HALTINGS );
-            detectorsM[ MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
-                new E3MeanNHaltings(
-                    E3MeanNHaltings::getDetectorName() + detId,
-                    (MSUnit::Seconds) deleteDataAfterSecondsM,
-                    *static_cast< DetectorContainer::HaltingsMap* >(containersM[ HALTINGS ] ) );
-            break;
-        }
-    case NUMBER_OF_VEHICLES:
-        {
-            createContainer( VEHICLES );
-            detectorsM[ NUMBER_OF_VEHICLES ] =
-                new E3NVehicles(
-                    E3NVehicles::getDetectorName() + detId,
-                    (MSUnit::Seconds) deleteDataAfterSecondsM,
-                    *static_cast< DetectorContainer::VehicleMap* >(containersM[ VEHICLES ] ) );
-            break;
-        }
-    default:
-        {
-            assert( 0 );
-        }
+    switch (type) {
+    case MEAN_TRAVELTIME: {
+        createContainer(TRAVELTIME);
+        detectorsM[ MEAN_TRAVELTIME ] =
+            new E3Traveltime(
+                E3Traveltime::getDetectorName() + detId,
+                (MSUnit::Seconds) deleteDataAfterSecondsM,
+                *static_cast< DetectorContainer::TimeMap* >(containersM[ TRAVELTIME ]));
+        break;
+    }
+    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: {
+        createContainer(HALTINGS);
+        detectorsM[ MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
+            new E3MeanNHaltings(
+                E3MeanNHaltings::getDetectorName() + detId,
+                (MSUnit::Seconds) deleteDataAfterSecondsM,
+                *static_cast< DetectorContainer::HaltingsMap* >(containersM[ HALTINGS ]));
+        break;
+    }
+    case NUMBER_OF_VEHICLES: {
+        createContainer(VEHICLES);
+        detectorsM[ NUMBER_OF_VEHICLES ] =
+            new E3NVehicles(
+                E3NVehicles::getDetectorName() + detId,
+                (MSUnit::Seconds) deleteDataAfterSecondsM,
+                *static_cast< DetectorContainer::VehicleMap* >(containersM[ VEHICLES ]));
+        break;
+    }
+    default: {
+        assert(0);
+    }
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

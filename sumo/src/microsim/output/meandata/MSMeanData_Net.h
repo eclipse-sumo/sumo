@@ -1,74 +1,43 @@
-#ifndef MSMeanData_Net_h
-#define MSMeanData_Net_h
-//---------------------------------------------------------------------------//
-//                        MSMeanData_Net.cpp -
-//  Redirector for mean data output (net->edgecontrol)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 10.05.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSMeanData_Net.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10.05.2004
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/08/01 13:39:54  dkrajzew
-// patching building
-//
-// Revision 1.9  2006/08/01 06:56:20  dkrajzew
-// removed unneeded API parts
-//
-// Revision 1.8  2006/07/10 06:11:18  dkrajzew
-// mean data reworked
-//
-// Revision 1.7  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 11:08:51  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/07/12 12:14:39  dkrajzew
-// edge-based mean data implemented; previous lane-based is now optional
-//
-// Revision 1.4  2005/05/04 08:13:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
-//
-// Revision 1.3  2005/02/01 10:10:46  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2004/11/23 10:14:27  dkrajzew
-// all detectors moved to microscim/output; new detectors usage applied
-//
-// Revision 1.1  2004/08/02 12:05:34  dkrajzew
-// moved meandata to an own folder
-//
-// Revision 1.1  2004/07/02 09:01:44  dkrajzew
-// microsim output refactoring (moved to a subfolder)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSMeanData_Net_h
+#define MSMeanData_Net_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * imported modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// imported modules
+// ===========================================================================
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -76,18 +45,18 @@
 #include <limits>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
 class MSLane;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSMeanData_Net
  */
@@ -95,33 +64,33 @@ class MSMeanData_Net : public MSDetectorFileOutput
 {
 public:
     /// constructor
-    MSMeanData_Net( unsigned int t, unsigned int index,
-        MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-        const std::vector<int> &dumpEnds, bool useLanes,
-        bool addHeaderTail = true );
+    MSMeanData_Net(unsigned int t, unsigned int index,
+                   MSEdgeControl &edges, const std::vector<int> &dumpBegins,
+                   const std::vector<int> &dumpEnds, bool useLanes,
+                   bool addHeaderTail = true);
 
     /// destructor
     virtual ~MSMeanData_Net();
 
     virtual void write(XMLDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime);
+                       SUMOTime startTime, SUMOTime stopTime);
 
     virtual void writeEdge(XMLDevice &dev,
-        const MSEdge &edge,
-        SUMOTime startTime, SUMOTime stopTime);
+                           const MSEdge &edge,
+                           SUMOTime startTime, SUMOTime stopTime);
 
     virtual void writeLane(XMLDevice &dev,
-        const MSLane &lane,
-        SUMOTime startTime, SUMOTime stopTime);
+                           const MSLane &lane,
+                           SUMOTime startTime, SUMOTime stopTime);
 
     friend class MSMeanData_Net_Utils;
 
-    void writeXMLHeader( XMLDevice &dev ) const;
-    virtual void writeXMLOutput( XMLDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime );
-    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
-    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
-    SUMOTime getDataCleanUpSteps( void ) const;
+    void writeXMLHeader(XMLDevice &dev) const;
+    virtual void writeXMLOutput(XMLDevice &dev,
+                                SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLDetectorInfoStart(XMLDevice &dev) const;
+    void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
+    SUMOTime getDataCleanUpSteps(void) const;
 
 protected:
     void resetOnly(SUMOTime stopTime);
@@ -131,9 +100,10 @@ protected:
         const MSLaneMeanDataValues &values, SUMOTime period,
         SUMOReal laneLength, SUMOReal laneVMax,
         SUMOReal &traveltime, SUMOReal &meanSpeed,
-        SUMOReal &meanDensity, SUMOReal &meanOccupancy) {
+        SUMOReal &meanDensity, SUMOReal &meanOccupancy)
+    {
 
-        if(values.nSamples==0) {
+        if (values.nSamples==0) {
             assert(laneVMax>=0);
             traveltime = laneLength / laneVMax;
             meanSpeed = laneVMax;
@@ -141,7 +111,7 @@ protected:
             meanOccupancy = 0;
         } else {
             meanSpeed = values.speedSum / (SUMOReal) values.nSamples;
-            if(meanSpeed==0) {
+            if (meanSpeed==0) {
                 traveltime = 1000000;//std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
             } else {
                 traveltime = laneLength / meanSpeed;
@@ -149,9 +119,9 @@ protected:
             assert(period!=0);
             assert(laneLength!=0);
             meanDensity = (SUMOReal) values.nSamples /
-                (SUMOReal) period * (SUMOReal) 1000. / (SUMOReal) laneLength;
+                          (SUMOReal) period * (SUMOReal) 1000. / (SUMOReal) laneLength;
             meanOccupancy = (SUMOReal) values.vehLengthSum /
-                (SUMOReal) period / (SUMOReal) laneLength;
+                            (SUMOReal) period / (SUMOReal) laneLength;
         }
     }
 
@@ -177,12 +147,7 @@ protected:
 };
 
 
-//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 
