@@ -1,89 +1,38 @@
-/***************************************************************************
-                          NIVisumParser_Edges.cpp
-              Parser for visum-edges
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 14 Nov 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.15  2006/06/13 13:16:00  dkrajzew
-// patching problems on loading split lanes and tls
+/****************************************************************************/
+/// @file    NIVisumParser_Edges.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 14 Nov 2002
+/// @version $Id: $
+///
+// Parser for visum-edges
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.14  2006/04/07 05:28:50  dkrajzew
-// finished lane-2-lane connections setting
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.13  2006/03/28 06:15:48  dkrajzew
-// refactoring and extending the Visum-import
-//
-// Revision 1.12  2006/02/23 11:23:53  dkrajzew
-// VISION import added
-//
-// Revision 1.11  2005/11/09 06:42:07  dkrajzew
-// complete geometry building rework (unfinished)
-//
-// Revision 1.10  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:03:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/04/27 12:24:41  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.6  2004/11/23 10:23:51  dkrajzew
-// debugging
-//
-// Revision 1.5  2004/07/02 09:36:35  dkrajzew
-// error on edges with no lanes patched
-//
-// Revision 1.4  2004/01/12 15:36:08  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.3  2003/11/11 08:19:46  dkrajzew
-// made the code a little bit more pretty
-//
-// Revision 1.2  2003/05/20 09:39:14  dkrajzew
-// Visum traffic light import added (by Markus Hartinger)
-//
-// Revision 1.1  2003/02/07 11:14:54  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/TplConvertSec.h>
 #include <netbuild/NBHelpers.h>
@@ -98,27 +47,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVisumParser_Edges::NIVisumParser_Edges(NIVisumLoader &parent,
         NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-		const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
-{
-}
+        const std::string &dataName)
+        : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
+{}
 
 
 NIVisumParser_Edges::~NIVisumParser_Edges()
-{
-}
+{}
 
 
 void
@@ -131,7 +78,7 @@ NIVisumParser_Edges::myDependentReport()
         // get the from- & to-node and validate them
         NBNode *from = getNamedNode(myNodeCont, "STRECKE", "VonKnot", "VonKnotNr");
         NBNode *to = getNamedNode(myNodeCont, "STRECKE", "NachKnot", "NachKnotNr");
-        if(from==0||to==0||!checkNodes(from, to)) {
+        if (from==0||to==0||!checkNodes(from, to)) {
             return;
         }
         // get the type
@@ -151,35 +98,35 @@ NIVisumParser_Edges::myDependentReport()
         //  (should be the opposite direction)
         bool oneway_checked = oneway;
         NBEdge *previous = myEdgeCont.retrieve(id);
-        if(previous!=0) {
+        if (previous!=0) {
             id = '-' + id;
             previous->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
             oneway_checked = false;
         }
-        if(find(myTouchedEdges.begin(), myTouchedEdges.end(), id)!=myTouchedEdges.end()) {
+        if (find(myTouchedEdges.begin(), myTouchedEdges.end(), id)!=myTouchedEdges.end()) {
             oneway_checked = false;
         }
         string tmpid = '-' + id;
-        if(find(myTouchedEdges.begin(), myTouchedEdges.end(), tmpid)!=myTouchedEdges.end()) {
+        if (find(myTouchedEdges.begin(), myTouchedEdges.end(), tmpid)!=myTouchedEdges.end()) {
             previous = myEdgeCont.retrieve(tmpid);
-            if(previous!=0) {
+            if (previous!=0) {
                 previous->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
             }
             oneway_checked = false;
         }
         // add the edge
         int prio = myTypeCont.getPriority(type);
-        if(nolanes!=0) {
+        if (nolanes!=0) {
             insertEdge(id, from, to, type, speed, nolanes, length, prio, oneway_checked);
         }
         myTouchedEdges.push_back(id);
         // nothing more to do, when the edge is a one-way street
-        if(oneway) {
+        if (oneway) {
             return;
         }
         // add the opposite edge
         id = '-' + id;
-        if(nolanes!=0) {
+        if (nolanes!=0) {
             insertEdge(id, to, from, type, speed, nolanes, length, prio, false);
         }
         myTouchedEdges.push_back(id);
@@ -196,13 +143,13 @@ NIVisumParser_Edges::myDependentReport()
 bool
 NIVisumParser_Edges::checkNodes(NBNode *from, NBNode *to) const
 {
-    if(from==0) {
+    if (from==0) {
         addError(" The from-node was not found within the net");
     }
-    if(to==0) {
+    if (to==0) {
         addError(" The to-node was not found within the net");
     }
-    if(from==to) {
+    if (from==to) {
         addError(" Both nodes are the same");
     }
     return from!=0&&to!=0&&from!=to;
@@ -215,11 +162,10 @@ NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
     SUMOReal length = 0;
     try {
         length = TplConvertSec<char>::_2SUMORealSec(
-            myLineParser.get("Laenge").c_str(), 0);
-    } catch (OutOfBoundsException) {
-    }
+                     myLineParser.get("Laenge").c_str(), 0);
+    } catch (OutOfBoundsException) {}
     // compute when the street's length is not available
-    if(length==0) {
+    if (length==0) {
         length = GeomHelper::distance(from->getPosition(), to->getPosition());
     }
     return length;
@@ -232,11 +178,10 @@ NIVisumParser_Edges::getSpeed(const std::string &type) const
     SUMOReal speed = 0;
     try {
         speed = myLineParser.know("v0-IV")
-            ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
-            : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
-    } catch (OutOfBoundsException) {
-    }
-    if(speed<=0) {
+                ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
+                : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
+    } catch (OutOfBoundsException) {}
+    if (speed<=0) {
         speed = myTypeCont.getSpeed(type);
     } else {
         speed = speed / (SUMOReal) 3.6;
@@ -251,8 +196,8 @@ NIVisumParser_Edges::getNoLanes(const std::string &type) const
     int nolanes = 0;
     try {
         nolanes = myLineParser.know("Fahrstreifen")
-            ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
-            : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+                  ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+                  : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
     } catch (UnknownElement) {
         nolanes = myTypeCont.getNoLanes(type);
     }
@@ -268,18 +213,16 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
                                 int prio, bool oneway) const
 {
     NBEdge::LaneSpreadFunction lsf = oneway
-        ? NBEdge::LANESPREAD_CENTER
-        : NBEdge::LANESPREAD_RIGHT;
+                                     ? NBEdge::LANESPREAD_CENTER
+                                     : NBEdge::LANESPREAD_RIGHT;
     NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio, lsf);
-    if( !myEdgeCont.insert(e)) {
+    if (!myEdgeCont.insert(e)) {
         delete e;
         addError(" Duplicate edge occured ('" + id + "').");
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

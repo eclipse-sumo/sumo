@@ -1,49 +1,38 @@
-/***************************************************************************
-                          NINavTeqHelper.cpp
-    Some parser methods shared around several formats containing NavTeq-Nets
-                             -------------------
-    project              : SUMO
-    subproject           : netbuilder / netconverter
-    begin                : Jul 2006
-    copyright            : (C) 2006 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.3  2006/09/18 10:12:57  dkrajzew
-// added import of vclasses
+/****************************************************************************/
+/// @file    NINavTeqHelper.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Jul 2006
+/// @version $Id: $
+///
+// Some parser methods shared around several formats containing NavTeq-Nets
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NINavTeqHelper.h"
 #include <utils/common/TplConvert.h>
@@ -52,66 +41,66 @@ namespace
 #include <netbuild/NBEdge.h>
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 SUMOReal
 NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
 {
-	try {
-		int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
-		switch(speedClass) {
-		case -1:
-			return (SUMOReal) 1.0 / (SUMOReal) 3.6;
-		case 1:
-			return (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
-		case 2:
-			return (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
-		case 3:
-			return (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
-		case 4:
-			return (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
-		case 5:
-			return (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
-		case 6:
-			return (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
-		case 7:
-			return (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
-		case 8:
-			return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
-		default:
-			MsgHandler::getErrorInstance()->inform("Invalid speed code (edge '" + id + "'.");
-			throw ProcessError();
-		}
-	} catch (NumberFormatException &) {
+    try {
+        int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
+        switch (speedClass) {
+        case -1:
+            return (SUMOReal) 1.0 / (SUMOReal) 3.6;
+        case 1:
+            return (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
+        case 2:
+            return (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
+        case 3:
+            return (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
+        case 4:
+            return (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
+        case 5:
+            return (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
+        case 6:
+            return (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
+        case 7:
+            return (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
+        case 8:
+            return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
+        default:
+            MsgHandler::getErrorInstance()->inform("Invalid speed code (edge '" + id + "'.");
+            throw ProcessError();
+        }
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
         throw ProcessError();
     }
-	throw ProcessError();
+    throw ProcessError();
 }
 
 
 size_t
 NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
-							  SUMOReal speed, bool useNewLaneNumberInfoPlain)
+                              SUMOReal speed, bool useNewLaneNumberInfoPlain)
 {
     try {
         int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
-        if(nolanes<0) {
+        if (nolanes<0) {
             return 1;
-        } else if(nolanes/10>0&&(useNewLaneNumberInfoPlain||abs((nolanes%10)-(nolanes/10))<2)) {
-			return nolanes / 10;
+        } else if (nolanes/10>0&&(useNewLaneNumberInfoPlain||abs((nolanes%10)-(nolanes/10))<2)) {
+            return nolanes / 10;
         } else {
-            switch(nolanes%10) {
+            switch (nolanes%10) {
             case 1:
                 return 1;
             case 2:
                 nolanes = 2;
-                if(speed>78.0/3.6) {
+                if (speed>78.0/3.6) {
                     nolanes = 3;
                 }
-				return nolanes;
+                return nolanes;
             case 3:
                 return 4;
             default:
@@ -123,7 +112,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
         MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
         throw ProcessError();
     }
-	throw ProcessError();
+    throw ProcessError();
 }
 
 
@@ -131,46 +120,46 @@ void
 NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &classS)
 {
     // 0: allow all vehicle types
-    if(classS[0]=='1') {
+    if (classS[0]=='1') {
         return;
     }
     // Passenger cars -- becomes SVC_PASSENGER
-    if(classS[1]=='1') {
+    if (classS[1]=='1') {
         addVehicleClass(e, SVC_PASSENGER);
     }
     // High Occupancy Vehicle -- becomes SVC_PASSENGER|SVC_HOV
-    if(classS[2]=='1') {
+    if (classS[2]=='1') {
         addVehicleClass(e, SVC_HOV);
         addVehicleClass(e, SVC_PASSENGER);
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
-    if(classS[3]=='1') {
+    if (classS[3]=='1') {
         addVehicleClass(e, SVC_PUBLIC_EMERGENCY);
     }
     // Taxi -- becomes SVC_PASSENGER|SVC_TAXI
-    if(classS[4]=='1') {
+    if (classS[4]=='1') {
         addVehicleClass(e, SVC_TAXI);
         addVehicleClass(e, SVC_PASSENGER);
     }
     // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
-    if(classS[5]=='1') {
+    if (classS[5]=='1') {
         addVehicleClass(e, SVC_PUBLIC_TRANSPORT);
         addVehicleClass(e, SVC_BUS);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
-    if(classS[6]=='1') {
+    if (classS[6]=='1') {
         addVehicleClass(e, SVC_DELIVERY);
     }
     // Transport Truck -- becomes SVC_TRANSPORT
-    if(classS[7]=='1') {
+    if (classS[7]=='1') {
         addVehicleClass(e, SVC_TRANSPORT);
     }
     // Bicycle -- becomes SVC_BICYCLE
-    if(classS[8]=='1') {
+    if (classS[8]=='1') {
         addVehicleClass(e, SVC_BICYCLE);
     }
     // Pedestrian -- becomes SVC_PEDESTRIAN
-    if(classS[9]=='1') {
+    if (classS[9]=='1') {
         addVehicleClass(e, SVC_PEDESTRIAN);
     }
 }
@@ -179,14 +168,12 @@ NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &classS)
 void
 NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c)
 {
-    for(size_t i=0; i<e.getNoLanes(); i++) {
+    for (size_t i=0; i<e.getNoLanes(); i++) {
         e.allowVehicleClass(i, c);
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,72 +1,38 @@
-/***************************************************************************
-                          NIVisumParser_Lanes.cpp
-              Parser for visum-lanes
-                             -------------------
-    project              : SUMO
-    begin                : TThu, 23 Mar 2006
-    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/08/01 07:08:58  dkrajzew
-// output patched
+/****************************************************************************/
+/// @file    NIVisumParser_Lanes.cpp
+/// @author  Daniel Krajzewicz
+/// @date    TThu, 23 Mar 2006
+/// @version $Id: $
+///
+// Parser for visum-lanes
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.8  2006/07/07 11:57:21  dkrajzew
-// further work on VISUM-import
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.7  2006/07/06 06:16:38  dkrajzew
-// further debugging of VISUM-import (unfinished)
-//
-// Revision 1.6  2006/06/13 13:16:00  dkrajzew
-// patching problems on loading split lanes and tls
-//
-// Revision 1.5  2006/04/07 10:41:47  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.4  2006/04/07 05:28:50  dkrajzew
-// finished lane-2-lane connections setting
-//
-// Revision 1.3  2006/04/05 05:33:04  dkrajzew
-// further work on lane connection import
-//
-// Revision 1.2  2006/03/28 09:12:43  dkrajzew
-// lane connections for unsplitted lanes implemented, further refactoring
-//
-// Revision 1.1  2006/03/28 06:15:49  dkrajzew
-// refactoring and extending the Visum-import
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -83,27 +49,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVisumParser_Lanes::NIVisumParser_Lanes(NIVisumLoader &parent,
         NBNodeCont &nc, NBEdgeCont &ec, NBDistrictCont &dc,
         const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc), myEdgeCont(ec), myDistrictCont(dc)
-{
-}
+        : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+        myNodeCont(nc), myEdgeCont(ec), myDistrictCont(dc)
+{}
 
 
 NIVisumParser_Lanes::~NIVisumParser_Lanes()
-{
-}
+{}
 
 
 void
@@ -116,7 +80,7 @@ NIVisumParser_Lanes::myDependentReport()
         NBEdge *baseEdge = getNamedEdge(myEdgeCont, "FAHRSTREIFEN", "STRNR");
         NBEdge *edge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFEN", "STRNR", node);
         // check
-        if(node==0||edge==0) {
+        if (node==0||edge==0) {
             return;
         }
         // get the lane
@@ -129,7 +93,7 @@ NIVisumParser_Lanes::myDependentReport()
             return;
         }
         lane -= 1;
-        if(lane<0) {
+        if (lane<0) {
             addError("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
             return;
         }
@@ -137,7 +101,7 @@ NIVisumParser_Lanes::myDependentReport()
         string dirS =
             NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
         int prevLaneNo = baseEdge->getNoLanes();
-        if( (dirS=="1"&&!(node->hasIncoming(edge))) || (dirS=="0"&&!(node->hasOutgoing(edge))) ) {
+        if ((dirS=="1"&&!(node->hasIncoming(edge))) || (dirS=="0"&&!(node->hasOutgoing(edge)))) {
             // get the last part of the turnaround direction
             edge = getReversedContinuating(myEdgeCont, edge, node);
         }
@@ -150,19 +114,19 @@ NIVisumParser_Lanes::myDependentReport()
             addError("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
             return;
         }
-        if(length<0) {
+        if (length<0) {
             addError("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
             return;
         }
 
         //
-        if(dirS=="1") {
+        if (dirS=="1") {
             lane -= prevLaneNo;
         }
 
         //
-        if(length==0) {
-            if((int) edge->getNoLanes()>lane) {
+        if (length==0) {
+            if ((int) edge->getNoLanes()>lane) {
                 // ok, we know this already...
                 return;
             }
@@ -170,9 +134,9 @@ NIVisumParser_Lanes::myDependentReport()
             edge->incLaneNo(1);
         } else {
             // check whether this edge already has been created
-            if(edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
-                if(edge->getID().substr(edge->getID().find('_'))=="_" + toString(length) + "_" + node->getID()) {
-                    if((int) edge->getNoLanes()>lane) {
+            if (edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
+                if (edge->getID().substr(edge->getID().find('_'))=="_" + toString(length) + "_" + node->getID()) {
+                    if ((int) edge->getNoLanes()>lane) {
                         // ok, we know this already...
                         return;
                     }
@@ -186,16 +150,16 @@ NIVisumParser_Lanes::myDependentReport()
             bool mustRecheck = true;
             NBNode *nextNode = node;
             SUMOReal seenLength = 0;
-            while(mustRecheck) {
-                if(edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
+            while (mustRecheck) {
+                if (edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
                     // ok, we have a previously created edge here
                     string sub = edge->getID();
                     sub = sub.substr(sub.rfind('_', sub.rfind('_')-1));
                     sub = sub.substr(1, sub.find('_', 1)-1);
                     SUMOReal dist = TplConvert<char>::_2SUMOReal(sub.c_str());
-                    if(dist<length) {
+                    if (dist<length) {
                         seenLength += edge->getLength();
-                        if(dirS=="1") {
+                        if (dirS=="1") {
                             // incoming -> move back
                             edge = edge->getFromNode()->getIncomingEdges()[0];
                             nextNode = edge->getToNode();
@@ -220,21 +184,21 @@ NIVisumParser_Lanes::myDependentReport()
             useLength = edge->getLength()-useLength;
             string edgeID = edge->getID();
             p = edge->getGeometry().positionAtLengthPosition(useLength);
-            if(edgeID.substr(edgeID.length()-node->getID().length()-1)=="_" + node->getID()) {
+            if (edgeID.substr(edgeID.length()-node->getID().length()-1)=="_" + node->getID()) {
                 edgeID = edgeID.substr(0, edgeID.find('_'));
             }
             NBNode *rn = new NBNode(edgeID + "_" +  toString(length) + "_" + node->getID(), p);
-            if(!myNodeCont.insert(rn)) {
+            if (!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
                 throw ProcessError();
             }
             string nid = edgeID + "_" +  toString(length) + "_" + node->getID();
             myEdgeCont.splitAt(myDistrictCont, edge, useLength/*edge->getLength()-length*/, rn,
-                edge->getID(), nid,
-                edge->getNoLanes()+0, edge->getNoLanes()+1);
+                               edge->getID(), nid,
+                               edge->getNoLanes()+0, edge->getNoLanes()+1);
             NBEdge *nedge = myEdgeCont.retrieve(nid);
             nedge = nedge->getToNode()->getOutgoingEdges()[0];
-            while(nedge->getID().substr(nedge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
+            while (nedge->getID().substr(nedge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
                 assert(nedge->getToNode()->getOutgoingEdges().size()>0);
                 nedge->incLaneNo(1);
                 nedge = nedge->getToNode()->getOutgoingEdges()[0];
@@ -251,10 +215,6 @@ NIVisumParser_Lanes::myDependentReport()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

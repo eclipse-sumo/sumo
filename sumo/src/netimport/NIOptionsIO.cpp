@@ -1,244 +1,38 @@
-/***************************************************************************
-                          NIOptionsIO.cpp
-              A class for the initialisation, input and veryfying of the
-        programs options
-                             -------------------
-    project              : SUMO
-    subproject           : netbuilder / netconverter
-    begin                : Tue, 20 Nov 2001
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log: NIOptionsIO.cpp,v $
-// Revision 1.25  2006/11/16 10:50:46  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NIOptionsIO.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Nov 2001
+/// @version $Id: $
+///
+// A class for the initialisation, input and veryfying of the
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.24  2006/11/16 06:50:29  dkrajzew
-// finally patched the "binary-output" - bug ([ sumo-Bugs-1594093 ])
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.23  2006/09/18 10:11:36  dkrajzew
-// changed the way geocoordinates are processed
-//
-// Revision 1.22  2006/08/01 07:19:57  dkrajzew
-// removed build number information
-//
-// Revision 1.21  2006/04/18 08:05:44  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.20  2006/03/27 07:31:42  dkrajzew
-// starting binary network output
-//
-// Revision 1.19  2006/03/15 09:26:09  dkrajzew
-// documentation patched
-//
-// Revision 1.18  2006/03/08 13:02:26  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.17  2006/02/23 11:22:33  dkrajzew
-// changed shape reading import
-//
-// Revision 1.16  2006/02/13 07:20:23  dkrajzew
-// code beautifying
-//
-// Revision 1.15  2006/01/31 10:59:35  dkrajzew
-// extracted common used methods; optional usage of old lane number information in navteq-networks import added
-//
-// Revision 1.14  2006/01/09 11:59:22  dkrajzew
-// debugging error handling; beautifying
-//
-// Revision 1.13  2005/11/15 10:15:49  dkrajzew
-// debugging and beautifying for the next release
-//
-// Revision 1.12  2005/11/14 09:53:49  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh";
-//  removed two files definition for arcview
-//
-// Revision 1.11  2005/10/17 09:18:44  dkrajzew
-// got rid of the old MSVC memory leak checker
-//
-// Revision 1.10  2005/10/07 11:41:37  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:13:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/07/12 12:35:21  dkrajzew
-// elmar2 importer included; debugging
-//
-// Revision 1.6  2005/04/27 12:24:24  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.5  2004/11/23 10:23:34  dkrajzew
-// debugging
-//
-// Revision 1.4  2004/07/05 09:32:53  dkrajzew
-// false check patched (must be reworked)
-//
-// Revision 1.3  2004/07/02 09:34:37  dkrajzew
-// elmar and tiger import added
-//
-// Revision 1.2  2004/01/28 12:37:41  dkrajzew
-// added the possibility to define vissims speed factor and a default speed
-//  for vissim-networks
-//
-// Revision 1.1  2003/12/11 06:16:37  dkrajzew
-// NBOptionsIO moved to netimport NIOptionsIO where they belong to
-//
-// Revision 1.20  2003/09/05 14:40:42  dkrajzew
-// options for network building are now commoly set within NBNetBuilder
-//
-// Revision 1.19  2003/08/18 12:49:59  dkrajzew
-// possibility to print node positions added
-//
-// Revision 1.18  2003/08/14 13:51:51  dkrajzew
-// reshifting of networks added
-//
-// Revision 1.17  2003/07/22 15:22:05  dkrajzew
-// duration of traffic lines may now be changed on command line
-//
-// Revision 1.16  2003/07/21 11:04:06  dkrajzew
-// the default duration of green light phases may now be changed on startup
-//
-// Revision 1.15  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of
-//  geometry information
-//
-// Revision 1.14  2003/06/24 14:38:46  dkrajzew
-// false instantiation of option "log-file" as Option_Strng patched into
-//  Option_FileName patched
-//
-// Revision 1.13  2003/06/24 08:09:29  dkrajzew
-// implemented SystemFrame and applied the changes to all applications
-//
-// Revision 1.12  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.11  2003/06/05 11:43:35  dkrajzew
-// class templates applied; documentation added
-//
-// Revision 1.10  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging
-//  on tl-import; further work on vissim-import
-//
-// Revision 1.9  2003/04/10 15:45:20  dkrajzew
-// some lost changes reapplied
-//
-// Revision 1.8  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge
-//  sorting (false lane connections) debugged
-//
-// Revision 1.7  2003/03/20 16:23:09  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.6  2003/03/18 13:07:23  dkrajzew
-// usage of node position within xml-edge descriptions allowed
-//
-// Revision 1.5  2003/03/12 16:47:55  dkrajzew
-// extension for artemis-import
-//
-// Revision 1.4  2003/02/13 15:53:15  dkrajzew
-// some further processing options added
-//
-// Revision 1.3  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/17 13:32:55  dkrajzew
-// handling of connection specification files added
-//
-// Revision 1.1  2002/10/16 15:48:13  dkrajzew
-// initial commit for net building classes
-//
-// Revision 1.10  2002/07/25 08:40:46  dkrajzew
-// Visum7.5 and Cell import added
-//
-// Revision 1.9  2002/07/18 07:22:26  dkrajzew
-// Default usage of types removed
-//
-// Revision 1.8  2002/07/11 05:47:35  dkrajzew
-// Options describing files transfered to Option_FileName to enable relative
-//  path setting within the configuration files
-//
-// Revision 1.7  2002/06/17 15:19:29  dkrajzew
-// unreferenced variable declarations removed
-//
-// Revision 1.6  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on
-//  the EXTERNAL_TEMPLATE_DEFINITION-definition
-//
-// Revision 1.5  2002/05/14 04:42:56  dkrajzew
-// new computation flow
-//
-// Revision 1.4  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor SUMOReal to int conversions removed;
-//
-// Revision 1.3  2002/04/24 06:52:01  dkrajzew
-// Deprecated initialisation of the options container that used enviroment
-//  variables removed
-//
-// Revision 1.2  2002/04/16 12:30:13  dkrajzew
-// Usage of SUMO_DATA removed
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
-// new version-free project name
-//
-// Revision 1.6  2002/04/09 12:21:25  dkrajzew
-// Windows-Memoryleak detection changed
-//
-// Revision 1.5  2002/03/22 10:50:03  dkrajzew
-// Memory leaks debugging added (MSVC++)
-//
-// Revision 1.4  2002/03/20 08:30:33  dkrajzew
-// Help output added
-//
-// Revision 1.3  2002/03/06 10:13:25  traffic
-// Enviroment variable changef from SUMO to SUMO_DATA
-//
-// Revision 1.2  2002/03/05 14:55:33  traffic
-// Error report on unset path changed
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -260,15 +54,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 NIOptionsIO::fillOptions(OptionsCont &oc)
 {
@@ -282,7 +76,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
 
-    
+
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
@@ -297,7 +91,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Report");
 
     // register options
-        // register I/O options
+    // register I/O options
     oc.doRegister("sumo-net", 's', new Option_FileName());
     oc.addDescription("sumo-net", "Input", "Read SUMO-net from FILE");
 
@@ -350,7 +144,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addDescription("artemis-path", "Input", "Read ARTEMIS-net from path 'FILE'");
 
 
-        // register processing options
+    // register processing options
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
     oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
 
@@ -363,46 +157,46 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
 
     oc.doRegister("arcview.street-id", new Option_String());
     oc.addDescription("arcview.street-id", "Processing", "Read edge ids from column STR (ArcView)");
-    
+
     oc.doRegister("arcview.from-id", new Option_String());
     oc.addDescription("arcview.from-id", "Processing", "Read from-node ids from column STR (ArcView)");
-    
+
     oc.doRegister("arcview.to-id", new Option_String());
     oc.addDescription("arcview.to-id", "Processing", "Read to-node ids from column STR (ArcView)");
-    
+
     oc.doRegister("arcview.type-id", new Option_String());
     oc.addDescription("arcview.type-id", "Processing", "Read type ids from column STR (ArcView)");
-    
+
     oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false));
     oc.addDescription("arcview.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems (ArcView)");
-    
+
     oc.doRegister("arcview.all-bidi", new Option_Bool(false));
     oc.addDescription("arcview.all-bidi", "Processing", "Insert edges in both directions (ArcView)");
-    
+
     oc.doRegister("arcview.utm", new Option_Integer(32));
     oc.addDescription("arcview.utm", "Processing", "Use INT as UTM zone (ArcView)");
-    
+
     oc.doRegister("arcview.guess-projection", new Option_Bool(false));
     oc.addDescription("arcview.guess-projection", "Processing", "Guess the proper projection (ArcView)");
 
-        // register further vissim-options
+    // register further vissim-options
     oc.doRegister("vissim.offset", new Option_Float(5.0f));
     oc.addDescription("vissim.offset", "Processing", "Structure join offset (VISSIM)");
-    
+
     oc.doRegister("vissim.default-speed", new Option_Float(50.0f/3.6f));
     oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed (VISSIM)");
 
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
     oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity (VISSIM)");
-	
-        // register further navteq-options
-	oc.doRegister("navtech.rechecklanes", new Option_Bool(false));
+
+    // register further navteq-options
+    oc.doRegister("navtech.rechecklanes", new Option_Bool(false));
     oc.addDescription("navtech.rechecklanes", "Processing", "");
-    
-        // add netbuilding options
+
+    // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
 
-        // add rand options
+    // add rand options
     RandHelper::insertRandOptions(oc);
 }
 
@@ -412,10 +206,10 @@ NIOptionsIO::checkOptions(OptionsCont &oc)
 {
     bool ok = true;
     try {
-        if(!checkCompleteDescription(oc)) {
-            if(!checkNodes(oc)) ok = false;
-            if(!checkEdges(oc)) ok = false;
-            if(!checkOutput(oc)) ok = false;
+        if (!checkCompleteDescription(oc)) {
+            if (!checkNodes(oc)) ok = false;
+            if (!checkEdges(oc)) ok = false;
+            if (!checkOutput(oc)) ok = false;
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
@@ -428,7 +222,7 @@ NIOptionsIO::checkOptions(OptionsCont &oc)
 bool
 NIOptionsIO::checkCompleteDescription(OptionsCont &)
 {
-   return false;
+    return false;
 }
 
 
@@ -436,16 +230,16 @@ bool
 NIOptionsIO::checkNodes(OptionsCont &oc)
 {
     // check the existance of a name for the nodes file
-    if( oc.isSet("n") ||
-        oc.isSet("e") ||
-        oc.isSet("cell-nodes") ||
-        oc.isSet("visum") ||
-        oc.isSet("vissim") ||
-        oc.isSet("artemis") ||
-        oc.isSet("tiger") ||
-        oc.isSet("elmar") ||
-        oc.isSet("arcview") ||
-        oc.isSet("sumo-net") ) {
+    if (oc.isSet("n") ||
+            oc.isSet("e") ||
+            oc.isSet("cell-nodes") ||
+            oc.isSet("visum") ||
+            oc.isSet("vissim") ||
+            oc.isSet("artemis") ||
+            oc.isSet("tiger") ||
+            oc.isSet("elmar") ||
+            oc.isSet("arcview") ||
+            oc.isSet("sumo-net")) {
         return true;
     }
     MsgHandler::getErrorInstance()->inform("The nodes must be supplied.");
@@ -457,13 +251,13 @@ bool
 NIOptionsIO::checkEdges(OptionsCont &oc)
 {
     // check whether at least a sections or a edges file is supplied
-    if( oc.isSet("e") ||
-        oc.isSet("cell-edges") ||
-        oc.isSet("visum") ||
-        oc.isSet("vissim") ||
-        oc.isSet("artemis") ||
-        oc.isSet("arcview") ||
-        oc.isSet("sumo-net") ) {
+    if (oc.isSet("e") ||
+            oc.isSet("cell-edges") ||
+            oc.isSet("visum") ||
+            oc.isSet("vissim") ||
+            oc.isSet("artemis") ||
+            oc.isSet("arcview") ||
+            oc.isSet("sumo-net")) {
         return true;
     }
     MsgHandler::getErrorInstance()->inform("Either sections or edges must be supplied.");
@@ -475,7 +269,7 @@ bool
 NIOptionsIO::checkOutput(OptionsCont &oc)
 {
     ofstream strm(oc.getString("o").c_str()); // !!! should be made when input are ok
-    if(!strm.good()) {
+    if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");
         return false;
     }
@@ -484,9 +278,5 @@ NIOptionsIO::checkOutput(OptionsCont &oc)
 
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,65 +1,38 @@
-/***************************************************************************
-                          NIVisumParser_TrafficLights.cpp
-			  Parser for visum-TrafficLights
-                             -------------------
-    project              : SUMO
-    begin                : Fri, 09 May 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Markus Hartinger
-    email                : Markus.Hartinger@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2006/03/28 09:12:43  dkrajzew
-// lane connections for unsplitted lanes implemented, further refactoring
+/****************************************************************************/
+/// @file    NIVisumParser_TrafficLights.cpp
+/// @author  unknown_author
+/// @date    Fri, 09 May 2003
+/// @version $Id: $
+///
+// Parser for visum-TrafficLights
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.6  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.5  2005/09/23 06:03:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 12:24:42  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.2  2004/01/12 15:36:08  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.1  2003/05/20 09:39:14  dkrajzew
-// Visum traffic light import added (by Markus Hartinger)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/TplConvert.h>
 #include <netbuild/NBHelpers.h>
@@ -73,46 +46,44 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVisumParser_TrafficLights::NIVisumParser_TrafficLights(NIVisumLoader &parent,
-	const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNIVisumTLs(NIVisumTLs)
-{
-}
+        const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs)
+        : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+        myNIVisumTLs(NIVisumTLs)
+{}
 
 
 NIVisumParser_TrafficLights::~NIVisumParser_TrafficLights()
-{
-}
+{}
 
 
 void
 NIVisumParser_TrafficLights::myDependentReport()
 {
-	std::string id;
+    std::string id;
     try {
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // cycle time
         SUMOReal CycleTime = getNamedFloat("Umlaufzeit", "UMLZEIT");
-		// IntermediateTime
+        // IntermediateTime
         SUMOReal IntermediateTime = getNamedFloat("StdZwischenzeit", "STDZWZEIT");
-		// PhaseBased
+        // PhaseBased
         bool PhaseBased =
             myLineParser.know("PhasenBasiert")
             ? TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str())
             : false;
         // add to the list
-		myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
+        myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
     } catch (OutOfBoundsException) {
         addError2("LSA", id, "OutOfBounds");
     } catch (NumberFormatException) {
@@ -123,8 +94,6 @@ NIVisumParser_TrafficLights::myDependentReport()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

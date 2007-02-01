@@ -1,86 +1,40 @@
+/****************************************************************************/
+/// @file    NIVisumLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 19 Jul 2002
+/// @version $Id: $
+///
+// A loader visum-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NIVisumLoader_h
 #define NIVisumLoader_h
-/***************************************************************************
-                          NIVisumLoader.h
-			  A loader visum-files
-                             -------------------
-    project              : SUMO
-    begin                : Fri, 19 Jul 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.13  2006/09/18 10:11:39  dkrajzew
-// changed the way geocoordinates are processed
-//
-// Revision 1.12  2006/07/06 06:16:38  dkrajzew
-// further debugging of VISUM-import (unfinished)
-//
-// Revision 1.11  2006/06/13 13:16:00  dkrajzew
-// patching problems on loading split lanes and tls
-//
-// Revision 1.10  2006/03/28 09:12:43  dkrajzew
-// lane connections for unsplitted lanes implemented, further refactoring
-//
-// Revision 1.9  2006/03/28 06:15:48  dkrajzew
-// refactoring and extending the Visum-import
-//
-// Revision 1.8  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.7  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:03:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 12:24:41  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.3  2003/06/18 11:15:58  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.2  2003/05/20 09:39:14  dkrajzew
-// Visum traffic light import added (by Markus Hartinger)
-//
-// Revision 1.1  2003/02/07 11:14:54  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 15:44:01  dkrajzew
-// initial commit for visum importing classes
-//
-// Revision 1.1  2002/07/25 08:41:45  dkrajzew
-// Visum7.5 and Cell import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -93,9 +47,9 @@
 #include "NIVisumTL.h"
 
 
-/* =========================================================================
- * class declaration
- * ======================================================================= */
+// ===========================================================================
+// class declaration
+// ===========================================================================
 class OptionsCont;
 class NBNetBuilder;
 class NBNodeCont;
@@ -104,9 +58,9 @@ class NBNode;
 class NBEdge;
 
 
-/* =========================================================================
- * class declaration
- * ======================================================================= */
+// ===========================================================================
+// class declaration
+// ===========================================================================
 /**
  * @class NIVisumLoader
  * @brief This class parses the given visum file.
@@ -117,15 +71,15 @@ class NBEdge;
  * Types are loaded optionally.
  */
 class NIVisumLoader :
-        public FileErrorReporter
+            public FileErrorReporter
 {
 public:
     typedef std::map<std::string, std::string> VSysTypeNames;
-	typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
+    typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
 public:
     /// constructor
     NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-		NBCapacity2Lanes capacity2Lanes);
+                  NBCapacity2Lanes capacity2Lanes);
 
     /// destructor
     ~NIVisumLoader();
@@ -139,14 +93,14 @@ public:
      * @brief The class that parses entries of a certain data type, like edges, edge
      * connections etc.
      */
-    class NIVisumSingleDataTypeParser :
-    public FileErrorReporter::Child,
-            public LineHandler
+class NIVisumSingleDataTypeParser :
+                public FileErrorReporter::Child,
+                public LineHandler
     {
     public:
         /// constructor
         NIVisumSingleDataTypeParser(NIVisumLoader &parent,
-            const std::string &dataName);
+                                    const std::string &dataName);
 
         /// Destructor
         virtual ~NIVisumSingleDataTypeParser();
@@ -190,7 +144,7 @@ public:
          * We had to name it this way, as otherwise it may be ambigous with the
          * method from FileErrorReporter */
         void addError2(const std::string &type, const std::string &id,
-            const std::string &exception);
+                       const std::string &exception);
 
         /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
          *
@@ -214,11 +168,11 @@ public:
          * The "dataName" is used to report errors.
          */
         NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
-            const std::string &fieldName);
+                             const std::string &fieldName);
 
         /** @brief The same, but two different names for the field are allowed */
         NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
-            const std::string &fieldName1, const std::string &fieldName2);
+                             const std::string &fieldName1, const std::string &fieldName2);
 
 
         /** @brief Tries to get the edge which name is stored in the given field
@@ -229,11 +183,11 @@ public:
          * The "dataName" is used to report errors.
          */
         NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
-            const std::string &fieldName);
+                             const std::string &fieldName);
 
         /** @brief The same, but two different names for the field are allowed */
         NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
-            const std::string &fieldName1, const std::string &fieldName2);
+                             const std::string &fieldName1, const std::string &fieldName2);
 
 
         /** @brief Tries to get the edge which name is stored in the given field
@@ -245,16 +199,16 @@ public:
          * The "dataName" is used to report errors.
          */
         NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
-            const std::string &fieldName, NBNode *node);
+                                         const std::string &fieldName, NBNode *node);
 
         /** @brief The same, but two different names for the field are allowed */
         NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
-            const std::string &fieldName1, const std::string &fieldName2,
-            NBNode *node);
+                                         const std::string &fieldName1, const std::string &fieldName2,
+                                         NBNode *node);
 
         /** @brief The same, but the search is started at a named edge */
         NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &name,
-            NBNode *node);
+                                         NBNode *node);
 
 
         /** @brief Returns the named value as a float
@@ -264,9 +218,9 @@ public:
 
         /** @brief The same, but two different names for the field are allowed */
         SUMOReal getNamedFloat(const std::string &fieldName1,
-            const std::string &fieldName2);
+                               const std::string &fieldName2);
         SUMOReal getNamedFloat(const std::string &fieldName1,
-            const std::string &fieldName2, SUMOReal defaultValue);
+                               const std::string &fieldName2, SUMOReal defaultValue);
 
 
         /** @brief Returns the named value as a string
@@ -275,13 +229,13 @@ public:
 
         /** @brief The same, but two different names for the field are allowed */
         std::string getNamedString(const std::string &fieldName1,
-            const std::string &fieldName2);
+                                   const std::string &fieldName2);
 
         /** @brief Returns the opposite direction of the given edge
          * till its begin
          */
         NBEdge *getReversedContinuating(NBEdgeCont &nc, NBEdge *edge,
-            NBNode *node);
+                                        NBNode *node);
 
     private:
         /// Continues the search for a matching edge continuation
@@ -330,14 +284,14 @@ private:
     /// list of known parsers
     ParserVector mySingleDataParsers;
 
-	// list of visum traffic lights
+    // list of visum traffic lights
     NIVisumTL_Map myNIVisumTLs;
 private:
     /**
      * @class PositionSetter
      * @brief Used within the scanning step for setting the positions of the data
      */
-    class PositionSetter : public LineHandler
+class PositionSetter : public LineHandler
     {
     public:
         /// Constructor
@@ -377,10 +331,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,76 +1,61 @@
+/****************************************************************************/
+/// @file    NIVisumParser_Turns.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 14 Nov 2002
+/// @version $Id: $
+///
+// Parser for turn descriptions stored in visum-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NIVisumParser_Turns_h
 #define NIVisumParser_Turns_h
-/***************************************************************************
-                          NIVisumParser_Turns.h
-			  Parser for turn descriptions stored in visum-files
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 14 Nov 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.5  2006/03/28 06:15:49  dkrajzew
-// refactoring and extending the Visum-import
-//
-// Revision 1.4  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/04/27 12:24:42  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.1  2003/02/07 11:14:54  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NIVisumLoader.h"
 #include <map>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NIVisumParser_Turns
  * This class parses turn descriptions, defining which turns are possible
  * at a certain junction from their visum-representation.
  */
 class NIVisumParser_Turns :
-        public NIVisumLoader::NIVisumSingleDataTypeParser {
+            public NIVisumLoader::NIVisumSingleDataTypeParser
+{
 public:
     /// Constructor
     NIVisumParser_Turns(NIVisumLoader &parent, NBNodeCont &nc,
-        const std::string &dataName,
-        NIVisumLoader::VSysTypeNames &vsystypes);
+                        const std::string &dataName,
+                        NIVisumLoader::VSysTypeNames &vsystypes);
 
     /// Destructor
     ~NIVisumParser_Turns();
@@ -91,10 +76,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

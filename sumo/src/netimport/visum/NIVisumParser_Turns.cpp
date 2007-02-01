@@ -1,71 +1,38 @@
-/***************************************************************************
-                          NIVisumParser_Turns.cpp
-              Parser for visum-turn definitions
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 14 Nov 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/04/05 05:33:04  dkrajzew
-// further work on lane connection import
+/****************************************************************************/
+/// @file    NIVisumParser_Turns.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 14 Nov 2002
+/// @version $Id: $
+///
+// Parser for visum-turn definitions
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.8  2006/03/28 06:15:49  dkrajzew
-// refactoring and extending the Visum-import
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.7  2006/02/23 11:23:53  dkrajzew
-// VISION import added
-//
-// Revision 1.6  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 12:24:42  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.3  2004/11/23 10:23:51  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/01/12 15:36:08  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.1  2003/02/07 11:14:54  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -78,27 +45,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVisumParser_Turns::NIVisumParser_Turns(NIVisumLoader &parent,
         NBNodeCont &nc,
         const std::string &dataName, NIVisumLoader::VSysTypeNames &vsystypes)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    usedVSysTypes(vsystypes), myNodeCont(nc)
-{
-}
+        : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+        usedVSysTypes(vsystypes), myNodeCont(nc)
+{}
 
 
 NIVisumParser_Turns::~NIVisumParser_Turns()
-{
-}
+{}
 
 
 void
@@ -109,11 +74,11 @@ NIVisumParser_Turns::myDependentReport()
         NBNode *from = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "VonKnot", "VonKnotNr");
         NBNode *via = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "UeberKnot", "UeberKnotNr");
         NBNode *to = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "NachKnot", "NachKnotNr");
-        if(from==0||via==0||to==0) {
+        if (from==0||via==0||to==0) {
             return;
         }
         // all nodes are known
-        if(isVehicleTurning()) {
+        if (isVehicleTurning()) {
             // try to set the turning definition
             via->setTurningDefinition(from, to);
         }
@@ -128,20 +93,17 @@ NIVisumParser_Turns::myDependentReport()
 
 
 bool
-NIVisumParser_Turns::isVehicleTurning() {
+NIVisumParser_Turns::isVehicleTurning()
+{
     string type =
         myLineParser.know("VSysCode")
         ? myLineParser.get("VSysCode")
         : myLineParser.get("VSYSSET");
     return usedVSysTypes.find(type)!=usedVSysTypes.end() &&
-        usedVSysTypes.find(type)->second=="IV";
+           usedVSysTypes.find(type)->second=="IV";
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

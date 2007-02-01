@@ -1,89 +1,38 @@
-/***************************************************************************
-                          NIVisumParser_EdgePolys.cpp
-              Parser for visum-edge-geometries
-                             -------------------
-    project              : SUMO
-    begin                : Tue, 02. Nov 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/09/18 10:11:39  dkrajzew
-// changed the way geocoordinates are processed
+/****************************************************************************/
+/// @file    NIVisumParser_EdgePolys.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 02. Nov 2004
+/// @version $Id: $
+///
+// Parser for visum-edge-geometries
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.13  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.12  2006/04/07 05:28:50  dkrajzew
-// finished lane-2-lane connections setting
-//
-// Revision 1.11  2006/03/28 09:12:43  dkrajzew
-// lane connections for unsplitted lanes implemented, further refactoring
-//
-// Revision 1.10  2006/03/28 06:15:48  dkrajzew
-// refactoring and extending the Visum-import
-//
-// Revision 1.9  2006/03/27 07:30:20  dkrajzew
-// added projection information to the network
-//
-// Revision 1.8  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.7  2006/02/23 11:23:53  dkrajzew
-// VISION import added
-//
-// Revision 1.6  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:03:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 12:24:41  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.2  2004/12/16 12:23:51  dkrajzew
-// a further network prune option added
-//
-// Revision 1.1  2004/11/23 10:24:54  dkrajzew
-// added the possibility to read Visum geometries
-//
-// Revision 1.1  2004/11/22 12:47:11  dksumo
-// added the possibility to parse visum-geometries
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
@@ -103,26 +52,24 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVisumParser_EdgePolys::NIVisumParser_EdgePolys(NIVisumLoader &parent,
         NBNodeCont &nc, const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc)
-{
-}
+        : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+        myNodeCont(nc)
+{}
 
 
 NIVisumParser_EdgePolys::~NIVisumParser_EdgePolys()
-{
-}
+{}
 
 
 void
@@ -133,7 +80,7 @@ NIVisumParser_EdgePolys::myDependentReport()
         // get the from- & to-node and validate them
         NBNode *from = getNamedNode(myNodeCont, "STRECKE", "VonKnot", "VonKnotNr");
         NBNode *to = getNamedNode(myNodeCont, "STRECKE", "NachKnot", "NachKnotNr");
-        if(from==0||to==0||!checkNodes(from, to)) {
+        if (from==0||to==0||!checkNodes(from, to)) {
             return;
         }
         bool failed = false;
@@ -143,31 +90,31 @@ NIVisumParser_EdgePolys::myDependentReport()
             index = TplConvert<char>::_2int(myLineParser.get("INDEX").c_str());
             x = getNamedFloat("XKoord");
             y = getNamedFloat("YKoord");
-        } catch(NumberFormatException&) {
+        } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             return;
         }
-        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
         Position2D pos(x, y);
         GeoConvHelper::remap(pos);
         NBEdge *e = from->getConnectionTo(to);
-        if(e!=0) {
+        if (e!=0) {
             e->addGeometryPoint(index, pos);
         } else {
             failed = true;
         }
         e = to->getConnectionTo(from);
-        if(e!=0) {
+        if (e!=0) {
             e->addGeometryPoint(-index, pos);
             failed = false;
         }
         // check whether the operation has failed
-        if(failed) {
+        if (failed) {
             // we should report this to the warning instance only if we have removed
             //  some nodes or edges...
-            if( OptionsSubSys::getOptions().isSet("edges-min-speed")
-                ||
-                OptionsSubSys::getOptions().isSet("keep-edges")) {
+            if (OptionsSubSys::getOptions().isSet("edges-min-speed")
+                    ||
+                    OptionsSubSys::getOptions().isSet("keep-edges")) {
 
                 WRITE_WARNING("Could not set geometry between node '" + from->getID() + "' and node '" + to->getID() + "'.");
             } else {
@@ -188,21 +135,19 @@ NIVisumParser_EdgePolys::myDependentReport()
 bool
 NIVisumParser_EdgePolys::checkNodes(NBNode *from, NBNode *to) const
 {
-    if(from==0) {
+    if (from==0) {
         addError(" The from-node was not found within the net");
     }
-    if(to==0) {
+    if (to==0) {
         addError(" The to-node was not found within the net");
     }
-    if(from==to) {
+    if (from==to) {
         addError(" Both nodes are the same");
     }
     return from!=0&&to!=0&&from!=to;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

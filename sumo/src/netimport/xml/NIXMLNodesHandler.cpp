@@ -1,148 +1,38 @@
-/***************************************************************************
-                          NIXMLNodesHandler.h
-              Used to load the XML-description of the nodes given in a
-           XML-format
-                             -------------------
-    project              : SUMO
-    subproject           : netbuilder / netconverter
-    begin                : Tue, 20 Nov 2001
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.20  2006/11/16 10:50:50  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NIXMLNodesHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Nov 2001
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.19  2006/09/18 10:11:40  dkrajzew
-// changed the way geocoordinates are processed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.18  2006/04/07 05:28:24  dkrajzew
-// removed some warnings
-//
-// Revision 1.17  2006/03/27 07:30:20  dkrajzew
-// added projection information to the network
-//
-// Revision 1.16  2006/03/17 11:04:14  dkrajzew
-// debugged double projection
-//
-// Revision 1.15  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.14  2006/01/11 12:02:08  dkrajzew
-// debugged node type specification (unfinished)
-//
-// Revision 1.13  2005/10/17 09:18:44  dkrajzew
-// got rid of the old MSVC memory leak checker
-//
-// Revision 1.12  2005/10/07 11:41:16  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/23 06:04:00  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.10  2005/09/15 12:03:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/04/27 12:24:42  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.8  2004/11/23 10:23:51  dkrajzew
-// debugging
-//
-// Revision 1.7  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.6  2004/01/12 15:36:36  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.5  2003/07/07 08:33:15  dkrajzew
-// further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
-//
-// Revision 1.4  2003/06/19 10:59:34  dkrajzew
-// error output patched
-//
-// Revision 1.3  2003/06/18 11:17:29  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.2  2003/02/13 15:55:16  dkrajzew
-// xml-loaders now use new options
-//
-// Revision 1.1  2003/02/07 11:16:30  dkrajzew
-// names changed
-//
-// Revision 1.2  2002/10/17 13:30:01  dkrajzew
-// possibility to specify the type of the junction added
-//
-// Revision 1.1  2002/10/16 15:45:36  dkrajzew
-// initial commit for xml-importing classes
-//
-// Revision 1.7  2002/06/21 10:13:28  dkrajzew
-// inclusion of .cpp-files in .cpp files removed
-//
-// Revision 1.6  2002/06/17 15:19:30  dkrajzew
-// unreferenced variable declarations removed
-//
-// Revision 1.5  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
-//
-// Revision 1.4  2002/06/10 06:56:14  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
-//
-// Revision 1.3  2002/05/14 04:42:57  dkrajzew
-// new computation flow
-//
-// Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor SUMOReal to int conversions removed;
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
-// new version-free project name
-//
-// Revision 1.3  2002/04/09 12:21:25  dkrajzew
-// Windows-Memoryleak detection changed
-//
-// Revision 1.2  2002/03/22 10:50:04  dkrajzew
-// Memory leaks debugging added (MSVC++)
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-// Revision 1.1  2001/12/06 13:37:59  traffic
-// files for the netbuilder
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -168,28 +58,26 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
-									 NBTrafficLightLogicCont &tlc,
-									 OptionsCont &options)
-    : SUMOSAXHandler("xml-nodes - file"),
-    _options(options),
-    myNodeCont(nc), myTLLogicCont(tlc)
-{
-}
+                                     NBTrafficLightLogicCont &tlc,
+                                     OptionsCont &options)
+        : SUMOSAXHandler("xml-nodes - file"),
+        _options(options),
+        myNodeCont(nc), myTLLogicCont(tlc)
+{}
 
 
 NIXMLNodesHandler::~NIXMLNodesHandler()
-{
-}
+{}
 
 
 
@@ -197,7 +85,7 @@ void
 NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
                                   const Attributes &attrs)
 {
-    if(tag!="node") {
+    if (tag!="node") {
         return;
     }
     try {
@@ -210,30 +98,30 @@ NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
     // retrieve the name of the node
     string name = getStringSecure(attrs, SUMO_ATTR_NAME, myID);
     // retrieve the position of the node
-    if(!setPosition(attrs)) {
+    if (!setPosition(attrs)) {
         return;
     }
     // get the type
     myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
-    if(myType=="priority") {
+    if (myType=="priority") {
         type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-    } else if(myType=="right_before_left"||myType=="right_for_left") {
+    } else if (myType=="right_before_left"||myType=="right_for_left") {
         type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-    } else if(myType=="traffic_light") {
+    } else if (myType=="traffic_light") {
         type = NBNode::NODETYPE_PRIORITY_JUNCTION;
     }
     // check whether there is a traffic light to assign this node to
     // build the node
     NBNode *node = new NBNode(myID, myPosition, type);
     // insert the node
-    if(!myNodeCont.insert(node)) {
-        if(myNodeCont.retrieve(myPosition)!=0) {
+    if (!myNodeCont.insert(node)) {
+        if (myNodeCont.retrieve(myPosition)!=0) {
             addError("Duplicate node occured. ID='" + myID + "'");
         }
     }
     // process traffic light definition
-    if(myType=="traffic_light") {
+    if (myType=="traffic_light") {
         processTrafficLightDefinitions(attrs, node);
     }
 }
@@ -247,7 +135,7 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
     try {
         SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
-        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+        myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
         myPosition.set(x, y);
         GeoConvHelper::remap(myPosition);
     } catch (NumberFormatException) {
@@ -258,7 +146,7 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
         return false;
     }
     // check whether the y-axis shall be flipped
-    if(_options.getBool("flip-y")) {
+    if (_options.getBool("flip-y")) {
         myPosition.mul(1.0, -1.0);
     }
     return true;
@@ -267,17 +155,17 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
 
 void
 NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
-                                                  NBNode *currentNode)
+        NBNode *currentNode)
 {
     NBTrafficLightDefinition *tlDef = 0;
     try {
         string tlID = getString(attrs, SUMO_ATTR_TLID);
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
-        if(tlDef==0) {
+        if (tlDef==0) {
             // this traffic light is visited the first time
             NBTrafficLightDefinition *tlDef = new NBOwnTLDef(tlID, currentNode);
-            if(!myTLLogicCont.insert(tlID, tlDef)) {
+            if (!myTLLogicCont.insert(tlID, tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError();
@@ -289,7 +177,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         // ok, this node is a traffic light node where no other nodes
         //  participate
         NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, currentNode);
-        if(!myTLLogicCont.insert(myID, tlDef)) {
+        if (!myTLLogicCont.insert(myID, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError();
@@ -315,9 +203,6 @@ NIXMLNodesHandler::myEndElement(int element, const std::string &name)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,70 +1,58 @@
+/****************************************************************************/
+/// @file    NIVisumParser_TrafficLights.h
+/// @author  unknown_author
+/// @date    Fri, 09 May 2003
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NIVisumParser_TrafficLights_h
 #define NIVisumParser_TrafficLights_h
-/***************************************************************************
-                          NIVisumParser_Nodes.h
-			  Parser for visum traffic lights
-                             -------------------
-    project              : SUMO
-    begin                : Fri, 09 May 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Markus Hartinger
-    email                : Markus.Hartinger@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.4  2005/10/07 11:41:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/04/27 12:24:42  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.1  2003/05/20 09:39:14  dkrajzew
-// Visum traffic light import added (by Markus Hartinger)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NIVisumLoader.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NIVisumParser_TrafficLights
  * This class parses traffic lights from visum-files.
  */
 class NIVisumParser_TrafficLights :
-        public NIVisumLoader::NIVisumSingleDataTypeParser {
+            public NIVisumLoader::NIVisumSingleDataTypeParser
+{
 public:
     /// Constructor
     NIVisumParser_TrafficLights(NIVisumLoader &parent,
-        const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs);
+                                const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs);
 
     /// Destructor
     ~NIVisumParser_TrafficLights();
@@ -73,14 +61,11 @@ protected:
     /** @brief Parses a single node using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 private:
-	NIVisumLoader::NIVisumTL_Map &myNIVisumTLs;
+    NIVisumLoader::NIVisumTL_Map &myNIVisumTLs;
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
