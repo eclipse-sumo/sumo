@@ -1,84 +1,38 @@
-/**
- * @file   MSInductLoop.cpp
- * @author Christian Roessel
- * @date   Mon Jul 21 16:12:01 2003
- * @version
- * @brief  Definition of class MSInductLoop.
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSInductLoop.cpp
+/// @author  Christian Roessel
+/// @date    dev.writeString("<interval begin=\"").writeString(
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.19  2007/01/12 11:35:54  behrisch
-// Enable MSVC8 compilation
-//
-// Revision 1.18  2006/11/16 10:50:45  dkrajzew
-// warnings removed
-//
-// Revision 1.17  2006/10/12 08:06:35  dkrajzew
-// removed unneeded id member in MSMoveReminder
-//
-// Revision 1.16  2006/08/01 06:56:20  dkrajzew
-// removed unneeded API parts
-//
-// Revision 1.15  2006/07/06 07:18:33  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.14  2006/05/15 05:47:50  dkrajzew
-// got rid of the cell-to-meter conversions
-//
-// Revision 1.14  2006/05/08 10:54:42  dkrajzew
-// got rid of the cell-to-meter conversions
-//
-// Revision 1.13  2006/04/05 05:27:34  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.12  2006/03/17 08:57:15  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.11  2005/10/07 11:37:46  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 11:09:33  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/07/15 07:18:59  dkrajzew
-// code style applied
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSInductLoop.h"
 #include <cassert>
@@ -96,53 +50,53 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member variable definitions
- * ======================================================================= */
+// ===========================================================================
+// member variable definitions
+// ===========================================================================
 string MSInductLoop::xmlHeaderM(
-"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-"<!--\n"
-"- nVehContrib is the number of vehicles that passed the detector during the\n"
-"  current interval.\n"
-"- flow [veh/h] denotes the same quantity in [veh/h]\n"
-"- occupancy [%] is the time the detector was occupied by vehicles.\n"
-"- speed [m/s] is the average speed of the nVehContib vehicles.\n"
-"  If nVehContrib==0, speed is set to -1.\n"
-//"- speedsquare [(m/s)^2]\n"
-//"  If nVehContrib==0, speedsquare is set to -1.\n"
-"- length [m] is the average vehicle length of the nVehContrib vehicles.\n"
-"  If nVehContrib==0, length is set to -1.\n"
-"-->\n\n");
+    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+    "<!--\n"
+    "- nVehContrib is the number of vehicles that passed the detector during the\n"
+    "  current interval.\n"
+    "- flow [veh/h] denotes the same quantity in [veh/h]\n"
+    "- occupancy [%] is the time the detector was occupied by vehicles.\n"
+    "- speed [m/s] is the average speed of the nVehContib vehicles.\n"
+    "  If nVehContrib==0, speed is set to -1.\n"
+    //"- speedsquare [(m/s)^2]\n"
+    //"  If nVehContrib==0, speedsquare is set to -1.\n"
+    "- length [m] is the average vehicle length of the nVehContrib vehicles.\n"
+    "  If nVehContrib==0, length is set to -1.\n"
+    "-->\n\n");
 
-string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
+string MSInductLoop::xmlDetectorInfoEndM("</detector>\n");
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
-MSInductLoop::MSInductLoop( const string& id,
-                            MSLane* lane,
-                            SUMOReal positionInMeters,
-                            SUMOTime deleteDataAfterSeconds )
-    : MSMoveReminder(lane), Named(id),
-      posM(positionInMeters),
-      deleteDataAfterStepsM( MSNet::getSteps( (SUMOReal) deleteDataAfterSeconds ) ),
-      lastLeaveTimestepM( 0 ),
-      vehiclesOnDetM(),
-      vehicleDataContM()
+// ===========================================================================
+// method definitions
+// ===========================================================================
+MSInductLoop::MSInductLoop(const string& id,
+                           MSLane* lane,
+                           SUMOReal positionInMeters,
+                           SUMOTime deleteDataAfterSeconds)
+        : MSMoveReminder(lane), Named(id),
+        posM(positionInMeters),
+        deleteDataAfterStepsM(MSNet::getSteps((SUMOReal) deleteDataAfterSeconds)),
+        lastLeaveTimestepM(0),
+        vehiclesOnDetM(),
+        vehicleDataContM()
 {
-    assert( posM >= 0 && posM <= laneM->length() );
+    assert(posM >= 0 && posM <= laneM->length());
     // start old-data removal through MSEventControl
     Command* deleteOldData = new WrappingCommand< MSInductLoop >(
-        this, &MSInductLoop::deleteOldData );
+                                 this, &MSInductLoop::deleteOldData);
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-        deleteOldData, deleteDataAfterStepsM, MSEventControl::ADAPT_AFTER_EXECUTION );
+        deleteOldData, deleteDataAfterStepsM, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 
@@ -154,38 +108,38 @@ MSInductLoop::~MSInductLoop()
 
 
 bool
-MSInductLoop::isStillActive( MSVehicle& veh,
-                             SUMOReal oldPos,
-                             SUMOReal newPos,
-                             SUMOReal newSpeed )
+MSInductLoop::isStillActive(MSVehicle& veh,
+                            SUMOReal oldPos,
+                            SUMOReal newPos,
+                            SUMOReal newSpeed)
 {
     SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
     SUMOReal leaveTimestep = entryTimestep;
 
-    if ( newPos < posM ) {
+    if (newPos < posM) {
         // detector not reached yet
         return true;
     }
     SUMOReal speed = SPEED2DIST(newSpeed);
-    if ( vehiclesOnDetM.find( &veh ) == vehiclesOnDetM.end() ) {
+    if (vehiclesOnDetM.find(&veh) == vehiclesOnDetM.end()) {
         // entered the detector by move
-        entryTimestep -= 1 - ( posM - oldPos ) / speed;
-        if ( newPos - veh.getLength() > posM ) {
+        entryTimestep -= 1 - (posM - oldPos) / speed;
+        if (newPos - veh.getLength() > posM) {
             // entered and passed detector in a single timestep
-            leaveTimestep -= ( newPos - veh.getLength() - posM ) / speed;
-            enterDetectorByMove( veh, entryTimestep );
-            leaveDetectorByMove( veh, leaveTimestep );
+            leaveTimestep -= (newPos - veh.getLength() - posM) / speed;
+            enterDetectorByMove(veh, entryTimestep);
+            leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }
         // entered detector, but not passed
-        enterDetectorByMove( veh, entryTimestep );
+        enterDetectorByMove(veh, entryTimestep);
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
-        if ( newPos - veh.getLength() >= posM ) {
+        if (newPos - veh.getLength() >= posM) {
             // vehicle passed the detector
-            leaveTimestep -= ( newPos - veh.getLength() - posM ) / speed;
-            leaveDetectorByMove( veh, leaveTimestep );
+            leaveTimestep -= (newPos - veh.getLength() - posM) / speed;
+            leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }
         // vehicle stays on the detector
@@ -195,19 +149,19 @@ MSInductLoop::isStillActive( MSVehicle& veh,
 
 
 void
-MSInductLoop::dismissByLaneChange( MSVehicle& veh )
+MSInductLoop::dismissByLaneChange(MSVehicle& veh)
 {
-    if ( veh.getPositionOnLane() > posM && veh.getPositionOnLane() - veh.getLength() <= posM ) {
+    if (veh.getPositionOnLane() > posM && veh.getPositionOnLane() - veh.getLength() <= posM) {
         // vehicle is on detector during lane change
-        leaveDetectorByLaneChange( veh );
+        leaveDetectorByLaneChange(veh);
     }
 }
 
 
 bool
-MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
+MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 {
-    if ( veh.getPositionOnLane() > posM ) {
+    if (veh.getPositionOnLane() > posM) {
         // vehicle-front is beyond detector. Ignore
         return false;
     }
@@ -217,64 +171,64 @@ MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 
 
 SUMOReal
-MSInductLoop::getFlow( SUMOTime lastNTimesteps ) const
+MSInductLoop::getFlow(SUMOTime lastNTimesteps) const
 {
     // return unit is [veh/h]
-    assert( lastNTimesteps > 0 );
+    assert(lastNTimesteps > 0);
     MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
     return MSNet::getVehPerHour(
-        ( getNVehContributed( lastNTimesteps ) + distance(
-            getDismissedStartIterator( lastNTimesteps ), mend ) )
-            / (SUMOReal) lastNTimesteps);
+               (getNVehContributed(lastNTimesteps) + distance(
+                    getDismissedStartIterator(lastNTimesteps), mend))
+               / (SUMOReal) lastNTimesteps);
 }
 
 
 SUMOReal
-MSInductLoop::getMeanSpeed( SUMOTime lastNTimesteps ) const
+MSInductLoop::getMeanSpeed(SUMOTime lastNTimesteps) const
 {
     // return unit is [m/s]
-    assert( lastNTimesteps > 0 );
-    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
-    if ( nVeh == 0 ) {
+    assert(lastNTimesteps > 0);
+    SUMOReal nVeh = getNVehContributed(lastNTimesteps);
+    if (nVeh == 0) {
         return -1;
     }
-    SUMOReal speedS = accumulate( getStartIterator( lastNTimesteps ),
-                                vehicleDataContM.end(),
-                                (SUMOReal) 0.0,
-                                speedSum );
-    return MSNet::getMeterPerSecond( speedS / nVeh );
-}
-
-
-SUMOReal
-MSInductLoop::getOccupancy( SUMOTime lastNTimesteps ) const
-{
-    // unit is [%]
-    assert( lastNTimesteps > 0 );
-    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
-    if ( nVeh == 0 ) {
-        return 0;
-    }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       vehicleDataContM.end(),
-                       (SUMOReal) 0.0,
-                       occupancySum ) /
-        static_cast<SUMOReal>( lastNTimesteps );
-}
-
-
-SUMOReal
-MSInductLoop::getMeanVehicleLength( SUMOTime lastNTimesteps ) const
-{
-    assert( lastNTimesteps > 0 );
-    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
-    if ( nVeh == 0 ) {
-        return -1;
-    }
-    SUMOReal lengthS = accumulate( getStartIterator( lastNTimesteps ),
+    SUMOReal speedS = accumulate(getStartIterator(lastNTimesteps),
                                  vehicleDataContM.end(),
                                  (SUMOReal) 0.0,
-                                 lengthSum );
+                                 speedSum);
+    return MSNet::getMeterPerSecond(speedS / nVeh);
+}
+
+
+SUMOReal
+MSInductLoop::getOccupancy(SUMOTime lastNTimesteps) const
+{
+    // unit is [%]
+    assert(lastNTimesteps > 0);
+    SUMOReal nVeh = getNVehContributed(lastNTimesteps);
+    if (nVeh == 0) {
+        return 0;
+    }
+    return accumulate(getStartIterator(lastNTimesteps),
+                      vehicleDataContM.end(),
+                      (SUMOReal) 0.0,
+                      occupancySum) /
+           static_cast<SUMOReal>(lastNTimesteps);
+}
+
+
+SUMOReal
+MSInductLoop::getMeanVehicleLength(SUMOTime lastNTimesteps) const
+{
+    assert(lastNTimesteps > 0);
+    SUMOReal nVeh = getNVehContributed(lastNTimesteps);
+    if (nVeh == 0) {
+        return -1;
+    }
+    SUMOReal lengthS = accumulate(getStartIterator(lastNTimesteps),
+                                  vehicleDataContM.end(),
+                                  (SUMOReal) 0.0,
+                                  lengthSum);
     return lengthS / nVeh;
 }
 
@@ -283,7 +237,7 @@ SUMOReal
 MSInductLoop::getTimestepsSinceLastDetection() const
 {
     // This method was formely called  getGap()
-    if ( vehiclesOnDetM.size() != 0 ) {
+    if (vehiclesOnDetM.size() != 0) {
         // detetctor is occupied
         return 0;
     }
@@ -292,31 +246,31 @@ MSInductLoop::getTimestepsSinceLastDetection() const
 
 
 SUMOReal
-MSInductLoop::getNVehContributed( SUMOTime lastNTimesteps ) const
+MSInductLoop::getNVehContributed(SUMOTime lastNTimesteps) const
 {
-    return (SUMOReal) distance( getStartIterator( lastNTimesteps ),
-                     vehicleDataContM.end() );
+    return (SUMOReal) distance(getStartIterator(lastNTimesteps),
+                               vehicleDataContM.end());
 }
 
 
 void
-MSInductLoop::writeXMLHeader( XMLDevice &dev ) const
+MSInductLoop::writeXMLHeader(XMLDevice &dev) const
 {
     dev.writeString(xmlHeaderM);
 }
 
 
 void
-MSInductLoop::writeXMLDetectorInfoStart( XMLDevice &dev ) const
+MSInductLoop::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
     dev.writeString("<detector type=\"inductionloop\" id=\"" + getID() +
-        "\" lane=\"" + laneM->getID() + "\" pos=\"" +
-        toString(posM) + "\" >");
+                    "\" lane=\"" + laneM->getID() + "\" pos=\"" +
+                    toString(posM) + "\" >");
 }
 
 
 void
-MSInductLoop::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
+MSInductLoop::writeXMLDetectorInfoEnd(XMLDevice &dev) const
 {
     dev.writeString(xmlDetectorInfoEndM);
 }
@@ -324,125 +278,123 @@ MSInductLoop::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
 
 void
 MSInductLoop::writeXMLOutput(XMLDevice &dev,
-                             SUMOTime startTime, SUMOTime stopTime )
+                             SUMOTime startTime, SUMOTime stopTime)
 {
-    SUMOTime t( stopTime-startTime+1 );
+    SUMOTime t(stopTime-startTime+1);
     MSInductLoop::DismissedCont::const_iterator mend = dismissedContM.end();
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
-        + distance(
-            getDismissedStartIterator( t ), mend );
+                         + distance(
+                             getDismissedStartIterator(t), mend);
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\" ");
-    if(dev.needsDetectorName()) {
+            toString(stopTime)).writeString("\" ");
+    if (dev.needsDetectorName()) {
         dev.writeString("id=\"").writeString(getID()).writeString("\" ");
     }
     dev.writeString("nVehContrib=\"").writeString(
-        toString(getNVehContributed( t ))).writeString("\" flow=\"").writeString(
-        toString(getFlow( t ))).writeString("\" occupancy=\"").writeString(
-        toString(getOccupancy( t ))).writeString("\" speed=\"").writeString(
-        toString(getMeanSpeed( t ))).writeString("\" length=\"").writeString(
-        toString(getMeanVehicleLength( t ))).writeString("\" nVehCrossed=\"").writeString(
-        toString(nVehCrossed)).writeString("\"/>");
+        toString(getNVehContributed(t))).writeString("\" flow=\"").writeString(
+            toString(getFlow(t))).writeString("\" occupancy=\"").writeString(
+                toString(getOccupancy(t))).writeString("\" speed=\"").writeString(
+                    toString(getMeanSpeed(t))).writeString("\" length=\"").writeString(
+                        toString(getMeanVehicleLength(t))).writeString("\" nVehCrossed=\"").writeString(
+                            toString(nVehCrossed)).writeString("\"/>");
 }
 
 
 SUMOTime
-MSInductLoop::getDataCleanUpSteps( void ) const
+MSInductLoop::getDataCleanUpSteps(void) const
 {
     return deleteDataAfterStepsM;
 }
 
 
 void
-MSInductLoop::enterDetectorByMove( MSVehicle& veh,
-                                   SUMOReal entryTimestep )
+MSInductLoop::enterDetectorByMove(MSVehicle& veh,
+                                  SUMOReal entryTimestep)
 {
-    vehiclesOnDetM.insert( make_pair( &veh, entryTimestep ) );
+    vehiclesOnDetM.insert(make_pair(&veh, entryTimestep));
 }
 
 
 void
-MSInductLoop::leaveDetectorByMove( MSVehicle& veh,
-                                   SUMOReal leaveTimestep )
+MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
+                                  SUMOReal leaveTimestep)
 {
-    VehicleMap::iterator it = vehiclesOnDetM.find( &veh );
-    assert( it != vehiclesOnDetM.end() );
+    VehicleMap::iterator it = vehiclesOnDetM.find(&veh);
+    assert(it != vehiclesOnDetM.end());
     SUMOReal entryTimestep = it->second;
-    vehiclesOnDetM.erase( it );
-    assert( entryTimestep < leaveTimestep );
-    vehicleDataContM.push_back( VehicleData( veh, entryTimestep,
-                                             leaveTimestep ) );
+    vehiclesOnDetM.erase(it);
+    assert(entryTimestep < leaveTimestep);
+    vehicleDataContM.push_back(VehicleData(veh, entryTimestep,
+                                           leaveTimestep));
     lastLeaveTimestepM = leaveTimestep;
 }
 
 
 void
-MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
+MSInductLoop::leaveDetectorByLaneChange(MSVehicle& veh)
 {
     // Discard entry data
-    vehiclesOnDetM.erase( &veh );
+    vehiclesOnDetM.erase(&veh);
     dismissedContM.push_back((SUMOReal) MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
 SUMOTime
-MSInductLoop::deleteOldData(SUMOTime )
+MSInductLoop::deleteOldData(SUMOTime)
 {
     SUMOReal deleteBeforeTimestep =
-        (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);
-    if ( deleteBeforeTimestep > 0 ) {
-		MSVehicle *v = 0; // TODO: clean up
+        (SUMOReal)(MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);
+    if (deleteBeforeTimestep > 0) {
+        MSVehicle *v = 0; // TODO: clean up
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
-            lower_bound( vehicleDataContM.begin(),
-                         vehicleDataContM.end(),
-                         VehicleData( *v, 0.0f, deleteBeforeTimestep ),
-                         leaveTimeLesser() ) );
+            lower_bound(vehicleDataContM.begin(),
+                        vehicleDataContM.end(),
+                        VehicleData(*v, 0.0f, deleteBeforeTimestep),
+                        leaveTimeLesser()));
         dismissedContM.erase(
             dismissedContM.begin(),
-            lower_bound( dismissedContM.begin(),
-                         dismissedContM.end(),
-                         deleteBeforeTimestep ) );
+            lower_bound(dismissedContM.begin(),
+                        dismissedContM.end(),
+                        deleteBeforeTimestep));
     }
     return deleteDataAfterStepsM;
 }
 
 
 MSInductLoop::VehicleDataCont::const_iterator
-MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
+MSInductLoop::getStartIterator(SUMOTime lastNTimesteps) const
 {
     SUMOReal startTime = 0;
-    if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
+    if (lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep()) {
         startTime = static_cast< SUMOReal >(
-            MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
-            MSNet::deltaT();
+                        MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps) *
+                    MSNet::deltaT();
     }
-	MSVehicle *v = 0; // TODO: clean up
-    return lower_bound( vehicleDataContM.begin(),
-                        vehicleDataContM.end(),
-                        VehicleData( *v, 0.0f, startTime ),
-                        leaveTimeLesser() );
+    MSVehicle *v = 0; // TODO: clean up
+    return lower_bound(vehicleDataContM.begin(),
+                       vehicleDataContM.end(),
+                       VehicleData(*v, 0.0f, startTime),
+                       leaveTimeLesser());
 }
 
 
 MSInductLoop::DismissedCont::const_iterator
-MSInductLoop::getDismissedStartIterator( SUMOTime lastNTimesteps ) const
+MSInductLoop::getDismissedStartIterator(SUMOTime lastNTimesteps) const
 {
     SUMOReal startTime = 0;
-    if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
+    if (lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep()) {
         startTime = static_cast< SUMOReal >(
-            MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
-            MSNet::deltaT();
+                        MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps) *
+                    MSNet::deltaT();
     }
-    return lower_bound( dismissedContM.begin(),
-                        dismissedContM.end(),
-                        startTime );
+    return lower_bound(dismissedContM.begin(),
+                       dismissedContM.end(),
+                       startTime);
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

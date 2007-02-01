@@ -1,112 +1,109 @@
-#ifndef MSDETECTORCOUNTERCONTAINERWRAPPER_H
-#define MSDETECTORCOUNTERCONTAINERWRAPPER_H
-
-/**
- * @file   MSDetectorCounterContainerWrapper.h
- * @author Christian Roessel
- * @date   Started Mon Oct 6 17:52:18 2003
- * @version
- * @brief
- *
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSDetectorCounterContainerWrapper.h
+/// @author  Christian Roessel
+/// @date    Mon Oct 6 17:52:18 2003
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSDetectorCounterContainerWrapper_h
+#define MSDetectorCounterContainerWrapper_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSDetectorContainerWrapperBase.h"
 #include "MSDetectorOccupancyCorrection.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
 class MSVehicle;
 
 struct MSDetectorCounterContainerWrapper
-    : public MSDetectorContainerWrapperBase
+            : public MSDetectorContainerWrapperBase
 {
     typedef SUMOReal Container;
 
-    void enterDetectorByMove( MSVehicle* )
-        {
-            ++vehicleCountM;
-        }
+    void enterDetectorByMove(MSVehicle*)
+    {
+        ++vehicleCountM;
+    }
 
-    void enterDetectorByEmitOrLaneChange( MSVehicle* )
-        {
-            ++vehicleCountM;
-        }
+    void enterDetectorByEmitOrLaneChange(MSVehicle*)
+    {
+        ++vehicleCountM;
+    }
 
-    void leaveDetectorByMove( MSVehicle* )
-        {
-            --vehicleCountM;
-        }
+    void leaveDetectorByMove(MSVehicle*)
+    {
+        --vehicleCountM;
+    }
 
-    void leaveDetectorByLaneChange( MSVehicle* )
-        {
-            --vehicleCountM;
-        }
+    void leaveDetectorByLaneChange(MSVehicle*)
+    {
+        --vehicleCountM;
+    }
 
-    void removeOnTripEnd( MSVehicle* )
-        {
-            --vehicleCountM;
-        }
+    void removeOnTripEnd(MSVehicle*)
+    {
+        --vehicleCountM;
+    }
 
 
     MSDetectorCounterContainerWrapper()
-        : MSDetectorContainerWrapperBase(),
-          vehicleCountM( 0 )
-        {}
+            : MSDetectorContainerWrapperBase(),
+            vehicleCountM(0)
+    {}
 
 
     MSDetectorCounterContainerWrapper(
-        const MSDetectorOccupancyCorrection& occupancyCorrection )
-        : MSDetectorContainerWrapperBase( occupancyCorrection ),
-          vehicleCountM( 0 )
-        {}
+        const MSDetectorOccupancyCorrection& occupancyCorrection)
+            : MSDetectorContainerWrapperBase(occupancyCorrection),
+            vehicleCountM(0)
+    {}
 
-    virtual ~MSDetectorCounterContainerWrapper( void )
-        {}
+    virtual ~MSDetectorCounterContainerWrapper(void)
+    {}
 
     Container vehicleCountM;
 };
 
 namespace DetectorContainer
 {
-    typedef MSDetectorCounterContainerWrapper Count;
+typedef MSDetectorCounterContainerWrapper Count;
 }
 
-#endif // MSDETECTORCOUNTERCONTAINERWRAPPER_H
 
-// Local Variables:
-// mode:C++
-// End:
+#endif
+
+/****************************************************************************/
+

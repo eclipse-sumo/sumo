@@ -1,44 +1,40 @@
-#ifndef MSSUBJECT_H
-#define MSSUBJECT_H
-
-
-/**
- * @file    MSSubject.h
- * @author  Christian Roessel <christian.roessel@dlr.de>
- * @date    Started Fri Nov 21 12:44:14 2003
- * @version
- *
- * @brief
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSSubject.h
+/// @author  Christian Roessel
+/// @date    Fri Nov 21 12:44:14 2003
+/// @version $Id: $
+///
+// * @author  Christian Roessel <christian.roessel@dlr.de>
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSSubject_h
+#define MSSubject_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSObserver.h"
 #include <algorithm>
@@ -110,18 +106,19 @@
 // or just notify(maybe with parameter) if you have only one
 // observable quantity.
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class EmptyType{};
+class EmptyType
+    {};
 
 template<
-    class ObservedType
-    , class ObservedQuantity = EmptyType
-    >
+class ObservedType
+, class ObservedQuantity = EmptyType
+>
 class MSSubjectPassesObserved
 {
 public:
@@ -129,116 +126,115 @@ public:
     typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
 
     typedef MSObserverPassesObserved<
-        Observed
-        , ObservedQuantity
-        > Observer;
+    Observed
+    , ObservedQuantity
+    > Observer;
 
     typedef Observer* ObserverPtr;
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
 
 
-    void attach( ObserverPtr toAttach )
-        {
-            observersM.push_back( toAttach );
-        }
+    void attach(ObserverPtr toAttach)
+    {
+        observersM.push_back(toAttach);
+    }
 
-    void detach( ObserverPtr toDetach )
-        {
-            ObserversIt eraseIt =
-                std::find( observersM.begin(), observersM.end(), toDetach );
-            assert( eraseIt != observersM.end() );
-            observersM.erase( eraseIt );
-        }
+    void detach(ObserverPtr toDetach)
+    {
+        ObserversIt eraseIt =
+            std::find(observersM.begin(), observersM.end(), toDetach);
+        assert(eraseIt != observersM.end());
+        observersM.erase(eraseIt);
+    }
 
 protected:
 
-    MSSubjectPassesObserved( void )
-        : observersM()
-        {}
+    MSSubjectPassesObserved(void)
+            : observersM()
+    {}
 
-    virtual ~MSSubjectPassesObserved( void )
-        {
-            observersM.clear();
-        }
+    virtual ~MSSubjectPassesObserved(void)
+    {
+        observersM.clear();
+    }
 
-    void notify( ParameterType aObserved )
-        {
-            for ( ObserversIt observer = observersM.begin();
-                  observer != observersM.end(); ++observer ) {
-                (*observer)->update( aObserved );
-            }
+    void notify(ParameterType aObserved)
+    {
+        for (ObserversIt observer = observersM.begin();
+                observer != observersM.end(); ++observer) {
+            (*observer)->update(aObserved);
         }
+    }
 
     Observers observersM;
 
 private:
 
-    MSSubjectPassesObserved( const MSSubjectPassesObserved& );
-    MSSubjectPassesObserved& operator=( const MSSubjectPassesObserved& );
+    MSSubjectPassesObserved(const MSSubjectPassesObserved&);
+    MSSubjectPassesObserved& operator=(const MSSubjectPassesObserved&);
 };
 
 
 
 template<
-    class ObservedType
-    , class ObservedQuantity = EmptyType
-    >
+class ObservedType
+, class ObservedQuantity = EmptyType
+>
 class MSSubject
 {
 public:
     typedef ObservedType Observed;
 
     typedef MSObserver<
-        Observed
-        , ObservedQuantity
-        > Observer;
+    Observed
+    , ObservedQuantity
+    > Observer;
 
     typedef Observer* ObserverPtr;
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
 
-    void attach( ObserverPtr toAttach )
-        {
-            observersM.push_back( toAttach );
-        }
+    void attach(ObserverPtr toAttach)
+    {
+        observersM.push_back(toAttach);
+    }
 
-    void detach( ObserverPtr toDetach )
-        {
-            ObserversIt eraseIt =
-                std::find( observersM.begin(), observersM.end(), toDetach );
-            assert( eraseIt != observersM.end() );
-            observersM.erase( eraseIt );
-        }
+    void detach(ObserverPtr toDetach)
+    {
+        ObserversIt eraseIt =
+            std::find(observersM.begin(), observersM.end(), toDetach);
+        assert(eraseIt != observersM.end());
+        observersM.erase(eraseIt);
+    }
 
 protected:
 
-    MSSubject( void )
-        : observersM()
-        {}
+    MSSubject(void)
+            : observersM()
+    {}
 
-    virtual ~MSSubject( void )
-        {
-            observersM.clear();
-        }
+    virtual ~MSSubject(void)
+    {
+        observersM.clear();
+    }
 
-    void notify( void )
-        {
-            std::for_each( observersM.begin(), observersM.end(),
-                           std::mem_fun( &Observer::update ) );
-        }
+    void notify(void)
+    {
+        std::for_each(observersM.begin(), observersM.end(),
+                      std::mem_fun(&Observer::update));
+    }
 
     Observers observersM;
 
 private:
 
-    MSSubject( const MSSubject& );
-    MSSubject& operator=( const MSSubject& );
+    MSSubject(const MSSubject&);
+    MSSubject& operator=(const MSSubject&);
 };
 
 
-// Local Variables:
-// mode:C++
-// End:
+#endif
 
-#endif // MSSUBJECT_H
+/****************************************************************************/
+

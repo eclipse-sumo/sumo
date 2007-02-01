@@ -1,43 +1,40 @@
-#ifndef MSQUEUELENGTHAHEADOFTRAFFICLIGHTS_H
-#define MSQUEUELENGTHAHEADOFTRAFFICLIGHTS_H
-
-/**
- * @file   MSQueueLengthAheadOfTrafficLights.h
- * @author Christian Roessel
- * @date   Started Mon Sep 29 09:45:17 2003
- * @version
- * @brief
- *
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSQueueLengthAheadOfTrafficLights.h
+/// @author  Christian Roessel
+/// @date    Mon Sep 29 09:45:17 2003
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSQueueLengthAheadOfTrafficLights_h
+#define MSQueueLengthAheadOfTrafficLights_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <microsim/MSUnit.h>
@@ -45,9 +42,9 @@
 #include <string>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
@@ -60,35 +57,35 @@ protected:
 
     MSQueueLengthAheadOfTrafficLightsInVehicles(
         SUMOReal,
-        const TD::MSDetectorInterface& helperDetector )
-        : helperDetectorM( helperDetector ),
-          maxNVehM( 0 )
-        {}
+        const TD::MSDetectorInterface& helperDetector)
+            : helperDetectorM(helperDetector),
+            maxNVehM(0)
+    {}
 
-    virtual ~MSQueueLengthAheadOfTrafficLightsInVehicles( void )
-        {}
+    virtual ~MSQueueLengthAheadOfTrafficLightsInVehicles(void)
+    {}
 
-    DetectorAggregate getDetectorAggregate( void )
-        {
-            // helperDet.getDetectorAggregate must be called
-            // earlier. E2_Collector is responsible for this.
-            DetectorAggregate helperAggr =
-                helperDetectorM.getCurrent();
-            if ( helperAggr > maxNVehM ) {
-                maxNVehM = helperAggr;
-            }
-            return maxNVehM;
+    DetectorAggregate getDetectorAggregate(void)
+    {
+        // helperDet.getDetectorAggregate must be called
+        // earlier. E2_Collector is responsible for this.
+        DetectorAggregate helperAggr =
+            helperDetectorM.getCurrent();
+        if (helperAggr > maxNVehM) {
+            maxNVehM = helperAggr;
         }
+        return maxNVehM;
+    }
 
-    void resetMax( void )
-        {
-            maxNVehM = 0.0;
-        }
+    void resetMax(void)
+    {
+        maxNVehM = 0.0;
+    }
 
-    static std::string getDetectorName( void )
-        {
-            return "queueLengthAheadOfTrafficLightsInVehicles";
-        }
+    static std::string getDetectorName(void)
+    {
+        return "queueLengthAheadOfTrafficLightsInVehicles";
+    }
 private:
     const TD::MSDetectorInterface& helperDetectorM;
     SUMOReal maxNVehM;
@@ -104,35 +101,35 @@ protected:
 
     MSQueueLengthAheadOfTrafficLightsInMeters(
         SUMOReal,
-        const TD::MSDetectorInterface& helperDetector )
-        : helperDetectorM( helperDetector ),
-          maxJamLengthM( 0 )
-        {}
+        const TD::MSDetectorInterface& helperDetector)
+            : helperDetectorM(helperDetector),
+            maxJamLengthM(0)
+    {}
 
-    virtual ~MSQueueLengthAheadOfTrafficLightsInMeters( void )
-        {}
+    virtual ~MSQueueLengthAheadOfTrafficLightsInMeters(void)
+    {}
 
-    DetectorAggregate getDetectorAggregate( void )
-        {
-            // helperDet.getDetectorAggregate must be called
-            // earlier. E2_Collector is responsible for this.
-            DetectorAggregate helperAggr =
-                helperDetectorM.getCurrent();
-            if ( helperAggr > maxJamLengthM ) {
-                maxJamLengthM = helperAggr;
-            }
-            return maxJamLengthM;
+    DetectorAggregate getDetectorAggregate(void)
+    {
+        // helperDet.getDetectorAggregate must be called
+        // earlier. E2_Collector is responsible for this.
+        DetectorAggregate helperAggr =
+            helperDetectorM.getCurrent();
+        if (helperAggr > maxJamLengthM) {
+            maxJamLengthM = helperAggr;
         }
+        return maxJamLengthM;
+    }
 
-    void resetMax( void )
-        {
-            maxJamLengthM = 0.0;
-        }
+    void resetMax(void)
+    {
+        maxJamLengthM = 0.0;
+    }
 
-    static std::string getDetectorName( void )
-        {
-            return "queueLengthAheadOfTrafficLightsInMeters";
-        }
+    static std::string getDetectorName(void)
+    {
+        return "queueLengthAheadOfTrafficLightsInMeters";
+    }
 
 private:
     const TD::MSDetectorInterface& helperDetectorM;
@@ -140,12 +137,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+#endif
 
+/****************************************************************************/
 
-
-#endif // MSQUEUELENGTHAHEADOFTRAFFICLIGHTS_H
-
-// Local Variables:
-// mode:C++
-// End:

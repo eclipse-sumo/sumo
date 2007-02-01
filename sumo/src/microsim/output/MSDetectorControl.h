@@ -1,42 +1,40 @@
-#ifndef MSDetectorControl_h
-#define MSDetectorControl_h
-
-/**
- * @file   MSDetectorControl.h
- * @author Daniel Krajzewicz
- * @date   Tue Jul 29 10:41:01 2003
- * @version $Id$
- * @brief  Declaration of class MSDetectorControl
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSDetectorControl.h
+/// @author  Daniel Krajzewicz
+/// @date    unknown_date
+/// @version $Id: $
+///
+// * @author Daniel Krajzewicz
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSDetectorControl_h
+#define MSDetectorControl_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -57,13 +55,14 @@ class MSE3Collector;
 //class MSInductLoop;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class MSDetectorControl {
+class MSDetectorControl
+{
 public:
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
     typedef NamedObjectCont< MSE2Collector*> E2Dict;
@@ -83,13 +82,13 @@ public:
     MSInductLoop *findInductLoop(const std::string &id);
 
     void add(MSInductLoop *il, OutputDevice *device,
-        int splInterval);
+                 int splInterval);
 
     void add(MSE2Collector *e2, OutputDevice *device,
-        int splInterval);
+                 int splInterval);
 
     void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice *device,
-        int splInterval);
+                 int splInterval);
 
     /// adds an e2 detector coupled to an extern output impulse giver
     void add(MSE2Collector *e2);
@@ -98,7 +97,7 @@ public:
     void add(MS_E2_ZS_CollectorOverLanes *e2ol);
 
     void add(MSE3Collector *e3, OutputDevice *device,
-        int splInterval);
+                 int splInterval);
 
     MSDetector2File &getDet2File();
 
@@ -119,10 +118,8 @@ protected:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

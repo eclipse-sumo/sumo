@@ -1,83 +1,40 @@
-#ifndef MSInductLoop_H
-#define MSInductLoop_H
-
-/**
- * @file   MSInductLoop.h
- * @author Christian Roessel
- * @date   Mon Jul 21 16:14:05 2003
- * @version $Id$
- * @brief  Declaration of class MSInductLoop
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSInductLoop.h
+/// @author  Christian Roessel
+/// @date    unknown_date
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-// $Id$
-// $Log$
-// Revision 1.13  2007/01/12 11:35:54  behrisch
-// Enable MSVC8 compilation
-//
-// Revision 1.12  2006/11/03 22:59:26  behrisch
-// Syntactic sugar
-//
-// Revision 1.11  2006/10/12 08:06:35  dkrajzew
-// removed unneeded id member in MSMoveReminder
-//
-// Revision 1.10  2006/08/01 06:56:20  dkrajzew
-// removed unneeded API parts
-//
-// Revision 1.9  2006/07/06 07:18:33  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.8  2006/03/17 08:57:15  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.7  2005/10/07 11:37:46  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:09:33  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:18:20  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added, simulation speed-up by avoiding multiplication with 1
-//
-// Revision 1.3  2005/02/01 10:10:43  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2004/12/16 12:14:59  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.3  2004/12/10 11:42:53  dksumo
-// detectors usage reworked
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSInductLoop_h
+#define MSInductLoop_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <deque>
@@ -91,18 +48,18 @@
 #include <utils/common/Named.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class GUIDetectorWrapper;
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * An unextended detector that measures at a fixed position on a fixed
  * lane. Only vehicles that passed the entire detector are counted. We
@@ -129,9 +86,9 @@ class GUILaneWrapper;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-    : public MSMoveReminder,
-      public MSDetectorFileOutput,
-      public Named
+            : public MSMoveReminder,
+            public MSDetectorFileOutput,
+            public Named
 {
 public:
     /// Type of the dictionary where all MSInductLoop are registered.
@@ -145,10 +102,10 @@ public:
      * @param position Position of the detector within the lane.
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
-    MSInductLoop( const std::string& id,
-                  MSLane* lane,
-                  SUMOReal positionInMeters,
-                  SUMOTime deleteDataAfterSeconds);
+    MSInductLoop(const std::string& id,
+                 MSLane* lane,
+                 SUMOReal positionInMeters,
+                 SUMOTime deleteDataAfterSeconds);
 
 
     /// Destructor. Clears containers.
@@ -181,10 +138,10 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive( MSVehicle& veh,
-                        SUMOReal oldPos,
-                        SUMOReal newPos,
-                        SUMOReal newSpeed );
+    bool isStillActive(MSVehicle& veh,
+                       SUMOReal oldPos,
+                       SUMOReal newPos,
+                       SUMOReal newSpeed);
 
 
     /**
@@ -195,7 +152,7 @@ public:
      *
      * @see leaveDetectorByLaneChange
      */
-    void dismissByLaneChange( MSVehicle& veh );
+    void dismissByLaneChange(MSVehicle& veh);
 
     /**
      * Informs corresponding detector if vehicle enters the reminder
@@ -206,7 +163,7 @@ public:
      *
      * @return True if vehicle is on or in front of the detector.
      */
-    bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
     //@}
 
     /**
@@ -223,7 +180,7 @@ public:
      *
      * @return Flow in [veh/h].
      */
-    SUMOReal getFlow( SUMOTime lastNTimesteps ) const;
+    SUMOReal getFlow(SUMOTime lastNTimesteps) const;
 
     /**
      * Calculates the mean-speed in [m/s] over the given interval.
@@ -234,7 +191,7 @@ public:
      * @return Mean-speed in [m/s] averaged over the vehicles that
      * passed during the lastNTimesteps.
      */
-    SUMOReal getMeanSpeed( SUMOTime lastNTimesteps ) const;
+    SUMOReal getMeanSpeed(SUMOTime lastNTimesteps) const;
 
     /**
      * Calculates the occupancy in [%], where 100% means lastNTimesteps.
@@ -244,7 +201,7 @@ public:
      *
      * @return Occupancy in [%].
      */
-    SUMOReal getOccupancy( SUMOTime lastNTimesteps ) const;
+    SUMOReal getOccupancy(SUMOTime lastNTimesteps) const;
 
     /**
      * Calculate the mean-vehicle-length in [m] averaged over the
@@ -256,7 +213,7 @@ public:
      * @return Mean vehicle-length in [m] averaged over the vehicles
      * that passed during the lastNTimesteps.
      */
-    SUMOReal getMeanVehicleLength( SUMOTime lastNTimesteps ) const;
+    SUMOReal getMeanVehicleLength(SUMOTime lastNTimesteps) const;
 
     /**
      * Counts the timesteps from the last leaving of the detector to
@@ -277,7 +234,7 @@ public:
      * @return Number of vehicles that passed the detector completely
      * over the lastNTimesteps.
      */
-    SUMOReal getNVehContributed( SUMOTime lastNTimesteps ) const;
+    SUMOReal getNVehContributed(SUMOTime lastNTimesteps) const;
     //@}
 
     /**
@@ -294,7 +251,7 @@ public:
      * @see MSDetector2File
      * @see getXMLOutput
      */
-    void writeXMLHeader( XMLDevice &dev ) const;
+    void writeXMLHeader(XMLDevice &dev) const;
 
 
     /**
@@ -309,8 +266,8 @@ public:
      *
      * @see MSDetector2File
      */
-    void writeXMLOutput( XMLDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime );
+    void writeXMLOutput(XMLDevice &dev,
+                        SUMOTime startTime, SUMOTime stopTime);
 
     /**
      * Get an opening XML-element containing information about the detector.
@@ -321,7 +278,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoEnd
      */
-    void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
+    void writeXMLDetectorInfoStart(XMLDevice &dev) const;
 
 
     /**
@@ -332,13 +289,13 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoStart
      */
-    void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
+    void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
 
     /**
      * Get the data-clean up interval in timesteps.
      *
      */
-    SUMOTime getDataCleanUpSteps( void ) const;
+    SUMOTime getDataCleanUpSteps(void) const;
     //@}
 
     /**
@@ -351,16 +308,16 @@ public:
     struct VehicleData
     {
         /// Use this constructor if the vehicle has passed the induct loop completely
-        VehicleData( MSVehicle& veh,
-                     SUMOReal entryTimestep,
-                     SUMOReal leaveTimestep )
-            : lengthM( veh.getLength() ),
-              entryTimeM( MSNet::getSeconds( entryTimestep ) ),
-              leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),
-              speedM( lengthM / ( leaveTimeM - entryTimeM ) ),
-              speedSquareM( speedM * speedM ),
-              occupancyM( leaveTimeM - entryTimeM )
-            {}
+        VehicleData(MSVehicle& veh,
+                    SUMOReal entryTimestep,
+                    SUMOReal leaveTimestep)
+                : lengthM(veh.getLength()),
+                entryTimeM(MSNet::getSeconds(entryTimestep)),
+                leaveTimeM(MSNet::getSeconds(leaveTimestep)),
+                speedM(lengthM / (leaveTimeM - entryTimeM)),
+                speedSquareM(speedM * speedM),
+                occupancyM(leaveTimeM - entryTimeM)
+        {}
 
         SUMOReal lengthM;         /**< Length of the vehicle. */
         SUMOReal entryTimeM;      /**< Entry-time of the vehicle in [s]. */
@@ -391,8 +348,8 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not neccessary integer) of entrance.
      */
-    void enterDetectorByMove( MSVehicle& veh,
-                              SUMOReal entryTimestep );
+    void enterDetectorByMove(MSVehicle& veh,
+                             SUMOReal entryTimestep);
 
     /**
      * Removes a vehicle from the detector's map vehiclesOnDetM and
@@ -401,15 +358,15 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not neccessary integer) of leaving.
      */
-    void leaveDetectorByMove( MSVehicle& veh,
-                              SUMOReal leaveTimestep );
+    void leaveDetectorByMove(MSVehicle& veh,
+                             SUMOReal leaveTimestep);
 
     /**
      * Removes a vehicle from the detector's map vehiclesOnDetM.
      *
      * @param veh The leaving vehicle.
      */
-    void leaveDetectorByLaneChange( MSVehicle& veh );
+    void leaveDetectorByLaneChange(MSVehicle& veh);
     //@}
 
     /**
@@ -419,11 +376,11 @@ protected:
      * deleteOldData and getStartIterator.
      *
      */
-    struct leaveTimeLesser :
-            public std::binary_function< VehicleData, SUMOReal, bool >
+struct leaveTimeLesser :
+                public std::binary_function< VehicleData, SUMOReal, bool >
     {
-        bool operator()( const VehicleData& firstVData,
-                         const VehicleData& secondVData ) const
+        bool operator()(const VehicleData& firstVData,
+                        const VehicleData& secondVData) const
         {
             return firstVData.leaveTimeM < secondVData.leaveTimeM;
         }
@@ -440,7 +397,7 @@ protected:
     SUMOTime deleteOldData(SUMOTime currentTime);
 
     typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
-                                                        * vehicleDataContM. */
+                                                            * vehicleDataContM. */
 
     /**
      * Get the iterator to vehicleDataContM that corresponds to the
@@ -452,10 +409,10 @@ protected:
      * @return Iterator to vehicleDataContM.
      */
     VehicleDataCont::const_iterator getStartIterator(
-        SUMOTime lastNTimesteps ) const;
+        SUMOTime lastNTimesteps) const;
 
     DismissedCont::const_iterator getDismissedStartIterator(
-        SUMOTime lastNTimesteps ) const;
+        SUMOTime lastNTimesteps) const;
 
 
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
@@ -463,13 +420,13 @@ protected:
     SUMOTime deleteDataAfterStepsM; /**< Deletion interval. */
 
     SUMOReal lastLeaveTimestepM;  /**< Leave-timestep of the last
-                                 * vehicle detected. */
+                                     * vehicle detected. */
 
     typedef std::map< MSVehicle*, SUMOReal > VehicleMap; /**< Type of
-                                                        * vehiclesOnDetM. */
+                                                            * vehiclesOnDetM. */
 
     VehicleMap vehiclesOnDetM;  /**< Map that holds the vehicles that
-                                 * are currently on the detector. */
+                                     * are currently on the detector. */
 
     DismissedCont dismissedContM;
 
@@ -481,7 +438,7 @@ protected:
     VehicleDataCont vehicleDataContM;
 
     static std::string xmlHeaderM; /**< Contains a XML-comment that
-                                    * explain the printed data. */
+                                        * explain the printed data. */
 
     static std::string xmlDetectorInfoEndM; /**< Closing tag for detector. */
 
@@ -491,56 +448,52 @@ private:
     MSInductLoop();
 
     /// Hidden copy constructor.
-    MSInductLoop( const MSInductLoop& );
+    MSInductLoop(const MSInductLoop&);
 
     /// Hidden assignment operator.
-    MSInductLoop& operator=( const MSInductLoop& );
+    MSInductLoop& operator=(const MSInductLoop&);
 };
 
 namespace
 {
 
-    /**
-     * @name Binary-functions to use with std::accumulate.
-     *
-     */
-    //@{
-    /// Adds up VehicleData::speedM
-    inline SUMOReal speedSum( SUMOReal sumSoFar,
-                            const MSInductLoop::VehicleData& data )
-    {
-        return sumSoFar + data.speedM;
-    }
+/**
+ * @name Binary-functions to use with std::accumulate.
+ *
+ */
+//@{
+/// Adds up VehicleData::speedM
+inline SUMOReal speedSum(SUMOReal sumSoFar,
+                         const MSInductLoop::VehicleData& data)
+{
+    return sumSoFar + data.speedM;
+}
 
-    /// Adds up VehicleData::speedSquareM
-    inline SUMOReal speedSquareSum( SUMOReal sumSoFar,
-                                  const MSInductLoop::VehicleData& data )
-    {
-        return sumSoFar + data.speedSquareM;
-    }
+/// Adds up VehicleData::speedSquareM
+inline SUMOReal speedSquareSum(SUMOReal sumSoFar,
+                               const MSInductLoop::VehicleData& data)
+{
+    return sumSoFar + data.speedSquareM;
+}
 
-    /// Adds up VehicleData::occupancyM
-    inline SUMOReal occupancySum( SUMOReal sumSoFar,
-                                const MSInductLoop::VehicleData& data )
-    {
-        return sumSoFar + data.occupancyM;
-    }
+/// Adds up VehicleData::occupancyM
+inline SUMOReal occupancySum(SUMOReal sumSoFar,
+                             const MSInductLoop::VehicleData& data)
+{
+    return sumSoFar + data.occupancyM;
+}
 
-    /// Adds up VehicleData::lengthM
-    inline SUMOReal lengthSum( SUMOReal sumSoFar,
-                             const MSInductLoop::VehicleData& data )
-    {
-        return sumSoFar + data.lengthM;
-    }
-    //@}
+/// Adds up VehicleData::lengthM
+inline SUMOReal lengthSum(SUMOReal sumSoFar,
+                          const MSInductLoop::VehicleData& data)
+{
+    return sumSoFar + data.lengthM;
+}
+//@}
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

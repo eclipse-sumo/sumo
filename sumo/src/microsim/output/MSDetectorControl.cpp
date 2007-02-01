@@ -1,74 +1,38 @@
-/**
- * @file   MSDetectorControl.cpp
- * @author Daniel Krajzewicz
- * @date   Tue Jul 29 10:43:35 2003
- * @version $Id$
- * @brief  Implementation of class MSDetectorControl
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSDetectorControl.cpp
+/// @author  Daniel Krajzewicz
+/// @date    unknown_date
+/// @version $Id: $
+///
+// * @author Daniel Krajzewicz
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2006/07/06 07:18:33  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.6  2006/04/18 08:05:44  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.5  2006/04/11 10:59:06  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.4  2006/01/23 10:25:29  dkrajzew
-// post-release changes
-//
-// Revision 1.3  2006/01/09 11:55:04  dkrajzew
-// lanestates removed
-//
-// Revision 1.2  2005/10/07 11:37:46  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.1  2005/09/15 11:09:33  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/09/09 12:51:22  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:16:16  dksumo
-// getting rid of singleton dictionaries
-//
-// Revision 1.4  2005/06/14 11:21:05  dksumo
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include "MSDetectorControl.h"
@@ -93,15 +57,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 MSDetectorControl::MSDetectorControl()
 {
     MSUnit::create(1.0, 1.0);
@@ -117,15 +81,15 @@ MSDetectorControl::~MSDetectorControl()
     myE2OverLanesDetectors.clear();
 
     delete MSUpdateEachTimestepContainer<
-        DetectorContainer::UpdateHaltings >::getInstance();
+    DetectorContainer::UpdateHaltings >::getInstance();
     delete MSUpdateEachTimestepContainer<
-        Detector::UpdateE2Detectors >::getInstance();
+    Detector::UpdateE2Detectors >::getInstance();
     delete MSUpdateEachTimestepContainer<
-        Detector::UpdateOccupancyCorrections >::getInstance();
+    Detector::UpdateOccupancyCorrections >::getInstance();
     delete MSUpdateEachTimestepContainer<
-        MSDetectorHaltingMapWrapper>::getInstance();
+    MSDetectorHaltingMapWrapper>::getInstance();
     delete MSUpdateEachTimestepContainer<
-        MSUpdateEachTimestep<MSDetectorHaltingMapWrapper> >::getInstance();
+    MSUpdateEachTimestep<MSDetectorHaltingMapWrapper> >::getInstance();
     delete MSUnit::getInstance();
 }
 
@@ -139,13 +103,13 @@ MSDetectorControl::findInductLoop(const std::string &id)
 
 void
 MSDetectorControl::add(MSInductLoop *il,
-                      OutputDevice *device,
-                      int splInterval)
+                           OutputDevice *device,
+                           int splInterval)
 {
     // insert object into dictionary
-    if ( ! myLoops.add( il->getID(), il ) ) {
+    if (! myLoops.add(il->getID(), il)) {
         MsgHandler::getErrorInstance()->inform("induct loop '" + il->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(il, device, splInterval); // !!! test
@@ -155,13 +119,13 @@ MSDetectorControl::add(MSInductLoop *il,
 
 void
 MSDetectorControl::add(MSE2Collector *e2,
-                      OutputDevice *device,
-                      int splInterval)
+                           OutputDevice *device,
+                           int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE2Detectors.add( e2->getID(), e2 ) ) {
+    if (! myE2Detectors.add(e2->getID(), e2)) {
         MsgHandler::getErrorInstance()->inform("e2-detector '" + e2->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e2, device, splInterval); // !!! test
@@ -170,13 +134,13 @@ MSDetectorControl::add(MSE2Collector *e2,
 
 void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
-                      OutputDevice *device,
-                      int splInterval)
+                           OutputDevice *device,
+                           int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE2OverLanesDetectors.add( e2ol->getID(), e2ol ) ) {
+    if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         MsgHandler::getErrorInstance()->inform("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e2ol, device, splInterval); // !!! test
@@ -187,9 +151,9 @@ void
 MSDetectorControl::add(MSE2Collector *e2)
 {
     // insert object into dictionary
-    if ( ! myE2Detectors.add( e2->getID(), e2 ) ) {
+    if (! myE2Detectors.add(e2->getID(), e2)) {
         MsgHandler::getErrorInstance()->inform("e2-detector '" + e2->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
 }
@@ -199,9 +163,9 @@ void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 {
     // insert object into dictionary
-    if ( ! myE2OverLanesDetectors.add( e2ol->getID(), e2ol ) ) {
+    if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         MsgHandler::getErrorInstance()->inform("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
 }
@@ -209,13 +173,13 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 
 void
 MSDetectorControl::add(MSE3Collector *e3,
-                      OutputDevice *device,
-                      int splInterval)
+                           OutputDevice *device,
+                           int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE3Detectors.add( e3->getID(), e3 ) ){
+    if (! myE3Detectors.add(e3->getID(), e3)) {
         MsgHandler::getErrorInstance()->inform("e3-detector '" + e3->getID() + "' could not be build;"
-            + "\n (declared twice?)");
+                                               + "\n (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test
@@ -264,9 +228,6 @@ MSDetectorControl::resetInterval(MSDetectorFileOutput *il,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

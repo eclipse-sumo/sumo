@@ -1,68 +1,41 @@
-#ifndef MSOBSERVER_H
-#define MSOBSERVER_H
-
-
-/**
- * @file    MSObserver.h
- * @author  Christian Roessel <christian.roessel@dlr.de>
- * @date    Started Fri Nov 21 12:44:14 2003
- * @version
- *
- * @brief
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSObserver.h
+/// @author  Christian Roessel
+/// @date    Fri Nov 21 12:44:14 2003
+/// @version $Id: $
+///
+// * @author  Christian Roessel <christian.roessel@dlr.de>
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-// See Gamma et al. "Design Patterns" for information about the
-// Observer pattern.
-
-// A concrete observer must inherit from MSObserver and implement an
-// update method. This method will be called if the state of the
-// observed object (derived from MSSubject) changes.
-//
-// A concrete subject defines the Observer type by it's base MSSubject
-// (see MSSubject.h).
-
-// $Log$
-// Revision 1.6  2006/10/25 12:22:38  dkrajzew
-// updated
-//
-// Revision 1.5  2005/10/06 13:39:19  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.4  2005/09/09 12:51:23  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.3  2005/06/14 11:21:06  dksumo
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSObserver_h
+#define MSObserver_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/helpers/msvc6_TypeTraits.h>
 #endif
@@ -71,65 +44,68 @@
 #endif
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
 template<
-    class ObservedType
-    , class ObservedQuantity
-    >
+class ObservedType
+, class ObservedQuantity
+>
 class MSObserverPassesObserved
 {
 public:
     typedef ObservedType Observed;
     typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
 
-    virtual void update( ParameterType aObserved ) = 0;
+    virtual void update(ParameterType aObserved) = 0;
 
 protected:
 
-    MSObserverPassesObserved( void ){}
+    MSObserverPassesObserved(void)
+    {}
 
-    virtual ~MSObserverPassesObserved( void ){}
+    virtual ~MSObserverPassesObserved(void)
+    {}
 
 private:
 
-    MSObserverPassesObserved( const MSObserverPassesObserved& );
-    MSObserverPassesObserved& operator=( const MSObserverPassesObserved& );
+    MSObserverPassesObserved(const MSObserverPassesObserved&);
+    MSObserverPassesObserved& operator=(const MSObserverPassesObserved&);
 
 };
 
 
 
 template<
-    class ObservedType
-    , class ObservedQuantity
-    >
+class ObservedType
+, class ObservedQuantity
+>
 class MSObserver
 {
 public:
     // Return bool (instead of void) to please MSVC++
-    virtual bool update( void ) = 0;
+    virtual bool update(void) = 0;
 
 protected:
 
-    MSObserver( void ){};
+    MSObserver(void)
+    {};
 
-    virtual ~MSObserver( void ){}
+    virtual ~MSObserver(void)
+    {}
 
 private:
 
-    MSObserver( const MSObserver& );
-    MSObserver& operator=( const MSObserver& );
+    MSObserver(const MSObserver&);
+    MSObserver& operator=(const MSObserver&);
 
 };
 
 
-// Local Variables:
-// mode:C++
-// End:
+#endif
 
-#endif // MSOBSERVER_H
+/****************************************************************************/
+

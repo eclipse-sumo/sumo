@@ -1,76 +1,74 @@
-#ifndef MSDETECTORCONTAINERWRAPPERBASE_H
-#define MSDETECTORCONTAINERWRAPPERBASE_H
-
-/**
- * @file   MSDetectorContainerWrapperBase.h
- * @author Christian Roessel
- * @date   Started Fri Sep 26 19:11:26 2003
- * @version
- * @brief
- *
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSDetectorContainerWrapperBase.h
+/// @author  Christian Roessel
+/// @date    Fri Sep 26 19:11:26 2003
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSDetectorContainerWrapperBase_h
+#define MSDetectorContainerWrapperBase_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSDetectorOccupancyCorrection.h"
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSVehicle;
 
 struct MSDetectorContainerWrapperBase
 {
-    virtual void enterDetectorByMove( MSVehicle* veh ) = 0;
-    virtual void enterDetectorByEmitOrLaneChange( MSVehicle* veh ) = 0;
-    virtual void leaveDetectorByMove( MSVehicle* veh ) = 0;
-    virtual void leaveDetectorByLaneChange( MSVehicle* veh ) = 0;
-    virtual void removeOnTripEnd( MSVehicle* veh ) = 0;
+    virtual void enterDetectorByMove(MSVehicle* veh) = 0;
+    virtual void enterDetectorByEmitOrLaneChange(MSVehicle* veh) = 0;
+    virtual void leaveDetectorByMove(MSVehicle* veh) = 0;
+    virtual void leaveDetectorByLaneChange(MSVehicle* veh) = 0;
+    virtual void removeOnTripEnd(MSVehicle* veh) = 0;
 
 
     MSDetectorContainerWrapperBase()
-        : occupancyCorrectionM( 0 )
-        {}
+            : occupancyCorrectionM(0)
+    {}
 
     MSDetectorContainerWrapperBase(
-        const MSDetectorOccupancyCorrection& occupancyCorrection )
-        : occupancyCorrectionM( &occupancyCorrection )
-        {}
+        const MSDetectorOccupancyCorrection& occupancyCorrection)
+            : occupancyCorrectionM(&occupancyCorrection)
+    {}
 
-    virtual ~MSDetectorContainerWrapperBase( void ) {}
+    virtual ~MSDetectorContainerWrapperBase(void)
+    {}
 
     const MSDetectorOccupancyCorrection* occupancyCorrectionM;
 };
 
-#endif // MSDETECTORCONTAINERWRAPPERBASE_H
 
-// Local Variables:
-// mode:C++
-// End:
+#endif
+
+/****************************************************************************/
+
