@@ -1,76 +1,38 @@
-/***************************************************************************
-MSDevice_CPhone.cpp  -
-A cellular phone device
--------------------
-begin                : 2006
-copyright            : (C) 2006 by DLR http://www.dlr.de
-author               : Eric Nicolay
-email                : Eric.Nicolay@dlr.de
-***************************************************************************/
-
-/***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-        "$Id$";
-}
-// $Log: MSDevice_CPhone.cpp,v $
-// Revision 1.23  2006/12/11 09:06:13  dkrajzew
-// added current patches to process the ORINOKO network
+/****************************************************************************/
+/// @file    MSDevice_CPhone.cpp
+/// @author  Eric Nicolay
+/// @date    2006
+/// @version $Id: $
+///
+// A cellular phone device
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.22  2006/12/06 17:02:23  ericnicolay
-// added documentation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.21  2006/12/04 08:00:22  dkrajzew
-// removed some warnings
-//
-// Revision 1.20  2006/12/01 09:14:42  dkrajzew
-// debugging cell phones
-//
-// Revision 1.19  2006/12/01 07:07:15  dkrajzew
-// warnings removed
-//
-// Revision 1.18  2006/11/28 12:15:41  dkrajzew
-// documented TOL-classes and made them faster
-//
-// Revision 1.17  2006/11/24 10:34:59  dkrajzew
-// added Eric Nicolay's current code
-//
-// Revision 1.16  2006/11/16 10:50:44  dkrajzew
-// warnings removed
-//
-// Revision 1.15  2006/11/08 17:25:46  ericnicolay
-// add getCallId
-//
-// Revision 1.14  2006/10/12 14:50:37  ericnicolay
-// add code for the ss2-sql-output
-//
-// Revision 1.13  2006/09/18 10:02:55  dkrajzew
-// documentation added
-//
-/* =========================================================================
-* compiler pragmas
-* ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma hdrstop
+#endif
 
 
-/* =========================================================================
-* included modules
-* ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSDevice_CPhone.h"
 #include "../MSEventControl.h"
@@ -86,42 +48,41 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
-* used namespaces
-* ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
-* static variables
-* ======================================================================= */
+// ===========================================================================
+// static variables
+// ===========================================================================
 int MSDevice_CPhone::gCallID = 0; // !!! reinit on simulation reload
 
 
-/* =========================================================================
-* method definitions
-* ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
 * MSDevice_CPhone::Command-methods
 * ----------------------------------------------------------------------- */
 MSDevice_CPhone::MyCommand::MyCommand(MSDevice_CPhone &parent)
-: myParent(parent), myAmActive(true)
-{
-}
+        : myParent(parent), myAmActive(true)
+{}
 
 
-MSDevice_CPhone::MyCommand::~MyCommand( void )
+MSDevice_CPhone::MyCommand::~MyCommand(void)
 {
-    if(myAmActive)
+    if (myAmActive)
         myParent.invalidateCommand();
 }
 
 
 SUMOTime
-MSDevice_CPhone::MyCommand::execute(SUMOTime )
+MSDevice_CPhone::MyCommand::execute(SUMOTime)
 {
     SUMOTime ret = 0;
-    if(myAmActive) {
+    if (myAmActive) {
         ret = myParent.changeState();
     } else {
         // inactivated -> the cell phone is not longer simulated
@@ -129,7 +90,7 @@ MSDevice_CPhone::MyCommand::execute(SUMOTime )
     }
     // assert that this device is not removed from the event handler
     //if(ret==0) {
-      //  ret = 1;
+    //  ret = 1;
     //}
     // return the time to next call
     return ret;
@@ -147,13 +108,13 @@ MSDevice_CPhone::MyCommand::setInactivated()
 * MSDevice_CPhone-methods
 * ----------------------------------------------------------------------- */
 MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
-: myVehicle(vehicle), myId(id), myCommand(0)
+        : myVehicle(vehicle), myId(id), myCommand(0)
 {
     mycurrentCellId = -1;
     mycurrentLAId = -1;
     myCallId = -1;
     m_State = STATE_IDLE;
- 
+
 }
 
 //---------------------------------------------------------------------------
@@ -162,27 +123,27 @@ MSDevice_CPhone::~MSDevice_CPhone()
 {
     /*if registered to a cell then deregist from it*/
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-    if ( pPhone != 0 ) {
-        MSPhoneCell * cell = pPhone->getCurrentVehicleCell( myId );
-        if ( cell != 0 ) {
-            if ( m_State!=STATE_IDLE && m_State!=STATE_OFF ){
-                cell->remCall( myCallId );
-                if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO ) ){
-                   MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
+    if (pPhone != 0) {
+        MSPhoneCell * cell = pPhone->getCurrentVehicleCell(myId);
+        if (cell != 0) {
+            if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
+                cell->remCall(myCallId);
+                if (MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO)) {
+                    MSCORN::saveCELLPHONEDUMP(MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
                 }
             }
-            cell->remCPhone( myId );
+            cell->remCPhone(myId);
         } /*else {
-            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-        }*/
-        MSPhoneLA * la = pPhone->getCurrentVehicleLA( myId  );
-        if( la != 0 ) {
-            la->remCall( myId );
+                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                }*/
+        MSPhoneLA * la = pPhone->getCurrentVehicleLA(myId);
+        if (la != 0) {
+            la->remCall(myId);
         }/* else {
-            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-        }*/
+                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                }*/
     }
-    if(myCommand!=0) {
+    if (myCommand!=0) {
         myCommand->setInactivated();
     }
     m_ProvidedCells.clear();
@@ -210,10 +171,10 @@ MSDevice_CPhone::GetState() const
 int
 MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastCell> &ActualCells)
 {
-    if(m_State == 0 || m_State == STATE_OFF)
+    if (m_State == 0 || m_State == STATE_OFF)
         return 1;
     else {
-        for(int i=0;i<7;i++) {
+        for (int i=0;i<7;i++) {
             m_ProvidedCells[i].m_CellID = ActualCells[i].m_CellID;
             m_ProvidedCells[i].m_LoS = ActualCells[i].m_LoS;
         }
@@ -227,8 +188,7 @@ MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastC
 int
 MSDevice_CPhone::SetState(int ActualState)
 {
-    if(m_State != 0 && ActualState != 0)
-    {
+    if (m_State != 0 && ActualState != 0) {
         m_State = (State)ActualState;
         return 0;
     }
@@ -236,28 +196,29 @@ MSDevice_CPhone::SetState(int ActualState)
 }
 
 int
-MSDevice_CPhone::SetState( State s, int dur ){
+MSDevice_CPhone::SetState(State s, int dur)
+{
     assert(mycurrentCellId != -1);
     /*wenn s == dynin oder dynout starte ein neues gespraech.*/
     /*setze den gewuenschten status*/
-    m_State = s; 
+    m_State = s;
     /*pruefe, dass das cphone wirklich eine aktuelle zelle hat.*/
-        /*gib den cphone eine eindeutige verbindungsnummer*/
+    /*gib den cphone eine eindeutige verbindungsnummer*/
     myCallId = ++gCallID;
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-    MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
-    if ( m_State == STATE_CONNECTED_IN )
-        cell->addCall( myCallId, DYNIN );
+    MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
+    if (m_State == STATE_CONNECTED_IN)
+        cell->addCall(myCallId, DYNIN);
     else
-        cell->addCall( myCallId, DYNOUT );
-    
+        cell->addCall(myCallId, DYNOUT);
+
     //SUMOTime next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
     /*erzeuge einen neuen Event, damit das cphone aufhoehrt zu telefonieren*/
     myCommand = new MyCommand(*this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION );
-    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 0);
+        myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
+    if (MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO)) {
+        MSCORN::saveCELLPHONEDUMP(MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 0);
     }
     return dur;
 }
@@ -267,17 +228,17 @@ MSDevice_CPhone::SetState( State s, int dur ){
 SUMOTime
 MSDevice_CPhone::changeState()
 {
-    assert ( myCallId != -1 );
-    assert ( mycurrentCellId != -1 );
+    assert(myCallId != -1);
+    assert(mycurrentCellId != -1);
 
-    if( MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO) ){
-        MSCORN::saveCELLPHONEDUMP( MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
+    if (MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO)) {
+        MSCORN::saveCELLPHONEDUMP(MSNet::getInstance()->getCurrentTimeStep(), mycurrentCellId,  myCallId, 2);
     }
-    
+
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-    MSPhoneCell * cell = pPhone->getMSPhoneCell( mycurrentCellId );
-    if ( m_State == STATE_CONNECTED_IN || m_State == STATE_CONNECTED_OUT )
-        cell->remCall( myCallId );
+    MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
+    if (m_State == STATE_CONNECTED_IN || m_State == STATE_CONNECTED_OUT)
+        cell->remCall(myCallId);
 
     myCallId = -1;
     m_State = STATE_IDLE;
@@ -331,19 +292,17 @@ MSDevice_CPhone::onDepart()
     }*/
     //myCommand = new MyCommand(*this);
     //MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-      //  myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
+    //  myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 
 void
-MSDevice_CPhone::invalidateCommand(){
+MSDevice_CPhone::invalidateCommand()
+{
     this->myCommand = 0;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

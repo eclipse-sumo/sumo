@@ -1,95 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSLCM_DK2004.cpp -
+/****************************************************************************/
+/// @file    MSLCM_DK2004.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.23  2006/11/16 10:50:45  dkrajzew
-// warnings removed
-//
-// Revision 1.22  2006/11/14 06:41:39  dkrajzew
-// some further work on lane changing
-//
-// Revision 1.21  2006/10/25 12:22:35  dkrajzew
-// updated
-//
-// Revision 1.20  2006/10/12 10:14:28  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.19  2006/10/12 07:58:09  dkrajzew
-// warnings removed
-//
-// Revision 1.18  2006/10/04 13:18:18  dkrajzew
-// debugging internal lanes, multiple vehicle emission and net building
-//
-// Revision 1.16  2006/09/18 11:34:20  dkrajzew
-// debugged building on Windows
-//
-// Revision 1.15  2006/09/18 10:03:33  dkrajzew
-// minor patches
-//
-// Revision 1.14  2006/07/07 11:51:52  dkrajzew
-// further work on lane changing
-//
-// Revision 1.13  2006/07/06 07:13:23  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.12  2006/05/15 05:50:40  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.12  2006/05/08 11:02:12  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.11  2006/04/05 05:27:34  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.10  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 11:07:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/07/15 07:18:39  dkrajzew
-// code style applied
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSLCM_DK2004.h"
 #include <iostream>
@@ -99,21 +42,21 @@ namespace
 #endif
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * some definitions (debugging only)
- * ======================================================================= */
+// ===========================================================================
+// some definitions (debugging only)
+// ===========================================================================
 #define DEBUG_OUT cout
 
 
-/* =========================================================================
- * variable definitions
- * ======================================================================= */
+// ===========================================================================
+// variable definitions
+// ===========================================================================
 std::string id_leader("367719");
 std::string id_vehicle("366338");
 std::string id_follower("4536");
@@ -142,15 +85,14 @@ size_t searchedtime = 21900;
 #define JAM_FACTOR2 1.
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
-    : MSAbstractLaneChangeModel(v),
-    myChangeProbability(0),
-    myVSafe(0)
-{
-}
+        : MSAbstractLaneChangeModel(v),
+        myChangeProbability(0),
+        myVSafe(0)
+{}
 
 MSLCM_DK2004::~MSLCM_DK2004()
 {
@@ -180,8 +122,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
-    for(int p=0; p<(int) currE.size(); ++p) {
-        if(currE[p].lane==&myVehicle.getLane()) {
+    for (int p=0; p<(int) currE.size(); ++p) {
+        if (currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
@@ -195,26 +137,26 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
 
 #ifdef GUI_DEBUG
-    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
     }
 #endif
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
+    if (debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif
     // keep information about being a leader/follower
     int ret = (myState&0x00ffff00);
 
-    if( leader.first!=0
-        &&
-        (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0
-        &&
-        (leader.first->getLaneChangeModel().getState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
+    if (leader.first!=0
+            &&
+            (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0
+            &&
+            (leader.first->getLaneChangeModel().getState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
 
         myState &= (0xffffffff-LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
-        if(myVehicle.getSpeed()>0.1) {
+        if (myVehicle.getSpeed()>0.1) {
             myState |= LCA_AMBACKBLOCKER;
         } else {
             ret |= LCA_AMBACKBLOCKER;
@@ -224,17 +166,17 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
-    if((*lastBlocked)!=0) {
+    if ((*lastBlocked)!=0) {
         SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getLength()-myVehicle.getPositionOnLane();
-        if(gap>0.1) {
-            if(myVehicle.getSpeed()<myVehicle.decelAbility()) {
-                if((*lastBlocked)->getSpeed()<0.1) {
+        if (gap>0.1) {
+            if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
+                if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
-                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal) (gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
-                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal) (gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -251,15 +193,15 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
     SUMOReal rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-        ? neighLead.first->speed()+20.0
-        :*/
+                ? neighLead.first->speed()+20.0
+                :*/
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
         : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
+                 ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+                 : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
@@ -268,11 +210,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         myChangeProbability += 1. / (tdist / rv);
     }
     */
-    if( fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
+    if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
-        if(neighLead.second>0&&neighLead.second>leader.second) {
+        if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed())
-                - (SUMOReal) 0.5;
+                      - (SUMOReal) 0.5;
         }
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
@@ -286,11 +228,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  is long enough
     SUMOReal maxJam = MAX2(currE[currIdx-1].hindernisPos, currE[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
-    if( bestLaneOffset>0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset>0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
-    if( bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, rv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, rv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
@@ -301,7 +243,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(currExtDist>neighExtDist&&(neighLeftPlace*2.<rv/*||currE[currIdx+1].length<currentDist*/)) {
+    if (currExtDist>neighExtDist&&(neighLeftPlace*2.<rv/*||currE[currIdx+1].length<currentDist*/)) {
         return ret;
     }
 
@@ -309,21 +251,21 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  in this case, we do not want to get to the dead-end of an on-ramp
     //
     // THIS RULE APPLIES ONLY TO CHANGING TO THE RIGHT LANE
-    if(bestLaneOffset==0&&currE[currIdx-1].dir!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
+    if (bestLaneOffset==0&&currE[currIdx-1].dir!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
         return ret;
     }
 
-/*
-    if(bestLaneOffset==0&&(neighDist==0||curr.hindernisPos*JAM_FACTOR>=neighExtDist-curr.length)) {
-        return ret;
-    }
-    */
+    /*
+        if(bestLaneOffset==0&&(neighDist==0||curr.hindernisPos*JAM_FACTOR>=neighExtDist-curr.length)) {
+            return ret;
+        }
+        */
     // --------
 
     // -------- make place on current lane if blocking follower
-    if( amBlockingFollowerPlusNB()
-        &&
-        (currentDistAllows(neighDist, bestLaneOffset, rv)||neighDist>=currentDist) ) {
+    if (amBlockingFollowerPlusNB()
+            &&
+            (currentDistAllows(neighDist, bestLaneOffset, rv)||neighDist>=currentDist)) {
 
         return ret|LCA_RIGHT|LCA_URGENT|LCA_KEEP1;
     }
@@ -332,17 +274,17 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
     // -------- security checks for krauss
     //  (vsafe fails when gap<0)
-    if((blocked&(LCA_BLOCKEDBY_FOLLOWER|LCA_BLOCKEDBY_LEADER))!=0) {
+    if ((blocked&(LCA_BLOCKEDBY_FOLLOWER|LCA_BLOCKEDBY_LEADER))!=0) {
         return ret;
     }
     // --------
 
     // -------- higher speed
-    if((congested( neighLead.first ) && neighLead.second<20)||predInteraction(leader.first)) {//!!!
+    if ((congested(neighLead.first) && neighLead.second<20)||predInteraction(leader.first)) { //!!!
         return ret;
     }
     SUMOReal neighLaneVSafe, thisLaneVSafe;
-    if ( neighLead.first == 0 ) {
+    if (neighLead.first == 0) {
         neighLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0);
     } else {
@@ -350,7 +292,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         neighLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed());
     }
-    if(leader.first==0) {
+    if (leader.first==0) {
         thisLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
@@ -363,25 +305,25 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         MIN3(thisLaneVSafe, myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
     neighLaneVSafe =
         MIN3(neighLaneVSafe, neighLane.maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
-    if(thisLaneVSafe-neighLaneVSafe>5./3.6) {
+    if (thisLaneVSafe-neighLaneVSafe>5./3.6) {
         // ok, the current lane is faster than the right one...
-        if(myChangeProbability<0) {
+        if (myChangeProbability<0) {
             myChangeProbability /= 2.0;
         }
     } else {
         // ok, the right lane is faster than the current
         myChangeProbability -= (SUMOReal)
-           ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
+                               ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
 
     // let's recheck the "Rechtsfahrgebot"
     SUMOReal vmax = MIN2(myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
-    vmax -= (SUMOReal) (5./2.6);
-    if(neighLaneVSafe>=vmax) {
-        myChangeProbability -= (SUMOReal) ((neighLaneVSafe-vmax) / (vmax));
+    vmax -= (SUMOReal)(5./2.6);
+    if (neighLaneVSafe>=vmax) {
+        myChangeProbability -= (SUMOReal)((neighLaneVSafe-vmax) / (vmax));
     }
 
-    if(myChangeProbability<-2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) {//./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
+    if (myChangeProbability<-2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) {//./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
         return ret | LCA_RIGHT|LCA_SPEEDGAIN;
     }
     // --------
@@ -412,8 +354,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
-    for(int p=0; p<(int) currE.size(); ++p) {
-        if(currE[p].lane==&myVehicle.getLane()) {
+    for (int p=0; p<(int) currE.size(); ++p) {
+        if (currE[p].lane==&myVehicle.getLane()) {
             curr = currE[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
@@ -426,12 +368,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
 #ifdef GUI_DEBUG
-    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
     }
 #endif
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
+    if (debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif
@@ -439,14 +381,14 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     int ret = (myState&0x00ffff00);
 
     // ?!!!
-    if( leader.first!=0
-        &&
-        (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0
-        &&
-        (leader.first->getLaneChangeModel().getState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
+    if (leader.first!=0
+            &&
+            (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0
+            &&
+            (leader.first->getLaneChangeModel().getState()&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
 
         myState &= (0xffffffff-LCA_AMBLOCKINGFOLLOWER_DONTBRAKE);
-        if(myVehicle.getSpeed()>0.1) {
+        if (myVehicle.getSpeed()>0.1) {
             myState |= LCA_AMBACKBLOCKER;
         } else {
             ret |= LCA_AMBACKBLOCKER;
@@ -456,17 +398,17 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
-    if((*lastBlocked)!=0) {
+    if ((*lastBlocked)!=0) {
         SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getLength()-myVehicle.getPositionOnLane();
-        if(gap>0.1) {
-            if(myVehicle.getSpeed()<myVehicle.decelAbility()) {
-                if((*lastBlocked)->getSpeed()<0.1) {
+        if (gap>0.1) {
+            if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
+                if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
-                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal) (gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
-                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal) (gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -483,15 +425,15 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
     SUMOReal lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-        ? neighLead.first->speed()+20.0
-        : */
+                ? neighLead.first->speed()+20.0
+                : */
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
         : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-        : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
+                 ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+                 : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
@@ -500,11 +442,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         myChangeProbability -= 1. / (tdist / lv);
     }
     */
-    if( fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset>0
-        &&
-        currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
+    if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset>0
+            &&
+            currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
         informBlocker(msgPass, blocked, LCA_MLEFT, neighLead, neighFollow);
-        if(neighLead.second>0&&neighLead.second>leader.second) {
+        if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
         }
         return ret|LCA_LEFT|LCA_URGENT|blocked;
@@ -519,11 +461,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //  is long enough
     SUMOReal maxJam = MAX2(currE[currIdx+1].hindernisPos, currE[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
-    if( bestLaneOffset<0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset<0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
-    if( bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, lv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, lv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
         return ret;
     }
@@ -534,7 +476,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule prevents the vehicle from leaving the current, best lane when it is
     //  close to this lane's end
-    if(currExtDist>neighExtDist&&(neighLeftPlace*2.<lv/*||currE[currIdx+1].length<currentDist*/)) {
+    if (currExtDist>neighExtDist&&(neighLeftPlace*2.<lv/*||currE[currIdx+1].length<currentDist*/)) {
         // ... let's not change the lane
         return ret;
     }
@@ -557,9 +499,9 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // --------
 
     // -------- make place on current lane if blocking follower
-    if( amBlockingFollowerPlusNB()
-        &&
-        (currentDistAllows(neighDist, bestLaneOffset, lv)||neighDist>=currentDist) ) {
+    if (amBlockingFollowerPlusNB()
+            &&
+            (currentDistAllows(neighDist, bestLaneOffset, lv)||neighDist>=currentDist)) {
 
         return ret|LCA_LEFT|LCA_URGENT|LCA_KEEP1;
     }
@@ -567,7 +509,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
     // -------- security checks for krauss
     //  (vsafe fails when gap<0)
-    if((blocked&(LCA_BLOCKEDBY_FOLLOWER|LCA_BLOCKEDBY_LEADER))!=0) {
+    if ((blocked&(LCA_BLOCKEDBY_FOLLOWER|LCA_BLOCKEDBY_LEADER))!=0) {
         return ret;
     }
 
@@ -575,12 +517,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     /* !!! scheint nicht vernünftig zu funktionieren - Fahrzeuge bleiben auf der rechten Spur
        obwohl sie noch eine Zeitlang auf der linken fahren dürften
     */
-    if((congested( neighLead.first ) && neighLead.second<20)||predInteraction(leader.first)) {//!!!
+    if ((congested(neighLead.first) && neighLead.second<20)||predInteraction(leader.first)) { //!!!
 //    if(congested( neighLead.first ) && neighLead.second<20) {//!!!
         return ret;
     }
     SUMOReal neighLaneVSafe, thisLaneVSafe;
-    if ( neighLead.first == 0 ) {
+    if (neighLead.first == 0) {
         neighLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0);
     } else {
@@ -588,7 +530,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         neighLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed());
     }
-    if(leader.first==0) {
+    if (leader.first==0) {
         thisLaneVSafe =
             myVehicle.ffeV(myVehicle.getSpeed(), myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
@@ -600,18 +542,18 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         MIN3(thisLaneVSafe, myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
     neighLaneVSafe =
         MIN3(neighLaneVSafe, neighLane.maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
-    if(thisLaneVSafe>neighLaneVSafe) {
+    if (thisLaneVSafe>neighLaneVSafe) {
         // this lane is better
-        if(myChangeProbability>0) {
+        if (myChangeProbability>0) {
             myChangeProbability /= 2.0;
         }
     } else {
         // right lane is better
         myChangeProbability += (SUMOReal)
-            ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
+                               ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
     //if(myChangeProbability>2./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // .1
-    if(myChangeProbability>.2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) { // .1
+    if (myChangeProbability>.2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) { // .1
         return ret | LCA_LEFT|LCA_SPEEDGAIN|LCA_URGENT;
     }
     // --------
@@ -623,7 +565,7 @@ SUMOReal
 MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/)
 {
 #ifdef GUI_DEBUG
-    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb= 0;
     }
 #endif
@@ -632,29 +574,29 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     myState = 0;
     myVSafe = -1;
     // just to make sure to be notified about lane chaning end
-    if(myVehicle.getLane().getEdge()->nLanes()==1) {
+    if (myVehicle.getLane().getEdge()->nLanes()==1) {
         // remove chaning information if on a road with a single lane
         changed();
     }
 
     // check whether the vehicle is blocked
-    if((state&LCA_URGENT)!=0) {
-        if(vSafe>0) {
+    if ((state&LCA_URGENT)!=0) {
+        if (vSafe>0) {
             return MIN2(max, MAX2(min, vSafe));
         }
         // check whether the vehicle maybe has to be swapped with one of
         //  the blocking vehicles
-        if( (state&LCA_BLOCKEDBY_LEADER)!=0
-            &&
-            (state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
+        if ((state&LCA_BLOCKEDBY_LEADER)!=0
+                &&
+                (state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
 
             return (min+wanted)/(SUMOReal) 2.0;//wanted;
         } else {
-            if((state&LCA_BLOCKEDBY_LEADER)!=0) {
+            if ((state&LCA_BLOCKEDBY_LEADER)!=0) {
                 // if interacting with leader and not too slow
                 return (min+wanted)/(SUMOReal) 2.0;
             }
-            if((state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
+            if ((state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
                 return (max+wanted)/(SUMOReal) 2.0;
             }
         }
@@ -663,26 +605,26 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
 
     // decelerate if being a blocking follower
     //  (and does not have to change lanes)
-    if((state&LCA_AMBLOCKINGFOLLOWER)!=0) {
-        if(max==myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) { // !!! was standing
+    if ((state&LCA_AMBLOCKINGFOLLOWER)!=0) {
+        if (max==myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) { // !!! was standing
             return 0;
         }
-        if(myVSafe<=0) {
+        if (myVSafe<=0) {
             return (min+wanted)/(SUMOReal) 2.0;
         }
         return min;//MAX2(min, MIN2(vSafe, wanted));
     }
-    if((state&LCA_AMBACKBLOCKER)!=0) {
-        if(max<=myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
+    if ((state&LCA_AMBACKBLOCKER)!=0) {
+        if (max<=myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
             return MAX2(min, MIN2(vSafe, wanted));
         }
     }
-    if((state&LCA_AMBACKBLOCKER_STANDING)!=0) {
+    if ((state&LCA_AMBACKBLOCKER_STANDING)!=0) {
         return MAX2(min, MIN2(vSafe, wanted));
     }
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
-    if((state&LCA_AMBLOCKINGLEADER)!=0) {
+    if ((state&LCA_AMBLOCKINGLEADER)!=0) {
         return (max+wanted)/(SUMOReal) 2.0;
     }
     /*
@@ -696,11 +638,11 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
         return (min+wanted)/2.0;
     }
     */
-    if((state&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
-        if(max<=myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
+    if ((state&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0) {
+        if (max<=myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) {// !!! was standing
             return wanted;
         }
-        if(myVSafe>(min+wanted)/(SUMOReal) 2.0) {
+        if (myVSafe>(min+wanted)/(SUMOReal) 2.0) {
             return MIN2(vSafe, wanted);
         }
         return (min+wanted)/(SUMOReal) 2.0;
@@ -713,13 +655,13 @@ void *
 MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/)
 {
     Info *pinfo = (Info*) info;
-    if(pinfo->second==LCA_UNBLOCK) {
+    if (pinfo->second==LCA_UNBLOCK) {
         myState &= 0xffff00ff;
         return (void*) true;
     }
     myState &= 0xffffffff;
     myState |= pinfo->second;
-    if(pinfo->first>=0) {
+    if (pinfo->first>=0) {
         myVSafe = MIN2(myVSafe, pinfo->first);
     }
     delete pinfo;
@@ -747,27 +689,27 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         int blb = 0;
     }
     */
-    if((blocked&LCA_BLOCKEDBY_FOLLOWER)!=0) {
+    if ((blocked&LCA_BLOCKEDBY_FOLLOWER)!=0) {
         assert(neighFollow.first!=0);
         MSVehicle *nv = neighFollow.first;
         SUMOReal decelGap =
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0
             - MAX2(nv->getSpeed() - nv->decelAbility() * (SUMOReal) 2.0, (SUMOReal) 0);
-        if(neighFollow.second>0&&decelGap>0&&nv->hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().maxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
+        if (neighFollow.second>0&&decelGap>0&&nv->hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().maxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             SUMOReal vsafe = myVehicle.ffeV(myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
                 (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
             SUMOReal vsafe = neighFollow.second<=0
-                ? 0
-                : myVehicle.ffeV(myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed());
+                             ? 0
+                             : myVehicle.ffeV(myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
                 (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }
     }
-    if((blocked&LCA_BLOCKEDBY_LEADER)!=0) {
-        if(neighLead.first!=0&&neighLead.second>0) {
+    if ((blocked&LCA_BLOCKEDBY_LEADER)!=0) {
+        if (neighLead.first!=0&&neighLead.second>0) {
             msgPass.informNeighLeader(
                 (void*) new Info(0, dir|LCA_AMBLOCKINGLEADER), &myVehicle);
         }
@@ -777,8 +719,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
 
 void
 MSLCM_DK2004::prepareStep()
-{
-}
+{}
 
 
 SUMOReal
@@ -786,9 +727,8 @@ MSLCM_DK2004::getProb() const
 {
     return myChangeProbability;
 }
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
 

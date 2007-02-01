@@ -1,81 +1,39 @@
-#ifndef LoggedValue_TimeFixed_h
-#define LoggedValue_TimeFixed_h
-//---------------------------------------------------------------------------//
-//                        LoggedValue_TimeFixed.h -
-//  This class logs values over a previously defined, fixed time
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 20 Feb 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    LoggedValue_TimeFixed.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 20 Feb 2003
+/// @version $Id: $
+///
+// This class logs values over a previously defined, fixed time
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/11/02 13:15:35  behrisch
-// Template inheritance needs explicit member reference (this->)
-//
-// Revision 1.8  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 11:07:54  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:09:23  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/03/19 13:06:44  dkrajzew
-// some work on the style
-//
-// Revision 1.3  2004/03/01 10:49:51  roessel
-// Reintroduced formerly removed files.
-//
-// Revision 1.1  2003/11/11 08:07:37  dkrajzew
-// logging (value passing) moved from utils to microsim
-//
-// Revision 1.3  2003/04/09 15:36:18  dkrajzew
-// debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
-//
-// Revision 1.2  2003/03/18 13:16:57  dkrajzew
-// windows eol removed
-//
-// Revision 1.1  2003/03/06 17:22:15  dkrajzew
-// initial commit for value logging cleasses
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+#ifndef LoggedValue_TimeFixed_h
+#define LoggedValue_TimeFixed_h
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "LoggedValue.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class LoggedValue_TimeFixed
  * To sum values (of the same semantic type) over a fixed time interval,
@@ -86,17 +44,18 @@
  */
 template<typename _T>
 class LoggedValue_TimeFixed
-    : public LoggedValue<_T> {
+            : public LoggedValue<_T>
+{
 public:
     /// Constructor
     LoggedValue_TimeFixed(size_t sampleInterval)
-    : LoggedValue<_T>(sampleInterval), mySampleInterval(sampleInterval),
-        mySampledUnits(0)
-    {
-    }
+            : LoggedValue<_T>(sampleInterval), mySampleInterval(sampleInterval),
+            mySampledUnits(0)
+    {}
 
     /// Destructor
-    ~LoggedValue_TimeFixed() { }
+    ~LoggedValue_TimeFixed()
+    { }
 
 
     /** @brief Adds a new value
@@ -106,7 +65,7 @@ public:
     {
         mySampledUnits++;
         // clear on a new interval
-        if(mySampledUnits>mySampleInterval) {
+        if (mySampledUnits>mySampleInterval) {
             mySampledUnits = 1;
             this->myCurrentValue = 0;
         }
@@ -120,7 +79,7 @@ public:
     _T getAvg() const
     {
         // Security check for false interval usage
-        if(mySampledUnits==0) {
+        if (mySampledUnits==0) {
             return 0; // !!! You could also throw an exception here;
             // This is not meant to be done
         }
@@ -146,11 +105,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
