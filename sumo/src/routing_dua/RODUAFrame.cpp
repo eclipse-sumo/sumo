@@ -1,75 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RODUAFrame.cpp -
-//  Some helping methods for usage within sumo and sumo-gui
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RODUAFrame.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Some helping methods for usage within sumo and sumo-gui
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log: RODUAFrame.cpp,v $
-// Revision 1.8  2006/11/29 07:51:23  dkrajzew
-// added the possibility to use the loaded weights outside their boundaries
-//
-// Revision 1.7  2006/01/09 13:30:06  dkrajzew
-// debugging
-//
-// Revision 1.6  2005/11/29 13:33:08  dkrajzew
-// debugging
-//
-// Revision 1.5  2005/10/07 11:42:28  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:04:48  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:05:23  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:26:27  dkrajzew
-// debugging
-// Revision 1.2  2005/02/17 09:27:35  dksumo
-// code beautifying;
-// some warnings removed;
-// compileable under linux
-//
-// Revision 1.1  2004/10/22 12:50:28  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <fstream>
@@ -89,15 +52,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 RODUAFrame::fillOptions(OptionsCont &oc)
 {
@@ -121,9 +84,9 @@ RODUAFrame::fillOptions(OptionsCont &oc)
 
 
     // insert options
-	ROFrame::fillOptions(oc);
-	addImportOptions(oc);
-	addDUAOptions(oc);
+    ROFrame::fillOptions(oc);
+    addImportOptions(oc);
+    addDUAOptions(oc);
     // add rand options
     RandHelper::insertRandOptions(oc);
 }
@@ -132,7 +95,7 @@ RODUAFrame::fillOptions(OptionsCont &oc)
 void
 RODUAFrame::addImportOptions(OptionsCont &oc)
 {
-        // register import options
+    // register import options
     oc.doRegister("trip-defs", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-defs");
     oc.addDescription("trip-defs", "Input", "Read trip-definitions from FILE");
@@ -159,13 +122,13 @@ RODUAFrame::addImportOptions(OptionsCont &oc)
 
     oc.doRegister("intel-cell", new Option_Bool(false));
     oc.addDescription("intel-cell", "Input", "Flip byte order on reading Cell-routes");
-    
+
     oc.doRegister("no-last-cell", new Option_Bool(false));
     oc.addDescription("no-last-cell", "Input", "Use best, not the last cell-route");
 
 
-        // register further processing options
-        // ! The subtopic "Processing" must be initialised earlier !
+    // register further processing options
+    // ! The subtopic "Processing" must be initialised earlier !
     oc.doRegister("expand-weights", new Option_Bool(false));
     oc.addDescription("expand-weights", "Processing", "Expand weights behind the simulation's end");
 }
@@ -175,7 +138,7 @@ void
 RODUAFrame::addDUAOptions(OptionsCont &oc)
 {
     // register additional options
-    oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
+    oc.doRegister("supplementary-weights", 'S', new Option_FileName());
     oc.addSynonyme("supplementary-weights", "add");
     oc.addDescription("supplementary-weights", "Input", "Read additional weights from FILE");
 
@@ -194,14 +157,10 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
 bool
 RODUAFrame::checkOptions(OptionsCont &oc)
 {
-	return ROFrame::checkOptions(oc);
+    return ROFrame::checkOptions(oc);
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 
