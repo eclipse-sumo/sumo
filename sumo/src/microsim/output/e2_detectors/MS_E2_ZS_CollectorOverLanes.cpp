@@ -1,128 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MS_E2_ZS_CollectorOverLanes.cpp -
-//  A detector which joins E2Collectors over consecutive lanes (backward)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Oct 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MS_E2_ZS_CollectorOverLanes.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Oct 2003
+/// @version $Id: $
+///
+// A detector which joins E2Collectors over consecutive lanes (backward)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2006/11/14 13:02:46  dkrajzew
-// warnings removed
-//
-// Revision 1.17  2006/09/18 10:03:58  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.16  2006/07/06 07:18:34  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.15  2006/05/15 05:47:50  dkrajzew
-// got rid of the cell-to-meter conversions
-//
-// Revision 1.15  2006/05/08 10:54:42  dkrajzew
-// got rid of the cell-to-meter conversions
-//
-// Revision 1.14  2006/04/11 10:59:06  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.13  2006/04/05 05:27:36  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.12  2006/01/26 08:30:29  dkrajzew
-// patched MSEdge in order to work with a generic router
-//
-// Revision 1.11  2006/01/09 11:54:21  dkrajzew
-// debugging
-//
-// Revision 1.10  2005/11/09 06:36:06  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added
-//
-// Revision 1.9  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 11:08:20  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:11:51  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2005/02/01 10:10:44  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.4  2004/12/16 12:14:59  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.3  2004/11/29 09:21:47  dkrajzew
-// detectors debugging
-//
-// Revision 1.2  2004/11/25 16:26:48  dkrajzew
-// consolidated and debugged some detectors and their usage
-//
-// Revision 1.1  2004/11/23 10:14:28  dkrajzew
-// all detectors moved to microscim/output; new detectors usage applied
-//
-// Revision 1.16  2004/07/02 09:53:05  dkrajzew
-// tried to patch an error on detector loading
-//
-// Revision 1.15  2004/03/19 13:09:40  dkrajzew
-// debugging
-//
-// Revision 1.14  2004/02/18 05:25:21  dkrajzew
-// error on computation of the preceding lane using neighbour lane patched
-//
-// Revision 1.13  2004/02/16 14:04:54  dkrajzew
-// bug on extension of lanes that do not have a predeccesor patched
-//
-// Revision 1.12  2004/02/05 16:34:25  dkrajzew
-// made the usage of the detector output end more usable
-//
-// Revision 1.11  2004/01/26 07:31:22  dkrajzew
-// differnt detector usage types added
-//
-// Revision 1.10  2004/01/13 14:25:02  dkrajzew
-// corrected the output description
-//
-// Revision 1.9  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.8  2004/01/12 14:35:10  dkrajzew
-// documentation added; allowed the writing to files
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MS_E2_ZS_CollectorOverLanes.h"
 #include <microsim/output/MSDetectorControl.h>
@@ -133,48 +43,48 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member variable definitions
- * ======================================================================= */
+// ===========================================================================
+// member variable definitions
+// ===========================================================================
 std::string
 MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
-"<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-"<!--\n"
-"- densityMean [veh/km]\n"
-"- maxJamLengthInVehiclesMean [veh]\n"
-"- maxJamLengthInMetersMean [m]\n"
-"- jamLengthSumInVehiclesMean [veh]\n"
-"- jamLengthSumInMetersMean [m]\n"
-"- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
-"- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
-"- nE2VehiclesMean [veh]\n"
-"- occupancyDegreeMean [0,1]\n"
-"- spaceMeanSpeedMean [m/s]\n"
-"- currentHaltingDurationSumPerVehicleMean [s]\n"
-"- nStartedHalts [n]\n"
-//"- haltingDurationSum [s]\n"
-"- haltingDurationMean [s]\n"
-"-->\n\n");
+    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
+    "<!--\n"
+    "- densityMean [veh/km]\n"
+    "- maxJamLengthInVehiclesMean [veh]\n"
+    "- maxJamLengthInMetersMean [m]\n"
+    "- jamLengthSumInVehiclesMean [veh]\n"
+    "- jamLengthSumInMetersMean [m]\n"
+    "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
+    "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
+    "- nE2VehiclesMean [veh]\n"
+    "- occupancyDegreeMean [0,1]\n"
+    "- spaceMeanSpeedMean [m/s]\n"
+    "- currentHaltingDurationSumPerVehicleMean [s]\n"
+    "- nStartedHalts [n]\n"
+    //"- haltingDurationSum [s]\n"
+    "- haltingDurationMean [s]\n"
+    "-->\n\n");
 
 std::string MS_E2_ZS_CollectorOverLanes::infoEndM = "</detector>";
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
-        std::string id, DetectorUsage usage, MSLane* lane,
-        SUMOReal startPos,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds)
+    std::string id, DetectorUsage usage, MSLane* lane,
+    SUMOReal startPos,
+    SUMOReal haltingTimeThreshold,
+    MSUnit::MetersPerSecond haltingSpeedThreshold,
+    SUMOReal jamDistThreshold,
+    SUMOTime deleteDataAfterSeconds)
         : startPosM(startPos),
         deleteDataAfterSecondsM(deleteDataAfterSeconds),
         haltingTimeThresholdM(haltingTimeThreshold),
@@ -182,23 +92,22 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         jamDistThresholdM(jamDistThreshold),
         myID(id), myStartLaneID(lane->getID()),
         myUsage(usage)
-{
-}
+{}
 
 
 void
 MS_E2_ZS_CollectorOverLanes::init(
-        MSLane *lane,
-        SUMOReal detLength,
-        const MSEdgeContinuations &edgeContinuations)
+    MSLane *lane,
+    SUMOReal detLength,
+    const MSEdgeContinuations &edgeContinuations)
 {
     myLength = detLength;
-    if(startPosM==0) {
+    if (startPosM==0) {
         startPosM = (SUMOReal) 0.1;
     }
     SUMOReal length = lane->length() - startPosM - (SUMOReal) 0.1;
     SUMOReal dlength = detLength;
-    if(length>dlength) {
+    if (length>dlength) {
         length = dlength;
     }
     myLengths.push_back(length);
@@ -213,24 +122,23 @@ MS_E2_ZS_CollectorOverLanes::init(
 }
 
 
-MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes( void )
-{
-}
+MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes(void)
+{}
 
 
 void
 MS_E2_ZS_CollectorOverLanes::extendTo(
-        SUMOReal length,
-        const MSEdgeContinuations &edgeContinuations)
+    SUMOReal length,
+    const MSEdgeContinuations &edgeContinuations)
 {
     bool done = false;
-    while(!done) {
+    while (!done) {
         done = true;
         LengthVector::iterator leni = myLengths.begin();
         LaneVectorVector::iterator lanei = myLaneCombinations.begin();
         DetectorVectorVector::iterator deti = myDetectorCombinations.begin();
-        for(; leni!=myLengths.end(); leni++, lanei++, deti++) {
-            if((*leni)<length) {
+        for (; leni!=myLengths.end(); leni++, lanei++, deti++) {
+            if ((*leni)<length) {
                 done = false;
                 // copy current values
                 LaneVector lv = *lanei;
@@ -248,19 +156,19 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 // and her predecessors
                 std::vector<MSLane*> predeccessors =
                     getLanePredeccessorLanes(toExtend, edgeContinuations);
-                if(predeccessors.size()==0) {
+                if (predeccessors.size()==0) {
                     int off = 1;
                     const MSEdge * const e = toExtend->getEdge();
                     const std::vector<MSLane*> *lanes = e->getLanes();
                     int idx =
                         distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
-                    while(predeccessors.size()==0) {
-                        if(idx-off>=0) {
+                    while (predeccessors.size()==0) {
+                        if (idx-off>=0) {
                             MSLane *tryMe = (*lanes)[idx-off];
                             predeccessors =
                                 getLanePredeccessorLanes(tryMe, edgeContinuations);
                         }
-                        if(predeccessors.size()==0&&idx+off<(int) lanes->size()) {
+                        if (predeccessors.size()==0&&idx+off<(int) lanes->size()) {
                             MSLane *tryMe = (*lanes)[idx+off];
                             predeccessors =
                                 getLanePredeccessorLanes(tryMe, edgeContinuations);
@@ -269,18 +177,18 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     }
                 }
 
-/*                LaneContinuations::const_iterator conts =
-                    laneContinuations.find(toExtend->id());
-                assert(conts!=laneContinuations.end());
-                const std::vector<std::string> &predeccessors =
-                    (*conts).second;*/
+                /*                LaneContinuations::const_iterator conts =
+                                    laneContinuations.find(toExtend->id());
+                                assert(conts!=laneContinuations.end());
+                                const std::vector<std::string> &predeccessors =
+                                    (*conts).second;*/
                 // go through the predeccessors and extend the detector
-                for(std::vector<MSLane*>::const_iterator i=predeccessors.begin(); i!=predeccessors.end(); i++) {
+                for (std::vector<MSLane*>::const_iterator i=predeccessors.begin(); i!=predeccessors.end(); i++) {
                     // get the lane
                     MSLane *l = *i;
                     // compute detector length
                     SUMOReal lanelen = length - clength;
-                    if(lanelen>l->length()) {
+                    if (lanelen>l->length()) {
                         lanelen = l->length() - (SUMOReal) 0.2;
                     }
                     // build new info
@@ -288,7 +196,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     nlv.push_back(l);
                     DetectorVector ndv = dv;
                     MSE2Collector *coll = 0;
-                    if(myAlreadyBuild.find(l)==myAlreadyBuild.end()) {
+                    if (myAlreadyBuild.find(l)==myAlreadyBuild.end()) {
                         coll = buildCollector(0, 0, l, (SUMOReal) 0.1, lanelen);
                     } else {
                         coll = myAlreadyBuild.find(l)->second;
@@ -314,7 +222,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 {
     string eid = l->getEdge()->getID();
     // check whether any exist
-    if(!edgeContinuations.hasFurther(*l->getEdge())) {
+    if (!edgeContinuations.hasFurther(*l->getEdge())) {
         return std::vector<MSLane*>();
     }
     // get predecessing edges
@@ -322,17 +230,17 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
         edgeContinuations.getInFrontOfEdge(*l->getEdge());
     std::vector<MSLane*> ret;
     // find predecessing lanes
-    for(std::vector<MSEdge*>::const_iterator i=predEdges.begin(); i!=predEdges.end(); i++) {
+    for (std::vector<MSEdge*>::const_iterator i=predEdges.begin(); i!=predEdges.end(); i++) {
         MSEdge *e = *i;
         assert(e!=0);
         typedef std::vector<MSLane*> LaneVector;
         const LaneVector *cl = e->allowedLanes(*l->getEdge(), SVC_UNKNOWN);
         bool fastAbort = false;
-        if(cl!=0) {
-            for(LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {
+        if (cl!=0) {
+            for (LaneVector::const_iterator j=cl->begin(); !fastAbort&&j!=cl->end(); j++) {
                 const MSLinkCont &lc = (*j)->getLinkCont();
-                for(MSLinkCont::const_iterator k=lc.begin(); !fastAbort&&k!=lc.end(); k++) {
-                    if((*k)->getLane()==l) {
+                for (MSLinkCont::const_iterator k=lc.begin(); !fastAbort&&k!=lc.end(); k++) {
+                    if ((*k)->getLane()==l) {
                         ret.push_back(*j);
                         fastAbort = true;
                     }
@@ -346,22 +254,22 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 
 MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-                                            SUMOReal start, SUMOReal end)
+        SUMOReal start, SUMOReal end)
 {
     string id = makeID(l->getID(), c, r);
-    if(start+end<l->length()) {
+    if (start+end<l->length()) {
         start = l->length() - end - (SUMOReal) 0.1;
     }
     return new MSE2Collector(id, myUsage,
-        l, start, end, haltingTimeThresholdM,
-        haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
+                             l, start, end, haltingTimeThresholdM,
+                             haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
 }
 
 
 SUMOReal
-MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
+MS_E2_ZS_CollectorOverLanes::getCurrent(E2::DetType type)
 {
-    switch(type) {
+    switch (type) {
     case E2::DENSITY:
     case E2::MAX_JAM_LENGTH_IN_VEHICLES:
     case E2::MAX_JAM_LENGTH_IN_METERS:
@@ -375,12 +283,12 @@ MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
     case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
         SUMOReal myMax = 0;
-        for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
+        for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
             SUMOReal value = 0;
-            for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
+            for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
                 value += (*j)->getCurrent(type);
             }
-            if(myMax<value) {
+            if (myMax<value) {
                 myMax = value;
             }
         }
@@ -391,10 +299,10 @@ MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
 
 
 SUMOReal
-MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
-                                          MSUnit::Seconds lastNSeconds )
+MS_E2_ZS_CollectorOverLanes::getAggregate(E2::DetType type,
+        MSUnit::Seconds lastNSeconds)
 {
-    switch(type) {
+    switch (type) {
     case E2::DENSITY:
     case E2::MAX_JAM_LENGTH_IN_VEHICLES:
     case E2::MAX_JAM_LENGTH_IN_METERS:
@@ -408,12 +316,12 @@ MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
     case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
         SUMOReal myMax = 0;
-        for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
+        for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
             SUMOReal value = 0;
-            for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
+            for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
                 value += (*j)->getAggregate(type, lastNSeconds);
             }
-            if(value>myMax) {
+            if (value>myMax) {
                 myMax = value;
             }
         }
@@ -424,18 +332,18 @@ MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
 
 
 bool
-MS_E2_ZS_CollectorOverLanes::hasDetector( E2::DetType type )
+MS_E2_ZS_CollectorOverLanes::hasDetector(E2::DetType type)
 {
     return myDetectorCombinations[0][0]->hasDetector(type);
 }
 
 
 void
-MS_E2_ZS_CollectorOverLanes::addDetector( E2::DetType type,
-                                         std::string detId)
+MS_E2_ZS_CollectorOverLanes::addDetector(E2::DetType type,
+        std::string detId)
 {
     size_t c = 0;
-    for(LaneDetMap::iterator i=myAlreadyBuild.begin(); i!=myAlreadyBuild.end(); i++) {
+    for (LaneDetMap::iterator i=myAlreadyBuild.begin(); i!=myAlreadyBuild.end(); i++) {
         (*i).second->addDetector(type, makeID(detId, c, c));
         c++;
     }
@@ -444,18 +352,18 @@ MS_E2_ZS_CollectorOverLanes::addDetector( E2::DetType type,
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
-                                            SUMOTime startTime, SUMOTime stopTime )
+        SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
-        toString(stopTime)).writeString("\" ");
-    if(dev.needsDetectorName()) {
+            toString(stopTime)).writeString("\" ");
+    if (dev.needsDetectorName()) {
         dev.writeString("id=\"").writeString(myID).writeString("\" ");
     }
-    if(hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
+    if (hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
         dev.writeString("collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"");
         dev.writeString(
-            toString( getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)));
+            toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)));
         dev.writeString("\" ");
         resetQueueLengthAheadOfTrafficLights();
     }
@@ -465,24 +373,24 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart( XMLDevice &dev ) const
+MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
     dev.writeString("<detector type=\"E2_ZS_Collector\" id=\"").writeString(
         myID).writeString("\" startlane=\"").writeString(
-        myStartLaneID).writeString("\" startpos=\"").writeString(
-        toString(startPosM)).writeString("\" length=\"").writeString(
-        toString(myLength)).writeString("\" >\n");
+            myStartLaneID).writeString("\" startpos=\"").writeString(
+                toString(startPosM)).writeString("\" length=\"").writeString(
+                    toString(myLength)).writeString("\" >\n");
 }
 
 
 size_t bla = 0;
 
 std::string
-MS_E2_ZS_CollectorOverLanes::makeID( const std::string &baseID ,
-                                    size_t /*col*/, size_t /*row*/ ) const
+MS_E2_ZS_CollectorOverLanes::makeID(const std::string &baseID ,
+                                    size_t /*col*/, size_t /*row*/) const
 {
     string add;
-    switch(myUsage) {
+    switch (myUsage) {
     case DU_USER_DEFINED:
         add = "(u)";
         break;
@@ -495,8 +403,8 @@ MS_E2_ZS_CollectorOverLanes::makeID( const std::string &baseID ,
     default:
         break;
     }
-string ret =  baseID + add + toString<size_t>(bla++);
- return ret;
+    string ret =  baseID + add + toString<size_t>(bla++);
+    return ret;
 }
 
 
@@ -515,18 +423,16 @@ MS_E2_ZS_CollectorOverLanes::getStartLaneID() const
 
 
 void
-MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights( void )
+MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights(void)
 {
-    for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-        for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
+    for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
+        for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
             (*j)->resetQueueLengthAheadOfTrafficLights();
         }
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
