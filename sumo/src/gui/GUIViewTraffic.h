@@ -1,134 +1,40 @@
-#ifndef GUIViewTraffic_h
-#define GUIViewTraffic_h
-//---------------------------------------------------------------------------//
-//                        GUIViewTraffic.h -
-//  A view on the simulation; this view is a microscopic one
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIViewTraffic.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A view on the simulation; this view is a microscopic one
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.33  2006/12/18 08:25:24  dkrajzew
-// consolidation of setting colors
-//
-// Revision 1.32  2006/12/12 12:10:35  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.31  2006/11/28 12:10:40  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.30  2006/07/06 06:26:44  dkrajzew
-// added blinker visualisation and vehicle tracking (unfinished)
-//
-// Revision 1.29  2006/04/18 08:08:21  dkrajzew
-// added Danilot Tete-Boyoms poi-interaction
-//
-// Revision 1.28  2006/03/08 13:09:11  dkrajzew
-// possibility to insert pois on the gui added (danilo tet-boyom)
-//
-// Revision 1.27  2006/02/23 11:25:19  dkrajzew
-// adding pois on the gui implemented (Danilot Tete Boyom)
-//
-// Revision 1.26  2006/01/09 11:50:20  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.25  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.24  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.23  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.22  2005/05/04 07:50:16  dkrajzew
-// ported to fox1.4
-//
-// Revision 1.21  2004/12/15 09:20:17  dkrajzew
-// made guisim independent of giant/netedit
-//
-// Revision 1.20  2004/12/12 17:23:58  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.19  2004/11/23 10:11:34  dkrajzew
-// adapted the new class hierarchy
-//
-// Revision 1.18  2004/08/02 11:55:35  dkrajzew
-// using coloring schemes stored in a container
-//
-// Revision 1.17  2004/07/02 08:31:35  dkrajzew
-// detector drawer now also draw other additional items; removed some memory
-//  leaks;
-//  some further drawing options (mainly for the online-router added)
-//
-// Revision 1.16  2004/06/17 13:06:55  dkrajzew
-// Polygon visualisation added
-//
-// Revision 1.15  2004/03/19 12:54:08  dkrajzew
-// porting to FOX
-//
-// Revision 1.14  2003/11/12 14:07:46  dkrajzew
-// clean up after recent changes
-//
-// Revision 1.13  2003/09/05 14:55:11  dkrajzew
-// lighter drawer implementations
-//
-// Revision 1.12  2003/08/14 13:44:14  dkrajzew
-// tls/row - drawer added
-//
-// Revision 1.11  2003/07/30 08:52:16  dkrajzew
-// further work on visualisation of all geometrical objects
-//
-// Revision 1.10  2003/07/22 14:56:46  dkrajzew
-// changes due to new detector handling
-//
-// Revision 1.9  2003/07/16 15:18:24  dkrajzew
-// new interfaces for drawing classes; junction drawer interface added
-//
-// Revision 1.8  2003/06/05 06:26:16  dkrajzew
-// first tries to build under linux: warnings removed; Makefiles added
-//
-// Revision 1.7  2003/05/20 09:23:55  dkrajzew
-// some statistics added; some debugging done
-//
-// Revision 1.6  2003/04/16 09:50:05  dkrajzew
-// centering of the network debugged; additional parameter of maximum display
-//  size added
-//
-// Revision 1.4  2003/04/02 11:50:28  dkrajzew
-// a working tool tip implemented
-//
-// Revision 1.3  2003/02/07 10:34:15  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIViewTraffic_h
+#define GUIViewTraffic_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/geom/Boundary.h>
@@ -152,9 +58,9 @@
 #include <GL/gl.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSVehicle;
 class GUINet;
 class GUISUMOViewParent;
@@ -164,24 +70,25 @@ class GUIEdge;
 class GUIPerspectiveChanger;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIViewTraffic
  * Microsocopic view at the simulation
  */
-class GUIViewTraffic : public GUISUMOAbstractView {
-  FXDECLARE(GUIViewTraffic)
+class GUIViewTraffic : public GUISUMOAbstractView
+{
+    FXDECLARE(GUIViewTraffic)
 public:
     /// constructor
     GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
-        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
+                   GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
 
     /// constructor
     GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
-        GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
-        FXGLCanvas *share);
+                   GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
+                   FXGLCanvas *share);
     void init(GUINet &net) ;
 
     void create();
@@ -199,7 +106,7 @@ public:
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
     long onLeftBtnRelease(FXObject*,FXSelector,void*);
-	long onMouseMove(FXObject *o,FXSelector sel,void *data);
+    long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
 
     void centerTo(GUIGlObject *o);
@@ -240,8 +147,8 @@ protected:
     void setPointToMove(PointOfInterest *p);
     void setIdToMove(unsigned int id);
     void draw(const MSRoute &r);
-	void setFirstPoint(PointOfInterest *p);
-	void setSecondPoint(PointOfInterest *p);
+    void setFirstPoint(PointOfInterest *p);
+    void setSecondPoint(PointOfInterest *p);
 
 protected:
     /** @brief Instances of the vehicle drawers
@@ -282,12 +189,12 @@ protected:
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
     PointOfInterest *_pointToMove;
-	PointOfInterest *_secondPoint; // first's Line Point
-	PointOfInterest *_firstPoint;  // second's Line Point
-	unsigned int _IdToMove;  // for deleting the _pointToMove also into gIDStorage
-	bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
+    PointOfInterest *_secondPoint; // first's Line Point
+    PointOfInterest *_firstPoint;  // second's Line Point
+    unsigned int _IdToMove;  // for deleting the _pointToMove also into gIDStorage
+    bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
 
-	GUINet *_net;
+    GUINet *_net;
 
     /** @brief The list of vehicle coloring schemes that may be used */
     static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
@@ -301,20 +208,16 @@ protected:
     std::vector<GUIJunctionWrapper*> myEmptyJunctions;
 
     GUIViewTraffic()
-        : myVehicleDrawer(myEmptyEdges), myLaneDrawer(myEmptyEdges),
-        myJunctionDrawer(myEmptyJunctions),
-        myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
-        myROWDrawer(myEmptyEdges) { }
+            : myVehicleDrawer(myEmptyEdges), myLaneDrawer(myEmptyEdges),
+            myJunctionDrawer(myEmptyJunctions),
+            myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
+            myROWDrawer(myEmptyEdges)
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

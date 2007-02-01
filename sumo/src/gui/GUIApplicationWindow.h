@@ -1,161 +1,40 @@
-#ifndef GUIApplicationWindow_h
-#define GUIApplicationWindow_h
-//---------------------------------------------------------------------------//
-//                        GUIApplicationWindow.h -
-//  Class for the main gui window
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIApplicationWindow.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Class for the main gui window
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.37  2006/11/16 12:30:53  dkrajzew
-// warnings removed
-//
-// Revision 1.36  2006/08/01 05:43:46  dkrajzew
-// cartesian and geocoordinates are shown; changed the APIs for this
-//
-// Revision 1.35  2006/05/15 05:45:17  dkrajzew
-// beautifying: dead code removed
-//
-// Revision 1.35  2006/05/08 10:48:50  dkrajzew
-// beautifying: removed dead code
-//
-// Revision 1.34  2006/01/09 11:50:20  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.33  2005/11/09 06:31:46  dkrajzew
-// added cursor position output (unfinished); catching opening a second file using recent files added
-//
-// Revision 1.32  2005/10/10 11:48:27  dkrajzew
-// removed unneeded APIs
-//
-// Revision 1.31  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.30  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.29  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.28  2005/07/12 12:08:23  dkrajzew
-// patches only (unused features removed)
-//
-// Revision 1.27  2005/05/04 07:46:08  dkrajzew
-// ported to fox1.4
-//
-// Revision 1.26  2005/02/17 10:33:29  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.25  2004/12/16 12:12:58  dkrajzew
-// first steps towards loading of selections between different applications
-//
-// Revision 1.24  2004/11/23 10:11:33  dkrajzew
-// adapted the new class hierarchy
-//
-// Revision 1.23  2004/08/02 11:44:31  dkrajzew
-// ported to fox 1.2; patched missing unlock on unwished program termination
-//
-// Revision 1.22  2004/07/02 08:35:30  dkrajzew
-// all 0.8.0.2 update steps
-//
-// Revision 1.21  2004/04/23 12:34:54  dkrajzew
-// now, all tracker and tables are updated
-//
-// Revision 1.20  2004/03/19 12:54:07  dkrajzew
-// porting to FOX
-//
-// Revision 1.19  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
-//  lane to come makes it necessary)
-//
-// Revision 1.18  2003/11/12 14:06:32  dkrajzew
-// visualisation of tl-logics added
-//
-// Revision 1.17  2003/11/11 08:40:45  dkrajzew
-// consequent position2D instead of two SUMOReals implemented; logging moved
-//  from utils to microsim
-//
-// Revision 1.16  2003/10/27 10:47:03  dkrajzew
-// added to possibility to close the application after a simulations end
-//  without user interaction
-//
-// Revision 1.15  2003/09/05 14:45:44  dkrajzew
-// first tries for an implementation of aggregated views
-//
-// Revision 1.14  2003/08/20 11:55:49  dkrajzew
-// "Settings"-menu added
-//
-// Revision 1.13  2003/07/16 15:16:26  dkrajzew
-// unneeded uncommented files removed
-//
-// Revision 1.12  2003/07/07 08:08:33  dkrajzew
-// The restart-button was removed and the play-button has now the function to
-//  continue the simulation if it has been started before
-//
-// Revision 1.11  2003/06/24 14:28:53  dkrajzew
-// first steps towards a settings manipulation applied
-//
-// Revision 1.10  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on
-//  end and be started with a simulation now;
-//
-// Revision 1.9  2003/06/18 11:04:53  dkrajzew
-// new error processing adapted
-//
-// Revision 1.8  2003/05/20 09:23:54  dkrajzew
-// some statistics added; some debugging done
-//
-// Revision 1.7  2003/04/16 10:12:12  dkrajzew
-// fontrendeder removed temporarily
-//
-// Revision 1.6  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum
-//  display size added
-//
-// Revision 1.5  2003/04/04 15:04:53  roessel
-// Added #include <qtoolbutton.h>
-//
-// Revision 1.4  2003/03/17 14:03:24  dkrajzew
-// Dialog about simulation restart debugged
-//
-// Revision 1.3  2003/03/12 16:55:16  dkrajzew
-// centering of objects debugged
-//
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIApplicationWindow_h
+#define GUIApplicationWindow_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -172,9 +51,9 @@
 #include "GUISUMOViewParent.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUILoadThread;
 class GUIRunThread;
 class GUIMessageWindow;
@@ -184,9 +63,9 @@ class GUIParameterTableWindow;
 class GUIThreadFactory;
 
 
-/* =========================================================================
- * class definition
- * ======================================================================= */
+// ===========================================================================
+// class definition
+// ===========================================================================
 /**
  * @class GUIApplicationWindow
  * The main window of the SUMO-gui. Contains the file opening support and
@@ -201,7 +80,7 @@ class GUIThreadFactory;
  * whether aggregated views are allowed is stored within this class, too.
  */
 class GUIApplicationWindow :
-        public GUIMainWindow, public MFXInterThreadEventClient
+            public GUIMainWindow, public MFXInterThreadEventClient
 {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
@@ -209,7 +88,7 @@ public:
 
     /** constructor */
     GUIApplicationWindow(FXApp* a,
-        int glWidth, int glHeight, const std::string &configPattern);
+                         int glWidth, int glHeight, const std::string &configPattern);
 
     /** destructor */
     virtual ~GUIApplicationWindow();
@@ -290,13 +169,14 @@ public:
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
 
-	FXGLCanvas *getBuildGLCanvas() const;
+    FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;
 
-	FXCursor *getDefaultCursor();
+    FXCursor *getDefaultCursor();
 
 protected:
-    virtual void addToWindowsMenu(FXMenuPane *) { }
+    virtual void addToWindowsMenu(FXMenuPane *)
+    { }
 
 private:
     /** starts to load a simulation */
@@ -310,7 +190,8 @@ private:
 
 protected:
     /// FOX needs this for static members
-    GUIApplicationWindow() { }
+    GUIApplicationWindow()
+    { }
 
 protected:
     /// Builds the menu bar
@@ -340,7 +221,7 @@ protected:
 
     /// the submenus
     FXMenuPane *myFileMenu, *myEditMenu, *mySettingsMenu,
-        *myWindowsMenu, *myHelpMenu;
+    *myWindowsMenu, *myHelpMenu;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow *myMessageWindow;
@@ -350,8 +231,8 @@ protected:
 
     /// for some menu detaching fun
     FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-        *myToolBarDrag4, *myToolBarDrag5,
-        *myMenuBarDrag;
+    *myToolBarDrag4, *myToolBarDrag5,
+    *myMenuBarDrag;
 
     ///
     FXRealSpinDial *mySimDelayTarget;
@@ -393,11 +274,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

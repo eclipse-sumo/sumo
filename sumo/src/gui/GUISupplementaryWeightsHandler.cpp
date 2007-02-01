@@ -1,64 +1,39 @@
-//---------------------------------------------------------------------------//
-//                        GUISupplementaryWeightsHandler.cpp -
+/****************************************************************************/
+/// @file    GUISupplementaryWeightsHandler.cpp
+/// @author  Christian Roessel
+/// @date    Thu Apr 08 2004
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu Apr 08 2004
-//  copyright            : (C) 2005 by Christian Roessel
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : christian.roessel@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/04/18 08:08:21  dkrajzew
-// added Danilot Tete-Boyoms poi-interaction
-//
-// Revision 1.8  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.7  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/12 11:59:01  dkrajzew
-// level 3 warnings removed; code style adapted
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUISupplementaryWeightsHandler.h"
 
@@ -80,29 +55,32 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
 GUISupplementaryWeightsHandler::GUISupplementaryWeightsHandler(
-        const std::string& filename )
-    : SUMOSAXHandler( "sumo-supplementary-netweights", filename )
-    , hasStartedSupplementaryWeightsM( false )
-    , hasStartedIntervalM( false )
-    , hasStartedWeightM( false )
-    , isEdgeIdSetM( false )
-    , isAbsolutValueSetM( false )
-    , isMultValueSetM( false )
-    , isAddValueSetM( false )
-    , intervalStartM( 0 )
-    , intervalEndM( 0 )
-    , edgeIdM( "" )
-    , absolutValueM( 0 )
-    , multValueM( 0 )
-    , addValueM( 0 )
-    , absolutMapM()
-    , multMapM()
-    , addMapM()
-    , weightedEdgesM()
+    const std::string& filename)
+        : SUMOSAXHandler("sumo-supplementary-netweights", filename)
+        , hasStartedSupplementaryWeightsM(false)
+        , hasStartedIntervalM(false)
+        , hasStartedWeightM(false)
+        , isEdgeIdSetM(false)
+        , isAbsolutValueSetM(false)
+        , isMultValueSetM(false)
+        , isAddValueSetM(false)
+        , intervalStartM(0)
+        , intervalEndM(0)
+        , edgeIdM("")
+        , absolutValueM(0)
+        , multValueM(0)
+        , addValueM(0)
+        , absolutMapM()
+        , multMapM()
+        , addMapM()
+        , weightedEdgesM()
 {}
 
 
@@ -115,129 +93,122 @@ GUISupplementaryWeightsHandler::~GUISupplementaryWeightsHandler()
 }
 
 void
-GUISupplementaryWeightsHandler::myStartElement( int
-                                               , const std::string& name
-                                               , const Attributes& attrs )
+GUISupplementaryWeightsHandler::myStartElement(int
+        , const std::string& name
+        , const Attributes& attrs)
 {
-    if ( name == "supplementary-weights"  ) {
-        startParseSupplementaryWeights( attrs );
+    if (name == "supplementary-weights") {
+        startParseSupplementaryWeights(attrs);
+    } else if (name == "interval") {
+        startParseInterval(attrs);
+    } else if (name == "weight") {
+        startParseWeight(attrs);
     }
-    else if ( name == "interval" ) {
-        startParseInterval( attrs );
-    }
-    else if ( name == "weight" ) {
-        startParseWeight( attrs );
-    }
-/*    else {
-        WRITE_WARNING("GUISupplementaryWeightsHandler::myStartElement wrong ");
-        WRITE_WARNING(
+    /*    else {
+            WRITE_WARNING("GUISupplementaryWeightsHandler::myStartElement wrong ");
+            WRITE_WARNING(
 
-             << "attribute " << name << endl;
-        assert( false );
-    }*/
+                 << "attribute " << name << endl;
+            assert( false );
+        }*/
 }
 
 void
-GUISupplementaryWeightsHandler::myEndElement( int, const std::string& name )
+GUISupplementaryWeightsHandler::myEndElement(int, const std::string& name)
 {
-    if ( name == "interval" ) {
+    if (name == "interval") {
         stopParseInterval();
-    }
-    else if ( name == "weight" ) {
+    } else if (name == "weight") {
         stopParseWeight();
     }
-/*    else {
-        err << "GUISupplementaryWeightsHandler::myEndElement wrong "
-             << "attribute \"" << name << "\"." << endl;
-        assert( false );
-    }*/
+    /*    else {
+            err << "GUISupplementaryWeightsHandler::myEndElement wrong "
+                 << "attribute \"" << name << "\"." << endl;
+            assert( false );
+        }*/
 }
 
 void
 GUISupplementaryWeightsHandler::startParseSupplementaryWeights(
-    const Attributes& attrs )
+    const Attributes& attrs)
 {
-    assert( attrs.getLength() == 0 );
-    assert( ! hasStartedSupplementaryWeightsM );
-    assert( ! hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() == 0);
+    assert(! hasStartedSupplementaryWeightsM);
+    assert(! hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedSupplementaryWeightsM = true;
 }
 
 void
-GUISupplementaryWeightsHandler::startParseInterval( const Attributes& attrs )
+GUISupplementaryWeightsHandler::startParseInterval(const Attributes& attrs)
 {
-    assert( attrs.getLength() == 2 );
-    assert( hasStartedSupplementaryWeightsM );
-    assert( ! hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() == 2);
+    assert(hasStartedSupplementaryWeightsM);
+    assert(! hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedIntervalM = true;
 
     try {
-        intervalStartM = getLong( attrs, SUMO_ATTR_BEGIN );
-        intervalEndM   = getLong( attrs, SUMO_ATTR_END );
-    }
-    catch (...) {
+        intervalStartM = getLong(attrs, SUMO_ATTR_BEGIN);
+        intervalEndM   = getLong(attrs, SUMO_ATTR_END);
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform("Problems with timestep value.");
     }
 }
 
 void
-GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
+GUISupplementaryWeightsHandler::startParseWeight(const Attributes& attrs)
 {
-    assert( attrs.getLength() >= 2 );
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() >= 2);
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedWeightM = true;
 
     // Check attributes and assign them to members
-    for ( unsigned index = 0; index < attrs.getLength(); ++index ) {
+    for (unsigned index = 0; index < attrs.getLength(); ++index) {
         const string attrName(
-            TplConvert<XMLCh>::_2str( attrs.getLocalName( index ) ) );
+            TplConvert<XMLCh>::_2str(attrs.getLocalName(index)));
         const string attrValue(
-            TplConvert<XMLCh>::_2str( attrs.getValue( index ) ) );
+            TplConvert<XMLCh>::_2str(attrs.getValue(index)));
 
-        if ( attrName == "edge-id" ){
+        if (attrName == "edge-id") {
             edgeIdM      = attrValue;
             isEdgeIdSetM = true;
-        }
-        else if ( attrName == "absolut" ){
-            absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
+        } else if (attrName == "absolut") {
+            absolutValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isAbsolutValueSetM = true;
-        }
-        else if ( attrName == "mult" ){
-            multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
+        } else if (attrName == "mult") {
+            multValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isMultValueSetM = true;
-        }
-        else if ( attrName == "add" ){
-            addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
+        } else if (attrName == "add") {
+            addValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isAddValueSetM = true;
         }
-/*        else {
-            err << "GUISupplementaryWeightsHandler::startParseWeight wrong "
-                 << "attribute name \"" << attrName << "\"." << endl;
-            assert( false );
-        }*/
+        /*        else {
+                    err << "GUISupplementaryWeightsHandler::startParseWeight wrong "
+                         << "attribute name \"" << attrName << "\"." << endl;
+                    assert( false );
+                }*/
     }
 
-    assert( isEdgeIdSetM );
+    assert(isEdgeIdSetM);
     GUIAddWeight aw;
-    if ( isAbsolutValueSetM ){
+    if (isAbsolutValueSetM) {
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
         aw.abs = (SUMOReal) absolutValueM;
         isAbsolutValueSetM = false;
     }
-    if ( isMultValueSetM ){
+    if (isMultValueSetM) {
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
         aw.mult = (SUMOReal) multValueM;
         isMultValueSetM = false;
     }
-    if ( isAddValueSetM ){
+    if (isAddValueSetM) {
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
@@ -251,28 +222,28 @@ GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
 
 
 void
-GUISupplementaryWeightsHandler::stopParseInterval( void )
+GUISupplementaryWeightsHandler::stopParseInterval(void)
 {
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedIntervalM = false;
 }
 
 void
-GUISupplementaryWeightsHandler::stopParseWeight( void )
+GUISupplementaryWeightsHandler::stopParseWeight(void)
 {
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( hasStartedWeightM );
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(hasStartedWeightM);
     hasStartedWeightM   = false;
     isEdgeIdSetM       = false;
     isAbsolutValueSetM = false;
     isMultValueSetM    = false;
     isAddValueSetM     = false;
 }
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
+

@@ -1,136 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUISUMOViewParent.cpp -
-//  A window that controls the display(s) of the simulation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUISUMOViewParent.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A window that controls the display(s) of the simulation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.25  2006/11/16 13:56:45  dkrajzew
-// warnings removed
-//
-// Revision 1.24  2006/11/16 10:50:42  dkrajzew
-// warnings removed
-//
-// Revision 1.23  2006/10/12 07:54:15  dkrajzew
-// snapshots debugged
-//
-// Revision 1.22  2006/08/01 05:43:46  dkrajzew
-// cartesian and geocoordinates are shown; changed the APIs for this
-//
-// Revision 1.21  2006/04/11 10:54:52  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.20  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.19  2006/01/09 11:50:20  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.18  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.17  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.16  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.15  2005/07/12 12:09:36  dkrajzew
-// false config inclusion patched; code style adapted
-//
-// Revision 1.14  2005/05/04 07:48:52  dkrajzew
-// ported to fox1.4
-//
-// Revision 1.13  2004/12/15 09:20:17  dkrajzew
-// made guisim independent of giant/netedit
-//
-// Revision 1.12  2004/12/12 17:23:58  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.11  2004/11/23 10:11:33  dkrajzew
-// adapted the new class hierarchy
-//
-// Revision 1.10  2004/08/02 11:55:07  dkrajzew
-// added the possibility to take snapshots
-//
-// Revision 1.9  2004/07/02 08:37:27  dkrajzew
-// using global selection storage
-//
-// Revision 1.8  2004/04/02 11:11:24  dkrajzew
-// visualisation whether an item is selected added
-//
-// Revision 1.7  2004/03/19 12:54:08  dkrajzew
-// porting to FOX
-//
-// Revision 1.6  2003/09/05 14:45:44  dkrajzew
-// first tries for an implementation of aggregated views
-//
-// Revision 1.5  2003/07/30 08:52:16  dkrajzew
-// further work on visualisation of all geometrical objects
-//
-// Revision 1.4  2003/07/18 12:29:28  dkrajzew
-// removed some warnings
-//
-// Revision 1.3  2003/07/16 15:18:23  dkrajzew
-// new interfaces for drawing classes; junction drawer interface added
-//
-// Revision 1.2  2003/06/05 06:26:16  dkrajzew
-// first tries to build under linux: warnings removed; Makefiles added
-//
-// Revision 1.1  2003/05/20 09:25:14  dkrajzew
-// new view hierarchy; some debugging done
-//
-// Revision 1.6  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display
-//  size added
-//
-// Revision 1.5  2003/04/14 08:24:56  dkrajzew
-// unneeded display switch and zooming option removed; new glo-objct concept
-//  implemented; comments added
-//
-// Revision 1.4  2003/03/20 16:17:52  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/12 16:55:18  dkrajzew
-// centering of objects debugged
-//
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Boundary.h>
@@ -162,58 +64,58 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
 const FXchar patterns[]=
-  "\nGIF Image (*.gif)"
-  "\nBMP Image (*.bmp)"
-  "\nXPM Image (*.xpm)"
-  "\nPCX Image (*.pcx)"
-  "\nICO Image (*.ico)"
-  "\nRGB Image  (*.rgb)"
-  "\nXBM Image  (*.xbm)"
-  "\nTARGA Image  (*.tga)"
+    "\nGIF Image (*.gif)"
+    "\nBMP Image (*.bmp)"
+    "\nXPM Image (*.xpm)"
+    "\nPCX Image (*.pcx)"
+    "\nICO Image (*.ico)"
+    "\nRGB Image  (*.rgb)"
+    "\nXBM Image  (*.xbm)"
+    "\nTARGA Image  (*.tga)"
 #ifdef HAVE_PNG_H
-  "\nPNG Image  (*.png)"
+    "\nPNG Image  (*.png)"
 #endif
 #ifdef HAVE_JPEG_H
-  "\nJPEG Image (*.jpg)"
+    "\nJPEG Image (*.jpg)"
 #endif
 #ifdef HAVE_TIFF_H
-  "\nTIFF Image (*.tif)"
+    "\nTIFF Image (*.tif)"
 #endif
-  "All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.tif)"
-  "All Files (*)"
-  ;
+    "All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.tif)"
+    "All Files (*)"
+    ;
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUISUMOViewParent::onCmdRecenterView),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWLEGEND,     GUISUMOViewParent::onCmdShowLegend),
-    FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocateAdd),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
+    {
+        FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUISUMOViewParent::onCmdRecenterView),
+        FXMAPFUNC(SEL_COMMAND,  MID_SHOWLEGEND,     GUISUMOViewParent::onCmdShowLegend),
+        FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
+        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocateAdd),
+        FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
-};
+    };
 
 // Object implementation
 FXIMPLEMENT(GUISUMOViewParent, GUIGlChildWindow, GUISUMOViewParentMap, ARRAYNUMBER(GUISUMOViewParentMap))
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXGLCanvas * /*share!!!*/,FXMDIMenu *mdimenu,
                                      const FXString& name, GUINet &/*net!!!*/,
@@ -221,9 +123,9 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      ViewType /*view!!!*/, FXIcon* ic, FXPopup* /*pup!!!*/,
                                      FXuint opts,
                                      FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
-    : GUIGlChildWindow( p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200 ),
-    myParent(parentWindow), _zoomingFactor(100),
-    _showLegend(true), _allowRotation(false), _chooser(0)
+        : GUIGlChildWindow(p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200),
+        myParent(parentWindow), _zoomingFactor(100),
+        _showLegend(true), _allowRotation(false), _chooser(0)
 
 {
     myParent->addChild(this, false);
@@ -237,21 +139,21 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
     setTracking();
     FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
-        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-        0,0,0,0,0,0,0,0);
+                            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+                            0,0,0,0,0,0,0,0);
     // build the tool bar
     buildToolBar(glcanvasFrame);
-    switch(view) {
+    switch (view) {
     default:
     case MICROSCOPIC_VIEW:
-        if(share!=0) {
+        if (share!=0) {
             _view =
                 new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
-                    myParent->getGLVisual(), share);
+                                   myParent->getGLVisual(), share);
         } else {
             _view =
                 new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
-                    myParent->getGLVisual());
+                                   myParent->getGLVisual());
         }
         break;
     }
@@ -273,27 +175,27 @@ GUISUMOViewParent::buildToolBar(FXComposite *c)
     myToolBar = new FXToolBar(c,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
 
     // build the view settings
-        // recenter view
+    // recenter view
     new FXButton(myToolBar,
-        "\tRecenter View\tRecenter view to the simulated Area.",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // show legend
+                 "\tRecenter View\tRecenter view to the simulated Area.",
+                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
+                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // show legend
     new MFXCheckableButton(_showLegend,
-        myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
-        GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // make snapshot
+                           myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
+                           GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
+                           ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // make snapshot
     new FXButton(myToolBar,
-        "\tMake Snapshot\tMakes a snapshot of the view.",
-        GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        // allow rotation
-/*    new MFXCheckableButton(_allowRotation,
-        myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
-        GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-*/
+                 "\tMake Snapshot\tMakes a snapshot of the view.",
+                 GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
+                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // allow rotation
+    /*    new MFXCheckableButton(_allowRotation,
+            myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
+            GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    */
 }
 
 
@@ -334,10 +236,10 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList(patterns);
-    if(gCurrentFolder.length()!=0) {
+    if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if(!opendialog.execute()){
+    if (!opendialog.execute()) {
         return 1;
     }
     gCurrentFolder = opendialog.getDirectory().text();
@@ -357,16 +259,16 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
             FXColor t=*pa;
             *pa++=*pb;
             *pb++=t;
-        } while(pa<paa);
-    } while(paa<pbb);
+        } while (pa<paa);
+    } while (paa<pbb);
     // save
     try {
         MFXImageHelper::saveimage(getApp(), file,
-            _view->getWidth(), _view->getHeight(), buf);
+                                  _view->getWidth(), _view->getHeight(), buf);
     } catch (...) {
         string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
         FXMessageBox::error(this, MBOX_OK, "Saving failed.",
-            msg.c_str());
+                            msg.c_str());
     }
     /*
     // Save the image.
@@ -497,10 +399,6 @@ GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

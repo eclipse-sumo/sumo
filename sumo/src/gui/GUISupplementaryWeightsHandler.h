@@ -1,52 +1,41 @@
-#ifndef GUISupplementaryWeightsHandler_H
-#define GUISupplementaryWeightsHandler_H
-//---------------------------------------------------------------------------//
-//                        GUISupplementaryWeightsHandler.h -
+/****************************************************************************/
+/// @file    GUISupplementaryWeightsHandler.h
+/// @author  Christian Roessel
+/// @date    Thu Apr 08 2004 15:31
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu Apr 08 2004 15:31
-//  copyright            : (C) 2004 by Christian Roessel
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : christian.roessel@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-//
+/****************************************************************************/
+#ifndef GUISupplementaryWeightsHandler_h
+#define GUISupplementaryWeightsHandler_h
 
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -54,17 +43,17 @@
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/SUMOTime.h>
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class RONet;
 class ROEdge;
 class FloatValueTimeLine;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
@@ -75,7 +64,7 @@ public:
     ///
     /// @param filename XML-file that contains the supplementary weights.
     ///
-    GUISupplementaryWeightsHandler(const std::string& filename );
+    GUISupplementaryWeightsHandler(const std::string& filename);
 
     /// Destructor
     ~GUISupplementaryWeightsHandler();
@@ -87,22 +76,22 @@ protected:
     /// @param name Name ot the tag.
     /// @param attrs Attributes of the tag.
     ///
-    void myStartElement( int element
-                         , const std::string& name
-                         , const Attributes& attrs );
+    void myStartElement(int element
+                        , const std::string& name
+                        , const Attributes& attrs);
 
     /// Processing of end tags. Calls one of the stopParse* methods.
     ///
     /// @param element Not used.
     /// @param name Name of the tag.
     ///
-    void myEndElement( int element
-                       , const std::string& name );
+    void myEndElement(int element
+                      , const std::string& name);
 
     /// Processing of characters. We do nothing here.
     ///
-    void myCharacters(int, const std::string&, const std::string& )
-        {}
+    void myCharacters(int, const std::string&, const std::string&)
+    {}
 
     /// Call on appearance of the opening tag
     /// "supplementary-weights". Sets some state variables.
@@ -110,7 +99,7 @@ protected:
     /// @param attrs The tags attributes. Here:
     /// "supplementary-weights" need not have attributes.
     ///
-    void startParseSupplementaryWeights( const Attributes& attrs );
+    void startParseSupplementaryWeights(const Attributes& attrs);
 
     /// Call on appearance of the opening tag "interval". Sets some
     /// state variables and extracts the attributes "begin" and "end".
@@ -118,7 +107,7 @@ protected:
     /// @param attrs The tags attributes. Here: "interval" requires
     /// the attributes "begin" and "end".
     ///
-    void startParseInterval( const Attributes& attrs );
+    void startParseInterval(const Attributes& attrs);
 
     /// Call on appearance of the opening tag "weight". Sets some
     /// state variables and extracts the attributes "edge-id",
@@ -129,17 +118,17 @@ protected:
     /// "mult". Any combination of "absolut", "add" and "mult" may be
     /// provided.
     ///
-    void startParseWeight(  const Attributes& attrs );
+    void startParseWeight(const Attributes& attrs);
 
     /// Call on appearance of the closing tag "interval". Sets some
     /// state variables.
     ///
-    void stopParseInterval( void );
+    void stopParseInterval(void);
 
     /// Call on appearance of the closing tag "weight". Sets some
     /// state variables.
     ///
-    void stopParseWeight( void );
+    void stopParseWeight(void);
 
     /// Association between edge-ids and weights-containers.
     typedef std::map< std::string, FloatValueTimeLine* > WeightsMap;
@@ -147,48 +136,48 @@ protected:
 private:
 
     bool hasStartedSupplementaryWeightsM; ///< State variable for tag
-                                          ///"supplementary-weights"
+    ///"supplementary-weights"
     bool hasStartedIntervalM;   ///< State variable for tag "interval".
     bool hasStartedWeightM;     ///< State variable for tag "weight".
     bool isEdgeIdSetM;          ///< Flag indicating the occurence of
-                                ///the attribute "edge-id" within tag
-                                ///"weights".
+    ///the attribute "edge-id" within tag
+    ///"weights".
     bool isAbsolutValueSetM;    ///< Flag indicating the occurence of
-                                ///the attribute "absolut" within tag
-                                ///"weights".
+    ///the attribute "absolut" within tag
+    ///"weights".
     bool isMultValueSetM;       ///< Flag indicating the occurence of
-                                ///the attribute "mult" within tag
-                                ///"weights".
+    ///the attribute "mult" within tag
+    ///"weights".
     bool isAddValueSetM;        ///< Flag indicating the occurence of
-                                ///the attribute "add" within tag
-                                ///"weights".
+    ///the attribute "add" within tag
+    ///"weights".
 
     SUMOTime intervalStartM; ///< Value of the attribute "begin"
-                                  ///within tag "interval".
+    ///within tag "interval".
     SUMOTime intervalEndM; ///< Value of the attribute "end"
-                                ///within tag "interval".
+    ///within tag "interval".
 
     std::string edgeIdM;        ///< Value of the attribute "edge-id"
-                                ///within tag "weights".
+    ///within tag "weights".
     SUMOReal absolutValueM;       ///< Value of the attribute "absolut"
-                                ///within tag "weights".
+    ///within tag "weights".
     SUMOReal multValueM;          ///< Value of the attribute "mult"
-                                ///within tag "weights".
+    ///within tag "weights".
     SUMOReal addValueM;           ///< Value of the attribute "add"
-                                ///within tag "weights".
+    ///within tag "weights".
 
     /// Iterator to WeightsMap.
     typedef WeightsMap::iterator WeightsMapIt;
 
     WeightsMap absolutMapM;     ///< Container holding "absolut"
-                                ///weights-container
-                                ///(=FloatValueTimeLine) by "edge-id".
+    ///weights-container
+    ///(=FloatValueTimeLine) by "edge-id".
     WeightsMap multMapM;        ///< Container holding "mult"
-                                ///weights-container
-                                ///(=FloatValueTimeLine) by "edge-id".
+    ///weights-container
+    ///(=FloatValueTimeLine) by "edge-id".
     WeightsMap addMapM;         ///< Container holding "add"
-                                ///weights-container
-                                ///(=FloatValueTimeLine) by "edge-id".
+    ///weights-container
+    ///(=FloatValueTimeLine) by "edge-id".
 
     /// Edge-Id-strings set.
     typedef std::set< std::string > EdgeSet;
@@ -196,16 +185,17 @@ private:
     typedef EdgeSet::iterator EdgeSetIt;
 
     EdgeSet weightedEdgesM;     ///< Container holding "edge-id"s to
-                                ///all processed edges.
+    ///all processed edges.
 
     /// copy ctor
-    GUISupplementaryWeightsHandler( const GUISupplementaryWeightsHandler& );
+    GUISupplementaryWeightsHandler(const GUISupplementaryWeightsHandler&);
 
     /// assignment operator
     GUISupplementaryWeightsHandler& operator=(
-        const GUISupplementaryWeightsHandler& );
+        const GUISupplementaryWeightsHandler&);
 
 };
+
 
 /*
 Example supplementary-weights-file:
@@ -222,9 +212,7 @@ Example supplementary-weights-file:
   </interval>
 </supplementary-weights>
 */
+#endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
-#endif // GUISupplementaryWeightsHandler_H

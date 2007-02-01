@@ -1,59 +1,40 @@
-#ifndef GUIAddWeightsStorage_h
-#define GUIAddWeightsStorage_h
-//---------------------------------------------------------------------------//
-//                        GUIAddWeightsStorage.h -
+/****************************************************************************/
+/// @file    GUIAddWeightsStorage.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 16 Jun 2004
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 16 Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 07:45:15  dkrajzew
-// level 3 warnings removed
-//
-// Revision 1.3  2005/02/17 10:33:29  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIAddWeightsStorage_h
+#define GUIAddWeightsStorage_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <vector>
@@ -61,10 +42,11 @@
 #include <utils/common/SUMOTime.h>
 
 
-/* =========================================================================
- * structure definitions
- * ======================================================================= */
-struct GUIAddWeight {
+// ===========================================================================
+// structure definitions
+// ===========================================================================
+struct GUIAddWeight
+{
     std::string edgeID;
     SUMOReal abs;
     SUMOReal add;
@@ -76,11 +58,7 @@ struct GUIAddWeight {
 typedef std::vector<GUIAddWeight> GUIAddWeightsStorage;
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

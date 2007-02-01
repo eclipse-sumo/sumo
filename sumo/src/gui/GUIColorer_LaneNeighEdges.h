@@ -1,77 +1,40 @@
-#ifndef GUIColorer_LaneNeighEdges_h
-#define GUIColorer_LaneNeighEdges_h
-//---------------------------------------------------------------------------//
-//                        GUIColorer_LaneNeighEdges.h -
+/****************************************************************************/
+/// @file    GUIColorer_LaneNeighEdges.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2007/01/11 23:14:46  behrisch
-// Map.find vs find in Vector
-//
-// Revision 1.4  2007/01/09 11:11:59  dkrajzew
-// the names of nodes, additional structures, vehicles, edges, pois may now be shown
-//
-// Revision 1.3  2006/12/18 08:25:24  dkrajzew
-// consolidation of setting colors
-//
-// Revision 1.2  2006/11/02 14:16:51  behrisch
-// Missing includes
-//
-// Revision 1.1  2006/10/12 07:50:42  dkrajzew
-// c2c visualisation added (unfinished)
-//
-// Revision 1.8  2006/07/06 06:31:37  dkrajzew
-// removed exception throwing for unreachable code
-//
-// Revision 1.7  2006/01/09 11:50:20  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.6  2005/10/07 11:36:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/07/12 11:57:55  dkrajzew
-// level 3 warnings removed; code style adapted
-//
-// Revision 1.3  2005/06/14 11:14:23  dksumo
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIColorer_LaneNeighEdges_h
+#define GUIColorer_LaneNeighEdges_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/gui/drawer/GUIBaseColorer.h>
 #include <utils/gfx/RGBColor.h>
@@ -85,30 +48,34 @@
 #include <guisim/GUILaneWrapper.h>
 #include <GL/gl.h>
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
 template<class _T>
-class GUIColorer_LaneNeighEdges : public GUIBaseColorer<_T> {
+class GUIColorer_LaneNeighEdges : public GUIBaseColorer<_T>
+{
 public:
-	GUIColorer_LaneNeighEdges(GUISUMOAbstractView *parent) : myParent(parent) { }
+    GUIColorer_LaneNeighEdges(GUISUMOAbstractView *parent) : myParent(parent)
+    { }
 
-    virtual ~GUIColorer_LaneNeighEdges() { }
+    virtual ~GUIColorer_LaneNeighEdges()
+    { }
 
-	void setGlColor(const _T& i) const {
+    void setGlColor(const _T& i) const
+    {
         int id = myParent->getTrackedID();
-        if(id>0) {
+        if (id>0) {
             GUIVehicle *o = static_cast<GUIVehicle*>(gIDStorage.getObjectBlocking(id));
-            if(o==0) {
+            if (o==0) {
                 glColor3d(0,0,0);
                 return;
             }
             const MSEdge *vehicleEdge = o->getLane().getEdge();
             const std::vector<MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
-            if(find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
+            if (find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
                 glColor3d(0,1,0);
             } else {
                 glColor3d(.4,0,.4);
@@ -119,11 +86,13 @@ public:
         return;
     }
 
-	void setGlColor(SUMOReal val) const {
+    void setGlColor(SUMOReal val) const
+    {
         glColor3d(val, val, val);
     }
 
-    virtual ColorSetType getSetType() const {
+    virtual ColorSetType getSetType() const
+    {
         return CST_STATIC; // !!! (should be "set")
     }
 
@@ -131,10 +100,7 @@ public:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
