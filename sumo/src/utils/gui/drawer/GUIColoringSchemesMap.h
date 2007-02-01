@@ -1,68 +1,40 @@
-#ifndef GUIColoringSchemesMap_h
-#define GUIColoringSchemesMap_h
-//---------------------------------------------------------------------------//
-//                        GUIColoringSchemesMap.h -
-//  A mapping between coloring schemes, their enumerations and int values
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIColoringSchemesMap.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A mapping between coloring schemes, their enumerations and int values
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2006/11/16 10:50:52  dkrajzew
-// warnings removed
-//
-// Revision 1.5  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.4  2005/10/07 11:45:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:19:10  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/02/17 10:33:41  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.1  2004/11/23 10:38:30  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:48  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.1  2004/08/02 11:38:18  dkrajzew
-// variable coloring schemes added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIColoringSchemesMap_h
+#define GUIColoringSchemesMap_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -70,16 +42,18 @@
 #include "GUIBaseColorer.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-class BaseSchemeInfoSource {
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class BaseSchemeInfoSource
+{
 public:
-    virtual ~BaseSchemeInfoSource() { }
+    virtual ~BaseSchemeInfoSource()
+    { }
 
     virtual void fill(FXComboBox &cb) = 0;
-	virtual ColorSetType getColorSetType(size_t index) const = 0;
-	virtual GUIBaseColorerInterface *getColorerInterface(size_t index) const = 0;
+    virtual ColorSetType getColorSetType(size_t index) const = 0;
+    virtual GUIBaseColorerInterface *getColorerInterface(size_t index) const = 0;
 
 };
 
@@ -92,36 +66,39 @@ public:
  * numerical representation within a filled chooser widget.
  */
 template<class T1>
-class GUIColoringSchemesMap : public BaseSchemeInfoSource {
+class GUIColoringSchemesMap : public BaseSchemeInfoSource
+{
 public:
     /// Constructor
     GUIColoringSchemesMap()
-        { }
+    { }
 
     /// Destructor
     ~GUIColoringSchemesMap()
     {
         typename std::vector<ColorMapping>::iterator i;
-        for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
-            delete (*i).colorer;
+        for (i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
+            delete(*i).colorer;
         }
         myAvailableSchemes.clear();
     }
 
     /// Adds a named coloring scheme identifier to the list of allowed coloring schemes
-    void add(const std::string &name, GUIBaseColorer<T1> *colorer) {
+    void add(const std::string &name, GUIBaseColorer<T1> *colorer)
+    {
         ColorMapping cm;
         cm.name = name;
-		cm.colorer = colorer;
+        cm.colorer = colorer;
         myAvailableSchemes.push_back(cm);
     }
 
     /** @brief Fills the given combobox with the names of available coloring
         The indices of the coloring schemes are stored within this structures
         in order to allow the retrieval of their enumeration values. */
-    void fill(FXComboBox &cb) {
+    void fill(FXComboBox &cb)
+    {
         typename std::vector<ColorMapping>::iterator i;
-        for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
+        for (i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             cb.appendItem((*i).name.c_str());
         }
     }
@@ -153,21 +130,25 @@ public:
     */
 
     /// Returns the number of available coloring schemes
-    size_t size() const {
+    size_t size() const
+    {
         return myAvailableSchemes.size();
     }
 
-	GUIBaseColorer<T1> *getColorer(size_t index) const {
+    GUIBaseColorer<T1> *getColorer(size_t index) const
+    {
         return myAvailableSchemes[index].colorer;
-	}
+    }
 
-	GUIBaseColorerInterface *getColorerInterface(size_t index) const {
+    GUIBaseColorerInterface *getColorerInterface(size_t index) const
+    {
         return myAvailableSchemes[index].colorer;
-	}
+    }
 
-	ColorSetType getColorSetType(size_t index) const {
+    ColorSetType getColorSetType(size_t index) const
+    {
         return myAvailableSchemes[index].colorer->getSetType();
-	}
+    }
 
 private:
     /**
@@ -175,15 +156,16 @@ private:
      * This structure holds - for each coloring scheme - its name, numerical index
      *  within the filled structure and the enumeration type.
      */
-    struct ColorMapping {
+    struct ColorMapping
+    {
         /// The name of the coloring scheme
         std::string name;
 
         // The coloring scheme's enumeration index
         //int choserValue;
 
-		/// The colorer to use
-		GUIBaseColorer<T1> *colorer;
+        /// The colorer to use
+        GUIBaseColorer<T1> *colorer;
 
     };
 
@@ -192,11 +174,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

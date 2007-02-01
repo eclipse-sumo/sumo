@@ -1,7 +1,28 @@
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    bezier.cpp
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
 /* Subroutine to generate a Bezier curve.
@@ -23,13 +44,14 @@
     t          = parameter value 0 <= t <= 1
 */
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <math.h>
 #include <iostream>
@@ -37,6 +59,9 @@
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
@@ -45,11 +70,18 @@ using namespace std;
 SUMOReal factrl(int n)
 {
     static int ntop=6;
-    static SUMOReal a[33]={1.0,1.0,2.0,6.0,24.0,120.0,720.0}; /* fill in the first few values */
+    static SUMOReal a[33]= {
+                               1.0,1.0,2.0,6.0,24.0,120.0,720.0
+                           }
+                           ; /* fill in the first few values */
     int j1;
 
-    if (n < 0) { throw 1; } //cout << "\nNegative factorial in routine FACTRL\n" ;
-    if (n > 32) { throw 1; } //cout << "\nFactorial value too large in routine FACTRL\n";
+    if (n < 0) {
+        throw 1;
+    } //cout << "\nNegative factorial in routine FACTRL\n" ;
+    if (n > 32) {
+        throw 1;
+    } //cout << "\nFactorial value too large in routine FACTRL\n";
 
     while (ntop < n) { /* use the precalulated value for n = 0....6 */
         j1 = ntop++;
@@ -77,8 +109,10 @@ SUMOReal Basis(int n,int i,SUMOReal t)
 
     /* handle the special cases to avoid domain problem with pow */
 
-    if (t==0. && i == 0) ti=1.0; else ti = pow(t,i);
-    if (n==i && t==1.) tni=1.0; else tni = pow((1-t),(n-i));
+    if (t==0. && i == 0) ti=1.0;
+    else ti = pow(t,i);
+    if (n==i && t==1.) tni=1.0;
+    else tni = pow((1-t),(n-i));
     basis = Ni(n,i)*ti*tni; /* calculate Bernstein basis function */
     return basis;
 }
@@ -100,20 +134,20 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[])
     SUMOReal Ni(int,int);
     SUMOReal Basis(int,int,SUMOReal);
 
-/*    calculate the points on the Bezier curve */
+    /*    calculate the points on the Bezier curve */
 
     icount = 0;
     t = 0;
     step = (SUMOReal) 1.0/(cpts -1);
 
-    for (i1 = 1; i1<=cpts; i1++){ /* main loop */
+    for (i1 = 1; i1<=cpts; i1++) { /* main loop */
 
         if ((1.0 - t) < 5e-6) t = 1.0;
 
-        for (j = 1; j <= 3; j++){ /* generate a point on the curve */
+        for (j = 1; j <= 3; j++) { /* generate a point on the curve */
             jcount = j;
             p[icount+j] = 0.;
-            for (i = 1; i <= npts; i++){ /* Do x,y,z components */
+            for (i = 1; i <= npts; i++) { /* Do x,y,z components */
                 p[icount + j] = p[icount + j] + Basis(npts-1,i-1,t)*b[jcount];
                 jcount = jcount + 3;
             }
@@ -123,3 +157,8 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[])
         t = t + step;
     }
 }
+
+
+
+/****************************************************************************/
+

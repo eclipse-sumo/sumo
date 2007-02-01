@@ -1,68 +1,40 @@
-#ifndef GUIGlObject_AbstractAdd_h
-#define GUIGlObject_AbstractAdd_h
-//---------------------------------------------------------------------------//
-//                        GUIGlObject_AbstractAdd.h -
-//  Base class for additional objects (emitter, detectors etc.)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIGlObject_AbstractAdd.h
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// Base class for additional objects (emitter, detectors etc.)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2006/12/12 12:11:04  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.6  2006/01/09 13:36:33  dkrajzew
-// further visualization options added
-//
-// Revision 1.5  2005/10/07 11:45:32  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:08:31  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:19:44  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 09:18:58  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/10/29 06:01:55  dksumo
-// renamed boundery to boundary
-//
-// Revision 1.1  2004/10/22 12:50:50  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIGlObject_AbstractAdd_h
+#define GUIGlObject_AbstractAdd_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIGlObjectTypes.h"
 #include "GUIGlObject.h"
@@ -72,21 +44,22 @@
 #include <map>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIGlObject_AbstractAdd
  */
 class GUIGlObject_AbstractAdd :
-    public GUIGlObject, public HaveBoundary {
+            public GUIGlObject, public HaveBoundary
+{
 public:
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-        std::string fullName, GUIGlObjectType type);
+                            std::string fullName, GUIGlObjectType type);
 
     /// Constructor for objects joining gl-objects
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-        std::string fullName, size_t glID, GUIGlObjectType type);
+                            std::string fullName, size_t glID, GUIGlObjectType type);
 
     ~GUIGlObject_AbstractAdd();
 
@@ -129,11 +102,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

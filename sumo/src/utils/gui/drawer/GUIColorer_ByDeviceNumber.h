@@ -1,51 +1,41 @@
-#ifndef GUIColorer_ByDeviceNumber_h
-#define GUIColorer_ByDeviceNumber_h
-//---------------------------------------------------------------------------//
-//                        GUIColorer_ByDeviceNumber.h -
+/****************************************************************************/
+/// @file    GUIColorer_ByDeviceNumber.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 2. Jan 2006
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 2. Jan 2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.3  2006/12/12 12:19:23  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.2  2006/11/03 22:58:16  behrisch
-// Templates need explicit member reference (this->)
-//
-// Revision 1.1  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIColorer_ByDeviceNumber_h
+#define GUIColorer_ByDeviceNumber_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIBaseColorer.h"
 #include <utils/gfx/RGBColor.h>
@@ -57,38 +47,41 @@
 #include <GL/gl.h>
 
 template<class _T, class _P>
-class GUIColorer_ByDeviceNumber : public GUIBaseColorer<_T> {
+class GUIColorer_ByDeviceNumber : public GUIBaseColorer<_T>
+{
 public:
     /// Type of the function to execute.
-    typedef bool ( _T::* HasOperation )(_P) const;
-    typedef SUMOReal ( _T::* NumberOperation )(_P) const;
+    typedef bool(_T::* HasOperation)(_P) const;
+    typedef SUMOReal(_T::* NumberOperation)(_P) const;
 
     GUIColorer_ByDeviceNumber(HasOperation hasOperation,
-        NumberOperation numberOperation,
-        bool catchNo, SUMOReal min, SUMOReal max,
-        const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
-        _P param)
-        : myHasOperation(hasOperation), myNumberOperation(numberOperation),
-        myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
-        myMin(min), myMax(max), myParameter(param)
+                              NumberOperation numberOperation,
+                              bool catchNo, SUMOReal min, SUMOReal max,
+                              const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
+                              _P param)
+            : myHasOperation(hasOperation), myNumberOperation(numberOperation),
+            myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
+            myMin(min), myMax(max), myParameter(param)
     {
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
-	virtual ~GUIColorer_ByDeviceNumber() { }
+    virtual ~GUIColorer_ByDeviceNumber()
+    { }
 
-	void setGlColor(const _T& i) const {
-        if(!(i.*myHasOperation)((_P) myParameter)) {
-            if(myCatchNo) {
+    void setGlColor(const _T& i) const
+    {
+        if (!(i.*myHasOperation)((_P) myParameter)) {
+            if (myCatchNo) {
                 glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
                 glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
             SUMOReal val = (i.*myNumberOperation)((_P) myParameter) - myMin;
-            if(val<myMin) {
+            if (val<myMin) {
                 val = myMin;
-            } else if(val>myMax) {
+            } else if (val>myMax) {
                 val = myMax;
             }
             val = val * myScale;
@@ -96,20 +89,23 @@ public:
                 (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
             glColor3d(c.red(), c.green(), c.blue());
         }
-	}
+    }
 
-	void setGlColor(SUMOReal val) const {
+    void setGlColor(SUMOReal val) const
+    {
         glColor3d(1, 1, 0);
     }
 
-    virtual ColorSetType getSetType() const {
+    virtual ColorSetType getSetType() const
+    {
         return CST_STATIC;
     }
 
-    virtual void resetColor(const RGBColor &min) {
-    }
+    virtual void resetColor(const RGBColor &min)
+    {}
 
-    virtual const RGBColor &getSingleColor() const {
+    virtual const RGBColor &getSingleColor() const
+    {
         throw 1;
     }
 
@@ -124,10 +120,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

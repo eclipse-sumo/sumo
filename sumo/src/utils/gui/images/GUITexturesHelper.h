@@ -1,57 +1,54 @@
-#ifndef GUITexturesHelper_h
-#define GUITexturesHelper_h
-//---------------------------------------------------------------------------//
-//                        GUITexturesHelper.h -
-//  Global storage for textures; manages and draws them
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUITexturesHelper.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2006
+/// @version $Id: $
+///
+// Global storage for textures; manages and draws them
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2006/12/18 08:22:56  dkrajzew
-// comments added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUITexturesHelper_h
+#define GUITexturesHelper_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include "GUITextures.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUITexturesHelper
  * @brief Global storage for textures; manages and draws them
  */
-class GUITexturesHelper {
+class GUITexturesHelper
+{
 public:
     /// Initialises the textures-subsystem by setting the application
     static void init(FXApp *a);
@@ -61,14 +58,14 @@ public:
 
     /// Draws the given link arrow as a rectangle of the givens sizes
     static void drawDirectionArrow(unsigned int which,
-        SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
+                                   SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// Draws a named texture as a box of the given size
     static void drawTexturedBox(unsigned int which, SUMOReal size);
 
     /// Draws a named texture as a rectangle of the givens sizes
     static void drawTexturedBox(unsigned int which,
-        SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
+                                SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// Removes all allocated textures
     static void close();
@@ -96,10 +93,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,62 +1,40 @@
-#ifndef GUIGradientStorage_h
-#define GUIGradientStorage_h
-//---------------------------------------------------------------------------//
-//                        GUIGradientStorage.h -
-//  A storage for gradient definitions
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIGradientStorage.h
+/// @author  Daniel Krajzewicz
+/// @date    Jun 2004
+/// @version $Id: $
+///
+// A storage for gradient definitions
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2005/10/07 11:45:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:19:10  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 09:16:39  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:38:30  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:59:50  dksumo
-// 'scientific' gradient added
-//
-// Revision 1.1  2004/10/22 12:50:48  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.1  2004/08/02 11:53:57  dkrajzew
-// gradients added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIGradientStorage_h
+#define GUIGradientStorage_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <fx.h>
@@ -65,10 +43,11 @@
 #include <utils/gfx/RGBColor.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-class GUIGradientStorage {
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class GUIGradientStorage
+{
 public:
     /// Gradient enums
     enum GradientName {
@@ -105,10 +84,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

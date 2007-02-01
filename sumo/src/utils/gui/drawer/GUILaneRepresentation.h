@@ -1,72 +1,60 @@
-#ifndef GUILaneRepresentation_h
-#define GUILaneRepresentation_h
-//---------------------------------------------------------------------------//
-//                        GUILaneRepresentation.h -
+/****************************************************************************/
+/// @file    GUILaneRepresentation.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2005/10/07 11:45:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:07:54  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:19:10  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/07/12 12:49:08  dkrajzew
-// code style adapted
-//
-// Revision 1.3  2005/06/14 11:29:50  dksumo
-// documentation added
-//
+/****************************************************************************/
+#ifndef GUILaneRepresentation_h
+#define GUILaneRepresentation_h
 
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/gui/globjects/GUIGlObject.h>
 
-class GUILaneRepresentation : public GUIGlObject {
+class GUILaneRepresentation : public GUIGlObject
+{
 public:
     /// Constructor
     GUILaneRepresentation(GUIGlObjectStorage &idStorage, std::string fullName)
-		: GUIGlObject(idStorage, fullName) {}
+            : GUIGlObject(idStorage, fullName)
+    {}
 
     /// Constructor for objects joining gl-objects
     GUILaneRepresentation(GUIGlObjectStorage &idStorage,
-			std::string fullName, size_t glID)
-		: GUIGlObject(idStorage, fullName, glID) {}
+                          std::string fullName, size_t glID)
+            : GUIGlObject(idStorage, fullName, glID)
+    {}
 
-	virtual ~GUILaneRepresentation() { }
+    virtual ~GUILaneRepresentation()
+    { }
 
     /** returns the begin position of the lane */
     virtual const Position2D &getBegin() const = 0;
@@ -88,13 +76,13 @@ public:
     virtual const DoubleVector &getShapeRotations() const = 0;
     virtual const DoubleVector &getShapeLengths() const = 0;
 
-    virtual void selectSucessors() { }
+    virtual void selectSucessors()
+    { }
 
 };
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

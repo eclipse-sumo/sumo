@@ -1,84 +1,56 @@
-#ifndef GUIDialog_GLChosenEditor_h
-#define GUIDialog_GLChosenEditor_h
-//---------------------------------------------------------------------------//
-//                        GUIDialog_GLChosenEditor.h -
-//  Editor for the  list of chosen objects
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 11.03.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIDialog_GLChosenEditor.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 11.03.2004
+/// @version $Id: $
+///
+// Editor for the  list of chosen objects
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2005/10/07 11:44:53  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:18:59  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 09:14:55  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/12/16 12:12:59  dkrajzew
-// first steps towards loading of selections between different applications
-//
-// Revision 1.2  2004/11/22 12:27:56  dksumo
-// using the right class of the derivation tree
-//
-// Revision 1.1  2004/10/22 12:49:03  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2004/04/02 10:57:31  dkrajzew
-// deselection of selected items added; saving of selected items names added
-//
-// Revision 1.1  2004/03/19 12:33:36  dkrajzew
-// porting to FOX
-//
-// Revision 1.1  2004/03/19 12:32:26  dkrajzew
-// porting to FOX
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIDialog_GLChosenEditor_h
+#define GUIDialog_GLChosenEditor_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
 #include <fx.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIApplicationWindow;
 class GUISelectedStorage;
 
 
-/* =========================================================================
- * class definition
- * ======================================================================= */
+// ===========================================================================
+// class definition
+// ===========================================================================
 /**
  * @class GUIDialog_GLChosenEditor
  * Instances of this class are windows that display the list of instances
@@ -92,7 +64,7 @@ class GUIDialog_GLChosenEditor : public FXMainWindow
 public:
     /// constructor
     GUIDialog_GLChosenEditor(GUIMainWindow *parent,
-        GUISelectedStorage *str);
+                             GUISelectedStorage *str);
 
     /// destructor
     ~GUIDialog_GLChosenEditor();
@@ -117,16 +89,13 @@ private:
     GUISelectedStorage *myStorage;
 
 protected:
-    GUIDialog_GLChosenEditor() { }
+    GUIDialog_GLChosenEditor()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

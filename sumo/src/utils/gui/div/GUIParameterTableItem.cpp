@@ -1,68 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIParameterTableItem.cpp -
-//  A single line in the parameter window
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                :
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIParameterTableItem.cpp
+/// @author  Daniel Krajzewicz
+/// @date
+/// @version $Id: $
+///
+// A single line in the parameter window
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2005/10/17 09:23:47  dkrajzew
-// memory leaks removed
-//
-// Revision 1.4  2005/10/07 11:44:53  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/23 06:07:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.2  2005/09/15 12:18:59  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:29  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:46  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.5  2004/03/19 12:40:14  dkrajzew
-// porting to FOX
-//
-// Revision 1.4  2003/11/12 14:09:12  dkrajzew
-// clean up after recent changes; comments added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "GUIParameterTableItem.h"
@@ -74,37 +44,37 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
-                                             const std::string &name,
-                                             bool dynamic,
-                                             ValueSource<SUMOReal> *src)
-    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
-    myValue(src->getValue()), myTable(table)
+        const std::string &name,
+        bool dynamic,
+        ValueSource<SUMOReal> *src)
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+        myValue(src->getValue()), myTable(table)
 {
     init(dynamic, toString<SUMOReal>(src->getValue()));
 }
 
 
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
-                                             const std::string &name,
-                                             bool dynamic,
-                                             SUMOReal value)
-    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
-    myValue(value), myTable(table)
+        const std::string &name,
+        bool dynamic,
+        SUMOReal value)
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        myValue(value), myTable(table)
 {
     init(dynamic, toString<SUMOReal>(value));
 }
 
 
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
-                                             const std::string &name,
-                                             bool dynamic,
-                                             std::string value)
-    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
-    myValue(0), myTable(table)
+        const std::string &name,
+        bool dynamic,
+        std::string value)
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        myValue(0), myTable(table)
 {
     init(dynamic, value);
 }
@@ -115,16 +85,16 @@ GUIParameterTableItem::init(bool dynamic, std::string value)
 {
     myTable->setItemText(myTablePosition, 0, myName.c_str());
     myTable->setItemText(myTablePosition, 1, value.c_str());
-    if(dynamic) {
+    if (dynamic) {
         myTable->setItemIcon(myTablePosition, 2,
-            GUIIconSubSys::getIcon(ICON_YES));
+                             GUIIconSubSys::getIcon(ICON_YES));
     } else {
         myTable->setItemIcon(myTablePosition, 2,
-            GUIIconSubSys::getIcon(ICON_NO));
+                             GUIIconSubSys::getIcon(ICON_NO));
     }
 //    myTable->setItemIconPosition(myTablePosition, 2, FXTableItem::ABOVE);
     myTable->setItemJustify(myTablePosition, 2,
-        FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
+                            FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
 }
 
 
@@ -151,14 +121,14 @@ GUIParameterTableItem::getName() const
 void
 GUIParameterTableItem::update()
 {
-    if(!dynamic()||mySource==0) {
+    if (!dynamic()||mySource==0) {
         return;
     }
     SUMOReal value = mySource->getValue();
-    if(value!=myValue) {
+    if (value!=myValue) {
         myValue = value;
         myTable->setItemText(myTablePosition, 1,
-            toString<SUMOReal>(myValue).c_str());
+                             toString<SUMOReal>(myValue).c_str());
     }
 }
 
@@ -166,16 +136,13 @@ GUIParameterTableItem::update()
 ValueSource<SUMOReal> *
 GUIParameterTableItem::getSourceCopy() const
 {
-    if(mySource==0) {
+    if (mySource==0) {
         return 0;
     }
     return mySource->copy();
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

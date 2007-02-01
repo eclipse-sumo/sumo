@@ -1,62 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIGlObjectGlobals.h -
-//  Some global variables (yep)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIGlObjectGlobals.cpp
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.4  2005/11/09 06:47:17  dkrajzew
-// debugging
-//
-// Revision 1.3  2005/10/07 11:45:32  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/15 12:19:44  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:50  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.4  2004/08/02 11:49:11  dkrajzew
-// gradients added; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIGlObjectGlobals.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -68,26 +44,23 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * global variables definitions
- * ======================================================================= */
-    /** @brief A container for numerical ids of objects
-        in order to make them grippable by openGL */
+// ===========================================================================
+// global variables definitions
+// ===========================================================================
+/** @brief A container for numerical ids of objects
+    in order to make them grippable by openGL */
 GUIGlObjectStorage gIDStorage;
 
 
 GUIGlObject *gNetWrapper;
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

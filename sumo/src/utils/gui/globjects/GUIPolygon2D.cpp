@@ -1,42 +1,37 @@
-/***************************************************************************
-                          GUIPolygon2D.cpp
-    The GUI-version of a polygon
-                             -------------------
-    project              : SUMO - Simulation of Urban MObility
-    begin                : June 2006
-    copyright            : (C) 2006 by Daniel Krajzewicz
-    organisation         : IVF/DLR http://ivf.dlr.de
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIPolygon2D.cpp
+/// @author  Daniel Krajzewicz
+/// @date    June 2006
+/// @version $Id: $
+///
+// The GUI-version of a polygon
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/11/22 13:06:46  dkrajzew
-// patching problems on choosing an object when using shapes within different layers
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "GUIPolygon2D.h"
@@ -49,36 +44,34 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            int layer,
                            const std::string name, const std::string type,
                            const RGBColor &color,
                            const Position2DVector &Pos,
                            bool fill)
-    : Polygon2D(name, type, color, Pos, fill),
-    GUIGlObject(idStorage, "poly:"+name), myLayer(layer)
-{
-}
+        : Polygon2D(name, type, color, Pos, fill),
+        GUIGlObject(idStorage, "poly:"+name), myLayer(layer)
+{}
 
 
 GUIPolygon2D::~GUIPolygon2D()
-{
-}
+{}
 
 
 
 GUIGLObjectPopupMenu *
 GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent)
+                           GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -91,7 +84,7 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPolygon2D::getParameterWindow(GUIMainWindow &,
-                                       GUISUMOAbstractView &)
+                                 GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -135,9 +128,6 @@ GUIPolygon2D::getLayer() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

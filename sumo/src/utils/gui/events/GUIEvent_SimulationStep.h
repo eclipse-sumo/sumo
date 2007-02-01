@@ -1,85 +1,68 @@
-#ifndef GUIEvent_SimulationStep_h
-#define GUIEvent_SimulationStep_h
-//---------------------------------------------------------------------------//
-//                        GUIEvent_SimulationStep.h -
-//  Event send when the a simulation step has been performed by GUIRunThread
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIEvent_SimulationStep.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Event send when the a simulation step has been performed by GUIRunThread
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.3  2005/10/07 11:45:20  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/15 12:19:22  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:30  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/03/19 12:56:11  dkrajzew
-// porting to FOX
-//
-// Revision 1.2  2003/02/07 10:34:15  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIEvent_SimulationStep_h
+#define GUIEvent_SimulationStep_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIEvent.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * GUIEvent_SimulationStep
  * Throw from GUIRunThread to GUIApplicationWindow and then further to all
  * displays after a step has been performed
  */
-class GUIEvent_SimulationStep : public GUIEvent {
+class GUIEvent_SimulationStep : public GUIEvent
+{
 public:
     /// constructor
     GUIEvent_SimulationStep()
-        : GUIEvent(EVENT_SIMULATION_STEP) { }
+            : GUIEvent(EVENT_SIMULATION_STEP)
+    { }
 
     /// destructor
-    ~GUIEvent_SimulationStep() { }
+    ~GUIEvent_SimulationStep()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

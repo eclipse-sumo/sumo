@@ -1,89 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        Boundary.cpp -
-//  A class that stores the 2D geometrical boundary
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    Boundary.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A class that stores the 2D geometrical boundary
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.6  2006/03/28 06:17:49  dkrajzew
-// debugging
-//
-// Revision 1.5  2006/03/27 07:33:01  dkrajzew
-// added projection information to the network
-//
-// Revision 1.4  2005/10/07 11:44:16  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/23 06:07:01  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.2  2005/09/15 12:18:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:34:46  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/29 06:25:23  dksumo
-// boundery renamed to boundary
-//
-// Revision 1.1  2004/10/22 12:50:43  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.8  2004/07/02 09:44:40  dkrajzew
-// changes for 0.8.0.2
-//
-// Revision 1.7  2004/03/19 13:01:11  dkrajzew
-// methods needed for the new selection within the gui added; some style adaptions
-//
-// Revision 1.6  2003/11/11 08:00:30  dkrajzew
-// consequent usage of Position2D instead of two SUMOReals
-//
-// Revision 1.5  2003/05/20 09:50:19  dkrajzew
-// further work and debugging
-//
-// Revision 1.4  2003/03/18 13:16:57  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/12 16:35:41  dkrajzew
-// some further functionality added needed by the artemis-import
-//
-// Revision 1.2  2003/02/07 10:50:20  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 #include <utility>
 
 #include "GeomHelper.h"
@@ -96,18 +45,17 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 Boundary::Boundary()
-    : _xmin(10000000000.0), _xmax(-10000000000.0),
-    _ymin(10000000000.0), _ymax(-10000000000.0)
-{
-}
+        : _xmin(10000000000.0), _xmax(-10000000000.0),
+        _ymin(10000000000.0), _ymax(-10000000000.0)
+{}
 
 Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
-    : _xmin(10000000000.0), _xmax(-10000000000.0),
-    _ymin(10000000000.0), _ymax(-10000000000.0)
+        : _xmin(10000000000.0), _xmax(-10000000000.0),
+        _ymin(10000000000.0), _ymax(-10000000000.0)
 {
     add(x1, y1);
     add(x2, y2);
@@ -115,8 +63,7 @@ Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
 
 
 Boundary::~Boundary()
-{
-}
+{}
 
 
 void
@@ -148,7 +95,7 @@ Boundary::add(const Boundary &p)
 Position2D
 Boundary::getCenter() const
 {
-    return Position2D( (_xmin+_xmax)/(SUMOReal) 2.0, (_ymin+_ymax)/(SUMOReal) 2.0);
+    return Position2D((_xmin+_xmax)/(SUMOReal) 2.0, (_ymin+_ymax)/(SUMOReal) 2.0);
 }
 
 SUMOReal
@@ -205,11 +152,11 @@ Boundary::around(const Position2D &p, SUMOReal offset) const
 bool
 Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
 {
-    if(
+    if (
         // check whether one of my points lies within the given poly
         partialWithin(p, offset) ||
         // check whether the polygon lies within me
-        p.partialWithin(*this, offset) ) {
+        p.partialWithin(*this, offset)) {
         return true;
     }
     // check whether the bounderies cross
@@ -300,10 +247,6 @@ Boundary::moveby(SUMOReal x, SUMOReal y)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

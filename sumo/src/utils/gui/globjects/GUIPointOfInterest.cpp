@@ -1,43 +1,38 @@
-/***************************************************************************
-                          GUIPointOfInterest.cpp
-    The GUI-version of a point of interest
-                             -------------------
-    project              : SUMO - Simulation of Urban MObility
-    begin                : June 2006
-    copyright            : (C) 2006 by Daniel Krajzewicz
-    organisation         : IVF/DLR http://ivf.dlr.de
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIPointOfInterest.cpp
+/// @author  Daniel Krajzewicz
+/// @date    June 2006
+/// @version $Id: $
+///
+// The GUI-version of a point of interest
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/11/22 13:06:46  dkrajzew
-// patching problems on choosing an object when using shapes within different layers
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIPointOfInterest.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -52,30 +47,28 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        int layer,
                                        const std::string &id,
                                        const std::string &type,
                                        const Position2D &p,
                                        const RGBColor &c)
-    : PointOfInterest(id, type, p, c),
-    GUIGlObject(idStorage, "poi:"+id), myLayer(layer)
-{
-}
+        : PointOfInterest(id, type, p, c),
+        GUIGlObject(idStorage, "poi:"+id), myLayer(layer)
+{}
 
 
 GUIPointOfInterest::~GUIPointOfInterest()
-{
-}
+{}
 
 
 GUIGLObjectPopupMenu *
@@ -146,9 +139,6 @@ GUIPointOfInterest::getLayer() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

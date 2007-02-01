@@ -1,98 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIIconSubSys.cpp -
-//  Helper for icons loading and usage
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 08.03.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIIconSubSys.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 08.03.2004
+/// @version $Id: $
+///
+// Helper for icons loading and usage
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/11/16 12:30:55  dkrajzew
-// warnings removed
-//
-// Revision 1.10  2006/01/11 11:56:30  dkrajzew
-// added a colorwheel icon for visualization changer
-//
-// Revision 1.9  2006/01/09 13:37:38  dkrajzew
-// further visualization options added
-//
-// Revision 1.8  2005/10/07 11:45:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/15 12:19:55  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 11:55:37  dkrajzew
-// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
-//
-// Revision 1.5  2005/05/04 09:21:10  dkrajzew
-// adding of surrounding lanes to selection added; entries for viewport definition added
-//
-// Revision 1.4  2005/01/27 14:33:26  dkrajzew
-// code beautifying
-//
-// Revision 1.3  2004/12/12 17:23:59  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.2  2004/12/02 13:54:23  agaubatz
-// Netedit update, A. Gaubatz
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:58:53  dksumo
-// 'netedit' icons added
-//
-// Revision 1.1  2004/10/22 12:50:51  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.5  2004/08/02 11:40:41  dkrajzew
-// camera icon added; moved window icons to antother format
-//
-// Revision 1.4  2004/07/05 09:30:58  dkrajzew
-// bug on unitialised icon usage patched
-//
-// Revision 1.3  2004/07/02 08:16:14  dkrajzew
-// windows layouts added; reload button added
-//
-// Revision 1.2  2004/04/02 10:59:47  dkrajzew
-// selection visualisation flags added
-//
-// Revision 1.1  2004/03/19 12:38:57  dkrajzew
-// porting to FOX
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <cassert>
@@ -178,15 +118,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * static member variable definitions
- * ======================================================================= */
+// ===========================================================================
+// static member variable definitions
+// ===========================================================================
 GUIIconSubSys *GUIIconSubSys::myInstance = 0;
 
 
-/* =========================================================================
- * member definitions
- * ======================================================================= */
+// ===========================================================================
+// member definitions
+// ===========================================================================
 GUIIconSubSys::GUIIconSubSys(FXApp *a)
 {
     // build icons
@@ -234,32 +174,32 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     // manipulate
     myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
     myIcons[ICON_CAMERA] = new FXXPMIcon(a, camera_xpm);
-	myIcons[ICON_EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
-	myIcons[ICON_DILATE] = new FXXPMIcon(a, dilate_xpm);
-	myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
-	myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
-	myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
+    myIcons[ICON_EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
+    myIcons[ICON_DILATE] = new FXXPMIcon(a, dilate_xpm);
+    myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
+    myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
+    myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
     myIcons[ICON_ERASE_STAINS] = new FXXPMIcon(a, erase_stains_xpm);
-	myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
-	myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
-	myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
-	myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
-	myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
-	myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
-	myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
-	myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
-	myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
-	myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
-	myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
-	myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
-	myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
-	myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
-	myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
-	myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
-	myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+    myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
+    myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
+    myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
+    myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
+    myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
+    myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
+    myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
+    myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
+    myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
+    myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
+    myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
+    myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
+    myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
+    myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
+    myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
+    myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
+    myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
 
     myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
-	myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
+    myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
 
 
     // vss
@@ -275,8 +215,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 //    myIcons[ICON_SPEEDLIMIT_200KMH] = new FXGIFIcon(a, vlimit_200);
 
     // ... and create them
-    for(int i=0; i<ICON_MAX; i++) {
-        if(myIcons[i]!=0) {
+    for (int i=0; i<ICON_MAX; i++) {
+        if (myIcons[i]!=0) {
             myIcons[i]->create();
         }
     }
@@ -285,7 +225,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 
 GUIIconSubSys::~GUIIconSubSys()
 {
-    for(int i=0; i<ICON_MAX; i++) {
+    for (int i=0; i<ICON_MAX; i++) {
         delete myIcons[i];
     }
 }
@@ -314,8 +254,6 @@ GUIIconSubSys::close()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

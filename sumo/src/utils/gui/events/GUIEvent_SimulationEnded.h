@@ -1,78 +1,54 @@
-#ifndef GUIEvent_SimulationEnded_h
-#define GUIEvent_SimulationEnded_h
-//---------------------------------------------------------------------------//
-//                        GUIEvent_SimulationEnded.h -
-//  Event send when the the simulation is over
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 19 Jun 2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIEvent_SimulationEnded.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 19 Jun 2003
+/// @version $Id: $
+///
+// Event send when the the simulation is over
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2005/11/29 13:34:07  dkrajzew
-// added a minimum simulation speed definition before the simulation ends (unfinished)
-//
-// Revision 1.4  2005/10/07 11:45:20  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:19:22  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2004/12/16 12:21:39  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/11/23 10:38:30  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/03/19 12:56:11  dkrajzew
-// porting to FOX
-//
-// Revision 1.2  2003/12/09 11:22:14  dkrajzew
-// errors during simulation are now caught properly
-//
-// Revision 1.1  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIEvent_SimulationEnded_h
+#define GUIEvent_SimulationEnded_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIEvent.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * GUIEvent_SimulationEnded
  * Throw from GUIRunThread to GUIApplicationWindow and then further to all
  * displays after a step has been performed
  */
-class GUIEvent_SimulationEnded : public GUIEvent {
+class GUIEvent_SimulationEnded : public GUIEvent
+{
 public:
     enum EndReason {
         /// the simulation has ended as all vehicles have left it
@@ -114,11 +90,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

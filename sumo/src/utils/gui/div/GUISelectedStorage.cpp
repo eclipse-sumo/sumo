@@ -1,68 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUISelectedStorage.cpp -
-//  Storage for object selections
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUISelectedStorage.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Jun 2004
+/// @version $Id: $
+///
+// Storage for object selections
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.6  2006/11/22 13:07:50  dkrajzew
-// debugging right-click on shapes
-//
-// Revision 1.5  2006/11/16 10:50:52  dkrajzew
-// warnings removed
-//
-// Revision 1.4  2005/10/07 11:44:53  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:18:59  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2004/12/16 12:12:59  dkrajzew
-// first steps towards loading of selections between different applications
-//
-// Revision 1.1  2004/11/23 10:38:29  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:47  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.1  2004/07/02 08:08:33  dkrajzew
-// global object selection added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <algorithm>
@@ -76,26 +46,24 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage::SingleTypeSelections
  * ----------------------------------------------------------------------- */
 GUISelectedStorage::SingleTypeSelections::SingleTypeSelections()
-{
-}
+{}
 
 
 GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections()
-{
-}
+{}
 
 
 bool
@@ -112,7 +80,7 @@ GUISelectedStorage::SingleTypeSelections::select(size_t id)
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
-    if(i==mySelected.end()) {
+    if (i==mySelected.end()) {
         mySelected.push_back(id);
     }
 }
@@ -123,7 +91,7 @@ GUISelectedStorage::SingleTypeSelections::deselect(size_t id)
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
-    if(i!=mySelected.end()) {
+    if (i!=mySelected.end()) {
         mySelected.erase(i);
     }
 }
@@ -140,7 +108,7 @@ void
 GUISelectedStorage::SingleTypeSelections::load(const std::string &filename)
 {
     ifstream strm(filename.c_str());
-    while(strm.good()) {
+    while (strm.good()) {
         string name;
         strm >> name;
     }
@@ -158,9 +126,9 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string &filename)
 void
 GUISelectedStorage::SingleTypeSelections::save(std::ofstream &strm)
 {
-    for(std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
+    for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
-        if(object!=0) {
+        if (object!=0) {
             std::string name = object->getFullName();
             strm << name << endl;
             gIDStorage.unblockObject(*i);
@@ -181,22 +149,20 @@ GUISelectedStorage::SingleTypeSelections::getSelected() const
  * for GUISelectedStorage
  * ----------------------------------------------------------------------- */
 GUISelectedStorage::GUISelectedStorage()
-{
-}
+{}
 
 
 GUISelectedStorage::~GUISelectedStorage()
-{
-}
+{}
 
 
 bool
 GUISelectedStorage::isSelected(int type, size_t id)
 {
-    if(type==-1) {
+    if (type==-1) {
         GUIGlObject *object =
             gIDStorage.getObjectBlocking(id);
-        if(object!=0) {
+        if (object!=0) {
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
@@ -204,7 +170,7 @@ GUISelectedStorage::isSelected(int type, size_t id)
             return false;
         }
     }
-    switch(type) {
+    switch (type) {
     case GLO_NETWORK:
         return false;
     case GLO_VEHICLE:
@@ -239,10 +205,10 @@ GUISelectedStorage::isSelected(int type, size_t id)
 void
 GUISelectedStorage::select(int type, size_t id, bool update)
 {
-    if(type==-1) {
+    if (type==-1) {
         GUIGlObject *object =
             gIDStorage.getObjectBlocking(id);
-        if(object!=0) {
+        if (object!=0) {
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
@@ -250,7 +216,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
             return;
         }
     }
-    switch(type) {
+    switch (type) {
     case GLO_VEHICLE:
         mySelectedVehicles.select(id);
         break;
@@ -283,10 +249,10 @@ GUISelectedStorage::select(int type, size_t id, bool update)
     }
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
-    if(i==mySelected.end()) {
+    if (i==mySelected.end()) {
         mySelected.push_back(id);
     }
-    if(update&&my2Update!=0) {
+    if (update&&my2Update!=0) {
         my2Update->rebuildList();
         my2Update->update();
     }
@@ -298,11 +264,11 @@ GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
 {
     GUIGlObject *o =
         gIDStorage.getObjectBlocking(id);
-    if(o==0) {
+    if (o==0) {
         return;
     }
     bool selected = isSelected(-1, id);
-    if(!selected) {
+    if (!selected) {
         select(o->getType(), id);
     } else {
         deselect(o->getType(), id);
@@ -310,8 +276,8 @@ GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
     /*
     //
     if(o->getType()==GLO_LANE&&withShift!=0) {
-		throw 1;
-		/
+    throw 1;
+    /
         string name = o->microsimID();
         const GUIEdge &e =
             static_cast<const GUIEdge&>(MSLane::dictionary(name)->edge());
@@ -324,9 +290,9 @@ GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
             }
         }
     }
-		*/
+    */
     gIDStorage.unblockObject(id);
-    if(my2Update!=0) {
+    if (my2Update!=0) {
         my2Update->rebuildList();
         my2Update->update();
     }
@@ -336,10 +302,10 @@ GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
 void
 GUISelectedStorage::deselect(int type, size_t id)
 {
-    if(type==-1) {
+    if (type==-1) {
         GUIGlObject *object =
             gIDStorage.getObjectBlocking(id);
-        if(object!=0) {
+        if (object!=0) {
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
@@ -347,7 +313,7 @@ GUISelectedStorage::deselect(int type, size_t id)
             return;
         }
     }
-    switch(type) {
+    switch (type) {
     case GLO_VEHICLE:
         mySelectedVehicles.deselect(id);
         break;
@@ -380,10 +346,10 @@ GUISelectedStorage::deselect(int type, size_t id)
     }
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
-    if(i!=mySelected.end()) {
+    if (i!=mySelected.end()) {
         mySelected.erase(i);
     }
-    if(my2Update!=0) {
+    if (my2Update!=0) {
         my2Update->rebuildList();
         my2Update->update();
     }
@@ -410,7 +376,7 @@ GUISelectedStorage::clear()
     mySelectedTriggers.clear();
     mySelectedShapes.clear();
     mySelected.clear();
-    if(my2Update!=0) {
+    if (my2Update!=0) {
         my2Update->rebuildList();
         my2Update->update();
     }
@@ -420,8 +386,8 @@ GUISelectedStorage::clear()
 void
 GUISelectedStorage::load(int type, const std::string &filename)
 {
-    if(type!=-1) {
-        switch(type) {
+    if (type!=-1) {
+        switch (type) {
         case GLO_VEHICLE:
             mySelectedVehicles.load(filename);
             break;
@@ -461,8 +427,8 @@ GUISelectedStorage::load(int type, const std::string &filename)
 void
 GUISelectedStorage::save(int type, const std::string &filename)
 {
-    if(type!=-1) {
-        switch(type) {
+    if (type!=-1) {
+        switch (type) {
         case GLO_VEHICLE:
             mySelectedVehicles.save(filename);
             break;
@@ -497,9 +463,9 @@ GUISelectedStorage::save(int type, const std::string &filename)
     }
     // ok, save all
     ofstream strm(filename.c_str());
-    for(std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
+    for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
-        if(object!=0) {
+        if (object!=0) {
             std::string name = object->getFullName();
             strm << name << endl;
             gIDStorage.unblockObject(*i);
@@ -511,7 +477,7 @@ GUISelectedStorage::save(int type, const std::string &filename)
 const std::vector<size_t> &
 GUISelectedStorage::getSelected(int type) const
 {
-    switch(type) {
+    switch (type) {
     case GLO_VEHICLE:
         return mySelectedVehicles.getSelected();
     case GLO_TLLOGIC:
@@ -549,11 +515,6 @@ GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
-
+/****************************************************************************/
 

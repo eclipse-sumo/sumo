@@ -1,75 +1,54 @@
-#ifndef RGBColor_h
-#define RGBColor_h
-//---------------------------------------------------------------------------//
-//                        RGBColor.h -
-//  A RGB-color definition
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RGBColor.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A RGB-color definition
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/01/09 13:35:32  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.7  2005/10/07 11:44:28  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:07:13  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:18:33  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2004/11/23 10:35:01  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/07/16 15:38:51  dkrajzew
-// handling of colors improved
-//
-// Revision 1.2  2003/02/07 10:50:53  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RGBColor_h
+#define RGBColor_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RGBColor
  * The definition of a color in the RGB-space.
  * The cube is meant to lie between (0, 0, 0) and (1, 1, 1)
  */
-class RGBColor {
+class RGBColor
+{
 public:
     /// Default constructor - the color is marked as being undefined
     RGBColor();
@@ -110,29 +89,34 @@ public:
     bool operator!=(const RGBColor &c) const;
 
 private:
-    static inline SUMOReal check(const SUMOReal &c) {
-        if(c<0) {
+    static inline SUMOReal check(const SUMOReal &c)
+    {
+        if (c<0) {
             return 0;
-        } else if(c>1.0) {
+        } else if (c>1.0) {
             return 1;
         } else {
             return c;
         }
     }
 
-    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2) {
+    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2)
+    {
         return check(c1+c2);
     }
 
-    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2) {
+    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2)
+    {
         return check(c1-c2);
     }
 
-    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2) {
+    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2)
+    {
         return check(c1*c2);
     }
 
-    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2) {
+    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2)
+    {
         return check(c1/c2);
     }
 
@@ -143,12 +127,7 @@ private:
 };
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

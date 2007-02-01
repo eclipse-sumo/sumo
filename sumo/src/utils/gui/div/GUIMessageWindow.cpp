@@ -1,75 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIMessageWindow.cpp -
-//  A logging window for the gui
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 25 Nov 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIMessageWindow.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 25 Nov 2003
+/// @version $Id: $
+///
+// A logging window for the gui
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.3  2005/10/07 11:44:53  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/15 12:18:59  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:29  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:46  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.6  2004/08/02 11:54:18  dkrajzew
-// added the possibility to clear the window
-//
-// Revision 1.5  2004/07/02 08:36:49  dkrajzew
-// is now update only if visible
-//
-// Revision 1.4  2004/04/23 12:35:42  dkrajzew
-// the message window now scrolls to the end if new messages are appended
-//
-// Revision 1.3  2004/03/19 12:54:08  dkrajzew
-// porting to FOX
-//
-// Revision 1.2  2003/12/04 13:23:57  dkrajzew
-// made the output of warnings prettier and more visible
-//
-// Revision 1.1  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane
-//  to come makes it necessary)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include "GUIMessageWindow.h"
@@ -79,18 +42,18 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
-    : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
-    myStyles(0)
+        : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
+        myStyles(0)
 {
     setStyled(true);
     setEditable(false);
@@ -145,12 +108,12 @@ GUIMessageWindow::~GUIMessageWindow()
 void
 GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
 {
-    if(!isEnabled()) {
+    if (!isEnabled()) {
         show();
     }
     // build the styled message
     int style = 1;
-    switch(eType) {
+    switch (eType) {
     case EVENT_ERROR_OCCURED:
         // color: red
         style = 2;
@@ -172,7 +135,7 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
     FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
-    if(isEnabled()) {
+    if (isEnabled()) {
         layout();
         update();
     }
@@ -186,7 +149,7 @@ GUIMessageWindow::addSeparator()
     FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
-    if(isEnabled()) {
+    if (isEnabled()) {
         layout();
         update();
     }
@@ -196,11 +159,11 @@ GUIMessageWindow::addSeparator()
 void
 GUIMessageWindow::clear()
 {
-    if(getLength()==0) {
+    if (getLength()==0) {
         return;
     }
     FXText::removeText(0, getLength()-1, true);
-    if(isEnabled()) {
+    if (isEnabled()) {
         layout();
         update();
     }
@@ -208,8 +171,5 @@ GUIMessageWindow::clear()
 
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+/****************************************************************************/
 
-// Local Variables:
-// mode:C++
-// End:

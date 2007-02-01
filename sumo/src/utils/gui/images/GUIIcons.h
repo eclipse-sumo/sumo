@@ -1,56 +1,45 @@
-#ifndef GUIIcons_h
-#define GUIIcons_h
-//---------------------------------------------------------------------------//
-//                        GUIIcons.h -
-//  Base class for additional objects (emitter, detectors etc.)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIIcons.h
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// Base class for additional objects (emitter, detectors etc.)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2006/01/11 11:56:30  dkrajzew
-// added a colorwheel icon for visualization changer
-//
-// Revision 1.6  2006/01/09 13:37:38  dkrajzew
-// further visualization options added
-//
-// Revision 1.5  2005/07/12 11:55:37  dkrajzew
-// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIIcons_h
+#define GUIIcons_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
-/* =========================================================================
- * enumerations
- * ======================================================================= */
+// ===========================================================================
+// enumerations
+// ===========================================================================
 enum GUIIcon {
     ICON_APP = 0,
     ICON_OPEN,
@@ -113,29 +102,29 @@ enum GUIIcon {
     ICON_SPEEDLIMIT_160KMH,
     ICON_SPEEDLIMIT_180KMH,
 
-	ICON_EXTRACT,
-	ICON_DILATE,
-	ICON_ERODE,
-	ICON_OPENING,
-	ICON_CLOSING,
-	ICON_CLOSE_GAPS,
+    ICON_EXTRACT,
+    ICON_DILATE,
+    ICON_ERODE,
+    ICON_OPENING,
+    ICON_CLOSING,
+    ICON_CLOSE_GAPS,
     ICON_ERASE_STAINS,
-	ICON_SKELETONIZE,
-	ICON_RARIFY,
-	ICON_CREATE_GRAPH,
-	ICON_OPEN_BMP_DIALOG,
-	ICON_EYEDROP,
-	ICON_PAINTBRUSH1X,
-	ICON_PAINTBRUSH2X,
-	ICON_PAINTBRUSH3X,
-	ICON_PAINTBRUSH4X,
-	ICON_PAINTBRUSH5X,
-	ICON_RUBBER1X,
-	ICON_RUBBER2X,
-	ICON_RUBBER3X,
-	ICON_RUBBER4X,
-	ICON_RUBBER5X,
-	ICON_EDITGRAPH,
+    ICON_SKELETONIZE,
+    ICON_RARIFY,
+    ICON_CREATE_GRAPH,
+    ICON_OPEN_BMP_DIALOG,
+    ICON_EYEDROP,
+    ICON_PAINTBRUSH1X,
+    ICON_PAINTBRUSH2X,
+    ICON_PAINTBRUSH3X,
+    ICON_PAINTBRUSH4X,
+    ICON_PAINTBRUSH5X,
+    ICON_RUBBER1X,
+    ICON_RUBBER2X,
+    ICON_RUBBER3X,
+    ICON_RUBBER4X,
+    ICON_RUBBER5X,
+    ICON_EDITGRAPH,
 
     ICON_EXT,
     ICON_CUT_SWELL,
@@ -143,10 +132,9 @@ enum GUIIcon {
     ICON_MAX
 
 };
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

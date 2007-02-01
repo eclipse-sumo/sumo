@@ -1,68 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIGradientStorage.h -
-//  A storage for gradient definitions
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIGradientStorage.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Jun 2004
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2005/10/07 11:45:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:07:54  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:19:10  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 09:16:39  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:38:30  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:59:50  dksumo
-// 'scientific' gradient added
-//
-// Revision 1.1  2004/10/22 12:50:47  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.1  2004/08/02 11:53:57  dkrajzew
-// gradients added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIGradientStorage.h"
 
@@ -71,11 +41,11 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIGradientStorage::GUIGradientStorage(FXComposite *vp)
-    : myVirtualParent(vp)
+        : myVirtualParent(vp)
 {
     // build defaults
     FXGradient tmpG;
@@ -131,8 +101,7 @@ GUIGradientStorage::GUIGradientStorage(FXComposite *vp)
 
 
 GUIGradientStorage::~GUIGradientStorage()
-{
-}
+{}
 
 
 std::vector<RGBColor>
@@ -143,7 +112,7 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
         new FXGradientBar(myVirtualParent);
     FXGradient *gradients;
     FXMALLOC(&gradients, FXGradient, myGradients[idx].size());
-    for(i=0; i<myGradients[idx].size(); i++) {
+    for (i=0; i<myGradients[idx].size(); i++) {
         gradients[i] = myGradients[idx][i];
     }
     bar->setGradients(gradients, myGradients[idx].size());
@@ -152,12 +121,12 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
     FXMALLOC(&ramp, FXColor, noCells);
     bar->gradient(ramp, noCells);
     std::vector<RGBColor> ret;
-    for(i=0; i<noCells; i++) {
+    for (i=0; i<noCells; i++) {
         ret.push_back(
             RGBColor(
-                (SUMOReal) (FXREDVAL(ramp[i])/255.0),
-                (SUMOReal) (FXGREENVAL(ramp[i])/255.0),
-                (SUMOReal) (FXBLUEVAL(ramp[i])/255.0)));
+                (SUMOReal)(FXREDVAL(ramp[i])/255.0),
+                (SUMOReal)(FXGREENVAL(ramp[i])/255.0),
+                (SUMOReal)(FXBLUEVAL(ramp[i])/255.0)));
     }
     FXFREE(&ramp);
     delete bar;
@@ -167,14 +136,12 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
 
 void
 GUIGradientStorage::set(GradientName idx,
-                        const std::vector<FXGradient> &gradient)
+                            const std::vector<FXGradient> &gradient)
 {
     myGradients[idx] = gradient;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
