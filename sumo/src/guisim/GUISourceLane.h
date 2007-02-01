@@ -1,89 +1,40 @@
-#ifndef GUISourceLane_h
-#define GUISourceLane_h
-//---------------------------------------------------------------------------//
-//                        GUISourceLane.h -
-//  A MSLane extended by some values needed by the gui
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 25 Nov 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUISourceLane.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 25 Nov 2002
+/// @version $Id: $
+///
+// A MSLane extended by some values needed by the gui
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.15  2006/11/28 12:10:41  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.14  2006/09/18 10:01:58  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.13  2006/05/15 05:50:40  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.13  2006/05/08 10:59:34  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.12  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.10  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/05/04 07:55:28  dkrajzew
-// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
-//
-// Revision 1.8  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.7  2004/07/02 08:52:49  dkrajzew
-// numerical id added (for online-routing)
-//
-// Revision 1.6  2004/03/19 12:57:55  dkrajzew
-// porting to FOX
-//
-// Revision 1.5  2003/09/05 14:59:54  dkrajzew
-// first tries for an implementation of aggregated views
-//
-// Revision 1.4  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
-//
-// Revision 1.3  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
-//
-// Revision 1.2  2003/04/15 09:09:14  dkrajzew
-// documentation added
-//
-// Revision 1.1  2003/02/07 10:39:17  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUISourceLane_h
+#define GUISourceLane_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <string>
@@ -94,16 +45,16 @@
 #include <utils/geom/Position2DVector.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSVehicle;
 class MSNet;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUISourceLane
  * An extended MSSourceLane. A mechanism to avoid concurrent
@@ -111,14 +62,15 @@ class MSNet;
  * disappear is implemented using a mutex
  */
 class GUISourceLane :
-    public MSSourceLane {
+            public MSSourceLane
+{
 public:
     /// constructor
-    GUISourceLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
-        SUMOReal length, MSEdge* edge, size_t numericalID,
-        const Position2DVector &shape,
-        const std::vector<SUMOVehicleClass> &allowed,
-        const std::vector<SUMOVehicleClass> &disallowed);
+    GUISourceLane(/*MSNet &net, */std::string id, SUMOReal maxSpeed,
+                                  SUMOReal length, MSEdge* edge, size_t numericalID,
+                                  const Position2DVector &shape,
+                                  const std::vector<SUMOVehicleClass> &allowed,
+                                  const std::vector<SUMOVehicleClass> &disallowed);
 
     /// destructor
     ~GUISourceLane();
@@ -126,14 +78,14 @@ public:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveNonCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+                const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveCritical(/*
-        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+                const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -141,11 +93,11 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool emit( MSVehicle& newVeh );
+    bool emit(MSVehicle& newVeh);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate );
+    bool isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -161,12 +113,12 @@ public:
     SUMOReal getDensity() const;
     SUMOReal getVehLenSum() const;
 
-    void detectCollisions( SUMOTime timestep );
+    void detectCollisions(SUMOTime timestep);
 
 protected:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool push( MSVehicle* veh );
+    bool push(MSVehicle* veh);
 
     MSVehicle* pop();
 
@@ -179,11 +131,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

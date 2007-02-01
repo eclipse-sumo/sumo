@@ -1,116 +1,39 @@
-//---------------------------------------------------------------------------//
-//                        GUIEmitter.cpp -
-//  The gui-version of MSEmitter
-//                           -------------------
-//  begin                : Thu, 21.07.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIEmitter.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 21.07.2005
+/// @version $Id: $
+///
+// The gui-version of MSEmitter
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.19  2006/12/12 12:10:45  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.18  2006/11/16 10:50:43  dkrajzew
-// warnings removed
-//
-// Revision 1.17  2006/10/12 07:57:14  dkrajzew
-// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
-//
-// Revision 1.16  2006/07/06 06:40:38  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.15  2006/04/18 08:12:04  dkrajzew
-// consolidation of interaction with gl-objects
-//
-// Revision 1.14  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.13  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.12  2006/03/27 07:24:45  dkrajzew
-// extracted drawing of lane geometries
-//
-// Revision 1.11  2006/03/17 11:03:04  dkrajzew
-// made access to positions in Position2DVector c++ compliant
-//
-// Revision 1.10  2006/03/17 09:15:11  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.9  2006/03/08 13:11:22  dkrajzew
-// debugging routes visualization
-//
-// Revision 1.8  2006/02/27 12:01:42  dkrajzew
-// routes visualization for simple geometry added
-//
-// Revision 1.7  2006/02/23 11:29:20  dkrajzew
-// emitters may now show their routes
-//
-// Revision 1.6  2006/02/13 07:52:43  dkrajzew
-// debugging
-//
-// Revision 1.5  2006/01/31 10:54:29  dkrajzew
-// debugged bad edge retrieval
-//
-// Revision 1.4  2006/01/26 08:28:53  dkrajzew
-// patched MSEdge in order to work with a generic router
-//
-// Revision 1.3  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.2  2005/12/01 07:33:44  dkrajzew
-// introducing bus stops: eased building vehicles; vehicles may now have nested elements
-//
-// Revision 1.1  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.5  2005/10/17 08:31:59  dksumo
-// emitter rework#1
-//
-// Revision 1.4  2005/10/06 13:39:12  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.3  2005/09/20 06:10:40  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.2  2005/09/09 12:50:30  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:06:51  dksumo
-// further triggers added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
 #pragma warning(disable: 4355)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #ifdef _WIN32
 #include <windows.h>
@@ -149,25 +72,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * GUIEmitter::GUIEmitterPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIEmitter::GUIEmitterPopupMenu)
-    GUIEmitterPopupMenuMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
-    FXMAPFUNC(SEL_COMMAND,  MID_DRAWROUTE,     GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute),
+GUIEmitterPopupMenuMap[]=
+    {
+        FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
+        FXMAPFUNC(SEL_COMMAND,  MID_DRAWROUTE,     GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute),
 
-};
+    };
 
 // Object implementation
 FXIMPLEMENT(GUIEmitter::GUIEmitterPopupMenu, GUIGLObjectPopupMenu, GUIEmitterPopupMenuMap, ARRAYNUMBER(GUIEmitterPopupMenuMap))
@@ -177,33 +100,33 @@ FXIMPLEMENT(GUIEmitter::GUIEmitterPopupMenu, GUIGLObjectPopupMenu, GUIEmitterPop
  * GUIEmitter::GUIManip_TriggeredEmitter - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIEmitter::GUIManip_TriggeredEmitter) GUIManip_TriggeredEmitterMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
-    FXMAPFUNC(SEL_UPDATE,   GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
-    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
-    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose),
-};
+    {
+        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
+        FXMAPFUNC(SEL_UPDATE,   GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
+        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
+        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose),
+    };
 
 FXIMPLEMENT(GUIEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_TriggeredEmitterMap, ARRAYNUMBER(GUIManip_TriggeredEmitterMap))
 
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * GUIEmitter::GUIManip_TriggeredEmitter - methods
  * ----------------------------------------------------------------------- */
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChild(
-                MSEmitter_FileTriggeredChild &s,
-                MSEmitter &parent, MSVehicleControl &vc,
-                SUMOReal flow)
-    : MSEmitter::MSEmitterChild(parent, vc), myUserFlow(flow),
-    myVehicle(0), mySource(s), myDescheduleVehicle(false)
+    MSEmitter_FileTriggeredChild &s,
+    MSEmitter &parent, MSVehicleControl &vc,
+    SUMOReal flow)
+        : MSEmitter::MSEmitterChild(parent, vc), myUserFlow(flow),
+        myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
-    if(myUserFlow>0) {
+    if (myUserFlow>0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-            this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+            this, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
         myDescheduleVehicle = true;
@@ -213,7 +136,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
 
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild()
 {
-    if(myDescheduleVehicle) {
+    if (myDescheduleVehicle) {
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
     }
 }
@@ -222,41 +145,41 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredCh
 SUMOTime
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
 {
-    if(myUserFlow<=0) {
+    if (myUserFlow<=0) {
         return 0;
     }
-    if(!mySource.isInitialised()) {
+    if (!mySource.isInitialised()) {
         mySource.init();
     }
-    if(myVehicle==0) {
+    if (myVehicle==0) {
         string aVehicleId = myParent.getID() + "_user_" +  toString(currentTime);
         MSRoute *aRoute = myRouteDist.getOverallProb()!=0
-            ? myRouteDist.get()
-            : mySource.hasRoutes()
-                ? mySource.getRndRoute()
-                : 0;
-        if(aRoute==0) {
+                          ? myRouteDist.get()
+                          : mySource.hasRoutes()
+                          ? mySource.getRndRoute()
+                          : 0;
+        if (aRoute==0) {
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid route.");
             return 0;
         }
         MSVehicleType *aType = myVTypeDist.getOverallProb()!=0
-            ? myVTypeDist.get()
-            : mySource.hasVTypes()
-                ? mySource.getRndVType()
-                : MSVehicleType::dict_Random();
-        if(aType==0) {
+                               ? myVTypeDist.get()
+                               : mySource.hasVTypes()
+                               ? mySource.getRndVType()
+                               : MSVehicleType::dict_Random();
+        if (aType==0) {
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid vehicle type.");
             return 0;
         }
         myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aRoute, currentTime, aType, 0, 0);
+                        aVehicleId, aRoute, currentTime, aType, 0, 0);
         myParent.schedule(this, myVehicle, -1);
-        if(myDescheduleVehicle) {
+        if (myDescheduleVehicle) {
             MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
             myDescheduleVehicle = false;
         }
     }
-    if(myParent.childCheckEmit(this)) {
+    if (myParent.childCheckEmit(this)) {
         myVehicle = 0;
         return (SUMOTime) computeOffset(myUserFlow);
     }
@@ -273,13 +196,13 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::getUserFlow() const
 
 
 GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
-        GUIMainWindow &app,
-        const std::string &name, GUIEmitter &o,
-        int /*xpos*/, int /*ypos*/)
-    : GUIManipulator(app, name, 0, 0), myParent(&app),
-    myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
-    myFlowFactor(o.getUserFlow()), myFlowFactorTarget(myFlowFactor),
-    myObject(&o)
+    GUIMainWindow &app,
+    const std::string &name, GUIEmitter &o,
+    int /*xpos*/, int /*ypos*/)
+        : GUIManipulator(app, name, 0, 0), myParent(&app),
+        myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
+        myFlowFactor(o.getUserFlow()), myFlowFactorTarget(myFlowFactor),
+        myObject(&o)
 {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
@@ -287,39 +210,38 @@ GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
     myChosenValue = o.getActiveChildIndex();
 
     FXGroupBox *gp = new FXGroupBox(f1, "Change Flow",
-        GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,
-        0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
+                                    GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,
+                                    0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
         // default
         FXHorizontalFrame *gf1 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION+0,
-            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
-            0, 0, 0, 0,   2, 2, 0, 0);
+                          ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
+                          0, 0, 0, 0,   2, 2, 0, 0);
     }
     {
         // free
         FXHorizontalFrame *gf12 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf12, "User Defined Flow: ", &myChosenTarget, FXDataTarget::ID_OPTION+1,
-            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
-            0, 0, 0, 0,   2, 2, 0, 0);
+                          ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
+                          0, 0, 0, 0,   2, 2, 0, 0);
         myFlowFactorDial =
             new FXRealSpinDial(gf12, 8, this, MID_USER_DEF,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myFlowFactorDial->setFormatString("%.0f");
         myFlowFactorDial->setIncrements(1,10,100);
         myFlowFactorDial->setRange(0,4000);
         myFlowFactorDial->setValue(myObject->getUserFlow());
     }
     new FXButton(f1,"Close",NULL,this,MID_CLOSE,
-        BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+                 BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
 }
 
 
 GUIEmitter::GUIManip_TriggeredEmitter::~GUIManip_TriggeredEmitter()
-{
-}
+{}
 
 
 long
@@ -334,7 +256,7 @@ long
 GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef(FXObject*,FXSelector,void*)
 {
     static_cast<GUIEmitter*>(myObject)->setUserFlow(
-        (SUMOReal) (myFlowFactorDial->getValue()));
+        (SUMOReal)(myFlowFactorDial->getValue()));
     static_cast<GUIEmitter*>(myObject)->setActiveChild(1);
     myParent->updateChildren();
     return 1;
@@ -345,8 +267,8 @@ long
 GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
 {
     sender->handle(this,
-        myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
+                   myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+                   ptr);
     myParent->updateChildren();
     return 1;
 }
@@ -356,7 +278,7 @@ long
 GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,void*)
 {
     static_cast<GUIEmitter*>(myObject)->setUserFlow((SUMOReal) myFlowFactorDial->getValue());
-    switch(myChosenValue) {
+    switch (myChosenValue) {
     case 0:
         static_cast<GUIEmitter*>(myObject)->setActiveChild(0);
         break;
@@ -376,22 +298,20 @@ GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,vo
  * GUIEmitter::GUIEmitterPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIEmitter::GUIEmitterPopupMenu::GUIEmitterPopupMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent,
-        GUIGlObject &o)
-    : GUIGLObjectPopupMenu(app, parent, o)
-{
-}
+    GUIMainWindow &app, GUISUMOAbstractView &parent,
+    GUIGlObject &o)
+        : GUIGLObjectPopupMenu(app, parent, o)
+{}
 
 
 GUIEmitter::GUIEmitterPopupMenu::~GUIEmitterPopupMenu()
-{
-}
+{}
 
 
 long
 GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip(FXObject*,
-												FXSelector,
-												void*)
+        FXSelector,
+        void*)
 {
     static_cast<GUIEmitter*>(myObject)->openManipulator(
         *myApplication, *myParent);
@@ -401,11 +321,11 @@ GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip(FXObject*,
 
 long
 GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute(FXObject*,
-												FXSelector,
-												void*)
+        FXSelector,
+        void*)
 {
     static_cast<GUIEmitter*>(myObject)->toggleDrawRoutes();
-	myParent->update();
+    myParent->update();
     return 1;
 }
 
@@ -414,16 +334,16 @@ GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute(FXObject*,
  * GUIEmitter - methods
  * ----------------------------------------------------------------------- */
 GUIEmitter::GUIEmitter(const std::string &id,
-            MSNet &net, MSLane *destLanes, SUMOReal pos,
-            const std::string &aXMLFilename)
-    : MSEmitter(id, net, destLanes, pos, aXMLFilename),
-    GUIGlObject_AbstractAdd(gIDStorage,
-        "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false)
+                       MSNet &net, MSLane *destLanes, SUMOReal pos,
+                       const std::string &aXMLFilename)
+        : MSEmitter(id, net, destLanes, pos, aXMLFilename),
+        GUIGlObject_AbstractAdd(gIDStorage,
+                                "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false)
 {
     const GUIEdge * const edge = static_cast<const GUIEdge * const>(destLanes->getEdge());
     const Position2DVector &v =
         edge->getLaneGeometry(destLanes).getShape();
-    if(pos<0) {
+    if (pos<0) {
         pos = destLanes->length()+ pos;
     }
     myFGPosition = v.positionAtLengthPosition(pos);
@@ -438,8 +358,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
 
 
 GUIEmitter::~GUIEmitter()
-{
-}
+{}
 
 
 void
@@ -447,7 +366,7 @@ GUIEmitter::setUserFlow(SUMOReal factor)
 {
     // !!! the commands should be adapted to current flow imediatly
     myUserFlow = factor;
-    if(myUserFlow>0) {
+    if (myUserFlow>0) {
         delete myUserEmitChild;
         myUserEmitChild =
             new GUIEmitterChild_UserTriggeredChild(
@@ -460,7 +379,7 @@ GUIEmitter::setUserFlow(SUMOReal factor)
 SUMOReal
 GUIEmitter::getUserFlow() const
 {
-    if(myUserFlow<0&&static_cast<MSEmitter_FileTriggeredChild*>(myFileBasedEmitter)->getLoadedFlow()>0) {
+    if (myUserFlow<0&&static_cast<MSEmitter_FileTriggeredChild*>(myFileBasedEmitter)->getLoadedFlow()>0) {
         myUserFlow = static_cast<MSEmitter_FileTriggeredChild*>(myFileBasedEmitter)->getLoadedFlow();
     }
     return myUserFlow;
@@ -469,18 +388,18 @@ GUIEmitter::getUserFlow() const
 
 GUIGLObjectPopupMenu *
 GUIEmitter::getPopUpMenu(GUIMainWindow &app,
-                                  GUISUMOAbstractView &parent)
+                         GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIEmitterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
     buildShowManipulatorPopupEntry(ret, false);
-	if(!myDrawRoutes) {
-	    new FXMenuCommand(ret, "Show Routes...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
-	} else {
-	    new FXMenuCommand(ret, "Hide Routes...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
-	}
+    if (!myDrawRoutes) {
+        new FXMenuCommand(ret, "Show Routes...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
+    } else {
+        new FXMenuCommand(ret, "Hide Routes...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
+    }
     new FXMenuSeparator(ret);
     //
     buildNameCopyPopupEntry(ret);
@@ -492,7 +411,7 @@ GUIEmitter::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIEmitter::getParameterWindow(GUIMainWindow &,
-                                        GUISUMOAbstractView &)
+                               GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -522,7 +441,7 @@ GUIEmitter::getPosition() const
 void
 GUIEmitter::toggleDrawRoutes()
 {
-	myDrawRoutes = !myDrawRoutes;
+    myDrawRoutes = !myDrawRoutes;
 }
 
 
@@ -530,17 +449,17 @@ std::map<const MSEdge*, SUMOReal>
 GUIEmitter::getEdgeProbs() const
 {
     std::map<const MSEdge*, SUMOReal> ret;
-	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
     const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
     size_t j;
 
-	for(j=0; j<routes.size(); ++j) {
+    for (j=0; j<routes.size(); ++j) {
         SUMOReal prob = probs[j];
         MSRoute *r = routes[j];
-		MSRouteIterator i = r->begin();
-		for(; i!=r->end(); ++i) {
-			const MSEdge *e = *i;
-            if(ret.find(e)==ret.end()) {
+        MSRouteIterator i = r->begin();
+        for (; i!=r->end(); ++i) {
+            const MSEdge *e = *i;
+            if (ret.find(e)==ret.end()) {
                 ret[e] = 0;
             }
             ret[e] = ret[e] + prob;
@@ -556,17 +475,17 @@ GUIEmitter::drawGL(SUMOReal scale, SUMOReal upscale)
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
-    glRotated( myFGRotation, 0, 0, 1 );
+    glRotated(myFGRotation, 0, 0, 1);
 
     glBegin(GL_TRIANGLES);
     glColor3f(1, 0, 0);
     // base
-            glVertex2d(0-1.5, 0);
-            glVertex2d(0-1.5, 8);
-            glVertex2d(0+1.5, 8);
-            glVertex2d(0+1.5, 0);
-            glVertex2d(0-1.5, 0);
-            glVertex2d(0+1.5, 8);
+    glVertex2d(0-1.5, 0);
+    glVertex2d(0-1.5, 8);
+    glVertex2d(0+1.5, 8);
+    glVertex2d(0+1.5, 0);
+    glVertex2d(0-1.5, 0);
+    glVertex2d(0+1.5, 8);
 
     glColor3f(1, 1, 0);
     glVertex2d(0, 1-.5);
@@ -585,16 +504,16 @@ GUIEmitter::drawGL(SUMOReal scale, SUMOReal upscale)
     glEnd();
     glPopMatrix();
 
-	if(!myDrawRoutes) {
-		return;
-	}
+    if (!myDrawRoutes) {
+        return;
+    }
     std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
-    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
+    for (std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
         double c = (*k).second;
-		glColor3d(1.-c, 1.-c, 0);
+        glColor3d(1.-c, 1.-c, 0);
         const MSEdge *e = (*k).first;
-		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-		const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
         GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
     }
 }
@@ -612,7 +531,7 @@ GUIEmitter::getBoundary() const
 
 GUIManipulator *
 GUIEmitter::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &)
+                            GUISUMOAbstractView &)
 {
     GUIManip_TriggeredEmitter *gui =
         new GUIManip_TriggeredEmitter(app, getFullName(), *this, 0, 0);
@@ -625,7 +544,7 @@ GUIEmitter::openManipulator(GUIMainWindow &app,
 void
 GUIEmitter::setActiveChild(int index)
 {
-    switch(index) {
+    switch (index) {
     case 0:
         myActiveChild = myFileBasedEmitter;
         break;
@@ -636,10 +555,6 @@ GUIEmitter::setActiveChild(int index)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

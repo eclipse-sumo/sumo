@@ -1,74 +1,40 @@
-#ifndef GUILaneSpeedTrigger_h
-#define GUILaneSpeedTrigger_h
-//---------------------------------------------------------------------------//
-//                        GUILaneSpeedTrigger.h -
-//  Class that realises the setting of a lane's maximum speed triggered by
-//      values read from a file
-//                           -------------------
-//  begin                : Mon, 26.04.2004
-//  copyright            : (C) 2004 by DLR http://ivf.dlr.de/
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUILaneSpeedTrigger.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 26.04.2004
+/// @version $Id: $
+///
+// Class that realises the setting of a lane's maximum speed triggered by
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.11  2006/12/12 12:11:01  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.10  2006/11/16 10:50:43  dkrajzew
-// warnings removed
-//
-// Revision 1.9  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.8  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.7  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 07:59:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/12/16 12:14:59  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.2  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.1  2004/07/02 08:55:10  dkrajzew
-// visualisation of vss added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUILaneSpeedTrigger_h
+#define GUILaneSpeedTrigger_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -83,29 +49,30 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLane;
 class GUIManipulator;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUILaneSpeedTrigger
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUILaneSpeedTrigger
-    : public MSLaneSpeedTrigger,
-    public GUIGlObject_AbstractAdd {
+            : public MSLaneSpeedTrigger,
+            public GUIGlObject_AbstractAdd
+{
 public:
     /** constructor */
     GUILaneSpeedTrigger(const std::string &id, MSNet &net,
-        const std::vector<MSLane*> &destLanes,
-        const std::string &aXMLFilename);
+                        const std::vector<MSLane*> &destLanes,
+                        const std::string &aXMLFilename);
 
     /** destructor */
     ~GUILaneSpeedTrigger();
@@ -113,11 +80,11 @@ public:
     //@{ From GUIGlObject
     /// Returns an own popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
@@ -137,15 +104,16 @@ public:
     Boundary getBoundary() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                    GUISUMOAbstractView &parent);
 
 public:
-    class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
+class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
+    {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)
     public:
 
         GUILaneSpeedTriggerPopupMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent, GUIGlObject &o);
+                                     GUISUMOAbstractView &parent, GUIGlObject &o);
 
         ~GUILaneSpeedTriggerPopupMenu();
 
@@ -153,11 +121,13 @@ public:
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUILaneSpeedTriggerPopupMenu() { }
+        GUILaneSpeedTriggerPopupMenu()
+        { }
 
     };
 
-    class GUIManip_LaneSpeedTrigger : public GUIManipulator {
+class GUIManip_LaneSpeedTrigger : public GUIManipulator
+    {
         FXDECLARE(GUIManip_LaneSpeedTrigger)
     public:
         enum {
@@ -169,8 +139,8 @@ public:
         };
         /// Constructor
         GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
-            const std::string &name, GUILaneSpeedTrigger &o,
-            int xpos, int ypos);
+                                  const std::string &name, GUILaneSpeedTrigger &o,
+                                  int xpos, int ypos);
 
         /// Destructor
         virtual ~GUIManip_LaneSpeedTrigger();
@@ -201,7 +171,8 @@ public:
         GUILaneSpeedTrigger *myObject;
 
     protected:
-        GUIManip_LaneSpeedTrigger() { }
+        GUIManip_LaneSpeedTrigger()
+        { }
 
     };
 
@@ -230,11 +201,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

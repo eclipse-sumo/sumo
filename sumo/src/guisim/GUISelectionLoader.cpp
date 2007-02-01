@@ -1,52 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUISelectionLoader.cpp -
+/****************************************************************************/
+/// @file    GUISelectionLoader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-// $Log$
-// Revision 1.7  2006/12/12 12:11:02  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.6  2006/07/06 06:40:38  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.5  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <guisim/GUIEdge.h>
 #include <microsim/MSLane.h>
@@ -57,12 +43,15 @@
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 void
 GUISelectionLoader::loadSelection(const std::string &file)
 {
@@ -76,61 +65,46 @@ GUISelectionLoader::loadSelection(const std::string &file)
     typeMap["tl-logic"] = GLO_TLLOGIC;
     typeMap["vehicle"] = GLO_VEHICLE;
     ifstream strm(file.c_str());
-    while(strm.good()) {
+    while (strm.good()) {
         string name;
         strm >> name;
-        if(name.length()==0) {
+        if (name.length()==0) {
             continue;
         }
         size_t idx = name.find(':');
-        if(idx!=string::npos) {
+        if (idx!=string::npos) {
             string type = name.substr(0, idx);
             name = name.substr(idx+1);
-            if(typeMap.find(type)==typeMap.end()) {
+            if (typeMap.find(type)==typeMap.end()) {
                 // !!! inform user or something - the info does not fit to the pattern
                 throw 1;
             }
             int itype = typeMap[type];
             int oid = -1;
-            switch(itype) {
-            case GLO_VEHICLE:
-                {
+            switch (itype) {
+            case GLO_VEHICLE: {}
+            break;
+            case GLO_TLLOGIC: {}
+            break;
+            case GLO_DETECTOR: {}
+            break;
+            case GLO_EMITTER: {}
+            break;
+            case GLO_LANE: {
+                MSLane *l = MSLane::dictionary(name);
+                if (l!=0) {
+                    oid = static_cast<const GUIEdge * const>(l->getEdge())->getLaneGeometry(l).getGlID();
                 }
-                break;
-            case GLO_TLLOGIC:
-                {
-                }
-                break;
-            case GLO_DETECTOR:
-                {
-                }
-                break;
-            case GLO_EMITTER:
-                {
-                }
-                break;
-            case GLO_LANE:
-                {
-                    MSLane *l = MSLane::dictionary(name);
-                    if(l!=0) {
-                        oid = static_cast<const GUIEdge * const>(l->getEdge())->getLaneGeometry(l).getGlID();
-                    }
-                }
-                break;
-            case GLO_EDGE:
-                {
-                }
-                break;
-            case GLO_JUNCTION:
-                {
-                }
-                break;
-            case GLO_TRIGGER:
-                {
-                }
-                break;
             }
-            if(oid>=0) {
+            break;
+            case GLO_EDGE: {}
+            break;
+            case GLO_JUNCTION: {}
+            break;
+            case GLO_TRIGGER: {}
+            break;
+            }
+            if (oid>=0) {
                 gSelected.select(itype, oid, false);
             } else {
                 // !!! inform user or something - the object was not found
@@ -144,17 +118,13 @@ GUISelectionLoader::loadSelection(const std::string &file)
 
 
 GUISelectionLoader::GUISelectionLoader()
-{
-}
+{}
 
 
 GUISelectionLoader::~GUISelectionLoader()
-{
-}
+{}
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

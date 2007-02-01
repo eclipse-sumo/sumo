@@ -1,93 +1,40 @@
-#ifndef GUIE3Collector_h
-#define GUIE3Collector_h
-//---------------------------------------------------------------------------//
-//                        GUIE3Collector.h -
-//  The gui-version of the MSE3Collector, together with the according
-//   wrapper
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIE3Collector.h
+/// @author  Daniel Krajzewicz
+/// @date    Jan 2004
+/// @version $Id: $
+///
+// The gui-version of the MSE3Collector, together with the according
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.16  2006/12/12 12:10:45  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.15  2006/08/01 05:57:09  dkrajzew
-// E3 detectors refactored partially
-//
-// Revision 1.14  2006/05/15 05:49:29  dkrajzew
-// got rid of the cell-to-meter conversions
-//
-// Revision 1.14  2006/05/08 10:56:58  dkrajzew
-// beautifying: removed dead code
-//
-// Revision 1.13  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.12  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.11  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 07:59:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2004/12/16 12:14:59  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.6  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.5  2004/07/02 08:40:42  dkrajzew
-// changes in the detector drawer applied
-//
-// Revision 1.4  2004/03/19 12:57:54  dkrajzew
-// porting to FOX
-//
-// Revision 1.3  2004/02/10 07:07:13  dkrajzew
-// debugging of network loading after a network failed to be loaded; memory leaks removal
-//
-// Revision 1.2  2004/02/05 16:30:59  dkrajzew
-// multiplicate deletion of E3-detectors on application quit patched
-//
-// Revision 1.1  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIE3Collector_h
+#define GUIE3Collector_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -97,23 +44,24 @@
 #include <utils/helpers/ValueSource.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIE3Collector
  * The gui-version of the MSE3Collector.
  * Allows the building of a wrapper (also declared herein) which draws the
  * detector on the gl-canvas.
  */
-class GUIE3Collector : public MSE3Collector {
+class GUIE3Collector : public MSE3Collector
+{
 public:
     /// Constructor
     GUIE3Collector(const std::string &id,
-        const CrossSectionVector &entries, const CrossSectionVector &exits,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOTime deleteDataAfterSeconds);
+                   const CrossSectionVector &entries, const CrossSectionVector &exits,
+                   MSUnit::Seconds haltingTimeThreshold,
+                   MSUnit::MetersPerSecond haltingSpeedThreshold,
+                   SUMOTime deleteDataAfterSeconds);
 
     /// Destructor
     ~GUIE3Collector();
@@ -132,11 +80,12 @@ public:
      * @class GUIE3Collector::MyWrapper
      * A GUIE3Collector-visualiser
      */
-    class MyWrapper : public GUIDetectorWrapper {
+class MyWrapper : public GUIDetectorWrapper
+    {
     public:
         /// Constructor
         MyWrapper(GUIE3Collector &detector,
-            GUIGlObjectStorage &idStorage);
+                  GUIGlObjectStorage &idStorage);
 
         /// Destrutor
         ~MyWrapper();
@@ -164,7 +113,8 @@ public:
         GUIE3Collector &getDetector();
 
     public:
-        struct SingleCrossingDefinition {
+        struct SingleCrossingDefinition
+        {
             /// The position in full-geometry mode
             Position2D myFGPosition;
             /// The rotation in full-geometry mode
@@ -174,15 +124,15 @@ public:
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-            const std::string &name, MSE3Collector::DetType type);
+                              const std::string &name, MSE3Collector::DetType type);
 
         /// Builds the description about the position of the entry/exit point
         SingleCrossingDefinition buildDefinition(const MSCrossSection &section,
-            bool exit);
+                bool exit);
 
         /// Draws a single entry/exit point
         void drawSingleCrossing(const Position2D &pos, SUMOReal rot,
-            SUMOReal upscale) const;
+                                SUMOReal upscale) const;
 
     private:
         /// The wrapped detector
@@ -205,24 +155,28 @@ public:
          * This class realises the retrieval of a certain value
          * with a certain interval specification from the detector
          */
-        class MyValueRetriever : public ValueSource<SUMOReal> {
+    class MyValueRetriever : public ValueSource<SUMOReal>
+        {
         public:
             /// Constructor
             MyValueRetriever(GUIE3Collector &det,
-                MSE3Collector::DetType type, size_t nSec)
-                : myDetector(det), myType(type), myNSec(nSec) { }
+                             MSE3Collector::DetType type, size_t nSec)
+                    : myDetector(det), myType(type), myNSec(nSec)
+            { }
 
             /// Destructor
-            ~MyValueRetriever() { }
+            ~MyValueRetriever()
+            { }
 
             /// Returns the current value
             SUMOReal getValue() const
-                {
-                    return myDetector.getAggregate(myType, (MSUnit::Seconds) myNSec);
-                }
+            {
+                return myDetector.getAggregate(myType, (MSUnit::Seconds) myNSec);
+            }
 
             /// Returns a copy of this instance
-            ValueSource<SUMOReal> *copy() const {
+            ValueSource<SUMOReal> *copy() const
+            {
                 return new MyValueRetriever(myDetector, myType, myNSec);
             }
 
@@ -241,10 +195,8 @@ public:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

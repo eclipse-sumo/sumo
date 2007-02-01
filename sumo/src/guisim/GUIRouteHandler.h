@@ -1,77 +1,49 @@
+/****************************************************************************/
+/// @file    GUIRouteHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17. Jun 2004
+/// @version $Id: $
+///
+// Parser and container for routes during their loading
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef GUIRouteHandler_h
 #define GUIRouteHandler_h
-/***************************************************************************
-                          GUIRouteHandler.h
-              Parser and container for routes during their loading
-                             -------------------
-    project              : SUMO
-    begin                : Thu, 17. Jun 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.9  2006/12/12 12:11:02  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.8  2006/11/30 07:43:35  dkrajzew
-// added the inc-dua option in order to increase dua-computation
-//
-// Revision 1.7  2006/09/18 10:01:39  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.6  2006/07/06 06:40:38  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.5  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:02:55  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/07/02 08:56:12  dkrajzew
-// coloring of routes and vehicle types added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <microsim/MSRouteHandler.h>
 #include <utils/gfx/RGBColor.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIRouteHandler
  */
@@ -80,7 +52,7 @@ class GUIRouteHandler : public MSRouteHandler
 public:
     /// standard constructor
     GUIRouteHandler(const std::string &file, MSVehicleControl &vc,
-        bool addVehiclesDirectly, int incDUABase, int incDUAStage);
+                    bool addVehiclesDirectly, int incDUABase, int incDUAStage);
 
     /// standard destructor
     virtual ~GUIRouteHandler();
@@ -91,9 +63,9 @@ protected:
 
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
-        const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-        const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
-        const RGBColor &c);
+                                      const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
+                                      const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
+                                      const RGBColor &c);
 
     void closeRoute();
     void openRoute(const Attributes &attrs);
@@ -111,10 +83,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

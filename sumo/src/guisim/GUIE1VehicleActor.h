@@ -1,49 +1,40 @@
-#ifndef GUIE1VehicleActor_h
-#define GUIE1VehicleActor_h
-//---------------------------------------------------------------------------//
-//                        GUIE1VehicleActor.h -
-//  GUI-version of MSBusStop
-//                           -------------------
-//  begin                : Wed, 07.12.2005
-//  copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIE1VehicleActor.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 07.12.2005
+/// @version $Id: $
+///
+// GUI-version of MSBusStop
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.3  2006/12/12 12:10:44  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.2  2006/11/17 11:13:57  dkrajzew
-// changes to the actor-API applied
-//
-// Revision 1.1  2006/10/12 07:55:28  dkrajzew
-// added tol-actor visualisation
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIE1VehicleActor_h
+#define GUIE1VehicleActor_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -58,28 +49,29 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLane;
 class GUIManipulator;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIE1VehicleActor
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUIE1VehicleActor
-    : public MSE1VehicleActor,
-    public GUIGlObject_AbstractAdd {
+            : public MSE1VehicleActor,
+            public GUIGlObject_AbstractAdd
+{
 public:
     /** constructor */
-    GUIE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type );
+    GUIE1VehicleActor(const std::string& id, MSLane* lane,
+                      SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
 
     /** destructor */
     ~GUIE1VehicleActor();
@@ -87,11 +79,11 @@ public:
     //@{ From GUIGlObject
     /// Returns an own popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
@@ -111,15 +103,16 @@ public:
     Boundary getBoundary() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                    GUISUMOAbstractView &parent);
 
 public:
-    class GUIE1VehicleActorPopupMenu : public GUIGLObjectPopupMenu {
+class GUIE1VehicleActorPopupMenu : public GUIGLObjectPopupMenu
+    {
         FXDECLARE(GUIE1VehicleActorPopupMenu)
     public:
 
         GUIE1VehicleActorPopupMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent, GUIGlObject &o);
+                                   GUISUMOAbstractView &parent, GUIGlObject &o);
 
         ~GUIE1VehicleActorPopupMenu();
 
@@ -127,81 +120,79 @@ public:
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUIE1VehicleActorPopupMenu() { }
+        GUIE1VehicleActorPopupMenu()
+        { }
 
     };
-/*
-    class GUIManip_LaneSpeedTrigger : public GUIManipulator {
-        FXDECLARE(GUIManip_LaneSpeedTrigger)
-    public:
-        enum {
-            MID_USER_DEF = FXDialogBox::ID_LAST,
-            MID_PRE_DEF,
-            MID_OPTION,
-            MID_CLOSE,
-            ID_LAST
+    /*
+        class GUIManip_LaneSpeedTrigger : public GUIManipulator {
+            FXDECLARE(GUIManip_LaneSpeedTrigger)
+        public:
+            enum {
+                MID_USER_DEF = FXDialogBox::ID_LAST,
+                MID_PRE_DEF,
+                MID_OPTION,
+                MID_CLOSE,
+                ID_LAST
+            };
+            /// Constructor
+            GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
+                const std::string &name, GUIE1VehicleActor &o,
+                int xpos, int ypos);
+
+            /// Destructor
+            virtual ~GUIManip_LaneSpeedTrigger();
+
+            long onCmdOverride(FXObject*,FXSelector,void*);
+            long onCmdClose(FXObject*,FXSelector,void*);
+            long onCmdUserDef(FXObject*,FXSelector,void*);
+            long onUpdUserDef(FXObject*,FXSelector,void*);
+            long onCmdPreDef(FXObject*,FXSelector,void*);
+            long onUpdPreDef(FXObject*,FXSelector,void*);
+            long onCmdChangeOption(FXObject*,FXSelector,void*);
+
+        private:
+            GUIMainWindow *myParent;
+
+            FXRealSpinDial *myUserDefinedSpeed;
+
+            FXComboBox *myPredefinedValues;
+
+            FXint myChosenValue;
+
+            FXDataTarget myChosenTarget;
+
+            FXDataTarget mySpeedTarget;
+
+            SUMOReal mySpeed;
+
+            GUIE1VehicleActor *myObject;
+
+        protected:
+            GUIManip_LaneSpeedTrigger() { }
+
         };
-        /// Constructor
-        GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
-            const std::string &name, GUIE1VehicleActor &o,
-            int xpos, int ypos);
-
-        /// Destructor
-        virtual ~GUIManip_LaneSpeedTrigger();
-
-        long onCmdOverride(FXObject*,FXSelector,void*);
-        long onCmdClose(FXObject*,FXSelector,void*);
-        long onCmdUserDef(FXObject*,FXSelector,void*);
-        long onUpdUserDef(FXObject*,FXSelector,void*);
-        long onCmdPreDef(FXObject*,FXSelector,void*);
-        long onUpdPreDef(FXObject*,FXSelector,void*);
-        long onCmdChangeOption(FXObject*,FXSelector,void*);
-
-    private:
-        GUIMainWindow *myParent;
-
-        FXRealSpinDial *myUserDefinedSpeed;
-
-        FXComboBox *myPredefinedValues;
-
-        FXint myChosenValue;
-
-        FXDataTarget myChosenTarget;
-
-        FXDataTarget mySpeedTarget;
-
-        SUMOReal mySpeed;
-
-        GUIE1VehicleActor *myObject;
-
-    protected:
-        GUIManip_LaneSpeedTrigger() { }
-
-    };
-*/
+    */
 private:
-        /// The position in full-geometry mode
-        Position2D myFGPosition;
+    /// The position in full-geometry mode
+    Position2D myFGPosition;
 
-        /// The rotation in full-geometry mode
-        SUMOReal myFGRotation;
+    /// The rotation in full-geometry mode
+    SUMOReal myFGRotation;
 
-        /// The position in simple-geometry mode
-        Position2D mySGPosition;
+    /// The position in simple-geometry mode
+    Position2D mySGPosition;
 
-        /// The rotation in simple-geometry mode
-        SUMOReal mySGRotation;
+    /// The rotation in simple-geometry mode
+    SUMOReal mySGRotation;
 
-        /// The position on the lane
-        SUMOReal myPosition;
+    /// The position on the lane
+    SUMOReal myPosition;
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

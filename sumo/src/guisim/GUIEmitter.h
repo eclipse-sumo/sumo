@@ -1,79 +1,40 @@
-#ifndef GUIEmitter_h
-#define GUIEmitter_h
-//---------------------------------------------------------------------------//
-//                        GUIEmitter.h -
-//  The gui-version of MSEmitter
-//                           -------------------
-//  begin                : Thu, 21.07.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIEmitter.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 21.07.2005
+/// @version $Id: $
+///
+// The gui-version of MSEmitter
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/12/12 12:10:45  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.8  2006/11/16 10:50:43  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/07/06 06:40:38  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.6  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.5  2006/03/17 09:15:11  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.4  2006/02/27 12:01:42  dkrajzew
-// routes visualization for simple geometry added
-//
-// Revision 1.3  2006/02/13 07:52:43  dkrajzew
-// debugging
-//
-// Revision 1.2  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.1  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.4  2005/10/06 13:39:12  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.3  2005/09/20 06:10:40  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.2  2005/09/09 12:50:30  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:06:51  dksumo
-// further triggers added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIEmitter_h
+#define GUIEmitter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -88,29 +49,30 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLane;
 class GUIManipulator;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIEmitter
  * This is the gui-version of the MSTriggeredSource-object
  */
 class GUIEmitter
-    : public MSEmitter,
-    public GUIGlObject_AbstractAdd {
+            : public MSEmitter,
+            public GUIGlObject_AbstractAdd
+{
 public:
     /** constructor */
     GUIEmitter(const std::string &id, MSNet &net,
-        MSLane* destLanes, SUMOReal pos,
-        const std::string &aXMLFilename);
+               MSLane* destLanes, SUMOReal pos,
+               const std::string &aXMLFilename);
 
     /** destructor */
     ~GUIEmitter();
@@ -118,11 +80,11 @@ public:
     //@{ From GUIGlObject
     /// Returns an own popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent);
 
     /// Returns an own parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
@@ -142,18 +104,19 @@ public:
     Boundary getBoundary() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                    GUISUMOAbstractView &parent);
 
     void setUserFlow(SUMOReal factor);
     SUMOReal getUserFlow() const;
 
     void setActiveChild(int index);
 
-	void toggleDrawRoutes();
+    void toggleDrawRoutes();
 
 protected:
     class GUIEmitterChild_UserTriggeredChild
-        : public MSEmitter::MSEmitterChild, public Command {
+                : public MSEmitter::MSEmitterChild, public Command
+    {
     public:
         GUIEmitterChild_UserTriggeredChild(
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
@@ -171,12 +134,13 @@ protected:
     };
 
 public:
-    class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu {
+class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
+    {
         FXDECLARE(GUIEmitterPopupMenu)
     public:
 
         GUIEmitterPopupMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent, GUIGlObject &o);
+                            GUISUMOAbstractView &parent, GUIGlObject &o);
 
         ~GUIEmitterPopupMenu();
 
@@ -186,11 +150,13 @@ public:
         long onCmdDrawRoute(FXObject*,FXSelector,void*);
 
     protected:
-        GUIEmitterPopupMenu() { }
+        GUIEmitterPopupMenu()
+        { }
 
     };
 
-    class GUIManip_TriggeredEmitter : public GUIManipulator {
+class GUIManip_TriggeredEmitter : public GUIManipulator
+    {
         FXDECLARE(GUIManip_TriggeredEmitter)
     public:
         enum {
@@ -202,8 +168,8 @@ public:
         };
         /// Constructor
         GUIManip_TriggeredEmitter(GUIMainWindow &app,
-            const std::string &name, GUIEmitter &o,
-            int xpos, int ypos);
+                                  const std::string &name, GUIEmitter &o,
+                                  int xpos, int ypos);
 
         /// Destructor
         virtual ~GUIManip_TriggeredEmitter();
@@ -230,7 +196,8 @@ public:
         GUIEmitter *myObject;
 
     protected:
-        GUIManip_TriggeredEmitter() { }
+        GUIManip_TriggeredEmitter()
+        { }
 
     };
 
@@ -248,15 +215,12 @@ private:
 
     MSEmitterChild *myUserEmitChild;
 
-	bool myDrawRoutes;
+    bool myDrawRoutes;
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

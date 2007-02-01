@@ -1,73 +1,40 @@
-#ifndef GUITriggeredRerouter_h
-#define GUITriggeredRerouter_h
-//---------------------------------------------------------------------------//
-//                        GUITriggeredRerouter.h -
-//  The gui-version of MSTriggeredRerouter
-//                           -------------------
-//  begin                : Mon, 25.07.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUITriggeredRerouter.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 25.07.2005
+/// @version $Id: $
+///
+// The gui-version of MSTriggeredRerouter
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/12/12 12:11:02  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.8  2006/11/16 10:50:44  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/11/14 13:01:50  dkrajzew
-// warnings removed
-//
-// Revision 1.6  2006/10/12 10:14:27  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.5  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.4  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.3  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/09/09 12:50:30  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:06:51  dksumo
-// further triggers added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUITriggeredRerouter_h
+#define GUITriggeredRerouter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -82,29 +49,30 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSEdge;
 class GUIManipulator;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUITriggeredRerouter
  * This is the gui-version of the MSTriggeredSource-object
  */
 class GUITriggeredRerouter
-    : public MSTriggeredRerouter,
-    public GUIGlObject_AbstractAdd {
+            : public MSTriggeredRerouter,
+            public GUIGlObject_AbstractAdd
+{
 public:
     /** constructor */
     GUITriggeredRerouter(const std::string &id,
-        const std::vector<MSEdge*> &edges, SUMOReal prob,
-        const std::string &aXMLFilename);
+                         const std::vector<MSEdge*> &edges, SUMOReal prob,
+                         const std::string &aXMLFilename);
 
     /** destructor */
     ~GUITriggeredRerouter();
@@ -112,11 +80,11 @@ public:
     //@{ From GUIGlObject
     /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent);
 
     /// Returns the parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
@@ -136,15 +104,16 @@ public:
     Boundary getBoundary() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
+                                    GUISUMOAbstractView &parent);
 
 public:
-    class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu {
+class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
+    {
         FXDECLARE(GUITriggeredRerouterPopupMenu)
     public:
 
         GUITriggeredRerouterPopupMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent, GUIGlObject &o);
+                                      GUISUMOAbstractView &parent, GUIGlObject &o);
 
         ~GUITriggeredRerouterPopupMenu();
 
@@ -152,12 +121,14 @@ public:
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUITriggeredRerouterPopupMenu() { }
+        GUITriggeredRerouterPopupMenu()
+        { }
 
     };
 
 
-    class GUIManip_TriggeredRerouter : public GUIManipulator {
+class GUIManip_TriggeredRerouter : public GUIManipulator
+    {
         FXDECLARE(GUIManip_TriggeredRerouter)
     public:
         enum {
@@ -169,8 +140,8 @@ public:
         };
         /// Constructor
         GUIManip_TriggeredRerouter(GUIMainWindow &app,
-            const std::string &name, GUITriggeredRerouter &o,
-            int xpos, int ypos);
+                                   const std::string &name, GUITriggeredRerouter &o,
+                                   int xpos, int ypos);
 
         /// Destructor
         virtual ~GUIManip_TriggeredRerouter();
@@ -197,7 +168,8 @@ public:
         GUITriggeredRerouter *myObject;
 
     protected:
-        GUIManip_TriggeredRerouter() { }
+        GUIManip_TriggeredRerouter()
+        { }
 
     };
 
@@ -223,11 +195,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

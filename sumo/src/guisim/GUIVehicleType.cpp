@@ -1,65 +1,38 @@
-/***************************************************************************
-                          GUIVehicleType.cpp  -  Base Class for Vehicle
-                          parameters.
-                             -------------------
-    begin                : Thu, 17. Jun 2004
-    copyright            : (C) 2004 by DLR http://www.dlr.de/vf
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2006/09/18 10:02:34  dkrajzew
-// added vehicle class support to microsim
+/****************************************************************************/
+/// @file    GUIVehicleType.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17. Jun 2004
+/// @version $Id: $
+///
+// parameters.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.6  2006/07/06 06:40:38  dkrajzew
-// applied current microsim-APIs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.5  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:05:25  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/07/02 08:56:12  dkrajzew
-// coloring of routes and vehicle types added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIVehicleType.h"
 
@@ -68,28 +41,26 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIVehicleType::~GUIVehicleType()
-{
-}
+{}
 
 
 GUIVehicleType::GUIVehicleType(const RGBColor &c, const string &id,
                                SUMOReal length, SUMOReal maxSpeed,
                                SUMOReal accel, SUMOReal decel,
                                SUMOReal dawdle, SUMOVehicleClass vclass)
-    : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, vclass),
-    myColor(c)
-{
-}
+        : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, vclass),
+        myColor(c)
+{}
 
 
 const RGBColor &
@@ -99,8 +70,6 @@ GUIVehicleType::getColor() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,56 +1,40 @@
-#ifndef GUIRoute_h
-#define GUIRoute_h
-//---------------------------------------------------------------------------//
-//                        GUIRoute.h -
-//  A vehicle route
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 17. Jun 2004
-//  copyright            : (C) 2004 by DLR http://www.dlr.de/vf
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIRoute.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17. Jun 2004
+/// @version $Id: $
+///
+// A vehicle route
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.4  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:02:55  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/07/02 08:56:12  dkrajzew
-// coloring of routes and vehicle types added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIRoute_h
+#define GUIRoute_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -60,19 +44,20 @@
 #include <utils/gui/div/GUIColorSetter.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIRoute
  * Just a MSRoute extended by a color
  */
-class GUIRoute : public MSRoute {
+class GUIRoute : public MSRoute
+{
 public:
     /// Constructor
     GUIRoute(const RGBColor &c,
-        const std::string &id, const MSEdgeVector &edges,
-        bool multipleReferenced);
+             const std::string &id, const MSEdgeVector &edges,
+             bool multipleReferenced);
 
     /// Destructor
     ~GUIRoute();
@@ -81,7 +66,10 @@ public:
     const RGBColor &getColor() const;
 
     /// Sets the color in openGL
-    inline void setColor() const { mglColor(myColor); }
+    inline void setColor() const
+    {
+        mglColor(myColor);
+    }
 
 private:
     /// The color
@@ -90,11 +78,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

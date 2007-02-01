@@ -1,98 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIInductLoop.cpp -
-//  The gui-version of the MSInductLoop, together with the according
-//   wrapper
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Aug 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIInductLoop.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Aug 2003
+/// @version $Id: $
+///
+// The gui-version of the MSInductLoop, together with the according
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.23  2006/12/12 12:10:45  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.22  2006/11/16 10:50:43  dkrajzew
-// warnings removed
-//
-// Revision 1.21  2006/04/18 08:12:04  dkrajzew
-// consolidation of interaction with gl-objects
-//
-// Revision 1.20  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.19  2006/04/05 05:22:36  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.18  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.17  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.16  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.15  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.14  2005/05/04 07:59:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.13  2005/02/01 10:10:39  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.12  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.11  2004/07/02 08:42:13  dkrajzew
-// changes in the detector drawer applied
-//
-// Revision 1.10  2004/03/19 12:57:54  dkrajzew
-// porting to FOX
-//
-// Revision 1.9  2004/02/16 13:57:15  dkrajzew
-// tried to patch a sometimes occuring visualisation bug
-//
-// Revision 1.8  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets
-//  and lengths for lsa-detectors; coupling of detectors to tl-logics;
-//  different detector visualistaion in dependence to his controller
-//
-// Revision 1.7  2003/11/12 14:00:19  dkrajzew
-// commets added; added parameter windows to all detectors
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <microsim/output/MSInductLoop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -116,29 +56,27 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
                              SUMOReal position,
                              SUMOTime deleteDataAfterSeconds)
-    : MSInductLoop(id, lane, position, deleteDataAfterSeconds)
-{
-}
+        : MSInductLoop(id, lane, position, deleteDataAfterSeconds)
+{}
 
 
 GUIInductLoop::~GUIInductLoop()
-{
-}
+{}
 
 
 GUIDetectorWrapper *
@@ -155,8 +93,8 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, SUMOReal pos)
-    : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
-    myDetector(detector), myPosition(pos)
+        : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
+        myDetector(detector), myPosition(pos)
 {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
@@ -169,8 +107,7 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
 
 
 GUIInductLoop::MyWrapper::~MyWrapper()
-{
-}
+{}
 
 
 Boundary
@@ -183,21 +120,21 @@ GUIInductLoop::MyWrapper::getBoundary() const
 
 GUIParameterTableWindow *
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-                                             GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/)
+        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/)
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("flow [veh/h]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getFlow, 1));
+                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
+                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getOccupancy, 1));
+                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
+                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
-        new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     //
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
@@ -231,15 +168,15 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
     glColor3f(1, 1, 0);
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
-    glRotated( myFGRotation, 0, 0, 1 );
+    glRotated(myFGRotation, 0, 0, 1);
     glScaled(upscale, upscale, upscale);
-    glBegin( GL_QUADS );
+    glBegin(GL_QUADS);
     glVertex2d(0-1.0, 2);
     glVertex2d(-1.0, -2);
     glVertex2d(1.0, -2);
     glVertex2d(1.0, 2);
     glEnd();
-    glBegin( GL_LINES);
+    glBegin(GL_LINES);
     // without the substracted offsets, lines are partially longer
     //  than the boxes
     glVertex2d(0, 2-.1);
@@ -247,10 +184,10 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
     glEnd();
 
     // outline
-    if(width*upscale>1) {
+    if (width*upscale>1) {
         glColor3f(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glBegin( GL_QUADS );
+        glBegin(GL_QUADS);
         glVertex2f(0-1.0, 2);
         glVertex2f(-1.0, -2);
         glVertex2f(1.0, -2);
@@ -260,10 +197,10 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
     }
 
     // position indicator
-    if(width*upscale>1) {
-        glRotated( 90, 0, 0, -1 );
+    if (width*upscale>1) {
+        glRotated(90, 0, 0, -1);
         glColor3f(1, 1, 1);
-        glBegin( GL_LINES);
+        glBegin(GL_LINES);
         glVertex2d(0, 1.7);
         glVertex2d(0, -1.7);
         glEnd();
@@ -286,9 +223,6 @@ GUIInductLoop::MyWrapper::getLoop()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

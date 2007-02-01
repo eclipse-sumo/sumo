@@ -1,119 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIJunctionWrapper.h -
-//  Holds geometrical values for a junction
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 1 Jul 2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIJunctionWrapper.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 1 Jul 2003
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.24  2006/11/28 12:10:40  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.23  2006/11/16 12:30:54  dkrajzew
-// warnings removed
-//
-// Revision 1.22  2006/10/12 07:57:14  dkrajzew
-// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
-//
-// Revision 1.21  2006/04/18 08:12:04  dkrajzew
-// consolidation of interaction with gl-objects
-//
-// Revision 1.20  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.19  2006/04/05 05:22:36  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.18  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.17  2006/03/17 11:03:04  dkrajzew
-// made access to positions in Position2DVector c++ compliant
-//
-// Revision 1.16  2006/01/31 10:55:27  dkrajzew
-// unneeded inclusions removed
-//
-// Revision 1.15  2005/11/09 06:35:34  dkrajzew
-// debugging
-//
-// Revision 1.14  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.13  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.12  2005/05/04 07:59:59  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.11  2004/12/20 14:00:23  dkrajzew
-// debugging
-//
-// Revision 1.10  2004/12/12 17:23:58  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.9  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.8  2004/07/02 08:54:11  dkrajzew
-// some design issues
-//
-// Revision 1.7  2004/04/02 11:18:37  dkrajzew
-// recenter view - icon added to the popup menu
-//
-// Revision 1.6  2004/03/19 12:57:54  dkrajzew
-// porting to FOX
-//
-// Revision 1.5  2003/12/09 11:27:50  dkrajzew
-// removed some dead code
-//
-// Revision 1.4  2003/08/14 13:47:44  dkrajzew
-// false usage of function-pointers patched; false inclusion of .moc-files
-//  removed
-//
-// Revision 1.3  2003/07/30 08:54:14  dkrajzew
-// the network is capable to display the networks state, now
-//
-// Revision 1.2  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than
-//  GUIEdgeGrid did; Further things to draw implemented
-//
-// Revision 1.1  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry
-//  implemented
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utility>
@@ -134,27 +53,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
-GUIJunctionWrapper::GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
-        MSJunction &junction,
-        const Position2DVector &shape)
-    : GUIGlObject(idStorage, "junction:"+junction.getID()),
-    myJunction(junction), myShape(shape)
-{
-}
+// ===========================================================================
+// method definitions
+// ===========================================================================
+GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
+                                       MSJunction &junction,
+                                       const Position2DVector &shape)
+        : GUIGlObject(idStorage, "junction:"+junction.getID()),
+        myJunction(junction), myShape(shape)
+{}
 
 
 GUIJunctionWrapper::~GUIJunctionWrapper()
-{
-}
+{}
 
 
 GUIGLObjectPopupMenu *
@@ -174,27 +91,26 @@ GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &)
 {
-	std::vector<std::string> s=myJunction.getNames();
-	int NumberOfRows =s.size();
-	GUIParameterTableWindow *ret =
-		new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
+    std::vector<std::string> s=myJunction.getNames();
+    int NumberOfRows =s.size();
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
     // add items
-	//ret->mkItem("length [m]", false, myJunction.length());
+    //ret->mkItem("length [m]", false, myJunction.length());
     ret->mkItem("x-Position", false, myJunction.getPosition().x());
-	ret->mkItem("y-Position", false, myJunction.getPosition().y());
+    ret->mkItem("y-Position", false, myJunction.getPosition().y());
 
-	//std::vector<string>::iterator p=s.begin();
-	/*
-	while(p !=s.end())
-	{
-		ret->mkItem("name", false, s[]);
-		p++;
-	}
-	*/
-    for(unsigned int i=0 ; i<s.size(); i++)
-	{
-		ret->mkItem("name", false, s[i]);
-	}
+    //std::vector<string>::iterator p=s.begin();
+    /*
+    while(p !=s.end())
+    {
+    	ret->mkItem("name", false, s[]);
+    	p++;
+    }
+    */
+    for (unsigned int i=0 ; i<s.size(); i++) {
+        ret->mkItem("name", false, s[i]);
+    }
 
     // close building
     ret->closeBuilding();
@@ -229,7 +145,7 @@ GUIJunctionWrapper::getBoundary() const
 {
     Boundary boundary;
     size_t shapeLength = myShape.size();
-    for(size_t i=0; i<shapeLength; i++) {
+    for (size_t i=0; i<shapeLength; i++) {
         const Position2D &pos = myShape[i];
         boundary.add(pos.x(), pos.y());
     }
@@ -247,22 +163,18 @@ GUIJunctionWrapper::getShape() const
 Boundary
 GUIJunctionWrapper::getCenteringBoundary() const
 {
-	Boundary b = getBoundary();
-	b.grow(20);
-	return b;
+    Boundary b = getBoundary();
+    b.grow(20);
+    return b;
 }
 
 MSJunction &
 GUIJunctionWrapper::getJunction() const
 {
-	return myJunction;
+    return myJunction;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,98 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUISourceLane.cpp -
-//  A grid of edges for faster drawing
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 25 Nov 2002
-//  copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-//  author               : Daniel Krajzewicz
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUISourceLane.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 25 Nov 2002
+/// @version $Id: $
+///
+// A grid of edges for faster drawing
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.17  2006/12/01 09:16:26  dkrajzew
-// replaced a throw by an error message
-//
-// Revision 1.16  2006/11/28 12:10:41  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.15  2006/09/18 10:01:58  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.14  2006/05/15 05:50:40  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.14  2006/05/08 10:59:34  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.13  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.12  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.11  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.10  2005/05/04 07:55:28  dkrajzew
-// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
-//
-// Revision 1.9  2004/08/02 11:57:34  dkrajzew
-// debugging
-//
-// Revision 1.8  2004/07/02 08:52:49  dkrajzew
-// numerical id added (for online-routing)
-//
-// Revision 1.7  2004/03/19 12:57:55  dkrajzew
-// porting to FOX
-//
-// Revision 1.6  2004/02/10 07:07:47  dkrajzew
-// removed some dead code
-//
-// Revision 1.5  2003/09/05 14:59:54  dkrajzew
-// first tries for an implementation of aggregated views
-//
-// Revision 1.4  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.3  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
-//
-// Revision 1.2  2003/07/07 08:14:48  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
-//
-// Revision 1.1  2003/02/07 10:39:17  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream> // !!!
@@ -108,24 +48,23 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUISourceLane::GUISourceLane(/*MSNet &net, */std::string id,
-                             SUMOReal maxSpeed, SUMOReal length,
-                             MSEdge* edge, size_t numericalID,
-                             const Position2DVector &shape,
-                             const std::vector<SUMOVehicleClass> &allowed,
-                             const std::vector<SUMOVehicleClass> &disallowed)
-    : MSSourceLane(/*net, */id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
-{
-}
+        SUMOReal maxSpeed, SUMOReal length,
+        MSEdge* edge, size_t numericalID,
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed)
+        : MSSourceLane(/*net, */id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
+{}
 
 
 GUISourceLane::~GUISourceLane()
 {
     // just to quit cleanly on a failure
-    if(_lock.locked()) {
+    if (_lock.locked()) {
         _lock.unlock();
     }
 }
@@ -159,7 +98,7 @@ GUISourceLane::setCritical()
 
 
 bool
-GUISourceLane::emit( MSVehicle& newVeh )
+GUISourceLane::emit(MSVehicle& newVeh)
 {
     _lock.lock();//Display();
     bool ret = MSSourceLane::emit(newVeh);
@@ -169,7 +108,7 @@ GUISourceLane::emit( MSVehicle& newVeh )
 
 
 bool
-GUISourceLane::isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate )
+GUISourceLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
     _lock.lock();//Display();
     bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
@@ -179,7 +118,7 @@ GUISourceLane::isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &v
 
 
 bool
-GUISourceLane::push( MSVehicle *veh  )
+GUISourceLane::push(MSVehicle *veh)
 {
     MsgHandler::getErrorInstance()->inform("Vehicle '" + veh->getID() + "' was tried to be pushed on source lane '" + getID() + "'.");
     return false;
@@ -248,7 +187,7 @@ GUISourceLane::getVehLenSum() const
 
 
 void
-GUISourceLane::detectCollisions( SUMOTime timestep )
+GUISourceLane::detectCollisions(SUMOTime timestep)
 {
     _lock.lock();
     MSLane::detectCollisions(timestep);
@@ -266,10 +205,6 @@ GUISourceLane::pop()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

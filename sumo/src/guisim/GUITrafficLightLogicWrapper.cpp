@@ -1,95 +1,30 @@
-//---------------------------------------------------------------------------//
-//                        GUITrafficLightLogicWrapper.cpp -
-//  A wrapper for tl-logics to allow their visualisation and interaction
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Oct/Nov 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUITrafficLightLogicWrapper.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Oct/Nov 2003
+/// @version $Id: $
+///
+// A wrapper for tl-logics to allow their visualisation and interaction
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2006/12/21 13:23:54  dkrajzew
-// added visualization of tls/junction link indices
-//
-// Revision 1.17  2006/11/16 10:50:44  dkrajzew
-// warnings removed
-//
-// Revision 1.16  2006/11/14 06:41:15  dkrajzew
-// tls tracker now support switches between logics
-//
-// Revision 1.15  2006/10/12 07:57:14  dkrajzew
-// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
-//
-// Revision 1.14  2006/04/18 08:12:04  dkrajzew
-// consolidation of interaction with gl-objects
-//
-// Revision 1.13  2006/04/11 10:56:32  dkrajzew
-// microsimID() now returns a const reference
-//
-// Revision 1.12  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.11  2006/02/27 12:03:22  dkrajzew
-// variants container named properly
-//
-// Revision 1.10  2006/02/23 11:27:56  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.9  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/01/27 14:20:26  dkrajzew
-// ability to open the complete phase definition added
-//
-// Revision 1.6  2004/11/24 08:46:43  dkrajzew
-// recent changes applied
-//
-// Revision 1.5  2004/07/02 08:54:11  dkrajzew
-// some design issues
-//
-// Revision 1.4  2004/04/02 11:18:37  dkrajzew
-// recenter view - icon added to the popup menu
-//
-// Revision 1.3  2004/03/19 12:57:55  dkrajzew
-// porting to FOX
-//
-// Revision 1.2  2003/11/26 09:48:58  dkrajzew
-// time display added to the tl-logic visualisation
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -113,50 +48,48 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
-    GUITrafficLightLogicWrapperPopupMenuMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
-    FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
-    FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH+20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
-};
+GUITrafficLightLogicWrapperPopupMenuMap[]=
+    {
+        FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
+        FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
+        FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH+20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
+    };
 
 // Object implementation
 FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, GUIGLObjectPopupMenu, GUITrafficLightLogicWrapperPopupMenuMap, ARRAYNUMBER(GUITrafficLightLogicWrapperPopupMenuMap))
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent,
-        GUIGlObject &o)
-    : GUIGLObjectPopupMenu(app, parent, o)
-{
-}
+    GUIMainWindow &app, GUISUMOAbstractView &parent,
+    GUIGlObject &o)
+        : GUIGLObjectPopupMenu(app, parent, o)
+{}
 
 
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu()
-{
-}
+{}
 
 
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases(
-        FXObject*,FXSelector,void*)
+    FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->begin2TrackPhases();
@@ -166,7 +99,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2Tr
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases(
-        FXObject*,FXSelector,void*)
+    FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->showPhases();
@@ -176,7 +109,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic(
-        FXObject*,FXSelector sel,void* )
+    FXObject*,FXSelector sel,void*)
 {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel)-MID_SWITCH);
@@ -189,22 +122,20 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-        GUIGlObjectStorage &idStorage,
-        MSTLLogicControl &control, MSTrafficLightLogic &tll)
-    : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
-    myTLLogicControl(control), myTLLogic(tll)
-{
-}
+    GUIGlObjectStorage &idStorage,
+    MSTLLogicControl &control, MSTrafficLightLogic &tll)
+        : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
+        myTLLogicControl(control), myTLLogic(tll)
+{}
 
 
 GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper()
-{
-}
+{}
 
 
 GUIGLObjectPopupMenu *
 GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
-                                          GUISUMOAbstractView &parent)
+        GUISUMOAbstractView &parent)
 {
     myApp = &app;
     GUIGLObjectPopupMenu *ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
@@ -212,13 +143,13 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     //
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
-    if(vars.ltVariants.size()>1) {
+    if (vars.ltVariants.size()>1) {
         std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
         size_t index = 0;
-        for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
-            if((*i).second!=vars.defaultTL) {
+        for (i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
+            if ((*i).second!=vars.defaultTL) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i).second->getSubID() + "'").c_str(),
-                    GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
+                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
             }
         }
         new FXMenuSeparator(ret);
@@ -238,8 +169,8 @@ GUITrafficLightLogicWrapper::begin2TrackPhases()
 {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
-            new FuncBinding_StringParam<MSTLLogicControl, CompletePhaseDef>
-            (&MSNet::getInstance()->getTLSControl(), &MSTLLogicControl::getPhaseDef, myTLLogic.getID()));
+                                          new FuncBinding_StringParam<MSTLLogicControl, CompletePhaseDef>
+                                          (&MSNet::getInstance()->getTLSControl(), &MSTLLogicControl::getPhaseDef, myTLLogic.getID()));
     window->create();
     window->show();
 }
@@ -250,7 +181,7 @@ GUITrafficLightLogicWrapper::showPhases()
 {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
-            static_cast<MSSimpleTrafficLightLogic&>(myTLLogic).getPhases());
+                                          static_cast<MSSimpleTrafficLightLogic&>(myTLLogic).getPhases());
     window->setBeginTime(0);
     window->create();
     window->show();
@@ -259,7 +190,7 @@ GUITrafficLightLogicWrapper::showPhases()
 
 GUIParameterTableWindow *
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
-                                                GUISUMOAbstractView &)
+        GUISUMOAbstractView &)
 {
     return 0;
 }
@@ -288,7 +219,7 @@ GUITrafficLightLogicWrapper::microsimID() const
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const
 {
-	throw 1;
+    throw 1;
 }
 
 
@@ -298,8 +229,8 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to)
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     int index = 0;
-    for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
-        if(index==to) {
+    for (i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
+        if (index==to) {
             myTLLogicControl.switchTo((*i).second->getID(), (*i).second->getSubID());
             return;
         }
@@ -314,8 +245,6 @@ GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
