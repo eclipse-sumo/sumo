@@ -112,7 +112,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (size_t i=0; i<noLinks; i++) {
-        SUMOReal x2 = x1 - w/2.;
+        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkRespondIndex(i);
         glPushMatrix();
         //glTranslated(0, veh.getLength() / 2., 0);
@@ -141,7 +141,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
 
     // draw all links
     SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
-    SUMOReal x1 = SUMO_const_laneWidth / 2.;
+    SUMOReal x1 = (SUMOReal)(SUMO_const_laneWidth / 2.);
     glPushMatrix();
     glColor3d(1, 0, 0);
     const Position2DVector &g = lane.getShape();
@@ -152,7 +152,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (size_t i=0; i<noLinks; i++) {
-        SUMOReal x2 = x1 - w/2.;
+        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkTLIndex(net, i);
         if (linkNo<0) {
             continue;
