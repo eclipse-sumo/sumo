@@ -479,7 +479,7 @@ GUIApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar3, "Current Step:", 0, LAYOUT_CENTER_X);
+        new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_X);
         myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
                                     LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
