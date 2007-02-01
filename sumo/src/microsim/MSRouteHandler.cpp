@@ -314,137 +314,137 @@ MSRouteHandler::addRouteElements(const std::string &name,
 }
 
 
-    // ----------------------------------
+// ----------------------------------
 
-    void
-    MSRouteHandler::myEndElement(int element, const std::string &)
-    {
-        switch (element) {
-        case SUMO_TAG_ROUTE:
-            try {
-                closeRoute();
-            } catch (XMLListEmptyException &e) {
-                MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
-            } catch (XMLIdAlreadyUsedException &e) {
-                MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
-            }
-            break;
-        case SUMO_TAG_VEHICLE:
-            closeVehicle();
-            break;
+void
+MSRouteHandler::myEndElement(int element, const std::string &)
+{
+    switch (element) {
+    case SUMO_TAG_ROUTE:
+        try {
+            closeRoute();
+        } catch (XMLListEmptyException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
+        } catch (XMLIdAlreadyUsedException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
         }
+        break;
+    case SUMO_TAG_VEHICLE:
+        closeVehicle();
+        break;
     }
+}
 
 
-    void
-    MSRouteHandler::closeRoute()
-    {
-        int size = myActiveRoute.size();
-        if (size==0) {
-            throw XMLListEmptyException();
-        }
-        MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
-        myActiveRoute.clear();
-        if (!MSRoute::dictionary(myActiveRouteID, route)) {
-            delete route;
-            if (!MSGlobals::gStateLoaded) {
-                throw XMLIdAlreadyUsedException("route", myActiveRouteID);
-            } else {
-                route = MSRoute::dictionary(myActiveRouteID);
-            }
-        }
-        if (myAmInEmbeddedMode) {
-            myCurrentEmbeddedRoute = route;
-        }
+void
+MSRouteHandler::closeRoute()
+{
+    int size = myActiveRoute.size();
+    if (size==0) {
+        throw XMLListEmptyException();
     }
-
-
-    void
-    MSRouteHandler::closeVehicle()
-    {
-        SUMOBaseRouteHandler::closeVehicle();
-        // get the vehicle's type
-        MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
-        if (vtype==0) {
-            MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
-            throw ProcessError();
-        }
-        // get the vehicle's route
-        //  maybe it was explicitely assigned to the vehicle
-        MSRoute *route = myCurrentEmbeddedRoute;
-        if (route==0) {
-            // if not, try via the (hopefully) given route-id
-            route = MSRoute::dictionary(myCurrentRouteName);
-        }
-        if (route==0) {
-            // nothing found? -> error
-            MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
-            throw ProcessError();
-        }
-
-        // check whether the first edge is long enough for the vehicle
-        const MSEdge *firstEdge = (*route)[0];
-        if ((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
-            // the vehicle is too long -> report an error
-            MsgHandler::getErrorInstance()->inform("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
-            throw ProcessError();
-        }
-
-        // try to build the vehicle
-        MSVehicle *vehicle = 0;
-        if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
-            // ok there was no other vehicle with the same id, yet
-            // maybe we do not want this vehicle to be emitted due to using incremental dua
-            bool add = true;
-            if (myAmUsingIncrementalDUA) {
-                if ((int)(myRunningVehicleNumber%myIncrementalBase)>=(int) myIncrementalStage) {
-                    add = false;
-                }
-                myRunningVehicleNumber++;
-            }
-            if (add) {
-                vehicle =
-                    MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
-                            route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
-                // check whether the color information shall be set
-                if (myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-                    vehicle->setCORNColor(
-                        myCurrentVehicleColor.red(),
-                        myCurrentVehicleColor.green(),
-                        myCurrentVehicleColor.blue());
-                }
-                // add the vehicle to the vehicle control
-                myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
-            }
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+    myActiveRoute.clear();
+    if (!MSRoute::dictionary(myActiveRouteID, route)) {
+        delete route;
+        if (!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
         } else {
-            // strange: another vehicle with the same id already exists
-            if (!MSGlobals::gStateLoaded) {
-                // and was not loaded while loading a simulation state
-                // -> error
-                throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
-            } else {
-                // ok, it seems to be loaded previously while loading a simulation state
-                vehicle = 0;
-            }
+            route = MSRoute::dictionary(myActiveRouteID);
         }
-        // check whether the vehicle shall be added directly to the network or
-        //  shall stay in the internal buffer
-        if (myAddVehiclesDirectly&&vehicle!=0) {
-            MSNet::getInstance()->myEmitter->add(vehicle);
-        } else {
-            myLastReadVehicle = vehicle;
-        }
-        if (vehicle!=0) {
-            for (std::vector<MSVehicle::Stop>::iterator i=myVehicleStops.begin(); i!=myVehicleStops.end(); ++i) {
-                vehicle->addStop(*i);
-            }
-        }
-        myVehicleStops.clear();
-        myLastDepart = myCurrentDepart;
-        myCurrentEmbeddedRoute = 0;
+    }
+    if (myAmInEmbeddedMode) {
+        myCurrentEmbeddedRoute = route;
+    }
+}
+
+
+void
+MSRouteHandler::closeVehicle()
+{
+    SUMOBaseRouteHandler::closeVehicle();
+    // get the vehicle's type
+    MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
+    if (vtype==0) {
+        MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        throw ProcessError();
+    }
+    // get the vehicle's route
+    //  maybe it was explicitely assigned to the vehicle
+    MSRoute *route = myCurrentEmbeddedRoute;
+    if (route==0) {
+        // if not, try via the (hopefully) given route-id
+        route = MSRoute::dictionary(myCurrentRouteName);
+    }
+    if (route==0) {
+        // nothing found? -> error
+        MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        throw ProcessError();
     }
 
+    // check whether the first edge is long enough for the vehicle
+    const MSEdge *firstEdge = (*route)[0];
+    if ((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
+        // the vehicle is too long -> report an error
+        MsgHandler::getErrorInstance()->inform("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
+        throw ProcessError();
+    }
+
+    // try to build the vehicle
+    MSVehicle *vehicle = 0;
+    if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+        // ok there was no other vehicle with the same id, yet
+        // maybe we do not want this vehicle to be emitted due to using incremental dua
+        bool add = true;
+        if (myAmUsingIncrementalDUA) {
+            if ((int)(myRunningVehicleNumber%myIncrementalBase)>=(int) myIncrementalStage) {
+                add = false;
+            }
+            myRunningVehicleNumber++;
+        }
+        if (add) {
+            vehicle =
+                MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
+                        route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+            // check whether the color information shall be set
+            if (myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+                vehicle->setCORNColor(
+                    myCurrentVehicleColor.red(),
+                    myCurrentVehicleColor.green(),
+                    myCurrentVehicleColor.blue());
+            }
+            // add the vehicle to the vehicle control
+            myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
+        }
+    } else {
+        // strange: another vehicle with the same id already exists
+        if (!MSGlobals::gStateLoaded) {
+            // and was not loaded while loading a simulation state
+            // -> error
+            throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
+        } else {
+            // ok, it seems to be loaded previously while loading a simulation state
+            vehicle = 0;
+        }
+    }
+    // check whether the vehicle shall be added directly to the network or
+    //  shall stay in the internal buffer
+    if (myAddVehiclesDirectly&&vehicle!=0) {
+        MSNet::getInstance()->myEmitter->add(vehicle);
+    } else {
+        myLastReadVehicle = vehicle;
+    }
+    if (vehicle!=0) {
+        for (std::vector<MSVehicle::Stop>::iterator i=myVehicleStops.begin(); i!=myVehicleStops.end(); ++i) {
+            vehicle->addStop(*i);
+        }
+    }
+    myVehicleStops.clear();
+    myLastDepart = myCurrentDepart;
+    myCurrentEmbeddedRoute = 0;
+}
 
 
-    /****************************************************************************/
+
+/****************************************************************************/
 

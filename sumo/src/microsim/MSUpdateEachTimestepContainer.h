@@ -19,6 +19,34 @@
 /****************************************************************************/
 #ifndef MSUpdateEachTimestepContainer_h
 #define MSUpdateEachTimestepContainer_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
+
+
+/**
+ * @file   MSUpdateEachTimestepContainer.h
+ * @author Christian Roessel
+ * @date   Started Thu Oct 23 16:38:35 2003
+ * @version $Id$
+ * @brief
+ *
+ *
+ */
+
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
 
 // ===========================================================================
 // included modules

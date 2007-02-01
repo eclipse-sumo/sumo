@@ -19,6 +19,36 @@
 /****************************************************************************/
 #ifndef MSUnit_h
 #define MSUnit_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
+
+
+/**
+ * @file   MSUnit.h
+ * @author Christian Roessel
+ * @date   Thu Aug  7 14:53:08 2003
+ * @version $Id$
+ * @brief  Declaraition and Definition of class MSUnit
+ *
+ */
+
+/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+
+// $Id$
+
 
 // ===========================================================================
 // included modules

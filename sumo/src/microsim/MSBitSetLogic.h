@@ -20,13 +20,12 @@
 #ifndef MSBitSetLogic_h
 #define MSBitSetLogic_h
 // ===========================================================================
-// used namespaces
+// compiler pragmas
 // ===========================================================================
-// Replaced using namespace std with std:: and style changes.
-//
-// Revision 1.1  2001/12/13 15:43:13  croessel
-// Initial commit.
-//
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
+
 
 // ===========================================================================
 // included modules

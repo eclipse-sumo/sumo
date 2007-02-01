@@ -689,10 +689,12 @@ MSNet::writeOutput()
         myOutputStreams[OS_EMISSIONS]->getOStream()
         << "/>" << endl;
     }
-    if (myOutputStreams[OS_CELL_TO_SS2] != 0 || myOutputStreams[OS_LA_TO_SS2] != 0) {
-        myMSPhoneNet->writeOutput(myStep);
-    }
-    if (myOutputStreams[OS_CELL_TO_SS2_SQL] != 0 || myOutputStreams[OS_LA_TO_SS2_SQL] != 0) {
+    if (myOutputStreams[OS_CELL_TO_SS2_SQL] != 0
+            || myOutputStreams[OS_LA_TO_SS2_SQL] != 0
+            || myOutputStreams[OS_DEVICE_TO_SS2_SQL] != 0
+            || myOutputStreams[OS_LA_TO_SS2] != 0
+            || myOutputStreams[OS_CELL_TO_SS2] != 0
+            || myOutputStreams[OS_DEVICE_TO_SS2] != 0) {
         myMSPhoneNet->writeOutput(myStep);
     }
 }

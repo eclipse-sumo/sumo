@@ -50,7 +50,7 @@ using namespace std;
 MSPhoneCell::MSPhoneCell(int id)
         : myCellId(id), myStaticCallsIn(0), myStaticCallsOut(0), myDynCallsIn(0),
         myDynCallsOut(0), mySumCalls(0), myDynOwnStarted(0), myIntervalBegin(0), myIntervalEnd(0),
-        myOutputIntervalBegin(0),myCurrentExpectedCallCount(0), myCallDuration(0),
+        myCurrentExpectedCallCount(0), myCallDuration(0),
         myCallDeviation(0), myConnectionTypSelector(true)
 {}
 
@@ -226,8 +226,7 @@ void
 MSPhoneCell::writeOutput(SUMOTime t)
 {
     MSCORN::saveTOSS2_CellStateData(t, myCellId, myStaticCallsIn, myStaticCallsOut, myDynCallsIn, myDynCallsOut,
-                                    myStaticCallsIn + myStaticCallsOut + mySumCalls, myOutputIntervalBegin);
-    myOutputIntervalBegin = t;
+                                    myStaticCallsIn + myStaticCallsOut + mySumCalls, t);
     myDynCallsIn = myDynCallsOut = 0;
     for (myitCalls = myCalls.begin(); myitCalls != myCalls.end(); myitCalls++) {
         if (myitCalls->second == DYNIN)
@@ -243,8 +242,7 @@ void
 MSPhoneCell::writeSQLOutput(SUMOTime t)
 {
     MSCORN::saveTOSS2SQL_CellStateData(t, myCellId, myStaticCallsIn, myStaticCallsOut, myDynCallsIn, myDynCallsOut,
-                                       myStaticCallsIn + myStaticCallsOut + mySumCalls, myOutputIntervalBegin);
-    myOutputIntervalBegin = t;
+                                       myStaticCallsIn + myStaticCallsOut + mySumCalls, t);
     myDynCallsIn = myDynCallsOut = 0;
     for (myitCalls = myCalls.begin(); myitCalls != myCalls.end(); myitCalls++) {
         if (myitCalls->second == DYNIN)
