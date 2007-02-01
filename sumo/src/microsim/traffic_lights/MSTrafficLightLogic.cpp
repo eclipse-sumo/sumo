@@ -311,7 +311,7 @@ MSTrafficLightLogic::onSwitch()
             i++;
         }
     }
-#ifdef RAKNET_DEMO {
+#ifdef RAKNET_DEMO 
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = allowed();
     const std::bitset<64> &yellowLinks = yellowMask();
@@ -337,7 +337,6 @@ MSTrafficLightLogic::onSwitch()
             }
         }
     }
-}
 #endif
 }
 
