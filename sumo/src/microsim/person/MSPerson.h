@@ -233,7 +233,7 @@ class MSPersonStage_Waiting : MSPersonStage
 
 public:
     /// the structure holding the route of a person
-    typedef std::vector<MSPersonStage> MSPersonRoute;
+    typedef std::vector<MSPersonStage*> MSPersonRoute;
 
 private:
     /// the travel time (without the time waited)

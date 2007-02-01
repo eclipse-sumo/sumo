@@ -235,7 +235,7 @@ MSPerson::~MSPerson()
 const MSPerson::MSPersonStage &
 MSPerson::getCurrentStage() const
 {
-    return *m_pStep;
+    return **m_pStep;
 }
 
 
