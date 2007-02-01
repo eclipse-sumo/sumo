@@ -1,72 +1,40 @@
-#ifndef MSEmitter_h
-#define MSEmitter_h
-//---------------------------------------------------------------------------//
-//                        MSEmitter.h -
-//  Class that realises the setting of a lane's maximum speed triggered by
-//      values read from a file
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 21.07.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSEmitter.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 21.07.2005
+/// @version $Id: $
+///
+// Class that realises the setting of a lane's maximum speed triggered by
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2006/11/14 13:02:59  dkrajzew
-// warnings removed
-//
-// Revision 1.5  2006/07/06 07:23:45  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.4  2006/03/17 08:58:36  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.3  2006/02/23 11:30:01  dkrajzew
-// emitters may now show their routes
-//
-// Revision 1.2  2006/02/13 07:52:43  dkrajzew
-// debugging
-//
-// Revision 1.1  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.4  2005/10/06 13:39:21  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.3  2005/09/20 06:11:17  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.2  2005/09/09 12:51:25  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:31:00  dksumo
-// triggers reworked and new added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSEmitter_h
+#define MSEmitter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -76,68 +44,86 @@
 #include <utils/helpers/RandomDistributor.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLane;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * MSEmitter
  * This trigger reads the next maximum velocity of the lane he is
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSEmitter : public MSTrigger {
+class MSEmitter : public MSTrigger
+{
 public:
     /** constructor for file-based emission */
     MSEmitter(const std::string &id, MSNet &net, MSLane* destLane,
-        SUMOReal pos, const std::string &aXMLFilename);
+              SUMOReal pos, const std::string &aXMLFilename);
 
     /** destructor */
     virtual ~MSEmitter();
 
 
 public:
-    class MSEmitterChild {
+    class MSEmitterChild
+    {
     public:
         MSEmitterChild(MSEmitter &parent, MSVehicleControl &vc)
-            : myParent(parent), myVehicleControl(vc), myTimeOffset(0) { }
+                : myParent(parent), myVehicleControl(vc), myTimeOffset(0)
+        { }
 
-        virtual ~MSEmitterChild() { }
+        virtual ~MSEmitterChild()
+        { }
 
-        MSRoute *getRndRoute() const { return myRouteDist.get(); }
+        MSRoute *getRndRoute() const
+        {
+            return myRouteDist.get();
+        }
 
-		const std::vector<MSRoute*> &getAllRoutes() const
-		{
-			return myRouteDist.getVals();
-		}
+        const std::vector<MSRoute*> &getAllRoutes() const
+        {
+            return myRouteDist.getVals();
+        }
 
-        MSVehicleType *getRndVType() const { return myVTypeDist.get(); }
+        MSVehicleType *getRndVType() const
+        {
+            return myVTypeDist.get();
+        }
 
-        bool hasRoutes() const { return myRouteDist.getOverallProb()!=0; }
+        bool hasRoutes() const
+        {
+            return myRouteDist.getOverallProb()!=0;
+        }
 
-        bool hasVTypes() const { return myVTypeDist.getOverallProb()!=0; }
+        bool hasVTypes() const
+        {
+            return myVTypeDist.getOverallProb()!=0;
+        }
 
-        SUMOReal computeOffset(SUMOReal flow) const {
-            SUMOReal freq = (SUMOReal) (1. / (flow / 3600.));
+        SUMOReal computeOffset(SUMOReal flow) const
+        {
+            SUMOReal freq = (SUMOReal)(1. / (flow / 3600.));
             SUMOReal ret = freq;
             myTimeOffset += (freq - (SUMOTime) ret);
-            if(myTimeOffset>1) {
+            if (myTimeOffset>1) {
                 myTimeOffset -= 1;
                 ret += 1;
             }
-            if(ret==0) { // !!! check what to do in this case (more than one vehicle/s)
+            if (ret==0) { // !!! check what to do in this case (more than one vehicle/s)
                 ret = 1;
             }
             return ret;
         }
 
-        RandomDistributor<MSRoute*> &getRouteDist() {
+        RandomDistributor<MSRoute*> &getRouteDist()
+        {
             return myRouteDist;
         }
 
@@ -157,10 +143,11 @@ public:
 
 protected:
     class MSEmitter_FileTriggeredChild
-        : public MSTriggeredXMLReader, public MSEmitterChild, public Command {
+                : public MSTriggeredXMLReader, public MSEmitterChild, public Command
+    {
     public:
         MSEmitter_FileTriggeredChild(MSNet &net,
-            const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
+                                     const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
 
         ~MSEmitter_FileTriggeredChild();
 
@@ -175,12 +162,12 @@ protected:
         /** the implementation of the SAX-handler interface for reading
             element begins */
         virtual void myStartElement(int element, const std::string &name,
-            const Attributes &attrs);
+                                    const Attributes &attrs);
 
         /** the implementation of the SAX-handler interface for reading
             characters */
         void myCharacters(int element, const std::string &name,
-            const std::string &chars);
+                          const std::string &chars);
 
         /** the implementation of the SAX-handler interface for reading
             element ends */
@@ -216,11 +203,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

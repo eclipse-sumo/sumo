@@ -1,57 +1,40 @@
-#ifndef MSE1VehicleActor_H
-#define MSE1VehicleActor_H
-//---------------------------------------------------------------------------//
-//                        MSE1VehicleActor.h -
-//  An actor which changes a vehicle's state
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 23.03.2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSE1VehicleActor.h
+/// @author  Daniel Krajzewicz
+/// @date    23.03.2006
+/// @version $Id: $
+///
+// An actor which changes a vehicle's state
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Id$
-// $Log$
-// Revision 1.5  2006/12/01 14:42:11  dkrajzew
-// added some visualization
-//
-// Revision 1.4  2006/11/22 13:07:25  dkrajzew
-// different visualizations for different types of actors
-//
-// Revision 1.3  2006/11/08 16:27:51  ericnicolay
-// change code for the cell-actor
-//
-// Revision 1.2  2006/07/05 11:23:39  ericnicolay
-// add code for change state of cphones and register them to the cells and las
-//
-// Revision 1.1  2006/03/27 07:19:47  dkrajzew
-// vehicle actors added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSE1VehicleActor_h
+#define MSE1VehicleActor_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <deque>
@@ -66,22 +49,22 @@
 #include <microsim/devices/MSDevice_CPhone.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class GUIDetectorWrapper;
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
 enum ActorType{
-	LA,
-	CELL
+    LA,
+    CELL
 };
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  */
 class MSE1VehicleActor : public MSMoveReminder, public MSTrigger
@@ -98,8 +81,8 @@ public:
      * @param position Position of the detector within the lane.
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
-    MSE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type );
+    MSE1VehicleActor(const std::string& id, MSLane* lane,
+                     SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
 
 
     /// Destructor. Clears containers.
@@ -132,10 +115,10 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive( MSVehicle& veh,
-                        SUMOReal oldPos,
-                        SUMOReal newPos,
-                        SUMOReal newSpeed );
+    bool isStillActive(MSVehicle& veh,
+                       SUMOReal oldPos,
+                       SUMOReal newPos,
+                       SUMOReal newSpeed);
 
 
     /**
@@ -146,7 +129,7 @@ public:
      *
      * @see leaveDetectorByLaneChange
      */
-    void dismissByLaneChange( MSVehicle& veh );
+    void dismissByLaneChange(MSVehicle& veh);
 
     /**
      * Informs corresponding detector if vehicle enters the reminder
@@ -157,24 +140,33 @@ public:
      *
      * @return True if vehicle is on or in front of the detector.
      */
-    bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
     //@}
 
     /// Returns the number of vehicles that have passed this actor
-    unsigned int getPassedVehicleNumber() const { return myPassedVehicleNo; }
+    unsigned int getPassedVehicleNumber() const
+    {
+        return myPassedVehicleNo;
+    }
 
     /// Returns the number of mobile phones that have passed this actor
-    unsigned int getPassedCPhoneNumber() const { return myPassedCPhonesNo; }
+    unsigned int getPassedCPhoneNumber() const
+    {
+        return myPassedCPhonesNo;
+    }
 
     /// Returns the number of mobile phones that have passed this actor being in connected mode
-    unsigned int getPassedConnectedCPhoneNumber() const { return myPassedConnectedCPhonesNo; }
+    unsigned int getPassedConnectedCPhoneNumber() const
+    {
+        return myPassedConnectedCPhonesNo;
+    }
 
 protected:
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
-	//const ActorType _type;
-	unsigned int _LAId;
-	unsigned int _AreaId;
-	unsigned int _ActorType;
+    //const ActorType _type;
+    unsigned int _LAId;
+    unsigned int _AreaId;
+    unsigned int _ActorType;
 
     /// The number of vehicles that have passed this actor
     unsigned int myPassedVehicleNo;
@@ -191,18 +183,14 @@ private:
     MSE1VehicleActor();
 
     /// Hidden copy constructor.
-    MSE1VehicleActor( const MSE1VehicleActor& );
+    MSE1VehicleActor(const MSE1VehicleActor&);
 
     /// Hidden assignment operator.
-    MSE1VehicleActor& operator=( const MSE1VehicleActor& );
+    MSE1VehicleActor& operator=(const MSE1VehicleActor&);
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,65 +1,40 @@
-#ifndef MSTriggeredRerouter_h
-#define MSTriggeredRerouter_h
-//---------------------------------------------------------------------------//
-//                        MSTriggeredRerouter.h -
-//  Allows the triggered rerouting of vehicles within the simulation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 25 July 2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSTriggeredRerouter.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 25 July 2005
+/// @version $Id: $
+///
+// Allows the triggered rerouting of vehicles within the simulation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/11/14 13:03:02  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/10/12 08:06:36  dkrajzew
-// removed unneeded id member in MSMoveReminder
-//
-// Revision 1.6  2006/04/11 11:02:32  dkrajzew
-// patched the distribution usage; added possibility o load predefined routes
-//
-// Revision 1.5  2006/01/31 10:57:12  dkrajzew
-// debugging
-//
-// Revision 1.4  2006/01/17 14:10:56  dkrajzew
-// debugging
-//
-// Revision 1.3  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSTriggeredRerouter_h
+#define MSTriggeredRerouter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -70,16 +45,16 @@
 #include <utils/helpers/RandomDistributor.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLane;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSTriggeredRerouter
  * A rerouter can be positioned on a list of edges and gives vehicles which
@@ -90,12 +65,13 @@ class MSLane;
  */
 class MSTriggeredRerouter :
             public MSTrigger,
-            public SUMOSAXHandler {
+            public SUMOSAXHandler
+{
 public:
     /** constructor */
     MSTriggeredRerouter(const std::string &id,
-        const std::vector<MSEdge*> &edges,
-        SUMOReal prob, const std::string &aXMLFilename);
+                        const std::vector<MSEdge*> &edges,
+                        SUMOReal prob, const std::string &aXMLFilename);
 
     /** destructor */
     virtual ~MSTriggeredRerouter();
@@ -104,7 +80,8 @@ public:
      * @class Setter
      * Responsible for setting a new route to a vehicle which arrives a single lane
      */
-    class Setter : public MSMoveReminder {
+class Setter : public MSMoveReminder
+    {
     public:
         /// Constructor
         Setter(MSTriggeredRerouter *parent, MSLane *lane);
@@ -113,14 +90,14 @@ public:
         ~Setter();
 
         /// Returns whether the vehicle has to be aware of this setter in the next step
-        bool isStillActive( MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-            SUMOReal newSpeed );
+        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
+                           SUMOReal newSpeed);
 
         /// Removes from the list of move reminders to be aware of
-        void dismissByLaneChange( MSVehicle& veh );
+        void dismissByLaneChange(MSVehicle& veh);
 
         /// Returns whether the vehicle shall be aware of this move reminder
-        bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
 
     private:
         /// The rerouter used for rerouting the vehicle
@@ -132,7 +109,8 @@ public:
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
      */
-    struct RerouteInterval {
+    struct RerouteInterval
+    {
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid
@@ -179,12 +157,12 @@ protected:
     /** the implementation of the SAX-handler interface for reading
         element begins */
     virtual void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
+                                const Attributes &attrs);
 
     /** the implementation of the SAX-handler interface for reading
         characters */
     void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                      const std::string &chars);
 
     /** the implementation of the SAX-handler interface for reading
         element ends */
@@ -217,11 +195,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

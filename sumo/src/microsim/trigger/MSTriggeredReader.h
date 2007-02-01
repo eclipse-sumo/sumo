@@ -1,71 +1,32 @@
-#ifndef MSTriggeredReader_h
-#define MSTriggeredReader_h
-//---------------------------------------------------------------------------//
-//                        MSTriggeredReader.h -
-//  The basic class for classes that read triggers
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSTriggeredReader.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic class for classes that read triggers
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2006/03/17 08:58:36  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.4  2005/11/09 06:37:52  dkrajzew
-// trigger reworked
-//
-// Revision 1.3  2005/10/17 08:58:24  dkrajzew
-// trigger rework#1
-//
-// Revision 1.2  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.1  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/02/01 09:49:25  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/06 10:48:07  dksumo
-// 0.8.2.1 patches
-//
-// Revision 1.1  2004/10/22 12:49:31  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.3  2003/10/01 11:30:41  dkrajzew
-// hierarchy problems patched
-//
-// Revision 1.2  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+#ifndef MSTriggeredReader_h
+#define MSTriggeredReader_h
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <microsim/MSNet.h>
@@ -73,15 +34,16 @@
 #include <utils/common/FileErrorReporter.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSTriggeredReader
  * Superclass for structures that read from a file where the times the next
  * reading is performed are triggered by events,
  */
-class MSTriggeredReader {
+class MSTriggeredReader
+{
 public:
     /// Destructor
     virtual ~MSTriggeredReader();
@@ -109,14 +71,14 @@ protected:
     /**
      * Event type to trigger the execution of the derived strctures
      */
-    class MSTriggerCommand : public Command
+class MSTriggerCommand : public Command
     {
     public:
         /// Constructor
         MSTriggerCommand(MSTriggeredReader &parent);
 
         /// virtual destructor
-        virtual ~MSTriggerCommand( void );
+        virtual ~MSTriggerCommand(void);
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
@@ -151,11 +113,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

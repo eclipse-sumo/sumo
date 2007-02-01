@@ -1,79 +1,30 @@
-//---------------------------------------------------------------------------//
-//                        MSTriggeredReader.cpp -
-//  The basic class for classes that read triggers
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSTriggeredReader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic class for classes that read triggers
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.6  2006/11/16 10:50:45  dkrajzew
-// warnings removed
-//
-// Revision 1.5  2006/03/17 08:58:36  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.4  2005/11/09 06:37:52  dkrajzew
-// trigger reworked
-//
-// Revision 1.3  2005/10/17 08:58:24  dkrajzew
-// trigger rework#1
-//
-// Revision 1.2  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.1  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/02/01 09:49:25  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/06 10:48:07  dksumo
-// 0.8.2.1 patches
-//
-// Revision 1.1  2004/10/22 12:49:26  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.4  2004/07/02 09:56:40  dkrajzew
-// debugging while implementing the vss visualisation
-//
-// Revision 1.3  2003/09/22 14:56:06  dkrajzew
-// base debugging
-//
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <microsim/MSNet.h>
@@ -84,37 +35,35 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * MSTriggeredReader::MSTriggerCommand-methods
  * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent)
-    : _parent(parent)
-{
-}
+        : _parent(parent)
+{}
 
 
-MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand( void )
-{
-}
+MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand(void)
+{}
 
 
 SUMOTime
 MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
 {
-    if(!_parent.isInitialised()) {
+    if (!_parent.isInitialised()) {
         _parent.init();
     }
     SUMOTime next = current;
     // loop until the next action lies in the future
-    while(current==next) {
+    while (current==next) {
         // run the next action
         //  if it could be accomplished...
-        if(_parent.processNextEntryReaderTriggered()) {
+        if (_parent.processNextEntryReaderTriggered()) {
             // read the next one
-            if(_parent.readNextTriggered()) {
+            if (_parent.readNextTriggered()) {
                 // set the time for comparison if a next one exists
                 next = _parent._offset;
             } else {
@@ -127,7 +76,7 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
         }
     }
     // come back if the next action shall be executed
-    if(_parent._offset - current<=0) {
+    if (_parent._offset - current<=0) {
         // current is delayed;
         return 1;
     }
@@ -139,14 +88,12 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
  * MSTriggeredReader-methods
  * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggeredReader(MSNet &)
-    : _offset(0), myWasInitialised(false)
-{
-}
+        : _offset(0), myWasInitialised(false)
+{}
 
 
 MSTriggeredReader::~MSTriggeredReader()
-{
-}
+{}
 
 
 void
@@ -164,10 +111,6 @@ MSTriggeredReader::isInitialised() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

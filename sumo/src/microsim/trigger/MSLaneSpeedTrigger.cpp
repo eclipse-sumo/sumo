@@ -1,105 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSLaneSpeedTrigger.cpp -
-//  Class that realises the setting of a lane's maximum speed triggered by
-//      values read from a file
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSLaneSpeedTrigger.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Class that realises the setting of a lane's maximum speed triggered by
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.8  2006/11/16 10:50:45  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/06/22 07:13:51  dkrajzew
-// debugged interaction between user-defined and loaded values
-//
-// Revision 1.6  2006/03/17 08:58:36  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.5  2006/01/17 14:10:56  dkrajzew
-// debugging
-//
-// Revision 1.4  2005/11/09 06:37:52  dkrajzew
-// trigger reworked
-//
-// Revision 1.3  2005/10/07 11:37:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.2  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/26 08:11:49  dksumo
-// level3 warnings patched; debugging
-//
-// Revision 1.3.2.1  2005/04/15 09:48:19  dksumo
-// using a single SUMOTime type for time values; level3 warnings removed
-//
-// Revision 1.3  2005/02/01 09:49:24  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/06 10:48:06  dksumo
-// 0.8.2.1 patches
-//
-// Revision 1.1  2004/10/22 12:49:25  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.7  2004/07/02 09:56:40  dkrajzew
-// debugging while implementing the vss visualisation
-//
-// Revision 1.6  2003/09/23 14:18:15  dkrajzew
-// hierarchy refactored; user-friendly implementation
-//
-// Revision 1.5  2003/09/22 14:56:06  dkrajzew
-// base debugging
-//
-// Revision 1.4  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.3  2003/06/18 11:12:51  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -117,23 +50,23 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &aXMLFilename)
-    : MSTrigger(id), SUMOSAXHandler("speed_limits", aXMLFilename),
-    myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
-/*    ,
-    myNextOffset(0)*/
+        : MSTrigger(id), SUMOSAXHandler("speed_limits", aXMLFilename),
+        myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
+        /*    ,
+            myNextOffset(0)*/
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     // read in the trigger description
@@ -149,14 +82,14 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
         throw ProcessError();
     }
     // set it to the right value
-        // assert there is at least one
-    if(myLoadedSpeeds.size()==0) {
+    // assert there is at least one
+    if (myLoadedSpeeds.size()==0) {
         myLoadedSpeeds.push_back(make_pair(100000, myCurrentSpeed));
     }
-        // set the process to the begin
+    // set the process to the begin
     myCurrentEntry = myLoadedSpeeds.begin();
-        // pass previous time steps
-    while((*myCurrentEntry).first<net.getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
+    // pass previous time steps
+    while ((*myCurrentEntry).first<net.getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
         processCommand(true);
     }
 
@@ -169,12 +102,11 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
 
 
 MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
-{
-}
+{}
 
 
 SUMOTime
-MSLaneSpeedTrigger::execute(SUMOTime )
+MSLaneSpeedTrigger::execute(SUMOTime)
 {
     return processCommand(true);
 }
@@ -184,13 +116,13 @@ SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next)
 {
     std::vector<MSLane*>::iterator i;
-    for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
+    for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
         (*i)->myMaxSpeed = getCurrentSpeed();
     }
-    if(move2next&&myCurrentEntry!=myLoadedSpeeds.end()) {
+    if (move2next&&myCurrentEntry!=myLoadedSpeeds.end()) {
         ++myCurrentEntry;
     }
-    if(myCurrentEntry!=myLoadedSpeeds.end()) {
+    if (myCurrentEntry!=myLoadedSpeeds.end()) {
         return ((*myCurrentEntry).first)-((*(myCurrentEntry-1)).first);
     } else {
         return 0;
@@ -203,7 +135,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
                                    const Attributes &attrs)
 {
     // check whethe the correct tag is read
-    if(element!=SUMO_TAG_STEP) {
+    if (element!=SUMO_TAG_STEP) {
         return;
     }
     // extract the values
@@ -211,17 +143,17 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
         int next = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
         SUMOReal speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
         // check the values
-        if(next<0) {
+        if (next<0) {
             MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + _file + "'.");
             return;
         }
-        if(speed<0) {
+        if (speed<0) {
             MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + _file + "'.");
             return;
         }
         // set the values for the next step as they are valid
         myLoadedSpeeds.push_back(make_pair(next, speed));
-    } catch(NumberFormatException &) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Could not initialise vss '" + getID() + "'.");
         throw ProcessError();
     }
@@ -254,7 +186,7 @@ MSLaneSpeedTrigger::setOverridingValue(SUMOReal val)
 SUMOReal
 MSLaneSpeedTrigger::getLoadedSpeed()
 {
-    if(myCurrentEntry!=myLoadedSpeeds.begin()) {
+    if (myCurrentEntry!=myLoadedSpeeds.begin()) {
         return (*(myCurrentEntry-1)).second;
     } else {
         return (*myCurrentEntry).second;
@@ -265,15 +197,15 @@ MSLaneSpeedTrigger::getLoadedSpeed()
 SUMOReal
 MSLaneSpeedTrigger::getCurrentSpeed() const
 {
-    if(myAmOverriding) {
+    if (myAmOverriding) {
         return mySpeedOverrideValue;
     } else {
         // ok, maybe the first shall not yet be the valid one
-        if(myCurrentEntry==myLoadedSpeeds.begin()&&(*myCurrentEntry).first>MSNet::getInstance()->getCurrentTimeStep()) {
+        if (myCurrentEntry==myLoadedSpeeds.begin()&&(*myCurrentEntry).first>MSNet::getInstance()->getCurrentTimeStep()) {
             return myDefaultSpeed;
         }
         // try the loaded
-        if(myCurrentEntry!=myLoadedSpeeds.end()&&(*myCurrentEntry).first<=MSNet::getInstance()->getCurrentTimeStep()) {
+        if (myCurrentEntry!=myLoadedSpeeds.end()&&(*myCurrentEntry).first<=MSNet::getInstance()->getCurrentTimeStep()) {
             return (*myCurrentEntry).second;
         } else {
             return (*(myCurrentEntry-1)).second;
@@ -285,20 +217,14 @@ MSLaneSpeedTrigger::getCurrentSpeed() const
 void
 MSLaneSpeedTrigger::myCharacters(int , const std::string &,
                                  const std::string &)
-{
-}
+{}
 
 
 void
 MSLaneSpeedTrigger::myEndElement(int , const std::string &)
-{
-}
+{}
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

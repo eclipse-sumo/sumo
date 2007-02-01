@@ -1,90 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSEmitter.cpp -
-//  Class that realises the setting of a lane's maximum speed triggered by
-//      values read from a file
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 21.07.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSEmitter.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 21.07.2005
+/// @version $Id: $
+///
+// Class that realises the setting of a lane's maximum speed triggered by
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.10  2006/11/14 13:02:57  dkrajzew
-// warnings removed
-//
-// Revision 1.9  2006/10/31 12:18:52  dkrajzew
-// emitter debugged
-//
-// Revision 1.8  2006/07/06 07:23:45  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.7  2006/05/23 10:30:38  dkrajzew
-// Message corrected
-//
-// Revision 1.6  2006/05/15 05:51:33  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.6  2006/05/08 11:04:54  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.5  2006/04/05 05:27:37  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.4  2006/03/17 08:58:36  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.3  2006/02/13 07:52:43  dkrajzew
-// debugging
-//
-// Revision 1.2  2005/12/01 07:37:35  dkrajzew
-// introducing bus stops: eased building vehicles; vehicles may now have nested elements
-//
-// Revision 1.1  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.4  2005/10/06 13:39:21  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.3  2005/09/20 06:11:17  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.2  2005/09/09 12:51:25  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/08/01 13:31:00  dksumo
-// triggers reworked and new added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -103,9 +51,9 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
@@ -114,24 +62,23 @@ using namespace std;
  * MSTriggeredReader::UserCommand-methods
  * ----------------------------------------------------------------------- */
 MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
-            MSNet &net, const std::string &aXMLFilename,
-            MSEmitter &parent, MSVehicleControl &vc)
-    : MSTriggeredXMLReader(net, aXMLFilename), MSEmitterChild(parent, vc),
-    myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
+    MSNet &net, const std::string &aXMLFilename,
+    MSEmitter &parent, MSVehicleControl &vc)
+        : MSTriggeredXMLReader(net, aXMLFilename), MSEmitterChild(parent, vc),
+        myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
 {
     myBeginTime = net.getCurrentTimeStep();
 }
 
 
 MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild()
-{
-}
+{}
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime )
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime)
 {
-    if(myParent.childCheckEmit(this)) {
+    if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
         return (SUMOTime) computeOffset(myFlow);
     }
@@ -142,13 +89,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime )
 bool
 MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered()
 {
-    if(myFlow>=0) {
+    if (myFlow>=0) {
         return true;
     }
-    if(!myHaveNext) {
+    if (!myHaveNext) {
         return true;
     }
-    if(myParent.childCheckEmit(this)) {
+    if (myParent.childCheckEmit(this)) {
         myHaveNext = false;
         return true;
     }
@@ -161,16 +108,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 {
     string aVehicleId = myParent.getID() + "_" + toString(myRunningID++);
     MSVehicleType* aVehType = myVTypeDist.getOverallProb()>0
-        ? myVTypeDist.get()
-        : MSVehicleType::dict_Random();
-    if(aVehType==0) {
+                              ? myVTypeDist.get()
+                              : MSVehicleType::dict_Random();
+    if (aVehType==0) {
         WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
         WRITE_WARNING("Continuing with next element.");
         return;// false;
     }
     // check and assign vehicle type
     MSRoute *aEmitRoute = myRouteDist.get();
-    if(aEmitRoute==0) {
+    if (aEmitRoute==0) {
         WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
         WRITE_WARNING("Continuing with next element.");
         return;// false;
@@ -186,22 +133,22 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
-                                                        const std::string &name,
-                                                        const Attributes &attrs)
+        const std::string &name,
+        const Attributes &attrs)
 {
-    if(name=="routedistelem") {
+    if (name=="routedistelem") {
         // parse route distribution
         // check if route exists
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        MSRoute* route = MSRoute::dictionary( routeStr );
-        if ( route == 0 ) {
+        MSRoute* route = MSRoute::dictionary(routeStr);
+        if (route == 0) {
             MsgHandler::getErrorInstance()->inform(
                 "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
             throw ProcessError();
         }
         // check frequency
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
-        if(freq<0) {
+        if (freq<0) {
             MsgHandler::getErrorInstance()->inform(
                 "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
             throw ProcessError();
@@ -211,15 +158,15 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
         return;
     }
     // vehicle-type distributions
-    if(name=="vtypedistelem") {
+    if (name=="vtypedistelem") {
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
-        } catch(NumberFormatException) {
+        } catch (NumberFormatException) {
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + ").");
             return;
         }
-        if(prob<=0) {
+        if (prob<=0) {
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
             return;
         }
@@ -232,23 +179,23 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
             return;
         }
         MSVehicleType *vtype = MSVehicleType::dictionary(id);
-        if(vtype==0) {
+        if (vtype==0) {
             MsgHandler::getErrorInstance()->inform("Error in description: unknown vtype-object '" + id + "'.");
             return;
         }
         myVTypeDist.add(prob, vtype);
     }
 
-    if(name=="flow") {
+    if (name=="flow") {
         // get the flow information
         SUMOReal no = -1;
         try {
             no = getFloatSecure(attrs, SUMO_ATTR_NO, -1);
-        } catch(NumberFormatException) {
+        } catch (NumberFormatException) {
             MsgHandler::getErrorInstance()->inform("Non-numeric flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
             return;
         }
-        if(no<0) {
+        if (no<0) {
             MsgHandler::getErrorInstance()->inform("Negative flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
             return;
         }
@@ -256,19 +203,19 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
         SUMOTime end = -1;
         try {
             end = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_END, -1);
-        } catch(NumberFormatException) {
+        } catch (NumberFormatException) {
             MsgHandler::getErrorInstance()->inform("Non-numeric flow end in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
             return;
         }
 
         myFlow = (SUMOReal) no;
 
-        if(end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
-            if(myFlow>0) {
+        if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
+            if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
                 MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
                     new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
-                    (SUMOTime) (1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+                    (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
                     MSEventControl::ADAPT_AFTER_EXECUTION);
                 myHaveInitialisedFlow = true;
             }
@@ -276,36 +223,36 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
     }
 
     // check whethe the correct tag is read
-    if(name=="emit") {
+    if (name=="emit") {
         // check and assign emission time
         int aEmitTime = getIntSecure(attrs, "time", -1);
-        if(aEmitTime<myBeginTime) {
+        if (aEmitTime<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
         // check and assign id
         string aVehicleId = getStringSecure(attrs, "id", "");
-        if(myVehicleControl.getVehicle(aVehicleId)!=0) {
+        if (myVehicleControl.getVehicle(aVehicleId)!=0) {
             WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Generating a default id.");
             aVehicleId = "";
         }
-        if(aVehicleId=="") {
+        if (aVehicleId=="") {
             aVehicleId = myParent.getID() +  "_" + toString(aEmitTime) +  "_" + toString(myRunningID++);
-            if(myVehicleControl.getVehicle(aVehicleId)!=0) {
+            if (myVehicleControl.getVehicle(aVehicleId)!=0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Continuing with next element.");
                 return;// false;
             }
         }
         // check and assign vehicle type
         string emitType = getStringSecure(attrs, "vehtype", "");
-        MSVehicleType* aVehType = MSVehicleType::dictionary( emitType );
-        if ( aVehType == 0 ) {
-            if(myVTypeDist.getOverallProb()!=0) {
+        MSVehicleType* aVehType = MSVehicleType::dictionary(emitType);
+        if (aVehType == 0) {
+            if (myVTypeDist.getOverallProb()!=0) {
                 aVehType = myVTypeDist.get();
             }
-            if(aVehType==0) {
+            if (aVehType==0) {
                 aVehType = MSVehicleType::dict_Random();
-                if(aVehType==0) {
+                if (aVehType==0) {
                     WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
                     WRITE_WARNING("Continuing with next element.");
                     return;// false;
@@ -314,12 +261,12 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
         }
         // check and assign vehicle type
         string emitRoute = getStringSecure(attrs, "route", "");
-        MSRoute *aEmitRoute = MSRoute::dictionary( emitRoute );
-        if(aEmitRoute==0) {
-            if(myRouteDist.getOverallProb()!=0) {
+        MSRoute *aEmitRoute = MSRoute::dictionary(emitRoute);
+        if (aEmitRoute==0) {
+            if (myRouteDist.getOverallProb()!=0) {
                 aEmitRoute = myRouteDist.get();
             }
-            if(aEmitRoute==0) {
+            if (aEmitRoute==0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
                 WRITE_WARNING("Continuing with next element.");
                 return;// false;
@@ -335,7 +282,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
         _offset = SUMOTime(aEmitTime);
     }
     // check whethe the correct tag is read
-    if(name=="reset") {
+    if (name=="reset") {
         myVTypeDist.clear();
         myRouteDist.clear();
     }
@@ -344,16 +291,14 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myCharacters(
-        int , const std::string &, const std::string &)
-{
-}
+    int , const std::string &, const std::string &)
+{}
 
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myEndElement(
-        int , const std::string &)
-{
-}
+    int , const std::string &)
+{}
 
 
 bool
@@ -373,26 +318,26 @@ MSEmitter::MSEmitter_FileTriggeredChild::getLoadedFlow() const
 void
 MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached()
 {
-    if(myFlow>0&&!myHaveInitialisedFlow) {
+    if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
-            (SUMOTime) (1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+            (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myHaveInitialisedFlow = true;
     }
 }
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSEmitter::MSEmitter(const std::string &id,
-                                       MSNet &net,
-                                       MSLane* destLane, SUMOReal pos,
-                                       const std::string &aXMLFilename)
-    : MSTrigger(id), myNet(net),
-    myDestLane(destLane), myPos((SUMOReal) pos)
+                     MSNet &net,
+                     MSLane* destLane, SUMOReal pos,
+                     const std::string &aXMLFilename)
+        : MSTrigger(id), myNet(net),
+        myDestLane(destLane), myPos((SUMOReal) pos)
 {
     assert(myPos>=0);
     myActiveChild =
@@ -408,8 +353,8 @@ MSEmitter::~MSEmitter()
     }
     {
         std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
-        for(i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
-            delete (*i).second.first;
+        for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
+            delete(*i).second.first;
         }
     }
 }
@@ -418,11 +363,11 @@ MSEmitter::~MSEmitter()
 bool
 MSEmitter::childCheckEmit(MSEmitterChild *child)
 {
-    if(myToEmit.find(child)==myToEmit.end()) {
+    if (myToEmit.find(child)==myToEmit.end()) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
     }
-    if(child!=myActiveChild) {
+    if (child!=myActiveChild) {
         // remove the vehicle previously inserted by the child
         delete myToEmit[child].first;
         // erase the child information
@@ -435,16 +380,16 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     SUMOReal speed = myToEmit[child].second;
     // check whether the speed shall be patched
     MSVehicle::State state(myPos, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
-    if(speed>=0) {
-        state = MSVehicle::State( myPos, speed );
+    if (speed>=0) {
+        state = MSVehicle::State(myPos, speed);
     }
     // try to emit
-    if ( myDestLane->isEmissionSuccess( veh, state ) ) {
+    if (myDestLane->isEmissionSuccess(veh, state)) {
         veh->enterLaneAtEmit(myDestLane, state);
         veh->onDepart();
         myNet.getVehicleControl().vehiclesEmitted(1);
         // insert vehicle into the dictionary
-        if(!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
+        if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
             // !!!
             throw 1;
         }
@@ -458,7 +403,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
 
 void
 MSEmitter::schedule(MSEmitterChild *child,
-                             MSVehicle *v, SUMOReal speed)
+                    MSVehicle *v, SUMOReal speed)
 {
     myToEmit[child] = make_pair(v, speed);
 }
@@ -480,11 +425,5 @@ MSEmitter::setActiveChild(MSEmitterChild *c)
 
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 
