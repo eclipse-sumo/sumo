@@ -1,59 +1,38 @@
-/***************************************************************************
-                          SUMOBaseRouteHandler.cpp
-                          A base class for parsing vehicles
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 12.12.2005
-    copyright            : (C) 2005 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] =
-         "$Id$";
-}
-// $Log$
-// Revision 1.5  2006/11/16 10:50:53  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    SUMOBaseRouteHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 12.12.2005
+/// @version $Id: $
+///
+// A base class for parsing vehicles
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.4  2006/07/06 05:58:08  dkrajzew
-// removed some old code
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.3  2006/04/07 10:41:50  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.2  2006/01/26 08:54:59  dkrajzew
-// missing files added
-//
-// Revision 1.1  2006/01/09 13:38:36  dkrajzew
-// debugging vehicle color usage
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -62,24 +41,22 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 SUMOBaseRouteHandler::SUMOBaseRouteHandler()
-    : myCurrentDepart(0), myAmInEmbeddedMode(false)
-{
-}
+        : myCurrentDepart(0), myAmInEmbeddedMode(false)
+{}
 
 
 SUMOBaseRouteHandler::~SUMOBaseRouteHandler()
-{
-}
+{}
 
 
 SUMOReal
@@ -102,8 +79,8 @@ SUMOBaseRouteHandler::getFloatReporting(SUMOSAXHandler &helper,
 
 SUMOTime
 SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
-                                              const Attributes &attrs,
-                                              const std::string &id)
+        const Attributes &attrs,
+        const std::string &id)
 {
     SUMOTime ret = -1;
     try {
@@ -135,16 +112,16 @@ SUMOBaseRouteHandler::parseColor(SUMOSAXHandler &helper,
 
 SUMOVehicleClass
 SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
-										const Attributes &attrs,
-										const std::string &type,
-										const std::string &id)
+                                        const Attributes &attrs,
+                                        const std::string &type,
+                                        const std::string &id)
 {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
-		string vclassS = helper.getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
-		if(vclassS=="") {
-			return vclass;
-		}
+        string vclassS = helper.getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
+        if (vclassS=="") {
+            return vclass;
+        }
         return getVehicleClassID(vclassS);
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("The class for " + type + " '" + id + "' is not known.");
@@ -167,12 +144,12 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
     }
 
     // try to get some optional values
-        // repetition values
+    // repetition values
     myRepOffset = helper.getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
     myRepNumber = helper.getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
-        // the vehicle's route name
+    // the vehicle's route name
     myCurrentRouteName = helper.getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
-    if(wantsVehicleColor) {
+    if (wantsVehicleColor) {
         myCurrentVehicleColor =
             parseColor(helper, attrs, "vehicle", myActiveVehicleID);
     }
@@ -181,14 +158,14 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
     // try to get the vehicle type
     try {
         myCurrentVType = helper.getString(attrs, SUMO_ATTR_TYPE);
-    // now try to build the rest of the vehicle
+        // now try to build the rest of the vehicle
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing vehicle type for vehicle '" + myActiveVehicleID + "'");
         return false;
     }
     // try to get the departure time
     myCurrentDepart = getVehicleDepartureTime(helper, attrs, myActiveVehicleID);
-    if(myCurrentDepart==-1) {
+    if (myCurrentDepart==-1) {
         return false;
     }
     // everything's fine!?
@@ -203,8 +180,6 @@ SUMOBaseRouteHandler::closeVehicle()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

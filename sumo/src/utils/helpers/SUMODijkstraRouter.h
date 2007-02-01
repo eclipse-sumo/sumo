@@ -1,68 +1,40 @@
-#ifndef SUMODijkstraRouter_h
-#define SUMODijkstraRouter_h
-//---------------------------------------------------------------------------//
-//                        SUMODijkstraRouter.h -
-//  The dijkstra-router
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 25 July 2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    SUMODijkstraRouter.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 25 July 2005
+/// @version $Id: $
+///
+// The dijkstra-router
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/11/16 10:50:53  dkrajzew
-// warnings removed
-//
-// Revision 1.7  2006/11/14 06:52:48  dkrajzew
-// first steps towards car2car-based rerouting
-//
-// Revision 1.6  2006/02/13 07:29:20  dkrajzew
-// made dijkstra-router checking for closures optionally
-//
-// Revision 1.5  2006/01/26 08:39:50  dksumo
-// made the abstract router usable within microsim and routers
-//
-// Revision 1.4  2005/10/06 13:39:50  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.3  2005/09/23 13:17:33  dksumo
-// debugging building for sumo0.8.3
-//
-// Revision 1.2  2005/09/20 06:13:04  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.1  2005/09/09 12:56:09  dksumo
-// helpers added
-//
-// Revision 1.1  2005/08/01 13:45:17  dksumo
-// rerouting within the simulation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef SUMODijkstraRouter_h
+#define SUMODijkstraRouter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <functional>
@@ -77,25 +49,28 @@
 #include "SUMOAbstractRouter.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /*
 template<class E, class V>
 typedef inline bool ( ProhibitionFunction )(const E *edge, const V *vehicle);
 */
 
 template<class E, class V>
-struct prohibited_withRestrictions {
+struct prohibited_withRestrictions
+{
 public:
-    inline bool operator()(const E *edge, const V *vehicle) {
-        if(std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
-	        return true;
+    inline bool operator()(const E *edge, const V *vehicle)
+    {
+        if (std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
+            return true;
         }
-	    return edge->prohibits(vehicle);
+        return edge->prohibits(vehicle);
     }
 
-    void prohibit(const std::vector<E*> &toProhibit) {
+    void prohibit(const std::vector<E*> &toProhibit)
+    {
         myProhibited = toProhibit;
     }
 
@@ -105,9 +80,11 @@ protected:
 };
 
 template<class E, class V>
-struct prohibited_noRestrictions {
+struct prohibited_noRestrictions
+{
 public:
-    inline bool operator()(const E *, const V *) {
+    inline bool operator()(const E *, const V *)
+    {
         return false;
     }
 };
@@ -129,45 +106,45 @@ public:
  *
  */
 template<class E, class V, class PF, class EC>
-class SUMODijkstraRouter : public SUMOAbstractRouter<E, V>, public PF {
+class SUMODijkstraRouter : public SUMOAbstractRouter<E, V>, public PF
+{
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal ( EC::* Operation )(const V * const, SUMOTime) const;
+    typedef SUMOReal(EC::* Operation)(const V * const, SUMOTime) const;
 
     /// Constructor
-    SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly, Operation operation )
-        : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
-		myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation( operation )
+    SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly, Operation operation)
+            : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
+            myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation(operation)
     { }
 
     /// Destructor
-    virtual ~SUMODijkstraRouter() { }
+    virtual ~SUMODijkstraRouter()
+    { }
 
     /**
      * @struct EdgeInfo
      * A definition about a route's edge with the effort needed to reach it and
      *  the information about the previous edge.
      */
-    class EdgeInfo {
+    class EdgeInfo
+    {
     public:
         /// Constructor
         EdgeInfo()
-            : edge(0), effort(0), prev(0)
-        {
-        }
+                : edge(0), effort(0), prev(0)
+        {}
 
 
         /// Constructor
         EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
-            : edge(edgeArg), effort(effortArg), prev(prevArg)
-        {
-        }
+                : edge(edgeArg), effort(effortArg), prev(prevArg)
+        {}
 
         /// Constructor
         EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg, SUMOReal distArg)
-            : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
-        {
-        }
+                : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
+        {}
 
         /// The current edge
         const E *edge;
@@ -178,8 +155,8 @@ public:
         /// The previous edge
         EdgeInfo *prev;
 
-		/// Distance from the begin
-		SUMOReal dist;
+        /// Distance from the begin
+        SUMOReal dist;
 
     };
 
@@ -187,16 +164,20 @@ public:
      * @class EdgeInfoByEffortComperator
      * Class to compare (and so sort) nodes by their effort
      */
-    class EdgeInfoByEffortComperator /*: public std::less<ROEdge*>*/ {
+    class EdgeInfoByEffortComperator /*: public std::less<ROEdge*>*/
+    {
     public:
         /// Constructor
-        explicit EdgeInfoByEffortComperator() { }
+        explicit EdgeInfoByEffortComperator()
+        { }
 
         /// Destructor
-        ~EdgeInfoByEffortComperator() { }
+        ~EdgeInfoByEffortComperator()
+        { }
 
         /// Comparing method
-        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const {
+        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const
+        {
             return nod1->effort>nod2->effort;
         }
     };
@@ -205,75 +186,76 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual void compute(const E *from, const E *to, const V * const vehicle,
-        SUMOTime time, std::vector<const E*> &into) {
+                         SUMOTime time, std::vector<const E*> &into)
+    {
 
-		// get structures to reuse
+        // get structures to reuse
         std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
-        if(visited==0) {
+        if (visited==0) {
             visited = new std::vector<bool>(myNoE, false);
         } else {
-            for(size_t i=0; i<myNoE; i++) {
+            for (size_t i=0; i<myNoE; i++) {
                 (*visited)[i] = false; // !!!
             }
         }
         EdgeInfoCont *storage = myReusableEdgeInfoLists.getFreeInstance();
-        if(storage==0) {
+        if (storage==0) {
             storage = new EdgeInfoCont(myNoE);
         }
         storage->reset();
 
         // check the nodes
-        if(from==0||to==0) {
-			throw std::exception();
+        if (from==0||to==0) {
+            throw std::exception();
         }
 
-		// begin computation
+        // begin computation
         std::priority_queue<EdgeInfo*,
-			std::vector<EdgeInfo*>,
-            EdgeInfoByEffortComperator> frontierList;
-			// add begin node
-	    const E *actualKnot = from;
-	    if(from != 0) {
+        std::vector<EdgeInfo*>,
+        EdgeInfoByEffortComperator> frontierList;
+        // add begin node
+        const E *actualKnot = from;
+        if (from != 0) {
             EdgeInfo *ei = storage->add(actualKnot, 0, 0);
             frontierList.push(ei);
-	    }
+        }
 
         // loop
-	    while(!frontierList.empty()) {
+        while (!frontierList.empty()) {
             // use the node with the minimal length
             EdgeInfo *minimumKnot = frontierList.top();
             const E *minEdge = minimumKnot->edge;
             frontierList.pop();
-                // check whether the destination node was already reached
-            if(minEdge == to) {
-				buildPathFrom(minimumKnot, into);
+            // check whether the destination node was already reached
+            if (minEdge == to) {
+                buildPathFrom(minimumKnot, into);
                 clearTemporaryStorages(visited, storage);
-				return;
+                return;
                 //return ret;
             }
-			//assert(minEdge->getNumericalID()<9);
+            //assert(minEdge->getNumericalID()<9);
             (*visited)[minEdge->getNumericalID()] = true;
-            SUMOReal effort = (SUMOReal) (minimumKnot->effort
-                + (minEdge->*myOperation)(vehicle, (SUMOTime) (time + minimumKnot->effort)) );
+            SUMOReal effort = (SUMOReal)(minimumKnot->effort
+                                         + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
 //		    	+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
-    		// check all ways from the node with the minimal length
+            // check all ways from the node with the minimal length
             size_t i = 0;
             size_t length_size = minEdge->getNoFollowing();
-            for(i=0; i<length_size; i++) {
+            for (i=0; i<length_size; i++) {
                 const E* help = minEdge->getFollower(i);
                 // check whether it can be used
-                if(PF::operator()(help, vehicle)) {
-					continue;
-				}
+                if (PF::operator()(help, vehicle)) {
+                    continue;
+                }
                 //
-                if( !(*visited)[help->getNumericalID()] && effort < storage->getEffort(help) ) {
-                    if(help!=from) {
+                if (!(*visited)[help->getNumericalID()] && effort < storage->getEffort(help)) {
+                    if (help!=from) {
                         frontierList.push(storage->add(help, effort, minimumKnot));
                     }
                 }
-		    }
-	    }
-        if(!myUnbuildIsWarningOnly) {
+            }
+        }
+        if (!myUnbuildIsWarningOnly) {
             MsgHandler::getErrorInstance()->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
         } else {
             WRITE_WARNING("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
@@ -283,14 +265,15 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges) {
+    void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges)
+    {
 //        B ret;
-		std::deque<const E*> tmp;
-        while(rbegin!=0) {
+        std::deque<const E*> tmp;
+        while (rbegin!=0) {
             tmp.push_front((E *) rbegin->edge); // !!!
             rbegin = rbegin->prev;
         }
-		std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
+        std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
     }
 
 public:
@@ -301,15 +284,17 @@ public:
      * This class is used instead of the former saving of these values within
      *  the edges to allow parallel route computation in multithreading mode.
      */
-    class EdgeInfoCont {
+    class EdgeInfoCont
+    {
     public:
         /// Constructor
         EdgeInfoCont(size_t toAlloc)
-            : myEdgeInfos(toAlloc+1, EdgeInfo())
+                : myEdgeInfos(toAlloc+1, EdgeInfo())
         { }
 
         /// Destructor
-        ~EdgeInfoCont() { }
+        ~EdgeInfoCont()
+        { }
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
         EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
@@ -324,7 +309,7 @@ public:
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
         EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg,
-			SUMOReal distArg)
+                      SUMOReal distArg)
         {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
@@ -337,7 +322,7 @@ public:
         /// Resets all effort-information
         void reset()
         {
-            for(typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
+            for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
                 (*i).effort = std::numeric_limits<SUMOReal>::max();
             }
         }
@@ -359,7 +344,7 @@ public:
 protected:
     /// Saves the temporary storages for further usage
     void clearTemporaryStorages(std::vector<bool> *edgeList,
-        EdgeInfoCont *consecutionList)
+                                EdgeInfoCont *consecutionList)
     {
         myReusableEdgeLists.addFreeInstance(edgeList);
         myReusableEdgeInfoLists.addFreeInstance(consecutionList);
@@ -376,18 +361,14 @@ protected:
     /// A container for reusage of edge consecution lists
     InstancePool<EdgeInfoCont> myReusableEdgeInfoLists;
 
-	bool myUnbuildIsWarningOnly;
+    bool myUnbuildIsWarningOnly;
 
     Operation myOperation;
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

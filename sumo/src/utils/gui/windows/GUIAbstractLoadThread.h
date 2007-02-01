@@ -1,77 +1,40 @@
-#ifndef GUIAbstractLoadThread_h
-#define GUIAbstractLoadThread_h
-//---------------------------------------------------------------------------//
-//                        GUIAbstractLoadThread.h -
-//  Class describing the thread that performs the loading of a simulation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIAbstractLoadThread.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Class describing the thread that performs the loading of a simulation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2006/04/18 07:54:32  dkrajzew
-// unifying threads
-//
-// Revision 1.3  2005/10/10 12:11:33  dkrajzew
-// debugging
-//
-// Revision 1.2  2005/09/15 12:20:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:32  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:57  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.8  2004/07/02 08:28:50  dkrajzew
-// some changes needed to derive the threading classes more easily added
-//
-// Revision 1.7  2004/04/02 11:10:20  dkrajzew
-// simulation-wide output files are now handled by MSNet directly
-//
-// Revision 1.6  2004/03/19 12:54:08  dkrajzew
-// porting to FOX
-//
-// Revision 1.5  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
-//
-// Revision 1.4  2003/09/22 14:54:22  dkrajzew
-// some refactoring on GUIAbstractLoadThread-usage
-//
-// Revision 1.3  2003/06/18 11:04:53  dkrajzew
-// new error processing adapted
-//
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIAbstractLoadThread_h
+#define GUIAbstractLoadThread_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -81,9 +44,9 @@
 #include <utils/foxtools/FXThreadEvent.h>
 
 
- /* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIMainWindow;
 class MsgRetriever;
 class MFXEventQue;
@@ -96,15 +59,15 @@ class GUIVehicleControl;
 class GUINet;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class GUIAbstractLoadThread : public FXSingleEventThread
 {
 public:
     /// constructor
     GUIAbstractLoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,
-        FXEX::FXThreadEvent &ev);
+                          FXEX::FXThreadEvent &ev);
 
     /// destructor
     virtual ~GUIAbstractLoadThread();
@@ -145,11 +108,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

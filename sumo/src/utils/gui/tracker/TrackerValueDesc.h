@@ -1,81 +1,32 @@
-#ifndef TrackerValueDesc_h
-#define TrackerValueDesc_h
-//---------------------------------------------------------------------------//
-//                        TrackerValueDesc.h -
-//  Representation of a timeline of floats with their names and moments
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    TrackerValueDesc.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Representation of a timeline of floats with their names and moments
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/12/18 08:22:56  dkrajzew
-// comments added
-//
-// Revision 1.7  2006/11/28 12:10:45  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.6  2006/11/16 10:50:52  dkrajzew
-// warnings removed
-//
-// Revision 1.5  2006/07/06 05:52:15  dkrajzew
-// removed unused values
-//
-// Revision 1.4  2005/10/07 11:45:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/23 06:09:38  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.2  2005/09/15 12:20:06  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:56  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.7  2004/07/02 08:26:11  dkrajzew
-// aggregation debugged and saving option added
-//
-// Revision 1.6  2004/03/19 12:42:59  dkrajzew
-// porting to FOX
-//
-// Revision 1.5  2003/11/12 14:08:24  dkrajzew
-// clean up after recent changes
-//
-// Revision 1.4  2003/11/11 08:43:04  dkrajzew
-// synchronisation problems of parameter tracker updates patched
-//
-// Revision 1.3  2003/07/30 08:50:42  dkrajzew
-// tracker debugging (not yet completed)
-//
-// Revision 1.2  2003/06/05 11:38:47  dkrajzew
-// class templates applied; documentation added
-//
-//
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+#ifndef TrackerValueDesc_h
+#define TrackerValueDesc_h
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <string>
@@ -84,15 +35,15 @@
 #include <utils/helpers/ValueRetriever.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIGlObject;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class TrackerValueDesc
  * @brief Representation of a timeline of floats with their names and moments
@@ -100,11 +51,12 @@ class GUIGlObject;
  * This class contains the information needed to display a time line of
  *  float values.
  */
-class TrackerValueDesc : public ValueRetriever<SUMOReal> {
+class TrackerValueDesc : public ValueRetriever<SUMOReal>
+{
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
-        GUIGlObject *o, size_t recordBegin);
+                     GUIGlObject *o, size_t recordBegin);
 
     /// Destructor
     ~TrackerValueDesc();
@@ -196,11 +148,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

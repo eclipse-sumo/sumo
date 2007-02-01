@@ -1,112 +1,41 @@
+/****************************************************************************/
+/// @file    OptionsCont.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 17 Dec 2001
+/// @version $Id: $
+///
+// A storage for options.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef OptionsCont_h
 #define OptionsCont_h
-/***************************************************************************
-                          OptionsCont.h
-              A storage for options.
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 17 Dec 2001
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log: OptionsCont.h,v $
-// Revision 1.10  2005/10/07 11:46:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:11:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:21:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/05/04 09:28:01  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.6  2004/11/23 10:36:02  dkrajzew
-// debugging
-//
-// Revision 1.5  2004/07/02 09:41:39  dkrajzew
-// debugging the repeated setting of a value
-//
-// Revision 1.4  2003/07/30 12:54:00  dkrajzew
-// unneeded and deprecated methods and variables removed
-//
-// Revision 1.3  2003/06/24 08:13:51  dkrajzew
-// added the possibiliy to clear the container
-//
-// Revision 1.2  2003/02/07 10:51:59  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:58:18  dkrajzew
-// initial release for utilities that handle program options
-//
-// Revision 1.7  2002/07/11 05:52:11  dkrajzew
-// Option_FileName introduced and used to allow the usage of relative
-//  path names within the configuration files
-//
-// Revision 1.6  2002/06/11 15:58:24  dkrajzew
-// windows eol removed
-//
-// Revision 1.5  2002/05/14 04:45:49  dkrajzew
-// Bresenham added; some minor changes; windows eol removed
-//
-// Revision 1.4  2002/04/26 10:08:39  dkrajzew
-// Windows eol removed
-//
-// Revision 1.3  2002/04/17 11:21:52  dkrajzew
-// Windows-carriage returns removed
-//
-// Revision 1.2  2002/04/16 12:28:26  dkrajzew
-// Usage of SUMO_DATA removed
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
-// new version-free project name
-//
-// Revision 1.5  2002/03/20 08:50:37  dkrajzew
-// Revisions patched
-//
-// Revision 1.4  2002/03/20 08:39:17  dkrajzew
-// comments updated
-//
-// Revision 1.3  2002/03/20 08:38:14  dkrajzew
-// isDefault - method added
-//
-// Revision 1.2  2002/03/11 10:07:52  traffic
-// superflous collapse option removed.
-//
-// Revision 1.1  2002/02/13 15:48:19  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
 #pragma warning(disable: 4503)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <string>
@@ -115,9 +44,9 @@
 #include "Option.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class OptionsCont
  * @brief A storage for options.
@@ -137,7 +66,8 @@
  * Exceptions:
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */
-class OptionsCont {
+class OptionsCont
+{
 public:
     /** constructor */
     OptionsCont();
@@ -155,8 +85,8 @@ public:
     void addSynonyme(const std::string &name1, const std::string &name2);
 
     /** adds a synonymes for an options name (any order) */
-    void addDescription(const std::string &name, const std::string &subtopic, 
-        const std::string &description);
+    void addDescription(const std::string &name, const std::string &subtopic,
+                        const std::string &description);
 
     /// Sets the named option as mandatory
     void setMandatory(const std::string &name);
@@ -205,7 +135,7 @@ public:
 
     /** sets the given value for the named option */
     bool set(const std::string &name, const std::string &value,
-        bool isDefault=false);
+                 bool isDefault=false);
 
     /** sets the given boolean value for the named option
         (Option_Bool only) */
@@ -224,7 +154,7 @@ public:
     bool isFileName(const std::string &name) const;
 
     /** output operator */
-    friend std::ostream& operator<<( std::ostream& os, const OptionsCont& oc);
+    friend std::ostream& operator<<(std::ostream& os, const OptionsCont& oc);
 
     /** removes all previous information from the container */
     void clear();
@@ -248,8 +178,8 @@ public:
     void printHelp(std::ostream &os);
 
     // writes the configuration
-    void writeConfiguration(std::ostream &os, bool filled, 
-        bool complete, bool addComments);
+    void writeConfiguration(std::ostream &os, bool filled,
+                            bool complete, bool addComments);
 
 private:
     /** returns the named option */
@@ -263,8 +193,8 @@ private:
 
     /** @brief writes the given string 'formatted' meaning that it will
      * be wrapped at ';' or ' ' whenever it is longer than a line */
-    void splitLines(std::ostream &os, std::string what, 
-        size_t offset, size_t nextOffset);
+    void splitLines(std::ostream &os, std::string what,
+                    size_t offset, size_t nextOffset);
 
 
 private:
@@ -294,13 +224,16 @@ private:
      * @class abbreviation_finder
      * @brief A class to find abbreviated option names (length=1)
      */
-    class abbreviation_finder {
+    class abbreviation_finder
+    {
     public:
         /** constructor */
-        explicit abbreviation_finder() { }
+        explicit abbreviation_finder()
+        { }
 
         /** the comparing function */
-        bool operator() (const std::string &s) {
+        bool operator()(const std::string &s)
+        {
             return s.length()==1;
         }
     };
@@ -316,10 +249,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

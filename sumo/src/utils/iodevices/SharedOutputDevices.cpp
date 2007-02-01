@@ -1,66 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        SharedOutputDevices.cpp -
-//  The holder/builder of output devices
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    SharedOutputDevices.cpp
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// The holder/builder of output devices
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/11/13 16:18:50  fxrb
-// support for TCP/IP iodevices using DataReel library
-//
-// Revision 1.7  2006/04/07 10:41:50  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.6  2005/10/07 11:46:44  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:21:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 09:26:19  dkrajzew
-// reports about being unable to build a file added
-//
-// Revision 1.3  2004/11/23 10:35:47  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:54:56  dksumo
-// tried to generelise the usage of detectors and output devices
-//
-// Revision 1.1  2004/10/22 12:50:58  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2004/08/02 13:01:16  dkrajzew
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <fstream>
@@ -79,30 +51,29 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 SharedOutputDevices *SharedOutputDevices::myInstance = 0;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 SharedOutputDevices::SharedOutputDevices()
-{
-}
+{}
 
 
 SharedOutputDevices *
 SharedOutputDevices::getInstance()
 {
-    if(myInstance==0) {
+    if (myInstance==0) {
         myInstance = new SharedOutputDevices();
     }
     return myInstance;
@@ -119,8 +90,8 @@ SharedOutputDevices::setInstance(SharedOutputDevices *inst)
 
 SharedOutputDevices::~SharedOutputDevices()
 {
-    for(DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
-        delete (*i).second;
+    for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
+        delete(*i).second;
     }
     myOutputDevices.clear();
     myInstance = 0;
@@ -131,12 +102,12 @@ OutputDevice *
 SharedOutputDevices::getOutputDevice(const std::string &name)
 {
     DeviceMap::iterator i = myOutputDevices.find(name);
-    if(i!=myOutputDevices.end()) {
+    if (i!=myOutputDevices.end()) {
         (*i).second->setNeedsDetectorName(true);
         return (*i).second;
     }
     std::ofstream *strm = new std::ofstream(name.c_str());
-    if(!strm->good()) {
+    if (!strm->good()) {
         delete strm;
         throw FileBuildError("Could not build output file '" + name + "'.");
     }
@@ -148,10 +119,10 @@ SharedOutputDevices::getOutputDevice(const std::string &name)
 
 OutputDevice *
 SharedOutputDevices::getOutputDeviceChecking(const std::string &base,
-                                             const std::string &name)
+        const std::string &name)
 {
     return getOutputDevice(
-        FileHelpers::checkForRelativity(name, base));
+               FileHelpers::checkForRelativity(name, base));
 }
 
 
@@ -161,20 +132,20 @@ SharedOutputDevices::getOutputDeviceChecking(const std::string &base,
 OutputDevice *
 SharedOutputDevices::getOutputDevice(const std::string &host, const int port, const std::string &protocol)
 {
-	std::ostringstream os;
-	std::string deviceName;
+    std::ostringstream os;
+    std::string deviceName;
 
-	os << port;
-	deviceName= host + "-" + os.str() + "-" + protocol;
+    os << port;
+    deviceName= host + "-" + os.str() + "-" + protocol;
 
-	// check wether this device does already exist
+    // check wether this device does already exist
     DeviceMap::iterator i = myOutputDevices.find(deviceName);
-	if(i!=myOutputDevices.end()) {
+    if (i!=myOutputDevices.end()) {
         (*i).second->setNeedsDetectorName(true);
         return (*i).second;
     }
 
-	// create device
+    // create device
     OutputDevice *dev = new OutputDevice_Network(host, port, protocol);
     myOutputDevices[deviceName] = dev;
     return dev;
@@ -182,8 +153,5 @@ SharedOutputDevices::getOutputDevice(const std::string &host, const int port, co
 
 #endif //#ifdef USE_SOCKETS
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+/****************************************************************************/
 
-// Local Variables:
-// mode:C++
-// End:

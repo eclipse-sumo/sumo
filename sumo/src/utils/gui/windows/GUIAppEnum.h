@@ -1,129 +1,47 @@
-#ifndef GUIAppEnum_h
-#define GUIAppEnum_h
-//---------------------------------------------------------------------------//
-//                        GUIAppEnum.h -
-//  Message and object IDs used by the FOX-version of the gui
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 08.03.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIAppEnum.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 08.03.2004
+/// @version $Id: $
+///
+// Message and object IDs used by the FOX-version of the gui
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.20  2006/12/12 12:11:04  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.19  2006/11/23 11:40:26  dkrajzew
-// removed unneeded code
-//
-// Revision 1.18  2006/10/12 10:14:32  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.17  2006/10/12 07:57:14  dkrajzew
-// added the possibility to copy an artefact's (gl-object's) name to clipboard (windows)
-//
-// Revision 1.16  2006/07/06 06:42:42  dkrajzew
-// added vehicle tracking
-//
-// Revision 1.15  2006/04/18 08:08:21  dkrajzew
-// added Danilot Tete-Boyoms poi-interaction
-//
-// Revision 1.14  2006/02/23 11:37:40  dkrajzew
-// emitters may now show their routes
-//
-// Revision 1.13  2006/02/13 07:29:01  dkrajzew
-// added route visualization in emitters
-//
-// Revision 1.12  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.11  2005/10/07 11:46:08  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/23 06:11:14  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 12:20:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/07/12 12:52:07  dkrajzew
-// code style adapted
-//
-// Revision 1.7  2005/05/04 09:22:51  dkrajzew
-// adding of surrounding lanes to selection added; entries for viewport definition added
-//
-// Revision 1.6  2005/02/01 10:13:17  dkrajzew
-// added missing enums for netedit
-//
-// Revision 1.5  2005/01/27 14:35:22  dkrajzew
-// added the netedit-window
-//
-// Revision 1.4  2004/12/16 12:21:39  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/12/12 17:23:59  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.2  2004/12/02 13:54:23  agaubatz
-// Netedit update, A. Gaubatz
-//
-// Revision 1.1  2004/11/23 10:38:32  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/22 12:55:31  dksumo
-// 'netedit' values added
-//
-// Revision 1.2  2004/10/29 06:21:22  dksumo
-// added a slider enumeration value
-//
-// Revision 1.1  2004/10/22 12:50:57  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.4  2004/08/02 13:14:10  dkrajzew
-// clear message window and coloring scheme changes applied
-//
-// Revision 1.3  2004/07/02 08:10:56  dkrajzew
-// edition of breakpoints and additional weights added
-//
-// Revision 1.2  2004/04/02 11:07:17  dkrajzew
-// item selection menu entry ids added
-//
-// Revision 1.1  2004/03/19 12:56:10  dkrajzew
-// porting to FOX
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIAppEnum_h
+#define GUIAppEnum_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 
 
-/* =========================================================================
- * enumeration
- * ======================================================================= */
+// ===========================================================================
+// enumeration
+// ===========================================================================
 enum {
     /// Show About - Dialog
     ID_ABOUT=FXMainWindow::ID_LAST,
@@ -199,55 +117,55 @@ enum {
     MID_SIMDELAY,
     //@}
 
-	//@{ Image Menu Item - IDs
-	/// Street Extraction - Menu Entry
-	MID_EXTRACT_STREETS,
-	/// Dilation - Menu Entry
-	MID_DILATION,
-	/// Erosion - Menu Entry
-	MID_EROSION,
-	/// Opening - Menu Entry
-	MID_OPENING,
-	/// Closing - Menu Entry
-	MID_CLOSING,
-	/// Close Gaps - Menu Entry
-	MID_CLOSE_GAPS,
-	/// Skeletonize - Menu Entry
-	MID_SKELETONIZE,
-	/// Rarify - Menu Entry
-	MID_RARIFY,
-	/// Rarify - Menu Entry
+    //@{ Image Menu Item - IDs
+    /// Street Extraction - Menu Entry
+    MID_EXTRACT_STREETS,
+    /// Dilation - Menu Entry
+    MID_DILATION,
+    /// Erosion - Menu Entry
+    MID_EROSION,
+    /// Opening - Menu Entry
+    MID_OPENING,
+    /// Closing - Menu Entry
+    MID_CLOSING,
+    /// Close Gaps - Menu Entry
+    MID_CLOSE_GAPS,
+    /// Skeletonize - Menu Entry
+    MID_SKELETONIZE,
+    /// Rarify - Menu Entry
+    MID_RARIFY,
+    /// Rarify - Menu Entry
     MID_ERASE_STAINS,
-	/// Create Graph - Menu Entry
-	MID_CREATE_GRAPH,
-	/// Opens a dialoge window for image-filter configuration
-	MID_OPEN_BMP_DIALOG,
-	//@}
+    /// Create Graph - Menu Entry
+    MID_CREATE_GRAPH,
+    /// Opens a dialoge window for image-filter configuration
+    MID_OPEN_BMP_DIALOG,
+    //@}
     // Clear simulation settings
     MID_CLEARMESSAGEWINDOW,
 
     //Create Drawing Canvas for an Image
-	ID_CANVAS,
+    ID_CANVAS,
     ID_CLEAR,
 
-	//@{ Graph Menu Item - IDs
-	///Show Graph on empty Bitmap - Menu Entry
-	MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
-	///Show Graph on actual Bitmap - Menu Entry
-	MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
-	///Reduce Vertexes - Menu Entry
-	MID_REDUCE_VERTEXES,
-	///Reduce Vertexes Plus - Menu Entry
-	MID_REDUCE_VERTEXES_PLUS,
-	///Reduce Edges - Menu Entry
-	MID_REDUCE_EDGES,
-	///Merge Vertexes - Menu Entry
-	MID_MERGE_VERTEXES,
-	///Export Vertex XML -Menu Entry
-	MID_EXPORT_VERTEXES_XML,
-	///Export Edges XML - Menu Entry
-	MID_EXPORT_EDGES_XML,
-	//@}
+    //@{ Graph Menu Item - IDs
+    ///Show Graph on empty Bitmap - Menu Entry
+    MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
+    ///Show Graph on actual Bitmap - Menu Entry
+    MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
+    ///Reduce Vertexes - Menu Entry
+    MID_REDUCE_VERTEXES,
+    ///Reduce Vertexes Plus - Menu Entry
+    MID_REDUCE_VERTEXES_PLUS,
+    ///Reduce Edges - Menu Entry
+    MID_REDUCE_EDGES,
+    ///Merge Vertexes - Menu Entry
+    MID_MERGE_VERTEXES,
+    ///Export Vertex XML -Menu Entry
+    MID_EXPORT_VERTEXES_XML,
+    ///Export Edges XML - Menu Entry
+    MID_EXPORT_EDGES_XML,
+    //@}
 
     //@{ Common View Settings - IDs
     /// Recenter View - Button
@@ -272,8 +190,8 @@ enum {
     MID_SHOWGRID,
     /// Show Tool Tips - Button
     MID_SHOWTOOLTIPS,
-	/// Graph Edit Button
-	MID_EDIT_GRAPH,
+    /// Graph Edit Button
+    MID_EDIT_GRAPH,
     /// Make Snapshot - Button
     MID_MAKESNAPSHOT,
     //@}
@@ -282,7 +200,7 @@ enum {
     /// GLCanvas - ID
     MID_GLCANVAS,
     // Right Mouse Button Timeout
-//    ID_RMOUSETIMEOUT,
+    //    ID_RMOUSETIMEOUT,
     //@}
 
     //@{ View Settings - IDs
@@ -332,7 +250,7 @@ enum {
     /// Stop to track a vehicle
     MID_STOP_TRACK,
     /// Rename the object
-	MID_RENAME,
+    MID_RENAME,
     /// Move object to another position
     MID_MOVETO,
     /// Change the color of an object
@@ -403,7 +321,7 @@ enum {
     //@{ IDs for netedit
     /// Import a network - Menu entry
     MID_IMPORT_NET,
-	/// Open a bitmap file - Menu entry
+    /// Open a bitmap file - Menu entry
     MID_LOAD_IMAGE,
     /// Write a loaded bitmap file - Menu entry
     MID_SAVE_IMAGE,
@@ -421,13 +339,11 @@ enum {
 
     MID_CUTSWELL,
 
-	MID_LAST
+    MID_LAST
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,89 +1,68 @@
-#ifndef FloatValueTimeLine_h
-#define FloatValueTimeLine_h
-//---------------------------------------------------------------------------//
-//                        FloatValueTimeLine.h -
-//  A list of time ranges with SUMOReal values
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 22 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    FloatValueTimeLine.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 22 Jan 2004
+/// @version $Id: $
+///
+// A list of time ranges with SUMOReal values
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2005/10/07 11:47:09  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:12:08  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:21:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/28 09:02:49  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.2  2004/11/23 10:36:20  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/01/26 10:01:44  dkrajzew
-// derived class implemented for the computation of interpolated values when a
-//  value is not given (not yet implemented)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef FloatValueTimeLine_h
+#define FloatValueTimeLine_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "ValueTimeLine.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class FloatValueTimeLine
  * A time line being a list of time period with assigned SUMOReal values.
  * Derived from the template time line to allow the computation of
  *  non-existing values through interpolation.
  */
-class FloatValueTimeLine : public ValueTimeLine<SUMOReal> {
+class FloatValueTimeLine : public ValueTimeLine<SUMOReal>
+{
 public:
     /// Constructor
-    FloatValueTimeLine() { }
+    FloatValueTimeLine()
+    { }
 
     /// Destructor
-    ~FloatValueTimeLine() { }
+    ~FloatValueTimeLine()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

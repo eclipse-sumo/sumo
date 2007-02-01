@@ -1,78 +1,40 @@
-#ifndef GUITLLogicPhasesTrackerWindow_h
-#define GUITLLogicPhasesTrackerWindow_h
-//---------------------------------------------------------------------------//
-//                        GUITLLogicPhasesTrackerWindow.h -
-//  A window displaying the phase diagram of a tl-logic
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Oct/Nov 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUITLLogicPhasesTrackerWindow.h
+/// @author  Daniel Krajzewicz
+/// @date    Oct/Nov 2003
+/// @version $Id: $
+///
+// A window displaying the phase diagram of a tl-logic
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/11/28 12:10:45  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.9  2006/11/15 21:29:43  behrisch
-// Debugged building under Linux
-//
-// Revision 1.8  2006/11/14 06:50:35  dkrajzew
-// tls tracker now support switches between logics
-//
-// Revision 1.6  2005/10/07 11:45:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:20:06  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 09:22:32  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2005/02/01 10:10:47  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/27 14:34:20  dkrajzew
-// added the possibility to display a complete phase
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:56  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.3  2004/03/19 12:42:31  dkrajzew
-// porting to FOX
-//
-// Revision 1.2  2003/11/26 09:37:07  dkrajzew
-// moving of the view when reaching the left border implemented; display of a
-//  time scale implemented
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUITLLogicPhasesTrackerWindow_h
+#define GUITLLogicPhasesTrackerWindow_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -94,30 +56,31 @@
 #endif
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIMainWindow;
 class MSTrafficLightLogic;
 class GUITrafficLightLogicWrapper;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUITLLogicPhasesTrackerWindow
  * @brief This window displays a phase diagram for a chosen tl-logic.
  */
 class GUITLLogicPhasesTrackerWindow
-        : public FXMainWindow,
-          public ValueRetriever<CompletePhaseDef> {
+            : public FXMainWindow,
+            public ValueRetriever<CompletePhaseDef>
+{
     FXDECLARE(GUITLLogicPhasesTrackerWindow)
 public:
     /// Constructor to track current phases
     GUITLLogicPhasesTrackerWindow(GUIMainWindow &app,
-        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-        ValueSource<CompletePhaseDef> *src);
+                                  MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+                                  ValueSource<CompletePhaseDef> *src);
 
     /// Constructor to show the complete phase diagram
     GUITLLogicPhasesTrackerWindow(
@@ -168,12 +131,13 @@ public:
      * The canvas for the visualisation.
      * The drawing itself id done by the parent.
      */
-    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas {
+class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
+    {
         FXDECLARE(GUITLLogicPhasesTrackerPanel)
     public:
         /// Constructor
         GUITLLogicPhasesTrackerPanel(FXComposite *c,
-            GUIMainWindow &app, GUITLLogicPhasesTrackerWindow &parent);
+                                     GUIMainWindow &app, GUITLLogicPhasesTrackerWindow &parent);
 
         /// Destructor
         ~GUITLLogicPhasesTrackerPanel();
@@ -207,7 +171,8 @@ public:
 
     protected:
         /// protected constructor for FOX
-        GUITLLogicPhasesTrackerPanel() { }
+        GUITLLogicPhasesTrackerPanel()
+        { }
 
     };
 
@@ -271,15 +236,13 @@ private:
 
 protected:
     /// protected constructor for FOX
-    GUITLLogicPhasesTrackerWindow() { }
+    GUITLLogicPhasesTrackerWindow()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

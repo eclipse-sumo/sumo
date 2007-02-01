@@ -1,137 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIParameterTracker.cpp -
+/****************************************************************************/
+/// @file    GUIParameterTracker.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
 // A window which displays the time line of one (or more) value(s)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/11/28 12:10:44  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.15  2006/11/16 10:50:52  dkrajzew
-// warnings removed
-//
-// Revision 1.14  2006/11/14 06:50:16  dkrajzew
-// debugging placement of the current value string
-//
-// Revision 1.13  2006/06/22 07:18:33  dkrajzew
-// false position of current value in the plot patched
-//
-// Revision 1.12  2006/06/13 13:14:14  dkrajzew
-// made static comboboxes really static
-//
-// Revision 1.11  2006/04/11 11:05:55  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.10  2005/10/17 09:24:15  dkrajzew
-// memory leaks removed
-//
-// Revision 1.9  2005/10/07 11:45:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/23 06:09:38  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 12:20:06  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 11:55:38  dkrajzew
-// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
-//
-// Revision 1.5  2005/05/04 09:22:26  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/12/20 14:00:25  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/12/16 12:21:38  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/29 09:22:58  dkrajzew
-// possibility to save the timeline added
-//
-// Revision 1.1  2004/11/23 10:38:31  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/10/29 06:20:58  dksumo
-// just some code beautyfying
-//
-// Revision 1.1  2004/10/22 12:50:55  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.15  2004/08/02 11:43:31  dkrajzew
-// ported to fox 1.2; patched missing unlock on unwished program termination
-//
-// Revision 1.14  2004/07/02 08:26:11  dkrajzew
-// aggregation debugged and saving option added
-//
-// Revision 1.13  2004/03/19 12:42:59  dkrajzew
-// porting to FOX
-//
-// Revision 1.12  2003/11/20 13:18:34  dkrajzew
-// further work on aggregated views
-//
-// Revision 1.11  2003/11/12 14:08:23  dkrajzew
-// clean up after recent changes
-//
-// Revision 1.10  2003/11/11 08:43:04  dkrajzew
-// synchronisation problems of parameter tracker updates patched
-//
-// Revision 1.9  2003/08/14 13:40:10  dkrajzew
-// a lower priorised update-method is now used
-//
-// Revision 1.8  2003/07/30 12:51:42  dkrajzew
-// bugs on resize and font loading partially patched
-//
-// Revision 1.7  2003/07/30 08:50:42  dkrajzew
-// tracker debugging (not yet completed)
-//
-// Revision 1.6  2003/07/22 14:57:42  dkrajzew
-// wrong order of initialisations-warning patched
-//
-// Revision 1.5  2003/07/18 12:30:14  dkrajzew
-// removed some warnings
-//
-// Revision 1.4  2003/06/18 11:02:33  dkrajzew
-// new fonts usage added
-//
-// Revision 1.3  2003/06/05 11:38:47  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <fstream>
@@ -159,76 +60,76 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
-    FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
-    FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
-    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
-    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
-    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
+            FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
+            FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
+            FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
+            FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
+            FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
 
-};
+        };
 
-  // Macro for the GLTestApp class hierarchy implementation
+// Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(GUIParameterTrackerMap))
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
-                                         const std::string &name)
-    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
-    myApplication(&app)
+        const std::string &name)
+        : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
+        myApplication(&app)
 {
     buildToolBar();
     app.addChild(this, true);
     FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
-        *myApplication, *this);
+                                           *myApplication, *this);
     setTitle(name.c_str());
-    setIcon( GUIIconSubSys::getIcon(ICON_APP_TRACKER) );
+    setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
 }
 
 
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
-                                         const std::string &name,
-                                         GUIGlObject &/*o*/,
-                                         int /*xpos*/, int /*ypos*/)
-    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
-    myApplication(&app)
+        const std::string &name,
+        GUIGlObject &/*o*/,
+        int /*xpos*/, int /*ypos*/)
+        : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
+        myApplication(&app)
 {
     buildToolBar();
     app.addChild(this, true);
     FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
-        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-        0,0,0,0,0,0,0,0);
+                            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+                            0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
-        *myApplication, *this);
+                                           *myApplication, *this);
     setTitle(name.c_str());
-    setIcon( GUIIconSubSys::getIcon(ICON_APP_TRACKER) );
+    setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
 }
 
 
 GUIParameterTracker::~GUIParameterTracker()
 {
     myApplication->removeChild(this);
-    for(TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
-        delete (*i1);
+    for (TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+        delete(*i1);
     }
     // deleted by GUINet
-    for(ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
-        delete (*i2);
+    for (ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
+        delete(*i2);
     }
     delete myToolBarDrag;
     delete myToolBar;
@@ -245,7 +146,7 @@ GUIParameterTracker::create()
 
 void
 GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
-								 size_t recordBegin)
+                                 size_t recordBegin)
 {
     TrackerValueDesc *newTracked =
         new TrackerValueDesc(name, RGBColor(0, 0, 0), o, recordBegin);
@@ -275,12 +176,12 @@ GUIParameterTracker::buildToolBar()
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
     // save button
     new FXButton(myToolBar,"\t\tSave the data...",
-        GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIParameterTracker::MID_SAVE,
+                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // aggregation interval combo
     myAggregationInterval =
         new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
-            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
+                       FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
     myAggregationInterval->appendItem("1s");
     myAggregationInterval->appendItem("1min");
     myAggregationInterval->appendItem("5min");
@@ -299,7 +200,7 @@ GUIParameterTracker::addTracked(GUIGlObject &o,
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o,
-        src, newTracked));
+                             src, newTracked));
 }
 
 
@@ -332,7 +233,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
 {
     int index = myAggregationInterval->getCurrentItem();
     size_t aggInt = 0;
-    switch(index) {
+    switch (index) {
     case 0:
         aggInt = 1;
         break;
@@ -356,7 +257,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
         break;
     }
     TrackedVarsVector::iterator i1;
-    for(i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+    for (i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         (*i1)->setAggregationSpan(aggInt);
     }
     return 1;
@@ -370,21 +271,21 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this, "Save Data As...");
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.csv"); // cdd=CsvDevilData
-    if(gCurrentFolder.length()!=0) {
+    if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if(opendialog.execute()){
+    if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
         ofstream strm(file.c_str());
-        if(!strm.good()) {
+        if (!strm.good()) {
             return 1; // !!! inform the user
         }
         // write header
         TrackedVarsVector::iterator i;
         strm << "# ";
-        for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
-            if(i!=myTracked.begin()) {
+        for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+            if (i!=myTracked.begin()) {
                 strm << ';';
             }
             TrackerValueDesc *tvd = *i;
@@ -393,18 +294,18 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
         strm << endl;
         // count entries
         size_t max = 0;
-        for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
+        for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
             TrackerValueDesc *tvd = *i;
             size_t sizei = tvd->getAggregatedValues().size();
-            if(max<sizei) {
+            if (max<sizei) {
                 max = sizei;
             }
             tvd->unlockValues();
         }
         // write entries
-        for(unsigned int j=0; j<max; j++) {
-            for(i=myTracked.begin(); i!=myTracked.end(); ++i) {
-                if(i!=myTracked.begin()) {
+        for (unsigned int j=0; j<max; j++) {
+            for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+                if (i!=myTracked.begin()) {
                     strm << ';';
                 }
                 TrackerValueDesc *tvd = *i;
@@ -422,28 +323,26 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
  * GUIParameterTracker::GUIParameterTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[]={
-    FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
-    FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
+            FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
+            FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
 
-};
+        };
 
-  // Macro for the GLTestApp class hierarchy implementation
+// Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel,FXGLCanvas,GUIParameterTrackerPanelMap,ARRAYNUMBER(GUIParameterTrackerPanelMap))
 
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
-        FXComposite *c, GUIMainWindow &app,
-        GUIParameterTracker &parent)
-    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
-    myParent(&parent), myApplication(&app)
-{
-}
+    FXComposite *c, GUIMainWindow &app,
+    GUIParameterTracker &parent)
+        : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
+        myParent(&parent), myApplication(&app)
+{}
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel()
-{
-}
+{}
 
 
 void
@@ -456,7 +355,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     if(fontIdx>4) fontIdx = 4;
     */
     pfSetScale((SUMOReal) 0.1);
-    pfSetScaleXY((SUMOReal) (.1*300./_widthInPixels), (SUMOReal) (.1*300./(SUMOReal) _heightInPixels));
+    pfSetScaleXY((SUMOReal)(.1*300./_widthInPixels), (SUMOReal)(.1*300./(SUMOReal) _heightInPixels));
 
 //    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
     //
@@ -466,10 +365,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
     size_t run = 0;
-    for(TrackedVarsVector::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
+    for (TrackedVarsVector::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
         drawValue(*desc,
-            (SUMOReal) _widthInPixels / (SUMOReal) myParent->myTracked.size() * (SUMOReal) run);
+                  (SUMOReal) _widthInPixels / (SUMOReal) myParent->myTracked.size() *(SUMOReal) run);
         run++;
     }
 //    GUITexturesHelper::getFontRenderer().Draw(_widthInPixels, _heightInPixels);//this, width, height);
@@ -478,7 +377,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
-                                                         SUMOReal /*namePos*/)
+        SUMOReal /*namePos*/)
 {
     // apply scaling
     glPushMatrix();
@@ -496,26 +395,26 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     SUMOReal green = (SUMOReal) col.green();
     SUMOReal blue = (SUMOReal) col.blue();
     // draw value bounderies
-        // draw minimum boundary
-    glBegin( GL_LINES );
+    // draw minimum boundary
+    glBegin(GL_LINES);
     glVertex2d(0, desc.getMin());
     glVertex2d(2.0, desc.getMin());
     glEnd();
-    glBegin( GL_LINES );
+    glBegin(GL_LINES);
     glVertex2d(0, desc.getMax());
     glVertex2d(2.0, desc.getMax());
     glEnd();
     glColor4f(red, green, blue, 0.3f);
-    for(int a=1; a<6; a++) {
+    for (int a=1; a<6; a++) {
         SUMOReal ypos = (desc.getRange()) / (SUMOReal) 6.0 * (SUMOReal) a + desc.getMin();
-        glBegin( GL_LINES );
+        glBegin(GL_LINES);
         glVertex2d(0, ypos);
         glVertex2d(2.0, ypos);
         glEnd();
     }
     const std::vector<SUMOReal> &values = desc.getAggregatedValues();
     SUMOReal latest = 0;
-    if(values.size()<2) {
+    if (values.size()<2) {
         glPopMatrix();
         desc.unlockValues();
         return;
@@ -528,10 +427,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         SUMOReal xp = 0;
         i++;
         glColor4f(red, green, blue, 1.0f);
-        for(; i!=values.end(); i++) {
+        for (; i!=values.end(); i++) {
             SUMOReal yn = (*i);
             SUMOReal xn = xp + xStep;
-            glBegin( GL_LINES );
+            glBegin(GL_LINES);
             glVertex2d(xp, yp);
             glVertex2d(xn, yn);
             glEnd();
@@ -551,53 +450,53 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     string begStr = StringUtils::trim((SUMOReal) beginStep, 2);
     SUMOReal w = pfdkGetStringWidth(begStr.c_str());
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        glTranslated(-0.8-w/2., 0.88, 0);
-        pfDrawString(begStr.c_str());
-        glTranslated(0.8+w/2., -0.88, 0);
+    pfSetPosition(0, 0);
+    glTranslated(-0.8-w/2., 0.88, 0);
+    pfDrawString(begStr.c_str());
+    glTranslated(0.8+w/2., -0.88, 0);
     glRotated(-180, 1, 0, 0);
 
     // draw max time
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        glTranslated(0.75, 0.88, 0);
-        pfDrawString(StringUtils::trim(
-			(SUMOReal) beginStep + (SUMOReal) values.size() * (SUMOReal) desc.getAggregationSpan(), 2).c_str());
-        glTranslated(-0.75, -0.88, 0);
+    pfSetPosition(0, 0);
+    glTranslated(0.75, 0.88, 0);
+    pfDrawString(StringUtils::trim(
+                     (SUMOReal) beginStep + (SUMOReal) values.size() *(SUMOReal) desc.getAggregationSpan(), 2).c_str());
+    glTranslated(-0.75, -0.88, 0);
     glRotated(-180, 1, 0, 0);
 
     // draw min value
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        glTranslated(-0.98, 0.82, 0);
-        pfDrawString(StringUtils::trim(desc.getMin(), 2).c_str());
-        glTranslated(0.98, -0.82, 0);
+    pfSetPosition(0, 0);
+    glTranslated(-0.98, 0.82, 0);
+    pfDrawString(StringUtils::trim(desc.getMin(), 2).c_str());
+    glTranslated(0.98, -0.82, 0);
     glRotated(-180, 1, 0, 0);
 
     // draw max value
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        glTranslated(-0.98, -0.78, 0);
-        pfDrawString(StringUtils::trim(desc.getMax(), 2).c_str());
-        glTranslated(0.98, 0.78, 0);
+    pfSetPosition(0, 0);
+    glTranslated(-0.98, -0.78, 0);
+    pfDrawString(StringUtils::trim(desc.getMax(), 2).c_str());
+    glTranslated(0.98, 0.78, 0);
     glRotated(-180, 1, 0, 0);
 
     // draw current value
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        SUMOReal p = (SUMOReal) 0.8 -
-            ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * (latest-desc.getMin()));
-        glTranslated(-0.98, p+.02, 0);
-        pfDrawString(StringUtils::trim(latest, 2).c_str());
-        glTranslated(0.98, -(p+.02), 0);
+    pfSetPosition(0, 0);
+    SUMOReal p = (SUMOReal) 0.8 -
+                 ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * (latest-desc.getMin()));
+    glTranslated(-0.98, p+.02, 0);
+    pfDrawString(StringUtils::trim(latest, 2).c_str());
+    glTranslated(0.98, -(p+.02), 0);
     glRotated(-180, 1, 0, 0);
 
     // draw name
     glRotated(180, 1, 0, 0);
-        pfSetPosition(0, 0);
-        glTranslated(-0.98, -.92, 0);
-        pfDrawString(desc.getName().c_str());
-        glTranslated(0.98, .92, 0);
+    pfSetPosition(0, 0);
+    glTranslated(-0.98, -.92, 0);
+    pfDrawString(desc.getName().c_str());
+    glTranslated(0.98, .92, 0);
     glRotated(-180, 1, 0, 0);
 
     /*
@@ -676,7 +575,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
 SUMOReal
 GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &desc,
-                                                              SUMOReal d)
+        SUMOReal d)
 {
     SUMOReal height = (SUMOReal) _heightInPixels;
     SUMOReal range = (SUMOReal) desc.getRange();
@@ -688,17 +587,17 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
 
 long
 GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
-                                                           FXSelector,void*)
+        FXSelector,void*)
 {
-    if(makeCurrent()) {
+    if (makeCurrent()) {
         _widthInPixels = myParent->getMaxGLWidth();
         _heightInPixels = myParent->getMaxGLHeight();
-        glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
-        glClearColor( 1.0, 1.0, 1.0, 1 );
-        glDisable( GL_DEPTH_TEST );
-        glDisable( GL_LIGHTING );
+        glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+        glClearColor(1.0, 1.0, 1.0, 1);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_LIGHTING);
         glDisable(GL_LINE_SMOOTH);
-        glEnable(GL_BLEND );
+        glEnable(GL_BLEND);
         glEnable(GL_ALPHA_TEST);
         glDisable(GL_COLOR_MATERIAL);
         glLineWidth(1);
@@ -711,21 +610,21 @@ GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
 
 long
 GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
-                                                       FXSelector,void*)
+        FXSelector,void*)
 {
-    if(!isEnabled()) {
+    if (!isEnabled()) {
         return 1;
     }
-    if(makeCurrent()) {
+    if (makeCurrent()) {
         _widthInPixels = getWidth();
         _heightInPixels = getHeight();
-        if(_widthInPixels!=0&&_heightInPixels!=0) {
-            glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
-            glClearColor( 1.0, 1.0, 1.0, 1 );
-            glDisable( GL_DEPTH_TEST );
-            glDisable( GL_LIGHTING );
+        if (_widthInPixels!=0&&_heightInPixels!=0) {
+            glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+            glClearColor(1.0, 1.0, 1.0, 1);
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
             glDisable(GL_LINE_SMOOTH);
-            glEnable(GL_BLEND );
+            glEnable(GL_BLEND);
             glEnable(GL_ALPHA_TEST);
             glDisable(GL_COLOR_MATERIAL);
             glLineWidth(1);
@@ -742,10 +641,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

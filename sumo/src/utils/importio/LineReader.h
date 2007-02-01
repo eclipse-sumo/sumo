@@ -1,103 +1,61 @@
+/****************************************************************************/
+/// @file    LineReader.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 19 Jul 2002
+/// @version $Id: $
+///
+// Retrieves a file linewise and reports the lines to a handler.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef LineReader_h
 #define LineReader_h
-/***************************************************************************
-                          LineReader.h
-                Retrieves a file linewise and reports the lines to a handler.
-                             -------------------
-    project              : SUMO
-    begin                : Fri, 19 Jul 2002
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.12  2006/05/15 06:01:07  dkrajzew
-// removed warnings
-//
-// Revision 1.12  2006/05/08 11:16:57  dkrajzew
-// warnings removed
-//
-// Revision 1.11  2005/10/07 11:46:34  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/15 12:20:59  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/05/04 09:25:27  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.8  2005/04/28 09:02:49  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.7  2004/11/23 10:35:28  dkrajzew
-// debugging
-//
-// Revision 1.6  2004/07/02 09:47:01  dkrajzew
-// a simpler API added (should be reworked, subject to change)
-//
-// Revision 1.5  2003/04/15 09:09:19  dkrajzew
-// documentation added
-//
-// Revision 1.4  2003/03/20 16:41:10  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.3  2003/03/12 16:36:13  dkrajzew
-// status information retrieval added
-//
-// Revision 1.2  2003/02/07 10:51:26  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:59:13  dkrajzew
-// initial commit for classes that handle import functions
-//
-// Revision 1.1  2002/07/25 08:55:42  dkrajzew
-// support for Visum7.5 & Cell import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <fstream>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class LineHandler;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class LineReader
  * This class reads the contents from a file line by line and report them to
  * a LineHandler-derivate.
  */
-class LineReader {
+class LineReader
+{
 public:
     /// constructor
     LineReader();
@@ -169,10 +127,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,86 +1,63 @@
-#ifndef OutputDevice_h
-#define OutputDevice_h
-//---------------------------------------------------------------------------//
-//                        OutputDevice.h -
-//  An abstract output device that encapsulates an ostream
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    OutputDevice.h
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// An abstract output device that encapsulates an ostream
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2005/10/07 11:46:44  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:21:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/04/28 09:02:49  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.4  2004/12/16 12:22:12  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.3  2004/11/23 10:35:47  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:54:56  dksumo
-// tried to generelise the usage of detectors and output devices
-//
-// Revision 1.1  2004/10/22 12:50:58  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2004/08/02 13:01:16  dkrajzew
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef OutputDevice_h
+#define OutputDevice_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "XMLDevice.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class OutputDevice
  * An abstract output device that encapsulates an ostream
  */
-class OutputDevice : public XMLDevice {
+class OutputDevice : public XMLDevice
+{
 public:
     /// Constructor
     OutputDevice() :
-      myNeedHeader(true), myNeedTail(true), myNeedDetectorName(false)
-      { }
+            myNeedHeader(true), myNeedTail(true), myNeedDetectorName(false)
+    { }
 
     /// Destructor
-    virtual ~OutputDevice() { }
+    virtual ~OutputDevice()
+    { }
 
     /// returns the information whether one can write into the device
     virtual bool ok() = 0;
@@ -102,23 +79,41 @@ public:
     virtual void closeInfo() = 0;
 
     /// Returns the information whether the detector's name should always be printed
-    bool needsDetectorName() const { return myNeedDetectorName; }
+    bool needsDetectorName() const
+    {
+        return myNeedDetectorName;
+    }
     //}
 
     /// Returns the information whether a header shall be printed
-    bool needsHeader() const { return myNeedHeader; }
+    bool needsHeader() const
+    {
+        return myNeedHeader;
+    }
 
     /// Sets the information whether a header is wished
-    void setNeedsHeader(bool value) { myNeedHeader = value; }
+    void setNeedsHeader(bool value)
+    {
+        myNeedHeader = value;
+    }
 
     /// Returns the information whether a header shall be printed
-    bool needsTail() const { return myNeedTail; }
+    bool needsTail() const
+    {
+        return myNeedTail;
+    }
 
     /// Sets the information whether a header is wished
-    void setNeedsTail(bool value) { myNeedTail = value; }
+    void setNeedsTail(bool value)
+    {
+        myNeedTail = value;
+    }
 
     /// Sets the information whether the detector's name should always be printed
-    void setNeedsDetectorName(bool value) { myNeedDetectorName = value; }
+    void setNeedsDetectorName(bool value)
+    {
+        myNeedDetectorName = value;
+    }
 
 
 protected:
@@ -134,11 +129,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

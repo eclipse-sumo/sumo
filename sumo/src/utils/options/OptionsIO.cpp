@@ -1,154 +1,38 @@
-/***************************************************************************
-                          OptionsIO.cpp
-              Loads the configuration file using "OptionsLoader"
-              and parses the given command line arguments using
-              "OptionsParser"
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 17 Dec 2001
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2007/01/10 08:33:02  dkrajzew
-// expanded the some option names when asking for them
+/****************************************************************************/
+/// @file    OptionsIO.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 17 Dec 2001
+/// @version $Id: $
+///
+// Loads the configuration file using "OptionsLoader"
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.17  2006/06/13 13:19:11  dkrajzew
-// made output about loading the configuration more pretty
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.16  2006/04/11 11:06:09  dkrajzew
-// extended the message-API to (re)allow process output
-//
-// Revision 1.15  2006/01/09 13:38:04  dkrajzew
-// debugging error handling
-//
-// Revision 1.14  2005/10/17 09:25:12  dkrajzew
-// got rid of the old MSVC memory leak checker
-//
-// Revision 1.13  2005/10/07 11:46:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.12  2005/09/23 06:11:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.11  2005/09/15 12:21:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.10  2005/07/12 12:52:56  dkrajzew
-// build number output added
-//
-// Revision 1.9  2005/05/10 11:20:03  dkrajzew
-// verbosity output patched
-//
-// Revision 1.8  2005/05/04 09:28:01  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2004/11/23 10:36:02  dkrajzew
-// debugging
-//
-// Revision 1.6  2004/07/02 09:41:39  dkrajzew
-// debugging the repeated setting of a value
-//
-// Revision 1.5  2003/10/27 10:55:10  dkrajzew
-// problems on setting gui options patched - the configuration is not loaded directly any more
-//
-// Revision 1.4  2003/07/07 08:49:25  dkrajzew
-// no configuration is loaded as default any more
-//
-// Revision 1.3  2003/05/20 09:51:41  dkrajzew
-// further work and debugging
-//
-// Revision 1.2  2003/02/07 10:51:59  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:58:18  dkrajzew
-// initial release for utilities that handle program options
-//
-// Revision 1.9  2002/07/31 17:30:06  roessel
-// Changes since sourceforge cvs request.
-//
-// Revision 1.11  2002/07/11 07:42:59  dkrajzew
-// Usage of relative pathnames within configuration files implemented
-//
-// Revision 1.10  2002/07/02 08:57:41  dkrajzew
-// Initialisation of the XML-Subsystem (Xerces) moved to an independent class
-//
-// Revision 1.9  2002/06/21 10:47:47  dkrajzew
-// inclusion of .cpp-files in .cpp files removed
-//
-// Revision 1.8  2002/06/11 15:58:26  dkrajzew
-// windows eol removed
-//
-// Revision 1.7  2002/06/10 06:54:30  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
-//
-// Revision 1.6  2002/05/14 04:45:49  dkrajzew
-// Bresenham added; some minor changes; windows eol removed
-//
-// Revision 1.5  2002/04/29 05:38:18  dkrajzew
-// Better error handling on missing configuration implemented
-//
-// Revision 1.4  2002/04/26 10:08:39  dkrajzew
-// Windows eol removed
-//
-// Revision 1.3  2002/04/17 11:21:52  dkrajzew
-// Windows-carriage returns removed
-//
-// Revision 1.2  2002/04/16 12:28:26  dkrajzew
-// Usage of SUMO_DATA removed
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
-// new version-free project name
-//
-// Revision 1.5  2002/04/09 12:20:37  dkrajzew
-// Windows-Memoryleak detection changed
-//
-// Revision 1.4  2002/03/22 10:59:37  dkrajzew
-// Memory leak tracing added; ostrstreams replaces by ostringstreams
-//
-// Revision 1.3  2002/03/20 08:50:37  dkrajzew
-// Revisions patched
-//
-// Revision 1.2  2002/03/20 08:41:22  dkrajzew
-// New configuration search schema
-//
-// Revision 1.1  2002/02/13 15:48:19  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -172,15 +56,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 bool
 OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
 {
@@ -189,21 +73,21 @@ OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
     //  (maybe another configuration file was chosen)
     ret = OptionsParser::parse(oc, argc, argv);
     // return when the help shall be printed
-    if(oc->exists("help")&&oc->getBool("help")) {
+    if (oc->exists("help")&&oc->getBool("help")) {
         return ret;
     }
     // check whether to use the command line parameetr only
-    if(!loadConfig) {
+    if (!loadConfig) {
         return true;
     }
     // read the configuration when everything's ok
-    if(ret) {
+    if (ret) {
         oc->resetWritable();
         ret = loadConfiguration(oc);
     }
     // reparse the options
     //  (overwrite the settings from the configuration file)
-    if(ret) {
+    if (ret) {
         oc->resetWritable();
         ret = OptionsParser::parse(oc, argc, argv);
     }
@@ -214,12 +98,12 @@ OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
 bool
 OptionsIO::loadConfiguration(OptionsCont *oc)
 {
-    if(!oc->exists("configuration-file") || !oc->isSet("configuration-file")) {
+    if (!oc->exists("configuration-file") || !oc->isSet("configuration-file")) {
         return true;
     }
     bool ok = true;
     string path = oc->getString("configuration-file");
-    if(!FileHelpers::exists(path)) {
+    if (!FileHelpers::exists(path)) {
         MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("configuration-file") + "'.");
         return false;
     }
@@ -235,31 +119,26 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(path.c_str());
-        if(handler.errorOccured()) {
+        if (handler.errorOccured()) {
             ok = false;
         }
     } catch (const XMLException&) {
         ok = false;
     }
-    if(oc->getBool("verbose")) {
-        if(ok) {
+    if (oc->getBool("verbose")) {
+        if (ok) {
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } else {
             MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         }
     }
-    if(!ok) {
+    if (!ok) {
         MsgHandler::getErrorInstance()->inform("Could not load configuration '" + path + "'.");
     }
     return ok;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
-
+/****************************************************************************/
 

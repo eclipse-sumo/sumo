@@ -1,70 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        SystemFrame.cpp -
-//  A set of actions common to all applications
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 23.06.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    OptionsSubSys.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 23.06.2003
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2007/01/10 08:33:02  dkrajzew
-// expanded the some option names when asking for them
-//
-// Revision 1.9  2006/01/09 13:38:04  dkrajzew
-// debugging error handling
-//
-// Revision 1.8  2005/10/07 11:46:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/15 12:21:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 12:52:56  dkrajzew
-// build number output added
-//
-// Revision 1.5  2005/05/04 09:28:01  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/12/16 12:18:39  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/23 10:36:02  dkrajzew
-// debugging
-//
-// Revision 1.2  2003/10/27 10:55:10  dkrajzew
-// problems on setting gui options patched - the configuration is not loaded directly any more
-//
-// Revision 1.1  2003/06/24 08:12:59  dkrajzew
-// a subsystem for option handling common to most of the applications added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <fstream>
@@ -78,21 +46,21 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 OptionsCont OptionsSubSys::myOptions;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 bool
 OptionsSubSys::init(bool loadConfig, int argc, char **argv,
                     fill_options *fill_f,
@@ -100,10 +68,10 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
 {
     (*fill_f)(myOptions);
     // parse options
-    if(OptionsIO::getOptions(loadConfig, &myOptions, argc, argv)) {
-		// 01.06.2005: version retrieval patched
+    if (OptionsIO::getOptions(loadConfig, &myOptions, argc, argv)) {
+        // 01.06.2005: version retrieval patched
         // check the settings
-        if(check_f!=0&&!check_f(myOptions)) {
+        if (check_f!=0&&!check_f(myOptions)) {
             return false;
         }
     } else {
@@ -121,7 +89,7 @@ OptionsSubSys::guiInit(fill_options *fill_f, const std::string &conf)
     (*fill_f)(myOptions);
     myOptions.set("configuration-file", conf);
     // parse options
-    if(!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
+    if (!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
         // the options could not be parsed
         //  - something is wrong with the calling parameter
         return false;
@@ -148,10 +116,10 @@ bool
 OptionsSubSys::helper_CSVOptionMatches(const std::string &optionName,
                                        const std::string &itemName)
 {
-    if(myOptions.isSet(optionName)) {
+    if (myOptions.isSet(optionName)) {
         StringTokenizer st(myOptions.getString(optionName), ";");
-        while(st.hasNext()) {
-            if(st.next()==itemName) {
+        while (st.hasNext()) {
+            if (st.next()==itemName) {
                 return true;
             }
         }
@@ -160,8 +128,6 @@ OptionsSubSys::helper_CSVOptionMatches(const std::string &optionName,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

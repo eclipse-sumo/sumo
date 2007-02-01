@@ -1,159 +1,56 @@
-#ifndef SUMOXMLDefinitions_h
-#define SUMOXMLDefinitions_h
-//---------------------------------------------------------------------------//
-//                        SUMOXMLDefinitions.h -
-//  Definitions of SUMO-tags
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    SUMOXMLDefinitions.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Definitions of SUMO-tags
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.38  2006/11/14 06:52:58  dkrajzew
-// code beautifying
-//
-// Revision 1.36  2006/11/03 23:05:34  behrisch
-// Syntactic sugar
-//
-// Revision 1.35  2006/07/06 05:57:49  dkrajzew
-// removed unneeded values
-//
-// Revision 1.34  2006/02/23 11:35:55  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.33  2006/01/26 08:54:59  dkrajzew
-// missing files added
-//
-// Revision 1.32  2005/11/09 06:47:53  dkrajzew
-// tls-api changes
-//
-// Revision 1.31  2005/10/07 11:47:29  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.30  2005/09/15 12:22:16  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.29  2005/04/28 09:02:50  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.28  2004/11/23 10:36:37  dkrajzew
-// debugging
-//
-// Revision 1.27  2004/06/17 13:08:48  dkrajzew
-// Polygon visualisation added
-//
-// Revision 1.26  2004/04/14 13:44:59  roessel
-// Added Tags and Attributes for supplementary-weights.
-//
-// Revision 1.25  2004/01/27 08:44:13  dkrajzew
-// given flow definitions an own tag
-//
-// Revision 1.24  2004/01/26 07:15:54  dkrajzew
-// new tags added for detector and trip amounts handling
-//
-// Revision 1.23  2004/01/13 14:29:19  dkrajzew
-// added alternative detector description
-//
-// Revision 1.22  2004/01/12 15:14:09  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.21  2004/01/12 14:40:16  dkrajzew
-// added detector attributes
-//
-// Revision 1.20  2003/12/04 13:15:43  dkrajzew
-// handling of internal links added
-//
-// Revision 1.19  2003/12/04 13:14:08  dkrajzew
-// gfx-module added temporary to sumo
-//
-// Revision 1.18  2003/11/24 10:19:13  dkrajzew
-// handling of definitions for minimum and maximum phase duration added
-//
-// Revision 1.17  2003/11/17 07:23:07  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.16  2003/09/05 15:28:07  dkrajzew
-// tags for internal link handling added
-//
-// Revision 1.15  2003/08/18 12:49:30  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.14  2003/07/30 09:28:40  dkrajzew
-// link direction and priority attribute names added
-//
-// Revision 1.13  2003/07/16 15:39:39  dkrajzew
-// color attribute added
-//
-// Revision 1.12  2003/07/08 12:11:08  dkrajzew
-// comma at end of list - warning patched
-//
-// Revision 1.11  2003/07/07 08:50:29  dkrajzew
-// added tags for shapes and lane position description
-//
-// Revision 1.10  2003/06/19 11:02:48  dkrajzew
-// usage of false tag-enums patched
-//
-// Revision 1.9  2003/06/05 14:30:53  dkrajzew
-// new attributes needed for loading new traffic lights added
-//
-// Revision 1.8  2003/05/21 15:15:43  dkrajzew
-// yellow lights implemented (vehicle movements debugged
-//
-// Revision 1.7  2003/05/20 09:52:39  dkrajzew
-// MSTrafficLane-transformations were no longer needed
-//
-// Revision 1.6  2003/03/20 16:41:12  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.5  2003/03/03 15:27:01  dkrajzew
-// period attribute for router added
-//
-// Revision 1.4  2003/02/07 10:53:23  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef SUMOXMLDefinitions_h
+#define SUMOXMLDefinitions_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * definitions
- * ======================================================================= */
+// ===========================================================================
+// definitions
+// ===========================================================================
 /**
  * Numbers representing SUMO-XML - tags (element names)
  */
@@ -263,8 +160,8 @@ enum TagEnum
     SUMO_TAG_SINK,
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_WEIGHT,
-	SUMO_TAG_REROUTE_AGENT,
-	SUMO_TAG_PARAM
+    SUMO_TAG_REROUTE_AGENT,
+    SUMO_TAG_PARAM
 };
 
 
@@ -365,17 +262,17 @@ enum AttrEnum
     SUMO_ATTR_VIA,
     SUMO_ATTR_INTERNALEND,
     // Attributes for actuated traffic lights:
-        /// minimum duration of a phase
+    /// minimum duration of a phase
     SUMO_ATTR_MINDURATION,
-        /// maximum duration of a phase
+    /// maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
     // Attributes for junction-internal lanes
-        /// Information within the junction logic which internal lanes block external
+    /// Information within the junction logic which internal lanes block external
     SUMO_ATTR_FOES,
     // Attributes for detectors
-        /// Measures to retrieve
+    /// Measures to retrieve
     SUMO_ATTR_MEASURES,
-        /// Information whether the detector shall be continued on the folowing lanes
+    /// Information whether the detector shall be continued on the folowing lanes
     SUMO_ATTR_CONT,
     SUMO_ATTR_HALTING_TIME_THRESHOLD,
     SUMO_ATTR_HALTING_SPEED_THRESHOLD,
@@ -398,19 +295,19 @@ enum AttrEnum
     SUMO_ATTR_VIEWDIST,
     SUMO_ATTR_ONESHOT,
 
-	// IP host name as string or dotted IP address (aaa.bbb.ccc.ddd)
-	SUMO_ATTR_HOST,
-	// IP port number (1..65535)
-	SUMO_ATTR_PORT,
-	// IP protocol (either 'udp', 'tcp-client' or 'tcp-server')
-	SUMO_ATTR_PROTOCOL
+    // IP host name as string or dotted IP address (aaa.bbb.ccc.ddd)
+    SUMO_ATTR_HOST,
+    // IP port number (1..65535)
+    SUMO_ATTR_PORT,
+    // IP protocol (either 'udp', 'tcp-client' or 'tcp-server')
+    SUMO_ATTR_PROTOCOL
 
 };
 
 
-/* =========================================================================
- * declarations
- * ======================================================================= */
+// ===========================================================================
+// declarations
+// ===========================================================================
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
@@ -422,11 +319,7 @@ extern size_t noSumoAttrs;
 extern AttributesHandler::Attr sumoattrs[91];
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

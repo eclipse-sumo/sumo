@@ -1,81 +1,57 @@
-#ifndef GUIMainWindow_h
-#define GUIMainWindow_h
-//---------------------------------------------------------------------------//
-//                        GUIMainWindow.h -
+/****************************************************************************/
+/// @file    GUIMainWindow.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/11/28 12:10:45  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.9  2006/11/16 10:50:53  dkrajzew
-// warnings removed
-//
-// Revision 1.8  2006/08/01 05:43:46  dkrajzew
-// cartesian and geocoordinates are shown; changed the APIs for this
-//
-// Revision 1.7  2005/11/09 06:46:34  dkrajzew
-// added cursor position output (unfinished)
-//
-// Revision 1.6  2005/10/07 11:46:08  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:20:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/12 12:52:07  dkrajzew
-// code style adapted
-//
-// Revision 1.4  2005/06/14 11:29:51  dksumo
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIMainWindow_h
+#define GUIMainWindow_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <vector>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class GUIMainWindow : public FXMainWindow {
+class GUIMainWindow : public FXMainWindow
+{
 public:
-	GUIMainWindow(FXApp* a, int glWidth, int glHeight);
-	virtual ~GUIMainWindow();
+    GUIMainWindow(FXApp* a, int glWidth, int glHeight);
+    virtual ~GUIMainWindow();
     /// Adds a further child window to the list
     void addChild(FXMDIChild *child, bool updateOnSimStep=true);
     void addChild(FXMainWindow *child, bool updateOnSimStep=true);
@@ -86,7 +62,7 @@ public:
 
     void updateChildren();
 
-	FXFont *getBoldFont();
+    FXFont *getBoldFont();
 
     /// Returns the maximum width of gl-windows
     int getMaxGLWidth() const;
@@ -94,21 +70,22 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
-	FXGLVisual *getGLVisual() const;
+    FXGLVisual *getGLVisual() const;
 
-	virtual FXGLCanvas *getBuildGLCanvas() const = 0;
+    virtual FXGLCanvas *getBuildGLCanvas() const = 0;
 
     virtual size_t getCurrentSimTime() const = 0;
 
     virtual void loadSelection(const std::string &file) const = 0;
 
-    virtual void setStatusBarText(const std::string &) { }
+    virtual void setStatusBarText(const std::string &)
+    { }
 
     void setCartesianPos(SUMOReal x, SUMOReal y);
     void setGeoPos(SUMOReal x, SUMOReal y);
 
 protected:
-	std::vector<FXMDIChild*> mySubWindows;
+    std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
     FXMutex myTrackerLock;
@@ -138,13 +115,13 @@ protected:
     bool myRunAtBegin;
 
 protected:
-	GUIMainWindow() { }
+    GUIMainWindow()
+    { }
 
 };
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

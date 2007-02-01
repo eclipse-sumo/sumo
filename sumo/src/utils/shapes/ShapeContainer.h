@@ -1,26 +1,48 @@
+/****************************************************************************/
+/// @file    ShapeContainer.h
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef ShapeContainer_h
 #define ShapeContainer_h
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/helpers/NamedObjectCont.h>
 #include <utils/shapes/Polygon2D.h>
 #include "PointOfInterest.h"
 
-class ShapeContainer {
+class ShapeContainer
+{
 public:
     ShapeContainer();
     virtual ~ShapeContainer();
@@ -29,7 +51,7 @@ public:
 
     bool add(int layer, PointOfInterest *p);
 
-	bool save(const std::string &file);
+    bool save(const std::string &file);
 
     NamedObjectCont<Polygon2D*> &getPolygonCont(int layer) const;
     NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const;
@@ -46,4 +68,8 @@ private:
 
 };
 
+
 #endif
+
+/****************************************************************************/
+

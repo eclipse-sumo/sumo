@@ -1,88 +1,40 @@
+/****************************************************************************/
+/// @file    GenericSAX2Handler.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 15 Apr 2002
+/// @version $Id: $
+///
+// A class extending the SAX-parser functionality
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef GenericSAX2Handler_h
 #define GenericSAX2Handler_h
-/***************************************************************************
-                          GenericSAX2Handler.h
-                          A class extending the SAX-parser functionality
-                             -------------------
-    begin                : Mon, 15 Apr 2002
-    copyright            : (C) 2002 by Daniel Krajzewicz
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
-    Attention!!!
-    As one of few, this module is under the
-        Lesser GNU General Public Licence
-    *********************************************************************
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
- ***************************************************************************/
-// $Log$
-// Revision 1.10  2006/10/12 10:14:32  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.9  2005/10/07 11:47:41  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/15 12:22:26  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/05/04 09:11:17  dkrajzew
-// speeded up the reading of xml-files
-//
-// Revision 1.6  2004/11/23 10:36:50  dkrajzew
-// debugging
-//
-// Revision 1.5  2003/08/18 12:49:31  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.4  2003/03/18 13:16:58  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/03 15:26:23  dkrajzew
-// documentation added
-//
-// Revision 1.2  2003/02/07 10:53:52  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:54:04  dkrajzew
-// initial commit for xml-related utility functions
-//
-// Revision 1.6  2002/06/11 14:38:21  dkrajzew
-// windows eol removed
-//
-// Revision 1.5  2002/06/11 13:43:36  dkrajzew
-// Windows eol removed
-//
-// Revision 1.4  2002/06/10 08:33:22  dkrajzew
-// Parsing of strings into other data formats generelized;
-//  Options now recognize false numeric values; documentation added
-//
-// Revision 1.3  2002/04/17 11:19:57  dkrajzew
-// windows-carriage returns removed
-//
-// Revision 1.2  2002/04/16 06:52:01  dkrajzew
-// documentation added; coding standard attachements added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <stack>
@@ -93,17 +45,17 @@
 #include <sax2/DefaultHandler.hpp>
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GenericSAX2Handler
  * GenericSAX2Handler is an extended SAX2-DefaultHandler which provides a faster access
@@ -115,7 +67,8 @@ class GenericSAX2Handler : public DefaultHandler
 {
 public:
     /** a tag name with its numerical representation */
-    struct Tag {
+    struct Tag
+    {
         /// The xml-element-name (latin1)
         const char *name;
         /// The numerical representation of the attribute
@@ -144,7 +97,7 @@ public:
     /** @brief The inherited method called when a new tag opens
         This method calls the user-implemented methof myStartElement */
     void startElement(const XMLCh* const uri, const XMLCh* const localname,
-        const XMLCh* const qname, const Attributes& attrs);
+                      const XMLCh* const qname, const Attributes& attrs);
 
     /** @brief The inherited method called when characters occured
         The characters are appended into a private buffer and given to
@@ -155,11 +108,11 @@ public:
         This method calls the user-implemented methods myCharacters and
         and myEndElement */
     void endElement(const XMLCh* const uri, const XMLCh* const localname,
-        const XMLCh* const qname);
+                    const XMLCh* const qname);
 
     /** called when ignorable whitespaces occure */
     void ignorableWhitespace(const XMLCh* const chars,
-        const unsigned int length);
+                             const unsigned int length);
 
     /** called when the document shall be resetted */
     virtual void resetDocument();
@@ -177,12 +130,12 @@ protected:
     /** @brief handler method for an opening tag to implement by derived classes
         This method is only called when the tag name was supplied by the user */
     virtual void myStartElement(int element, const std::string &name,
-        const Attributes &attrs) = 0;
+                                const Attributes &attrs) = 0;
 
     /** @brief handler method for characters to implement by derived classes
         This method is only called when tha tag name was supplied by the user */
     virtual void myCharacters(int element, const std::string &name,
-        const std::string &chars) = 0;
+                              const std::string &chars) = 0;
 
     /** @brief handler method for a closing tag to implement by derived classes
         This tag is only called when tha tag name was supplied by the user */
@@ -190,19 +143,19 @@ protected:
 
     /** a dump-methods that may be used to avoid "unused attribute"-warnings */
     void myStartElementDump(int element, const std::string &name,
-        const Attributes &attrs);
+                            const Attributes &attrs);
 
     /** a dump-methods that may be used to avoid "unused attribute"-warnings */
     void myCharactersDump(int element, const std::string &name,
-        const std::string &chars);
+                          const std::string &chars);
 
     /** a dump-methods that may be used to avoid "unused attribute"-warnings */
     void myEndElementDump(int element, const std::string &name);
 
     /** build an error description */
     std::string buildErrorMessage(const std::string &file,
-        const std::string &type,
-        const SAXParseException& exception);
+                                  const std::string &type,
+                                  const SAXParseException& exception);
 
 protected:
     /** the type of the map the maps tag names to ints */
@@ -229,10 +182,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-//
+/****************************************************************************/
+

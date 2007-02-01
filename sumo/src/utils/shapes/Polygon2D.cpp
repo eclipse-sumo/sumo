@@ -1,65 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        Polygon2D.h -
-//  A 2d-polygon
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jun 2004
-//  copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    Polygon2D.cpp
+/// @author  unknown_author
+/// @date    Jun 2004
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.3  2006/08/01 05:48:42  dkrajzew
-// added the possibility to make a polygon being filled or not
-//
-// Revision 1.2  2005/10/07 11:47:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.1  2005/09/15 12:22:04  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2005/09/09 12:56:51  dksumo
-// shape handling added
-//
-// Revision 1.2  2005/06/14 11:29:50  dksumo
-// documentation added
-//
-// Revision 1.1  2004/10/22 12:50:44  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.1  2004/06/17 13:08:36  dkrajzew
-// Polygon visualisation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "Polygon2D.h"
 #include <utils/gfx/RGBColor.h>
@@ -69,29 +42,27 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member definitions
- * ======================================================================= */
+// ===========================================================================
+// member definitions
+// ===========================================================================
 //////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 //////////////////////////////////////////////////////////////////////
 Polygon2D::Polygon2D(const std::string name, const std::string type,
                      const RGBColor &color, const Position2DVector &Pos,
                      bool fill)
-    : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill)
-{
-}
+        : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill)
+{}
 
 
 Polygon2D::~Polygon2D()
-{
-}
+{}
 
 
 //////////////////////////////////////////////////////////////////////
@@ -133,7 +104,7 @@ Polygon2D::getPosition2DVector() const
 void
 Polygon2D::addPolyPosition(Position2DVector &myNewPos)
 {
-     myPos = myNewPos;
+    myPos = myNewPos;
 
 }
 
@@ -145,10 +116,6 @@ Polygon2D::fill() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

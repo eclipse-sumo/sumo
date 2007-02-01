@@ -1,129 +1,47 @@
-#ifndef WrappingCommand_H
-#define WrappingCommand_H
-/***************************************************************************
-                          WrappingCommand.h  -  Command-pattern-class for
-                          simple commands, that need no parameters and no
-                          undo.
-                             -------------------
-    begin                : Thu, 20 Dec 2001
-    copyright            : (C) 2001 by Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/**
- * @file   WrappingCommand.h
- * @author Christian Roessel
- * @date   Started Thu, 20 Dec 2001
- * $Revision$ from $Date$ by $Author$
- *
- * @brief  Contains the implementation of WrappingCommand
- */
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-// $Log$
-// Revision 1.1  2006/03/17 09:15:11  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+/****************************************************************************/
+/// @file    WrappingCommand.h
+/// @author  Christian Roessel
+/// @date    Thu, 20 Dec 2001
+/// @version $Id: $
+///
+// simple commands, that need no parameters and no
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.2  2005/10/06 13:39:50  dksumo
-// using of a configuration file rechecked
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.1  2005/09/09 12:56:08  dksumo
-// helpers added
-//
-// Revision 1.3  2005/05/30 08:15:45  dksumo
-// comments added
-//
-// Revision 1.2  2005/02/01 09:49:24  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.1  2004/10/22 12:49:23  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.6  2003/08/06 16:52:04  roessel
-// Better distinction between steps and seconds added.
-//
-// Revision 1.5  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.4  2003/06/06 14:43:35  roessel
-// Moved implementation from .icc to .h
-// Added documentation.
-//
-// Revision 1.3  2003/02/07 10:40:13  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/16 16:53:12  dkrajzew
-// global inclusion
-//
-// Revision 1.1  2002/10/16 14:44:45  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.3  2002/07/31 17:35:56  roessel
-// Changes since sourceforge cvs request.
-//
-// Revision 1.5  2002/07/30 15:10:36  croessel
-// Undid previous commit
-//
-// Revision 1.3  2002/07/23 14:02:53  croessel
-// Switched order of members.
-//
-// Revision 1.2  2002/06/18 16:35:37  croessel
-// Moved deinition to cpp or icc in order to make files cfront compliant.
-//
-// Revision 1.1.1.1  2002/04/08 07:21:22  traffic
-// new project name
-//
-// Revision 2.0  2002/02/14 14:43:13  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.5  2002/01/30 11:15:51  croessel
-// Documentation added.
-//
-// Revision 1.4  2002/01/17 15:19:32  croessel
-// Changed the return-type of the possible operations from void to
-// MSNet::Time. Valuable for periodic commands, i.e. traffic-light
-// switches.
-//
-// Revision 1.3  2002/01/17 15:09:45  croessel
-// Parse error fixed.
-//
-// Revision 1.2  2002/01/17 14:57:43  croessel
-// Missing execute() implementation added.
-//
-// Revision 1.1  2002/01/09 15:05:31  croessel
-// Initial commit.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef WrappingCommand_h
+#define WrappingCommand_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "Command.h"
 
 
-/* =========================================================================
- * class definition
- * ======================================================================= */
+// ===========================================================================
+// class definition
+// ===========================================================================
 /**
  * A command that takes no arguments. To be used with MSEventControl.
  * @see Design Patterns, Gamma et al.
@@ -135,7 +53,7 @@ class WrappingCommand : public Command
 {
 public:
     /// Type of the function to execute.
-    typedef SUMOTime ( T::* Operation )(SUMOTime);
+    typedef SUMOTime(T::* Operation)(SUMOTime);
 
     /**
      * Constructor.
@@ -147,13 +65,13 @@ public:
      *
      * @return Pointer to the created WrappingCommand.
      */
-    WrappingCommand( T* receiver, Operation operation )
-        : myReceiver( receiver ), myOperation( operation )
-        {}
+    WrappingCommand(T* receiver, Operation operation)
+            : myReceiver(receiver), myOperation(operation)
+    {}
 
     /// Destructor.
     ~WrappingCommand()
-        {}
+    {}
 
     /**
      * Execute the command and return an offset in steps for recurring
@@ -164,9 +82,9 @@ public:
      * commands.
      */
     SUMOTime execute(SUMOTime currentTime)
-        {
-            return ( myReceiver->*myOperation )(currentTime);
-        }
+    {
+        return (myReceiver->*myOperation)(currentTime);
+    }
 
 protected:
 
@@ -179,10 +97,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#endif // WrappingCommand_H
+#endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

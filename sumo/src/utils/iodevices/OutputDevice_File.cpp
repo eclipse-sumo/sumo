@@ -1,60 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        OutputDevice_COUT.cpp -
-//  An output device that encapsulates cout
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    OutputDevice_File.cpp
+/// @author  Daniel Krajzewicz
+/// @date    2004
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2005/10/07 11:46:44  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:21:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/28 09:02:49  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.3  2004/11/23 10:35:47  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/11/22 12:54:56  dksumo
-// tried to generelise the usage of detectors and output devices
-//
-// Revision 1.1  2004/10/22 12:50:58  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2004/08/02 13:01:16  dkrajzew
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include "OutputDevice_File.h"
@@ -64,19 +42,18 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 OutputDevice_File::OutputDevice_File(std::ofstream *strm)
-    : myFileStream(strm)
-{
-}
+        : myFileStream(strm)
+{}
 
 
 OutputDevice_File::~OutputDevice_File()
@@ -129,9 +106,5 @@ OutputDevice_File::closeInfo()
 
 
 
+/****************************************************************************/
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:

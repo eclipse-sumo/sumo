@@ -1,126 +1,70 @@
+/****************************************************************************/
+/// @file    AttributesHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 15 Apr 2002
+/// @version $Id: $
+///
+// This class realises the access to the
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef AttributesHandler_h
 #define AttributesHandler_h
-/***************************************************************************
-                          AttributesHandler.h
-                          This class realises the access to the
-                            SAX2-Attributes
-                             -------------------
-    begin                : Mon, 15 Apr 2002
-    copyright            : (C) 2002 by Daniel Krajzewicz
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
-    Attention!!!
-    As one of few, this module is under the
-        Lesser GNU General Public Licence
-    *********************************************************************
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
- ***************************************************************************/
-// $Log$
-// Revision 1.13  2007/01/12 11:35:54  behrisch
-// Enable MSVC8 compilation
-//
-// Revision 1.12  2006/04/07 10:42:44  dkrajzew
-// speeded up trip definition loading
-//
-// Revision 1.11  2005/10/07 11:47:41  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/23 06:12:43  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 12:22:26  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/04/28 09:02:50  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.7  2004/11/23 10:36:50  dkrajzew
-// debugging
-//
-// Revision 1.6  2003/09/05 15:28:46  dkrajzew
-// secure retrival of boolean values added
-//
-// Revision 1.5  2003/08/18 12:49:31  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.4  2003/03/18 13:16:58  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/03 15:26:22  dkrajzew
-// documentation added
-//
-// Revision 1.2  2003/02/07 10:53:52  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:54:04  dkrajzew
-// initial commit for xml-related utility functions
-//
-// Revision 1.6  2002/06/11 14:38:21  dkrajzew
-// windows eol removed
-//
-// Revision 1.5  2002/06/11 13:43:36  dkrajzew
-// Windows eol removed
-//
-// Revision 1.4  2002/06/10 08:33:22  dkrajzew
-// Parsing of strings into other data formats generelized;
-//  Options now recognize false numeric values; documentation added
-//
-// Revision 1.3  2002/04/17 11:19:57  dkrajzew
-// windows-carriage returns removed
-//
-// Revision 1.2  2002/04/16 06:52:01  dkrajzew
-// documentation added; coding standard attachements added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class AttributesHandler
  * To allow a better access to the SAX2-Attributes considering their representation
  * as unsigned short * and the so needed conversion utils, this class allows
  * to access them via a numerical id supplied before parsing of the document
  */
-class AttributesHandler {
+class AttributesHandler
+{
 public:
     /** the structure that describes the relationship between an attribute
         name and its numerical representation */
-    struct Attr {
+    struct Attr
+    {
         /// The xml-attribute-name (latin1)
         const char *name;
         /// The numerical representation of the attribute
@@ -159,10 +103,10 @@ public:
     /** returns the named (by id) attribute as a string */
     std::string getString(const Attributes &attrs, int id) const;
     std::string getStringSecure(const Attributes &attrs, int id,
-        const std::string &str) const;
+                                const std::string &str) const;
     std::string getString(const Attributes &attrs, const std::string &id) const;
     std::string getStringSecure(const Attributes &attrs, const std::string &id,
-        const std::string &str) const;
+                                const std::string &str) const;
 
     /** returns the named (by id) attribute as a long */
     long getLong(const Attributes &attrs, int id) const;
@@ -194,12 +138,12 @@ private:
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
     const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-        int id) const;
+                                         int id) const;
 
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
     const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-        const std::string &id) const;
+                                         const std::string &id) const;
 
 private:
     /** invalidated copy constructor */
@@ -224,10 +168,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-//
+/****************************************************************************/
+

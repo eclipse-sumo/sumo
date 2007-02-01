@@ -1,99 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIDialog_ViewSettings.cpp -
-//  The application-settings dialog
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 21. Dec 2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIDialog_ViewSettings.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 21. Dec 2005
+/// @version $Id: $
+///
+// The application-settings dialog
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2007/01/09 11:12:02  dkrajzew
-// the names of nodes, additional structures, vehicles, edges, pois may now be shown
-//
-// Revision 1.17  2007/01/08 12:11:19  dkrajzew
-// visualization of poi and detector names added
-//
-// Revision 1.16  2006/12/21 13:23:56  dkrajzew
-// added visualization of tls/junction link indices
-//
-// Revision 1.15  2006/12/20 08:37:30  dkrajzew
-// title text fixed
-//
-// Revision 1.14  2006/12/18 08:24:58  dkrajzew
-// made several visualization things optional
-//
-// Revision 1.13  2006/11/28 12:10:45  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.12  2006/11/16 13:56:45  dkrajzew
-// warnings removed
-//
-// Revision 1.11  2006/09/18 11:49:06  dkrajzew
-// code beautifying
-//
-// Revision 1.10  2006/09/18 11:34:21  dkrajzew
-// debugged building on Windows
-//
-// Revision 1.9  2006/09/18 10:18:23  dkrajzew
-// debugging
-//
-// Revision 1.8  2006/07/06 05:55:59  dkrajzew
-// added the "show blinker" option
-//
-// Revision 1.7  2006/06/22 07:19:02  dkrajzew
-// set the correct number of visible items
-//
-// Revision 1.6  2006/06/13 13:14:14  dkrajzew
-// made static comboboxes really static
-//
-// Revision 1.5  2006/04/07 10:41:49  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.4  2006/03/09 10:59:25  dkrajzew
-// debugging
-//
-// Revision 1.3  2006/01/31 11:02:37  dkrajzew
-// added the possibility to exaggerate pois
-//
-// Revision 1.2  2006/01/19 13:36:38  dkrajzew
-// debugging the resize bug
-//
-// Revision 1.1  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIDialog_ViewSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -112,54 +51,57 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[]=
-{
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onChgNameChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_SAVE,              GUIDialog_ViewSettings::onCmdSave),
-    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
-};
+    {
+        FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
+        FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
+        FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onChgNameChange),
+        FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_SAVE,              GUIDialog_ViewSettings::onCmdSave),
+        FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
+    };
 
 
 FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRAYNUMBER(GUIDialog_ViewSettingsMap))
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
-            GUISUMOAbstractView *parent,
-            GUISUMOAbstractView::VisualizationSettings *settings,
-            BaseSchemeInfoSource *laneEdgeModeSource,
-            BaseSchemeInfoSource *vehicleModeSource,
-            std::vector<GUISUMOAbstractView::Decal> *decals,
-            FXMutex *decalsLock)
-    : FXDialogBox( parent, "View Settings" ),
-    myMainWindow(mainWindow), myParent(parent), mySettings(settings),
-    myLaneColoringInfoSource(laneEdgeModeSource),
-    myVehicleColoringInfoSource(vehicleModeSource),
-    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
+        GUISUMOAbstractView *parent,
+        GUISUMOAbstractView::VisualizationSettings *settings,
+        BaseSchemeInfoSource *laneEdgeModeSource,
+        BaseSchemeInfoSource *vehicleModeSource,
+        std::vector<GUISUMOAbstractView::Decal> *decals,
+        FXMutex *decalsLock)
+        : FXDialogBox(parent, "View Settings"),
+        myMainWindow(mainWindow), myParent(parent), mySettings(settings),
+        myLaneColoringInfoSource(laneEdgeModeSource),
+        myVehicleColoringInfoSource(vehicleModeSource),
+        myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
 {
     myBackup = (*mySettings);
 
     FXVerticalFrame *contentFrame =
         new FXVerticalFrame(this, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-        0,0,0,0, 0,0,0,0, 5,5);
+                            0,0,0,0, 0,0,0,0, 5,5);
     //
     mySchemeName = new FXComboBox(contentFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST|FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
     const std::vector<std::string> &names = gSchemeStorage.getNames();
-    for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
         mySchemeName->appendItem((*i).c_str());
     }
     mySchemeName->setNumVisible(5);
@@ -174,12 +116,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m1 =
             new FXMatrix(frame1,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         new FXLabel(m1, "Color", 0, LAYOUT_CENTER_Y);
         myBackgroundColor = new FXColorWell(m1, convert(settings->backgroundColor),
-            this, MID_SIMPLE_VIEW_COLORCHANGE,
-            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-            0, 0, 100, 0,   0, 0, 0, 0);
+                                            this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                            0, 0, 100, 0,   0, 0, 0, 0);
 
         new FXHorizontalSeparator(frame1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -195,7 +137,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
         FXMatrix *m21 =
             new FXMatrix(s2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         laneEdgeModeSource->fill(*myLaneEdgeColorMode);
@@ -207,7 +149,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m22 =
             new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
@@ -221,19 +163,19 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowEdgeName->setCheck(mySettings->drawEdgeName);
         myEdgeNameSizeDialer =
             new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myEdgeNameSizeDialer->setRange(10, 1000);
         myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
     }
     {
-        if(myVehicleColoringInfoSource!=0) {
+        if (myVehicleColoringInfoSource!=0) {
             FXTabItem *tab3 = new FXTabItem(tabbook,"Vehicles",NULL);
             FXVerticalFrame *frame3 =
                 new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
             FXMatrix *m31 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                    0,0,0,0, 10,10,10,10, 5,5);
+                             0,0,0,0, 10,10,10,10, 5,5);
             new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
             FXComboBox *c31 = new FXComboBox(m31, 20, 0, 0, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             c31->appendItem("triangles");
@@ -248,7 +190,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             FXSplitter *s3 = new FXSplitter(frame3, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,400);
             FXMatrix *m32 =
                 new FXMatrix(s3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                    0,0,0,0, 10,10,10,10, 5,5);
+                             0,0,0,0, 10,10,10,10, 5,5);
             new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
             myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             myVehicleColoringInfoSource->fill(*myVehicleColorMode);
@@ -260,7 +202,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
             FXMatrix *m33 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                    0,0,0,0, 10,10,10,10, 5,5);
+                             0,0,0,0, 10,10,10,10, 5,5);
             myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowBlinker->setCheck(mySettings->showBlinker);
             new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
@@ -274,7 +216,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             myShowVehicleName->setCheck(mySettings->drawVehicleName);
             myVehicleNameSizeDialer =
                 new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
+                                   CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
             myVehicleNameSizeDialer->setRange(10, 1000);
             myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
             /*
@@ -288,16 +230,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
             FXMatrix *m34 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                    0,0,0,0, 10,10,10,10, 5,5);
+                             0,0,0,0, 10,10,10,10, 5,5);
             new FXLabel(m34, "Minimum size to show", 0, LAYOUT_CENTER_Y);
             myVehicleMinSizeDialer =
                 new FXRealSpinDial(m34, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                                   LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
             myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
             new FXLabel(m34, "Exaggerate by", 0, LAYOUT_CENTER_Y);
             myVehicleUpscaleDialer =
                 new FXRealSpinDial(m34, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                                   LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
             myVehicleUpscaleDialer->setRange(1, 100);
             myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
         }
@@ -309,7 +251,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m33 =
             new FXMatrix(frame4,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-            0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         myShowTLIndex = new FXCheckButton(m33, "Show link tls index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
@@ -320,7 +262,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowJunctionName->setCheck(mySettings->drawJunctionName);
         myJunctionNameSizeDialer =
             new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
+                               FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
         myJunctionNameSizeDialer->setRange(10, 1000);
         myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
     }
@@ -331,23 +273,23 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m51 =
             new FXMatrix(frame5,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         new FXLabel(m51, "Minimum size to show", 0, LAYOUT_CENTER_Y);
         myDetectorMinSizeDialer =
             new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
         new FXLabel(m51, "Exaggerate by", 0, LAYOUT_CENTER_Y);
         myDetectorUpscaleDialer =
             new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myDetectorUpscaleDialer->setRange(1, 100);
         myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
         myShowAddName = new FXCheckButton(m51, "Show detector names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowAddName->setCheck(mySettings->drawAddName);
         myAddNameSizeDialer =
             new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
+                               FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
         myAddNameSizeDialer->setRange(10, 1000);
         myAddNameSizeDialer->setValue(mySettings->addNameSize);
     }
@@ -358,7 +300,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m61 =
             new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         myShowLane2Lane = new FXCheckButton(m61, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLane2Lane->setCheck(mySettings->showLane2Lane);
 
@@ -366,7 +308,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         FXMatrix *m62 =
             new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         myAntialiase = new FXCheckButton(m62, "Antialiase", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myAntialiase->setCheck(mySettings->antialiase);
         myDither = new FXCheckButton(m62, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -374,26 +316,26 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
         new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-		new FXLabel(frame6, "points of interest");
+        new FXLabel(frame6, "points of interest");
         FXMatrix *m63 =
             new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0, 10,10,10,10, 5,5);
+                         0,0,0,0, 10,10,10,10, 5,5);
         new FXLabel(m63, "Minimum size to show", 0, LAYOUT_CENTER_Y);
         myPOIMinSizeDialer =
             new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOIMinSizeDialer->setValue(mySettings->minAddSize);
         new FXLabel(m63, "Exaggerate by", 0, LAYOUT_CENTER_Y);
         myPOIUpscaleDialer =
             new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOIUpscaleDialer->setRange(1, 100);
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
         myShowPOIName = new FXCheckButton(m63, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowPOIName->setCheck(mySettings->drawPOIName);
         myPOINameSizeDialer =
             new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOINameSizeDialer->setRange(10, 1000);
         myPOINameSizeDialer->setValue(mySettings->poiNameSize);
     }
@@ -434,8 +376,8 @@ long
 GUIDialog_ViewSettings::onCmdSave(FXObject*,FXSelector,void*)
 {
     string name = mySchemeName->getItemText(mySchemeName->getCurrentItem()).text();
-    if(gSchemeStorage.contains(name)) {
-        if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Settings?","Overwrite existing settings '%s'?", mySchemeName->getItemText(mySchemeName->getCurrentItem()).text())) {
+    if (gSchemeStorage.contains(name)) {
+        if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Settings?","Overwrite existing settings '%s'?", mySchemeName->getItemText(mySchemeName->getCurrentItem()).text())) {
             return 1;
         }
     }
@@ -456,9 +398,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 {
     FXString dataS = (char*) data; // !!!unicode
     // check whether this item has been added twice
-    if(dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {
-        for(int i=0; i<mySchemeName->getNumItems()-1; ++i) {
-            if(dataS==mySchemeName->getItemText(i)) {
+    if (dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {
+        for (int i=0; i<mySchemeName->getNumItems()-1; ++i) {
+            if (dataS==mySchemeName->getItemText(i)) {
                 mySchemeName->removeItem(i);
             }
         }
@@ -505,32 +447,32 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myDither->setCheck(mySettings->dither);
 
     // lanes
-    switch(myLaneColoringInfoSource->getColorSetType(myBackup.laneEdgeMode)) {
+    switch (myLaneColoringInfoSource->getColorSetType(myBackup.laneEdgeMode)) {
     case CST_SINGLE:
         mySingleLaneColor->setRGBA(convert(
-            mySettings->laneColorings[mySettings->laneEdgeMode][0]));
+                                       mySettings->laneColorings[mySettings->laneEdgeMode][0]));
         break;
     case CST_MINMAX:
         myMinLaneColor->setRGBA(convert(
-            mySettings->laneColorings[mySettings->laneEdgeMode][0]));
+                                    mySettings->laneColorings[mySettings->laneEdgeMode][0]));
         myMaxLaneColor->setRGBA(convert(
-            mySettings->laneColorings[mySettings->laneEdgeMode][1]));
+                                    mySettings->laneColorings[mySettings->laneEdgeMode][1]));
         break;
     default:
         break;
     }
     // vehicles
-    if(myVehicleColoringInfoSource!=0) {
-        switch(myVehicleColoringInfoSource->getColorSetType(myBackup.vehicleMode)) {
+    if (myVehicleColoringInfoSource!=0) {
+        switch (myVehicleColoringInfoSource->getColorSetType(myBackup.vehicleMode)) {
         case CST_SINGLE:
             mySingleVehicleColor->setRGBA(convert(
-                mySettings->vehicleColorings[mySettings->vehicleMode][0]));
+                                              mySettings->vehicleColorings[mySettings->vehicleMode][0]));
             break;
         case CST_MINMAX:
             myMinVehicleColor->setRGBA(convert(
-                mySettings->vehicleColorings[mySettings->vehicleMode][0]));
+                                           mySettings->vehicleColorings[mySettings->vehicleMode][0]));
             myMaxVehicleColor->setRGBA(convert(
-                mySettings->vehicleColorings[mySettings->vehicleMode][1]));
+                                           mySettings->vehicleColorings[mySettings->vehicleMode][1]));
             break;
         default:
             break;
@@ -558,7 +500,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->drawEdgeName = myShowEdgeName->getCheck()!=0;
     mySettings->edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
 
-    if(myVehicleColoringInfoSource!=0) {
+    if (myVehicleColoringInfoSource!=0) {
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
         mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
@@ -589,11 +531,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->dither = myDither->getCheck()!=0;
 
 
-    if(mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
+    if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
         rebuildColorMatrices(true);
     }
     // lanes
-    switch(myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
+    switch (myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
     case CST_SINGLE:
         mySettings->laneColorings[mySettings->laneEdgeMode][0] = convert(mySingleLaneColor->getRGBA());
         myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(
@@ -610,8 +552,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         break;
     }
     // vehicles
-    if(myVehicleColoringInfoSource!=0) {
-        switch(myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
+    if (myVehicleColoringInfoSource!=0) {
+        switch (myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
         case CST_SINGLE:
             mySettings->vehicleColorings[mySettings->vehicleMode][0] = convert(mySingleVehicleColor->getRGBA());
             myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(
@@ -637,9 +579,9 @@ RGBColor
 GUIDialog_ViewSettings::convert(const FXColor c)
 {
     return RGBColor(
-        (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
-        (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
-        (SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.);
+               (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
+               (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
+               (SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.);
 }
 
 
@@ -668,7 +610,7 @@ GUIDialog_ViewSettings::rebuildList()
     FXHeader *header = myDecalsTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
-    for(k=0; k<8; k++) {
+    for (k=0; k<8; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X|JUSTIFY_TOP);
     }
     header->setItemSize(0, 150); // !! check if the size will be changed
@@ -683,7 +625,7 @@ GUIDialog_ViewSettings::rebuildList()
     // insert into table
     size_t row = 0;
     std::vector<GUISUMOAbstractView::Decal>::iterator j;
-    for(j=myDecals->begin(); j!=myDecals->end(); ++j) {
+    for (j=myDecals->begin(); j!=myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal &d = *j;
         myDecalsTable->setItemText(row, 0, d.filename.c_str());
         myDecalsTable->setItemText(row, 1, toString<SUMOReal>(d.left).c_str());
@@ -696,7 +638,7 @@ GUIDialog_ViewSettings::rebuildList()
         row++;
     }
     // insert dummy last field
-    for(k=0; k<8; k++) {
+    for (k=0; k<8; k++) {
         myDecalsTable->setItemText(row, k, " ");
     }
     //
@@ -710,7 +652,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         // decals
         delete myDecalsTable;
         myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
-            LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
+                        LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
         myDecalsTable->setVisibleRows(5);
         myDecalsTable->setVisibleColumns(8);
         myDecalsTable->setTableSize(5,8);
@@ -718,27 +660,27 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         myDecalsTable->getRowHeader()->setWidth(0);
         myDecalsTable->setCellType(1, CT_REAL);
         myDecalsTable->setNumberCellParams(1, -10000000, 10000000,
-            10, 100, 100000, "%.2f");
+                                           10, 100, 100000, "%.2f");
         myDecalsTable->setCellType(2, CT_REAL);
         myDecalsTable->setNumberCellParams(2, -10000000, 10000000,
-            10, 100, 100000, "%.2f");
+                                           10, 100, 100000, "%.2f");
         myDecalsTable->setCellType(3, CT_REAL);
         myDecalsTable->setNumberCellParams(3, -10000000, 10000000,
-            10, 100, 100000, "%.2f");
+                                           10, 100, 100000, "%.2f");
         myDecalsTable->setCellType(4, CT_REAL);
         myDecalsTable->setNumberCellParams(4, -10000000, 10000000,
-            10, 100, 100000, "%.2f");
+                                           10, 100, 100000, "%.2f");
         myDecalsTable->setCellType(5, CT_REAL);
         myDecalsTable->setNumberCellParams(5, -10000000, 10000000,
-            .1, 1, 10, "%.2f");
+                                           .1, 1, 10, "%.2f");
         myDecalsTable->setCellType(6, CT_REAL);
         myDecalsTable->setNumberCellParams(6, -10000000, 10000000,
-            .1, 1, 10, "%.2f");
+                                           .1, 1, 10, "%.2f");
         myDecalsTable->setCellType(7, CT_REAL);
         myDecalsTable->setNumberCellParams(7, -10000000, 10000000,
-            .1, 1, 10, "%.2f");
+                                           .1, 1, 10, "%.2f");
         rebuildList();
-        if(doCreate) {
+        if (doCreate) {
             myDecalsTable->create();
         }
     }
@@ -746,30 +688,30 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         // lane
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
         FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,2,
-            LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-            0,0,0,80,10,10,10,10, 5,3);
+                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+                                   0,0,0,80,10,10,10,10, 5,3);
         mySingleLaneColor = 0;
         myMinLaneColor = 0;
         myMaxLaneColor = 0;
-        switch(myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
+        switch (myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
         case CST_SINGLE:
             new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
             mySingleLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
-                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                0, 0, 100, 0,   0, 0, 0, 0);
+                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                0, 0, 100, 0,   0, 0, 0, 0);
             break;
         case CST_MINMAX:
             new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
             myMinLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
-                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                0, 0, 100, 0,   0, 0, 0, 0);
+                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                             0, 0, 100, 0,   0, 0, 0, 0);
             new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
             myMaxLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][1]),
-                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                0, 0, 100, 0,   0, 0, 0, 0);
+                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                             0, 0, 100, 0,   0, 0, 0, 0);
             break;
         case CST_GRADIENT:
             break;
@@ -777,39 +719,39 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         default:
             break;
         }
-        if(doCreate) {
+        if (doCreate) {
             m->create();
         }
     }
     {
-        if(myVehicleColoringInfoSource!=0) {
+        if (myVehicleColoringInfoSource!=0) {
             // vehicles
             MFXUtils::deleteChildren(myVehicleColorSettingFrame);
             FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,2,
-                LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                0,0,0,80,10,10,10,10, 5,3);
+                                       LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+                                       0,0,0,80,10,10,10,10, 5,3);
             mySingleVehicleColor = 0;
             myMinVehicleColor = 0;
             myMaxVehicleColor = 0;
-            switch(myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
+            switch (myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
             case CST_SINGLE:
                 new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
                 mySingleVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
-                    this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                    0, 0, 100, 0,   0, 0, 0, 0);
+                                                       this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                       LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                       0, 0, 100, 0,   0, 0, 0, 0);
                 break;
             case CST_MINMAX:
                 new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
                 myMinVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
-                    this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                    0, 0, 100, 0,   0, 0, 0, 0);
+                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                    0, 0, 100, 0,   0, 0, 0, 0);
                 new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
                 myMaxVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][1]),
-                    this, MID_SIMPLE_VIEW_COLORCHANGE,
-                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                    0, 0, 100, 0,   0, 0, 0, 0);
+                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                    0, 0, 100, 0,   0, 0, 0, 0);
                 break;
             case CST_GRADIENT:
                 break;
@@ -817,7 +759,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             default:
                 break;
             }
-            if(doCreate) {
+            if (doCreate) {
                 m->create();
             }
         }
@@ -833,12 +775,12 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
     string value = i->item->getText().text();
     // check whether the inserted value is empty
-    if(value.find_first_not_of(" ")==string::npos) {
+    if (value.find_first_not_of(" ")==string::npos) {
         return 1;
     }
     GUISUMOAbstractView::Decal d;
     int row = i->row;
-    if(row==myDecals->size()) {
+    if (row==myDecals->size()) {
         d.filename = "";
         d.left = 0;
         d.top = 0;
@@ -846,14 +788,14 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         d.bottom = myParent->getGridHeight();
         d.initialised = false;
         d.rot = 0;
-        myDecalsLock->lock();
+        myDecalsLock->lock ();
         myDecals->push_back(d);
         myDecalsLock->unlock();
     } else {
         d = (*myDecals)[row];
     }
 
-    switch(i->col) {
+    switch (i->col) {
     case 0:
         d.filename = value;
         break;
@@ -929,7 +871,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         throw 1;
     }
     (*myDecals)[row] = d;
-    if(!i->updateOnly) {
+    if (!i->updateOnly) {
         rebuildList();
     }
     myParent->update();
@@ -937,10 +879,6 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

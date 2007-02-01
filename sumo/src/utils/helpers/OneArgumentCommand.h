@@ -1,81 +1,41 @@
-#ifndef OneArgumentCommand_H
-#define OneArgumentCommand_H
-
-/**
- * @file   OneArgumentCommand.h
- * @author Christian Roessel
- * @date   Started on Mon Jun  2 17:15:00 2003
- * $Revision$ from $Date$ by $Author$
- *
- * @brief Contains the implementation of OneArgumentCommand
- *
- *
- */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    OneArgumentCommand.h
+/// @author  Christian Roessel
+/// @date    on Mon Jun  2 17:15:00 2003
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-
-
-// $Log$
-// Revision 1.4  2006/11/14 13:04:19  dkrajzew
-// warnings removed
-//
-// Revision 1.3  2006/03/17 09:15:11  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.2  2005/10/06 13:39:50  dksumo
-// using of a configuration file rechecked
-//
-// Revision 1.1  2005/09/09 12:56:08  dksumo
-// helpers added
-//
-// Revision 1.2  2005/02/01 09:49:24  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.1  2004/10/22 12:49:23  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.7  2003/10/14 11:33:37  roessel
-// Switched from MSNet::Time to MSUnit::IntSteps.
-//
-// Revision 1.6  2003/08/06 16:53:01  roessel
-// Better distinction between steps and seconds added.
-//
-// Revision 1.5  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.4  2003/07/10 16:20:11  roessel
-// Bug fix: variable name must correspond to prototype.
-//
-// Revision 1.3  2003/06/06 15:36:15  roessel
-// Refined documentation.
-//
-// Revision 1.2  2003/06/06 14:09:21  roessel
-// Documentation added.
-//
-// Revision 1.1  2003/06/05 11:20:52  roessel
-// Initial commit.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef OneArgumentCommand_h
+#define OneArgumentCommand_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "Command.h"
 #include "microsim/MSUnit.h"
@@ -95,7 +55,7 @@ class OneArgumentCommand : public Command
 {
 public:
     /// Type of the function to execute.
-    typedef MSUnit::IntSteps ( T::* Operation )( Arg );
+    typedef MSUnit::IntSteps(T::* Operation)(Arg);
 
     /**
      * Constructor.
@@ -108,15 +68,13 @@ public:
      *
      * @return Pointer to the created OneArgumentCommand.
      */
-    OneArgumentCommand( T* receiver, Operation operation, Arg argument )
-        : myReceiver( receiver ), myOperation( operation ), myArgument( argument )
-        {
-        }
+    OneArgumentCommand(T* receiver, Operation operation, Arg argument)
+            : myReceiver(receiver), myOperation(operation), myArgument(argument)
+    {}
 
     /// Destructor.
     ~OneArgumentCommand()
-        {
-        }
+    {}
 
     /**
      * Execute the command and return an offset in steps for recurring
@@ -126,10 +84,10 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute(SUMOTime )
-        {
-            return ( myReceiver->*myOperation )( myArgument );
-        }
+    SUMOTime execute(SUMOTime)
+    {
+        return (myReceiver->*myOperation)(myArgument);
+    }
 
 protected:
 
@@ -144,8 +102,8 @@ private:
     Arg myArgument;
 };
 
-#endif // OneArgumentCommand_H
 
-// Local Variables:
-// mode:C++
-// End:
+#endif
+
+/****************************************************************************/
+

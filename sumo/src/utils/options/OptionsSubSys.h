@@ -1,85 +1,60 @@
-#ifndef OptionsSubSys_h
-#define OptionsSubSys_h
-//---------------------------------------------------------------------------//
-//                        SystemFrame.h -
-//  A set of actions common to all applications
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 23.06.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    OptionsSubSys.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 23.06.2003
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/01/09 13:38:04  dkrajzew
-// debugging error handling
-//
-// Revision 1.7  2005/10/07 11:46:56  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:21:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/07/12 12:52:56  dkrajzew
-// build number output added
-//
-// Revision 1.4  2005/05/04 09:28:01  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/11/23 10:36:02  dkrajzew
-// debugging
-//
-// Revision 1.2  2003/10/27 10:55:10  dkrajzew
-// problems on setting gui options patched - the configuration is not loaded directly any more
-//
-// Revision 1.1  2003/06/24 08:12:59  dkrajzew
-// a subsystem for option handling common to most of the applications added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef OptionsSubSys_h
+#define OptionsSubSys_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OptionsCont;
 
 
-/* =========================================================================
- * abstract method definitions
- * ======================================================================= */
-typedef void (fill_options)(OptionsCont &);
-typedef bool (check_options)(OptionsCont &);
+// ===========================================================================
+// abstract method definitions
+// ===========================================================================
+typedef void(fill_options)(OptionsCont &);
+typedef bool(check_options)(OptionsCont &);
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class OptionsSubSys
  * A class which holds the options for an application in a static container.
@@ -88,14 +63,15 @@ typedef bool (check_options)(OptionsCont &);
  * to all applications such as checking whether to print the help-screen,
  * validating the input etc.
  */
-class OptionsSubSys {
+class OptionsSubSys
+{
 public:
     /** @brief Initialises the options container
         fill_f is used to fill the given OptionsCont with values, check_f
         to validate them. This method performs the parsing of options and
         also other options-related function (printing the help screen etc.) */
     static bool init(bool loadConfig, int argc, char **argv,
-        fill_options *fill_f, check_options *check_f=0);
+                     fill_options *fill_f, check_options *check_f=0);
 
     /** @brief Initialisation method for gui-based applications
         We may be sure that we set our options when performing gui-based
@@ -104,7 +80,7 @@ public:
         or to print anything.
         The name will be inserted as the name of the configuration to load. */
     static bool guiInit(fill_options *fill_f,
-        const std::string &conf);
+                        const std::string &conf);
 
     /** @brief Retrives the options
         They should be initialised before. */
@@ -115,7 +91,7 @@ public:
 
     /// Returns the information whether the given option is set for the given id
     static bool helper_CSVOptionMatches(const std::string &optionName,
-        const std::string &itemName);
+                                        const std::string &itemName);
 
 protected:
     /// The static options container used
@@ -131,10 +107,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

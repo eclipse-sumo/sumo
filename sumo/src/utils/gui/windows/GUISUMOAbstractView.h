@@ -1,185 +1,40 @@
-#ifndef GUISUMOAbstractView_h
-#define GUISUMOAbstractView_h
-//---------------------------------------------------------------------------//
-//                        GUISUMOAbstractView.h -
-//  The base class for a view
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUISUMOAbstractView.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The base class for a view
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.26  2007/01/09 11:12:02  dkrajzew
-// the names of nodes, additional structures, vehicles, edges, pois may now be shown
-//
-// Revision 1.25  2007/01/08 12:11:19  dkrajzew
-// visualization of poi and detector names added
-//
-// Revision 1.24  2006/12/21 13:23:56  dkrajzew
-// added visualization of tls/junction link indices
-//
-// Revision 1.23  2006/12/18 08:24:58  dkrajzew
-// made several visualization things optional
-//
-// Revision 1.22  2006/12/12 12:11:04  dkrajzew
-// removed simple/full geometry options; everything is now drawn using full geometry
-//
-// Revision 1.21  2006/11/28 12:10:45  dkrajzew
-// got rid of FXEX-Mutex (now using the one supplied in FOX)
-//
-// Revision 1.20  2006/11/16 10:50:53  dkrajzew
-// warnings removed
-//
-// Revision 1.19  2006/09/18 10:18:23  dkrajzew
-// debugging
-//
-// Revision 1.18  2006/08/01 05:43:46  dkrajzew
-// cartesian and geocoordinates are shown; changed the APIs for this
-//
-// Revision 1.17  2006/07/06 05:55:59  dkrajzew
-// added the "show blinker" option
-//
-// Revision 1.16  2006/04/18 08:08:21  dkrajzew
-// added Danilot Tete-Boyoms poi-interaction
-//
-// Revision 1.15  2006/03/27 07:34:19  dkrajzew
-// shape layers added
-//
-// Revision 1.14  2006/03/08 13:17:56  dkrajzew
-// possibility to insert pois on the gui added (danilot tete-boyom)
-//
-// Revision 1.13  2006/02/23 11:37:55  dkrajzew
-// adding pois on the gui implemented (Danilot Tete Boyom)
-//
-// Revision 1.12  2006/01/31 11:03:01  dkrajzew
-// added the possibility to exaggerate pois; debugging the grid
-//
-// Revision 1.11  2006/01/19 09:27:12  dkrajzew
-// cursor position output finished
-//
-// Revision 1.10  2006/01/09 11:50:21  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.9  2005/11/09 06:46:34  dkrajzew
-// added cursor position output (unfinished)
-//
-// Revision 1.8  2005/10/07 11:46:08  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/23 06:11:14  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 12:20:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/07/12 12:52:07  dkrajzew
-// code style adapted
-//
-// Revision 1.4  2005/05/04 09:24:43  dkrajzew
-// entries for viewport definition added; popups now popup faster
-//
-// Revision 1.3  2004/12/15 09:20:19  dkrajzew
-// made guisim independent of giant/netedit
-//
-// Revision 1.2  2004/12/12 17:23:59  agaubatz
-// Editor Tool Widgets included
-//
-// Revision 1.1  2004/11/23 10:38:32  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/22 12:56:02  dksumo
-// coloring of lanes by loaded weights added
-//
-// Revision 1.2  2004/10/29 06:01:56  dksumo
-// renamed boundery to boundary
-//
-// Revision 1.1  2004/10/22 12:50:57  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.15  2004/08/02 11:54:52  dkrajzew
-// added the possibility to take snapshots
-//
-// Revision 1.14  2004/07/02 08:32:10  dkrajzew
-// changes due to the global object selection applied; some debugging (on zoom)
-//
-// Revision 1.13  2004/06/17 13:06:55  dkrajzew
-// Polygon visualisation added
-//
-// Revision 1.12  2004/04/02 11:11:24  dkrajzew
-// visualisation whether an item is selected added
-//
-// Revision 1.11  2004/03/19 12:54:08  dkrajzew
-// porting to FOX
-//
-// Revision 1.10  2004/01/26 06:47:11  dkrajzew
-// Added the possibility to draw arrows by a detector drawer;
-//  documentation added
-//
-// Revision 1.9  2003/11/12 14:07:46  dkrajzew
-// clean up after recent changes
-//
-// Revision 1.8  2003/09/23 14:25:13  dkrajzew
-// possibility to visualise detectors using different geometry complexities
-//  added
-//
-// Revision 1.7  2003/09/05 14:54:06  dkrajzew
-// implementations of artefact drawers moved to folder "drawerimpl"
-//
-// Revision 1.6  2003/08/15 12:19:16  dkrajzew
-// legend display patched
-//
-// Revision 1.5  2003/08/14 13:42:43  dkrajzew
-// definition of the tls/row - drawer added
-//
-// Revision 1.4  2003/07/30 08:52:16  dkrajzew
-// further work on visualisation of all geometrical objects
-//
-// Revision 1.3  2003/07/22 14:56:46  dkrajzew
-// changes due to new detector handling
-//
-// Revision 1.2  2003/07/16 15:18:23  dkrajzew
-// new interfaces for drawing classes; junction drawer interface added
-//
-// Revision 1.1  2003/05/20 09:25:13  dkrajzew
-// new view hierarchy; some debugging done
-//
-// Revision 1.6  2003/04/16 09:50:05  dkrajzew
-// centering of the network debugged; additional parameter of maximum display
-//  size added
-//
-// Revision 1.4  2003/04/02 11:50:28  dkrajzew
-// a working tool tip implemented
-//
-// Revision 1.3  2003/02/07 10:34:15  dkrajzew
-// files updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUISUMOAbstractView_h
+#define GUISUMOAbstractView_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -199,9 +54,9 @@
 #endif
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIGLObjectToolTip;
 class MSVehicle;
 class GUINet;
@@ -221,33 +76,35 @@ class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUISUMOAbstractView
  * This class is meant to be pure virtual later;
  * It shall be the main class to inherit views of the simulation (micro-
  * or macroscopic ones) from it.
  */
-class GUISUMOAbstractView : public FXGLCanvas {
-  FXDECLARE(GUISUMOAbstractView)
+class GUISUMOAbstractView : public FXGLCanvas
+{
+    FXDECLARE(GUISUMOAbstractView)
 public:
     /// constructor
     GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-        GUIGlChildWindow *parent, const GUIGrid &grid,
-        FXGLVisual *glVis);
+                        GUIGlChildWindow *parent, const GUIGrid &grid,
+                        FXGLVisual *glVis);
 
     /// constructor
     GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-        GUIGlChildWindow *parent, const GUIGrid &grid,
-        FXGLVisual *glVis, FXGLCanvas *share);
+                        GUIGlChildWindow *parent, const GUIGrid &grid,
+                        FXGLVisual *glVis, FXGLCanvas *share);
 
     /// destructor
     virtual ~GUISUMOAbstractView();
 
     /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow &) { }
+    virtual void buildViewToolBars(GUIGlChildWindow &)
+    { }
 
     /// recenters the view
     void recenterView();
@@ -288,8 +145,8 @@ public:
     /// A reimplementation due to some internal reasons
     FXbool makeCurrent();
 
-	/// returns true, if the edit button was pressed
-	bool isInEditMode();
+    /// returns true, if the edit button was pressed
+    bool isInEditMode();
 
     //GUINet &getNet() const;
 
@@ -331,24 +188,40 @@ public:
 
     void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 
-    void remove(GUIDialog_EditViewport *) { myViewportChooser = 0; }
+    void remove(GUIDialog_EditViewport *)
+    {
+        myViewportChooser = 0;
+    }
 
-    void remove(GUIDialog_ViewSettings *) { myVisualizationChanger = 0; }
+    void remove(GUIDialog_ViewSettings *)
+    {
+        myVisualizationChanger = 0;
+    }
 
 
     SUMOReal getGridWidth() const;
     SUMOReal getGridHeight() const;
 
-        /// shows a vehicle route
-    virtual void showRoute(GUIVehicle *v, int index=-1) { }
+    /// shows a vehicle route
+    virtual void showRoute(GUIVehicle *v, int index=-1)
+    { }
 
     /// hides a vehicle route
-    virtual void hideRoute(GUIVehicle *v, int index=-1) { }
+    virtual void hideRoute(GUIVehicle *v, int index=-1)
+    { }
 
-    virtual void startTrack(int id) { }
-    virtual void stopTrack() { }
-    virtual int getTrackedID() const { return -1; }
-    virtual bool amShowingRouteFor(GUIVehicle *v, int index=-1) { return false; }
+    virtual void startTrack(int id)
+    { }
+    virtual void stopTrack()
+    { }
+    virtual int getTrackedID() const
+    {
+        return -1;
+    }
+    virtual bool amShowingRouteFor(GUIVehicle *v, int index=-1)
+    {
+        return false;
+    }
 
 public:
     /**
@@ -360,7 +233,8 @@ public:
         VCS_BY_TYPE = 0
     };
 
-    struct Decal {
+    struct Decal
+    {
         std::string filename;
         SUMOReal left;
         SUMOReal top;
@@ -377,7 +251,8 @@ public:
      * This class stores the viewport information for an easier checking whether
      *  it has changed.
      */
-    class ViewportSettings {
+    class ViewportSettings
+    {
     public:
         /// Constructor
         ViewportSettings();
@@ -404,7 +279,8 @@ public:
      * @struct VisualizationSettings
      * @brief This class stores the information about how to visualize the structures
      */
-    struct VisualizationSettings {
+    struct VisualizationSettings
+    {
         /// Information whether antialiase shall be enabled
         bool antialiase;
         /// Information whether dithering shall be enabled
@@ -519,9 +395,11 @@ protected:
 
 
 protected:
-    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/) { }
+    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/)
+    { }
 
-    virtual void doInit() { }
+    virtual void doInit()
+    { }
 
     /// paints a grid
     void paintGLGrid();
@@ -568,7 +446,7 @@ protected:
 
     /// Information whether too-tip informations shall be generated
     bool _useToolTips;
-	bool _inEditMode;
+    bool _inEditMode;
 
     /// The used tooltip-class
     GUIGLObjectToolTip *_toolTip;
@@ -615,14 +493,15 @@ protected:
     std::vector<Decal> myDecals;
     FXMutex myDecalsLock;
 
-	mutable FXMutex myPolyDrawLock;
+    mutable FXMutex myPolyDrawLock;
 
     enum VehicleOperationType {
         VO_TRACK,
         VO_SHOW_ROUTE
     };
 
-    struct VehicleOps {
+    struct VehicleOps
+    {
         VehicleOperationType type;
         GUIVehicle *vehicle;
         int routeNo;
@@ -634,14 +513,17 @@ protected:
     /**
      * A class to find the matching lane wrapper
      */
-    class vehicle_in_ops_finder {
+    class vehicle_in_ops_finder
+    {
     public:
         /** constructor */
         explicit vehicle_in_ops_finder(const GUIVehicle * const v)
-            : myVehicle(v) { }
+                : myVehicle(v)
+        { }
 
         /** the comparing function */
-        bool operator() (const VehicleOps &vo) {
+        bool operator()(const VehicleOps &vo)
+        {
             return vo.vehicle == myVehicle;
         }
 
@@ -652,16 +534,13 @@ protected:
     };
 
 protected:
-    GUISUMOAbstractView() { }
+    GUISUMOAbstractView()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

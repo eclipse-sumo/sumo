@@ -1,79 +1,48 @@
-#ifndef GUIGrid_h
-#define GUIGrid_h
-//---------------------------------------------------------------------------//
-//                        GUIGrid.h -
-//  A class dividing the network in rectangular cells
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jul 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIGrid.h
+/// @author  Daniel Krajzewicz
+/// @date    Jul 2003
+/// @version $Id: $
+///
+// A class dividing the network in rectangular cells
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2006/01/31 11:03:20  dkrajzew
-// debugging the grid
-//
-// Revision 1.4  2005/10/07 11:46:08  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/23 06:11:14  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.2  2005/09/15 12:20:19  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.1  2004/11/23 10:38:32  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/22 12:55:46  dksumo
-// Allowed VGridBuilder to do his job
-//
-// Revision 1.2  2004/10/29 06:01:56  dksumo
-// renamed boundery to boundary
-//
-// Revision 1.1  2004/10/22 12:50:57  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.4  2004/07/02 08:41:40  dkrajzew
-// detector drawer are now also responsible for other additional items
-//
-// Revision 1.3  2003/12/09 11:27:15  dkrajzew
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIGrid_h
+#define GUIGrid_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <utils/geom/Boundary.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GUIGrid
  * This class lays a grid over a network in order to allow the drawing of
@@ -91,13 +60,14 @@
  *  and each item is represented as a bit. This allows to store the values in
  *  a memory saving way and allow a fast access, though.
  */
-class GUIGrid {
+class GUIGrid
+{
 public:
-	enum PaintState {
-		GPS_NOT_DRAWN,
-		GPS_FULL_DRAWN,
-		GPS_ADD_DRAWN
-	};
+    enum PaintState {
+        GPS_NOT_DRAWN,
+        GPS_FULL_DRAWN,
+        GPS_ADD_DRAWN
+    };
 
 
     /// Constructor
@@ -112,8 +82,8 @@ public:
     /// Returns the network's boundary
     const Boundary &getBoundary() const;
 
-	///
-	void setBoundary(const Boundary &b);
+    ///
+    void setBoundary(const Boundary &b);
 
     /** @brief Fills the given containers with the wished information
         The offsets and x/y-positions are used to determine the viewport.
@@ -122,8 +92,8 @@ public:
         The arrays must have the proper size (equals to the number of the
         simulation's objects of each type) */
     void get(int what,
-        SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
-        size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
+                 SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
+                 size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
 
     /// returns the number of cells in x-direction
     int getNoXCells() const;
@@ -137,10 +107,10 @@ public:
     /// returns the size of each cell in y-direction
     SUMOReal getYCellSize() const;
 
-	PaintState getPaintState(size_t x, size_t y);
+    PaintState getPaintState(size_t x, size_t y);
 
-	friend class GUIGridBuilder;
-	friend class GUIRouterGridBuilder;
+    friend class GUIGridBuilder;
+    friend class GUIRouterGridBuilder;
     friend class VGridBuilder;
 
 private:
@@ -153,7 +123,8 @@ private:
      *  the myIndex-value allows the computation of the artifact's real index
      *  as it is: mySet * 32 + myIndex;
      */
-    struct SubSet {
+    struct SubSet
+    {
         /// The index of the artifact within this sub set
         size_t   myIndex;
 
@@ -170,7 +141,8 @@ private:
      *  single artifact with the same mySet-value exist, they are stored within
      *  the same subset.
      */
-    class Set {
+    class Set
+    {
     public:
         /// Constructor
         Set();
@@ -205,7 +177,8 @@ private:
      * A single cell within the grid. Holds the information about junctions,
      *  edges, detectors and emitters using a set for each of these.
      */
-    class GridCell {
+    class GridCell
+    {
     public:
         /// Constructor
         GridCell();
@@ -251,14 +224,16 @@ private:
      * @class index_finder
      * A class which searches for a certain set which has the given index
      */
-    class index_finder {
+    class index_finder
+    {
     public:
         /// constructor
         explicit index_finder(size_t index)
-            : myIndex(index) { }
+                : myIndex(index)
+        { }
 
         /// operator
-        bool operator() (const SubSet &s) const
+        bool operator()(const SubSet &s) const
         {
             return s.myIndex==myIndex;
         }
@@ -282,7 +257,7 @@ private:
     /// Removes items from the cell at x/y which are included in the given cell
     void removeFrom(GridCell &cont, int x, int y);
 
-	void closeBuilding();
+    void closeBuilding();
 
 private:
     /// The sizes of the cells
@@ -300,15 +275,12 @@ private:
     /// The size of the grid in cells in x- and y-direction
     size_t myXSize, myYSize;
 
-	PaintState *myVisHelper;
+    PaintState *myVisHelper;
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
