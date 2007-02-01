@@ -78,6 +78,19 @@
 
 <hr class="thin"/>
 
+<p>
+New to SUMO?<br/>
+<ul>
+<li>If You have problems installing it, You may find help at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page#Build_instructions">wiki/BuildInstructions</a><br/>
+<li>If You have problems using it, You may find a tutorial at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Tutorial">wiki/Tutorial</a>. 
+<li>Further documentation for users can be found within our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">documentation section</a> and within the <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page#User_documentation">Wiki user section</a>.<br/>
+<li>Please use the mailing lists (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/contact.shtml">Contact</a>) to exchange problems or ideas.</br>
+<li>Please put your <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Projects">projects</a> and <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Publications">publications</a> into the appropriate Wiki-section (follow the links).<br/>
+</ul>
+</p>
+
+<hr class="thin"/>
+
 <p><b>News</b><br>
 <!-- 0 --> 24.01.2007: reinserted sumo-src-0.9.5.zip into the download area; the previous file seems to be broken</a><br/>
 <!-- 1 --> 16.01.2007: moved to SVN, see <a class="SUMOInLineLink" href="http://sourceforge.net/svn/?group_id=45607">http://sourceforge.net/svn/?group_id=45607</a><br/>
