@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    MSTriggerControl.h
-/// @author  unknown_author
-/// @date    unknown_date
+/// @author  Daniel Krajzewicz
+/// @date    2006
 /// @version $Id: $
 ///
-// missing_desc
+// A storage for triggers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -19,6 +19,13 @@
 /****************************************************************************/
 #ifndef MSTriggerControl_h
 #define MSTriggerControl_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
+
 
 // ===========================================================================
 // included modules

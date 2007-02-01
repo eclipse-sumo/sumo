@@ -28,6 +28,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <cassert>
 #include "MSTrigger.h"
 #include "MSBusStop.h"
