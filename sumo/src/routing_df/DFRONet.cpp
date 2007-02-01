@@ -1343,6 +1343,7 @@ DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
     }
 }
 
+#endif
 
 
 /****************************************************************************/
