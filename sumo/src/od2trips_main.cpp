@@ -1,41 +1,38 @@
-/***************************************************************************
-                         od2trips_main.cpp
-
-     The main procedure for converting OD an NET files to trip tables
-
-    project              : SUMO      :
-    subproject           : OD2TRIPS
-    begin                : Thu, 12 September 2002
-    modified             : Thu, 25 March 2003, INVENT purposes
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    authors              : Daniel Krajzewicz, Peter Mieth
-    emails               : Daniel.Krajzewicz@dlr.de, Peter.Mieth@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    od2trips_main.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 12 September 2002
+/// @version $Id: $
+///
+//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <algorithm>
@@ -69,15 +66,15 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * functions
- * ======================================================================= */
+// ===========================================================================
+// functions
+// ===========================================================================
 void
 fillOptions(OptionsCont &oc)
 {
@@ -99,27 +96,27 @@ fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Report");
 
 
-        // register the file i/o options
+    // register the file i/o options
     oc.doRegister("net-file", 'n', new Option_FileName());
-	oc.addSynonyme("net-file", "net");
+    oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads network (districts) from FILE");
     oc.setMandatory("net-file");
 
     oc.doRegister("od-files", 'd', new Option_FileName());
-	oc.addSynonyme("od-files", "od");
+    oc.addSynonyme("od-files", "od");
     oc.addDescription("od-files", "Input", "Loads O/D-files from FILE(s)");
 
-	oc.doRegister("vissim", new Option_FileName());
+    oc.doRegister("vissim", new Option_FileName());
     oc.addDescription("vissim", "Input", "Uses FILE to determine which O/D-matrices to load");
 
 
     oc.doRegister("output-file", 'o', new Option_FileName());
-	oc.addSynonyme("output-file", "output");
+    oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
     oc.setMandatory("output-file");
 
 
-        // register the time settings
+    // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
     oc.setMandatory("begin");
@@ -129,7 +126,7 @@ fillOptions(OptionsCont &oc)
     oc.setMandatory("end");
 
 
-        // register the data processing options
+    // register the data processing options
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.addDescription("scale", "Processing", "Scales the loaded flows by FLOAT");
 
@@ -152,7 +149,7 @@ fillOptions(OptionsCont &oc)
     oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
 
 
-        // register report options
+    // register report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output");
 
@@ -180,26 +177,26 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
     bool interpolating = !timelineDayInHours;
     Position2DVector points;
     StringTokenizer st(def, ";");
-    if(timelineDayInHours&&st.size()!=24) {
+    if (timelineDayInHours&&st.size()!=24) {
         MsgHandler::getErrorInstance()->inform("Assuming 24 entries for a day timeline, but got " + toString(st.size()) + ".");
         throw ProcessError();
     }
     int chour = 0;
     SUMOReal prob;
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         string hourval = st.next();
         StringTokenizer st2(hourval, ",");
         int time = chour * 3600;
         // parse time if the time line is assumed to contain this
-        if(!timelineDayInHours) {
-            if(st2.size()!=2) {
+        if (!timelineDayInHours) {
+            if (st2.size()!=2) {
                 MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
                 throw ProcessError();
             }
             time = TplConvert<char>::_2int(st2.next().c_str());
         }
         // check otherwise
-        if(timelineDayInHours&&st2.size()!=1) {
+        if (timelineDayInHours&&st2.size()!=1) {
             MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
             throw ProcessError();
         }
@@ -208,8 +205,8 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
         points.push_back(Position2D((SUMOReal) time, prob));
         chour++;
     }
-    if(timelineDayInHours) {
-        points.push_back(Position2D((SUMOReal) chour * (SUMOReal) 3600, prob));
+    if (timelineDayInHours) {
+        points.push_back(Position2D((SUMOReal) chour *(SUMOReal) 3600, prob));
     }
     return Distribution_Points("N/A", points, interpolating);
 }
@@ -219,15 +216,15 @@ bool
 checkOptions(OptionsCont &oc)
 {
     bool ok = true;
-    if(!oc.isSet("net-file")) {
+    if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
         ok = false;
     }
-    if(!oc.isSet("od-files")&&!oc.isSet("vissim")) {
+    if (!oc.isSet("od-files")&&!oc.isSet("vissim")) {
         MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }
-    if(!oc.isSet("o")) {
+    if (!oc.isSet("o")) {
         MsgHandler::getErrorInstance()->inform("No trip table output file (-o) specified.");
         ok = false;
     }
@@ -240,7 +237,7 @@ ODDistrictCont *
 loadDistricts(OptionsCont &oc)
 {
     // check whether the user gave a net filename
-    if(!oc.isSet("n")) {
+    if (!oc.isSet("n")) {
         MsgHandler::getErrorInstance()->inform("You must supply a network ('-n').");
         return 0;
     }
@@ -252,9 +249,9 @@ loadDistricts(OptionsCont &oc)
     // build the xml-parser and handler
     ODDistrictHandler handler(*ret);
     handler.setFileName(file);
-	XMLHelpers::runParser(handler, file);
+    XMLHelpers::runParser(handler, file);
     // check whether the loading was ok
-	if(ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
+    if (ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
         delete ret;
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return 0;
@@ -270,21 +267,21 @@ getVissimDynUMLMatrices(const std::string file)
 {
     std::vector<std::string> ret;
     LineReader lr(file);
-    if(!lr.good()) {
+    if (!lr.good()) {
         MsgHandler::getErrorInstance()->inform("Could not open vissim-file '" + file + "'.");
         throw ProcessError();
     }
     bool haveAll = false;
-    while(!haveAll&&lr.hasMore()) {
+    while (!haveAll&&lr.hasMore()) {
         string line = lr.readLine();
-        if(line.find("MATRIXDATEI")!=string::npos) {
+        if (line.find("MATRIXDATEI")!=string::npos) {
             string name = line.substr(line.find("MATRIXDATEI"));
             name = name.substr(name.find('"')+1);
             name = name.substr(0, name.find('"'));
             ret.push_back(name);
         } else {
             // do not process the whole file if we have seen all matrices
-            if(ret.size()!=0&&line.find("--------------------------")!=string::npos) {
+            if (ret.size()!=0&&line.find("--------------------------")!=string::npos) {
                 haveAll = true;
             }
         }
@@ -293,16 +290,16 @@ getVissimDynUMLMatrices(const std::string file)
 }
 
 
-string 
+string
 getNextNonCommentLine(LineReader &lr)
 {
     string line;
     do {
         line = lr.readLine();
-        if(line[0]!='*') {
+        if (line[0]!='*') {
             return line;
         }
-    } while(lr.good());
+    } while (lr.good());
     throw ProcessError();
 }
 
@@ -323,10 +320,10 @@ readV(LineReader &lr, ODMatrix &into, float scale,
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
     // parse first defs
     string line;
-    if(matrixHasVehType) {
+    if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
         int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
-        if(vehType=="") {
+        if (vehType=="") {
             vehType = toString(type);
         }
     }
@@ -343,23 +340,23 @@ readV(LineReader &lr, ODMatrix &into, float scale,
     line = getNextNonCommentLine(lr);
     do {
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-        while(st2.hasNext()) {
+        while (st2.hasNext()) {
             names.push_back(st2.next());
         }
         line = lr.readLine();
-    } while(line[0]!='*');
+    } while (line[0]!='*');
     assert((int) names.size()==districtNo);
     // parse the cells
-    for(std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
+    for (std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
         //
         line = getNextNonCommentLine(lr);
         do {
             StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-            while(st2.hasNext()) {
+            while (st2.hasNext()) {
                 assert(di!=names.end());
                 float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-                if(vehNumber!=0) {
+                if (vehNumber!=0) {
                     ODCell *cell = new ODCell();
                     cell->begin = begin;
                     cell->end = end;
@@ -372,7 +369,7 @@ readV(LineReader &lr, ODMatrix &into, float scale,
                 di++;
             }
             line = lr.readLine();
-        } while(line[0]!='*'&&lr.hasMore());
+        } while (line[0]!='*'&&lr.hasMore());
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
@@ -385,10 +382,10 @@ readO(LineReader &lr, ODMatrix &into, float scale,
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
     // parse first defs
     string line;
-    if(matrixHasVehType) {
+    if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
         int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
-        if(vehType=="") {
+        if (vehType=="") {
             vehType = toString(type);
         }
     }
@@ -399,13 +396,13 @@ readO(LineReader &lr, ODMatrix &into, float scale,
     line = getNextNonCommentLine(lr);
     SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
     // parse the cells
-    while(lr.hasMore()) {
+    while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         string sourceD = st2.next();
         string destD = st2.next();
         float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-        if(vehNumber!=0) {
+        if (vehNumber!=0) {
             ODCell *cell = new ODCell();
             cell->begin = begin;
             cell->end = end;
@@ -425,7 +422,7 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
 {
     std::vector<std::string> files;
     // check whether the filenames shall be read from a vissim file
-    if(oc.isSet("vissim")) {
+    if (oc.isSet("vissim")) {
         files = getVissimDynUMLMatrices(oc.getString("vissim"));
     } else {
         string fileS = oc.getString("od-files");
@@ -435,33 +432,33 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
 
     // ok, we now should have a list of files to parse
     //  check
-    if(files.size()==0) {
+    if (files.size()==0) {
         MsgHandler::getErrorInstance()->inform("No files to parse are given.");
         throw ProcessError();
     }
     //  parse
-    for(std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
+    for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
         LineReader lr(*i);
-        if(!lr.good()) {
+        if (!lr.good()) {
             MsgHandler::getErrorInstance()->inform("Could not open '" + (*i) + "'.");
             throw ProcessError();
         }
         string type = lr.readLine();
         // get the type only
-        if(type.find(';')!=string::npos) {
+        if (type.find(';')!=string::npos) {
             type = type.substr(0, type.find(';'));
         }
         // parse type-dependant
-        if(type.length()>1 && type[1]=='V') {
+        if (type.length()>1 && type[1]=='V') {
             // process ptv's 'V'-matrices
-            if(type.find('N')!=string::npos) {
+            if (type.find('N')!=string::npos) {
                 MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
                 throw ProcessError();
             }
             readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
-        } else if(type.length()>1 && type[1]=='O') {
+        } else if (type.length()>1 && type[1]=='O') {
             // process ptv's 'O'-matrices
-            if(type.find('N')!=string::npos) {
+            if (type.find('N')!=string::npos) {
                 MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
                 throw ProcessError();
             }
@@ -486,11 +483,11 @@ main(int argc, char **argv)
 #endif
         // initialise subsystems
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
-        if(init_ret<0) {
+        if (init_ret<0) {
             cout << "SUMO od2trips" << endl;
             cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
             cout << " Version " << VERSION << endl;
-            switch(init_ret) {
+            switch (init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);
                 break;
@@ -501,14 +498,14 @@ main(int argc, char **argv)
             }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
+        } else if (init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
         // load the districts
-		ODDistrictCont *districts = loadDistricts(oc);
-        if(districts==0) {
+        ODDistrictCont *districts = loadDistricts(oc);
+        if (districts==0) {
             MsgHandler::getErrorInstance()->inform("No districts loaded...");
             throw ProcessError();
         }
@@ -517,18 +514,18 @@ main(int argc, char **argv)
         loadMatrix(oc, matrix);
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
-        if(oc.isSet("timeline")) {
+        if (oc.isSet("timeline")) {
             matrix.applyCurve(parseTimeLine(oc.getString("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
         ofstream ostrm(oc.getString("output").c_str());
-        if(!ostrm.good()) {
+        if (!ostrm.good()) {
             MsgHandler::getErrorInstance()->inform("Could not open output file '" + oc.getString("output") + "'.");
             throw ProcessError();
         }
         ostrm << "<tripdefs>" << endl;
-        matrix.write(oc.getInt("begin"), oc.getInt("end"), 
-            ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
+        matrix.write(oc.getInt("begin"), oc.getInt("end"),
+                     ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
 #ifndef _DEBUG
@@ -538,8 +535,13 @@ main(int argc, char **argv)
     }
 #endif
     SystemFrame::close();
-    if(ret==0) {
+    if (ret==0) {
         cout << "Success." << endl;
     }
     return ret;
 }
+
+
+
+/****************************************************************************/
+
