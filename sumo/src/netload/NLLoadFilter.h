@@ -1,84 +1,45 @@
+/****************************************************************************/
+/// @file    NLLoadFilter.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 15 Apr 2002
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NLLoadFilter_h
 #define NLLoadFilter_h
-/***************************************************************************
-                          NLDetectorBuilder.h
-                          A building helper for the detectors
-                             -------------------
-    begin                : Mon, 15 Apr 2002
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.7  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:41:33  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2003/05/20 09:45:35  dkrajzew
-// some make-up done (splitting large methods; patching comments)
-//
-// Revision 1.4  2003/03/19 08:07:34  dkrajzew
-// bugs and syntactical faults arised during compilation on Linux removed
-//
-// Revision 1.3  2003/02/07 11:18:56  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/17 10:32:41  dkrajzew
-// sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
-//
-// Revision 1.1  2002/10/16 15:36:48  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
-//
-// Revision 1.6  2002/07/31 17:34:51  roessel
-// Changes since sourceforge cvs request.
-//
-// Revision 1.6  2002/07/22 12:44:32  dkrajzew
-// Source loading structures added
-//
-// Revision 1.5  2002/06/11 14:39:25  dkrajzew
-// windows eol removed
-//
-// Revision 1.4  2002/06/11 13:44:34  dkrajzew
-// Windows eol removed
-//
-// Revision 1.3  2002/04/17 11:18:47  dkrajzew
-// windows-newlines removed
-//
-// Revision 1.2  2002/04/16 06:50:20  dkrajzew
-// documentation added; coding standard attachements added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
-/* =========================================================================
- * definitions
- * ======================================================================= */
+// ===========================================================================
+// definitions
+// ===========================================================================
 /**
  * @enum NLLoadFilter
  * The load filter is an information given to the handler to describe which
@@ -102,10 +63,7 @@ enum NLLoadFilter {
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-//
+/****************************************************************************/
+

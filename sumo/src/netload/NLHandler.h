@@ -1,177 +1,40 @@
-#ifndef NLHandler_h
-#define NLHandler_h
-//---------------------------------------------------------------------------//
-//                        NLHandler.h -
-//  The XML-Handler for network loading (parses the elements)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NLHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The XML-Handler for network loading (parses the elements)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.12  2006/12/12 12:04:11  dkrajzew
-// made the base value for incremental dua changeable
-//
-// Revision 1.11  2006/11/30 07:43:35  dkrajzew
-// added the inc-dua option in order to increase dua-computation
-//
-// Revision 1.10  2006/11/03 23:05:34  behrisch
-// Syntactic sugar
-//
-// Revision 1.9  2006/10/12 10:14:30  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.8  2006/09/18 10:14:04  dkrajzew
-// patching junction-internal state simulation
-//
-// Revision 1.7  2006/07/06 06:14:40  dkrajzew
-// removed unneeded values
-//
-// Revision 1.6  2006/03/27 07:25:55  dkrajzew
-// added projection information to the network
-//
-// Revision 1.5  2006/02/27 12:10:41  dkrajzew
-// WAUTs added
-//
-// Revision 1.4  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.3  2006/01/09 12:00:15  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.2  2005/11/09 06:43:20  dkrajzew
-// TLS-API: MSEdgeContinuations added
-//
-// Revision 1.1  2005/10/10 12:09:55  dkrajzew
-// renamed *NetHandler to *Handler
-//
-// Revision 1.30  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.29  2005/09/23 06:04:12  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.28  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.27  2005/05/04 08:42:32  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
-//
-// Revision 1.26  2004/12/16 12:23:36  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.25  2004/11/23 10:12:46  dkrajzew
-// new detectors usage applied
-//
-// Revision 1.24  2004/07/02 09:37:31  dkrajzew
-// work on class derivation (for online-routing mainly)
-//
-// Revision 1.23  2004/06/17 13:08:16  dkrajzew
-// Polygon visualisation added
-//
-// Revision 1.22  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all
-//  simulation-wide output
-//
-// Revision 1.21  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation;
-//  variable offsets and lengths for lsa-detectors;
-//  coupling of detectors to tl-logics;
-//  different detector visualistaion in dependence to his controller
-//
-// Revision 1.20  2004/01/13 14:28:46  dkrajzew
-// added alternative detector description; debugging
-//
-// Revision 1.19  2004/01/12 15:12:05  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.18  2004/01/12 14:46:21  dkrajzew
-// handling of e2-detectors within the gui added
-//
-// Revision 1.17  2003/12/05 10:26:11  dkrajzew
-// handling of internal links when theyre not wished improved
-//
-// Revision 1.16  2003/12/04 13:18:23  dkrajzew
-// handling of internal links added
-//
-// Revision 1.15  2003/11/24 10:18:32  dkrajzew
-// handling of definitions for minimum and maximum phase duration added;
-//  modified the gld-offsets computation
-//
-// Revision 1.14  2003/11/17 07:22:03  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.13  2003/09/24 09:57:13  dkrajzew
-// bug on building induct loops of an actuated tls within the gui patched
-//
-// Revision 1.12  2003/09/22 12:30:23  dkrajzew
-// actuated traffic lights are now derived from simple traffic lights
-//
-// Revision 1.11  2003/09/17 06:53:23  dkrajzew
-// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition
-//  is now derived from MSPhaseDefinition
-//
-// Revision 1.10  2003/09/05 15:20:19  dkrajzew
-// loading of internal links added
-//
-// Revision 1.9  2003/08/18 12:41:40  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.8  2003/07/30 09:25:17  dkrajzew
-// loading of directions and priorities of links implemented
-//
-// Revision 1.7  2003/07/22 15:12:16  dkrajzew
-// new usage of detectors applied
-//
-// Revision 1.6  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version
-//  (no major drawbacks in loading speed)
-//
-// Revision 1.5  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/05/20 09:45:35  dkrajzew
-// some make-up done (splitting large methods; patching comments)
-//
-// Revision 1.3  2003/03/20 16:35:44  dkrajzew
-// windows eol removed
-//
-// Revision 1.2  2003/03/03 15:06:33  dkrajzew
-// new import format applied; new detectors applied
-//
-// Revision 1.1  2003/02/07 11:18:56  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NLHandler_h
+#define NLHandler_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <sax/HandlerBase.hpp>
 #include <sax/SAXException.hpp>
@@ -188,17 +51,17 @@
 #include <utils/common/SUMOTime.h>
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NLContainer;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
@@ -206,16 +69,17 @@ class MSTrafficLightLogic;
 class NLGeomShapeBuilder;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NLNetHandler
  * The SAX2-handler responsible for parsing networks and routes to load.
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  * be loaded from network descriptions.
  */
-class NLHandler : public MSRouteHandler {
+class NLHandler : public MSRouteHandler
+{
 public:
     /// Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
@@ -223,11 +87,11 @@ public:
 public:
     /// standard constructor
     NLHandler(const std::string &file, MSNet &net,
-        NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-        NLEdgeControlBuilder &edgeBuilder,
-        NLJunctionControlBuilder &junctionBuilder,
-        NLGeomShapeBuilder &shapeBuilder,
-        bool wantsVehicleColor, int incDUABase, int incDUAStage);
+              NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
+              NLEdgeControlBuilder &edgeBuilder,
+              NLJunctionControlBuilder &junctionBuilder,
+              NLGeomShapeBuilder &shapeBuilder,
+              bool wantsVehicleColor, int incDUABase, int incDUAStage);
 
     /// Destructor
     virtual ~NLHandler();
@@ -245,11 +109,11 @@ protected:
     /** called on the occurence of the beginning of a tag;
         this method */
     virtual void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
+                                const Attributes &attrs);
 
     /** called when simple characters occure; this method */
     virtual void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                              const std::string &chars);
 
     /** called on the end of an element;
         this method */
@@ -285,7 +149,7 @@ protected:
     /** adds the message about the occured error to the error handler
     after building it */
     void setError(const std::string &type,
-        const SAXParseException& exception);
+                  const SAXParseException& exception);
 
     /** returns the information whether instances belonging to the
         given class of data shall be extracted during this parsing */
@@ -317,7 +181,7 @@ protected:
 
 private:
     /// add the shape to the Lane
-	void addLaneShape(const std::string &chars);
+    void addLaneShape(const std::string &chars);
 
     /// sets the number of edges the network contains
     void setEdgeNumber(const Attributes &attrs);
@@ -506,11 +370,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

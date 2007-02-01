@@ -1,129 +1,40 @@
+/****************************************************************************/
+/// @file    NLJunctionControlBuilder.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 9 Jul 2001
+/// @version $Id: $
+///
+// Container for MSJunctionControl-structures during
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NLJunctionControlBuilder_h
 #define NLJunctionControlBuilder_h
-/***************************************************************************
-                          NLJunctionControlBuilder.h
-              Container for MSJunctionControl-structures during
-              their building
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 9 Jul 2001
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.20  2006/11/16 07:02:18  dkrajzew
-// warnings removed
-//
-// Revision 1.19  2006/09/18 10:14:04  dkrajzew
-// patching junction-internal state simulation
-//
-// Revision 1.18  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.17  2006/02/27 12:10:41  dkrajzew
-// WAUTs added
-//
-// Revision 1.16  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.15  2005/11/09 06:43:20  dkrajzew
-// TLS-API: MSEdgeContinuations added
-//
-// Revision 1.14  2005/10/10 12:11:23  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.13  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.12  2005/09/23 06:04:12  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.11  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.10  2005/05/04 08:41:33  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.9  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.8  2004/08/02 12:47:30  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.7  2003/12/04 13:18:23  dkrajzew
-// handling of internal links added
-//
-// Revision 1.6  2003/11/18 14:23:57  dkrajzew
-// debugged and completed lane merging detectors
-//
-// Revision 1.5  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version
-//  (no major drawbacks in loading speed)
-//
-// Revision 1.4  2003/03/20 16:35:44  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/03 15:06:33  dkrajzew
-// new import format applied; new detectors applied
-//
-// Revision 1.2  2003/02/07 11:18:56  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 15:36:48  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload;
-//  new format definition parseable in one step
-//
-// Revision 1.4  2002/06/11 14:39:25  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2002/06/11 13:44:34  dkrajzew
-// Windows eol removed
-//
-// Revision 1.2  2002/06/07 14:39:59  dkrajzew
-// errors occured while building larger nets and adaption of new
-//  netconverting methods debugged
-//
-// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
-// new project name
-//
-// Revision 2.0  2002/02/14 14:43:24  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.4  2002/02/13 15:40:44  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
-//
-// Revision 1.1  2001/12/06 13:36:09  traffic
-// moved from netbuild
-//
-// Revision 1.4  2001/08/16 12:53:59  traffic
-// further exception handling (now validated) and new comments
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -137,17 +48,17 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSEventControl;
 class OptionsCont;
 class MSEdgeContinuations;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NLJunctionControlBuilder
  * NLJunctionControlBuilder is a factory for MSJunction-instances while
@@ -158,7 +69,8 @@ class MSEdgeContinuations;
  * The result is a MSJunctionControl-instance holding the parsed MSJunction-
  * -instances.
  */
-class NLJunctionControlBuilder {
+class NLJunctionControlBuilder
+{
 private:
     /// Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
@@ -175,7 +87,7 @@ public:
 
     /// begins the processing of the named junction
     void openJunction(const std::string &id, const std::string &key,
-        const std::string &type, SUMOReal x, SUMOReal y);
+                      const std::string &type, SUMOReal x, SUMOReal y);
 
     /// Adds an incoming lane to the previously chosen junction
     void addIncomingLane(MSLane *lane);
@@ -205,16 +117,16 @@ public:
 
     /// adds a logic item
     void addLogicItem(int request, const std::string &response,
-        const std::string &foes, bool cont);
+                      const std::string &foes, bool cont);
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const std::string &type,
-        size_t absDuration, int requestSize, SUMOReal detectorOffset);
+                               size_t absDuration, int requestSize, SUMOReal detectorOffset);
 
     /// adds a phase to the traffic lights logic currently build
     void addPhase(size_t duration, const std::bitset<64> &phase,
-        const std::bitset<64> &prios, const std::bitset<64> &yellow,
-        int min, int max);
+                  const std::bitset<64> &prios, const std::bitset<64> &yellow,
+                  int min, int max);
 
     /// Sets the size of the request
     void setRequestSize(int size);
@@ -245,14 +157,14 @@ public:
 
     /// closes the building of the junction control
     void closeJunctions(NLDetectorBuilder &db,
-        const MSEdgeContinuations &edgeContinuations);
+                        const MSEdgeContinuations &edgeContinuations);
 
     void addParam(const std::string &key, const std::string &value);
 
     void addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
     void addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
     void addWAUTJunction(const std::string &wautid, const std::string &junc,
-        const std::string &proc, bool synchron);
+                         const std::string &proc, bool synchron);
 
 protected:
     /** @brief adds an information about the initialisation of a tls
@@ -345,7 +257,8 @@ protected:
     size_t myAbsDuration;
 
     /// A definition of junction initialisation
-    struct TLInitInfo {
+    struct TLInitInfo
+    {
         MSTrafficLightLogic *logic;
         std::map<std::string, std::string> params;
     };
@@ -416,10 +329,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

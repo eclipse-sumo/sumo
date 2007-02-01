@@ -1,220 +1,39 @@
-/***************************************************************************
-                          NLNetHandler.cpp
-              The third-step - handler building structures
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 9 Jul 2001
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] =
-         "$Id$";
-}
-// $Log$
-// Revision 1.27  2006/12/12 12:04:11  dkrajzew
-// made the base value for incremental dua changeable
+/****************************************************************************/
+/// @file    NLHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 9 Jul 2001
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.26  2006/11/30 07:43:35  dkrajzew
-// added the inc-dua option in order to increase dua-computation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.25  2006/11/23 11:40:25  dkrajzew
-// removed unneeded code
-//
-// Revision 1.24  2006/11/16 12:30:54  dkrajzew
-// warnings removed
-//
-// Revision 1.23  2006/11/16 07:02:18  dkrajzew
-// warnings removed
-//
-// Revision 1.22  2006/11/14 13:04:12  dkrajzew
-// warnings removed
-//
-// Revision 1.21  2006/11/14 06:57:14  dkrajzew
-// debugging loading of networks with no internal lanes information
-//
-// Revision 1.20  2006/11/13 16:18:49  fxrb
-// support for TCP/IP iodevices using DataReel library
-//
-// Revision 1.19  2006/10/31 12:22:47  dkrajzew
-// debugging internal lanes usage
-//
-// Revision 1.18  2006/10/12 09:28:14  dkrajzew
-// patched building under windows
-//
-// Revision 1.17  2006/10/04 13:18:18  dkrajzew
-// debugging internal lanes, multiple vehicle emission and net building
-//
-// Revision 1.16  2006/09/18 10:14:04  dkrajzew
-// patching junction-internal state simulation
-//
-// Revision 1.15  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.14  2006/08/01 05:48:42  dkrajzew
-// added the possibility to make a polygon being filled or not
-//
-// Revision 1.13  2006/07/06 06:14:40  dkrajzew
-// removed unneeded values
-//
-// Revision 1.12  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.11  2006/03/27 07:25:55  dkrajzew
-// added projection information to the network
-//
-// Revision 1.10  2006/02/27 12:10:41  dkrajzew
-// WAUTs added
-//
-// Revision 1.9  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.8  2006/02/13 07:22:20  dkrajzew
-// detector position may now be "friendly"
-//
-// Revision 1.7  2006/01/31 10:53:44  dkrajzew
-// pois may be now placed on lane positions
-//
-// Revision 1.6  2006/01/19 09:26:57  dkrajzew
-// debugging
-//
-// Revision 1.5  2006/01/11 11:54:35  dkrajzew
-// reworked possible link states; new link coloring
-//
-// Revision 1.4  2006/01/09 12:00:14  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.3  2005/11/09 06:43:20  dkrajzew
-// TLS-API: MSEdgeContinuations added
-//
-// Revision 1.2  2005/10/17 09:20:35  dkrajzew
-// c4503 warning removed
-//
-// Revision 1.1  2005/10/10 12:09:55  dkrajzew
-// renamed *NetHandler to *Handler
-//
-// Revision 1.56  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.55  2005/09/23 06:04:12  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.54  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.53  2005/07/12 12:37:15  dkrajzew
-// code style adapted
-//
-// Revision 1.52  2005/05/04 08:41:54  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
-//
-// Revision 1.51  2005/02/17 10:33:39  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.50  2004/12/16 12:23:36  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.49  2004/11/23 10:12:46  dkrajzew
-// new detectors usage applied
-//
-// Revision 1.48  2004/07/02 09:37:31  dkrajzew
-// work on class derivation (for online-routing mainly)
-//
-// Revision 1.47  2004/06/17 13:08:15  dkrajzew
-// Polygon visualisation added
-//
-// Revision 1.46  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all
-//  simulation-wide output
-//
-// Revision 1.45  2004/02/18 05:32:51  dkrajzew
-// missing pass of lane continuation to detector builder added
-//
-// Revision 1.44  2004/02/16 13:49:08  dkrajzew
-// loading of e2-link-dependent detectors added
-//
-// Revision 1.43  2004/02/02 16:18:32  dkrajzew
-// a first try to patch the error on loading internal links when
-//  they are not wished
-//
-// Revision 1.42  2004/01/27 10:32:25  dkrajzew
-// patched some linux-warnings
-//
-// Revision 1.41  2004/01/26 11:07:50  dkrajzew
-// error checking added
-//
-// Revision 1.40  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation;
-//  variable offsets and lengths for lsa-detectors;
-//  coupling of detectors to tl-logics;
-//  different detector visualistaion in dependence to his controller
-//
-// Revision 1.39  2004/01/13 14:28:46  dkrajzew
-// added alternative detector description; debugging
-//
-// Revision 1.38  2004/01/12 15:12:05  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.37  2004/01/12 14:46:21  dkrajzew
-// handling of e2-detectors within the gui added
-//
-// Revision 1.36  2004/01/12 14:37:32  dkrajzew
-// reading of e2-detectors from files added
-//
-// Revision 1.35  2003/12/05 10:26:10  dkrajzew
-// handling of internal links when theyre not wished improved
-//
-// Revision 1.34  2003/12/04 13:18:23  dkrajzew
-// handling of internal links added
-//
-// Revision 1.33  2003/12/04 13:14:08  dkrajzew
-// gfx-module added temporary to sumo
-//
-// Revision 1.32  2003/12/02 21:48:27  roessel
-// Renaming of MS_E2_ZS_ to MSE2 and MS_E3_ to MSE3.
-//
-// Revision 1.31  2003/11/26 09:35:03  dkrajzew
-// special case of being unset (==-1) applied to min/max of actuated/agentbase
-//  phase definitions
-//
-// Revision 1.30  2003/11/24 14:33:40  dkrajzew
-// missing iterator initialisation failed
-//
-// Revision 1.29  2003/11/24 10:18:32  dkrajzew
-// handling of definitions for minimum and maximum phase duration added;
-//  modified the gld-offsets computation
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
 #pragma warning(disable: 4503)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <sax/HandlerBase.hpp>
@@ -261,15 +80,18 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * using namespaces
- * ======================================================================= */
-using namespace std;
+// ===========================================================================
+// using namespaces
+// ===========================================================================
+* used namespaces
+* ======================================================================= */
+        * ======================================================================= */
+                using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLDetectorBuilder &detBuilder,
                      NLTriggerBuilder &triggerBuilder,
@@ -278,20 +100,18 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLGeomShapeBuilder &shapeBuilder,
                      bool wantsVehicleColor,
                      int incDUABase, int incDUAStage)
-    : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor, incDUABase, incDUAStage),
-    myNet(net), myActionBuilder(net),
-    myCurrentIsInternalToSkip(false),
-    myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
-    myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-    myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder),
-    myAmInTLLogicMode(false)
-{
-}
+        : MSRouteHandler(file, net.getVehicleControl(), true, wantsVehicleColor, incDUABase, incDUAStage),
+        myNet(net), myActionBuilder(net),
+        myCurrentIsInternalToSkip(false),
+        myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
+        myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
+        myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder),
+        myAmInTLLogicMode(false)
+{}
 
 
 NLHandler::~NLHandler()
-{
-}
+{}
 
 
 void
@@ -299,8 +119,8 @@ NLHandler::myStartElement(int element, const std::string &name,
                           const Attributes &attrs)
 {
     // check static net information
-    if(wanted(LOADFILTER_NET)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
         case SUMO_TAG_EDGES:
             setEdgeNumber(attrs);
             break;
@@ -337,34 +157,34 @@ NLHandler::myStartElement(int element, const std::string &name,
     }
     // check junction logics
 //    if(wanted(LOADFILTER_LOGICS)) {
-        switch(element) {
-        case SUMO_TAG_ROWLOGIC:
-            myJunctionControlBuilder.initJunctionLogic();
-            break;
-        case SUMO_TAG_TLLOGIC:
-            initTrafficLightLogic(attrs);
-            break;
-        case SUMO_TAG_LOGICITEM:
-            addLogicItem(attrs);
-            break;
-        default:
-            break;
-        }
+    switch (element) {
+    case SUMO_TAG_ROWLOGIC:
+        myJunctionControlBuilder.initJunctionLogic();
+        break;
+    case SUMO_TAG_TLLOGIC:
+        initTrafficLightLogic(attrs);
+        break;
+    case SUMO_TAG_LOGICITEM:
+        addLogicItem(attrs);
+        break;
+    default:
+        break;
+    }
 //    }
-        // !!!
-        if(name=="WAUT") {
-            openWAUT(attrs);
-        }
-        if(name=="wautSwitch") {
-            addWAUTSwitch(attrs);
-        }
-        if(name=="wautJunction") {
-            addWAUTJunction(attrs);
-        }
-        // !!!!
+    // !!!
+    if (name=="WAUT") {
+        openWAUT(attrs);
+    }
+    if (name=="wautSwitch") {
+        addWAUTSwitch(attrs);
+    }
+    if (name=="wautJunction") {
+        addWAUTJunction(attrs);
+    }
+    // !!!!
     // process detectors when wished
-    if(wanted(LOADFILTER_NETADD)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NETADD)) {
+        switch (element) {
         case SUMO_TAG_DETECTOR:
             addDetector(attrs);
             break;
@@ -394,10 +214,10 @@ NLHandler::myStartElement(int element, const std::string &name,
             break;
         }
     }
-    if(wanted(LOADFILTER_DYNAMIC)) {
+    if (wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myStartElement(element, name, attrs);
     }
-    if(element==SUMO_TAG_PARAM) {
+    if (element==SUMO_TAG_PARAM) {
         addParam(attrs);
     }
 }
@@ -420,7 +240,7 @@ NLHandler::addParam(const Attributes &attrs)
         return;
     }
     // set
-    if(myAmInTLLogicMode) {
+    if (myAmInTLLogicMode) {
         assert(key!="");
         assert(val!="");
         myJunctionControlBuilder.addParam(key, val);
@@ -435,19 +255,19 @@ NLHandler::openWAUT(const Attributes &attrs)
     std::string id, pro;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
         return;
     }
     try {
         t = getIntSecure(attrs, "refTime", 0);
-    } catch(NumberFormatException&) {
+    } catch (NumberFormatException&) {
         MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
         return;
     }
     try {
         pro = getString(attrs, "startProg");
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
         return;
     }
@@ -463,16 +283,16 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
     std::string to;
     try {
         t = getInt(attrs, SUMO_ATTR_TIME);
-    } catch(NumberFormatException&) {
+    } catch (NumberFormatException&) {
         MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
         return;
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing reference time for WAUT '" + myCurrentWAUTID + "'.");
         return;
     }
     try {
         to = getString(attrs, SUMO_ATTR_TO);
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
         return;
     }
@@ -486,13 +306,13 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
     std::string wautID, junctionID, procedure;
     try {
         wautID = getString(attrs, "wautID");
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
         return;
     }
     try {
         junctionID = getString(attrs, "junctionID");
-    } catch(EmptyData&) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
         return;
     }
@@ -509,7 +329,7 @@ NLHandler::setEdgeNumber(const Attributes &attrs)
         myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing number of edges.");
-    } catch(NumberFormatException) {
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of edges.");
     }
 }
@@ -523,7 +343,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         // omit internal edges if not wished
-        if(!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+        if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
             myCurrentIsInternalToSkip = true;
             return;
         }
@@ -543,19 +363,19 @@ NLHandler::chooseEdge(const Attributes &attrs)
 
     // get the type
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
-    if(func=="normal") {
+    if (func=="normal") {
         funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
     }
-    if(func=="source") {
+    if (func=="source") {
         funcEnum = MSEdge::EDGEFUNCTION_SOURCE;
     }
-    if(func=="sink") {
+    if (func=="sink") {
         funcEnum = MSEdge::EDGEFUNCTION_SINK;
     }
-    if(func=="internal") {
+    if (func=="internal") {
         funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
     }
-    if(funcEnum<0) {
+    if (funcEnum<0) {
         throw XMLIdNotKnownException("purpose", func);
     }
     //
@@ -577,7 +397,7 @@ void
 NLHandler::addLane(const Attributes &attrs)
 {
     // omit internal edges if not wished
-    if(myCurrentIsInternalToSkip) {
+    if (myCurrentIsInternalToSkip) {
         return;
     }
     try {
@@ -610,13 +430,13 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
-                getIntSecure(attrs, "layer", 1),// !!!
-                getString(attrs, SUMO_ATTR_TYPE),
-                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
-                getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
-				getStringSecure(attrs, SUMO_ATTR_LANE, ""),
-				getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
+                                    getIntSecure(attrs, "layer", 1),// !!!
+                                    getString(attrs, SUMO_ATTR_TYPE),
+                                    GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                                    getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
+                                    getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
+                                    getStringSecure(attrs, SUMO_ATTR_LANE, ""),
+                                    getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("poi", name));
         } catch (NumberFormatException &) {
@@ -637,10 +457,10 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
-                getIntSecure(attrs, "layer", -1),// !!!
-                getString(attrs, SUMO_ATTR_TYPE),
-                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                getBoolSecure(attrs, "fill", false));// !!!
+                                        getIntSecure(attrs, "layer", -1),// !!!
+                                        getString(attrs, SUMO_ATTR_TYPE),
+                                        GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                                        getBoolSecure(attrs, "fill", false));// !!!
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
         } catch (NumberFormatException &) {
@@ -658,14 +478,14 @@ void
 NLHandler::openAllowedEdge(const Attributes &attrs)
 {
     // omit internal edges if not wished
-    if(myCurrentIsInternalToSkip) {
+    if (myCurrentIsInternalToSkip) {
         return;
     }
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         MSEdge *edge = MSEdge::dictionary(id);
-        if(edge==0) {
+        if (edge==0) {
             throw XMLIdNotKnownException("edge", id);
         }
         myEdgeControlBuilder.openAllowedEdge(edge);
@@ -707,12 +527,12 @@ NLHandler::addLogicItem(const Attributes &attrs)
     }
     bool cont = false;
 #ifdef HAVE_INTERNAL_LANES
-    if(MSGlobals::gUsingInternalLanes) {
+    if (MSGlobals::gUsingInternalLanes) {
         cont = getBoolSecure(attrs, "cont", false);
     }
 #endif
     // store received information
-    if(request>=0 && response.length()>0) {
+    if (request>=0 && response.length()>0) {
         myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
     }
 }
@@ -737,7 +557,7 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
             }
         }
         myJunctionControlBuilder.initTrafficLightLogic(type,
-            absDuration, requestSize, detectorOffset);
+                absDuration, requestSize, detectorOffset);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
@@ -783,7 +603,7 @@ NLHandler::addPhase(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
         return;
     }
-    if(duration==0) {
+    if (duration==0) {
         MsgHandler::getErrorInstance()->inform("The duration of a tls-logic must not be zero. Is in '" + m_Key + "'.");
         return;
     }
@@ -807,7 +627,7 @@ NLHandler::addPhase(const Attributes &attrs)
     std::bitset<64> prios(brakeMask);
     prios.flip();
     myJunctionControlBuilder.addPhase(duration, std::bitset<64>(phase),
-        prios, std::bitset<64>(yellowMask), min, max);
+                                      prios, std::bitset<64>(yellowMask), min, max);
 }
 
 
@@ -819,10 +639,10 @@ NLHandler::openJunction(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
         try {
             myJunctionControlBuilder.openJunction(id,
-                getStringSecure(attrs, SUMO_ATTR_KEY, ""),
-                getString(attrs, SUMO_ATTR_TYPE),
-                getFloat(attrs, SUMO_ATTR_X),
-                getFloat(attrs, SUMO_ATTR_Y));
+                                                  getStringSecure(attrs, SUMO_ATTR_KEY, ""),
+                                                  getString(attrs, SUMO_ATTR_TYPE),
+                                                  getFloat(attrs, SUMO_ATTR_X),
+                                                  getFloat(attrs, SUMO_ATTR_Y));
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a junction-object.");
         }
@@ -848,20 +668,20 @@ NLHandler::addDetector(const Attributes &attrs)
     // try to get the type
     string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "induct_loop");
     // build in dependence to type
-        // induct loops (E1-detectors)
-    if(type=="induct_loop"||type=="E1"||type=="e1") {
+    // induct loops (E1-detectors)
+    if (type=="induct_loop"||type=="E1"||type=="e1") {
         addE1Detector(attrs);
         myDetectorType = "e1";
         return;
     }
-        // lane-based areal detectors (E2-detectors)
-    if(type=="lane_based"||type=="E2"||type=="e2") {
+    // lane-based areal detectors (E2-detectors)
+    if (type=="lane_based"||type=="E2"||type=="e2") {
         addE2Detector(attrs);
         myDetectorType = "e2";
         return;
     }
-        // multi-origin/multi-destination detectors (E3-detectors)
-    if(type=="multi_od"||type=="E3"||type=="e3") {
+    // multi-origin/multi-destination detectors (E3-detectors)
+    if (type=="multi_od"||type=="E3"||type=="e3") {
         beginE3Detector(attrs);
         myDetectorType = "e3";
         return;
@@ -881,48 +701,47 @@ NLHandler::addE1Detector(const Attributes &attrs)
         return;
     }
 
-	// check whether it is a detector storing data to a file or sending it over the network
-	bool isfd= true;
-	try {
-		getString(attrs, SUMO_ATTR_FILE);
-	} catch (EmptyData) {
-		isfd= false;
-	}
+    // check whether it is a detector storing data to a file or sending it over the network
+    bool isfd= true;
+    try {
+        getString(attrs, SUMO_ATTR_FILE);
+    } catch (EmptyData) {
+        isfd= false;
+    }
 
-	try {
+    try {
 #ifdef USE_SOCKETS
-		if (isfd) {
-			// this detector stores it's data in a file
-	        myDetectorBuilder.buildInductLoop(id,
-		        getString(attrs, SUMO_ATTR_LANE),
-			    getFloat(attrs, SUMO_ATTR_POSITION),
-				getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-	            SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-		            _file, getString(attrs, SUMO_ATTR_FILE)),
-				getBoolSecure(attrs, "friendly_pos", false),
-				getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
-		}
-		else {
-			// this detector sends it's data to some host on the network
-	        myDetectorBuilder.buildInductLoop(id,
-		        getString(attrs, SUMO_ATTR_LANE),
-			    getFloat(attrs, SUMO_ATTR_POSITION),
-				getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-	            SharedOutputDevices::getInstance()->getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
-																	getInt(attrs, SUMO_ATTR_PORT),
-																	getString(attrs, SUMO_ATTR_PROTOCOL)),
-				getBoolSecure(attrs, "friendly_pos", false),
-				getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
-		}
+        if (isfd) {
+            // this detector stores it's data in a file
+            myDetectorBuilder.buildInductLoop(id,
+                                              getString(attrs, SUMO_ATTR_LANE),
+                                              getFloat(attrs, SUMO_ATTR_POSITION),
+                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                              SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                  _file, getString(attrs, SUMO_ATTR_FILE)),
+                                              getBoolSecure(attrs, "friendly_pos", false),
+                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
+        } else {
+            // this detector sends it's data to some host on the network
+            myDetectorBuilder.buildInductLoop(id,
+                                              getString(attrs, SUMO_ATTR_LANE),
+                                              getFloat(attrs, SUMO_ATTR_POSITION),
+                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                              SharedOutputDevices::getInstance()->getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
+                                                      getInt(attrs, SUMO_ATTR_PORT),
+                                                      getString(attrs, SUMO_ATTR_PROTOCOL)),
+                                              getBoolSecure(attrs, "friendly_pos", false),
+                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
+        }
 #else //#ifdef USE_SOCKETS
         myDetectorBuilder.buildInductLoop(id,
-            getString(attrs, SUMO_ATTR_LANE),
-            getFloat(attrs, SUMO_ATTR_POSITION),
-            getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-            SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                _file, getString(attrs, SUMO_ATTR_FILE)),
-			getBoolSecure(attrs, "friendly_pos", false),
-            getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
+                                          getString(attrs, SUMO_ATTR_LANE),
+                                          getFloat(attrs, SUMO_ATTR_POSITION),
+                                          getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                          SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                              _file, getString(attrs, SUMO_ATTR_FILE)),
+                                          getBoolSecure(attrs, "friendly_pos", false),
+                                          getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -955,69 +774,68 @@ NLHandler::addE2Detector(const Attributes &attrs)
     try {
         string lsaid = getString(attrs, SUMO_ATTR_TLID);
         tll = myJunctionControlBuilder.getTLLogic(lsaid);
-        if(tll.ltVariants.size()==0) {
+        if (tll.ltVariants.size()==0) {
             MsgHandler::getErrorInstance()->inform("The detector '" + id + "' refers to the unknown lsa '" + lsaid + "'.");
             return;
         }
-    } catch (EmptyData) {
-    }
+    } catch (EmptyData) {}
     // check whether this is a detector connected to a link
     std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
     //
     try {
-        if(tll.ltVariants.size()!=0) {
-            if(toLane.length()==0) {
+        if (tll.ltVariants.size()!=0) {
+            if (toLane.length()==0) {
                 myDetectorBuilder.buildE2Detector(myContinuations,
-                    id,
-                    getString(attrs, SUMO_ATTR_LANE),
-                    getFloat(attrs, SUMO_ATTR_POSITION),
-                    getFloat(attrs, SUMO_ATTR_LENGTH),
-                    getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                    tll,
-                    getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                    SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                        _file, getString(attrs, SUMO_ATTR_FILE)),
-                    getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-                    );
+                                                  id,
+                                                  getString(attrs, SUMO_ATTR_LANE),
+                                                  getFloat(attrs, SUMO_ATTR_POSITION),
+                                                  getFloat(attrs, SUMO_ATTR_LENGTH),
+                                                  getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                                                  tll,
+                                                  getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                                                  SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                      _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                  getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                                  GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                                 );
             } else {
                 myDetectorBuilder.buildE2Detector(myContinuations,
-                    id,
-                    getString(attrs, SUMO_ATTR_LANE),
-                    getFloat(attrs, SUMO_ATTR_POSITION),
-                    getFloat(attrs, SUMO_ATTR_LENGTH),
-                    getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                    tll, toLane,
-                    getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                    SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                        _file, getString(attrs, SUMO_ATTR_FILE)),
-                    getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
-                    getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                    getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-                    );
+                                                  id,
+                                                  getString(attrs, SUMO_ATTR_LANE),
+                                                  getFloat(attrs, SUMO_ATTR_POSITION),
+                                                  getFloat(attrs, SUMO_ATTR_LENGTH),
+                                                  getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                                                  tll, toLane,
+                                                  getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                                                  SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                      _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                  getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                                  GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                                 );
             }
         } else {
             myDetectorBuilder.buildE2Detector(myContinuations,
-                id,
-                getString(attrs, SUMO_ATTR_LANE),
-                getFloat(attrs, SUMO_ATTR_POSITION),
-                getFloat(attrs, SUMO_ATTR_LENGTH),
-                getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                    _file, getString(attrs, SUMO_ATTR_FILE)),
-                getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
-                getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-                );
+                                              id,
+                                              getString(attrs, SUMO_ATTR_LANE),
+                                              getFloat(attrs, SUMO_ATTR_POSITION),
+                                              getFloat(attrs, SUMO_ATTR_LENGTH),
+                                              getBoolSecure(attrs, SUMO_ATTR_CONT, false),
+                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
+                                              SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                  _file, getString(attrs, SUMO_ATTR_FILE)),
+                                              getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                                              getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                              getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                                              getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                              GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                             );
         }
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -1045,14 +863,14 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-            SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                _file, getString(attrs, SUMO_ATTR_FILE)),
-            getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-            getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-            getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
-            getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-            GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-            );
+                                          SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                              _file, getString(attrs, SUMO_ATTR_FILE)),
+                                          getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                          getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
+                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                                          GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                         );
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {
@@ -1154,7 +972,7 @@ NLHandler::openSucc(const Attributes &attrs)
 {
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
-        if(!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+        if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
             myCurrentIsInternalToSkip = true;
             return;
         }
@@ -1169,12 +987,12 @@ void
 NLHandler::addSuccLane(const Attributes &attrs)
 {
     // do not process internal lanes if not wished
-    if(myCurrentIsInternalToSkip) {
+    if (myCurrentIsInternalToSkip) {
         return;
     }
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
-        if(tlID!="") {
+        if (tlID!="") {
             m_pSLB.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
@@ -1202,7 +1020,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("", "") +
-            "\n While building lane '" + m_pSLB.getSuccingLaneName() + "'");
+                                               "\n While building lane '" + m_pSLB.getSuccingLaneName() + "'");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
@@ -1213,7 +1031,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
 MSLink::LinkDirection
 NLHandler::parseLinkDir(char dir)
 {
-    switch(dir) {
+    switch (dir) {
     case 's':
         return MSLink::LINKDIR_STRAIGHT;
     case 'l':
@@ -1235,7 +1053,7 @@ NLHandler::parseLinkDir(char dir)
 MSLink::LinkState
 NLHandler::parseLinkState(char state)
 {
-    switch(state) {
+    switch (state) {
     case 't':
     case 'o':
         return MSLink::LINKSTATE_TL_OFF_BLINKING;
@@ -1259,11 +1077,11 @@ NLHandler::parseLinkState(char state)
 
 void
 NLHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+                        const std::string &chars)
 {
     // check static net information
-    if(wanted(LOADFILTER_NET)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
         case SUMO_TAG_EDGES:
             allocateEdges(chars);
             break;
@@ -1284,25 +1102,25 @@ NLHandler::myCharacters(int element, const std::string &name,
             addInternalLanes(chars);
             break;
 #endif
-		case SUMO_TAG_LANE:
+        case SUMO_TAG_LANE:
             addLaneShape(chars);
             break;
             /*
-        default:
+            default:
             break;
-        }
-    }
-    // check junction logics
-    if(wanted(LOADFILTER_LOGICS)) {
-        switch(element) {
-        */
+            }
+            }
+            // check junction logics
+            if(wanted(LOADFILTER_LOGICS)) {
+            switch(element) {
+            */
         case SUMO_TAG_REQUESTSIZE:
-            if(m_Key.length()!=0) {
+            if (m_Key.length()!=0) {
                 setRequestSize(chars);
             }
             break;
         case SUMO_TAG_LANENUMBER:
-            if(m_Key.length()!=0) {
+            if (m_Key.length()!=0) {
                 setLaneNumber(chars);
             }
             break;
@@ -1318,20 +1136,20 @@ NLHandler::myCharacters(int element, const std::string &name,
         default:
             break;
         }
-        if(name=="net-offset") { // !!!!6 change to tag*
+        if (name=="net-offset") { // !!!!6 change to tag*
             setNetOffset(chars);
         }
-        if(name=="conv-boundary") { // !!!!6 change to tag*
+        if (name=="conv-boundary") { // !!!!6 change to tag*
             setNetConv(chars);
         }
-        if(name=="orig-boundary") { // !!!!6 change to tag*
+        if (name=="orig-boundary") { // !!!!6 change to tag*
             setNetOrig(chars);
         }
-        if(name=="orig-proj") { // !!!!6 change to tag*
+        if (name=="orig-proj") { // !!!!6 change to tag*
             myNet.setOrigProj(chars);
         }
     }
-    if(wanted(LOADFILTER_DYNAMIC)) {
+    if (wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, name, chars);
     }
 }
@@ -1342,10 +1160,10 @@ NLHandler::allocateEdges(const std::string &chars)
 {
     size_t beg = 0;
     size_t idx = chars.find(' ');
-    while(idx!=string::npos) {
+    while (idx!=string::npos) {
         string edgeid = chars.substr(beg, idx-beg);
         // skip internal edges if not wished
-        if(MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
+        if (MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
             myEdgeControlBuilder.addEdge(edgeid);
         }
         beg = idx + 1;
@@ -1354,7 +1172,7 @@ NLHandler::allocateEdges(const std::string &chars)
     string edgeid = chars.substr(beg);
     // skip internal edges if not wished
     //  (the last one shouldn't be internal anyway)
-    if(!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
+    if (!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
         return;
     }
     myEdgeControlBuilder.addEdge(edgeid);
@@ -1368,7 +1186,7 @@ NLHandler::setNodeNumber(const std::string &chars)
         myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing number of nodes.");
-    } catch(NumberFormatException) {
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of nodes.");
     }
 }
@@ -1378,15 +1196,15 @@ void
 NLHandler::addAllowedEdges(const std::string &chars)
 {
     // omit internal edges if not wished
-    if(myCurrentIsInternalToSkip) {
+    if (myCurrentIsInternalToSkip) {
         return;
     }
     StringTokenizer st(chars);
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         string set = st.next();
         try {
             MSLane *lane = MSLane::dictionary(set);
-            if(lane==0) {
+            if (lane==0) {
                 throw XMLIdNotKnownException("lane", set);
             }
             myEdgeControlBuilder.addAllowed(lane);
@@ -1428,7 +1246,7 @@ NLHandler::setLaneNumber(const std::string &chars)
 void
 NLHandler::setKey(const std::string &chars)
 {
-    if(chars.length()==0) {
+    if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
         return;
     }
@@ -1440,7 +1258,7 @@ NLHandler::setKey(const std::string &chars)
 void
 NLHandler::setSubKey(const std::string &chars)
 {
-    if(chars.length()==0) {
+    if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
         return;
     }
@@ -1505,14 +1323,14 @@ void
 NLHandler::addIncomingLanes(const std::string &chars)
 {
     StringTokenizer st(chars);
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         string set = st.next();
         try {
             MSLane *lane = MSLane::dictionary(set);
-            if(!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+            if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
                 continue;
             }
-            if(lane==0) {
+            if (lane==0) {
                 throw XMLIdNotKnownException("lane", set);
             }
             myJunctionControlBuilder.addIncomingLane(lane);
@@ -1537,15 +1355,15 @@ void
 NLHandler::addInternalLanes(const std::string &chars)
 {
     // do not parse internal lanes if not wished
-    if(!MSGlobals::gUsingInternalLanes) {
+    if (!MSGlobals::gUsingInternalLanes) {
         return;
     }
     StringTokenizer st(chars);
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         string set = st.next();
         try {
             MSLane *lane = MSLane::dictionary(set);
-            if(lane==0) {
+            if (lane==0) {
                 throw XMLIdNotKnownException("lane", set);
             }
             myJunctionControlBuilder.addInternalLane(lane);
@@ -1561,8 +1379,8 @@ NLHandler::addInternalLanes(const std::string &chars)
 void
 NLHandler::myEndElement(int element, const std::string &name)
 {
-    if(wanted(LOADFILTER_NET)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
         case SUMO_TAG_EDGE:
             closeEdge();
             break;
@@ -1583,8 +1401,8 @@ NLHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
-    if(wanted(LOADFILTER_NET)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
         case SUMO_TAG_ROWLOGIC:
             myJunctionControlBuilder.closeJunctionLogic();
             break;
@@ -1596,13 +1414,13 @@ NLHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
-        // !!!
-        if(name=="WAUT") {
-            closeWAUT();
-        }
-        // !!!!
-    if(wanted(LOADFILTER_NETADD)) {
-        switch(element) {
+    // !!!
+    if (name=="WAUT") {
+        closeWAUT();
+    }
+    // !!!!
+    if (wanted(LOADFILTER_NETADD)) {
+        switch (element) {
         case SUMO_TAG_E3DETECTOR:
             endE3Detector();
             break;
@@ -1613,7 +1431,7 @@ NLHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
-    if(wanted(LOADFILTER_DYNAMIC)) {
+    if (wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myEndElement(element, name);
     }
 }
@@ -1623,10 +1441,10 @@ void
 NLHandler::closeEdge()
 {
     // do not process internal lanes if not wished
-    if(!myCurrentIsInternalToSkip) {
+    if (!myCurrentIsInternalToSkip) {
         MSEdge *edge = myEdgeControlBuilder.closeEdge();
 #ifdef HAVE_MESOSIM
-        if(MSGlobals::gUseMesoSim) {
+        if (MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());
         }
 #endif
@@ -1638,11 +1456,11 @@ void
 NLHandler::closeLane()
 {
     // do not process internal lanes if not wished
-    if(!myCurrentIsInternalToSkip) {
+    if (!myCurrentIsInternalToSkip) {
         MSLane *lane =
             myEdgeControlBuilder.addLane(myID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
         // insert the lane into the lane-dictionary, checking
-        if(!MSLane::dictionary(myID, lane)) {
+        if (!MSLane::dictionary(myID, lane)) {
             throw XMLIdAlreadyUsedException("Lanes", myID);
         }
     }
@@ -1659,7 +1477,7 @@ void
 NLHandler::closeAllowedEdge()
 {
     // do not process internal lanes if not wished
-    if(!myCurrentIsInternalToSkip) {
+    if (!myCurrentIsInternalToSkip) {
         myEdgeControlBuilder.closeAllowedEdge();
     }
 }
@@ -1684,7 +1502,7 @@ void
 NLHandler::closeSuccLane()
 {
     // do not process internal lanes if not wished
-    if(myCurrentIsInternalToSkip) {
+    if (myCurrentIsInternalToSkip) {
         return;
     }
     try {
@@ -1698,7 +1516,7 @@ NLHandler::closeSuccLane()
 void
 NLHandler::endDetector()
 {
-    if(myDetectorType=="e3") {
+    if (myDetectorType=="e3") {
         endE3Detector();
     }
     myDetectorType = "";
@@ -1712,8 +1530,7 @@ NLHandler::endE3Detector()
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
-    } catch (ProcessError) {
-    }
+    } catch (ProcessError) {}
 }
 
 
@@ -1751,7 +1568,7 @@ NLHandler::setWanted(NLLoadFilter filter)
 
 void
 NLHandler::setError(const string &type,
-                       const SAXParseException& exception)
+                    const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(buildErrorMessage(_file, type, exception));
 }
@@ -1764,9 +1581,6 @@ NLHandler::getContinuations() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

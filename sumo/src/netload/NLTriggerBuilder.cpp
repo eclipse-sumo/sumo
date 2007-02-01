@@ -1,127 +1,38 @@
-/***************************************************************************
-                          NLTriggerBuilder.cpp
-                          A building helper for triggers
-                             -------------------
-    begin                : Thu, 17 Oct 2002
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] =
-         "$Id$";
-}
-// $Log$
-// Revision 1.27  2006/11/28 12:16:11  dkrajzew
-// documented TOL-classes and made them faster
+/****************************************************************************/
+/// @file    NLTriggerBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17 Oct 2002
+/// @version $Id: $
+///
+// A building helper for triggers
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.25  2006/11/16 12:30:54  dkrajzew
-// warnings removed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.24  2006/11/14 13:04:13  dkrajzew
-// warnings removed
-//
-// Revision 1.23  2006/11/14 06:47:57  dkrajzew
-// code beautifying
-//
-// Revision 1.22  2006/11/08 16:37:22  ericnicolay
-// change code for actortrigger
-//
-// Revision 1.21  2006/10/12 10:14:30  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.20  2006/10/05 09:29:22  ericnicolay
-// in builldTrigger now the event actor at first check if the lane exist.
-//
-// Revision 1.19  2006/07/06 06:13:33  dkrajzew
-// removed some old code
-//
-// Revision 1.18  2006/07/05 11:40:41  ericnicolay
-// change code in buildVehicleActor
-//
-// Revision 1.17  2006/06/13 13:17:48  dkrajzew
-// removed unneeded code
-//
-// Revision 1.16  2006/04/05 05:33:45  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.15  2006/03/27 07:20:28  dkrajzew
-// vehicle actors added, joined some commonly used functions, documentation added
-//
-// Revision 1.14  2006/03/08 13:15:00  dkrajzew
-// friendly_pos usage debugged
-//
-// Revision 1.13  2006/01/09 12:00:28  dkrajzew
-// bus stops implemented
-//
-// Revision 1.12  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.11  2005/10/10 12:11:33  dkrajzew
-// debugging
-//
-// Revision 1.10  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:04:12  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/05/04 08:43:09  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.6  2005/02/17 10:33:40  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.5  2004/07/02 09:37:31  dkrajzew
-// work on class derivation (for online-routing mainly)
-//
-// Revision 1.4  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.3  2003/02/07 11:18:56  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/22 10:05:17  dkrajzew
-// unsupported return value added
-//
-// Revision 1.1  2002/10/17 10:50:18  dkrajzew
-// building of triggers added (initial)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <fstream>
@@ -155,23 +66,21 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder()
-{
-}
+{}
 
 
 NLTriggerBuilder::~NLTriggerBuilder()
-{
-}
+{}
 
 
 MSTrigger *
@@ -184,59 +93,59 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     string attr = helper.getStringSecure(attrs, SUMO_ATTR_ATTR, "");
     // check which type of a trigger shall be build
     MSTrigger *t = 0;
-    if(type=="lane"&&attr=="speed") {
+    if (type=="lane"&&attr=="speed") {
         t = parseAndBuildLaneSpeedTrigger(net, attrs, base, helper);
-    } else if(type=="emitter") {
+    } else if (type=="emitter") {
         t = parseAndBuildLaneEmitTrigger(net, attrs, base, helper);
-    } else if(type=="rerouter") {
+    } else if (type=="rerouter") {
         t = parseAndBuildRerouter(net, attrs, base, helper);
-    } else if(type=="bus_stop") {
+    } else if (type=="bus_stop") {
         t = parseAndBuildBusStop(net, attrs, base, helper);
-    } else if(type=="vehicle_actor") {
-		/*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
-		if ( helper.getInt( attrs, SUMO_ATTR_TYPE ) == 3){
-			unsigned int cell_id   = helper.getInt( attrs, SUMO_ATTR_ID );
-			unsigned int interval  = helper.getInt( attrs, SUMO_ATTR_OBJECTID );
-			unsigned int statcount = helper.getInt( attrs, SUMO_ATTR_POS );
+    } else if (type=="vehicle_actor") {
+        /*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
+        if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 3) {
+            unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
+            unsigned int interval  = helper.getInt(attrs, SUMO_ATTR_OBJECTID);
+            unsigned int statcount = helper.getInt(attrs, SUMO_ATTR_POS);
 //			unsigned int dyncount  = helper.getInt( attrs, SUMO_ATTR_TO );
-			//insert in MSPhoneNet
-			MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-			/*if there is no instance of the cell, create it; hopefully there will be an actor created for this
-			  so its become a relation to its LA*/
-			if ( pPhone->getMSPhoneCell( cell_id ) == 0 )
-				pPhone->addMSPhoneCell( cell_id );
-			MSPhoneCell* pCell = pPhone->getMSPhoneCell( cell_id );
-			pCell->setStatParams( interval, statcount/*, -1 */);
-		}else if(helper.getInt(attrs, SUMO_ATTR_TYPE ) == 4){
-			/*this is the trigger for the duration for an interval for an hour*/
-			unsigned int cell_id   = helper.getInt( attrs, SUMO_ATTR_ID );
-			unsigned int interval  = helper.getInt ( attrs, SUMO_ATTR_OBJECTID );
-			unsigned int count = helper.getInt( attrs, SUMO_ATTR_POS );
-			float duration = helper.getFloat( attrs, SUMO_ATTR_TO );
-			float deviation  = helper.getFloat( attrs, SUMO_ATTR_XTO );
-			//insert in MSPhoneNet
-			MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-			/*if there is no instance of the cell, create it; hopefully there will be an actor created for this
-			  so its become a relation to its LA*/
-			if ( pPhone->getMSPhoneCell( cell_id ) == 0 )
-				pPhone->addMSPhoneCell( cell_id );
-			MSPhoneCell* pCell = pPhone->getMSPhoneCell( cell_id );
-			pCell->setDynParams( interval, count, duration, deviation );
-		}else {
-			/*check that the depending lane realy exist. if not just forget this VehicleActor. */
-			MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
-			if(tlane!=0)
-			t = parseAndBuildVehicleActor(net, attrs, base, helper);
-		}
+            //insert in MSPhoneNet
+            MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
+            /*if there is no instance of the cell, create it; hopefully there will be an actor created for this
+              so its become a relation to its LA*/
+            if (pPhone->getMSPhoneCell(cell_id) == 0)
+                pPhone->addMSPhoneCell(cell_id);
+            MSPhoneCell* pCell = pPhone->getMSPhoneCell(cell_id);
+            pCell->setStatParams(interval, statcount/*, -1 */);
+        } else if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 4) {
+            /*this is the trigger for the duration for an interval for an hour*/
+            unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
+            unsigned int interval  = helper.getInt(attrs, SUMO_ATTR_OBJECTID);
+            unsigned int count = helper.getInt(attrs, SUMO_ATTR_POS);
+            float duration = helper.getFloat(attrs, SUMO_ATTR_TO);
+            float deviation  = helper.getFloat(attrs, SUMO_ATTR_XTO);
+            //insert in MSPhoneNet
+            MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
+            /*if there is no instance of the cell, create it; hopefully there will be an actor created for this
+              so its become a relation to its LA*/
+            if (pPhone->getMSPhoneCell(cell_id) == 0)
+                pPhone->addMSPhoneCell(cell_id);
+            MSPhoneCell* pCell = pPhone->getMSPhoneCell(cell_id);
+            pCell->setDynParams(interval, count, duration, deviation);
+        } else {
+            /*check that the depending lane realy exist. if not just forget this VehicleActor. */
+            MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
+            if (tlane!=0)
+                t = parseAndBuildVehicleActor(net, attrs, base, helper);
+        }
     }
 #ifdef HAVE_MESOSIM
-    else if(type=="calibrator"&&MSGlobals::gUseMesoSim) {
+    else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
-    } else if(type=="scaler"&&MSGlobals::gUseMesoSim) {
+    } else if (type=="scaler"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildScaler(net, attrs, base, helper);
     }
 #endif
-    if(t!=0) {
+    if (t!=0) {
         net.getTriggerControl().addTrigger(t);
     }
     return t;
@@ -247,9 +156,9 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
-                                                const Attributes &attrs,
-                                                const std::string &base,
-                                                const NLHandler &helper)
+        const Attributes &attrs,
+        const std::string &base,
+        const NLHandler &helper)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -258,15 +167,15 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     std::vector<MSLane*> lanes;
     StringTokenizer st(objectid, ";");
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         MSLane *lane = MSLane::dictionary(st.next());
-        if(lane==0) {
+        if (lane==0) {
             MsgHandler::getErrorInstance()->inform("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
             throw ProcessError();
         }
         lanes.push_back(lane);
     }
-    if(lanes.size()==0) {
+    if (lanes.size()==0) {
         MsgHandler::getErrorInstance()->inform("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
         throw ProcessError();
     }
@@ -276,9 +185,9 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
 
 MSEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
-                                               const Attributes &attrs,
-                                               const std::string &base,
-                                               const NLHandler &helper)
+        const Attributes &attrs,
+        const std::string &base,
+        const NLHandler &helper)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -311,16 +220,16 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
         MsgHandler::getErrorInstance()->inform("Either the begin or the end position of busstop '" + id + "' is not numeric.");
         throw ProcessError();
     }
-    if(frompos<0) {
+    if (frompos<0) {
         frompos = lane->length() + frompos;
     }
-    if(topos<0) {
+    if (topos<0) {
         topos = lane->length() + topos;
     }
     // get the lines
     std::string lineStr = helper.getStringSecure(attrs, "lines", "");
     std::vector<std::string> lines;
-    if(lineStr.length()!=0) {
+    if (lineStr.length()!=0) {
         StringTokenizer st(lineStr, ";");
         lines = st.getVector();
     }
@@ -331,16 +240,16 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
 
 MSE1VehicleActor *
 NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
-                                            const Attributes &attrs,
-                                            const std::string &/*base*/,
-                                            const NLHandler &helper)
+        const Attributes &attrs,
+        const std::string &/*base*/,
+        const NLHandler &helper)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "vehicle_actor", id);
-	unsigned int cellid = helper.getInt( attrs, SUMO_ATTR_TO );
-	unsigned int laid = helper.getInt( attrs, SUMO_ATTR_XTO );
-	unsigned int type = helper.getInt( attrs, SUMO_ATTR_TYPE );
+    unsigned int cellid = helper.getInt(attrs, SUMO_ATTR_TO);
+    unsigned int laid = helper.getInt(attrs, SUMO_ATTR_XTO);
+    unsigned int type = helper.getInt(attrs, SUMO_ATTR_TYPE);
     return buildVehicleActor(net, id, lane, pos, laid, cellid, type);
 }
 
@@ -348,15 +257,15 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
-                                          const Attributes &attrs,
-                                          const std::string &base,
-                                          const NLHandler &helper)
+        const Attributes &attrs,
+        const std::string &base,
+        const NLHandler &helper)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
 
     string rfile = helper.getStringSecure(attrs, "rfile", "");
-    if(rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
+    if (rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
         rfile = FileHelpers::getConfigurationRelative(base, rfile);
     }
 
@@ -365,15 +274,15 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
     SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
 
 
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
-        MESegment *prev = s;
-        SUMOReal cpos = 0;
-        while(cpos<pos&&s!=0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos-cpos-prev->getLength();
+    MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
+    MESegment *prev = s;
+    SUMOReal cpos = 0;
+    while (cpos<pos&&s!=0) {
+        prev = s;
+        cpos += s->getLength();
+        s = s->getNextSegment();
+    }
+    SUMOReal rpos = pos-cpos-prev->getLength();
 
     return buildCalibrator(net, id, prev, rpos, rfile, file);
 }
@@ -381,9 +290,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
 
 METriggeredScaler *
 NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
-									  const Attributes &attrs,
-									  const std::string &/*base*/,
-									  const NLHandler &helper)
+                                      const Attributes &attrs,
+                                      const std::string &/*base*/,
+                                      const NLHandler &helper)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "scaler", id);
@@ -392,20 +301,20 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
     SUMOReal scale;
     try {
         scale = helper.getFloatSecure(attrs, SUMO_TAG_WEIGHT, 1);
-    } catch(NumberFormatException) {
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Invalid scale in definition of METriggeredScaler '" + id + "'.");
         throw ProcessError();
     }
 
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
-        MESegment *prev = s;
-        SUMOReal cpos = 0;
-        while(cpos<pos&&s!=0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos-cpos-prev->getLength();
+    MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
+    MESegment *prev = s;
+    SUMOReal cpos = 0;
+    while (cpos<pos&&s!=0) {
+        prev = s;
+        cpos += s->getLength();
+        s = s->getNextSegment();
+    }
+    SUMOReal rpos = pos-cpos-prev->getLength();
 
     return buildScaler(net, id, prev, rpos, scale);
 }
@@ -425,15 +334,15 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     std::vector<MSEdge*> edges;
     StringTokenizer st(objectid, ";");
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         MSEdge *edge = MSEdge::dictionary(st.next());
-        if(edge==0) {
+        if (edge==0) {
             MsgHandler::getErrorInstance()->inform("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
             throw ProcessError();
         }
         edges.push_back(edge);
     }
-    if(edges.size()==0) {
+    if (edges.size()==0) {
         MsgHandler::getErrorInstance()->inform("No edges found for MSTriggeredRerouter '" + id + "'.");
         throw ProcessError();
     }
@@ -441,12 +350,12 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     SUMOReal prob;
     try {
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
-    } catch(NumberFormatException) {
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
         throw ProcessError();
     }
     MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
-    if(helper.getBoolSecure(attrs, "off", false)) {
+    if (helper.getBoolSecure(attrs, "off", false)) {
         ret->setUserMode(true);
         ret->setUserUsageProbability(0);
     }
@@ -492,9 +401,9 @@ NLTriggerBuilder::buildCalibrator(MSNet &net,
 
 METriggeredScaler *
 NLTriggerBuilder::buildScaler(MSNet &net,
-							  const std::string &id,
-							  MESegment *edge, SUMOReal pos,
-							  SUMOReal scale)
+                              const std::string &id,
+                              MESegment *edge, SUMOReal pos,
+                              SUMOReal scale)
 {
     return new METriggeredScaler(id, net, edge, scale);
 }
@@ -523,9 +432,9 @@ NLTriggerBuilder::buildBusStop(MSNet &, const std::string &id,
 MSE1VehicleActor *
 NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                     MSLane *lane, SUMOReal pos, unsigned int la,
-									unsigned int cell, unsigned int type)
+                                    unsigned int cell, unsigned int type)
 {
-		return new MSE1VehicleActor(id, lane, pos, la, cell, type);
+    return new MSE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
 
@@ -538,8 +447,8 @@ NLTriggerBuilder::getFileName(const Attributes &attrs,
 {
     // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
-        // check whether absolute or relative filenames are given
-    if(!FileHelpers::isAbsolute(file)) {
+    // check whether absolute or relative filenames are given
+    if (!FileHelpers::isAbsolute(file)) {
         return FileHelpers::getConfigurationRelative(base, file);
     }
     return file;
@@ -554,7 +463,7 @@ NLTriggerBuilder::getLane(const Attributes &attrs,
 {
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     MSLane *lane = MSLane::dictionary(objectid);
-    if(lane==0) {
+    if (lane==0) {
         MsgHandler::getErrorInstance()->inform("The lane to use within the " + tt + " '" + tid + "' is not known.");
         throw ProcessError();
     }
@@ -570,22 +479,20 @@ NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
 
     SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
     bool friendly_pos = helper.getBoolSecure(attrs, "friendly_pos", false);
-    if(pos<0) {
+    if (pos<0) {
         pos = lane->length() + pos;
     }
-    if(pos>lane->length()) {
-		if(friendly_pos) {
-			pos = lane->length() - (SUMOReal) 0.1;
-		} else {
-			throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
-		}
+    if (pos>lane->length()) {
+        if (friendly_pos) {
+            pos = lane->length() - (SUMOReal) 0.1;
+        } else {
+            throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
+        }
     }
     return pos;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

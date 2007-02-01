@@ -1,162 +1,38 @@
-/***************************************************************************
-                          NLJunctionControlBuilder.cpp
-              Container for MSJunctionControl-structures during
-              their building
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 9 Jul 2001
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] =
-         "$Id$";
-}
-// $Log$
-// Revision 1.28  2006/11/16 07:02:18  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NLJunctionControlBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 9 Jul 2001
+/// @version $Id: $
+///
+// Container for MSJunctionControl-structures during
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.27  2006/11/06 10:30:30  dkrajzew
-// debugged handling of neworks with internal geometry in the case SUMO was build with no such support
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.26  2006/09/18 10:14:04  dkrajzew
-// patching junction-internal state simulation
-//
-// Revision 1.25  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.24  2006/05/29 12:58:04  dkrajzew
-// debugged step offset computation
-//
-// Revision 1.23  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.22  2006/02/27 12:10:41  dkrajzew
-// WAUTs added
-//
-// Revision 1.21  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.20  2005/11/09 06:43:20  dkrajzew
-// TLS-API: MSEdgeContinuations added
-//
-// Revision 1.19  2005/10/17 09:20:12  dkrajzew
-// segfaults on loading broken configs patched
-//
-// Revision 1.18  2005/10/10 12:11:23  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.17  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.16  2005/09/23 06:04:11  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.15  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.14  2005/05/04 08:41:33  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2004/12/10 11:43:57  dksumo
-// parametrisation of actuated traffic lights added
-//
-// Revision 1.1  2004/10/22 12:50:19  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.11  2004/08/02 12:47:30  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.10  2003/12/04 13:18:23  dkrajzew
-// handling of internal links added
-//
-// Revision 1.9  2003/11/18 14:23:57  dkrajzew
-// debugged and completed lane merging detectors
-//
-// Revision 1.8  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version
-//  (no major drawbacks in loading speed)
-//
-// Revision 1.7  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.6  2003/06/05 11:52:27  dkrajzew
-// class templates applied; documentation added
-//
-// Revision 1.5  2003/04/01 15:17:45  dkrajzew
-// district-typed junctions added
-//
-// Revision 1.4  2003/03/17 14:28:09  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/03/03 15:06:33  dkrajzew
-// new import format applied; new detectors applied
-//
-// Revision 1.2  2003/02/07 11:18:56  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
-//  parseable in one step
-//
-// Revision 1.6  2002/06/11 14:39:27  dkrajzew
-// windows eol removed
-//
-// Revision 1.5  2002/06/11 13:44:33  dkrajzew
-// Windows eol removed
-//
-// Revision 1.4  2002/06/07 14:39:58  dkrajzew
-// errors occured while building larger nets and adaption of new
-//  netconverting methods debugged
-//
-// Revision 1.3  2002/04/17 11:18:47  dkrajzew
-// windows-newlines removed
-//
-// Revision 1.2  2002/04/15 07:01:15  dkrajzew
-// new loading paradigm implemented
-//
-// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
-// new project name
-//
-// Revision 2.0  2002/02/14 14:43:24  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.3  2002/02/13 15:40:44  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
-//
-// Revision 1.1  2001/12/06 13:36:09  traffic
-// moved from netbuild
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <string>
@@ -185,15 +61,15 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * static variables
- * ======================================================================= */
+// ===========================================================================
+// static variables
+// ===========================================================================
 const int NLJunctionControlBuilder::TYPE_NOJUNCTION = 0;
 const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 1;
 const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 2;
@@ -201,12 +77,12 @@ const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
 const int NLJunctionControlBuilder::TYPE_INTERNAL = 4;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
-                                                   OptionsCont &oc)
-    : myNet(net), myOffset(0), myJunctions(0)
+        OptionsCont &oc)
+        : myNet(net), myOffset(0), myJunctions(0)
 {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
     myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
@@ -249,18 +125,18 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     myActiveID = id;
     myActiveKey = key;
     myType = -1;
-    if(type=="none") {
+    if (type=="none") {
         myType = TYPE_NOJUNCTION;
-    } else if(type=="right_before_left") {
+    } else if (type=="right_before_left") {
         myType = TYPE_RIGHT_BEFORE_LEFT;
-    } else if(type=="priority") {
+    } else if (type=="priority") {
         myType = TYPE_PRIORITY_JUNCTION;
-    } else if(type=="DEAD_END"||type=="district") {
+    } else if (type=="DEAD_END"||type=="district") {
         myType = TYPE_DEAD_END;
-    } else if(type=="internal") {
+    } else if (type=="internal") {
         myType = TYPE_INTERNAL;
     }
-    if(myType<0) {
+    if (myType<0) {
         MsgHandler::getErrorInstance()->inform("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
         throw ProcessError();
     }
@@ -288,7 +164,7 @@ void
 NLJunctionControlBuilder::closeJunction()
 {
     MSJunction *junction = 0;
-    switch(myType) {
+    switch (myType) {
     case TYPE_NOJUNCTION:
         junction = buildNoLogicJunction();
         break;
@@ -308,9 +184,9 @@ NLJunctionControlBuilder::closeJunction()
         MsgHandler::getErrorInstance()->inform("False junction type.");
         throw ProcessError();
     }
-    if(junction!=0) {
+    if (junction!=0) {
         myJunctions->push_back(junction);
-        if(!MSJunction::dictionary(myActiveID, junction)) {
+        if (!MSJunction::dictionary(myActiveID, junction)) {
             throw XMLIdAlreadyUsedException("junction", myActiveID);
         }
     }
@@ -331,9 +207,9 @@ NLJunctionControlBuilder::buildNoLogicJunction()
 {
     return new MSNoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes
 #ifdef HAVE_INTERNAL_LANES
-        , myActiveInternalLanes
+                                 , myActiveInternalLanes
 #endif
-        );
+                                );
 }
 
 
@@ -344,9 +220,9 @@ NLJunctionControlBuilder::buildLogicJunction()
     // build the junction
     return new MSRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
-        myActiveInternalLanes,
+                                    myActiveInternalLanes,
 #endif
-        jtype);
+                                    jtype);
 }
 
 
@@ -356,7 +232,7 @@ NLJunctionControlBuilder::buildInternalJunction()
 {
     // build the junction
     return new MSInternalJunction(myActiveID, myPosition, myActiveIncomingLanes,
-        myActiveInternalLanes);
+                                  myActiveInternalLanes);
 }
 #endif
 
@@ -366,7 +242,7 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
 {
     // get and check the junction logic
     MSJunctionLogic *jtype = MSJunctionLogic::dictionary(myActiveID);
-    if(jtype==0) {
+    if (jtype==0) {
         throw XMLIdNotKnownException("junctiontype (key)", myActiveID);
     }
     return jtype;
@@ -411,37 +287,37 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
     // compute the initial step of the tls-logic
     size_t step = computeInitTLSStep();
     size_t firstEventOffset = computeInitTLSEventOffset();
-    if(myActiveSubKey=="") {
+    if (myActiveSubKey=="") {
         myActiveSubKey = "default";
     }
     MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
-    if(myLogicType=="actuated") {
+    if (myLogicType=="actuated") {
         // build an actuated logic
         tlLogic =
             new MSActuatedTrafficLightLogic(myNet, getTLLogicControlToUse(),
-                myActiveKey, myActiveSubKey,
-                myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
-                myStdActuatedPassingTime, myStdActuatedDetectorGap);
-    } else if(myLogicType=="agentbased") {
+                                            myActiveKey, myActiveSubKey,
+                                            myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
+                                            myStdActuatedPassingTime, myStdActuatedDetectorGap);
+    } else if (myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
             new MSAgentbasedTrafficLightLogic(myNet, getTLLogicControlToUse(),
-                myActiveKey, myActiveSubKey,
-                myActivePhases, step, firstEventOffset, myStdLearnHorizon,
-                myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
+                                              myActiveKey, myActiveSubKey,
+                                              myActivePhases, step, firstEventOffset, myStdLearnHorizon,
+                                              myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
     } else {
         // build an uncontrolled (fix) tls-logic
         tlLogic =
             new MSSimpleTrafficLightLogic(myNet, getTLLogicControlToUse(),
-                myActiveKey, myActiveSubKey,
-                myActivePhases, step, firstEventOffset);
+                                          myActiveKey, myActiveSubKey,
+                                          myActivePhases, step, firstEventOffset);
         tlLogic->setParameter(myAdditionalParameter);
     }
     addJunctionInitInfo(tlLogic);
     myActivePhases.clear();
-    if(tlLogic!=0) {
-        if(!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
+    if (tlLogic!=0) {
+        if (!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
             MsgHandler::getErrorInstance()->inform("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
         }
     }
@@ -454,10 +330,10 @@ NLJunctionControlBuilder::computeInitTLSStep()  const
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = myActivePhases.begin();
+    = myActivePhases.begin();
     SUMOTime step = 0;
-    while(true) {
-        if(offset<(*i)->duration) {
+    while (true) {
+        if (offset<(*i)->duration) {
             return step;
         }
         step++;
@@ -473,8 +349,8 @@ NLJunctionControlBuilder::computeInitTLSEventOffset()  const
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    while(true) {
-        if(offset<(*i)->duration) {
+    while (true) {
+        if (offset<(*i)->duration) {
             return (*i)->duration - offset;
         }
         offset -= (*i)->duration;
@@ -504,7 +380,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        const std::string &foes,
                                        bool cont)
 {
-    if(myRequestSize<=0) {
+    if (myRequestSize<=0) {
         MsgHandler::getErrorInstance()->inform("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
         return;
     }
@@ -525,9 +401,9 @@ NLJunctionControlBuilder::addLogicItem(int request,
 
 void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
-                                                size_t absDuration,
-                                                int requestSize,
-                                                SUMOReal detectorOffset)
+        size_t absDuration,
+        int requestSize,
+        SUMOReal detectorOffset)
 {
     myActiveKey = "";
     myActiveSubKey = "";
@@ -538,13 +414,13 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
     myLogicType = type;
     myDetectorOffset = detectorOffset;
     myAdditionalParameter.clear();
-    if(myDetectorOffset==-1) {
+    if (myDetectorOffset==-1) {
         // agentbased
-        if(myLogicType=="agentbased") {
+        if (myLogicType=="agentbased") {
             myDetectorOffset = myStdDetectorLengths;
         }
         // actuated
-        if(myLogicType=="actuated") {
+        if (myLogicType=="actuated") {
             myDetectorOffset = myStdDetectorPositions;
         }
     }
@@ -558,7 +434,7 @@ NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase
                                    int min, int max)
 {
     // build and add the phase definition to the list
-    if(myLogicType=="actuated"||myLogicType=="agentbased") {
+    if (myLogicType=="actuated"||myLogicType=="agentbased") {
         // for a controlled tls-logic
         myActivePhases.push_back(
             new MSActuatedPhaseDefinition(duration, phase, prios, yellow, min, max));
@@ -613,7 +489,7 @@ NLJunctionControlBuilder::setSubKey(const std::string &key)
 void
 NLJunctionControlBuilder::closeJunctionLogic()
 {
-    if(myRequestItemNumber!=myRequestSize) {
+    if (myRequestItemNumber!=myRequestSize) {
         MsgHandler::getErrorInstance()->inform("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     MSJunctionLogic *logic =
@@ -624,9 +500,9 @@ NLJunctionControlBuilder::closeJunctionLogic()
 
 void
 NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
-                                         const MSEdgeContinuations &edgeContinuations)
+        const MSEdgeContinuations &edgeContinuations)
 {
-    for(std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
+    for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
         (*i).logic->setParameter((*i).params);
         (*i).logic->init(db, edgeContinuations);
     }
@@ -654,7 +530,7 @@ NLJunctionControlBuilder::addParam(const std::string &key,
 MSTLLogicControl &
 NLJunctionControlBuilder::getTLLogicControlToUse() const
 {
-    if(myLogicControl!=0) {
+    if (myLogicControl!=0) {
         return *myLogicControl;
     }
     return myNet.getTLSControl();
@@ -666,7 +542,7 @@ void
 NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
                                   const std::string &startProg)
 {
-    if(!getTLLogicControlToUse().addWAUT(refTime, id, startProg)) {
+    if (!getTLLogicControlToUse().addWAUT(refTime, id, startProg)) {
         MsgHandler::getErrorInstance()->inform("WAUT '" + id + "' was already defined.");
     }
 }
@@ -676,7 +552,7 @@ void
 NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
                                         SUMOTime when, const std::string &to)
 {
-    if(!getTLLogicControlToUse().addWAUTSwitch(wautid, when, to)) {
+    if (!getTLLogicControlToUse().addWAUTSwitch(wautid, when, to)) {
         MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' was not defined.");
     }
 }
@@ -684,19 +560,15 @@ NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
 
 void
 NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
-                                          const std::string &junc,
-                                          const std::string &proc, bool sync)
+        const std::string &junc,
+        const std::string &proc, bool sync)
 {
-    if(!getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync)) {
+    if (!getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync)) {
         MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' or tls '" + junc + "' was not defined.");
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

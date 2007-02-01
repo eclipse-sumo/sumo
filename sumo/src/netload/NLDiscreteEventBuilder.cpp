@@ -1,85 +1,38 @@
-/***************************************************************************
-                          NLDiscreteEventBuilder .h
-                          A building helper for simulation actions
-                             -------------------
-    begin                : Sep, 2003
-    copyright            : (C) 2003 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] =
-         "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/07/06 12:52:51  dkrajzew
-// final work on tls-switches
+/****************************************************************************/
+/// @file    NLDiscreteEventBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sep, 2003
+/// @version $Id: $
+///
+// }
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.13  2006/07/06 12:22:06  dkrajzew
-// tls switches added
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.12  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.11  2006/02/27 12:09:49  dkrajzew
-// variants container named properly
-//
-// Revision 1.10  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.9  2005/10/10 12:10:59  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.8  2005/10/07 11:41:49  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/15 12:04:36  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:39:46  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2004/11/23 10:12:46  dkrajzew
-// new detectors usage applied
-//
-// Revision 1.4  2004/02/16 13:49:08  dkrajzew
-// loading of e2-link-dependent detectors added
-//
-// Revision 1.3  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation;
-//  variable offsets and lengths for lsa-detectors;
-//  coupling of detectors to tl-logics;
-//  different detector visualistaion in dependence to his controller
-//
-// Revision 1.2  2004/01/12 14:36:21  dkrajzew
-// removed some dead code; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NLDiscreteEventBuilder.h"
 #include <utils/xml/AttributesHandler.h>
@@ -99,18 +52,18 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
-    : AttributesHandler(sumoattrs, noSumoAttrs),
-    myNet(net)
+        : AttributesHandler(sumoattrs, noSumoAttrs),
+        myNet(net)
 {
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
     myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
@@ -118,8 +71,7 @@ NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
 
 
 NLDiscreteEventBuilder::~NLDiscreteEventBuilder()
-{
-}
+{}
 
 
 void
@@ -128,20 +80,20 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
 {
     string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     // check whether the type was given
-    if(type=="") {
+    if (type=="") {
         MsgHandler::getErrorInstance()->inform("An action's type is not given.");
         return;
     }
     // get the numerical representation
     KnownActions::iterator i = myActions.find(type);
-    if(i==myActions.end()) {
+    if (i==myActions.end()) {
         MsgHandler::getErrorInstance()->inform("The action type '" + type + "' is not known.");
         return;
     }
     ActionType at = (*i).second;
     // build the action
     Command *a;
-    switch(at) {
+    switch (at) {
     case EV_SAVETLSTATE:
         a = buildSaveTLStateCommand(attrs, basePath);
         break;
@@ -156,21 +108,21 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
-                                                const std::string &basePath)
+        const std::string &basePath)
 {
     // get the parameter
     string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
     string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
-    if(dest==""||source=="") {
+    if (dest==""||source=="") {
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
         return 0;
     }
-    if(!FileHelpers::isAbsolute(dest)) {
+    if (!FileHelpers::isAbsolute(dest)) {
         dest = FileHelpers::getConfigurationRelative(basePath, dest);
     }
     // get the logics
-    if(!myNet.getTLSControl().knows(source)) {
+    if (!myNet.getTLSControl().knows(source)) {
         MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
@@ -182,21 +134,21 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const Attributes &attrs,
-                                                   const std::string &basePath)
+        const std::string &basePath)
 {
     // get the parameter
     string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
     string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
-    if(dest==""||source=="") {
+    if (dest==""||source=="") {
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
         return 0;
     }
-    if(!FileHelpers::isAbsolute(dest)) {
+    if (!FileHelpers::isAbsolute(dest)) {
         dest = FileHelpers::getConfigurationRelative(basePath, dest);
     }
     // get the logics
-    if(!myNet.getTLSControl().knows(source)) {
+    if (!myNet.getTLSControl().knows(source)) {
         MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
@@ -206,8 +158,6 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const Attributes &attrs,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
