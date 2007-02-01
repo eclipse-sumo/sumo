@@ -18,6 +18,14 @@
 //
 /****************************************************************************/
 // ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
+
+
+// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef WIN32
@@ -98,9 +106,9 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("vehicles waiting [#]", true,
                 new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
-                (SUMOReal) OptionsSubSys::getOptions().getInt("e"));
+                (SUMOReal) OptionsSubSys::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
-                (SUMOReal) OptionsSubSys::getOptions().getInt("b"));
+                (SUMOReal) OptionsSubSys::getOptions().getInt("begin"));
     ret->mkItem("time step [s]", true,
                 new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getCurrentTimeStep));
     if (getNet().logSimulationDuration()) {
