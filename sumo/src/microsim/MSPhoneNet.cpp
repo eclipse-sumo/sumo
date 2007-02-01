@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MSPhoneNet.cpp
-/// @author  unknown_author
+/// @author  Eric Nicolay
 /// @date    2006
 /// @version $Id: $
 ///

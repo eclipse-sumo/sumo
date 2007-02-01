@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MMNet.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    :vector<MMLayer*>::iterator i=myLayers.begin(); i!=myLayers.end(); ++i) {
 /// @version $Id: $
 ///

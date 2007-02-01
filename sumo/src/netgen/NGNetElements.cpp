@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    NGNetElements.cpp
-/// @author  unknown_author
+/// @author  Markus Hartinger
 /// @date    Mar, 2003
 /// @version $Id: $
 ///

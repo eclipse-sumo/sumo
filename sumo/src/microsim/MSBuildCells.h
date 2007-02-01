@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MSBuildCells.h
-/// @author  unknown_author
+/// @author  Danilot Teta Boyom
 /// @date    Jul 2006
 /// @version $Id: $
 ///

@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MSTriggerControl.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    :iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
 /// @version $Id: $
 ///

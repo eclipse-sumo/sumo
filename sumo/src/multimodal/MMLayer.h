@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MMLayer.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    unknown_date
 /// @version $Id: $
 ///

@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MSAgentbasedTrafficLightLogic.cpp
-/// @author  unknown_author
+/// @author  Julia Ringel
 /// @date    Wed, 01. Oct 2003
 /// @version $Id: $
 ///

@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    GUIInternalLane.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Thu, 04.09.2003
 /// @version $Id: $
 ///
