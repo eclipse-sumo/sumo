@@ -1,136 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSAgentbasedTrafficLightLogic.cpp -
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01. Oct 2003
-//  copyright            : (C) 2003 by DLR e.V.
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSAgentbasedTrafficLightLogic.cpp
+/// @author  unknown_author
+/// @date    Wed, 01. Oct 2003
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.15  2006/07/06 07:19:33  dkrajzew
-// applied current microsim-APIs
-//
-// Revision 1.14  2006/04/05 05:27:37  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.13  2006/02/27 12:04:40  dkrajzew
-// eased the initialisation API
-//
-// Revision 1.12  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.11  2006/01/09 11:55:19  dkrajzew
-// lanestates removed
-//
-// Revision 1.10  2005/11/09 06:36:48  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added; changed the calling API
-//
-// Revision 1.9  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.8  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:22:18  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2005/02/01 10:10:46  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.3  2005/01/27 14:22:45  dkrajzew
-// ability to open the complete phase definition added; code style adapted
-//
-// Revision 1.2  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.1  2004/11/23 10:18:41  dkrajzew
-// all traffic lights moved to microsim/traffic_lights
-//
-// Revision 1.19  2004/07/02 09:53:58  dkrajzew
-// some design things
-//
-// Revision 1.18  2004/04/02 11:38:28  dkrajzew
-// extended traffic lights are now no longer template classes
-//
-// Revision 1.17  2004/03/19 13:09:40  dkrajzew
-// debugging
-//
-// Revision 1.16  2004/02/18 05:26:09  dkrajzew
-// newest version by jringel
-//
-// Revision 1.15  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length
-//  (agentbased-tlls) of used detectors
-//
-// Revision 1.14  2004/01/13 08:06:55  dkrajzew
-// recent changes applied
-//
-// Revision 1.13  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.9  2003/11/24 10:21:20  dkrajzew
-// some documentation added and dead code removed
-//
-// Revision 1.8  2003/11/20 13:25:41  dkrajzew
-// unneded debug outputs removed
-//
-// Revision 1.7  2003/11/18 14:26:55  dkrajzew
-// debugged and completed lane merging detectors
-//
-// Revision 1.6  2003/11/17 07:18:21  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.5  2003/11/04 08:55:28  jringel
-// implemetation of the agentbased trafficlightlogic
-//
-// Revision 1.5 2003/10/30 jringel
-// agent-based logic implemented
-//
-// Revision 1.4  2003/10/08 14:50:28  dkrajzew
-//
-// Revision 1.1  2003/10/01 11:24:35  dkrajzew
-// agent-based traffic lights added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utility>
 #include <vector>
@@ -148,51 +50,50 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
-            MSNet &net, MSTLLogicControl &tlcontrol,
-            const std::string &id, const std::string &subid,
-            const Phases &phases, size_t step, size_t delay,
-            int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
-    : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
-    tDecide(decHorizon), tSinceLastDecision (0), stepOfLastDecision (0),
-    numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit (minDiff)
-{
-}
+    MSNet &net, MSTLLogicControl &tlcontrol,
+    const std::string &id, const std::string &subid,
+    const Phases &phases, size_t step, size_t delay,
+    int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
+        : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
+        tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),
+        numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit(minDiff)
+{}
 
 
 void
 MSAgentbasedTrafficLightLogic::init(
-        NLDetectorBuilder &nb,
-        const MSEdgeContinuations &edgeContinuations)
+    NLDetectorBuilder &nb,
+    const MSEdgeContinuations &edgeContinuations)
 {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the detectors
-    for(i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
+    for (i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
         const LaneVector &lanes = *i2;
-        for(i=lanes.begin(); i!=lanes.end(); i++) {
+        for (i=lanes.begin(); i!=lanes.end(); i++) {
             MSLane *lane = (*i);
             // Build the lane state detetcor and set it into the container
             std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
-            if ( myE2Detectors.find(lane)==myE2Detectors.end()){
+            if (myE2Detectors.find(lane)==myE2Detectors.end()) {
                 MS_E2_ZS_CollectorOverLanes* det =
                     nb.buildMultiLaneE2Det(edgeContinuations, id,
-                        DU_TL_CONTROL, lane, 0, det_offset,
-                        /*haltingTimeThreshold!!!*/ 1,
-                        /*haltingSpeedThreshold!!!*/(SUMOReal) (5.0/3.6),
-                        /*jamDistThreshold!!!*/ 10,
-                        /*deleteDataAfterSeconds!!!*/ 1800);
+                                           DU_TL_CONTROL, lane, 0, det_offset,
+                                           /*haltingTimeThreshold!!!*/ 1,
+                                           /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0/3.6),
+                                           /*jamDistThreshold!!!*/ 10,
+                                           /*deleteDataAfterSeconds!!!*/ 1800);
                 myE2Detectors[lane] = det;
             }
         }
@@ -230,8 +131,7 @@ MSAgentbasedTrafficLightLogic::init(
 
 
 MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic()
-{
-}
+{}
 
 
 void
@@ -239,7 +139,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
-    GreenPhasesVector tmp_phases (myPhases.size());
+    GreenPhasesVector tmp_phases(myPhases.size());
     tmp_phases.clear();
     size_t maxLengthen = 0;  // the sum of all times, that is possible to lengthen
 
@@ -280,7 +180,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
-    GreenPhasesVector tmp_phases (myPhases.size());
+    GreenPhasesVector tmp_phases(myPhases.size());
     tmp_phases.clear();
     size_t maxCut = 0;  // the sum of all times, that is possible to cut
 
@@ -317,31 +217,31 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 
 
 SUMOTime
-MSAgentbasedTrafficLightLogic::trySwitch(bool )
+MSAgentbasedTrafficLightLogic::trySwitch(bool)
 {
-    assert (currentPhaseDef()->minDuration >=0);
-    assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
-    if(isGreenPhase(myStep)) {
+    assert(currentPhaseDef()->minDuration >=0);
+    assert(currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
+    if (isGreenPhase(myStep)) {
         // collects the data for the signal control
         collectData();
         // decides wheter greentime shall distributed between phases
-        if(tDecide <= tSinceLastDecision) {
+        if (tDecide <= tSinceLastDecision) {
             calculateDuration();
         }
     }
 
     // some output for control
-/*    if (_step == 0) {
-        cut << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
-        for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
-            cut<< " step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
-            for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {
-                cot<<"  Wert: " << (*itV) ;
+    /*    if (_step == 0) {
+            cut << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
+            for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
+                cut<< " step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
+                for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {
+                    cot<<"  Wert: " << (*itV) ;
+                }
+                  cot<<" Dauer: " << myPhases[(*it).first]->duration << "  " ;
             }
-              cot<<" Dauer: " << myPhases[(*it).first]->duration << "  " ;
         }
-    }
-*/
+    */
     // increment the index to the current phase
     nextStep();
     // set the next event
@@ -360,11 +260,11 @@ MSAgentbasedTrafficLightLogic::nextStep()
     // increment the index to the current phase
     myStep++;
     assert(myStep<=myPhases.size());
-    if(myStep==myPhases.size()) {
+    if (myStep==myPhases.size()) {
         myStep = 0;
     }
     // increment the number of cycles since last decision
-    if(myStep == stepOfLastDecision) {
+    if (myStep == stepOfLastDecision) {
         tSinceLastDecision = tSinceLastDecision +1;
     }
     return myStep;
@@ -383,14 +283,14 @@ MSAgentbasedTrafficLightLogic::collectData()
     for (size_t i=0; i<isgreen.size(); i++)  {
         /* finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES
            of all lanes of a bit of the drivemask, that shows green */
-        if(isgreen.test(i))  {
+        if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
             SUMOReal maxPerBit = 0;
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
-                if((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                if ((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
                 SUMOReal tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
@@ -406,14 +306,14 @@ MSAgentbasedTrafficLightLogic::collectData()
         }
     }
     // if still no entry for the phase exists a new entry with an empty value is created
-    if (myRawDetectorData.find(myStep) == myRawDetectorData.end() ) {
+    if (myRawDetectorData.find(myStep) == myRawDetectorData.end()) {
         ValueType firstData;
         myRawDetectorData[myStep] = firstData;
     }
     /* checks whether the number of values that are already in the dataqueue is
        the same number of values taht shall be consideres in the traffic control
        if both numbers are the same, the oldest value is deleted */
-    if(myRawDetectorData[myStep].size()== numberOfValues) {
+    if (myRawDetectorData[myStep].size()== numberOfValues) {
         myRawDetectorData[myStep].pop_back();
     }
     // adds the detectorvalue of the considered phase
@@ -426,11 +326,11 @@ MSAgentbasedTrafficLightLogic::aggregateRawData()
 {
     for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i!=myRawDetectorData.end(); i++) {
         SUMOReal sum = 0;
-        for (ValueType:: const_iterator it = myRawDetectorData[(*i).first].begin(); it != myRawDetectorData[(*i).first].end(); it ++){
+        for (ValueType:: const_iterator it = myRawDetectorData[(*i).first].begin(); it != myRawDetectorData[(*i).first].end(); it ++) {
             sum = sum + *it;
         }
-    SUMOReal meanvalue = sum / myRawDetectorData[(*i).first].size();
-    myMeanDetectorData[(*i).first] = meanvalue;
+        SUMOReal meanvalue = sum / myRawDetectorData[(*i).first].size();
+        myMeanDetectorData[(*i).first] = meanvalue;
     }
 }
 
@@ -467,7 +367,7 @@ MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 {
     size_t StepOfMaxValue = myPhases.size();
     SUMOReal MaxValue = -1;
-    for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
+    for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
 
         // checks whether the actual duruation is shorter than maxduration
         // otherwise the phase can't be lenghten
@@ -490,7 +390,7 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 {
     size_t StepOfMinValue = myPhases.size();
     SUMOReal MinValue = 9999;
-    for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
+    for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
 
         // checks whether the actual duruation is longer than minduration
         // otherwise the phase can't be cut
@@ -532,7 +432,7 @@ MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
 
 SUMOReal
 MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
-                                              MSLane *lane) const
+        MSLane *lane) const
 {
 
     E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
@@ -540,10 +440,6 @@ MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,126 +1,39 @@
-#ifndef MSTrafficLightLogic_h
-#define MSTrafficLightLogic_h
-//---------------------------------------------------------------------------//
-//                        MSTrafficLightLogic.h -
-//  The parent class for traffic light logics
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSTrafficLightLogic.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The parent class for traffic light logics
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.16  2006/12/21 13:23:55  dkrajzew
-// added visualization of tls/junction link indices
-//
-// Revision 1.15  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.14  2006/05/15 11:16:32  ericnicolay
-// remove the private flag before SwitchCommand, now its protected
-//
-// Revision 1.13  2006/05/15 06:01:51  dkrajzew
-// added the possibility to stretch/change the current phase and consecutive phases
-//
-// Revision 1.12  2006/04/11 10:59:07  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.11  2006/03/17 08:57:51  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.10  2006/02/27 12:06:17  dkrajzew
-// parameter-API and raknet-support added
-//
-// Revision 1.9  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.8  2005/11/09 06:36:48  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added; changed the calling API
-//
-// Revision 1.7  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.6  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:22:19  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2005/02/01 10:10:46  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/27 14:22:45  dkrajzew
-// ability to open the complete phase definition added; code style adapted
-//
-// Revision 1.1  2004/11/23 10:18:42  dkrajzew
-// all traffic lights moved to microsim/traffic_lights
-//
-// Revision 1.13  2004/01/26 09:52:23  dkrajzew
-// debugged the method to determine whether a traffic lights state has changed
-//
-// Revision 1.12  2004/01/26 07:48:48  dkrajzew
-// added the possibility to trigger detectors when switching
-//
-// Revision 1.11  2003/11/12 13:51:14  dkrajzew
-// visualisation of tl-logics added
-//
-// Revision 1.10  2003/09/24 13:28:55  dkrajzew
-// retrival of lanes by the position within the bitset added
-//
-// Revision 1.9  2003/09/05 15:13:58  dkrajzew
-// saving of tl-states implemented
-//
-// Revision 1.8  2003/08/04 11:42:35  dkrajzew
-// missing deletion of traffic light logics on closing a network added
-//
-// Revision 1.7  2003/07/30 09:16:10  dkrajzew
-// a better (correct?) processing of yellow lights added; debugging
-//
-// Revision 1.6  2003/06/06 10:39:17  dkrajzew
-// new usage of MSEventControl applied
-//
-// Revision 1.5  2003/06/05 16:11:03  dkrajzew
-// new usage of traffic lights implemented
-//
-// Revision 1.4  2003/05/21 15:15:42  dkrajzew
-// yellow lights implemented (vehicle movements debugged
-//
-// Revision 1.3  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector
-//  output debugged; setting and retrieval of some parameter added
-//
-// Revision 1.2  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSTrafficLightLogic_h
+#define MSTrafficLightLogic_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <string>
@@ -129,9 +42,9 @@
 #include <microsim/MSLogicJunction.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSNet;
 class MSLink;
 class MSEventControl;
@@ -141,19 +54,21 @@ class NLDetectorBuilder;
 class MSEdgeContinuations;
 
 
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSTrafficLightLogic
  */
-class MSTrafficLightLogic {
+class MSTrafficLightLogic
+{
 public:
     /// Definition of the list of links that participate in this tl-light
     typedef std::vector<MSLink*> LinkVector;
@@ -170,7 +85,7 @@ public:
 public:
     /// Constructor
     MSTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid, size_t delay);
+                        const std::string &id, const std::string &subid, size_t delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();
@@ -188,8 +103,8 @@ public:
     /// Returns the mask of links that may move
     virtual const std::bitset<64> &allowed() const = 0;
 
-	/// Returns the current step
-	virtual size_t getStepNo() const = 0;
+    /// Returns the current step
+    virtual size_t getStepNo() const = 0;
 
 
     /** @brief Sets the priorities of incoming lanes
@@ -237,10 +152,10 @@ public:
     void addOverridingDuration(SUMOTime duration);
     void setCurrentDurationIncrement(SUMOTime delay);
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
-        SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
+                                       SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
 
     virtual void init(NLDetectorBuilder &nb,
-        const MSEdgeContinuations &edgeContinuations);
+                      const MSEdgeContinuations &edgeContinuations);
 
     /// Returns the index of the given link
     int getLinkIndex(MSLink *link) const;
@@ -254,11 +169,12 @@ protected:
      * @class SwitchCommand
      * Class realising the switch between the traffic light states (phases
      */
-    class SwitchCommand : public Command {
+class SwitchCommand : public Command
+    {
     public:
         /// Constructor
         SwitchCommand(MSTLLogicControl &tlcontrol,
-            MSTrafficLightLogic *tlLogic);
+                      MSTrafficLightLogic *tlLogic);
 
         /// Destructor
         ~SwitchCommand();
@@ -317,11 +233,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

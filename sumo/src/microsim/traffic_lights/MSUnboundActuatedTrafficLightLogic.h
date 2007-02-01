@@ -1,145 +1,40 @@
-#ifndef MSUnboundActuatedTrafficLightLogic_h
-#define MSUnboundActuatedTrafficLightLogic_h
-//---------------------------------------------------------------------------//
-//                        MSUnboundActuatedTrafficLightLogic.h -
-//  The basic traffic light logic
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSUnboundActuatedTrafficLightLogic.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic traffic light logic
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.5  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.4  2005/11/09 06:36:48  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added; changed the calling API
-//
-// Revision 1.3  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.2  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/09/09 12:51:25  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/06/01 06:58:40  dksumo
-// debugging the actuated traffic lights
-//
-// -----------------------------------------------
-// This is the original version of the actuated tls as written by Julia Ringel
-//  It is "replaced" for the most cases by a new version of
-//  MSActuatedTrafficLightLogic which does not change the cycle time
-// -----------------------------------------------
-// Revision 1.5  2005/04/26 08:11:55  dksumo
-// level3 warnings patched; debugging
-//
-// Revision 1.4.2.1  2005/04/15 09:45:50  dksumo
-// using a single SUMOTime type for time values; level3 warnings removed
-//
-// Revision 1.4  2005/02/01 09:49:26  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.3  2005/01/06 10:48:07  dksumo
-// 0.8.2.1 patches
-//
-// Revision 1.2  2004/12/10 11:43:57  dksumo
-// parametrisation of actuated traffic lights added
-//
-// Revision 1.1  2004/10/22 12:49:44  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.19  2004/04/02 11:38:28  dkrajzew
-// extended traffic lights are now no longer template classes
-//
-// Revision 1.18  2004/03/19 13:09:40  dkrajzew
-// debugging
-//
-// Revision 1.17  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length
-//  (agentbased-tlls) of used detectors
-//
-// Revision 1.16  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.15  2003/11/24 10:21:20  dkrajzew
-// some documentation added and dead code removed
-//
-// Revision 1.14  2003/11/17 07:18:21  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.13  2003/10/01 13:59:53  dkrajzew
-// logic building completed (Julia Ringel)
-//
-// Revision 1.12  2003/09/23 14:19:59  dkrajzew
-// an easier usage of the current actuated phase definition added
-//
-// Revision 1.11  2003/09/22 12:31:06  dkrajzew
-// actuated traffic lights are now derived from simple traffic lights
-//
-// Revision 1.10  2003/09/17 06:50:45  dkrajzew
-// phase definitions extracted from traffic lights;
-//  MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
-//
-// Revision 1.9  2003/07/21 18:13:05  roessel
-// Changes due to new MSInductLoop.
-//
-// Revision 1.8  2003/06/06 10:39:16  dkrajzew
-// new usage of MSEventControl applied
-//
-// Revision 1.7  2003/06/05 16:01:28  dkrajzew
-// MSTLLogicControl added
-//
-// Revision 1.6  2003/05/21 16:20:44  dkrajzew
-// further work detectors
-//
-// Revision 1.5  2003/05/21 15:15:41  dkrajzew
-// yellow lights implemented (vehicle movements debugged
-//
-// Revision 1.4  2003/05/20 09:31:45  dkrajzew
-// emission debugged; movement model reimplemented (seems ok);
-//  detector output debugged; setting and retrieval of some parameter added
-//
-// Revision 1.3  2003/04/02 11:44:03  dkrajzew
-// continuation of implementation of actuated traffic lights
-//
-// Revision 1.2  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSUnboundActuatedTrafficLightLogic_h
+#define MSUnboundActuatedTrafficLightLogic_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utility>
 #include <vector>
@@ -153,15 +48,15 @@
 #include <microsim/MSLaneState.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NLDetectorBuilder;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSUnboundActuatedTrafficLightLogic
  * The implementation of a simple traffic light which only switches between
@@ -171,7 +66,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSUnboundActuatedTrafficLightLogic :
-        public MSSimpleTrafficLightLogic
+            public MSSimpleTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to induct loops lying on them
@@ -183,15 +78,15 @@ public:
 public:
     /// constructor
     MSUnboundActuatedTrafficLightLogic(const std::string &id,
-        const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, size_t delay,
-        SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
+                                       const MSSimpleTrafficLightLogic::Phases &phases,
+                                       size_t step, size_t delay,
+                                       SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
     /// Initialises the tls with information about incoming lanes
-	void init(NLDetectorBuilder &nb,
-		const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations,
-        SUMOReal det_offset);
+    void init(NLDetectorBuilder &nb,
+              const std::vector<MSLane*> &lanes,
+              std::map<std::string, std::vector<std::string> > &edgeContinuations,
+              SUMOReal det_offset);
 
     /// destructor
     ~MSUnboundActuatedTrafficLightLogic();
@@ -235,11 +130,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

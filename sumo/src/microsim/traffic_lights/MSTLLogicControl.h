@@ -1,104 +1,40 @@
-#ifndef MSTLLogicControl_h
-#define MSTLLogicControl_h
-//---------------------------------------------------------------------------//
-//                        MSTLLogicControl.h -
-//  A class that holds all traffic light logics used
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSTLLogicControl.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A class that holds all traffic light logics used
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.20  2006/11/21 17:23:30  jringel
-// stretch: some bugs removed
-//
-// Revision 1.19  2006/11/16 13:56:45  dkrajzew
-// warnings removed
-//
-// Revision 1.18  2006/11/14 06:41:15  dkrajzew
-// tls tracker now support switches between logics
-//
-// Revision 1.17  2006/09/20 09:18:33  jringel
-// stretch: some bugs removed
-//
-// Revision 1.16  2006/09/08 12:31:28  jringel
-// Stretch added
-//
-// Revision 1.15  2006/08/04 11:47:48  jringel
-// WAUTSwitchProcedure_GSP::adaptLogic(...) added
-//
-// Revision 1.14  2006/05/29 12:57:44  dkrajzew
-// added a reference to the tlcontrols to switch procedures
-//
-// Revision 1.13  2006/05/23 10:29:55  dkrajzew
-// added retrieval of the waut reference time
-//
-// Revision 1.12  2006/05/15 06:01:51  dkrajzew
-// added the possibility to stretch/change the current phase and consecutive phases
-//
-// Revision 1.11  2006/05/05 09:53:55  jringel
-// *** empty log message ***
-//
-// Revision 1.9  2006/03/17 08:57:51  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.8  2006/02/27 12:05:32  dkrajzew
-// WAUTs and WAUT-API added
-//
-// Revision 1.7  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.6  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.5  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/05/04 08:22:19  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2005/01/27 14:22:45  dkrajzew
-// ability to open the complete phase definition added; code style adapted
-//
-// Revision 1.1  2004/11/23 10:18:42  dkrajzew
-// all traffic lights moved to microsim/traffic_lights
-//
-// Revision 1.2  2003/07/30 09:16:10  dkrajzew
-// a better (correct?) processing of yellow lights added; debugging
-//
-// Revision 1.1  2003/06/05 16:08:36  dkrajzew
-// traffic lights are no longer junction-bound; a separate control is necessary
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSTLLogicControl_h
+#define MSTLLogicControl_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <map>
@@ -107,9 +43,9 @@
 #include <utils/helpers/Command.h>
 
 
-/* =========================================================================
- * type definitions
- * ======================================================================= */
+// ===========================================================================
+// type definitions
+// ===========================================================================
 /** @brief Definition of a phase description
     Within the first bitsets, all links having gree are marked, within the second
     all links having yellow */
@@ -119,9 +55,9 @@ typedef std::pair<std::bitset<64>, std::bitset<64> > SimplePhaseDef;
 typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSTLLogicControl
  * @brief This class holds all traffic light logics (programs) and their
@@ -131,7 +67,8 @@ typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
  *  derived from WAUTSwitchProcedure is initialised and is asked repeatedly
  *  whether a switch could be done until it returns true.
  */
-class MSTLLogicControl {
+class MSTLLogicControl
+{
 public:
     /**
      * @struct TLSLogicVariants
@@ -139,7 +76,8 @@ public:
      *
      * The currently used program is additionally stored.
      */
-    struct TLSLogicVariants {
+    struct TLSLogicVariants
+    {
         /// The currently used program
         MSTrafficLightLogic *defaultTL;
         /// A map of subkeys to programs
@@ -184,7 +122,7 @@ public:
      *  default program of this tls.
      */
     bool add(const std::string &id, const std::string &subID,
-        MSTrafficLightLogic *logic, bool newDefault=true);
+                 MSTrafficLightLogic *logic, bool newDefault=true);
 
     /// Returns the information whether the named tls is stored
     bool knows(const std::string &id) const;
@@ -217,7 +155,7 @@ public:
      *  false is returned.
      */
     bool addWAUTJunction(const std::string &wautid, const std::string &junc,
-        const std::string &proc, bool synchron);
+                         const std::string &proc, bool synchron);
 
     /** @brief Checks whether any WAUT is trying to switch a tls into another program
      *
@@ -239,32 +177,37 @@ protected:
      * This command is reused. The index of the WAUT-switch is incremented at each
      *  call to the control.
      */
-    class SwitchInitCommand : public Command {
+class SwitchInitCommand : public Command
+    {
     public:
         // / Constructor
         SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid)
-            : myParent(p), myWAUTID(wautid), myIndex(0)
+                : myParent(p), myWAUTID(wautid), myIndex(0)
         { }
 
         /// Destructor
-        ~SwitchInitCommand() { }
+        ~SwitchInitCommand()
+        { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime ) {
+        SUMOTime execute(SUMOTime)
+        {
             return myParent.initWautSwitch(*this);
         }
 
         /// Returns the WAUT-id
-        const std::string &getWAUTID() const {
+        const std::string &getWAUTID() const
+        {
             return myWAUTID;
         }
 
         /// Returns a reference to the index
-        int &getIndex() {
+        int &getIndex()
+        {
             return myIndex;
         }
 
@@ -293,7 +236,8 @@ protected:
      * @struct WAUTSwitch
      * @brief Storage for a WAUTs switch point
      */
-    struct WAUTSwitch {
+    struct WAUTSwitch
+    {
         /// The time the WAUT shall switch the TLS
         SUMOTime when;
         /// The program name the WAUT shall switch the TLS to
@@ -304,7 +248,8 @@ protected:
      * @struct WAUTJunction
      * @brief Storage for a junction assigned to a WAUT
      */
-    struct WAUTJunction {
+    struct WAUTJunction
+    {
         /// The junction name
         std::string junction;
         /// The procedure to switch the junction with
@@ -317,7 +262,8 @@ protected:
      * @struct WAUT
      * @brief A WAUT definition
      */
-    struct WAUT {
+    struct WAUT
+    {
         /// The id of the WAUT
         std::string id;
         /// The name of the start program
@@ -334,16 +280,19 @@ protected:
      * @class WAUTSwitchProcedure
      * @brief This is the abstract base class for switching from one tls program to another.
      */
-    class WAUTSwitchProcedure {
+    class WAUTSwitchProcedure
+    {
     public:
         /// Constructor
         WAUTSwitchProcedure(MSTLLogicControl &control, WAUT &waut,
-            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron)
-            : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control) { }
+                            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+                            bool synchron)
+                : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control)
+        { }
 
         /// Destructor
-        virtual ~WAUTSwitchProcedure() { }
+        virtual ~WAUTSwitchProcedure()
+        { }
 
         /** @brief Determines whether a switch is possible.
          *
@@ -351,14 +300,14 @@ protected:
          */
         virtual bool trySwitch(SUMOTime step) = 0;
 
-		// checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
-		bool isPosAtGSP (SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
+        // checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
+        bool isPosAtGSP(SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
 
-		/// Returns the difference between an given position and the start of the phase
-		size_t getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos);
+        /// Returns the difference between an given position and the start of the phase
+        size_t getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos);
 
-		// switches the given Logic directly to the given position
-		void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
+        // switches the given Logic directly to the given position
+        void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
 
     protected:
         /// The current program of the tls to switch
@@ -376,7 +325,7 @@ protected:
         /// The control the logic belongs to
         MSTLLogicControl &myControl;
 
-		/// Returns the GSP-value which should be within the tls program definition
+        /// Returns the GSP-value which should be within the tls program definition
         SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
 
     };
@@ -386,12 +335,13 @@ protected:
      * @class WAUTSwitchProcedure_JustSwitch
      * @brief This class simply switches to the next program
      */
-    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure {
+class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
+    {
     public:
         /// Constructor
         WAUTSwitchProcedure_JustSwitch(MSTLLogicControl &control, WAUT &waut,
-            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
+                                       MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+                                       bool synchron);
 
         /// Destructor
         ~WAUTSwitchProcedure_JustSwitch();
@@ -409,12 +359,13 @@ protected:
      * @class WAUTSwitchProcedure_GSP
      * @brief This class switches using the GSP algorithm.
      */
-    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure {
+class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
+    {
     public:
         /// Constructor
         WAUTSwitchProcedure_GSP(MSTLLogicControl &control, WAUT &waut,
-            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
+                                MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+                                bool synchron);
 
         /// Destructor
         ~WAUTSwitchProcedure_GSP();
@@ -423,7 +374,7 @@ protected:
          */
         bool trySwitch(SUMOTime step);
 
-		void adaptLogic(SUMOTime step);
+        void adaptLogic(SUMOTime step);
 
     protected:
 
@@ -434,12 +385,13 @@ protected:
      * @class WAUTSwitchProcedure_Stretch
      * @brief This class switches using the GSP algorithm.
      */
-    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure {
+class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
+    {
     public:
         /// Constructor
         WAUTSwitchProcedure_Stretch(MSTLLogicControl &control, WAUT &waut,
-            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
+                                    MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+                                    bool synchron);
 
         /// Destructor
         ~WAUTSwitchProcedure_Stretch();
@@ -448,20 +400,21 @@ protected:
          */
         bool trySwitch(SUMOTime step);
 
-		void adaptLogic(SUMOTime step, SUMOReal position);
+        void adaptLogic(SUMOTime step, SUMOReal position);
 
-		// cuts (stauchen) the Logic to synchronize,
-		// returns false if cutting was imposible
-		void cutLogic(SUMOTime step, size_t pos, size_t deltaToCut);
+        // cuts (stauchen) the Logic to synchronize,
+        // returns false if cutting was imposible
+        void cutLogic(SUMOTime step, size_t pos, size_t deltaToCut);
 
-		// stretchs the logic to synchronize
-		void stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch);
+        // stretchs the logic to synchronize
+        void stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch);
 
     protected:
         /** @struct StretchBereichDef
          * @brief A definition of a stretch - Bereich
          */
-        struct StretchBereichDef {
+        struct StretchBereichDef
+        {
             /// The begin of a Bereich (?)
             SUMOReal begin;
             /// The end of a Bereich (?)
@@ -487,7 +440,8 @@ protected:
      * @struct WAUTSwitchProcess
      * @brief An initialised switch process
      */
-    struct WAUTSwitchProcess {
+    struct WAUTSwitchProcess
+    {
         /// The id of the junction to switch
         std::string junction;
         /// The current program of the tls
@@ -516,11 +470,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

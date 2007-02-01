@@ -1,113 +1,40 @@
-#ifndef MSAgentbasedTrafficLightLogic_h
-#define MSAgentbasedTrafficLightLogic_h
-//---------------------------------------------------------------------------//
-//                        MSAgentbasedTrafficLightLogic.h -
-//  The basic traffic light logic
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01. Oct 2003
-//  copyright            : (C) 2003 by DLR e.V.
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSAgentbasedTrafficLightLogic.h
+/// @author  unknown_author
+/// @date    Wed, 01. Oct 2003
+/// @version $Id: $
+///
+// The basic traffic light logic
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.12  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.11  2006/02/27 12:04:40  dkrajzew
-// eased the initialisation API
-//
-// Revision 1.10  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.9  2005/11/09 06:36:48  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added; changed the calling API
-//
-// Revision 1.8  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.7  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:22:19  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2005/02/01 10:10:46  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2005/01/27 14:22:45  dkrajzew
-// ability to open the complete phase definition added; code style adapted
-//
-// Revision 1.1  2004/11/23 10:18:41  dkrajzew
-// all traffic lights moved to microsim/traffic_lights
-//
-// Revision 1.15  2004/04/02 11:38:28  dkrajzew
-// extended traffic lights are now no longer template classes
-//
-// Revision 1.14  2004/03/19 13:09:40  dkrajzew
-// debugging
-//
-// Revision 1.13  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length (agentbased-tlls) of used detectors
-//
-// Revision 1.12  2004/01/13 08:06:55  dkrajzew
-// recent changes applied
-//
-// Revision 1.11  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.10  2003/12/04 13:27:10  dkrajzew
-// jringels wish for min/max duration applied defaults
-//
-// Revision 1.7  2003/11/24 10:21:20  dkrajzew
-// some documentation added and dead code removed
-//
-// Revision 1.6  2003/11/17 07:18:21  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.5  2003/11/04 08:55:28  jringel
-// implemetation of the agentbased trafficlightlogic
-//
-//
-// Revision 1.5 2003/10/28 jringel
-// implemetation of the agent-based logic
-//
-// Revision 1.4  2003/10/08 14:50:28  dkrajzew
-//
-// Revision 1.1  2003/10/01 11:24:35  dkrajzew
-// agent-based traffic lights added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSAgentbasedTrafficLightLogic_h
+#define MSAgentbasedTrafficLightLogic_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utility>
 #include <vector>
@@ -121,17 +48,17 @@
 #include "MSSimpleTrafficLightLogic.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class MSAgentbasedPhaseDefinition;
 class NLDetectorBuilder;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSAgentbasedTrafficLightLogic
  * The implementation of a simple traffic light which only switches between
@@ -141,7 +68,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSAgentbasedTrafficLightLogic :
-        public MSSimpleTrafficLightLogic
+            public MSSimpleTrafficLightLogic
 {
 public:
     /// Definition of a map from lanes to lane state detectors lying on them
@@ -159,14 +86,14 @@ public:
 public:
     /// constructor
     MSAgentbasedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid,
-        const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, size_t delay, int learnHorizon, int decHorizon,
-        SUMOReal minDiff, int tcycle);
+                                  const std::string &id, const std::string &subid,
+                                  const MSSimpleTrafficLightLogic::Phases &phases,
+                                  size_t step, size_t delay, int learnHorizon, int decHorizon,
+                                  SUMOReal minDiff, int tcycle);
 
     /// Initialises the tls with information about incoming lanes
-	void init(NLDetectorBuilder &nb,
-        const MSEdgeContinuations &edgeContinuations);
+    void init(NLDetectorBuilder &nb,
+              const MSEdgeContinuations &edgeContinuations);
 
     /// destructor
     ~MSAgentbasedTrafficLightLogic();
@@ -209,12 +136,12 @@ protected:
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 
     /// Returns the value of the detector defined by the given lane and type
-	SUMOReal currentForLane(E2::DetType what,
-		MSLane *lane) const;
+    SUMOReal currentForLane(E2::DetType what,
+                            MSLane *lane) const;
 
 protected:
-	/// A map from lanes to E2-detectors lying on them
-	E2DetectorMap myE2Detectors;
+    /// A map from lanes to E2-detectors lying on them
+    E2DetectorMap myE2Detectors;
 
     /// A map of the step of the greenphases and their detectorvalues for several (mumberofValues) cycles
     PhaseValueMap myRawDetectorData;
@@ -248,11 +175,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

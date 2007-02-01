@@ -1,170 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSUnboundActuatedTrafficLightLogic.cpp -
-//  The basic traffic light logic
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSUnboundActuatedTrafficLightLogic.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic traffic light logic
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.6  2006/05/15 06:01:51  dkrajzew
-// added the possibility to stretch/change the current phase and consecutive phases
-//
-// Revision 1.6  2006/05/08 11:03:44  dkrajzew
-// debugging: all structures now return their id via getID()
-//
-// Revision 1.5  2006/02/23 11:27:57  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.4  2005/11/09 06:36:48  dkrajzew
-// changing the LSA-API: MSEdgeContinuation added; changed the calling API
-//
-// Revision 1.3  2005/10/10 11:56:09  dkrajzew
-// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
-//
-// Revision 1.2  2005/09/22 13:45:52  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:09:53  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/09/09 12:51:25  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.1  2005/06/01 06:58:40  dksumo
-// debugging the actuated traffic lights
-//
-// -----------------------------------------------
-// This is the original version of the actuated tls as written by Julia Ringel
-//  It is "replaced" for the most cases by a new version of
-//  MSActuatedTrafficLightLogic which does not change the cycle time
-// -----------------------------------------------
-// Revision 1.5  2005/04/26 08:11:54  dksumo
-// level3 warnings patched; debugging
-//
-// Revision 1.4.2.1  2005/04/15 09:45:50  dksumo
-// using a single SUMOTime type for time values; level3 warnings removed
-//
-// Revision 1.4  2005/02/01 09:49:26  dksumo
-// got rid of MSNet::Time
-//
-// Revision 1.3  2005/01/27 14:22:49  dksumo
-// ability to open the complete phase definition added; code style adapted
-//
-// Revision 1.2  2004/12/10 11:43:57  dksumo
-// parametrisation of actuated traffic lights added
-//
-// Revision 1.1  2004/10/22 12:49:44  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.27  2004/07/02 09:53:58  dkrajzew
-// some design things
-//
-// Revision 1.26  2004/04/02 11:38:28  dkrajzew
-// extended traffic lights are now no longer template classes
-//
-// Revision 1.25  2004/01/26 07:32:46  dkrajzew
-// added the possibility to specify the position (actuated-tlls) / length
-//  (agentbased-tlls) of used detectors
-//
-// Revision 1.24  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.23  2003/11/24 10:21:20  dkrajzew
-// some documentation added and dead code removed
-//
-// Revision 1.22  2003/11/17 07:18:21  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.21  2003/11/11 08:36:21  dkrajzew
-// removed some debug-variables
-//
-// Revision 1.20  2003/10/08 07:09:16  dkrajzew
-// gcc did not knew a const_iterator to a map (?)
-//
-// Revision 1.19  2003/10/01 13:59:53  dkrajzew
-// logic building completed (Julia Ringel)
-//
-// Revision 1.18  2003/09/25 09:01:49  dkrajzew
-// ambigous naming of detectors changed
-//
-// Revision 1.17  2003/09/24 09:55:11  dkrajzew
-// bug on duplictae induct loop ids patched
-//
-// Revision 1.16  2003/09/23 14:19:59  dkrajzew
-// an easier usage of the current actuated phase definition added
-//
-// Revision 1.15  2003/09/22 12:31:06  dkrajzew
-// actuated traffic lights are now derived from simple traffic lights
-//
-// Revision 1.14  2003/07/21 18:13:05  roessel
-// Changes due to new MSInductLoop.
-//
-// Revision 1.13  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.12  2003/06/06 10:39:16  dkrajzew
-// new usage of MSEventControl applied
-//
-// Revision 1.11  2003/06/05 16:01:28  dkrajzew
-// MSTLLogicControl added
-//
-// Revision 1.9  2003/05/27 18:47:35  roessel
-// Changed call to MSLaneState ctor.
-//
-// Revision 1.8  2003/05/22 09:20:49  roessel
-// Renamed method call numberOfWaiting to getCurrentNumberOfWaiting.
-//
-// Revision 1.7  2003/05/21 16:20:44  dkrajzew
-// further work detectors
-//
-// Revision 1.6  2003/05/21 15:15:41  dkrajzew
-// yellow lights implemented (vehicle movements debugged
-//
-// Revision 1.5  2003/04/04 15:26:55  roessel
-// Added the keyword "typename" for derived types in for-loops
-//
-// Revision 1.4  2003/04/02 11:44:02  dkrajzew
-// continuation of implementation of actuated traffic lights
-//
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utility>
 #include <vector>
@@ -183,19 +51,18 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
-            const std::string &id,
-            const Phases &phases,
-            size_t step, size_t delay,
-            SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
-    : MSSimpleTrafficLightLogic(id, phases, step, delay),
-    _continue(false),
-    myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
-{
-}
+    const std::string &id,
+    const Phases &phases,
+    size_t step, size_t delay,
+    SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
+        : MSSimpleTrafficLightLogic(id, phases, step, delay),
+        _continue(false),
+        myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
+{}
 
 
 void
@@ -212,39 +79,39 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
 
     std::vector<MSLane*>::const_iterator i;
     // build the induct loops
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
+    for (i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         SUMOReal length = lane->length();
         SUMOReal speed = lane->maxSpeed();
         SUMOReal inductLoopPosition = myDetectorGap * speed;
         // check whether the lane is long enough
         SUMOReal ilpos = length - inductLoopPosition;
-        if(ilpos<0) {
+        if (ilpos<0) {
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
         std::string id = "TLS" + _id + "_InductLoopOn_" + lane->getID();
-        if(myInductLoops.find(lane)==myInductLoops.end()) {
+        if (myInductLoops.find(lane)==myInductLoops.end()) {
             myInductLoops[lane] =
                 nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
         }
     }
     // build the lane state-detectors
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
+    for (i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         SUMOReal length = lane->length();
         // check whether the position is o.k. (not longer than the lane)
         SUMOReal lslen = det_offset;
-        if(lslen>length) {
+        if (lslen>length) {
             lslen = length;
         }
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TLS" + _id + "_LaneStateOff_" + lane->getID();
-        if(myLaneStates.find(lane)==myLaneStates.end()) {
+        if (myLaneStates.find(lane)==myLaneStates.end()) {
             MSLaneState* loop =
-                new MSLaneState( id, lane, lspos, lslen,
-                    laneStateDetectorInterval );
+                new MSLaneState(id, lane, lspos, lslen,
+                                laneStateDetectorInterval);
             myLaneStates[lane] = loop;
         }
     }
@@ -253,32 +120,31 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
 
 
 MSUnboundActuatedTrafficLightLogic::~MSUnboundActuatedTrafficLightLogic()
-{
-}
+{}
 
 
 SUMOTime
 MSUnboundActuatedTrafficLightLogic::duration() const
 {
-    if(_continue) {
+    if (_continue) {
         return 1;
     }
     assert(myPhases.size()>myStep);
-    if(!isGreenPhase()) {
+    if (!isGreenPhase()) {
         return currentPhaseDef()->duration;
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = currentPhaseDef()->minDuration;
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
     for (size_t i=0; i<isgreen.size(); i++)  {
-        if(isgreen.test(i))  {
+        if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
                 LaneStateMap::const_iterator k = myLaneStates.find(*j);
-                SUMOReal waiting =  (*k).second->getCurrentNumberOfWaiting();
+                SUMOReal waiting = (*k).second->getCurrentNumberOfWaiting();
                 SUMOReal tmpdur =  myPassingTime * waiting;
                 if (tmpdur > newduration) {
                     // here we cut the decimal places, because we have to return an integer
@@ -295,17 +161,17 @@ MSUnboundActuatedTrafficLightLogic::duration() const
 
 
 SUMOTime
-MSUnboundActuatedTrafficLightLogic::trySwitch(bool )
+MSUnboundActuatedTrafficLightLogic::trySwitch(bool)
 {
     // checks if the actual phase should be continued
     gapControl();
-    if(_continue) {
+    if (_continue) {
         return duration();
     }
     // increment the index to the current phase
     myStep++;
     assert(myStep<=myPhases.size());
-    if(myStep==myPhases.size()) {
+    if (myStep==myPhases.size()) {
         myStep = 0;
     }
     //stores the time the phase started
@@ -334,7 +200,7 @@ MSUnboundActuatedTrafficLightLogic::gapControl()
 {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
-    if(!isGreenPhase()) {
+    if (!isGreenPhase()) {
         return _continue = false;
     }
 
@@ -348,13 +214,13 @@ MSUnboundActuatedTrafficLightLogic::gapControl()
     // now the gapcontrol starts
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
     for (size_t i=0; i<isgreen.size(); i++)  {
-        if(isgreen.test(i))  {
+        if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-                if(myInductLoops.find(*j)==myInductLoops.end()) {
+                if (myInductLoops.find(*j)==myInductLoops.end()) {
                     continue;
                 }
                 SUMOReal actualGap =
@@ -377,10 +243,6 @@ MSUnboundActuatedTrafficLightLogic::currentPhaseDef() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 
