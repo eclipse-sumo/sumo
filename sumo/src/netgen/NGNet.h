@@ -1,70 +1,49 @@
+/****************************************************************************/
+/// @file    NGNet.h
+/// @author  unknown_author
+/// @date    Mar, 2003
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NGNet_h
 #define NGNet_h
-/***************************************************************************
-                          NGNet.h
-                             -------------------
-    project              : SUMO
-    begin                : Mar, 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Markus Hartinger
-    email                : Markus.Hartinger@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.7  2006/09/18 10:10:05  dkrajzew
-// code beautifying
-//
-// Revision 1.6  2005/10/07 11:38:44  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:01:31  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:03:17  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 11:48:51  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.2  2003/07/21 11:05:31  dkrajzew
-// patched some bugs found in first real-life execution
-//
-// Revision 1.1  2003/07/16 15:33:08  dkrajzew
-// files needed to generate networks added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NGNetElements.h"
 
 
 class NBNetBuilder;
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
@@ -72,37 +51,37 @@ class TNGNet
 {
 public:
     /// Constructor
-	TNGNet(NBNetBuilder &nb);
+    TNGNet(NBNetBuilder &nb);
 
     /// Destructor
-	~TNGNet();
+    ~TNGNet();
 
     /// Returns the node at the given position
-	TNode* FindNode(int xID, int yID);
+    TNode* FindNode(int xID, int yID);
 
     /// returns next ID and increases myLastID
-	std::string GetID();
+    std::string GetID();
 
-	SUMOReal RadialToX(SUMOReal radius, SUMOReal phi);
-	SUMOReal RadialToY(SUMOReal radius, SUMOReal phi);
+    SUMOReal RadialToX(SUMOReal radius, SUMOReal phi);
+    SUMOReal RadialToY(SUMOReal radius, SUMOReal phi);
 
-	/// creates NGNetwork in chequerboard pattern
-	void CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY);
+    /// creates NGNetwork in chequerboard pattern
+    void CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY);
 
-	/** @brief creates NGNetwork in spiderweb pattern
-	    NumRadDiv >= 3
-	    NumCircles >= 1 */
-	void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad);
+    /** @brief creates NGNetwork in spiderweb pattern
+        NumRadDiv >= 3
+        NumCircles >= 1 */
+    void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad);
 
     /// Transfer to netbuild-structures
     void toNB() const;
 
 
     /// list of nodes
-	TNodeList NodeList;
+    TNodeList NodeList;
 
     /// list of links
-	TLinkList LinkList;
+    TLinkList LinkList;
 
 private:
     /// Connects both noes with two edges, one for each direction
@@ -110,17 +89,14 @@ private:
 
 private:
     /// last ID given to node or link
-	int myLastID;
+    int myLastID;
 
     NBNetBuilder &myNetBuilder;
 
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

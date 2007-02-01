@@ -1,92 +1,38 @@
-/***************************************************************************
-                          NITigerLoader.cpp
-              A loader tiger-files
-                             -------------------
-    project              : SUMO
-    begin                : Tue, 29 Jun 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/11/14 13:03:56  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NITigerLoader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29 Jun 2004
+/// @version $Id: $
+///
+// A loader tiger-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.15  2006/09/18 10:11:39  dkrajzew
-// changed the way geocoordinates are processed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.14  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.13  2006/04/07 05:28:24  dkrajzew
-// removed some warnings
-//
-// Revision 1.12  2006/03/27 07:30:20  dkrajzew
-// added projection information to the network
-//
-// Revision 1.11  2006/03/17 11:03:06  dkrajzew
-// made access to positions in Position2DVector c++ compliant
-//
-// Revision 1.10  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.9  2006/02/13 07:20:23  dkrajzew
-// code beautifying
-//
-// Revision 1.8  2005/10/07 11:39:57  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/23 06:02:42  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/04/27 12:24:36  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.4  2004/11/23 10:23:52  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/08/02 12:44:13  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.2  2004/07/05 09:32:22  dkrajzew
-// false geometry assignment patched
-//
-// Revision 1.1  2004/07/02 09:34:38  dkrajzew
-// elmar and tiger import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <cassert>
@@ -108,26 +54,24 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
                              const std::string &file)
-    : FileErrorReporter("tiger-network", file),
-    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
-{
-}
+        : FileErrorReporter("tiger-network", file),
+        myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
+{}
 
 
 NITigerLoader::~NITigerLoader()
-{
-}
+{}
 
 
 void
@@ -135,18 +79,18 @@ NITigerLoader::load(OptionsCont &)
 {
     LineReader tgr1r((_file + ".rt1").c_str());
     LineReader tgr2r((_file + ".rt2").c_str());
-    if(!tgr1r.good()) {
+    if (!tgr1r.good()) {
         MsgHandler::getErrorInstance()->inform("Could not open '" + _file + ".rt1" + "'.");
         throw ProcessError();
     }
     string line1, line2, tmp;
     std::vector<std::string> values2;
-    if(tgr2r.good()&&tgr2r.hasMore()) {
+    if (tgr2r.good()&&tgr2r.hasMore()) {
         line2 = StringUtils::prune(tgr2r.readLine());
         StringTokenizer st2(line2, StringTokenizer::WHITECHARS);
         values2 = st2.getVector();
     }
-    while(tgr1r.hasMore()) {
+    while (tgr1r.hasMore()) {
         string line1 = StringUtils::prune(tgr1r.readLine());
         StringTokenizer st1(line1, StringTokenizer::WHITECHARS);
         std::vector<std::string> values1 = st1.getVector();
@@ -154,10 +98,10 @@ NITigerLoader::load(OptionsCont &)
         std::vector<std::string> poses;
         poses.push_back(values1[values1.size()-2]);
         // check whether any additional information exists
-        if(values2.size()!=0&&values2[1]==eid) {
+        if (values2.size()!=0&&values2[1]==eid) {
             copy(values2.begin()+3, values2.end(),
-                back_inserter(poses));
-            if(tgr2r.good()&&tgr2r.hasMore()) {
+                 back_inserter(poses));
+            if (tgr2r.good()&&tgr2r.hasMore()) {
                 line2 = tgr2r.readLine();
                 StringTokenizer st2(line2, StringTokenizer::WHITECHARS);
                 values2 = st2.getVector();
@@ -169,12 +113,12 @@ NITigerLoader::load(OptionsCont &)
         assert(cposes.size()>1);
         NBNode *from = getNode(cposes[0]);
         NBNode *to = getNode(cposes[-1]);
-        if(from==0||to==0) {
-            if(from==0) {
+        if (from==0||to==0) {
+            if (from==0) {
                 MsgHandler::getErrorInstance()->inform("Could not find start node of edge '" + eid + "'.");
                 throw ProcessError();
             }
-            if(to==0) {
+            if (to==0) {
                 MsgHandler::getErrorInstance()->inform("Could not find end node of edge '" + eid + "'.");
                 throw ProcessError();
             }
@@ -184,12 +128,12 @@ NITigerLoader::load(OptionsCont &)
         SUMOReal speed = getSpeed(type);
         int nolanes = getLaneNo(type);
         SUMOReal length = cposes.length();
-        if(nolanes!=-1&&length>0) {
+        if (nolanes!=-1&&length>0) {
             int priority = 1;
             NBEdge *e =
                 new NBEdge(eid, eid, from, to, type, speed, nolanes,
-                    cposes.length(), priority, cposes);
-            if(!myEdgeCont.insert(e)) {
+                           cposes.length(), priority, cposes);
+            if (!myEdgeCont.insert(e)) {
                 delete e;
                 MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
                 throw ProcessError();
@@ -197,8 +141,8 @@ NITigerLoader::load(OptionsCont &)
             eid = "-" + eid;
             e =
                 new NBEdge(eid, eid, to, from, type, speed, nolanes,
-                    cposes.length(), priority, cposes.reverse());
-            if(!myEdgeCont.insert(e)) {
+                           cposes.length(), priority, cposes.reverse());
+            if (!myEdgeCont.insert(e)) {
                 delete e;
                 MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
                 throw ProcessError();
@@ -213,7 +157,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
 {
     Position2DVector ret;
     std::vector<std::string>::const_iterator i;
-    for(i=sv.begin(); i!=sv.end(); ++i) {
+    for (i=sv.begin(); i!=sv.end(); ++i) {
         string info = *i;
         size_t b1 = info.find_first_of("+-");
         assert(b1!=string::npos);
@@ -231,12 +175,12 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
 
-            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+            myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
 
             Position2D pos(x, y);
             GeoConvHelper::remap(pos);
             ret.push_back(pos);
-        } catch(NumberFormatException &) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Could not convert position '" + p1 + "/" + p2 + "'.");
             throw ProcessError();
         }
@@ -250,9 +194,9 @@ NBNode *
 NITigerLoader::getNode(const Position2D &p)
 {
     NBNode *n = myNodeCont.retrieve(p);
-    if(n==0) {
+    if (n==0) {
         n = new NBNode(toString<int>(bla++), p);
-        if(!myNodeCont.insert(n)) {
+        if (!myNodeCont.insert(n)) {
             MsgHandler::getErrorInstance()->inform("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
             throw ProcessError();
         }
@@ -264,19 +208,19 @@ NITigerLoader::getNode(const Position2D &p)
 std::string
 NITigerLoader::getType(const std::vector<std::string> &sv) const
 {
-    for(std::vector<std::string>::const_iterator i=sv.begin(); i!=sv.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i=sv.begin(); i!=sv.end(); ++i) {
         std::string tc = *i;
         // some checks whether it's the type
-        if(tc.length()!=3) {
+        if (tc.length()!=3) {
             continue;
         }
-        if(tc.find_first_of("ABCDEFGHPX")!=0) {
+        if (tc.find_first_of("ABCDEFGHPX")!=0) {
             continue;
         }
-        if(tc[1]<'0'||tc[1]>'9') {
+        if (tc[1]<'0'||tc[1]>'9') {
             continue;
         }
-        if(tc[2]<'0'||tc[2]>'9') {
+        if (tc[2]<'0'||tc[2]>'9') {
             continue;
         }
         // ok, its the type (let's hope)
@@ -290,19 +234,19 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
 SUMOReal
 NITigerLoader::getSpeed(const std::string &type) const
 {
-    switch(type[0]) {
+    switch (type[0]) {
     case 'A':
-        switch(type[1]) {
+        switch (type[1]) {
         case '1':
-            return (SUMOReal) 85.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
+            return (SUMOReal) 85.0 / (SUMOReal) 3.6 *(SUMOReal) 1.6;
         case '2':
-            return (SUMOReal) 85.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
+            return (SUMOReal) 85.0 / (SUMOReal) 3.6 *(SUMOReal) 1.6;
         case '3':
-            return (SUMOReal) 55.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
+            return (SUMOReal) 55.0 / (SUMOReal) 3.6 *(SUMOReal) 1.6;
         case '4':
-            return (SUMOReal) 35.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
+            return (SUMOReal) 35.0 / (SUMOReal) 3.6 *(SUMOReal) 1.6;
         case '5':
-            return (SUMOReal) 10.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
+            return (SUMOReal) 10.0 / (SUMOReal) 3.6 *(SUMOReal) 1.6;
         default:
             return -1;
         };
@@ -334,9 +278,9 @@ NITigerLoader::getSpeed(const std::string &type) const
 int
 NITigerLoader::getLaneNo(const std::string &type) const
 {
-    switch(type[0]) {
+    switch (type[0]) {
     case 'A':
-        switch(type[1]) {
+        switch (type[1]) {
         case '1':
             return 5;
         case '2':
@@ -375,9 +319,6 @@ NITigerLoader::getLaneNo(const std::string &type) const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

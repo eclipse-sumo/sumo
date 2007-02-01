@@ -1,79 +1,38 @@
-/***************************************************************************
-                          NGRandomNet.cpp
-                             -------------------
-    project              : SUMO
-    begin                : Mar, 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Markus Hartinger
-    email                : Markus.Hartinger@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/09/18 10:10:05  dkrajzew
-// code beautifying
+/****************************************************************************/
+/// @file    NGRandomNet.cpp
+/// @author  unknown_author
+/// @date    Mar, 2003
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.11  2005/10/07 11:38:44  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.10  2005/09/23 06:01:31  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 12:03:17  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/04/27 11:48:51  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.7  2004/11/23 10:22:03  dkrajzew
-// debugging
-//
-// Revision 1.6  2004/08/02 12:41:40  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.5  2004/02/06 08:39:13  dkrajzew
-// false inclusion of old header files removed
-//
-// Revision 1.4  2003/10/31 08:01:49  dkrajzew
-// hope to have patched false usage of RAND_MAX when using gcc
-//
-// Revision 1.3  2003/10/28 08:32:55  dkrajzew
-// random number specification option added
-//
-// Revision 1.2  2003/07/21 11:05:31  dkrajzew
-// patched some bugs found in first real-life execution
-//
-// Revision 1.1  2003/07/16 15:33:08  dkrajzew
-// files needed to generate networks added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <math.h>
@@ -86,9 +45,9 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 //------------------------------ TNeighbourDistribution ----------------
 void
 TNeighbourDistribution::Add(int NumNeighbours, SUMOReal ratio)
@@ -107,7 +66,7 @@ TNeighbourDistribution::Num()
         sum += (*i).second;
     // RandValue = [0,sum]
     RandValue = sum * static_cast<SUMOReal>(rand()) /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
+                (static_cast<SUMOReal>(RAND_MAX) + 1);
     // find selected item
     i = Neighbours.begin();
     sum = (*i).second;
@@ -225,15 +184,15 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
             Position2D p1((*li)->StartNode()->getPosition());
             Position2D p2((*li)->EndNode()->getPosition());
             if ((BaseNode != (*li)->StartNode()) && (BaseNode!= (*li)->EndNode())
-                && (NewNode != (*li)->StartNode()) && (NewNode!= (*li)->EndNode())) {
+                    && (NewNode != (*li)->StartNode()) && (NewNode!= (*li)->EndNode())) {
                 Connectable = !GeomHelper::intersects(n1, n2, p1, p2);
 
             }
             // check NewNode-To-Links distance only, if NewNode isn't part of link
             if ((Connectable) &&
-                (NewNode != (*li)->StartNode()) && (NewNode != (*li)->EndNode())) {
+                    (NewNode != (*li)->StartNode()) && (NewNode != (*li)->EndNode())) {
                 SUMOReal dist = GeomHelper::DistancePointLine(n2, p1, p2);
-                if (( dist < myMinDistance) && (dist > -1))
+                if ((dist < myMinDistance) && (dist > -1))
                     Connectable = false;
             }
             li++;
@@ -252,7 +211,7 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
         TNode *on=*ni;
         if (!Node->connected(on))
             if ((Node->MaxNeighbours() > Node->LinkList.size()) &&
-                ((on)->MaxNeighbours() > (on)->LinkList.size()))
+                    ((on)->MaxNeighbours() > (on)->LinkList.size()))
                 if (CanConnect(Node, on))
                     ConNodes.push_back(on);
     }
@@ -263,7 +222,7 @@ SUMOReal
 TNGRandomNet::GetAngle()
 {
     return (SUMOReal) 2*(SUMOReal) PI*rand() /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
+           (static_cast<SUMOReal>(RAND_MAX) + 1);
 }
 
 
@@ -271,8 +230,8 @@ SUMOReal
 TNGRandomNet::GetDistance()
 {
     return (myMaxDistance - myMinDistance)*
-        static_cast<SUMOReal>(rand()) / static_cast<SUMOReal>(RAND_MAX)
-        + myMinDistance;
+           static_cast<SUMOReal>(rand()) / static_cast<SUMOReal>(RAND_MAX)
+           + myMinDistance;
 }
 
 
@@ -350,7 +309,7 @@ TNGRandomNet::CreateNet(int NumNodes)
         OuterNode = OuterNodes.back();
         FindPossibleOuterNodes(OuterNode);
         created = false;
-        if ((ConNodes.size() > 0) && UseOuterNode()){
+        if ((ConNodes.size() > 0) && UseOuterNode()) {
             TLink *NewLink;
             // create link
             NewLink = new TLink(myNet->GetID(), OuterNode, ConNodes.back());
@@ -370,8 +329,8 @@ TNGRandomNet::CreateNet(int NumNodes)
         } else {
             int count=0;
             do {
-              created = CreateNewNode(OuterNode);
-              count++;
+                created = CreateNewNode(OuterNode);
+                count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {
                 OuterNode->SetMaxNeighbours((SUMOReal) OuterNode->LinkList.size());
@@ -382,10 +341,6 @@ TNGRandomNet::CreateNet(int NumNodes)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

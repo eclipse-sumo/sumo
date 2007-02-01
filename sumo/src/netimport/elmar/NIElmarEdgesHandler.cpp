@@ -1,77 +1,38 @@
-/***************************************************************************
-                          NIElmarEdgesHandler.cpp
-             A LineHandler-derivate to load edges form a elmar-edges-file
-                             -------------------
-    project              : SUMO
-    begin                : Sun, 16 May 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/09/19 11:48:59  dkrajzew
-// debugging removal of edges which allow only unwished vehicle classes
+/****************************************************************************/
+/// @file    NIElmarEdgesHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sun, 16 May 2004
+/// @version $Id: $
+///
+// A LineHandler-derivate to load edges form a elmar-edges-file
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.10  2006/09/18 10:12:57  dkrajzew
-// added import of vclasses
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.9  2006/01/31 10:59:35  dkrajzew
-// extracted common used methods; optional usage of old lane number information in navteq-networks import added
-//
-// Revision 1.8  2005/11/09 06:42:07  dkrajzew
-// complete geometry building rework (unfinished)
-//
-// Revision 1.7  2005/10/07 11:39:26  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:02:15  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/12 12:35:22  dkrajzew
-// elmar2 importer included; debugging
-//
-// Revision 1.3  2005/04/27 12:24:35  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.2  2004/11/23 10:23:52  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/07/02 09:34:38  dkrajzew
-// elmar and tiger import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/importio/LineHandler.h>
@@ -93,27 +54,25 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                                         const std::string &file,
-										 bool useNewLaneNumberInfoPlain)
-    : FileErrorReporter("elmar-edges", file),
-    myNodeCont(nc), myEdgeCont(ec),
-	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
-{
-}
+        const std::string &file,
+        bool useNewLaneNumberInfoPlain)
+        : FileErrorReporter("elmar-edges", file),
+        myNodeCont(nc), myEdgeCont(ec),
+        myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
+{}
 
 NIElmarEdgesHandler::~NIElmarEdgesHandler()
-{
-}
+{}
 
 bool
 NIElmarEdgesHandler::report(const std::string &result)
@@ -121,7 +80,7 @@ NIElmarEdgesHandler::report(const std::string &result)
 // 00: KANTEN_ID Knoten_ID_FROM Knoten_ID_TO length vehicle_type
 // 05: form_of_way brunnel_type street_type speed_category number_of_lanes
 // average_speed    Namens_ID1  Namens_ID2  Hausnummern_rechts  Hausnummern_links   Postleitzahl    Gebiets_ID  Teilgebiets_ID  through_traffic special_restrictions    direction_of_flow_in_validity_period    direction_of_flow_through_traffic   direction_of_flow_vehicle_type  direction_of_flow_validity_period   construction_status_in_validity_period  construction_status_through_traffic construction_status_validity_period construction_status_vehicle_type
-    if(result[0]=='#') {
+    if (result[0]=='#') {
         return true;
     }
 
@@ -145,17 +104,17 @@ NIElmarEdgesHandler::report(const std::string &result)
     string form_of_way = st.next();
     string brunnel_type = st.next();
     string street_type = st.next();
-	speed = NINavTeqHelper::getSpeed(id, st.next());
-	nolanes =
-		NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
+    speed = NINavTeqHelper::getSpeed(id, st.next());
+    nolanes =
+        NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
     // try to get the nodes
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);
-    if(from==0) {
+    if (from==0) {
         MsgHandler::getErrorInstance()->inform("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
-    if(to==0) {
+    if (to==0) {
         MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
@@ -165,7 +124,7 @@ NIElmarEdgesHandler::report(const std::string &result)
     // add vehicle type information to the edge
     NINavTeqHelper::addVehicleClasses(*e, veh_type);
     // insert the edge to the network
-    if(!myEdgeCont.insert(e)) {
+    if (!myEdgeCont.insert(e)) {
         delete e;
         MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
@@ -174,10 +133,6 @@ NIElmarEdgesHandler::report(const std::string &result)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

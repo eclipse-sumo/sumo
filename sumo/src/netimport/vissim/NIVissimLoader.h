@@ -1,58 +1,40 @@
-#ifndef NIVissimLoader_h
-#define NIVissimLoader_h
-//---------------------------------------------------------------------------//
-//                        NIVissimLoader.h -  ccc
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NIVissimLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2006/01/09 11:59:22  dkrajzew
-// debugging error handling; beautifying
-//
-// Revision 1.6  2005/10/07 11:40:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:02:57  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/04/27 12:24:36  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.3  2003/08/18 12:39:22  dkrajzew
-// missing handling of some vissim3.7-structures added
-//
-// Revision 1.2  2003/06/05 11:46:54  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NIVissimLoader_h
+#define NIVissimLoader_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 #include <string>
@@ -68,13 +50,14 @@
 class NBNetBuilder;
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OptionsCont;
 
 class NIVissimLoader :
-        public FileErrorReporter {
+            public FileErrorReporter
+{
 public:
     /// constructor
     NIVissimLoader(NBNetBuilder &nb, const std::string &file);
@@ -88,8 +71,9 @@ public:
     bool admitContinue(const std::string &tag);
 
 public:
-    class VissimSingleTypeParser :
-        public FileErrorReporter::Child {
+class VissimSingleTypeParser :
+                public FileErrorReporter::Child
+    {
     public:
         /// Constructor
         VissimSingleTypeParser(NIVissimLoader &parent);
@@ -107,14 +91,14 @@ public:
 
         /// as myRead, but returns "DATAEND" when the current field has ended
         std::string readEndSecure(std::istream &from,
-            const std::string &excl="");
+                                  const std::string &excl="");
 
         std::string readEndSecure(std::istream &from,
-            const std::vector<std::string> &excl);
+                                  const std::vector<std::string> &excl);
 
         /// overrides the optional label definition; returns the next tag as done by readEndSecure
         std::string overrideOptionalLabel(std::istream &from,
-            const std::string &tag="");
+                                          const std::string &tag="");
 
         /// returns the 2d-position saved as next within the stream
         Position2D getPosition2D(std::istream &from);
@@ -122,7 +106,7 @@ public:
         /** @brief parses a listof vehicle types assigned to the current data field
             One should remeber, that -1 means "all" vehicle types */
         IntVector parseAssignedVehicleTypes(std::istream &from,
-            const std::string &next);
+                                            const std::string &next);
 
         NIVissimExtendedEdgePoint readExtEdgePointDef(std::istream &from);
 
@@ -181,13 +165,7 @@ private:
 };
 
 
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,83 +1,38 @@
-/***************************************************************************
-                          NIElmarNodesHandler.cpp
-             A LineHandler-derivate to load nodes form a elmar-nodes-file
-                             -------------------
-    project              : SUMO
-    begin                : Sun, 16 May 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.13  2006/09/18 10:11:37  dkrajzew
-// changed the way geocoordinates are processed
+/****************************************************************************/
+/// @file    NIElmarNodesHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sun, 16 May 2004
+/// @version $Id: $
+///
+// A LineHandler-derivate to load nodes form a elmar-nodes-file
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.12  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.11  2006/04/07 05:28:24  dkrajzew
-// removed some warnings
-//
-// Revision 1.10  2006/03/27 07:30:19  dkrajzew
-// added projection information to the network
-//
-// Revision 1.9  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.8  2006/01/19 09:26:04  dkrajzew
-// adapted to the current version
-//
-// Revision 1.7  2005/10/07 11:39:26  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:02:15  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 12:24:35  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.3  2004/11/23 10:23:52  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/08/02 12:44:12  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.1  2004/07/02 09:34:38  dkrajzew
-// elmar and tiger import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/importio/LineHandler.h>
@@ -96,33 +51,31 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
-                                         const std::string &file)
-    : FileErrorReporter("elmar-nodes", file),
-    myInitX(-1), myInitY(-1),
-    myNodeCont(nc)
-{
-}
+        const std::string &file)
+        : FileErrorReporter("elmar-nodes", file),
+        myInitX(-1), myInitY(-1),
+        myNodeCont(nc)
+{}
 
 
 NIElmarNodesHandler::~NIElmarNodesHandler()
-{
-}
+{}
 
 
 bool
 NIElmarNodesHandler::report(const std::string &result)
 {
-    if(result[0]=='#') {
+    if (result[0]=='#') {
         return true;
     }
     // skip previous information
@@ -130,7 +83,7 @@ NIElmarNodesHandler::report(const std::string &result)
     SUMOReal x, y;
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
-    if(st.size()<3) {
+    if (st.size()<3) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line\n" + result);
         throw ProcessError();
     }
@@ -149,11 +102,11 @@ NIElmarNodesHandler::report(const std::string &result)
         throw ProcessError();
     }
     // geo->metric
-    myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+    myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
     Position2D pos(x, y);
     GeoConvHelper::remap(pos);
     NBNode *n = new NBNode(id, pos);
-    if(!myNodeCont.insert(n)) {
+    if (!myNodeCont.insert(n)) {
         delete n;
         MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");
         throw ProcessError();
@@ -162,10 +115,6 @@ NIElmarNodesHandler::report(const std::string &result)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

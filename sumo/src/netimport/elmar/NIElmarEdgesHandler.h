@@ -1,56 +1,40 @@
+/****************************************************************************/
+/// @file    NIElmarEdgesHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Sun, 16 May 2004
+/// @version $Id: $
+///
+// A LineHandler-derivate to load edges form a elmar-edges-file
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NIElmarEdgesHandler_h
 #define NIElmarEdgesHandler_h
-/***************************************************************************
-                          NIElmarEdgesHandler.h
-             A LineHandler-derivate to load edges form a elmar-edges-file
-                             -------------------
-    project              : SUMO
-    begin                : Sun, 16 May 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.5  2006/01/31 10:59:35  dkrajzew
-// extracted common used methods; optional usage of old lane number information in navteq-networks import added
-//
-// Revision 1.4  2005/10/07 11:39:26  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/04/27 12:24:35  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.1  2004/07/02 09:34:38  dkrajzew
-// elmar and tiger import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/importio/LineHandler.h>
@@ -58,27 +42,28 @@
 #include <utils/common/FileErrorReporter.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 /**
  * NIElmarEdgesHandler
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain edge definitions
  * in Cell-format
  */
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
 class NIElmarEdgesHandler : public LineHandler,
-                           public FileErrorReporter {
+            public FileErrorReporter
+{
 public:
     /// constructor
     NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-        const std::string &file, bool useNewLaneNumberInfoPlain);
+                        const std::string &file, bool useNewLaneNumberInfoPlain);
 
     /// destructor
     ~NIElmarEdgesHandler();
@@ -91,15 +76,12 @@ public:
 protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
-	bool myUseNewLaneNumberInfoPlain;
+    bool myUseNewLaneNumberInfoPlain;
 
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

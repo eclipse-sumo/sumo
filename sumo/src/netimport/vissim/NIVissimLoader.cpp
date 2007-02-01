@@ -1,92 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        NIVissimLoader.cpp -  ccc
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NIVissimLoader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log: NIVissimLoader.cpp,v $
-// Revision 1.27  2006/02/13 07:20:23  dkrajzew
-// code beautifying
-//
-// Revision 1.26  2006/01/09 11:59:22  dkrajzew
-// debugging error handling; beautifying
-//
-// Revision 1.25  2005/11/09 06:42:07  dkrajzew
-// complete geometry building rework (unfinished)
-//
-// Revision 1.24  2005/10/07 11:40:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.23  2005/09/23 06:02:56  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.22  2005/04/27 12:24:36  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.21  2003/10/30 09:12:59  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.20  2003/10/27 10:53:16  dkrajzew
-// edges speed setting implemented (only on an edges begin)
-//
-// Revision 1.19  2003/10/15 11:51:28  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.18  2003/09/23 14:15:33  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.17  2003/09/05 15:18:08  dkrajzew
-// removed some unneeded code
-//
-// Revision 1.16  2003/08/21 12:56:39  dkrajzew
-// unneeded tag output removed
-//
-// Revision 1.15  2003/08/18 12:39:22  dkrajzew
-// missing handling of some vissim3.7-structures added
-//
-// Revision 1.14  2003/06/18 11:35:29  dkrajzew
-// message subsystem changes applied and some further work done;
-//  seems to be stable but is not perfect, yet
-//
-// Revision 1.13  2003/06/16 08:01:57  dkrajzew
-// further work on Vissim-import
-//
-// Revision 1.12  2003/06/05 11:46:54  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 #include <string>
@@ -171,6 +117,9 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
@@ -179,14 +128,12 @@ using namespace std;
  * NIVissimLoader::VissimSingleTypeParser-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::VissimSingleTypeParser::VissimSingleTypeParser(NIVissimLoader &parent)
-    : FileErrorReporter::Child(parent), myVissimParent(parent)
-{
-}
+        : FileErrorReporter::Child(parent), myVissimParent(parent)
+{}
 
 
 NIVissimLoader::VissimSingleTypeParser::~VissimSingleTypeParser()
-{
-}
+{}
 
 
 std::string
@@ -201,17 +148,17 @@ NIVissimLoader::VissimSingleTypeParser::myRead(std::istream &from)
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
-                                                      const std::string &excl)
+        const std::string &excl)
 {
     string myExcl = StringUtils::to_lower_case(excl);
     string tmp = myRead(from);
-    if(tmp=="") {
+    if (tmp=="") {
         return "DATAEND";
     }
-    if( tmp!=myExcl
-        &&
-        (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
-        ) {
+    if (tmp!=myExcl
+            &&
+            (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
+       ) {
         return "DATAEND";
     }
     return StringUtils::to_lower_case(tmp);
@@ -220,29 +167,29 @@ NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
-                                                      const std::vector<std::string> &excl)
+        const std::vector<std::string> &excl)
 {
     std::vector<std::string> myExcl;
     std::vector<std::string>::const_iterator i;
-    for(i=excl.begin(); i!=excl.end(); i++) {
+    for (i=excl.begin(); i!=excl.end(); i++) {
         string mes = StringUtils::to_lower_case(*i);
         myExcl.push_back(mes);
     }
     string tmp = myRead(from);
-    if(tmp=="") {
+    if (tmp=="") {
         return "DATAEND";
     }
 
     bool equals = false;
-    for(i=myExcl.begin(); i!=myExcl.end()&&!equals; i++) {
-        if((*i)==tmp) {
+    for (i=myExcl.begin(); i!=myExcl.end()&&!equals; i++) {
+        if ((*i)==tmp) {
             equals = true;
         }
     }
-    if( !equals
-        &&
-        (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
-        ) {
+    if (!equals
+            &&
+            (tmp.substr(0, 2)=="--"||!myVissimParent.admitContinue(tmp))
+       ) {
         return "DATAEND";
     }
     return StringUtils::to_lower_case(tmp);
@@ -251,17 +198,17 @@ NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from,
-                                                              const std::string &tag)
+        const std::string &tag)
 {
     string tmp;
-    if(tag=="") {
+    if (tag=="") {
         tmp = myRead(from);
     } else {
         tmp = tag;
     }
-    if(tmp=="beschriftung") {
+    if (tmp=="beschriftung") {
         tmp = myRead(from);
-        if(tmp=="keine") {
+        if (tmp=="keine") {
             from >> tmp;
         }
         tmp = myRead(from);
@@ -287,11 +234,11 @@ NIVissimLoader::VissimSingleTypeParser::parseAssignedVehicleTypes(
 {
     string tmp = readEndSecure(from);
     IntVector ret;
-    if(tmp=="alle") {
+    if (tmp=="alle") {
         ret.push_back(-1);
         return ret;
     }
-    while(tmp!="DATAEND"&&tmp!=next) {
+    while (tmp!="DATAEND"&&tmp!=next) {
         ret.push_back(TplConvert<char>::_2int(tmp.c_str()));
         tmp = readEndSecure(from);
     }
@@ -301,7 +248,7 @@ NIVissimLoader::VissimSingleTypeParser::parseAssignedVehicleTypes(
 
 NIVissimExtendedEdgePoint
 NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
-        std::istream &from)
+    std::istream &from)
 {
     string tag;
     from >> tag; // "Strecke"
@@ -309,9 +256,9 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
     from >> edgeid; // type-checking is missing!
     from >> tag; // "Spuren"
     IntVector lanes;
-    while(tag!="bei") {
+    while (tag!="bei") {
         tag = readEndSecure(from);
-        if(tag!="bei") {
+        if (tag!="bei") {
             int lane = TplConvert<char>::_2int(tag.c_str());
             lanes.push_back(lane-1);
         }
@@ -328,8 +275,8 @@ NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
 {
     string name;
     from >> name;
-    if(name[0]=='"') {
-        while(name[name.length()-1]!='"') {
+    if (name[0]=='"') {
+        while (name[name.length()-1]!='"') {
             string tmp;
             from >> tmp;
             name = name + " " + tmp;
@@ -342,23 +289,23 @@ NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
 
 void
 NIVissimLoader::VissimSingleTypeParser::readUntil(std::istream &from,
-                                                  const std::string &name)
+        const std::string &name)
 {
     string tag;
-    while(tag!=name) {
+    while (tag!=name) {
         tag = myRead(from);
     }
 }
 
 bool
 NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
-                                                        const std::string &name)
+        const std::string &name)
 {
     string tag;
-    while(tag!=name) {
+    while (tag!=name) {
         tag = myRead(from);
     }
-    while(tag!="DATAEND") {
+    while (tag!="DATAEND") {
         tag = readEndSecure(from);
     }
     return true;
@@ -370,7 +317,7 @@ NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
  * NIVissimLoader-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
-    : FileErrorReporter(file), myNetBuilder(nb)
+        : FileErrorReporter(file), myNetBuilder(nb)
 {
     insertKnownElements();
     buildParsers();
@@ -391,8 +338,8 @@ NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
 
 NIVissimLoader::~NIVissimLoader()
 {
-    for(ToParserMap::iterator i=myParsers.begin(); i!=myParsers.end(); i++) {
-        delete (*i).second;
+    for (ToParserMap::iterator i=myParsers.begin(); i!=myParsers.end(); i++) {
+        delete(*i).second;
     }
 }
 
@@ -401,16 +348,16 @@ void
 NIVissimLoader::load(OptionsCont &options)
 {
     // load file contents
-        // try to open the file
+    // try to open the file
     ifstream strm(options.getString("vissim").c_str());
-    if(!strm.good()) {
+    if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim") + "' was not found.");
         return;
     }
-    if(!readContents(strm)) {
+    if (!readContents(strm)) {
         return;
     }
-    postLoadBuild(options.getFloat("vissim.offset"));
+    postLoadBuild(options.getFloat("vissim-offset"));
 }
 
 
@@ -418,7 +365,7 @@ bool
 NIVissimLoader::admitContinue(const std::string &tag)
 {
     ToElemIDMap::const_iterator i=myKnownElements.find(tag);
-    if(i==myKnownElements.end()) {
+    if (i==myKnownElements.end()) {
         return true;
     }
     myLastSecure = tag;
@@ -429,23 +376,23 @@ NIVissimLoader::admitContinue(const std::string &tag)
 bool
 NIVissimLoader::readContents(istream &strm)
 {
-        // read contents
+    // read contents
     bool ok = true;
-    while(strm.good()&&ok) {
+    while (strm.good()&&ok) {
         string tag;
-        if(myLastSecure!="") {
+        if (myLastSecure!="") {
             tag = myLastSecure;
         } else {
             strm >> tag;
         }
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
-            StringUtils::to_lower_case(tag));
-        if(i==myKnownElements.end()) {
+                                    StringUtils::to_lower_case(tag));
+        if (i==myKnownElements.end()) {
             continue;
         }
         ToParserMap::iterator j=myParsers.find((*i).second);
-        if(j==myParsers.end()) {
+        if (j==myParsers.end()) {
             continue;
         }
         VissimSingleTypeParser *parser = (*j).second;
@@ -500,15 +447,15 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
         myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont());
     NIVissimEdge::dict_propagateSpeeds();
     NIVissimEdge::dict_buildNBEdges(myNetBuilder.getDistrictCont(),
-        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), offset);
+                                    myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), offset);
     NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(),
-        myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
+            myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
     NIVissimConnection::dict_buildNBEdgeConnections(myNetBuilder.getEdgeCont());
 //    NIVissimConnection::dict_extendEdgesGeoms();
     NIVissimNodeCluster::dict_addDisturbances(myNetBuilder.getDistrictCont(),
-        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
-	NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(),
-        myNetBuilder.getEdgeCont());
+            myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
+    NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(),
+                                myNetBuilder.getEdgeCont());
 
     NIVissimAbstractEdge::clearDict();
     NIVissimClosures::clearDict();
@@ -725,10 +672,6 @@ NIVissimLoader::buildParsers()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

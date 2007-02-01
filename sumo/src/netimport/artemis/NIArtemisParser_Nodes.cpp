@@ -1,79 +1,38 @@
-/***************************************************************************
-                          NIArtemisParser_Nodes.cpp
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 10 Feb 2003
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2005/10/07 11:39:05  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+/// @file    NIArtemisParser_Nodes.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10 Feb 2003
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.11  2005/09/23 06:01:53  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.10  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/04/27 12:24:25  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.8  2004/08/02 12:44:11  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.7  2004/01/12 15:30:31  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.6  2003/07/22 15:11:24  dkrajzew
-// removed warnings
-//
-// Revision 1.5  2003/07/07 08:26:33  dkrajzew
-// adapted the importer to the new node type description
-//
-// Revision 1.4  2003/06/18 11:14:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.3  2003/03/17 14:19:48  dkrajzew
-// node type assignment corrected
-//
-// Revision 1.2  2003/03/06 17:14:39  dkrajzew
-// more stringent usage of insertion into containers; y-direction flipped
-//
-// Revision 1.1  2003/03/03 15:00:31  dkrajzew
-// initial commit for artemis-import files
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -91,28 +50,26 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIArtemisParser_Nodes::NIArtemisParser_Nodes(
-        NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
-        NIArtemisLoader &parent,
-        const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc), myTLLogicCont(tlc)
-{
-}
+    NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
+    NIArtemisLoader &parent,
+    const std::string &dataName)
+        : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+        myNodeCont(nc), myTLLogicCont(tlc)
+{}
 
 
 NIArtemisParser_Nodes::~NIArtemisParser_Nodes()
-{
-}
+{}
 
 
 void
@@ -125,12 +82,12 @@ NIArtemisParser_Nodes::myDependentReport()
     // size omitted
     int type = TplConvert<char>::_2int(myLineParser.get("Type").c_str());
     // return if an error occured
-    if(MsgHandler::getErrorInstance()->wasInformed()) {
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
     NBNode::BasicNodeType myType = NBNode::NODETYPE_NOJUNCTION;
     // radius omitted
-    switch(type) {
+    switch (type) {
     case 0: // no function (virtual one-way)
     case 1: // no function (virtual two-way)
     case 2: // origin (generator)
@@ -156,16 +113,16 @@ NIArtemisParser_Nodes::myDependentReport()
     }
     // build if ok
     NBNode *node = new NBNode(id, Position2D(x, y), myType);
-    if(!myNodeCont.insert(node)) {
+    if (!myNodeCont.insert(node)) {
         // should never happen
         delete node;
         return;
     }
     // check traffic light junctions)
-    if(type==5||type==10) {
+    if (type==5||type==10) {
         NBTrafficLightDefinition *tlDef =
             new NBOwnTLDef(id, node);
-        if(!myTLLogicCont.insert(id, tlDef)) {
+        if (!myTLLogicCont.insert(id, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError();
@@ -174,10 +131,6 @@ NIArtemisParser_Nodes::myDependentReport()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,76 +1,38 @@
-/***************************************************************************
-                          NIArtemisParser_SignalGroups.cpp
-                             -------------------
-    project              : SUMO
-    begin                : Mon, 10 Feb 2003
-    copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/04/05 05:32:25  dkrajzew
-// code beautifying: embedding string in strings removed
+/****************************************************************************/
+/// @file    NIArtemisParser_SignalGroups.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 10 Feb 2003
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.10  2005/10/07 11:39:05  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.9  2005/09/23 06:01:53  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/04/27 12:24:25  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.6  2004/01/12 15:30:31  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.5  2003/06/18 11:14:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/05/20 09:37:13  dkrajzew
-// patch to current netbuilder-API; still not working properly
-//
-// Revision 1.3  2003/03/17 14:18:58  dkrajzew
-// Windows eol removed
-//
-// Revision 1.2  2003/03/12 16:44:47  dkrajzew
-// further work on artemis-import
-//
-// Revision 1.1  2003/03/03 15:00:31  dkrajzew
-// initial commit for artemis-import files
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -91,28 +53,26 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIArtemisParser_SignalGroups::NIArtemisParser_SignalGroups(
-        NBNodeCont &nc,
-        NIArtemisLoader &parent,
-        const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc)
-{
-}
+    NBNodeCont &nc,
+    NIArtemisLoader &parent,
+    const std::string &dataName)
+        : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+        myNodeCont(nc)
+{}
 
 
 NIArtemisParser_SignalGroups::~NIArtemisParser_SignalGroups()
-{
-}
+{}
 
 
 void
@@ -130,18 +90,18 @@ NIArtemisParser_SignalGroups::myDependentReport()
     NBNode *node = myNodeCont.retrieve(nodeid);
     NBNode *fromNode = myNodeCont.retrieve(from);
     NBNode *toNode = myNodeCont.retrieve(to);
-        // check whether the node is valid
-    if(node==0) {
+    // check whether the node is valid
+    if (node==0) {
         MsgHandler::getErrorInstance()->inform("The node '" + nodeid + "' is not known within a signal group.");
         return;
     }
-        // check whether the incoming edge is valid
-    if(fromNode==0) {
+    // check whether the incoming edge is valid
+    if (fromNode==0) {
         MsgHandler::getErrorInstance()->inform("The from node '" + from + "' is not known within a signal group.");
         return;
     }
-        // check whether the outgoing edge is valid
-    if(toNode==0) {
+    // check whether the outgoing edge is valid
+    if (toNode==0) {
         MsgHandler::getErrorInstance()->inform("The to node '" + to + "' is not known within a signal group.");
         return;
     }
@@ -151,11 +111,11 @@ NIArtemisParser_SignalGroups::myDependentReport()
     NBEdge *toEdge =
         NBContHelper::findConnectingEdge(
             node->getOutgoingEdges(), node, toNode);
-    if(fromEdge==0) {
+    if (fromEdge==0) {
         MsgHandler::getErrorInstance()->inform("Could not find connection between '" + from + "' and '" + nodeid + "' within a signal group.");
         return;
     }
-    if(toEdge==0) {
+    if (toEdge==0) {
         MsgHandler::getErrorInstance()->inform("Could not find connection between '" + nodeid + "' and '" + to + "' within a signal group.");
         return;
     }
@@ -172,13 +132,5 @@ NIArtemisParser_SignalGroups::myClose()
 
 
 
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
-
-
+/****************************************************************************/
 

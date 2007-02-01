@@ -1,65 +1,40 @@
+/****************************************************************************/
+/// @file    NITigerLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29 Jun 2004
+/// @version $Id: $
+///
+// A loader tiger-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NITigerLoader_h
 #define NITigerLoader_h
-/***************************************************************************
-                          NITigerLoader.h
-              A loader tiger-files
-                             -------------------
-    project              : SUMO
-    begin                : Tue, 29 Jun 2004
-    copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.8  2006/09/18 10:11:39  dkrajzew
-// changed the way geocoordinates are processed
-//
-// Revision 1.7  2006/03/08 13:02:27  dkrajzew
-// some further work on converting geo-coordinates
-//
-// Revision 1.6  2005/10/07 11:39:57  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/23 06:02:42  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 12:24:36  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.2  2004/11/23 10:23:53  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/07/02 09:34:38  dkrajzew
-// elmar and tiger import added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -71,26 +46,26 @@
 #include <utils/geom/Position2DVector.h>
 
 
-/* =========================================================================
- * class declaration
- * ======================================================================= */
+// ===========================================================================
+// class declaration
+// ===========================================================================
 class OptionsCont;
 class NBNode;
 
 
-/* =========================================================================
- * class declaration
- * ======================================================================= */
+// ===========================================================================
+// class declaration
+// ===========================================================================
 /**
  * NITigerLoader
  */
 class NITigerLoader :
-        public FileErrorReporter
+            public FileErrorReporter
 {
 public:
     /// constructor
     NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-        const std::string &file);
+                  const std::string &file);
 
     /// destructor
     ~NITigerLoader();
@@ -117,10 +92,8 @@ protected:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

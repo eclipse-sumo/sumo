@@ -1,71 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        NISUMOHandlerEdges.cpp -
-//  A handler for SUMO edges
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NISUMOHandlerEdges.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A handler for SUMO edges
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/11/14 13:03:54  dkrajzew
-// warnings removed
-//
-// Revision 1.8  2006/04/05 05:32:26  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.7  2005/10/07 11:39:47  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:02:34  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:03:37  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 12:24:35  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.3  2004/01/12 15:31:53  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.2  2003/06/18 11:15:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.1  2003/02/07 11:13:27  dkrajzew
-// names changed
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -80,27 +47,28 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
 NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc,
                                        LoadFilter what)
-    : SUMOSAXHandler("sumo-network"),
-    _loading(what), myEdgeCont(ec), myNodeCont(nc)
-{
-}
+        : SUMOSAXHandler("sumo-network"),
+        _loading(what), myEdgeCont(ec), myNodeCont(nc)
+{}
 
 
 NISUMOHandlerEdges::~NISUMOHandlerEdges()
-{
-}
+{}
 
 
 void
 NISUMOHandlerEdges::myStartElement(int element, const std::string &/*name*/,
                                    const Attributes &attrs)
 {
-    if(element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
+    if (element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
         addEdge(attrs);
     }
 }
@@ -117,31 +85,29 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
         string name;
         try {
             name = getString(attrs, SUMO_ATTR_NAME);
-        } catch (EmptyData) {
-        }
+        } catch (EmptyData) {}
         // get the type
         string type;
         try {
             type = getString(attrs, SUMO_ATTR_TYPE);
-        } catch (EmptyData) {
-        }
+        } catch (EmptyData) {}
         // get the origin and the destination node
         NBNode *from = getNode(attrs, SUMO_ATTR_FROMNODE, "from", id);
         NBNode *to = getNode(attrs, SUMO_ATTR_TONODE, "to", id);
-        if(from==0||to==0) {
+        if (from==0||to==0) {
             return;
         }
         // get some other parameter
         SUMOReal speed = getFloatReporting(attrs, SUMO_ATTR_SPEED, "speed", id);
         SUMOReal length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, "length",
-            id);
+                                            id);
         int nolanes = getIntReporting(attrs, SUMO_ATTR_NOLANES,
-            "number of lanes", id);
+                                      "number of lanes", id);
         int priority = getIntReporting(attrs, SUMO_ATTR_PRIORITY,
-            "priority", id);
-        if(speed>0&&length>0&&nolanes>0&&priority>0) {
+                                       "priority", id);
+        if (speed>0&&length>0&&nolanes>0&&priority>0) {
             myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
-                nolanes, length, priority));
+                                         nolanes, length, priority));
         }
     } catch (EmptyData) {
         addError("An edge with an unknown id occured.");
@@ -155,7 +121,7 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
     try {
         string nodename = getString(attrs, id);
         NBNode *node = myNodeCont.retrieve(nodename);
-        if(node==0) {
+        if (node==0) {
             addError("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");
         }
         return node;
@@ -209,10 +175,6 @@ void NISUMOHandlerEdges::myEndElement(int element, const std::string &name)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 
