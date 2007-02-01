@@ -1,99 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIEdgeControlBuilder.cpp -
-//  A builder for edges during the loading derived from the
-//      NLEdgeControlBuilder
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIEdgeControlBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A builder for edges during the loading derived from the
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2006/09/18 09:58:57  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.17  2006/07/06 05:43:20  dkrajzew
-// replaced exception throwing by an error report
-//
-// Revision 1.16  2006/05/15 05:48:35  dkrajzew
-// debugging the raknet-demo
-//
-// Revision 1.16  2006/05/08 10:55:36  dkrajzew
-// debugging the raknet-extension
-//
-// Revision 1.15  2006/02/27 13:16:34  dkrajzew
-// raknet-support added
-//
-// Revision 1.14  2005/10/07 11:37:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.13  2005/09/22 13:39:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.12  2005/09/15 11:06:03  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.11  2005/07/12 12:15:41  dkrajzew
-// new loading of edges implemented
-//
-// Revision 1.10  2005/05/04 07:55:28  dkrajzew
-// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
-//
-// Revision 1.9  2004/11/23 10:12:27  dkrajzew
-// new detectors usage applied
-//
-// Revision 1.8  2004/07/02 08:39:12  dkrajzew
-// using global selection storage
-//
-// Revision 1.7  2004/04/02 11:15:25  dkrajzew
-// changes due to the visualisation of the selection status
-//
-// Revision 1.6  2004/03/19 12:56:48  dkrajzew
-// porting to FOX
-//
-// Revision 1.5  2003/11/12 14:05:18  dkrajzew
-// access to the id storage in MSNet is now secure
-//
-// Revision 1.4  2003/09/05 14:57:12  dkrajzew
-// first steps for reading of internal lanes
-//
-// Revision 1.3  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
-//
-// Revision 1.2  2003/02/07 10:38:19  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -120,19 +59,19 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIEdgeControlBuilder::GUIEdgeControlBuilder(
-        GUIGlObjectStorage &glObjectIDStorage, unsigned int storageSize)
-    : NLEdgeControlBuilder(storageSize),
-    myGlObjectIDStorage(glObjectIDStorage)
+    GUIGlObjectStorage &glObjectIDStorage, unsigned int storageSize)
+        : NLEdgeControlBuilder(storageSize),
+        myGlObjectIDStorage(glObjectIDStorage)
 {
 #ifdef RAKNET_DEMO
     myStreet = new Street();
@@ -140,15 +79,14 @@ GUIEdgeControlBuilder::GUIEdgeControlBuilder(
 }
 
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
-{
-}
+{}
 
 
 MSEdge *
 GUIEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
-    if(!MSEdge::dictionary(id, edge)) {
+    if (!MSEdge::dictionary(id, edge)) {
         throw XMLIdAlreadyUsedException("Edge", id);
     }
     m_pEdges->push_back(edge);
@@ -167,57 +105,54 @@ GUIEdgeControlBuilder::closeEdge()
 
 MSLane *
 GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
-                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                               const Position2DVector &shape,
-                               const std::string &vclasses)
+        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+        const Position2DVector &shape,
+        const std::string &vclasses)
 {
     // checks if the depart lane was set before
-    if(isDepart&&m_pDepartLane!=0) {
-      throw XMLDepartLaneDuplicationException();
+    if (isDepart&&m_pDepartLane!=0) {
+        throw XMLDepartLaneDuplicationException();
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
-    switch(m_Function) {
+    switch (m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new GUISourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                          myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
         lane = new GUILane(/*net, */id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                    myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
         MsgHandler::getErrorInstance()->inform("A lane with an unknown type occured (" + toString(m_Function) + ")");
         throw ProcessError();
     }
 #ifdef RAKNET_DEMO
-	float *xPos = new float[shape.size()];
-	float *zPos = new float[shape.size()];
-    for(size_t i=0; i<shape.size(); ++i) {
+    float *xPos = new float[shape.size()];
+    float *zPos = new float[shape.size()];
+    for (size_t i=0; i<shape.size(); ++i) {
         xPos[i] = shape.at(i).x();
         zPos[i] = shape.at(i).y();
     }
-	myStreet->addLane(myCurrentNumericalLaneID-1, shape.size(), xPos, zPos);
+    myStreet->addLane(myCurrentNumericalLaneID-1, shape.size(), xPos, zPos);
     delete[] xPos;
     delete[] zPos;
 #endif
     m_pLaneStorage->push_back(lane);
-    if(isDepart) {
+    if (isDepart) {
         m_pDepartLane = lane;
     }
     return lane;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

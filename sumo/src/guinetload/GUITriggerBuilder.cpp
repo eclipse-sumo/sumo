@@ -1,75 +1,30 @@
-/***************************************************************************
-                          GUITriggerBuilder.cpp
-                          A building helper for triggers
-                             -------------------
-    begin                : Mon, 26.04.2004
-    copyright            : (C) 2004 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] = "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/11/17 11:13:57  dkrajzew
-// changes to the actor-API applied
+/****************************************************************************/
+/// @file    GUITriggerBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 26.04.2004
+/// @version $Id: $
+///
+// A building helper for triggers
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.10  2006/11/16 10:50:43  dkrajzew
-// warnings removed
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.9  2006/11/14 13:01:42  dkrajzew
-// warnings removed
-//
-// Revision 1.8  2006/10/12 07:55:28  dkrajzew
-// added tol-actor visualisation
-//
-// Revision 1.7  2006/01/09 11:53:00  dkrajzew
-// bus stops implemented
-//
-// Revision 1.6  2005/11/09 06:35:03  dkrajzew
-// Emitters reworked
-//
-// Revision 1.5  2005/10/07 11:37:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/22 13:39:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 11:06:03  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 07:56:53  dkrajzew
-// level 3 warnings removed
-//
-// Revision 1.1  2004/07/02 08:39:56  dkrajzew
-// visualisation of vss' added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <fstream>
@@ -91,29 +46,27 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUITriggerBuilder::GUITriggerBuilder()
-{
-}
+{}
 
 
 GUITriggerBuilder::~GUITriggerBuilder()
-{
-}
+{}
 
 
 MSLaneSpeedTrigger *
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
-            const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file)
+        const std::string &id, const std::vector<MSLane*> &destLanes,
+        const std::string &file)
 {
     return new GUILaneSpeedTrigger(id, net, destLanes, file);
 }
@@ -144,8 +97,8 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 
 MSE1VehicleActor *
 GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
-                                    MSLane *lane, SUMOReal pos, unsigned int la,
-									unsigned int cell, unsigned int type)
+                                     MSLane *lane, SUMOReal pos, unsigned int la,
+                                     unsigned int cell, unsigned int type)
 {
     return new GUIE1VehicleActor(id, lane, pos, la, cell, type);
 }
@@ -161,8 +114,6 @@ GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

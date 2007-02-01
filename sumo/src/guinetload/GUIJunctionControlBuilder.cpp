@@ -1,74 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIJunctionControlBuilder.cpp -
-//  A MSJunctionControlBuilder that builds GUIJunctions instead of MSJunctions
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 1 Jul 2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIJunctionControlBuilder.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 1 Jul 2003
+/// @version $Id: $
+///
+// A MSJunctionControlBuilder that builds GUIJunctions instead of MSJunctions
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.11  2006/09/14 11:51:17  dkrajzew
-// test
-//
-// Revision 1.10  2006/02/23 11:27:56  dkrajzew
-// tls may have now several programs
-//
-// Revision 1.9  2005/10/10 11:52:38  dkrajzew
-// reworking the tls-API: made tls-control non-static
-//
-// Revision 1.8  2005/10/07 11:37:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/22 13:39:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 11:06:03  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 07:56:43  dkrajzew
-// level 3 warnings removed
-//
-// Revision 1.4  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.3  2004/08/02 11:56:31  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.2  2003/12/04 13:25:52  dkrajzew
-// handling of internal links added; documentation added; some dead code removed
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <algorithm>
 #include <netload/NLJunctionControlBuilder.h>
@@ -82,19 +46,17 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 GUIJunctionControlBuilder::GUIJunctionControlBuilder(MSNet &net,
-                                                     OptionsCont &oc)
-    : NLJunctionControlBuilder(net, oc)
-{
-}
+        OptionsCont &oc)
+        : NLJunctionControlBuilder(net, oc)
+{}
 
 
 GUIJunctionControlBuilder::~GUIJunctionControlBuilder()
-{
-}
+{}
 
 
 void
@@ -109,9 +71,9 @@ GUIJunctionControlBuilder::buildNoLogicJunction()
 {
     return new GUINoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
-        myActiveInternalLanes,
+                                  myActiveInternalLanes,
 #endif
-        myShape);
+                                  myShape);
     myShape.clear();
 }
 
@@ -123,15 +85,13 @@ GUIJunctionControlBuilder::buildLogicJunction()
     // build the junction
     return new GUIRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
-        myActiveInternalLanes,
+                                     myActiveInternalLanes,
 #endif
-        jtype, myShape);
+                                     jtype, myShape);
     myShape.clear();
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

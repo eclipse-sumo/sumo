@@ -1,155 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIHandler.cpp -
-//  The XML-Handler for building networks within the gui-version derived
-//      from NLHandler
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The XML-Handler for building networks within the gui-version derived
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/12/12 12:04:09  dkrajzew
-// made the base value for incremental dua changeable
-//
-// Revision 1.8  2006/11/30 07:43:35  dkrajzew
-// added the inc-dua option in order to increase dua-computation
-//
-// Revision 1.7  2006/10/12 10:14:27  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.6  2006/09/18 09:58:57  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.5  2006/05/15 05:49:06  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.5  2006/05/08 10:56:21  dkrajzew
-// debugging loading/saving of states
-//
-// Revision 1.4  2006/04/18 08:05:44  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.3  2006/01/09 11:51:30  dkrajzew
-// usage of vehicle and route coloring debugged
-//
-// Revision 1.2  2005/12/01 07:32:27  dkrajzew
-// introducing bus stops: eased building vehicles; vehicles may now have nested elements
-//
-// Revision 1.1  2005/10/10 11:52:16  dkrajzew
-// renamed *NetHandler to *Handler
-//
-// Revision 1.24  2005/10/07 11:37:01  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.23  2005/09/22 13:39:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.22  2005/09/15 11:06:03  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.21  2005/05/04 07:55:28  dkrajzew
-// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
-//
-// Revision 1.20  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
-//
-// Revision 1.19  2004/11/23 10:12:27  dkrajzew
-// new detectors usage applied
-//
-// Revision 1.18  2004/07/02 08:38:51  dkrajzew
-// changes needed to implement the online-router (class derivation)
-//
-// Revision 1.17  2004/04/02 11:14:36  dkrajzew
-// extended traffic lights are no longer template classes
-//
-// Revision 1.16  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation;
-//  variable offsets and lengths for lsa-detectors;
-//  coupling of detectors to tl-logics
-//
-// Revision 1.15  2004/01/12 14:59:51  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.14  2004/01/12 14:44:30  dkrajzew
-// handling of e2-detectors within the gui added
-//
-// Revision 1.13  2003/12/05 10:37:23  dkrajzew
-// made the code a little bit more pretty
-//
-// Revision 1.12  2003/12/04 13:25:52  dkrajzew
-// handling of internal links added; documentation added;
-//  some dead code removed
-//
-// Revision 1.11  2003/11/17 07:13:48  dkrajzew
-// e2-detector over lanes merger added
-//
-// Revision 1.10  2003/10/08 14:48:56  dkrajzew
-// new usage of MSAgentbased... impemented
-//
-// Revision 1.9  2003/10/02 14:51:20  dkrajzew
-// visualisation of E2-detectors implemented
-//
-// Revision 1.8  2003/10/01 11:13:13  dkrajzew
-// agent-based tl-logic allocation added
-//
-// Revision 1.7  2003/09/24 09:54:11  dkrajzew
-// bug on building induct loops of an actuated tls within the gui patched
-//
-// Revision 1.6  2003/07/22 14:58:33  dkrajzew
-// changes due to new detector handling
-//
-// Revision 1.5  2003/07/16 15:21:16  dkrajzew
-// conversion tools splitted and relocated to avoid mandatory inclusion
-//  of unused files
-//
-// Revision 1.4  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry
-//  implemented
-//
-// Revision 1.3  2003/06/18 11:08:05  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.2  2003/02/13 15:59:00  dkrajzew
-// unnecessary output of build edges id removed
-//
-// Revision 1.1  2003/02/07 10:38:19  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -183,38 +66,36 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 GUIHandler::GUIHandler(const std::string &file,
-                             MSNet &net,
-                             NLDetectorBuilder &detBuilder,
-                             NLTriggerBuilder &triggerBuilder,
-                             NLEdgeControlBuilder &edgeBuilder,
-                             NLJunctionControlBuilder &junctionBuilder,
-                             NLGeomShapeBuilder &shapeBuilder,
-                             int incDUABase,
-                             int incDUAStage)
-    : NLHandler(file, net, detBuilder, triggerBuilder,
-        edgeBuilder, junctionBuilder, shapeBuilder, true, incDUABase, incDUAStage) // wants vehicle color
-{
-}
+                       MSNet &net,
+                       NLDetectorBuilder &detBuilder,
+                       NLTriggerBuilder &triggerBuilder,
+                       NLEdgeControlBuilder &edgeBuilder,
+                       NLJunctionControlBuilder &junctionBuilder,
+                       NLGeomShapeBuilder &shapeBuilder,
+                       int incDUABase,
+                       int incDUAStage)
+        : NLHandler(file, net, detBuilder, triggerBuilder,
+                    edgeBuilder, junctionBuilder, shapeBuilder, true, incDUABase, incDUAStage) // wants vehicle color
+{}
 
 
 GUIHandler::~GUIHandler()
-{
-}
+{}
 
 
 void
 GUIHandler::myStartElement(int element, const std::string &name,
-                                  const Attributes &attrs)
+                           const Attributes &attrs)
 {
     NLHandler::myStartElement(element, name, attrs);
 }
@@ -222,11 +103,11 @@ GUIHandler::myStartElement(int element, const std::string &name,
 
 void
 GUIHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+                         const std::string &chars)
 {
     NLHandler::myCharacters(element, name, chars);
-    if(wanted(LOADFILTER_NET)) {
-        switch(element) {
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
         case SUMO_TAG_SHAPE:
             addJunctionShape(chars);
             break;
@@ -256,13 +137,13 @@ GUIHandler::addVehicleType(const Attributes &attrs)
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
             addParsedVehicleType(id,
-                getFloat(attrs, SUMO_ATTR_LENGTH),
-                getFloat(attrs, SUMO_ATTR_MAXSPEED),
-                getFloat(attrs, SUMO_ATTR_ACCEL),
-                getFloat(attrs, SUMO_ATTR_DECEL),
-                getFloat(attrs, SUMO_ATTR_SIGMA),
-                parseVehicleClass(*this, attrs, "vehicle", id),
-                col);
+                                 getFloat(attrs, SUMO_ATTR_LENGTH),
+                                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
+                                 getFloat(attrs, SUMO_ATTR_ACCEL),
+                                 getFloat(attrs, SUMO_ATTR_DECEL),
+                                 getFloat(attrs, SUMO_ATTR_SIGMA),
+                                 parseVehicleClass(*this, attrs, "vehicle", id),
+                                 col);
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -278,16 +159,16 @@ GUIHandler::addVehicleType(const Attributes &attrs)
 
 void
 GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
-                                    const SUMOReal maxspeed, const SUMOReal bmax,
-                                    const SUMOReal dmax, const SUMOReal sigma,
-                                    SUMOVehicleClass vclass,
-                                    const RGBColor &c)
+                                 const SUMOReal maxspeed, const SUMOReal bmax,
+                                 const SUMOReal dmax, const SUMOReal sigma,
+                                 SUMOVehicleClass vclass,
+                                 const RGBColor &c)
 {
     GUIVehicleType *vtype =
         new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, vclass);
-    if(!MSVehicleType::dictionary(id, vtype)) {
+    if (!MSVehicleType::dictionary(id, vtype)) {
         delete vtype;
-        if(!MSGlobals::gStateLoaded) {
+        if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
         }
     }
@@ -308,28 +189,24 @@ void
 GUIHandler::closeRoute()
 {
     int size = myActiveRoute.size();
-    if(size==0) {
+    if (size==0) {
         throw XMLListEmptyException();
     }
     GUIRoute *route =
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
     myActiveRoute.clear();
-    if(!MSRoute::dictionary(myActiveRouteID, route)) {
+    if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-        if(!MSGlobals::gStateLoaded) {
+        if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("route", myActiveRouteID);
         }
     }
-    if(myAmInEmbeddedMode) {
+    if (myAmInEmbeddedMode) {
         myCurrentEmbeddedRoute = route;
     }
 }
 
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
