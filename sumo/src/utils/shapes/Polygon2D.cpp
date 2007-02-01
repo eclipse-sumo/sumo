@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    Polygon2D.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Jun 2004
 /// @version $Id: $
 ///

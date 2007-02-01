@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    tagreader.cpp
-/// @author  unknown_author
+/// @author  Julia Ringel
 /// @date    unknown_date
 /// @version $Id: $
 ///

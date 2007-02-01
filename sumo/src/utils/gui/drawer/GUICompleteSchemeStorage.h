@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    GUICompleteSchemeStorage.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    :find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
 /// @version $Id: $
 ///
