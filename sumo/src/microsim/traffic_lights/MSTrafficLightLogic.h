@@ -2,7 +2,7 @@
 /// @file    MSTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The parent class for traffic light logics
 /****************************************************************************/
@@ -24,6 +24,7 @@
 // ===========================================================================
 #ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
 // ===========================================================================
@@ -52,13 +53,6 @@ class DiscreteCommand;
 class MSTLLogicControl;
 class NLDetectorBuilder;
 class MSEdgeContinuations;
-
-
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#pragma warning(disable: 4786)
-#endif
 
 
 // ===========================================================================
