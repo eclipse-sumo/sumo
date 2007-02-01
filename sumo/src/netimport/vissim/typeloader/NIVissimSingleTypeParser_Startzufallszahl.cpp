@@ -1,58 +1,38 @@
-/***************************************************************************
-    NIVissimSingleTypeParser_Startzufallszahl.cpp
-
-                             -------------------
-    begin                : Wed, 30 Apr 2003
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2006/11/16 10:50:50  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Startzufallszahl.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 30 Apr 2003
+/// @version $Id: $
+///
 //
-// Revision 1.4  2005/10/07 11:40:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.3  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.2  2005/04/27 12:24:39  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.1  2003/05/20 09:42:38  dkrajzew
-// all data types implemented
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
@@ -65,24 +45,22 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Startzufallszahl::NIVissimSingleTypeParser_Startzufallszahl(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent)
+{}
 
 
 NIVissimSingleTypeParser_Startzufallszahl::~NIVissimSingleTypeParser_Startzufallszahl()
-{
-}
+{}
 
 
 bool
@@ -91,8 +69,7 @@ NIVissimSingleTypeParser_Startzufallszahl::parse(std::istream &)
     return true;
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
+

@@ -357,7 +357,7 @@ NIVissimLoader::load(OptionsCont &options)
     if (!readContents(strm)) {
         return;
     }
-    postLoadBuild(options.getFloat("vissim-offset"));
+    postLoadBuild(options.getFloat("vissim.offset"));
 }
 
 

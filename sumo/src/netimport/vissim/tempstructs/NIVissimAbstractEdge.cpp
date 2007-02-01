@@ -1,67 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        NIVissimAbstractEdge.cpp -  ccc
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NIVissimAbstractEdge.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/07/06 06:18:42  dkrajzew
-// further debugging of VISSIM-import (unfinished)
-//
-// Revision 1.11  2006/03/17 11:03:06  dkrajzew
-// made access to positions in Position2DVector c++ compliant
-//
-// Revision 1.10  2005/10/07 11:40:10  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:02:57  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/04/27 12:24:37  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.7  2003/10/15 11:51:28  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.6  2003/06/18 11:35:29  dkrajzew
-// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
-//
-// Revision 1.5  2003/06/05 11:46:55  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 #include <map>
@@ -78,23 +49,22 @@ namespace
 NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
-                                           const Position2DVector &geom)
-    : myID(id), myGeom(geom), myNode(-1)
+        const Position2DVector &geom)
+        : myID(id), myGeom(geom), myNode(-1)
 {
     dictionary(id, this);
 }
 
 
 NIVissimAbstractEdge::~NIVissimAbstractEdge()
-{
-}
+{}
 
 
 bool
 NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge *e)
 {
     DictType::iterator i=myDict.find(id);
-    if(i==myDict.end()) {
+    if (i==myDict.end()) {
         myDict[id] = e;
         return true;
     }
@@ -106,7 +76,7 @@ NIVissimAbstractEdge *
 NIVissimAbstractEdge::dictionary(int id)
 {
     DictType::iterator i=myDict.find(id);
-    if(i==myDict.end()) {
+    if (i==myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -117,7 +87,7 @@ NIVissimAbstractEdge::dictionary(int id)
 Position2D
 NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 {
-    if(myGeom.length()<pos) {
+    if (myGeom.length()<pos) {
         SUMOReal amount = pos - myGeom.length();
         Line2D l(myGeom[-2], GeomHelper::extrapolate_second(myGeom[-2], myGeom[-1], amount*2));
         return l.getPositionAtDistance(pos);
@@ -135,7 +105,7 @@ NIVissimAbstractEdge::hasGeom() const
 void
 NIVissimAbstractEdge::splitAndAssignToNodes()
 {
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimAbstractEdge *e = (*i).second;
         e->splitAssigning();
     }
@@ -143,8 +113,7 @@ NIVissimAbstractEdge::splitAndAssignToNodes()
 
 void
 NIVissimAbstractEdge::splitAssigning()
-{
-}
+{}
 
 
 
@@ -170,9 +139,9 @@ NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
 {
     // !!! not needed
     Position2D p = GeomHelper::intersection_position(
-        myGeom.getBegin(), myGeom.getEnd(), p1, p2);
+                       myGeom.getBegin(), myGeom.getEnd(), p1, p2);
     return GeomHelper::nearest_position_on_line_to_point(
-        myGeom.getBegin(), myGeom.getEnd(), p);
+               myGeom.getBegin(), myGeom.getEnd(), p);
 }
 
 
@@ -181,9 +150,9 @@ IntVector
 NIVissimAbstractEdge::getWithin(const AbstractPoly &p, SUMOReal offset)
 {
     IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimAbstractEdge *e = (*i).second;
-        if(e->overlapsWith(p, offset)) {
+        if (e->overlapsWith(p, offset)) {
             ret.push_back(e->myID);
         }
     }
@@ -214,8 +183,8 @@ NIVissimAbstractEdge::getID() const
 void
 NIVissimAbstractEdge::clearDict()
 {
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete(*i).second;
     }
     myDict.clear();
 }
@@ -243,13 +212,5 @@ NIVissimAbstractEdge::getDisturbances() const
 
 
 
-
-
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

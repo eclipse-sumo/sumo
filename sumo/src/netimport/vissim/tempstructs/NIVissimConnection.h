@@ -1,58 +1,40 @@
-#ifndef NIVissimConnection_h
-#define NIVissimConnection_h
-//---------------------------------------------------------------------------//
-//                        NIVissimConnection.h -  ccc
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NIVissimConnection.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2005/10/07 11:40:10  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/23 06:02:57  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/04/27 12:24:37  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.6  2004/11/23 10:23:53  dkrajzew
-// debugging
-//
-// Revision 1.5  2003/09/23 14:16:37  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.4  2003/06/05 11:46:56  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NIVissimConnection_h
+#define NIVissimConnection_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 #include <string>
@@ -70,8 +52,9 @@ class NBEdgeCont;
 
 
 class NIVissimConnection
-        : public NIVissimBoundedClusterObject,
-          public NIVissimAbstractEdge {
+            : public NIVissimBoundedClusterObject,
+            public NIVissimAbstractEdge
+{
 public:
     enum Direction {
         NIVC_DIR_RIGHT,
@@ -80,13 +63,13 @@ public:
     };
 
     NIVissimConnection(int id, const std::string &name,
-        const NIVissimExtendedEdgePoint &from_def,
-        const NIVissimExtendedEdgePoint &to_def,
-        const Position2DVector &geom,
-        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
-        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-        const IntVector &assignedVehicles,
-        const NIVissimClosedLanesVector &clv);
+                       const NIVissimExtendedEdgePoint &from_def,
+                       const NIVissimExtendedEdgePoint &to_def,
+                       const Position2DVector &geom,
+                       Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
+                       SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
+                       const IntVector &assignedVehicles,
+                       const NIVissimClosedLanesVector &clv);
     virtual ~NIVissimConnection();
     void computeBounding();
     int getFromEdgeID() const;
@@ -103,13 +86,13 @@ public:
 
 public:
     static bool dictionary(int id, const std::string &name,
-        const NIVissimExtendedEdgePoint &from_def,
-        const NIVissimExtendedEdgePoint &to_def,
-        const Position2DVector &geom,
-        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
-        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-        const IntVector &assignedVehicles,
-        const NIVissimClosedLanesVector &clv);
+                           const NIVissimExtendedEdgePoint &from_def,
+                           const NIVissimExtendedEdgePoint &to_def,
+                           const Position2DVector &geom,
+                           Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
+                           SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
+                           const IntVector &assignedVehicles,
+                           const NIVissimClosedLanesVector &clv);
     static bool dictionary(int id, NIVissimConnection *o);
     static NIVissimConnection *dictionary(int id);
     static IntVector getWithin(const AbstractPoly &poly);
@@ -120,10 +103,10 @@ public:
     static int getMaxID();
     const IntVector &getFromLanes() const;
     const IntVector &getToLanes() const;
-/*    static void assignNodes();
-    static void buildFurtherNodes();
-    static IntVector getOutgoingForEdge(int edgeid);
-    static IntVector getIncomingForEdge(int edgeid);*/
+    /*    static void assignNodes();
+        static void buildFurtherNodes();
+        static IntVector getOutgoingForEdge(int edgeid);
+        static IntVector getIncomingForEdge(int edgeid);*/
 
 private:
     std::string myName;
@@ -140,11 +123,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

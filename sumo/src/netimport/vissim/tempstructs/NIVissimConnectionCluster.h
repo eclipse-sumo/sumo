@@ -1,82 +1,40 @@
-#ifndef NIVissimConnectionCluster_h
-#define NIVissimConnectionCluster_h
-//---------------------------------------------------------------------------//
-//                        NIVissimConnectionCluster.h -  ccc
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NIVissimConnectionCluster.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.19  2006/11/02 14:09:22  behrisch
-// Missing class declarations
-//
-// Revision 1.18  2005/10/07 11:40:10  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.17  2005/09/23 06:02:57  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.16  2005/04/27 12:24:37  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.15  2005/02/17 10:33:39  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.14  2004/11/23 10:23:53  dkrajzew
-// debugging
-//
-// Revision 1.13  2003/11/11 08:24:52  dkrajzew
-// debug values removed
-//
-// Revision 1.12  2003/10/30 13:44:10  dkrajzew
-// vissim-import seems to work
-//
-// Revision 1.11  2003/10/30 09:12:59  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.10  2003/10/15 11:51:28  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.9  2003/09/22 12:42:17  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.8  2003/06/18 11:35:29  dkrajzew
-// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
-//
-// Revision 1.7  2003/06/05 11:46:56  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NIVissimConnectionCluster_h
+#define NIVissimConnectionCluster_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 #include <iostream>
@@ -87,16 +45,16 @@
 #include "NIVissimConnection.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBNode;
 class NIVissimEdge;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NIVissimConnectionCluster
  * This class holds a list of connections either all outgoing or all
@@ -105,15 +63,16 @@ class NIVissimEdge;
  * It still are not all of the node's connections, as other edges
  * may participate to this node, too.
  */
-class NIVissimConnectionCluster {
+class NIVissimConnectionCluster
+{
 public:
     /** @brief Constructor
         Build the boundary; The boundary includes both incoming and outgoing nodes */
     NIVissimConnectionCluster(const IntVector &connections, int nodeCluster,
-        int edgeid);
+                              int edgeid);
 
     NIVissimConnectionCluster(const IntVector &connections,
-        const Boundary &boundary, int nodeCluster, const IntVector &edges);
+                              const Boundary &boundary, int nodeCluster, const IntVector &edges);
 
     /// Destructor
     ~NIVissimConnectionCluster();
@@ -131,9 +90,10 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
-	const IntVector &getConnections() const {
-		return myConnections;
-	}
+    const IntVector &getConnections() const
+    {
+        return myConnections;
+    }
 
     Position2DVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
     Position2DVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
@@ -161,15 +121,16 @@ public:
     static int getNextFreeNodeID();
 
     static void clearDict();
-/*
-    static void addNodes(SUMOReal offset);
+    /*
+        static void addNodes(SUMOReal offset);
 
-    //static void dict_checkDoubleNodes();
+        //static void dict_checkDoubleNodes();
 
-    static void addTLs(SUMOReal offset);
-*/
+        static void addTLs(SUMOReal offset);
+    */
 private:
-    class NodeSubCluster {
+    class NodeSubCluster
+    {
     public:
         NodeSubCluster(NIVissimConnection *c);
         ~NodeSubCluster();
@@ -186,18 +147,21 @@ private:
         ConnectionCont myConnections;
     };
 
-    class same_direction_sorter {
+    class same_direction_sorter
+    {
     private:
         SUMOReal _angle;
 
     public:
         /// constructor
         explicit same_direction_sorter(SUMOReal angle)
-            : _angle(angle) { }
+                : _angle(angle)
+        { }
 
     public:
         /// comparing operation
-        int operator() (NIVissimConnection *c1, NIVissimConnection *c2) const {
+        int operator()(NIVissimConnection *c1, NIVissimConnection *c2) const
+        {
             return
                 fabs(c1->getGeometry().beginEndAngle()-_angle)
                 <
@@ -223,7 +187,7 @@ private:
     IntVector getDisturbanceParticipators();
 
     IntVector extendByToTreatAsSame(const IntVector &iv1,
-        const IntVector &iv2) const;
+                                    const IntVector &iv2) const;
 
     bool isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2);
 
@@ -248,7 +212,7 @@ private:
 
     IntVector myTLs;
 
-	IntVector myOutgoingEdges, myIncomingEdges;
+    IntVector myOutgoingEdges, myIncomingEdges;
 
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;
@@ -259,11 +223,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

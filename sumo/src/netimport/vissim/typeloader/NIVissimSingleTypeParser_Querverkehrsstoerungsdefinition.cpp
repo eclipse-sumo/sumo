@@ -1,70 +1,38 @@
-/***************************************************************************
-                          NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp
-
-                             -------------------
-    begin                : Wed, 18 Dec 2002
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2006/11/16 10:50:47  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 18 Dec 2002
+/// @version $Id: $
+///
 //
-// Revision 1.8  2005/10/07 11:40:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.7  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.6  2005/04/27 12:24:38  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.5  2003/07/07 08:29:54  dkrajzew
-// Warnings are now reported to the MsgHandler
-//
-// Revision 1.4  2003/05/20 09:42:37  dkrajzew
-// all data types implemented
-//
-// Revision 1.3  2003/03/20 16:32:24  dkrajzew
-// windows eol removed
-//
-// Revision 1.2  2003/03/06 16:26:56  dkrajzew
-// debugging
-//
-// Revision 1.1  2003/02/07 11:08:43  dkrajzew
-// Vissim import added (preview)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
@@ -79,36 +47,34 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent)
+{}
 
 
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::~NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition()
-{
-}
+{}
 
 
 bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &from)
 {
     string tag;
-	tag = myRead(from);
-    if(tag=="nureigenestrecke") {
+    tag = myRead(from);
+    if (tag=="nureigenestrecke") {
         return parseOnlyMe(from);
-    } else if(tag=="ort") {
+    } else if (tag=="ort") {
         return parsePositionDescribed(from);
-    } else if(tag=="nummer") {
+    } else if (tag=="nummer") {
         return parseNumbered(from);
     }
     MsgHandler::getErrorInstance()->inform(
@@ -143,15 +109,15 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
 
         SUMOReal vmax = -1;
         tag = readEndSecure(from);
-        if(tag=="vmax") {
+        if (tag=="vmax") {
             from >> vmax;
         }
         ok = NIVissimDisturbance::dictionary(-1, "", edge, by,
-            timegap, waygap, vmax);
-        if(tag!="DATAEND") {
+                                             timegap, waygap, vmax);
+        if (tag!="DATAEND") {
             tag = readEndSecure(from);
         }
-    } while(tag!="DATAEND"&&ok);
+    } while (tag!="DATAEND"&&ok);
     return ok;
 }
 
@@ -168,7 +134,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
     from >> tag;
     string name = readName(from);
     // skip optional "Beschriftung"
-    while(tag!="ort") {
+    while (tag!="ort") {
         tag = myRead(from);
     }
     //
@@ -189,16 +155,16 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
 
         SUMOReal vmax = -1;
         tag = readEndSecure(from);
-        if(tag=="vmax") {
+        if (tag=="vmax") {
             from >> vmax;
         }
 
         ok = NIVissimDisturbance::dictionary(id, name, edge, by,
-            timegap, waygap, vmax);
-        if(tag!="DATAEND") {
+                                             timegap, waygap, vmax);
+        if (tag!="DATAEND") {
             tag = readEndSecure(from);
         }
-    } while(tag!="DATAEND"&&ok);
+    } while (tag!="DATAEND"&&ok);
     return ok;
 }
 
@@ -223,14 +189,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     // assigned vehicle types
     IntVector types;
     from >> tag;
-    while(tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND"&&tag!="alle") {
+    while (tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND"&&tag!="alle") {
         tag = readEndSecure(from);
-        if(tag!="DATAEND") {
-            if(tag=="alle") {
+        if (tag!="DATAEND") {
+            if (tag=="alle") {
                 types.push_back(-1);
                 from >> tag;
                 tag = "alle";
-            } else if(tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND") {
+            } else if (tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND") {
                 int tmp = TplConvert<char>::_2int(tag.c_str());
                 types.push_back(tmp);
             }
@@ -238,8 +204,8 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     }
     return NIVissimExtendedEdgePoint(edgeid, lanes, position, types);
 }
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
+

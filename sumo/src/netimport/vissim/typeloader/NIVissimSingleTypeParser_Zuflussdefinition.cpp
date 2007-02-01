@@ -1,58 +1,38 @@
-/***************************************************************************
-                          NIVissimSingleTypeParser_Zuflussdefinition.cpp
-
-                             -------------------
-    begin                : Wed, 18 Dec 2002
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2005/10/07 11:40:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Zuflussdefinition.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 18 Dec 2002
+/// @version $Id: $
+///
 //
-// Revision 1.4  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.3  2005/04/27 12:24:39  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.2  2003/05/20 09:42:38  dkrajzew
-// all data types implemented
-//
-// Revision 1.1  2003/02/07 11:08:43  dkrajzew
-// Vissim import added (preview)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
@@ -65,38 +45,36 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Zuflussdefinition::NIVissimSingleTypeParser_Zuflussdefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent)
+{}
 
 
 NIVissimSingleTypeParser_Zuflussdefinition::~NIVissimSingleTypeParser_Zuflussdefinition()
-{
-}
+{}
 
 
 bool
 NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
 {
-	string id, edgeid;
+    string id, edgeid;
     from >> id; // type-checking is missing!
     string tag, name;
     // override some optional values till q
-    while(tag!="q") {
+    while (tag!="q") {
         tag = overrideOptionalLabel(from);
-        if(tag=="name") {
+        if (tag=="name") {
             name = readName(from);
-        } else if(tag=="strecke") {
+        } else if (tag=="strecke") {
             from >> edgeid; // type-checking is missing!
         }
     }
@@ -104,7 +82,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
     bool exact = false;
     SUMOReal q;
     tag = myRead(from);
-    if(tag=="exakt") {
+    if (tag=="exakt") {
         exact = true;
         tag = myRead(from);
     }
@@ -118,18 +96,17 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
     SUMOReal beg, end;
     beg = -1;
     end = -1;
-    if(tag=="zeit") {
+    if (tag=="zeit") {
         from >> tag;
         from >> beg;
         from >> tag;
         from >> end;
     }
     return NIVissimSource::dictionary(id, name, edgeid, q, exact, vehicle_combination,
-        beg, end);
+                                      beg, end);
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
+

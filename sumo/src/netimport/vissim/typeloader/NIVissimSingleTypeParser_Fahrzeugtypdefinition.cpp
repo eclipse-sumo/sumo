@@ -1,58 +1,38 @@
-/***************************************************************************
-                          NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp
-
-                             -------------------
-    begin                : Wed, 18 Dec 2002
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.5  2005/10/07 11:40:29  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 18 Dec 2002
+/// @version $Id: $
+///
 //
-// Revision 1.4  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.3  2005/04/27 12:24:38  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.2  2003/05/20 09:42:37  dkrajzew
-// all data types implemented
-//
-// Revision 1.1  2003/02/07 11:08:42  dkrajzew
-// Vissim import added (preview)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
@@ -66,33 +46,31 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::NIVissimSingleTypeParser_Fahrzeugtypdefinition(
     NIVissimLoader &parent, NIVissimLoader::ColorMap &colorMap)
-	: NIVissimLoader::VissimSingleTypeParser(parent),
-    myColorMap(colorMap)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent),
+        myColorMap(colorMap)
+{}
 
 
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::~NIVissimSingleTypeParser_Fahrzeugtypdefinition()
-{
-}
+{}
 
 
 bool
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
 {
     // id
-	int id;
+    int id;
     from >> id; // type-checking is missing!
     // name
     string tag;
@@ -105,11 +83,11 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
     // color (optional) and length
     RGBColor color;
     tag = myRead(from);
-    while(tag!="laenge") {
-        if(tag=="farbe") {
+    while (tag!="laenge") {
+        if (tag=="farbe") {
             string colorName = myRead(from);
             NIVissimLoader::ColorMap::iterator i=myColorMap.find(colorName);
-            if(i!=myColorMap.end()) {
+            if (i!=myColorMap.end()) {
                 color = (*i).second;
             } else {
                 int r, g, b;
@@ -117,9 +95,9 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
                 from >> g; // type-checking is missing!
                 from >> b; // type-checking is missing!
                 color = RGBColor(
-                    (SUMOReal) r / (SUMOReal) 255.0,
-                    (SUMOReal) g / (SUMOReal) 255.0,
-                    (SUMOReal) b / (SUMOReal) 255.0 );
+                            (SUMOReal) r / (SUMOReal) 255.0,
+                            (SUMOReal) g / (SUMOReal) 255.0,
+                            (SUMOReal) b / (SUMOReal) 255.0);
             }
         }
         tag = myRead(from);
@@ -127,28 +105,28 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
     SUMOReal length;
     from >> length;
     // overread until "Maxbeschleunigung"
-    while(tag!="maxbeschleunigung") {
+    while (tag!="maxbeschleunigung") {
         tag = myRead(from);
     }
     SUMOReal amax;
     from >> amax; // type-checking is missing!
     // overread until "Maxverzoegerung"
-    while(tag!="maxverzoegerung") {
+    while (tag!="maxverzoegerung") {
         tag = myRead(from);
     }
     SUMOReal dmax;
     from >> dmax; // type-checking is missing!
-    while(tag!="besetzungsgrad") {
+    while (tag!="besetzungsgrad") {
         tag = myRead(from);
     }
-    while(tag!="DATAEND") {
+    while (tag!="DATAEND") {
         tag = readEndSecure(from, "verlustzeit");
     }
     return NIVissimVehicleType::dictionary(id, name,
-        category, length, color, amax, dmax);
+                                           category, length, color, amax, dmax);
 }
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
+

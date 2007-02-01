@@ -1,73 +1,38 @@
-/***************************************************************************
-                          NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp
-
-                             -------------------
-    begin                : Wed, 18 Dec 2002
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.10  2006/04/05 05:32:27  dkrajzew
-// code beautifying: embedding string in strings removed
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 18 Dec 2002
+/// @version $Id: $
+///
 //
-// Revision 1.9  2005/10/07 11:40:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.8  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.7  2005/04/27 12:24:38  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.6  2003/08/18 12:39:23  dkrajzew
-// missing handling of some vissim3.7-structures added
-//
-// Revision 1.5  2003/06/18 11:35:30  dkrajzew
-// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
-//
-// Revision 1.4  2003/05/20 09:42:37  dkrajzew
-// all data types implemented
-//
-// Revision 1.3  2003/04/09 15:53:22  dkrajzew
-// netconvert-changes: further work on Vissim-import, documentation added
-//
-// Revision 1.2  2003/04/07 12:17:10  dkrajzew
-// further work on traffic lights import
-//
-// Revision 1.1  2003/02/07 11:08:43  dkrajzew
-// Vissim import added (preview)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
@@ -81,59 +46,65 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent)
+{}
 
 
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::~NIVissimSingleTypeParser_Lichtsignalanlagendefinition()
-{
-}
+{}
 
 
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
 {
     //
-	int id;
+    int id;
     from >> id;
     //
     string tag, name;
     tag = myRead(from);
-    if(tag=="name") {
+    if (tag=="name") {
         name = readName(from);
         tag = myRead(from);
     }
     // type
     string type;
     type = myRead(from);
-    if(type=="festzeit") {
+    if (type=="festzeit") {
         return parseFixedTime(id, name, from);
-    } if(type=="vas") {
+    }
+    if (type=="vas") {
         return parseVAS(id, name, from);
-    } if(type=="vsplus") {
+    }
+    if (type=="vsplus") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="trends") {
+    }
+    if (type=="trends") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="vap") {
+    }
+    if (type=="vap") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="tl") {
+    }
+    if (type=="tl") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="pos") {
+    }
+    if (type=="pos") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="nema") {
+    }
+    if (type=="nema") {
         return parseRestActuated(id, name, from, type);
-    } if(type=="extern") {
+    }
+    if (type=="extern") {
         return parseRestActuated(id, name, from, type);
     }
     MsgHandler::getErrorInstance()->inform("Unsupported LSA-Type '" + type + "' occured.");
@@ -143,7 +114,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
 
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
-        int id, std::string name, std::istream &from)
+    int id, std::string name, std::istream &from)
 {
     string type = "festzeit";
     string tag;
@@ -154,12 +125,12 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if(tag=="versatz") {
+    if (tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
-    if(tag!="szpkonfdatei"&&tag!="DATAEND"&&tag!="progdatei") {
+    if (tag!="szpkonfdatei"&&tag!="DATAEND"&&tag!="progdatei") {
         tag = readEndSecure(from);
-        if(tag=="szpkonfdatei"||tag=="progdatei") {
+        if (tag=="szpkonfdatei"||tag=="progdatei") {
             type = "festzeit_fake";
         }
     }
@@ -169,7 +140,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
 
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
-        int id, std::string name, std::istream &from)
+    int id, std::string name, std::istream &from)
 {
     string tag;
     from >> tag;
@@ -179,7 +150,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if(tag=="versatz") {
+    if (tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
     return NIVissimTL::dictionary(id, "vas", name, (SUMOTime) absdur, (SUMOTime) offset);
@@ -188,7 +159,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
 
 bool
 NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
-        int id, std::string name, std::istream &from, const std::string &type)
+    int id, std::string name, std::istream &from, const std::string &type)
 {
     string tag;
     from >> tag;
@@ -198,16 +169,16 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if(tag=="versatz") {
+    if (tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
-    while(tag!="datei") {
+    while (tag!="datei") {
         tag = myRead(from);
     }
     return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);
 }
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
+

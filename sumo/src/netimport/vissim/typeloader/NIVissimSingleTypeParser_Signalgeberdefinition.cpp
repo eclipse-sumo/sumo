@@ -1,91 +1,38 @@
-/***************************************************************************
-                          NIVissimSingleTypeParser_Signalgeberdefinition.cpp
-
-                             -------------------
-    begin                : Wed, 18 Dec 2002
-    copyright            : (C) 2001 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/11/14 13:04:07  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    NIVissimSingleTypeParser_Signalgeberdefinition.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 18 Dec 2002
+/// @version $Id: $
+///
 //
-// Revision 1.15  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.14  2005/10/07 11:40:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.13  2005/09/23 06:02:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.12  2005/04/27 12:24:39  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
-//
-// Revision 1.11  2004/11/23 10:23:53  dkrajzew
-// debugging
-//
-// Revision 1.10  2003/11/11 08:24:52  dkrajzew
-// debug values removed
-//
-// Revision 1.9  2003/07/07 08:29:54  dkrajzew
-// Warnings are now reported to the MsgHandler
-//
-// Revision 1.8  2003/06/18 11:35:30  dkrajzew
-// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
-//
-// Revision 1.7  2003/05/20 09:42:37  dkrajzew
-// all data types implemented
-//
-// Revision 1.6  2003/04/16 09:59:52  dkrajzew
-// further work on Vissim-import
-//
-// Revision 1.5  2003/04/09 15:53:23  dkrajzew
-// netconvert-changes: further work on Vissim-import, documentation added
-//
-// Revision 1.4  2003/04/07 12:17:11  dkrajzew
-// further work on traffic lights import
-//
-// Revision 1.3  2003/03/20 16:32:24  dkrajzew
-// windows eol removed
-//
-// Revision 1.2  2003/03/06 16:26:58  dkrajzew
-// debugging
-//
-// Revision 1.1  2003/02/07 11:08:43  dkrajzew
-// Vissim import added (preview)
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <iostream>
@@ -102,24 +49,22 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIVissimLoader &parent)
-	: NIVissimLoader::VissimSingleTypeParser(parent)
-{
-}
+        : NIVissimLoader::VissimSingleTypeParser(parent)
+{}
 
 
 NIVissimSingleTypeParser_Signalgeberdefinition::~NIVissimSingleTypeParser_Signalgeberdefinition()
-{
-}
+{}
 
 
 bool
@@ -131,7 +76,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     //
     string tag, name;
     tag = myRead(from);
-    if(tag=="name") {
+    if (tag=="name") {
         name = readName(from);
         tag = myRead(from);
     }
@@ -140,7 +85,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     //
     int lsaid;
     IntVector groupids;
-    if(tag=="lsa") {
+    if (tag=="lsa") {
         int groupid;
         from >> lsaid; // type-checking is missing!
         from >> tag; // "Gruppe"
@@ -148,7 +93,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
             from >> groupid;
             groupids.push_back(groupid);
             tag = myRead(from);
-        } while(tag=="oder");
+        } while (tag=="oder");
         //
     } else {
         from >> tag; // strecke
@@ -169,7 +114,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     int position;
     from >> position;
     //
-    while(tag!="fahrzeugklassen") {
+    while (tag!="fahrzeugklassen") {
         tag = myRead(from);
     }
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
@@ -177,16 +122,14 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     NIVissimTL::dictionary(lsaid); // !!! check whether someting is really done here
     NIVissimTL::NIVissimTLSignal *signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
-            laneno, (SUMOReal) position, assignedVehicleTypes);
-    if(!NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal)) {
+                                         laneno, (SUMOReal) position, assignedVehicleTypes);
+    if (!NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal)) {
         throw 1; // !!!
     }
     return true;
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
 
