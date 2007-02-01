@@ -42,6 +42,9 @@
 #include "NBLinkCliqueContainer.h"
 #include "nodes/NBNode.h"
 #include "NBOwnTLDef.h"
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -212,8 +215,11 @@ NBOwnTLDef::collectLinks()
             for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {
-                    _links.push_back(
-                        NBConnection(incoming, j, el.edge, el.lane));
+                    if (el.lane>=el.edge->getNoLanes()) {
+                        MsgHandler::getErrorInstance()->inform("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
+                        throw ProcessError();
+                    }
+                    _links.push_back(NBConnection(incoming, j, el.edge, el.lane));
                 }
             }
         }
