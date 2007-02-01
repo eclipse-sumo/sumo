@@ -1,115 +1,40 @@
-#ifndef ROEdge_h
-#define ROEdge_h
-//---------------------------------------------------------------------------//
-//                        ROEdge.h -
-//  An edge the router may route through
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROEdge.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// An edge the router may route through
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.26  2006/11/29 07:51:22  dkrajzew
-// added the possibility to use the loaded weights outside their boundaries
-//
-// Revision 1.25  2006/11/16 13:56:45  dkrajzew
-// warnings removed
-//
-// Revision 1.24  2006/11/14 06:48:58  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.23  2006/09/18 10:15:17  dkrajzew
-// changed vehicle class naming
-//
-// Revision 1.22  2006/08/01 07:12:11  dkrajzew
-// faster access to weight time lines added
-//
-// Revision 1.21  2006/04/18 08:15:49  dkrajzew
-// removal of loops added
-//
-// Revision 1.20  2006/04/11 11:03:18  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.19  2006/01/26 08:42:50  dkrajzew
-// made lanes and edges being aware to vehicle classes
-//
-// Revision 1.18  2006/01/16 10:46:24  dkrajzew
-// some initial work on  the dfrouter
-//
-// Revision 1.17  2005/10/17 09:21:36  dkrajzew
-// memory leaks removed
-//
-// Revision 1.16  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.15  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.14  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.13  2005/05/04 08:46:09  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.12  2004/11/23 10:25:51  dkrajzew
-// debugging
-//
-// Revision 1.11  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived
-//  for an online-routing
-//
-// Revision 1.10  2004/04/14 13:53:50  roessel
-// Changes and additions in order to implement supplementary-weights.
-//
-// Revision 1.9  2004/01/27 10:31:50  dkrajzew
-// patched some linux-warnings
-//
-// Revision 1.8  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work; documentation added
-//
-// Revision 1.7  2003/11/11 08:04:46  dkrajzew
-// avoiding emissions of vehicles on too short edges
-//
-// Revision 1.6  2003/09/17 10:14:27  dkrajzew
-// handling of unset values patched
-//
-// Revision 1.5  2003/04/15 09:09:18  dkrajzew
-// documentation added
-//
-// Revision 1.4  2003/04/09 15:39:11  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.3  2003/02/07 10:45:07  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef ROEdge_h
+#define ROEdge_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -119,21 +44,22 @@
 #include "RONode.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class ROLane;
 class ROVehicle;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class ROEdge
  * An edge.
  */
-class ROEdge {
+class ROEdge
+{
 public:
     /**
      * @enum EdgeType
@@ -211,39 +137,39 @@ public:
     /// @param add Pointer to the add-FloatValueTimeLine.
     /// @param mult Pointer to the mult-FloatValueTimeLine.
     ///
-    void setSupplementaryWeights( FloatValueTimeLine* absolut,
-                                  FloatValueTimeLine* add,
-                                  FloatValueTimeLine* mult );
+    void setSupplementaryWeights(FloatValueTimeLine* absolut,
+                                 FloatValueTimeLine* add,
+                                     FloatValueTimeLine* mult);
 
-     void clear();
+    void clear();
 
-   virtual ROLane *getLane(std::string name) ; //###################
+    virtual ROLane *getLane(std::string name) ; //###################
 
-static	bool dictionary(std::string id, ROEdge* ptr);
+    static	bool dictionary(std::string id, ROEdge* ptr);
 
-static ROEdge* dictionary2(std::string id);
+    static ROEdge* dictionary2(std::string id);
 ////#########################  muss Private sein
 
 
-		    /// definition of the static dictionary type
+    /// definition of the static dictionary type
     typedef std::map<std::string, ROEdge* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-		    /// definition of the static dictionary type
+    /// definition of the static dictionary type
     typedef std::map<std::string, ROLane* > DictLane;
 
     /// Static dictionary to associate string-ids with objects.
-     DictLane myDictLane;
+    DictLane myDictLane;
 
-	 ROLane *getLane(size_t index);
+    ROLane *getLane(size_t index);
 
     SUMOReal getSpeed() const;
 
     int getLaneNo() const;
 
-	bool prohibits(const ROVehicle * const vehicle) const;
+    bool prohibits(const ROVehicle * const vehicle) const;
 
     void setNodes(RONode *from, RONode *to);
 
@@ -293,13 +219,13 @@ protected:
     /// Information whether the edge has reported missing weights
     //bool myHaveWarned;
 
-	std::vector<ROLane*> myLanes;
+    std::vector<ROLane*> myLanes;
 
-	/// The list of allowed vehicle classes
-	std::vector<SUMOVehicleClass> myAllowedClasses;
+    /// The list of allowed vehicle classes
+    std::vector<SUMOVehicleClass> myAllowedClasses;
 
-	/// The list of disallowed vehicle classes
-	std::vector<SUMOVehicleClass> myNotAllowedClasses;
+    /// The list of disallowed vehicle classes
+    std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
     /// The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
@@ -321,11 +247,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

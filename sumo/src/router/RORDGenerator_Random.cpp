@@ -1,104 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RORDGenerator_Random.cpp -
-//  A "trip loader" for random trip generation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDGenerator_Random.cpp
+/// @author  Daniel Krajzewicz
+/// @date    SUMOTime begin,
+/// @version $Id: $
+///
+// A "trip loader" for random trip generation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.11  2006/04/07 10:41:47  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.10  2006/01/26 08:37:24  dkrajzew
-// removed warnings 4786
-//
-// Revision 1.9  2006/01/09 12:00:58  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.8  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:50:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// ------------------------------------------------
-// Revision 1.9  2003/10/31 08:00:32  dkrajzew
-// hope to have patched false usage of RAND_MAX when using gcc
-//
-// Revision 1.8  2003/07/30 09:26:33  dkrajzew
-// all vehicles, routes and vehicle types may now have specific colors
-//
-// Revision 1.7  2003/07/18 12:35:06  dkrajzew
-// removed some warnings
-//
-// Revision 1.6  2003/07/16 15:36:50  dkrajzew
-// vehicles and routes may now have colors
-//
-// Revision 1.5  2003/06/18 11:36:50  dkrajzew
-// a new interface which allows to choose whether to stop after a route could not be computed or not; not very sphisticated, in fact
-//
-// Revision 1.3  2003/05/20 09:48:35  dkrajzew
-// debugging
-//
-// Revision 1.2  2003/04/10 15:47:01  dkrajzew
-// random routes are now being prunned to avoid some stress with turning vehicles
-//
-// Revision 1.1  2003/04/09 15:41:19  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "RORDGenerator_Random.h"
@@ -119,24 +53,24 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-                                           SUMOTime begin,
-                                           SUMOTime end,
-                                           bool removeFirst,
-                                           const std::string &)
-    : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
-    myCurrentTime(0), myRemoveFirst(removeFirst)
+        SUMOTime begin,
+        SUMOTime end,
+        bool removeFirst,
+        const std::string &)
+        : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
+        myCurrentTime(0), myRemoveFirst(removeFirst)
 {
-    if(!OptionsSubSys::getOptions().isSet("random-route-color")) {
+    if (!OptionsSubSys::getOptions().isSet("random-route-color")) {
         myColor = RGBColor(-1, -1, -1);
         return;
     }
@@ -155,14 +89,12 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
 
 
 RORDGenerator_Random::~RORDGenerator_Random()
-{
-}
+{}
 
 
 void
 RORDGenerator_Random::closeReading()
-{
-}
+{}
 
 
 std::string
@@ -176,7 +108,7 @@ bool
 RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     // check whether the first route have to be skipped
-    if(time==myBegin) {
+    if (time==myBegin) {
         myCurrentTime = time + 1;
         myReadNewRoute = true;
         return true;
@@ -184,16 +116,16 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
     myReadNewRoute = false;
     // ... ok, really for route building
     myCurrentProgress += myWishedPerSecond;
-    while(myCurrentProgress>0) {
+    while (myCurrentProgress>0) {
         // get the next trip
         ROEdge *from = _net.getRandomSource();
         ROEdge *to = _net.getRandomDestination();
         // chekc whether valid values could be found
-        if(from==0||to==0) {
-            if(from==0) {
+        if (from==0||to==0) {
+            if (from==0) {
                 MsgHandler::getErrorInstance()->inform("The network does not contain any valid starting edges!");
             }
-            if(from==0) {
+            if (from==0) {
                 MsgHandler::getErrorInstance()->inform("The network does not contain any valid end edges!");
             }
             return false;
@@ -203,25 +135,25 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         RORouteDef *route =
             new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
         _net.addVehicle(id,
-            myVehicleBuilder.buildVehicle(
-                id, route, time, _net.getDefaultVehicleType(),
-                RGBColor(
-					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5),
-					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5),
-					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5)),
-                -1, 0));
+                        myVehicleBuilder.buildVehicle(
+                            id, route, time, _net.getDefaultVehicleType(),
+                            RGBColor(
+                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5),
+                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5),
+                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5)),
+                            -1, 0));
         _net.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter
         myCurrentProgress -= 1;
     }
     // compute the next emission time
-    if(myWishedPerSecond>1) {
+    if (myWishedPerSecond>1) {
         myCurrentTime = time+1;
     } else {
         // compute into the future
         myCurrentTime = time + (size_t)
-            ((1.0-myCurrentProgress) / myWishedPerSecond);
+                        ((1.0-myCurrentProgress) / myWishedPerSecond);
     }
     return true;
 }
@@ -232,7 +164,7 @@ RORDGenerator_Random::init(OptionsCont &options)
 {
     myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / (SUMOReal) 2.0;
-    if(myWishedPerSecond<0) {
+    if (myWishedPerSecond<0) {
         MsgHandler::getErrorInstance()->inform("We cannot less than no vehicle!");
         throw ProcessError();
     }
@@ -254,10 +186,6 @@ RORDGenerator_Random::ended() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

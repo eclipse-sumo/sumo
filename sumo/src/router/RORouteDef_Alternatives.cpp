@@ -1,124 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RORouteDef_Alternatives.cpp -
-//  A route with alternative routes
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORouteDef_Alternatives.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A route with alternative routes
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/11/14 06:48:58  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.11  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.10  2006/01/24 13:43:53  dkrajzew
-// added vehicle classes to the routing modules
-//
-// Revision 1.9  2006/01/09 12:00:59  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.8  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:52:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
-//
-// Revision 1.4  2004/12/16 12:26:52  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/11/22 12:48:45  dksumo
-// removed some minor warnings
-//
-// Revision 1.2  2004/10/29 06:18:52  dksumo
-// max-alternatives options added
-//
-// Revision 1.1  2004/10/22 12:50:25  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived
-//  for an online-routing
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// ------------------------------------------------
-// Revision 1.13  2003/11/11 08:04:46  dkrajzew
-// avoiding emissions of vehicles on too short edges
-//
-// Revision 1.12  2003/10/31 08:00:33  dkrajzew
-// hope to have patched false usage of RAND_MAX when using gcc
-//
-// Revision 1.11  2003/10/21 14:45:23  dkrajzew
-// errors on numerical problems with large differences patched
-//
-// Revision 1.10  2003/10/15 11:55:12  dkrajzew
-// false usage of rand() patched
-//
-// Revision 1.9  2003/07/30 09:26:33  dkrajzew
-// all vehicles, routes and vehicle types may now have specific colors
-//
-// Revision 1.8  2003/06/24 08:17:54  dkrajzew
-// some strange things happening during the computation of alternatives patched
-//
-// Revision 1.7  2003/06/18 11:36:50  dkrajzew
-// a new interface which allows to choose whether to stop after a route could
-//  not be computed or not; not very sphisticated, in fact
-//
-// Revision 1.6  2003/05/20 09:48:35  dkrajzew
-// debugging
-//
-// Revision 1.5  2003/03/20 16:39:17  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.4  2003/02/07 10:45:06  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iomanip>
 #include <string>
@@ -147,30 +61,29 @@ namespace
 #define ISNAN _isnan
 #endif
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
-                                                const RGBColor &color,
-                                                size_t lastUsed,
-                                                SUMOReal gawronBeta,
-                                                SUMOReal gawronA,
-                                                int maxRoutes)
-    : RORouteDef(id, color), _lastUsed(lastUsed),
-    _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRoutes)
-{
-}
+        const RGBColor &color,
+        size_t lastUsed,
+        SUMOReal gawronBeta,
+        SUMOReal gawronA,
+        int maxRoutes)
+        : RORouteDef(id, color), _lastUsed(lastUsed),
+        _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRoutes)
+{}
 
 
 RORouteDef_Alternatives::~RORouteDef_Alternatives()
 {
-    for(AlternativesVector::iterator i=_alternatives.begin(); i!=_alternatives.end(); i++) {
+    for (AlternativesVector::iterator i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         delete *i;
     }
 }
@@ -188,7 +101,7 @@ const ROEdge * const
 RORouteDef_Alternatives::getFrom() const
 {
     // check whether the item was correctly initialised
-    if(_alternatives.size()==0) {
+    if (_alternatives.size()==0) {
         throw 1; // !!!
     }
     return _alternatives[0]->getFirst();
@@ -199,7 +112,7 @@ const ROEdge * const
 RORouteDef_Alternatives::getTo() const
 {
     // check whether the item was correctly initialised
-    if(_alternatives.size()==0) {
+    if (_alternatives.size()==0) {
         throw 1; // !!!
     }
     return _alternatives[0]->getLast();
@@ -208,20 +121,20 @@ RORouteDef_Alternatives::getTo() const
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
-		SUMOTime begin, ROVehicle &veh) const
+        SUMOTime begin, ROVehicle &veh) const
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better
     //  !!! after some iterations, no further routes should be build
-	std::vector<const ROEdge*> edges;
-	router.compute(getFrom(), getTo(), &veh, begin, edges);
+    std::vector<const ROEdge*> edges;
+    router.compute(getFrom(), getTo(), &veh, begin, edges);
     RORoute *opt = new RORoute(_id, 0, 1, edges);
     opt->setCosts(opt->recomputeCosts(&veh, begin));
     // check whether the same route was already used
     _lastUsed = findRoute(opt);
     _newRoute = true;
     // delete the route when it already existed
-    if(_lastUsed>=0) {
+    if (_lastUsed>=0) {
         // this is not completely correct as the value does not
         //  come from the simulation itself but from the computing
         //  using the network !!!
@@ -238,8 +151,8 @@ RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
 int
 RORouteDef_Alternatives::findRoute(RORoute *opt) const
 {
-    for(size_t i=0; i<_alternatives.size(); i++) {
-        if(_alternatives[i]->equals(opt)) {
+    for (size_t i=0; i<_alternatives.size(); i++) {
+        if (_alternatives[i]->equals(opt)) {
             return i;
         }
     }
@@ -253,39 +166,39 @@ void
 RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
 {
     // add the route when it's new
-    if(_lastUsed<0) {
+    if (_lastUsed<0) {
         _alternatives.push_back(current);
         _lastUsed = _alternatives.size()-1;
     }
     // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
-    for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
+    for (i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
         // apply changes for old routes only
         //  (the costs for the current were computed already)
-        if((*i)!=current||!_newRoute) {
+        if ((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
             SUMOReal newCosts = alt->recomputeCosts(veh, begin);
             alt->setCosts(_gawronBeta * newCosts + ((SUMOReal) 1.0 - _gawronBeta) * oldCosts);
         }
         assert(_alternatives.size()!=0);
-        if(_newRoute) {
-            if((*i)!=current) {
+        if (_newRoute) {
+            if ((*i)!=current) {
                 alt->setProbability(
                     alt->getProbability()
                     * SUMOReal(_alternatives.size()-1)
                     / SUMOReal(_alternatives.size()));
             } else {
-                alt->setProbability((SUMOReal) (1.0 / (SUMOReal) _alternatives.size()));
+                alt->setProbability((SUMOReal)(1.0 / (SUMOReal) _alternatives.size()));
             }
         }
     }
     assert(_alternatives.size()!=0);
     // compute the probabilities
-    for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
+    for (i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
-        for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
+        for (AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
             SUMOReal delta =
@@ -294,11 +207,11 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
             // see [Gawron, 1998] (4.3a, 4.3b)
             SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
             SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
-            if(ISNAN(newPR)||ISNAN(newPS)) {
+            if (ISNAN(newPR)||ISNAN(newPS)) {
                 newPR = pS->getCosts() > pR->getCosts()
-                    ? (SUMOReal) 1. : 0;
+                        ? (SUMOReal) 1. : 0;
                 newPS = pS->getCosts() > pR->getCosts()
-                    ? 0 : (SUMOReal) 1.;
+                        ? 0 : (SUMOReal) 1.;
             }
             newPR = MIN2((SUMOReal) MAX2(newPR, (SUMOReal) 0), (SUMOReal) 1);
             newPS = MIN2((SUMOReal) MAX2(newPS, (SUMOReal) 0), (SUMOReal) 1);
@@ -307,8 +220,8 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
         }
     }
     // remove with probability of 0 (not mentioned in Gawron)
-    for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
-        if((*i)->getProbability()==0) {
+    for (i=_alternatives.begin(); i!=_alternatives.end();) {
+        if ((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
         } else {
             i++;
@@ -316,11 +229,11 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
     }
     // find the route to use
     SUMOReal chosen = (SUMOReal)rand() /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
+                      (static_cast<SUMOReal>(RAND_MAX) + 1);
     size_t pos = 0;
-    for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
+    for (i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();
-        if(chosen<=0) {
+        if (chosen<=0) {
             _lastUsed = pos;
             return;
         }
@@ -332,18 +245,18 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
 SUMOReal
 RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x)
 {
-    if(((pdr*gawronG(_gawronA, x)+pds)==0)) {
+    if (((pdr*gawronG(_gawronA, x)+pds)==0)) {
         return std::numeric_limits<SUMOReal>::max();
     }
     return (pdr*(pdr+pds)*gawronG(_gawronA, x)) /
-        (pdr*gawronG(_gawronA, x)+pds);
+           (pdr*gawronG(_gawronA, x)+pds);
 }
 
 
 SUMOReal
 RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
 {
-    if(((1.0-(x*x))==0)) {
+    if (((1.0-(x*x))==0)) {
         return std::numeric_limits<SUMOReal>::max();
     }
     return (SUMOReal) exp((a*x)/(1.0-(x*x))); // !!! ??
@@ -354,8 +267,8 @@ RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const
 {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-        myColor, _lastUsed, _gawronBeta, _gawronA, myMaxRouteNumber);
-    for(std::vector<RORoute*>::const_iterator i=_alternatives.begin(); i!=_alternatives.end(); i++) {
+                                   myColor, _lastUsed, _gawronBeta, _gawronA, myMaxRouteNumber);
+    for (std::vector<RORoute*>::const_iterator i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }
     return ret;
@@ -380,28 +293,28 @@ RORouteDef_Alternatives::invalidateLast()
 void
 RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
 {
-	_alternatives.push_back(current);
-    if(myMaxRouteNumber>=0) {
-        while(_alternatives.size()>(size_t) myMaxRouteNumber) {
+    _alternatives.push_back(current);
+    if (myMaxRouteNumber>=0) {
+        while (_alternatives.size()>(size_t) myMaxRouteNumber) {
             delete *(_alternatives.begin());
             _alternatives.erase(_alternatives.begin());
         }
     }
-	_lastUsed = _alternatives.size()-1;
+    _lastUsed = _alternatives.size()-1;
     // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
-    for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
+    for (i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
         // apply changes for old routes only
         //  (the costs for the current were computed already)
-        if((*i)!=current||!_newRoute) {
+        if ((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
             SUMOReal newCosts = alt->recomputeCosts(veh, begin);
-            alt->setCosts(_gawronBeta * newCosts + (SUMOReal) (1.0-_gawronBeta) * oldCosts);
+            alt->setCosts(_gawronBeta * newCosts + (SUMOReal)(1.0-_gawronBeta) * oldCosts);
         }
-        if(_newRoute) {
-            if((*i)!=current) {
+        if (_newRoute) {
+            if ((*i)!=current) {
                 alt->setProbability(
                     alt->getProbability()
                     * SUMOReal(_alternatives.size()-1)
@@ -413,9 +326,9 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
     }
     assert(_alternatives.size()!=0);
     // compute the probabilities
-    for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
+    for (i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
-        for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
+        for (AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
             SUMOReal delta =
@@ -423,15 +336,15 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
             SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
-            if(newPR>1||newPR<0) {
+            if (newPR>1||newPR<0) {
                 cout << "Caught strange PR:" << newPR << endl;
                 newPR = 1.0;
             }
             SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
-            if(newPR<0.0001) {
+            if (newPR<0.0001) {
                 newPR = (SUMOReal) 0.0001;
             }
-            if(newPS<0.0001) {
+            if (newPS<0.0001) {
                 newPS = (SUMOReal) 0.0001;
             }
             pR->setProbability(newPR);
@@ -439,8 +352,8 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
         }
     }
     // remove with probability of 0 (not mentioned in Gawron)
-    for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
-        if((*i)->getProbability()==0) {
+    for (i=_alternatives.begin(); i!=_alternatives.end();) {
+        if ((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
         } else {
             i++;
@@ -452,10 +365,10 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
 void
 RORouteDef_Alternatives::removeLast()
 {
-	assert(_alternatives.size()>=2);
-	_alternatives.erase(_alternatives.end()-1);
-	_lastUsed = _alternatives.size()-1;
-	// !!! recompute probabilities
+    assert(_alternatives.size()>=2);
+    _alternatives.erase(_alternatives.end()-1);
+    _lastUsed = _alternatives.size()-1;
+    // !!! recompute probabilities
 }
 
 
@@ -480,10 +393,6 @@ RORouteDef_Alternatives::getAlternative(size_t i) const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

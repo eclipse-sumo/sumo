@@ -1,61 +1,38 @@
-///
+/****************************************************************************/
 /// @file    ROSupplementaryWeightsHandler.cpp
-/// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Thu Apr 08 2004 15:31 CEST
-/// @version $Id$
+/// @author  Christian Roessel
+/// @date    Thu Apr 08 2004 15:31 CEST
+/// @version $Id: $
 ///
-/// @brief
-///
-///
-
-/* Copyright (C) 2004 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+// / @author  Christian Roessel <christian.roessel@dlr.de>
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.10  2006/04/07 10:43:08  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.9  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 12:39:02  dkrajzew
-// edge-based mean data implemented; previous lane-based is now optional
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "ROSupplementaryWeightsHandler.h"
 
@@ -80,39 +57,39 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROSupplementaryWeightsHandler::ROSupplementaryWeightsHandler(
     OptionsCont& optionCont
     , RONet& net
-    , const std::string& filename ) :
-    SUMOSAXHandler( "sumo-supplementary-netweights", filename )
-    , optionsM( optionCont )
-    , netM( net )
-    , hasStartedSupplementaryWeightsM( false )
-    , hasStartedIntervalM( false )
-    , hasStartedWeightM( false )
-    , isEdgeIdSetM( false )
-    , isAbsolutValueSetM( false )
-    , isMultValueSetM( false )
-    , isAddValueSetM( false )
-    , intervalStartM( 0 )
-    , intervalEndM( 0 )
-    , edgeIdM( "" )
-    , absolutValueM( 0 )
-    , multValueM( 0 )
-    , addValueM( 0 )
-    , absolutMapM()
-    , multMapM()
-    , addMapM()
-    , weightedEdgesM()
+    , const std::string& filename) :
+        SUMOSAXHandler("sumo-supplementary-netweights", filename)
+        , optionsM(optionCont)
+        , netM(net)
+        , hasStartedSupplementaryWeightsM(false)
+        , hasStartedIntervalM(false)
+        , hasStartedWeightM(false)
+        , isEdgeIdSetM(false)
+        , isAbsolutValueSetM(false)
+        , isMultValueSetM(false)
+        , isAddValueSetM(false)
+        , intervalStartM(0)
+        , intervalEndM(0)
+        , edgeIdM("")
+        , absolutValueM(0)
+        , multValueM(0)
+        , addValueM(0)
+        , absolutMapM()
+        , multMapM()
+        , addMapM()
+        , weightedEdgesM()
 {}
 
 
@@ -125,141 +102,140 @@ ROSupplementaryWeightsHandler::~ROSupplementaryWeightsHandler()
 }
 
 void
-ROSupplementaryWeightsHandler::myStartElement( int
-                                               , const std::string& name
-                                               , const Attributes& attrs )
+ROSupplementaryWeightsHandler::myStartElement(int
+        , const std::string& name
+        , const Attributes& attrs)
 {
-    if(name=="supplementary-weights") {
-        startParseSupplementaryWeights( attrs );
+    if (name=="supplementary-weights") {
+        startParseSupplementaryWeights(attrs);
     } else if (name=="interval") {
-        startParseInterval( attrs );
+        startParseInterval(attrs);
     } else if (name=="weight") {
-        startParseWeight( attrs );
+        startParseWeight(attrs);
     }
 }
 
 void
-ROSupplementaryWeightsHandler::myEndElement( int, const std::string& name )
+ROSupplementaryWeightsHandler::myEndElement(int, const std::string& name)
 {
-    if(name=="supplementary-weights") {
+    if (name=="supplementary-weights") {
         stopParseSupplementaryWeights();
-    } else if(name=="interval") {
+    } else if (name=="interval") {
         stopParseInterval();
-    } else if(name=="weight") {
+    } else if (name=="weight") {
         stopParseWeight();
     }
 }
 
 void
 ROSupplementaryWeightsHandler::startParseSupplementaryWeights(
-    const Attributes& attrs )
+    const Attributes& attrs)
 {
-    assert( attrs.getLength() == 0 );
-    assert( ! hasStartedSupplementaryWeightsM );
-    assert( ! hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() == 0);
+    assert(! hasStartedSupplementaryWeightsM);
+    assert(! hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedSupplementaryWeightsM = true;
 }
 
 void
-ROSupplementaryWeightsHandler::startParseInterval( const Attributes& attrs )
+ROSupplementaryWeightsHandler::startParseInterval(const Attributes& attrs)
 {
-    assert( attrs.getLength() == 2 );
-    assert( hasStartedSupplementaryWeightsM );
-    assert( ! hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() == 2);
+    assert(hasStartedSupplementaryWeightsM);
+    assert(! hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedIntervalM = true;
 
     try {
-        intervalStartM = getLong( attrs, SUMO_ATTR_BEGIN );
-        intervalEndM   = getLong( attrs, SUMO_ATTR_END );
-    }
-    catch (...) {
+        intervalStartM = getLong(attrs, SUMO_ATTR_BEGIN);
+        intervalEndM   = getLong(attrs, SUMO_ATTR_END);
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Problems with timestep value.");
     }
 }
 
 void
-ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
+ROSupplementaryWeightsHandler::startParseWeight(const Attributes& attrs)
 {
-    assert( attrs.getLength() >= 2 );
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(attrs.getLength() >= 2);
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedWeightM = true;
 
     // Check attributes and assign them to members
-    for ( unsigned index = 0; index < attrs.getLength(); ++index ) {
+    for (unsigned index = 0; index < attrs.getLength(); ++index) {
         const string attrName(
-            TplConvert<XMLCh>::_2str( attrs.getLocalName( index ) ) );
+            TplConvert<XMLCh>::_2str(attrs.getLocalName(index)));
         const string attrValue(
-            TplConvert<XMLCh>::_2str( attrs.getValue( index ) ) );
+            TplConvert<XMLCh>::_2str(attrs.getValue(index)));
 
-        if (attrName=="edge-id"){
+        if (attrName=="edge-id") {
             edgeIdM      = attrValue;
             isEdgeIdSetM = true;
-        } else if (attrName=="absolut"){
-            absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
+        } else if (attrName=="absolut") {
+            absolutValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isAbsolutValueSetM = true;
-        } else if (attrName=="mult"){
-            multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
+        } else if (attrName=="mult") {
+            multValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isMultValueSetM = true;
-        } else if (attrName=="add"){
-            addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
+        } else if (attrName=="add") {
+            addValueM      = TplConvert<char>::_2SUMOReal(attrValue.c_str());
             isAddValueSetM = true;
         }
     }
 
-    assert( isEdgeIdSetM );
-    if ( isAbsolutValueSetM ){
-        insertValuedTimeRangeIntoMap( absolutMapM, absolutValueM );
+    assert(isEdgeIdSetM);
+    if (isAbsolutValueSetM) {
+        insertValuedTimeRangeIntoMap(absolutMapM, absolutValueM);
     }
-    if ( isMultValueSetM ){
-        insertValuedTimeRangeIntoMap( multMapM, multValueM );
+    if (isMultValueSetM) {
+        insertValuedTimeRangeIntoMap(multMapM, multValueM);
     }
-    if ( isAddValueSetM ){
-        insertValuedTimeRangeIntoMap( addMapM, addValueM );
+    if (isAddValueSetM) {
+        insertValuedTimeRangeIntoMap(addMapM, addValueM);
     }
-    weightedEdgesM.insert( edgeIdM );
+    weightedEdgesM.insert(edgeIdM);
 }
 
 void
 ROSupplementaryWeightsHandler::insertValuedTimeRangeIntoMap(
     WeightsMap& aMap
-    , SUMOReal aValue )
+    , SUMOReal aValue)
 {
-    WeightsMapIt iter = aMap.find( edgeIdM );
-    if ( iter == aMap.end() ){
+    WeightsMapIt iter = aMap.find(edgeIdM);
+    if (iter == aMap.end()) {
         FloatValueTimeLine* valueTimeLine = new FloatValueTimeLine();
-        iter = aMap.insert( make_pair( edgeIdM, valueTimeLine ) ).first;
+        iter = aMap.insert(make_pair(edgeIdM, valueTimeLine)).first;
     }
-    iter->second->add( intervalStartM, intervalEndM, (SUMOReal) aValue );
+    iter->second->add(intervalStartM, intervalEndM, (SUMOReal) aValue);
 }
 
 
 void
-ROSupplementaryWeightsHandler::stopParseSupplementaryWeights( void )
+ROSupplementaryWeightsHandler::stopParseSupplementaryWeights(void)
 {
-    assert( hasStartedSupplementaryWeightsM );
-    assert( ! hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(hasStartedSupplementaryWeightsM);
+    assert(! hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     // Do not allow several "supplementary-weights" tags, therefore don't
     // reset hasStartedSupplementaryWeights.
 
     // Pass timeValueLines to edges
-    for ( EdgeSetIt edgeIt = weightedEdgesM.begin();
-          edgeIt != weightedEdgesM.end(); ++edgeIt ) {
+    for (EdgeSetIt edgeIt = weightedEdgesM.begin();
+            edgeIt != weightedEdgesM.end(); ++edgeIt) {
 
         string edgeId = *edgeIt;
         FloatValueTimeLine* absolut =
-            getFloatValueTimeLine( absolutMapM, edgeId );
-        FloatValueTimeLine* mult = getFloatValueTimeLine( multMapM, edgeId );
-        FloatValueTimeLine* add = getFloatValueTimeLine( addMapM, edgeId );
+            getFloatValueTimeLine(absolutMapM, edgeId);
+        FloatValueTimeLine* mult = getFloatValueTimeLine(multMapM, edgeId);
+        FloatValueTimeLine* add = getFloatValueTimeLine(addMapM, edgeId);
 
-        ROEdge *e = netM.getEdge( edgeId );
-        if(e!=0) {
-            e->setSupplementaryWeights( absolut, add, mult );
+        ROEdge *e = netM.getEdge(edgeId);
+        if (e!=0) {
+            e->setSupplementaryWeights(absolut, add, mult);
         } else {
             MsgHandler::getErrorInstance()->inform(
                 "Could not add weight to the unknown edge '" + edgeId + "'.");
@@ -269,41 +245,40 @@ ROSupplementaryWeightsHandler::stopParseSupplementaryWeights( void )
 }
 
 FloatValueTimeLine*
-ROSupplementaryWeightsHandler::getFloatValueTimeLine( WeightsMap& aMap,
-                                                      string aEdgeId )
+ROSupplementaryWeightsHandler::getFloatValueTimeLine(WeightsMap& aMap,
+        string aEdgeId)
 {
-    WeightsMapIt it = aMap.find( aEdgeId );
+    WeightsMapIt it = aMap.find(aEdgeId);
     FloatValueTimeLine* retVal = 0;
-    if ( it == aMap.end() ) {
+    if (it == aMap.end()) {
         retVal = new FloatValueTimeLine();
-    }
-    else {
+    } else {
         retVal = it->second;
     }
-	/*
-    if(retVal!=0) {
-        retVal->sort();
-    }
-	*/
+    /*
+       if(retVal!=0) {
+           retVal->sort();
+       }
+    */
     return retVal;
 }
 
 
 void
-ROSupplementaryWeightsHandler::stopParseInterval( void )
+ROSupplementaryWeightsHandler::stopParseInterval(void)
 {
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( ! hasStartedWeightM );
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(! hasStartedWeightM);
     hasStartedIntervalM = false;
 }
 
 void
-ROSupplementaryWeightsHandler::stopParseWeight( void )
+ROSupplementaryWeightsHandler::stopParseWeight(void)
 {
-    assert( hasStartedSupplementaryWeightsM );
-    assert( hasStartedIntervalM );
-    assert( hasStartedWeightM );
+    assert(hasStartedSupplementaryWeightsM);
+    assert(hasStartedIntervalM);
+    assert(hasStartedWeightM);
     hasStartedWeightM   = false;
     isEdgeIdSetM       = false;
     isAbsolutValueSetM = false;
@@ -312,8 +287,6 @@ ROSupplementaryWeightsHandler::stopParseWeight( void )
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

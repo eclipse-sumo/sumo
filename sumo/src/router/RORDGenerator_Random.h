@@ -1,78 +1,40 @@
-#ifndef RORDGenerator_Random_h
-#define RORDGenerator_Random_h
-//---------------------------------------------------------------------------//
-//                        RORDGenerator_Random.h -
-//  A "trip loader" for random trip generation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 9. Apr 2003
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDGenerator_Random.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 9. Apr 2003
+/// @version $Id: $
+///
+// A "trip loader" for random trip generation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/01/26 08:37:24  dkrajzew
-// removed warnings 4786
-//
-// Revision 1.8  2006/01/09 12:00:58  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.7  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:50:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// ------------------------------------------------
-// Revision 1.3  2003/08/18 12:44:54  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.2  2003/07/30 09:26:33  dkrajzew
-// all vehicles, routes and vehicle types may now have specific colors
-//
-// Revision 1.1  2003/04/09 15:41:19  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORDGenerator_Random_h
+#define RORDGenerator_Random_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/router/IDSupplier.h>
@@ -80,16 +42,16 @@
 #include "ROAbstractRouteDefLoader.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class RONet;
 class OptionsCont;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORDGenerator_Random
  * Base class for loaders of route which do have a certain format. XML-reading
@@ -97,11 +59,12 @@ class OptionsCont;
  * class as their upper class.
  */
 class RORDGenerator_Random :
-    public ROAbstractRouteDefLoader {
+            public ROAbstractRouteDefLoader
+{
 public:
     /// Constructor
     RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, bool removeFirst, const std::string &file="");
+                         SUMOTime begin, SUMOTime end, bool removeFirst, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_Random();
@@ -153,11 +116,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

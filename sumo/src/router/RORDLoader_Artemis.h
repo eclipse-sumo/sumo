@@ -1,68 +1,40 @@
-#ifndef RORDLoader_Artemis_h
-#define RORDLoader_Artemis_h
-//---------------------------------------------------------------------------//
-//                        RORDLoader_Artemis.h -
-//  A handler for Artemis-files
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 12 Mar 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDLoader_Artemis.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 12 Mar 2003
+/// @version $Id: $
+///
+// A handler for Artemis-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:50:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.2  2003/03/17 14:26:38  dkrajzew
-// debugging
-//
-// Revision 1.1  2003/03/12 16:39:19  dkrajzew
-// artemis route support added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORDLoader_Artemis_h
+#define RORDLoader_Artemis_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -75,28 +47,29 @@
 #include <utils/router/IDSupplier.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class RONet;
 class Options;
 class RORoute;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORDLoader_Artemis
  * A loader for ARTEMIS-routes
  */
 class RORDLoader_Artemis :
             public LineHandler,
-            public ROAbstractRouteDefLoader {
+            public ROAbstractRouteDefLoader
+{
 public:
     /// Constructor
     RORDLoader_Artemis(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, std::string file="");
+                       SUMOTime begin, SUMOTime end, std::string file="");
 
     /// Destructor
     ~RORDLoader_Artemis();
@@ -177,11 +150,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

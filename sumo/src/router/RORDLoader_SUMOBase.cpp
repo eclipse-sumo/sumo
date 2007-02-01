@@ -1,89 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RORDLoader_SUMOBase.cpp -
-//      The base class for SUMO-native route handlers
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDLoader_SUMOBase.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The base class for SUMO-native route handlers
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.11  2006/01/26 08:37:24  dkrajzew
-// removed warnings 4786
-//
-// Revision 1.10  2006/01/24 13:43:53  dkrajzew
-// added vehicle classes to the routing modules
-//
-// Revision 1.9  2006/01/09 12:00:59  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.8  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.6  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:50:40  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
-//
-// Revision 1.4  2005/02/17 10:33:40  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.3  2004/12/16 12:26:52  dkrajzew
-// debugging
-//
-//
-// Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived
-//  for an online-routing
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// ------------------------------------------------
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "RORDLoader_SUMOBase.h"
 #include "ROVehicleType.h"
@@ -102,28 +51,26 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
-                                         SUMOTime begin, SUMOTime end,
-                                         const std::string &dataName,
-                                         const std::string &file)
-    : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
-    myDataName(dataName), myHaveNextRoute(false)
-{
-}
+        SUMOTime begin, SUMOTime end,
+        const std::string &dataName,
+        const std::string &file)
+        : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
+        myDataName(dataName), myHaveNextRoute(false)
+{}
 
 
 RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
-{
-}
+{}
 
 
 void
@@ -131,13 +78,13 @@ RORDLoader_SUMOBase::myStartElement(int element,
                                     const std::string &/*name*/,
                                     const Attributes &attrs)
 {
-    switch(element) {
+    switch (element) {
     case SUMO_TAG_ROUTE:
         startRoute(attrs);
         break;
     case SUMO_TAG_VEHICLE:
         // try to parse the vehicle definition
-        if(!SUMOBaseRouteHandler::openVehicle(*this, attrs, true)) {
+        if (!SUMOBaseRouteHandler::openVehicle(*this, attrs, true)) {
             mySkipCurrent = true;
         }
         break;
@@ -153,7 +100,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
 void
 RORDLoader_SUMOBase::myEndElement(int element, const std::string &/*name*/)
 {
-    if(element==SUMO_TAG_VEHICLE) {
+    if (element==SUMO_TAG_VEHICLE) {
         closeVehicle();
     }
 }
@@ -164,7 +111,7 @@ RORDLoader_SUMOBase::closeVehicle()
 {
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle id
-    if(myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
+    if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
         mySkipCurrent = true;
         return;
     }
@@ -172,26 +119,26 @@ RORDLoader_SUMOBase::closeVehicle()
     ROVehicleType *type = _net.getVehicleTypeSecure(myCurrentVType);
     // get the route
     RORouteDef *route = _net.getRouteDef(myCurrentRouteName);
-    if(route==0) {
+    if (route==0) {
         route = _net.getRouteDef("!" + myActiveVehicleID);
     }
-    if(route==0) {
+    if (route==0) {
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
         return;
     }
     // get the vehicle color
     // build the vehicle
     // get further optional information
-    if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        if(myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
-			_net.removeRouteSecure(route);
-			// !!! was ist mit type?
+    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+        if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
+            _net.removeRouteSecure(route);
+            // !!! was ist mit type?
             return;
         }
         _net.addVehicle(myActiveVehicleID,
-            myVehicleBuilder.buildVehicle(
-                myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
-                myRepOffset, myRepNumber));
+                        myVehicleBuilder.buildVehicle(
+                            myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
+                            myRepOffset, myRepNumber));
     }
 }
 
@@ -228,10 +175,10 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
     SUMOReal sigma =
         getFloatReporting(*this, attrs, SUMO_ATTR_SIGMA, id, "sigma");
     RGBColor color = parseColor(*this, attrs, "vehicle type", id);
-	SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
+    SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
     // build the vehicle type after checking
     //  by now, only vehicles using the krauss model are supported
-    if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
+    if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
         _net.addVehicleType(
             new ROVehicleType_Krauss(
                 id, color, length, vclass, accel, decel, sigma, maxspeed));
@@ -271,9 +218,6 @@ RORDLoader_SUMOBase::beginNextRoute()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

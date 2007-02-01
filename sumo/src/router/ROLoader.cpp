@@ -1,142 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROLoader.cpp -
-//  Loader for networks and route imports
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROLoader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// Loader for networks and route imports
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log: ROLoader.cpp,v $
-// Revision 1.32  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.31  2006/10/26 10:27:30  dkrajzew
-// debugging
-//
-// Revision 1.30  2006/10/13 13:07:50  dkrajzew
-// added the option to not emit vehicles from flows using a fix frequency
-//
-// Revision 1.29  2006/05/15 05:57:06  dkrajzew
-// added consective process messages
-//
-// Revision 1.29  2006/05/08 11:13:50  dkrajzew
-// added consective process messages
-//
-// Revision 1.28  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.27  2006/04/11 11:03:53  dkrajzew
-// extended the message-API to (re)allow process output
-//
-// Revision 1.26  2006/03/08 13:15:28  dkrajzew
-// debugging
-//
-// Revision 1.25  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.24  2006/01/09 12:00:58  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.23  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.22  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.21  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.20  2005/07/12 12:39:01  dkrajzew
-// edge-based mean data implemented; previous lane-based is now optional
-//
-// Revision 1.19  2005/05/04 08:47:53  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.18  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.17  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.16  2004/04/14 13:53:50  roessel
-// Changes and additions in order to implement supplementary-weights.
-//
-// Revision 1.15  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.14  2004/01/26 09:54:29  dkrajzew
-// the loader now stops on errors as described within the manual
-//
-// Revision 1.13  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// Revision 1.12  2003/08/18 12:44:54  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.11  2003/07/07 08:36:58  dkrajzew
-// Warnings are now reported to the MsgHandler
-//
-// Revision 1.10  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-// this handler puts it further to output instances.
-// changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.9  2003/05/20 09:48:35  dkrajzew
-// debugging
-//
-// Revision 1.8  2003/04/09 15:39:11  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.7  2003/04/01 15:19:51  dkrajzew
-// behaviour on broken nets patched
-//
-// Revision 1.6  2003/03/20 16:39:16  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.5  2003/03/12 16:39:19  dkrajzew
-// artemis route support added
-//
-// Revision 1.4  2003/03/03 15:08:21  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/02/07 10:45:04  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <fstream>
@@ -173,35 +69,34 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * xerces 2.2 compatibility
- * ======================================================================= */
+// ===========================================================================
+// xerces 2.2 compatibility
+// ===========================================================================
 #if defined(XERCES_HAS_CPP_NAMESPACE)
 using namespace XERCES_CPP_NAMESPACE;
 #endif
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROLoader::ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
                    bool emptyDestinationsAllowed)
-    : _options(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-    myVehicleBuilder(vb)
-{
-}
+        : _options(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed),
+        myVehicleBuilder(vb)
+{}
 
 
 ROLoader::~ROLoader()
 {
-    for(RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
-        delete (*i);
+    for (RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
+        delete(*i);
     }
 }
 
@@ -209,12 +104,12 @@ ROLoader::~ROLoader()
 RONet *
 ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
-    std::string file = _options.getString("net-file");
-    if(file=="") {
+    std::string file = _options.getString("n");
+    if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing definition of network to load!");
         return 0;
     }
-    if(!FileHelpers::exists(file)) {
+    if (!FileHelpers::exists(file)) {
         MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
         return 0;
     }
@@ -223,7 +118,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
     XMLHelpers::runParser(handler, file);
-    if(MsgHandler::getErrorInstance()->wasInformed()) {
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
         MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;
@@ -239,29 +134,29 @@ size_t
 ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
 {
     // build loader
-        // load additional precomputed sumo-routes when wished
+    // load additional precomputed sumo-routes when wished
     openTypedRoutes("sumo-input", net);
-        // load the XML-trip definitions when wished
+    // load the XML-trip definitions when wished
     openTypedRoutes("trip-defs", net);
-        // load the cell-routes when wished
+    // load the cell-routes when wished
     openTypedRoutes("cell-input", net);
-        // load artemis routes when wished
+    // load artemis routes when wished
     openTypedRoutes("artemis-input", net);
-        // load the sumo-alternative file when wished
+    // load the sumo-alternative file when wished
     openTypedRoutes("alternatives", net);
     // build generators
-        // load the amount definitions if wished
+    // load the amount definitions if wished
     openTypedRoutes("flows", net);
-        // check whether random routes shall be build, too
-    if(_options.isSet("R")) {
+    // check whether random routes shall be build, too
+    if (_options.isSet("R")) {
         RORDGenerator_Random *randGen =
             new RORDGenerator_Random(myVehicleBuilder, net,
-                _options.getInt("begin"), _options.getInt("end"),
-                _options.getBool("prune-random"));
+                                     _options.getInt("begin"), _options.getInt("end"),
+                                     _options.getBool("prune-random"));
         randGen->init(_options);
         _handler.push_back(randGen);
     }
-    if(!_options.getBool("unsorted")) {
+    if (!_options.getBool("unsorted")) {
         skipUntilBegin();
     }
     return _handler.size();
@@ -271,7 +166,7 @@ void
 ROLoader::skipUntilBegin()
 {
     MsgHandler::getMessageInstance()->inform("Skipping...");
-    for(RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
+    for (RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
         (*i)->skipUntilBegin();
     }
     MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
@@ -290,11 +185,11 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     SUMOTime time = getMinTimeStep();
     SUMOTime firstStep = time;
     SUMOTime lastStep = time;
-    for(; time<end&&!errorOccured&&!endReached; time++) {
+    for (; time<end&&!errorOccured&&!endReached; time++) {
         writeStats(time, start, absNo);
         RouteLoaderCont::iterator i;
         // go through all handlers
-        for(i=_handler.begin(); i!=_handler.end(); i++) {
+        for (i=_handler.begin(); i!=_handler.end(); i++) {
             // load routes until the time point is reached
             (*i)->readRoutesAtLeastUntil(time);
             // save the routes
@@ -303,8 +198,8 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
         // check whether further data exist
         endReached = !net.furtherStored();
         lastStep = time;
-        for(i=_handler.begin(); endReached&&i!=_handler.end(); i++) {
-            if(!(*i)->ended()) {
+        for (i=_handler.begin(); endReached&&i!=_handler.end(); i++) {
+            if (!(*i)->ended()) {
                 endReached = false;
             }
         }
@@ -324,13 +219,13 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router)
 {
     RouteLoaderCont::iterator i;
     // go through all handlers
-	if(_handler.size()!= 0){
-        for(i=_handler.begin(); i!=_handler.end(); i++) {
-		    // load routes until the time point is reached
-			(*i)->readRoutesAtLeastUntil(end);
-			// save the routes
-			net.saveAndRemoveRoutesUntil(_options, router, end);
-    	}
+    if (_handler.size()!= 0) {
+        for (i=_handler.begin(); i!=_handler.end(); i++) {
+            // load routes until the time point is reached
+            (*i)->readRoutesAtLeastUntil(end);
+            // save the routes
+            net.saveAndRemoveRoutesUntil(_options, router, end);
+        }
         return MsgHandler::getErrorInstance()->wasInformed();
     } else {
         return false;
@@ -342,9 +237,9 @@ SUMOTime
 ROLoader::getMinTimeStep() const
 {
     SUMOTime ret = LONG_MAX;
-    for(RouteLoaderCont::const_iterator i=_handler.begin(); i!=_handler.end(); i++) {
+    for (RouteLoaderCont::const_iterator i=_handler.begin(); i!=_handler.end(); i++) {
         SUMOTime akt = (*i)->getCurrentTimeStep();
-        if(akt<ret) {
+        if (akt<ret) {
             ret = akt;
         }
     }
@@ -359,12 +254,12 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 {
     long absNo = end - start;
     bool ok = true;
-    for(RouteLoaderCont::iterator i=_handler.begin(); ok&&i!=_handler.end(); i++) {
+    for (RouteLoaderCont::iterator i=_handler.begin(); ok&&i!=_handler.end(); i++) {
         (*i)->readRoutesAtLeastUntil(INT_MAX);
     }
     // save the routes
     SUMOTime time = start;
-    for(; time<end; time++) {
+    for (; time<end; time++) {
         writeStats(time, start, absNo);
         net.saveAndRemoveRoutesUntil(_options, router, time);
     }
@@ -376,7 +271,7 @@ void
 ROLoader::closeReading()
 {
     // close the reading
-    for(RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
+    for (RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
         (*i)->closeReading();
     }
 }
@@ -387,11 +282,11 @@ ROLoader::openTypedRoutes(const std::string &optionName,
                           RONet &net)
 {
     // check whether the current loader is wished
-    if(!_options.isSet(optionName)) {
+    if (!_options.isSet(optionName)) {
         return;
     }
     // check the given files
-    if(!FileHelpers::checkFileList(optionName, _options.getString(optionName))) {
+    if (!FileHelpers::checkFileList(optionName, _options.getString(optionName))) {
         throw ProcessError();
     }
     // allocate a reader and add it to the list
@@ -405,7 +300,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
 {
     string fileList = _options.getString(optionName);
     StringTokenizer st(fileList, ";");
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         // get the file name
         string file = st.next();
         // check whether the file can be used
@@ -414,7 +309,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
         // build the instance when everything's all right
         ROAbstractRouteDefLoader *instance =
             buildNamedHandler(optionName, file, net);
-        if(!instance->init(_options)) {
+        if (!instance->init(_options)) {
             delete instance;
             MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + file + "' could not be initialised.");
             throw ProcessError();
@@ -429,35 +324,35 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
                             RONet &net)
 {
-    if(optionName=="sumo-input") {
+    if (optionName=="sumo-input") {
         return new RORDLoader_SUMORoutes(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"), file);
+                                         _options.getInt("begin"), _options.getInt("end"), file);
     }
-    if(optionName=="trip-defs") {
+    if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"),
-            myEmptyDestinationsAllowed, file);
+                                       _options.getInt("begin"), _options.getInt("end"),
+                                       myEmptyDestinationsAllowed, file);
     }
-    if(optionName=="cell-input") {
+    if (optionName=="cell-input") {
         return new RORDLoader_Cell(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"),
-            _options.getFloat("gBeta"), _options.getFloat("gA"),
-            _options.getInt("max-alternatives"), file);
+                                   _options.getInt("begin"), _options.getInt("end"),
+                                   _options.getFloat("gBeta"), _options.getFloat("gA"),
+                                   _options.getInt("max-alternatives"), file);
     }
-    if(optionName=="artemis-input") {
+    if (optionName=="artemis-input") {
         return new RORDLoader_Artemis(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"), file);
+                                      _options.getInt("begin"), _options.getInt("end"), file);
     }
-    if(optionName=="alternatives") {
+    if (optionName=="alternatives") {
         return new RORDLoader_SUMOAlt(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"),
-            _options.getFloat("gBeta"), _options.getFloat("gA"),
-            _options.getInt("max-alternatives"), file);
+                                      _options.getInt("begin"), _options.getInt("end"),
+                                      _options.getFloat("gBeta"), _options.getFloat("gA"),
+                                      _options.getInt("max-alternatives"), file);
     }
-    if(optionName=="flows") {
+    if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
-            _options.getInt("begin"), _options.getInt("end"),
-            myEmptyDestinationsAllowed, _options.getBool("randomize-flows"), file);
+                                           _options.getInt("begin"), _options.getInt("end"),
+                                           myEmptyDestinationsAllowed, _options.getBool("randomize-flows"), file);
     }
     throw 1;
 }
@@ -467,22 +362,22 @@ void
 ROLoader::checkFile(const std::string &optionName,
                     const std::string &file)
 {
-    if(optionName=="sumo-input"&&FileHelpers::exists(file)) {
+    if (optionName=="sumo-input"&&FileHelpers::exists(file)) {
         return;
     }
-    if(optionName=="trip-defs"&&FileHelpers::exists(file)) {
+    if (optionName=="trip-defs"&&FileHelpers::exists(file)) {
         return;
     }
-    if(optionName=="cell-input"&&FileHelpers::exists(file+".driver")&&FileHelpers::exists(file+".rinfo")) {
+    if (optionName=="cell-input"&&FileHelpers::exists(file+".driver")&&FileHelpers::exists(file+".rinfo")) {
         return;
     }
-    if(optionName=="artemis-input"&&FileHelpers::exists(file + "/HVdests.txt")&&FileHelpers::exists(file + "/Flows.txt")) {
+    if (optionName=="artemis-input"&&FileHelpers::exists(file + "/HVdests.txt")&&FileHelpers::exists(file + "/Flows.txt")) {
         return;
     }
-    if(optionName=="alternatives"&&FileHelpers::exists(file)) {
+    if (optionName=="alternatives"&&FileHelpers::exists(file)) {
         return;
     }
-    if(optionName=="flows"&&FileHelpers::exists(file)) {
+    if (optionName=="flows"&&FileHelpers::exists(file)) {
         return;
     }
     MsgHandler::getErrorInstance()->inform("File '" + file + "' used as " + optionName + " not found.");
@@ -495,7 +390,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
                       bool useLanes)
 {
     // check whether the file exists
-    if(!FileHelpers::exists(file)) {
+    if (!FileHelpers::exists(file)) {
         MsgHandler::getErrorInstance()->inform("The weights file '" + file + "' does not exist!");
         return false;
     }
@@ -506,7 +401,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     XMLHelpers::runParser(handler, file);
     bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
-    if(ok) {
+    if (ok) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
@@ -516,21 +411,21 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
 
 
 void
-ROLoader::loadSupplementaryWeights( RONet& net )
+ROLoader::loadSupplementaryWeights(RONet& net)
 {
-    string filename = _options.getString("supplementary-weights");
-    if( ! FileHelpers::exists( filename ) ) {
-        MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!" );
+    string filename = _options.getString("S");
+    if (! FileHelpers::exists(filename)) {
+        MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!");
         throw ProcessError();
     }
-    ROSupplementaryWeightsHandler handler( _options, net, filename );
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights." );
-    XMLHelpers::runParser( handler, filename );
-    if ( ! MsgHandler::getErrorInstance()->wasInformed() ) {
-        MsgHandler::getMessageInstance()->endProcessMsg( "done." );
+    ROSupplementaryWeightsHandler handler(_options, net, filename);
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
+    XMLHelpers::runParser(handler, filename);
+    if (! MsgHandler::getErrorInstance()->wasInformed()) {
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg( "failed." );
-		throw ProcessError();
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        throw ProcessError();
     }
 }
 
@@ -538,20 +433,17 @@ ROLoader::loadSupplementaryWeights( RONet& net )
 void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
 {
-    if(_options.getBool("verbose")) {
-        SUMOReal perc = (SUMOReal) (time-start) / (SUMOReal) absNo;
-        cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
-        cout.setf ( ios::showpoint ) ; // print decimal point
-        cout << setprecision( 2 );
+    if (_options.getBool("v")) {
+        SUMOReal perc =
+            (SUMOReal)(time-start) / (SUMOReal) absNo;
+        cout.setf(ios::fixed , ios::floatfield) ;    // use decimal format
+        cout.setf(ios::showpoint) ;    // print decimal point
+        cout << setprecision(2);
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,77 +1,40 @@
-#ifndef RORDLoader_SUMORoutes_h
-#define RORDLoader_SUMORoutes_h
-//---------------------------------------------------------------------------//
-//                        RORDLoader_SUMORoutes.h -
-//  A SAX-handler for SUMO-routes
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDLoader_SUMORoutes.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A SAX-handler for SUMO-routes
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.7  2006/01/09 12:00:59  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.6  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:51:41  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// ------------------------------------------------
-// Revision 1.4  2003/07/30 09:26:33  dkrajzew
-// all vehicles, routes and vehicle types may now have specific colors
-//
-// Revision 1.3  2003/07/16 15:36:50  dkrajzew
-// vehicles and routes may now have colors
-//
-// Revision 1.2  2003/02/07 10:45:07  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORDLoader_SUMORoutes_h
+#define RORDLoader_SUMORoutes_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "RORDLoader_SUMOBase.h"
@@ -80,24 +43,25 @@
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class RONet;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORDLoader_SUMORoutes
  * A handler for SUMO-routes.
  */
-class RORDLoader_SUMORoutes : public RORDLoader_SUMOBase {
+class RORDLoader_SUMORoutes : public RORDLoader_SUMOBase
+{
 public:
     /// Constructor
     RORDLoader_SUMORoutes(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, const std::string &file="");
+                          SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
     ~RORDLoader_SUMORoutes();
@@ -106,7 +70,7 @@ protected:
     //{ XML-handling methods
     /** the user-implemented handler method for characters */
     void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                      const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
@@ -126,11 +90,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

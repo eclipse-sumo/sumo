@@ -1,92 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROWeightsHandler.cpp -
-//  A SAX-handler for loading SUMO-weights (aggregated dumps)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROWeightsHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A SAX-handler for loading SUMO-weights (aggregated dumps)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.15  2006/04/18 08:05:45  dkrajzew
-// beautifying: output consolidation
-//
-// Revision 1.14  2006/04/07 10:43:08  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.13  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.12  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.11  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.10  2005/07/12 12:39:02  dkrajzew
-// edge-based mean data implemented; previous lane-based is now optional
-//
-// Revision 1.9  2005/05/04 08:55:13  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.8  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.7  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived
-//  for an online-routing
-//
-// Revision 1.6  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work; documentation
-//  added
-//
-// Revision 1.5  2003/06/19 11:00:26  dkrajzew
-// usage of false tag-enums patched
-//
-// Revision 1.4  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.3  2003/02/07 10:45:06  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/options/OptionsCont.h>
@@ -106,35 +52,34 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROWeightsHandler::ROWeightsHandler(OptionsCont &oc, RONet &net,
                                    const std::string &file,
                                    bool useLanes)
-    : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
-    _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
-    myUseLanes(useLanes)
+        : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
+        _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
+        myUseLanes(useLanes)
 {
     _scheme = _options.getString("scheme");
 }
 
 
 ROWeightsHandler::~ROWeightsHandler()
-{
-}
+{}
 
 
 void ROWeightsHandler::myStartElement(int element, const std::string &/*name*/,
                                       const Attributes &attrs)
 {
-    switch(element) {
+    switch (element) {
     case SUMO_TAG_INTERVAL:
         parseTimeStep(attrs);
         break;
@@ -177,7 +122,7 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
         return;
     }
     // return if the lanes shall be used
-    if(myUseLanes) {
+    if (myUseLanes) {
         return;
     }
     // parse the edge information if wished
@@ -188,7 +133,7 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in edge '" + id + "'.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
-        if(id.length()!=0)
+        if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" In edge '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
 }
@@ -197,7 +142,7 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
 void
 ROWeightsHandler::parseLane(const Attributes &attrs)
 {
-    if(!myUseLanes) {
+    if (!myUseLanes) {
         return;
     }
     string id;
@@ -215,11 +160,11 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in lane '" + id + "'.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
-        if(id.length()!=0)
+        if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" In lane '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
     // set the values when retrieved (no errors)
-    if(id.length()!=0&&value>=0&&_currentEdge!=0) {
+    if (id.length()!=0&&value>=0&&_currentEdge!=0) {
         myAggValue += value;
         myNoLanes++;
     }
@@ -228,24 +173,19 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
 
 void ROWeightsHandler::myCharacters(int /*element*/, const std::string &/*name*/,
                                     const std::string &/*chars*/)
-{
-}
+{}
 
 
 void ROWeightsHandler::myEndElement(int element, const std::string &/*name*/)
 {
-    if(element==SUMO_TAG_EDGE) {
+    if (element==SUMO_TAG_EDGE) {
         _currentEdge->addWeight(myAggValue/(SUMOReal)myNoLanes,
-            _currentTimeBeg, _currentTimeEnd);
+                                _currentTimeBeg, _currentTimeEnd);
         _currentEdge = 0;
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

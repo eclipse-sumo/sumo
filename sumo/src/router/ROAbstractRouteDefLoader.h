@@ -1,106 +1,69 @@
-#ifndef ROAbstractRouteDefLoader_h
-#define ROAbstractRouteDefLoader_h
-//---------------------------------------------------------------------------//
-//                        ROAbstractRouteDefLoader.h -
-//  The basic class for loading routes
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROAbstractRouteDefLoader.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic class for loading routes
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/01/26 08:37:23  dkrajzew
-// removed warnings 4786
-//
-// Revision 1.7  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/05/04 08:46:09  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/11/23 10:25:51  dkrajzew
-// debugging
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// ---------------------------------------------
-// Revision 1.5  2003/08/18 12:44:54  dkrajzew
-// xerces 2.2 and later compatibility patched
-//
-// Revision 1.4  2003/03/20 16:45:25  dkrajzew
-// windows eol removed
-//
-// Revision 1.3  2003/03/03 15:22:37  dkrajzew
-// debugging
-//
-// Revision 1.2  2003/02/07 10:45:07  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef ROAbstractRouteDefLoader_h
+#define ROAbstractRouteDefLoader_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/common/SUMOTime.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class ROLoader;
 class RONet;
 class OptionsCont;
 class ROVehicleBuilder;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class ROAbstractRouteDefLoader
  * Base class for loaders of route which do have a certain format. XML-reading
  * loaders are not derived directly, but use the derived ROTypedXMLRoutesLoader
  * class as their upper class.
  */
-class ROAbstractRouteDefLoader {
+class ROAbstractRouteDefLoader
+{
 public:
     /// Constructor
     ROAbstractRouteDefLoader(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, const std::string &file="");
+                             SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
     virtual ~ROAbstractRouteDefLoader();
@@ -130,7 +93,7 @@ public:
     /// Returns the information whether no routes are available from this loader anymore
     virtual bool ended() const = 0;
 
-	friend class ROLoader;
+    friend class ROLoader;
 
 protected:
     /** @brief Builds routes
@@ -155,11 +118,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

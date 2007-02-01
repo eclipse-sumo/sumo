@@ -1,95 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROEdgeVector.cpp -
-//  A vector of edges (a route)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROEdgeVector.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A vector of edges (a route)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.18  2006/11/14 06:48:58  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.17  2006/05/16 07:47:26  dkrajzew
-// debugged loop removal
-//
-// Revision 1.16  2006/04/18 08:15:49  dkrajzew
-// removal of loops added
-//
-// Revision 1.15  2006/02/13 07:24:49  dkrajzew
-// debugging missing spaces on linux
-//
-// Revision 1.14  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.13  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.12  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.11  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.10  2005/05/04 08:46:09  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.9  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.8  2004/04/02 11:25:34  dkrajzew
-// moving the vehicle forward if it shall start at a too short edge added
-//
-// Revision 1.7  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.6  2003/09/17 10:14:27  dkrajzew
-// handling of unset values patched
-//
-// Revision 1.5  2003/04/10 15:47:01  dkrajzew
-// random routes are now being prunned to avoid some stress with turning vehicles
-//
-// Revision 1.4  2003/04/04 15:40:17  roessel
-// Changed 'os << " ";' to 'os << string(" ");'
-//
-// Revision 1.3  2003/03/20 16:39:16  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.2  2003/02/07 10:45:04  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -104,18 +47,17 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method defintions
- * ======================================================================= */
+// ===========================================================================
+// method defintions
+// ===========================================================================
 ROEdgeVector::ROEdgeVector()
-{
-}
+{}
 
 
 ROEdgeVector::ROEdgeVector(size_t toReserve)
@@ -125,14 +67,12 @@ ROEdgeVector::ROEdgeVector(size_t toReserve)
 
 
 ROEdgeVector::ROEdgeVector(const EdgeVector &edges)
-    : _edges(edges)
-{
-}
+        : _edges(edges)
+{}
 
 
 ROEdgeVector::~ROEdgeVector()
-{
-}
+{}
 
 
 void
@@ -144,8 +84,8 @@ ROEdgeVector::add(const ROEdge *edge)
 
 std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 {
-    for(ROEdgeVector::EdgeVector::const_iterator j=ev._edges.begin(); j!=ev._edges.end(); j++) {
-        if(j!=ev._edges.begin()) {
+    for (ROEdgeVector::EdgeVector::const_iterator j=ev._edges.begin(); j!=ev._edges.end(); j++) {
+        if (j!=ev._edges.begin()) {
             os << ' ';
         }
         os << (*j)->getID();
@@ -157,7 +97,7 @@ std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 const ROEdge *
 ROEdgeVector::getFirst() const
 {
-    if(_edges.size()==0) {
+    if (_edges.size()==0) {
         throw OutOfBoundsException();
     }
     return _edges[0];
@@ -167,7 +107,7 @@ ROEdgeVector::getFirst() const
 const ROEdge *
 ROEdgeVector::getLast() const
 {
-    if(_edges.size()==0) {
+    if (_edges.size()==0) {
         throw OutOfBoundsException();
     }
     return _edges[_edges.size()-1];
@@ -179,7 +119,7 @@ std::deque<std::string>
 ROEdgeVector::getIDs() const
 {
     std::deque<std::string> ret;
-    for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         ret.push_back((*i)->getID());
     }
     return ret;
@@ -190,9 +130,9 @@ SUMOReal
 ROEdgeVector::recomputeCosts(const ROVehicle *const v, SUMOTime time) const
 {
     SUMOReal costs = 0;
-    for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         costs += (*i)->getCost(v, time);
-        time += ((SUMOTime) (*i)->getDuration(v, time));
+        time += ((SUMOTime)(*i)->getDuration(v, time));
     }
     return costs;
 }
@@ -201,11 +141,11 @@ ROEdgeVector::recomputeCosts(const ROVehicle *const v, SUMOTime time) const
 bool
 ROEdgeVector::equals(const ROEdgeVector &vc) const
 {
-    if(size()!=vc.size()) {
+    if (size()!=vc.size()) {
         return false;
     }
-    for(size_t i=0; i<size(); i++) {
-        if(_edges[i]!=vc._edges[i]) {
+    for (size_t i=0; i<size(); i++) {
+        if (_edges[i]!=vc._edges[i]) {
             return false;
         }
     }
@@ -231,7 +171,7 @@ ROEdgeVector
 ROEdgeVector::getReverse() const
 {
     ROEdgeVector ret(_edges.size());
-    for(EdgeVector::const_reverse_iterator i=_edges.rbegin(); i!=_edges.rend(); i++) {
+    for (EdgeVector::const_reverse_iterator i=_edges.rbegin(); i!=_edges.rend(); i++) {
         ret.add(*i);
     }
     return ret;
@@ -260,7 +200,8 @@ ROEdgeVector::getEdges() const
 }
 
 
-bool isTurnaround(const ROEdge *e1, const ROEdge *e2) {
+bool isTurnaround(const ROEdge *e1, const ROEdge *e2)
+{
     return e1->getFromNode()==e2->getToNode() && e1->getToNode()==e2->getFromNode();
 }
 
@@ -271,37 +212,37 @@ ROEdgeVector::recheckForLoops()
     {
         int lastReversed = 0;
         bool found = false;
-        for(int i=0; i<(int) _edges.size()/2+1; i++) {
-            for(int j=i+1; j<(int) _edges.size()/2+1; j++) {
-                if(isTurnaround(_edges[i], _edges[j])&&lastReversed<j) {
+        for (int i=0; i<(int) _edges.size()/2+1; i++) {
+            for (int j=i+1; j<(int) _edges.size()/2+1; j++) {
+                if (isTurnaround(_edges[i], _edges[j])&&lastReversed<j) {
                     lastReversed = j;
                     found = true;
                 }
             }
         }
-        if(found) {
+        if (found) {
 //            cout << "Erasing from begin to " << lastReversed << endl;
             _edges.erase(_edges.begin(), _edges.begin()+lastReversed-1);
         }
     }
     //
-    if(_edges.size()<2) {
+    if (_edges.size()<2) {
         return;
     }
     // backward
     {
         int lastReversed = _edges.size()-1;
         bool found = false;
-        for(int i=_edges.size()-1; i>=0; i--) {
-            for(int j=i-1; j>=0; j--) {
-                if(isTurnaround(_edges[i], _edges[j])&&lastReversed>j) {
+        for (int i=_edges.size()-1; i>=0; i--) {
+            for (int j=i-1; j>=0; j--) {
+                if (isTurnaround(_edges[i], _edges[j])&&lastReversed>j) {
 //                    cout << endl << _edges[i]->getID() << " " << _edges[j]->getID() << endl;
                     lastReversed = j;
                     found = true;
                 }
             }
         }
-        if(found) {
+        if (found) {
 //            cout << endl;
 //            cout << (*this) << endl;
 //            cout << "Erasing from "<< lastReversed << " to end " << endl;
@@ -313,10 +254,6 @@ ROEdgeVector::recheckForLoops()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

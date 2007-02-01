@@ -1,81 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROTypedXMLRoutesLoader.cpp -
-//  The basic class for loading routes from XML-files
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROTypedXMLRoutesLoader.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The basic class for loading routes from XML-files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.12  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.11  2006/01/26 08:37:24  dkrajzew
-// removed warnings 4786
-//
-// Revision 1.10  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:55:13  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.6  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.5  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or
-//  an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/03/20 16:39:17  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.3  2003/03/03 15:22:37  dkrajzew
-// debugging
-//
-// Revision 1.2  2003/02/07 10:45:06  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
-#pragma warning(disable: 4355)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <parsers/SAXParser.hpp>
@@ -95,25 +52,24 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
-                                               RONet &net,
-                                               SUMOTime begin,
-                                               SUMOTime end,
-                                               const std::string &file)
-    : ROAbstractRouteDefLoader(vb, net, begin, end),
-    SUMOSAXHandler("xml-route definitions", file),
-    _parser(XMLHelpers::getSAXReader(*this)), _token(), _ended(false)
-{
-}
+        RONet &net,
+        SUMOTime begin,
+        SUMOTime end,
+        const std::string &file)
+        : ROAbstractRouteDefLoader(vb, net, begin, end),
+        SUMOSAXHandler("xml-route definitions", file),
+        _parser(XMLHelpers::getSAXReader(*this)), _token(), _ended(false)
+{}
 
 
 ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader()
@@ -132,9 +88,9 @@ ROTypedXMLRoutesLoader::closeReading()
 bool
 ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
 {
-    while(getCurrentTimeStep()<time&&!ended()) {
+    while (getCurrentTimeStep()<time&&!ended()) {
         beginNextRoute();
-        while(!nextRouteRead()&&!ended()) {
+        while (!nextRouteRead()&&!ended()) {
             try {
                 _parser->parseNext(_token);
             } catch (std::string) {
@@ -167,10 +123,6 @@ ROTypedXMLRoutesLoader::ended() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

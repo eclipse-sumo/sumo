@@ -1,54 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        ROVehicleType_ID.cpp -
-//  A type which is only described by its id (other values are invalid)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 07.12.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ROVehicleType_ID.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 07.12.2005
+/// @version $Id: $
+///
+// A type which is only described by its id (other values are invalid)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.3  2006/10/12 10:14:30  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.2  2006/01/24 13:43:53  dkrajzew
-// added vehicle classes to the routing modules
-//
-// Revision 1.1  2006/01/09 13:29:32  dkrajzew
-// debugging vehicle color usage
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -60,38 +44,32 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 ROVehicleType_ID::ROVehicleType_ID(const std::string &id)
-    : ROVehicleType(id, RGBColor(-1, -1, -1), 1, SVC_UNKNOWN)
-{
-}
+        : ROVehicleType(id, RGBColor(-1, -1, -1), 1, SVC_UNKNOWN)
+{}
 
 
 ROVehicleType_ID::~ROVehicleType_ID()
-{
-}
+{}
 
 
 std::ostream &
 ROVehicleType_ID::xmlOut(std::ostream &os) const
 {
-	return os;
+    return os;
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

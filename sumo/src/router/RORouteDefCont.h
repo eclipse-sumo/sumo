@@ -1,74 +1,40 @@
-#ifndef RORouteDefCont_h
-#define RORouteDefCont_h
-//---------------------------------------------------------------------------//
-//                        RORouteDefCont.h -
-//  A container for route definitions
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORouteDefCont.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A container for route definitions
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.12  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.11  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.1  2004/10/22 12:50:27  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.8  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.7  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.6  2003/04/15 09:09:18  dkrajzew
-// documentation added
-//
-// Revision 1.5  2003/03/20 16:39:17  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.4  2003/03/03 15:22:35  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/02/07 10:45:07  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORouteDefCont_h
+#define RORouteDefCont_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <map>
@@ -79,20 +45,21 @@
 #include <utils/helpers/NamedObjectCont.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class ROEdge;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORouteDefCont
  * A container for route definitions
  */
-class RORouteDefCont : public NamedObjectCont<RORouteDef*> {
+class RORouteDefCont : public NamedObjectCont<RORouteDef*>
+{
 public:
     /// Constructor
     RORouteDefCont();
@@ -101,7 +68,7 @@ public:
     ~RORouteDefCont();
 
     /// Adds a named route definition to the container
-    bool add( RORouteDef *def);
+    bool add(RORouteDef *def);
 
     /// Writes the known routes into the given file using the XML-format
     static void writeXML(std::ostream &os);
@@ -138,11 +105,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

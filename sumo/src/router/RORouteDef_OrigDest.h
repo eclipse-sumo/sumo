@@ -1,117 +1,66 @@
-#ifndef RORouteDef_OrigDest_h
-#define RORouteDef_OrigDest_h
-//---------------------------------------------------------------------------//
-//                        RORouteDef_OrigDest.h -
-//  A route where only the origin and the destination edges are known
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORouteDef_OrigDest.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A route where only the origin and the destination edges are known
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/11/14 06:48:58  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.9  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.8  2006/01/24 13:43:53  dkrajzew
-// added vehicle classes to the routing modules
-//
-// Revision 1.7  2006/01/09 12:00:59  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.6  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:53:07  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// ------------------------------------------------
-// Revision 1.8  2003/11/11 08:04:46  dkrajzew
-// avoiding emissions of vehicles on too short edges
-//
-// Revision 1.7  2003/07/30 09:26:33  dkrajzew
-// all vehicles, routes and vehicle types may now have specific colors
-//
-// Revision 1.6  2003/06/18 11:36:50  dkrajzew
-// a new interface which allows to choose whether to stop after a route could
-//  not be computed or not; not very sphisticated, in fact
-//
-// Revision 1.5  2003/04/10 15:47:01  dkrajzew
-// random routes are now being prunned to avoid some stress with turning
-//  vehicles
-//
-// Revision 1.4  2003/03/20 16:39:17  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.3  2003/02/07 10:45:07  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORouteDef_OrigDest_h
+#define RORouteDef_OrigDest_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "RORouteDef.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class ROEdge;
 class RORoute;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORouteDef_OrigDest
  * A route definition where only the begin and the end edge are given.
  */
 class RORouteDef_OrigDest
-    : public RORouteDef {
+            : public RORouteDef
+{
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string &id, const RGBColor &color,
-        const ROEdge *from, const ROEdge *to, bool removeFirst=false);
+                        const ROEdge *from, const ROEdge *to, bool removeFirst=false);
 
     /// Destructor
     virtual ~RORouteDef_OrigDest();
@@ -124,10 +73,10 @@ public:
 
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-        ROVehicle &veh) const;
+                               ROVehicle &veh) const;
 
     /** @brief Adds the build route to the container
-	 *
+    *
      * Here, the currently new route is added */
     void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
 
@@ -153,11 +102,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

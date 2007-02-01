@@ -1,100 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RONetHandler.cpp -
-//  The handler for SUMO-Networks
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RONetHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The handler for SUMO-Networks
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.19  2006/10/31 12:23:23  dkrajzew
-// debugging internal lanes usage
-//
-// Revision 1.18  2006/08/01 07:12:36  dkrajzew
-// parsing of new networks patched
-//
-// Revision 1.17  2006/05/16 07:47:26  dkrajzew
-// debugged loop removal
-//
-// Revision 1.16  2006/04/18 08:15:49  dkrajzew
-// removal of loops added
-//
-// Revision 1.15  2006/02/13 07:26:05  dkrajzew
-// made dijkstra-router checking for closures optionally
-//
-// Revision 1.14  2006/01/26 08:42:50  dkrajzew
-// made lanes and edges being aware to vehicle classes
-//
-// Revision 1.13  2005/11/09 06:43:51  dkrajzew
-// error handling improved
-//
-// Revision 1.12  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.10  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2004/04/14 13:53:50  roessel
-// Changes and additions in order to implement supplementary-weights.
-//
-// Revision 1.8  2004/02/10 07:16:05  dkrajzew
-// removed some debug-variables
-//
-// Revision 1.7  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// Revision 1.6  2003/09/05 15:22:44  dkrajzew
-// handling of internal lanes added
-//
-// Revision 1.5  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-// this handler puts it further to output instances.
-// changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/04/09 15:39:11  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.3  2003/02/07 10:45:04  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/options/OptionsCont.h>
@@ -116,34 +54,32 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RONetHandler::RONetHandler(OptionsCont &oc, RONet &net,
                            ROAbstractEdgeBuilder &eb)
-    : SUMOSAXHandler("sumo-network"),
-    _options(oc), _net(net), _currentName(),
-    _currentEdge(0), myEdgeBuilder(eb)
-{
-}
+        : SUMOSAXHandler("sumo-network"),
+        _options(oc), _net(net), _currentName(),
+        _currentEdge(0), myEdgeBuilder(eb)
+{}
 
 
 RONetHandler::~RONetHandler()
-{
-}
+{}
 
 
 void
 RONetHandler::myStartElement(int element, const std::string&,
                              const Attributes &attrs)
 {
-    switch(element) {
+    switch (element) {
     case SUMO_TAG_EDGE:
         // in the first step, we do need the name to allocate the edge
         // in the second, we need it to know to which edge we have to add
@@ -151,7 +87,7 @@ RONetHandler::myStartElement(int element, const std::string&,
         parseEdge(attrs);
         break;
     case SUMO_TAG_LANE:
-        if(_process) {
+        if (_process) {
             parseLane(attrs);
         }
         break;
@@ -159,7 +95,7 @@ RONetHandler::myStartElement(int element, const std::string&,
         parseJunction(attrs);
         break;
     case SUMO_TAG_CEDGE:
-        if(_process) {
+        if (_process) {
             parseConnEdge(attrs);
         }
         break;
@@ -175,7 +111,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
     // get the id of the edge and the edge
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
-        if(_currentName[0]==':') {
+        if (_currentName[0]==':') {
             // this is an internal edge - we will not use it
             //  !!! recheck this; internal edges may be of importance during the dua
             _currentEdge = 0;
@@ -186,7 +122,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
         throw ProcessError();
     }
     _currentEdge = _net.getEdge(_currentName);
-    if(_currentEdge==0) {
+    if (_currentEdge==0) {
         MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + _file + ".");
         throw ProcessError();
     }
@@ -195,13 +131,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
     try {
         string type = getString(attrs, SUMO_ATTR_FUNC);
         _process = true;
-        if(type=="normal") {
+        if (type=="normal") {
             _currentEdge->setType(ROEdge::ET_NORMAL);
-        } else if(type=="source") {
+        } else if (type=="source") {
             _currentEdge->setType(ROEdge::ET_SOURCE);
-        } else if(type=="sink") {
+        } else if (type=="sink") {
             _currentEdge->setType(ROEdge::ET_SINK);
-        } else if(type=="internal") {
+        } else if (type=="internal") {
             _process = false;
         } else {
             MsgHandler::getErrorInstance()->inform("Edge '" + _currentName + "' has an unknown type.");
@@ -216,7 +152,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
     try {
         string from = getString(attrs, SUMO_ATTR_FROM);
         fromNode = _net.getNode(from);
-        if(fromNode==0) {
+        if (fromNode==0) {
             fromNode = new RONode(from);
             _net.addNode(fromNode);
         }
@@ -229,7 +165,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
     try {
         string to = getString(attrs, SUMO_ATTR_TO);
         toNode = _net.getNode(to);
-        if(toNode==0) {
+        if (toNode==0) {
             toNode = new RONode(to);
             _net.addNode(toNode);
         }
@@ -245,13 +181,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
 void
 RONetHandler::parseLane(const Attributes &attrs)
 {
-    if(_currentEdge==0) {
+    if (_currentEdge==0) {
         // was an internal edge to skip
         return;
     }
     SUMOReal maxSpeed = -1;
     SUMOReal length = -1;
-	std::vector<SUMOVehicleClass> allowed, disallowed;
+    std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the speed
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
@@ -272,29 +208,29 @@ RONetHandler::parseLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("A lane with a nonnumerical length definition occured within '" + _file + "', edge '" + _currentName + "'.");
         return;
     }
-	// get the id
+    // get the id
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-    if(id.length()==0) {
+    if (id.length()==0) {
         MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
         return;
     }
-	// get the vehicle classes
-	string allowedS = getStringSecure(attrs, "vclasses" , "");
-	if(allowedS.length()!=0) {
-		StringTokenizer st(allowedS, ";");
-		while(st.hasNext()) {
-			string next = st.next();
-			if(next[0]=='-') {
-				disallowed.push_back(getVehicleClassID(next.substr(1)));
+    // get the vehicle classes
+    string allowedS = getStringSecure(attrs, "vclasses" , "");
+    if (allowedS.length()!=0) {
+        StringTokenizer st(allowedS, ";");
+        while (st.hasNext()) {
+            string next = st.next();
+            if (next[0]=='-') {
+                disallowed.push_back(getVehicleClassID(next.substr(1)));
                 _net.setRestrictionFound();
-			} else {
-				allowed.push_back(getVehicleClassID(next));
+            } else {
+                allowed.push_back(getVehicleClassID(next));
                 _net.setRestrictionFound();
-			}
-		}
-	}
+            }
+        }
+    }
     // add when both values are valid
-    if(maxSpeed>0&&length>0&&id.length()>0) {
+    if (maxSpeed>0&&length>0&&id.length()>0) {
         _currentEdge->addLane(new ROLane(id, length, maxSpeed, allowed, disallowed));
     }
 }
@@ -314,7 +250,7 @@ RONetHandler::parseJunction(const Attributes &attrs)
 void
 RONetHandler::parseConnEdge(const Attributes &attrs)
 {
-    if(_currentEdge==0) {
+    if (_currentEdge==0) {
         // was an internal edge to skip
         return;
     }
@@ -322,7 +258,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
         // get the edge to connect
         string succID = getString(attrs, SUMO_ATTR_ID);
         ROEdge *succ = _net.getEdge(succID);
-        if(succ!=0) {
+        if (succ!=0) {
             // connect edge
             _currentEdge->addFollower(succ);
         } else {
@@ -338,7 +274,7 @@ void
 RONetHandler::myCharacters(int element, const std::string&,
                            const std::string &chars)
 {
-    if(element==SUMO_TAG_EDGES) {
+    if (element==SUMO_TAG_EDGES) {
         preallocateEdges(chars);
     }
 }
@@ -348,9 +284,9 @@ void
 RONetHandler::preallocateEdges(const std::string &chars)
 {
     StringTokenizer st(chars);
-    while(st.hasNext()) {
+    while (st.hasNext()) {
         string id = st.next();
-        if(id[0]==':') {
+        if (id[0]==':') {
             // this is an internal edge - we will not use it
             //  !!! recheck this; internal edges may be of importance during the dua
             continue;
@@ -362,14 +298,9 @@ RONetHandler::preallocateEdges(const std::string &chars)
 
 void
 RONetHandler::myEndElement(int, const std::string&)
-{
-}
+{}
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,145 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        RONet.cpp -
-//  The router's network representation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RONet.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The router's network representation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.34  2006/11/16 10:50:51  dkrajzew
-// warnings removed
-//
-// Revision 1.33  2006/11/14 06:48:58  dkrajzew
-// readapting changes in the router-API
-//
-// Revision 1.32  2006/05/16 08:11:36  dkrajzew
-// spelling patched
-//
-// Revision 1.31  2006/05/15 05:57:06  dkrajzew
-// added consective process messages
-//
-// Revision 1.30  2006/04/18 08:15:49  dkrajzew
-// removal of loops added
-//
-// Revision 1.29  2006/02/13 07:26:05  dkrajzew
-// made dijkstra-router checking for closures optionally
-//
-// Revision 1.28  2006/01/26 08:44:14  dkrajzew
-// adapted the new router API
-//
-// Revision 1.27  2006/01/24 13:43:53  dkrajzew
-// added vehicle classes to the routing modules
-//
-// Revision 1.26  2006/01/09 12:00:58  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.25  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.24  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.23  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.22  2005/05/04 08:48:35  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; handling of vehicles debugged
-//
-// Revision 1.21  2004/12/16 12:26:52  dkrajzew
-// debugging
-//
-// Revision 1.20  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.19  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.18  2004/04/23 12:46:41  dkrajzew
-// forgetting to set information about periodical emission of vehicles patched
-//
-// Revision 1.17  2004/04/02 11:26:26  dkrajzew
-// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
-//
-// Revision 1.16  2004/01/26 09:54:59  dkrajzew
-// error handling corrected
-//
-// Revision 1.15  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// Revision 1.14  2003/11/11 08:04:46  dkrajzew
-// avoiding emissions of vehicles on too short edges
-//
-// Revision 1.13  2003/10/31 08:00:32  dkrajzew
-// hope to have patched false usage of RAND_MAX when using gcc
-//
-// Revision 1.12  2003/10/15 11:55:11  dkrajzew
-// false usage of rand() patched
-//
-// Revision 1.11  2003/07/18 12:35:06  dkrajzew
-// removed some warnings
-//
-// Revision 1.10  2003/07/07 08:36:58  dkrajzew
-// Warnings are now reported to the MsgHandler
-//
-// Revision 1.9  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning
-//  or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.8  2003/05/20 09:48:35  dkrajzew
-// debugging
-//
-// Revision 1.7  2003/04/09 15:39:11  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.6  2003/03/20 16:39:16  dkrajzew
-// periodical car emission implemented; windows eol removed
-//
-// Revision 1.5  2003/03/17 14:25:28  dkrajzew
-// windows eol removed
-//
-// Revision 1.4  2003/03/03 15:08:21  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/02/07 10:45:04  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <iostream>
@@ -171,22 +64,21 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 RONet::RONet(bool /*multireferencedRoutes*/)
-    : _vehicleTypes(new ROVehicleType_Krauss()),
-    myRoutesOutput(0), myRouteAlternativesOutput(0),
-    myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-    myHaveRestrictions(false)
-{
-}
+        : _vehicleTypes(new ROVehicleType_Krauss()),
+        myRoutesOutput(0), myRouteAlternativesOutput(0),
+        myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
+        myHaveRestrictions(false)
+{}
 
 
 RONet::~RONet()
@@ -202,7 +94,7 @@ RONet::~RONet()
 void
 RONet::addEdge(ROEdge *edge)
 {
-    if(!_edges.add(edge->getID(), edge)) {
+    if (!_edges.add(edge->getID(), edge)) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
     }
 }
@@ -235,7 +127,7 @@ RONet::isKnownVehicleID(const std::string &id) const
 {
     VehIDCont::const_iterator i =
         find(_vehIDs.begin(), _vehIDs.end(), id);
-    if(i==_vehIDs.end()) {
+    if (i==_vehIDs.end()) {
         return false;
     }
     return true;
@@ -275,7 +167,7 @@ RONet::openOutput(const std::string &filename, bool useAlternatives)
 {
     myRoutesOutput = buildOutput(filename);
     (*myRoutesOutput) << "<routes>" << endl;
-    if(useAlternatives) {
+    if (useAlternatives) {
         myRouteAlternativesOutput = buildOutput(filename+".alt");
         (*myRouteAlternativesOutput) << "<route-alternatives>" << endl;
     }
@@ -286,13 +178,13 @@ void
 RONet::closeOutput()
 {
     // end writing
-	if(myRoutesOutput!= 0) {
-		(*myRoutesOutput) << "</routes>" << endl;
-		myRoutesOutput->close();
-		delete myRoutesOutput;
-	}
+    if (myRoutesOutput!= 0) {
+        (*myRoutesOutput) << "</routes>" << endl;
+        myRoutesOutput->close();
+        delete myRoutesOutput;
+    }
     // only if opened
-    if(myRouteAlternativesOutput!=0) {
+    if (myRouteAlternativesOutput!=0) {
         (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
         myRouteAlternativesOutput->close();
         delete myRouteAlternativesOutput;
@@ -306,10 +198,10 @@ RONet::getVehicleTypeSecure(const std::string &id)
 {
     // check whether the type was already known
     ROVehicleType *type = _vehicleTypes.get(id);
-    if(type!=0) {
+    if (type!=0) {
         return type;
     }
-    if(id=="!") { // !!! make this is static const
+    if (id=="!") { // !!! make this is static const
         // ok, no vehicle type was given within the user input
         //  return the default type
         return getDefaultVehicleType();
@@ -348,35 +240,35 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
                     ROVehicle *veh)
 {
     MsgHandler *mh = MsgHandler::getErrorInstance();
-    if(options.getBool("continue-on-unbuild")) {
+    if (options.getBool("continue-on-unbuild")) {
         mh = MsgHandler::getWarningInstance();
     }
     RORouteDef * const routeDef = veh->getRoute();
     // check if the route definition is valid
-    if(routeDef==0) {
+    if (routeDef==0) {
         mh->inform("The vehicle '" + veh->getID() + "' has no valid route.");
         return 0;
     }
     // check whether the route was already saved
-    if(routeDef->isSaved()) {
+    if (routeDef->isSaved()) {
         return routeDef;
     }
     //
     RORoute *current =
-		routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
-    if(current==0) {
+        routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
+    if (current==0) {
         return 0;
     }
     // check whether we have to evaluate the route for not containing loops
-    if(options.getBool("remove-loops")) {
+    if (options.getBool("remove-loops")) {
         current->recheckForLoops();
     }
     // check whether the route is valid and does not end on the starting edge
-    if(current->size()<2) {
+    if (current->size()<2) {
         // check whether the route ends at the starting edge
         //  unbuild routes due to missing connections are reported within the
         //  router
-        if(current->size()!=0) {
+        if (current->size()!=0) {
             mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.");
             WRITE_WARNING("Skipping...");
         }
@@ -385,9 +277,9 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
-    while(current->getFirst()->getLength()<=veh->getType()->getLength()) {
+    while (current->getFirst()->getLength()<=veh->getType()->getLength()) {
         mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.");
-        if(!options.getBool("move-on-short")||current->size()<3) {
+        if (!options.getBool("move-on-short")||current->size()<3) {
             mh->inform(" Discarded.");
             delete current;
             return 0;
@@ -409,18 +301,18 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
     priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &sortedVehicles = _vehicles.sort();
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
-    while(!sortedVehicles.empty()) {
+    while (!sortedVehicles.empty()) {
         // get the next vehicle
         ROVehicle *veh = sortedVehicles.top();
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
-        if(currentTime>time) {
+        if (currentTime>time) {
             break;
         }
         // check whether to print the output
-        if(lastTime!=currentTime&&lastTime!=-1) {
+        if (lastTime!=currentTime&&lastTime!=-1) {
             // report writing progress
-            if( options.getInt("stats-period")>=0 && (currentTime%options.getInt("stats-period"))==0) {
+            if (options.getInt("stats-period")>=0 && (currentTime%options.getInt("stats-period"))==0) {
                 WRITE_MESSAGE("Read: " + toString<int>(myReadRouteNo) + ",  Discarded: " + toString<int>(myDiscardedRouteNo) + ",  Written: " + toString<int>(myWrittenRouteNo));
             }
         }
@@ -430,7 +322,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         sortedVehicles.pop();
         // compute the route
         const RORouteDef * const route = computeRoute(options, router, veh);
-        if(route!=0) {
+        if (route!=0) {
             // write the route
             veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput, *_vehicleTypes.getDefault(), route);
             myWrittenRouteNo++;
@@ -438,7 +330,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
             myDiscardedRouteNo++;
         }
         // remove the route if it is not longer used
-		removeRouteSecure(veh->getRoute());
+        removeRouteSecure(veh->getRoute());
         _vehicles.erase(veh->getID());
     }
 }
@@ -448,9 +340,9 @@ void
 RONet::removeRouteSecure(const RORouteDef * const route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
-    if(!_routes.erase(route->getID())) {
+    if (!_routes.erase(route->getID())) {
         MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
-	}
+    }
 }
 
 
@@ -487,13 +379,13 @@ RONet::getRandomSource()
 {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if(mySourceEdges.size()==0) {
+    if (mySourceEdges.size()==0) {
         return 0;
     }
     // choose an edge by random
-    SUMOReal random = SUMOReal( rand() ) /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
-    return mySourceEdges[(size_t) (random*(mySourceEdges.size()-1))];
+    SUMOReal random = SUMOReal(rand()) /
+                      (static_cast<SUMOReal>(RAND_MAX) + 1);
+    return mySourceEdges[(size_t)(random*(mySourceEdges.size()-1))];
 }
 
 
@@ -502,31 +394,31 @@ RONet::getRandomDestination()
 {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if(myDestinationEdges.size()==0) {
+    if (myDestinationEdges.size()==0) {
         return 0;
     }
     // choose an edge by random
     // choose an edge by random
-    SUMOReal random = SUMOReal( rand() ) /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
-    return myDestinationEdges[(size_t) (random*(myDestinationEdges.size()-1))];
+    SUMOReal random = SUMOReal(rand()) /
+                      (static_cast<SUMOReal>(RAND_MAX) + 1);
+    return myDestinationEdges[(size_t)(random*(myDestinationEdges.size()-1))];
 }
 
 
 void
 RONet::checkSourceAndDestinations()
 {
-    if(myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
+    if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
     std::vector<ROEdge*> edges = _edges.getTempVector();
-    for(std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+    for (std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         ROEdge::EdgeType type = (*i)->getType();
         // !!! add something like "classified edges only" for using only sources or sinks
-        if(type!=ROEdge::ET_SOURCE) {
+        if (type!=ROEdge::ET_SOURCE) {
             myDestinationEdges.push_back(*i);
         }
-        if(type!=ROEdge::ET_SINK) {
+        if (type!=ROEdge::ET_SINK) {
             mySourceEdges.push_back(*i);
         }
     }
@@ -544,7 +436,7 @@ std::ofstream *
 RONet::buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
-    if(!ret->good()) {
+    if (!ret->good()) {
         MsgHandler::getErrorInstance()->inform("The file '" + name + "' could not be opened for writing.");
         throw ProcessError();
     }
@@ -555,7 +447,7 @@ RONet::buildOutput(const std::string &name)
 ROEdgeCont *
 RONet::getMyEdgeCont()
 {
-	return &_edges;
+    return &_edges;
 }
 
 
@@ -573,10 +465,6 @@ RONet::setRestrictionFound()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,84 +1,40 @@
-#ifndef RORDGenerator_ODAmounts_h
-#define RORDGenerator_ODAmounts_h
-//---------------------------------------------------------------------------//
-//                        RORDGenerator_ODAmounts.h -
-//      Class for loading trip amount definitions and route generation
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 21 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    RORDGenerator_ODAmounts.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 21 Jan 2004
+/// @version $Id: $
+///
+// Class for loading trip amount definitions and route generation
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.12  2006/10/13 13:07:50  dkrajzew
-// added the option to not emit vehicles from flows using a fix frequency
-//
-// Revision 1.11  2006/01/09 12:00:58  dkrajzew
-// debugging vehicle color usage
-//
-// Revision 1.10  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:50:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2005/02/17 10:33:40  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
-//
-// Revision 1.6  2004/11/23 10:25:52  dkrajzew
-// debugging
-//
-// Revision 1.5  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived
-//  for an online-routing
-//
-// Revision 1.4  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.3  2004/02/02 16:19:23  dkrajzew
-// trying to catch up false user input
-//  (using the same name for different routes)
-//
-// Revision 1.2  2004/01/27 08:45:00  dkrajzew
-// given flow definitions an own tag
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef RORDGenerator_ODAmounts_h
+#define RORDGenerator_ODAmounts_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <set>
@@ -93,21 +49,22 @@
 #include <utils/common/SUMOTime.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class RORDGenerator_ODAmounts
  * This class is a file-based generator. Within the first step, all route
  *  definitions are parsed into the memory from a file and then consecutively
  *  build on demand.
  */
-class RORDGenerator_ODAmounts : public RORDLoader_TripDefs {
+class RORDGenerator_ODAmounts : public RORDLoader_TripDefs
+{
 public:
     /// Constructor
     RORDGenerator_ODAmounts(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-        bool randomize, const std::string &file="");
+                            SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
+                            bool randomize, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_ODAmounts();
@@ -135,11 +92,11 @@ protected:
 
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
+                        const Attributes &attrs);
 
     /** the user-implemented handler method for characters */
     void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                      const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
@@ -161,12 +118,13 @@ protected:
      * @class FlowDef
      * The definition of a flow.
      */
-    class FlowDef {
+    class FlowDef
+    {
     public:
         /// Constructor
         FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,
-            SUMOTime intBegin, SUMOTime intEnd,
-            unsigned int vehicles2Emit, bool randomize);
+                SUMOTime intBegin, SUMOTime intEnd,
+                unsigned int vehicles2Emit, bool randomize);
 
         /// Destructor
         ~FlowDef();
@@ -179,7 +137,7 @@ protected:
 
         /// Adds a single route to start within the given time into the given net
         void addSingleRoute(ROVehicleBuilder &vb,
-            RONet &net, SUMOTime time);
+                            RONet &net, SUMOTime time);
 
         /// Returns the end of the period this FlowDef describes
         SUMOTime getIntervalEnd() const;
@@ -265,11 +223,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
