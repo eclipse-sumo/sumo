@@ -1,5 +1,5 @@
 #!/bin/bash
-export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -Wno-unknown-pragmas -g -O2"
+export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 MAKELOG=$HOME/DLR/sumomake.log
 RUNLOG=$HOME/DLR/sumologs.tar.gz
 MAKEALLLOG=$HOME/DLR/sumomakeall.log
