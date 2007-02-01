@@ -1,245 +1,40 @@
+/****************************************************************************/
+/// @file    NBEdge.h
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 20 Nov 2001
+/// @version $Id: $
+///
+// The representation of a single edge
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef NBEdge_h
 #define NBEdge_h
-/***************************************************************************
-                          NBEdge.h
-              The representation of a single edge
-                             -------------------
-    project              : SUMO
-    subproject           : netbuilder / netconverter
-    begin                : Tue, 20 Nov 2001
-    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.54  2006/12/04 13:37:15  dkrajzew
-// fixed problems on loading non-internal networks whenusing the internal option in simulation
-//
-// Revision 1.53  2006/11/16 06:49:49  dkrajzew
-// removed unneeded code
-//
-// Revision 1.52  2006/11/03 23:05:34  behrisch
-// Syntactic sugar
-//
-// Revision 1.51  2006/11/02 14:09:22  behrisch
-// Missing class declarations
-//
-// Revision 1.50  2006/10/12 10:14:28  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.49  2006/09/19 11:48:23  dkrajzew
-// debugging junction-internal lanes
-//
-// Revision 1.48  2006/09/18 10:09:29  dkrajzew
-// patching junction-internal state simulation
-//
-// Revision 1.47  2006/07/07 11:54:49  dkrajzew
-// further work on VISUM-import
-//
-// Revision 1.46  2006/07/06 06:48:00  dkrajzew
-// changed the retrieval of connections-API; some unneeded variables removed
-//
-// Revision 1.45  2006/04/11 10:59:39  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.44  2006/01/26 08:49:44  dkrajzew
-// debugging of vehicle class handling
-//
-// Revision 1.43  2006/01/17 14:11:52  dkrajzew
-// "split-geometry" - option added (unfinsihed, rename)
-//
-// Revision 1.42  2006/01/11 11:59:20  dkrajzew
-// patched reassignment of explicite connections
-//
-// Revision 1.41  2005/11/09 06:40:49  dkrajzew
-// complete geometry building rework (unfinished)
-//
-// Revision 1.40  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.39  2005/09/23 06:01:05  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.38  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.37  2005/07/12 12:32:47  dkrajzew
-// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
-//
-// Revision 1.36  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.35  2005/01/27 14:26:08  dkrajzew
-// patched several problems on determination of the turning direction; code beautifying
-//
-// Revision 1.34  2004/12/16 12:16:06  dkrajzew
-// code beautifying
-//
-// Revision 1.33  2004/11/23 10:21:40  dkrajzew
-// debugging
-//
-// Revision 1.32  2004/08/02 13:11:39  dkrajzew
-// made some deprovements or so
-//
-// Revision 1.31  2004/02/16 13:58:22  dkrajzew
-// some further work on edge geometry
-//
-// Revision 1.30  2004/01/28 12:40:23  dkrajzew
-// added to possibility to give each lane a speed
-//
-// Revision 1.29  2004/01/12 15:25:09  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.28  2004/01/12 15:10:27  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.27  2003/12/04 13:06:45  dkrajzew
-// work on internal lanes
-//
-// Revision 1.26  2003/11/18 14:25:24  dkrajzew
-// debugged and completed lane merging detectors
-//
-// Revision 1.25  2003/11/17 07:26:02  dkrajzew
-// computations needed for collecting e2-values over multiple lanes added
-//
-// Revision 1.24  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two SUMOReals added
-//
-// Revision 1.23  2003/10/28 09:47:28  dkrajzew
-// lane2lane connections are now kept when edges are joined
-//
-// Revision 1.22  2003/10/15 11:45:38  dkrajzew
-// geometry computation corrigued partially
-//
-// Revision 1.21  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams
-//  modality cleared & lane2lane instead of edge2edge-prohibitions implemented
-//
-// Revision 1.20  2003/09/22 12:40:11  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.19  2003/09/05 15:16:57  dkrajzew
-// umlaute conversion; node geometry computation; internal links computation
-//
-// Revision 1.18  2003/08/20 11:53:17  dkrajzew
-// further work on node geometry
-//
-// Revision 1.17  2003/08/14 13:50:15  dkrajzew
-// new junction shape computation implemented
-//
-// Revision 1.16  2003/07/16 15:32:02  dkrajzew
-// some work on the geometry of nodes
-//
-// Revision 1.15  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of
-//  geometry information
-//
-// Revision 1.14  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.13  2003/06/05 11:43:35  dkrajzew
-// class templates applied; documentation added
-//
-// Revision 1.12  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on
-//  tl-import; further work on vissim-import
-//
-// Revision 1.11  2003/04/07 12:15:39  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again,
-//  traffic lights have yellow times given explicitely, now
-//
-// Revision 1.10  2003/04/04 07:43:03  dkrajzew
-// Yellow phases must be now explicetely given; comments added;
-//  order of edge sorting (false lane connections) debugged
-//
-// Revision 1.9  2003/04/01 15:15:51  dkrajzew
-// further work on vissim-import
-//
-// Revision 1.8  2003/03/26 12:00:08  dkrajzew
-// debugging for Vissim and Visum-imports
-//
-// Revision 1.7  2003/03/17 14:22:33  dkrajzew
-// further debug and windows eol removed
-//
-// Revision 1.6  2003/03/12 16:47:53  dkrajzew
-// extension for artemis-import
-//
-// Revision 1.5  2003/03/03 14:59:03  dkrajzew
-// debugging; handling of imported traffic light definitions
-//
-// Revision 1.4  2003/02/13 15:50:59  dkrajzew
-// functions for merging edges with the same origin and destination added
-//
-// Revision 1.3  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/17 13:32:01  dkrajzew
-// possibility to add connections between lanes added; adding of connections
-//  between edges revalidated
-//
-// Revision 1.1  2002/10/16 15:48:13  dkrajzew
-// initial commit for net building classes
-//
-// Revision 1.5  2002/06/11 16:00:39  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the
-//  EXTERNAL_TEMPLATE_DEFINITION-definition
-//
-// Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed;
-//  Comments improved
-//
-// Revision 1.3  2002/05/14 04:42:55  dkrajzew
-// new computation flow
-//
-// Revision 1.2  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor SUMOReal to int conversions removed;
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
-// new version-free project name
-//
-// Revision 1.3  2002/04/09 12:23:09  dkrajzew
-// Windows-Memoryleak detection changed
-//
-// Revision 1.2  2002/03/15 09:14:26  traffic
-// Changed the number of lanes field into unsigned
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-// Revision 1.1  2001/12/06 13:37:59  traffic
-// files for the netbuilder
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <vector>
@@ -255,17 +50,17 @@
 #include <utils/common/SUMOVehicleClass.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBNode;
 class NBNodeCont;
 class NBEdgeCont;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class NBEdge
 {
 public:
@@ -330,16 +125,16 @@ public:
 public:
     /// constructor
     NBEdge(std::string id, std::string name,
-        NBNode *from, NBNode *to, std::string type,
-        SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
-        LaneSpreadFunction spread=LANESPREAD_RIGHT,
-        EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
+           NBNode *from, NBNode *to, std::string type,
+           SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
+           LaneSpreadFunction spread=LANESPREAD_RIGHT,
+           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     NBEdge(std::string id, std::string name,
-        NBNode *from, NBNode *to, std::string type,
-        SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
-        Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
-        EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
+           NBNode *from, NBNode *to, std::string type,
+           SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
+           Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
+           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     /// destructor
     ~NBEdge();
@@ -407,12 +202,12 @@ public:
 
     /** adds a connection between the specified this edge's lane and an approached one */
     bool addLane2LaneConnection(size_t fromLane, NBEdge *dest,
-        size_t toLane, bool markAs2Recheck);
+                                size_t toLane, bool markAs2Recheck);
 
     /** builds no connections starting at the given lanes */
     bool addLane2LaneConnections(size_t fromLane,
-        NBEdge *dest, size_t toLane, size_t no,
-        bool markAs2Recheck, bool invalidatePrevious=false);
+                                 NBEdge *dest, size_t toLane, size_t no,
+                                 bool markAs2Recheck, bool invalidatePrevious=false);
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -435,7 +230,7 @@ public:
 
     /// adds a connection to a certain lane of a certain edge
     void setConnection(size_t lane, NBEdge *destEdge,
-        size_t destLane, bool markAs2Recheck);
+                       size_t destLane, bool markAs2Recheck);
 
     /** returns the information whether the given edge is the opposite
         direction to this edge */
@@ -486,14 +281,14 @@ public:
 
 
     void setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
-        const std::string &tlID, size_t tlPos);
+                                     const std::string &tlID, size_t tlPos);
 
     void normalisePosition(const NBNodeCont &nc);
 
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
-        Position2DVector &into);
+            Position2DVector &into);
 
     SUMOReal width() const;
 
@@ -517,12 +312,13 @@ public:
 
     friend class NBEdgeCont;
 
-    EdgeBuildingStep getStep() const {
+    EdgeBuildingStep getStep() const
+    {
         return _step;
     }
 
     void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
-        bool markAs2Recheck);
+                                     bool markAs2Recheck);
 
     NBEdge *getTurnDestination() const;
 
@@ -554,10 +350,10 @@ public:
 
     void markAsInLane2LaneState();
 
-	void allowVehicleClass(int lane, SUMOVehicleClass vclass);
-	void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
-	std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
-	std::vector<SUMOVehicleClass> getNotAllowedVehicleClasses() const;
+    void allowVehicleClass(int lane, SUMOVehicleClass vclass);
+    void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
+    std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
+    std::vector<SUMOVehicleClass> getNotAllowedVehicleClasses() const;
 
 
     void recheckEdgeGeomForDoublePositions();
@@ -570,7 +366,8 @@ private:
      * A class that being a bresenham-callback assigns the incoming
      * lanes to the edges
      */
-    class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack {
+class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
+    {
     private:
         /// map of edges to this edge's lanes that reach them
         std::map<NBEdge*, std::vector<size_t> > *_connections;
@@ -581,12 +378,14 @@ private:
     public:
         /// constructor
         ToEdgeConnectionsAdder(std::map<NBEdge*,
-            std::vector<size_t> > *connections,
-            const std::vector<NBEdge*> &transitions)
-            : _connections(connections), _transitions(transitions) { }
+                               std::vector<size_t> > *connections,
+                               const std::vector<NBEdge*> &transitions)
+                : _connections(connections), _transitions(transitions)
+        { }
 
         /// destructor
-        ~ToEdgeConnectionsAdder() { }
+        ~ToEdgeConnectionsAdder()
+        { }
 
         /// executes a bresenham - step
         void execute(SUMOReal lane, SUMOReal virtEdge);
@@ -599,7 +398,8 @@ private:
      * the junction the edge ends in
      * The back direction is not regarded
      */
-    class MainDirections {
+    class MainDirections
+    {
     public:
         /// enum of possible directions
         enum Direction { DIR_RIGHTMOST, DIR_LEFTMOST, DIR_FORWARD };
@@ -611,7 +411,7 @@ private:
     public:
         /// constructor
         MainDirections(const std::vector<NBEdge*> &outgoing,
-            NBEdge *parent, NBNode *to);
+                       NBEdge *parent, NBNode *to);
 
         /// destructor
         ~MainDirections();
@@ -630,7 +430,7 @@ private:
 
     /// Computes the offset from the edge shape on the current segment
     std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
-        const Position2D &to, SUMOReal lanewidth, size_t lane);
+            const Position2D &to, SUMOReal lanewidth, size_t lane);
 
     void computeLaneShapes();
 
@@ -708,8 +508,8 @@ private:
 
     std::vector<Position2DVector> myLaneGeoms;
     std::vector<SUMOReal> myLaneSpeeds;
-	std::vector<std::vector<SUMOVehicleClass> > myAllowedOnLanes;
-	std::vector<std::vector<SUMOVehicleClass> > myNotAllowedOnLanes;
+    std::vector<std::vector<SUMOVehicleClass> > myAllowedOnLanes;
+    std::vector<std::vector<SUMOVehicleClass> > myNotAllowedOnLanes;
 
 
     SUMOReal myAmTurningWithAngle;
@@ -748,11 +548,11 @@ private:
 
     // !!! describe
     void writeSucceeding(std::ostream &into, size_t lane,
-        bool includeInternal);
+                         bool includeInternal);
 
     // !!! describe
     void writeSingleSucceeding(std::ostream &into,
-        size_t fromlane, size_t destidx, bool includeInternal);
+                               size_t fromlane, size_t destidx, bool includeInternal);
 
 private:
     /** invalid copy constructor */
@@ -764,10 +564,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

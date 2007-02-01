@@ -1,66 +1,39 @@
-//---------------------------------------------------------------------------//
-//                        NBDistribution.cpp -
-//  The base class for statistical distribution descriptions
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBDistribution.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The base class for statistical distribution descriptions
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.8  2005/10/17 09:03:33  dkrajzew
-// c4503 warning removed
-//
-// Revision 1.7  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.1.2.1  2005/04/15 09:53:22  dksumo
-// using a single SUMOTime type for time values; level3 warnings removed; made the containers unstatic; debugging; added the possibility to change tls offsets
-//
-// Revision 1.1  2004/10/22 12:49:45  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.4  2003/06/05 11:43:34  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
 #pragma warning(disable: 4503)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "NBDistribution.h"
 
@@ -69,28 +42,28 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * static member variables
- * ======================================================================= */
+// ===========================================================================
+// static member variables
+// ===========================================================================
 NBDistribution::TypedDistDict NBDistribution::myDict;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 bool
 NBDistribution::dictionary(const std::string &type, const std::string &id,
                            Distribution *d)
 {
     TypedDistDict::iterator i=myDict.find(type);
 
-    if(i==myDict.end()) {
+    if (i==myDict.end()) {
         myDict[type][id] = d;
         return true;
     }
     DistDict &dict = (*i).second;
     DistDict::iterator j=dict.find(id);
-    if(j==dict.end()) {
+    if (j==dict.end()) {
         myDict[type][id] = d;
         return true;
     }
@@ -103,12 +76,12 @@ NBDistribution::dictionary(const std::string &type,
                            const std::string &id)
 {
     TypedDistDict::iterator i=myDict.find(type);
-    if(i==myDict.end()) {
+    if (i==myDict.end()) {
         return 0;
     }
     DistDict &dict = (*i).second;
     DistDict::iterator j=dict.find(id);
-    if(j==dict.end()) {
+    if (j==dict.end()) {
         return 0;
     }
     return (*j).second;
@@ -118,19 +91,15 @@ NBDistribution::dictionary(const std::string &type,
 void
 NBDistribution::clear()
 {
-    for(TypedDistDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (TypedDistDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         DistDict &dict = (*i).second;
-        for(DistDict::iterator j=dict.begin(); j!=dict.end(); j++) {
-            delete (*j).second;
+        for (DistDict::iterator j=dict.begin(); j!=dict.end(); j++) {
+            delete(*j).second;
         }
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

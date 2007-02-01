@@ -1,86 +1,40 @@
-#ifndef NBRequestEdgeLinkIterator_h
-#define NBRequestEdgeLinkIterator_h
-//---------------------------------------------------------------------------//
-//                        NBRequestEdgeLinkIterator.h -
-//  An iterator over all possible links of a junction regarding movement
-//      directions (turn-around and left-movers may be left of)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBRequestEdgeLinkIterator.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// An iterator over all possible links of a junction regarding movement
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.15  2006/07/06 06:48:00  dkrajzew
-// changed the retrieval of connections-API; some unneeded variables removed
-//
-// Revision 1.14  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.13  2005/09/23 06:01:06  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.12  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.11  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.10  2004/11/23 10:21:41  dkrajzew
-// debugging
-//
-// Revision 1.9  2004/01/12 15:25:09  dkrajzew
-// node-building classes are now lying in an own folder
-//
-// Revision 1.8  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of
-//  geometry information
-//
-// Revision 1.7  2003/06/05 11:43:35  dkrajzew
-// class templates applied; documentation added
-//
-// Revision 1.6  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on
-//  tl-import; further work on vissim-import
-//
-// Revision 1.5  2003/04/16 10:03:49  dkrajzew
-// further work on Vissim-import
-//
-// Revision 1.4  2003/03/20 16:23:10  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.3  2003/03/03 14:59:17  dkrajzew
-// debugging; handling of imported traffic light definitions
-//
-// Revision 1.2  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NBRequestEdgeLinkIterator_h
+#define NBRequestEdgeLinkIterator_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <bitset>
 #include <vector>
@@ -89,9 +43,9 @@
 #include "NBContHelper.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * NBRequestEdgeLinkIterator
  * As iteration over all links of a junction isn't that trivial, it is
@@ -99,12 +53,13 @@
  * The iteration may be bound to certain types of links, e.g. only links
  * which do not move to the left.
  */
-class NBRequestEdgeLinkIterator {
+class NBRequestEdgeLinkIterator
+{
 public:
     /// constructor
     NBRequestEdgeLinkIterator(const NBTrafficLightDefinition * const request,
-        bool joinLanes, bool removeTurnArounds,
-        NBOwnTLDef::LinkRemovalType removalType);
+                              bool joinLanes, bool removeTurnArounds,
+                              NBOwnTLDef::LinkRemovalType removalType);
 
     /// destructor
     ~NBRequestEdgeLinkIterator();
@@ -132,7 +87,7 @@ public:
 
     /// sets the non-left movers within the given bitset to zero
     void resetNonLeftMovers(std::bitset<64> &driveMask,
-        std::bitset<64> &brakeMask, std::bitset<64> &yellowMask) const;
+                            std::bitset<64> &brakeMask, std::bitset<64> &yellowMask) const;
 
     /** returns the information whether the link at the current position
         is a foe to the link represented by the given iterator */
@@ -149,28 +104,28 @@ public:
         SUMOReal time);
     bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
         SUMOReal time);
-*/
+    */
     friend std::ostream &operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o);
 
 private:
     /// initialises the iterator
     void init(const NBTrafficLightDefinition * const request, bool joinLanes,
-        bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType);
+              bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType);
 
     /// joins the links of the lane
     void joinLaneLinksFunc(const EdgeVector &incoming,
-        bool joinLaneLinks);
+                           bool joinLaneLinks);
 
     /// sets the information whether the link is a valid non-left mover
     void setValidNonLeft(bool removeTurnArounds,
-        NBOwnTLDef::LinkRemovalType removalType);
+                         NBOwnTLDef::LinkRemovalType removalType);
 
     /// computes the information about validity of all links
     void computeValidLinks();
 
     /// returns the information whether the given link is valid
     bool valid(size_t pos, bool removeTurnArounds,
-        NBOwnTLDef::LinkRemovalType removalType);
+               NBOwnTLDef::LinkRemovalType removalType);
 
     /// !!!
     bool internJoinLaneForbids(NBEdge *fromEdge, NBEdge *toEdge) const;
@@ -219,11 +174,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

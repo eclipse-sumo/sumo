@@ -1,69 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        NBConnection.cpp -
-//  The class holds a description of a connection between two edges
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBConnection.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The class holds a description of a connection between two edges
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.9  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.6  2003/12/04 13:05:42  dkrajzew
-// some work for joining vissim-edges
-//
-// Revision 1.5  2003/07/18 12:35:05  dkrajzew
-// removed some warnings
-//
-// Revision 1.4  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage
-//  of geometry information
-//
-// Revision 1.3  2003/06/16 08:02:44  dkrajzew
-// further work on Vissim-import
-//
-// Revision 1.2  2003/06/05 11:43:34  dkrajzew
-// class templates applied; documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <sstream>
 #include <iostream>
@@ -77,17 +46,17 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NBConnection::NBConnection(NBEdge *from, NBEdge *to)
-    : myFrom(from), myTo(to), myFromLane(-1), myToLane(-1)
+        : myFrom(from), myTo(to), myFromLane(-1), myToLane(-1)
 {
     myFromID = from->getID();
     myToID = to->getID();
@@ -96,15 +65,14 @@ NBConnection::NBConnection(NBEdge *from, NBEdge *to)
 
 NBConnection::NBConnection(const std::string &fromID, NBEdge *from,
                            const std::string &toID, NBEdge *to)
-    : myFrom(from), myTo(to), myFromID(fromID), myToID(toID),
-    myFromLane(-1), myToLane(-1)
-{
-}
+        : myFrom(from), myTo(to), myFromID(fromID), myToID(toID),
+        myFromLane(-1), myToLane(-1)
+{}
 
 
 NBConnection::NBConnection(NBEdge *from, int fromLane,
                            NBEdge *to, int toLane)
-    : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane)
+        : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane)
 {
     assert(myFromLane<0||from->getNoLanes()>(size_t) myFromLane);
     assert(myToLane<0||to->getNoLanes()>(size_t) myToLane);
@@ -114,16 +82,14 @@ NBConnection::NBConnection(NBEdge *from, int fromLane,
 
 
 NBConnection::~NBConnection()
-{
-}
+{}
 
 
 NBConnection::NBConnection(const NBConnection &c)
-    : myFrom(c.myFrom), myTo(c.myTo),
-    myFromID(c.myFromID), myToID(c.myToID),
-    myFromLane(c.myFromLane), myToLane(c.myToLane)
-{
-}
+        : myFrom(c.myFrom), myTo(c.myTo),
+        myFromID(c.myFromID), myToID(c.myToID),
+        myFromLane(c.myFromLane), myToLane(c.myToLane)
+{}
 
 
 NBEdge *
@@ -143,7 +109,7 @@ NBConnection::getTo() const
 bool
 NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
 {
-    if(myFrom==which) {
+    if (myFrom==which) {
         myFrom = by;
         myFromID = myFrom->getID();
         return true;
@@ -156,7 +122,7 @@ bool
 NBConnection::replaceFrom(NBEdge *which, int whichLane,
                           NBEdge *by, int byLane)
 {
-    if(myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
+    if (myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
         myFrom = by;
         myFromID = myFrom->getID();
         myFromLane = byLane;
@@ -169,7 +135,7 @@ NBConnection::replaceFrom(NBEdge *which, int whichLane,
 bool
 NBConnection::replaceTo(NBEdge *which, NBEdge *by)
 {
-    if(myTo==which) {
+    if (myTo==which) {
         myTo = by;
         myToID = myTo->getID();
         return true;
@@ -182,7 +148,7 @@ bool
 NBConnection::replaceTo(NBEdge *which, int whichLane,
                         NBEdge *by, int byLane)
 {
-    if(myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
+    if (myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
         myTo = by;
         myToID = myTo->getID();
         myToLane = byLane;
@@ -217,7 +183,7 @@ NBConnection::checkFrom(const NBEdgeCont &ec)
 {
     NBEdge *e = ec.retrieve(myFromID);
     // ok, the edge was not changed
-    if(e==myFrom) {
+    if (e==myFrom) {
         return myFrom;
     }
     // try to get the edge
@@ -230,7 +196,7 @@ NBConnection::checkTo(const NBEdgeCont &ec)
 {
     NBEdge *e = ec.retrieve(myToID);
     // ok, the edge was not changed
-    if(e==myTo) {
+    if (e==myTo) {
         return myTo;
     }
     // try to get the edge
@@ -261,10 +227,6 @@ NBConnection::getToLane() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,54 +1,40 @@
-#ifndef NBLoadedTLDef_h
-#define NBLoadedTLDef_h
-//---------------------------------------------------------------------------//
-//                        NBLoadedTLDef.h -
+/****************************************************************************/
+/// @file    NBLoadedTLDef.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:01:06  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/07/12 12:32:47  dkrajzew
-// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NBLoadedTLDef_h
+#define NBLoadedTLDef_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -58,12 +44,14 @@
 #include <utils/common/SUMOTime.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-class NBLoadedTLDef : public NBTrafficLightDefinition {
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class NBLoadedTLDef : public NBTrafficLightDefinition
+{
 public:
-    class SignalGroup : public Named {
+class SignalGroup : public Named
+    {
     public:
         SignalGroup(const std::string &id);
         ~SignalGroup();
@@ -85,27 +73,33 @@ public:
         void patchTYellow(SUMOTime tyellow);
 //        void patchFalseGreenPhases(SUMOReal duration);
         void remap(NBEdge *removed, int removedLane,
-            NBEdge *by, int byLane);
+                   NBEdge *by, int byLane);
 
         friend class phase_by_time_sorter;
 
     private:
-        class PhaseDef {
+        class PhaseDef
+        {
         public:
             PhaseDef(SUMOTime time, TLColor color)
-                : myTime(time), myColor(color) { }
+                    : myTime(time), myColor(color)
+            { }
             PhaseDef(const PhaseDef &p)
-                : myTime(p.myTime), myColor(p.myColor) { }
+                    : myTime(p.myTime), myColor(p.myColor)
+            { }
             SUMOTime myTime;
             TLColor myColor;
         };
 
-        class phase_by_time_sorter {
+        class phase_by_time_sorter
+        {
         public:
             /// constructor
-            explicit phase_by_time_sorter() { }
+            explicit phase_by_time_sorter()
+            { }
 
-            int operator() (const PhaseDef &p1, const PhaseDef &p2) {
+            int operator()(const PhaseDef &p1, const PhaseDef &p2)
+            {
                 return p1.myTime<p2.myTime;
             }
         };
@@ -117,7 +111,8 @@ public:
     };
 
     class Phase
-        : public Named {
+                : public Named
+    {
     public:
         Phase(const std::string &id, SUMOTime begin, SUMOTime end);
         ~Phase();
@@ -133,7 +128,7 @@ public:
 
     /// Constructor
     NBLoadedTLDef(const std::string &id,
-        const std::set<NBNode*> &junctions);
+                  const std::set<NBNode*> &junctions);
 
     /// Constructor
     NBLoadedTLDef(const std::string &id, NBNode *junction);
@@ -157,32 +152,32 @@ public:
     /** @brief Adds a signal to a signal group
         The signal is described by the connection it is placed at */
     bool addToSignalGroup(const std::string &groupid,
-        const NBConnection &connection);
+                          const NBConnection &connection);
 
     /** @brief Adds a list of signals to a signal group
         Each signal is described by the connection it is placed at */
     bool addToSignalGroup(const std::string &groupid,
-        const NBConnectionVector &connections);
+                          const NBConnectionVector &connections);
 
     /** @brief Sets the information about the begin of a phase
         Valid for loaded traffic lights only */
     void addSignalGroupPhaseBegin(const std::string &groupid,
-        SUMOTime time, TLColor color);
+                                  SUMOTime time, TLColor color);
 
     /// Sets the times the light is yellow or red/yellow
     void setSignalYellowTimes(const std::string &groupid,
-        SUMOTime tRedYellowe, SUMOTime tYellow);
+                              SUMOTime tRedYellowe, SUMOTime tYellow);
 
     void setTLControllingInformation(const NBEdgeCont &ec) const;
 
 public:
     void remapRemoved(NBEdge *removed,
-        const EdgeVector &incoming, const EdgeVector &outgoing);
+                      const EdgeVector &incoming, const EdgeVector &outgoing);
 
 protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
-        size_t breakingTime, std::string type, bool buildAll);
+                                         size_t breakingTime, std::string type, bool buildAll);
 
     /// Collects the nodes participating in this traffic light
     void collectNodes();
@@ -190,15 +185,16 @@ protected:
     void collectLinks();
 
     bool mustBrake(const NBEdgeCont &ec,
-        const NBConnection &possProhibited,
-        const std::bitset<64> &green, const std::bitset<64> &yellow,
-        size_t strmpos) const;
+                   const NBConnection &possProhibited,
+                   const std::bitset<64> &green, const std::bitset<64> &yellow,
+                   size_t strmpos) const;
 
     void replaceRemoved(NBEdge *removed, int removedLane,
-        NBEdge *by, int byLane);
+                        NBEdge *by, int byLane);
 
 private:
-    struct Masks {
+    struct Masks
+    {
         std::bitset<64> driveMask;
         std::bitset<64> brakeMask;
         std::bitset<64> yellowMask;
@@ -215,10 +211,8 @@ private:
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

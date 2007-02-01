@@ -1,96 +1,81 @@
-#ifndef NBLogicKeyBuilder_h
-#define NBLogicKeyBuilder_h
-//---------------------------------------------------------------------------//
-//                        NBLogicKeyBuilder.h -
-//  The builder of logic keys
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBLogicKeyBuilder.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The builder of logic keys
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.6  2006/07/06 06:48:00  dkrajzew
-// changed the retrieval of connections-API; some unneeded variables removed
-//
-// Revision 1.5  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.2  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NBLogicKeyBuilder_h
+#define NBLogicKeyBuilder_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <sstream>
 #include "NBContHelper.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBNode;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * NBLogicKeyBuilder
  * Builds the key that fits into all instances of the logic
  * !!! deprecated?
  */
-class NBLogicKeyBuilder {
+class NBLogicKeyBuilder
+{
 private:
     void appendEdgeDescription(std::ostringstream &to,
-        NBNode *junction, const EdgeVector * const edges,
-        EdgeVector::const_iterator &pos);
+                               NBNode *junction, const EdgeVector * const edges,
+                               EdgeVector::const_iterator &pos);
     void appendEdgesLaneDescriptions(std::ostringstream &to,
-        const EdgeVector * const edges, NBEdge *edge,
-        EdgeVector::const_iterator &pos);
+                                     const EdgeVector * const edges, NBEdge *edge,
+                                     EdgeVector::const_iterator &pos);
     void appendLaneConnectionDescriptions(std::ostringstream &to,
-        const EdgeVector * const edges, const EdgeLaneVector &connected,
-        EdgeVector::const_iterator &pos);
+                                          const EdgeVector * const edges, const EdgeLaneVector &connected,
+                                          EdgeVector::const_iterator &pos);
     void appendDetailedConnectionDescription(std::ostringstream &to,
-        const EdgeVector * const edges, const EdgeLane &edgelane,
-        EdgeVector::const_iterator &pos);
+            const EdgeVector * const edges, const EdgeLane &edgelane,
+            EdgeVector::const_iterator &pos);
 public:
     /** chars from 'a' to 'z' to get alphanumerical values instead of
         numerical only */
     static char convert[];
     std::string buildKey(NBNode *junction,
-        const EdgeVector * const edges);
+                         const EdgeVector * const edges);
     /// rotates the key by the given amount
     std::string rotateKey(std::string key, int norot);
     /// permutates the key
@@ -98,11 +83,7 @@ public:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

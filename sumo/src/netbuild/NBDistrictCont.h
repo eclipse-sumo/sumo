@@ -1,92 +1,62 @@
-#ifndef NBDistrictCont_h
-#define NBDistrictCont_h
-//---------------------------------------------------------------------------//
-//                        NBDistrictCont.h -
-//  A container for districts
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBDistrictCont.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A container for districts
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/23 06:01:05  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.8  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/04/27 11:48:25  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.6  2004/01/12 15:09:28  dkrajzew
-// some work on the documentation
-//
-// Revision 1.5  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-//  this handler puts it further to output instances.
-//  changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/03/20 16:23:08  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.3  2003/03/03 14:59:01  dkrajzew
-// debugging; handling of imported traffic light definitions
-//
-// Revision 1.2  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NBDistrictCont_h
+#define NBDistrictCont_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <map>
 #include <iostream>
 #include <string>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBDistrict;
 class NBEdge;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NBDistrictCont
  * A container of districts
  */
-class NBDistrictCont {
+class NBDistrictCont
+{
 public:
     NBDistrictCont();
     ~NBDistrictCont();
@@ -112,11 +82,11 @@ public:
 
     /// adds a source to the named district
     bool addSource(const std::string &dist, NBEdge *source,
-        SUMOReal weight);
+                   SUMOReal weight);
 
     /// adds a destination to the named district
     bool addSink(const std::string &dist, NBEdge *destination,
-        SUMOReal weight);
+                 SUMOReal weight);
 
     void removeFromSinksAndSources(NBEdge *e);
 
@@ -136,11 +106,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

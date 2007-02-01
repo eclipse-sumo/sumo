@@ -1,65 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        NBOwnTLDef.cpp -
+/****************************************************************************/
+/// @file    NBOwnTLDef.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/11/16 10:50:45  dkrajzew
-// warnings removed
-//
-// Revision 1.13  2006/11/14 13:03:11  dkrajzew
-// warnings removed
-//
-// Revision 1.12  2006/09/25 13:32:22  dkrajzew
-// patches for multi-junction - tls
-//
-// Revision 1.11  2006/07/06 06:48:00  dkrajzew
-// changed the retrieval of connections-API; some unneeded variables removed
-//
-// Revision 1.10  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/07/12 12:32:48  dkrajzew
-// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <cassert>
@@ -69,48 +42,40 @@ namespace
 #include "NBLinkCliqueContainer.h"
 #include "nodes/NBNode.h"
 #include "NBOwnTLDef.h"
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/ToString.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
                        const std::set<NBNode*> &junctions)
-    : NBTrafficLightDefinition(id, junctions)
-{
-}
+            : NBTrafficLightDefinition(id, junctions)
+{}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction)
-    : NBTrafficLightDefinition(id, junction)
-{
-}
+        : NBTrafficLightDefinition(id, junction)
+{}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
                        std::string type,
                        NBNode *junction)
-    : NBTrafficLightDefinition(id, type, junction)
-{
-}
+        : NBTrafficLightDefinition(id, type, junction)
+{}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id)
-    : NBTrafficLightDefinition(id)
-{
-}
+        : NBTrafficLightDefinition(id)
+{}
 
 
 NBOwnTLDef::~NBOwnTLDef()
-{
-}
+{}
 
 
 NBTrafficLightLogicVector *
@@ -125,25 +90,25 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
     NBTrafficLightLogicVector *logics1 =
         computeTrafficLightLogics(getID(), type,
-            joinLaneLinks, removeTurnArounds, removal,
-            appendSmallestOnly, skipLarger, breakingTime);
+                                  joinLaneLinks, removeTurnArounds, removal,
+                                  appendSmallestOnly, skipLarger, breakingTime);
 
-    if(buildAll) {
+    if (buildAll) {
         joinLaneLinks = false;
         removeTurnArounds = true;
         removal = LRT_NO_REMOVAL;
         NBTrafficLightLogicVector *logics2 =
             computeTrafficLightLogics(getID(), type,
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
+                                      joinLaneLinks, removeTurnArounds, removal,
+                                      appendSmallestOnly, skipLarger, breakingTime);
 
         joinLaneLinks = false;
         removeTurnArounds = true;
         removal = LRT_REMOVE_ALL_LEFT;
         NBTrafficLightLogicVector *logics3 =
             computeTrafficLightLogics(getID(), type,
-                joinLaneLinks, removeTurnArounds, removal,
-                appendSmallestOnly, skipLarger, breakingTime);
+                                      joinLaneLinks, removeTurnArounds, removal,
+                                      appendSmallestOnly, skipLarger, breakingTime);
 
         // join build logics
         logics1->add(*logics2);
@@ -169,14 +134,14 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
     // compute the matrix of possible links x links
     //  (links allowing each other the parallel execution)
     NBLinkPossibilityMatrix *v = getPossibilityMatrix(joinLaneLinks,
-        removeTurnArounds, removal);
+                                 removeTurnArounds, removal);
     // get the number of regarded links
     NBRequestEdgeLinkIterator cei1(this,
-        joinLaneLinks, removeTurnArounds, removal);
+                                   joinLaneLinks, removeTurnArounds, removal);
     size_t maxStromAnz = cei1.getNoValidLinks();
 
 #ifdef TL_DEBUG
-    if(maxStromAnz>=10) {
+    if (maxStromAnz>=10) {
         DEBUG_OUT << _junction->getID() << ":" << maxStromAnz << endl;
     }
 #endif
@@ -185,11 +150,11 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
     NBLinkCliqueContainer cliquen(v, maxStromAnz);
     // compute the phases
     NBTrafficLightPhases *phases = cliquen.computePhases(v,
-        maxStromAnz, appendSmallestOnly, skipLarger);
+                                   maxStromAnz, appendSmallestOnly, skipLarger);
     // compute the possible logics
     NBTrafficLightLogicVector *logics =
         phases->computeLogics(key, type, getSizes().second, cei1,
-        _links, breakingTime);
+                              _links, breakingTime);
     // clean everything
     delete v;
     delete phases;
@@ -204,17 +169,17 @@ NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
 {
     // go through all links
     NBRequestEdgeLinkIterator cei1(this, joinLaneLinks, removeTurnArounds,
-        removalType);
+                                   removalType);
     std::vector<std::bitset<64> > *ret =
         new std::vector<std::bitset<64> >(cei1.getNoValidLinks(),
-        std::bitset<64>());
+                                          std::bitset<64>());
     do {
         assert(ret!=0 && cei1.getLinkNumber()<ret->size());
         (*ret)[cei1.getLinkNumber()].set(cei1.getLinkNumber(), 1);
         NBRequestEdgeLinkIterator cei2(cei1);
-        if(cei2.pp()) {
+        if (cei2.pp()) {
             do {
-                if(cei1.forbids(cei2)||forbids(cei1.getFromEdge(), cei1.getToEdge(), cei2.getFromEdge(), cei2.getToEdge(), true)) {
+                if (cei1.forbids(cei2)||forbids(cei1.getFromEdge(), cei1.getToEdge(), cei2.getFromEdge(), cei2.getToEdge(), true)) {
                     assert(ret!=0 && cei1.getLinkNumber()<ret->size());
                     assert(ret!=0 && cei2.getLinkNumber()<ret->size());
                     (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 0);
@@ -223,36 +188,32 @@ NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
                     (*ret)[cei1.getLinkNumber()].set(cei2.getLinkNumber(), 1);
                     (*ret)[cei2.getLinkNumber()].set(cei1.getLinkNumber(), 1);
                 }
-            } while(cei2.pp());
+            } while (cei2.pp());
         }
-    } while(cei1.pp());
+    } while (cei1.pp());
     return ret;
 }
 
 
 void
 NBOwnTLDef::collectNodes()
-{
-}
+{}
 
 
 void
 NBOwnTLDef::collectLinks()
 {
     // build the list of links which are controled by the traffic light
-    for(EdgeVector::iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
+    for (EdgeVector::iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
-        for(size_t j=0; j<noLanes; j++) {
+        for (size_t j=0; j<noLanes; j++) {
             const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
+            for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
-                if(el.edge!=0) {
-                    if(el.lane>=el.edge->getNoLanes()) {
-                        MsgHandler::getErrorInstance()->inform("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
-                        throw ProcessError();
-                    }
-                    _links.push_back(NBConnection(incoming, j, el.edge, el.lane));
+                if (el.edge!=0) {
+                    _links.push_back(
+                        NBConnection(incoming, j, el.edge, el.lane));
                 }
             }
         }
@@ -276,7 +237,7 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     size_t pos = 0;
-    for(NBConnectionVector::const_iterator j=_links.begin(); j!=_links.end(); j++) {
+    for (NBConnectionVector::const_iterator j=_links.begin(); j!=_links.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
         edge->setControllingTLInformation(
@@ -289,19 +250,15 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
 void
 NBOwnTLDef::remapRemoved(NBEdge * /*removed*/, const EdgeVector &/*incoming*/,
                          const EdgeVector &/*outgoing*/)
-{
-}
+{}
 
 
 void
 NBOwnTLDef::replaceRemoved(NBEdge * /*removed*/, int /*removedLane*/,
                            NBEdge * /*by*/, int /*byLane*/)
-{
-}
+{}
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,87 +1,40 @@
-#ifndef NBTrafficLightLogic_h
-#define NBTrafficLightLogic_h
-//---------------------------------------------------------------------------//
-//                        NBTrafficLightLogic.h -
-//  A single traffic light logic (a possible variant)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    NBTrafficLightLogic.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A single traffic light logic (a possible variant)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.16  2005/10/07 11:38:18  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.15  2005/09/23 06:01:06  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.14  2005/09/15 12:02:45  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.13  2005/04/27 11:48:26  dkrajzew
-// level3 warnings removed; made containers non-static
-//
-// Revision 1.12  2004/04/23 12:41:02  dkrajzew
-// some further work on vissim-import
-//
-// Revision 1.11  2003/12/04 13:03:58  dkrajzew
-// possibility to pass the tl-type from the netgenerator added
-//
-// Revision 1.10  2003/11/17 07:26:02  dkrajzew
-// computations needed for collecting e2-values over multiple lanes added
-//
-// Revision 1.9  2003/09/25 09:02:51  dkrajzew
-// multiple lane in tl-logic - bug patched
-//
-// Revision 1.8  2003/06/05 11:43:36  dkrajzew
-// class templates applied; documentation added
-//
-// Revision 1.7  2003/05/21 15:18:19  dkrajzew
-// yellow traffic lights implemented
-//
-// Revision 1.6  2003/04/07 12:15:45  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again,
-//  traffic lights have yellow times given explicitely, now
-//
-// Revision 1.5  2003/04/01 15:15:23  dkrajzew
-// some documentation added
-//
-// Revision 1.4  2003/03/20 16:23:10  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.3  2003/03/03 14:59:21  dkrajzew
-// debugging; handling of imported traffic light definitions
-//
-// Revision 1.2  2003/02/07 10:43:44  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef NBTrafficLightLogic_h
+#define NBTrafficLightLogic_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -92,15 +45,16 @@
 #include "NBConnectionDefs.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NBTrafficLightLogic
  * A completely build logic for a traffic light; Held until being saved
  * at the end of a networks's building
  */
-class NBTrafficLightLogic {
+class NBTrafficLightLogic
+{
 public:
     /// Constructor
     NBTrafficLightLogic(const std::string &key, size_t noLinks);
@@ -115,11 +69,11 @@ public:
         This is done during the building, the new phase is inserted at the end of
         the list of already added phases */
     void addStep(size_t duration, std::bitset<64> driveMask,
-        std::bitset<64> brakeMask, std::bitset<64> yellowMask);
+                 std::bitset<64> brakeMask, std::bitset<64> yellowMask);
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
     void writeXML(std::ostream &into, size_t no, SUMOReal distance,
-        std::string type, const std::set<std::string> &inLanes) const;
+                  std::string type, const std::set<std::string> &inLanes) const;
     // !!! the key should be given here, too, instead of storing it
 
     /// Debug method showing the phases
@@ -150,7 +104,8 @@ private:
      * @class PhaseDefinition
      * The definition of a single phase of the logic
      */
-    class PhaseDefinition {
+    class PhaseDefinition
+    {
     public:
         /// The duration of the phase in s
         size_t              duration;
@@ -165,19 +120,22 @@ private:
 
         /// Constructor
         PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
-            std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg)
-            : duration(durationArg), driveMask(driveMaskArg),
-            brakeMask(brakeMaskArg), yellowMask(yellowMaskArg) { }
+                        std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg)
+                : duration(durationArg), driveMask(driveMaskArg),
+                brakeMask(brakeMaskArg), yellowMask(yellowMaskArg)
+        { }
 
         /// Destructor
-        ~PhaseDefinition() { }
+        ~PhaseDefinition()
+        { }
 
         /// Comparison operator
-        bool operator!=(const PhaseDefinition &pd) const {
+        bool operator!=(const PhaseDefinition &pd) const
+        {
             return pd.duration != duration ||
-                pd.driveMask != driveMask ||
-                pd.brakeMask != brakeMask ||
-				pd.yellowMask != yellowMask;
+                   pd.driveMask != driveMask ||
+                   pd.brakeMask != brakeMask ||
+                   pd.yellowMask != yellowMask;
         }
 
     };
@@ -191,12 +149,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#endif
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
