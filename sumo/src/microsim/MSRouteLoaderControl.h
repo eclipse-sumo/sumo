@@ -1,70 +1,55 @@
+/****************************************************************************/
+/// @file    MSRouteLoaderControl.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 06 Nov 2002
+/// @version $Id: $
+///
+// Class responsible for loading of routes from some files
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef MSRouteLoaderControl_h
 #define MSRouteLoaderControl_h
-/***************************************************************************
-                          MSRouteLoaderControl.h
-    Class responsible for loading of routes from some files
-                             -------------------
-    begin                : Wed, 06 Nov 2002
-    copyright            : (C) 2001 by IVF/DLR (http://ivf.dlr.de)
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.5  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/05/04 08:32:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2005/02/01 10:10:42  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.1  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include "MSVehicleContainer.h"
 #include "MSNet.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSRouteLoader;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * MSRouteLoaderControl
  * This controls is initialised with the list of route loaders and uses them
@@ -72,7 +57,8 @@ class MSRouteLoader;
  * The parameter myInAdvanceStepNo holds the number of time steps to read the
  * routes in forward. If it is 0 (default), all routes will be read at once.
  */
-class MSRouteLoaderControl {
+class MSRouteLoaderControl
+{
 public:
     /// definition of the loader vector
     typedef std::vector<MSRouteLoader*> LoaderVector;
@@ -80,7 +66,7 @@ public:
 public:
     /// constructor
     MSRouteLoaderControl(MSNet &net, int inAdvanceStepNo,
-        LoaderVector loader);
+                         LoaderVector loader);
 
     /// destructor
     ~MSRouteLoaderControl();
@@ -106,11 +92,8 @@ public:
     bool myLoadAll, myAllLoaded;
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

@@ -1,50 +1,48 @@
-#ifndef MSBuildCells_h
-#define MSBuildCells_h
-//---------------------------------------------------------------------------//
-//                        MSBuildCells.h -
-//  A class set each Lane to the network's cells
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Jul 2006
-//  copyright            : (C) 2006 by Danilo Boyom
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSBuildCells.h
+/// @author  unknown_author
+/// @date    Jul 2006
+/// @version $Id: $
+///
+// A class set each Lane to the network's cells
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log: MSBuildCells.h,v
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSBuildCells_h
+#define MSBuildCells_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <utils/geom/Boundary.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 
 class GUINet;
 class MSCell;
@@ -57,13 +55,14 @@ class MSEdgeControl;
 class MSNet;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSBuildCells
  */
-class MSBuildCells {
+class MSBuildCells
+{
 public:
     /// Constructor
     MSBuildCells(MSNet &net, Boundary boundary);
@@ -75,15 +74,15 @@ public:
     /// Builds the network cells
     void build();
 
-	/// return the Cells Container
-	std::vector<MSCell*>& getCellsCont(void);
+    /// return the Cells Container
+    std::vector<MSCell*>& getCellsCont(void);
 
 private:
 
     /// The network the grid is assigned to
     MSNet &myNet;
 
-	/// The networks boundary
+    /// The networks boundary
     Boundary _boundary;
 
     /// Definition of a MSCell container
@@ -95,15 +94,15 @@ private:
     /// The Number of Cells in x- and y-Direction
     size_t _xsize, _ysize;
 
-	/// The sizes of each cell
+    /// The sizes of each cell
     SUMOReal _xcellsize, _ycellsize;
 
 
     /// Computes the boundary of the network
     //Boundary computeBoundary();
 
-	/// creates size's amount of new Cells
-	void createCells(size_t size);
+    /// creates size's amount of new Cells
+    void createCells(size_t size);
 
     /// Divides the artifacts onto the grid (builds the grid)
     void divideOnGrid();
@@ -114,24 +113,20 @@ private:
     /// Computes the information which cells do contain the given lane and stores it
     void computeLaneCells(size_t index, const Position2DVector &lane, MSEdge *edge);
 
-	/// set the Neighbours of all cells
-	void setCellsNeighbors(void);
+    /// set the Neighbours of all cells
+    void setCellsNeighbors(void);
 
-	/// algorithn to determine if two Cells are neighboring
-	// bool isNeighbor(size_t i, size_t j);
-	/// get all the neighbors from the cell with the index i
-	std::vector<MSCell*> getNeighbors(size_t i);
+    /// algorithn to determine if two Cells are neighboring
+    // bool isNeighbor(size_t i, size_t j);
+    /// get all the neighbors from the cell with the index i
+    std::vector<MSCell*> getNeighbors(size_t i);
 
-	void closeBuilding();
+    void closeBuilding();
 
 };
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

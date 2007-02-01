@@ -1,46 +1,40 @@
-#ifndef MSInternalJunction_H
-#define MSInternalJunction_H
-/***************************************************************************
-                          MSInternalJunction.h  -  Usual right-of-way
-                          junction.
-                             -------------------
-    begin                : Wed, 12 Dez 2001
-    copyright            : (C) 2001 by Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-// $Log$
-// Revision 1.2  2006/10/06 07:13:40  dkrajzew
-// debugging internal lanes
+/****************************************************************************/
+/// @file    MSInternalJunction.h
+/// @author  Christian Roessel
+/// @date    Wed, 12 Dez 2001
+/// @version $Id: $
+///
+// junction.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.1  2006/09/18 10:06:29  dkrajzew
-// patching junction-internal state simulation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSInternalJunction_h
+#define MSInternalJunction_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSLogicJunction.h"
 #include <bitset>
@@ -48,17 +42,17 @@
 #include <string>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class MSJunctionLogic;
 class findCompetitor;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSInternalJunction
  * A class which realises junctions that do regard any kind of a right-of-way.
@@ -70,9 +64,9 @@ class MSInternalJunction : public MSLogicJunction
 {
 public:
     /** Use this constructor only. */
-    MSInternalJunction( std::string id, const Position2D &position,
-        LaneCont incoming,
-        LaneCont internal);
+    MSInternalJunction(std::string id, const Position2D &position,
+                       LaneCont incoming,
+                       LaneCont internal);
 
     /// Destructor.
     virtual ~MSInternalJunction();
@@ -87,19 +81,16 @@ public:
 
 private:
     /// Invalidated copy constructor.
-    MSInternalJunction( const MSInternalJunction& );
+    MSInternalJunction(const MSInternalJunction&);
 
     /// Invalidated assignment operator.
-    MSInternalJunction& operator=( const MSInternalJunction& );
+    MSInternalJunction& operator=(const MSInternalJunction&);
 
 };
-#endif
 
-
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
+#endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

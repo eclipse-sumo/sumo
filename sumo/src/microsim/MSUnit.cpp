@@ -1,37 +1,31 @@
-/**
- * @file   MSUnit.cpp
- * @author Christian Roessel
- * @date   Thu Aug  7 15:06:18 2003
- * @version $Id$
- * @brief
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSUnit.cpp
+/// @author  Christian Roessel
+/// @date    unknown_date
+/// @version $Id: $
+///
+// * @author Christian Roessel
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
+/****************************************************************************/
 
-// $Id$
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSUnit.h"
 
@@ -44,6 +38,7 @@ MSUnit* MSUnit::instanceM = 0;
 const SUMOReal oneKM = 1000.0;
 const SUMOReal oneHour = 3600.0;
 
-// Local Variables:
-// mode:C++
-// End:
+
+
+/****************************************************************************/
+

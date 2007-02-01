@@ -1,173 +1,38 @@
-/***************************************************************************
-                          MSEventControl.cpp  -  Coordinates
-                          time-dependant events
-                             -------------------
-    begin                : Mon, 12 Mar 2001
-    copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
-    author               : Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-
-// $Log$
-// Revision 1.19  2006/05/29 12:57:13  dkrajzew
-// debugged tls-state output
+/****************************************************************************/
+/// @file    MSEventControl.cpp
+/// @author  Christian Roessel
+/// @date    Mon, 12 Mar 2001
+/// @version $Id: $
+///
+// time-dependant events
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.18  2006/04/18 08:05:44  dkrajzew
-// beautifying: output consolidation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.17  2006/03/17 08:59:18  dkrajzew
-// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
-//
-// Revision 1.16  2005/10/17 08:58:24  dkrajzew
-// trigger rework#1
-//
-// Revision 1.15  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.14  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.13  2005/05/04 08:25:29  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.12  2005/02/01 10:10:40  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.11  2003/09/05 15:09:16  dkrajzew
-// changed the return value of the event adding method for a better
-//  handling of the events by the setters
-//
-// Revision 1.10  2003/08/06 16:49:40  roessel
-// Better distinction between steps and seconds added.
-//
-// Revision 1.9  2003/07/31 10:49:57  dkrajzew
-// missing deletion added
-//
-// Revision 1.8  2003/06/24 14:49:27  dkrajzew
-// error made during debugging (accessing an ungiven function) removed
-//
-// Revision 1.7  2003/06/24 14:31:01  dkrajzew
-// accessing an empty priority queue-bug removed
-//
-// Revision 1.6  2003/06/04 16:16:23  roessel
-// MSEventControl has now two MSEventControl* (instead of one),
-//  myBeginOfTimestepEvents and myEndOfTimestepEvents.
-//  Added the static accss-methods getBeginOfTimestepEvents() and
-//  getEndOfTimestepEvents().
-//
-// Revision 1.5  2003/05/27 18:50:00  roessel
-// Made MSEventControl a singleton class.
-// Moved EventSortCrit::operator() into header-file.
-//
-// Revision 1.4  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-// Revision 1.3  2002/10/17 10:42:13  dkrajzew
-// usage of adaption type for mismatched times reimplemented
-//
-// Revision 1.2  2002/10/16 16:39:02  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for
-// container; global file include
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.2  2002/07/31 17:33:00  roessel
-// Changes since sourceforge cvs request.
-//
-// Revision 1.4  2002/07/30 15:20:20  croessel
-// Made previous changes compilable.
-//
-// Revision 1.3  2002/07/26 11:44:29  dkrajzew
-// Adaptation of past event execution time implemented
-//
-// Revision 1.2  2002/07/26 11:05:12  dkrajzew
-// sort criterium debugged; addEvent now returns a bool; problems with
-// parallel insertion of items with the execute-method debugged
-//
-// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
-// new project name
-//
-// Revision 2.0  2002/02/14 14:43:14  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.10  2002/02/05 13:51:51  croessel
-// GPL-Notice included.
-// In *.cpp files also config.h included.
-//
-// Revision 1.9  2002/01/30 11:19:24  croessel
-// execute(): Return value of event->execute() is interpreted as
-// time-offset instead of absolute time.
-//
-// Revision 1.8  2002/01/17 15:34:57  croessel
-// execute() distinguishes now between recurring and nonrecurring
-// events. The former will be reinserted with a new execution-time, the
-// latter ones will be destroyed.
-//
-// Revision 1.7  2002/01/17 15:22:31  croessel
-// Removed superfluous include.
-//
-// Revision 1.6  2002/01/17 15:21:03  croessel
-// Changed the return-type for event-execution to MSNet::Time
-//
-// Revision 1.5  2002/01/10 11:52:43  croessel
-// Method addEvent() added and implemented. execute() implemented.
-//
-// Revision 1.4  2001/12/19 17:04:17  croessel
-// Default-ctor, copy-ctor and assignment-operator removed.
-//
-// Revision 1.3  2001/11/15 17:12:13  croessel
-// Outcommented the inclusion of the inline *.iC files. Currently not
-// needed.
-//
-// Revision 1.2  2001/11/14 15:47:33  croessel
-// Merged the diffs between the .C and .cpp versions. Numerous changes
-// in MSLane, MSVehicle and MSJunction.
-//
-// Revision 1.1  2001/10/24 07:10:05  traffic
-// new extension
-//
-// Revision 1.3  2001/07/25 12:17:02  traffic
-// CC problems with make_pair repaired
-//
-// Revision 1.2  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer
-// dictionaries and dictionary methods.
-//
-// Revision 1.1.1.1  2001/07/11 15:51:13  traffic
-// new start
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include "MSEventControl.h"
@@ -180,28 +45,27 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * member definitions
- * ======================================================================= */
+// ===========================================================================
+// member definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * methods from MSEventControl
  * ----------------------------------------------------------------------- */
-MSEventControl::MSEventControl( ) :
-    myEvents()
-{
-}
+MSEventControl::MSEventControl() :
+        myEvents()
+{}
 
 
 MSEventControl::~MSEventControl()
 {
     // Empty the event-container and delete the commands.
-    while ( ! myEvents.empty() ) {
+    while (! myEvents.empty()) {
         Event e = myEvents.top();
         delete e.first;
         myEvents.pop();
@@ -210,16 +74,16 @@ MSEventControl::~MSEventControl()
 
 
 SUMOTime
-MSEventControl::addEvent( Command* operation,
-                          SUMOTime execTimeStep,
-                          AdaptType type )
+MSEventControl::addEvent(Command* operation,
+                         SUMOTime execTimeStep,
+                         AdaptType type)
 {
     SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
-    if ( type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep ) {
+    if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
         execTimeStep = currTimeStep;
     }
-    Event newEvent = Event( operation, execTimeStep );
-    myEvents.push( newEvent );
+    Event newEvent = Event(operation, execTimeStep);
+    myEvents.push(newEvent);
     return execTimeStep;
 }
 
@@ -232,7 +96,7 @@ MSEventControl::execute(SUMOTime execTime)
 
         Event currEvent = myEvents.top();
 
-        if ( currEvent.second == execTime ) {
+        if (currEvent.second == execTime) {
 
             Command *command = currEvent.first;
             myEvents.pop();
@@ -240,16 +104,15 @@ MSEventControl::execute(SUMOTime execTime)
 
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.
-            if ( time == 0 ) {
+            if (time == 0) {
                 delete currEvent.first;
             } else {
-                assert( time > 0 );
+                assert(time > 0);
                 currEvent.second = execTime + time;
-                myEvents.push( currEvent );
+                myEvents.push(currEvent);
             }
-        }
-        else {
-            if ( currEvent.second < execTime ) {
+        } else {
+            if (currEvent.second < execTime) {
                 // !!! more verbose information
                 WRITE_WARNING("Could not execute scheduled event.");
                 delete currEvent.first;
@@ -262,8 +125,6 @@ MSEventControl::execute(SUMOTime execTime)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

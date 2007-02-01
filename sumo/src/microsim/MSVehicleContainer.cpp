@@ -1,84 +1,38 @@
-/***************************************************************************
-                          MSVehicleContainer.cpp  -  A fast container for
-                          vehicles sorted by their departures
-                             -------------------
-    begin                : Mon, 12 Mar 2001
-    copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
-    author               : Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-
-// $Log$
-// Revision 1.13  2007/01/11 06:33:54  dkrajzew
-// speeded up c2c computation
+/****************************************************************************/
+/// @file    MSVehicleContainer.cpp
+/// @author  Christian Roessel
+/// @date    Mon, 12 Mar 2001
+/// @version $Id: $
+///
+// vehicles sorted by their departures
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.12  2006/12/01 09:17:32  dkrajzew
-// patching a tiny fault (using and checking an int where an unsigned should be used)
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.11  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2005/05/04 08:35:40  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.8  2005/02/01 10:10:42  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.7  2003/08/04 11:40:21  dkrajzew
-// false inclusion hierarchy patched; missing inclusions added
-//
-// Revision 1.6  2003/07/22 15:07:40  dkrajzew
-// warnings removed
-//
-// Revision 1.5  2003/07/18 12:35:04  dkrajzew
-// removed some warnings
-//
-// Revision 1.4  2003/06/18 11:31:49  dkrajzew
-// some functions commented out or unneeded debug outputs removed
-//
-// Revision 1.3  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok);
-//  detector output debugged; setting and retrieval of some parameter added
-//
-// Revision 1.2  2003/03/20 16:21:13  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.1  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <algorithm>
 #include <cassert>
@@ -90,21 +44,21 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 /* -------------------------------------------------------------------------
  * methods from MSEmitControl::VehicleDepartureVectorSortCrit
  * ----------------------------------------------------------------------- */
 bool
 MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
-    ( const VehicleDepartureVector& e1, const VehicleDepartureVector& e2 ) const
+(const VehicleDepartureVector& e1, const VehicleDepartureVector& e2) const
 {
     return e1.first < e2.first;
 }
@@ -115,14 +69,13 @@ MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
  * methods from MSVehicleContainer::DepartFinder
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::DepartFinder::DepartFinder(SUMOTime time)
-    : myTime(time)
-{
-}
+        : myTime(time)
+{}
 
 
 bool
 MSVehicleContainer::DepartFinder::operator()
-    ( const VehicleDepartureVector& e ) const
+(const VehicleDepartureVector& e) const
 {
     return myTime == e.first;
 }
@@ -133,9 +86,8 @@ MSVehicleContainer::DepartFinder::operator()
  * methods from MSVehicleContainer
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::MSVehicleContainer(size_t capacity)
-    : currentSize(0), array( capacity + 1, VehicleDepartureVector() )
-{
-}
+        : currentSize(0), array(capacity + 1, VehicleDepartureVector())
+{}
 
 
 MSVehicleContainer::~MSVehicleContainer()
@@ -145,13 +97,13 @@ MSVehicleContainer::~MSVehicleContainer()
 
 
 void
-MSVehicleContainer::add( MSVehicle *veh )
+MSVehicleContainer::add(MSVehicle *veh)
 {
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
         find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(veh->desiredDepart()));
-    if(currentSize==0 || i==array.begin()+currentSize+1) {
+    if (currentSize==0 || i==array.begin()+currentSize+1) {
         // a new heap-item is necessary
         VehicleDepartureVector newElem(veh->desiredDepart(), VehicleVector());
         newElem.second.push_back(veh);
@@ -164,13 +116,13 @@ MSVehicleContainer::add( MSVehicle *veh )
 
 
 void
-MSVehicleContainer::moveFrom( MSVehicleContainer &cont )
+MSVehicleContainer::moveFrom(MSVehicleContainer &cont)
 {
-    if(cont.size()==0) {
+    if (cont.size()==0) {
         return;
     }
-    for( VehicleHeap::iterator i=cont.array.begin()+1;
-         i!=cont.array.begin()+cont.currentSize+1; i++) {
+    for (VehicleHeap::iterator i=cont.array.begin()+1;
+            i!=cont.array.begin()+cont.currentSize+1; i++) {
         VehicleDepartureVector &v = (*i);
         add(v.first, v.second);
         v.second.clear();
@@ -180,14 +132,14 @@ MSVehicleContainer::moveFrom( MSVehicleContainer &cont )
 
 
 void
-MSVehicleContainer::add( SUMOTime time, const VehicleVector &cont )
+MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont)
 {
     VehicleHeap::iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
-            DepartFinder(time));
-    if(currentSize==0 || j==array.begin()+currentSize+1) {
+                DepartFinder(time));
+    if (currentSize==0 || j==array.begin()+currentSize+1) {
         VehicleDepartureVector newElem(time,
-            VehicleVector(cont));
+                                       VehicleVector(cont));
         addReplacing(newElem);
     } else {
         VehicleVector &stored = (*j).second;
@@ -199,11 +151,11 @@ MSVehicleContainer::add( SUMOTime time, const VehicleVector &cont )
 
 
 void
-MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
+MSVehicleContainer::addReplacing(const VehicleDepartureVector & x)
 {
-    if( isFull( ) ) {
+    if (isFull()) {
         std::vector<VehicleDepartureVector> array2((array.size()-1)*2+1, VehicleDepartureVector());
-        for(size_t i=array.size(); i-->0; ) {
+        for (size_t i=array.size(); i-->0;) {
             assert(array2.size()>i);
             array2[i] = array[i];
         }
@@ -212,7 +164,7 @@ MSVehicleContainer::addReplacing( const VehicleDepartureVector & x )
 
     // Percolate up
     int hole = ++currentSize;
-    for( ; hole > 1 && (x.first < array[ hole / 2 ].first); hole /= 2 ) {
+    for (; hole > 1 && (x.first < array[ hole / 2 ].first); hole /= 2) {
         assert(array.size()>(size_t) hole);
         array[ hole ] = array[ hole / 2 ];
     }
@@ -233,7 +185,7 @@ MSVehicleContainer::anyWaitingFor(SUMOTime time) const
 const MSVehicleContainer::VehicleVector &
 MSVehicleContainer::top()
 {
-    if( isEmpty( ) )
+    if (isEmpty())
         throw 1;//!!!Underflow( );
     assert(array.size()>1);
     return array[ 1 ].second;
@@ -243,7 +195,7 @@ MSVehicleContainer::top()
 SUMOTime
 MSVehicleContainer::topTime() const
 {
-    if( isEmpty( ) )
+    if (isEmpty())
         throw 1;//!!!Underflow( );
     assert(array.size()>1);
     return array[ 1 ].first;
@@ -254,46 +206,44 @@ void
 MSVehicleContainer::pop()
 
 {
-    if( isEmpty( ) )
+    if (isEmpty())
         throw 1;//!!!Underflow( );
 
     assert(array.size()>1);
     array[ 1 ] = array[ currentSize-- ];
-    percolateDown( 1 );
+    percolateDown(1);
 }
 
 
 bool
-MSVehicleContainer::isEmpty( ) const
+MSVehicleContainer::isEmpty() const
 {
     return currentSize == 0;
 }
 
 
 bool
-MSVehicleContainer::isFull( ) const
+MSVehicleContainer::isFull() const
 {
-    return currentSize >= ((int) array.size( )) - 1;
+    return currentSize >= ((int) array.size()) - 1;
 }
 
 
 void
-MSVehicleContainer::percolateDown( int hole )
+MSVehicleContainer::percolateDown(int hole)
 {
     int child;
     assert(array.size()>(size_t)hole);
     VehicleDepartureVector tmp = array[ hole ];
 
-    for( ; hole * 2 <= currentSize; hole = child )
-    {
+    for (; hole * 2 <= currentSize; hole = child) {
         child = hole * 2;
-        if( child != currentSize && (array[ child + 1 ].first < array[ child ].first) )
+        if (child != currentSize && (array[ child + 1 ].first < array[ child ].first))
             child++;
-        if((array[ child ].first < tmp.first) ) {
+        if ((array[ child ].first < tmp.first)) {
             assert(array.size()>(size_t) hole);
             array[ hole ] = array[ child ];
-        }
-        else
+        } else
             break;
     }
     assert(array.size()>(size_t) hole);
@@ -309,10 +259,10 @@ MSVehicleContainer::size() const
 
 
 void
-MSVehicleContainer::showArray( ) const
+MSVehicleContainer::showArray() const
 {
-    for(VehicleHeap::const_iterator i=array.begin()+1; i!=array.begin()+currentSize+1; i++) {
-        if(i!=array.begin()+1) {
+    for (VehicleHeap::const_iterator i=array.begin()+1; i!=array.begin()+currentSize+1; i++) {
+        if (i!=array.begin()+1) {
             cout << ", ";
         }
         cout << (*i).first;
@@ -324,12 +274,17 @@ MSVehicleContainer::showArray( ) const
 std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont)
 {
     strm << "------------------------------------" << std::endl;
-    while(!cont.isEmpty()) {
+    while (!cont.isEmpty()) {
         const MSVehicleContainer::VehicleVector &v = cont.top();
-        for(MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
+        for (MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
             strm << (*i)->desiredDepart() << std::endl;
         }
         cont.pop();
     }
     return strm;
 }
+
+
+
+/****************************************************************************/
+

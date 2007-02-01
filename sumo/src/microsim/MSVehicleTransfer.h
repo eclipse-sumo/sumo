@@ -1,84 +1,56 @@
+/****************************************************************************/
+/// @file    MSVehicleTransfer.h
+/// @author  Daniel Krajzewicz
+/// @date    Sep 2003
+/// @version $Id: $
+///
+// A mover of vehicles that got stucked due to grid locks
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef MSVehicleTransfer_h
 #define MSVehicleTransfer_h
-/***************************************************************************
-                          MSVehicleTransfer.h  -
-    A mover of vehicles that got stucked due to grid locks
-                             -------------------
-    begin                : Sep 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.11  2006/11/14 13:02:28  dkrajzew
-// warnings removed
-//
-// Revision 1.10  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:35:40  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2005/02/01 10:10:42  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.6  2004/07/02 09:56:40  dkrajzew
-// debugging while implementing the vss visualisation
-//
-// Revision 1.5  2003/12/12 12:37:42  dkrajzew
-// proper usage of lane states applied; scheduling of vehicles into the
-//  beamer on push failures added
-//
-// Revision 1.4  2003/12/11 06:31:45  dkrajzew
-// implemented MSVehicleControl as the instance responsible for vehicles
-//
-// Revision 1.3  2003/11/20 14:58:21  dkrajzew
-// comments added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
 #include "MSNet.h"
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class MSVehicle;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSVehicleTransfer
  * This object (each simulation owns exactly one) is responsible for the
@@ -118,7 +90,8 @@ private:
      * @struct VehicleInformation
      * Holds the information needed to move the vehicle over the network
      */
-    struct VehicleInformation {
+    struct VehicleInformation
+    {
         /// The vehicle itself
         MSVehicle *myVeh;
 
@@ -130,7 +103,7 @@ private:
 
         /// Constructor
         VehicleInformation(MSVehicle *veh, SUMOTime insertTime)
-            : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)
+                : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)
         { }
 
     };
@@ -149,10 +122,8 @@ private:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

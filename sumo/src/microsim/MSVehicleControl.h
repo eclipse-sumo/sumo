@@ -1,77 +1,40 @@
+/****************************************************************************/
+/// @file    MSVehicleControl.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 10. Dec 2003
+/// @version $Id: $
+///
+// The class responsible for building and deletion of vehicles
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef MSVehicleControl_h
 #define MSVehicleControl_h
-/***************************************************************************
-                          MSVehicleControl.h  -
-    The class responsible for building and deletion of vehicles
-                             -------------------
-    begin                : Wed, 10. Dec 2003
-    copyright            : (C) 2002 by DLR http://ivf.dlr.de
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.12  2006/09/18 10:08:47  dkrajzew
-// debugging
-//
-// Revision 1.11  2006/07/06 06:06:30  dkrajzew
-// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
-//
-// Revision 1.10  2005/12/01 07:37:35  dkrajzew
-// introducing bus stops: eased building vehicles; vehicles may now have nested elements
-//
-// Revision 1.9  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:35:40  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2005/02/01 10:10:42  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.4  2004/11/23 10:20:11  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.3  2004/07/02 09:56:40  dkrajzew
-// debugging while implementing the vss visualisation
-//
-// Revision 1.2  2004/04/02 11:36:28  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output
-//  (emission-stats and single vehicle trip-infos)
-//
-// Revision 1.1  2003/12/11 06:31:45  dkrajzew
-// implemented MSVehicleControl as the instance responsible for vehicles
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -79,18 +42,18 @@
 #include <utils/gfx/RGBColor.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
 class BinaryInputDevice;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSVehicleControl
  * This class is responsible for vehicle building and deletion. It was
@@ -98,7 +61,8 @@ class BinaryInputDevice;
  *  modalities within the pure microsim and the gui version.
  * Use this class for the pure microsim and GUIVehicleControl within the gui.
  */
-class MSVehicleControl {
+class MSVehicleControl
+{
 public:
     /// Constructor
     MSVehicleControl();
@@ -108,8 +72,8 @@ public:
 
     /// Builds a vehicle
     virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        SUMOTime departTime, const MSVehicleType* type,
-        int repNo, int repOffset);
+                                    SUMOTime departTime, const MSVehicleType* type,
+                                    int repNo, int repOffset);
 
     /// Removes the vehicle
     void scheduleVehicleRemoval(MSVehicle *v);
@@ -198,10 +162,8 @@ protected:
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,71 +1,67 @@
-#ifndef MSWeightsHandler_h
-#define MSWeightsHandler_h
-//---------------------------------------------------------------------------//
-//                        MSWeightsHandler.h -
-//  A SAX-handler for loading SUMO-weights (aggregated dumps)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSWeightsHandler.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A SAX-handler for loading SUMO-weights (aggregated dumps)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.1  2006/11/14 06:44:51  dkrajzew
-// first steps towards car2car-based rerouting
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSWeightsHandler_h
+#define MSWeightsHandler_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OptionsCont;
 class RONet;
 class ROEdge;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSWeightsHandler
  * A XML-handler for network weights a simulation generates and saves using
  * the aggregated-output.
  */
-class MSWeightsHandler : public SUMOSAXHandler {
+class MSWeightsHandler : public SUMOSAXHandler
+{
 public:
     /// Constructor
     MSWeightsHandler(const OptionsCont &oc, MSNet &net,
-        const std::string &file, bool useLanes);
+                     const std::string &file, bool useLanes);
 
     /// Destructor
     ~MSWeightsHandler();
@@ -73,11 +69,11 @@ public:
 protected:
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
+                        const Attributes &attrs);
 
     /** the user-implemented handler method for characters */
     void myCharacters(int element, const std::string &name,
-        const std::string &chars);
+                      const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
@@ -130,11 +126,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

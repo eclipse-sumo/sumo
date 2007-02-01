@@ -1,104 +1,38 @@
-/***************************************************************************
-                          MSVehicleControl.cpp  -
-    The class responsible for building and deletion of vehicles
-                             -------------------
-    begin                : Wed, 10. Dec 2003
-    copyright            : (C) 2002 by DLR http://ivf.dlr.de
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.19  2007/01/11 06:33:54  dkrajzew
-// speeded up c2c computation
+/****************************************************************************/
+/// @file    MSVehicleControl.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 10. Dec 2003
+/// @version $Id: $
+///
+// The class responsible for building and deletion of vehicles
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.18  2007/01/10 08:29:34  dkrajzew
-// Debugged the c2x.saved-info-freq-output problems occuring when when not all vehicles have left the simulation
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.17  2006/11/17 09:09:58  dkrajzew
-// warnings removed
-//
-// Revision 1.16  2006/11/14 13:02:27  dkrajzew
-// warnings removed
-//
-// Revision 1.15  2006/09/18 10:08:47  dkrajzew
-// debugging
-//
-// Revision 1.14  2006/08/02 11:58:23  dkrajzew
-// first try to make junctions tls-aware
-//
-// Revision 1.13  2006/07/06 06:06:30  dkrajzew
-// made MSVehicleControl completely responsible for vehicle handling - MSVehicle has no longer a static dictionary
-//
-// Revision 1.12  2006/05/15 05:54:11  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.12  2006/05/08 11:06:59  dkrajzew
-// debugging loading/saving of states
-//
-// Revision 1.11  2006/04/05 05:27:34  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
-//
-// Revision 1.10  2005/12/01 07:37:35  dkrajzew
-// introducing bus stops: eased building vehicles; vehicles may now have nested elements
-//
-// Revision 1.9  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:35:40  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2005/02/01 10:10:42  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.4  2004/11/23 10:20:11  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.3  2004/07/02 09:56:40  dkrajzew
-// debugging while implementing the vss visualisation
-//
-// Revision 1.2  2004/04/02 11:36:28  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output
-//  (emission-stats and single vehicle trip-infos)
-//
-// Revision 1.1  2003/12/11 06:31:45  dkrajzew
-// implemented MSVehicleControl as the instance responsible for vehicles
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSCORN.h"
 #include "MSVehicleControl.h"
@@ -113,32 +47,31 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * some definitions (debugging only)
- * ======================================================================= */
+// ===========================================================================
+// some definitions (debugging only)
+// ===========================================================================
 #define DEBUG_OUT cout
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 MSVehicleControl::MSVehicleControl()
-    : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
-    myAbsVehWaitingTime(0), myAbsVehTravelTime(0)
-{
-}
+        : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
+        myAbsVehWaitingTime(0), myAbsVehTravelTime(0)
+{}
 
 
 MSVehicleControl::~MSVehicleControl()
 {
-    for(VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
-        delete (*i).second;
+    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+        delete(*i).second;
     }
     myVehicleDict.clear();
 }
@@ -161,19 +94,19 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
 {
     assert(myRunningVehNo>0);
     // check whether to generate the information about the vehicle's trip
-    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
+    if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
         MSCORN::compute_TripDurationsOutput(v);
     }
-    if(MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
+    if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
         MSCORN::compute_VehicleRouteOutput(v);
     }
-	MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), *v);
+    MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), *v);
     // check whether to save information about the vehicle's trip
-    if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
+    if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
             (MSNet::getInstance()->getCurrentTimeStep()
-            -
-            (long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+             -
+             (long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
     }
     myRunningVehNo--;
     myEndedVehNo++;
@@ -234,7 +167,7 @@ MSVehicleControl::getWaitingVehicleNo() const
 SUMOReal
 MSVehicleControl::getMeanWaitingTime() const
 {
-    if(myEmittedVehNo==0) {
+    if (myEmittedVehNo==0) {
         return -1;
     }
     return (SUMOReal) myAbsVehWaitingTime / (SUMOReal) myEmittedVehNo;
@@ -244,7 +177,7 @@ MSVehicleControl::getMeanWaitingTime() const
 SUMOReal
 MSVehicleControl::getMeanTravelTime() const
 {
-    if(myEndedVehNo==0) {
+    if (myEndedVehNo==0) {
         return -1;
     }
     return (SUMOReal) myAbsVehTravelTime / (SUMOReal) myEndedVehNo;
@@ -269,19 +202,18 @@ MSVehicleControl::haveAllVehiclesQuit() const
 void
 MSVehicleControl::vehicleEmitted(MSVehicle *v)
 {
-    if(MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
+    if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
         myAbsVehWaitingTime +=
             ((long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
-            -
-            v->desiredDepart());
+             -
+             v->desiredDepart());
     }
 }
 
 
 void
 MSVehicleControl::vehicleMoves(MSVehicle *)
-{
-}
+{}
 
 
 void
@@ -299,8 +231,8 @@ MSVehicleControl::saveState(std::ostream &os, long what)
     //MSVehicle::dict_saveState(os, what);
     {
         FileHelpers::writeUInt(os, myVehicleDict.size());
-        for(VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
-            if((*it).second->hasCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)) {
+        for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
+            if ((*it).second->hasCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)) {
                 (*it).second->saveState(os, what);
             }
         }
@@ -330,7 +262,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
         string id;
         do {
             bis >> id;
-            if(id!="-----------------end---------------") {
+            if (id!="-----------------end---------------") {
                 SUMOTime lastLaneChangeOffset;
                 bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
                 unsigned int waitingTime;
@@ -366,25 +298,25 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                 assert(route!=0);
                 type = MSVehicleType::dictionary(typeID);
                 assert(type!=0);
-                if(getVehicle(id)!=0) {
+                if (getVehicle(id)!=0) {
                     DEBUG_OUT << "Error: vehicle was already added" << endl;
                     continue;
                 }
 
                 MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
-                    route, desiredDepart, type, repetitionNumber, period);
+                               route, desiredDepart, type, repetitionNumber, period);
                 v->myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] = (SUMOReal) wasEmitted;
-                while(routeOffset>0) {
+                while (routeOffset>0) {
                     v->myCurrEdge++;
                     routeOffset--;
                 }
-                if(!addVehicle(id, v)) {
+                if (!addVehicle(id, v)) {
                     cout << "Could not build vehicle!!!" << endl;
                     throw 1;
                 }
                 size--;
             }
-        } while(id!="-----------------end---------------");
+        } while (id!="-----------------end---------------");
         DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
     }
 //    MSVehicle::dict_loadState(bis, what);
@@ -438,7 +370,7 @@ MSVehicle *
 MSVehicleControl::detachVehicle(const std::string &id)
 {
     VehicleDictType::iterator i = myVehicleDict.find(id);
-    if(i==myVehicleDict.end()) {
+    if (i==myVehicleDict.end()) {
         return 0;
     }
     MSVehicle *ret = (*i).second;
@@ -461,9 +393,6 @@ MSVehicleControl::loadedVehEnd() const
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

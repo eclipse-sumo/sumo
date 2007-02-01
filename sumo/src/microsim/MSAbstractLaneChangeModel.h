@@ -1,75 +1,46 @@
-#ifndef MSAbstractLaneChangeModel_h
-#define MSAbstractLaneChangeModel_h
-//---------------------------------------------------------------------------//
-//                        MSAbstractLaneChangeModel.h -
+/****************************************************************************/
+/// @file    MSAbstractLaneChangeModel.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/11/03 22:59:26  behrisch
-// Syntactic sugar
-//
-// Revision 1.9  2006/10/12 08:09:15  dkrajzew
-// fastened up lane changing
-//
-// Revision 1.8  2006/07/06 07:33:22  dkrajzew
-// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
-//
-// Revision 1.7  2006/05/15 05:52:23  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.7  2006/05/08 11:02:12  dkrajzew
-// began with the extraction of the car-following-model from MSVehicle
-//
-// Revision 1.6  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/22 13:45:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.4  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/07/12 12:22:18  dkrajzew
-// code style adapted
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSAbstractLaneChangeModel_h
+#define MSAbstractLaneChangeModel_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSLaneChanger.h"
 
-/* =========================================================================
- * used enumeration
- * ======================================================================= */
+// ===========================================================================
+// used enumeration
+// ===========================================================================
 enum LaneChangeAction {
     LCA_NONE = 0,
     LCA_URGENT = 1,
@@ -84,34 +55,41 @@ enum LaneChangeAction {
     LCA_MAX = 128
 };
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class MSAbstractLaneChangeModel {
+class MSAbstractLaneChangeModel
+{
 public:
-    class MSLCMessager {
+    class MSLCMessager
+    {
     public:
         MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead,
-            MSVehicle *neighFollow)
-            : myLeader(leader), myNeighLeader(neighLead),
-            myNeighFollower(neighFollow) { }
+                     MSVehicle *neighFollow)
+                : myLeader(leader), myNeighLeader(neighLead),
+                myNeighFollower(neighFollow)
+        { }
 
-        ~MSLCMessager() { }
+        ~MSLCMessager()
+        { }
 
-        void *informLeader(void *info, MSVehicle *sender) {
+        void *informLeader(void *info, MSVehicle *sender)
+        {
             assert(myLeader!=0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighLeader(void *info, MSVehicle *sender) {
+        void *informNeighLeader(void *info, MSVehicle *sender)
+        {
             assert(myNeighLeader!=0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighFollower(void *info, MSVehicle *sender) {
+        void *informNeighFollower(void *info, MSVehicle *sender)
+        {
             assert(myNeighFollower!=0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
@@ -124,25 +102,34 @@ public:
 
 
     MSAbstractLaneChangeModel(MSVehicle &v)
-        : myVehicle(v), myState(0) { }
+            : myVehicle(v), myState(0)
+    { }
 
-    virtual ~MSAbstractLaneChangeModel() { }
-/*
-    virtual void init(int bestLaneOffset, SUMOReal bestDist,
-        SUMOReal currentDist) = 0;
-*/
+    virtual ~MSAbstractLaneChangeModel()
+    { }
+    /*
+        virtual void init(int bestLaneOffset, SUMOReal bestDist,
+            SUMOReal currentDist) = 0;
+    */
     /*
     /// Called if the vehicle has changed the lane
     virtual void changed(int offset) = 0;
-*/
+    */
     /// Called if the vehicle is on a lane on which it has to change lanes
 //    virtual bool forcedChangeNecessary(const ChangeElem &vehSurround) = 0;
 
-    int getState() const { return myState; }
+    int getState() const
+    {
+        return myState;
+    }
 
-    void setState(int state) { myState = state; }
+    void setState(int state)
+    {
+        myState = state;
+    }
 
-    virtual void prepareStep() { }
+    virtual void prepareStep()
+    { }
 
     /** @brief Called to examine whether the vehicle wants to change to right
         This method gets the information about the surrounding vehicles
@@ -154,11 +141,11 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
         const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
-//        bool congested, bool predInteraction,
-/*
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
-        SUMOReal currentDist,
-        */
+    //        bool congested, bool predInteraction,
+        /*
+                int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
+                SUMOReal currentDist,
+                */
         MSVehicle **lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -172,7 +159,7 @@ public:
         const MSLane &neighLane,
         const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
         /*
-//        bool congested, bool predInteraction,
+        //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
         */
@@ -181,39 +168,41 @@ public:
     virtual void *inform(void *info, MSVehicle *sender) = 0;
 
     virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
-        SUMOReal vsafe) = 0;
+                                SUMOReal vsafe) = 0;
 
     virtual void changed() = 0;
 
 protected:
-    virtual bool congested(const MSVehicle * const neighLeader) {
-        if(neighLeader==0) {
+    virtual bool congested(const MSVehicle * const neighLeader)
+    {
+        if (neighLeader==0) {
             return false;
         }
         // Congested situation are relevant only on highways (maxSpeed > 70km/h)
         // and congested on German Highways means that the vehicles have speeds
         // below 60km/h. Overtaking on the right is allowed then.
-        if ( ( myVehicle.getLane().maxSpeed() <= 70.0 / 3.6 ) ||
-             ( neighLeader->getLane().maxSpeed() <= 70.0 / 3.6 ) ) {
+        if ((myVehicle.getLane().maxSpeed() <= 70.0 / 3.6) ||
+                (neighLeader->getLane().maxSpeed() <= 70.0 / 3.6)) {
 
             return false;
         }
-        if ( myVehicle.congested() && neighLeader->congested() ) {
+        if (myVehicle.congested() && neighLeader->congested()) {
             return true;
         }
         return false;
     }
 
-    virtual bool predInteraction(const MSVehicle * const leader) {
-        if(leader==0) {
+    virtual bool predInteraction(const MSVehicle * const leader)
+    {
+        if (leader==0) {
             return false;
         }
         // let's check it on highways only
-        if(leader->getSpeed()<(80.0*3.6)) {
+        if (leader->getSpeed()<(80.0*3.6)) {
             return false;
         }
         SUMOReal gap = leader->getPositionOnLane() - leader->getLength() - myVehicle.getPositionOnLane();
-        return gap < myVehicle.interactionGap( myVehicle.getSpeed(), myVehicle.getLane().maxSpeed(), leader->getSpeed() );
+        return gap < myVehicle.interactionGap(myVehicle.getSpeed(), myVehicle.getLane().maxSpeed(), leader->getSpeed());
     }
 
 
@@ -223,10 +212,9 @@ protected:
     int myState;
 
 };
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

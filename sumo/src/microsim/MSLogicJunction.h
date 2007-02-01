@@ -1,113 +1,55 @@
-#ifndef MSLogicJunction_H
-#define MSLogicJunction_H
-/***************************************************************************
-                          MSLogicJunction.h  -  Base class for junctions
-                          with one ore more logics.
-                             -------------------
-    begin                : Wed, 12 Dez 2001
-    copyright            : (C) 2001 by Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
-// $Log$
-// Revision 1.12  2006/02/23 11:27:56  dkrajzew
-// tls may have now several programs
+/****************************************************************************/
+/// @file    MSLogicJunction.h
+/// @author  Christian Roessel
+/// @date    Wed, 12 Dez 2001
+/// @version $Id: $
+///
+// with one ore more logics.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.11  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.10  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:28:15  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2004/08/02 12:09:39  dkrajzew
-// using Position2D instead of two SUMOReals
-//
-// Revision 1.6  2003/12/04 13:30:41  dkrajzew
-// work on internal lanes
-//
-// Revision 1.5  2003/03/20 16:21:12  dkrajzew
-// windows eol removed; multiple vehicle emission added
-//
-// Revision 1.4  2003/03/03 14:56:21  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-// Revision 1.3  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-// Revision 1.2  2002/10/16 16:42:29  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.2  2002/04/18 10:51:22  croessel
-// Introduced new method "bool driveRequest()" in class DriveBrakeRequest
-// to let findCompetitor check, if a first car set a request.
-//
-// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
-// new project name
-//
-// Revision 2.0  2002/02/14 14:43:17  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.4  2002/01/30 16:14:57  croessel
-// Made the destructor virtual.
-//
-// Revision 1.3  2001/12/20 14:30:42  croessel
-// using namespace std replaced by std::
-//
-// Revision 1.2  2001/12/19 16:32:32  croessel
-// Changes due to new junction-hierarchy.
-//
-// Revision 1.1  2001/12/12 17:46:02  croessel
-// Initial commit. Part of a new junction hierarchy.
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSLogicJunction_h
+#define MSLogicJunction_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSJunction.h"
 #include <bitset>
 #include <vector>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSLogicJunction
  * A junction which may not let all vehicles through, but must perform any
@@ -142,12 +84,12 @@ public:
 
 protected:
     /// constructor; this class is virtual
-    MSLogicJunction( std::string id, const Position2D &position,
-        LaneCont incoming
+    MSLogicJunction(std::string id, const Position2D &position,
+                    LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
-        , LaneCont internal
+                    , LaneCont internal
 #endif
-        );
+                   );
 
 protected:
     /// list of incoming lanes
@@ -168,17 +110,15 @@ protected:
 
 private:
     /// Invalidated copy constructor.
-    MSLogicJunction( const MSLogicJunction& );
+    MSLogicJunction(const MSLogicJunction&);
 
     /// Invalidated assignment operator.
-    MSLogicJunction& operator=( const MSLogicJunction& );
+    MSLogicJunction& operator=(const MSLogicJunction&);
 
 };
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

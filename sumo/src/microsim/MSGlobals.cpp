@@ -1,83 +1,38 @@
-/***************************************************************************
-                          MSGlobals.cpp  -
-    Some static variables for faster access
-                             -------------------
-    project              : SUMO
-    begin                : late summer 2003
-    copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/12/22 12:08:10  dkrajzew
-// made c2c defaults variable
+/****************************************************************************/
+/// @file    MSGlobals.cpp
+/// @author  Daniel Krajzewicz
+/// @date    late summer 2003
+/// @version $Id: $
+///
+// Some static variables for faster access
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.13  2006/12/12 12:14:39  dkrajzew
-// set .5 hour as the time to keep information in mind
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.12  2006/11/02 11:44:50  dkrajzew
-// added Danilo Teta-Boyom's changes to car2car-communication
-//
-// Revision 1.11  2006/09/18 10:06:04  dkrajzew
-// removed deprecated c2c functions, added new made by Danilot Boyom
-//
-// Revision 1.10  2006/05/15 05:52:55  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.10  2006/05/08 11:06:59  dkrajzew
-// debugging loading/saving of states
-//
-// Revision 1.9  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/22 13:45:51  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 12:22:50  dkrajzew
-// made checking for accidents optional
-//
-// Revision 1.5  2005/05/04 08:25:29  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.4  2004/11/23 10:20:09  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.3  2003/12/04 13:30:41  dkrajzew
-// work on internal lanes
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MSGlobals.h"
 
@@ -86,9 +41,9 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * static member variable definitions
- * ======================================================================= */
+// ===========================================================================
+// static member variable definitions
+// ===========================================================================
 bool MSGlobals::gOmitEmptyEdgesOnDump;
 
 bool MSGlobals::gUsingInternalLanes;
@@ -120,8 +75,6 @@ SUMOTime MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
 SUMOReal MSGlobals::gAddInfoFactor = (SUMOReal) 1.2;
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

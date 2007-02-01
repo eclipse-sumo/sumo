@@ -1,53 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSWeightsHandler.cpp -
-//  A SAX-handler for loading SUMO-weights (aggregated dumps)
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSWeightsHandler.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A SAX-handler for loading SUMO-weights (aggregated dumps)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.3  2006/12/12 12:14:08  dkrajzew
-// debugging of loading weights
-//
-// Revision 1.2  2006/11/16 10:50:44  dkrajzew
-// warnings removed
-//
-// Revision 1.1  2006/11/14 06:44:51  dkrajzew
-// first steps towards car2car-based rerouting
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/options/OptionsCont.h>
@@ -67,35 +52,34 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSWeightsHandler::MSWeightsHandler(const OptionsCont &oc, MSNet &net,
                                    const std::string &file,
                                    bool useLanes)
-    : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
-    _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
-    myUseLanes(useLanes)
+        : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
+        _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
+        myUseLanes(useLanes)
 {
     _scheme = "speed";//_options.getString("scheme");
 }
 
 
 MSWeightsHandler::~MSWeightsHandler()
-{
-}
+{}
 
 
 void MSWeightsHandler::myStartElement(int element, const std::string &/*name*/,
                                       const Attributes &attrs)
 {
-    switch(element) {
+    switch (element) {
     case SUMO_TAG_INTERVAL:
         parseTimeStep(attrs);
         break;
@@ -138,7 +122,7 @@ MSWeightsHandler::parseEdge(const Attributes &attrs)
         return;
     }
     // return if the lanes shall be used
-    if(myUseLanes) {
+    if (myUseLanes) {
         return;
     }
     // parse the edge information if wished
@@ -149,7 +133,7 @@ MSWeightsHandler::parseEdge(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in edge '" + id + "'.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
-        if(id.length()!=0)
+        if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" In edge '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
 }
@@ -158,7 +142,7 @@ MSWeightsHandler::parseEdge(const Attributes &attrs)
 void
 MSWeightsHandler::parseLane(const Attributes &attrs)
 {
-    if(!myUseLanes) {
+    if (!myUseLanes) {
         return;
     }
     string id;
@@ -176,11 +160,11 @@ MSWeightsHandler::parseLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in lane '" + id + "'.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
-        if(id.length()!=0)
+        if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" In lane '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
     // set the values when retrieved (no errors)
-    if(id.length()!=0&&value>=0&&_currentEdge!=0) {
+    if (id.length()!=0&&value>=0&&_currentEdge!=0) {
         myAggValue += value;
         myNoLanes++;
     }
@@ -189,24 +173,19 @@ MSWeightsHandler::parseLane(const Attributes &attrs)
 
 void MSWeightsHandler::myCharacters(int /*element*/, const std::string &/*name*/,
                                     const std::string &/*chars*/)
-{
-}
+{}
 
 
 void MSWeightsHandler::myEndElement(int element, const std::string &/*name*/)
 {
-    if(element==SUMO_TAG_EDGE) {
+    if (element==SUMO_TAG_EDGE) {
         _currentEdge->addWeight(myAggValue / (SUMOReal) myNoLanes,
-            _currentTimeBeg, _currentTimeEnd);
+                                _currentTimeBeg, _currentTimeEnd);
         _currentEdge = 0;
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

@@ -1,86 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        MSRoute.cpp -
-//  A vehicle route
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSRoute.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A vehicle route
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/11/16 12:30:54  dkrajzew
-// warnings removed
-//
-// Revision 1.13  2006/11/14 13:02:05  dkrajzew
-// warnings removed
-//
-// Revision 1.12  2006/10/04 13:18:17  dkrajzew
-// debugging internal lanes, multiple vehicle emission and net building
-//
-// Revision 1.11  2006/05/15 05:53:33  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.11  2006/05/08 11:10:44  dkrajzew
-// debugging loading/saving of states
-//
-// Revision 1.10  2006/01/26 08:30:29  dkrajzew
-// patched MSEdge in order to work with a generic router
-//
-// Revision 1.9  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.7  2005/05/04 08:32:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.6  2004/12/16 12:24:45  dkrajzew
-// debugging
-//
-// Revision 1.5  2004/11/23 10:20:10  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.4  2004/07/02 09:26:23  dkrajzew
-// classes prepared to be derived
-//
-// Revision 1.3  2003/03/03 14:56:23  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <algorithm>
@@ -98,34 +50,32 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * static member variables
- * ======================================================================= */
+// ===========================================================================
+// static member variables
+// ===========================================================================
 MSRoute::RouteDict MSRoute::myDict;
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
                  bool multipleReferenced)
-    : Named(id), _edges(edges),
-    _multipleReferenced(multipleReferenced),
-    myReferenceNo(1)
-{
-}
+        : Named(id), _edges(edges),
+        _multipleReferenced(multipleReferenced),
+        myReferenceNo(1)
+{}
 
 
 MSRoute::~MSRoute()
-{
-}
+{}
 
 MSRouteIterator
 MSRoute::begin() const
@@ -181,8 +131,8 @@ MSRoute::dictionary(const string &id)
 void
 MSRoute::clear()
 {
-    for(RouteDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
+    for (RouteDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete(*i).second;
     }
     myDict.clear();
 }
@@ -193,7 +143,7 @@ MSRoute::erase(std::string id)
 {
     RouteDict::iterator i=myDict.find(id);
     assert(i!=myDict.end());
-    delete (*i).second;
+    delete(*i).second;
     myDict.erase(id);
 }
 
@@ -211,12 +161,12 @@ MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
     // do not replace if the vehicle is already out of the route
     MSEdgeVector::const_iterator i =
         std::find(edges.begin(), edges.end(), *currentEdge);
-    if(i==edges.end()) {
+    if (i==edges.end()) {
         return false;
     }
     MSEdgeVector n;
     copy(_edges.begin(), std::find(_edges.begin(), _edges.end(), *currentEdge),
-        back_inserter(n));
+         back_inserter(n));
     copy(i, edges.end(), back_inserter(n));
     _edges = n;
     return true;
@@ -233,13 +183,13 @@ MSRoute::find(const MSEdge *e) const
 void
 MSRoute::writeEdgeIDs(std::ostream &os) const
 {
-	MSEdgeVector::const_iterator i = _edges.begin();
-	for(;i!=_edges.end(); ++i) {
-		if(i!=_edges.begin()) {
-			os << ' ';
-		}
-		os << (*i)->getID();
-	}
+    MSEdgeVector::const_iterator i = _edges.begin();
+    for (;i!=_edges.end(); ++i) {
+        if (i!=_edges.begin()) {
+            os << ' ';
+        }
+        os << (*i)->getID();
+    }
 }
 
 
@@ -254,8 +204,8 @@ bool
 MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
 {
     std::vector<MSEdge*>::const_iterator i = edgelist.begin();
-    for(; i!=edgelist.end(); ++i) {
-        if(contains(*i)) {
+    for (; i!=edgelist.end(); ++i) {
+        if (contains(*i)) {
             return true;
         }
     }
@@ -274,7 +224,7 @@ void
 MSRoute::dict_saveState(std::ostream &os, long what)
 {
     FileHelpers::writeUInt(os, myDict.size());
-    for(RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+    for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         (*it).second->saveState(os, what);
     }
 }
@@ -286,7 +236,7 @@ MSRoute::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeString(os, getID());
     FileHelpers::writeUInt(os, _edges.size());
     FileHelpers::writeByte(os, _multipleReferenced);
-    for(MSEdgeVector::const_iterator i = _edges.begin(); i!=_edges.end(); ++i) {
+    for (MSEdgeVector::const_iterator i = _edges.begin(); i!=_edges.end(); ++i) {
         FileHelpers::writeUInt(os, (*i)->getNumericalID());
     }
 }
@@ -297,7 +247,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis, long /*what*/)
 {
     unsigned int noRoutes;
     bis >> noRoutes;
-    while(noRoutes>0) {
+    while (noRoutes>0) {
         string id;
         bis >> id;
         unsigned int no;
@@ -306,20 +256,20 @@ MSRoute::dict_loadState(BinaryInputDevice &bis, long /*what*/)
         bis >> multipleReferenced;
         bool had = dictionary(id)!=0;
         MSEdgeVector edges;
-        if(!had) {
+        if (!had) {
             edges.reserve(no);
         }
-        while(no>0) {
+        while (no>0) {
             unsigned int edgeID;
             bis >> edgeID;
-            if(!had) {
+            if (!had) {
                 MSEdge *e = MSEdge::dictionary(edgeID);
                 assert(e!=0);
                 edges.push_back(e);
             }
             no--;
         }
-        if(!had) {
+        if (!had) {
             MSRoute *r = new MSRoute(id, edges, multipleReferenced);
             dictionary(id, r);
         }
@@ -339,21 +289,17 @@ void
 MSRoute::clearLoadedState()
 {
     std::vector<MSRoute*> toDel;
-    for(RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
-        if((*it).second->noReferences()==0&&!(*it).second->inFurtherUse()) {
+    for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+        if ((*it).second->noReferences()==0&&!(*it).second->inFurtherUse()) {
             toDel.push_back((*it).second);
         }
     }
-    for(std::vector<MSRoute*>::iterator i=toDel.begin(); i!=toDel.end(); ++i) {
+    for (std::vector<MSRoute*>::iterator i=toDel.begin(); i!=toDel.end(); ++i) {
         erase((*i)->getID());
     }
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

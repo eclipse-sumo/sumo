@@ -1,46 +1,40 @@
-#ifndef MSPHONECELL_H
-#define MSPHONECELL_H
-/***************************************************************************
-                          MSPhoneCell.h  -
-    A cell of a cellular network (GSM)
-                             -------------------
-    begin                : 2006
-    copyright            : (C) 2006 by DLR http://www.dlr.de
-    author               : Eric Nicolay
-    email                : Eric.Nicolay@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log: MSPhoneCell.h,v $
-// Revision 1.8  2006/12/01 09:14:41  dkrajzew
-// debugging cell phones
+/****************************************************************************/
+/// @file    MSPhoneCell.h
+/// @author  unknown_author
+/// @date    2006
+/// @version $Id: $
+///
+// A cell of a cellular network (GSM)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.7  2006/11/28 12:15:39  dkrajzew
-// documented TOL-classes and made them faster
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSPhoneCell_h
+#define MSPhoneCell_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -49,26 +43,28 @@
 #include "devices/MSDevice_CPhone.h"
 
 enum CallType{
-	STATICIN,
-	STATICOUT,
-	DYNIN,
-	DYNOUT
+    STATICIN,
+    STATICOUT,
+    DYNIN,
+    DYNOUT
 };
 
-struct Call{
-	CallType ct;
+struct Call
+{
+    CallType ct;
 //	std::string id;
 };
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSPhoneCell
  * @brief A cell of a cellular network (GSM)
  */
-class MSPhoneCell{
+class MSPhoneCell
+{
 public:
     /// Constructor
     MSPhoneCell(int ID);
@@ -110,11 +106,14 @@ public:
     //void decrementDynCallCount(){ --dyncallcount; }
 
     /// Returns the number of vehicles calling within this cell
-    size_t getVehicleNumber() const { return myCalls.size(); }
+    size_t getVehicleNumber() const
+    {
+        return myCalls.size();
+    }
 
-    void addCPhone( const std::string &device_id, MSDevice_CPhone* device_pointer );
-    bool hasCPhone( const std::string &device_id );
-    void remCPhone( const std::string &device_id );
+    void addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer);
+    bool hasCPhone(const std::string &device_id);
+    void remCPhone(const std::string &device_id);
 private:
     int myCellId;                   /* the id of the gsm-cell */
     int myStaticCallsIn;            /* the number of stacic incoming calls for this interval */
@@ -125,20 +124,22 @@ private:
     int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
     int myIntervalBegin;            /* the begintime of the current interval*/
     int myIntervalEnd;              /* the endtime of the current interval*/
+    int myOutputIntervalBegin;      /*????????????????????????????????????*/
     int myCurrentExpectedCallCount;
     float myCallDuration;
     float myCallDeviation;
     bool myConnectionTypSelector;
     float myCallProbability;
-    
+
     /*myConnectionTypSelector is for selecting if a connection is
       going in( == true ) or out ( == false ).*/
-    struct DynParam {
+    struct DynParam
+    {
         int count;
         float duration;
         float deviation;
     };
-    
+
     std::map<int, CallType> myCalls;
     std::map<int, CallType>::iterator myitCalls;
 
@@ -147,21 +148,16 @@ private:
 
     std::map< int, DynParam> myExpectedDynamicCalls;
 
-	//std::vector<std::pair<int, int > > vexpectStatCount;
-	//std::vector<std::pair<int, int > >::iterator itCount;
-	std::vector<std::pair<int, DynParam> > vexpectDuration;
-	std::vector<std::pair<int, DynParam> >::iterator itDuration;
+    //std::vector<std::pair<int, int > > vexpectStatCount;
+    //std::vector<std::pair<int, int > >::iterator itCount;
+    std::vector<std::pair<int, DynParam> > vexpectDuration;
+    std::vector<std::pair<int, DynParam> >::iterator itDuration;
 
     std::map<std::string, MSDevice_CPhone*> myRegisteredDevices;
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

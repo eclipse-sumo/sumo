@@ -1,77 +1,40 @@
-#ifndef MSRoute_h
-#define MSRoute_h
-//---------------------------------------------------------------------------//
-//                        MSRoute.h -
-//  A vehicle route
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    MSRoute.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A vehicle route
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.12  2006/11/30 07:43:35  dkrajzew
-// added the inc-dua option in order to increase dua-computation
-//
-// Revision 1.11  2006/05/15 05:53:33  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.11  2006/05/08 11:10:44  dkrajzew
-// debugging loading/saving of states
-//
-// Revision 1.10  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:32:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.7  2004/12/16 12:24:45  dkrajzew
-// debugging
-//
-// Revision 1.6  2004/11/23 10:20:10  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.5  2004/07/02 09:26:23  dkrajzew
-// classes prepared to be derived
-//
-// Revision 1.4  2003/03/17 14:12:19  dkrajzew
-// Windows eol removed
-//
-// Revision 1.3  2003/03/03 14:56:24  dkrajzew
-// some debugging; new detector types added; actuated traffic lights added
-//
-// Revision 1.2  2003/02/07 10:41:51  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSRoute_h
+#define MSRoute_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <map>
@@ -79,9 +42,9 @@
 #include <utils/common/Named.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSEdge;
 class BinaryInputDevice;
 
@@ -90,17 +53,18 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
 typedef MSEdgeVector::const_iterator MSRouteIterator;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class MSRoute : public Named {
+class MSRoute : public Named
+{
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,
-        bool multipleReferenced);
+            bool multipleReferenced);
 
     /// Destructor
     virtual ~MSRoute();
@@ -123,7 +87,7 @@ public:
 
     bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
 
-	void writeEdgeIDs(std::ostream &os) const;
+    void writeEdgeIDs(std::ostream &os) const;
 
     bool contains(MSEdge *edge) const;
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
@@ -136,15 +100,18 @@ public:
 
     size_t posInRoute(const MSRouteIterator &currentEdge) const;
 
-    size_t noReferences() const { // !!!
+    size_t noReferences() const
+    { // !!!
         return myReferenceNo;
     }
 
-    void incReferenceCnt() {
+    void incReferenceCnt()
+    {
         myReferenceNo++;
     }
 
-    void decReferenceCnt() {
+    void decReferenceCnt()
+    {
         myReferenceNo--;
     }
 
@@ -158,7 +125,10 @@ public:
     static MSRoute *dictionary(const std::string &id);
 
     /// Returns the number of known routes
-    static size_t dictSize() { return myDict.size(); }
+    static size_t dictSize()
+    {
+        return myDict.size();
+    }
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();
@@ -191,12 +161,7 @@ private:
 };
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

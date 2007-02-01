@@ -1,202 +1,40 @@
-#ifndef MSEdge_H
-#define MSEdge_H
-/***************************************************************************
-                          MSEdge.h  -  Provides routing. Superior to Lanes.
-                             -------------------
-    begin                : Mon, 12 Mar 2001
-    copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
-    author               : Christian Roessel
-    email                : roessel@zpr.uni-koeln.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-// $Log$
-// Revision 1.31  2007/01/11 06:33:53  dkrajzew
-// speeded up c2c computation
+/****************************************************************************/
+/// @file    MSEdge.h
+/// @author  Christian Roessel
+/// @date    Mon, 12 Mar 2001
+/// @version $Id: $
+///
+// -------------------
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.30  2006/12/12 12:14:08  dkrajzew
-// debugging of loading weights
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.29  2006/11/14 13:01:55  dkrajzew
-// warnings removed
-//
-// Revision 1.28  2006/11/14 06:44:51  dkrajzew
-// first steps towards car2car-based rerouting
-//
-// Revision 1.27  2006/10/12 10:14:27  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.26  2006/09/18 10:05:34  dkrajzew
-// added vehicle class support to microsim
-//
-// Revision 1.25  2006/07/06 07:33:22  dkrajzew
-// rertrieval-methods have the "get" prependix; EmitControl has no dictionary; MSVehicle is completely scheduled by MSVehicleControl; new lanechanging algorithm
-//
-// Revision 1.24  2006/05/15 05:52:55  dkrajzew
-// debugging saving/loading of states
-//
-// Revision 1.24  2006/05/08 11:05:58  dkrajzew
-// debugging: removed dead code
-//
-// Revision 1.23  2006/04/11 10:59:06  dkrajzew
-// all structures now return their id via getID()
-//
-// Revision 1.22  2006/01/26 08:30:29  dkrajzew
-// patched MSEdge in order to work with a generic router
-//
-// Revision 1.21  2005/11/09 06:39:38  dkrajzew
-// usage of internal lanes is now optional at building
-//
-// Revision 1.20  2005/10/07 11:37:45  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.19  2005/09/22 13:45:50  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.18  2005/09/15 11:10:46  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.17  2005/07/13 10:22:46  dkrajzew
-// debugging
-//
-// Revision 1.16  2005/07/12 12:23:07  dkrajzew
-// debugging vehicle emission on source edges
-//
-// Revision 1.15  2005/05/04 08:23:52  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
-//
-// Revision 1.14  2005/02/01 10:10:40  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.13  2004/11/23 10:20:09  dkrajzew
-// new detectors and tls usage applied; debugging
-//
-// Revision 1.12  2004/08/02 12:08:39  dkrajzew
-// raw-output extracted; output device handling rechecked
-//
-// Revision 1.11  2004/07/02 09:55:13  dkrajzew
-// MeanData refactored (moved to microsim/output)
-//
-// Revision 1.10  2004/02/16 14:19:51  dkrajzew
-// getLane should be const
-//
-// Revision 1.9  2003/12/04 13:30:41  dkrajzew
-// work on internal lanes
-//
-// Revision 1.8  2003/09/05 15:07:53  dkrajzew
-// tried to improve the building/deletion usage
-//
-// Revision 1.7  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges
-//  do not go through the lanes, the EdgeControl does
-//
-// Revision 1.6  2003/06/04 16:12:05  roessel
-// Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
-//
-// Revision 1.5  2003/04/15 09:09:14  dkrajzew
-// documentation added
-//
-// Revision 1.4  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-// Revision 1.3  2002/10/17 10:41:12  dkrajzew
-// retrival of the id added
-//
-// Revision 1.2  2002/10/16 16:40:35  dkrajzew
-// usage of MSPerson removed; will be reimplemented later
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.3  2002/09/25 17:14:42  roessel
-// MeanData calculation and output implemented.
-//
-// Revision 1.2  2002/04/24 13:06:47  croessel
-// Changed signature of void detectCollisions() to void detectCollisions(
-// MSNet::Time )
-//
-// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
-// new project name
-//
-// Revision 2.3  2002/03/20 11:11:08  croessel
-// Splitted friend from class-declaration.
-//
-// Revision 2.2  2002/03/13 16:56:34  croessel
-// Changed the simpleOutput to XMLOutput by introducing nested classes
-// XMLOut. Output is now indented.
-//
-// Revision 2.1  2002/02/27 13:14:05  croessel
-// Prefixed ostream with "std::".
-//
-// Revision 2.0  2002/02/14 14:43:13  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
-//
-// Revision 1.14  2002/02/05 13:51:51  croessel
-// GPL-Notice included.
-// In *.cpp files also config.h included.
-//
-// Revision 1.13  2002/02/05 11:42:35  croessel
-// Lane-change implemented.
-//
-// Revision 1.12  2001/12/19 16:51:01  croessel
-// Replaced using namespace std with std::
-//
-// Revision 1.11  2001/12/06 13:08:28  traffic
-// minor change
-//
-// Revision 1.10  2001/11/15 17:12:13  croessel
-// Outcommented the inclusion of the inline *.iC files. Currently not
-// needed.
-//
-// Revision 1.9  2001/11/14 11:45:53  croessel
-// Resolved conflicts which appeared during suffix-change and
-// CR-line-end commits.
-//
-// Revision 1.8  2001/11/14 10:49:07  croessel
-// CR-line-end removed.
-//
-// Revision 1.7  2001/10/23 09:29:25  traffic
-// parser bugs removed
-//
-// Revision 1.5  2001/09/06 15:29:55  croessel
-// Added operator<< to class MSEdge for simple text output.
-//
-// Revision 1.4  2001/07/18 09:41:02  croessel
-// Added public method nLanes() that returns the edge's number of lanes.
-//
-// Revision 1.3  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer
-//  dictionaries and dictionary methods.
-//
-// Revision 1.2  2001/07/13 16:09:17  traffic
-// Just a test, changed id-type from unsigned int to string.
-//
-// Revision 1.1.1.1  2001/07/11 15:51:13  traffic
-// new start
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef MSEdge_h
+#define MSEdge_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <map>
@@ -208,17 +46,17 @@
 #include <utils/router/FloatValueTimeLine.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSLane;
 class MSLaneChanger;
 class OutputDevice;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class MSEdge
  * A single connection between two junctions. As there is no certain
@@ -253,7 +91,7 @@ public:
     friend class GUIGrid;
 
     /// Constructor.
-    MSEdge( const std::string &id, size_t numericalID );
+    MSEdge(const std::string &id, size_t numericalID);
 
     /// Container for lanes.
     typedef std::vector< MSLane* > LaneCont;
@@ -273,25 +111,25 @@ public:
 
     /** @brief Get the allowed lanes to reach the destination-edge.
         If there is no such edge, get 0. Then you are on the wrong edge. */
-    const LaneCont* allowedLanes( const MSEdge& destination,
-        SUMOVehicleClass vclass) const;
+    const LaneCont* allowedLanes(const MSEdge& destination,
+                                 SUMOVehicleClass vclass) const;
 
     /** Returns the left-lane of lane if there is one, 0 otherwise. */
-    MSLane* leftLane( const MSLane* lane ) const;
-    MSLane* rightLane( const MSLane* lane ) const;
+    MSLane* leftLane(const MSLane* lane) const;
+    MSLane* rightLane(const MSLane* lane) const;
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
-    static bool dictionary( std::string id, MSEdge* edge );
+    static bool dictionary(std::string id, MSEdge* edge);
 
     /** Returns the MSEdge associated to the key id if exists, otherwise
      * returns 0. */
-    static MSEdge* dictionary( std::string id );
+    static MSEdge* dictionary(std::string id);
 
     /** Returns the MSEdge associated to the key id if exists, otherwise
      * returns 0. */
-    static MSEdge* dictionary( size_t index );
+    static MSEdge* dictionary(size_t index);
 
     static size_t dictSize();
 
@@ -302,7 +140,7 @@ public:
     unsigned int nLanes() const;
 
     /// outputs the id of the edge
-    friend std::ostream& operator<<( std::ostream& os, const MSEdge& edge );
+    friend std::ostream& operator<<(std::ostream& os, const MSEdge& edge);
 
     /** Let the edge's vehicles try to change their lanes. */
     virtual void changeLanes();
@@ -321,9 +159,9 @@ public:
     /// emits a vehicle on an appropriate lane
     virtual bool emit(MSVehicle &v, SUMOTime time) const;
 
-    static std::vector< MSEdge* > getEdgeVector( void );
+    static std::vector< MSEdge* > getEdgeVector(void);
 
-    const LaneCont * const getLanes( void ) const;
+    const LaneCont * const getLanes(void) const;
 
 #ifdef HAVE_INTERNAL_LANES
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
@@ -337,40 +175,53 @@ public:
 
     std::vector<MSEdge*> getIncomingEdges() const;
 
-    const std::string &getID() { return myID; }
+    const std::string &getID()
+    {
+        return myID;
+    }
 
     SUMOReal getEffort(const MSVehicle * const v, SUMOTime time) const;
 
-    size_t getNumericalID() const { return myNumericalID; }
+    size_t getNumericalID() const
+    {
+        return myNumericalID;
+    }
 
-    size_t getNoFollowing() const { return myAllowed->size(); }
+    size_t getNoFollowing() const
+    {
+        return myAllowed->size();
+    }
 
-    const MSEdge *getFollower(size_t num) const {
+    const MSEdge *getFollower(size_t num) const
+    {
         AllowedLanesCont::const_iterator i = myAllowed->begin();
-        while(num!=0) {
+        while (num!=0) {
             i++;
             num--;
         }
         return (*i).first;
     }
 
-	virtual bool prohibits(const MSVehicle *) const { return false; }
+    virtual bool prohibits(const MSVehicle *) const
+    {
+        return false;
+    }
 
 
-	/// add a new neighborsEdge to this Edge
-	void addNeighborEdge(MSEdge *edge);
+    /// add a new neighborsEdge to this Edge
+    void addNeighborEdge(MSEdge *edge);
 
-	/// return  neighborsEdge
+    /// return  neighborsEdge
     const std::vector<MSEdge*> & getNeighborEdges() const;
 
 
-	// add a new vehicle into the container
-	void addEquippedVehicle(std::string id, MSVehicle *vehicle) const;
+    // add a new vehicle into the container
+    void addEquippedVehicle(std::string id, MSVehicle *vehicle) const;
 
-	//remove a vehicle with this id from the container
+    //remove a vehicle with this id from the container
     void removeEquippedVehicle(std::string id) const;
 
-	/// definition the dictionary of ids to vehicles
+    /// definition the dictionary of ids to vehicles
     typedef std::map<std::string, MSVehicle*> DictTypeVeh;
 
     const DictTypeVeh &getEquippedVehs() const;
@@ -428,13 +279,13 @@ protected:
     bool myUseBoundariesOnOverride;
 
 
-	// the Container of equipped vehicle driving on this Lane
-	mutable DictTypeVeh myEquippedVeh;
+    // the Container of equipped vehicle driving on this Lane
+    mutable DictTypeVeh myEquippedVeh;
 
-	    /// Definition of the Edge vector
+    /// Definition of the Edge vector
     typedef std::vector<MSEdge*> EdgeCont;
-	/// the list of all neighborsEdge of this Edge
-	EdgeCont myNeighborEdges;
+    /// the list of all neighborsEdge of this Edge
+    EdgeCont myNeighborEdges;
 
 
 
@@ -443,7 +294,7 @@ private:
     MSEdge();
 
     /// Copy constructor.
-    MSEdge( const MSEdge& );
+    MSEdge(const MSEdge&);
 
     /// Assignment operator.
     MSEdge& operator=(const MSEdge&);
@@ -451,10 +302,7 @@ private:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
