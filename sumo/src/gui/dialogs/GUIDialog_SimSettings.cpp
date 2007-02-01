@@ -1,57 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIDialog_SimSettings.cpp -
+/****************************************************************************/
+/// @file    GUIDialog_SimSettings.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.7  2006/12/20 08:37:29  dkrajzew
-// title text fixed
-//
-// Revision 1.6  2005/10/07 11:36:48  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/12 11:55:37  dkrajzew
-// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIDialog_SimSettings.h"
 
@@ -62,18 +43,18 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 FXDEFMAP(GUIDialog_SimSettings) GUIDialog_SimSettingsMap[]=
-{
-    //________Message_Type____________ID________________________Message_Handler________
-    FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_SimSettings::onCmdQuitOnEnd),
-    FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_SimSettings::onCmdSurpressEnd),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_SimSettings::onCmdAllowAggregated),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_SimSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_SimSettings::onCmdCancel),
-};
+    {
+        //________Message_Type____________ID________________________Message_Handler________
+        FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_SimSettings::onCmdQuitOnEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_SimSettings::onCmdSurpressEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_SimSettings::onCmdAllowAggregated),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_SimSettings::onCmdOk),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_SimSettings::onCmdCancel),
+    };
 
 // Object implementation
 FXIMPLEMENT(GUIDialog_SimSettings, FXDialogBox, GUIDialog_SimSettingsMap, ARRAYNUMBER(GUIDialog_SimSettingsMap))
@@ -82,14 +63,14 @@ FXIMPLEMENT(GUIDialog_SimSettings, FXDialogBox, GUIDialog_SimSettingsMap, ARRAYN
 
 
 GUIDialog_SimSettings::GUIDialog_SimSettings(FXMainWindow* parent,
-                                             bool *quitOnEnd,
-                                             bool *surpressEnd,
-                                             bool *allowFloating)
-    : FXDialogBox( parent, "Simulation Settings" ),
-    myAppQuitOnEnd(*quitOnEnd), mySurpressEnd(*surpressEnd),
-    myAllowFloating(*allowFloating),
-    mySetAppQuitOnEnd(quitOnEnd), mySetSurpressEnd(surpressEnd),
-    mySetAllowFloating(allowFloating)
+        bool *quitOnEnd,
+        bool *surpressEnd,
+        bool *allowFloating)
+        : FXDialogBox(parent, "Simulation Settings"),
+        myAppQuitOnEnd(*quitOnEnd), mySurpressEnd(*surpressEnd),
+        myAllowFloating(*allowFloating),
+        mySetAppQuitOnEnd(quitOnEnd), mySetSurpressEnd(surpressEnd),
+        mySetAllowFloating(allowFloating)
 {
     FXCheckButton *b = 0;
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
@@ -107,8 +88,7 @@ GUIDialog_SimSettings::GUIDialog_SimSettings(FXMainWindow* parent,
 
 
 GUIDialog_SimSettings::~GUIDialog_SimSettings()
-{
-}
+{}
 
 
 long
@@ -153,8 +133,7 @@ GUIDialog_SimSettings::onCmdAllowAggregated(FXObject*,FXSelector,void*)
     return 1;
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
+

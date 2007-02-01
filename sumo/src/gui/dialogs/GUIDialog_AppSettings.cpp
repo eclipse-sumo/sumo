@@ -1,65 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIDialog_AppSettings.cpp -
-//  The application-settings dialog
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 08.03.2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GUIDialog_AppSettings.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 08.03.2004
+/// @version $Id: $
+///
+// The application-settings dialog
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.6  2005/10/07 11:36:48  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.5  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 09:44:26  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.3  2004/11/23 10:00:08  dkrajzew
-// new class hierarchy for windows applied
-//
-// Revision 1.2  2004/04/02 10:56:20  dkrajzew
-// first try to implement an option for switching off textures
-//
-// Revision 1.1  2004/03/19 12:33:36  dkrajzew
-// porting to FOX
-//
-// Revision 1.1  2004/03/19 12:32:26  dkrajzew
-// porting to FOX
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "GUIDialog_AppSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -71,34 +44,34 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
-    FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_AppSettings::onCmdSurpressEnd),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_AppSettings::onCmdAllowAggregated),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onCmdAllowAggregatedFloating),
-    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
+    {
+        FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_AppSettings::onCmdSurpressEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_AppSettings::onCmdAllowAggregated),
+        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onCmdAllowAggregatedFloating),
+        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
+        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
 
-    FXMAPFUNC(SEL_UPDATE,   MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onUpdAllowAggregatedFloating),
-};
+        FXMAPFUNC(SEL_UPDATE,   MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onUpdAllowAggregatedFloating),
+    };
 
 FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYNUMBER(GUIDialog_AppSettingsMap))
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
-    : FXDialogBox( parent, "Application Settings" ),
-    myAppQuitOnEnd(gQuitOnEnd), mySurpressEnd(gSuppressEndInfo),
-    myAllowAggregated(gAllowAggregated),
-    myAllowAggregatedFloating(gAllowAggregatedFloating),
-    myAllowTextures(gAllowTextures)
+        : FXDialogBox(parent, "Application Settings"),
+        myAppQuitOnEnd(gQuitOnEnd), mySurpressEnd(gSuppressEndInfo),
+        myAllowAggregated(gAllowAggregated),
+        myAllowAggregatedFloating(gAllowAggregatedFloating),
+        myAllowTextures(gAllowTextures)
 {
     FXCheckButton *b = 0;
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
@@ -121,8 +94,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
 
 
 GUIDialog_AppSettings::~GUIDialog_AppSettings()
-{
-}
+{}
 
 
 long
@@ -166,7 +138,7 @@ long
 GUIDialog_AppSettings::onCmdAllowAggregated(FXObject*,FXSelector,void*)
 {
     myAllowAggregated = !myAllowAggregated;
-    if(!myAllowAggregated) {
+    if (!myAllowAggregated) {
         myAllowAggregatedFloating = false;
     }
     return 1;
@@ -183,12 +155,12 @@ GUIDialog_AppSettings::onCmdAllowAggregatedFloating(FXObject*,FXSelector,void*)
 
 long
 GUIDialog_AppSettings::onUpdAllowAggregatedFloating(FXObject *sender,
-                                                    FXSelector,
-                                                    void *ptr)
+        FXSelector,
+        void *ptr)
 {
     sender->handle(this,
-        !myAllowAggregated?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
+                   !myAllowAggregated?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+                   ptr);
     return 1;
 }
 
@@ -202,10 +174,5 @@ GUIDialog_AppSettings::onCmdAllowTextures(FXObject*,FXSelector,void*)
 
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

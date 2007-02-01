@@ -1,86 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        GUIDialog_EditAddWeights.cpp -
+/****************************************************************************/
+/// @file    GUIDialog_EditAddWeights.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 16 Jun 2004
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 16 Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2006/11/16 10:50:43  dkrajzew
-// warnings removed
-//
-// Revision 1.13  2006/07/06 05:35:54  dkrajzew
-// replaced exception throwing in unreachable places by something more friendly
-//
-// Revision 1.12  2006/04/11 10:54:56  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.11  2006/03/28 06:12:54  dkrajzew
-// unneeded string wrapping removed
-//
-// Revision 1.10  2006/01/09 11:44:40  dkrajzew
-// debugging the editable table
-//
-// Revision 1.9  2005/11/14 09:46:37  dkrajzew
-// debugging editable tables
-//
-// Revision 1.8  2005/11/09 06:30:13  dkrajzew
-// subwindows are now deleted on (re)loading the simulation
-//
-// Revision 1.7  2005/10/07 11:36:48  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/22 13:30:40  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/04/27 09:44:26  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.3  2004/11/23 10:00:08  dkrajzew
-// new class hierarchy for windows applied
-//
-// Revision 1.2  2004/08/02 11:28:57  dkrajzew
-// ported to fox 1.2
-//
-// Revision 1.1  2004/07/02 08:10:56  dkrajzew
-// edition of breakpoints and additional weights added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -111,85 +63,87 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * definitions
- * ======================================================================= */
+// ===========================================================================
+// definitions
+// ===========================================================================
 #define INVALID_VALUE -1
 #define INVALID_VALUE_STR "-1"
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * FOX callback mapping
- * ======================================================================= */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUIDialog_EditAddWeights) GUIDialog_EditAddWeightsMap[]=
-{
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                   GUIDialog_EditAddWeights::onCmdLoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_EditAddWeights::onCmdSave),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_EditAddWeights::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_EditAddWeights::onCmdClose),
-    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_EditAddWeights::onCmdEditTable),
+    {
+        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                   GUIDialog_EditAddWeights::onCmdLoad),
+        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_EditAddWeights::onCmdSave),
+        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_EditAddWeights::onCmdClear),
+        FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_EditAddWeights::onCmdClose),
+        FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_EditAddWeights::onCmdEditTable),
 
-    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_EditAddWeights::onUpdSave),
-};
+        FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_EditAddWeights::onUpdSave),
+    };
 
 
 FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap, ARRAYNUMBER(GUIDialog_EditAddWeightsMap))
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
-    : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,500, 300),
-    myParent(parent), myEntriesAreValid(false)
+        : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,500, 300),
+        myParent(parent), myEntriesAreValid(false)
 {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
-        0,0,0,0);
+                              0,0,0,0);
 
     // build the table
     myTable = new MFXAddEditTypedTable(hbox, this, MID_TABLE,
-        LAYOUT_FILL_X|LAYOUT_FILL_Y);
+                                       LAYOUT_FILL_X|LAYOUT_FILL_Y);
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(6);
     myTable->setTableSize(20,6);
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setCellType(1, CT_INT);
     myTable->setNumberCellParams(1,
-        OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
-        1, 10, 100, "%.0f");
+                                 OptionsSubSys::getOptions().getInt("b"),
+                                 OptionsSubSys::getOptions().getInt("e"),
+                                 1, 10, 100, "%.0f");
     myTable->setCellType(2, CT_INT);
     myTable->setNumberCellParams(2,
-        OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
-        1, 10, 100, "%.0f");
+                                 OptionsSubSys::getOptions().getInt("b"),
+                                 OptionsSubSys::getOptions().getInt("e"),
+                                 1, 10, 100, "%.0f");
     myTable->setCellType(3, CT_REAL);
     myTable->setNumberCellParams(3, -100000000000000000.0, 1000000000000000.0,
-        10, 100, 100000, "%.2f");
+                                 10, 100, 100000, "%.2f");
     myTable->setCellType(4, CT_REAL);
     myTable->setNumberCellParams(4, -100000000000000000.0, 1000000000000000.0,
-        10, 100, 100000, "%.2f");
+                                 10, 100, 100000, "%.2f");
     myTable->setCellType(5, CT_REAL);
     myTable->setNumberCellParams(5, -100000000000000000.0, 1000000000000000.0,
-        10, 100, 100000, "%.2f");
+                                 10, 100, 100000, "%.2f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
-    FXVerticalFrame *layout = new FXVerticalFrame( hbox, LAYOUT_TOP,0,0,0,0,
-        4,4,4,4);
+    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
+                              4,4,4,4);
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
-        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 3, 3);
+                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
     new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE,
-        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 3, 3);
+                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 3, 3);
 
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -201,15 +155,15 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
         */
     // "Clear List"
     new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
-        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 3, 3);
+                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 3, 3);
 
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
     // "Close"
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
-        ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
-        0, 0, 0, 0, 4, 4, 3, 3);
+                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 3, 3);
 
     myParent->addChild(this);
 }
@@ -238,7 +192,7 @@ GUIDialog_EditAddWeights::rebuildList()
     FXHeader *header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
-    for(k=0; k<6; k++) {
+    for (k=0; k<6; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X|JUSTIFY_TOP);
     }
     header->setItemSize(0, 149); // !! check if the size will be changed
@@ -251,47 +205,47 @@ GUIDialog_EditAddWeights::rebuildList()
     // insert into table
     size_t row = 0;
     GUIAddWeightsStorage::iterator j;
-    for(j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
+    for (j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
         GUIAddWeight &aw = *j;
         std::string name = aw.edgeID;
         myTable->setItemText(row, 0, name.c_str());
         myTable->setItemText(row, 1,
-            toString<int>((*j).timeBeg).c_str());
+                             toString<int>((*j).timeBeg).c_str());
         myTable->setItemText(row, 2,
-            toString<int>((*j).timeEnd).c_str());
+                             toString<int>((*j).timeEnd).c_str());
         myTable->setItemText(row, 3,
-            toString<SUMOReal>((*j).abs).c_str());
+                             toString<SUMOReal>((*j).abs).c_str());
         myTable->setItemText(row, 4,
-            toString<SUMOReal>((*j).add).c_str());
+                             toString<SUMOReal>((*j).add).c_str());
         myTable->setItemText(row, 5,
-            toString<SUMOReal>((*j).mult).c_str());
+                             toString<SUMOReal>((*j).mult).c_str());
         // replace "invalid" values by empty fields
-        for(k=1; k<6; k++) {
+        for (k=1; k<6; k++) {
             string val = myTable->getItem(row, k)->getText().text();
-            if(val==INVALID_VALUE_STR) {
+            if (val==INVALID_VALUE_STR) {
                 myTable->setItemText(row, k, " ");
             }
         }
         row++;
     }
     // insert dummy last field
-    for(k=0; k<6; k++) {
+    for (k=0; k<6; k++) {
         myTable->setItemText(row, k, " ");
     }
     //
     bool entriesAreValid = true;
-    for(j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end()&&entriesAreValid; ++j) {
+    for (j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end()&&entriesAreValid; ++j) {
         GUIAddWeight &aw = *j;
-        if(aw.edgeID.find_first_not_of(" ")!=string::npos) {
+        if (aw.edgeID.find_first_not_of(" ")!=string::npos) {
             entriesAreValid = false;
         }
-        if(aw.timeBeg==INVALID_VALUE) {
+        if (aw.timeBeg==INVALID_VALUE) {
             entriesAreValid = false;
         }
-        if(aw.timeEnd==INVALID_VALUE) {
+        if (aw.timeEnd==INVALID_VALUE) {
             entriesAreValid = false;
         }
-        if(aw.timeBeg>=aw.timeEnd) {
+        if (aw.timeBeg>=aw.timeEnd) {
             entriesAreValid = false;
         }
     }
@@ -305,10 +259,10 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this, "Save Additional Weights");
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
-    if(gCurrentFolder.length()!=0) {
+    if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if(opendialog.execute()){
+    if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
         GUISupplementaryWeightsHandler handler(file);
@@ -326,10 +280,10 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this, "Save Additional Weights");
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
-    if(gCurrentFolder.length()!=0) {
+    if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if(opendialog.execute()){
+    if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
         string content = encode2XML();
@@ -348,18 +302,18 @@ GUIDialog_EditAddWeights::encode2XML()
     //
     strm << "<?xml version=\"1.0\" standalone=\"yes\"?>" << endl;
     strm << "<supplementary-weights>" << endl;
-    for(GUIAddWeightsStorage::iterator j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
+    for (GUIAddWeightsStorage::iterator j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
         const GUIAddWeight &aw = (*j);
-        if(aw.abs!=INVALID_VALUE||aw.add!=INVALID_VALUE||aw.mult!=INVALID_VALUE) {
+        if (aw.abs!=INVALID_VALUE||aw.add!=INVALID_VALUE||aw.mult!=INVALID_VALUE) {
             strm << "   <interval begin=\"" << aw.timeBeg << "\" end=\"" << aw.timeEnd << "\">" << endl;
             strm << "      <weight edge-id=\"" << aw.edgeID << "\" ";
-            if(aw.abs!=INVALID_VALUE) {
+            if (aw.abs!=INVALID_VALUE) {
                 strm << "absolut=\"" << aw.abs << "\" ";
             }
-            if(aw.add!=INVALID_VALUE) {
+            if (aw.add!=INVALID_VALUE) {
                 strm << "add=\"" << aw.add << "\" ";
             }
-            if(aw.mult!=INVALID_VALUE) {
+            if (aw.mult!=INVALID_VALUE) {
                 strm << "mult=\"" << aw.mult << "\" ";
             }
             strm << "/>" << endl;
@@ -420,8 +374,8 @@ long
 GUIDialog_EditAddWeights::onUpdSave(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
-        myEntriesAreValid?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
+                   myEntriesAreValid?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+                   ptr);
     return 1;
 }
 
@@ -432,13 +386,13 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
     string value = i->item->getText().text();
     // check whether the inserted value is empty
-    if(value.find_first_not_of(" ")==string::npos) {
+    if (value.find_first_not_of(" ")==string::npos) {
         // replace by invalid if so
         value = INVALID_VALUE_STR;
     }
     GUIAddWeight aw;
     int row = i->row;
-    if(row==(int) gAddWeightsStorage.size()) {
+    if (row==(int) gAddWeightsStorage.size()) {
         aw.edgeID = " ";
         aw.abs = INVALID_VALUE;
         aw.add = INVALID_VALUE;
@@ -450,9 +404,9 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         aw = gAddWeightsStorage[row];
     }
 
-    switch(i->col) {
+    switch (i->col) {
     case 0:
-        if(MSEdge::dictionary(value)==0) {
+        if (MSEdge::dictionary(value)==0) {
             string msg = "The edge '" + value + "' is not known.";
             FXMessageBox::error(this, MBOX_OK, "Invalid Edge Name", msg.c_str());
         } else {
@@ -462,13 +416,13 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 1:
         try {
             aw.timeBeg = TplConvert<char>::_2int(value.c_str());
-            if(aw.timeEnd==INVALID_VALUE) {
+            if (aw.timeEnd==INVALID_VALUE) {
                 aw.timeEnd = aw.timeBeg + 1;
             } else {
-                if(aw.timeEnd<=aw.timeBeg) {
+                if (aw.timeEnd<=aw.timeBeg) {
                     aw.timeEnd = aw.timeBeg + 1;
                     FXMessageBox::error(this, MBOX_OK, "Time Range Error",
-                        "Period begin must be lower than period end");
+                                        "Period begin must be lower than period end");
                 }
             }
         } catch (NumberFormatException) {
@@ -479,13 +433,13 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 2:
         try {
             aw.timeEnd = TplConvert<char>::_2int(value.c_str());
-            if(aw.timeBeg==INVALID_VALUE) {
+            if (aw.timeBeg==INVALID_VALUE) {
                 aw.timeBeg = aw.timeEnd - 1;
             } else {
-                if(aw.timeEnd<=aw.timeBeg) {
+                if (aw.timeEnd<=aw.timeBeg) {
                     aw.timeBeg = aw.timeEnd - 1;
                     FXMessageBox::error(this, MBOX_OK, "Time Range Error",
-                        "Period begin must be lower than period end");
+                                        "Period begin must be lower than period end");
                 }
             }
         } catch (NumberFormatException) {
@@ -521,7 +475,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     }
     gAddWeightsStorage[row] = aw;
-    if(!i->updateOnly) {
+    if (!i->updateOnly) {
         rebuildList();
     }
     return 1;
@@ -536,11 +490,5 @@ GUIDialog_EditAddWeights::close(FXbool notify)
 
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
-
+/****************************************************************************/
 

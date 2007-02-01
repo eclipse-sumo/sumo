@@ -1,56 +1,40 @@
-#ifndef GUIDialog_Breakpoints_h
-#define GUIDialog_Breakpoints_h
-//---------------------------------------------------------------------------//
-//                        GUIDialog_Breakpoints.h -
+/****************************************************************************/
+/// @file    GUIDialog_Breakpoints.h
+/// @author  Daniel Krajzewicz
+/// @date    Thu, 17 Jun 2004
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Thu, 17 Jun 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2005/10/07 11:36:48  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 11:05:28  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/27 09:44:26  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.2  2004/11/23 10:00:08  dkrajzew
-// new class hierarchy for windows applied
-//
-// Revision 1.1  2004/07/02 08:10:56  dkrajzew
-// edition of breakpoints and additional weights added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef GUIDialog_Breakpoints_h
+#define GUIDialog_Breakpoints_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -58,16 +42,16 @@
 #include <gui/GUIAddWeightsStorage.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUIApplicationWindow;
 class MFXAddEditTypedTable;
 
 
-/* =========================================================================
- * class definition
- * ======================================================================= */
+// ===========================================================================
+// class definition
+// ===========================================================================
 /**
  * @class GUIDialog_Breakpoints
  * Instances of this class are windows that display the list of instances
@@ -99,15 +83,18 @@ private:
     void rebuildList();
     std::string encode2TXT();
 
-    class time_sorter {
-        public:
-            /// constructor
-            explicit time_sorter() { }
+    class time_sorter
+    {
+    public:
+        /// constructor
+        explicit time_sorter()
+        { }
 
-            int operator() (const int &p1, const int &p2) {
-                return p1<p2;
-            }
-        };
+        int operator()(const int &p1, const int &p2)
+        {
+            return p1<p2;
+        }
+    };
 
 private:
     /// the list that holds the ids
@@ -117,16 +104,13 @@ private:
     GUIMainWindow *myParent;
 
 protected:
-    GUIDialog_Breakpoints() { }
+    GUIDialog_Breakpoints()
+    { }
 
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
