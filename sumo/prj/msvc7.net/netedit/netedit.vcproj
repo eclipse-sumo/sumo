@@ -98,7 +98,7 @@ copy Debug\netedit.exe ..\..\..\bin\neteditD.exe
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"

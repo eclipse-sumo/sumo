@@ -144,7 +144,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
