@@ -1,16 +1,38 @@
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    MFXImageHelper.cpp
+/// @author  unknown_author
+/// @date    a->beginWaitCursor();
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <fx.h>
@@ -21,6 +43,9 @@
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
@@ -30,35 +55,35 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file)
 {
     FXString ext=FXFile::extension(file.c_str());
     FXImage *img=NULL;
-    if(comparecase(ext,"gif")==0){
+    if (comparecase(ext,"gif")==0) {
         img=new FXGIFImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"bmp")==0){
+    } else if (comparecase(ext,"bmp")==0) {
         img=new FXBMPImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"xpm")==0){
+    } else if (comparecase(ext,"xpm")==0) {
         img=new FXXPMImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"pcx")==0){
+    } else if (comparecase(ext,"pcx")==0) {
         img=new FXPCXImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"ico")==0 || comparecase(ext,"cur")==0){
+    } else if (comparecase(ext,"ico")==0 || comparecase(ext,"cur")==0) {
         img=new FXICOImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"tga")==0){
+    } else if (comparecase(ext,"tga")==0) {
         img=new FXTGAImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"rgb")==0){
+    } else if (comparecase(ext,"rgb")==0) {
         img=new FXRGBImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    } else if(comparecase(ext,"xbm")==0){
+    } else if (comparecase(ext,"xbm")==0) {
         img=new FXXBMImage(a,NULL,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     }
 #ifdef HAVE_PNG_H
-    else if(comparecase(ext,"png")==0){
+    else if (comparecase(ext,"png")==0) {
         img=new FXPNGImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     }
 #endif
 #ifdef HAVE_JPEG_H
-    else if(comparecase(ext,"jpg")==0){
+    else if (comparecase(ext,"jpg")==0) {
         img=new FXJPGImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     }
 #endif
 #ifdef HAVE_TIFF_H
-    else if(comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0){
+    else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
         img=new FXTIFImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     }
 #endif
@@ -67,15 +92,15 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file)
     }
 
     // Perhaps failed
-    if(img==NULL){
+    if (img==NULL) {
         return img;
-/*!!!        FXMessageBox::error(this,MBOX_OK,"Error Loading Image","Unsupported type: %s",ext.text());
-        return FALSE;*/
+        /*!!!        FXMessageBox::error(this,MBOX_OK,"Error Loading Image","Unsupported type: %s",ext.text());
+                return FALSE;*/
     }
 
     // Load it
     FXFileStream stream;
-    if(stream.open(file.c_str(), FXStreamLoad)){
+    if (stream.open(file.c_str(), FXStreamLoad)) {
         a->beginWaitCursor();
         img->loadPixels(stream);
         stream.close();
@@ -91,54 +116,54 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file)
 // Save file
 FXbool
 MFXImageHelper::saveimage(FXApp *, const std::string& file,
-        int width, int height, FXColor *data)
+                          int width, int height, FXColor *data)
 {
     FXString ext=FXFile::extension(file.c_str());
     FXFileStream stream;
-    if(!stream.open(file.c_str(), FXStreamSave)){
+    if (!stream.open(file.c_str(), FXStreamSave)) {
         return false;
     }
-    if(comparecase(ext,"gif")==0){
+    if (comparecase(ext,"gif")==0) {
         return fxsaveGIF(stream,
-            data, width, height, false /* !!! "fast" */);
-    } else if(comparecase(ext,"bmp")==0){
+                         data, width, height, false /* !!! "fast" */);
+    } else if (comparecase(ext,"bmp")==0) {
         return fxsaveBMP(stream,
-            data, width, height);
-    } else if(comparecase(ext,"xpm")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"xpm")==0) {
         return fxsaveXPM(stream,
-            data, width, height);
-    } else if(comparecase(ext,"pcx")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"pcx")==0) {
         return fxsavePCX(stream,
-            data, width, height);
-    } else if(comparecase(ext,"ico")==0 || comparecase(ext,"cur")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"ico")==0 || comparecase(ext,"cur")==0) {
         return fxsaveICO(stream,
-            data, width, height);
-    } else if(comparecase(ext,"tga")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"tga")==0) {
         return fxsaveTGA(stream,
-            data, width, height);
-    } else if(comparecase(ext,"rgb")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"rgb")==0) {
         return fxsaveRGB(stream,
-            data, width, height);
-    } else if(comparecase(ext,"xbm")==0){
+                         data, width, height);
+    } else if (comparecase(ext,"xbm")==0) {
         return fxsaveXBM(stream,
-            data, width, height);
+                         data, width, height);
     }
 #ifdef HAVE_PNG_H
-    else if(comparecase(ext,"png")==0){
+    else if (comparecase(ext,"png")==0) {
         return fxsavePNG(stream,
-            data, width, height);
+                         data, width, height);
     }
 #endif
 #ifdef HAVE_JPEG_H
-    else if(comparecase(ext,"jpg")==0){
+    else if (comparecase(ext,"jpg")==0) {
         return fxsaveJPG(stream,
-            data, width, height);
+                         data, width, height);
     }
 #endif
 #ifdef HAVE_TIFF_H
-    else if(comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0){
+    else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
         return fxsaveTIF(stream,
-            data, width, height);
+                         data, width, height);
     }
 #endif
     else {
@@ -148,4 +173,7 @@ MFXImageHelper::saveimage(FXApp *, const std::string& file,
     throw 1; // not yet implemented
 }
 
+
+
+/****************************************************************************/
 

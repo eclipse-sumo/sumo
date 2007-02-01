@@ -1,49 +1,48 @@
-//:Header-----------------------------*- mode: c++; tab-width: 2 -*-
+/****************************************************************************/
+/// @file    FXThreadEvent.h
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
 //
-// $Id$
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Copyright (C) 2000 by Daniel Gehriger.  All Rights Reserved
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Library General Public
-// License as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Library General Public License for more details.
-//
-// You should have received a copy of the GNU Library General Public
-// License along with this library; if not, write to the Free
-// Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// $Id$
-//
-//------------------------------------------------------------------
-#ifndef FXTHREADEVENT_H
-#define FXTHREADEVENT_H
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef FXThreadEvent_h
+#define FXThreadEvent_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "fxexdefs.h"
 
 #ifndef FXBASEOBJECT_H
 #include "FXBaseObject.h"
 #endif
-namespace FXEX {
+namespace FXEX
+{
 
 /**
  * :Description
@@ -116,49 +115,56 @@ namespace FXEX {
  *  }
  *
  */
-class /*FXAPI */FXThreadEvent : public FXBaseObject {
-  FXDECLARE(FXThreadEvent)
+class /*FXAPI */FXThreadEvent : public FXBaseObject
+{
+    FXDECLARE(FXThreadEvent)
 
 private:
-  FXThreadEventHandle event;
+    FXThreadEventHandle event;
 
 protected:
-  FXThreadEvent(const FXThreadEvent&);
-  FXThreadEvent& operator=(const FXThreadEvent&);
+    FXThreadEvent(const FXThreadEvent&);
+    FXThreadEvent& operator=(const FXThreadEvent&);
 
 public:
-  enum {
-    ID_THREAD_EVENT=FXBaseObject::ID_LAST,
-    ID_LAST
+    enum
+    {
+        ID_THREAD_EVENT=FXBaseObject::ID_LAST,
+        ID_LAST
     };
 
 public:
-  long onThreadSignal(FXObject*,FXSelector,void*);
-  long onThreadEvent(FXObject*,FXSelector,void*);
+    long onThreadSignal(FXObject*,FXSelector,void*);
+    long onThreadEvent(FXObject*,FXSelector,void*);
 
 public:
-  /// Construct an object capable of signaling the main FOX event loop
-  FXThreadEvent(FXObject* tgt=NULL,FXSelector sel=0);
+    /// Construct an object capable of signaling the main FOX event loop
+    FXThreadEvent(FXObject* tgt=NULL,FXSelector sel=0);
 
-  /**
-   * Signal the event - using the SEL_THREAD FXSelector type
-   *
-   * This is meant to be called from the worker thread - it sends a mesage to
-   * the target, which is in another thread.
-   */
-  void signal();
+    /**
+     * Signal the event - using the SEL_THREAD FXSelector type
+     *
+     * This is meant to be called from the worker thread - it sends a mesage to
+     * the target, which is in another thread.
+     */
+    void signal();
 
-  /**
-   * Signal the event - using the specified FXSelector
-   *
-   * This is meant to be called from the worker thread - it sends a mesage to
-   * the target, which is in another thread.
-   */
-  void signal(FXuint seltype);
+    /**
+     * Signal the event - using the specified FXSelector
+     *
+     * This is meant to be called from the worker thread - it sends a mesage to
+     * the target, which is in another thread.
+     */
+    void signal(FXuint seltype);
 
-  /// destructor
-  virtual ~FXThreadEvent();
-  };
+    /// destructor
+    virtual ~FXThreadEvent();
+};
 
 } // namespace FXEX
-#endif // FXTHREADEVENT_H
+
+
+#endif
+
+/****************************************************************************/
+

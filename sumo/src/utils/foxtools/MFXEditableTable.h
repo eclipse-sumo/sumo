@@ -1,24 +1,46 @@
+/****************************************************************************/
+/// @file    MFXEditableTable.h
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef MFXEditableTable_h
 #define MFXEditableTable_h
-
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <set>
 
-struct MFXEditedTableItem {
+struct MFXEditedTableItem
+{
     FXTableItem *item;
     int row;
     int col;
@@ -26,11 +48,12 @@ struct MFXEditedTableItem {
 };
 
 enum {
-  EDITTABLE_NEXTROW     = 0x02000000   /// Allow editing the next row (not all other)
+    EDITTABLE_NEXTROW     = 0x02000000   /// Allow editing the next row (not all other)
 };
 
 
-class MFXEditableTable : public FXTable {
+class MFXEditableTable : public FXTable
+{
     FXDECLARE(MFXEditableTable)
 public:
     enum {
@@ -125,10 +148,13 @@ protected:
     FXString myPreviousText;
 
 protected:
-    MFXEditableTable() { }
+    MFXEditableTable()
+{ }
 
 };
 
 
 #endif
+
+/****************************************************************************/
 

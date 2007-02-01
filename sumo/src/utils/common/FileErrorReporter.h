@@ -1,75 +1,57 @@
-#ifndef FileErrorReporter_h
-#define FileErrorReporter_h
-//---------------------------------------------------------------------------//
-//                        FileErrorReporter.h -
-//  A class that realises easier reports on errors occured while loading
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    FileErrorReporter.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// A class that realises easier reports on errors occured while loading
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.7  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/04/28 09:02:46  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.4  2004/11/23 10:27:45  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/03/03 15:24:31  dkrajzew
-// extra functionality added
-//
-// Revision 1.2  2003/02/07 10:47:17  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef FileErrorReporter_h
+#define FileErrorReporter_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class FileErrorReporter
  * A class for file handlers that allows to generate errors which contain
  * the name of the parsed file.
  */
-class FileErrorReporter {
+class FileErrorReporter
+{
 public:
     /** constructor */
     FileErrorReporter(const std::string &filetype,
-        const std::string &file="");
+                      const std::string &file="");
 
     /** destructor */
     virtual ~FileErrorReporter();
@@ -89,7 +71,8 @@ public:
     /// returns the type of data used by the reporter
     const std::string &getDataType() const;
 public:
-    class Child {
+    class Child
+    {
     public:
         Child(FileErrorReporter &parent);
         ~Child();
@@ -107,11 +90,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

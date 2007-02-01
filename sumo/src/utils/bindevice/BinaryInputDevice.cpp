@@ -1,16 +1,38 @@
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    BinaryInputDevice.cpp
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "BinaryInputDevice.h"
@@ -19,33 +41,34 @@
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
-/* =========================================================================
- * constants definitions
- * ======================================================================= */
+// ===========================================================================
+// constants definitions
+// ===========================================================================
 #define BUF_MAX 1000
 
 
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 char gBinaryInputDeviceBuf[BUF_MAX];
 
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
 
 
 BinaryInputDevice::BinaryInputDevice(const std::string &name,
-                               bool fliporder)
-    : myFlipOrder(fliporder),
-    myStream(name.c_str(), fstream::in|fstream::binary)
-{
-}
+                                     bool fliporder)
+        : myFlipOrder(fliporder),
+        myStream(name.c_str(), fstream::in|fstream::binary)
+{}
 
 
 BinaryInputDevice::~BinaryInputDevice()
-{
-}
+{}
 
 
 bool
@@ -93,7 +116,7 @@ operator>>(BinaryInputDevice &os, std::string &s)
 {
     unsigned int size;
     os >> size;
-    if(size<BUF_MAX) {
+    if (size<BUF_MAX) {
         os.myStream.read((char*) &gBinaryInputDeviceBuf, sizeof(char)*size);
         gBinaryInputDeviceBuf[size] = 0;
         s = std::string(gBinaryInputDeviceBuf);
@@ -111,4 +134,6 @@ operator>>(BinaryInputDevice &os, long &l)
 }
 
 
+
+/****************************************************************************/
 

@@ -1,71 +1,38 @@
-/***************************************************************************
-                          StringTokenizer.cpp
-              A java-style StringTokenizer for c++ (stl)
-                             -------------------
-    project              : none
-    begin                : ?
-    copyright            : (C) Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
-    Attention!!!
-    As one of few, this module is under the
-        Lesser GNU General Public Licence
-    *********************************************************************
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
- ***************************************************************************/
-namespace
-{
-     const char rcsid[] = "$Id$";
-}
-// $Log$
-// Revision 1.8  2006/11/16 10:50:51  dkrajzew
-// warnings removed
+/****************************************************************************/
+/// @file    StringTokenizer.cpp
+/// @author  Daniel Krajzewicz
+/// @date    ?
+/// @version $Id: $
+///
+// A java-style StringTokenizer for c++ (stl)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.7  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.6  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2005/04/28 09:02:46  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.4  2004/07/02 09:42:36  dkrajzew
-// changes for 0.8.0.2
-//
-// Revision 1.3  2003/05/20 09:49:43  dkrajzew
-// further work and debugging
-//
-// Revision 1.2  2003/02/07 10:47:17  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 15:09:09  dkrajzew
-// initial commit for some utility classes common to most propgrams of the sumo-package
-//
-// Revision 1.2  2002/07/25 08:52:28  dkrajzew
-// get-method for retrival of a numbered item added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -78,33 +45,33 @@ namespace
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * variable definitions
- * ======================================================================= */
+// ===========================================================================
+// variable definitions
+// ===========================================================================
 const int StringTokenizer::NEWLINE = -256;
 const int StringTokenizer::WHITECHARS = -257;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 StringTokenizer::StringTokenizer(std::string tosplit)
-    : _tosplit(tosplit), _pos(0)
+        : _tosplit(tosplit), _pos(0)
 {
     prepareWhitechar(tosplit);
 }
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, std::string token)
-    : _tosplit(tosplit), _pos(0)
+        : _tosplit(tosplit), _pos(0)
 {
-    if(token.length()==1) {
+    if (token.length()==1) {
         prepare(tosplit, token[0]);
     } else {
         prepare(tosplit, token);
@@ -113,9 +80,9 @@ StringTokenizer::StringTokenizer(std::string tosplit, std::string token)
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, int special)
-    : _tosplit(tosplit), _pos(0)
+        : _tosplit(tosplit), _pos(0)
 {
-    switch(special) {
+    switch (special) {
     case NEWLINE:
         prepareNewline(tosplit);
         break;
@@ -130,8 +97,7 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
 
 
 StringTokenizer::~StringTokenizer()
-{
-}
+{}
 
 void StringTokenizer::reinit()
 {
@@ -145,10 +111,10 @@ bool StringTokenizer::hasNext()
 
 std::string StringTokenizer::next()
 {
-    if(_pos>=_starts.size()) {
+    if (_pos>=_starts.size()) {
         throw OutOfBoundsException();
     }
-    if(_lengths[_pos]==0) {
+    if (_lengths[_pos]==0) {
         _pos++;
         return "";
     }
@@ -157,27 +123,29 @@ std::string StringTokenizer::next()
     return _tosplit.substr(start,length);
 }
 
-std::string StringTokenizer::front() {
-    if(_starts.size()==0) {
+std::string StringTokenizer::front()
+{
+    if (_starts.size()==0) {
         throw OutOfBoundsException();
     }
-    if(_lengths[0]==0) {
+    if (_lengths[0]==0) {
         return "";
     }
     return _tosplit.substr(_starts[0],_lengths[0]);
 }
 
-std::string StringTokenizer::get(size_t pos) const {
-    if(pos>=_starts.size()) {
-        throw OutOfBoundsException();
+std::string StringTokenizer::get(size_t pos) const
+    {
+        if (pos>=_starts.size()) {
+            throw OutOfBoundsException();
+        }
+        if (_lengths[pos]==0) {
+            return "";
+        }
+        size_t start = _starts[pos];
+        size_t length = _lengths[pos];
+        return _tosplit.substr(start, length);
     }
-    if(_lengths[pos]==0) {
-        return "";
-    }
-    size_t start = _starts[pos];
-    size_t length = _lengths[pos];
-    return _tosplit.substr(start, length);
-}
 
 
 size_t StringTokenizer::size() const
@@ -185,17 +153,18 @@ size_t StringTokenizer::size() const
     return _starts.size();
 }
 
-void StringTokenizer::prepare(const string &tosplit, const string &token) {
+void StringTokenizer::prepare(const string &tosplit, const string &token)
+{
     size_t len = token.length();
     size_t beg = 0;
-    while(beg!=string::npos&&beg<tosplit.length()) {
+    while (beg!=string::npos&&beg<tosplit.length()) {
         size_t end = tosplit.find(token, beg);
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
         beg = end;
-        if(end!=string::npos) {
+        if (end!=string::npos) {
             beg += len;
-            if(beg==tosplit.length()) {
+            if (beg==tosplit.length()) {
                 _starts.push_back(beg);
                 _lengths.push_back(0);
             }
@@ -203,16 +172,17 @@ void StringTokenizer::prepare(const string &tosplit, const string &token) {
     }
 }
 
-void StringTokenizer::prepare(const string &tosplit, char token) {
+void StringTokenizer::prepare(const string &tosplit, char token)
+{
     size_t beg = 0;
-    while(beg!=string::npos&&beg<tosplit.length()) {
+    while (beg!=string::npos&&beg<tosplit.length()) {
         size_t end = tosplit.find(token, beg);
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
         beg = end;
-        if(end!=string::npos) {
+        if (end!=string::npos) {
             beg++;
-            if(beg==tosplit.length()) {
+            if (beg==tosplit.length()) {
                 _starts.push_back(beg);
                 _lengths.push_back(0);
             }
@@ -220,9 +190,10 @@ void StringTokenizer::prepare(const string &tosplit, char token) {
     }
 }
 
-void StringTokenizer::prepare(const string &tosplit, const string &token, int /*dummy*/) {
+void StringTokenizer::prepare(const string &tosplit, const string &token, int /*dummy*/)
+{
     size_t beg = tosplit.find_first_not_of(token);
-    while(beg!=string::npos&&beg<tosplit.length()) {
+    while (beg!=string::npos&&beg<tosplit.length()) {
         size_t end = tosplit.find_first_of(token, beg);
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
@@ -230,48 +201,50 @@ void StringTokenizer::prepare(const string &tosplit, const string &token, int /*
     }
 }
 
-void StringTokenizer::prepareWhitechar(const string &tosplit) {
+void StringTokenizer::prepareWhitechar(const string &tosplit)
+{
     size_t len = tosplit.length();
     size_t beg = 0;
-    while(beg<len&&tosplit.at(beg)<=32) {
+    while (beg<len&&tosplit.at(beg)<=32) {
         beg++;
     }
-    while(beg!=string::npos&&beg<len) {
+    while (beg!=string::npos&&beg<len) {
         size_t end = beg;
-        while(end<len&&tosplit.at(end)>32) {
+        while (end<len&&tosplit.at(end)>32) {
             end++;
         }
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
         beg = end;
-        while(beg<len&&tosplit.at(beg)<=32) {
+        while (beg<len&&tosplit.at(beg)<=32) {
             beg++;
         }
     }
 }
 
-void StringTokenizer::prepareNewline(const string &tosplit) {
+void StringTokenizer::prepareNewline(const string &tosplit)
+{
     size_t len = tosplit.length();
     size_t beg = 0;
-    while(beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
+    while (beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
         _starts.push_back(beg);
         _lengths.push_back(0);
         beg++;
     }
-    while(beg!=string::npos&&beg<len) {
+    while (beg!=string::npos&&beg<len) {
         size_t end = beg;
-        while(end<len&&(tosplit.at(end)!=13&&tosplit.at(end)!=10)) {
+        while (end<len&&(tosplit.at(end)!=13&&tosplit.at(end)!=10)) {
             end++;
         }
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
         beg = end;
-        if(beg==len-1&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
+        if (beg==len-1&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
             _starts.push_back(beg);
             _lengths.push_back(0);
         }
         beg++;
-        while(beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
+        while (beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
             _starts.push_back(beg);
             _lengths.push_back(0);
             beg++;
@@ -285,7 +258,7 @@ StringTokenizer::getVector()
 {
     std::vector<std::string> ret;
     ret.reserve(size());
-    while(hasNext()) {
+    while (hasNext()) {
         ret.push_back(next());
     }
     reinit();
@@ -293,9 +266,6 @@ StringTokenizer::getVector()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-//
+/****************************************************************************/
 

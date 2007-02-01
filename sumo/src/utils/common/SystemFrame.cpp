@@ -1,82 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        SystemFrame.cpp -
-//  A set of actions common to all applications
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 23.06.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    SystemFrame.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 23.06.2003
+/// @version $Id: $
+///
+// A set of actions common to all applications
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.16  2007/01/10 08:33:02  dkrajzew
-// expanded the some option names when asking for them
-//
-// Revision 1.15  2006/08/01 07:22:23  dkrajzew
-// removed build number information
-//
-// Revision 1.14  2006/04/07 10:41:48  dkrajzew
-// code beautifying: embedding string in strings removed
-//
-// Revision 1.13  2006/01/16 13:38:23  dkrajzew
-// help and error handling patched
-//
-// Revision 1.12  2006/01/09 13:31:17  dkrajzew
-// debugging error handling
-//
-// Revision 1.11  2005/10/17 09:22:36  dkrajzew
-// memory leaks removed
-//
-// Revision 1.10  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/07/12 12:43:49  dkrajzew
-// code style adapted
-//
-// Revision 1.7  2005/04/28 09:02:47  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.6  2004/11/23 10:27:45  dkrajzew
-// debugging
-//
-// Revision 1.5  2003/10/27 10:54:31  dkrajzew
-// problems on setting gui options patched -
-//  - the configuration is not loaded directly any more
-//
-// Revision 1.4  2003/06/24 08:10:23  dkrajzew
-// extended by the options sub system; dcumentation added
-//
-// Revision 1.3  2003/06/24 08:09:29  dkrajzew
-// implemented SystemFrame and applied the changes to all applications
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "SystemFrame.h"
 #include <string>
@@ -91,25 +47,25 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 LogFile *SystemFrame::myLogFile = 0;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 int
 SystemFrame::init(bool gui, int argc, char **argv,
-                    fill_options *fill_f,
-                    check_options *check_f)
+                  fill_options *fill_f,
+                  check_options *check_f)
 {
     // initialise the output for option processing
     MsgHandler::getErrorInstance()->report2cerr(true);
@@ -119,31 +75,31 @@ SystemFrame::init(bool gui, int argc, char **argv,
     MsgHandler::getMessageInstance()->report2cerr(false);
     MsgHandler::getMessageInstance()->report2cout(true);
     // initialise the xml-subsystem
-    if(!XMLSubSys::init()) {
+    if (!XMLSubSys::init()) {
         return 2;
     }
     // initialise the options-subsystem
-    if(argc<2&&!gui) {
+    if (argc<2&&!gui) {
         // no options are given
         return -3;
     }
     bool iret = OptionsSubSys::init(!gui, argc, argv, fill_f, check_f);
     // check whether the help shall be printed
-    if(OptionsSubSys::getOptions().getBool("help")) {
+    if (OptionsSubSys::getOptions().getBool("help")) {
         //HelpPrinter::print(help);
         return -2;
     }
     // check whether the settings shall be printed
-    if(OptionsSubSys::getOptions().getBool("print-options")) {
+    if (OptionsSubSys::getOptions().getBool("print-options")) {
         cout << OptionsSubSys::getOptions();
     }
     // check whether something has to be done with options
-        // whether the current options shall be saved
-    if(OptionsSubSys::getOptions().isSet("save-configuration")) {
+    // whether the current options shall be saved
+    if (OptionsSubSys::getOptions().isSet("save-configuration")) {
         ofstream out(OptionsSubSys::getOptions().getString("save-configuration").c_str());
-        if(!out.good()) {
+        if (!out.good()) {
             MsgHandler::getErrorInstance()->inform("Could not save configuration to '" + OptionsSubSys::getOptions().getString("save-configuration") + "'");
-            if(OptionsSubSys::getOptions().getBool("verbose")) {
+            if (OptionsSubSys::getOptions().getBool("verbose")) {
                 MsgHandler::getMessageInstance()->inform("Written configuration to '" + OptionsSubSys::getOptions().getString("save-configuration") + "'");
             }
             return 1;
@@ -151,15 +107,15 @@ SystemFrame::init(bool gui, int argc, char **argv,
             OptionsSubSys::getOptions().writeConfiguration(out, true, false, false);
         }
     }
-        // whether the template shall be saved
-    if(OptionsSubSys::getOptions().isSet("save-template")) {
+    // whether the template shall be saved
+    if (OptionsSubSys::getOptions().isSet("save-template")) {
         ofstream out(OptionsSubSys::getOptions().getString("save-template").c_str());
-        if(!out.good()) {
+        if (!out.good()) {
             MsgHandler::getErrorInstance()->inform("Could not save template to '" + OptionsSubSys::getOptions().getString("save-template") + "'");
             return 1;
         } else {
             OptionsSubSys::getOptions().writeConfiguration(out, false, true, OptionsSubSys::getOptions().getBool("save-template.commented"));
-            if(OptionsSubSys::getOptions().getBool("verbose")) {
+            if (OptionsSubSys::getOptions().getBool("verbose")) {
                 MsgHandler::getMessageInstance()->inform("Written template to '" + OptionsSubSys::getOptions().getString("save-template") + "'");
             }
             return -4;
@@ -167,13 +123,13 @@ SystemFrame::init(bool gui, int argc, char **argv,
     }
 
     // were the options ok?
-    if(!iret) {
+    if (!iret) {
         return -3;
     }
 
     // initialise the output
-        // check whether it is a gui-version or not, first
-    if(gui) {
+    // check whether it is a gui-version or not, first
+    if (gui) {
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
         MsgHandler::getErrorInstance()->report2cerr(false);
@@ -190,19 +146,19 @@ SystemFrame::init(bool gui, int argc, char **argv,
         MsgHandler::getMessageInstance()->report2cout(true);
         MsgHandler::getMessageInstance()->report2cerr(false);
     }
-        // then, check whether be verbose
-    if(!gui&&!OptionsSubSys::getOptions().getBool("verbose")) {
+    // then, check whether be verbose
+    if (!gui&&!OptionsSubSys::getOptions().getBool("verbose")) {
         MsgHandler::getMessageInstance()->report2cout(false);
     }
-        // check whether to suppress warnings
-    if(!gui&&OptionsSubSys::getOptions().getBool("suppress-warnings")) {
+    // check whether to suppress warnings
+    if (!gui&&OptionsSubSys::getOptions().getBool("suppress-warnings")) {
         MsgHandler::getWarningInstance()->report2cout(false);
     }
     // build the logger if possible
-    if(!gui&&OptionsSubSys::getOptions().isSet("log-file")) {
+    if (!gui&&OptionsSubSys::getOptions().isSet("log-file")) {
         myLogFile =
             new LogFile(OptionsSubSys::getOptions().getString("log-file"));
-        if(!myLogFile->good()) {
+        if (!myLogFile->good()) {
             delete myLogFile;
             myLogFile = 0;
             MsgHandler::getErrorInstance()->inform("Could not build logging file '" + OptionsSubSys::getOptions().getString("log-file") + "'");
@@ -214,7 +170,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
         }
     }
     // return the state
-    if(!gui) {
+    if (!gui) {
         RandHelper::initRandGlobal(OptionsSubSys::getOptions());
     }
     return 0;
@@ -234,7 +190,7 @@ SystemFrame::close()
 }
 
 
-void 
+void
 SystemFrame::addConfigurationOptions(OptionsCont &oc)
 {
     oc.addOptionSubTopic("Configuration");
@@ -260,8 +216,6 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

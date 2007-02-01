@@ -1,41 +1,40 @@
+/****************************************************************************/
+/// @file    StringTokenizer.h
+/// @author  Daniel Krajzewicz
+/// @date    ?
+/// @version $Id: $
+///
+// A java-style StringTokenizer for c++ (stl)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
 #ifndef StringTokenizer_h
 #define StringTokenizer_h
-/***************************************************************************
-                          StringTokenizer.h
-              A java-style StringTokenizer for c++ (stl)
-                             -------------------
-    project              : none
-    begin                : ?
-    copyright            : (C) Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
-    Attention!!!
-    As one of few, this module is under the
-        Lesser GNU General Public Licence
-    *********************************************************************
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
- ***************************************************************************/
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -66,13 +65,14 @@
  * multiple occurences of operators as a list of single divider and the
  * string between them will have a length of zero.
  */
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class StringTokenizer {
+class StringTokenizer
+{
 public:
     /** identifier for splitting the given string at all newline characters */
     static const int NEWLINE;
@@ -83,7 +83,8 @@ public:
 
 public:
     /** default constructor */
-    StringTokenizer() { }
+    StringTokenizer()
+    { }
 
     /** @brief constructor
         same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
@@ -137,7 +138,7 @@ private:
 
     /** unsused */
     void prepare(const std::string &tosplit, const std::string &token,
-        int dummy);
+                 int dummy);
 
     /** splits the first string at all occurences of whitechars */
     void prepareWhitechar(const std::string &tosplit);
@@ -164,11 +165,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

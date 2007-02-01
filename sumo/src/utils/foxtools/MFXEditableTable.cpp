@@ -1,16 +1,38 @@
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    MFXEditableTable.cpp
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <fxkeys.h>
@@ -21,74 +43,74 @@
 #endif // _DEBUG
 
 FXDEFMAP(MFXEditableTable) MFXEditableTableMap[]=
-{
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,MFXEditableTable::onLeftBtnPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,MFXEditableTable::onLeftBtnRelease),
-    FXMAPFUNC(SEL_CLICKED,0,MFXEditableTable::onLeftBtnClicked),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,0,MFXEditableTable::onRightBtnRelease),
-    FXMAPFUNC(SEL_KEYRELEASE,0,MFXEditableTable::onKeyRelease),
-    FXMAPFUNC(SEL_KEYPRESS,MFXEditableTable::ID_EDITOR, MFXEditableTable::onEditKeyPress),
-//    FXMAPFUNC(SEL_TIMEOUT,FXTable::ID_TIPTIMER, MFXEditableTable::onTipTimer),
-    FXMAPFUNC(SEL_FOCUSOUT,MFXEditableTable::ID_EDITOR, MFXEditableTable::onEditFocusOut),
-    FXMAPFUNC(SEL_COMMAND,MFXEditableTable::ID_EDITEND, MFXEditableTable::onEditEnd),
+    {
+        FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,MFXEditableTable::onLeftBtnPress),
+        FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,MFXEditableTable::onLeftBtnRelease),
+        FXMAPFUNC(SEL_CLICKED,0,MFXEditableTable::onLeftBtnClicked),
+        FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,0,MFXEditableTable::onRightBtnRelease),
+        FXMAPFUNC(SEL_KEYRELEASE,0,MFXEditableTable::onKeyRelease),
+        FXMAPFUNC(SEL_KEYPRESS,MFXEditableTable::ID_EDITOR, MFXEditableTable::onEditKeyPress),
+        //    FXMAPFUNC(SEL_TIMEOUT,FXTable::ID_TIPTIMER, MFXEditableTable::onTipTimer),
+        FXMAPFUNC(SEL_FOCUSOUT,MFXEditableTable::ID_EDITOR, MFXEditableTable::onEditFocusOut),
+        FXMAPFUNC(SEL_COMMAND,MFXEditableTable::ID_EDITEND, MFXEditableTable::onEditEnd),
 
-  FXMAPFUNC(SEL_COMMAND,FXWindow::ID_HSCROLLED,MFXEditableTable::onHScrollerChanged),
-  FXMAPFUNC(SEL_COMMAND,FXWindow::ID_VSCROLLED,MFXEditableTable::onVScrollerChanged),
-  FXMAPFUNC(SEL_CHANGED,FXWindow::ID_HSCROLLED,MFXEditableTable::onHScrollerDragged),
-  FXMAPFUNC(SEL_CHANGED,FXWindow::ID_VSCROLLED,MFXEditableTable::onVScrollerDragged),
-/*
-  FXMAPFUNC(SEL_TIMEOUT,FXWindow::ID_AUTOSCROLL,MFXEditableTable::onAutoScroll),
-  FXMAPFUNC(SEL_UNGRABBED,0,MFXEditableTable::onUngrabbed),
-  FXMAPFUNC(SEL_RIGHTBUTTONPRESS,0,MFXEditableTable::onRightBtnPress),
-  FXMAPFUNC(SEL_KEYPRESS,0,MFXEditableTable::onTabKeyPress),
-  FXMAPFUNC(SEL_KEYRELEASE,0,MFXEditableTable::onTabKeyRelease),
-  FXMAPFUNC(SEL_CLIPBOARD_LOST,0,MFXEditableTable::onClipboardLost),
-  FXMAPFUNC(SEL_CLIPBOARD_GAINED,0,MFXEditableTable::onClipboardGained),
-  FXMAPFUNC(SEL_CLIPBOARD_REQUEST,0,MFXEditableTable::onClipboardRequest),
-  FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXEditableTable::onDoubleClicked),
-  FXMAPFUNC(SEL_TRIPLECLICKED,0,MFXEditableTable::onTripleClicked),
-  FXMAPFUNC(SEL_COMMAND,0,MFXEditableTable::onCommand),
-  */
-/*
-  FXMAPFUNC(SEL_FOCUSIN,0,MFXEditableTable::onFocusIn),
-  FXMAPFUNC(SEL_FOCUSOUT,0,MFXEditableTable::onFocusOut),
-  FXMAPFUNC(SEL_SELECTION_LOST,0,MFXEditableTable::onSelectionLost),
-  FXMAPFUNC(SEL_SELECTION_GAINED,0,MFXEditableTable::onSelectionGained),
-  FXMAPFUNC(SEL_SELECTION_REQUEST,0,MFXEditableTable::onSelectionRequest),
-*/
+        FXMAPFUNC(SEL_COMMAND,FXWindow::ID_HSCROLLED,MFXEditableTable::onHScrollerChanged),
+        FXMAPFUNC(SEL_COMMAND,FXWindow::ID_VSCROLLED,MFXEditableTable::onVScrollerChanged),
+        FXMAPFUNC(SEL_CHANGED,FXWindow::ID_HSCROLLED,MFXEditableTable::onHScrollerDragged),
+        FXMAPFUNC(SEL_CHANGED,FXWindow::ID_VSCROLLED,MFXEditableTable::onVScrollerDragged),
+        /*
+          FXMAPFUNC(SEL_TIMEOUT,FXWindow::ID_AUTOSCROLL,MFXEditableTable::onAutoScroll),
+          FXMAPFUNC(SEL_UNGRABBED,0,MFXEditableTable::onUngrabbed),
+          FXMAPFUNC(SEL_RIGHTBUTTONPRESS,0,MFXEditableTable::onRightBtnPress),
+          FXMAPFUNC(SEL_KEYPRESS,0,MFXEditableTable::onTabKeyPress),
+          FXMAPFUNC(SEL_KEYRELEASE,0,MFXEditableTable::onTabKeyRelease),
+          FXMAPFUNC(SEL_CLIPBOARD_LOST,0,MFXEditableTable::onClipboardLost),
+          FXMAPFUNC(SEL_CLIPBOARD_GAINED,0,MFXEditableTable::onClipboardGained),
+          FXMAPFUNC(SEL_CLIPBOARD_REQUEST,0,MFXEditableTable::onClipboardRequest),
+          FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXEditableTable::onDoubleClicked),
+          FXMAPFUNC(SEL_TRIPLECLICKED,0,MFXEditableTable::onTripleClicked),
+          FXMAPFUNC(SEL_COMMAND,0,MFXEditableTable::onCommand),
+          */
+        /*
+          FXMAPFUNC(SEL_FOCUSIN,0,MFXEditableTable::onFocusIn),
+          FXMAPFUNC(SEL_FOCUSOUT,0,MFXEditableTable::onFocusOut),
+          FXMAPFUNC(SEL_SELECTION_LOST,0,MFXEditableTable::onSelectionLost),
+          FXMAPFUNC(SEL_SELECTION_GAINED,0,MFXEditableTable::onSelectionGained),
+          FXMAPFUNC(SEL_SELECTION_REQUEST,0,MFXEditableTable::onSelectionRequest),
+        */
 
-  FXMAPFUNC(SEL_UPDATE,FXTable::ID_HORZ_GRID,MFXEditableTable::onUpdHorzGrid),
-  FXMAPFUNC(SEL_UPDATE,FXTable::ID_VERT_GRID,MFXEditableTable::onUpdVertGrid),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_HORZ_GRID,MFXEditableTable::onCmdHorzGrid),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_VERT_GRID,MFXEditableTable::onCmdVertGrid),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_DELETE_COLUMN,MFXEditableTable::onCmdDeleteColumn),
-  FXMAPFUNC(SEL_UPDATE,FXTable::ID_DELETE_COLUMN,MFXEditableTable::onUpdDeleteColumn),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_DELETE_ROW,MFXEditableTable::onCmdDeleteRow),
-  FXMAPFUNC(SEL_UPDATE,FXTable::ID_DELETE_ROW,MFXEditableTable::onUpdDeleteRow),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_INSERT_COLUMN,MFXEditableTable::onCmdInsertColumn),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_INSERT_ROW,MFXEditableTable::onCmdInsertRow),
+        FXMAPFUNC(SEL_UPDATE,FXTable::ID_HORZ_GRID,MFXEditableTable::onUpdHorzGrid),
+        FXMAPFUNC(SEL_UPDATE,FXTable::ID_VERT_GRID,MFXEditableTable::onUpdVertGrid),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_HORZ_GRID,MFXEditableTable::onCmdHorzGrid),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_VERT_GRID,MFXEditableTable::onCmdVertGrid),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_DELETE_COLUMN,MFXEditableTable::onCmdDeleteColumn),
+        FXMAPFUNC(SEL_UPDATE,FXTable::ID_DELETE_COLUMN,MFXEditableTable::onUpdDeleteColumn),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_DELETE_ROW,MFXEditableTable::onCmdDeleteRow),
+        FXMAPFUNC(SEL_UPDATE,FXTable::ID_DELETE_ROW,MFXEditableTable::onUpdDeleteRow),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_INSERT_COLUMN,MFXEditableTable::onCmdInsertColumn),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_INSERT_ROW,MFXEditableTable::onCmdInsertRow),
 
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_LEFT,MFXEditableTable::onCmdMoveLeft),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_RIGHT,MFXEditableTable::onCmdMoveRight),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_UP,MFXEditableTable::onCmdMoveUp),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_DOWN,MFXEditableTable::onCmdMoveDown),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_HOME,MFXEditableTable::onCmdMoveHome),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_END,MFXEditableTable::onCmdMoveEnd),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_TOP,MFXEditableTable::onCmdMoveTop),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_BOTTOM,MFXEditableTable::onCmdMoveBottom),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_PAGEDOWN,MFXEditableTable::onCmdMovePageDown),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_PAGEUP,MFXEditableTable::onCmdMovePageUp),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_LEFT,MFXEditableTable::onCmdMoveLeft),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_RIGHT,MFXEditableTable::onCmdMoveRight),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_UP,MFXEditableTable::onCmdMoveUp),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_DOWN,MFXEditableTable::onCmdMoveDown),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_HOME,MFXEditableTable::onCmdMoveHome),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_END,MFXEditableTable::onCmdMoveEnd),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_TOP,MFXEditableTable::onCmdMoveTop),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_BOTTOM,MFXEditableTable::onCmdMoveBottom),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_PAGEDOWN,MFXEditableTable::onCmdMovePageDown),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MOVE_PAGEUP,MFXEditableTable::onCmdMovePageUp),
 
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ROW_INDEX,MFXEditableTable::onCmdSelectRowIndex),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_COLUMN_INDEX,MFXEditableTable::onCmdSelectColumnIndex),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_COLUMN,MFXEditableTable::onCmdSelectColumn),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ROW,MFXEditableTable::onCmdSelectRow),
-//  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_CELL,MFXEditableTable::onCmdSelectCell),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ALL,MFXEditableTable::onCmdSelectAll),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_DESELECT_ALL,MFXEditableTable::onCmdDeselectAll),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_MARK,MFXEditableTable::onCmdMark),
-  FXMAPFUNC(SEL_COMMAND,FXTable::ID_EXTEND,MFXEditableTable::onCmdExtend),
-};
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ROW_INDEX,MFXEditableTable::onCmdSelectRowIndex),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_COLUMN_INDEX,MFXEditableTable::onCmdSelectColumnIndex),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_COLUMN,MFXEditableTable::onCmdSelectColumn),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ROW,MFXEditableTable::onCmdSelectRow),
+        //  FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_CELL,MFXEditableTable::onCmdSelectCell),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_SELECT_ALL,MFXEditableTable::onCmdSelectAll),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_DESELECT_ALL,MFXEditableTable::onCmdDeselectAll),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_MARK,MFXEditableTable::onCmdMark),
+        FXMAPFUNC(SEL_COMMAND,FXTable::ID_EXTEND,MFXEditableTable::onCmdExtend),
+    };
 
 
 // Object implementation
@@ -99,20 +121,19 @@ MFXEditableTable::MFXEditableTable(FXComposite *p, FXObject* tgt,
                                    FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
                                    FXint pl,FXint pr,FXint pt,FXint pb)
-    : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
-    myEditedItem(0)
+        : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+        myEditedItem(0)
 {
     myEditor=
         new FXTextField((FXComposite*)getParent(),1,this,
-            ID_EDITOR,FRAME_NORMAL|LAYOUT_EXPLICIT);
+                        ID_EDITOR,FRAME_NORMAL|LAYOUT_EXPLICIT);
     myEditor->hide();
     flags |= FLAG_ENABLED|FLAG_DROPTARGET;
 }
 
 
 MFXEditableTable::~MFXEditableTable()
-{
-}
+{}
 
 
 long
@@ -130,14 +151,14 @@ MFXEditableTable::onLeftBtnClicked(FXObject* , FXSelector , void* ptr)
     FXTablePos* e= (FXTablePos*)ptr;
     int r = e->row;
     int c = e->col;
-    if(c==-1||r==-1) {
+    if (c==-1||r==-1) {
         return 1;
     }
     killSelection(false);
     myEditedItem = getItem(r, c);
     myEditedCol = c;
     myEditedRow = r;
-    if(c>=0&&r>=0) {
+    if (c>=0&&r>=0) {
         editItem(myEditedItem, 0);
     } else {
         editEnd();
@@ -150,11 +171,11 @@ long
 MFXEditableTable::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
 {
     FXTable::onLeftBtnRelease(sender, sel, ptr);
-/*    FXEvent* e= (FXEvent*)ptr;
-    if(flgEditTimer) {
-        flgEditTimer = FALSE;
-        if(!e->moved) getApp()->addTimeout(this,ID_EDITTIMER,600);
-    }*/
+    /*    FXEvent* e= (FXEvent*)ptr;
+        if(flgEditTimer) {
+            flgEditTimer = FALSE;
+            if(!e->moved) getApp()->addTimeout(this,ID_EDITTIMER,600);
+        }*/
     return 1;
 }
 
@@ -162,11 +183,11 @@ MFXEditableTable::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
 void
 MFXEditableTable::editItem(FXTableItem* item,FXint how)
 {
-    if(item==0) {
+    if (item==0) {
         editEnd();
         return;
     }
-    if(myWriteProtectedCols.find(myEditedCol)!=myWriteProtectedCols.end()) {
+    if (myWriteProtectedCols.find(myEditedCol)!=myWriteProtectedCols.end()) {
         editEnd();
         return;
     }
@@ -175,10 +196,10 @@ MFXEditableTable::editItem(FXTableItem* item,FXint how)
     FXint x = getColumnX(myEditedCol) + getRowHeader()->getWidth() + xpos;
     FXint y = getRowY(myEditedRow) + getColumnHeader()->getHeight() + ypos;
     FXIcon* icon = item->getIcon();
-    if(icon) x += icon->getWidth() + 4;
+    if (icon) x += icon->getWidth() + 4;
     FXint vw = getViewportWidth();
-    if(vertical->shown()) vw -= vertical->getWidth();
-    if(vw>getColumnWidth(myEditedCol)) {
+    if (vertical->shown()) vw -= vertical->getWidth();
+    if (vw>getColumnWidth(myEditedCol)) {
         vw = getColumnWidth(myEditedCol) + x;
     }
     myEditor->setText(it->getText());
@@ -187,10 +208,10 @@ MFXEditableTable::editItem(FXTableItem* item,FXint how)
     myEditor->show();
     myEditor->raise();
     myEditor->setFocus();
-    if(how == 'I') {
+    if (how == 'I') {
         myEditor->killSelection();
         myEditor->setCursorPos(0);
-    } else if(how == 'A') {
+    } else if (how == 'A') {
         myEditor->killSelection();
         myEditor->setCursorPos(myEditor->getText().length());
     } else myEditor->selectAll();
@@ -201,25 +222,25 @@ MFXEditableTable::editItem(FXTableItem* item,FXint how)
 void
 MFXEditableTable::editEnd()
 {
-    if(!myEditedItem) return;
+    if (!myEditedItem) return;
     FXTableItem* item= myEditedItem;
     myEditedItem = NULL;
     myEditor->hide();
     setFocus();
     FXString text = myEditor->getText();
     myEditedItem = 0;
-    if(item->getText() == text) return;
-    if(handle(item, FXSEL(SEL_COMMAND,ID_EDITEND), &text)) {
+    if (item->getText() == text) return;
+    if (handle(item, FXSEL(SEL_COMMAND,ID_EDITEND), &text)) {
         item->setText(text);
         handle(this, FXSEL(SEL_CHANGED,0), item);
     }
     killSelection(true);
-    if(target) {
+    if (target) {
         MFXEditedTableItem edited;
         edited.item = item;
         edited.row = myEditedRow;
         edited.col = myEditedCol;
-        if(!target->handle(this,FXSEL(SEL_CHANGED, ID_TEXT_CHANGED), (void*) &edited)) {
+        if (!target->handle(this,FXSEL(SEL_CHANGED, ID_TEXT_CHANGED), (void*) &edited)) {
             item->setText(myPreviousText);
         }
     }
@@ -238,7 +259,7 @@ MFXEditableTable::onEditEnd(FXObject *,FXSelector ,void *)
 void
 MFXEditableTable::editCancel()
 {
-    if(!myEditedItem) return;
+    if (!myEditedItem) return;
     myEditedItem = 0;
     myEditor->hide();
     setFocus();
@@ -250,7 +271,7 @@ long
 MFXEditableTable::onEditKeyPress(FXObject*,FXSelector,void* ptr)
 {
     FXEvent* e= (FXEvent*)ptr;
-    switch(e->code) {
+    switch (e->code) {
     case KEY_Escape:
         editCancel();
         return 1;
@@ -263,7 +284,7 @@ MFXEditableTable::onEditKeyPress(FXObject*,FXSelector,void* ptr)
     case KEY_Up:
     case KEY_Down:
 //        editEnd();
-  //      handle(this, FXSEL(SEL_KEYPRESS,0), ptr);
+        //      handle(this, FXSEL(SEL_KEYPRESS,0), ptr);
         return 1;
     }
     return 0;
@@ -274,7 +295,7 @@ long
 MFXEditableTable::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr)
 {
     FXint key= ((FXEvent*)ptr)->code;
-    if(/*flgEnter &&*/ key == KEY_Return || key == KEY_KP_Enter) {
+    if (/*flgEnter &&*/ key == KEY_Return || key == KEY_KP_Enter) {
 //        flgEnter = FALSE;
         return 1;
     }
@@ -302,12 +323,12 @@ MFXEditableTable::onTipTimer(FXObject* sender, FXSelector sel, void* ptr)
 long
 MFXEditableTable::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
 {
-/*  if(dragItem) {
-    flags &= ~(FLAG_PRESSED | FLAG_TRYDRAG | FLAG_DODRAG);
-    endDrag(FALSE);
-    setDragCursor(getDefaultCursor());
-    dragItem = NULL;
-    }*/
+    /*  if(dragItem) {
+        flags &= ~(FLAG_PRESSED | FLAG_TRYDRAG | FLAG_DODRAG);
+        endDrag(FALSE);
+        setDragCursor(getDefaultCursor());
+        dragItem = NULL;
+        }*/
     return FXTable::onRightBtnRelease(sender, sel, ptr);
 }
 
@@ -723,13 +744,17 @@ MFXEditableTable::onCmdExtend(FXObject *o,FXSelector s,void *d)
 void
 MFXEditableTable::writeProtectCol(int col, bool val)
 {
-    if(val) {
+    if (val) {
         myWriteProtectedCols.insert(col);
     } else {
         std::set<int>::iterator i = myWriteProtectedCols.find(col);
-        if(i!=myWriteProtectedCols.end()) {
+        if (i!=myWriteProtectedCols.end()) {
             myWriteProtectedCols.erase(i);
         }
     }
 }
+
+
+
+/****************************************************************************/
 

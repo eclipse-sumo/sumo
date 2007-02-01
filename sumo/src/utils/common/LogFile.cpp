@@ -1,54 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        LogFile.cpp -
-//  A MsgRetriever - file implementation for message logging
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 23.06.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    LogFile.cpp
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 23.06.2003
+/// @version $Id: $
+///
+// A MsgRetriever - file implementation for message logging
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/04/28 09:02:46  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.2  2003/06/24 14:40:22  dkrajzew
-// Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
-//
-// Revision 1.1  2003/06/24 08:16:21  dkrajzew
-// LogFile - a MsgRetriever that writes into a files (logs an applications output) added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fstream>
 #include <iostream>
@@ -60,15 +44,15 @@
 #endif // _DEBUG
 
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
+// ===========================================================================
+// method definitions
+// ===========================================================================
 LogFile::LogFile(const std::string &name)
 {
     myFile.open(name.c_str());
@@ -95,8 +79,6 @@ LogFile::good()
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

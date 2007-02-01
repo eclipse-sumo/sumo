@@ -1,79 +1,54 @@
-#ifndef SystemFrame_h
-#define SystemFrame_h
-//---------------------------------------------------------------------------//
-//                        SystemFrame.h -
-//  A set of actions common to all applications
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Mon, 23.06.2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    SystemFrame.h
+/// @author  Daniel Krajzewicz
+/// @date    Mon, 23.06.2003
+/// @version $Id: $
+///
+// A set of actions common to all applications
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.9  2006/01/09 13:31:17  dkrajzew
-// debugging error handling
-//
-// Revision 1.8  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.7  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/07/12 12:43:49  dkrajzew
-// code style adapted
-//
-// Revision 1.5  2005/04/28 09:02:47  dkrajzew
-// level3 warnings removed
-//
-// Revision 1.4  2004/11/23 10:27:45  dkrajzew
-// debugging
-//
-// Revision 1.3  2003/06/24 08:10:23  dkrajzew
-// extended by the options sub system; dcumentation added
-//
-// Revision 1.2  2003/06/24 08:09:29  dkrajzew
-// implemented SystemFrame and applied the changes to all applications
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef SystemFrame_h
+#define SystemFrame_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <utils/options/OptionsSubSys.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class OptionsCont;
 class LogFile;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class SystemFrame
  * As almost all applications within the SUMO-packgae share the same
@@ -82,7 +57,8 @@ class LogFile;
  * inserted into an application-global OptionsCont via a method to supply
  * at the call of the "init" method.
  */
-class SystemFrame {
+class SystemFrame
+{
 public:
     static void addConfigurationOptions(OptionsCont &oc);
 
@@ -97,7 +73,7 @@ public:
      * -3: no options were given or were false
      * -4: a template was saved */
     static int init(bool gui, int argc, char **argv,
-        fill_options *fill_f, check_options *check_f=0);
+                    fill_options *fill_f, check_options *check_f=0);
 
     /// Closes all of an applications subsystems
     static void close();
@@ -110,11 +86,7 @@ private:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

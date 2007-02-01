@@ -1,56 +1,40 @@
-#ifndef StdDefs_h
-#define StdDefs_h
-//---------------------------------------------------------------------------//
-//                        StdDefs.h -
+/****************************************************************************/
+/// @file    StdDefs.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.8  2006/01/09 13:31:04  dkrajzew
-// using definitions of lane widths instead of hard-coded values
-//
-// Revision 1.7  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:05:45  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:13:08  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/07/12 12:43:49  dkrajzew
-// code style adapted
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef StdDefs_h
+#define StdDefs_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
 /* -------------------------------------------------------------------------
@@ -60,7 +44,7 @@ const SUMOReal SUMO_const_laneWidth = (SUMOReal) 3.2;
 const SUMOReal SUMO_const_halfLaneWidth = (SUMOReal) 1.6;
 const SUMOReal SUMO_const_laneOffset = (SUMOReal) .1;
 const SUMOReal SUMO_const_laneWidthAndOffset = (SUMOReal) 3.3;
-const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal) (3.2/2.+.1);
+const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2/2.+.1);
 
 
 /* -------------------------------------------------------------------------
@@ -119,11 +103,7 @@ MAX4(T a, T b, T c, T d)
 }
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 

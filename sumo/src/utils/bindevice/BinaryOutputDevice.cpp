@@ -1,16 +1,38 @@
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+/// @file    BinaryOutputDevice.cpp
+/// @author  unknown_author
+/// @date    unknown_date
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "BinaryOutputDevice.h"
@@ -19,33 +41,34 @@
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
-/* =========================================================================
- * constants definitions
- * ======================================================================= */
+// ===========================================================================
+// constants definitions
+// ===========================================================================
 #define BUF_MAX 1000
 
 
-/* =========================================================================
- * static member definitions
- * ======================================================================= */
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 char gBinaryOutputDeviceBuf[BUF_MAX];
 
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 
 using namespace std;
 
 
 
 BinaryOutputDevice::BinaryOutputDevice(const std::string &name,
-                               bool fliporder)
-    : myFlipOrder(fliporder),
-    myStream(name.c_str(), fstream::out|fstream::binary)
-{
-}
+                                       bool fliporder)
+        : myFlipOrder(fliporder),
+        myStream(name.c_str(), fstream::out|fstream::binary)
+{}
 
 
 BinaryOutputDevice::~BinaryOutputDevice()
-{
-}
+{}
 
 
 
@@ -84,11 +107,15 @@ operator<<(BinaryOutputDevice &os, const bool &b)
 BinaryOutputDevice &
 operator<<(BinaryOutputDevice &os, const std::string &s)
 {
-    if(s.length()<BUF_MAX) {
+    if (s.length()<BUF_MAX) {
         os << (unsigned int) s.length();
         os.myStream.write((char*) s.c_str(), sizeof(char)*s.length());
         return os;
     }
     throw 1;
 }
+
+
+
+/****************************************************************************/
 

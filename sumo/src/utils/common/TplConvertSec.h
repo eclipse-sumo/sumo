@@ -1,89 +1,48 @@
-#ifndef TplConvSec_h
-#define TplConvSec_h
-/***************************************************************************
-                          TplConvertSec.h
-                          Some conversion methods (from strings to other)
-                             -------------------
-    begin                : Sun, 09 Jun 2002
-    copyright            : (C) 2002 by Daniel Krajzewicz
-    author               : Daniel Krajzewicz
-    email                : Daniel.Krajzewicz@dlr.de
- ***************************************************************************/
-
-/***************************************************************************
-    Attention!!!
-    As one of few, this module is under the
-        Lesser GNU General Public Licence
-    *********************************************************************
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
- ***************************************************************************/
-// $Log$
-// Revision 1.3  2006/11/03 22:55:14  behrisch
-// Templates need explicit reference
+/****************************************************************************/
+/// @file    TplConvertSec.h
+/// @author  Daniel Krajzewicz
+/// @date    Sun, 09 Jun 2002
+/// @version $Id: $
+///
+// Some conversion methods (from strings to other)
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
-// Revision 1.2  2005/10/07 11:43:30  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
-// Revision 1.1  2005/09/23 06:05:45  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/20 06:13:00  dksumo
-// floats and doubles replaced by SUMOReal; warnings removed
-//
-// Revision 1.4  2005/09/12 07:41:23  dksumo
-// dos2unix applied; debugging new loading
-//
-// Revision 1.3  2005/09/09 12:54:02  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.2  2005/04/26 08:11:57  dksumo
-// level3 warnings patched; debugging
-//
-// Revision 1.1.2.1  2005/04/15 10:08:41  dksumo
-// level3 warnings removed
-//
-// Revision 1.1  2004/10/22 12:50:37  dksumo
-// initial checkin into an internal, standalone SUMO CVS
-//
-// Revision 1.2  2003/02/07 10:48:00  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 15:03:56  dkrajzew
-// initial commit for classes that perform string conversions
-//
-// Revision 1.3  2002/06/11 15:58:25  dkrajzew
-// windows eol removed
-//
-// Revision 1.2  2002/06/10 07:40:22  dkrajzew
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef TplConvertSec_h
+#define TplConvertSec_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include "TplConvert.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * TplConvertSec
  * The same as TplConvert, but more secure, meaning throwing less exceptions
@@ -92,13 +51,14 @@
  * that should be a number is not.
  */
 template<class E>
-class TplConvertSec {
+class TplConvertSec
+{
 public:
-   // conversion methods not throwing an exeption without a length
+    // conversion methods not throwing an exeption without a length
     /** converts a 0-terminated char-type array into std::string
         returns the default value if the data is empty */
     static std::string _2strSec(const E * const data,
-        const std::string &def)
+                                const std::string &def)
     {
         return _2strSec(data, TplConvert<E>::getLength(data), def);
     }
@@ -137,7 +97,7 @@ public:
         returns the default value if the data is empty */
     static bool _2boolSec(const E * const data, bool def)
     {
-       return _2boolSec(data, 1, def);
+        return _2boolSec(data, 1, def);
     }
 
 
@@ -155,9 +115,9 @@ public:
             the given length
         returns the default value if the data is empty */
     static std::string _2strSec(const E * const data, int length,
-        const std::string &def)
+                                const std::string &def)
     {
-        if(data==0||length==0) {
+        if (data==0||length==0) {
             return def;
         }
         return TplConvert<E>::_2str(data, length);
@@ -169,7 +129,7 @@ public:
         returns the default value if the data is empty */
     static int _2intSec(const E * const data, int length, int def)
     {
-        if(data==0||length==0||data[0]==0) {
+        if (data==0||length==0||data[0]==0) {
             return def;
         }
         return TplConvert<E>::_2int(data, length);
@@ -181,7 +141,7 @@ public:
         returns the default value if the data is empty */
     static long _2longSec(const E * const data, int length, long def)
     {
-        if(data==0||length==0||data[0]==0) {
+        if (data==0||length==0||data[0]==0) {
             return def;
         }
         return TplConvert<E>::_2long(data, length);
@@ -193,7 +153,7 @@ public:
         returns the default value if the data is empty */
     static SUMOReal _2SUMORealSec(const E * const data, int length, SUMOReal def)
     {
-        if(data==0||length==0||data[0]==0) {
+        if (data==0||length==0||data[0]==0) {
             return def;
         }
         return TplConvert<E>::_2SUMOReal(data, length);
@@ -205,7 +165,7 @@ public:
         returns the default value if the data is empty */
     static bool _2boolSec(const E * const data, int length, bool def)
     {
-        if(data==0||length==0||data[0]==0) {
+        if (data==0||length==0||data[0]==0) {
             return def;
         }
         return TplConvert<E>::_2bool(data, length);
@@ -217,7 +177,7 @@ public:
         returns the default value if the data is empty */
     static char *_2charpSec(const E * const data, int length, char *def)
     {
-        if(data==0||length==0) {
+        if (data==0||length==0) {
             return TplConvert<E>::copy(def);
         }
         return TplConvert<E>::_2charp(data, length);
@@ -227,10 +187,7 @@ public:
 };
 
 
-/**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+
