@@ -1,5 +1,5 @@
 binary:$NETCONVERT_BINARY
-home_operating_system:nt
+home_operating_system:posix
 copy_test_path:input_nodes.nod.xml
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_connections.con.xml

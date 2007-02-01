@@ -1,5 +1,5 @@
 binary:$JTRROUTER_BINARY
-home_operating_system:nt
+home_operating_system:posix
 copy_test_path:input_net.net.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml

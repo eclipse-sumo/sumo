@@ -1,5 +1,5 @@
 binary:$DUAROUTER_BINARY
-home_operating_system:nt
+home_operating_system:posix
 copy_test_path:input_alts.rou.xml.alt
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_flows.flows.xml

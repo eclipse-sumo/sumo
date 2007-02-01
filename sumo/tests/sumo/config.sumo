@@ -1,5 +1,5 @@
 binary:$SUMO_BINARY
-home_operating_system:nt
+home_operating_system:posix
 copy_test_path:net.net.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_additional.add.xml
