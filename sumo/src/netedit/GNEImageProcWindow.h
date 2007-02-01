@@ -1,50 +1,32 @@
-#ifndef GNEImageProcWindow_h
-#define GNEImageProcWindow_h
-//---------------------------------------------------------------------------//
-//                        GNEApplicationWindow.h -
-//  The map manipulation window
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 26 Jan 2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GNEImageProcWindow.h
+/// @author  Daniel Krajzewicz
+/// @date    Wed, 26 Jan 2005
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.3  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/01/31 09:27:35  dkrajzew
-// added the possibility to save nodes and edges or the build network to netedit
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+#ifndef GNEImageProcWindow_h
+#define GNEImageProcWindow_h
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
@@ -58,31 +40,41 @@
 #include "GNEApplicationWindow.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GNEImageProcWindow
  * This MDIChild allows to display and manipulate a loaded map
  */
-class GNEImageProcWindow : public GUIGlChildWindow {
+class GNEImageProcWindow : public GUIGlChildWindow
+{
     FXDECLARE(GNEImageProcWindow)
 public:
-    GNEImageProcWindow( GNEApplicationWindow *parent, NBNetBuilder *nb,
-        FXMDIClient* p, FXMDIMenu *mdimenu,
-        Image *img, bool extrFlag, const FXString& name,
-		FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,
-        FXint x=0,FXint y=0,FXint w=0,FXint h=0
-        );
+    GNEImageProcWindow(GNEApplicationWindow *parent, NBNetBuilder *nb,
+                       FXMDIClient* p, FXMDIMenu *mdimenu,
+                       Image *img, bool extrFlag, const FXString& name,
+                       FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,
+                       FXint x=0,FXint y=0,FXint w=0,FXint h=0
+                      );
 
     virtual ~GNEImageProcWindow();
 
     void create();
 
-    virtual FXGLCanvas *getBuildGLCanvas() const { return 0; }
+    virtual FXGLCanvas *getBuildGLCanvas() const
+    {
+        return 0;
+    }
 
-    virtual bool showLegend() const { return false; }
-    virtual bool allowRotation() const { return false; }
+    virtual bool showLegend() const
+    {
+        return false;
+    }
+    virtual bool allowRotation() const
+    {
+        return false;
+    }
 
     /// Extracts the bitmaps´ pixels which are determined as road area
     long onCmdExtractStreets(FXObject*,FXSelector,void*);
@@ -172,10 +164,10 @@ protected:
     ConfigDialog *myConfigDialog;
     Graph myGraph;
 
-  int                mdflag;                  // Mouse button down?
-  int                dirty;                   // Canvas has been painted?
-  FXColor            drawColor;               // Color for the line
-  int                m_mergeTol;
+    int                mdflag;                  // Mouse button down?
+    int                dirty;                   // Canvas has been painted?
+    FXColor            drawColor;               // Color for the line
+    int                m_mergeTol;
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
@@ -187,14 +179,12 @@ protected:
 
 
 protected:
-    GNEImageProcWindow() { }
+    GNEImageProcWindow()
+    { }
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

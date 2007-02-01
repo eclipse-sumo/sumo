@@ -1,62 +1,30 @@
-//---------------------------------------------------------------------------//
-//                        Image.cpp -
+/****************************************************************************/
+/// @file    Image.cpp
+/// @author  unknown_author
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                :
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.14  2007/01/12 13:55:25  dkrajzew
-// patched building under Windows using MSVC6
-//
-// Revision 1.13  2007/01/12 11:35:54  behrisch
-// Enable MSVC8 compilation
-//
-// Revision 1.12  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/09/09 12:51:48  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.7  2005/05/30 08:18:26  dksumo
-// comments added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "Image.h"
 #include <fx.h>
@@ -66,9 +34,9 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
-/* =========================================================================
- * member method definitions
- * ======================================================================= */
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 Image::Image(FXImage *img,FXApp *a)
 {
     m_img=img;
@@ -83,8 +51,7 @@ Image::Copy(FXImage *source,FXImage *destination)
 {
     //Durchlaufe das Image
     for (int i=0 ; i<source->getWidth() ; ++i)
-        for (int j=0; j<source->getHeight() ; ++j)
-        {
+        for (int j=0; j<source->getHeight() ; ++j) {
             //Kopiere aktuelles Pixel
             destination->setPixel(i,j,source->getPixel(i,j));
         }
@@ -126,20 +93,19 @@ void Image::ExtractStreets()
 
     //Durchlaufe das Image
     for (FXint i=0 ; i<wid ; ++i)
-        for (FXint j=0; j<hei ; ++j)
-        {
+        for (FXint j=0; j<hei ; ++j) {
             //Hole die Farbe des aktuellen Pixels
             FXColor col=m_img->getPixel(i,j);
 
             //Ist das Pixel in einer der gewünschen Farben, setze es auf schwarz, sonst auf weiß
-            if(
+            if (
                 //weiß
                 (col==FXRGB(255,255,255))||
                 //gelb
                 (col==FXRGB(255,255,0))||
                 //schwarz
                 (col==FXRGB(0,0,0))
-                )
+            )
                 //Setzen auf schwarz
                 m_img->setPixel(i,j,FXRGB(0,0,0));
 
@@ -156,53 +122,49 @@ der Schwärzen Flächen des Bildes
 void Image::Erode(ConfigDialog* myDialog)
 {
     FXSlider* my = myDialog->getEroSlider();
-	int ende=my->getValue();
+    int ende=my->getValue();
 
-	for(int lauf=0; lauf<=ende;lauf++)
-	{
-		//Hole Höhe und Breite des Image
-		FXint wid = m_img->getWidth();
-		FXint hei = m_img->getHeight();
+    for (int lauf=0; lauf<=ende;lauf++) {
+        //Hole Höhe und Breite des Image
+        FXint wid = m_img->getWidth();
+        FXint hei = m_img->getHeight();
 
-		//Integer-Varaiblen für die Schleifendurchläufe
-		FXint i,j,k,m;
+        //Integer-Varaiblen für die Schleifendurchläufe
+        FXint i,j,k,m;
 
-		bool tester= true;
+        bool tester= true;
 
-		//Durchlaufe das Image
-		for (i=0 ; i<wid ; i++)
-			for (j=0; j<hei ; j++)
-			{
-				 //Überprüfe die Nachbarn des aktuellen Pixels
-				for (k=i-1 ; k<=i+1 ; k++)
-					for (m=j-1 ; m<=j+1 ;m++)
-					{
-						//Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
-						if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
-						{
-							//Hole die Farbe des aktuellen Pixels
-							FXColor col=m_img->getPixel(k,m);
+        //Durchlaufe das Image
+        for (i=0 ; i<wid ; i++)
+            for (j=0; j<hei ; j++) {
+                //Überprüfe die Nachbarn des aktuellen Pixels
+                for (k=i-1 ; k<=i+1 ; k++)
+                    for (m=j-1 ; m<=j+1 ;m++) {
+                        //Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
+                        if ((k>0)&&(k<wid)&&(m>0)&&(m<hei)) {
+                            //Hole die Farbe des aktuellen Pixels
+                            FXColor col=m_img->getPixel(k,m);
 
-							//Wenn Pixel nicht schwarz ist, setze tester auf false
-							if(!(col==FXRGB(0,0,0)))
-								tester = false;
-						}
-					}
+                            //Wenn Pixel nicht schwarz ist, setze tester auf false
+                            if (!(col==FXRGB(0,0,0)))
+                                tester = false;
+                        }
+                    }
 
-			// Wenn wir keine nichtschwarzen Nachbarpixel haben, bleibt das Pixel schwarz
-			if (tester == true)
-				m_transimg->setPixel(i,j,FXRGB(0,0,0));
+                // Wenn wir keine nichtschwarzen Nachbarpixel haben, bleibt das Pixel schwarz
+                if (tester == true)
+                    m_transimg->setPixel(i,j,FXRGB(0,0,0));
 
-			// Sonst wird es auf weiß gesetzt
-			else
-				m_transimg->setPixel(i,j,FXRGB(255,255,255));//weiß
-			tester=true;
-			}
+                // Sonst wird es auf weiß gesetzt
+                else
+                    m_transimg->setPixel(i,j,FXRGB(255,255,255));//weiß
+                tester=true;
+            }
 
-		//Kopiere das Bearbeitungsimage in das Anzeigeimage
-		Copy(m_transimg,m_img);
-		lauf++;
-	}
+        //Kopiere das Bearbeitungsimage in das Anzeigeimage
+        Copy(m_transimg,m_img);
+        lauf++;
+    }
 }
 
 /*
@@ -211,47 +173,43 @@ Flächen verbreitert
 */
 void Image::Dilate(ConfigDialog* myDialog)
 {
-	FXSlider* mySlider= myDialog->getDilSlider();
-	int value=mySlider->getValue();
+    FXSlider* mySlider= myDialog->getDilSlider();
+    int value=mySlider->getValue();
 
-	for(int go =0; go <= value; go++)
-	{
+    for (int go =0; go <= value; go++) {
 
-		//Siehe Methode Erode
-		int wid = m_img->getWidth();
-		int hei = m_img->getHeight();
-		int i,j,k,m;
-		bool tester = true;
-		for (i=0 ; i<wid ; ++i)
-			for (j=0; j<hei ; ++j)
-			{
-				//Überprüfe die Nachbarn des aktuellen Pixels
-				for (k=i-1 ; k<=i+1 ; ++k)
-					for (m=j-1 ; m<=j+1 ;++m)
-					{
-						//Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
-						if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
-						{
-							FXColor col=m_img->getPixel(k,m);
-							//Wenn Farbe nicht weiß ist, setze tester auf false
-							if(col!=FXRGB(255,255,255))
-								tester = false;
+        //Siehe Methode Erode
+        int wid = m_img->getWidth();
+        int hei = m_img->getHeight();
+        int i,j,k,m;
+        bool tester = true;
+        for (i=0 ; i<wid ; ++i)
+            for (j=0; j<hei ; ++j) {
+                //Überprüfe die Nachbarn des aktuellen Pixels
+                for (k=i-1 ; k<=i+1 ; ++k)
+                    for (m=j-1 ; m<=j+1 ;++m) {
+                        //Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
+                        if ((k>0)&&(k<wid)&&(m>0)&&(m<hei)) {
+                            FXColor col=m_img->getPixel(k,m);
+                            //Wenn Farbe nicht weiß ist, setze tester auf false
+                            if (col!=FXRGB(255,255,255))
+                                tester = false;
 
-						}
-					}
+                        }
+                    }
 
-			// Wenn wir keine nichtweißen Nachbarpixel haben, bleibt das Pixel weiß
-			if (tester == true)
-				m_transimg->setPixel(i,j,FXRGB(255,255,255));
+                // Wenn wir keine nichtweißen Nachbarpixel haben, bleibt das Pixel weiß
+                if (tester == true)
+                    m_transimg->setPixel(i,j,FXRGB(255,255,255));
 
-			// Sonst wird es auf schwarz gesetzt
-			else
-				m_transimg->setPixel(i,j,FXRGB(0,0,0));
-			tester = true;
-			}
-		Copy(m_transimg,m_img);
-		go++;
-	}
+                // Sonst wird es auf schwarz gesetzt
+                else
+                    m_transimg->setPixel(i,j,FXRGB(0,0,0));
+                tester = true;
+            }
+        Copy(m_transimg,m_img);
+        go++;
+    }
 }
 
 /*
@@ -260,7 +218,7 @@ Führt erst eine Erosion, dann eine Dilatation durch
 void Image::Opening(ConfigDialog* myDialog)
 {
 
-	Erode(myDialog);
+    Erode(myDialog);
     Dilate(myDialog);
 }
 
@@ -290,27 +248,24 @@ void Image::CloseGaps()
 
     //Durchlaufe das Image
     for (i=0 ; i<wid ; i++)
-        for (j=0; j<hei ; j++)
-        {
+        for (j=0; j<hei ; j++) {
             //Überprüfe die Nachbarn des aktuellen Pixels
             for (k=i-1 ; k<=i+1 ; k++)
-                for (m=j-1 ; m<=j+1 ;m++)
-                {
+                for (m=j-1 ; m<=j+1 ;m++) {
                     //Vermeide, daß auf Pixel außerhalb des Image zugegriffen wird
-                    if ((k>0)&&(k<wid)&&(m>0)&&(m<hei))
-                    {
+                    if ((k>0)&&(k<wid)&&(m>0)&&(m<hei)) {
                         //Zähle nichtweiße Pixel um aktuelles Pixel
                         if (m_img->getPixel(k,m)!=FXRGB(255,255,255))
                             counter = counter + 1;
                     }
                 }
-        //Wenn das aktuelle Pixel weiß ist und es mindestens fünf schwarze Nachbarpixel hat,
-        //dann setze das aktuelle Pixel auf schwarz
-        if ((m_img->getPixel(i,j)==FXRGB(255,255,255))&&counter >= 5)
-            m_transimg->setPixel(i,j,FXRGB(0,0,0));
+            //Wenn das aktuelle Pixel weiß ist und es mindestens fünf schwarze Nachbarpixel hat,
+            //dann setze das aktuelle Pixel auf schwarz
+            if ((m_img->getPixel(i,j)==FXRGB(255,255,255))&&counter >= 5)
+                m_transimg->setPixel(i,j,FXRGB(0,0,0));
 
-        //Counter für nächsten Schleifendurchlauf zurücksetzen
-        counter =0;
+            //Counter für nächsten Schleifendurchlauf zurücksetzen
+            counter =0;
         }
     //Setze das Anzeigeimage auf das veränderte Image
     Copy(m_transimg,m_img);
@@ -331,47 +286,39 @@ void Image::CreateSkeleton()
     //Erstelle eine Kopie des Image m_img mit Namen m_transimg
     Copy(m_img,m_transimg);
     // Verdünne das Bild bis keine Veränderungen mehr stattfinden
-    while (any_changes==true)
-    {
-    any_changes=false;
+    while (any_changes==true) {
+        any_changes=false;
         //Betrachte alle Pixel des Bildes ohne den Rand
         int i;
-        for(i=1 ; i<wid-1 ; ++i)
-        {
-            for(int j=1 ; j<hei-1 ; ++j)
-            {
+        for (i=1 ; i<wid-1 ; ++i) {
+            for (int j=1 ; j<hei-1 ; ++j) {
                 //Betrachte das aktuelle Pixel nur weiter, falls es schwarz ist
-                if (m_img->getPixel(i,j)==FXRGB(0,0,0))
-                {
+                if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
                     //Untersuche, ob das aktuelle (schwarze) Pixel einen weißen Nachbarn hat.. dann ist es ein(Strassen)-Randpixel
                     for (int k=i-1 ; k<=i+1 ; ++k)
                         for (int l=j-1 ; l<=j+1 ; ++l)
-                            if(m_img->getPixel(k,l)==FXRGB(255,255,255))
+                            if (m_img->getPixel(k,l)==FXRGB(255,255,255))
                                 white_neighbour = true;
-                    if (white_neighbour == true)
-                    {
+                    if (white_neighbour == true) {
                         //Untersuche, ob die Anzahl der schwarzen Nachbarn des aktuellen Pixels zwischen 2 und 6 liegt
                         //Beachte, daß der aktuelle (schwarze) Pixel mitgezählt wird.. deswegen: if ((black_neighbours>=3)&&(black_neighbours<=7))
                         for (int k=i-1 ; k<=i+1 ; ++k)
                             for (int l=j-1 ; l<=j+1 ; ++l)
-                                if(m_img->getPixel(k,l)==FXRGB(0,0,0))
+                                if (m_img->getPixel(k,l)==FXRGB(0,0,0))
                                     ++black_neighbours;
-                        if ((black_neighbours>=3)&&(black_neighbours<=7))
-                        {
+                        if ((black_neighbours>=3)&&(black_neighbours<=7)) {
 
                             //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
-                            if(CountTransitions(i,j)==1)
-                            {
-                                if((
-                                    (m_img->getPixel(i+1,j)==FXRGB(255,255,255))||
-                                    (m_img->getPixel(i,j+1)==FXRGB(255,255,255))
-                                  )
-                                  ||
-                                  (
-                                    (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
-                                    m_img->getPixel(i-1,j)==FXRGB(255,255,255))
-                                  )
-                                {
+                            if (CountTransitions(i,j)==1) {
+                                if ((
+                                            (m_img->getPixel(i+1,j)==FXRGB(255,255,255))||
+                                            (m_img->getPixel(i,j+1)==FXRGB(255,255,255))
+                                        )
+                                        ||
+                                        (
+                                            (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
+                                            m_img->getPixel(i-1,j)==FXRGB(255,255,255))
+                                   ) {
                                     m_transimg->setPixel(i,j,FXRGB(255,255,255));
                                     any_changes=true;
                                 }
@@ -379,50 +326,43 @@ void Image::CreateSkeleton()
                         }
                     }
                 }
-            //Setze die Prüfvariablen zurück
-            black_neighbours=0;
-            white_neighbour=false;
+                //Setze die Prüfvariablen zurück
+                black_neighbours=0;
+                white_neighbour=false;
 
             }
         }
         //Kopiere das Bearbeitungsimage in das Anzeigeimage
         Copy(m_transimg,m_img);
         //Betrachte alle Pixel des Bildes außer dem Rand
-        for(i=1 ; i<wid-1 ; ++i)
-        {
-            for(int j=1 ; j<hei-1 ; ++j)
-            {
+        for (i=1 ; i<wid-1 ; ++i) {
+            for (int j=1 ; j<hei-1 ; ++j) {
                 //Falls das aktuelle Pixel schwarz ist
-                if (m_img->getPixel(i,j)==FXRGB(0,0,0))
-                {
+                if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
                     //Untersuche, ob das aktuelle (schwarze) Pixel einen weißen Nachbarn hat.. dann ist es ein(Strassen)-randpixel
                     for (int k=i-1 ; k<=i+1 ; ++k)
                         for (int l=j-1 ; l<=j+1 ; ++l)
-                            if(m_img->getPixel(k,l)==FXRGB(255,255,255))
+                            if (m_img->getPixel(k,l)==FXRGB(255,255,255))
                                 white_neighbour = true;
-                    if (white_neighbour == true)
-                    {
+                    if (white_neighbour == true) {
                         //Untersuche, ob die Anzahl der schwarzen Nachbarn des aktuellen Pixels zwischen 2 und 6 liegt
                         //Beachte, daß der aktuelle (schwarze) Pixel mitgezählt wird.. deswegen: if ((black_neighbours>=3)&&(black_neighbours<=7))
                         for (int k=i-1 ; k<=i+1 ; ++k)
                             for (int l=j-1 ; l<=j+1 ; ++l)
-                                if(m_img->getPixel(k,l)==FXRGB(0,0,0))
+                                if (m_img->getPixel(k,l)==FXRGB(0,0,0))
                                     ++black_neighbours;
-                        if ((black_neighbours>=3)&&(black_neighbours<=7))
-                        {
+                        if ((black_neighbours>=3)&&(black_neighbours<=7)) {
                             //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
-                            if(CountTransitions(i,j)==1)
-                            {
-                                if((
-                                    (m_img->getPixel(i,j-1)==FXRGB(255,255,255))||
-                                    (m_img->getPixel(i-1,j)==FXRGB(255,255,255))
-                                  )
-                                  ||
-                                  (
-                                    (m_img->getPixel(i+1,j)==FXRGB(255,255,255))&&
-                                    m_img->getPixel(i,j+1)==FXRGB(255,255,255))
-                                  )
-                                {
+                            if (CountTransitions(i,j)==1) {
+                                if ((
+                                            (m_img->getPixel(i,j-1)==FXRGB(255,255,255))||
+                                            (m_img->getPixel(i-1,j)==FXRGB(255,255,255))
+                                        )
+                                        ||
+                                        (
+                                            (m_img->getPixel(i+1,j)==FXRGB(255,255,255))&&
+                                            m_img->getPixel(i,j+1)==FXRGB(255,255,255))
+                                   ) {
                                     m_transimg->setPixel(i,j,FXRGB(255,255,255));
                                     any_changes=true;
                                 }
@@ -430,16 +370,16 @@ void Image::CreateSkeleton()
                         }
                     }
                 }
-            //Setze die Prüfvariablen zurück
-            black_neighbours=0;
-            white_neighbour=false;
+                //Setze die Prüfvariablen zurück
+                black_neighbours=0;
+                white_neighbour=false;
 
             }
         }
-    //Kopiere das veränderte Image zurück in das Anzeigeimage
-    Copy(m_transimg,m_img);
+        //Kopiere das veränderte Image zurück in das Anzeigeimage
+        Copy(m_transimg,m_img);
     }
-	RarifySkeleton();
+    RarifySkeleton();
 }
 
 void Image::RarifySkeleton()
@@ -452,52 +392,47 @@ void Image::RarifySkeleton()
     int black_neighbours =0;
 
     //Betrachte alle Pixel des Bildes außer dem Rand
-    for(int i=1 ; i<wid-1 ; ++i)
-        for(int j=1 ; j<hei-1 ; ++j)
-            {
-                //Betrachte das aktuelle Pixel nur weiter, falls es schwarz ist
-                if (m_img->getPixel(i,j)==FXRGB(0,0,0))
-                {
-                    //Zähle die schwarzen Nachbarn des aktuellen Pixels
-                    for (int k=i-1 ; k<=i+1 ; ++k)
-                        for (int l=j-1 ; l<=j+1 ; ++l)
-                            if(m_img->getPixel(k,l)==FXRGB(0,0,0))
-                                ++black_neighbours;
-                    if (black_neighbours==3)
-                    {
-                        if(
-                                (
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
-                                )
-                            )
-                        {
-                          //Setze Pixel (i,j) auf weiß
-                          m_img->setPixel(i,j,FXRGB(255,255,255));
-                        }
-
-                    }
-                    if (black_neighbours==4)
-                    {
-
-                        if
+    for (int i=1 ; i<wid-1 ; ++i)
+        for (int j=1 ; j<hei-1 ; ++j) {
+            //Betrachte das aktuelle Pixel nur weiter, falls es schwarz ist
+            if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
+                //Zähle die schwarzen Nachbarn des aktuellen Pixels
+                for (int k=i-1 ; k<=i+1 ; ++k)
+                    for (int l=j-1 ; l<=j+1 ; ++l)
+                        if (m_img->getPixel(k,l)==FXRGB(0,0,0))
+                            ++black_neighbours;
+                if (black_neighbours==3) {
+                    if (
                         (
-                            (
+                            (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                            (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
+                        )
+                        ||
+                        (
+                            (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                            (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
+                        )
+                        ||
+                        (
+                            (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                            (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
+                        )
+                        ||
+                        (
+                            (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                            (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
+                        )
+                    ) {
+                        //Setze Pixel (i,j) auf weiß
+                        m_img->setPixel(i,j,FXRGB(255,255,255));
+                    }
+
+                }
+                if (black_neighbours==4) {
+
+                    if
+                    (
+                        (
                             (
                                 (
                                     (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
@@ -519,8 +454,69 @@ void Image::RarifySkeleton()
                                     (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
                                 )
                             )&&
-                                //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
-                                (CountTransitions(i,j)<=2)
+                            //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
+                            (CountTransitions(i,j)<=2)
+                        )
+                        ||
+                        (
+                            (
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
+                            )
+                        )
+                    ) {
+                        //Setze Pixel (i,j) auf weiß
+                        m_img->setPixel(i,j,FXRGB(255,255,255));
+                    }
+
+                }
+                if (black_neighbours==5) {
+                    //Setze ein weißes Pixel in die Mitte, wenn die Anordnung ein "Plus" ist
+                    if ((CountTransitions(i,j)==4)&&(m_img->getPixel(i-1,j)==FXRGB(0,0,0)))
+                        m_img->setPixel(i,j,FXRGB(255,255,255));
+
+                    if
+                    (
+                        (
+                            !(
+                                (
+                                    (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
+                                    (m_img->getPixel(i,j+1)==FXRGB(255,255,255))
+                                )
+                                ||
+                                (
+                                    (m_img->getPixel(i-1,j)==FXRGB(255,255,255))&&
+                                    (m_img->getPixel(i+1,j)==FXRGB(255,255,255))
+                                )
+                            )
+                            &&
+                            //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
+                            (CountTransitions(i,j)<=2)
+                            ||
+                            (
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
                             )
                             ||
                             (
@@ -549,329 +545,238 @@ void Image::RarifySkeleton()
                                 )
                             )
                         )
-                        {
-                            //Setze Pixel (i,j) auf weiß
-                            m_img->setPixel(i,j,FXRGB(255,255,255));
-                        }
-
-                    }
-                    if(black_neighbours==5)
-                    {
-						//Setze ein weißes Pixel in die Mitte, wenn die Anordnung ein "Plus" ist
-						if ((CountTransitions(i,j)==4)&&(m_img->getPixel(i-1,j)==FXRGB(0,0,0)))
-						m_img->setPixel(i,j,FXRGB(255,255,255));
-
-                        if
-                        (
-						(
-                            !(
-                                (
-                                    (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
-                                    (m_img->getPixel(i,j+1)==FXRGB(255,255,255))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i-1,j)==FXRGB(255,255,255))&&
-                                    (m_img->getPixel(i+1,j)==FXRGB(255,255,255))
-                                )
-                            )
-                            &&
-                            //Zähle die Anzahl der weiß-schwarz Übergänge (siehe auch Methode CountTransitions)
-                            (CountTransitions(i,j)<=2)
-							||
-							(
-								(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-								(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-								(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-								(m_img->getPixel(i-1,j)==FXRGB(0,0,0))
-							)
-							||
-							(
-								(
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
-                                )
-							)
-							)
-							&&
-							!(
-								(
-									(m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))
-								)
-								||
-								(
-									(m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))
-								)
-								||
-								(
-									(m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))
-								)
-								||
-								(
-									(m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-									(m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))
-								)
-							)
-                        )
-                            //Setze Pixel (i,j) auf weiß
-                            m_img->setPixel(i,j,FXRGB(255,255,255));
-                        if(
-                            (CountTransitions(i,j)==3)
-                            &&
+                        &&
+                        !(
                             (
-                                (
-                                    (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
-                                )
-                                ||
-                                (
-                                    (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
-                                    (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
-                                )
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))
                             )
-                          )
-                            //Setze Pixel (i,j) auf weiß
-                            m_img->setPixel(i,j,FXRGB(255,255,255));
-                    }
+                            ||
+                            (
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))
+                            )
+                        )
+                    )
+                        //Setze Pixel (i,j) auf weiß
+                        m_img->setPixel(i,j,FXRGB(255,255,255));
+                    if (
+                        (CountTransitions(i,j)==3)
+                        &&
+                        (
+                            (
+                                (m_img->getPixel(i,j-1)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
+                            )
+                            ||
+                            (
+                                (m_img->getPixel(i-1,j)==FXRGB(0,0,0))&&
+                                (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
+                            )
+                        )
+                    )
+                        //Setze Pixel (i,j) auf weiß
+                        m_img->setPixel(i,j,FXRGB(255,255,255));
                 }
-
-                black_neighbours=0;
             }
+
+            black_neighbours=0;
+        }
 }
 
 Graph* Image::Tracking(Graph* gr,ConfigDialog* myDialog)
 {
-	FXSlider* mySlider=myDialog->getNodeSlider();
-	int value= mySlider->getValue();
+    FXSlider* mySlider=myDialog->getNodeSlider();
+    int value= mySlider->getValue();
 
-	//Hole die Breite und Höhe des Image
+    //Hole die Breite und Höhe des Image
     int blacks=0;
-	int wid = m_img->getWidth();
+    int wid = m_img->getWidth();
     int hei = m_img->getHeight();
 
-    for(int g=0 ; g<wid ;++g)
-    {
+    for (int g=0 ; g<wid ;++g) {
         m_img->setPixel(g,0,FXRGB(255,255,255));
         m_img->setPixel(g,hei-1,FXRGB(255,255,255));
     }
-    for(int h=0 ; h<hei ;++h)
-    {
+    for (int h=0 ; h<hei ;++h) {
         m_img->setPixel(0,h,FXRGB(255,255,255));
         m_img->setPixel(wid-1,h,FXRGB(255,255,255));
     }
 
-	//Durchlaufe das Bild außer dem Rand
+    //Durchlaufe das Bild außer dem Rand
     for (int i=1 ; i<wid-1 ; i++)
-        for (int j=1; j<hei-1 ; j++)
-		{
-			if (m_img->getPixel(i,j)==FXRGB(0,0,0))
-			{
-				blacks=0;
-				for (int k=i-1;k<=i+1;k++)
-					for (int l=j-1;l<=j+1;l++)
-						if (m_img->getPixel(k,l)==FXRGB(0,0,0))
-							blacks++;
-			}
-			if (((blacks==4)&&(CountTransitions(i,j)==3))||((blacks==2)||(blacks==6)))
-			{
+        for (int j=1; j<hei-1 ; j++) {
+            if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
+                blacks=0;
+                for (int k=i-1;k<=i+1;k++)
+                    for (int l=j-1;l<=j+1;l++)
+                        if (m_img->getPixel(k,l)==FXRGB(0,0,0))
+                            blacks++;
+            }
+            if (((blacks==4)&&(CountTransitions(i,j)==3))||((blacks==2)||(blacks==6))) {
 
-				gr->AddVertexByXY(i,j);
-				blacks=0;
-			}
-		}
+                gr->AddVertexByXY(i,j);
+                blacks=0;
+            }
+        }
 
-	//Setze Pixel auf rot, auf denen ein Knoten erzeugt wurde
-	vector <Vertex*> myarray=gr->GetVArray();
-	Graph* helpgraph=new Graph();
-	helpgraph->SetVArray(myarray);
-	int tmpx,tmpy;
-	for (int v=0; v<(int) myarray.size(); v++)
-	{
-		tmpx=myarray[v]->GetX();
-		tmpy=myarray[v]->GetY();
-		m_img->setPixel(tmpx,tmpy,FXRGB(255,0,0));
-	}
+    //Setze Pixel auf rot, auf denen ein Knoten erzeugt wurde
+    vector <Vertex*> myarray=gr->GetVArray();
+    Graph* helpgraph=new Graph();
+    helpgraph->SetVArray(myarray);
+    int tmpx,tmpy;
+    for (int v=0; v<(int) myarray.size(); v++) {
+        tmpx=myarray[v]->GetX();
+        tmpy=myarray[v]->GetY();
+        m_img->setPixel(tmpx,tmpy,FXRGB(255,0,0));
+    }
 
-	//Jetzt die Kanten erzeugen
-	int arrayanz=myarray.size();
-	for (int x=0; x<arrayanz; x++)
-	{
-		tmpx=myarray[x]->GetX();
-		tmpy=myarray[x]->GetY();
-		if (m_img->getPixel(tmpx,tmpy)==FXRGB(255,0,0))
-		{
-			for (int k=tmpx-1; k<=tmpx+1; k++)
-				for (int l=tmpy-1; l<=tmpy+1; l++)
-					if (m_img->getPixel(k,l)==FXRGB(255,0,0))
-						if ((tmpx!=k)||(tmpy!=l))
-						{
-							Vertex* temp=gr->SearchVertex(k,l);
-							if (gr->SearchEdge(myarray[x],temp)==NULL)
-							{
-								gr->AddEdgeByVertex(myarray[x],temp);
-								gr->AddEdgeByVertex(temp,myarray[x]);
-							}
-						}
-			gr=edgerun(myarray[x],gr,helpgraph,value);
-		}
-	}
-	return gr;
+    //Jetzt die Kanten erzeugen
+    int arrayanz=myarray.size();
+    for (int x=0; x<arrayanz; x++) {
+        tmpx=myarray[x]->GetX();
+        tmpy=myarray[x]->GetY();
+        if (m_img->getPixel(tmpx,tmpy)==FXRGB(255,0,0)) {
+            for (int k=tmpx-1; k<=tmpx+1; k++)
+                for (int l=tmpy-1; l<=tmpy+1; l++)
+                    if (m_img->getPixel(k,l)==FXRGB(255,0,0))
+                        if ((tmpx!=k)||(tmpy!=l)) {
+                            Vertex* temp=gr->SearchVertex(k,l);
+                            if (gr->SearchEdge(myarray[x],temp)==NULL) {
+                                gr->AddEdgeByVertex(myarray[x],temp);
+                                gr->AddEdgeByVertex(temp,myarray[x]);
+                            }
+                        }
+            gr=edgerun(myarray[x],gr,helpgraph,value);
+        }
+    }
+    return gr;
 }
 
 Graph* Image::edgerun(Vertex* start, Graph* gr,Graph* helpgraph,int value)
 {
-	int bnx,bny;
-	Vertex* lauf;
-	Vertex* altlauf;
-	Vertex* hilfslauf;
-	Vertex* last;
-	Vertex* temp;
-	while (black_neighbour(start)!=NULL)
-	{
-		last=start;
-		int counter = value;
-		lauf=black_neighbour(start);
-		altlauf=last;
-		while (black_neighbour(lauf,altlauf)!=NULL)
-		{
-			if (counter==0)
-			{
-	 			lauf=gr->AddVertexByXY(lauf->GetX(),lauf->GetY());
-				//lauf=gr->SearchVertex(lauf->GetX(),lauf->GetY());
-				gr->AddEdgeByVertex(last,lauf);
-				gr->AddEdgeByVertex(lauf,last);
-				last=lauf;
-				counter=value;
-			}
-			else counter--;
-			m_img->setPixel(lauf->GetX(),lauf->GetY(),FXRGB(255,255,0));
-			hilfslauf=lauf;
-			lauf=black_neighbour(lauf,altlauf);
-			altlauf=hilfslauf;
-		}
-		//Ende der Kette, dann verbinden mit Knoten
-		bnx=lauf->GetX();
-		bny=lauf->GetY();
-		m_img->setPixel(bnx,bny,FXRGB(255,255,0));
-		for (int c=bnx-1; c<=bnx+1; c++)
-			for (int d=bny-1; d<=bny+1; d++)
-				if (m_img->getPixel(c,d)==FXRGB(255,0,0))
-				{
-					temp=helpgraph->SearchVertex(c,d);
-					gr->AddEdgeByVertex(last,temp);
-					gr->AddEdgeByVertex(temp,last);
-					last=temp;
-				}
-	}
-	return gr;
+    int bnx,bny;
+    Vertex* lauf;
+    Vertex* altlauf;
+    Vertex* hilfslauf;
+    Vertex* last;
+    Vertex* temp;
+    while (black_neighbour(start)!=NULL) {
+        last=start;
+        int counter = value;
+        lauf=black_neighbour(start);
+        altlauf=last;
+        while (black_neighbour(lauf,altlauf)!=NULL) {
+            if (counter==0) {
+                lauf=gr->AddVertexByXY(lauf->GetX(),lauf->GetY());
+                //lauf=gr->SearchVertex(lauf->GetX(),lauf->GetY());
+                gr->AddEdgeByVertex(last,lauf);
+                gr->AddEdgeByVertex(lauf,last);
+                last=lauf;
+                counter=value;
+            } else counter--;
+            m_img->setPixel(lauf->GetX(),lauf->GetY(),FXRGB(255,255,0));
+            hilfslauf=lauf;
+            lauf=black_neighbour(lauf,altlauf);
+            altlauf=hilfslauf;
+        }
+        //Ende der Kette, dann verbinden mit Knoten
+        bnx=lauf->GetX();
+        bny=lauf->GetY();
+        m_img->setPixel(bnx,bny,FXRGB(255,255,0));
+        for (int c=bnx-1; c<=bnx+1; c++)
+            for (int d=bny-1; d<=bny+1; d++)
+                if (m_img->getPixel(c,d)==FXRGB(255,0,0)) {
+                    temp=helpgraph->SearchVertex(c,d);
+                    gr->AddEdgeByVertex(last,temp);
+                    gr->AddEdgeByVertex(temp,last);
+                    last=temp;
+                }
+    }
+    return gr;
 }
 
 Vertex* Image::black_neighbour(Vertex* start)
 {
-	int a=start->GetX();
-	int b=start->GetY();
-	for (int i=a-1; i<=a+1; i++)
-		for (int j=b-1; j<=b+1; j++)
-			if ((i!=a)||(j!=b))
-				if (m_img->getPixel(i,j)==FXRGB(0,0,0))
-				{
-					Vertex* neighbour= new Vertex(i,j);
-					return neighbour;
-				}
-	return NULL;
+    int a=start->GetX();
+    int b=start->GetY();
+    for (int i=a-1; i<=a+1; i++)
+        for (int j=b-1; j<=b+1; j++)
+            if ((i!=a)||(j!=b))
+                if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
+                    Vertex* neighbour= new Vertex(i,j);
+                    return neighbour;
+                }
+    return NULL;
 }
 
 Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 {
-	int a=lauf->GetX();
-	int b=lauf->GetY();
-	int delta_x=a-altlauf->GetX();
-	int delta_y=b-altlauf->GetY();
+    int a=lauf->GetX();
+    int b=lauf->GetY();
+    int delta_x=a-altlauf->GetX();
+    int delta_y=b-altlauf->GetY();
 
-	if ((delta_x!=0)&&(delta_y!=0))
-	{
-		if (((m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(255,0,0))||(m_img->getPixel(a+delta_x,b)==FXRGB(255,0,0)))||(m_img->getPixel(a,b+delta_y)==FXRGB(255,0,0))) return NULL;
-		if (m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(0,0,0))
-		{
+    if ((delta_x!=0)&&(delta_y!=0)) {
+        if (((m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(255,0,0))||(m_img->getPixel(a+delta_x,b)==FXRGB(255,0,0)))||(m_img->getPixel(a,b+delta_y)==FXRGB(255,0,0))) return NULL;
+        if (m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(0,0,0)) {
 
-			Vertex* neighbour= new Vertex(a+delta_x,b+delta_y);
-			return neighbour;
-		}
-		if (m_img->getPixel(a+delta_x,b)==FXRGB(0,0,0))
-		{
-			Vertex* neighbour= new Vertex(a+delta_x,b);
-			return neighbour;
-		}
-		if (m_img->getPixel(a,b+delta_y)==FXRGB(0,0,0))
-		{
-			Vertex* neighbour= new Vertex(a,b+delta_y);
-			return neighbour;
-		}
-	}
-	else
-	{
-		if (delta_x!=0)
-		{
+            Vertex* neighbour= new Vertex(a+delta_x,b+delta_y);
+            return neighbour;
+        }
+        if (m_img->getPixel(a+delta_x,b)==FXRGB(0,0,0)) {
+            Vertex* neighbour= new Vertex(a+delta_x,b);
+            return neighbour;
+        }
+        if (m_img->getPixel(a,b+delta_y)==FXRGB(0,0,0)) {
+            Vertex* neighbour= new Vertex(a,b+delta_y);
+            return neighbour;
+        }
+    } else {
+        if (delta_x!=0) {
             int j;
-			for (j=b-1; j<=b+1; j++)
-				if (m_img->getPixel(a+delta_x,j)==FXRGB(255,0,0))
-				{
-					return NULL;
-				}
-			for (j=b-1; j<=b+1; j++)
-				if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0))
-				{
-					Vertex* neighbour= new Vertex(a+delta_x,j);
-					return neighbour;
-				}
-		}
-		if (delta_y!=0)
-		{
+            for (j=b-1; j<=b+1; j++)
+                if (m_img->getPixel(a+delta_x,j)==FXRGB(255,0,0)) {
+                    return NULL;
+                }
+            for (j=b-1; j<=b+1; j++)
+                if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0)) {
+                    Vertex* neighbour= new Vertex(a+delta_x,j);
+                    return neighbour;
+                }
+        }
+        if (delta_y!=0) {
             int i;
-			for (i=a-1; i<=a+1; i++)
-				if (m_img->getPixel(i,b+delta_y)==FXRGB(255,0,0))
-				{
-					return NULL;
-				}
-			for (i=a-1; i<=a+1; i++)
-				if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0))
-				{
-					Vertex* neighbour= new Vertex(i,b+delta_y);
-					return neighbour;
-				}
-		}
-	}
-	return NULL;
+            for (i=a-1; i<=a+1; i++)
+                if (m_img->getPixel(i,b+delta_y)==FXRGB(255,0,0)) {
+                    return NULL;
+                }
+            for (i=a-1; i<=a+1; i++)
+                if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0)) {
+                    Vertex* neighbour= new Vertex(i,b+delta_y);
+                    return neighbour;
+                }
+        }
+    }
+    return NULL;
 }
 
 /*Graph Image::Tracking(Graph gr,ConfigDialog* myDialog)
@@ -1060,20 +965,17 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
 void Image::EraseStains(ConfigDialog* myDialog)
 {
     FXSlider* mySlider= myDialog->getEraSlider();
-	int deep=mySlider->getValue();
+    int deep=mySlider->getValue();
 
-	//Hole Breite und Höhe des Image
+    //Hole Breite und Höhe des Image
     int wid = m_img->getWidth();
     int hei = m_img->getHeight();
 
     //Durchlaufe das Image
-    for(int i =0+deep; i<wid-deep ; ++i)
-    {
-        for (int j =0+deep; j<hei-deep ; ++j)
-        {
+    for (int i =0+deep; i<wid-deep ; ++i) {
+        for (int j =0+deep; j<hei-deep ; ++j) {
             //schwarzer Pixel gefunden
-            if(m_img->getPixel(i,j)==FXRGB(0,0,0))
-            {
+            if (m_img->getPixel(i,j)==FXRGB(0,0,0)) {
                 //Eckpunkte des Quadrates definieren entsprechend der gewählten Tiefe
                 int i_links = i-((deep-1)/2);
                 int i_rechts= i+((deep-1)/2);
@@ -1084,38 +986,34 @@ void Image::EraseStains(ConfigDialog* myDialog)
                 // Durchlaufe alle vier Seiten des Quadrates und suche schwarze Pixel
 
                 // von oben links nach unten links
-                for(int d =b_oben+1 ; d<=b_unten-1 ; ++d)
-                {
-                    if(m_img->getPixel(i_links,d)==FXRGB(0,0,0)) black = black+1;
-                    if(black>0)break;
+                for (int d =b_oben+1 ; d<=b_unten-1 ; ++d) {
+                    if (m_img->getPixel(i_links,d)==FXRGB(0,0,0)) black = black+1;
+                    if (black>0)break;
                 }
 
                 //von oben links nach oben rechts
-                for(int c = i_links; c<=i_rechts ; ++c)
-                {
-                    if(m_img->getPixel(c,b_oben)==FXRGB(0,0,0)) black = black+1;
-                    if(black>0)break;
+                for (int c = i_links; c<=i_rechts ; ++c) {
+                    if (m_img->getPixel(c,b_oben)==FXRGB(0,0,0)) black = black+1;
+                    if (black>0)break;
                 }
 
                 //von unten links nach unten rechts
-                for(int e = i_links ; e<=i_rechts ; ++e)
-                {
-                    if(m_img->getPixel(e,b_unten)==FXRGB(0,0,0)) black = black+1;
-                    if(black>0)break;
+                for (int e = i_links ; e<=i_rechts ; ++e) {
+                    if (m_img->getPixel(e,b_unten)==FXRGB(0,0,0)) black = black+1;
+                    if (black>0)break;
                 }
 
                 //von oben rechts nach unten rechts
-                for(int f = b_oben+1 ; f<=b_unten-1 ; ++f)
-                {
-                    if(m_img->getPixel(i_rechts,f)==FXRGB(0,0,0)) black = black+1;
-                    if(black>0)break;
+                for (int f = b_oben+1 ; f<=b_unten-1 ; ++f) {
+                    if (m_img->getPixel(i_rechts,f)==FXRGB(0,0,0)) black = black+1;
+                    if (black>0)break;
                 }
 
                 //falls kein schwarzer pixel gefunden wurde,
                 //so färbe das gewählte quadrat weiß
-                if(black==0)
-                    for(int x = i_links+1; x<i_rechts ; ++x)
-                        for(int y = b_oben+1 ; y<b_unten; ++y)
+                if (black==0)
+                    for (int x = i_links+1; x<i_rechts ; ++x)
+                        for (int y = b_oben+1 ; y<b_unten; ++y)
                             m_img->setPixel(x,y,FXRGB(255,255,255));
             }
         }
@@ -1137,7 +1035,7 @@ Image::CreatePoint(Point p, bool cross)
 
 void
 Image::DrawLine(Point p1,Point p2)
-    {
+{
     //Hole die Koordinaten der Punkte
     int i=p1.GetX();
     int j=p1.GetY();
@@ -1150,39 +1048,33 @@ Image::DrawLine(Point p1,Point p2)
     //Überprüfe die Lage der Strecke (p1,p2) in der Ebene
 
     //Ist x-Koordinate von p1 kleiner als von p2 ?
-    if (i-k<0)
-        {
+    if (i-k<0) {
         delta_x=k-i;
         min_x=i;
         deltadelta=-1;
-        }
-
-    else
-        {
+    }
+    else {
         delta_x=i-k;
         min_x=k;
         deltadelta=1;
-        }
+    }
 
     //Ist y-Koordinate von p1 kleiner als von p2 ?
-    if (j-l<0)
-        {
+    if (j-l<0) {
         delta_y=l-j;
         min_y=j;
         deltadelta*=-1;
-        }
-
-    else
-        {
+    }
+    else {
         delta_y=j-l;
         min_y=l;
         deltadelta*=1;
-        }
+    }
 
     //Es ergibt sich ein deltadelta von 1(-1) bei positiver(negativer) Steigung der Strecke(p1,p2)
 
     //Fange Integer divide by zero ab
-    if(delta_x==0)delta_x=1;
+    if (delta_x==0)delta_x=1;
 
     //Berechne nun mittels der Steigung die Punkte der Strecke (p1,p2) und färbe diese
 
@@ -1191,35 +1083,31 @@ Image::DrawLine(Point p1,Point p2)
     if (delta_x>=delta_y)
         //negative Steigung
         if (deltadelta==-1)
-            for (int a=0;a<=delta_x;a++)
-                {
+            for (int a=0;a<=delta_x;a++) {
                 new_y=int(min_y+deltadelta*a*delta_y/delta_x);
                 m_img->setPixel(a+min_x,new_y+delta_y,FXRGB(50,0,250));
-                }
-        //positive Steigung
+            }
+    //positive Steigung
         else
-            for (int a=0;a<=delta_x;a++)
-                {
+            for (int a=0;a<=delta_x;a++) {
                 new_y=int(min_y+a*delta_y/delta_x);
                 m_img->setPixel(a+min_x,new_y,FXRGB(50,0,250));
-                }
+            }
     //Wird von p1 nach p2 mehr y-Weg zurückgelegt ?
     //Wenn y, dann berechne die Zwischenwerte der x-Koordinaten für jedes delta_y Pixel
     else
         //negative Steigung
         if (deltadelta==-1)
-            for (int a=0;a<=delta_y;a++)
-                {
+            for (int a=0;a<=delta_y;a++) {
                 new_x=int(min_x+delta_x+deltadelta*a*delta_x/delta_y);
                 m_img->setPixel(new_x,a+min_y,FXRGB(50,0,250));
-                }
-        //positive Steigung
+            }
+    //positive Steigung
         else
-            for (int a=0;a<=delta_y;a++)
-                {
+            for (int a=0;a<=delta_y;a++) {
                 new_x=int(min_x+a*delta_x/delta_y);
                 m_img->setPixel(new_x,a+min_y,FXRGB(50,0,250));
-                }
+            }
 }
 
 //Zeichnet das Knotenarray auf das aktuelle Bitmap
@@ -1227,25 +1115,23 @@ void
 Image::DrawVArray(Graph gr)
 {
     //Hole Breite und Höhe des Image
-	int wid = m_img->getWidth();
-	int hei = m_img->getHeight();
+    int wid = m_img->getWidth();
+    int hei = m_img->getHeight();
 
-	unsigned int l=0;
+    unsigned int l=0;
     //Hole das Knotenarray
     vector<Vertex*> testarray=gr.GetVArray();
 
     //Durchlaufe das Knotenarray
-    while (l<testarray.size())
-    {
+    while (l<testarray.size()) {
         //Hole dir jeweils den Pointer auf den Knoten an Stelle l im Knotenarray
         Vertex* ptemp=testarray[l];
 
         //Fange Access Violation(Zugriff auf unerlaubte Pixel) ab
-        if (((ptemp->GetX()<wid-1)&&(ptemp->GetY()<hei-1))&&((ptemp->GetX()>0)&&(ptemp->GetY()>0)))
-        {
-        //Erzeuge einen Punkt(3Mal3 Pixel) und male ihn
-        Point b(ptemp->GetX(),ptemp->GetY());
-        CreatePoint(b,0);
+        if (((ptemp->GetX()<wid-1)&&(ptemp->GetY()<hei-1))&&((ptemp->GetX()>0)&&(ptemp->GetY()>0))) {
+            //Erzeuge einen Punkt(3Mal3 Pixel) und male ihn
+            Point b(ptemp->GetX(),ptemp->GetY());
+            CreatePoint(b,0);
         }
         l++;
     }
@@ -1261,8 +1147,7 @@ Image::DrawEArray(Graph gr)
     vector<Edge*> testearray=gr.GetEArray();
 
     //Durchlaufe das Kantenarray
-    while (n<testearray.size())
-    {
+    while (n<testearray.size()) {
         //Hole dir jeweils den Pointer auf die Kante an Stelle n im Kantenarray
         Edge* ptemp = testearray[n];
 
@@ -1271,8 +1156,7 @@ Image::DrawEArray(Graph gr)
         Vertex* b = ptemp->GetEndingVertex();
 
         //Wenn a und b nicht leer sind
-        if ((a != NULL)&&(b != NULL))
-        {
+        if ((a != NULL)&&(b != NULL)) {
             //Erzeuge zwei Punkte und male die Strecke dazwischen
             Point aa(a->GetX(),a->GetY());
             Point bb(b->GetX(),b->GetY());
@@ -1294,66 +1178,56 @@ Image::DrawGraph(Graph gr)
 //Siehe oben
 void
 Image::DrawLine(FXint i,FXint j,FXint k,FXint l)
-    {
+{
     int delta_x,delta_y,min_x,min_y,new_x,new_y,deltadelta;
 
-    if (i-k<0)
-        {
+    if (i-k<0) {
         delta_x=k-i;
         min_x=i;
         deltadelta=-1;
-        }
-
-    else
-        {
+    }
+    else {
         delta_x=i-k;
         min_x=k;
         deltadelta=1;
-        }
+    }
 
-    if (j-l<0)
-        {
+    if (j-l<0) {
         delta_y=l-j;
         min_y=j;
         deltadelta*=-1;
-        }
-
-    else
-        {
+    }
+    else {
         delta_y=j-l;
         min_y=l;
         deltadelta*=1;
-        }
+    }
 
-    if(delta_x==0)
+    if (delta_x==0)
         delta_x=1;
 
     if (delta_x>=delta_y)
         if (deltadelta==-1)
-            for (int a=0;a<=delta_x;a++)
-                {
+            for (int a=0;a<=delta_x;a++) {
                 new_y=int(min_y+deltadelta*a*delta_y/delta_x);
                 m_img->setPixel(a+min_x,new_y+delta_y,FXRGB(0,0,0));
-                }
+            }
         else
-            for (int a=0;a<=delta_x;a++)
-                {
+            for (int a=0;a<=delta_x;a++) {
                 new_y=int(min_y+a*delta_y/delta_x);
                 m_img->setPixel(a+min_x,new_y,FXRGB(0,0,0));
-                }
+            }
     else
         if (deltadelta==-1)
-            for (int a=0;a<=delta_y;a++)
-                {
+            for (int a=0;a<=delta_y;a++) {
                 new_x=int(min_x+delta_x+deltadelta*a*delta_x/delta_y);
                 m_img->setPixel(new_x,a+min_y,FXRGB(0,0,0));
-                }
+            }
         else
-            for (int a=0;a<=delta_y;a++)
-                {
+            for (int a=0;a<=delta_y;a++) {
                 new_x=int(min_x+a*delta_x/delta_y);
                 m_img->setPixel(new_x,a+min_y,FXRGB(0,0,0));
-                }
+            }
 }
 
 //
@@ -1370,54 +1244,50 @@ Image::DrawLine(FXint i,FXint j,FXint k,FXint l)
 int Image::CountTransitions(int i, int j)
 {
     int transitions =0;
-        if(
-            (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))
-        )
-            ++transitions;
-        if(
-            (m_img->getPixel(i+1,j-1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
-         )
-            ++transitions;
-        if(
-            (m_img->getPixel(i+1,j)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))
-         )
-            ++transitions;
-        if(
-            (m_img->getPixel(i+1,j+1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
-        )
-            ++transitions;
-        if(
-            (m_img->getPixel(i,j+1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))
-         )
-            ++transitions;
-        if(
-            (m_img->getPixel(i-1,j+1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
-        )
-            ++transitions;
-        if(
-            (m_img->getPixel(i-1,j)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))
-        )
-            ++transitions;
-        if(
-            (m_img->getPixel(i-1,j-1)==FXRGB(255,255,255))&&
-            (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
-        )
-            ++transitions;
+    if (
+        (m_img->getPixel(i,j-1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i+1,j-1)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i+1,j-1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i+1,j)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i+1,j)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i+1,j+1)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i+1,j+1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i,j+1)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i,j+1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i-1,j+1)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i-1,j+1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i-1,j)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i-1,j)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i-1,j-1)==FXRGB(0,0,0))
+    )
+        ++transitions;
+    if (
+        (m_img->getPixel(i-1,j-1)==FXRGB(255,255,255))&&
+        (m_img->getPixel(i,j-1)==FXRGB(0,0,0))
+    )
+        ++transitions;
     return transitions;
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-// Local Variables:
-// mode:C++
-// End:
 
 
+/****************************************************************************/
 

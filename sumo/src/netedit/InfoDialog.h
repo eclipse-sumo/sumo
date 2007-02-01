@@ -1,54 +1,40 @@
-
-#ifndef _INFODIALOG_H_
-#define _INFODIALOG_H_
-//---------------------------------------------------------------------------//
-//                        InfoDialog.h -
+/****************************************************************************/
+/// @file    InfoDialog.h
+/// @author  unknown_author
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                :
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/09/09 12:51:48  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.2  2005/05/30 08:18:26  dksumo
-// comments added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef InfoDialog_h
+#define InfoDialog_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "fx.h"
 #include <stdio.h>
@@ -59,56 +45,60 @@
 
 #include <iostream>
 #include <sstream>
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 #include <string>
 using namespace std;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class InfoDialog : public FXDialogBox {
-  FXDECLARE(InfoDialog)
+class InfoDialog : public FXDialogBox
+{
+    FXDECLARE(InfoDialog)
 protected:
-  FXVerticalFrame* contents;
-  FXHorizontalFrame* buttonframe;
-  FXPopup*           pane;
-  FXVerticalFrame*   boxframe1;
+    FXVerticalFrame* contents;
+    FXHorizontalFrame* buttonframe;
+    FXPopup*           pane;
+    FXVerticalFrame*   boxframe1;
 
 
 public:
 
 
 // Messages
-  enum{
-	ID_PANEL=FXMainWindow::ID_LAST,
+    enum{
+        ID_PANEL=FXMainWindow::ID_LAST,
 
-	ID_OK,
-  };
+        ID_OK,
+    };
 
 private:
-  InfoDialog(){}
+    InfoDialog()
+    {}
 
 public:
-  InfoDialog(FXWindow* owner);
-  virtual ~InfoDialog();
+    InfoDialog(FXWindow* owner);
+    virtual ~InfoDialog();
 
-  long onCmdPanel(FXObject*,FXSelector,void* ptr);
-  long onCmdOK(FXObject*,FXSelector,void* ptr);
-
-
+    long onCmdPanel(FXObject*,FXSelector,void* ptr);
+    long onCmdOK(FXObject*,FXSelector,void* ptr);
 
 
 
 
-  //void create();
-  };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+    //void create();
+};
+
 
 #endif
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
+

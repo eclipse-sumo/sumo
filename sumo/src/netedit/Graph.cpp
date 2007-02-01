@@ -1,62 +1,38 @@
-//---------------------------------------------------------------------------//
-//                        Graph.cpp -
+/****************************************************************************/
+/// @file    Graph.cpp
+/// @author  unknown_author
+/// @date    Tue, 29.05.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 29.05.2005
-//  copyright            : (C) 2005 by
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                :
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
-// $Log$
-// Revision 1.16  2006/08/01 07:51:57  dkrajzew
-// code beautifying
-//
-// Revision 1.15  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.14  2005/09/23 06:01:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.13  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/09/09 12:51:48  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.7  2005/05/30 08:18:26  dksumo
-// comments added
-//
+/****************************************************************************/
 
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "Graph.h"
 #include "time.h"
@@ -70,21 +46,22 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Konstruktion/Destruktion
 //////////////////////////////////////////////////////////////////////
-Graph::Graph(){}
+Graph::Graph()
+{}
 
 Vertex* Graph::AddVertexByXY(int x, int y)
 {
     Vertex* ptemp=new Vertex(x,y);
     vArray.push_back(ptemp);
-	return ptemp;
+    return ptemp;
 }
 
 //Sucht den Knoten mit den Koodinatenten x,y in dem Knotenarray//
@@ -93,11 +70,9 @@ Vertex* Graph::SearchVertex(int x, int y)
     Vertex* rueckgabe=NULL;
     Vertex* ptemp;
     unsigned int k;
-    for (k=0 ; k<vArray.size() ; k++)
-    {
+    for (k=0 ; k<vArray.size() ; k++) {
         ptemp = vArray[k];
-        if ((x==ptemp->GetX())&&(y==ptemp->GetY()))
-        {
+        if ((x==ptemp->GetX())&&(y==ptemp->GetY())) {
             rueckgabe=ptemp;
         }
 
@@ -112,18 +87,15 @@ Graph::DelVertex(int x, int y)
     Vertex* ptemp;
     unsigned int k;
 
-    for(k=0; k<vArray.size(); k++)
-    {
+    for (k=0; k<vArray.size(); k++) {
         //Suchen des zu löschenden Knotens
         ptemp=vArray[k];
 
-        if((x==ptemp->GetX())&&(y==ptemp->GetY()))
-        {
+        if ((x==ptemp->GetX())&&(y==ptemp->GetY())) {
             int nf= ptemp->GetNachfolger();
 
             //Nur für Anzahl der Nachfolger/Vorgänger = 2 impl.!!!//
-            if(nf==2)
-            {
+            if (nf==2) {
                 Vertex* neuV = ptemp->GetNachfolgeVertex(0);
                 Vertex* neuW = ptemp->GetNachfolgeVertex(1);
 
@@ -135,18 +107,14 @@ Graph::DelVertex(int x, int y)
                 AddEdgeByVertex(neuV, neuW);
                 AddEdgeByVertex(neuW, neuV);
 
-                for (int z=0;z<(int) neuV->GetNachfolger();z++)
-                {
-                    if (neuV->GetNachfolgeVertex(z)==ptemp)
-                    {
+                for (int z=0;z<(int) neuV->GetNachfolger();z++) {
+                    if (neuV->GetNachfolgeVertex(z)==ptemp) {
                         neuV->DelNachfolger(z);
                     }
                 }
 
-                for (int m=0;m<(int) neuW->GetNachfolger();m++)
-                {
-                    if (neuW->GetNachfolgeVertex(m)==ptemp)
-                    {
+                for (int m=0;m<(int) neuW->GetNachfolger();m++) {
+                    if (neuW->GetNachfolgeVertex(m)==ptemp) {
                         neuW->DelNachfolger(m);
                     }
                 }
@@ -178,10 +146,9 @@ Edge* Graph::SearchEdge(Vertex* v, Vertex* w)
     Edge* ptemp;
     unsigned int i;
 
-    for(i=0; i<eArray.size();i++)
-    {
+    for (i=0; i<eArray.size();i++) {
         ptemp=eArray[i];
-        if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w)){
+        if ((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w)) {
             rueckgabe=ptemp;
         }
 
@@ -196,7 +163,7 @@ vector<Vertex*> Graph::GetVArray()
 
 void Graph::SetVArray(vector<Vertex*> myarray)
 {
-	vArray=myarray;
+    vArray=myarray;
 }
 
 vector<Vertex*> Graph::GetPfadArray()
@@ -242,7 +209,7 @@ Vertex* Graph::GetVertex(int i)
 
 Edge* Graph::GetEdge(int i)
 {
-        return eArray[i];
+    return eArray[i];
 }
 
 void
@@ -255,19 +222,16 @@ Graph::Drive(int i)
     driveRandom=rand()%vArray.size();
     aktuell=GetVertex(driveRandom);
 
-    for(int m=0; m<i; m++)
-    {
+    for (int m=0; m<i; m++) {
         int nachfolger=aktuell->GetNachfolger();
         int myrandom=rand()%nachfolger;
         pfad.push_back(aktuell);
-        if(nachfolger==1)
-        {
+        if (nachfolger==1) {
             besucht=aktuell;
             aktuell=aktuell->GetNachfolgeVertex(0);
             continue;
         }
-        while(besucht==aktuell->GetNachfolgeVertex(myrandom))
-        {
+        while (besucht==aktuell->GetNachfolgeVertex(myrandom)) {
             myrandom=rand()%nachfolger;
         }
         besucht=aktuell;
@@ -294,18 +258,15 @@ Graph::Reduce()
     //Erlaubte Abweichung
     abweichung=(SUMOReal) 0.003;
     knotenanz=vArray.size();
-    for (m=0;m<knotenanz;m++)
-    {
+    for (m=0;m<knotenanz;m++) {
         n=0;
-        while (n<vArray.size())
-        {
+        while (n<vArray.size()) {
             //Hole Knoten an Stelle "n" im Knotenarray
             paktuell=vArray[n];
             //Betrachte nur Nicht-Kreuzungsknoten
             int grad=paktuell->GetDegree();
 
-            if (grad==4)
-            {
+            if (grad==4) {
                 //Hole Pointer auf Nachbarknoten
                 ptemp_null=paktuell->GetNachfolgeVertex(0);
                 ptemp_eins=paktuell->GetNachfolgeVertex(1);
@@ -319,12 +280,12 @@ Graph::Reduce()
                 y3=ptemp_eins->GetY();
 
                 //Berechne alle koordinatenweisen Abstände der Punkte zum Quadrat
-                delta_x1=(SUMOReal) ((x1-x2)*(x1-x2));
-                delta_x2=(SUMOReal) ((x2-x3)*(x2-x3));
-                delta_x3=(SUMOReal) ((x1-x3)*(x1-x3));
-                delta_y1=(SUMOReal) ((y1-y2)*(y1-y2));
-                delta_y2=(SUMOReal) ((y2-y3)*(y2-y3));
-                delta_y3=(SUMOReal) ((y1-y3)*(y1-y3));
+                delta_x1=(SUMOReal)((x1-x2)*(x1-x2));
+                delta_x2=(SUMOReal)((x2-x3)*(x2-x3));
+                delta_x3=(SUMOReal)((x1-x3)*(x1-x3));
+                delta_y1=(SUMOReal)((y1-y2)*(y1-y2));
+                delta_y2=(SUMOReal)((y2-y3)*(y2-y3));
+                delta_y3=(SUMOReal)((y1-y3)*(y1-y3));
 
                 //Berechne die euklidischen Abstände der Punkte
                 abstand_pn_pa=sqrt(delta_x1+delta_y1);
@@ -334,8 +295,7 @@ Graph::Reduce()
                 //Ist Abstand von Punkt eins plus Abstand von Punkt zwei größer als
                 //Abstand von Punkt eins zu Punkt drei (inclusive Abweichung),
                 //dann kann der Punkt nicht entfernt werden
-                if (fabs(abstand_pn_pa+abstand_pa_pe)<fabs(abstand_pn_pe)*(1.0+abweichung))
-                {
+                if (fabs(abstand_pn_pa+abstand_pa_pe)<fabs(abstand_pn_pe)*(1.0+abweichung)) {
                     DelVertex(paktuell->GetX(),paktuell->GetY());
                     n++;
                     break;
@@ -350,8 +310,8 @@ void
 Graph::Reduce_plus(ConfigDialog* my)
 {
     FXSlider* mySlider= my->getEpsiSlider();
-	SUMOReal toleranz=(SUMOReal)(mySlider->getValue());
-	int i;
+    SUMOReal toleranz=(SUMOReal)(mySlider->getValue());
+    int i;
     int m=0;
     unsigned int n=0;
     SUMOReal delta_x=0;
@@ -369,13 +329,11 @@ Graph::Reduce_plus(ConfigDialog* my)
 
     i = Number_of_Vertex();
 
-    for (n=0;n<vArray.size();n++)
-    {
+    for (n=0;n<vArray.size();n++) {
         Vertex* paktuell=vArray[n];
         int grad=paktuell->GetDegree();
 
-        if (grad==4)
-        {
+        if (grad==4) {
             Vertex* ptemp_null=paktuell->GetNachfolgeVertex(0);
             Vertex* ptemp_eins=paktuell->GetNachfolgeVertex(1);
 
@@ -383,28 +341,24 @@ Graph::Reduce_plus(ConfigDialog* my)
             delta_x2=paktuell->GetX()-ptemp_eins->GetX();
             delta_y1=ptemp_null->GetY()-paktuell->GetY();
             delta_y2=paktuell->GetY()-ptemp_eins->GetY();
-            distanz_a=sqrt((SUMOReal) (delta_x1*delta_x1+delta_y1*delta_y1));
-            distanz_b=sqrt((SUMOReal) (delta_x2*delta_x2+delta_y2*delta_y2));
+            distanz_a=sqrt((SUMOReal)(delta_x1*delta_x1+delta_y1*delta_y1));
+            distanz_b=sqrt((SUMOReal)(delta_x2*delta_x2+delta_y2*delta_y2));
 
-            if(distanz_a<distanz_b)
-            {
+            if (distanz_a<distanz_b) {
                 quotient=(distanz_b/distanz_a);
-                delta_x1=(int) (delta_x1*quotient);
-                delta_y1=(int) (delta_y1*quotient);
+                delta_x1=(int)(delta_x1*quotient);
+                delta_y1=(int)(delta_y1*quotient);
             }
-
-            else
-            {
+            else {
                 quotient=(distanz_a/distanz_b);
-                delta_x2=(int) (delta_x2*quotient);
-                delta_y2=(int) (delta_y2*quotient);
+                delta_x2=(int)(delta_x2*quotient);
+                delta_y2=(int)(delta_y2*quotient);
             }
 
-            delta_x=(SUMOReal) (delta_x1-delta_x2);
-            delta_y=(SUMOReal) (delta_y1-delta_y2);
+            delta_x=(SUMOReal)(delta_x1-delta_x2);
+            delta_y=(SUMOReal)(delta_y1-delta_y2);
 
-            if (((delta_x<toleranz)&(delta_y<toleranz))&((delta_x>-toleranz)&(delta_y>-toleranz)))
-            {
+            if (((delta_x<toleranz)&(delta_y<toleranz))&((delta_x>-toleranz)&(delta_y>-toleranz))) {
                 DelVertex(paktuell->GetX(),paktuell->GetY());
                 n--;
             }
@@ -421,25 +375,19 @@ Graph::DelEdge(Vertex* v,Vertex* w)
     Edge* ptemp;
     unsigned int i;
 
-    for(i=0; i<eArray.size();i++)
-    {
+    for (i=0; i<eArray.size();i++) {
         ptemp=eArray[i];
-        if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
-        {
-            for(int k=0; k<(int) v->GetNachfolger();k++)
-            {
+        if ((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w)) {
+            for (int k=0; k<(int) v->GetNachfolger();k++) {
                 Vertex* vtemp=v->GetNachfolgeVertex(k);
-                if(vtemp==w)
-                {
+                if (vtemp==w) {
                     v->DelNachfolger(k);
                 }
             }
 
-            for(int l=0; l<(int) w->GetVorgaenger();l++)
-            {
+            for (int l=0; l<(int) w->GetVorgaenger();l++) {
                 Vertex* vtemp1=w->GetVorgaengerVertex(l);
-                if(vtemp1==v)
-                {
+                if (vtemp1==v) {
                     w->DelVorgaenger(l);
                 }
             }
@@ -459,14 +407,12 @@ Graph::DelDoubleEdge(Vertex* v, Vertex* w)
     Edge* ptemp;
     unsigned int i;
 
-    for(i=0; i<eArray.size();i++)
-    {
-            ptemp=eArray[i];
-            if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
-            {
-                DelEdge(v,w);
-                i--;
-            }
+    for (i=0; i<eArray.size();i++) {
+        ptemp=eArray[i];
+        if ((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w)) {
+            DelEdge(v,w);
+            i--;
+        }
     }
 }
 
@@ -474,11 +420,9 @@ void
 Graph::Reduce_Edges()
 {
     Edge* etemp;
-    for(long i=0; i<(int) eArray.size();i++)
-    {
+    for (long i=0; i<(int) eArray.size();i++) {
         etemp=eArray[i];
-        if(etemp->GetLength()==0)
-        {
+        if (etemp->GetLength()==0) {
             DelDoubleEdge(etemp->GetStartingVertex(),etemp->GetEndingVertex());
             i--;
             break;
@@ -506,17 +450,16 @@ Graph::Export_Vertexes_XML()
 
     fputs(app,vfile);
 
-    for(long i=0 ; i<Vertices; i++)
-    {
+    for (long i=0 ; i<Vertices; i++) {
         temp=vArray[i];
 
-		int x=temp->GetX();
+        int x=temp->GetX();
         int y=(temp->GetY())*(-1);
-		sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
-		fputs(buffer, vfile);
-	}
-   	fputs(app2,vfile);
-	fclose(vfile);
+        sprintf(buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
+        fputs(buffer, vfile);
+    }
+    fputs(app2,vfile);
+    fclose(vfile);
 }
 
 void
@@ -537,22 +480,20 @@ Graph::Export_Edges_XML()
 
 
 
-	FILE* efile= fopen("c:/export.edg.xml","w");
+    FILE* efile= fopen("c:/export.edg.xml","w");
 
 
 
     fputs(app,efile);
 
-    for(long i=0; i<(int) eArray.size(); i++)
-    {
+    for (long i=0; i<(int) eArray.size(); i++) {
         temp=eArray[i];
         start=temp->GetStartingVertex();
         end=temp->GetEndingVertex();
         index_start=GetIndex(start);
         index_end=GetIndex(end);
-        if ((index_start!=-1)&&(index_end!=-1))
-        {
-            sprintf (buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
+        if ((index_start!=-1)&&(index_end!=-1)) {
+            sprintf(buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
             fputs(buffer,efile);
         }
     }
@@ -580,8 +521,7 @@ int Graph::GetIndex(Vertex* v)
 {
     Vertex* temp;
     int index=-1;
-    for (int i=0; i<(int) vArray.size(); i++)
-    {
+    for (int i=0; i<(int) vArray.size(); i++) {
         temp=vArray[i];
         if (v==temp) index=i;
     }
@@ -590,149 +530,141 @@ int Graph::GetIndex(Vertex* v)
 
 void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 {
-	//Miguel
-	FXSlider* my1=myDialog->getMapscaleSlider();
-	FXTextField* my2=myDialog->getGKRTextField();
-	FXTextField* my3=myDialog->getGKHTextField();
-	int scale=my1->getValue();
-	FXint myFXint1=FXIntVal(my2->getText(),10);
-	FXint myFXint2=FXIntVal(my3->getText(),10);
-	int gkr=myFXint1;
-	int gkh=myFXint2;
-	///Miguel
-	char buffer1 [100];
-	char buffer2 [100];
-	char buffer3 [100];
-	SUMOReal mylat;
-	SUMOReal mylon;
-	int mylat1;
-	int mylon1;
-	long mylat2;
-	long mylon2;
-	time_t rawtime;
-	tm* ptm;
-	Vertex* ptemp;
+    //Miguel
+    FXSlider* my1=myDialog->getMapscaleSlider();
+    FXTextField* my2=myDialog->getGKRTextField();
+    FXTextField* my3=myDialog->getGKHTextField();
+    int scale=my1->getValue();
+    FXint myFXint1=FXIntVal(my2->getText(),10);
+    FXint myFXint2=FXIntVal(my3->getText(),10);
+    int gkr=myFXint1;
+    int gkh=myFXint2;
+    ///Miguel
+    char buffer1 [100];
+    char buffer2 [100];
+    char buffer3 [100];
+    SUMOReal mylat;
+    SUMOReal mylon;
+    int mylat1;
+    int mylon1;
+    long mylat2;
+    long mylon2;
+    time_t rawtime;
+    tm* ptm;
+    Vertex* ptemp;
 
-	for (int l=1; l<=cars; l++)
-	{
-		sprintf(buffer1,"Trace%2d.txt",l);
-		FILE* Traces = fopen(buffer1,"w");
-		Drive(fuel);
-		pfad = GetPfadArray();
-		for (int m=0; m<(int) pfad.size(); m++)
-		{
-			ptemp=pfad[m];
-			time(&rawtime);
-			ptm=gmtime(&rawtime);
-			ptemp->px2gps(scale,gkr,gkh);
-			mylat=ptemp->GetGPSLat()*100;
-			mylon=ptemp->GetGPSLon()*100;
-			mylat1=(int)mylat;
-			mylon1=(int)mylon;
-			mylat2=(long)((mylat-(int)mylat)*1000000);
-			mylon2=(long)((mylon-(int)mylon)*1000000);
-			//So soll es aussehen
-			//$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
-			//$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
+    for (int l=1; l<=cars; l++) {
+        sprintf(buffer1,"Trace%2d.txt",l);
+        FILE* Traces = fopen(buffer1,"w");
+        Drive(fuel);
+        pfad = GetPfadArray();
+        for (int m=0; m<(int) pfad.size(); m++) {
+            ptemp=pfad[m];
+            time(&rawtime);
+            ptm=gmtime(&rawtime);
+            ptemp->px2gps(scale,gkr,gkh);
+            mylat=ptemp->GetGPSLat()*100;
+            mylon=ptemp->GetGPSLon()*100;
+            mylat1=(int)mylat;
+            mylon1=(int)mylon;
+            mylat2=(long)((mylat-(int)mylat)*1000000);
+            mylon2=(long)((mylon-(int)mylon)*1000000);
+            //So soll es aussehen
+            //$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
+            //$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
 
-			sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
-			fputs(buffer2,Traces);
-			sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
-			fputs(buffer3,Traces);
-		}
-		fclose(Traces);
+            sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
+            fputs(buffer2,Traces);
+            sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
+            fputs(buffer3,Traces);
+        }
+        fclose(Traces);
 
-	}
+    }
 }
 
 void Graph::MergeVertex()
 {
 
-	int tolerance=5;
+    int tolerance=5;
 
-	/*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
-	/*Für die Länge einer Kante*/
-	int length;
-	/*Hilfszeiger*/
-	Edge* aktuell;
-	//Edge* aktuell2;
-	/*Für den Start- und Endknoten einer Kante*/
-	Vertex* start;
-	Vertex* end;
-	Vertex* start2;
-	Vertex* end2;
+    /*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
+    /*Für die Länge einer Kante*/
+    int length;
+    /*Hilfszeiger*/
+    Edge* aktuell;
+    //Edge* aktuell2;
+    /*Für den Start- und Endknoten einer Kante*/
+    Vertex* start;
+    Vertex* end;
+    Vertex* start2;
+    Vertex* end2;
 
-	/*Nacheinander holen jeder Kante*/
-	for(unsigned i=0; i<eArray.size(); i++)
-	{
-		aktuell=eArray[i];
-		length=(int) aktuell->GetLength();
-		/*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
-		if(length<tolerance)
-		{
-			start=aktuell->GetStartingVertex();
-			end=aktuell->GetEndingVertex();
+    /*Nacheinander holen jeder Kante*/
+    for (unsigned i=0; i<eArray.size(); i++) {
+        aktuell=eArray[i];
+        length=(int) aktuell->GetLength();
+        /*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
+        if (length<tolerance) {
+            start=aktuell->GetStartingVertex();
+            end=aktuell->GetEndingVertex();
 
-			//Koordinaten der aktuellen Start- und Endknoten
-		    //werden gemittelt zu den Koordinaten des neuen Knotens
-			int(xneu)=(start->GetX()+end->GetX())/2;
-			int(yneu)=(start->GetY()+end->GetY())/2;
+            //Koordinaten der aktuellen Start- und Endknoten
+            //werden gemittelt zu den Koordinaten des neuen Knotens
+            int(xneu)=(start->GetX()+end->GetX())/2;
+            int(yneu)=(start->GetY()+end->GetY())/2;
 
-			/*Löschen der zu kurzen Kanten*/
-			DelEdge(start,end);
-			DelEdge(end,start);
+            /*Löschen der zu kurzen Kanten*/
+            DelEdge(start,end);
+            DelEdge(end,start);
 
-			/*Hinzufügen des neuen Kotens*/
-			/*Zeiger auf den neu hinzugefügten Knoten*/
-			Vertex* neu = AddVertexByXY(xneu,yneu);
+            /*Hinzufügen des neuen Kotens*/
+            /*Zeiger auf den neu hinzugefügten Knoten*/
+            Vertex* neu = AddVertexByXY(xneu,yneu);
 
-			//Neu
-			int startnachfolger=start->GetNachfolger();
-			while (startnachfolger>0)
-			{
-				start2=start->GetNachfolgeVertex(startnachfolger-1);
-				mArray.push_back(start2);
-				DelEdge(start,start2);
-				DelEdge(start2,start);
-				startnachfolger--;
-			}
+            //Neu
+            int startnachfolger=start->GetNachfolger();
+            while (startnachfolger>0) {
+                start2=start->GetNachfolgeVertex(startnachfolger-1);
+                mArray.push_back(start2);
+                DelEdge(start,start2);
+                DelEdge(start2,start);
+                startnachfolger--;
+            }
 
-			int endnachfolger=end->GetNachfolger();
-			while (endnachfolger>0)
-			{
-				end2=end->GetNachfolgeVertex(endnachfolger-1);
-				mArray.push_back(end2);
-				DelEdge(end,end2);
-				DelEdge(end2,end);
-				endnachfolger--;
-			}
+            int endnachfolger=end->GetNachfolger();
+            while (endnachfolger>0) {
+                end2=end->GetNachfolgeVertex(endnachfolger-1);
+                mArray.push_back(end2);
+                DelEdge(end,end2);
+                DelEdge(end2,end);
+                endnachfolger--;
+            }
 
-			/*Löschen der Start- und Endknoten der zu kurzen Kante*/
-			DelVertex4Merge(start);
-			DelVertex4Merge(end);
-			/*Hinzufügen von neuen Kanten von den Nachfolgern von Start- und Endknoten zum*/
-			/*jeweiligen neuen Knoten*/
-			for(unsigned int m_Node=0; m_Node<mArray.size();m_Node++)
-			{
-				AddEdgeByVertex(mArray[m_Node],neu);
-				AddEdgeByVertex(neu,mArray[m_Node]);
-			}
+            /*Löschen der Start- und Endknoten der zu kurzen Kante*/
+            DelVertex4Merge(start);
+            DelVertex4Merge(end);
+            /*Hinzufügen von neuen Kanten von den Nachfolgern von Start- und Endknoten zum*/
+            /*jeweiligen neuen Knoten*/
+            for (unsigned int m_Node=0; m_Node<mArray.size();m_Node++) {
+                AddEdgeByVertex(mArray[m_Node],neu);
+                AddEdgeByVertex(neu,mArray[m_Node]);
+            }
 
-			//Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
-			i-=2+mArray.size()*2;
-			mArray.clear();
-			if (i<-1) i=-1;
+            //Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
+            i-=2+mArray.size()*2;
+            mArray.clear();
+            if (i<-1) i=-1;
 
-		}
-	}
+        }
+    }
 }
 
 
 /*Löschmethode für einen Knoten für den Merger*/
 void Graph::DelVertex4Merge(Vertex* v)
 {
-    if(GetIndex(v)!=-1)
-    {
+    if (GetIndex(v)!=-1) {
         vArray.erase(vArray.begin()+GetIndex(v));
         DelNachfolger4Merge(v);
     }
@@ -741,16 +673,13 @@ void Graph::DelVertex4Merge(Vertex* v)
 /*Löscht alle Nachfolgenden Kanten eines Knotens*/
 void Graph::DelNachfolger4Merge(Vertex* v)
 {
-    for(int i=0; i<(int) v->GetNachfolger(); i++)
-    {
+    for (int i=0; i<(int) v->GetNachfolger(); i++) {
         DelEdge(v,v->GetNachfolgeVertex(i));
         DelEdge(v->GetNachfolgeVertex(i),v);
     }
 }
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-// Local Variables:
-// mode:C++
-// End:
+
+/****************************************************************************/
 

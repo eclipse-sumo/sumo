@@ -1,57 +1,40 @@
-#ifndef _GRAPH_H_
-#define _GRAPH_H_
-//---------------------------------------------------------------------------//
-//                        Graph.h -
+/****************************************************************************/
+/// @file    Graph.h
+/// @author  unknown_author
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
 //
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                :
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.11  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.10  2005/09/23 06:01:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.9  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/09/09 12:51:48  dksumo
-// complete code rework: debug_new and config added
-//
-// Revision 1.7  2005/05/30 08:18:26  dksumo
-// comments added
-//
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef Graph_h
+#define Graph_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include "Vertex.h"
@@ -59,18 +42,19 @@
 #include "stdlib.h"
 #include "ConfigDialog.h"
 
-/* =========================================================================
- * used namespaces
- * ======================================================================= */
+// ===========================================================================
+// used namespaces
+// ===========================================================================
 using namespace std;
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class Graph{
+class Graph
+{
 
 private:
 
@@ -101,7 +85,7 @@ public:
     void PushVertex(int index, int xNew, int yNew);
 
     vector<Vertex*> GetVArray();
-	void SetVArray(vector<Vertex*> myarray);
+    void SetVArray(vector<Vertex*> myarray);
     vector<Vertex*> GetPfadArray();
 
     vector<Edge*> GetEArray();
@@ -157,25 +141,23 @@ public:
     char* inttostr(int i);
 
 
-	//Wandelt einen Double-Wert in einen String um
-	char* SUMORealtostr(SUMOReal i,int count);
+    //Wandelt einen Double-Wert in einen String um
+    char* SUMORealtostr(SUMOReal i,int count);
 
-	//Exportiert Traces
-	void GetTraces(int cars,int fuel, ConfigDialog* myDialog);
+    //Exportiert Traces
+    void GetTraces(int cars,int fuel, ConfigDialog* myDialog);
 
-	//Vereinigt zwei nahe Knoten zu einem
-	void MergeVertex();
+    //Vereinigt zwei nahe Knoten zu einem
+    void MergeVertex();
 
-	//Zwei Hilfmethoden für MergeVertex
-	void DelVertex4Merge(Vertex* v);
-	void DelNachfolger4Merge(Vertex* v);
+    //Zwei Hilfmethoden für MergeVertex
+    void DelVertex4Merge(Vertex* v);
+    void DelNachfolger4Merge(Vertex* v);
 
 };
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

@@ -1,68 +1,56 @@
-#ifndef _EDGE_H_
-#define _EDGE_H_
-//---------------------------------------------------------------------------//
-//                        EDGE.h -
-//
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
-//  copyright            : (C) 2005 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    Edge.h
+/// @author  Daniel Krajzewicz
+/// @date    Fri, 29.04.2005
+/// @version $Id: $
+///
+// missing_desc
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.5  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:01:19  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/06/14 11:22:27  dksumo
-// documentation added
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef Edge_h
+#define Edge_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Vertex;
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  *
  */
-class Edge{
+class Edge
+{
 
 private:
     // Pointer auf Start- und Endknoten
@@ -77,8 +65,8 @@ private:
     int tracks;
     // Zulässige Höchstgeschwindigkeit
     int speed;
-	//Länge der Kante(Euklidischer Abstand von Start- und Endknoten)
-	SUMOReal length;
+    //Länge der Kante(Euklidischer Abstand von Start- und Endknoten)
+    SUMOReal length;
 
 public:
 
@@ -103,24 +91,23 @@ public:
 
     // ???
     void SetStart(int s);
-    void SetEnd (int e);
+    void SetEnd(int e);
 
     // Setzt die Anzahl der Fahrspuren
-    void SetTracks (int t);
+    void SetTracks(int t);
 
     // Setzt die zulässige Höchstgeschwindigkeit
     void SetSpeed(int sp);
 
-	//Setze die Länge der Kante
-	SUMOReal Setlength();
+    //Setze die Länge der Kante
+    SUMOReal Setlength();
 
-	//Hole die Länge der Kante
-	SUMOReal GetLength();
+    //Hole die Länge der Kante
+    SUMOReal GetLength();
 };
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
+

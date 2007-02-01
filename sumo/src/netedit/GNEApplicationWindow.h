@@ -1,87 +1,32 @@
-#ifndef GNEApplicationWindow_h
-#define GNEApplicationWindow_h
-//---------------------------------------------------------------------------//
-//                        GNEApplicationWindow.h -
-//  Class for the main gui window
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : 22. Nov 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    GNEApplicationWindow.h
+/// @author  Daniel Krajzewicz
+/// @date    22. Nov 2004
+/// @version $Id: $
+///
+// Class for the main gui window
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.14  2006/08/01 07:31:35  dkrajzew
-// API adaptations
-//
-// Revision 1.13  2006/01/09 11:58:37  dkrajzew
-// new visualization settings implemented
-//
-// Revision 1.12  2005/11/09 06:41:26  dkrajzew
-// debugging
-//
-// Revision 1.11  2005/10/10 11:59:40  dkrajzew
-// removed unneeded APIs
-//
-// Revision 1.10  2005/10/07 11:38:33  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.9  2005/09/15 12:03:02  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.8  2005/05/04 08:37:26  dkrajzew
-// ported to fox1.4
-//
-// Revision 1.7  2005/01/31 09:27:35  dkrajzew
-// added the possibility to save nodes and edges or the build network to netedit
-//
-// Revision 1.4  2005/01/27 14:31:28  dksumo
-// netedit now works using an own MDIChild-window; Graph is translated into a
-//  MSNet
-//
-// Revision 1.5  2004/12/21 16:56:24  agaubatz
-// debug
-//
-// Revision 1.4  2004/12/20 23:07:23  der_maik81
-// all algorithms get the configdialog as parameter
-//
-// Revision 1.3  2004/12/16 12:17:03  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/12/02 13:54:23  agaubatz
-// Netedit update, A. Gaubatz
-//
-// Revision 1.1  2004/11/23 10:45:06  dkrajzew
-// netedit by A. Gaubatz added
-//
-// Revision 1.1  2004/11/22 12:45:40  dksumo
-// added 'netedit' classes
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+/****************************************************************************/
+#ifndef GNEApplicationWindow_h
+#define GNEApplicationWindow_h
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <vector>
@@ -103,9 +48,9 @@
 #include <netbuild/NBNetBuilder.h>
 
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUILoadThread;
 class GUIRunThread;
 class GUIMessageWindow;
@@ -116,9 +61,9 @@ class GUIThreadFactory;
 class Image;
 
 
-/* =========================================================================
- * class definition
- * ======================================================================= */
+// ===========================================================================
+// class definition
+// ===========================================================================
 /**
  * @class GNEApplicationWindow
  * The main window of the SUMO-gui. Contains the file opening support and
@@ -133,7 +78,7 @@ class Image;
  * whether aggregated views are allowed is stored within this class, too.
  */
 class GNEApplicationWindow :
-        public GUIMainWindow, public MFXInterThreadEventClient
+            public GUIMainWindow, public MFXInterThreadEventClient
 {
     // FOX-declarations
     FXDECLARE(GNEApplicationWindow)
@@ -141,7 +86,7 @@ public:
 
     /** constructor */
     GNEApplicationWindow(FXApp* a, GUIThreadFactory &threadFactory,
-        int glWidth, int glHeight, const std::string &config);
+                         int glWidth, int glHeight, const std::string &config);
 
     /** destructor */
     virtual ~GNEApplicationWindow();
@@ -153,7 +98,10 @@ public:
     /// Detaches the tool/menu bar
     void detach();
 
-    void loadSelection(const std::string &file) const { throw 1; } // !!! to be implemented
+    void loadSelection(const std::string &file) const
+    {
+        throw 1;
+    } // !!! to be implemented
 
 public:
     /// Closes the log window
@@ -223,12 +171,12 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
-/*
-    long onPaint(FXObject*,FXSelector,void*);
-    long onMouseDown(FXObject*,FXSelector,void*);
-    long onMouseUp(FXObject*,FXSelector,void*);
-    long onMouseMove(FXObject*,FXSelector,void*);
-    */
+    /*
+        long onPaint(FXObject*,FXSelector,void*);
+        long onMouseDown(FXObject*,FXSelector,void*);
+        long onMouseUp(FXObject*,FXSelector,void*);
+        long onMouseMove(FXObject*,FXSelector,void*);
+        */
     long onCmdClear(FXObject*,FXSelector,void*);
     long onUpdClear(FXObject*,FXSelector,void*);
 
@@ -255,7 +203,8 @@ private:
 
 protected:
     /// FOX needs this for static members
-    GNEApplicationWindow() { }
+    GNEApplicationWindow()
+    { }
     /** called when an event occures */
 //    bool event(QEvent *e);
 
@@ -287,7 +236,7 @@ protected:
 
     /// the submenus
     FXMenuPane *myFileMenu, /**mySubFileMenu1,*/ *myEditMenu, *myImageMenu, *myGraphMenu,
-        *mySettingsMenu, *myWindowsMenu, *myHelpMenu;
+    *mySettingsMenu, *myWindowsMenu, *myHelpMenu;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow *myMessageWindow;
@@ -297,8 +246,8 @@ protected:
 
     /// for some menu detaching fun
     FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-        *myToolBarDrag4, *myToolBarDrag5,
-        *myMenuBarDrag/*, *myIMGToolBarDrag*/;
+    *myToolBarDrag4, *myToolBarDrag5,
+    *myMenuBarDrag/*, *myIMGToolBarDrag*/;
 
     ///
     FXRealSpinDial *mySimDelayTarget;
@@ -355,18 +304,18 @@ protected:
 
     // Image Configuration Dialog
     ConfigDialog *dialog;
-	InfoDialog *dialog2;
+    InfoDialog *dialog2;
 
-	// default filename for the imagefiledialog
-	FXString imgfilename;
+    // default filename for the imagefiledialog
+    FXString imgfilename;
 
-	//Popupbutton for painttool
+    //Popupbutton for painttool
 //	FXPopup* paintpop;
 
-	//Popupbutton for painttool
+    //Popupbutton for painttool
 //	FXPopup* rubberpop;
 
-	//flag for Streetextraction..Algorithm may only be used once
+    //flag for Streetextraction..Algorithm may only be used once
 //	bool extrFlag;
 
     NBNetBuilder myNetBuilder;
@@ -374,11 +323,7 @@ protected:
 };
 
 
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
