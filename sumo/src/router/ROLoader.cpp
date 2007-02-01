@@ -104,7 +104,7 @@ ROLoader::~ROLoader()
 RONet *
 ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
-    std::string file = _options.getString("n");
+    std::string file = _options.getString("net-file");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing definition of network to load!");
         return 0;
@@ -413,7 +413,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
 void
 ROLoader::loadSupplementaryWeights(RONet& net)
 {
-    string filename = _options.getString("S");
+    string filename = _options.getString("supplementary-weights");
     if (! FileHelpers::exists(filename)) {
         MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!");
         throw ProcessError();
@@ -433,9 +433,8 @@ ROLoader::loadSupplementaryWeights(RONet& net)
 void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
 {
-    if (_options.getBool("v")) {
-        SUMOReal perc =
-            (SUMOReal)(time-start) / (SUMOReal) absNo;
+    if (_options.getBool("verbose")) {
+        SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;
         cout.setf(ios::fixed , ios::floatfield) ;    // use decimal format
         cout.setf(ios::showpoint) ;    // print decimal point
         cout << setprecision(2);
