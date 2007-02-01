@@ -1,78 +1,54 @@
-#ifndef ODDistrictCont_h
-#define ODDistrictCont_h
-//---------------------------------------------------------------------------//
-//                        ODDistrictCont.h -
-//  The container for districts
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
-
-//---------------------------------------------------------------------------//
+/****************************************************************************/
+/// @file    ODDistrictCont.h
+/// @author  Daniel Krajzewicz
+/// @date    Sept 2002
+/// @version $Id: $
+///
+// The container for districts
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation; either version 2 of the License, or
 //   (at your option) any later version.
 //
-//---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.10  2006/10/12 10:14:30  dkrajzew
-// synchronized with internal CVS (mainly the documentation has changed)
-//
-// Revision 1.9  2005/10/07 11:42:00  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.8  2005/09/23 06:04:23  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.7  2005/09/15 12:04:48  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.6  2005/05/04 08:44:57  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.5  2004/07/02 09:38:21  dkrajzew
-// coding style adaptations
-//
-// Revision 1.4  2003/08/04 11:37:37  dkrajzew
-// added the generation of colors from districts
-//
-// Revision 1.3  2003/02/07 10:44:19  dkrajzew
-// updated
-//
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
+/****************************************************************************/
+#ifndef ODDistrictCont_h
+#define ODDistrictCont_h
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
 #pragma warning(disable: 4786)
+#endif
 
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#ifdef HAVE_CONFIG_H
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "ODDistrict.h"
 #include <utils/helpers/NamedObjectCont.h>
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class ODDistrictCont
  * A container for districts.
  */
-class ODDistrictCont : public NamedObjectCont<ODDistrict*> {
+class ODDistrictCont : public NamedObjectCont<ODDistrict*>
+{
 public:
     /// Constructor
     ODDistrictCont();
@@ -99,12 +75,7 @@ private:
 };
 
 
-
-/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
 #endif
 
-// Local Variables:
-// mode:C++
-// End:
+/****************************************************************************/
 
