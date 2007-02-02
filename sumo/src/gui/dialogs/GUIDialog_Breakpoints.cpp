@@ -167,7 +167,7 @@ void
 GUIDialog_Breakpoints::rebuildList()
 {
     myTable->clearItems();
-    sort(gBreakpoints.begin(), gBreakpoints.end(), time_sorter());
+    sort(gBreakpoints.begin(), gBreakpoints.end());
 
     // set table attributes
     myTable->setTableSize(gBreakpoints.size()+1, 1);
@@ -248,7 +248,7 @@ std::string
 GUIDialog_Breakpoints::encode2TXT()
 {
     std::ostringstream strm;
-    sort(gBreakpoints.begin(), gBreakpoints.end(), time_sorter());
+    sort(gBreakpoints.begin(), gBreakpoints.end());
     //
     for (std::vector<int>::iterator j=gBreakpoints.begin(); j!=gBreakpoints.end(); ++j) {
         if ((*j)!=INVALID_VALUE) {

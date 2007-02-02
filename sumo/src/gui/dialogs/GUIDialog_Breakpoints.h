@@ -83,19 +83,6 @@ private:
     void rebuildList();
     std::string encode2TXT();
 
-    class time_sorter
-    {
-    public:
-        /// constructor
-        explicit time_sorter()
-        { }
-
-        int operator()(const int &p1, const int &p2)
-        {
-            return p1<p2;
-        }
-    };
-
 private:
     /// the list that holds the ids
     MFXAddEditTypedTable *myTable;
