@@ -100,7 +100,6 @@
       <omit-corrupt-edges>false</omit-corrupt-edges>
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
-      <use-laneno-as-priority>false</use-laneno-as-priority>
       <remove-geometry>false</remove-geometry>
       <no-turnarounds>false</no-turnarounds>
       <add-internal-links>false</add-internal-links>
@@ -115,7 +114,7 @@
       <type>Unknown</type>
       <lanenumber>1</lanenumber>
       <speed>13.9</speed>
-      <priority>1</priority>
+      <priority>-1</priority>
       <default-junction-type>priority</default-junction-type>
    </building_defaults>
 

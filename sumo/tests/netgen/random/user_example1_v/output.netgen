@@ -19,6 +19,6 @@ Computing step 15: Computing node logics
 Computing step 16: Computing traffic light logics
 0 traffic light(s) computed.
 No Junctions (converted)    : 0
-Priority Junctions          : 200
-Right Before Left Junctions : 0
+Priority Junctions          : 199
+Right Before Left Junctions : 1
 Success.
