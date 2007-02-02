@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2006 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +31,7 @@
  *
  * Non-template and non-inline code for the `static' memory pool.
  *
- * @version 1.6, 2005/08/02
+ * @version 1.7, 2006/08/26
  * @author  Wu Yongwei
  *
  */
@@ -53,6 +53,11 @@ static_mem_pool_set::~static_mem_pool_set()
     _STATIC_MEM_POOL_TRACE(false, "The static_mem_pool_set is destroyed");
 }
 
+/**
+ * Creates the singleton instance of #static_mem_pool_set.
+ *
+ * @return  reference to the instance of #static_mem_pool_set
+ */
 static_mem_pool_set& static_mem_pool_set::instance()
 {
     lock __guard;
@@ -60,9 +65,13 @@ static_mem_pool_set& static_mem_pool_set::instance()
     return _S_instance;
 }
 
+/**
+ * Asks all static memory pools to recycle unused memory blocks back to
+ * the system.  The caller should get the lock to prevent other
+ * operations to #static_mem_pool_set during its execution.
+ */
 void static_mem_pool_set::recycle()
 {
-    lock __guard;
     _STATIC_MEM_POOL_TRACE(false, "Memory pools are being recycled");
     container_type::iterator __end = _M_memory_pool_set.end();
     for (container_type::iterator
@@ -73,6 +82,11 @@ void static_mem_pool_set::recycle()
     }
 }
 
+/**
+ * Adds a new memory pool to #static_mem_pool_set.
+ *
+ * @param __memory_pool_p   pointer to the memory pool to add
+ */
 void static_mem_pool_set::add(mem_pool_base* __memory_pool_p)
 {
     lock __guard;

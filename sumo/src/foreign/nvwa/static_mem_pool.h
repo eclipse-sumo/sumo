@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2006 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +31,7 @@
  *
  * Header file for the `static' memory pool.
  *
- * @version 1.16, 2005/08/03
+ * @version 1.19, 2006/08/28
  * @author  Wu Yongwei
  *
  */
@@ -114,39 +114,61 @@ class static_mem_pool : public mem_pool_base
     typedef typename class_level_lock<static_mem_pool<_Sz, _Gid>, (_Gid < 0)>
             ::lock lock;
 public:
+    /**
+     * Gets the instance of the static memory pool.  It will create the
+     * instance if it does not already exist.  Generally this function
+     * is now not needed.
+     *
+     * @return  reference to the instance of the static memory pool
+     * @see     instance_known
+     */
     static static_mem_pool& instance()
     {
-        // NOTE: Double-Checked Locking Pattern (DCLP) is used here and
-        //   thus unsafe on some modern multiprocessor systems (e.g.
-        //   Alpha 21264, SPARC (in Relaxed Memory Order mode), and
-        //   IA-64).  Patches are welcome.
-        static_mem_pool* __inst_p = _S_instance_p;
-        // AcquireBarrier();
-        if (!__inst_p)
+        lock __guard;
+        if (!_S_instance_p)
         {
-            _S_create_instance();
+            _S_instance_p = _S_create_instance();
         }
         return *_S_instance_p;
     }
+    /**
+     * Gets the known instance of the static memory pool.  The instance
+     * must already exist.  Generally the static initializer of the
+     * template guarantees it.
+     *
+     * @return  reference to the instance of the static memory pool
+     */
     static static_mem_pool& instance_known()
     {
         assert(_S_instance_p != NULL);
         return *_S_instance_p;
     }
+    /**
+     * Allocates memory and returns its pointer.  The template will try
+     * to get it from the memory pool first, and request memory from the
+     * system if there is no free memory in the pool.
+     *
+     * @return  pointer to allocated memory if successful; \c NULL
+     *          otherwise
+     */
     void* allocate()
     {
         {
             lock __guard;
             if (_S_memory_block_p)
             {
-                void* __result;
-                __result = _S_memory_block_p;
+                void* __result = _S_memory_block_p;
                 _S_memory_block_p = _S_memory_block_p->_M_next;
                 return __result;
             }
         }
-        return alloc_sys(_S_align(_Sz));
+        return _S_alloc_sys(_S_align(_Sz));
     }
+    /**
+     * Deallocates memory by putting the memory block into the pool.
+     *
+     * @param __ptr pointer to memory to be deallocated
+     */
     void deallocate(void* __ptr)
     {
         assert(__ptr != NULL);
@@ -182,20 +204,16 @@ private:
         _STATIC_MEM_POOL_TRACE(false, "static_mem_pool<" << _Sz << ','
                                       << _Gid << "> is destroyed");
     }
-    static void _S_on_dead_reference()
-    {
-        throw std::runtime_error("dead reference detected");
-    }
     static size_t _S_align(size_t __size)
     {
         return __size >= sizeof(_Block_list) ? __size : sizeof(_Block_list);
     }
     static void* _S_alloc_sys(size_t __size);
-    static void _S_create_instance();
+    static static_mem_pool* _S_create_instance();
 
     static bool _S_destroyed;
-    static static_mem_pool* __VOLATILE _S_instance_p;
-    static mem_pool_base::_Block_list* __VOLATILE _S_memory_block_p;
+    static static_mem_pool* _S_instance_p;
+    static mem_pool_base::_Block_list* _S_memory_block_p;
 
     /* Forbid their use */
     static_mem_pool(const static_mem_pool&);
@@ -204,14 +222,22 @@ private:
 
 template <size_t _Sz, int _Gid> bool
         static_mem_pool<_Sz, _Gid>::_S_destroyed = false;
-template <size_t _Sz, int _Gid> static_mem_pool<_Sz, _Gid>* __VOLATILE
-        static_mem_pool<_Sz, _Gid>::_S_instance_p = NULL;
-template <size_t _Sz, int _Gid> mem_pool_base::_Block_list* __VOLATILE
+template <size_t _Sz, int _Gid> mem_pool_base::_Block_list*
         static_mem_pool<_Sz, _Gid>::_S_memory_block_p = NULL;
+template <size_t _Sz, int _Gid> static_mem_pool<_Sz, _Gid>*
+        static_mem_pool<_Sz, _Gid>::_S_instance_p = _S_create_instance();
 
+/**
+ * Recycles half of the free memory blocks in the memory pool to the
+ * system.  It is called when a memory request to the system (in other
+ * instances of the static memory pool) fails.
+ */
 template <size_t _Sz, int _Gid>
 void static_mem_pool<_Sz, _Gid>::recycle()
 {
+    // Only here the global lock in static_mem_pool_set is obtained
+    // before the pool-specific lock.  However, no race conditions are
+    // found so far.
     lock __guard;
     _Block_list* __block = _S_memory_block_p;
     while (__block)
@@ -228,13 +254,14 @@ void static_mem_pool<_Sz, _Gid>::recycle()
             break;
         }
     }
-    _STATIC_MEM_POOL_TRACE(true, "static_mem_pool<" << _Sz << ','
-                                 << _Gid << "> is recycled");
+    _STATIC_MEM_POOL_TRACE(false, "static_mem_pool<" << _Sz << ','
+                                  << _Gid << "> is recycled");
 }
 
 template <size_t _Sz, int _Gid>
 void* static_mem_pool<_Sz, _Gid>::_S_alloc_sys(size_t __size)
 {
+    static_mem_pool_set::lock __guard;
     void* __result = mem_pool_base::alloc_sys(__size);
     if (!__result)
     {
@@ -245,34 +272,26 @@ void* static_mem_pool<_Sz, _Gid>::_S_alloc_sys(size_t __size)
 }
 
 template <size_t _Sz, int _Gid>
-void static_mem_pool<_Sz, _Gid>::_S_create_instance()
+static_mem_pool<_Sz, _Gid>* static_mem_pool<_Sz, _Gid>::_S_create_instance()
 {
     if (_S_destroyed)
+        throw std::runtime_error("dead reference detected");
+
+    static_mem_pool_set::instance();  // Force its creation
+    static_mem_pool* __inst_p = new static_mem_pool();
+    try
     {
-        _S_on_dead_reference();
+        static_mem_pool_set::instance().add(__inst_p);
     }
-    else
+    catch (...)
     {
-        lock __guard;
-        if (!_S_instance_p)
-        {
-            static_mem_pool_set::instance();  // Force its creation
-            static_mem_pool* __VOLATILE __inst_p = new static_mem_pool();
-            try
-            {
-                static_mem_pool_set::instance().add(__inst_p);
-            }
-            catch (...)
-            {
-                _STATIC_MEM_POOL_TRACE(true,
-                        "Exception occurs in static_mem_pool_set::add");
-                delete __inst_p;
-                throw;
-            }
-            // ReleaseBarrier();
-            _S_instance_p = __inst_p;
-        }
+        _STATIC_MEM_POOL_TRACE(true,
+                "Exception occurs in static_mem_pool_set::add");
+        // The strange cast below is to work around a bug in GCC 2.95.3
+        delete static_cast<mem_pool_base*>(__inst_p);
+        throw;
     }
+    return __inst_p;
 }
 
 #define DECLARE_STATIC_MEM_POOL(_Cls) \
@@ -282,7 +301,7 @@ public: \
         assert(__size == sizeof(_Cls)); \
         void* __ptr; \
         __ptr = static_mem_pool<sizeof(_Cls)>:: \
-                               instance().allocate(); \
+                               instance_known().allocate(); \
         if (__ptr == NULL) \
             throw std::bad_alloc(); \
         return __ptr; \
@@ -316,7 +335,7 @@ public: \
         assert(__size == sizeof(_Cls)); \
         void* __ptr; \
         __ptr = static_mem_pool<sizeof(_Cls), (_Gid)>:: \
-                               instance().allocate(); \
+                               instance_known().allocate(); \
         if (__ptr == NULL) \
             throw std::bad_alloc(); \
         return __ptr; \
@@ -343,11 +362,11 @@ public: \
                            instance_known().deallocate(__ptr); \
     }
 
-#define PREPARE_STATIC_MEM_POOL(_Cls) \
-    static_mem_pool<sizeof(_Cls)>::instance()
+// OBSOLETE: no longer needed
+#define PREPARE_STATIC_MEM_POOL(_Cls)
 
-#define PREPARE_STATIC_MEM_POOL_GROUPED(_Cls, _Gid) \
-    static_mem_pool<sizeof(_Cls), (_Gid)>::instance()
+// OBSOLETE: no longer needed
+#define PREPARE_STATIC_MEM_POOL_GROUPED(_Cls, _Gid)
 
 #undef __PRIVATE
 

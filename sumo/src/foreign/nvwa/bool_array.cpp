@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +31,7 @@
  *
  * Code for class bool_array (packed boolean array).
  *
- * @version 3.0, 2004/08/07
+ * @version 3.1, 2005/08/25
  * @author  Wu Yongwei
  *
  */
@@ -100,8 +100,8 @@ BYTE bool_array::_S_bit_count[256] =
  * Creates the packed boolean array with a specific size.
  *
  * @param __size    size of the array
- * @return          \c false if \e __size equals \c 0 or is too big, or
- *                  if memory is insufficient; \c true if \e __size has
+ * @return          \c false if \a __size equals \c 0 or is too big, or
+ *                  if memory is insufficient; \c true if \a __size has
  *                  a suitable value and memory allocation is
  *                  successful.
  */

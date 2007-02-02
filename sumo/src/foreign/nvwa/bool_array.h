@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +31,7 @@
  *
  * Header file for class bool_array (packed boolean array).
  *
- * @version 3.0, 2004/08/07
+ * @version 3.1, 2005/08/25
  * @author  Wu Yongwei
  *
  */
@@ -149,7 +149,7 @@ inline bool_array::_Element::operator bool() const
  * Constructs the packed boolean array with a specific size.
  *
  * @param __size            size of the array
- * @throw std::out_of_range if \e __size equals \c 0
+ * @throw std::out_of_range if \a __size equals \c 0
  * @throw std::bad_alloc    if memory is insufficient
  */
 inline bool_array::bool_array(unsigned long __size)

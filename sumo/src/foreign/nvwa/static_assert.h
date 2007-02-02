@@ -2,7 +2,7 @@
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,20 +31,20 @@
  *
  * Template class to check validity duing compile time (adapted from Loki).
  *
- * @version 1.1, 2004/12/26
+ * @version 1.2, 2005/11/22
  * @author  Wu Yongwei
  *
  */
 
-#ifndef static_assert
+#ifndef STATIC_ASSERT
 
 template <bool> struct __nvwa_compile_time_error;
 template <>     struct __nvwa_compile_time_error<true> {};
 
-#define static_assert(_Expr, _Msg) \
+#define STATIC_ASSERT(_Expr, _Msg) \
     { \
         __nvwa_compile_time_error<((_Expr) != 0)> ERROR_##_Msg; \
         (void)ERROR_##_Msg; \
     }
 
-#endif // static_assert
+#endif // STATIC_ASSERT

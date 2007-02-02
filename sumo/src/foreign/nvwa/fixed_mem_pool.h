@@ -45,7 +45,7 @@
  * - Optionally, call fixed_mem_pool<_Cls>::get_alloc_count to check
  *   memory usage when the program is running
  *
- * @version 1.12, 2005/08/06
+ * @version 1.14, 2005/09/19
  * @author  Wu Yongwei
  *
  */
@@ -67,20 +67,22 @@
 #endif
 
 /**
- * Class template to manipulate a fixed-size memory pool.
+ * Class template to manipulate a fixed-size memory pool.  Please notice
+ * that only allocate and deallocate are protected by a lock.
  *
  * @param _Tp   class to use the fixed_mem_pool
  */
 template <class _Tp>
 class fixed_mem_pool
 {
-    typedef typename class_level_lock<fixed_mem_pool<_Tp> >::lock lock;
 public:
+    typedef typename class_level_lock<fixed_mem_pool<_Tp> >::lock lock;
     static void*  allocate();
     static void   deallocate(void*);
     static bool   initialize(size_t __size);
     static int    deinitialize();
     static int    get_alloc_count();
+    static bool   is_initialized();
 protected:
     static bool   bad_alloc_handler();
 private:
@@ -152,7 +154,7 @@ template <class _Tp>
 bool fixed_mem_pool<_Tp>::initialize(size_t __size)
 {
     size_t __block_size = _S_align(sizeof(_Tp));
-    assert(_S_mem_pool_ptr == NULL);
+    assert(!is_initialized());
     assert(__size > 0 && __block_size >= sizeof(void*));
     _S_mem_pool_ptr = mem_pool_base::alloc_sys(__size * __block_size);
     _S_first_avail_ptr = _S_mem_pool_ptr;
@@ -181,7 +183,7 @@ int fixed_mem_pool<_Tp>::deinitialize()
 {
     if (_S_alloc_cnt != 0)
         return _S_alloc_cnt;
-    assert(_S_mem_pool_ptr != NULL);
+    assert(is_initialized());
     mem_pool_base::dealloc_sys(_S_mem_pool_ptr);
     _S_mem_pool_ptr = NULL;
     _S_first_avail_ptr = NULL;
@@ -194,9 +196,20 @@ int fixed_mem_pool<_Tp>::deinitialize()
  * @return  the number of memory blocks still in allocation
  */
 template <class _Tp>
-int fixed_mem_pool<_Tp>::get_alloc_count()
+inline int fixed_mem_pool<_Tp>::get_alloc_count()
 {
     return _S_alloc_cnt;
+}
+
+/**
+ * Is the memory pool initialized?
+ *
+ * @return  \c true if it is successfully initialized; \c false otherwise
+ */
+template <class _Tp>
+inline bool fixed_mem_pool<_Tp>::is_initialized()
+{
+    return _S_mem_pool_ptr != NULL;;
 }
 
 /**
@@ -217,7 +230,7 @@ bool fixed_mem_pool<_Tp>::bad_alloc_handler()
  * Aligns the memory block size.
  *
  * @param __size    size to be aligned
- * @return          aligned value of \e __size
+ * @return          aligned value of \a __size
  */
 template <class _Tp>
 inline size_t fixed_mem_pool<_Tp>::_S_align(size_t __size)

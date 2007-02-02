@@ -31,7 +31,7 @@
  *
  * Implementation of debug versions of new and delete to check leakage.
  *
- * @version 3.12, 2005/07/13
+ * @version 3.16, 2005/11/22
  * @author  Wu Yongwei
  *
  */
@@ -110,7 +110,7 @@
  * new_ptr_list_t 64 (it is 32 by default) on 32-bit platforms.
  */
 #ifndef _DEBUG_NEW_FILENAME_LEN
-#define _DEBUG_NEW_FILENAME_LEN  20
+#define _DEBUG_NEW_FILENAME_LEN 80
 #endif
 
 /**
@@ -172,12 +172,13 @@
 #pragma init_seg(lib)
 #endif
 
+#undef  _DEBUG_NEW_EMULATE_MALLOC
+#undef  _DEBUG_NEW_REDEFINE_NEW
 /**
- * This macro is defined when no redefinition of \c new is wanted.  This
- * is to ensure that overloading and direct calling of <code>operator
- * new</code> is possible.
+ * Macro to indicate whether redefinition of \c new is wanted.  Here it
+ * is defined to \c 0 to disable the redefinition of \c new.
  */
-#define _DEBUG_NEW_NO_NEW_REDEFINITION
+#define _DEBUG_NEW_REDEFINE_NEW 0
 #include "debug_new.h"
 
 /**
@@ -275,6 +276,8 @@ static bool print_position_from_addr(const void* addr)
     static char last_info[256] = "";
     if (addr == last_addr)
     {
+        if (last_info[0] == '\0')
+            return false;
         fprintf(new_output_fp, "%s", last_info);
         return true;
     }
@@ -327,14 +330,19 @@ static bool print_position_from_addr(const void* addr)
             int res = pclose(fp);
             // Display the file/line information only if the command
             // is executed successfully and the output points to a
-            // valid position
-            if (res == 0 && len > 0 && !
-                    (buffer[len - 1] == '0' && buffer[len - 2] == ':'))
+            // valid position, but the result will be cached if only
+            // the command is executed successfully.
+            if (res == 0 && len > 0)
             {
-                fprintf(new_output_fp, "%s", buffer);
                 last_addr = addr;
-                strcpy(last_info, buffer);
-                return true;
+                if (buffer[len - 1] == '0' && buffer[len - 2] == ':')
+                    last_info[0] = '\0';
+                else
+                {
+                    fprintf(new_output_fp, "%s", buffer);
+                    strcpy(last_info, buffer);
+                    return true;
+                }
             }
         }
     }
@@ -494,7 +502,7 @@ int check_leaks()
 void* operator new(size_t size, const char* file, int line)
 {
     assert((line & INT_MIN) == 0);
-    static_assert((_DEBUG_NEW_ALIGNMENT & (_DEBUG_NEW_ALIGNMENT - 1)) == 0,
+    STATIC_ASSERT((_DEBUG_NEW_ALIGNMENT & (_DEBUG_NEW_ALIGNMENT - 1)) == 0,
                   Alignment_must_be_power_of_two);
     size_t s = size + aligned_list_item_size;
     new_ptr_list_t* ptr = (new_ptr_list_t*)malloc(s);
@@ -611,13 +619,7 @@ void operator delete[](void* pointer) throw()
     free_pointer(raw_ptr, _DEBUG_NEW_CALLER_ADDRESS, true);
 }
 
-// Some older compilers like Borland C++ Compiler 5.5.1 and Digital Mars
-// Compiler 8.29 do not support placement delete operators.
-// NO_PLACEMENT_DELETE needs to be defined when using such compilers.
-// Also note that in that case memory leakage will occur if an exception
-// is thrown in the initialization (constructor) of a dynamically
-// created object.
-#ifndef NO_PLACEMENT_DELETE
+#if HAS_PLACEMENT_DELETE
 void operator delete(void* pointer, const char* file, int line) throw()
 {
     if (new_verbose_flag)
@@ -655,7 +657,7 @@ void operator delete[](void* pointer, const std::nothrow_t&) throw()
 {
     operator delete[](pointer, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
-#endif // NO_PLACEMENT_DELETE
+#endif // HAS_PLACEMENT_DELETE
 
 int __debug_new_counter::_count = 0;
 
