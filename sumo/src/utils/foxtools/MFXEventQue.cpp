@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    MFXEventQue.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    void *ret = *(myEvents.begin());
 /// @version $Id: $
 ///

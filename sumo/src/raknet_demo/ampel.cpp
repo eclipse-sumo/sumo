@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    ampel.cpp
-/// @author  unknown_author
+/// @author  Marc Gurczik
 /// @date    unknown_date
 /// @version $Id: $
 ///

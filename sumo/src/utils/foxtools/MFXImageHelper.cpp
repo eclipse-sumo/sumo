@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MFXImageHelper.cpp
-/// @author  unknown_author
-/// @date    a->beginWaitCursor();
+/// @author  Daniel Krajzewicz
+/// @date    unknown_date
 /// @version $Id: $
 ///
 // missing_desc
