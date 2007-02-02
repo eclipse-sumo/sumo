@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    MSCell.cpp
-/// @author  Daniel Krajzewicz
+/// @author  Danilot Teta Boyom
 /// @date    Jul 2003
 /// @version $Id: $
 ///
-// }
+// A class represents the cells
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,16 +56,9 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * MSCell - methods
- * ----------------------------------------------------------------------- */
-
 MSCell::MSCell(SUMOReal xcellsize, SUMOReal ycellsize)
         : _xcellsize(xcellsize), _ycellsize(ycellsize)
 {
-//	_edgesCont = 0;
-//	_neighbors = 0;
-
 }
 
 
@@ -82,17 +75,18 @@ MSCell::setIndex(size_t index)
     myIndex = index;
 }
 
-/// Adds an edge into the Container
+
 void
 MSCell::addEdge(MSEdge *edge)
 {
     _edgesCont.push_back(edge);
 }
 
-/// Removes an edge from the Container
+
 void
 MSCell::removeEdge(MSEdge *)
 {}
+
 
 void
 MSCell::setCellNeighbors(std::vector<MSCell*> ret)
@@ -113,6 +107,7 @@ MSCell::getEdges(void)
 {
     return _edgesCont;
 }
+
 
 void
 MSCell::setEdgesNeighbors(void)
