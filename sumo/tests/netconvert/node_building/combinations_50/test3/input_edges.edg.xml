@@ -1,0 +1,11 @@
+<edges>
+   <edge id="2i" fromnode="2" tonode="0" nolanes="1" speed="35.028" />
+   <edge id="2o" fromnode="0" tonode="2" nolanes="1" speed="35.028" />
+
+   <edge id="3i" fromnode="3" tonode="0" nolanes="1" speed="20.016" />
+   <edge id="3o" fromnode="0" tonode="3" nolanes="1" speed="20.016" />
+
+   <edge id="4i" fromnode="4" tonode="0" nolanes="1" speed="35.028" />
+   <edge id="4o" fromnode="0" tonode="4" nolanes="1" speed="35.028" />
+
+</edges>
