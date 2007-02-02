@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    Graph.h
-/// @author  unknown_author
-/// @date    Fri, 29.04.2005
+/// @author  Andreas Gaubatz
+/// @date    23.11.2004
 /// @version $Id: $
 ///
 //

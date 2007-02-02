@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    ConfigDialog.cpp
-/// @author  unknown_author
-/// @date    Tue, 29.05.2005
+/// @author  Andreas Gaubatz
+/// @date    02.12.2004
 /// @version $Id: $
 ///
 //

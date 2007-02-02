@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    InfoDialog.h
-/// @author  unknown_author
-/// @date    Fri, 29.04.2005
+/// @author  Maik Drozdzynski
+/// @date    21.12.2004
 /// @version $Id: $
 ///
 //

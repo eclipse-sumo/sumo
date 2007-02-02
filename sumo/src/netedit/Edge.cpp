@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    Edge.cpp
-/// @author  unknown_author
-/// @date    Tue, 29.05.2005
+/// @author  Andreas Gaubatz
+/// @date    23.11.2004
 /// @version $Id: $
 ///
 // Implement the Edge-class
