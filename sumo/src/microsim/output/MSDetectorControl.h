@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSDetectorControl.h
 /// @author  Daniel Krajzewicz
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2005-09-15
+/// @version $Id$
 ///
 // * @author Daniel Krajzewicz
 /****************************************************************************/

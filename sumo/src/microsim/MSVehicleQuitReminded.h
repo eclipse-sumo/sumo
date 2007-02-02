@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSVehicleQuitReminded.h
 /// @author  Daniel Krajzewicz
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2004-02-05
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

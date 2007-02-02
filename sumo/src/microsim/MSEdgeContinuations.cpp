@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSEdgeContinuations.cpp
 /// @author  Daniel Krajzewicz
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2005-11-09
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

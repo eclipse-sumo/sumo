@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSInductLoop.h
 /// @author  Christian Roessel
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2004-11-23
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

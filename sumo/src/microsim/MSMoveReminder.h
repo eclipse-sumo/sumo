@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSMoveReminder.h
 /// @author  Christian Roessel
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2003-05-21
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

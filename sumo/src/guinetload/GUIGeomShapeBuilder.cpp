@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    GUIGeomShapeBuilder.cpp
 /// @author  Daniel Krajzewicz
-/// @date    unknown_date
-/// @version $Id: $
+/// @date    2005-09-15
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/
