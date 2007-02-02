@@ -241,6 +241,9 @@
       <!-- Factor for edge velocity (VISSIM) -->
       <vissim.speed-norm>1</vissim.speed-norm>
 
+      <!-- Uses priorities from types -->
+      <visum.use-net-prio>false</visum.use-net-prio>
+
       <!--  -->
       <navtech.rechecklanes>false</navtech.rechecklanes>
 
@@ -252,9 +255,6 @@
 
       <!--  -->
       <dismiss-vclasses>false</dismiss-vclasses>
-
-      <!-- Uses the number of lanes priority hint -->
-      <use-laneno-as-priority>false</use-laneno-as-priority>
 
       <!-- Removes geometry information from edges -->
       <remove-geometry>false</remove-geometry>
@@ -293,7 +293,7 @@
       <speed>13.9</speed>
 
       <!-- The default priority of an edge -->
-      <priority>1</priority>
+      <priority>-1</priority>
 
    </building_defaults>
 

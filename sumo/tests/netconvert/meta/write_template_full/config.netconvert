@@ -95,11 +95,11 @@
       <vissim.offset>5</vissim.offset>
       <vissim.default-speed>13.8889</vissim.default-speed>
       <vissim.speed-norm>1</vissim.speed-norm>
+      <visum.use-net-prio>false</visum.use-net-prio>
       <navtech.rechecklanes>false</navtech.rechecklanes>
       <omit-corrupt-edges>false</omit-corrupt-edges>
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
-      <use-laneno-as-priority>false</use-laneno-as-priority>
       <remove-geometry>false</remove-geometry>
       <no-turnarounds>false</no-turnarounds>
       <add-internal-links>false</add-internal-links>
@@ -114,7 +114,7 @@
       <type>Unknown</type>
       <lanenumber>1</lanenumber>
       <speed>13.9</speed>
-      <priority>1</priority>
+      <priority>-1</priority>
    </building_defaults>
 
    <report>

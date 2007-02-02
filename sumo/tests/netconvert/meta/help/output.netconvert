@@ -130,11 +130,11 @@ Usage: netconvert.exe [OPTION]*
   --vissim.offset FLOAT                Structure join offset (VISSIM)
   --vissim.default-speed FLOAT         Use FLOAT as default speed (VISSIM)
   --vissim.speed-norm FLOAT            Factor for edge velocity (VISSIM)
+  --visum.use-net-prio                 Uses priorities from types
   --navtech.rechecklanes               
   --omit-corrupt-edges                 Continues though corrupt edges
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
-  --use-laneno-as-priority             Uses the number of lanes priority hint
   -R, --remove-geometry                Removes geometry information from edges
   --no-turnarounds                     Disables building turnarounds
   -I, --add-internal-links             Adds internal links
