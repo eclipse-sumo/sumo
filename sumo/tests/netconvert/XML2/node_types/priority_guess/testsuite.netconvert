@@ -1,0 +1,12 @@
+# The default (node will be a priority-node)
+default
+
+# The node is marked as a priority node
+priority_overwrite
+
+# The node is marked as a right-before-left node
+rbl_overwrite
+
+# The node is marked as a traffic-light node
+tls_overwrite
+
