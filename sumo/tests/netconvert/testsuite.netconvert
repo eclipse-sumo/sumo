@@ -5,6 +5,9 @@ XML2
 # Visum import tests
 visum
 
+# Tests for nodes building
+node_building
+
 # testing meta processing
 meta
 
