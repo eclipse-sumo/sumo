@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    OutputDevice_Network.h
-/// @author  unknown_author
+/// @author  Felix Brack
 /// @date    2006
 /// @version $Id: $
 ///
