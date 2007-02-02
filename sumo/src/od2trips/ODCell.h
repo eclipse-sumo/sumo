@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    ODCell.h
-/// @author  Daniel Krajzewicz
-/// @date    05. Apr. 2006
+/// @author  Peter Mieth
+/// @date    Sept 2002
 /// @version $Id: $
 ///
 // A single cell within the od-matrix
