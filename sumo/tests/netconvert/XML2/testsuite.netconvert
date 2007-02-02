@@ -3,6 +3,9 @@
 # Tests for using types
 types
 
+# Tests for using types
+node_types
+
 # tests for using the speed_in_kmh option
 speed_in_kmh
 
