@@ -84,12 +84,8 @@ private:
                      const std::string &edgeid, SUMOReal speed,
                      bool useNewLaneNumberInfoPlain);
 
-
     /// parses the priority of the edge currently processed
     int getPriority(OGRFeature &f, const std::string &edgeid);
-    /*
-        std::string getStringSecure(const std::string &which);
-    */
 
 private:
     OptionsCont &myOptions;

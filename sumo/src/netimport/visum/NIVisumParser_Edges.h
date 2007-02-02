@@ -61,7 +61,8 @@ class NIVisumParser_Edges :
 public:
     /// Constructor
     NIVisumParser_Edges(NIVisumLoader &parent, NBNodeCont &nc,
-                        NBEdgeCont &ec, NBTypeCont &tc, const std::string &dataName);
+                        NBEdgeCont &ec, NBTypeCont &tc, const std::string &dataName,
+                        bool useVisumPrio);
 
     /// Destructor
     ~NIVisumParser_Edges();
@@ -93,6 +94,7 @@ private:
     NBEdgeCont &myEdgeCont;
     NBTypeCont &myTypeCont;
     std::vector<std::string > myTouchedEdges;
+    bool myUseVisumPrio;
 
 };
 

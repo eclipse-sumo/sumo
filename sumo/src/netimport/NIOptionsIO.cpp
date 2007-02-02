@@ -189,6 +189,11 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
     oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity (VISSIM)");
 
+    // register further vissim-options
+    oc.doRegister("visum.use-net-prio", new Option_Bool(false));
+    oc.addDescription("visum.use-net-prio", "Processing", "Uses priorities from types");
+
+
     // register further navteq-options
     oc.doRegister("navtech.rechecklanes", new Option_Bool(false));
     oc.addDescription("navtech.rechecklanes", "Processing", "");
@@ -268,7 +273,7 @@ NIOptionsIO::checkEdges(OptionsCont &oc)
 bool
 NIOptionsIO::checkOutput(OptionsCont &oc)
 {
-    ofstream strm(oc.getString("o").c_str()); // !!! should be made when input are ok
+    ofstream strm(oc.getString("output-file").c_str()); // !!! should be made when input are ok
     if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");
         return false;

@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    NBNodeShapeComputer.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    2004-01-12
-/// @version $Id$
+/// @version $Id: $
 ///
 // missing_desc
 /****************************************************************************/
@@ -53,7 +53,7 @@ private:
     void addInternalGeometry();
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);
     Position2DVector computeNodeShapeByCrosses();
-    bool isSimpleContinuation(const NBNode &n) const;
+
 private:
     const NBNode &myNode;
     std::ofstream * const myOut;

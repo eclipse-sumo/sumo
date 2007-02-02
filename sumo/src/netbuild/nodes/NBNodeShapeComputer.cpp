@@ -87,7 +87,7 @@ NBNodeShapeComputer::compute()
     }
 
 
-    bool simpleContinuation = isSimpleContinuation(myNode);
+    bool simpleContinuation = myNode.isSimpleContinuation();
     ret = computeContinuationNodeShape(simpleContinuation);
     // add the geometry of internal lanes
     if (OptionsSubSys::getOptions().getBool("add-internal-links")) {
@@ -181,10 +181,6 @@ replaceLastChecking(Position2DVector &g, bool decenter,
     if (decenter) {
         Line2D l(g[-2], g[-1]);
         SUMOReal factor = laneDiff%2!=0 ? SUMO_const_halfLaneAndOffset : SUMO_const_laneWidthAndOffset;
-        /*
-            SUMO_const_laneWidthAndOffset * (SUMOReal) (counterLanes-1)
-            + SUMO_const_halfLaneAndOffset * (SUMOReal) (counterLanes%2);
-            */
         l.move2side(-factor);//SUMO_const_laneWidthAndOffset);
         g.replaceAt(g.size()-1, l.p2());
     }
@@ -899,43 +895,6 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
         }
     }
     return ret;
-}
-
-
-bool
-NBNodeShapeComputer::isSimpleContinuation(const NBNode &n) const
-{
-    // one in, one out->continuation
-    const EdgeVector incoming = n.getIncomingEdges();
-    const EdgeVector outgoing = n.getOutgoingEdges();
-    if (incoming.size()==1&&outgoing.size()==1) {
-        // both must have the same number of lanes
-        return
-            (*(incoming.begin()))->getNoLanes()
-            ==
-            (*(outgoing.begin()))->getNoLanes();
-    }
-    // two in and two out and both in reverse direction
-    if (incoming.size()==2&&outgoing.size()==2) {
-        for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-            NBEdge *in = *i;
-            EdgeVector::const_iterator opposite =
-                find_if(outgoing.begin(), outgoing.end(),
-                        NBContHelper::opposite_finder(in, &myNode));
-            // must have an opposite edge
-            if (opposite==outgoing.end()) {
-                return false;
-            }
-            // both must have the same number of lanes
-            NBContHelper::nextCW(&outgoing, opposite);
-            if (in->getNoLanes()!=(*opposite)->getNoLanes()) {
-                return false;
-            }
-        }
-        return true;
-    }
-    // nope
-    return false;
 }
 
 

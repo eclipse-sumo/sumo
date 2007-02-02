@@ -61,38 +61,37 @@ public:
 
     /** returns the type of the junction on the crossing of edges of the
         given types */
-    NBNode::BasicNodeType getType(int prio1, int prio2) const;
+    NBNode::BasicNodeType getType(SUMOReal speed1, SUMOReal speed2) const;
 
 private:
     /** returns the one-char name of the junction type between the two
         given ranges */
-    char getNameAt(int pos1, int pos2) const;
+    char getNameAt(size_t pos1, size_t pos2) const;
 
     /**
      * priority_finder
      * Searches for the named priority in the range container
      */
-    class priority_finder
+    class range_finder
     {
-    private:
-        int _prio;
     public:
         /** constructor */
-        explicit priority_finder(int prio) : _prio(prio)
+        explicit range_finder(SUMOReal speed) : mySpeed(speed)
         { }
 
         /** the comparing function */
-        bool operator()(std::pair<int, int> range)
+        bool operator()(const std::pair<SUMOReal, SUMOReal> &range)
         {
-            return range.first > range.second ?
-                   (_prio<=range.first && _prio>=range.second) :
-                   (_prio>=range.first && _prio<=range.second);
+            return mySpeed>=range.first && mySpeed<range.second;
         }
+
+    private:
+        SUMOReal mySpeed;
     };
 
 private:
     /** a container type for edge priority ranges */
-    typedef std::vector<std::pair<int, int> > RangeCont;
+    typedef std::vector<std::pair<SUMOReal, SUMOReal> > RangeCont;
 
     /** A container type for the resulting junction types (cross matrix) */
     typedef std::vector<std::string> StringCont;

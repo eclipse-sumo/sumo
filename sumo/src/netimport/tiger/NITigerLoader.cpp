@@ -129,7 +129,7 @@ NITigerLoader::load(OptionsCont &)
         int nolanes = getLaneNo(type);
         SUMOReal length = cposes.length();
         if (nolanes!=-1&&length>0) {
-            int priority = 1;
+            int priority = -1;
             NBEdge *e =
                 new NBEdge(eid, eid, from, to, type, speed, nolanes,
                            cposes.length(), priority, cposes);

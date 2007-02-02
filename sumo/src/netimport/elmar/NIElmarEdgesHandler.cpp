@@ -93,7 +93,7 @@ NIElmarEdgesHandler::report(const std::string &result)
     toID = st.next();
     SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
-    int priority = 0;
+    int priority = -1;
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {

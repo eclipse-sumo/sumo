@@ -77,9 +77,6 @@ public:
     /** writes the vector of bools to the given stream */
     static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
 
-    /** counts the prioirities of the edges within the given container */
-    static int countPriorities(const EdgeVector &s);
-
     /**
      * edge_by_angle_sorter
      * Class to sort edges by their angle
@@ -182,7 +179,13 @@ public:
         /// comparing operator
         int operator()(NBEdge *e1, NBEdge *e2) const
         {
-            return e1->getPriority() > e2->getPriority();
+            if (e1->getPriority()!=e2->getPriority()) {
+                return e1->getPriority() > e2->getPriority();
+            }
+            if (e1->getSpeed()!=e2->getSpeed()) {
+                return e1->getSpeed() > e2->getSpeed();
+            }
+            return e1->getNoLanes() > e2->getNoLanes();
         }
     };
 
@@ -204,14 +207,6 @@ public:
         /// comparing operation
         int operator()(NBEdge *e1, NBEdge *e2) const
         {
-            /*
-            if(_edge==e2) {
-                return 1;
-            }
-            if(_edge==e1) {
-                return 0;
-            }
-            */
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 < d2;
@@ -227,9 +222,6 @@ public:
                 d -= 360;
             }
             return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
-            /*
-            return fabs(d - _angle);
-            */
         }
 
     private:
@@ -270,7 +262,6 @@ public:
         {
             SUMOReal d = e->getAngle();
             return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
-//                fabs(d - _angle);
         }
 
     private:

@@ -117,24 +117,6 @@ NBNodeCont::insert(const string &id, const Position2D &position)
     return true;
 }
 
-/*
-bool
-NBNodeCont::insert(const string &id, SUMOReal x, SUMOReal y,
-                   const std::string &type)
-{
-    NodeCont::iterator i = _nodes.find(id);
-    if(i!=_nodes.end()) {
-        if( (*i).second->getXCoordinate()==x &&
-            (*i).second->getYCoordinate()==y) {
-            return true;
-        }
-        return false;
-    }
-    NBNode *node = new NBNode(id, x, y, type);
-    _nodes[id] = node;
-    return true;
-}
-*/
 
 Position2D
 NBNodeCont::insert(const string &id) // !!! really needed
@@ -262,10 +244,10 @@ NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
 
 bool
-NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
+NBNodeCont::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 {
     for (NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->sortNodesEdges(tc);
+        (*i).second->sortNodesEdges(tc, strm);
     }
     return true;
 }
@@ -418,33 +400,6 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                     geometryCombinations.push_back(tmp);
                 }
             }
-            /*
-            // recheck combinations
-            //  (hate this)
-            bool hasChanged = true;
-            while(hasChanged) {
-                hasChanged = false;
-                for(EdgeVV::iterator m=geometryCombinations.begin(); !hasChanged&&m!=geometryCombinations.end(); ++m) {
-                    for(EdgeVV::iterator n=m+1; !hasChanged&&n!=geometryCombinations.end(); ++n) {
-                        for(EdgeVector::iterator o=(*m).begin(); !hasChanged&&o!=(*m).end(); o++) {
-                            for(EdgeVector::iterator p=(*n).begin(); !hasChanged&&p!=(*n).end(); p++) {
-                                if((*o)->isNearEnough2BeJoined2(*p)) {
-                                    copy((*m).begin(), (*m).end(), back_inserter(*n));
-                                    geometryCombinations.erase(m);
-                                    hasChanged = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // now join finally
-            for(EdgeVV::iterator m=geometryCombinations.begin(); m!=geometryCombinations.end(); ++m) {
-                if((*m).size()>1) {
-                    NBEdgeCont::joinSameNodeConnectingEdges(*m);
-                }
-            }
-            */
         }
         for (k=connectionCount.begin(); k!=connectionCount.end(); k++) {
             // join edges

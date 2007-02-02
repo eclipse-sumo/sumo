@@ -485,7 +485,8 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedString(const std::string &fi
 * ----------------------------------------------------------------------- */
 NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              const std::string &file,
-                             NBCapacity2Lanes capacity2Lanes)
+                             NBCapacity2Lanes capacity2Lanes,
+                             bool useVisumPrio)
         : FileErrorReporter("visum-network", file),
         _capacity2Lanes(capacity2Lanes),
         myTLLogicCont(nb.getTLLogicCont()), myEdgeCont(nb.getEdgeCont())
@@ -505,9 +506,9 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     // set2
     // two types of "strecke"
     mySingleDataParsers.push_back(
-        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKE"));
+        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKE", useVisumPrio));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN"));
+        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN", useVisumPrio));
 
 
     // set3

@@ -205,10 +205,10 @@ NBNetBuilder::computeTurningDirections(int &step)
 
 
 bool
-NBNetBuilder::sortNodesEdges(int &step)
+NBNetBuilder::sortNodesEdges(int &step, ofstream *strm)
 {
     inform(step, "Sorting nodes' edges");
-    return myNodeCont.sortNodesEdges(myTypeCont);
+    return myNodeCont.sortNodesEdges(myTypeCont, strm);
 }
 
 
@@ -275,18 +275,6 @@ NBNetBuilder::computeEdgeShapes(int &step)
 }
 
 
-/** computes the node-internal priorities of links */
-/*bool
-computeLinkPriorities(int &step, bool verbose)
-{
-    if(verbose) {
-        cout << "Computing step " << step
-            << ": Computing Link Priorities" << endl;
-    }
-    return myEdgeCont.computeLinkPriorities(verbose);
-}
-*/
-
 bool
 NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
 {
@@ -349,7 +337,6 @@ NBNetBuilder::compute(OptionsCont &oc)
     }
     bool ok = true;
     int step = 1;
-//    if(ok) ok = setInit(step);
     //
     if (ok) ok = removeDummyEdges(step);
     gJoinedEdges.init(myEdgeCont);
@@ -365,7 +352,18 @@ NBNetBuilder::compute(OptionsCont &oc)
     if (ok) ok = guessRamps(step, oc);
     if (ok) ok = guessTLs(step, oc);
     if (ok) ok = computeTurningDirections(step);
-    if (ok) ok = sortNodesEdges(step);
+
+    ofstream *strm = 0;
+    if (oc.isSet("node-type-output")) {
+        strm = new ofstream(oc.getString("node-type-output").c_str());
+        (*strm) << "<pois>" << endl;
+    }
+    if (ok) ok = sortNodesEdges(step, strm);
+    if (strm!=0) {
+        (*strm) << "</pois>" << endl;
+        delete strm;
+    }
+
     if (ok) ok = computeEdge2Edges(step);
     if (ok) ok = computeLanes2Edges(step);
     if (ok) ok = computeLanes2Lanes(step);
@@ -518,7 +516,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("speed", 'S', new Option_Float((SUMOReal) 13.9));
     oc.addDescription("speed", "Building Defaults", "The default speed on an edge (in m/s)");
 
-    oc.doRegister("priority", 'P', new Option_Integer(1));
+    oc.doRegister("priority", 'P', new Option_Integer(-1));
     oc.addDescription("priority", "Building Defaults", "The default priority of an edge");
 
 
@@ -542,9 +540,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
     oc.doRegister("dismiss-vclasses", new Option_Bool(false));
     oc.addDescription("dismiss-vclasses", "Processing", "");
-
-    oc.doRegister("use-laneno-as-priority", new Option_Bool(false)); // !!! not described
-    oc.addDescription("use-laneno-as-priority", "Processing", "Uses the number of lanes priority hint");
 
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");

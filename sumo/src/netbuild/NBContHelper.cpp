@@ -78,19 +78,6 @@ NBContHelper::nextCCW(const EdgeVector * edges, EdgeVector::const_iterator &from
 }
 
 
-int
-NBContHelper::countPriorities(const EdgeVector &s)
-{
-    if (s.size()==0)
-        return 0;
-    map<int, int> knownPrios;
-    for (EdgeVector::const_iterator i=s.begin(); i!=s.end(); i++) {
-        knownPrios.insert(map<int, int>::value_type((*i)->getPriority(), 0));
-    }
-    return knownPrios.size();
-}
-
-
 std::ostream &
 NBContHelper::out(std::ostream &os, const std::vector<bool> &v)
 {

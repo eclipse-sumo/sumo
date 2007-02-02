@@ -194,9 +194,6 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
         if (forcedLength>0) {
             // maybe the edge has already been split at this position
             string nid = myCurrentID + "/" +  toString(forcedLength);
-            if (myCurrentID=="53091023") {
-                int bla = 0;
-            }
             if (myNodeCont.retrieve(nid)==0) {
                 SUMOReal splitLength = forcedLength;
                 // split only if not

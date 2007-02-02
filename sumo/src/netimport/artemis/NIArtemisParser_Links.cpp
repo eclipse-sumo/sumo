@@ -90,7 +90,7 @@ NIArtemisParser_Links::myDependentReport()
     // build if both nodes were found
     if (fromNode!=0&&toNode!=0) {
         NBEdge *edge = new NBEdge(id, name, fromNode, toNode,
-                                  "", speed, laneno, length, 0,
+                                  "", speed, laneno, length, -1,
                                   NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_NORMAL); // !!! validate spread
         myEdgeCont.insert(edge);
     }

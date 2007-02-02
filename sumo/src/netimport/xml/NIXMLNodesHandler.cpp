@@ -109,7 +109,7 @@ NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
     } else if (myType=="right_before_left"||myType=="right_for_left") {
         type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
     } else if (myType=="traffic_light") {
-        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+        type = NBNode::NODETYPE_TRAFFIC_LIGHT;
     }
     // check whether there is a traffic light to assign this node to
     // build the node
@@ -121,7 +121,7 @@ NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
         }
     }
     // process traffic light definition
-    if (myType=="traffic_light") {
+    if (type==NBNode::NODETYPE_TRAFFIC_LIGHT) {
         processTrafficLightDefinitions(attrs, node);
     }
 }

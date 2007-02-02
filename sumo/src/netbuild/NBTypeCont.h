@@ -88,7 +88,7 @@ public:
     size_t getNo();
 
     /** returns the type of the junction between two edges of the given types */
-    NBNode::BasicNodeType getJunctionType(int edgetype1, int edgetype2) const;
+    NBNode::BasicNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const;
 
     /** deletes all types */
     void clear();

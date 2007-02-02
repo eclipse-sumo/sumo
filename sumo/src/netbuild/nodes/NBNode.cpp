@@ -228,6 +228,7 @@ NBNode::NBNode(const string &id, const Position2D &position)
     _outgoingEdges = new EdgeVector();
 }
 
+
 NBNode::NBNode(const string &id, const Position2D &position,
                BasicNodeType type)
         : _id(StringUtils::convertUmlaute(id)), myPosition(position),
@@ -236,6 +237,7 @@ NBNode::NBNode(const string &id, const Position2D &position,
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
+
 
 NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district)
         : _id(StringUtils::convertUmlaute(id)), myPosition(position),
@@ -381,31 +383,36 @@ NBNode::computeType(const NBTypeCont &tc) const
         return _type;
     }
     // check whether the junction is not a real junction
-    if (_incomingEdges->size()==1/*&&_outgoingEdges->size()==1*/) {
-        return NODETYPE_PRIORITY_JUNCTION; // !!! no junction?
+    if (_incomingEdges->size()==1) {
+        return NODETYPE_PRIORITY_JUNCTION;
     }
     // check whether the junction is a district and has no
     //  special meaning
     if (isDistrictCenter()) {
         return NODETYPE_NOJUNCTION;
     }
+    if (isSimpleContinuation()) {
+        return NODETYPE_PRIORITY_JUNCTION;
+    }
     // choose the uppermost type as default
     BasicNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
     // determine the type
-    for (vector<NBEdge*>::const_iterator i=_allEdges.begin();
-            i!=_allEdges.end(); i++) {
-        for (vector<NBEdge*>::const_iterator j=i+1; j!=_allEdges.end(); j++) {
+    for (vector<NBEdge*>::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        for (vector<NBEdge*>::const_iterator j=i+1; j!=_incomingEdges->end(); j++) {
+            bool isOpposite = false;
+            if (getOppositeIncoming(*j)==*i&&_incomingEdges->size()>2) {
+                isOpposite = true;
+            }
+
             // This usage of defaults is not very well, still we do not have any
             //  methods for the conversion of foreign, sometimes not supplied
-            //  road types ino an own format
-            BasicNodeType tmptype = NODETYPE_PRIORITY_JUNCTION;
-            try {
-                tmptype = tc.getJunctionType(
-                              (*i)->getPriority(),
-                              (*j)->getPriority());
-            } catch (OutOfBoundsException) {}
-            if (tmptype<type&&tmptype!=NODETYPE_UNKNOWN&&tmptype!=NODETYPE_NOJUNCTION) {
-                type = tmptype;
+            //  road types into an own format
+            BasicNodeType tmptype = type;
+            if (!isOpposite) {
+                tmptype = tc.getJunctionType((*i)->getSpeed(), (*j)->getSpeed());
+                if (tmptype<type&&tmptype!=NODETYPE_UNKNOWN&&tmptype!=NODETYPE_NOJUNCTION) {
+                    type = tmptype;
+                }
             }
         }
     }
@@ -414,9 +421,55 @@ NBNode::computeType(const NBTypeCont &tc) const
 
 
 bool
+NBNode::isSimpleContinuation() const
+{
+    // one in, one out->continuation
+    if (_incomingEdges->size()==1&&_outgoingEdges->size()==1) {
+        // both must have the same number of lanes
+        return (*(_incomingEdges->begin()))->getNoLanes()==(*(_outgoingEdges->begin()))->getNoLanes();
+    }
+    // two in and two out and both in reverse direction
+    if (_incomingEdges->size()==2&&_outgoingEdges->size()==2) {
+        for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+            NBEdge *in = *i;
+            EdgeVector::const_iterator opposite = find_if(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::opposite_finder(in, this));
+            // must have an opposite edge
+            if (opposite==_outgoingEdges->end()) {
+                return false;
+            }
+            // both must have the same number of lanes
+            NBContHelper::nextCW(_outgoingEdges, opposite);
+            if (in->getNoLanes()!=(*opposite)->getNoLanes()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // nope
+    return false;
+}
+
+
+bool
 NBNode::isDistrictCenter() const
 {
     return _id.substr(0, 14)=="DistrictCenter";
+}
+
+
+bool
+samePriority(NBEdge *e1, NBEdge *e2)
+{
+    if(e1==e2) {
+        return true;
+    }
+    if (e1->getPriority()!=e2->getPriority()) {
+        return false;
+    }
+    if ((int) e1->getSpeed()!=(int) e2->getSpeed()) {
+        return false;
+    }
+    return (int) e1->getNoLanes()==(int) e2->getNoLanes();
 }
 
 
@@ -428,208 +481,98 @@ NBNode::setPriorityJunctionPriorities()
     }
     vector<NBEdge*> incoming(*_incomingEdges);
     vector<NBEdge*> outgoing(*_outgoingEdges);
-    int noIncomingPrios = NBContHelper::countPriorities(incoming);
-    int noOutgoingPrios = NBContHelper::countPriorities(outgoing);
-    if (noIncomingPrios==1&&noOutgoingPrios==1) {
-        return;
-    }
     // what we do want to have is to extract the pair of roads that are
     //  the major roads for this junction
     // let's get the list of incoming edges with the highest priority
-    //  (may be more than one)
     sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
     std::vector<NBEdge*> bestIncoming;
     NBEdge *best = incoming[0];
-    incoming.erase(incoming.begin());
-    bestIncoming.push_back(best);
-    while (incoming.size()>0&&incoming[0]->getPriority()==best->getPriority()) {
-        best = incoming[0];
+    while (incoming.size()>0&&samePriority(best, incoming[0])) {
+        bestIncoming.push_back(*incoming.begin());
         incoming.erase(incoming.begin());
-        bestIncoming.push_back(best);
     }
     // now, let's get the list of best outgoing
+    assert(outgoing.size()!=0);
     sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
     std::vector<NBEdge*> bestOutgoing;
     best = outgoing[0];
-    assert(outgoing.size()!=0);
-    outgoing.erase(outgoing.begin());
-    bestOutgoing.push_back(best);
-    while (outgoing.size()>0&&outgoing[0]->getPriority()==best->getPriority()) {
-        best = outgoing[0];
+    while (outgoing.size()>0&&samePriority(best, outgoing[0])) {//->getPriority()==best->getPriority()) {
+        bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
-        bestOutgoing.push_back(best);
     }
-    // ok, now we have two lists... what now?
-    // by now, let's assume the following:
-    // 1a) there is one best incoming road
+    // now, let's compute for each of the best incoming edges
+    //  the incoming which is most opposite
+    //  the outgoing which is most opposite
+    vector<NBEdge*>::iterator i;
+    map<NBEdge*, NBEdge*> counterIncomingEdges;
+    map<NBEdge*, NBEdge*> counterOutgoingEdges;
+    incoming = *_incomingEdges;
+    outgoing = *_outgoingEdges;
+    for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
+        sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i));
+        counterIncomingEdges[*i] = *incoming.begin();
+        sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i));
+        counterOutgoingEdges[*i] = *outgoing.begin();
+    }
+    // ok, let's try
+    // 1) there is one best incoming road
     if (bestIncoming.size()==1) {
         // let's mark this road as the best
         NBEdge *best1 = extractAndMarkFirst(bestIncoming);
         if (bestOutgoing.size()!=0) {
+            // mark the best outgoing as the continuation
             sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
-            extractAndMarkFirst(bestOutgoing);
+            NBEdge *bo = extractAndMarkFirst(bestOutgoing);
         }
         return;
     }
-    // 1b) there are more than one best incoming road
-    // ok, we may have two cases here:
-    // 2a) there are as many "best outgoing" as "best incoming" edges
-    if (bestIncoming.size()==bestOutgoing.size()) {
-        // !!! version 1: choose one randomly
-        /*
-        NBEdge *best1 = extractAndMarkFirst(bestIncoming);
-        sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
-        extractAndMarkFirst(bestOutgoing);
-        // !!! version 2: mark all as major
-        // let's mark all these roads as the best (incoming and outgoing)
-        while(bestIncoming.size()!=0) {
-            extractAndMarkFirst(bestIncoming);
+    // 2b) there are more than one best incoming roads
+    //      and the same number of best outgoing roads
+
+    // ok, what we want to do in this case is to determine which incoming
+    //  has the best continuation...
+    // This means, when several incoming roads have the same priority,
+    //  we want a (any) straight connection to be more priorised than a turning
+    SUMOReal bestAngle = 0;
+    NBEdge *bestFirst = 0;
+    NBEdge *bestSecond = 0;
+    for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
+        vector<NBEdge*>::iterator j;
+        NBEdge *t1 = *i;
+        SUMOReal angle1 = 0;
+        {
+            angle1 = t1->getAngle()+180;
+            if (angle1>=360) {
+                angle1 -= 360;
+            }
         }
-        while(bestOutgoing.size()!=0) {
-            extractAndMarkFirst(bestOutgoing);
-        }
-        */
-        return;
-    }
-    // 2b) ok, there seems to be at least one connection which does not
-    //  have an opposite major road...
-    // !!! version 1: find the one incoming with the last
-    //  direction deviation from one of the best outgoing
-    NBEdge *bestIncomingEdge = 0;
-    NBEdge *bestOutgoingEdge = 0;
-    SUMOReal bestAngle = -1;
-    for (vector<NBEdge*>::iterator i1=bestIncoming.begin(); i1!=bestIncoming.end(); ++i1) {
-        for (vector<NBEdge*>::iterator i2=bestOutgoing.begin(); i2!=bestOutgoing.end(); ++i2) {
-            SUMOReal angle = MIN2(
-                                 GeomHelper::getCCWAngleDiff((*i1)->getAngle(), (*i2)->getAngle()),
-                                 GeomHelper::getCWAngleDiff((*i1)->getAngle(), (*i2)->getAngle()));
-            if (bestAngle==-1||bestAngle>angle) {
-                bestIncomingEdge = *i1;
-                bestOutgoingEdge = *i2;
+        for (j=i+1; j!=bestIncoming.end(); ++j) {
+            NBEdge *t2 = *j;
+            SUMOReal angle2 = 0;
+            {
+                angle2 = t2->getAngle()+180;
+                if (angle2>=360) {
+                    angle2 -= 360;
+                }
+            }
+            SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
+            if (angle>bestAngle) {
                 bestAngle = angle;
+                bestFirst = *i;
+                bestSecond = *j;
             }
         }
     }
-    bestIncoming.insert(bestIncoming.begin(), bestIncomingEdge);
-    bestOutgoing.insert(bestOutgoing.begin(), bestOutgoingEdge);
-    extractAndMarkFirst(bestIncoming);
-    extractAndMarkFirst(bestOutgoing);
-
-
-
-
-    // !!! Attention!
-    // there is no case that fits into junctions with no incoming edges
-    // extract the edge with the highest priority
-    /*
-    if(incoming.size()>0) {
-        sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
-        best1 = extractAndMarkFirst(incoming);
+    bestFirst->setJunctionPriority(this, 1);
+    sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestFirst));
+    if (bestOutgoing.size()!=0) {
+        extractAndMarkFirst(bestOutgoing);
     }
-        // check whether a second main road exists
-    if(incoming.size()>0) {
-        noIncomingPrios = NBContHelper::countPriorities(incoming);
-        //if(noIncomingPrios>1) {
-            sort(incoming.begin(), incoming.end(),
-                NBContHelper::edge_by_priority_sorter());
-    //            best2 = extractAndMarkFirst(incoming);
-        } else {
-            sort(incoming.begin(), incoming.end(),
-                NBContHelper::edge_opposite_direction_sorter(best1));
-            best2 = extractAndMarkFirst(incoming);
-        }/
+    bestSecond->setJunctionPriority(this, 1);
+    sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestSecond));
+    if (bestOutgoing.size()!=0) {
+        extractAndMarkFirst(bestOutgoing);
     }
-    // get the best continuations (outgoing edges)
-    NBEdge *bestBack1, *bestBack2;
-    bestBack1 = bestBack2 = 0;
-    vector<NBEdge*> outgoing(*_outgoingEdges);
-    // for best1
-    if(outgoing.size()>0) {
-        sort(outgoing.begin(), outgoing.end(),
-            NBContHelper::edge_similar_direction_sorter(best1));
-        bestBack1 = extractAndMarkFirst(outgoing);
-    }
-
-    // for best2
-    if(best2!=0&&outgoing.size()>0) {
-        sort(outgoing.begin(), outgoing.end(),
-            NBContHelper::edge_similar_direction_sorter(best2));
-        bestBack2 = extractAndMarkFirst(outgoing);
-    }
-    */
-
-
-    /*
-    if(noIncomingPrios==1) {
-        // in this case, all incoming edges are equal in their priority
-        // --> choose any as the main
-        best1 = extractAndMarkFirst(incoming);
-        // try to get the incoming edge in the opposite geometrical direction
-        if(incoming.size()>0) {
-            sort(incoming.begin(), incoming.end(),
-                NBContHelper::edge_opposite_direction_sorter(best1));
-            best2 = extractAndMarkFirst(incoming);
-        }
-    } else {
-        // in this case, there is at least one higher priorised edge
-        // --> choose this as main
-        sort(incoming.begin(), incoming.end(),
-            NBContHelper::edge_by_priority_sorter());
-        best1 = extractAndMarkFirst(incoming);
-        // now check whether to use another high priorised edge or choose one
-        // of the lower priorised edges; it is also possible that there are
-        // more than one higher priorised edges
-        noIncomingPrios = NBContHelper::countPriorities(incoming);
-        if(noIncomingPrios==1) {
-            // all other incoming edges have the same priority; choose the one
-            // in the opposite direction
-            if(incoming.size()>0) {
-                sort(incoming.begin(), incoming.end(),
-                    NBContHelper::edge_opposite_direction_sorter(best1));
-                best2 = extractAndMarkFirst(incoming);
-            }
-        } else {
-            // choose one of the highest priorised edges that is in the most
-            // opposite direction to the first chosen
-            if(incoming.size()>0) {
-                vector<NBEdge*> best = getMostPriorised(incoming);
-                sort(best.begin(), best.end(),
-                    NBContHelper::edge_opposite_direction_sorter(best1));
-                best2 = extractAndMarkFirst(best);
-            }
-        }
-    }
-    // now process the outgoing edges
-    vector<NBEdge*> outgoing(*_outgoingEdges);
-    NBEdge *bestBack1, *bestBack2;
-    bestBack1 = bestBack2 = 0;
-    // for both edges, try to find the edges in the other direction
-    if(outgoing.size()>1) {
-        sort(outgoing.begin(), outgoing.end(),
-            NBContHelper::edge_opposite_direction_sorter(best1));
-        bestBack1 = extractAndMarkFirst(outgoing);
-    }
-    if(outgoing.size()>0&&best2!=0) {
-        sort(outgoing.begin(), outgoing.end(),
-            NBContHelper::edge_opposite_direction_sorter(best2));
-        bestBack2 = extractAndMarkFirst(outgoing);
-    }
-    */
-}
-
-
-int
-NBNode::getHighestPriority(const vector<NBEdge*> &s)
-{
-    if (s.size()==0) {
-        return 0;
-    }
-    vector<int> knownPrios;
-    for (vector<NBEdge*>::const_iterator i=s.begin(); i!=s.end(); i++) {
-        knownPrios.push_back((*i)->getPriority());
-    }
-    sort(knownPrios.begin(), knownPrios.end());
-    return knownPrios[0];
 }
 
 
@@ -642,23 +585,6 @@ NBNode::extractAndMarkFirst(vector<NBEdge*> &s)
     NBEdge *ret = s.front();
     s.erase(s.begin());
     ret->setJunctionPriority(this, 1);
-    return ret;
-}
-
-
-vector<NBEdge*>
-NBNode::getMostPriorised(vector<NBEdge*> &s)
-{
-    if (s.size()==0) {
-        return vector<NBEdge*>();
-    }
-    sort(s.begin(), s.end(), NBContHelper::edge_by_priority_sorter());
-    vector<NBEdge*> ret;
-    int highestP = (*(s.begin()))->getPriority();
-    for (vector<NBEdge*>::iterator i=s.begin(); i!=s.end(); i++) {
-        if (highestP==(*i)->getPriority())
-            ret.push_back(*i);
-    }
     return ret;
 }
 
@@ -681,6 +607,7 @@ NBNode::rotateIncomingEdges(int norot)
         norot--;
     }
 }
+
 
 std::vector<std::string>
 NBNode::getInternalNamesList()
@@ -829,7 +756,6 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
         throw ProcessError();
     }
     bool noSpline = false;
-//   bool recheck = false;
     Position2DVector ret;
     Position2DVector init;
     Position2D beg = fromE->getLaneShape(fromL).getEnd();
@@ -868,14 +794,6 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                 begL.extrapolateSecondBy(100);
                 Line2D endL = toE->getLaneShape(toL).getBegLine();
                 endL.extrapolateFirstBy(100);
-
-                /*
-                Position2D tmp = begL.getPositionAtDistance(
-                    fromE->getLaneShape(fromL).getEndLine().length() + GeomHelper::distance(beg, end) / 2.);
-                tmp.add(endL.getPositionAtDistance(100-GeomHelper::distance(beg, end) / 2.));
-                tmp.mul(.5);
-                cout << getID() << " " << fromE->getID() << " " << toE->getID() << ":" << tmp << endl;
-                */
                 SUMOReal distance = GeomHelper::distance(beg, end);
                 if (distance>10) {
                     {
@@ -894,76 +812,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                     noSpline = true;
                 }
                 init.push_back(end);
-                //noSpline = true;
             } else {
-                // a somehow larger angle: turning
-                /*
-                NBMMLDirection dir = getMMLDirection(fromE, toE);
-                if(dir==MMLDIR_PARTLEFT||dir==MMLDIR_LEFT) {
-                    //  we want left-movers to use all the available space...
-                    noInitialPoints = 3;
-                    init.push_back(beg);
-                    Line2D begL = fromE->getLaneShape(fromL).getEndLine();
-                    begL.extrapolateSecondBy(100);
-                    Line2D endL = toE->getLaneShape(toL).getBegLine();
-                    endL.extrapolateFirstBy(100);
-                    if(!begL.intersects(endL)) {
-                        noSpline = true;
-                    } else {
-                        /
-                        recheck = true;
-                        // this is different than normal turning (see below)
-                        // we will add some offset to the turning's begin
-                        intersection = begL.intersectsAt(endL);
-                        SUMOReal ipos = begL.intersectsAtLength(endL);
-                        //
-                        {
-                            SUMOReal pend = fromE->getLaneShape(fromL).getEndLine().length();
-                            SUMOReal p1 = ipos;//-5;//MIN2(pend + 5., (pend+ipos)/2.);
-                            if(fabs(p1-pend)>.1) {
-                                Position2D tmp = begL.getPositionAtDistance(p1);
-                                tmp.add(intersection);
-                                tmp.mul(.5);
-                                //init.push_back(tmp);
-                                //init.push_back(intersection);
-                                noInitialPoints--;
-                            } else {
-                                noInitialPoints--;
-                            }
-                        }
-
-
-                        SUMOReal p1 = begL.intersectsAtLength(endL);
-                        cout << _id << " p1/1: " << fromE->getID() << "<->" << toE->getID()
-                            << "; "
-                            << begL.length() << ", " << p1 << endl;
-                        p1 = MAX2(p1-10, fromE->getLaneShape(fromL).getEndLine().length());
-                        cout << _id << " p1/2: " << fromE->getID() << "<->" << toE->getID()
-                            << "; "
-                            << begL.length() << ", " << p1 << endl;
-                        if(p1-.1>fromE->getLaneShape(fromL).getEndLine().length()) {
-                            init.push_back(begL.getPositionAtDistance(p1));
-                        } else {
-                            noInitialPoints--;
-                        }
-                        /
-                        //
-                        init.push_back(intersection);
-                        //
-                        //noInitialPoints--;
-
-                        SUMOReal p2 = endL.intersectsAtLength(begL);
-                        p2 = MAX2(p2-10, toE->getLaneShape(toL).getBegLine().length());
-                        if(p2-.1>toE->getLaneShape(toL).getBegLine().length()) {
-                            init.push_back(endL.getPositionAtDistance(p2));
-                        } else {
-                            noInitialPoints--;
-                        }
-                        /
-                    }
-                    init.push_back(end);
-                } else {
-                    */
                 // turning
                 //  - end of incoming lane
                 //  - intersection of the extrapolated lanes
@@ -981,7 +830,6 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                     init.push_back(begL.intersectsAt(endL));
                 }
                 init.push_back(end);
-                //}
             }
         }
     }
@@ -1007,74 +855,12 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
 
     for (i=0; i<NO_INTERNAL_POINTS; i++) {
         Position2D current(ret_buf[i*3+1], ret_buf[i*3+3]);
-        /*
-        if(recheck&&i!=0&&i<NO_INTERNAL_POINTS-1) {
-            current.set(
-                current.x() * .85 + intersection.x() * .15,
-                current.y() * .85 + intersection.y() * .15);
-
-            current.add(intersection);
-            current.mul(.75);
-        }
-        */
         if (prev!=current) {
             ret.push_back(current);
         }
         prev = current;
     }
     return ret;
-    /*
-    SUMOReal distCW =
-        begAngle > endAngle
-        ? endAngle + PI*2 - begAngle
-        : endAngle - begAngle;
-    SUMOReal distCCW =
-        begAngle > endAngle
-        ? begAngle - endAngle
-        : begAngle + PI*2 - endAngle;
-    assert(distCW>0&&distCCW>0);
-    Position2D center = begL.intersectsAt(endL);
-    SUMOReal radius = GeomHelper::distance(center, beg);
-    if(distCW<distCCW) {
-        center.add(
-            cos(distCW/2.0+begAngle)*radius,
-            sin(distCW/2.0+begAngle)*radius);
-        Position2D tmp(center);
-        tmp.sub(cos(begAngle)*radius, sin(begAngle)*radius);
-        SUMOReal dist = begL.distanceTo(tmp);
-        dist = dist / radius;
-        center.add(sin(distCW/2.0+begAngle)*radius*dist, cos(distCW/2.0+begAngle)*radius*dist);
-    //        distCW = -distCW;
-        if(begAngle < endAngle) {
-            for(SUMOReal run=0; run<distCW; run+=distCW/10) {
-                Position2D np(center.x(), center.y());
-                np.add(cos(begAngle+run)*radius, sin(begAngle+run)*radius);
-                ret.push_back(np);
-            }
-        } else {
-            ret.push_back(beg);
-            ret.push_back(end);
-        }
-    } else {
-        ret.push_back(beg);
-        ret.push_back(end);
-        center.add(
-            cos(distCCW/2.0+begAngle)*radius,
-            sin(distCCW/2.0+begAngle)*radius);
-        Position2D tmp(center);
-        tmp.sub(cos(begAngle)*radius, sin(begAngle)*radius);
-        SUMOReal dist = begL.distanceTo(tmp);
-        dist = dist / radius;
-        center.add(cos(distCCW/2.0+begAngle)*radius*dist, sin(distCCW/2.0+begAngle)*radius*dist);
-    //        distCCW = -distCCW;
-        for(SUMOReal run=0; run<distCCW; run+=distCCW/10) {
-            Position2D np(center.x(), center.y());
-            np.add(-cos(-begAngle+run)*radius, sin(-begAngle+run)*radius);
-            ret.push_back(np);
-        }
-    }
-    assert(ret.size()!=0);
-    */
 }
 
 
@@ -1343,6 +1129,7 @@ NBNode::writeXMLInternalNodes(ostream &into)
     }
 }
 
+
 void
 writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
 {
@@ -1365,6 +1152,7 @@ writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
     }
 }
 
+
 void
 NBNode::writeXML(ostream &into)
 {
@@ -1377,6 +1165,7 @@ NBNode::writeXML(ostream &into)
             into << " type=\"" << "none\"";
             break;
         case NODETYPE_PRIORITY_JUNCTION:
+        case NODETYPE_TRAFFIC_LIGHT:
             into << " type=\"" << "priority\"";
             break;
         case NODETYPE_RIGHT_BEFORE_LEFT:
@@ -1452,6 +1241,7 @@ NBNode::setType(BasicNodeType type)
         _noNoJunctions++;
         break;
     case NODETYPE_PRIORITY_JUNCTION:
+    case NODETYPE_TRAFFIC_LIGHT:
         _noPriorityJunctions++;
         break;
     case NODETYPE_RIGHT_BEFORE_LEFT:
@@ -1467,6 +1257,13 @@ NBNode::setType(BasicNodeType type)
 }
 
 
+NBNode::BasicNodeType
+NBNode::getType() const
+{
+    return _type;
+}
+
+
 void
 NBNode::reportBuild()
 {
@@ -1477,16 +1274,13 @@ NBNode::reportBuild()
 
 
 void
-NBNode::sortNodesEdges(const NBTypeCont &tc)
+NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 {
     // sort the edges
     buildList();
-    sort(_allEdges.begin(), _allEdges.end(),
-         NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_incomingEdges->begin(), _incomingEdges->end(),
-         NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_outgoingEdges->begin(), _outgoingEdges->end(),
-         NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_allEdges.begin(), _allEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_incomingEdges->begin(), _incomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
     if (_allEdges.size()==0) {
         return;
     }
@@ -1509,8 +1303,33 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
     }
 #endif
     NBNode::BasicNodeType type = computeType(tc);
-    if (type!=NODETYPE_NOJUNCTION&&type!=NODETYPE_PRIORITY_JUNCTION&&type!=NODETYPE_RIGHT_BEFORE_LEFT&&type!=NODETYPE_DISTRICT) {
-        type = computeType(tc);
+    if (type!=NODETYPE_TRAFFIC_LIGHT&&type!=NODETYPE_NOJUNCTION&&type!=NODETYPE_PRIORITY_JUNCTION&&type!=NODETYPE_RIGHT_BEFORE_LEFT&&type!=NODETYPE_DISTRICT) {
+        throw 1;
+    }
+    // write if wished
+    if (strm!=0) {
+        string col;
+        switch (type) {
+        case NODETYPE_NOJUNCTION:
+            col = ".5,.5,.5";
+            break;
+        case NODETYPE_PRIORITY_JUNCTION:
+            col = "0,1,0";
+            break;
+        case NODETYPE_RIGHT_BEFORE_LEFT:
+            col = "0,0,1";
+            break;
+        case NODETYPE_DISTRICT:
+            col = "1,0,0";
+            break;
+        case NODETYPE_TRAFFIC_LIGHT:
+            col = "1,1,0";
+            break;
+        }
+        (*strm) << "   <poi id=\"type_" << _id
+        << "\" type=\"node_type\" color=\"" << col << "\""
+        << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>"
+        << endl;
     }
     setType(type);
     setPriorities();
@@ -1762,12 +1581,6 @@ NBNode::replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff)
             (*_incomingEdges)[i] = by;
         }
     }
-    /*    // add connections of the old edge to the new one
-        EdgeVector connected = which->getConnected();
-        for(EdgeVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
-            by->addEdge2EdgeConnection(*j);
-        }
-        */
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by, laneOff, 0);
 }
@@ -1855,28 +1668,6 @@ NBNode::removeDoubleEdges()
             }
         }
     }
-    /*
-    EdgeVector::iterator i, j;
-    for(i=_incomingEdges->begin(); _incomingEdges->size()!=0&&i!=_incomingEdges->end()-1; ++i) {
-        do {
-            j = find(i+1, _incomingEdges->end(), *i);
-            if(j!=_incomingEdges->end()) {
-                _incomingEdges->erase(j);
-                j = _incomingEdges->begin(); // !!! ?needed
-            }
-        } while(i!=_incomingEdges->end()&&j!=_incomingEdges->end());
-    }
-    // check outgoing
-    for(i=_outgoingEdges->begin(); _outgoingEdges->size()!=0&&i!=_outgoingEdges->end()-1; ++i) {
-        do {
-            j = find(i+1, _outgoingEdges->end(), *i);
-            if(j!=_outgoingEdges->end()) {
-                _outgoingEdges->erase(j);
-                j = _outgoingEdges->begin();
-            }
-        } while(i!=_outgoingEdges->end()&&j!=_outgoingEdges->end());
-    }
-    */
 }
 
 
@@ -1913,19 +1704,6 @@ NBNode::getOppositeIncoming(NBEdge *e) const
     return edges[0];
 }
 
-/*
-NBEdge *
-NBNode::getOppositeOutgoing(NBEdge *e) const
-{
-    EdgeVector edges(*_outgoingEdges);
-    if(find(edges.begin(), edges.end(), e)!=edges.end()) {
-        edges.erase(find(edges.begin(), edges.end(), e));
-    }
-    sort(edges.begin(), edges.end(),
-        NBContHelper::edge_similar_direction_sorter(e));
-    return edges[0];
-}
-*/
 
 void
 NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
@@ -2011,7 +1789,6 @@ NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont
         // let the dummy remap its connections
         dummy->remapConnections(incomingConnected);
         remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
-//        dummy->removeFromProceeding();
         // delete the dummy
         ec.erase(dc, dummy);
         j = _incomingEdges->begin() + pos;
@@ -2101,13 +1878,24 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
     //    right-of-way rules
     //  - uncontrolled participants (spip lanes etc.) should always break
     if (myTrafficLights.size()!=0) {
-        return true; // What happens when the lights go out?
-        // All would have to break... No problem!
+        // ok, we have a traffic light, return true by now, it will be later
+        //  controlled by the tls
+        return true;
     }
+    // vehicles which do not have a following lane must always decelerate to the end
+    if (to==0) {
+        return true;
+    }
+    // check whether any other connection on this node prohibits this connection
     bool try1 = _request->mustBrake(from, to);
     if (!try1||toLane==-1) {
         return try1;
     }
+    if (from->getSpeed()<70./3.6) {
+        return try1;
+    }
+    // on highways (on-ramps, in fact):
+    // check whether any other connection uses the same destination edge
     for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
         if ((*i)==from) {
             continue;
@@ -2328,11 +2116,11 @@ NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
     if (outgoing==0) {
         return 'O'; // always off
     }
-    if (mustBrake(incoming, outgoing, fromlane)) {
-        return 'm'; // minor road
-    }
     if (_type==NODETYPE_RIGHT_BEFORE_LEFT) {
         return '='; // all the same
+    }
+    if (mustBrake(incoming, outgoing, fromlane)) {
+        return 'm'; // minor road
     }
     // traffic lights are not regardedm here
     return 'M';
@@ -2347,18 +2135,6 @@ NBNode::checkIsRemovable() const
         return false;
     }
     EdgeVector::const_iterator i;
-    /*    // check whether the edges are allowed to be removed
-        //  (!!! not completely implemented; should be parametrisable)
-        for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
-            if(!(*i)->isJoinable()) {
-                return false;
-            }
-        }
-        for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-            if(!(*i)->isJoinable()) {
-                return false;
-            }
-        }*/
     // one in, one out -> just a geometry ...
     if (_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
         // ... if types match ...
@@ -2469,19 +2245,6 @@ NBNode::isTLControlled() const
 {
     return myTrafficLights.size()!=0;
 }
-
-/*
-bool
-NBNode::connectionIsTLControlled(NBEdge *from, NBEdge *to) const
-{
-    for(std::set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); i++) {
-        if((*i)->includes(from, to)) {
-            return true;
-        }
-    }
-    return false;
-}
-*/
 
 
 SUMOReal

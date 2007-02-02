@@ -79,7 +79,7 @@ public:
 public:
     /// constructor
     NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-                  NBCapacity2Lanes capacity2Lanes);
+                  NBCapacity2Lanes capacity2Lanes, bool useVisumPrio);
 
     /// destructor
     ~NIVisumLoader();

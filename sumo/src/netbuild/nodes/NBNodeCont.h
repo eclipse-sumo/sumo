@@ -74,10 +74,6 @@ public:
     bool insert(const std::string &id, const Position2D &position);
 
     /** inserts a node into the map */
-    /*    bool insert(const std::string &id, SUMOReal x, SUMOReal y,
-            const std::string &type);*/
-
-    /** inserts a node into the map */
     Position2D insert(const std::string &id);
 
     /** inserts a node into the map */
@@ -110,7 +106,7 @@ public:
                        OptionsCont &oc);
 
     /// sorts the nodes' edges
-    bool sortNodesEdges(const NBTypeCont &tc);
+    bool sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm);
 
     std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream

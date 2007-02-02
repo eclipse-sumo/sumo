@@ -288,7 +288,7 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
         string def = poFeature.GetFieldAsString(index);
         return NINavTeqHelper::getSpeed(edgeid, def);
     }
-    return 0;
+    return -1;
 }
 
 

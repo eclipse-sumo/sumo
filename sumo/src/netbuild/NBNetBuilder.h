@@ -108,7 +108,7 @@ protected:
     bool computeTurningDirections(int &step);
 
     /** sorts the edges of a node */
-    bool sortNodesEdges(int &step);
+    bool sortNodesEdges(int &step, std::ofstream *strm);
 
     /** sets the node positions in a way that nodes are lying at zero */
     bool normaliseNodePositions(int &step);

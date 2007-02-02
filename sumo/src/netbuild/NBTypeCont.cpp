@@ -163,9 +163,9 @@ NBTypeCont::getNo()
 
 
 NBNode::BasicNodeType
-NBTypeCont::getJunctionType(int edgetype1, int edgetype2) const
+NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const
 {
-    return myJunctionTypes.getType(edgetype1, edgetype2);
+    return myJunctionTypes.getType(speed1, speed2);
 }
 
 

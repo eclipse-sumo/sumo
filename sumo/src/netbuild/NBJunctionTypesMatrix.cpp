@@ -58,24 +58,25 @@ using namespace std;
 // ===========================================================================
 NBJunctionTypesMatrix::NBJunctionTypesMatrix()
 {
-    _map['t'] = NBNode::NODETYPE_PRIORITY_JUNCTION; // !!! was: NODETYPE_SIMPLE_TRAFFIC_LIGHT;
+    _map['t'] = NBNode::NODETYPE_TRAFFIC_LIGHT;
     _map['x'] = NBNode::NODETYPE_NOJUNCTION;
     _map['p'] = NBNode::NODETYPE_PRIORITY_JUNCTION;
     _map['r'] = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-    _ranges.push_back(pair<int, int>(90, 90));
-    _ranges.push_back(pair<int, int>(65, 85));
-    _ranges.push_back(pair<int, int>(59, 41));
-    _ranges.push_back(pair<int, int>(20, 20));
-    _ranges.push_back(pair<int, int>(15, 15));
-    _ranges.push_back(pair<int, int>(10, 10));
-    _ranges.push_back(pair<int, int>(5, 1));
-    _values.push_back("xxxxpxx");
-    _values.push_back(" ttttpp");
-    _values.push_back("  ppppp");
-    _values.push_back("   pppp");
-    _values.push_back("    xxx");
-    _values.push_back("     rp");
-    _values.push_back("      p");
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(0./3.6), (SUMOReal)(10./3.6)));
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(10./3.6), (SUMOReal)(30./3.6)));
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(30./3.6), (SUMOReal)(50./3.6)));
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(50./3.6), (SUMOReal)(70./3.6)));
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(70./3.6), (SUMOReal)(100./3.6)));
+    _ranges.push_back(pair<SUMOReal, SUMOReal>((SUMOReal)(100./3.6), (SUMOReal)(999999./3.6)));
+    //                 00001x
+    //                 13570x
+    //                 00000x
+    _values.push_back("rppppp"); // 000 - 010
+    _values.push_back(" rpppp"); // 010 - 030
+    _values.push_back("  rppp"); // 030 - 050
+    _values.push_back("   ttp"); // 050 - 070
+    _values.push_back("    tp"); // 070 - 100
+    _values.push_back("     p"); // 100 -
 }
 
 
@@ -84,23 +85,17 @@ NBJunctionTypesMatrix::~NBJunctionTypesMatrix()
 
 
 NBNode::BasicNodeType
-NBJunctionTypesMatrix::getType(int prio1, int prio2) const
+NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const
 {
-    RangeCont::const_iterator p1 = find_if(_ranges.begin(), _ranges.end(),
-                                           priority_finder(prio1));
-    RangeCont::const_iterator p2 = find_if(_ranges.begin(), _ranges.end(),
-                                           priority_finder(prio2));
-    if (p1==_ranges.end()||p2==_ranges.end()) {
-        throw OutOfBoundsException();
-    }
-    char name = getNameAt(distance(_ranges.begin(), p1),
-                          distance(_ranges.begin(), p2));
+    RangeCont::const_iterator p1 = find_if(_ranges.begin(), _ranges.end(), range_finder(speed1));
+    RangeCont::const_iterator p2 = find_if(_ranges.begin(), _ranges.end(), range_finder(speed2));
+    char name = getNameAt(distance(_ranges.begin(), p1), distance(_ranges.begin(), p2));
     return _map.find(name)->second;
 }
 
 
 char
-NBJunctionTypesMatrix::getNameAt(int pos1, int pos2) const
+NBJunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const
 {
     string str = _values[pos1];
     if (str[pos2]==' ') {

@@ -146,7 +146,7 @@ public:
     SUMOReal getAngle();
 
     /// returns the priority of the edge
-    int getPriority();
+    SUMOReal getPriority() const;
 
     /// sets the junction priority of the edge
     void setJunctionPriority(NBNode *node, int prio);
@@ -243,8 +243,6 @@ public:
         When no node is existing at the given position, 0 is returned
         The epsilon is a static member of NBEdge, should be setable via program options */
     NBNode *tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance=5.0) const;
-
-//    NBEdge *checkCorrectNode(NBEdge *opposite);
 
     EdgeBasicFunction getBasicType() const;
 

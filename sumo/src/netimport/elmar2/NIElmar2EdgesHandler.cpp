@@ -93,7 +93,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     SUMOReal length;
     SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
-    int priority = 0;
+    int priority = -1;
     // parse
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // id

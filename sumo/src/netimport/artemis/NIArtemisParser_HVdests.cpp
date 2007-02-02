@@ -95,7 +95,7 @@ NIArtemisParser_HVdests::myDependentReport()
         NBNode *tmp = new NBNode(origid + "SOURCENode", dir1);
         myNodeCont.insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
-                                  tmp, node1, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
+                                  tmp, node1, "", 20.0, 2, -1, -1, NBEdge::LANESPREAD_RIGHT,
                                   NBEdge::EDGEFUNCTION_SOURCE);
         myEdgeCont.insert(edge); // !!! check
     }
@@ -106,7 +106,7 @@ NIArtemisParser_HVdests::myDependentReport()
         NBNode *tmp = new NBNode(destid + "SINKNode", dir2);
         myNodeCont.insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
-                                  node2, tmp, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
+                                  node2, tmp, "", 20.0, 2, -1, -1, NBEdge::LANESPREAD_RIGHT,
                                   NBEdge::EDGEFUNCTION_SINK);
         myEdgeCont.insert(edge); // !!! check
     }

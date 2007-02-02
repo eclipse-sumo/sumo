@@ -117,14 +117,16 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
     enum BasicNodeType {
         /// Unknown yet
         NODETYPE_UNKNOWN,
-        /** internal type for no-junction */
-        NODETYPE_NOJUNCTION,
+        /** internal type for a tls-controlled junction */
+        NODETYPE_TRAFFIC_LIGHT,
         /** internal type for a priority-junction */
         NODETYPE_PRIORITY_JUNCTION,
         /** internal type for a right-before-left junction */
         NODETYPE_RIGHT_BEFORE_LEFT,
         /** internal type for a district junction */
         NODETYPE_DISTRICT,
+        /** internal type for no-junction */
+        NODETYPE_NOJUNCTION,
         /** internal type for a dead-end junction */
         NODETYPE_DEAD_END
     };
@@ -195,7 +197,7 @@ public:
                       OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(const NBTypeCont &tc);
+    void sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm);
 
     /** reports about the build junctions */
     static void reportBuild();
@@ -210,7 +212,6 @@ public:
     bool hasOutgoing(NBEdge *e) const;
     bool hasIncoming(NBEdge *e) const;
     NBEdge *getOppositeIncoming(NBEdge *e) const;
-//    NBEdge *getOppositeOutgoing(NBEdge *e) const;
     void invalidateIncomingConnections();
     void invalidateOutgoingConnections();
 
@@ -232,6 +233,8 @@ public:
 
     /** sets the type of the junction */
     void setType(BasicNodeType type);
+
+    BasicNodeType getType() const;
 
 
     bool isLeftMover(NBEdge *from, NBEdge *to) const;
@@ -311,6 +314,7 @@ private:
 
     // computes the junction type
     BasicNodeType computeType(const NBTypeCont &tc) const;
+    bool isSimpleContinuation() const;
 
     /** returns the information whether this node is the center of a district
         for this, all incoming edges must be sinks while all outgoing
@@ -329,16 +333,9 @@ private:
     bool swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
                           const std::vector<NBEdge*>::iterator &i2);
 
-    /// returns the highest priority of the edges in the list
-    int getHighestPriority(const std::vector<NBEdge*> &s);
-
     /** removes the first edge from the list, marks it as higher priorised and
         returns it */
     NBEdge* extractAndMarkFirst(std::vector<NBEdge*> &s);
-
-    /** returns a list that contains only edges of the most highest priority
-        encountered in the given list */
-    std::vector<NBEdge*> getMostPriorised(std::vector<NBEdge*> &s);
 
     /** returns a list of edges which are connected to the given
         outgoing edge */

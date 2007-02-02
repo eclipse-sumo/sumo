@@ -272,12 +272,13 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     // mark the crossings as done
     _done[idx1][idx2] = true;
     _done[idx2][idx1] = true;
-    // 30.05.2005: do not wait on connections to sinks
+    // do not wait on connections to sinks
     if (to1->getBasicType()==NBEdge::EDGEFUNCTION_SINK||to2->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
         return;
     }
-    // 30.05.2005
+
     // check if one of the links is a turn; this link is always not priorised
+    //  true for right-before-left and priority
     if (from1->isTurningDirectionAt(_junction, to1)) {
         _forbids[idx2][idx1] = true;
         return;
@@ -291,20 +292,25 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     int from1p = from1->getJunctionPriority(_junction);
     int from2p = from2->getJunctionPriority(_junction);
     // check if one of the connections is higher priorised when incoming into
-    // the junction
-    // the connection road will yield
+    //  the junction, the connection road will yield
+    // should be valid for priority junctions only
     if (from1p>from2p) {
+        assert(_junction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
         _forbids[idx1][idx2] = true;
         return;
     }
     if (from2p>from1p) {
+        assert(_junction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
         _forbids[idx2][idx1] = true;
         return;
     }
+
     // check whether one of the connections is higher priorised on
-    // the outgoing edge when both roads are high priorised
-    // the connection with the lower priorised outgoing edge will lead
+    //  the outgoing edge when both roads are high priorised
+    //  the connection with the lower priorised outgoing edge will lead
+    // should be valid for priority junctions only
     if (from1p>0&&from2p>0) {
+        assert(_junction->getType()!=NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
         int to1p = to1->getJunctionPriority(_junction);
         int to2p = to2->getJunctionPriority(_junction);
         if (to1p>to2p) {
@@ -316,43 +322,31 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
             return;
         }
     }
+
     // compute the yielding due to the right-before-left rule
-    EdgeVector::const_iterator inIncoming1 =
-        find(_incoming->begin(), _incoming->end(), from1);
-    EdgeVector::const_iterator inIncoming2 =
-        find(_incoming->begin(), _incoming->end(), from2);
     // get the position of the incoming lanes in the junction-wheel
-    size_t d1 = distance(_incoming->begin(), inIncoming1);
-    size_t d2 = distance(_incoming->begin(), inIncoming2);
-    // compute the information whether one of the lanes is right of
-    // the other (this will then be priorised)
-    size_t du, dg;
-    if (d1>d2) {
-        du = (_incoming->size() - d1) + d2;
-        dg = d1 - d2;
-    } else {
-        du = d2 - d1;
-        dg = d1 + (_incoming->size() - d2);
-    }
-    // the incoming lanes are opposite
-    // check which of them will cross the other due to moving to the left
-    // this will be the yielding lane
-    if (du==dg) {
-        size_t dist1 = distanceCounterClockwise(from1, to1);
-        size_t dist2 = distanceCounterClockwise(from2, to2);
-        if (dist1<dist2)
-            _forbids[idx1][idx2] = true;
-        if (dist2<dist1)
+    EdgeVector::const_iterator inIncoming1 = find(_all->begin(), _all->end(), from1);
+    NBContHelper::nextCW(_all, inIncoming1);
+    // go through next edges clockwise...
+    while (*inIncoming1!=from1&&*inIncoming1!=to1&&*inIncoming1!=from2) {
+        if (*inIncoming1==to2) {
+            // if we encounter to2 the second one prohibits the first
             _forbids[idx2][idx1] = true;
+            return;
+        }
+        NBContHelper::nextCW(_all, inIncoming1);
+    }
+    // get the position of the incoming lanes in the junction-wheel
+    EdgeVector::const_iterator inIncoming2 = find(_all->begin(), _all->end(), from2);
+    NBContHelper::nextCW(_all, inIncoming2);
+    // go through next edges clockwise...
+    while (*inIncoming2!=from2&&*inIncoming2!=to2&&*inIncoming2!=from1) {
+        if (*inIncoming2==to1) {
+            // if we encounter to1 the second one prohibits the first
+            _forbids[idx2][idx2] = true;
+        }
         return;
-    }
-    // connection2 forbids proceeding on connection1
-    if (dg<du) {
-        _forbids[idx2][idx1] = true;
-    }
-    // connection1 forbids proceeding on connection2
-    if (dg>du) {
-        _forbids[idx1][idx2] = true;
+        NBContHelper::nextCW(_all, inIncoming2);
     }
 }
 
@@ -692,9 +686,12 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
     if (idx2==-1) {
         return false;
     }
+    // go through all (existing) connections;
+    //  check whether any of these forbids the one to determine
     assert((size_t) idx2<_incoming->size()*_outgoing->size());
     for (size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
-        if (_forbids[idx1][idx2]) {
+        //assert(_done[idx1][idx2]);
+        if (_done[idx1][idx2]&&_forbids[idx1][idx2]) {
             return true;
         }
     }

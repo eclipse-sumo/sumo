@@ -395,17 +395,6 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--use-laneno-as-priority</term>
-
-          <listitem>
-            <para>Scope: XML-Import</para>
-
-            <para>Interprets the number of lanes as an edges priority.
-            <remark>Optional, type:bool, default: false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
           <term><option>--arcview.street-id
           <replaceable>&lt;STREET_NAME_COLUMN_NAME&gt;</replaceable></option></term>
 

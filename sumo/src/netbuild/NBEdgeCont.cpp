@@ -582,21 +582,12 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
         if (priority<(*i)->getPriority()) {
             priority = (*i)->getPriority();
         }
-        // remove all connections to the joined edges
-        /*
-                for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); j++) {
-                    (*i)->removeFromConnections(*j);
-                }
-                */
     }
     speed /= edges.size();
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
                                  nolanes, -1, priority, tpledge->myLaneSpreadFunction, function);
     insert(newEdge);
-    /*    // sort edges as lanes
-        sort(edges.begin(), edges.end(),
-            NBContHelper::edge_to_lane_sorter(from, to));*/
     // replace old edge by current within the nodes
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);

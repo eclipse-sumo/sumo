@@ -128,12 +128,17 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
     }
     // check whether the left turn has a higher priority
     if (outgoing[outgoing.size()-1]->getJunctionPriority(to)==1) {
-        // we have additionally to check whether our direction has the
-        //  same priority even if the junction priority is lower
+        // ok, the left turn belongs to the higher priorised edges on the junction
+        //  let's check, whether it has also a higher priority (lane number/speed) 
+        //  than the current
         vector<NBEdge*> tmp(outgoing);
         sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
-        if (outgoing[outgoing.size()-1]->getPriority()!=tmp[0]->getPriority()) {
+        if (outgoing[outgoing.size()-1]->getPriority()>tmp[0]->getPriority()) {
             _dirs.push_back(MainDirections::DIR_LEFTMOST);
+        } else {
+            if (outgoing[outgoing.size()-1]->getNoLanes()>tmp[0]->getNoLanes()) {
+                _dirs.push_back(MainDirections::DIR_LEFTMOST);
+            }
         }
     }
     // check whether the forward direction has a higher priority
@@ -186,10 +191,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
         myAmTurningWithAngle(0), myAmTurningOf(0)
 {
-    // check whether the number of lanes shall be used
-    if (OptionsSubSys::getOptions().getBool("use-laneno-as-priority")) {
-        _priority = _nolanes;
-    }
     assert(_nolanes!=0);
     if (_from==0||_to==0) {
         throw std::exception();
@@ -201,7 +202,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _from->addOutgoingEdge(this);
     _to->addIncomingEdge(this);
     // prepare container
-//    _reachable = new NBEdge::ReachableFromLaneVector();
     _reachable.resize(_nolanes, EdgeLaneVector());
     if (_length<=0) {
         _length = GeomHelper::distance(_from->getPosition(), _to->getPosition());
@@ -217,9 +217,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     }
 #endif
 #endif
-    if (_priority<0) {
-        _priority = 0;
-    }
     computeLaneShapes();
     for (size_t i=0; i<_nolanes; i++) {
         myLaneSpeeds.push_back(speed);
@@ -242,10 +239,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
         myAmTurningWithAngle(0), myAmTurningOf(0)
 {
-    // check whether the number of lanes shall be used
-    if (OptionsSubSys::getOptions().getBool("use-laneno-as-priority")) {
-        _priority = _nolanes;
-    }
     assert(_nolanes!=0);
     if (_from==0||_to==0) {
         throw std::exception();
@@ -265,9 +258,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                       _from->getPosition(), _to->getPosition());
     }
     assert(myGeom.size()>=2);
-    if (_priority<0) {
-        _priority = 0;
-    }
     computeLaneShapes();
     for (size_t i=0; i<_nolanes; i++) {
         myLaneSpeeds.push_back(speed);
@@ -301,8 +291,8 @@ NBEdge::getNoLanes() const
 }
 
 
-int
-NBEdge::getPriority()
+SUMOReal
+NBEdge::getPriority() const
 {
     return _priority;
 }
@@ -675,55 +665,6 @@ NBEdge::computeLaneShape(size_t lane)
             }
         }
     }
-
-    /*
-    Position2D from = myGeom.at(0);
-    size_t i = 1;
-    std::pair<SUMOReal, SUMOReal> offsets;
-    // go thorugh the list of segments
-    for(; i<myGeom.size(); i++) {
-        Position2D to = myGeom.at(i);
-        offsets =
-            laneOffset(from, to, 3.5, _nolanes-1-lane);
-        if(i==myGeom.size()-1||i==1) {
-            shape.push_back_noDoublePos(//.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position2D(from.x()-offsets.first, from.y()-offsets.second));
-        } else {
-            shape.push_back_noDoublePos(//.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position2D(from.x()-offsets.first, from.y()-offsets.second));
-            Line2D l1(
-                Position2D(from.x()-offsets.first, from.y()-offsets.second),
-                Position2D(to.x()-offsets.first, to.y()-offsets.second));
-            l1.extrapolateBy(100);
-            Position2D to2 = myGeom.at(i+1);
-            std::pair<SUMOReal, SUMOReal> offsets2 =
-                laneOffset(to, to2, 3.5, _nolanes-1-lane);
-            Line2D l2(
-                Position2D(to.x()-offsets2.first, to.y()-offsets2.second),
-                Position2D(to2.x()-offsets2.first, to2.y()-offsets2.second));
-            l2.extrapolateBy(100);
-            //if(!l1.intersects(l2)) { throw 1; }
-
-            if(l1.intersects(l2)) {
-                to = l1.intersectsAt(l2);
-            } else {
-                // !!! should never happen
-             //   throw 1;
-            }
-        }
-        from = to;
-    }
-    // end on last segment
-    shape.push_back(
-        Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
-        */
-    // prune the geometry to the begin and the end node
-    //  begin node first
-//    shape.pruneFromBeginAt(_from->getPosition());
-    //  then end node
-//    shape.pruneFromEndAt(_to->getPosition());
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!shape.assertNonEqual()) {
@@ -870,9 +811,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         into << "state=\"t";
     } else {
         into << "state=\""
-        << _to->stateCode(this,
-                          _reachable[fromlane][destidx].edge,
-                          _reachable[fromlane][destidx].lane);
+        << _to->stateCode(this, _reachable[fromlane][destidx].edge, _reachable[fromlane][destidx].lane);
     }
     // close
     into << "\"/>" << endl;
@@ -1222,22 +1161,10 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     if (outgoing->size()==0) {
         return priorities;
     }
-    // patch only
-    /*    if(outgoing->size()==_nolanes) {
-            for(size_t i=0; i<_nolanes; i++) {
-                priorities->push_back(4);
-            }
-            return priorities;
-        }*/
     priorities->reserve(outgoing->size());
     vector<NBEdge*>::const_iterator i;
     for (i=outgoing->begin(); i!=outgoing->end(); i++) {
         int prio = (*i)->getJunctionPriority(_to);
-        /*
-        if((prio+1)*2<=0) {
-            prio = (*i)->getJunctionPriority(_to);
-        }
-        */
         assert((prio+1)*2>0);
         prio = (prio+1) * 2;
         priorities->push_back(prio);
@@ -1261,6 +1188,9 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
         assert(dist<priorities->size());
         (*priorities)[dist] = (*priorities)[dist] * 2;
     }
+    if (mainDirections.includes(MainDirections::DIR_FORWARD)&&_nolanes>2) {
+        (*priorities)[dist] = (*priorities)[dist] * 2;
+    }
     // return
     return priorities;
 }
@@ -1276,58 +1206,6 @@ NBEdge::computePrioritySum(vector<size_t> *priorities)
     return sum;
 }
 
-/*
-void
-NBEdge::computeLinkPriorities()
-{
-    // reset all links to unprioritised
-    size_t i;
-    for(i=0; i<_nolanes; i++) {
-        assert(_reachable!=0&&i<_reachable->size());
-        size_t size = _reachable[i].size();
-        (*_linkIsPriorised)[i].resize(size, false);
-    }
-
-    // the link stays unpriorised when the edge is not a prioritised edge
-    // (the vehicles must then always look out for incoming vehicles)
-    if(getJunctionPriority(_to)==0) {
-        return;
-    }
-    // check whether which links of this priorised edge are always priorised
-    // (don't have to look out for other vehicles)
-    const EdgeVector *nodeEdges = _to->getEdges();
-    for(i=0; i<_nolanes; i++) {
-        size_t size = (*_reachable)[i].size();
-        size_t j;
-        for(j=0; j<size; j++) {
-            assert(_reachable!=0&&i<_reachable->size()&&j<(*_reachable)[i].size());
-            if((*_reachable)[i][j].edge!=0) {
-                // when the destination is priorised, the link is priorised
-                // but only when not turning
-                if((*_reachable)[i][j].edge->getJunctionPriority(_to)==1) {
-                    if((*_reachable)[i][j].edge!=_turnDestination) {
-                        (*_linkIsPriorised)[i][j] = true;
-                    }
-                }
-                // otherwise, check whether the direction is on the right side
-                // of the other side of the priorised connection
-                else {
-                    bool found = false;
-                    EdgeVector::const_iterator me = find(nodeEdges->begin(), nodeEdges->end(), this);
-                    me = NBContHelper::nextCCW(nodeEdges, me);
-                    while(!found&&(*me)->getJunctionPriority(_to)!=1) {
-                        if(*me==(*_reachable)[i][j].edge) {
-                            (*_linkIsPriorised)[i][j] = false;
-                            found = true;
-                        }
-                        me = NBContHelper::nextCCW(nodeEdges, me);
-                    }
-                }
-            }
-        }
-    }
-}
-*/
 
 void
 NBEdge::appendTurnaround()
@@ -1398,9 +1276,6 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
         // if not, append
         if (i==lanes.end())
             lanes.push_back(src_lane);
-        // otherwise, mark as known
-//!!!!        else
-//!!!!            known = true;
         _succeedinglanes[dest_edge] = lanes;
     }
     // append current connection only if no equal is already known
@@ -1422,7 +1297,6 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
             _step = LANES2LANES;
         }
     }
-//    _step = LANES2LANES_RECHECK;
 }
 
 
@@ -1491,19 +1365,6 @@ NBEdge::tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance) const
     return 0;
 }
 
-/*
-NBEdge *
-NBEdge::checkCorrectNode(NBEdge *opposite)
-{
-    if(_from->hasOutgoing(opposite)) {
-        return _from->getOppositeIncoming(this);
-    }
-    if(_to->hasIncoming(opposite)) {
-        return _to->getOppositeOutgoing(this);
-    }
-    return this;
-}
-*/
 
 NBEdge::EdgeBasicFunction
 NBEdge::getBasicType() const
@@ -1690,8 +1551,6 @@ NBEdge::invalidateConnections(bool reallowSetting)
     _ToEdges.clear();
     _reachable.clear();
     _reachable.resize(_nolanes, EdgeLaneVector());
-//    _linkIsPriorised->clear();
-//    _linkIsPriorised->resize(_nolanes, BoolVector());
     _succeedinglanes.clear();
     if (reallowSetting) {
         _step = INIT;
@@ -1995,44 +1854,6 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const
     return ret;
 }
 
-/*
-Line2D
-NBEdge::getNECWBoundaryLine(NBNode *n, SUMOReal offset)
-{
-    Line2D ret;
-    if(_from==n) {
-        // outgoing
-        Position2DVector laneGeom = myLaneGeoms[0];
-        assert(laneGeom.size()>1);
-        ret = Line2D(laneGeom.at(0), laneGeom.at(1));
-    } else {
-        // incoming
-        Position2DVector laneGeom = myLaneGeoms[getNoLanes()-1];
-        assert(laneGeom.size()>1);
-        ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
-    }
-    ret.move2side(-offset);
-    return ret;
-}
-
-
-Line2D
-NBEdge::getNECCWBoundaryLine(NBNode *n, SUMOReal offset)
-{
-    Line2D ret;
-    if(_from==n) {
-        // outgoing
-        Position2DVector laneGeom = myLaneGeoms[getNoLanes()-1];
-        ret = Line2D(laneGeom.at(0), laneGeom.at(1));
-    } else {
-        // incoming
-        Position2DVector laneGeom = myLaneGeoms[0];
-        ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
-    }
-    ret.move2side(offset);
-    return ret;
-}
-*/
 
 SUMOReal
 NBEdge::width() const
@@ -2049,7 +1870,7 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
         return false;
     }
     // the priority, too (?)
-    if (_priority!=possContinuation->_priority) {
+    if (getPriority()!=possContinuation->getPriority()) {
         return false;
     }
     // the speed allowed
@@ -2152,11 +1973,8 @@ NBEdge::append(NBEdge *e)
     // copy the connections and the building step if given
     _step = e->_step;
     _connectedEdges = e->_connectedEdges;
-//    delete _reachable;
     _reachable = (e->_reachable);
-//    delete _succeedinglanes;
     _succeedinglanes = e->_succeedinglanes;
-//    delete _ToEdges;
     _ToEdges = e->_ToEdges;
     _turnDestination = e->_turnDestination;
     // set the node
@@ -2274,9 +2092,6 @@ NBEdge::isNearEnough2BeJoined2(NBEdge *e)
     DoubleVector distances = myGeom.distances(e->getGeometry());
     if (distances.size()==0) {
         distances = e->getGeometry().distancesExt(myGeom);
-        /*        Position2D p1 = myGeom.center();
-                Position2D p2 = e->getGeometry().center();
-                SUMOReal dist = GeomHelper::distance(p1, p2);*/
     }
     SUMOReal max = DoubleVectorHelper::maxValue(distances);
     return max<7;
@@ -2525,14 +2340,6 @@ NBEdge::addAdditionalConnections()
                 mayAddLeft2 = true;
             }
             // add the connections if possible
-            /*
-            if(mayAddRight) {
-                addLane2LaneConnection(i-1, el.edge, el.lane-1, true);
-            }
-            if(mayAddRight2) {
-                addLane2LaneConnection(0, el.edge, el.lane-1, true);
-            }
-            */
             if (mayAddLeft) {
                 addLane2LaneConnection(i+1, el.edge, el.lane+1, false);
             }

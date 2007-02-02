@@ -58,9 +58,9 @@ using namespace std;
 // ===========================================================================
 NIVisumParser_Edges::NIVisumParser_Edges(NIVisumLoader &parent,
         NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-        const std::string &dataName)
+        const std::string &dataName, bool useVisumPrio)
         : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
+        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myUseVisumPrio(useVisumPrio)
 {}
 
 
@@ -115,7 +115,7 @@ NIVisumParser_Edges::myDependentReport()
             oneway_checked = false;
         }
         // add the edge
-        int prio = myTypeCont.getPriority(type);
+        int prio = myUseVisumPrio ? myTypeCont.getPriority(type) : -1;
         if (nolanes!=0) {
             insertEdge(id, from, to, type, speed, nolanes, length, prio, oneway_checked);
         }
