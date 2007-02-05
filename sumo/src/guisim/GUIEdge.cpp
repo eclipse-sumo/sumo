@@ -177,16 +177,37 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret, true);
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        buildShowParamsPopupEntry(ret, false);
+    }
+#endif
     return ret;
 }
 
 
 GUIParameterTableWindow *
-GUIEdge::getParameterWindow(GUIMainWindow &,
+GUIEdge::getParameterWindow(GUIMainWindow &app,
                             GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;
+#ifdef HAVE_MESOSIM
+    ret = new GUIParameterTableWindow(app, *this, 5);
+    // add items
+    ret->mkItem("length [m]", false, (SUMOReal) _laneGeoms[0]->getLength());
+    ret->mkItem("allowed speed [m/s]", false, (SUMOReal) getAllowedSpeed());
+    ret->mkItem("occupancy [%]", true,
+                new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));
+    ret->mkItem("mean vehicle speed [m/s]", true,
+                new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
+    ret->mkItem("flow [veh/h/lane]", true,
+                new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
+    ret->mkItem("#vehicles", true,
+                new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
+    // close building
+    ret->closeBuilding();
+#endif
     return ret;
 }
 
@@ -221,6 +242,119 @@ GUIEdge::getCenteringBoundary() const
     return b;
 }
 
+
+#ifdef HAVE_MESOSIM
+
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include <microsim/MSGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
+size_t
+GUIEdge::getVehicleNo() const
+{
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    assert(first!=0);
+    size_t vehNo = 0;
+    do {
+        vehNo += first->noCars();
+        first = first->getNextSegment();
+    } while (first!=0);
+    return vehNo;
+}
+
+
+SUMOReal
+GUIEdge::getFlow() const
+{
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    assert(first!=0);
+    SUMOReal flow = -1;
+    int no = 0;
+    do {
+        SUMOReal vehNo = (SUMOReal) first->noCars();
+        SUMOReal v = first->getMeanSpeed();
+        if (vehNo!=0) {
+            if (no==0) {
+                flow = (vehNo * (SUMOReal) 1000. / first->getLength()) * v / (SUMOReal) 3.6;
+            } else {
+                flow += (vehNo * (SUMOReal) 1000. / first->getLength()) * v / (SUMOReal) 3.6;
+            }
+            no++;
+        }
+        first = first->getNextSegment();
+    } while (first!=0);
+    if (flow>=0) {
+        return flow/(SUMOReal)myLanes->size();
+    }
+    return -1;
+}
+
+
+SUMOReal
+GUIEdge::getDensity() const
+{
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    assert(first!=0);
+    SUMOReal occ = 0;
+    int no = 0;
+    do {
+        occ += first->occupancy() / first->getLength() / (SUMOReal) nLanes();
+        no++;
+        first = first->getNextSegment();
+    } while (first!=0);
+    if (no!=0) {
+        return occ/(SUMOReal) no;
+    }
+    return -1;
+}
+
+
+SUMOReal
+GUIEdge::getRouteSpread() const
+{
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    assert(first!=0);
+    SUMOReal occ = 0;
+    int no = 0;
+    do {
+        occ += first->getRouteSpread();
+        no++;
+        first = first->getNextSegment();
+    } while (first!=0);
+    return occ/(SUMOReal) no;
+}
+
+
+SUMOReal
+GUIEdge::getMeanSpeed() const
+{
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    assert(first!=0);
+    SUMOReal v = 0;
+    int no = 0;
+    do {
+        v += first->getMeanSpeed();
+        no++;
+        first = first->getNextSegment();
+    } while (first!=0);
+    if (no!=0) {
+        return v/(SUMOReal) no;
+    }
+    return -1;
+}
+
+
+SUMOReal
+GUIEdge::getAllowedSpeed() const
+{
+    return (*myLanes)[0]->maxSpeed();
+}
+
+#endif
 
 
 /****************************************************************************/
