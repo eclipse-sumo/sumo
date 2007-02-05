@@ -1,6 +1,6 @@
 The subfolders contain additional libraries used by SUMO:
 
 - nvwa
- Used Version: 0.6
+ Used Version: 0.7
  Modifications: none, but see inclusion in src/utils/dev/
  Original Page: http://sourceforge.net/projects/nvwa
