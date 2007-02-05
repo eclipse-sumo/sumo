@@ -71,6 +71,9 @@ class GUISUMOViewParent : public GUIGlChildWindow
 public:
     enum ViewType {
         MICROSCOPIC_VIEW
+#ifdef HAVE_MESOSIM
+        ,EDGE_MESO_VIEW
+#endif
     };
 
     /// constructor
