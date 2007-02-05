@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    NIVisumParser_TrafficLights.h
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Fri, 09 May 2003
 /// @version $Id: $
 ///

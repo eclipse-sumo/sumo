@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    NIVisumTL.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Thr, 08 May 2003
 /// @version $Id: $
 ///

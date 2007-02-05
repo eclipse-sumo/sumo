@@ -83,7 +83,7 @@ NIVisumParser_Types::myDependentReport()
         SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
         int nolanes = myCap2Lanes.get(cap);
         // insert the type
-        NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority,
+        NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, priority,
                                   NBEdge::EDGEFUNCTION_NORMAL);
         if (!myTypeCont.insert(type)) {
             addError(" Duplicate type occured ('" + id + "').");
