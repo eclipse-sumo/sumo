@@ -1,0 +1,7 @@
+home_operating_system:posix
+batch_result_repository:/tmp/sumo_batch_result
+historical_report_location:/tmp/sumo_report
+batch_recipients:behrisch@informatik.hu-berlin.de,daniel.krajzewicz@dlr.de
+batch_sender:behrisch@informatik.hu-berlin.de
+smtp_server:mail
+batch_use_collection:true

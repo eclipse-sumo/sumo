@@ -1,5 +1,4 @@
 #!/bin/bash
-export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 MAKELOG=$HOME/DLR/sumomake.log
 RUNLOG=$HOME/DLR/sumologs.tar.gz
 MAKEALLLOG=$HOME/DLR/sumomakeall.log
@@ -12,17 +11,27 @@ make -f Makefile.cvs >> $MAKELOG 2>&1
 ./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
 --with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
 --with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
->> $MAKELOG 2>&1
+--prefix=$HOME/DLR >> $MAKELOG 2>&1
 make dist >> $MAKELOG 2>&1
 make >> $MAKELOG 2>&1
+make install >> $MAKELOG 2>&1
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz shell.sf.net:sumo-www/
 
-find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
-find data/examples/ -newer $MAKELOG.gz -type f > /tmp/sumo_examples 2> /dev/null
-tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
-scp -q $RUNLOG shell.sf.net:sumo-www/
+if test -e $HOME/DLR/bin/sumo; then
+  # run tests
+  export PATH=$HOME/DLR/texttest:$PATH
+  tests/testDaily.sh $HOME/DLR/bin &> /dev/null
+  scp -qr /tmp/sumo_report shell.sf.net:sumo-www/
 
+  # run examples
+  find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
+  find data/examples/ -newer $MAKELOG.gz -type f > /tmp/sumo_examples 2> /dev/null
+  tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
+  scp -q $RUNLOG shell.sf.net:sumo-www/
+fi
+
+export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 #--with-xmlrpc=$HOME/DLR/xmlrpc++0.7
 ./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
 --with-proj-gdal=$HOME/DLR --enable-double-precision \

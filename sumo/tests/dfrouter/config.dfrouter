@@ -1,5 +1,5 @@
+import_config_file:../config_all
 binary:$DFROUTER_BINARY
-home_operating_system:posix
 copy_test_path:input_net.net.xml
 copy_test_path:input_detectors.det.xml
 
