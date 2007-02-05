@@ -53,6 +53,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/geoconv/GeoConvHelper.h>
 
@@ -153,7 +154,9 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
     if (element==SUMO_TAG_LANE) {
         NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
         if (edge==0) {
-            addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+            if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
+                addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+            }
             return;
         }
         int lane = getIntSecure(attrs, "id", -1);
