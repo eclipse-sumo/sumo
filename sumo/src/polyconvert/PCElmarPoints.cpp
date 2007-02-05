@@ -42,6 +42,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
@@ -157,8 +158,12 @@ PCElmarPoints::load(OptionsCont &oc)
             color = c;
         }
         if (!discard) {
+            bool ignorePrunning = false;
+            if (OptionsSubSys::helper_CSVOptionMatches("prune.ignore", name)) {
+                ignorePrunning = true;
+            }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-            myCont.insert(name, poi, layer);
+            myCont.insert(name, poi, layer, ignorePrunning);
         }
         vec.clear();
     }

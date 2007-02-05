@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    PCVisum.cpp
-/// @author  unknown_author
+/// @author  Danilot Teta Boyom
 /// @date    Mon, 05 Dec 2005
 /// @version $Id: $
 ///
@@ -44,6 +44,7 @@
 #include <utils/options/Option.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisum.h"
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -85,19 +86,28 @@ PCVisum::load(OptionsCont &oc)
     std::string tab = "\t";
     int l = 0;
 
+    string lastID;
+    bool first = true;
     while (out.good()) {
         getline(out,buff);
 
         if (buff.find("$BEZIRKPOLY") != string::npos) {
 
-            while (buff.find("*") == string::npos) {
+            while (buff.find("*")==string::npos) {
                 l++;
                 getline(out,buff);
-                if (buff.find("*") == string::npos) {
+                if (buff.find("*")!=string::npos) {
                     continue;
                 }// in the order to not read the last line
 
                 id = buff.substr(0,buff.find(";"));
+                if (!first&&lastID!=id) {
+                    Polygon2D *poly = new Polygon2D(id, "bezirk", RGBColor(1, 0, 0), vec, false);
+                    vec.clear();
+                    myCont.insert(id, poly, 1);
+                }
+                lastID = id;
+                first = false;
                 rest = buff.substr(buff.find(";")+1, buff.length());
                 index = rest.substr(0,rest.find(";"));
                 rest = rest.substr(rest.find(";")+1, rest.length());
@@ -105,13 +115,8 @@ PCVisum::load(OptionsCont &oc)
                 rest = rest.substr(rest.find(";")+1, rest.length());
                 yKoord = rest.substr(0,rest.find(";"));
                 Position2D pos2D((SUMOReal) atof(xKoord.c_str()), (SUMOReal) atof(yKoord.c_str()));
+                GeoConvHelper::remap(pos2D);
                 vec.push_back(pos2D);
-                throw 1;
-                /*!!!
-                Polygon2D *poly = new Polygon2D(id, atoi(index.c_str()), vec);
-                vec.clear();
-                myCont.insert(id.append(index),poly);
-                */
             }
         }
     }

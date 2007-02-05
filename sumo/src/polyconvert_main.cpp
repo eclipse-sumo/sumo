@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    polyconvert_main.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
 /// @version $Id: $
 ///
@@ -40,6 +40,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
@@ -146,6 +147,12 @@ fillOptions(OptionsCont &oc)
 
     oc.doRegister("prune.boundary", new Option_String());
     oc.addDescription("prune.boundary", "Prunning", "Uses STR as prunning boundary");
+
+    oc.doRegister("prune.ignore", new Option_String());
+    oc.addDescription("prune.ignore", "Prunning", "Items in STR will be kept though out of boundary");
+
+    oc.doRegister("remove", new Option_String(""));
+    oc.addDescription("remove", "Prunning", "Items with names in STR will be removed");
 
 
     // building defaults options
@@ -346,7 +353,8 @@ main(int argc, char **argv)
             prune = true;
         }
 
-        PCPolyContainer toFill(prune, prunningBoundary);
+        StringTokenizer st(oc.getString("remove"), ";");
+        PCPolyContainer toFill(prune, prunningBoundary, st.getVector());
 
         // read in the type defaults
         PCTypeMap tm;

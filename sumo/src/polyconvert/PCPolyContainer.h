@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    PCPolyContainer.h
-/// @author  unknown_author
+/// @author  Daniel krajzewicz
 /// @date    Mon, 05 Dec 2005
 /// @version $Id: $
 ///
@@ -38,6 +38,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/geom/Boundary.h>
@@ -54,16 +55,19 @@ class PCPolyContainer
 {
 public:
     /// Constructor
-    PCPolyContainer(bool prune, const Boundary &prunningBoundary);
+    PCPolyContainer(bool prune, const Boundary &prunningBoundary,
+        const std::vector<std::string> &removeByNames);
 
     /// Destructor
     ~PCPolyContainer();
 
     /** adds a polygon */
-    bool insert(std::string key, Polygon2D *poly, int layer);
+    bool insert(std::string key, Polygon2D *poly, int layer,
+                bool ignorePrunning=false);
 
     /** adds a point of interest */
-    bool insert(std::string key, PointOfInterest *poi, int layer);
+    bool insert(std::string key, PointOfInterest *poi, int layer,
+                bool ignorePrunning=false);
 
     /** returns the number of contained polygons */
     size_t getNoPolygons();
@@ -113,6 +117,9 @@ public:
 
     /// Information whether the prunning boundary shall be used
     bool myDoPrunne;
+
+    /// List of names of polygons/pois that shall be removed
+    std::vector<std::string> myRemoveByNames;
 
 private:
     /** invalid copy constructor */

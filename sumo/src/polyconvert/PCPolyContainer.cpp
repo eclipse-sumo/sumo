@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    PCPolyContainer.cpp
-/// @author  unknown_author
+/// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
 /// @version $Id: $
 ///
@@ -59,8 +59,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCPolyContainer::PCPolyContainer(bool prune, const Boundary &prunningBoundary)
-        : myPrunningBoundary(prunningBoundary), myDoPrunne(prune)
+PCPolyContainer::PCPolyContainer(bool prune, 
+                                 const Boundary &prunningBoundary,
+                                 const std::vector<std::string> &removeByNames)
+        : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
+        myRemoveByNames(removeByNames)
 {}
 
 
@@ -71,15 +74,22 @@ PCPolyContainer::~PCPolyContainer()
 
 
 bool
-PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
+PCPolyContainer::insert(std::string key, Polygon2D *poly,
+                        int layer, bool ignorePrunning)
 {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne) {
+    if (myDoPrunne&&!ignorePrunning) {
         Boundary b = poly->getPosition2DVector().getBoxBoundary();
         if (!b.partialWithin(myPrunningBoundary)) {
+            delete poly;
             return true;
         }
+    }
+    // check whether the polygon was named to be a removed one
+    if(find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
+        delete poly;
+        return true;
     }
     //
     PolyCont::iterator i=myPolyCont.find(key);
@@ -93,14 +103,21 @@ PCPolyContainer::insert(std::string key, Polygon2D *poly, int layer)
 
 
 bool
-PCPolyContainer::insert(std::string key, PointOfInterest *poi, int layer)
+PCPolyContainer::insert(std::string key, PointOfInterest *poi,
+                        int layer, bool ignorePrunning)
 {
     // check whether the poi lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne) {
+    if (myDoPrunne&&!ignorePrunning) {
         if (!myPrunningBoundary.around(*poi)) {
+            delete poi;
             return true;
         }
+    }
+    // check whether the polygon was named to be a removed one
+    if(find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
+        delete poi;
+        return true;
     }
     //
     POICont::iterator i=myPOICont.find(key);
