@@ -2,7 +2,7 @@
 /// @file    XMLHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some utility functions for xml usage
 /****************************************************************************/
@@ -36,8 +36,8 @@
 #include <config.h>
 #endif
 
-#include <sax2/SAX2XMLReader.hpp>
-#include <sax2/DefaultHandler.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 
 
 // ===========================================================================

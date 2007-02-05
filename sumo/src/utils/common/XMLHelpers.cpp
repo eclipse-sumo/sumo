@@ -2,7 +2,7 @@
 /// @file    XMLHelpers.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some utility functions for xml usage
 /****************************************************************************/
@@ -35,8 +35,8 @@
 #endif
 
 #include <iostream>
-#include <sax2/XMLReaderFactory.hpp>
-#include <util/PlatformUtils.hpp>
+#include <xercesc/sax2/XMLReaderFactory.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>

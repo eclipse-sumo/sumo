@@ -2,7 +2,7 @@
 /// @file    NIXMLTypesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Used to parse the XML-descriptions of types given in a XML-format
 /****************************************************************************/
@@ -36,10 +36,10 @@
 
 #include <string>
 #include <iostream>
-#include <sax/HandlerBase.hpp>
-#include <sax/AttributeList.hpp>
-#include <sax/SAXParseException.hpp>
-#include <sax/SAXException.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include "NIXMLTypesHandler.h"
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>

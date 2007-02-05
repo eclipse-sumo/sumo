@@ -2,7 +2,7 @@
 /// @file    od2trips_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 12 September 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -39,8 +39,8 @@
 #include <math.h>
 #include <cstdlib>
 #include <string>
-#include <parsers/SAXParser.hpp>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>

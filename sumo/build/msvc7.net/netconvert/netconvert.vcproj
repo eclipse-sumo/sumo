@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -96,7 +96,7 @@ copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;$(XERCES)\include\xercesc;..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"

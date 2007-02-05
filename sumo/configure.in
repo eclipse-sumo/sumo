@@ -117,9 +117,7 @@ else
    fi
 fi
 XERCES_INCLUDES="$ac_xerces_includes"
-XERCES_INCLUDES_PRIOR_1_7="$ac_xerces_includes/xercesc"
 AC_SUBST(XERCES_INCLUDES)
-AC_SUBST(XERCES_INCLUDES_PRIOR_1_7)
 
 
 

@@ -2,7 +2,7 @@
 /// @file    jtrrouter_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // }
 /****************************************************************************/
@@ -34,8 +34,8 @@
 #include <config.h>
 #endif
 
-#include <sax/SAXException.hpp>
-#include <sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
 #include <iostream>
 #include <string>

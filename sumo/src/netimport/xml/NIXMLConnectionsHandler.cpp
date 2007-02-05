@@ -2,7 +2,7 @@
 /// @file    NIXMLConnectionsHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17 Oct 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Used to parse the XML-descriptions of connections between
 /****************************************************************************/
@@ -36,10 +36,10 @@
 
 #include <string>
 #include <iostream>
-#include <sax/HandlerBase.hpp>
-#include <sax/AttributeList.hpp>
-#include <sax/SAXParseException.hpp>
-#include <sax/SAXException.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>

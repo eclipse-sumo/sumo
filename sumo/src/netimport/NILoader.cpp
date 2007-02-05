@@ -2,7 +2,7 @@
 /// @file    NILoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // An interface to the loading operations of the
 /****************************************************************************/
@@ -35,10 +35,10 @@
 #endif
 
 #include <string>
-#include <parsers/SAXParser.hpp>
-#include <util/PlatformUtils.hpp>
-#include <util/TransService.hpp>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <proj_api.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>

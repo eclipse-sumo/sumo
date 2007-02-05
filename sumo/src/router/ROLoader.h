@@ -2,7 +2,7 @@
 /// @file    ROLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Loader for networks and route imports
 /****************************************************************************/
@@ -38,7 +38,7 @@
 
 #include <string>
 #include "RORouteDefList.h"
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
 #include "ROAbstractRouter.h"
 

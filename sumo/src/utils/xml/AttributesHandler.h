@@ -2,7 +2,7 @@
 /// @file    AttributesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 15 Apr 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // This class realises the access to the
 /****************************************************************************/
@@ -36,7 +36,7 @@
 #include <config.h>
 #endif
 
-#include <sax2/Attributes.hpp>
+#include <xercesc/sax2/Attributes.hpp>
 #include <string>
 #include <map>
 

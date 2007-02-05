@@ -30,7 +30,7 @@ GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
--I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)
+-I$(XERCES_INCLUDES)
 
 SUBDIRS = guilogging
 

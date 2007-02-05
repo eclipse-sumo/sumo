@@ -2,7 +2,7 @@
 /// @file    OptionsIO.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Loads the configuration file using "OptionsLoader"
 /****************************************************************************/
@@ -36,12 +36,12 @@
 
 #include <string>
 #include <iostream>
-#include <parsers/SAXParser.hpp>
-#include <sax/HandlerBase.hpp>
-#include <sax/AttributeList.hpp>
-#include <util/PlatformUtils.hpp>
-#include <sax/SAXParseException.hpp>
-#include <sax/SAXException.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include <cstdlib>
 #include "OptionsIO.h"
 #include "OptionsCont.h"

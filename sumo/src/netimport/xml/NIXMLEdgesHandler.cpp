@@ -2,7 +2,7 @@
 /// @file    NIXMLEdgesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Realises the loading of the edges given in a
 /****************************************************************************/
@@ -37,10 +37,10 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <sax/HandlerBase.hpp>
-#include <sax/AttributeList.hpp>
-#include <sax/SAXParseException.hpp>
-#include <sax/SAXException.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include "NIXMLEdgesHandler.h"
 #include <cmath>
 #include <utils/sumoxml/SUMOSAXHandler.h>

@@ -2,7 +2,7 @@
 /// @file    XMLSubSys.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 1 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Utility for initialisation and closing of the XML-subsystem
 /****************************************************************************/
@@ -35,7 +35,7 @@
 #endif
 
 #include <iostream>
-#include <util/PlatformUtils.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/TplConvert.h>
 #include "XMLSubSys.h"
 

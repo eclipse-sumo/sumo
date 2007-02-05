@@ -2,7 +2,7 @@
 /// @file    GUIHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The XML-Handler for building networks within the gui-version derived
 /****************************************************************************/
@@ -36,10 +36,10 @@
 
 #include <string>
 #include <iostream>
-#include <sax/HandlerBase.hpp>
-#include <sax/AttributeList.hpp>
-#include <sax/SAXParseException.hpp>
-#include <sax/SAXException.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include <netload/NLHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>

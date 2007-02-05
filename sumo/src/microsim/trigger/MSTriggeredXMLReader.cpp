@@ -2,7 +2,7 @@
 /// @file    MSTriggeredXMLReader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The basic class for classes that read XML-triggers
 /****************************************************************************/
@@ -35,8 +35,8 @@
 
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <sax/SAXException.hpp>
-#include <sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>

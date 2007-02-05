@@ -2,7 +2,7 @@
 /// @file    NLDiscreteEventBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Sep, 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/
@@ -36,7 +36,7 @@
 #include <config.h>
 #endif
 
-#include <sax2/Attributes.hpp>
+#include <xercesc/sax2/Attributes.hpp>
 #include <string>
 #include <map>
 #include <utils/xml/AttributesHandler.h>

@@ -2,7 +2,7 @@
 /// @file    NLHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The XML-Handler for network loading (parses the elements)
 /****************************************************************************/
@@ -36,9 +36,9 @@
 #include <config.h>
 #endif
 
-#include <sax/HandlerBase.hpp>
-#include <sax/SAXException.hpp>
-#include <sax/AttributeList.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/AttributeList.hpp>
 #include "NLBuilder.h"
 #include "NLDiscreteEventBuilder.h"
 #include "NLSucceedingLaneBuilder.h"

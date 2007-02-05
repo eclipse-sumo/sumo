@@ -10,4 +10,4 @@ GUIHandler.cpp GUIHandler.h \
 GUITriggerBuilder.cpp GUITriggerBuilder.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src  -I$(FOX_INCLUDES) \
--I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)
+-I$(XERCES_INCLUDES)

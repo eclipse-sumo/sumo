@@ -2,7 +2,7 @@
 /// @file    ROTypedXMLRoutesLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The basic class for loading routes from XML-files
 /****************************************************************************/
@@ -36,10 +36,10 @@
 #endif
 
 #include <string>
-#include <parsers/SAXParser.hpp>
-#include <util/PlatformUtils.hpp>
-#include <util/TransService.hpp>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>

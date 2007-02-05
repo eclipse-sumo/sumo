@@ -2,7 +2,7 @@
 /// @file    GenericSAX2Handler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 15 Apr 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class extending the SAX-parser functionality
 /****************************************************************************/
@@ -37,8 +37,8 @@
 #include <string>
 #include <stack>
 #include <map>
-#include <sax2/Attributes.hpp>
-#include <sax2/DefaultHandler.hpp>
+#include <xercesc/sax2/Attributes.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 #include <utils/common/TplConvert.h>
 #include "GenericSAX2Handler.h"
 

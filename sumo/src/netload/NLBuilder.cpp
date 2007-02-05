@@ -2,7 +2,7 @@
 /// @file    NLBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Container for MSNet during its building
 /****************************************************************************/
@@ -40,8 +40,8 @@
 #include <microsim/MSGlobals.h>
 #include <iostream>
 #include <vector>
-#include <parsers/SAXParser.hpp>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <string>
 #include <map>
 #include "NLHandler.h"

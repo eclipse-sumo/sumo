@@ -2,7 +2,7 @@
 /// @file    NILoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // An interface to the loading operations of the
 /****************************************************************************/
@@ -38,7 +38,7 @@
 
 #include <string>
 #include <netbuild/NLLoadFilter.h>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 
 
 // ===========================================================================

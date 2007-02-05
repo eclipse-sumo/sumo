@@ -2,7 +2,7 @@
 /// @file    NLBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Container for MSNet during its building
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <parsers/SAXParser.hpp>
-#include <framework/XMLFormatter.hpp>
-#include <sax2/DefaultHandler.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/framework/XMLFormatter.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"

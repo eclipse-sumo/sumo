@@ -2,7 +2,7 @@
 /// @file    GenericSAX2Handler.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 15 Apr 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class extending the SAX-parser functionality
 /****************************************************************************/
@@ -41,8 +41,8 @@
 #include <map>
 #include <sstream>
 #include <vector>
-#include <sax2/Attributes.hpp>
-#include <sax2/DefaultHandler.hpp>
+#include <xercesc/sax2/Attributes.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 
 
 // ===========================================================================

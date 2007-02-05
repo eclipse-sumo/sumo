@@ -2,7 +2,7 @@
 /// @file    ROTypedXMLRoutesLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The basic class for loading routes from XML-files
 /****************************************************************************/
@@ -37,8 +37,8 @@
 #endif
 
 #include <string>
-#include <sax2/SAX2XMLReader.hpp>
-#include <framework/XMLPScanToken.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <xercesc/framework/XMLPScanToken.hpp>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include "ROAbstractRouteDefLoader.h"
 

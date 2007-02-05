@@ -2,7 +2,7 @@
 /// @file    ROLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Loader for networks and route imports
 /****************************************************************************/
@@ -38,10 +38,10 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
-#include <parsers/SAXParser.hpp>
-#include <util/PlatformUtils.hpp>
-#include <util/TransService.hpp>
-#include <sax2/SAX2XMLReader.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
