@@ -2,7 +2,9 @@ import_config_file:../config_all
 binary:$OD2TRIPS_BINARY
 copy_test_path:input_net.net.xml
 
-
 [collate_file]
 config:config.cfg
+
+[run_dependent_text]
+output:od2trips.exe{REPLACE sumo-od2trips}
 

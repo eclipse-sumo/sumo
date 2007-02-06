@@ -12,4 +12,6 @@ plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 config:config.cfg
 
+[run_dependent_text]
+output:netconvert.exe{REPLACE sumo-netconvert}
 

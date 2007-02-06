@@ -11,3 +11,6 @@ pois:detectors.poi.xml
 emitters:emitters.add.xml
 config:config.cfg
 
+[run_dependent_text]
+output:dfrouter.exe{REPLACE sumo-dfrouter}
+
