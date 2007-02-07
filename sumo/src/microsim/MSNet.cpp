@@ -428,10 +428,12 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
         myOutputStreams[OS_VEH_IN_RANGE]->getOStream() << "</vehicleInRanges>" << endl;
     }
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
-        cout << "Performance: " << endl
-        << " Duration: " << mySimDuration << "ms" << endl
-        << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
-        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
+        ostringstream msg;
+        msg << "Performance: " << endl
+            << " Duration: " << mySimDuration << "ms" << endl
+            << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
+            << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
+        WRITE_MESSAGE(msg.str());
     }
 }
 
