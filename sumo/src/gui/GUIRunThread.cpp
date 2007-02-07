@@ -236,10 +236,8 @@ GUIRunThread::makeStep()
 void
 GUIRunThread::resume()
 {
-    if (_step<_simEndTime) {
-        _single = false;
-        _halting = false;
-    }
+    _single = false;
+    _halting = false;
 }
 
 
@@ -258,8 +256,6 @@ GUIRunThread::begin()
     try {
 #endif
         _step = _simStartTime;
-        _single = false;
-        _halting = false;
         _ok = true;
 #ifndef _DEBUG
     } catch (...) {
@@ -374,7 +370,7 @@ GUIRunThread::retrieveError(const std::string &msg)
 bool
 GUIRunThread::simulationIsStartable() const
 {
-    return _net!=0&&(_halting||_single);
+    return _net!=0&&_halting;
 }
 
 
@@ -388,7 +384,7 @@ GUIRunThread::simulationIsStopable() const
 bool
 GUIRunThread::simulationIsStepable() const
 {
-    return _net!=0&&(_halting||_single);
+    return _net!=0&&_halting;
 }
 
 

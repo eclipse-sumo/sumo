@@ -691,14 +691,12 @@ GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*)
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return 1;
     }
-    // check whether it was started before and pasued;
-    //  when yes, prompt the user for acknowledge
-    if (_wasStarted) {
-        myRunThread->resume();
-        return 1;
+    // check whether it was started before and paused;
+    if (!_wasStarted) {
+        myRunThread->begin();
+        _wasStarted = true;
     }
-    _wasStarted = true;
-    myRunThread->begin();
+    myRunThread->resume();
     return 1;
 }
 
@@ -714,6 +712,16 @@ GUIApplicationWindow::onCmdStop(FXObject*,FXSelector,void*)
 long
 GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
 {
+    // check whether a net was loaded successfully
+    if (!myRunThread->simulationAvailable()) {
+        myStatusbar->getStatusLine()->setText("No simulation loaded!");
+        return 1;
+    }
+    // check whether it was started before and paused;
+    if (!_wasStarted) {
+        myRunThread->begin();
+        _wasStarted = true;
+    }
     myRunThread->singleStep();
     return 1;
 }
