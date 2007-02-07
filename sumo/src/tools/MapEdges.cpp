@@ -21,7 +21,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: MapEdges.cpp,v $
 // Revision 1.5  2006/10/31 12:24:13  dkrajzew
 // some tools added
 //
@@ -40,13 +40,11 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "MapEdges.h"
 #include <iostream>

@@ -19,7 +19,7 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-// $Log$
+// $Log: MapEdges.h,v $
 // Revision 1.5  2006/10/31 12:24:13  dkrajzew
 // some tools added
 //
@@ -44,13 +44,11 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <iostream>
 #include <fstream>

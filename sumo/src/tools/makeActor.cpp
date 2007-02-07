@@ -558,6 +558,9 @@ int main(int ac, char * av[]){
         string yS = getXML(bline, "y=");
         float x = atof(xS.c_str());
         float y = atof(yS.c_str());
+        if(point_id=="17579") {
+            int bla = 0;
+        }
         poses[point_id] = Position2D(x, y);
     }
 
@@ -567,6 +570,10 @@ int main(int ac, char * av[]){
 	for(ittol=mtol.begin(); ittol!=mtol.end(); ittol++){
 
         if(!hasAny(ittol->second.edges)) {
+            if(poses.find(ittol->second.bpoint)!=poses.end() || poses.find(ittol->second.epoint)!=poses.end()) {
+                cout << "At least one point lies within area, but no edge exists (" << ittol->second.bpoint << "/" << ittol->second.epoint << ")" << endl;
+                logF << "At least one point lies within area, but no edge exists (" << ittol->second.bpoint << "/" << ittol->second.epoint << ")" << endl;
+            }
             continue;
         }
         vector<string> nEdges = buildDirectedEdges(ittol->second.edges);
@@ -602,54 +609,12 @@ int main(int ac, char * av[]){
         string beginPoint = ittol->second.bpoint;
         string endPoint = ittol->second.epoint;
 
-        /*
-        bool keepDir = true;
-        if(beginEdge1==endEdge1) {
-            // case1: there is only one edge in the list;
-            // if there is an opposite edge, check which one to use
-            if(medge.find("-" + beginEdge1)!=medge.end()) {
-                Position2D begPointPos = poses[beginPoint];
-                Position2D endPointPos = poses[endPoint];
-                Position2D edgeBeginPos = edgeBegins[beginEdge1];
-                Position2D edgeEndPos = edgeEnds[beginEdge1];
-                bool begM = GeomHelper::distance(begPointPos, edgeBeginPos)>GeomHelper::distance(begPointPos, edgeEndPos);
-                bool endM = GeomHelper::distance(endPointPos, edgeBeginPos)<GeomHelper::distance(endPointPos, edgeEndPos);
-                if(begM||endM) {
-                    if(!begM||!endM) {
-                        cout << "Ups - One point is assumed to be mirrored, the other not!?" << endl;
-                        logF << "Ups - One point is assumed to be mirrored, the other not!?" << endl;
-                    }
-                    beginEdge1 = "-" + beginEdge1;
-                    endEdge1 = "-" + endEdge1;
-                    keepDir = false;
-                }
-            }
-        } else {
-            // case2: the sa contains more than one edge
-            // check whether a connection between the not-mirrored edges exists
-            bool connected = haveConnection(begIt, *endIt);
-            bool iconnected = inverseHaveConnection(begIt, *endIt);
-            //cout << connected << " " << iconnected << endl;
-            if(connected&&iconnected) {
-                cout << "Ups - both connections exist, normal and inversed!?" << endl;
-                logF << "Ups - both connections exist, normal and inversed!?" << endl;
-            }
-            if(!connected&&iconnected) {
-                // inverse connection exists, forward not -> flip
-                beginEdge1 = "-" + beginEdge1;
-                endEdge1 = "-" + endEdge1;
-                keepDir = false;
-            }
+
+        if(beginPoint=="17579") {
+            int bla = 0;
         }
-        */
 
         vector<string>::iterator it;
-        /*
-        for(it=ittol->second.edges.begin(); it!=ittol->second.edges.end(); ++it) {
-            cout << *it << " ";
-        }
-        cout << endl;
-        */
         std::map<string, Position2DVector> shapes;
         for(it=nEdges.begin(); it!=nEdges.end(); ++it) {
             string edge = *it;
@@ -668,16 +633,27 @@ int main(int ac, char * av[]){
 
         Position2D begPointPos = poses[beginPoint];
         Position2D endPointPos = poses[endPoint];
+
+        if(beginPoint=="13854") {
+            int bla = 0;
+        }
+        if(beginPoint=="17579") {
+            int bla = 0;
+        }
+
+
         string beginEdge2 = findNearest(shapes, begPointPos);
         string endEdge2 = findNearest(shapes, endPointPos);
 
         if(beginEdge2=="") {
             cout << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
             logF << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            beginEdge2 = *nEdges.begin();
         }
         if(endEdge2=="") {
             cout << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
             logF << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            endEdge2 = *(nEdges.end()-1);
         }
         // !!! beinhaltet noch keine off/on-ramps
 

@@ -22,7 +22,7 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-// $Log$
+// $Log: findIncludingRoutes.cpp,v $
 // Revision 1.2  2005/10/07 11:42:59  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -37,13 +37,11 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "IncludedRoutes.h"
 #include <iostream>

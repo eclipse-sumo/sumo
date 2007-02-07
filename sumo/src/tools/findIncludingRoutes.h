@@ -19,7 +19,7 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-// $Log$
+// $Log: findIncludingRoutes.h,v $
 // Revision 1.2  2005/10/07 11:42:59  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
