@@ -38,7 +38,7 @@
       <max-alternatives>5</max-alternatives>
 
       <!-- Emit FLOAT random vehicles per second -->
-      <random-per-second>0</random-per-second>
+      <random-per-second></random-per-second>
 
       <!--  -->
       <prune-random>false</prune-random>

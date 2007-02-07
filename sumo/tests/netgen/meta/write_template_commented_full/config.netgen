@@ -164,10 +164,10 @@
       <keep-small-tyellow>false</keep-small-tyellow>
 
       <!-- Use INT as green phase duration -->
-      <traffic-light-green>0</traffic-light-green>
+      <traffic-light-green></traffic-light-green>
 
       <!-- Set INT as fixed time for yellow phase durations -->
-      <traffic-light-yellow>0</traffic-light-yellow>
+      <traffic-light-yellow></traffic-light-yellow>
 
       <!-- TLSs in STR will be shifted by half-phase -->
       <tl-logics.half-offset></tl-logics.half-offset>
@@ -203,7 +203,7 @@
 
    <edge_removal>
       <!-- Remove edges with speed < FLOAT -->
-      <edges-min-speed>0</edges-min-speed>
+      <edges-min-speed></edges-min-speed>
 
       <!-- Remove edges in STR -->
       <remove-edges></remove-edges>

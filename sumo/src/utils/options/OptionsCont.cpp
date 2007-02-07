@@ -607,10 +607,17 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
             if (!hadOne) {
                 os << "   <" << subtopic << ">" << endl;
             }
+            // add the comment if wished
             if (addComments) {
                 os << "      <!-- " << o->getDescription() << " -->" << endl;
             }
-            os << "      <" << *j << ">" << o->getValue() << "</" << *j << ">" << endl;
+            // write the option and the value (if given)
+            os << "      <" << *j << ">";
+            if(o->isSet()) {
+                os << o->getValue();
+            }
+            os << "</" << *j << ">" << endl;
+            // append an endline if a comment was printed
             if (addComments) {
                 os << endl;
             }

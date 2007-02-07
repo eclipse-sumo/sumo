@@ -17,7 +17,7 @@
       <randomize-flows>false</randomize-flows>
       <move-on-short>false</move-on-short>
       <max-alternatives>5</max-alternatives>
-      <random-per-second>0</random-per-second>
+      <random-per-second></random-per-second>
       <prune-random>false</prune-random>
       <remove-loops>false</remove-loops>
       <max-edges-factor>2</max-edges-factor>
