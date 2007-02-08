@@ -45,6 +45,7 @@ AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--enable-double-precision],[U
               [AC_DEFINE([SUMOReal], [double], [defines the precision of floats])],
 	      [AC_DEFINE([SUMOReal], [float], [defines the precision of floats])])
 
+AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 
 
 

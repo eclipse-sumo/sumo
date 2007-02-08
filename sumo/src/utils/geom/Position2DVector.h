@@ -2,7 +2,7 @@
 /// @file    Position2DVector.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A list of 2D-positions
 /****************************************************************************/
@@ -252,8 +252,8 @@ public:
     bool assertNonEqual() const;
 #endif
 
-    void push_back_noDoublePos(const Position2D &p, float eps=.1);
-    void push_front_noDoublePos(const Position2D &p, float eps=.1);
+    void push_back_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
+    void push_front_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
 
     void replaceAt(size_t index, const Position2D &by);
 

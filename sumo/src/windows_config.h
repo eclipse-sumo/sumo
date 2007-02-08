@@ -25,6 +25,9 @@
 /* defines the precision of floats */
 #define SUMOReal float
 
+/* defines the epsilon to use on position comparison */
+#define POSITION_EPS 0.1
+
 /* Version number of package */
 #define VERSION "0.9.6"
 

@@ -2,7 +2,7 @@
 /// @file    NBNodeCont.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // }
 /****************************************************************************/
@@ -53,6 +53,7 @@
 #include <netbuild/NBJoinedEdgesMap.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <iomanip>
+#include <cmath>
 
 #include "NBNodeCont.h"
 
@@ -105,8 +106,8 @@ NBNodeCont::insert(const string &id, const Position2D &position)
 {
     NodeCont::iterator i = _nodes.find(id);
     if (i!=_nodes.end()) {
-        if (fabs((*i).second->getPosition().x()-position.x())<0.1 &&
-                fabs((*i).second->getPosition().y()-position.y())<0.1) {
+        if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
+                fabs((*i).second->getPosition().y()-position.y())<POSITION_EPS) {
             return true;
         }
         return false;
@@ -168,9 +169,9 @@ NBNodeCont::retrieve(const Position2D &position)
 {
     for (NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         NBNode *node = (*i).second;
-        if (fabs(node->getPosition().x()-position.x())<0.1
+        if (fabs(node->getPosition().x()-position.x())<POSITION_EPS
                 &&
-                fabs(node->getPosition().y()-position.y())<0.1) {
+                fabs(node->getPosition().y()-position.y())<POSITION_EPS) {
 
             return node;
         }
@@ -195,17 +196,17 @@ NBNodeCont::erase(NBNode *node)
 bool
 NBNodeCont::normaliseNodePositions()
 {
-    // compute the boundary
-    Boundary boundary;
     NodeCont::iterator i;
     // reformat
-    SUMOReal xmin = myConvBoundary.xmin() * -1;
-    SUMOReal ymin = myConvBoundary.ymin() * -1;
-    for (i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->resetby(xmin, ymin);
+    const SUMOReal xmin = -myConvBoundary.xmin();
+    const SUMOReal ymin = -myConvBoundary.ymin();
+    if (fabs(xmin) > POSITION_EPS || fabs(ymin) > POSITION_EPS) {
+        for (i=_nodes.begin(); i!=_nodes.end(); i++) {
+            (*i).second->resetby(xmin, ymin);
+        }
+        myNetworkOffset = Position2D(xmin, ymin);
+        myConvBoundary.moveby(xmin, ymin);
     }
-    myNetworkOffset = Position2D(xmin, ymin);
-    myConvBoundary.moveby(xmin, ymin);
     return true;
 }
 

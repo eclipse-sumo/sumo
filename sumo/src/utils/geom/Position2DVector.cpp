@@ -2,7 +2,7 @@
 /// @file    Position2DVector.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A list of 2D-positions
 /****************************************************************************/
@@ -1195,7 +1195,7 @@ Position2DVector::assertNonEqual() const
 
 
 void
-Position2DVector::push_back_noDoublePos(const Position2D &p, float eps)
+Position2DVector::push_back_noDoublePos(const Position2D &p, SUMOReal eps)
 {
     if (size()==0) {
         myCont.push_back(p);
@@ -1209,7 +1209,7 @@ Position2DVector::push_back_noDoublePos(const Position2D &p, float eps)
 
 
 void
-Position2DVector::push_front_noDoublePos(const Position2D &p, float eps)
+Position2DVector::push_front_noDoublePos(const Position2D &p, SUMOReal eps)
 {
     if (size()==0) {
         myCont.push_front(p);
