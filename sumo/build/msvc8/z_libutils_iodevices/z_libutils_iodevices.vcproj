@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(DREEL)\INCLUDE&quot;;..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB;__WIN32__"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WIN32__"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -119,7 +119,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="&quot;$(DREEL)\INCLUDE&quot;;..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB;__WIN32__"
+				PreprocessorDefinitions="WIN32;_LIB;__WIN32__"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool

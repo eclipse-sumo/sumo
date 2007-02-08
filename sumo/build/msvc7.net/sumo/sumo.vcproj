@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE;ABS_DEBUG"
+				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;ABS_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -96,7 +96,7 @@ copy Debug\sumo.exe ..\..\..\bin\sumoD.exe
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -138,7 +138,7 @@ copy Release\sumo.exe ..\..\..\bin\sumo.exe
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>

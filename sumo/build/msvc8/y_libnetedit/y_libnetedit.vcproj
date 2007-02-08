@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\src,$(FOX14)\include,$(XERCES)\include"
-				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_LIB;FOXDLL"
+				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FOXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
@@ -118,7 +118,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\src,$(FOX14)\include,$(XERCES)\include"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_LIB;FOXDLL"
+				PreprocessorDefinitions="WIN32;_LIB;FOXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
