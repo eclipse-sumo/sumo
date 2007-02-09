@@ -2,8 +2,9 @@
 /// @file    MSUnit.h
 /// @author  Christian Roessel
 /// @date    2003-09-11
-/// @version $Id$
+/// @version $Id: $
 ///
+// 
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
