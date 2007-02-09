@@ -60,7 +60,7 @@
 #include <utils/foxtools/MFXImageHelper.h>
 
 #ifdef HAVE_MESOSIM
-#include "GUIViewMesoEdges.h"
+#include <mesogui/GUIViewMesoEdges.h>
 #endif
 
 #ifdef _DEBUG
