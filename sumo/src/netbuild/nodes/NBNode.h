@@ -135,7 +135,7 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
     static int _noDistricts;
 
     /** a counter for the no-junctions build */
-    static int _noNoJunctions;
+    static int _noUnregulatedJunctions;
 
     /** a counter for priority-junctions build */
     static int _noPriorityJunctions;

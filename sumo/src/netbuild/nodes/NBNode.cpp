@@ -91,7 +91,7 @@ using namespace std;
 // static variable definitions
 // ===========================================================================
 int NBNode::_noDistricts = 0;
-int NBNode::_noNoJunctions = 0;
+int NBNode::_noUnregulatedJunctions = 0;
 int NBNode::_noPriorityJunctions = 0;
 int NBNode::_noRightBeforeLeftJunctions = 0;
 
@@ -1238,7 +1238,7 @@ NBNode::setType(BasicNodeType type)
 {
     switch (type) {
     case NODETYPE_NOJUNCTION:
-        _noNoJunctions++;
+        _noUnregulatedJunctions++;
         break;
     case NODETYPE_PRIORITY_JUNCTION:
     case NODETYPE_TRAFFIC_LIGHT:
@@ -1267,7 +1267,7 @@ NBNode::getType() const
 void
 NBNode::reportBuild()
 {
-    WRITE_MESSAGE("No Junctions (converted)    : " + toString<int>(_noNoJunctions));
+    WRITE_MESSAGE("Unregulated Junctions       : " + toString<int>(_noUnregulatedJunctions));
     WRITE_MESSAGE("Priority Junctions          : " + toString<int>(_noPriorityJunctions));
     WRITE_MESSAGE("Right Before Left Junctions : " + toString<int>(_noRightBeforeLeftJunctions));
 }
@@ -1303,9 +1303,6 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
     }
 #endif
     NBNode::BasicNodeType type = computeType(tc);
-    if (type!=NODETYPE_TRAFFIC_LIGHT&&type!=NODETYPE_NOJUNCTION&&type!=NODETYPE_PRIORITY_JUNCTION&&type!=NODETYPE_RIGHT_BEFORE_LEFT&&type!=NODETYPE_DISTRICT) {
-        throw 1;
-    }
     // write if wished
     if (strm!=0) {
         string col;
