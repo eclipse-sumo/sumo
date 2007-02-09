@@ -2,7 +2,7 @@
 /// @file    GUIVehicle.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: $
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -186,7 +186,8 @@ protected:
     /// Use this constructor only.
     GUIVehicle(GUIGlObjectStorage &idStorage,
                std::string id, MSRoute* route, SUMOTime departTime,
-               const MSVehicleType* type, int repNo, int repOffset);
+               const MSVehicleType* type, int repNo, int repOffset,
+               int vehicleIndex);
 
 private:
     /// random color #1 (build from name)

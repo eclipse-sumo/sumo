@@ -2,7 +2,7 @@
 /// @file    SUMOFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: $
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/
@@ -209,6 +209,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("device.c2x.knownveh", new Option_String());//!!! describe
     oc.addDescription("device.c2x.knownveh", "C2C", "Assign a device to named vehicles");
+
+    oc.doRegister("device.c2x.deterministic", new Option_Bool(false)); //!!! describe
+    oc.addDescription("device.c2x.deterministic", "C2C", "The devices are set deterministoc using a fraction of 1000");
 
     oc.doRegister("device.c2x.range", new Option_Float(100.));//!!! describe
     oc.addDescription("device.c2x.range", "C2C", "The range of the c2c device");

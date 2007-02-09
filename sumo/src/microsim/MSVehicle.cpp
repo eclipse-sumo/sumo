@@ -202,7 +202,8 @@ MSVehicle::MSVehicle(string id,
                      MSRoute* route,
                      SUMOTime departTime,
                      const MSVehicleType* type,
-                     int repNo, int repOffset) :
+                     int repNo, int repOffset,
+                     int vehicleIndex) :
 #ifdef HAVE_MESOSIM
         MEVehicle(this, 0, 0),
 #endif
@@ -242,12 +243,12 @@ MSVehicle::MSVehicle(string id,
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init cell phones
-    initDevices();
+    initDevices(vehicleIndex);
 }
 
 
 void
-MSVehicle::initDevices()
+MSVehicle::initDevices(int vehicleIndex)
 {
     OptionsCont &oc = OptionsSubSys::getOptions();
     // cell phones
@@ -268,7 +269,12 @@ MSVehicle::initDevices()
     }
     // c2c communication
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
-        bool t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.c2x.probability");
+        bool t1 = false;
+        if(!oc.getBool("device.c2x.deterministic")) {
+            t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.c2x.probability");
+        } else {
+            t1 = !((vehicleIndex%1000)>=(int) (oc.getFloat("device.c2x.probability")*1000.));
+        }
         bool t2 = oc.isSet("device.c2x.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.c2x.knownveh", myID);
         if (t1||t2) {
             equipped = true;

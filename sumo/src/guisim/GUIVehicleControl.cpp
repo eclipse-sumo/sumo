@@ -65,8 +65,9 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                 int repNo, int repOffset)
 {
     myLoadedVehNo++;
+    route->incReferenceCnt();
     return new GUIVehicle(
-               gIDStorage, id, route, departTime, type, repNo, repOffset);
+               gIDStorage, id, route, departTime, type, repNo, repOffset, myLoadedVehNo-1);
 }
 
 

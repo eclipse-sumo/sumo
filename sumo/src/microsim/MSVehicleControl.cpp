@@ -2,7 +2,7 @@
 /// @file    MSVehicleControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id$
+/// @version $Id: $
 ///
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
@@ -89,7 +89,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
 {
     myLoadedVehNo++;
     route->incReferenceCnt();
-    return new MSVehicle(id, route, departTime, type, repNo, repOffset);
+    return new MSVehicle(id, route, departTime, type, repNo, repOffset, myLoadedVehNo-1);
 }
 
 

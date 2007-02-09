@@ -589,9 +589,9 @@ protected:
     /// Use this constructor only.
     MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
               const MSVehicleType* type,
-              int repNo, int repOffset);
+              int repNo, int repOffset, int vehicleIndex);
 
-    void initDevices();
+    void initDevices(int vehicleIndex);
 
     /// information how long ago the vehicle has performed a lane-change
     SUMOTime myLastLaneChangeOffset;

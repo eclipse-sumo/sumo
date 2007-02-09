@@ -2,7 +2,7 @@
 /// @file    GUIVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: $
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -153,8 +153,8 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
                        SUMOTime departTime,
                        const MSVehicleType* type,
-                       int repNo, int repOffset)
-        : MSVehicle(id, route, departTime, type, repNo, repOffset),
+                       int repNo, int repOffset, int vehicleIndex)
+        : MSVehicle(id, route, departTime, type, repNo, repOffset, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+id)
 {
     // compute both random colors
