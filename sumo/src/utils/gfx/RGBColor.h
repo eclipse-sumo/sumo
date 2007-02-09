@@ -2,7 +2,7 @@
 /// @file    RGBColor.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/
@@ -55,6 +55,9 @@ public:
 
     /// Parametrised constructor
     RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue);
+
+    /// Copy constructor
+    RGBColor(const RGBColor &col);
 
     /// Destructor
     ~RGBColor();

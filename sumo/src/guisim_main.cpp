@@ -2,7 +2,7 @@
 /// @file    guisim_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Revision 1.23  2007/01/10 08:33:04  dkrajzew
 /****************************************************************************/
@@ -147,16 +147,16 @@ initVehicleColoringSchemes()
     // ... and some not always used values
     sm.add("by reroute number",
            new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-               (SUMOReal(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
+               (int(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
                true, 1, 10,
                RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
                MSCORN::CORN_VEH_NUMBERROUTE));
     /*
     sm.add("by time since last reroute",
         new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
             true, 1, 10,
             RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
             MSCORN::CORN_VEH_NUMBERROUTE));
@@ -164,16 +164,16 @@ initVehicleColoringSchemes()
     // using TOL-extensions
     sm.add("TOL: by device number",
            new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-               (SUMOReal(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
+               (int(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
                true, 1, 10,
                RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
                MSCORN::CORN_VEH_DEV_NO_CPHONE));
     /*
     sm.add("by device state",
         new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
             true, 1, 10,
             RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
             MSCORN::CORN_VEH_DEV_NO_CPHONE));

@@ -2,7 +2,7 @@
 /// @file    MSE1VehicleActor.cpp
 /// @author  Daniel Krajzewicz
 /// @date    23.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // An actor which changes a vehicle's state
 /****************************************************************************/
@@ -101,7 +101,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         /*get a pointer to the PhoneNet*/
         MSPhoneNet *pPhone = MSNet::getInstance()->getMSPhoneNet();
         /*get the count of mobiles for the vehicle*/
-        int noCellPhones = (int) veh.getCORNDoubleValue((MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE);
+        int noCellPhones = veh.getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
         myPassedCPhonesNo += noCellPhones;
         /*now change each mobile for the old cell to the new one*/
         for (int np=0; np<noCellPhones; np++) {
@@ -183,7 +183,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             }
         }
     } else { // TOL_SA
-        int noCellPhones = (int) veh.getCORNDoubleValue((MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE);
+        int noCellPhones = veh.getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
         myPassedCPhonesNo += noCellPhones;
         for (int np=0; np<noCellPhones; np++) {
             MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue((MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np));

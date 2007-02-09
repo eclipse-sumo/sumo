@@ -2,7 +2,7 @@
 /// @file    MSRouteHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
@@ -408,10 +408,7 @@ MSRouteHandler::closeVehicle()
                         route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
             // check whether the color information shall be set
             if (myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-                vehicle->setCORNColor(
-                    myCurrentVehicleColor.red(),
-                    myCurrentVehicleColor.green(),
-                    myCurrentVehicleColor.blue());
+                vehicle->setCORNColor(new RGBColor(myCurrentVehicleColor)); //TODO maybe memleak
             }
             // add the vehicle to the vehicle control
             myVehicleControl.addVehicle(myActiveVehicleID, vehicle);

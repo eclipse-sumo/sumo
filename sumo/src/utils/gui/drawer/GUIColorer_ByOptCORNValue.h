@@ -2,7 +2,7 @@
 /// @file    GUIColorer_ByOptCORNValue.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 12.12.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -60,7 +60,7 @@ public:
     /// Type of the function to execute to get the information whether a value is existing
     typedef bool(_T::* HasOperation)(_P) const;
     /// Type of the function to execute to get the value
-    typedef SUMOReal(_T::* NumberOperation)(_P) const;
+    typedef int(_T::* NumberOperation)(_P) const;
 
     /// Constructor
     GUIColorer_ByOptCORNValue(HasOperation hasOperation,

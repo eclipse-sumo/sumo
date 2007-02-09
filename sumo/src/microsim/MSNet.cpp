@@ -313,7 +313,6 @@ MSNet::initialiseSimulation()
     // prepare the "netstate" output and print the first line
     if (myOutputStreams[OS_NETSTATE]!=0) {
         myOutputStreams[OS_NETSTATE]->getOStream()
-        << setprecision(3) << setiosflags(ios::fixed)
         << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
         << "<sumo-netstate>" << endl;
     }

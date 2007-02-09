@@ -2,7 +2,7 @@
 /// @file    MSVehicle.h
 /// @author  Christian Roessel
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // micro-simulation Vehicles.
 /****************************************************************************/
@@ -251,13 +251,16 @@ public:
 
     //@{ Retrieval and setting of CORN values
     /// Gets the named CORN double value
-    SUMOReal getCORNDoubleValue(MSCORN::Function f) const;
+    int getCORNIntValue(MSCORN::Function f) const;
 
     /// Gets the named CORN pointer value
     void *getCORNPointerValue(MSCORN::Pointer p) const;
 
     /// Returns whether this vehicle has the named value stored
-    bool hasCORNDoubleValue(MSCORN::Function f) const;
+    bool hasCORNIntValue(MSCORN::Function f) const;
+
+    /// Returns whether this vehicle has the named value stored
+    bool hasCORNPointerValue(MSCORN::Pointer p) const;
     //@}
 
 
@@ -482,7 +485,7 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
-    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
+    void setCORNColor(RGBColor *col);
 
     enum MoveOnReminderMode
     {
@@ -718,7 +721,7 @@ private:
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;
 
-    std::map<MSCORN::Function, SUMOReal> myDoubleCORNMap;
+    std::map<MSCORN::Function, int> myIntCORNMap;
     std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
     size_t myNoGot, myNoSent, myNoGotRelevant;

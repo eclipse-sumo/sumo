@@ -2,7 +2,7 @@
 /// @file    GUIVehicle.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -73,11 +73,9 @@ public:
 
     inline void setOwnDefinedColor() const
     {
-        if (hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
-            glColor3d(
-                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED),
-                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_GREEN),
-                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_BLUE));
+        if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+            RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
+            glColor3d(col->red(), col->green(), col ->blue());
             return;
         }
         glColor3d(1,1,0);

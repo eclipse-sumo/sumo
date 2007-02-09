@@ -2,7 +2,7 @@
 /// @file    GUIViewTraffic.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/
@@ -424,9 +424,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             if (vo.routeNo>=0) {
                 drawRoute(vo, vo.routeNo, 0.25);
             } else {
-                if (vo.vehicle->hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
-                    int noReroutePlus1 =
-                        (int) vo.vehicle->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
+                if (vo.vehicle->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+                    int noReroutePlus1 = vo.vehicle->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
                     for (int i=noReroutePlus1-1; i>=0; i--) {
                         SUMOReal darken =
                             (SUMOReal) 0.4

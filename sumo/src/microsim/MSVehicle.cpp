@@ -2,7 +2,7 @@
 /// @file    MSVehicle.cpp
 /// @author  Christian Roessel
 /// @date    Mon, 05 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // micro-simulation Vehicles.
 /****************************************************************************/
@@ -158,8 +158,8 @@ MSVehicle::~MSVehicle()
     }
     // delete values in CORN
     // prior routes
-    if (myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
-        int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+    if (myIntCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myIntCORNMap.end()) {
+        int noReroutes = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         for (int i=0; i<noReroutes; ++i) {
             delete(MSRoute*) myPointerCORNMap[(MSCORN::Pointer)(i+noReroutes)];
         }
@@ -167,9 +167,9 @@ MSVehicle::~MSVehicle()
     // devices
     {
         // cell phones
-        if (myDoubleCORNMap.find((MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE)!=myDoubleCORNMap.end()) {
-            size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
-            for (size_t np=0; np<no; np++) {
+        if (myIntCORNMap.find(MSCORN::CORN_VEH_DEV_NO_CPHONE)!=myIntCORNMap.end()) {
+            int no = myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE];
+            for (int np=0; np<no; np++) {
                 delete((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
             }
         }
@@ -258,8 +258,7 @@ MSVehicle::initDevices()
             int noCellPhones = (int)(((SUMOReal) rand()/(SUMOReal) RAND_MAX)
                                      * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
                                      + oc.getFloat("device.cell-phone.amount.min"));
-            myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE] =
-                (SUMOReal) noCellPhones;
+            myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = noCellPhones;
             for (int np=0; np<noCellPhones; np++) {
                 string phoneid = getID() + "_cphone#" + toString(np);
                 myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)] =
@@ -459,9 +458,9 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     }
 #endif
     //@ to be optimized (move to somewhere else)
-    if (hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
-        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
-            myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
+    if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
+        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
+            myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
     myLane->addMean2(vNext, myType->getLength());
@@ -517,9 +516,9 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         vsafeCriticalCont(vBeg);
     }
     //@ to be optimized (move to somewhere else)
-    if (hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
-        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
-            myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
+    if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
+        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
+            myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
 }
@@ -1447,8 +1446,7 @@ void
 MSVehicle::onDepart()
 {
     // check whether the vehicle's departure time shall be saved
-    myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] =
-        (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+    myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = MSNet::getInstance()->getCurrentTimeStep();
     // check whether the vehicle control shall be informed
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
@@ -1456,8 +1454,8 @@ MSVehicle::onDepart()
     // initialise devices
     {
         // cell phones
-        size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
-        for (size_t np=0; np<no; np++) {
+        int no = myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE];
+        for (int np=0; np<no; np++) {
             ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)])->onDepart();
         }
     }
@@ -1481,24 +1479,31 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 }
 
 
-SUMOReal
-MSVehicle::getCORNDoubleValue(MSCORN::Function f) const
+int
+MSVehicle::getCORNIntValue(MSCORN::Function f) const
 {
-    return myDoubleCORNMap.find(f)->second;
+    return myIntCORNMap.find(f)->second;
 }
 
 
 void *
-MSVehicle::getCORNPointerValue(MSCORN::Pointer f) const
+MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const
 {
-    return myPointerCORNMap.find(f)->second;
+    return myPointerCORNMap.find(p)->second;
 }
 
 
 bool
-MSVehicle::hasCORNDoubleValue(MSCORN::Function f) const
+MSVehicle::hasCORNIntValue(MSCORN::Function f) const
 {
-    return myDoubleCORNMap.find(f)!=myDoubleCORNMap.end();
+    return myIntCORNMap.find(f)!=myIntCORNMap.end();
+}
+
+
+bool
+MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const
+{
+    return myPointerCORNMap.find(p)!=myPointerCORNMap.end();
 }
 
 
@@ -1554,22 +1559,22 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         rebuildAllowedLanes();
         myLastBestLanesEdge = 0;
         // save information that the vehicle was rerouted
-        myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+        myIntCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
         // ... maybe the route information shall be saved for output?
         if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
             int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
-                              (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+                              myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
             int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
-                                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+                                myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
             SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
-                                  (SUMOTime) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-            myDoubleCORNMap[(MSCORN::Function) timeOffset] = (SUMOReal) simTime;
+                                  (SUMOTime) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            myIntCORNMap[(MSCORN::Function) timeOffset] = simTime;
         }
-        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
-            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+        myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
+            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
         myAllowedLanes.clear();
         rebuildAllowedLanes();
     }
@@ -1619,21 +1624,21 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     rebuildAllowedLanes();
     myLastBestLanesEdge = 0;
     // save information that the vehicle was rerouted
-    myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
-                          (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+                          myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
         int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
-                            (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+                            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
         SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
-                              (SUMOTime) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        myDoubleCORNMap[(MSCORN::Function) timeOffset] = (SUMOReal) simTime;
-        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
-            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+                              (SUMOTime) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+        myIntCORNMap[(MSCORN::Function) timeOffset] = simTime;
+        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+        myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
+            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     }
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
@@ -1882,10 +1887,8 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
                 (MSCORN::Pointer)(MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE+index));
         os << " replacedOnEdge=\"" << ((MSEdge*)(*j).second)->getID() << "\" ";
         // write the time at which the route was replaced
-        std::map<MSCORN::Function, SUMOReal>::const_iterator j2 =
-            myDoubleCORNMap.find(
-                (MSCORN::Function)(MSCORN::CORN_VEH_REROUTE_TIME+index));
-        os << " replacedAtTime=\"" << toString<size_t>((size_t)(*j2).second) << "\"";
+        int replaceTime = myIntCORNMap.find((MSCORN::Function)(MSCORN::CORN_VEH_REROUTE_TIME+index))->second;
+        os << " replacedAtTime=\"" << replaceTime << "\"";
         // get the route
         j = myPointerCORNMap.find((MSCORN::Pointer)(MSCORN::CORN_P_VEH_OLDROUTE+index));
         assert(j!=myPointerCORNMap.end());
@@ -1899,11 +1902,9 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
 
 
 void
-MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
+MSVehicle::setCORNColor(RGBColor *col)
 {
-    myDoubleCORNMap[MSCORN::CORN_VEH_OWNCOL_RED] = red;
-    myDoubleCORNMap[MSCORN::CORN_VEH_OWNCOL_GREEN] = green;
-    myDoubleCORNMap[MSCORN::CORN_VEH_OWNCOL_BLUE] = blue;
+    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = col;
 }
 
 
@@ -1925,7 +1926,7 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeUInt(os, myDesiredDepart);
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
-    FileHelpers::writeUInt(os, (unsigned int) getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+    FileHelpers::writeUInt(os, (unsigned int) getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
 #ifdef HAVE_MESOSIM
     // !!! several things may be missing
     if (seg==0) {
@@ -2320,8 +2321,8 @@ MSVehicle::checkReroute(SUMOTime t)
         }
         if (ri!=myRoute->end()||ri2!=edges.end()) {
             int rerouteIndex = 0;
-            if (myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
-                rerouteIndex = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+            if (myIntCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myIntCORNMap.end()) {
+                rerouteIndex = (int) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             }
             string nid = myRoute->getID() + "#" + toString(rerouteIndex);
             MSRoute *rep = new MSRoute(nid, edges, true);

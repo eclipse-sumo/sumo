@@ -2,7 +2,7 @@
 /// @file    MSCORN.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for optional things to compute
 /****************************************************************************/
@@ -93,9 +93,6 @@ public:
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_NUMBERROUTE,
         CORN_VEH_DEV_NO_CPHONE,
-        CORN_VEH_OWNCOL_RED,
-        CORN_VEH_OWNCOL_GREEN,
-        CORN_VEH_OWNCOL_BLUE,
         CORN_VEH_REROUTE_TIME,
 
         CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
@@ -104,7 +101,8 @@ public:
     };
 
     enum Pointer {
-        CORN_P_VEH_OLDROUTE = 0,
+        CORN_P_VEH_OWNCOL,
+        CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_ROUTE_BEGIN_EDGE = CORN_P_VEH_OLDROUTE + 1000,
         CORN_P_VEH_DEV_CPHONE = CORN_P_VEH_ROUTE_BEGIN_EDGE + 1000,
         CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 40

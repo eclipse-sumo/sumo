@@ -2,7 +2,7 @@
 /// @file    MSVehicleControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
@@ -109,8 +109,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
             (MSNet::getInstance()->getCurrentTimeStep()
-             -
-             (long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+             - v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
     }
     myRunningVehNo--;
     myEndedVehNo++;
@@ -208,9 +207,7 @@ MSVehicleControl::vehicleEmitted(MSVehicle *v)
 {
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
         myAbsVehWaitingTime +=
-            ((long) v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
-             -
-             v->desiredDepart());
+            (v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART) - v->desiredDepart());
     }
 }
 
@@ -236,7 +233,7 @@ MSVehicleControl::saveState(std::ostream &os, long what)
     {
         FileHelpers::writeUInt(os, myVehicleDict.size());
         for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
-            if ((*it).second->hasCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)) {
+            if ((*it).second->hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
                 (*it).second->saveState(os, what);
             }
         }
@@ -309,7 +306,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
 
                 MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
                                route, desiredDepart, type, repetitionNumber, period);
-                v->myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] = (SUMOReal) wasEmitted;
+                v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
                 while (routeOffset>0) {
                     v->myCurrEdge++;
                     routeOffset--;

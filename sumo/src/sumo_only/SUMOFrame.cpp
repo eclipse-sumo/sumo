@@ -2,7 +2,7 @@
 /// @file    SUMOFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/
@@ -35,6 +35,7 @@
 #endif
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <ctime>
 #include <utils/options/OptionsCont.h>
@@ -436,6 +437,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
         MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.\n (Used for '" + optionName + "').");
         throw ProcessError();
     }
+    (*ret) << setprecision(3) << setiosflags(ios::fixed);
     return new OutputDevice_File(ret);
 }
 

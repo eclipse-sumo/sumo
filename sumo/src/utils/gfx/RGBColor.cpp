@@ -2,7 +2,7 @@
 /// @file    RGBColor.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/
@@ -51,6 +51,11 @@ RGBColor::RGBColor()
 
 RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
         : myRed(red), myGreen(green), myBlue(blue)
+{}
+
+
+RGBColor::RGBColor(const RGBColor& col)
+        : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue)
 {}
 
 

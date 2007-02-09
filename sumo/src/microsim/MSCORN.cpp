@@ -2,7 +2,7 @@
 /// @file    MSCORN.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for optional things to compute
 /****************************************************************************/
@@ -267,7 +267,7 @@ MSCORN::setVehicleInRangeOutput(OutputDevice *s)
 void
 MSCORN::compute_TripDurationsOutput(MSVehicle *v)
 {
-    SUMOTime realDepart = (SUMOTime) v->getCORNDoubleValue(CORN_VEH_REALDEPART);
+    SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(CORN_VEH_REALDEPART);
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     myTripDurationsOutput->getOStream()
     << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
@@ -278,9 +278,9 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     << "waited=\"" << realDepart-v->desiredDepart() << "\" "
     // write reroutes
     << "reroutes=\"";
-    if (v->hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+    if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
         myTripDurationsOutput->getOStream()
-        << (int) v->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
+        << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
     } else {
         myTripDurationsOutput->getOStream() << '0';
     }
@@ -288,9 +288,9 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     // write devices
     myTripDurationsOutput->getOStream() << "devices=\"";
     bool addSem = false;
-    if (v->hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+    if (v->hasCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
         myTripDurationsOutput->getOStream()
-        << "cphones=" << (int) v->getCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
+        << "cphones=" << v->getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
         addSem = true;
     }
     if (v->isEquipped()) {
@@ -311,11 +311,11 @@ MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
 {
     myVehicleRouteOutput->getOStream() <<
     "   <vehicle id=\"" << v->getID() << "\" emitedAt=\""
-    << v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
+    << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
     << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
     << "\">" << endl;
-    if (v->hasCORNDoubleValue(CORN_VEH_NUMBERROUTE)) {
-        for (int i=0; i<(int) v->getCORNDoubleValue(CORN_VEH_NUMBERROUTE); i++) {
+    if (v->hasCORNIntValue(CORN_VEH_NUMBERROUTE)) {
+        for (int i=0; i<v->getCORNIntValue(CORN_VEH_NUMBERROUTE); i++) {
             v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
             myVehicleRouteOutput->getOStream() << endl;
         }
@@ -479,8 +479,8 @@ void
 MSCORN::saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh)
 {
     if (mySavedInfoOutputFreq!=0) {
-        int noReroutes = veh.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)
-                         ? (int) veh.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
+        int noReroutes = veh.hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
+                         ? veh.getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
         mySavedInfoOutputFreq->getOStream()
         << "	<vehicle id=\"" << veh.getID()
         << "\" timestep=\"" << step
