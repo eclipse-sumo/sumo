@@ -43,6 +43,12 @@
 #include "MSMeanData_Net.h"
 #include <limits>
 
+#ifdef HAVE_MESOSIM
+#include <microsim/MSGlobals.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -76,12 +82,25 @@ MSMeanData_Net::~MSMeanData_Net()
 void
 MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
 {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+        while (s!=0) {
+            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            s = s->getNextSegment();
+            meanData.reset();
+        }
+    } else {
+#endif
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
         MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
         meanData.reset();
+        }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 
@@ -143,6 +162,56 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+        SUMOReal flowS = 0;
+        SUMOReal meanDensityS = 0;
+        SUMOReal meanOccupancyS = 0;
+        SUMOReal meanSpeedS = 0;
+        SUMOReal traveltimeS = 0;
+        SUMOReal noStopsS = 0;
+        SUMOReal nVehS = 0;
+        SUMOReal absLen = 0;
+        int noSegments = 0;
+        while (s!=0) {
+            SUMOReal traveltime = -42;
+            SUMOReal meanSpeed = -43;
+            SUMOReal meanDensity = -45;
+            SUMOReal meanOccupancy = -46;
+            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            conv(meanData, (stopTime-startTime+1),
+                 s->getLength(), s->getMaxSpeed(),
+                 traveltime, meanSpeed, meanDensity, meanOccupancy);
+            meanDensityS += meanDensity;
+            meanOccupancyS += meanOccupancy;
+            meanSpeedS += meanSpeed;
+            traveltimeS += traveltime;
+            noStopsS += meanData.haltSum;
+            nVehS += meanData.nSamples;
+            flowS += s->getMeanData(myIndex).nVehEntireLane;
+            absLen += s->getLength();
+            s->flushMeanData(myIndex, stopTime+1);
+            s = s->getNextSegment();
+            meanData.reset();
+            noSegments++;
+        }
+        meanDensityS = meanDensityS / (SUMOReal) noSegments;
+        meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge.nLanes();
+        meanSpeedS = meanSpeedS / (SUMOReal) noSegments;
+        flowS = flowS / (SUMOReal) noSegments;
+//        flowS = flowS * 10 * (1000./absLen);
+        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
+            "\" traveltime=\"").writeString(toString(traveltimeS)).writeString(
+                "\" nSamples=\"").writeString(toString(nVehS)).writeString(
+                    "\" density=\"").writeString(toString(meanDensityS)).writeString(
+                        "\" occupancy=\"").writeString(toString(meanOccupancyS)).writeString(
+                            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
+                                "\" speed=\"").writeString(toString(meanSpeedS)).writeString(
+                                    "\" flow=\"").writeString(toString(flowS*3600./((SUMOReal)(stopTime-startTime+1)))).writeString(  //!!!
+                                        "\"/>\n");
+    } else {
+#endif
     const MSEdge::LaneCont * const lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if (!myAmEdgeBased) {
@@ -186,6 +255,9 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                                 "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
                                     "\"/>\n");
     }
+#ifdef HAVE_MESOSIM
+    }
+#endif
 }
 
 

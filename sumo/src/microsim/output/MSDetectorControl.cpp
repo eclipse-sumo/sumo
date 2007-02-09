@@ -52,6 +52,10 @@
 
 #include "MSInductLoop.h"
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MEInductLoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -75,6 +79,9 @@ MSDetectorControl::MSDetectorControl()
 MSDetectorControl::~MSDetectorControl()
 {
     myDetector2File.close();
+#ifdef HAVE_MESOSIM
+    myMesoLoops.clear();
+#endif
     myLoops.clear();
     myE2Detectors.clear();
     myE3Detectors.clear();
@@ -184,6 +191,23 @@ MSDetectorControl::add(MSE3Collector *e3,
     }
     myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test
 }
+
+
+#ifdef HAVE_MESOSIM
+void
+MSDetectorControl::add(MEInductLoop *meil,
+                           OutputDevice *device,
+                           int splInterval)
+{
+    // insert object into dictionary
+    if (! myMesoLoops.add(meil->getID(), meil)) {
+        MsgHandler::getErrorInstance()->inform("meso-induct loop '" + meil->getID() + "' could not be build;"
+                                               + "\n (declared twice?)");
+        throw ProcessError();
+    }
+    myDetector2File.addDetectorAndInterval(meil, device, splInterval); // !!! test
+}
+#endif
 
 
 MSDetector2File &

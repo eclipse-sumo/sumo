@@ -203,6 +203,9 @@ MSVehicle::MSVehicle(string id,
                      SUMOTime departTime,
                      const MSVehicleType* type,
                      int repNo, int repOffset) :
+#ifdef HAVE_MESOSIM
+        MEVehicle(this, 0, 0),
+#endif
 #ifdef RAKNET_DEMO
         Vehicle(),
 #endif
@@ -1904,6 +1907,12 @@ MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 }
 
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include "MSGlobals.h"
+#endif
+
 void
 MSVehicle::saveState(std::ostream &os, long /*what*/)
 {
@@ -1917,6 +1926,19 @@ MSVehicle::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     FileHelpers::writeUInt(os, (unsigned int) getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+#ifdef HAVE_MESOSIM
+    // !!! several things may be missing
+    if (seg==0) {
+        FileHelpers::writeUInt(os, 0);
+        FileHelpers::writeFloat(os, tEvent);
+        FileHelpers::writeFloat(os, tLastEntry);
+    } else {
+        FileHelpers::writeUInt(os, seg->get_index());
+        FileHelpers::writeFloat(os, tEvent);
+        FileHelpers::writeFloat(os, tLastEntry);
+    }
+    FileHelpers::writeByte(os, inserted);
+#endif
 }
 
 

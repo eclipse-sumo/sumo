@@ -49,6 +49,10 @@
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -122,13 +126,24 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
     }
     delete triggerParser;
     // build actors
-    for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-        const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
-        std::vector<MSLane*>::const_iterator i;
-        for (i=destLanes->begin(); i!=destLanes->end(); ++i) {
-            mySetter.push_back(new Setter(this, (*i)));
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*j);
+            s->addRerouter(this);
         }
+    } else {
+#endif
+        for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+            const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
+            std::vector<MSLane*>::const_iterator i;
+            for (i=destLanes->begin(); i!=destLanes->end(); ++i) {
+                mySetter.push_back(new Setter(this, (*i)));
+            }
+        }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 

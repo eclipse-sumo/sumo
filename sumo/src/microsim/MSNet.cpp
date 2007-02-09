@@ -85,6 +85,10 @@
 #include <utils/geoconv/GeoConvHelper.h>
 #include <ctime>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -135,7 +139,11 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
     myMSPhoneNet = new MSPhoneNet();
-
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet = new MELoop();
+    }
+#endif
     myInstance = this;
 }
 
@@ -160,7 +168,11 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
     myMSPhoneNet = new MSPhoneNet();
-
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet = new MELoop();
+    }
+#endif
     myInstance = this;
 }
 
@@ -208,6 +220,11 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
             myCellsBuilder->build();
         }
     }
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->insertMeanData(myMeanData.size());
+    }
+#endif
 
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
@@ -237,6 +254,11 @@ MSNet::~MSNet()
     delete myMSPhoneNet;
     myMSPhoneNet = 0;
     delete myShapeContainer;
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        delete MSGlobals::gMesoNet;
+    }
+#endif
     delete myTriggerControl;
     delete myCellsBuilder;
     // close outputs
@@ -462,6 +484,11 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->simulate(step);
+    } else {
+#endif
     myJunctions->resetRequests();
 
     // move Vehicles
@@ -503,6 +530,9 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }
+#ifdef HAVE_MESOSIM
+    }
+#endif
     // Check if mean-lane-data is due
     writeOutput();
     // execute endOfTimestepEvents
@@ -768,13 +798,22 @@ MSNet::saveState(std::ostream &os, long what)
 {
     myVehicleControl->saveState(os, what);
     myEdges->saveState(os, what);
-    /*
-    if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-    if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
-    if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
-    if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
-    if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
-    */
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->saveState(os, what);
+//        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+    } else {
+#endif
+        /*
+        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+        if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
+        if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
+        if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
+        if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
+        */
+#ifdef HAVE_MESOSIM
+    }
+#endif
 }
 
 
@@ -783,13 +822,22 @@ MSNet::loadState(BinaryInputDevice &bis, long what)
 {
     myVehicleControl->loadState(bis, what);
     myEdges->loadState(bis, what);
-    /*
-    if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-    if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
-    if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
-    if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
-    if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
-    */
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->loadState(bis, what, *myVehicleControl);
+//        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+    } else {
+#endif
+        /*
+        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+        if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
+        if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
+        if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
+        if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
+        */
+#ifdef HAVE_MESOSIM
+    }
+#endif
 }
 
 

@@ -46,6 +46,10 @@
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
 
 // ===========================================================================
 // used namespaces
@@ -310,6 +314,17 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                     v->myCurrEdge++;
                     routeOffset--;
                 }
+#ifdef HAVE_MESOSIM
+                v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
+                while (v->seg->get_index()!=segIndex) {
+                    v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
+                }
+                v->tEvent = tEvent;
+                v->tLastEntry = tLastEntry;
+                bool inserted;
+                bis >> inserted;
+                v->inserted = inserted!=0;
+#endif
                 if (!addVehicle(id, v)) {
                     cout << "Could not build vehicle!!!" << endl;
                     throw 1;

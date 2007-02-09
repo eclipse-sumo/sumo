@@ -44,6 +44,10 @@
 #include <cassert>
 #include "MSVehicle.h"
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -344,8 +348,24 @@ MSEdge::isSource() const
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime) const
+MSEdge::emit(MSVehicle &v, SUMOTime time) const
 {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        v.update_segment(MSGlobals::gMesoNet->getSegmentForEdge(this));
+        v.update_tEvent((SUMOReal) time);
+        bool insertToNet = false;
+        if (MSGlobals::gMesoNet->getSegmentForEdge(this)->initialise2(&v, 0, time, insertToNet)) {
+            if (insertToNet) {//MSGlobals::gMesoNet->getSegmentForEdge(this)->noCars()==1) {
+                MSGlobals::gMesoNet->addCar(&v);
+                v.inserted = true;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+#endif
     if (_function!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {

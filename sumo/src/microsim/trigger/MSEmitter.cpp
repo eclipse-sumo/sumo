@@ -384,6 +384,22 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         state = MSVehicle::State(myPos, speed);
     }
     // try to emit
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        if (myDestLane->getEdge()->emit(*veh,  myNet.getCurrentTimeStep())) {
+            myNet.getVehicleControl().vehiclesEmitted(1);
+            veh->onDepart();
+            // insert vehicle into the dictionary
+            if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
+                // !!!
+                throw 1;
+            }
+            // erase the child information
+            myToEmit.erase(myToEmit.find(child));
+            return true;
+        }
+    } else {
+#endif
     if (myDestLane->isEmissionSuccess(veh, state)) {
         veh->enterLaneAtEmit(myDestLane, state);
         veh->onDepart();
@@ -397,6 +413,9 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         myToEmit.erase(myToEmit.find(child));
         return true;
     }
+#ifdef HAVE_MESOSIM
+    }
+#endif
     return false;
 }
 
