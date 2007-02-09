@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    dfrouter_main.cpp
 /// @author  Daniel Krajzewicz
-/// @date    Thu, 06 Jun 2002
-/// @version $Id$
+/// @date    Thu, 16.03.2006
+/// @version $Id: $
 ///
-// }
+// Main for the DFROUTER
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
