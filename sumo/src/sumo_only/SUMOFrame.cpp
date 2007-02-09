@@ -238,6 +238,12 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
 
     // cell-phones
+    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
+    oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
+    oc.addDescription("device.cell-phone.probability", "Cellular", "");
+
     oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe
     oc.addDescription("ss2-cellload-file", "Cellular", "");
 
@@ -261,12 +267,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("cellphone-dump", new Option_FileName());
     oc.addDescription("cellphone-dump", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
-    oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
-    oc.addDescription("device.cell-phone.probability", "Cellular", "");
 
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.addDescription("device.cell-phone.amount.min", "Cellular", "");

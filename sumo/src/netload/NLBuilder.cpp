@@ -296,7 +296,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
         }
     }
     // build the route control
-    return new MSRouteLoaderControl(myNet, oc.getInt("s"), loaders);
+    return new MSRouteLoaderControl(myNet, oc.getInt("route-steps"), loaders);
 }
 
 
