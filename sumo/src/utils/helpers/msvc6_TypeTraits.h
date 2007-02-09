@@ -42,13 +42,11 @@
 // Ignore forcing value to bool 'true' or 'false' (performance warning)
 //
 #ifdef _MSC_VER
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include <cctype>				// for wchar_t
 #pragma warning (disable: 4800)

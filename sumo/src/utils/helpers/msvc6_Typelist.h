@@ -30,13 +30,11 @@
 #ifndef TYPELIST_INC_
 #define TYPELIST_INC_
 
-#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #include "msvc6_Nulltype.h"
 #include "msvc6_TypeManip.h"
