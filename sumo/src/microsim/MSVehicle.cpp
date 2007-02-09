@@ -1559,7 +1559,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         rebuildAllowedLanes();
         myLastBestLanesEdge = 0;
         // save information that the vehicle was rerouted
-        myIntCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+        myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
         // ... maybe the route information shall be saved for output?
         if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
             int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
@@ -1624,7 +1624,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     rebuildAllowedLanes();
     myLastBestLanesEdge = 0;
     // save information that the vehicle was rerouted
-    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +

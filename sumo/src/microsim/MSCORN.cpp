@@ -310,7 +310,7 @@ void
 MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
 {
     myVehicleRouteOutput->getOStream() <<
-    "   <vehicle id=\"" << v->getID() << "\" emitedAt=\""
+    "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
     << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
     << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
     << "\">" << endl;
