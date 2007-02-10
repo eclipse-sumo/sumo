@@ -1,26 +1,26 @@
 <?xml version="1.0" standalone="no"?>
 <vehicleroutes>
-   <vehicle id="horizontal22" emitedAt="100" endedAt="332">
+   <vehicle id="horizontal22" emittedAt="100" endedAt="332">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal21" emitedAt="100" endedAt="334">
+   <vehicle id="horizontal21" emittedAt="100" endedAt="334">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal12" emitedAt="100" endedAt="336">
+   <vehicle id="horizontal12" emittedAt="100" endedAt="336">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal11" emitedAt="100" endedAt="338">
+   <vehicle id="horizontal11" emittedAt="100" endedAt="338">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" emitedAt="100" endedAt="340">
+   <vehicle id="horizontal02" emittedAt="100" endedAt="340">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal01" emitedAt="100" endedAt="341">
+   <vehicle id="horizontal01" emittedAt="100" endedAt="341">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 

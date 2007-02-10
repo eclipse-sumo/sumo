@@ -1,42 +1,42 @@
 <?xml version="1.0" standalone="no"?>
 <vehicleroutes>
-   <vehicle id="emitter_0_0" emitedAt="0" endedAt="117">
+   <vehicle id="emitter_0_0" emittedAt="0" endedAt="117">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_1_1" emitedAt="3" endedAt="121">
+   <vehicle id="emitter_1_1" emittedAt="3" endedAt="121">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" emitedAt="6" endedAt="125">
+   <vehicle id="emitter_2_2" emittedAt="6" endedAt="125">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_3_3" emitedAt="9" endedAt="127">
+   <vehicle id="emitter_3_3" emittedAt="9" endedAt="127">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" emitedAt="12" endedAt="130">
+   <vehicle id="emitter_4_4" emittedAt="12" endedAt="130">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_5_5" emitedAt="15" endedAt="133">
+   <vehicle id="emitter_5_5" emittedAt="15" endedAt="133">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" emitedAt="18" endedAt="137">
+   <vehicle id="emitter_6_6" emittedAt="18" endedAt="137">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_7_7" emitedAt="21" endedAt="140">
+   <vehicle id="emitter_7_7" emittedAt="21" endedAt="140">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" emitedAt="24" endedAt="142">
+   <vehicle id="emitter_8_8" emittedAt="24" endedAt="142">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_9_9" emitedAt="28" endedAt="146">
+   <vehicle id="emitter_9_9" emittedAt="28" endedAt="146">
       <route>beg middle end rend</route>
    </vehicle>
 
