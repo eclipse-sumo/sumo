@@ -20,19 +20,7 @@
 #*   (at your option) any later version.                                   *
 #*                                                                         *
 #***************************************************************************
-# $Log$
-# Revision 1.4  2006/12/06 08:24:39  dkrajzew
-# further work in order to import ORINOKO definitions
-#
-# Revision 1.3  2006/11/02 11:55:35  dkrajzew
-# right of way computation patched (left-movers do not wait for opposite right-movers)
-#
-# Revision 1.2  2006/08/02 08:00:17  dksumo
-# regarding foe streams
-#
-# Revision 1.1  2006/02/27 13:17:22  dksumo
-# tls-conversion script added
-#
+# $Id: $
 
 if(!defined($ARGV[2])) {
 	print "Syntax-Error!\n";
@@ -548,11 +536,21 @@ for($i=0; $i<=$#programs; $i++) {
 			# set yellow
 			$by = $e;
 			$ey = $by + $dg;
-			for($j=$by; $j<$ey; $j++) {
+			for($j=$by; $j<$ey&&$j<$Umlaufzeit; $j++) {
 				$Pindices = $kindices{$name};
 				@indices = @$Pindices;
 				foreach $index (@indices) {
 					$color[$index] = substr($color[$index], 0, $j)."Y".substr($color[$index], $j+1);
+				}
+			}
+			if($ey>$Umlaufzeit) {
+				$ey = $ey - $Umlaufzeit;
+				for($j=0; $j<$ey; $j++) {
+					$Pindices = $kindices{$name};
+					@indices = @$Pindices;
+					foreach $index (@indices) {
+						$color[$index] = substr($color[$index], 0, $j)."Y".substr($color[$index], $j+1);
+					}
 				}
 			}
 		}
