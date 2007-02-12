@@ -159,7 +159,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowRails->setCheck(mySettings->showRails);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
-        myShowEdgeName = new FXCheckButton(m22, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowEdgeName = new FXCheckButton(m22, "Show edge names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowEdgeName->setCheck(mySettings->drawEdgeName);
         myEdgeNameSizeDialer =
             new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
@@ -258,7 +258,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowJunctionIndex = new FXCheckButton(m33, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-        myShowJunctionName = new FXCheckButton(m33, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowJunctionName = new FXCheckButton(m33, "Show junction names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowJunctionName->setCheck(mySettings->drawJunctionName);
         myJunctionNameSizeDialer =
             new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
