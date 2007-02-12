@@ -98,10 +98,11 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
     // interval manipulation
     myBeginOffset = new FXRealSpinDial(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-    myBeginOffset->setFormatString("%.0fs");
+    myBeginOffset->setFormatString("%.0f");
     myBeginOffset->setIncrements(1,10,100);
     myBeginOffset->setRange(60,3600);
-    myBeginOffset->setValue(60);
+    myBeginOffset->setValue(240);
+    new FXLabel(myToolBar, "(s)", 0, LAYOUT_CENTER_Y);
     //
     myConnector = new GLObjectValuePassConnector<CompletePhaseDef>(wrapper, src, this);
     size_t height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30;
