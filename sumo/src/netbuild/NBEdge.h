@@ -202,7 +202,8 @@ public:
 
     /** adds a connection between the specified this edge's lane and an approached one */
     bool addLane2LaneConnection(size_t fromLane, NBEdge *dest,
-                                size_t toLane, bool markAs2Recheck);
+                                size_t toLane, bool markAs2Recheck,
+                                bool mayUseSameDestination=false);
 
     /** builds no connections starting at the given lanes */
     bool addLane2LaneConnections(size_t fromLane,
@@ -230,7 +231,8 @@ public:
 
     /// adds a connection to a certain lane of a certain edge
     void setConnection(size_t lane, NBEdge *destEdge,
-                       size_t destLane, bool markAs2Recheck);
+                       size_t destLane, bool markAs2Recheck,
+                       bool mayUseSameDestination=false);
 
     /** returns the information whether the given edge is the opposite
         direction to this edge */

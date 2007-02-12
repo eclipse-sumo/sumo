@@ -656,9 +656,7 @@ NBEdge::computeLaneShape(size_t lane)
                 Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
             l2.extrapolateBy(100);
             if (l1.intersects(l2)) {
-                shape.push_back_noDoublePos(//.push_back(
-                    // (methode umbenennen; was heisst hier "-")
-                    l1.intersectsAt(l2));
+                shape.push_back_noDoublePos(l1.intersectsAt(l2));
             } else {
                 // !!! should never happen
                 //   throw 1;
@@ -898,7 +896,8 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 
 bool
 NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
-                               size_t toLane, bool markAs2Recheck)
+                               size_t toLane, bool markAs2Recheck,
+                               bool mayUseSameDestination)
 {
     if (_step==INIT_REJECT_CONNECTIONS) {
         return true;
@@ -911,7 +910,7 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
     }
     bool ok = addEdge2EdgeConnection(dest);
     if (ok) {
-        setConnection(from, dest, toLane, markAs2Recheck);
+        setConnection(from, dest, toLane, markAs2Recheck, mayUseSameDestination);
         vector<size_t> &lanes = (_ToEdges.find(dest))->second;
         vector<size_t>::iterator i = find(lanes.begin(), lanes.end(), from);
         if (i==lanes.end()) {
@@ -1229,7 +1228,8 @@ NBEdge::sortOutgoingLanesConnections()
 
 void
 NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
-                      size_t dest_lane, bool markAs2Recheck)
+                      size_t dest_lane, bool markAs2Recheck,
+                      bool mayUseSameDestination)
 {
     if (_step==INIT_REJECT_CONNECTIONS) {
         return;
@@ -1248,12 +1248,14 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     EdgeLane el;
     el.edge = dest_edge;
     el.lane = dest_lane;
-    for (size_t j=0; dest_edge!=0&&j<_reachable.size(); j++) {
-        // for any other lane: check whether a connection to the same
-        //  lane as the one to be added exists
-        EdgeLaneVector &tmp = _reachable[j];
-        if (find(tmp.begin(), tmp.end(), el)!=tmp.end()) {
-            return;
+    if(!mayUseSameDestination) {
+        for (size_t j=0; dest_edge!=0&&j<_reachable.size(); j++) {
+            // for any other lane: check whether a connection to the same
+            //  lane as the one to be added exists
+            EdgeLaneVector &tmp = _reachable[j];
+            if (find(tmp.begin(), tmp.end(), el)!=tmp.end()) {
+                return;
+            }
         }
     }
 
