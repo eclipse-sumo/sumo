@@ -195,11 +195,11 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
         myGeoFrame =
             new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH|LAYOUT_FILL_Y|LAYOUT_RIGHT|FRAME_SUNKEN,
                                   0,0,20,0, 0,0,0,0, 0,0);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A");// !!!!!
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A", 0, LAYOUT_CENTER_Y);
         myCartesianFrame =
             new FXHorizontalFrame(myStatusbar, LAYOUT_FIX_WIDTH|LAYOUT_FILL_Y|LAYOUT_RIGHT|FRAME_SUNKEN,
                                   0,0,20,0, 0,0,0,0, 0,0);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A"); // !!!!!
+        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A", 0, LAYOUT_CENTER_Y);
     }
 
     // make the window a mdi-window
@@ -489,7 +489,7 @@ GUIApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_X);
+        new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_Y);
         myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
                                     LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
@@ -505,7 +505,7 @@ GUIApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_X);
+        new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_Y);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
                                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);

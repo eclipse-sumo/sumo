@@ -553,7 +553,7 @@ GNEApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar3, "Current Step:");
+        new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_Y);
         myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
                                     LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
@@ -569,7 +569,7 @@ GNEApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar4, "Delay (ms):");
+        new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_Y);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
                                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
