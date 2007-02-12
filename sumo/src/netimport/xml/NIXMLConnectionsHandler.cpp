@@ -133,19 +133,19 @@ NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name
     if (name=="connection") {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
-        if (from.length()==0||to.length()==0) {
-            addError("Either a from-edge or a to-edge is not specified within one of the connections");
+        if (from.length()==0) {
+            addError("A from-edge is not specified within one of the connections");
             return;
         }
         // extract edges
         NBEdge *fromEdge = myEdgeCont.retrieve(from);
-        NBEdge *toEdge = myEdgeCont.retrieve(to);
+        NBEdge *toEdge = to.length()!=0 ? myEdgeCont.retrieve(to) : 0;
         // check whether they are valid
         if (fromEdge==0) {
             addError("The connection-source edge '" + from + "' is not known.");
             return;
         }
-        if (toEdge==0) {
+        if (toEdge==0 && to.length()!=0) {
             addError("The connection-destination edge '" + to + "' is not known.");
             return;
         }
@@ -203,6 +203,10 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                                         NBEdge *from,
                                         NBEdge *to)
 {
+    if(to==0) {
+        // do nothing if it's a dead end
+        return;
+    }
     string laneConn = getStringSecure(attrs, SUMO_ATTR_LANE, "");
     if (laneConn.length()==0) {
         addError("Not specified lane to lane connection");
@@ -220,7 +224,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         try {
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (!from->addLane2LaneConnection(fromLane, to, toLane, false)) {
+            if (!from->addLane2LaneConnection(fromLane, to, toLane, false, true)) {
                 NBEdge *nFrom = from;
                 bool toNext = true;
                 do {
