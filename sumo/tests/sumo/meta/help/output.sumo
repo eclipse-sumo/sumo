@@ -4,13 +4,13 @@ SUMO sumo
  
 A microscopic road traffic simulation.
 
-Usage: sumo.exe [OPTION]*
+Usage: sumo [OPTION]*
  
  Examples:
-  sumo.exe -b 0 -e 1000 -n net.xml -r routes.xml
-  sumo.exe -c munich_config.cfg
-  sumo.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
-  sumo.exe --help
+  sumo -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo -c munich_config.cfg
+  sumo --spider-net [spider-network opts] -o <OUTPUTFILE>
+  sumo --help
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -92,6 +92,8 @@ Usage: sumo.exe [OPTION]*
   --device.c2x.probability FLOAT       The probability for a vehicle to have
                                          c2c
   --device.c2x.knownveh STR            Assign a device to named vehicles
+  --device.c2x.deterministic           The devices are set deterministoc using
+                                         a fraction of 1000
   --device.c2x.range FLOAT             The range of the c2c device
   --device.c2x.keep-duration INT       Duration of keeping messages
   --device.c2x.insert-info-factor FLOAT  Factor for adding messages
@@ -104,6 +106,8 @@ Usage: sumo.exe [OPTION]*
                                          FILE
 
  Cellular Options:
+  --device.cell-phone.knownveh STR     
+  --device.cell-phone.probability FLOAT  
   --ss2-cellload-file FILE             
   --ss2-output FILE                    
   --ss2-cell-output FILE               
@@ -112,8 +116,6 @@ Usage: sumo.exe [OPTION]*
   --ss2-sql-cell-output FILE           
   --ss2-sql-la-output FILE             
   --cellphone-dump FILE                
-  --device.cell-phone.knownveh STR     
-  --device.cell-phone.probability FLOAT  
   --device.cell-phone.amount.min FLOAT  
   --device.cell-phone.amount.max FLOAT  
 

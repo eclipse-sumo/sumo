@@ -60,6 +60,7 @@
    <c2c>
       <device.c2x.probability>0</device.c2x.probability>
       <device.c2x.knownveh></device.c2x.knownveh>
+      <device.c2x.deterministic>false</device.c2x.deterministic>
       <device.c2x.range>100</device.c2x.range>
       <device.c2x.keep-duration>1800</device.c2x.keep-duration>
       <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
@@ -72,6 +73,8 @@
    </c2c>
 
    <cellular>
+      <device.cell-phone.knownveh></device.cell-phone.knownveh>
+      <device.cell-phone.probability>0</device.cell-phone.probability>
       <ss2-cellload-file></ss2-cellload-file>
       <ss2-output></ss2-output>
       <ss2-cell-output></ss2-cell-output>
@@ -80,8 +83,6 @@
       <ss2-sql-cell-output></ss2-sql-cell-output>
       <ss2-sql-la-output></ss2-sql-la-output>
       <cellphone-dump></cellphone-dump>
-      <device.cell-phone.knownveh></device.cell-phone.knownveh>
-      <device.cell-phone.probability>0</device.cell-phone.probability>
       <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
       <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
    </cellular>

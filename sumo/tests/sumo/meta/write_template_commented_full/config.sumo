@@ -148,6 +148,9 @@
       <!-- Assign a device to named vehicles -->
       <device.c2x.knownveh></device.c2x.knownveh>
 
+      <!-- The devices are set deterministoc using a fraction of 1000 -->
+      <device.c2x.deterministic>false</device.c2x.deterministic>
+
       <!-- The range of the c2c device -->
       <device.c2x.range>100</device.c2x.range>
 
@@ -179,6 +182,12 @@
 
    <cellular>
       <!--  -->
+      <device.cell-phone.knownveh></device.cell-phone.knownveh>
+
+      <!--  -->
+      <device.cell-phone.probability>0</device.cell-phone.probability>
+
+      <!--  -->
       <ss2-cellload-file></ss2-cellload-file>
 
       <!--  -->
@@ -201,12 +210,6 @@
 
       <!--  -->
       <cellphone-dump></cellphone-dump>
-
-      <!--  -->
-      <device.cell-phone.knownveh></device.cell-phone.knownveh>
-
-      <!--  -->
-      <device.cell-phone.probability>0</device.cell-phone.probability>
 
       <!--  -->
       <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
