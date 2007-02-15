@@ -285,9 +285,9 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setName(const Attributes &attrs)
 {
-    try {
+    if(hasAttribute(attrs, SUMO_ATTR_NAME)) {
         myCurrentName = getString(attrs, SUMO_ATTR_NAME);
-    } catch (EmptyData) {
+    } else {
         myCurrentName = myCurrentID;
     }
 }
@@ -299,13 +299,13 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
     // try to get the type and maybe to overwrite default values for speed, priority and th enumber of lanes
     myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
     myCurrentType = "";
-    try {
+    if(hasAttribute(attrs, SUMO_ATTR_TYPE)) {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
         myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
         myCurrentPriority = myTypeCont.getPriority(myCurrentType);
         myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
         myCurrentEdgeFunction = myTypeCont.getFunction(myCurrentType);
-    } catch (EmptyData) {
+    } else {
         myCurrentType = "";
     }
 }
@@ -516,9 +516,13 @@ void
 NIXMLEdgesHandler::setLength(const Attributes &attrs)
 {
     // get the length or compute it
-    try {
-        myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
-    } catch (EmptyData) {
+    if(hasAttribute(attrs, SUMO_ATTR_LENGTH)) {
+        try {
+            myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
+        } catch (NumberFormatException) {
+            addError("Not numeric value for length (at tag ID='" + myCurrentID + "').");
+        }
+    } else {
         if (myBegNodeXPos!=-1.0 &&
                 myBegNodeYPos!=-1.0 &&
                 myEndNodeXPos!=-1.0 &&
@@ -531,8 +535,6 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
         } else {
             myLength = 0;
         }
-    } catch (NumberFormatException) {
-        addError("Not numeric value for length (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -542,9 +544,7 @@ Position2DVector
 NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
 {
     string shpdef;
-    try {
-        shpdef = getString(attrs, SUMO_ATTR_SHAPE);
-    } catch (EmptyData) {}
+    shpdef = getStringSecure(attrs, SUMO_ATTR_SHAPE, "");
     // return if no shape was given
     if (shpdef=="") {
         return Position2DVector();
