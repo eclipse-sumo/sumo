@@ -146,7 +146,7 @@ public:
     SUMOReal getAngle();
 
     /// returns the priority of the edge
-    SUMOReal getPriority() const;
+    int getPriority() const;
 
     /// sets the junction priority of the edge
     void setJunctionPriority(NBNode *node, int prio);

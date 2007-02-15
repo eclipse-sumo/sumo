@@ -668,7 +668,7 @@ protected:
                              SUMOTime currentTime);
 
     //compute accordant the distance, the Number of Infos that can be transmit
-    int numOfInfos(MSVehicle *veh1, MSVehicle* veh2);
+    size_t numOfInfos(MSVehicle *veh1, MSVehicle* veh2);
 
     //InfoCont getInfosToSend(void);
 

@@ -2179,9 +2179,9 @@ void
 MSVehicle::sendInfos(SUMOTime time)
 {
     // the number of possible packets
-    size_t numberOfSendingPos = MSGlobals::gNumberOfSendingPos; // 732
+    size_t numberOfSendingPos = (size_t) MSGlobals::gNumberOfSendingPos; // 732
     // the number of information per packet
-    size_t infoPerPaket = MSGlobals::gInfoPerPaket; // 14
+    size_t infoPerPaket = (size_t) MSGlobals::gInfoPerPaket; // 14
     size_t numberOfInfo = numberOfSendingPos*infoPerPaket; // 10248
 
     if (infoCont.size()>0 && numberOfSendingPos>0) {
@@ -2189,7 +2189,7 @@ MSVehicle::sendInfos(SUMOTime time)
         for (VehCont::const_iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
             // compute the number of netto-sendable packets
             // !!! maybe it would be prettier to have computed this by the retriever
-            int nofP = numOfInfos(this, (*i).first);
+            size_t nofP = numOfInfos(this, (*i).first);
             if (nofP>numberOfInfo) {
                 nofP = (int) numberOfInfo;
             }
@@ -2213,7 +2213,7 @@ MSVehicle::sendInfos(SUMOTime time)
             for (VehCont::const_iterator j=(*o)->connectedVeh->myNeighbors.begin(); j!=(*o)->connectedVeh->myNeighbors.end(); ++j) {
                 // compute the number of netto-sendable packets
                 // !!! maybe it would be prettier to have computed this by the retriever
-                int nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
+                size_t nofP = numOfInfos((*j).second->connectedVeh,(*o)->connectedVeh);
                 if (nofP>numberOfInfo) {
                     nofP = (int) numberOfInfo;
                 }
@@ -2229,7 +2229,7 @@ MSVehicle::sendInfos(SUMOTime time)
 }
 
 
-int
+size_t
 MSVehicle::numOfInfos(MSVehicle *veh1, MSVehicle* veh2)
 {
     Position2D pos1 = veh1->getPosition();

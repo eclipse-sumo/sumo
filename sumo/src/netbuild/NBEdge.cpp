@@ -291,7 +291,7 @@ NBEdge::getNoLanes() const
 }
 
 
-SUMOReal
+int
 NBEdge::getPriority() const
 {
     return _priority;
