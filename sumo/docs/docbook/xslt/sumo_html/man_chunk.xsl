@@ -15,9 +15,9 @@
 
 <!-- ==================================================================== -->
 
-<xsl:import href="user_docbook.xsl"/>
-<xsl:import href="user_chunk-common.xsl"/>
-<xsl:include href="http://docbook.sourceforge.net/xsl/manifest.xsl"/>
+<xsl:import href="man_docbook.xsl"/>
+<xsl:import href="man_chunk-common.xsl"/>
+<xsl:include href="http://docbook.sourceforge.net/release/xsl/current/html/manifest.xsl"/>
 
 <!-- Why is chunk-code now xsl:included?
 
@@ -35,6 +35,6 @@ Voila! (Man I hope we can do this better in XSLT 2.0)
 
 -->
 
-<xsl:include href="user_chunk-code.xsl"/>
+<xsl:include href="man_chunk-code.xsl"/>
 
 </xsl:stylesheet>

@@ -20,7 +20,7 @@
 
 <!-- ==================================================================== -->
 
-<xsl:include href="http://docbook.sourceforge.net/xsl/docbook.xsl"/>
+<xsl:include href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
 
 <!-- ==================================================================== -->
 

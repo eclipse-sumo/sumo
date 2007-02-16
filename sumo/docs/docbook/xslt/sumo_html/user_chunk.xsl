@@ -17,7 +17,7 @@
 
 <xsl:import href="user_docbook.xsl"/>
 <xsl:import href="user_chunk-common.xsl"/>
-<xsl:include href="http://docbook.sourceforge.net/xsl/manifest.xsl"/>
+<xsl:include href="http://docbook.sourceforge.net/release/xsl/current/html/manifest.xsl"/>
 
 <!-- Why is chunk-code now xsl:included?
 
