@@ -39,6 +39,7 @@
 #include <cassert>
 #include <utils/bindevice/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -127,7 +128,7 @@ MSVehicleType*
 MSVehicleType::dict_Random()
 {
     assert(myDict.size()!=0);
-    size_t r = (size_t)((SUMOReal) rand() / RAND_MAX * myDict.size());
+    size_t r = randSUMO() * myDict.size();
     if (r>=myDict.size()) {
         r = myDict.size() - 1;
     }

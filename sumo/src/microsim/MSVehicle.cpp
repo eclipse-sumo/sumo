@@ -63,16 +63,17 @@
 #include <utils/bindevice/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
 #include <utils/helpers/SUMODijkstraRouter.h>
+#include <utils/common/RandHelper.h>
 
 
 #include "devices/MSDevice_CPhone.h"
 
-#ifdef GUICHECK_MEMORY_LEAKS
+#ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
 #endif
 
@@ -253,10 +254,10 @@ MSVehicle::initDevices(int vehicleIndex)
     OptionsCont &oc = OptionsSubSys::getOptions();
     // cell phones
     if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
-        bool t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.cell-phone.probability");
+        bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
         bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
         if (t1||t2) {
-            int noCellPhones = (int)(((SUMOReal) rand()/(SUMOReal) RAND_MAX)
+            int noCellPhones = (int)(randSUMO()
                                      * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
                                      + oc.getFloat("device.cell-phone.amount.min"));
             myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = noCellPhones;
@@ -271,7 +272,7 @@ MSVehicle::initDevices(int vehicleIndex)
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
         if(!oc.getBool("device.c2x.deterministic")) {
-            t1 = (((SUMOReal) rand()/(SUMOReal) RAND_MAX))<=oc.getFloat("device.c2x.probability");
+            t1 = randSUMO()<=oc.getFloat("device.c2x.probability");
         } else {
             t1 = !((vehicleIndex%1000)>=(int) (oc.getFloat("device.c2x.probability")*1000.));
         }

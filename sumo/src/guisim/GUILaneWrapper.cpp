@@ -54,6 +54,11 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/common/RandHelper.h>
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================
@@ -439,10 +444,6 @@ GUILaneWrapper::getMSEdge() const
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 void
 GUILaneWrapper::selectSucessors()
 {
@@ -488,8 +489,7 @@ GUILaneWrapper::selectSucessors()
     Position2D initPos = shape.positionAtLengthPosition(getLength()/(SUMOReal) 2.0);
     Position2DVector poly;
     for (SUMOReal i=0; i<360; i += 40) {
-        SUMOReal random1 = SUMOReal(rand()) /
-                           (static_cast<SUMOReal>(RAND_MAX) + 1);
+        SUMOReal random1 = randSUMO();
         Position2D p = initPos;
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
         poly.push_back(p);

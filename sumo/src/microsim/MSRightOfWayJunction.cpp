@@ -43,8 +43,9 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <utils/common/RandHelper.h>
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
 #endif
 
@@ -197,10 +198,7 @@ MSRightOfWayJunction::deadlockKiller()
         }
         // Choose randomly an index out of [0,trueRequests.size()];
         // !!! random choosing may choose one of less priorised lanes
-        unsigned noLockIndex = static_cast< unsigned >(floor(
-                                   static_cast< SUMOReal >(rand()) /
-                                   (static_cast< SUMOReal >(RAND_MAX) + 1.0) *
-                                   static_cast< SUMOReal >(trueRequests.size())));
+        unsigned noLockIndex = (unsigned) randSUMO(trueRequests.size());
 
         // Create deadlock-free request.
         std::bitset<64> noLockRequest(false);

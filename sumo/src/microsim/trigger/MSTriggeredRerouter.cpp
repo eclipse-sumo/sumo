@@ -48,6 +48,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
@@ -334,7 +335,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
-    if ((double) rand()/(double)(RAND_MAX) > prob) {
+    if (randSUMO() > prob) {
         return;
     }
 
