@@ -2,7 +2,7 @@
 /// @file    NLTriggerBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17 Oct 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A building helper for triggers
 /****************************************************************************/
@@ -110,12 +110,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 //			unsigned int dyncount  = helper.getInt( attrs, SUMO_ATTR_TO );
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-            /*if there is no instance of the cell, create it; hopefully there will be an actor created for this
-              so its become a relation to its LA*/
-            if (pPhone->getMSPhoneCell(cell_id) == 0)
-                pPhone->addMSPhoneCell(cell_id);
-            MSPhoneCell* pCell = pPhone->getMSPhoneCell(cell_id);
-            pCell->setStatParams(interval, statcount/*, -1 */);
+            if (pPhone->getMSPhoneCell(cell_id) != 0)
+                pPhone->getMSPhoneCell(cell_id)->setStatParams(interval, statcount);    
         } else if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 4) {
             /*this is the trigger for the duration for an interval for an hour*/
             unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
@@ -125,12 +121,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             float deviation  = helper.getFloat(attrs, SUMO_ATTR_XTO);
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-            /*if there is no instance of the cell, create it; hopefully there will be an actor created for this
-              so its become a relation to its LA*/
-            if (pPhone->getMSPhoneCell(cell_id) == 0)
-                pPhone->addMSPhoneCell(cell_id);
-            MSPhoneCell* pCell = pPhone->getMSPhoneCell(cell_id);
-            pCell->setDynParams(interval, count, duration, deviation);
+            if (pPhone->getMSPhoneCell(cell_id) != 0)
+                pPhone->getMSPhoneCell(cell_id)->setDynParams( interval, count, duration, deviation );
         } else {
             /*check that the depending lane realy exist. if not just forget this VehicleActor. */
             MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
