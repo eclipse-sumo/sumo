@@ -37,6 +37,7 @@
 #endif
 
 #include <cassert>
+#include <utils/common/RandHelper.h>
 
 template<class T>
 class RandomDistributor
@@ -57,7 +58,7 @@ public:
 
     T get() const
         {
-            SUMOReal prob = (SUMOReal)(((SUMOReal) rand()/(SUMOReal) RAND_MAX) * myProb);
+            SUMOReal prob = randSUMO(myProb);
             for (int i=0; i<(int) myVals.size(); i++) {
                 if (prob<myProbs[i]) {
                     return myVals[i];
