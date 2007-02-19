@@ -36,7 +36,7 @@
 
 #include "GUIRoute.h"
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSNet.h"
 #include "MSEdge.h"
 #endif

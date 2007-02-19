@@ -52,6 +52,10 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
+
 
 // ===========================================================================
 // used namespaces
@@ -248,11 +252,6 @@ GUIEdge::getCenteringBoundary() const
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
-
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 size_t
 GUIEdge::getVehicleNo() const
 {

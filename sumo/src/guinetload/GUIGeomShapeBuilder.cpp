@@ -50,6 +50,9 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIGeomShapeBuilder::GUIGeomShapeBuilder(MSNet &net,
         GUIGlObjectStorage &idStorage)
         : NLGeomShapeBuilder(net), myIdStorage(idStorage)
