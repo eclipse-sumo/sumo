@@ -48,6 +48,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
 ./utils/geoconv/libgeoconv.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 $(XMLRPC_LIBS) \
 -l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
@@ -101,6 +102,7 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -119,6 +121,7 @@ sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -138,6 +141,7 @@ sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -156,6 +160,7 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -174,6 +179,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/importio/libimportio.a \
 ./utils/gfx/libgfx.a \
 ./utils/xml/libxml.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -241,6 +247,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
 ./utils/geoconv/libgeoconv.a \
+./foreign/mersenne/libmersenne.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \

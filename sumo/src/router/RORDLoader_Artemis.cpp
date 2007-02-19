@@ -48,6 +48,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/RandHelper.h>
 #include "RORoute.h"
 #include "RORouteDef_OrigDest.h"
 #include "ROEdgeVector.h"
@@ -107,7 +108,7 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
         if (time%period==0) {
-            SUMOReal prob = (SUMOReal)((double) rand() / (double)((RAND_MAX) + 1) * (double) 100.0);
+            SUMOReal prob = randSUMO(100.);
             // check which destination to use
             DestProbVector poss = myNodeConnections[orig];
             for (DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {

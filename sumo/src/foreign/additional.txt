@@ -4,3 +4,8 @@ The subfolders contain additional libraries used by SUMO:
  Used Version: 0.7
  Modifications: none, but see inclusion in src/utils/dev/
  Original Page: http://sourceforge.net/projects/nvwa
+
+- Mersenne Twister Random Number Generator
+ Used Version: 1.0
+ Modifications: none
+ Original Page: http://www-personal.engin.umich.edu/~wagnerr/MersenneTwister.html

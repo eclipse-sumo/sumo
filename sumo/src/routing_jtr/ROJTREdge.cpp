@@ -37,6 +37,7 @@
 #include <algorithm>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/RandHelper.h>
 #include "ROJTREdge.h"
 
 #ifdef _DEBUG
@@ -105,8 +106,7 @@ ROJTREdge::chooseNext(SUMOTime time) const
         }
     }
     // get a random number between zero and one
-    SUMOReal chosen = (SUMOReal)rand() /
-                      (static_cast<SUMOReal>(RAND_MAX) + 1);
+    SUMOReal chosen = randSUMO();
     // if no description is given for the current time
     if (noDescs==0) {
         //  use the defaults

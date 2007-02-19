@@ -45,6 +45,12 @@
 
 
 // ===========================================================================
+// static member variables
+// ===========================================================================
+MTRand RandHelper::myRandomNumberGenerator;
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 void
@@ -65,12 +71,11 @@ void
 RandHelper::initRandGlobal(const OptionsCont &options)
 {
     if (options.getBool("abs-rand")) {
-        srand(time(0));
+        myRandomNumberGenerator.seed();
     } else {
-        srand(options.getInt("srand"));
+        myRandomNumberGenerator.seed(options.getInt("srand"));
     }
 }
-
 
 
 /****************************************************************************/

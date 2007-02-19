@@ -48,6 +48,7 @@
 #include "ROAbstractRouter.h"
 #include "RORouteDef_Alternatives.h"
 #include <utils/common/StdDefs.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -228,8 +229,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
         }
     }
     // find the route to use
-    SUMOReal chosen = (SUMOReal)rand() /
-                      (static_cast<SUMOReal>(RAND_MAX) + 1);
+    SUMOReal chosen = randSUMO();
     size_t pos = 0;
     for (i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();

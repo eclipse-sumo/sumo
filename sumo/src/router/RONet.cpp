@@ -58,6 +58,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -382,11 +383,11 @@ RONet::getRandomSource()
     if (mySourceEdges.size()==0) {
         return 0;
     }
-    // choose an edge by random
-    SUMOReal random = SUMOReal(rand()) /
-                      (static_cast<SUMOReal>(RAND_MAX) + 1);
-    return mySourceEdges[(size_t)(random*(mySourceEdges.size()-1))];
+    // choose a random edge
+    return getRandomFrom(mySourceEdges);
 }
+
+
 
 
 ROEdge *
@@ -397,11 +398,8 @@ RONet::getRandomDestination()
     if (myDestinationEdges.size()==0) {
         return 0;
     }
-    // choose an edge by random
-    // choose an edge by random
-    SUMOReal random = SUMOReal(rand()) /
-                      (static_cast<SUMOReal>(RAND_MAX) + 1);
-    return myDestinationEdges[(size_t)(random*(myDestinationEdges.size()-1))];
+    // choose a random edge
+    return getRandomFrom(myDestinationEdges);
 }
 
 

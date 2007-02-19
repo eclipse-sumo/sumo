@@ -41,6 +41,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include "RORouteDef.h"
@@ -137,10 +138,7 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         _net.addVehicle(id,
                         myVehicleBuilder.buildVehicle(
                             id, route, time, _net.getDefaultVehicleType(),
-                            RGBColor(
-                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5),
-                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5),
-                                (SUMOReal)((double) rand() / (double)(RAND_MAX + 1) / 2.0 + 0.5)),
+                            RGBColor(randSUMO(.5, 1.), randSUMO(.5, 1.), randSUMO(.5, 1.)),
                             -1, 0));
         _net.addRouteDef(route);
         myReadNewRoute = true;

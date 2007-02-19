@@ -44,6 +44,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include "RORouteDef.h"
@@ -89,7 +90,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         SUMOTime period = myIntervalEnd - myIntervalBegin;
         myDepartures.reserve(myVehicle2EmitNumber);
         for (size_t i=0; i<myVehicle2EmitNumber; ++i) {
-            SUMOTime departure = (SUMOTime)((double) rand() / (double) RAND_MAX * (double)(period));
+            SUMOTime departure = randSUMO(period);
             myDepartures.push_back(departure);
         }
         sort(myDepartures.begin(), myDepartures.end());
