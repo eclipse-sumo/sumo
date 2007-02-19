@@ -60,6 +60,11 @@
 // Not thread safe (unless auto-initialization is avoided and each thread has
 // its own MTRand object)
 
+#ifdef _MSC_VER // !!! mb pragmas added 19.02.2007
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4996)
+#endif
+
 #include <iostream>
 #include <limits.h>
 #include <stdio.h>
