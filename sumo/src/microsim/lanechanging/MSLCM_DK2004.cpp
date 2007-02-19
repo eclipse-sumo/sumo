@@ -37,7 +37,7 @@
 #include "MSLCM_DK2004.h"
 #include <iostream>
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "../MSDebugHelper.h"
 #endif
 
@@ -63,7 +63,7 @@ std::string id_follower("4536");
 std::string id_pfollower("1131");
 size_t searchedtime = 21900;
 
-#ifdef GUICHECK_MEMORY_LEAKS
+#ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif

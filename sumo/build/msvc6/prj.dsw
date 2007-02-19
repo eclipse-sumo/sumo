@@ -33,9 +33,6 @@ Package=<4>
     Project_Dep_Name z_libutils_common
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_geom
     End Project Dependency
 }}}
@@ -70,9 +67,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_librouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -161,9 +155,6 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -236,9 +227,6 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -271,9 +259,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -316,9 +301,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libnetimport
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -407,9 +389,6 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -443,9 +422,6 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name y_libnetgen
     End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -472,9 +448,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_distribution
@@ -517,9 +490,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -574,9 +544,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -739,18 +706,6 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_common"=.\z_libutils_common\z_libutils_common.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_dev"=.\z_libutils_dev\z_libutils_dev.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
