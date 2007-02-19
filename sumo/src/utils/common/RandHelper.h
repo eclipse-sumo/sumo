@@ -2,7 +2,7 @@
 /// @file    RandHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id$
+/// @version $Id: $
 ///
 //
 /****************************************************************************/
@@ -89,6 +89,7 @@ protected:
 };
 
 
+/// Returns a random element from the given vector
 template<class T>
 inline T
 getRandomFrom(const std::vector<T> &v)
@@ -97,7 +98,7 @@ getRandomFrom(const std::vector<T> &v)
 }
 
 
-
+/// Returns a random number between [0, 1)
 inline SUMOReal
 randSUMO()
 {
@@ -105,6 +106,7 @@ randSUMO()
 }
 
 
+/// Returns a random number between [0, maxV)
 template<class T>
 inline T
 randSUMO(T maxV)
@@ -113,6 +115,7 @@ randSUMO(T maxV)
 }
 
 
+/// Returns a random number between [minV, maxV)
 template<class T>
 inline T
 randSUMO(T minV, T maxV)

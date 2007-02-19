@@ -43,6 +43,7 @@
 #include <iostream>
 #include <algorithm>
 #include <list>
+#include <utils/common/RandHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -87,7 +88,7 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
 {
     int vehicles2emit = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle emission
-    SUMOReal mrand = (SUMOReal) rand()/(SUMOReal) RAND_MAX;
+    SUMOReal mrand = randSUMO();
     SUMOReal mprob = (SUMOReal)cell->vehicleNumber-(SUMOReal) vehicles2emit;
     if (mrand<mprob) {
         vehicles2emit++;
@@ -101,7 +102,7 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
         if (uniform) {
             veh.depart = (int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
         } else {
-            veh.depart = (int)(cell->begin + (SUMOReal)((double) rand() / (double) RAND_MAX) * (double)(cell->end - cell->begin));
+            veh.depart = (int)(cell->begin + randSUMO() * (double)(cell->end - cell->begin));
         }
 
         veh.from = dc.getRandomSourceFromDistrict(cell->origin);

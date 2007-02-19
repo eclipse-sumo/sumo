@@ -39,6 +39,7 @@
 #include <stdlib.h>
 #include "NGRandomNet.h"
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,8 +66,7 @@ TNeighbourDistribution::Num()
     for (i=Neighbours.begin(); i!=Neighbours.end(); ++i)
         sum += (*i).second;
     // RandValue = [0,sum]
-    RandValue = sum * static_cast<SUMOReal>(rand()) /
-                (static_cast<SUMOReal>(RAND_MAX) + 1);
+    RandValue = randSUMO(sum);
     // find selected item
     i = Neighbours.begin();
     sum = (*i).second;
@@ -221,8 +221,7 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 SUMOReal
 TNGRandomNet::GetAngle()
 {
-    return (SUMOReal) 2*(SUMOReal) PI*rand() /
-           (static_cast<SUMOReal>(RAND_MAX) + 1);
+    return randSUMO((SUMOReal) 2*(SUMOReal) PI);
 }
 
 
@@ -238,9 +237,7 @@ TNGRandomNet::GetDistance()
 bool
 TNGRandomNet::UseOuterNode()
 {
-    SUMOReal value = (SUMOReal) rand();
-    SUMOReal max = static_cast<SUMOReal>(RAND_MAX) + 1;
-    value = value/max;
+    SUMOReal value = randSUMO();
     if ((value) < myConnectivity) {
         return true;
     } else {
