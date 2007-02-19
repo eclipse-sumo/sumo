@@ -2,7 +2,7 @@
 /// @file    GUIVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: $
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -52,6 +52,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
+#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -171,10 +172,7 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                         (SUMOReal)(256-((prod>>8) & 255)) / (SUMOReal) 255,
                         (SUMOReal)(256-((prod>>16) & 255)) / (SUMOReal) 255);
     // color2
-    _randomColor2 = RGBColor(
-                        (SUMOReal)rand() / (static_cast<SUMOReal>(RAND_MAX) + 1),
-                        (SUMOReal)rand() / (static_cast<SUMOReal>(RAND_MAX) + 1),
-                        (SUMOReal)rand() / (static_cast<SUMOReal>(RAND_MAX) + 1));
+    _randomColor2 = RGBColor(randSUMO(), randSUMO(), randSUMO());
 }
 
 
