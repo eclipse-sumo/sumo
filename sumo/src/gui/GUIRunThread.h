@@ -44,6 +44,7 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -163,7 +164,7 @@ protected:
 
     FXEX::FXThreadEvent &myEventThrow;
 
-    FXMutex mySimulationLock;
+    MFXMutex mySimulationLock;
 
 };
 

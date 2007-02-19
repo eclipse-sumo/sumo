@@ -47,6 +47,7 @@
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include "GUIGrid.h"
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/foxtools/MFXMutex.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -491,9 +492,9 @@ protected:
     GUIDialog_ViewSettings *myVisualizationChanger;
 
     std::vector<Decal> myDecals;
-    FXMutex myDecalsLock;
+    MFXMutex myDecalsLock;
 
-    mutable FXMutex myPolyDrawLock;
+    mutable MFXMutex myPolyDrawLock;
 
     enum VehicleOperationType {
         VO_TRACK,

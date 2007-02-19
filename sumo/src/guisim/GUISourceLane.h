@@ -43,6 +43,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -127,7 +128,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable FXMutex _lock;
+    mutable MFXMutex _lock;
 
 };
 

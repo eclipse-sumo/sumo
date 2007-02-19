@@ -38,6 +38,7 @@
 
 #include <fx.h>
 #include <list>
+#include <utils/foxtools/MFXMutex.h>
 
 class MFXEventQue
 {
@@ -53,7 +54,7 @@ public:
     size_t size();
     bool empty();
 private:
-    FXMutex myMutex;
+    MFXMutex myMutex;
     std::list<void*> myEvents;
 };
 

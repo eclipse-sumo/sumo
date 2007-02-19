@@ -39,6 +39,7 @@
 
 #include <fx.h>
 #include <vector>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -88,7 +89,7 @@ protected:
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
-    FXMutex myTrackerLock;
+    MFXMutex myTrackerLock;
 
     /// Font used for popup-menu titles
     FXFont *myBoldFont;

@@ -44,6 +44,7 @@
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -156,7 +157,7 @@ protected:
 
     FXEX::FXThreadEvent &myEventThrow;
 
-    FXMutex mySimulationLock;
+    MFXMutex mySimulationLock;
 
 };
 

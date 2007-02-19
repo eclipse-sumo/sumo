@@ -38,6 +38,7 @@
 
 #include <map>
 #include <fx.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -115,7 +116,7 @@ private:
     size_t myAktID;
 
     /// A lock to avoid parallel access on the storages
-    FXMutex _lock;
+    MFXMutex _lock;
 
 private:
     /// Invalidated copy constructor

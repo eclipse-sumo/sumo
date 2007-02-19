@@ -86,7 +86,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         BaseSchemeInfoSource *laneEdgeModeSource,
         BaseSchemeInfoSource *vehicleModeSource,
         std::vector<GUISUMOAbstractView::Decal> *decals,
-        FXMutex *decalsLock)
+        MFXMutex *decalsLock)
         : FXDialogBox(parent, "View Settings"),
         myMainWindow(mainWindow), myParent(parent), mySettings(settings),
         myLaneColoringInfoSource(laneEdgeModeSource),

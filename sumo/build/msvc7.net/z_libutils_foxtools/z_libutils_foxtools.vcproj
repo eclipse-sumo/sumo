@@ -350,6 +350,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXMutex.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXUtils.cpp">
 			</File>
 		</Filter>
@@ -406,6 +409,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXThreadDefs.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXMutex.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXUtils.h">

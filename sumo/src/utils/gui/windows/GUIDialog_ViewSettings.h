@@ -40,6 +40,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -67,7 +68,7 @@ public:
                            BaseSchemeInfoSource *laneEdgeModeSource,
                            BaseSchemeInfoSource *vehicleModeSource,
                            std::vector<GUISUMOAbstractView::Decal> *decals,
-                           FXMutex *decalsLock);
+                           MFXMutex *decalsLock);
 
     /// destructor
     ~GUIDialog_ViewSettings();
@@ -101,7 +102,7 @@ private:
     BaseSchemeInfoSource *myLaneColoringInfoSource;
     BaseSchemeInfoSource *myVehicleColoringInfoSource;
     std::vector<GUISUMOAbstractView::Decal> *myDecals;
-    FXMutex *myDecalsLock;
+    MFXMutex *myDecalsLock;
     FXComboBox *mySchemeName;
 
     FXColorWell *myBackgroundColor;
