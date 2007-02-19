@@ -2,7 +2,7 @@
 /// @file    GUIROWDrawer.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02.09.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Draws links (mainly their right-of-way)
 /****************************************************************************/

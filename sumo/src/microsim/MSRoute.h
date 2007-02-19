@@ -2,7 +2,7 @@
 /// @file    MSRoute.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle route
 /****************************************************************************/

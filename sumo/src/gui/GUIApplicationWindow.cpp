@@ -2,7 +2,7 @@
 /// @file    GUIApplicationWindow.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for the main gui window
 /****************************************************************************/
@@ -81,8 +81,8 @@
 #include <microsim/MSGlobals.h>
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
 #endif
 
 

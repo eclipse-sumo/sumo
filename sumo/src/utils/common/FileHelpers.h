@@ -2,7 +2,7 @@
 /// @file    FileHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Functions for an easier usage of files
 /****************************************************************************/

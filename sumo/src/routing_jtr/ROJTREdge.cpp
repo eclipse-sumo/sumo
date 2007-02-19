@@ -2,7 +2,7 @@
 /// @file    ROJTREdge.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // An edge the router may route through
 /****************************************************************************/
@@ -40,9 +40,9 @@
 #include <utils/common/RandHelper.h>
 #include "ROJTREdge.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

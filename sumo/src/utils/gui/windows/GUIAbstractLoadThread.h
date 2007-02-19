@@ -2,7 +2,7 @@
 /// @file    GUIAbstractLoadThread.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class describing the thread that performs the loading of a simulation
 /****************************************************************************/

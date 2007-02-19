@@ -2,7 +2,7 @@
 /// @file    SystemFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 23.06.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A set of actions common to all applications
 /****************************************************************************/
@@ -42,9 +42,9 @@
 #include <utils/common/LogFile.h>
 #include "RandHelper.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

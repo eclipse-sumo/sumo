@@ -2,7 +2,7 @@
 /// @file    NIArtemisParser_HVdests.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 13 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/

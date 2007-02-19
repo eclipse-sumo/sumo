@@ -2,7 +2,7 @@
 /// @file    GUIParam_PopupMenu.h
 /// @author  Daniel Krajzewicz
 /// @date    Mai 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSEmitControl.h
 /// @author  Christian Roessel
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // vehicles into the net.
 /****************************************************************************/

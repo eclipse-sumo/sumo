@@ -2,7 +2,7 @@
 /// @file    MSDetector2File.h
 /// @author  Christian Roessel
 /// @date    Mon Jul  7 16:16:26 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

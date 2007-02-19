@@ -2,7 +2,7 @@
 /// @file    GUINoLogicJunction.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 1 Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSNoLogicJunction with a graphical representation
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include "GUIJunctionWrapper.h"
 #include "GUINoLogicJunction.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

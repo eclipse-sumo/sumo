@@ -2,7 +2,7 @@
 /// @file    MSBusStop.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 13.12.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A point vehicles can halt at.
 /****************************************************************************/

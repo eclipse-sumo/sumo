@@ -2,7 +2,7 @@
 /// @file    MSCurrentHaltingDurationSumPerVehicle.h
 /// @author  Christian Roessel
 /// @date    Thu Oct 16 11:44:47 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

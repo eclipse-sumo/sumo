@@ -2,7 +2,7 @@
 /// @file    PCTypeMap.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // }
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSEventControl.cpp
 /// @author  Christian Roessel
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // time-dependant events
 /****************************************************************************/
@@ -40,9 +40,9 @@
 #include <utils/helpers/Command.h>
 #include "MSNet.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

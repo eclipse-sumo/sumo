@@ -2,7 +2,7 @@
 /// @file    MSVehicleTransfer.h
 /// @author  Daniel Krajzewicz
 /// @date    Sep 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A mover of vehicles that got stucked due to grid locks
 /****************************************************************************/

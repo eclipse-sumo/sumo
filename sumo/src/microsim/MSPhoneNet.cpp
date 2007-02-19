@@ -2,7 +2,7 @@
 /// @file    MSPhoneNet.cpp
 /// @author  Eric Nicolay
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // The cellular network (GSM)
 /****************************************************************************/

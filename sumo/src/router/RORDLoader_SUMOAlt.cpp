@@ -2,7 +2,7 @@
 /// @file    RORDLoader_SUMOAlt.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A SAX-handler for SUMO-route-alternatives
 /****************************************************************************/
@@ -50,9 +50,9 @@
 #include "RORoute.h"
 #include "RONet.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

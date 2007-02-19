@@ -2,7 +2,7 @@
 /// @file    PCTypeDefHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A handler for loading polygon type maps
 /****************************************************************************/
@@ -46,9 +46,9 @@
 #include "PCTypeMap.h"
 #include "PCTypeDefHandler.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

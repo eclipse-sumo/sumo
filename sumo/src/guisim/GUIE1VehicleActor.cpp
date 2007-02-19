@@ -2,7 +2,7 @@
 /// @file    GUIE1VehicleActor.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07.12.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class that realises the setting of a lane's maximum speed triggered by
 /****************************************************************************/
@@ -69,9 +69,9 @@
 #include <gui/GUIApplicationWindow.h>
 #include <guisim/GUIE1VehicleActor.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

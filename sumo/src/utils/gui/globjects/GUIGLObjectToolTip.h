@@ -2,7 +2,7 @@
 /// @file    GUIGLObjectToolTip.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The tooltip class for displaying information about gl-objects
 /****************************************************************************/

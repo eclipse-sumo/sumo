@@ -2,7 +2,7 @@
 /// @file    SharedOutputDevices.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The holder/builder of output devices
 /****************************************************************************/

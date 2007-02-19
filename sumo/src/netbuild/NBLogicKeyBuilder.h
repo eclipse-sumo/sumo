@@ -2,7 +2,7 @@
 /// @file    NBLogicKeyBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The builder of logic keys
 /****************************************************************************/

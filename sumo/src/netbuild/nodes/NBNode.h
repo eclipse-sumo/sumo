@@ -2,7 +2,7 @@
 /// @file    NBNode.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/

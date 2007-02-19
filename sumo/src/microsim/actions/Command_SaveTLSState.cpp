@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLSState.cpp
 /// @author  Daniel Krajzewicz
 /// @date    15 Feb 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Writes the state of the tls to a file
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

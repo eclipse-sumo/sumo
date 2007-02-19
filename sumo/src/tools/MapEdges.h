@@ -2,7 +2,7 @@
 /// @file    MapEdges.h
 /// @author  unknown_author
 /// @date    Jun 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A tool application to map between edges from two different networks
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GNEImageProcWindow.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 26 Jan 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

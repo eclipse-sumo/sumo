@@ -2,7 +2,7 @@
 /// @file    GUISelectedStorage.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Storage for object selections
 /****************************************************************************/

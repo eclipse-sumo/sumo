@@ -2,7 +2,7 @@
 /// @file    NIArtemisParser_SignalPhases.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/

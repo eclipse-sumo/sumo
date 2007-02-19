@@ -2,7 +2,7 @@
 /// @file    GUIParameterTableWindow.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The window that holds the table of an object's parameter
 /****************************************************************************/

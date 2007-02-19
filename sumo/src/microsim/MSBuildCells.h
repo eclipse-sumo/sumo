@@ -2,7 +2,7 @@
 /// @file    MSBuildCells.h
 /// @author  Danilot Teta Boyom
 /// @date    Jul 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class set each Lane to the network's cells
 /****************************************************************************/

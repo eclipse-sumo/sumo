@@ -2,7 +2,7 @@
 /// @file    NIVissimAbstractEdge.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include <utils/geom/Line2D.h>
 #include "NIVissimAbstractEdge.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;

@@ -2,7 +2,7 @@
 /// @file    MSLaneChanger.cpp
 /// @author  Christian Roessel
 /// @date    Fri, 01 Feb 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // the edge's lanes.
 /****************************************************************************/
@@ -45,13 +45,13 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 #include "MSDebugHelper.h"
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

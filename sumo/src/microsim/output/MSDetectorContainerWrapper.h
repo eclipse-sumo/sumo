@@ -2,7 +2,7 @@
 /// @file    MSDetectorContainerWrapper.h
 /// @author  Christian Roessel
 /// @date    Fri Sep 26 19:11:26 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

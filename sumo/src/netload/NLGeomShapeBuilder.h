@@ -2,7 +2,7 @@
 /// @file    NLGeomShapeBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Sep 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // Builder for geometrical objects
 /****************************************************************************/

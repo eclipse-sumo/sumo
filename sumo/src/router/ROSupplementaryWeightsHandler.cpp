@@ -2,7 +2,7 @@
 /// @file    ROSupplementaryWeightsHandler.cpp
 /// @author  Christian Roessel
 /// @date    Thu Apr 08 2004 15:31 CEST
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/
@@ -52,9 +52,9 @@
 #include "ROEdge.h"
 #include "RONet.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

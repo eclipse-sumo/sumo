@@ -2,7 +2,7 @@
 /// @file    LoggedValue_Single.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 20 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Logger over a single time step
 /****************************************************************************/

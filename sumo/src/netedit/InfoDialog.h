@@ -2,7 +2,7 @@
 /// @file    InfoDialog.h
 /// @author  Maik Drozdzynski
 /// @date    21.12.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

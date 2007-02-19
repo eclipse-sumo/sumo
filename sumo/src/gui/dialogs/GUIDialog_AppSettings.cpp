@@ -2,7 +2,7 @@
 /// @file    GUIDialog_AppSettings.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 08.03.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The application-settings dialog
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

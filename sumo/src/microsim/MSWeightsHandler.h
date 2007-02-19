@@ -2,7 +2,7 @@
 /// @file    MSWeightsHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A SAX-handler for loading SUMO-weights (aggregated dumps)
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NLSucceedingLaneBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 22 Oct 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Container for the succeding lanes of a lane during their building
 /****************************************************************************/

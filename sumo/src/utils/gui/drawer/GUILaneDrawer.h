@@ -2,7 +2,7 @@
 /// @file    GUILaneDrawer.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02.09.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for lane drawing;
 /****************************************************************************/

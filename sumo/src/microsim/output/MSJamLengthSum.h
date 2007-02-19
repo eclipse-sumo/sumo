@@ -2,7 +2,7 @@
 /// @file    MSJamLengthSum.h
 /// @author  Christian Roessel
 /// @date    Mon Sep 29 09:42:08 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

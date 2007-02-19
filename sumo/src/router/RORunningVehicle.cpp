@@ -2,7 +2,7 @@
 /// @file    RORunningVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle that has an initial speed (and possibly position)
 /****************************************************************************/
@@ -40,9 +40,9 @@
 #include "RORunningVehicle.h"
 #include "RORouteDef.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

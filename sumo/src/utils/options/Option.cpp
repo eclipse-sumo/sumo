@@ -2,7 +2,7 @@
 /// @file    Option.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class representing a single program option
 /****************************************************************************/
@@ -43,9 +43,9 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

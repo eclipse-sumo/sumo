@@ -2,7 +2,7 @@
 /// @file    Distribution_Points.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The description of a distribution by a curve
 /****************************************************************************/

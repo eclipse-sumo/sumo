@@ -2,7 +2,7 @@
 /// @file    GUIUserIO.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some OS-dependant functions to ease cliboard manipulation
 /****************************************************************************/

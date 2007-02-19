@@ -2,7 +2,7 @@
 /// @file    Boundary.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class that stores the 2D geometrical boundary
 /****************************************************************************/
@@ -40,9 +40,9 @@
 #include "Position2DVector.h"
 #include "Position2D.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

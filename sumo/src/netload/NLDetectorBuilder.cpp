@@ -2,7 +2,7 @@
 /// @file    NLDetectorBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 15 Apr 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A building helper for the detectors
 /****************************************************************************/
@@ -56,9 +56,9 @@
 #include <mesosim/MELoop.h>
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

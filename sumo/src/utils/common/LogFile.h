@@ -2,7 +2,7 @@
 /// @file    LogFile.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 23.06.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GUIDialog_AppSettings.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 08.03.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The application-settings dialog
 /****************************************************************************/

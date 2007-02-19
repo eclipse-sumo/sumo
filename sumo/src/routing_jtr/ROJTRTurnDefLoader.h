@@ -2,7 +2,7 @@
 /// @file    ROJTRTurnDefLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Loader for the description of turning percentages
 /****************************************************************************/

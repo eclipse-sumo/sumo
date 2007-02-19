@@ -2,7 +2,7 @@
 /// @file    NIVissimSingleTypeParser_Kennungszeile.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 6 Mar 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

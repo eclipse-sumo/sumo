@@ -2,7 +2,7 @@
 /// @file    GUIMessageWindow.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 25 Nov 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A logging window for the gui
 /****************************************************************************/

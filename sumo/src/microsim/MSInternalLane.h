@@ -2,7 +2,7 @@
 /// @file    MSInternalLane.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class representing junction-internal lanes
 /****************************************************************************/

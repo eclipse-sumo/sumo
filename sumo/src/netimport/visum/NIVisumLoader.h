@@ -2,7 +2,7 @@
 /// @file    NIVisumLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A loader visum-files
 /****************************************************************************/

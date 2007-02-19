@@ -2,7 +2,7 @@
 /// @file    GUIAddWeightsStorage.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 16 Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

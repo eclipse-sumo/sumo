@@ -2,7 +2,7 @@
 /// @file    ODCell.h
 /// @author  Peter Mieth
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A single cell within the od-matrix
 /****************************************************************************/

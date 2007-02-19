@@ -2,7 +2,7 @@
 /// @file    MSGlobals.h
 /// @author  Daniel Krajzewicz
 /// @date    late summer 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some static variables for faster access
 /****************************************************************************/

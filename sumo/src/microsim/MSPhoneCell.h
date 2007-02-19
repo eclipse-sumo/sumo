@@ -2,7 +2,7 @@
 /// @file    MSPhoneCell.h
 /// @author  Eric Nicolay
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A cell of a cellular network (GSM)
 /****************************************************************************/

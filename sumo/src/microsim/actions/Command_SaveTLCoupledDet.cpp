@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLCoupledDet.cpp
 /// @author  Daniel Krajzewicz
 /// @date    15 Feb 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Realises the output of a tls values on each switch
 /****************************************************************************/
@@ -43,9 +43,9 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

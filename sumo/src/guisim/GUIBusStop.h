@@ -2,7 +2,7 @@
 /// @file    GUIBusStop.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07.12.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // GUI-version of MSBusStop
 /****************************************************************************/

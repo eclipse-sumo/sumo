@@ -2,7 +2,7 @@
 /// @file    ROVehicleType_ID.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07.12.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A type which is only described by its id (other values are invalid)
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include "ROVehicleType.h"
 #include "ROVehicleType_ID.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

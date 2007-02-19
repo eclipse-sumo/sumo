@@ -2,7 +2,7 @@
 /// @file    GUIVehicleControl.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles within the gui
 /****************************************************************************/

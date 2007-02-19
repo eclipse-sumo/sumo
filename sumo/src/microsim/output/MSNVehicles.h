@@ -2,7 +2,7 @@
 /// @file    MSNVehicles.h
 /// @author  Christian Roessel
 /// @date    Wed Oct 15 13:29:34 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

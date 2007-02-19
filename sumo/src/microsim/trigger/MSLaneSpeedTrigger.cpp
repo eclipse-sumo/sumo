@@ -2,7 +2,7 @@
 /// @file    MSLaneSpeedTrigger.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class that realises the setting of a lane's maximum speed triggered by
 /****************************************************************************/
@@ -45,9 +45,9 @@
 #include <utils/common/TplConvert.h>
 #include <microsim/MSEventControl.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

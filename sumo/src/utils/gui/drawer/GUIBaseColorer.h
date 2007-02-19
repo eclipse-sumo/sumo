@@ -2,7 +2,7 @@
 /// @file    GUIBaseColorer.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

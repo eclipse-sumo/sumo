@@ -2,7 +2,7 @@
 /// @file    MSTDDetectorInterface.h
 /// @author  Christian Roessel
 /// @date    Tue Dec 02 2003 20:03 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

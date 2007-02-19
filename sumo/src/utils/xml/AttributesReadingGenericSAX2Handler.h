@@ -2,7 +2,7 @@
 /// @file    AttributesReadingGenericSAX2Handler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A combination between a GenericSAXHandler and an AttributesHandler
 /****************************************************************************/

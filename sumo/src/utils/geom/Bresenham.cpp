@@ -2,7 +2,7 @@
 /// @file    Bresenham.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 07 Jun 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class to realise a uniform n:m - relationship using the
 /****************************************************************************/
@@ -37,9 +37,9 @@
 #include <iostream>
 #include "Bresenham.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

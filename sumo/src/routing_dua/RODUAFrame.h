@@ -2,7 +2,7 @@
 /// @file    RODUAFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/

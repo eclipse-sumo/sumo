@@ -2,7 +2,7 @@
 /// @file    LoggedValue_TimeFixed.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 20 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // This class logs values over a previously defined, fixed time
 /****************************************************************************/

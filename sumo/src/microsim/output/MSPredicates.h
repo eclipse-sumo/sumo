@@ -2,7 +2,7 @@
 /// @file    MSPredicates.h
 /// @author  Christian Roessel
 /// @date    Thu Sep 11 16:15:30 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

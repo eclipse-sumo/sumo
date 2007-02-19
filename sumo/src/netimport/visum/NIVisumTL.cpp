@@ -2,7 +2,7 @@
 /// @file    NIVisumTL.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thr, 08 May 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Intermediate class for importing Visum traffic lights
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include "NIVisumTL.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // ===========================================================================
 // used namespaces

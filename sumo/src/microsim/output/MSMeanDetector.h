@@ -2,7 +2,7 @@
 /// @file    MSMeanDetector.h
 /// @author  Christian Roessel
 /// @date    Thu Sep 18 13:51:35 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

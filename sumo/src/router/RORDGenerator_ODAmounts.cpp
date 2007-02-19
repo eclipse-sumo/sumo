@@ -2,7 +2,7 @@
 /// @file    RORDGenerator_ODAmounts.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for loading trip amount definitions and route generation
 /****************************************************************************/
@@ -57,9 +57,9 @@
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

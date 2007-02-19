@@ -2,7 +2,7 @@
 /// @file    MSMaxJamLength.h
 /// @author  Christian Roessel
 /// @date    Mon Sep 29 09:39:10 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

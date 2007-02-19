@@ -2,7 +2,7 @@
 /// @file    GNEViewTraffic.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 15 Dec 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/

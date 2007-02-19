@@ -2,7 +2,7 @@
 /// @file    MSTravelcostDetector.h
 /// @author  Christian Roessel
 /// @date    Mon Jun  2 17:21:27 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // 
 /****************************************************************************/

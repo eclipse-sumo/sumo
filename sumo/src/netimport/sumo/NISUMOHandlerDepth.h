@@ -2,7 +2,7 @@
 /// @file    NISUMOHandlerDepth.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A handler for deeper SUMO-import (connections and logics)
 /****************************************************************************/

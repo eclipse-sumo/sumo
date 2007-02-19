@@ -2,7 +2,7 @@
 /// @file    PCElmarPoints.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A reader of pois stored in elmar-format
 /****************************************************************************/

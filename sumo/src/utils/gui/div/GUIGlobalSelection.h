@@ -2,7 +2,7 @@
 /// @file    GUIGlobalSelection.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Just an information that a global storage for object selections exists
 /****************************************************************************/

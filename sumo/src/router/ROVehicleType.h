@@ -2,7 +2,7 @@
 /// @file    ROVehicleType.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for vehicle types
 /****************************************************************************/

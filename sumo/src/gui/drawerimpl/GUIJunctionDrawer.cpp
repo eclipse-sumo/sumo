@@ -2,7 +2,7 @@
 /// @file    GUIJunctionDrawer.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02.09.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for drawing junctions
 /****************************************************************************/
@@ -42,9 +42,9 @@
 #include <utils/glutils/polyfonts.h>
 #include <microsim/MSJunction.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 #ifdef _WIN32
 #include <windows.h>

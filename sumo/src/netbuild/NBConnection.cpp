@@ -2,7 +2,7 @@
 /// @file    NBConnection.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include "NBEdge.h"
 #include "NBConnection.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

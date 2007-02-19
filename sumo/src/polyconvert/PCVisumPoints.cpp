@@ -2,7 +2,7 @@
 /// @file    PCVisumPoints.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A reader of pois stored in visum-format
 /****************************************************************************/
@@ -56,9 +56,9 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geoconv/GeoConvHelper.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

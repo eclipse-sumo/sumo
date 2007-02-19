@@ -2,7 +2,7 @@
 /// @file    RORouteDef.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Basic class for route definitions (not the computed routes)
 /****************************************************************************/

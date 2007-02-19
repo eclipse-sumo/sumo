@@ -2,7 +2,7 @@
 /// @file    MSRouteLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 6 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class that performs the loading of routes
 /****************************************************************************/

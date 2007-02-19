@@ -2,7 +2,7 @@
 /// @file    MSDetectorTypedefs.h
 /// @author  Christian Roessel
 /// @date    Thu Oct 16 13:28:50 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

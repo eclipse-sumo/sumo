@@ -2,7 +2,7 @@
 /// @file    MSOccupancyDegree.h
 /// @author  Christian Roessel
 /// @date    Wed Oct 15 17:35:12 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

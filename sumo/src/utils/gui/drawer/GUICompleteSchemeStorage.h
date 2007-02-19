@@ -2,7 +2,7 @@
 /// @file    GUICompleteSchemeStorage.h
 /// @author  Daniel Krajzewicz
 /// @date    :find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

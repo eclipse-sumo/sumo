@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_Edges.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 14 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for visum-edges
 /****************************************************************************/

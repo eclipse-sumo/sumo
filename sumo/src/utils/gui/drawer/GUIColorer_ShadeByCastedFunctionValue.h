@@ -2,7 +2,7 @@
 /// @file    GUIColorer_ShadeByCastedFunctionValue.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 12.12.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

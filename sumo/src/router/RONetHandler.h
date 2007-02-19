@@ -2,7 +2,7 @@
 /// @file    RONetHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/

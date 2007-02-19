@@ -2,7 +2,7 @@
 /// @file    ROSupplementaryWeightsHandler.h
 /// @author  Christian Roessel
 /// @date    Thu Apr 08 2004 15:31 CEST
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

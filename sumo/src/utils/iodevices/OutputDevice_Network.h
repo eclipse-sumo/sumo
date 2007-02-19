@@ -2,7 +2,7 @@
 /// @file    OutputDevice_Network.h
 /// @author  Felix Brack
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

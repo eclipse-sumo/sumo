@@ -2,7 +2,7 @@
 /// @file    GUIColoringSchemesMap.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A mapping between coloring schemes, their enumerations and int values
 /****************************************************************************/

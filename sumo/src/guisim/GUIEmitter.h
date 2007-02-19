@@ -2,7 +2,7 @@
 /// @file    GUIEmitter.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 21.07.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // The gui-version of MSEmitter
 /****************************************************************************/

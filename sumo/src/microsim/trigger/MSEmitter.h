@@ -2,7 +2,7 @@
 /// @file    MSEmitter.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 21.07.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class that realises the setting of a lane's maximum speed triggered by
 /****************************************************************************/

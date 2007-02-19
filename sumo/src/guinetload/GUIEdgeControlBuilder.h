@@ -2,7 +2,7 @@
 /// @file    GUIEdgeControlBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A builder for edges during the loading derived from the
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    UtilExceptions.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Exceptions for used by some utility classes
 /****************************************************************************/

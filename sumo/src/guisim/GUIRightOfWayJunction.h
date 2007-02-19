@@ -2,7 +2,7 @@
 /// @file    GUIRightOfWayJunction.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 1 Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSRightOfWayJunction with a graphical representation
 /****************************************************************************/

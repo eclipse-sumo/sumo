@@ -2,7 +2,7 @@
 /// @file    GUITriggerBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 26.04.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A building helper for triggers
 /****************************************************************************/

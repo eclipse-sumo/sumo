@@ -2,7 +2,7 @@
 /// @file    GNEApplicationWindow.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 22. Nov 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for the main gui window
 /****************************************************************************/
@@ -87,9 +87,9 @@
 #include "GNEImageProcWindow.h"
 #include <microsim/MSGlobals.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    GUIInductLoop.h
 /// @author  Daniel Krajzewicz
 /// @date    Aug 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    ODmatrix.h
 /// @author  Daniel Krajzewicz
 /// @date    05. Apr. 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

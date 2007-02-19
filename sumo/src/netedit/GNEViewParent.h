@@ -2,7 +2,7 @@
 /// @file    GNEViewParent.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 15 Dec 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A window that controls the display(s) of the simulation
 /****************************************************************************/

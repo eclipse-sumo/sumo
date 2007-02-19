@@ -2,7 +2,7 @@
 /// @file    NLLoadFilter.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 15 Apr 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

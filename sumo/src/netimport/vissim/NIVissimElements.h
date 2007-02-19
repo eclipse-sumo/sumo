@@ -2,7 +2,7 @@
 /// @file    NIVissimElements.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/

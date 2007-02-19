@@ -2,7 +2,7 @@
 /// @file    GUIPerspectiveChanger.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A virtual class that allows to steer the visual output in dependence to
 /****************************************************************************/

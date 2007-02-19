@@ -2,7 +2,7 @@
 /// @file    MSE1VehicleActor.h
 /// @author  Daniel Krajzewicz
 /// @date    23.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // An actor which changes a vehicle's state
 /****************************************************************************/

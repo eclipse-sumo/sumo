@@ -2,7 +2,7 @@
 /// @file    GUIParameterTableItem.h
 /// @author  Daniel Krajzewicz
 /// @date
-/// @version $Id: $
+/// @version $Id$
 ///
 // A single line in the parameter window
 /****************************************************************************/

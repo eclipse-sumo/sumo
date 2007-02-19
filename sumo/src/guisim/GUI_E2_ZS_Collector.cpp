@@ -2,7 +2,7 @@
 /// @file    GUI_E2_ZS_Collector.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Okt 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The gui-version of the MS_E2_ZS_Collector, together with the according
 /****************************************************************************/
@@ -50,9 +50,9 @@
 
 #include <GL/gl.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

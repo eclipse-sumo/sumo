@@ -2,7 +2,7 @@
 /// @file    GUITriggerWrapper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/

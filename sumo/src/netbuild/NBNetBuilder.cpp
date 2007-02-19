@@ -2,7 +2,7 @@
 /// @file    NBNetBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // The instance responsible for building networks
 /****************************************************************************/
@@ -55,9 +55,9 @@
 #include <utils/common/ToString.h>
 #include "NBJoinedEdgesMap.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

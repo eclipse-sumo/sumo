@@ -2,7 +2,7 @@
 /// @file    GUIAppGlobals.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 08.03.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Message and object IDs used by the FOX-version of the gui
 /****************************************************************************/

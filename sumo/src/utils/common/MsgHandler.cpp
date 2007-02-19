@@ -2,7 +2,7 @@
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 17 Jun 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
@@ -45,9 +45,9 @@
 #include <utils/options/OptionsCont.h>
 #include "AbstractMutex.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

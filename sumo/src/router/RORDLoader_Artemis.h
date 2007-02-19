@@ -2,7 +2,7 @@
 /// @file    RORDLoader_Artemis.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 12 Mar 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A handler for Artemis-files
 /****************************************************************************/

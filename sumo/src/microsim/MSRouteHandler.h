@@ -2,7 +2,7 @@
 /// @file    MSRouteHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/

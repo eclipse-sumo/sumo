@@ -2,7 +2,7 @@
 /// @file    SUMODijkstraRouter.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 July 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // The dijkstra-router
 /****************************************************************************/

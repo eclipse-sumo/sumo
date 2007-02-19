@@ -2,7 +2,7 @@
 /// @file    XMLSubSys.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 1 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Utility for initialisation and closing of the XML-subsystem
 /****************************************************************************/

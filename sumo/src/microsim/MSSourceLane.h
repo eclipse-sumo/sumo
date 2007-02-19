@@ -2,7 +2,7 @@
 /// @file    MSSourceLane.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Same as MSLane, but with another emission
 /****************************************************************************/

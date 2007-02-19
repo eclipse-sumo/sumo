@@ -2,7 +2,7 @@
 /// @file    NIOptionsIO.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class for the initialisation, input and veryfying of the
 /****************************************************************************/

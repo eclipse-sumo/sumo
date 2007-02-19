@@ -2,7 +2,7 @@
 /// @file    GUIGlObjectGlobals.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some global variables (yep)
 /****************************************************************************/

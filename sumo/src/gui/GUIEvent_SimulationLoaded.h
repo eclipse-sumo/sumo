@@ -2,7 +2,7 @@
 /// @file    GUIEvent_SimulationLoaded.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Event send when the simulation has been loaded by GUILadThread
 /****************************************************************************/

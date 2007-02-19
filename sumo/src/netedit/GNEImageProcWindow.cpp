@@ -2,7 +2,7 @@
 /// @file    GNEImageProcWindow.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 26 Jan 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // The map manipulation window
 /****************************************************************************/
@@ -77,9 +77,9 @@
 
 #include <fstream>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // ===========================================================================
 // statc value definitions

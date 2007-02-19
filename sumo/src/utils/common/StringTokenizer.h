@@ -2,7 +2,7 @@
 /// @file    StringTokenizer.h
 /// @author  Daniel Krajzewicz
 /// @date    ?
-/// @version $Id: $
+/// @version $Id$
 ///
 // A java-style StringTokenizer for c++ (stl)
 /****************************************************************************/

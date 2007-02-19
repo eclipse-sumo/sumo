@@ -2,7 +2,7 @@
 /// @file    GUIPolygon2D.cpp
 /// @author  Daniel Krajzewicz
 /// @date    June 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // The GUI-version of a polygon
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

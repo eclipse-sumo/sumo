@@ -2,7 +2,7 @@
 /// @file    DiscreteCommand.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 23 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLCoupledDet.h
 /// @author  Daniel Krajzewicz
 /// @date    15 Feb 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Realises the output of a tls values on each switch
 /****************************************************************************/

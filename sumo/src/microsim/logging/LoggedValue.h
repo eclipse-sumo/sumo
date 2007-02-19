@@ -2,7 +2,7 @@
 /// @file    LoggedValue.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 20 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // An abstract (virtual) class for value logging
 /****************************************************************************/

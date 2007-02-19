@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_LanesConnections.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 23 Mar 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for visum-lanes
 /****************************************************************************/

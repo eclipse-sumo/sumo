@@ -2,7 +2,7 @@
 /// @file    GUIDialog_EditViewport.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25.04.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A dialog to change the viewport
 /****************************************************************************/
@@ -40,9 +40,9 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 

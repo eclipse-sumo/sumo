@@ -2,7 +2,7 @@
 /// @file    MSE2Collector.h
 /// @author  Christian Roessel
 /// @date    Tue Dec 02 2003 22:13 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

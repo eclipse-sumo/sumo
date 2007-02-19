@@ -2,7 +2,7 @@
 /// @file    MSLaneSpeedTrigger.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class that realises the setting of a lane's maximum speed triggered by
 /****************************************************************************/

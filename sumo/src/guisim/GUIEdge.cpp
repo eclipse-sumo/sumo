@@ -2,7 +2,7 @@
 /// @file    GUIEdge.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An MSEdge extended by values needed for the gui
 /****************************************************************************/
@@ -249,9 +249,9 @@ GUIEdge::getCenteringBoundary() const
 #include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 size_t
 GUIEdge::getVehicleNo() const

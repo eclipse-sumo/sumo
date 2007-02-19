@@ -2,7 +2,7 @@
 /// @file    RORDGenerator_ODAmounts.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for loading trip amount definitions and route generation
 /****************************************************************************/

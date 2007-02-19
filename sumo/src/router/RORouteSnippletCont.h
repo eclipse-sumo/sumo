@@ -2,7 +2,7 @@
 /// @file    RORouteSnippletCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A container with route snipplets for faster computation
 /****************************************************************************/

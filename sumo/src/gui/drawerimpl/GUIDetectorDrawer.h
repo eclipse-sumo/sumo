@@ -2,7 +2,7 @@
 /// @file    GUIDetectorDrawer.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 14.Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for detector drawing
 /****************************************************************************/

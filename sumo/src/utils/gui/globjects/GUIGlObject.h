@@ -2,7 +2,7 @@
 /// @file    GUIGlObject.h
 /// @author  Daniel Krajzewicz
 /// @date    Oct 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for all objects that may be displayed within the openGL-gui
 /****************************************************************************/

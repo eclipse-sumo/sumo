@@ -2,7 +2,7 @@
 /// @file    GUIEvent_SimulationEnded.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 19 Jun 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Event sent when the the simulation is over
 /****************************************************************************/
@@ -38,9 +38,9 @@
 #include "GUIEvent_Message.h"
 #include "GUIEvent_SimulationEnded.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

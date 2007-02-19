@@ -2,7 +2,7 @@
 /// @file    ROVehicleType_ID.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07.12.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A type which is only described by its id (other values are invalid)
 /****************************************************************************/

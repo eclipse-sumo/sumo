@@ -2,7 +2,7 @@
 /// @file    PCElmar.cpp
 /// @author  Danilot Teta Boyom
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A reader of polygons stored in elmar-format
 /****************************************************************************/
@@ -55,9 +55,9 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geoconv/GeoConvHelper.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

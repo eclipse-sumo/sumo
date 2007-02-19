@@ -2,7 +2,7 @@
 /// @file    MSActuatedPhaseDefinition.h
 /// @author  Daniel Krajzewicz
 /// @date    Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The definition of a single phase of an extended tls logic
 /****************************************************************************/

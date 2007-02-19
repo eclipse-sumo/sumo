@@ -2,7 +2,7 @@
 /// @file    NIVissimClosures.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
@@ -39,9 +39,9 @@
 #include <utils/common/IntVector.h>
 #include "NIVissimClosures.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 NIVissimClosures::DictType NIVissimClosures::myDict;

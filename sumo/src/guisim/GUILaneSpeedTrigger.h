@@ -2,7 +2,7 @@
 /// @file    GUILaneSpeedTrigger.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 26.04.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class that realises the setting of a lane's maximum speed triggered by
 /****************************************************************************/

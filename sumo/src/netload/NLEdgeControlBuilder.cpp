@@ -2,7 +2,7 @@
 /// @file    NLEdgeControlBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Holds the edges while they are build
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

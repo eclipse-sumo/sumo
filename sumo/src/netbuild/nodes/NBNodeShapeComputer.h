@@ -2,7 +2,7 @@
 /// @file    NBNodeShapeComputer.h
 /// @author  Daniel Krajzewicz
 /// @date    2004-01-12
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

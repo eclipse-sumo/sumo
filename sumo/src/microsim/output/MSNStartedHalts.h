@@ -2,7 +2,7 @@
 /// @file    MSNStartedHalts.h
 /// @author  Christian Roessel
 /// @date    Fri Nov 28 2003 17:27 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

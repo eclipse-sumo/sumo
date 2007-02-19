@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLSSwitches.h
 /// @author  Daniel Krajzewicz
 /// @date    06 Jul 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Writes the switch times of a tls into a file
 /****************************************************************************/

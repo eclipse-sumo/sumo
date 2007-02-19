@@ -2,7 +2,7 @@
 /// @file    MSQueueLengthAheadOfTrafficLights.h
 /// @author  Christian Roessel
 /// @date    Mon Sep 29 09:45:17 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

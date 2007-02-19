@@ -2,7 +2,7 @@
 /// @file    ReferencedItem.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Something that holds the number of references to it
 /****************************************************************************/

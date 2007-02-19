@@ -2,7 +2,7 @@
 /// @file    NBEdgeCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A container for all of the net's edges
 /****************************************************************************/

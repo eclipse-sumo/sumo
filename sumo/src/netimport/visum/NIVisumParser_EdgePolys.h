@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_EdgePolys.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02. Nov 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for visum-edge-geometries
 /****************************************************************************/

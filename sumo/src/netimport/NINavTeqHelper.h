@@ -2,7 +2,7 @@
 /// @file    NINavTeqHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Jul 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some parser methods shared around several formats containing NavTeq-Nets
 /****************************************************************************/

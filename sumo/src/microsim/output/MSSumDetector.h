@@ -2,7 +2,7 @@
 /// @file    MSSumDetector.h
 /// @author  Christian Roessel
 /// @date    Thu Sep 18 13:50:25 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

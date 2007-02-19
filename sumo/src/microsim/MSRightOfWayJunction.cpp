@@ -2,7 +2,7 @@
 /// @file    MSRightOfWayJunction.cpp
 /// @author  Christian Roessel
 /// @date    Wed, 12 Dez 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // junction.
 /****************************************************************************/
@@ -44,13 +44,13 @@
 #include <cassert>
 #include <cmath>
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 #include "MSDebugHelper.h"
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

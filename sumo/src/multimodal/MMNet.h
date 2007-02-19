@@ -2,7 +2,7 @@
 /// @file    MMNet.h
 /// @author  Daniel Krajzewicz
 /// @date    :vector<MMLayer*>::iterator i=myLayers.begin(); i!=myLayers.end(); ++i) {
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

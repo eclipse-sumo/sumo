@@ -2,7 +2,7 @@
 /// @file    GUIThreadFactory.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29.04.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

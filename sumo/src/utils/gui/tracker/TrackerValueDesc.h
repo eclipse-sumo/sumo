@@ -2,7 +2,7 @@
 /// @file    TrackerValueDesc.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Representation of a timeline of floats with their names and moments
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_EdgePolys.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02. Nov 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for visum-edge-geometries
 /****************************************************************************/
@@ -47,9 +47,9 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geoconv/GeoConvHelper.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

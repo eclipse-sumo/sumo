@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_Turns.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 14 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for turn descriptions stored in visum-files
 /****************************************************************************/

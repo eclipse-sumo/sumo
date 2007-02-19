@@ -2,7 +2,7 @@
 /// @file    GUIEdgeControlBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A builder for edges during the loading derived from the
 /****************************************************************************/
@@ -54,9 +54,9 @@
 #include <raknet_demo/sumo_add/street.h>
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

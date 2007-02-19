@@ -2,7 +2,7 @@
 /// @file    MSE1MeanSpeed.cpp
 /// @author  Christian Roessel
 /// @date    Fri Jul 09 2004 21:31 CEST
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@gmx.de>
 /****************************************************************************/

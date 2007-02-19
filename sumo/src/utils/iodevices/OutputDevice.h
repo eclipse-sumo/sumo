@@ -2,7 +2,7 @@
 /// @file    OutputDevice.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // An abstract output device that encapsulates an ostream
 /****************************************************************************/

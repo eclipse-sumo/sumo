@@ -2,7 +2,7 @@
 /// @file    GUIGLObjectPopupMenu.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The popup menu which is displayed when pressing the right mouse button over
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLCoupledLaneDet.h
 /// @author  Daniel Krajzewicz
 /// @date    15 Feb 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Realises the output of a lane's detector values if the lane has green light
 /****************************************************************************/

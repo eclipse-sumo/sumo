@@ -2,7 +2,7 @@
 /// @file    NIVissimSingleTypeParser_Linksverkehr.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 30 Apr 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    Polygon2D.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A 2d-polygon
 /****************************************************************************/

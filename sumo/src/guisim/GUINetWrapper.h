@@ -2,7 +2,7 @@
 /// @file    GUINetWrapper.h
 /// @author  Daniel Krajzewicz
 /// @date
-/// @version $Id: $
+/// @version $Id$
 ///
 // No geometrical information is hold, here. Still, some methods for
 /****************************************************************************/

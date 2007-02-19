@@ -2,7 +2,7 @@
 /// @file    RORDGenerator_Random.cpp
 /// @author  Daniel Krajzewicz
 /// @date    SUMOTime begin,
-/// @version $Id: $
+/// @version $Id$
 ///
 // A "trip loader" for random trip generation
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include "RONet.h"
 #include "ROVehicleBuilder.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

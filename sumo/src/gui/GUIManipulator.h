@@ -2,7 +2,7 @@
 /// @file    GUIManipulator.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Abstract GUI manipulation class
 /****************************************************************************/

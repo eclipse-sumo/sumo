@@ -2,7 +2,7 @@
 /// @file    GUIGlObjectStorage.h
 /// @author  Daniel Krajzewicz
 /// @date    Oct 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for retrival of displayed object using a numerical id
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GUIE3Collector.h
 /// @author  Daniel Krajzewicz
 /// @date    Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The gui-version of the MSE3Collector, together with the according
 /****************************************************************************/

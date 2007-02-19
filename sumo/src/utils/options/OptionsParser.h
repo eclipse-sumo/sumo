@@ -2,7 +2,7 @@
 /// @file    OptionsParser.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parses the command line arguments
 /****************************************************************************/

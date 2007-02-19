@@ -2,7 +2,7 @@
 /// @file    NBOwnTLDef.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29.05.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

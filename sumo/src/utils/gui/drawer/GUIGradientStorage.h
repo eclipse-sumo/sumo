@@ -2,7 +2,7 @@
 /// @file    GUIGradientStorage.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for gradient definitions
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    ROLane.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A single lane the router may use
 /****************************************************************************/

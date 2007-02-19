@@ -67,18 +67,18 @@
 
 #include "devices/MSDevice_CPhone.h"
 
-#ifdef GUI_DEBUG
+#ifdef GUICHECK_MEMORY_LEAKS
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 #include "MSDebugHelper.h"
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 #define BUS_STOP_OFFSET 0.5

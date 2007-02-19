@@ -2,7 +2,7 @@
 /// @file    GUIEdge.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An MSEdge extended by values needed for the gui
 /****************************************************************************/

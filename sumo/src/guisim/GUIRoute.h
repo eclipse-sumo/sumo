@@ -2,7 +2,7 @@
 /// @file    GUIRoute.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17. Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle route
 /****************************************************************************/

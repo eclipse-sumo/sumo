@@ -2,7 +2,7 @@
 /// @file    NIOptionsIO.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class for the initialisation, input and veryfying of the
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/SystemFrame.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

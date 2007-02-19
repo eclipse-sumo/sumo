@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLSSwitches.cpp
 /// @author  Daniel Krajzewicz
 /// @date    06 Jul 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Writes the switch times of a tls into a file
 /****************************************************************************/
@@ -43,9 +43,9 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

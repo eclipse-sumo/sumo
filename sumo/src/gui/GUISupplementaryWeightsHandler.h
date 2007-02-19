@@ -2,7 +2,7 @@
 /// @file    GUISupplementaryWeightsHandler.h
 /// @author  Christian Roessel
 /// @date    Thu Apr 08 2004 15:31
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

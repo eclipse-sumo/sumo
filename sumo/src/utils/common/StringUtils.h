@@ -2,7 +2,7 @@
 /// @file    StringUtils.h
 /// @author  Daniel Krajzewicz
 /// @date    unknown
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helping function for string processing
 /****************************************************************************/

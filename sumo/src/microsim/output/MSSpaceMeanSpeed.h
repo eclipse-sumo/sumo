@@ -2,7 +2,7 @@
 /// @file    MSSpaceMeanSpeed.h
 /// @author  Christian Roessel
 /// @date    Wed Oct 15 16:37:58 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

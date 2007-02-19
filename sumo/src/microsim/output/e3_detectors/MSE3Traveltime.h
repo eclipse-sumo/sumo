@@ -2,7 +2,7 @@
 /// @file    MSE3Traveltime.h
 /// @author  Christian Roessel
 /// @date    Thu Nov 27 2003 15:25 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

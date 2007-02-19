@@ -2,7 +2,7 @@
 /// @file    IDSupplier.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class that generates enumerated and prefixed string-ids
 /****************************************************************************/

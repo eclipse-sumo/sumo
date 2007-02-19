@@ -2,7 +2,7 @@
 /// @file    GUILoadThread.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class describing the thread that performs the loading of a simulation
 /****************************************************************************/
@@ -68,9 +68,9 @@
 #include <ctime>
 #include <utils/iodevices/SharedOutputDevices.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

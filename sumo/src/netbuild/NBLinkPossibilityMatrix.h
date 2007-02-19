@@ -2,7 +2,7 @@
 /// @file    NBLinkPossibilityMatrix.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A matric to describe whether two links are foes to each other
 /****************************************************************************/

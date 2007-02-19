@@ -2,7 +2,7 @@
 /// @file    GUIIconSubSys.h
 /// @author  Daniel Krajzewicz
 /// @date    Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class dividing the network in rectangular cells
 /****************************************************************************/

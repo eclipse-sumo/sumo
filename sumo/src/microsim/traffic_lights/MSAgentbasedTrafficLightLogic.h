@@ -2,7 +2,7 @@
 /// @file    MSAgentbasedTrafficLightLogic.h
 /// @author  Julia Ringel
 /// @date    Wed, 01. Oct 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The basic traffic light logic
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSEdgeControl.h
 /// @author  Christian Roessel
 /// @date    Mon, 09 Apr 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // operations.
 /****************************************************************************/

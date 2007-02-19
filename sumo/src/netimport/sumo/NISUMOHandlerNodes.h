@@ -2,7 +2,7 @@
 /// @file    NISUMOHandlerNodes.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A handler for SUMO nodes
 /****************************************************************************/

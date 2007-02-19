@@ -2,7 +2,7 @@
 /// @file    ROJTREdge.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // An edge the router may route through
 /****************************************************************************/

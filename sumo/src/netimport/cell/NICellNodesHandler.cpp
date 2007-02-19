@@ -2,7 +2,7 @@
 /// @file    NICellNodesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A LineHandler-derivate to load nodes form a cell-nodes-file
 /****************************************************************************/
@@ -44,9 +44,9 @@
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NICellNodesHandler.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    NIVissimEdge.h
 /// @author  Daniel Krajzewicz
 /// @date    End of 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An edge imported from Vissim together for a container for
 /****************************************************************************/

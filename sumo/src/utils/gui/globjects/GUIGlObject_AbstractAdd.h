@@ -2,7 +2,7 @@
 /// @file    GUIGlObject_AbstractAdd.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Base class for additional objects (emitter, detectors etc.)
 /****************************************************************************/

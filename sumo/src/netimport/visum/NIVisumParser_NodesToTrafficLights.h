@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_NodesToTrafficLights.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 09 May 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

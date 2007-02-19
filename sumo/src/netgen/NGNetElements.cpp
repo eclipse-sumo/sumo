@@ -2,7 +2,7 @@
 /// @file    NGNetElements.cpp
 /// @author  Markus Hartinger
 /// @date    Mar, 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include <utils/options/Option.h>
 #include "NGNetElements.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

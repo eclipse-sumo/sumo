@@ -2,7 +2,7 @@
 /// @file    NBJunctionTypesMatrix.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Definition of a junction's type in dependence
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NLJunctionControlBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Container for MSJunctionControl-structures during
 /****************************************************************************/

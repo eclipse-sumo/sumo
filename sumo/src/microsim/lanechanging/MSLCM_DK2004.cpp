@@ -2,7 +2,7 @@
 /// @file    MSLCM_DK2004.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29.05.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,7 +37,7 @@
 #include "MSLCM_DK2004.h"
 #include <iostream>
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 #include "../MSDebugHelper.h"
 #endif
 
@@ -63,14 +63,14 @@ std::string id_follower("4536");
 std::string id_pfollower("1131");
 size_t searchedtime = 21900;
 
-#ifdef GUI_DEBUG
+#ifdef GUICHECK_MEMORY_LEAKS
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // 80km/h will be the swell for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 14.

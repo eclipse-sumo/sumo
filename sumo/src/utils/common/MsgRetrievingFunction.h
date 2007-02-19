@@ -2,7 +2,7 @@
 /// @file    MsgRetrievingFunction.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 24 Oct 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Encapsulates an object's method in order to use it as a MsgRetriever
 /****************************************************************************/

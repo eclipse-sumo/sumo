@@ -2,7 +2,7 @@
 /// @file    ROVehicleType_Krauss.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Description of parameters of a krauss-modeled vehicle
 /****************************************************************************/

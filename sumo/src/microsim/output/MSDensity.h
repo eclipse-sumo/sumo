@@ -2,7 +2,7 @@
 /// @file    MSDensity.h
 /// @author  Christian Roessel
 /// @date    Tue Sep  9 22:27:23 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

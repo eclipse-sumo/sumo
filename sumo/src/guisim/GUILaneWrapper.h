@@ -2,7 +2,7 @@
 /// @file    GUILaneWrapper.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSLane extended for visualisation purposes.
 /****************************************************************************/

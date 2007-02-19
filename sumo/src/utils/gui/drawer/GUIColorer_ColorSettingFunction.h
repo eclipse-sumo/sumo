@@ -2,7 +2,7 @@
 /// @file    GUIColorer_ColorSettingFunction.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 22. Dec. 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

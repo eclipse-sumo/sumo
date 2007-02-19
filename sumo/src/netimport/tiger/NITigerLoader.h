@@ -2,7 +2,7 @@
 /// @file    NITigerLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A loader tiger-files
 /****************************************************************************/

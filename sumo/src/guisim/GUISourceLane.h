@@ -2,7 +2,7 @@
 /// @file    GUISourceLane.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSLane extended by some values needed by the gui
 /****************************************************************************/

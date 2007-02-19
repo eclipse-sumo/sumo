@@ -2,7 +2,7 @@
 /// @file    MSLaneChanger.h
 /// @author  Christian Roessel
 /// @date    Fri, 01 Feb 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // the edge's lanes.
 /****************************************************************************/

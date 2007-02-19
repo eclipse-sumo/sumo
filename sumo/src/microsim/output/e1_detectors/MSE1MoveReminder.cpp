@@ -2,7 +2,7 @@
 /// @file    MSE1MoveReminder.cpp
 /// @author  Christian Roessel
 /// @date    Tue Dec 02 2003 22:17 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/
@@ -36,9 +36,9 @@
 #include "MSE1MoveReminder.h"
 #include "MSE1Collector.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    GUIParam_PopupMenu.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mai 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The popup-menu which appears hen pressing right mouse button over a
 /****************************************************************************/
@@ -45,9 +45,9 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <microsim/MSNet.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

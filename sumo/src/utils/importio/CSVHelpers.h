@@ -2,7 +2,7 @@
 /// @file    CSVHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helping functions to read csv-files
 /****************************************************************************/

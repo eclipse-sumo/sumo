@@ -2,7 +2,7 @@
 /// @file    GUITrafficLightLogicWrapper.h
 /// @author  Daniel Krajzewicz
 /// @date    Oct/Nov 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/

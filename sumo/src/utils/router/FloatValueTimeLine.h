@@ -2,7 +2,7 @@
 /// @file    FloatValueTimeLine.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 22 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A list of time ranges with SUMOReal values
 /****************************************************************************/

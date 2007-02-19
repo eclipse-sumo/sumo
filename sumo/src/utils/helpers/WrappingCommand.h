@@ -2,7 +2,7 @@
 /// @file    WrappingCommand.h
 /// @author  Christian Roessel
 /// @date    Thu, 20 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // simple commands, that need no parameters and no
 /****************************************************************************/

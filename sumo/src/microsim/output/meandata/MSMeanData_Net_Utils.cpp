@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Net_Utils.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Utilities for building the lanes' mean data output
 /****************************************************************************/
@@ -47,9 +47,9 @@
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <microsim/output/MSDetector2File.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

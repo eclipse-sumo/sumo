@@ -2,7 +2,7 @@
 /// @file    GUIGlObjectTypes.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A list of object types which may be displayed within the gui
 /****************************************************************************/

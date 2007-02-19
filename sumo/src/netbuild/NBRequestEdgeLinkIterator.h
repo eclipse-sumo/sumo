@@ -2,7 +2,7 @@
 /// @file    NBRequestEdgeLinkIterator.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An iterator over all possible links of a junction regarding movement
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GfxConvHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helper functions to help when parsing graphical information
 /****************************************************************************/

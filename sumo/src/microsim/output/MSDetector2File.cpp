@@ -2,7 +2,7 @@
 /// @file    MSDetector2File.cpp
 /// @author  Christian Roessel
 /// @date    Wed Aug 6 16:16:26 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include <utils/helpers/OneArgumentCommand.h>
 #include <sstream>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

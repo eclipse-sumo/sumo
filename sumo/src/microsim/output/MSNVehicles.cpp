@@ -2,7 +2,7 @@
 /// @file    MSNVehicles.cpp
 /// @author  Christian Roessel
 /// @date    Wed Oct 15 13:33:22 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/
@@ -35,9 +35,9 @@
 
 #include "MSNVehicles.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // ===========================================================================
 // used namespaces

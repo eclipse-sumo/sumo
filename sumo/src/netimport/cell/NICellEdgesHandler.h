@@ -2,7 +2,7 @@
 /// @file    NICellEdgesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A LineHandler-derivate to load edges form a cell-edges-file
 /****************************************************************************/

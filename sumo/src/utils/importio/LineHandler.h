@@ -2,7 +2,7 @@
 /// @file    LineHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An interface definition for a class which retrieves
 /****************************************************************************/

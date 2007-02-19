@@ -2,7 +2,7 @@
 /// @file    OutputDevice_File.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // An output device that encapsulates an ofstream
 /****************************************************************************/

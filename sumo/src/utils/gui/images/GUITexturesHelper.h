@@ -2,7 +2,7 @@
 /// @file    GUITexturesHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Global storage for textures; manages and draws them
 /****************************************************************************/

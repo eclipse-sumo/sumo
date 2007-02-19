@@ -2,7 +2,7 @@
 /// @file    GUI_E2_ZS_CollectorOverLanes.h
 /// @author  Daniel Krajzewicz
 /// @date    Okt 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The gui-version of the MS_E2_ZS_CollectorOverLanes, together with the according
 /****************************************************************************/

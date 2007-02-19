@@ -2,7 +2,7 @@
 /// @file    NBTypeCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for the available types of edges
 /****************************************************************************/

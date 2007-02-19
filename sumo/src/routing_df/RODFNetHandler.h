@@ -2,7 +2,7 @@
 /// @file    RODFNetHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 27.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/

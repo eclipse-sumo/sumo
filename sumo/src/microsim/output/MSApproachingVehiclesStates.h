@@ -2,7 +2,7 @@
 /// @file    MSApproachingVehiclesStates.h
 /// @author  Christian Roessel
 /// @date    Thu Oct 16 14:45:00 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

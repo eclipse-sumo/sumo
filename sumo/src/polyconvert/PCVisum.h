@@ -2,7 +2,7 @@
 /// @file    PCVisum.h
 /// @author  Danilot Teta Boyom
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A reader of polygons stored in visum-format
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSRouteLoaderControl.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 06 Nov 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class responsible for loading of routes from some files
 /****************************************************************************/

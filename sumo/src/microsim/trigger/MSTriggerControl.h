@@ -2,7 +2,7 @@
 /// @file    MSTriggerControl.h
 /// @author  Daniel Krajzewicz
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for triggers
 /****************************************************************************/

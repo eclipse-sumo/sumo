@@ -2,7 +2,7 @@
 /// @file    NBRequest.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // This class computes the logic of a junction
 /****************************************************************************/

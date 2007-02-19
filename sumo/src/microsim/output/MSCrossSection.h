@@ -2,7 +2,7 @@
 /// @file    MSCrossSection.h
 /// @author  Christian Roessel
 /// @date    Tue Nov 25 15:23:28 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

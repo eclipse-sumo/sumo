@@ -2,7 +2,7 @@
 /// @file    Option.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class representing a single program option
 /****************************************************************************/

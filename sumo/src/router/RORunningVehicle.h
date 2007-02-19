@@ -2,7 +2,7 @@
 /// @file    RORunningVehicle.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle that has an initial speed (and possibly position)
 /****************************************************************************/

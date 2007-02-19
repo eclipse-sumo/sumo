@@ -2,7 +2,7 @@
 /// @file    NBJunctionLogicCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for the io-ing between junctions (nodes) and the computers
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    RemoteServer.h
 /// @author  Axel Wegener
 /// @date    20 May 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Remote control sumo via XmlRpc messages
 /****************************************************************************/

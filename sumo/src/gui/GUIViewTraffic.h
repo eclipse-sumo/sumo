@@ -2,7 +2,7 @@
 /// @file    GUIViewTraffic.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/

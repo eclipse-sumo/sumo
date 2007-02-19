@@ -2,7 +2,7 @@
 /// @file    MSPhoneLA.cpp
 /// @author  Eric Nicolay
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A location area of a cellular network (GSM)
 /****************************************************************************/

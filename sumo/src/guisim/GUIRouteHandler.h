@@ -2,7 +2,7 @@
 /// @file    GUIRouteHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17. Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    RODUAEdgeBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // The builder for due-edges
 /****************************************************************************/

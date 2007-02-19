@@ -2,7 +2,7 @@
 /// @file    GUIDetectorBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 22 Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A building helper for the detectors
 /****************************************************************************/

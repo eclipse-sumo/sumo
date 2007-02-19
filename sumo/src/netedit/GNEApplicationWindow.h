@@ -2,7 +2,7 @@
 /// @file    GNEApplicationWindow.h
 /// @author  Daniel Krajzewicz
 /// @date    22. Nov 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for the main gui window
 /****************************************************************************/

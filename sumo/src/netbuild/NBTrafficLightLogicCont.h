@@ -2,7 +2,7 @@
 /// @file    NBTrafficLightLogicCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A container for traffic light logic vectors
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NBHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some mathematical helper methods
 /****************************************************************************/

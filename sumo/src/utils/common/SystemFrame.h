@@ -2,7 +2,7 @@
 /// @file    SystemFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 23.06.2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A set of actions common to all applications
 /****************************************************************************/

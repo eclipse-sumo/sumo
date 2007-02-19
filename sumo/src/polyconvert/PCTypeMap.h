@@ -2,7 +2,7 @@
 /// @file    PCTypeMap.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

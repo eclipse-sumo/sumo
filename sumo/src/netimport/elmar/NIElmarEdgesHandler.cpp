@@ -2,7 +2,7 @@
 /// @file    NIElmarEdgesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A LineHandler-derivate to load edges form a elmar-edges-file
 /****************************************************************************/
@@ -49,9 +49,9 @@
 #include "NIElmarEdgesHandler.h"
 #include <netimport/NINavTeqHelper.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

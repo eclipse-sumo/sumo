@@ -2,7 +2,7 @@
 /// @file    ODDistrictCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The container for districts
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSPerson.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // THe class for modelling person-movements
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GUIDialog_GLObjChooser.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
@@ -53,9 +53,9 @@
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

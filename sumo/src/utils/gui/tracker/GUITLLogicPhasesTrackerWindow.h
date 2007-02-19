@@ -2,7 +2,7 @@
 /// @file    GUITLLogicPhasesTrackerWindow.h
 /// @author  Daniel Krajzewicz
 /// @date    Oct/Nov 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A window displaying the phase diagram of a tl-logic
 /****************************************************************************/

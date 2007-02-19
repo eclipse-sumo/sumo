@@ -2,7 +2,7 @@
 /// @file    TplConvertSec.h
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 09 Jun 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some conversion methods (from strings to other)
 /****************************************************************************/

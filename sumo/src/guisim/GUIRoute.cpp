@@ -2,7 +2,7 @@
 /// @file    GUIRoute.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17. Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle route
 /****************************************************************************/
@@ -36,14 +36,14 @@
 
 #include "GUIRoute.h"
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 #include "MSNet.h"
 #include "MSEdge.h"
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

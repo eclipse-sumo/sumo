@@ -2,7 +2,7 @@
 /// @file    RORouteDef_Alternatives.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A route with alternative routes
 /****************************************************************************/

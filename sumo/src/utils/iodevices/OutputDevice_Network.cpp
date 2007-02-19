@@ -2,7 +2,7 @@
 /// @file    OutputDevice_Network.cpp
 /// @author  Felix Brack
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/
@@ -50,9 +50,9 @@
 #include <Gxip32.h>
 #include <Gxsocket.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // #ifdef _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // #ifdef CHECK_MEMORY_LEAKS
 
 
 // ==========================================================================

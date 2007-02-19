@@ -2,7 +2,7 @@
 /// @file    MSNet.h
 /// @author  Christian Roessel
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Holds all necessary objects for micro-simulation.
 /****************************************************************************/
@@ -220,7 +220,7 @@ public:
 
     /// ----------------- debug variables -------------
     /*
-    #ifdef ABS_DEBUG
+    #ifdef ABSCHECK_MEMORY_LEAKS
     static SUMOTime searchedtime;
     static std::string searched1, searched2, searchedJunction;
     #endif

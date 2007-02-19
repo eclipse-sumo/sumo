@@ -2,7 +2,7 @@
 /// @file    SUMOAbstractRouter.h
 /// @author  Daniel Krajzewicz
 /// @date    25.Jan 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // The dijkstra-router
 /****************************************************************************/

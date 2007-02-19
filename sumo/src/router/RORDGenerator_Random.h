@@ -2,7 +2,7 @@
 /// @file    RORDGenerator_Random.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 9. Apr 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A "trip loader" for random trip generation
 /****************************************************************************/

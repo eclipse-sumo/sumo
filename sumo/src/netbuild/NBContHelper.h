@@ -2,7 +2,7 @@
 /// @file    NBContHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some methods for traversing lists of edges
 /****************************************************************************/

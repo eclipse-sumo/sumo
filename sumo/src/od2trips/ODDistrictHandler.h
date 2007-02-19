@@ -2,7 +2,7 @@
 /// @file    ODDistrictHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The XML-Handler for district loading
 /****************************************************************************/

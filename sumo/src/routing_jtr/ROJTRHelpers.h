@@ -2,7 +2,7 @@
 /// @file    ROJTRHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A set of helping functions
 /****************************************************************************/

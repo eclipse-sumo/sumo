@@ -2,7 +2,7 @@
 /// @file    GUIPointOfInterest.cpp
 /// @author  Daniel Krajzewicz
 /// @date    June 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // The GUI-version of a point of interest
 /****************************************************************************/
@@ -42,9 +42,9 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

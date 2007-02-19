@@ -2,7 +2,7 @@
 /// @file    MSCell.h
 /// @author  Danilot Teta Boyom
 /// @date    Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class represents the cells
 /****************************************************************************/

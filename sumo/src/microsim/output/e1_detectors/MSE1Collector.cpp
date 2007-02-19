@@ -2,7 +2,7 @@
 /// @file    MSE1Collector.cpp
 /// @author  Christian Roessel
 /// @date    Wed Jun 9 16:40:56 CEST 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@gmx.de>
 /****************************************************************************/
@@ -36,9 +36,9 @@
 
 #include "MSE1Collector.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // ===========================================================================
 // variable declarations

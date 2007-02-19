@@ -2,7 +2,7 @@
 /// @file    NIXMLTypesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Used to parse the XML-descriptions of types given in a XML-format
 /****************************************************************************/

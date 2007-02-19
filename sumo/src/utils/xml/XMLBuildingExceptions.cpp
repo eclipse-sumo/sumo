@@ -2,7 +2,7 @@
 /// @file    XMLBuildingExceptions.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Exceptions that may occure while building the
 /****************************************************************************/
@@ -38,9 +38,9 @@
 #include <exception>
 #include "XMLBuildingExceptions.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

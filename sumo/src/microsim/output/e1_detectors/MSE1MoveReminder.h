@@ -2,7 +2,7 @@
 /// @file    MSE1MoveReminder.h
 /// @author  Christian Roessel
 /// @date    Wed Jun 9 16:40:56 CEST 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

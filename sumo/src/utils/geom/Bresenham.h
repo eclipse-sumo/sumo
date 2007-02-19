@@ -2,7 +2,7 @@
 /// @file    Bresenham.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A class to realise a uniform n:m - relationship using the
 /****************************************************************************/

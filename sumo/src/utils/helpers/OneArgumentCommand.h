@@ -2,7 +2,7 @@
 /// @file    OneArgumentCommand.h
 /// @author  Christian Roessel
 /// @date    on Mon Jun  2 17:15:00 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/

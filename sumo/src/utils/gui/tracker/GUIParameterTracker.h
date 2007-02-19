@@ -2,7 +2,7 @@
 /// @file    GUIParameterTracker.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A window which displays the time line of one (or more) value(s)
 /****************************************************************************/

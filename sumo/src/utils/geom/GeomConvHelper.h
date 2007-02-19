@@ -2,7 +2,7 @@
 /// @file    GeomConvHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Some helping functions for geometry parsing
 /****************************************************************************/

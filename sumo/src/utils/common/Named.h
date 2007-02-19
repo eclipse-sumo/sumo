@@ -2,7 +2,7 @@
 /// @file    Named.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // An object that has a name
 /****************************************************************************/

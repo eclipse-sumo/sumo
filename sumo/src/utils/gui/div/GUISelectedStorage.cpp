@@ -2,7 +2,7 @@
 /// @file    GUISelectedStorage.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Storage for object selections
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include "GUISelectedStorage.h"
 #include "GUIDialog_GLChosenEditor.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

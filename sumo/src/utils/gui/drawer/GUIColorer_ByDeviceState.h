@@ -2,7 +2,7 @@
 /// @file    GUIColorer_ByDeviceState.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 2. Jan 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

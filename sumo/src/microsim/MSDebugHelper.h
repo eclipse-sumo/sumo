@@ -45,7 +45,7 @@ extern SUMOTime debug_globaltime;
 
 /// ----------------- debug variables -------------
 
-#ifdef ABS_DEBUG
+#ifdef ABSCHECK_MEMORY_LEAKS
 extern SUMOTime debug_searchedtime;
 extern std::string debug_searched1, debug_searched2, debug_searchedJunction;
 #endif

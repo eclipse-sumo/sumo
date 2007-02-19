@@ -2,7 +2,7 @@
 /// @file    NIXMLEdgesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Realises the loading of the edges given in a XML-format
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GUIJunctionControlBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 1 Jul 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSJunctionControlBuilder that builds GUIJunctions instead of MSJunctions
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include <guisim/GUINoLogicJunction.h>
 #include <guisim/GUIRightOfWayJunction.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

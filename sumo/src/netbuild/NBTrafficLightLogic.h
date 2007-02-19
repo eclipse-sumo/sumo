@@ -2,7 +2,7 @@
 /// @file    NBTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A single traffic light logic (a possible variant)
 /****************************************************************************/

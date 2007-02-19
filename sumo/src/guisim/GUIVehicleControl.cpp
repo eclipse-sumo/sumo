@@ -2,7 +2,7 @@
 /// @file    GUIVehicleControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 10. Dec 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // The class responsible for building and deletion of vehicles within the gui
 /****************************************************************************/
@@ -41,9 +41,9 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

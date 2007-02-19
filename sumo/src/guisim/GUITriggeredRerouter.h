@@ -2,7 +2,7 @@
 /// @file    GUITriggeredRerouter.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25.07.2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // The gui-version of MSTriggeredRerouter
 /****************************************************************************/

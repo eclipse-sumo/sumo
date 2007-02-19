@@ -2,7 +2,7 @@
 /// @file    RODFEdgeBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A builder for edges used by the DFROUTER
 /****************************************************************************/
@@ -38,9 +38,9 @@
 #include "RODFEdgeBuilder.h"
 #include "RODFEdge.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    OptionsCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for options.
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NIVisumParser_LanesConnections.cpp
 /// @author  Daniel Krajzewicz
 /// @date    TThu, 23 Mar 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Parser for visum-lanes
 /****************************************************************************/
@@ -42,9 +42,9 @@
 #include "NIVisumLoader.h"
 #include "NIVisumParser_LanesConnections.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

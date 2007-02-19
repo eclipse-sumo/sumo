@@ -2,7 +2,7 @@
 /// @file    NBConnection.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/

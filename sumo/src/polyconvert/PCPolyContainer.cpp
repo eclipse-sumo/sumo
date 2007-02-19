@@ -2,7 +2,7 @@
 /// @file    PCPolyContainer.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for loaded polygons and pois
 /****************************************************************************/
@@ -45,9 +45,9 @@
 #include <fstream>
 #include <utils/common/UtilExceptions.h>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

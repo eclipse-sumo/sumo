@@ -2,7 +2,7 @@
 /// @file    ROAbstractEdgeBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 21 Jan 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Interface for building edges
 /****************************************************************************/

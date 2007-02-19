@@ -2,7 +2,7 @@
 /// @file    GUIPointOfInterest.h
 /// @author  Daniel Krajzewicz
 /// @date    June 2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

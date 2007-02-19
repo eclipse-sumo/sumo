@@ -2,7 +2,7 @@
 /// @file    MSDensity.cpp
 /// @author  Christian Roessel
 /// @date    Thu Sep 11 13:35:55 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author Christian Roessel
 /****************************************************************************/
@@ -38,9 +38,9 @@
 #include <microsim/MSLane.h>
 #include <cassert>
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // ===========================================================================
 // used namespaces

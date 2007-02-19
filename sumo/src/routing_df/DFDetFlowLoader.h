@@ -2,7 +2,7 @@
 /// @file    DFDetFlowLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A loader for detector flows
 /****************************************************************************/

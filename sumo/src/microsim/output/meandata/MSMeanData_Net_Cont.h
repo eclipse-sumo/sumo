@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Net_Cont.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // missing_desc
 /****************************************************************************/

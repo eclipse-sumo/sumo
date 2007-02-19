@@ -2,7 +2,7 @@
 /// @file    GUIExcp_VehicleIsInvisible.h
 /// @author  Daniel Krajzewicz
 /// @date    Jun 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // Exception thrown if an unvisible vehicle shall be taken into sight
 /****************************************************************************/

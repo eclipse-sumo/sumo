@@ -2,7 +2,7 @@
 /// @file    NIArtemisLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10 Feb 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // A loader artemis-files
 /****************************************************************************/
@@ -51,9 +51,9 @@
 #include "NIArtemisTempSignal.h"
 #include "NIArtemisTempEdgeLanes.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

@@ -2,7 +2,7 @@
 /// @file    GUIEvent_SimulationEnded.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 19 Jun 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Event send when the the simulation is over
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NIVissimSingleTypeParser_Auswertungsdefinition.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 21 Mar 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

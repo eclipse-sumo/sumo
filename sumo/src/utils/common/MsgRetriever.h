@@ -2,7 +2,7 @@
 /// @file    MsgRetriever.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 17 Jun 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // Retrieves messages about the process
 /****************************************************************************/

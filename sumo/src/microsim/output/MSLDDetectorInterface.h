@@ -2,7 +2,7 @@
 /// @file    MSLDDetectorInterface.h
 /// @author  Christian Roessel
 /// @date    Tue Dec 02 2003 20:04 CET
-/// @version $Id: $
+/// @version $Id$
 ///
 // / @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

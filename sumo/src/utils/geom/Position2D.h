@@ -2,7 +2,7 @@
 /// @file    Position2D.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A position in a 2D-world
 /****************************************************************************/

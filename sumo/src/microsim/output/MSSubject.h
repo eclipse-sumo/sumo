@@ -2,7 +2,7 @@
 /// @file    MSSubject.h
 /// @author  Christian Roessel
 /// @date    Fri Nov 21 12:44:14 2003
-/// @version $Id: $
+/// @version $Id$
 ///
 // * @author  Christian Roessel <christian.roessel@dlr.de>
 /****************************************************************************/

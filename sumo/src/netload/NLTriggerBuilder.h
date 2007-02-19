@@ -2,7 +2,7 @@
 /// @file    NLTriggerBuilder.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 17 Oct 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A building helper for triggers
 /****************************************************************************/

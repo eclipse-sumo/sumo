@@ -2,7 +2,7 @@
 /// @file    NIElmarEdgesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A LineHandler-derivate to load edges form a elmar-edges-file
 /****************************************************************************/

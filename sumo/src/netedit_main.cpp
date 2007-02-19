@@ -2,7 +2,7 @@
 /// @file    netedit_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Revision 1.16  2007/01/10 08:33:05  dkrajzew
 /****************************************************************************/
@@ -67,9 +67,9 @@
 #include <GL/gl.h>
 #endif
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 // conditionally add library search record to object file for DataReel
 #ifdef USE_SOCKETS
