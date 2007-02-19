@@ -212,7 +212,6 @@ MSDevice_CPhone::SetState(State s, int dur)
     else
         cell->addCall(myCallId, DYNOUT);
 
-    //SUMOTime next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
     /*erzeuge einen neuen Event, damit das cphone aufhoehrt zu telefonieren*/
     myCommand = new MyCommand(*this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
