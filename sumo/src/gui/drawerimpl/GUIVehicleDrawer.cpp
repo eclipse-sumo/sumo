@@ -2,7 +2,7 @@
 /// @file    GUIVehicleDrawer.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 02.09.2003
-/// @version $Id$
+/// @version $Id: $
 ///
 // Base class for vehicle drawing
 /****************************************************************************/
@@ -46,6 +46,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>
 #include <utils/glutils/polyfonts.h>
+#include <utils/common/RandHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -212,9 +213,9 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
             cluster = -1;
         }
         if (colorBla.find(cluster)==colorBla.end()) {
-            int r = (int)((double) rand() / (double) RAND_MAX * 255.);
-            int g = (int)((double) rand() / (double) RAND_MAX * 255.);
-            int b = (int)((double) rand() / (double) RAND_MAX * 255.);
+            int r = (int) randSUMO(256);
+            int g = (int) randSUMO(256);
+            int b = (int) randSUMO(256);
             colorBla[cluster] = FXRGB(r, g, b);
         }
         FXColor c = colorBla[cluster];
