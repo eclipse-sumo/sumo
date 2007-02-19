@@ -1,13 +1,13 @@
 <?xml version="1.0" standalone="no"?>
 <tripinfos>
-   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="171" duration="165" waited="4" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="173" duration="161" waited="8" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="178" duration="169" waited="6" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_7_7" start="21" wished="7" end="185" duration="164" waited="14" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="192" duration="192" waited="0" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="117" duration="117" waited="0" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="177" duration="165" waited="8" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_6_6" start="18" wished="6" end="182" duration="164" waited="12" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_8_8" start="24" wished="8" end="190" duration="166" waited="16" reroutes="0" devices="cphones=0"/>
    <tripinfo vehicle_id="emitter_1_1" start="3" wished="1" end="195" duration="192" waited="2" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_5_5" start="15" wished="5" end="207" duration="192" waited="10" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_6_6" start="18" wished="6" end="210" duration="192" waited="12" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_8_8" start="24" wished="8" end="217" duration="193" waited="16" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_9_9" start="28" wished="9" end="221" duration="193" waited="19" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="198" duration="192" waited="4" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="201" duration="192" waited="6" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_5_5" start="15" wished="5" end="208" duration="193" waited="10" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_7_7" start="21" wished="7" end="214" duration="193" waited="14" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_9_9" start="27" wished="9" end="220" duration="193" waited="18" reroutes="0" devices="cphones=0"/>
 </tripinfos>
