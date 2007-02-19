@@ -2,7 +2,7 @@
 /// @file    MSPhoneCell.cpp
 /// @author  Eric Nicolay
 /// @date    2006
-/// @version $Id$
+/// @version $Id: $
 ///
 // A cell of a cellular network (GSM)
 /****************************************************************************/
@@ -36,6 +36,7 @@
 
 #include <cassert>
 #include "MSPhoneCell.h"
+#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -197,7 +198,7 @@ MSPhoneCell::setnextexpectData(SUMOTime t)
         //assert how much calls this sumulationstep should start.
         //int startingCalls = ( (myCurrentExpectedCallCount) - (myDynOwnStarted*10) ) / ( myIntervalEnd - t );
         if (myCurrentExpectedCallCount > 0) {
-            SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
+            SUMOReal r1 = randSUMO();
             int startingCalls = 0 ;
             if (r1 < myCallProbability)
                 ++startingCalls;
