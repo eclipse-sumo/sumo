@@ -1,6 +1,10 @@
 #ifndef config_h
 #define config_h
 
+#ifdef __GNUC__
+#error This file is for MSVC compilation only. GCC should use configure generated config.h.
+#endif
+
 /* Name of package */
 #define PACKAGE "sumo"
 
