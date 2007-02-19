@@ -49,6 +49,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXRealSpinDial.h>
+#include <utils/foxtools/MFXMutex.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -197,7 +198,7 @@ private:
     GUITLLogicPhasesTrackerPanel *myPanel;
 
     /// A lock to avoid addition of new values while drawing
-    FXMutex myLock;
+    MFXMutex myLock;
 
     /** @brief The names of links
         This holds an enumeration only - used to avoid time consuming

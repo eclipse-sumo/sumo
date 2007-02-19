@@ -33,6 +33,7 @@
 #include <vector>
 #include <utils/gfx/RGBColor.h>
 #include <utils/helpers/ValueRetriever.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -128,7 +129,7 @@ private:
     SUMOReal myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
-    FXMutex myLock;
+    MFXMutex myLock;
 
     /// The aggregation interval
     size_t myAggregationInterval;
