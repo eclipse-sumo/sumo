@@ -139,6 +139,10 @@ SOURCE=..\..\..\src\utils\foxtools\MFXMenuHeader.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\foxtools\MFXMutex.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\foxtools\MFXUtils.cpp
 # End Source File
 # End Group
@@ -208,6 +212,10 @@ SOURCE=..\..\..\src\utils\foxtools\MFXInterThreadEventClient.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\foxtools\MFXMenuHeader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\foxtools\MFXMutex.h
 # End Source File
 # Begin Source File
 
