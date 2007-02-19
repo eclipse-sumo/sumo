@@ -61,12 +61,12 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
-#ifdef GUICHECK_MEMORY_LEAKS
+#ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
 #endif
 

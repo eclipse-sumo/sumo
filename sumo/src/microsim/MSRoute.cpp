@@ -41,7 +41,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/bindevice/BinaryInputDevice.h>
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSNet.h"
 #endif
 

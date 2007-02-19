@@ -52,7 +52,7 @@
 #include <exception>
 #include <climits>
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
 #endif
 

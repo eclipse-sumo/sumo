@@ -45,7 +45,7 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef ABSCHECK_MEMORY_LEAKS
+#ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
 #endif
 
