@@ -188,7 +188,7 @@ NIArcView_Loader::load(OptionsCont &)
 
         int j;
         for (j=0; j<cgeom->getNumPoints(); j++) {
-            GeoConvHelper::originalIncludes((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+            GeoConvHelper::includeInOriginal((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
         }
         bool try_transform2 = true;
         if (poCT!=0) {
