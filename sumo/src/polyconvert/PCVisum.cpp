@@ -115,7 +115,7 @@ PCVisum::load(OptionsCont &oc)
                 rest = rest.substr(rest.find(";")+1, rest.length());
                 yKoord = rest.substr(0,rest.find(";"));
                 Position2D pos2D((SUMOReal) atof(xKoord.c_str()), (SUMOReal) atof(yKoord.c_str()));
-                GeoConvHelper::remap(pos2D);
+                GeoConvHelper::x2cartesian(pos2D);
                 vec.push_back(pos2D);
             }
         }

@@ -135,7 +135,7 @@ PCElmar::load(OptionsCont &oc)
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
 
             Position2D pos(x, y);
-            GeoConvHelper::remap(pos);
+            GeoConvHelper::x2cartesian(pos);
             vec.push_back(pos);
             rest = rest.substr(rest.find(tab)+1);
         }

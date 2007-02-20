@@ -130,7 +130,7 @@ PCVisumPoints::load(OptionsCont &oc)
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position2D pos(x, y);
-            GeoConvHelper::remap(pos);
+            GeoConvHelper::x2cartesian(pos);
             string type = typemap[catid];
             // check the poi
             if (name=="") {

@@ -133,7 +133,7 @@ PCElmarPoints::load(OptionsCont &oc)
         SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
 
         Position2D pos(x, y);
-        GeoConvHelper::remap(pos);
+        GeoConvHelper::x2cartesian(pos);
 
         // check the poi
         if (name=="") {
