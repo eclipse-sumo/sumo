@@ -102,9 +102,8 @@ NIElmarNodesHandler::report(const std::string &result)
         throw ProcessError();
     }
     // geo->metric
-    myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
     Position2D pos(x, y);
-    GeoConvHelper::remap(pos);
+    GeoConvHelper::x2cartesian(pos);
     NBNode *n = new NBNode(id, pos);
     if (!myNodeCont.insert(n)) {
         delete n;

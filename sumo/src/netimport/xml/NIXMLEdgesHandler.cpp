@@ -383,16 +383,15 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
     myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
     myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
-//    myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
     if (myBegNodeXPos!=-1&&myBegNodeYPos!=-1) {
         Position2D pos(myBegNodeXPos, myBegNodeYPos);
-        GeoConvHelper::remap(pos);
+        GeoConvHelper::x2cartesian(pos);
         myBegNodeXPos = pos.x();
         myBegNodeYPos = pos.y();
     }
     if (myEndNodeXPos!=-1&&myEndNodeYPos!=-1) {
         Position2D pos(myEndNodeXPos, myEndNodeYPos);
-        GeoConvHelper::remap(pos);
+        GeoConvHelper::x2cartesian(pos);
         myEndNodeXPos = pos.x();
         myEndNodeYPos = pos.y();
     }
@@ -555,7 +554,7 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
         Position2DVector shape;
         for (size_t i=0; i<shape1.size(); ++i) {
             Position2D pos(shape1[i]);
-            GeoConvHelper::remap(pos);
+            GeoConvHelper::x2cartesian(pos);
             shape.push_back(pos);
         }
 

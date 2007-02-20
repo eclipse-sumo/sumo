@@ -175,10 +175,8 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
 
-            myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
-
             Position2D pos(x, y);
-            GeoConvHelper::remap(pos);
+            GeoConvHelper::x2cartesian(pos);
             ret.push_back(pos);
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Could not convert position '" + p1 + "/" + p2 + "'.");

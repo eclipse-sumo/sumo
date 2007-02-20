@@ -83,9 +83,8 @@ NIVisumParser_Districts::myDependentReport()
         // get the node information
         SUMOReal x = getNamedFloat("XKoord");
         SUMOReal y = getNamedFloat("YKoord");
-//        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
         Position2D pos(x, y);
-        GeoConvHelper::remap(pos);
+        GeoConvHelper::x2cartesian(pos);
         // build the district
         NBDistrict *district = new NBDistrict(id, name, pos.x(), pos.y());
         if (!myDistrictCont.insert(district)) {

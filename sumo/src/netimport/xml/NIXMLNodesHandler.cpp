@@ -135,9 +135,8 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
     try {
         SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
-        myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
         myPosition.set(x, y);
-        GeoConvHelper::remap(myPosition);
+        GeoConvHelper::x2cartesian(myPosition);
     } catch (NumberFormatException) {
         addError("Not numeric value for position (at node ID='" + myID + "').");
         return false;

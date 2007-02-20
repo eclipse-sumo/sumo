@@ -94,9 +94,8 @@ NIVisumParser_EdgePolys::myDependentReport()
             MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             return;
         }
-        myNodeCont.addGeoreference(Position2D((SUMOReal)(x / 100000.0), (SUMOReal)(y / 100000.0)));
         Position2D pos(x, y);
-        GeoConvHelper::remap(pos);
+        GeoConvHelper::x2cartesian(pos);
         NBEdge *e = from->getConnectionTo(to);
         if (e!=0) {
             e->addGeometryPoint(index, pos);

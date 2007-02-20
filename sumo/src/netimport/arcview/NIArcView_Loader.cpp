@@ -188,7 +188,7 @@ NIArcView_Loader::load(OptionsCont &)
 
         int j;
         for (j=0; j<cgeom->getNumPoints(); j++) {
-            myNodeCont.addGeoreference(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j)));
+            GeoConvHelper::originalIncludes((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
         }
         bool try_transform2 = true;
         if (poCT!=0) {
@@ -202,7 +202,7 @@ NIArcView_Loader::load(OptionsCont &)
                 shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
             } else {
                 Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                GeoConvHelper::remap(pos);
+                GeoConvHelper::x2cartesian(pos);
                 shape.push_back_noDoublePos(pos);
             }
         }
