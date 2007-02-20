@@ -482,7 +482,6 @@ src/utils/Makefile
 src/utils/actions/Makefile
 src/utils/bindevice/Makefile
 src/utils/common/Makefile
-src/utils/dev/Makefile
 src/utils/distribution/Makefile
 src/utils/foxtools/Makefile
 src/utils/geoconv/Makefile
