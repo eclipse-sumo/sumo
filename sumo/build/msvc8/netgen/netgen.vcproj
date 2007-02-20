@@ -46,7 +46,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -140,7 +140,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
