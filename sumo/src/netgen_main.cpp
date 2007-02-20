@@ -50,6 +50,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -335,6 +336,7 @@ main(int argc, char **argv)
             throw ProcessError();
         }
         // initialise the (default) types
+        GeoConvHelper::init("!", Position2D());
         OptionsCont &oc = OptionsSubSys::getOptions();
         NBNetBuilder nb;
         nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
@@ -347,6 +349,7 @@ main(int argc, char **argv)
         net->toNB();
         delete net;
         nb.buildLoaded();
+        GeoConvHelper::close();
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (building failed).", false);

@@ -90,9 +90,10 @@ $(MEM_LIBS) \
 
 sumo_netgen_SOURCES = netgen_main.cpp
 
-sumo_netgen_LDFLAGS = $(XERCES_LDFLAGS)
+sumo_netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
+./utils/geoconv/libgeoconv.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
 ./utils/sumoxml/libsumoxml.a \
@@ -102,7 +103,7 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+-l$(LIB_XERCES) -l$(LIB_PROJ)
 
 
 

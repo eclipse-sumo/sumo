@@ -4,7 +4,7 @@
 /// @date    2006-08-01
 /// @version $Id$
 ///
-// missing_desc
+// static methods for processing the coordinates conversion for the current net
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,12 +39,22 @@
 #include "GeoConvHelper.h"
 #include <utils/geom/GeomHelper.h>
 
+
+// ===========================================================================
+// static member variables
+// ===========================================================================
 projPJ GeoConvHelper::myProjection = 0;
 Position2D GeoConvHelper::myOffset;
 bool GeoConvHelper::myDisableProjection;
 SUMOReal GeoConvHelper::myInitX;
 SUMOReal GeoConvHelper::myInitY;
+Boundary GeoConvHelper::myOrigBoundary;
+Boundary GeoConvHelper::myConvBoundary;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 bool
 GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset)
@@ -102,9 +112,11 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian)
 
 
 void
-GeoConvHelper::remap(Position2D &from)
+GeoConvHelper::x2cartesian(Position2D &from)
 {
+    myOrigBoundary.add(from);
     if (myDisableProjection) {
+        myConvBoundary.add(from);
         return;
     }
     projUV p;
@@ -133,6 +145,43 @@ GeoConvHelper::remap(Position2D &from)
                 */
         from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     }
+    myConvBoundary.add(from);
+}
+
+
+void 
+GeoConvHelper::originalIncludes(SUMOReal x, SUMOReal y)
+{
+    myOrigBoundary.add(x, y);
+}
+
+
+void 
+GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y)
+{
+    myOffset.add(x, y);
+    myConvBoundary.moveby(x, y);
+}
+
+
+const Boundary &
+GeoConvHelper::getOrigBoundary()
+{
+    return myOrigBoundary;
+}
+
+
+const Boundary &
+GeoConvHelper::getConvBoundary()
+{
+    return myConvBoundary;
+}
+
+
+const Position2D &
+GeoConvHelper::getOffset()
+{
+    return myOffset;
 }
 
 
