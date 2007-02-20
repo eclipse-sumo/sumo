@@ -408,14 +408,14 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         myJunctionDrawer.drawGLJunctionNames(_junctions2Show, _junctions2ShowSize,
                                              width, _junctionColScheme, *myVisualizationSettings);
     }
-    if (myVisualizationSettings->drawEdgeName) {
-        myLaneDrawer.drawGLLaneNames(_edges2Show, _edges2ShowSize, width,
-                                     *myVisualizationSettings);
-    }
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
                                      width, *myVisualizationSettings);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
                            *myVisualizationSettings);
+    if (myVisualizationSettings->drawEdgeName) {
+        myLaneDrawer.drawGLLaneNames(_edges2Show, _edges2ShowSize, width,
+                                     *myVisualizationSettings);
+    }
     //
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
