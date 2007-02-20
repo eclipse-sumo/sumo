@@ -128,7 +128,7 @@ MSVehicleType*
 MSVehicleType::dict_Random()
 {
     assert(myDict.size()!=0);
-    size_t r = randSUMO() * myDict.size();
+    size_t r = (size_t) (randSUMO() * myDict.size());
     if (r>=myDict.size()) {
         r = myDict.size() - 1;
     }
