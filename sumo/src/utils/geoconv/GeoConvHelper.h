@@ -57,9 +57,6 @@ public:
     static bool init(const std::string &proj,
                      const Position2D &offset);
 
-    /// Returns the information whether the subsystem was initialised
-    static bool initialised();
-
     /// Closes the subsystem
     static void close();
 
@@ -69,8 +66,11 @@ public:
     /// Converts the given coordinate into a cartesian using the previous initialisation
     static void x2cartesian(Position2D &from);
 
+    /// Returns the information whether the subsystem was initialised
+    static bool usingGeoProjection();
+
     /// Lets this subsystem know that the given value is within the regarded area
-    static void originalIncludes(SUMOReal x, SUMOReal y);
+    static void includeInOriginal(SUMOReal x, SUMOReal y);
 
     /// Shifts the converted boundary by the given amounts
     static void moveConvertedBy(SUMOReal x, SUMOReal y);

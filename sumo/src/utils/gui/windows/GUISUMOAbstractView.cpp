@@ -330,12 +330,17 @@ void
 GUISUMOAbstractView::updatePositionInformation() const
 {
     if (true) {
+        string text;
         Position2D pos = getPositionInformation();
-        myApp->setCartesianPos(pos.x(), pos.y());
-        if (GeoConvHelper::initialised()) {
-            GeoConvHelper::cartesian2geo(pos);
-            myApp->setGeoPos(pos.x(), pos.y());
+        text = "x:" + StringUtils::trim(pos.x(), 3) + ", y:" + StringUtils::trim(pos.y(), 3);
+        myApp->getCartesianLabel().setText(text.c_str());
+        GeoConvHelper::cartesian2geo(pos);
+        if(GeoConvHelper::usingGeoProjection()) {
+            text = "lat:" + StringUtils::trim(pos.y(), 6) + ", lon:" + StringUtils::trim(pos.x(), 6);
+        } else {
+            text = "x:" + StringUtils::trim(pos.x(), 3) + ", y:" + StringUtils::trim(pos.y(), 3);
         }
+        myApp->getGeoLabel().setText(text.c_str());
     }
 }
 
@@ -348,7 +353,6 @@ GUISUMOAbstractView::paintGL()
     if (_widthInPixels==0||_heightInPixels==0) {
         return;
     }
-
 
     unsigned int id = 0;
     if (_useToolTips) {

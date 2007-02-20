@@ -60,6 +60,7 @@ GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset)
 {
     pj_free(myProjection);
+    myOffset = offset;
     if (proj.length()==0||proj[0]=='!') {
         // use no projection
         myDisableProjection = true;
@@ -75,14 +76,6 @@ GeoConvHelper::init(const std::string &proj,
     // use full projection
     myDisableProjection = false;
     myProjection = pj_init_plus("+proj=utm +zone=33 +ellps=bessel +units=m");
-    myOffset = offset;
-    return myProjection!=0;
-}
-
-
-bool
-GeoConvHelper::initialised()
-{
     return myProjection!=0;
 }
 
@@ -95,10 +88,18 @@ GeoConvHelper::close()
 }
 
 
+bool
+GeoConvHelper::usingGeoProjection()
+{
+    return myProjection!=0;
+}
+
+
 void
 GeoConvHelper::cartesian2geo(Position2D &cartesian)
 {
     if (myDisableProjection) {
+        cartesian.sub(myOffset);
         return;
     }
     projUV p;
@@ -150,7 +151,7 @@ GeoConvHelper::x2cartesian(Position2D &from)
 
 
 void 
-GeoConvHelper::originalIncludes(SUMOReal x, SUMOReal y)
+GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y)
 {
     myOrigBoundary.add(x, y);
 }

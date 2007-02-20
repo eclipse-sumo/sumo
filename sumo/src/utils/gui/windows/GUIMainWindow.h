@@ -82,8 +82,8 @@ public:
     virtual void setStatusBarText(const std::string &)
     { }
 
-    void setCartesianPos(SUMOReal x, SUMOReal y);
-    void setGeoPos(SUMOReal x, SUMOReal y);
+    FXLabel &getCartesianLabel();
+    FXLabel &getGeoLabel();
 
 protected:
     std::vector<FXMDIChild*> mySubWindows;

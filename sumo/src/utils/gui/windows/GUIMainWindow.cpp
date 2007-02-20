@@ -164,18 +164,17 @@ GUIMainWindow::getGLVisual() const
 }
 
 
-void
-GUIMainWindow::setCartesianPos(SUMOReal x, SUMOReal y)
+FXLabel &
+GUIMainWindow::getCartesianLabel()
 {
-    string text = "x:" + StringUtils::trim(x, 3) + ", y:" + StringUtils::trim(y, 3);
-    myCartesianCoordinate->setText(text.c_str());
+    return *myCartesianCoordinate;
 }
 
-void
-GUIMainWindow::setGeoPos(SUMOReal x, SUMOReal y)
+
+FXLabel &
+GUIMainWindow::getGeoLabel()
 {
-    string text = "lat:" + StringUtils::trim(y, 6) + ", lon:" + StringUtils::trim(x, 6);
-    myGeoCoordinate->setText(text.c_str());
+    return *myGeoCoordinate;
 }
 
 
