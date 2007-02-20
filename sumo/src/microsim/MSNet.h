@@ -220,7 +220,7 @@ public:
 
     /// ----------------- debug variables -------------
     /*
-    #ifdef ABSCHECK_MEMORY_LEAKS
+    #ifdef ABS_DEBUG
     static SUMOTime searchedtime;
     static std::string searched1, searched2, searchedJunction;
     #endif
