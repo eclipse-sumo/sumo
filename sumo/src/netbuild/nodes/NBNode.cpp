@@ -1271,9 +1271,17 @@ NBNode::getType() const
 void
 NBNode::reportBuild()
 {
-    WRITE_MESSAGE("Unregulated Junctions       : " + toString<int>(_noUnregulatedJunctions));
-    WRITE_MESSAGE("Priority Junctions          : " + toString<int>(_noPriorityJunctions));
-    WRITE_MESSAGE("Right Before Left Junctions : " + toString<int>(_noRightBeforeLeftJunctions));
+    WRITE_MESSAGE("-----------------------------------------------------");
+    WRITE_MESSAGE("Summary:");
+    WRITE_MESSAGE(" Node type statistics:");
+    WRITE_MESSAGE("  Unregulated junctions       : " + toString<int>(_noUnregulatedJunctions));
+    WRITE_MESSAGE("  Priority junctions          : " + toString<int>(_noPriorityJunctions));
+    WRITE_MESSAGE("  Right-before-left junctions : " + toString<int>(_noRightBeforeLeftJunctions));
+    WRITE_MESSAGE(" Network boundaries:");
+    WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
+    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffset()));
+    WRITE_MESSAGE("  Converted boundary : " + toString(GeoConvHelper::getConvBoundary()));
+    WRITE_MESSAGE("-----------------------------------------------------");
 }
 
 

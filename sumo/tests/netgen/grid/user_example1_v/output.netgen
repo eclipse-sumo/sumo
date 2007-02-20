@@ -18,7 +18,15 @@ Computing step 14: Computing tls logics
 Computing step 15: Computing node logics
 Computing step 16: Computing traffic light logics
 0 traffic light(s) computed.
-Unregulated Junctions       : 0
-Priority Junctions          : 100
-Right Before Left Junctions : 0
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 100
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 0,0,3600,3600
+  Applied offset     : 0,0
+  Converted boundary : 0,0,3600,3600
+-----------------------------------------------------
 Success.
