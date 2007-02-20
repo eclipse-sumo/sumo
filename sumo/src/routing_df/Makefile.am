@@ -14,7 +14,6 @@ RODFLoader.cpp RODFLoader.h RODFNetHandler.cpp RODFNetHandler.h
 SUBDIRS =
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
--I$(top_srcdir)/src/helpers \
 -I$(XERCES_INCLUDES)
 
 

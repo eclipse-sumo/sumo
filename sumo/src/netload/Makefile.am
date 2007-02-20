@@ -11,7 +11,7 @@ NLHandler.h NLHandler.cpp \
 NLSucceedingLaneBuilder.h NLSucceedingLaneBuilder.cpp \
 NLTriggerBuilder.h NLTriggerBuilder.cpp
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_srcdir)/src/helpers\
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src\
 -I$(XERCES_INCLUDES)
 
 

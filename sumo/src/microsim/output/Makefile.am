@@ -33,7 +33,6 @@ MSXMLRawOut.cpp MSXMLRawOut.h
 SUBDIRS = e1_detectors e2_detectors e3_detectors meandata
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
--I$(top_srcdir)/src/helpers \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 
