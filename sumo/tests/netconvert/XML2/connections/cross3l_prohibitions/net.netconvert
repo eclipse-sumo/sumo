@@ -261,7 +261,7 @@
 
    <junction id="m3" type="priority" x="500.00" y="250.00">
       <inclanes>3fi_0 3fi_1</inclanes>
-      <shape>506.55,248.50 500.05,248.50 500.05,251.50 509.85,251.50</shape>
+      <shape>500.05,251.50 509.85,251.50 506.55,248.50 500.05,248.50</shape>
    </junction>
 
    <junction id="m4" type="priority" x="500.00" y="750.00">

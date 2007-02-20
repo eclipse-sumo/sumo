@@ -136,14 +136,17 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
     // convert angle if the edge is an outgoing edge
     if (e->getFromNode()==_node) {
         angle = e->getNormedAngle(*_node);
-        angle += 180;
-        if (angle>=360) {
-            angle -= 360;
+        angle += (SUMOReal) 180.;
+        if ((int) angle>=(SUMOReal) 360.) {
+            angle -= (SUMOReal) 360.;
         }
     } else {
         angle = e->getNormedAngle(*_node);
     }
-    assert(angle>=0&&angle<360);
+    if(angle<0.1||angle>359.9) {
+        angle = (SUMOReal) 0.;
+    }
+    assert(angle>=(SUMOReal)0 && angle<(SUMOReal)360);
     return angle;
 }
 

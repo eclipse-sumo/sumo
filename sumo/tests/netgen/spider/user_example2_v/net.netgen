@@ -216,9 +216,9 @@
       <cedge id="2/1to2/2">2/2to2/1_0</cedge>
    </edge>
 
-   <edge id="2/2to2/3" Length="96.37" Speed="13.90" Name="2/2to2/3" NoLanes="1" XFrom="300.00" YFrom="500.00" XTo="300.00" YTo="600.00" from="2/2" to="2/3" Priority="-1" Angle="180.00" Type="netgen-default" function="normal">
+   <edge id="2/2to2/3" Length="92.03" Speed="13.90" Name="2/2to2/3" NoLanes="1" XFrom="300.00" YFrom="500.00" XTo="300.00" YTo="600.00" from="2/2" to="2/3" Priority="-1" Angle="180.00" Type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to2/3_0" depart="1" vclasses="" maxspeed="13.90" length="96.37">298.09,495.76 301.65,499.32 301.65,590.65</lane>
+         <lane id="2/2to2/3_0" depart="1" vclasses="" maxspeed="13.90" length="92.03">303.11,499.22 301.65,500.68 301.65,590.65</lane>
       </lanes>
       <cedge id="2/3to1/3">2/2to2/3_0</cedge>
       <cedge id="2/3to3/3">2/2to2/3_0</cedge>
@@ -244,9 +244,9 @@
       <cedge id="1/3to2/3">2/3to1/3_0</cedge>
    </edge>
 
-   <edge id="2/3to2/2" Length="93.63" Speed="13.90" Name="2/3to2/2" NoLanes="1" XFrom="300.00" YFrom="600.00" XTo="300.00" YTo="500.00" from="2/3" to="2/2" Priority="-1" Angle="360.00" Type="netgen-default" function="normal">
+   <edge id="2/3to2/2" Length="92.03" Speed="13.90" Name="2/3to2/2" NoLanes="1" XFrom="300.00" YFrom="600.00" XTo="300.00" YTo="500.00" from="2/3" to="2/2" Priority="-1" Angle="360.00" Type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/3to2/2_0" depart="1" vclasses="" maxspeed="13.90" length="93.63">298.35,590.65 298.35,500.68 295.76,498.09</lane>
+         <lane id="2/3to2/2_0" depart="1" vclasses="" maxspeed="13.90" length="92.03">298.35,590.65 298.35,500.68 296.89,499.22</lane>
       </lanes>
       <cedge id="2/2to3/2">2/3to2/2_0</cedge>
       <cedge id="2/2to2/1">2/3to2/2_0</cedge>
@@ -767,7 +767,7 @@
 
    <junction id="2/2" type="priority" x="300.00" y="500.00">
       <inclanes>2/3to2/2_0 1/2to2/2_0 2/1to2/2_0 3/2to2/2_0</inclanes>
-      <shape>294.63,499.22 299.22,494.63 308.91,495.69 304.31,491.09 303.25,490.65 296.75,490.65 295.69,491.09 291.09,495.69</shape>
+      <shape>294.63,499.22 305.37,499.22 308.91,495.69 304.31,491.09 303.25,490.65 296.75,490.65 295.69,491.09 291.09,495.69</shape>
    </junction>
 
    <junction id="2/3" type="priority" x="300.00" y="600.00">
