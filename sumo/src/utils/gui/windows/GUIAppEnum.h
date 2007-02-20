@@ -85,6 +85,10 @@ enum {
     //@{ Main Window Windows Control - IDs
     /// Open a new microscopic View
     MID_NEW_MICROVIEW,
+#ifdef HAVE_MESOSIM
+    /// Open a new mesoscopic View
+    MID_NEW_MESOVIEW,
+#endif
     //@}
 
     //@{ SubThread - IDs
