@@ -145,9 +145,6 @@ public:
 
     std::string getFreeID();
 
-    /// Returns the minimum position
-    const Position2D &getNetworkOffset() const;
-
     bool computeNodeShapes(OptionsCont &oc);
 
     void printNodePositions();
@@ -164,18 +161,6 @@ public:
     bool savePlain(const std::string &file);
 
     bool writeTLSasPOIs(const std::string &file);
-
-    const Boundary &getOrigBoundary() const
-    {
-        return myOrigBoundary;
-    }
-
-    const Boundary &getConvBoundary() const
-    {
-        return myConvBoundary;
-    };
-
-    void addGeoreference(const Position2D &p);
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
@@ -194,12 +179,6 @@ private:
 
     /** the map of names to nodes */
     NodeCont   _nodes;
-
-    /// The position the network was shifted by
-    Position2D myNetworkOffset;
-
-    /// Boundaries of the network (original, converted)
-    Boundary myOrigBoundary, myConvBoundary;
 
 private:
     /** invalid copy constructor */

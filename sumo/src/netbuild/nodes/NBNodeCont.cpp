@@ -54,6 +54,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <iomanip>
 #include <cmath>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #include "NBNodeCont.h"
 
@@ -96,7 +97,6 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
     }
     NBNode *node = new NBNode(id, position, district);
     _nodes[id] = node;
-    myConvBoundary.add(position);
     return true;
 }
 
@@ -114,7 +114,6 @@ NBNodeCont::insert(const string &id, const Position2D &position)
     }
     NBNode *node = new NBNode(id, position);
     _nodes[id] = node;
-    myConvBoundary.add(position);
     return true;
 }
 
@@ -125,7 +124,6 @@ NBNodeCont::insert(const string &id) // !!! really needed
     pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = _nodes.find(id);
     if (i!=_nodes.end()) {
-        myConvBoundary.add((*i).second->getPosition());
         return (*i).second->getPosition();
     } else {
         NBNode *node = new NBNode(id, Position2D(-1.0, -1.0));
@@ -148,7 +146,6 @@ NBNodeCont::insert(NBNode *node)
         return false;
     }
     _nodes[id] = node;
-    myConvBoundary.add(node->getPosition());
     return true;
 }
 
@@ -198,14 +195,14 @@ NBNodeCont::normaliseNodePositions()
 {
     NodeCont::iterator i;
     // reformat
-    const SUMOReal xmin = -myConvBoundary.xmin();
-    const SUMOReal ymin = -myConvBoundary.ymin();
+    const Boundary &b = GeoConvHelper::getConvBoundary();
+    const SUMOReal xmin = -b.xmin();
+    const SUMOReal ymin = -b.ymin();
     if (fabs(xmin) > POSITION_EPS || fabs(ymin) > POSITION_EPS) {
         for (i=_nodes.begin(); i!=_nodes.end(); i++) {
             (*i).second->resetby(xmin, ymin);
         }
-        myNetworkOffset = Position2D(xmin, ymin);
-        myConvBoundary.moveby(xmin, ymin);
+        GeoConvHelper::moveConvertedBy(xmin, ymin);
     }
     return true;
 }
@@ -217,7 +214,7 @@ NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
     for (NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
-    myConvBoundary.moveby(xoff, yoff); // !!! rotation
+    GeoConvHelper::moveConvertedBy(xoff, yoff); // !!! rotation
     return true;
 }
 
@@ -455,13 +452,6 @@ std::string
 NBNodeCont::getFreeID()
 {
     return "SUMOGenerated" + toString<int>(getNo());
-}
-
-
-const Position2D &
-NBNodeCont::getNetworkOffset() const
-{
-    return myNetworkOffset;
 }
 
 
@@ -1142,13 +1132,6 @@ NBNodeCont::writeTLSasPOIs(const std::string &file)
     }
     res << "</pois>" << endl;
     return res.good();
-}
-
-
-void
-NBNodeCont::addGeoreference(const Position2D &p)
-{
-    myOrigBoundary.add(p);
 }
 
 

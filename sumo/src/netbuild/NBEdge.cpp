@@ -56,6 +56,7 @@
 #include "NBEdge.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geoconv/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -1749,7 +1750,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 void
 NBEdge::normalisePosition(const NBNodeCont &nc)
 {
-    myGeom.resetBy(nc.getNetworkOffset());
+    myGeom.resetBy(GeoConvHelper::getOffset());
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
@@ -1759,7 +1760,7 @@ NBEdge::normalisePosition(const NBNodeCont &nc)
 #endif
 #endif
     for (size_t i=0; i<_nolanes; i++) {
-        myLaneGeoms[i].resetBy(nc.getNetworkOffset());
+        myLaneGeoms[i].resetBy(GeoConvHelper::getOffset());
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[i].assertNonEqual()) {

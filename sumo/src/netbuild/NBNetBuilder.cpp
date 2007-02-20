@@ -53,6 +53,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
+#include <utils/geoconv/GeoConvHelper.h>
 #include "NBJoinedEdgesMap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -410,9 +411,9 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
         res << "<net>" << endl << endl;
         res.setf(ios::fixed , ios::floatfield);
         // write network offsets
-        res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
-        res << "   <conv-boundary>" << myNodeCont.getConvBoundary() << "</conv-boundary>" << endl;
-        res << "   <orig-boundary>" << myNodeCont.getOrigBoundary() << "</orig-boundary>" << endl;
+        res << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>" << endl;
+        res << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>" << endl;
+        res << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>" << endl;
         if (!oc.getBool("use-projection")) {
             res << "   <orig-proj>!</orig-proj>" << endl;
         } else if (oc.getBool("proj.simple")) {
