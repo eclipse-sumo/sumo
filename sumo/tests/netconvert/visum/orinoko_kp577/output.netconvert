@@ -1,17 +1,17 @@
-Found: $VSYS: at 16167
-Found: $KNOTEN: at 28005
-Found: $BEZIRK: at 34888
-Found: $STRECKENTYP: at 38870
-Found: $STRECKE: at 77696
-Found: $STRECKENPOLY: at 135812
-Found: $ABBIEGER: at 138917
-Found: $SIGNALANLAGE: at 317081
-Found: $SIGNALANLAGEZUKNOTEN: at 317226
-Found: $SIGNALGRUPPE: at 317318
-Found: $SIGNALGRUPPEZUABBIEGER: at 317540
-Found: $PHASE: at 317964
-Found: $FAHRSTREIFEN: at 319135
-Found: $FAHRSTREIFENABBIEGER: at 319649
+Found: $VSYS: at 15982
+Found: $KNOTEN: at 27371
+Found: $BEZIRK: at 34191
+Found: $STRECKENTYP: at 38137
+Found: $STRECKE: at 76856
+Found: $STRECKENPOLY: at 134865
+Found: $ABBIEGER: at 137893
+Found: $SIGNALANLAGE: at 311737
+Found: $SIGNALANLAGEZUKNOTEN: at 311874
+Found: $SIGNALGRUPPE: at 311958
+Found: $SIGNALGRUPPEZUABBIEGER: at 312169
+Found: $PHASE: at 312574
+Found: $FAHRSTREIFEN: at 313663
+Found: $FAHRSTREIFENABBIEGER: at 314158
 Parsing VSYS... done.
 Parsing STRECKENTYP... done.
 Parsing KNOTEN... done.
@@ -46,7 +46,7 @@ Computing step 14: Computing tls logics
 Computing step 15: Computing node logics
 Computing step 16: Computing traffic light logics
 1 traffic light(s) computed.
-No Junctions (converted)    : 0
+Unregulated Junctions       : 0
 Priority Junctions          : 49
 Right Before Left Junctions : 0
 Success.
