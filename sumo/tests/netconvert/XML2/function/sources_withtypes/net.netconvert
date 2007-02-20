@@ -2,7 +2,7 @@
 
    <net-offset>500.000000,0.000000</net-offset>
    <conv-boundary>0.000000,0.000000,2200.000000,190.989990</conv-boundary>
-   <orig-boundary>-0.005000,0.000000,0.017000,0.001910</orig-boundary>
+   <orig-boundary>-500.000000,0.000000,1700.000000,190.989990</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="6">1 2 3 4 sink source</edges>

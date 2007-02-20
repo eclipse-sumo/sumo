@@ -2,7 +2,7 @@
 
    <net-offset>500.000000,500.000000</net-offset>
    <conv-boundary>0.000000,0.000000,1000.000000,1000.000000</conv-boundary>
-   <orig-boundary>-0.005000,-0.005000,0.005000,0.005000</orig-boundary>
+   <orig-boundary>-500.000000,-500.000000,500.000000,500.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="8">1fi 1o 2fi 2o 3fi 3o 4fi 4o</edges>
