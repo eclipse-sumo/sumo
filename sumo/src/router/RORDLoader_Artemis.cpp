@@ -108,7 +108,7 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
         if (time%period==0) {
-            SUMOReal prob = randSUMO(100.);
+            SUMOReal prob = randSUMO((SUMOReal) 100.);
             // check which destination to use
             DestProbVector poss = myNodeConnections[orig];
             for (DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {
