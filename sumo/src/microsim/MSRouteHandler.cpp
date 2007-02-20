@@ -408,7 +408,7 @@ MSRouteHandler::closeVehicle()
                         route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
             // check whether the color information shall be set
             if (myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-                vehicle->setCORNColor(new RGBColor(myCurrentVehicleColor)); //TODO maybe memleak
+                vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
             }
             // add the vehicle to the vehicle control
             myVehicleControl.addVehicle(myActiveVehicleID, vehicle);

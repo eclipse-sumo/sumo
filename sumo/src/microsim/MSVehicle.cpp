@@ -195,6 +195,9 @@ MSVehicle::~MSVehicle()
         }
         infoCont.clear();
     }
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+        delete (RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1909,9 +1912,12 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
 
 
 void
-MSVehicle::setCORNColor(RGBColor *col)
+MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 {
-    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = col;
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+        delete (RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
+    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
 
 

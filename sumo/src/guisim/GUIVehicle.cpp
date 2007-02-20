@@ -2,7 +2,7 @@
 /// @file    GUIVehicle.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: $
+/// @version $Id$
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
@@ -215,7 +215,8 @@ GUIVehicle::getNextPeriodical() const
         ret->myStops.push_back(*i);
     }
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        ret->setCORNColor((RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)); //TODO maybe memleak
+        RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
+        ret->setCORNColor(col->red(), col->green(), col->blue());
     }
     return ret;
 }

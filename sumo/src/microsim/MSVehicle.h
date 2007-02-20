@@ -485,7 +485,7 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
-    void setCORNColor(RGBColor *col);
+    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
 
     enum MoveOnReminderMode
     {
