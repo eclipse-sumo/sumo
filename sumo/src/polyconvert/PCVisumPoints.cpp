@@ -71,7 +71,7 @@ using namespace std;
 // method defintions
 // ===========================================================================
 PCVisumPoints::PCVisumPoints(PCPolyContainer &toFill,
-                             const Boundary &/*netBoundary*/, PCTypeMap &tm)
+                             PCTypeMap &tm)
         : myCont(toFill), myTypeMap(tm)
 {}
 
@@ -124,6 +124,7 @@ PCVisumPoints::load(OptionsCont &oc)
             string catid = st.next();
             string code = st.next();
             string name = st.next();
+            string comment = st.next();
             string xpos = st.next();
             string ypos = st.next();
             // process read values
@@ -133,10 +134,7 @@ PCVisumPoints::load(OptionsCont &oc)
             GeoConvHelper::x2cartesian(pos);
             string type = typemap[catid];
             // check the poi
-            if (name=="") {
-                MsgHandler::getErrorInstance()->inform("The name of a poi is missing.");
-                continue;
-            }
+            name = num;
             // patch the values
             bool discard = false;
             int layer = oc.getInt("layer");
@@ -162,10 +160,6 @@ PCVisumPoints::load(OptionsCont &oc)
         if (line.find("$POIKATEGORIEDEF:")==0) {
             // ok, got categories, begin parsing from next line
             parsingCategories = true;
-        }
-        if (line.find("$POI:")==0) {
-            // ok, got pois, begin parsing from next line
-            parsingPOIs = true;
         }
         if (line.find("$POI:")==0) {
             // ok, got pois, begin parsing from next line

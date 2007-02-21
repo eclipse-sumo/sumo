@@ -366,22 +366,22 @@ main(int argc, char **argv)
         // read in the data
         // elmar's polygons
         if (oc.isSet("elmar")) {
-            PCElmar pce(toFill, origNetBoundary, tm);
+            PCElmar pce(toFill, tm);
             pce.load(oc);
         }
         // elmar's points
         if (oc.isSet("elmar-points")) {
-            PCElmarPoints pce(toFill, origNetBoundary, tm);
+            PCElmarPoints pce(toFill, tm);
             pce.load(oc);
         }
         // visum
         if (oc.isSet("visum-file")) {
-            PCVisum pcv(toFill);
+            PCVisum pcv(toFill, tm);
             pcv.load(oc);
         }
         // visum-points
         if (oc.isSet("visum-points")) {
-            PCVisumPoints pcv(toFill, origNetBoundary, tm);
+            PCVisumPoints pcv(toFill, tm);
             pcv.load(oc);
         }
 

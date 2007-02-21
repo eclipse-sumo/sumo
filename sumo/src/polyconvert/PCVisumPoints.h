@@ -67,7 +67,7 @@ class PCVisumPoints
 public:
     /// Constructor
     PCVisumPoints(PCPolyContainer &toFill,
-                  const Boundary &netBoundary, PCTypeMap &tm);
+                  PCTypeMap &tm);
 
     /// Destructor
     ~PCVisumPoints();

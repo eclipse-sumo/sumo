@@ -38,6 +38,7 @@
 
 #include <string>
 #include "PCPolyContainer.h"
+#include "PCTypeMap.h"
 
 
 // ===========================================================================
@@ -65,7 +66,9 @@ class NBNetBuilder;
 class PCVisum
 {
 public:
-    PCVisum(PCPolyContainer &toFill);
+    PCVisum(PCPolyContainer &toFill,
+            PCTypeMap &tm);
+
     ~PCVisum();
 
     /** loads data from the files specified in the given option container */
@@ -78,6 +81,9 @@ public:
 protected:
     /// Container to store the read polygons into
     PCPolyContainer &myCont;
+
+    /// The type map to use
+    PCTypeMap &myTypeMap;
 
 };
 

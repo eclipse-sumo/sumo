@@ -69,7 +69,7 @@ using namespace std;
 // ===========================================================================
 // method defintions
 // ===========================================================================
-PCElmar::PCElmar(PCPolyContainer &toFill, const Boundary & /*netBoundary*/,
+PCElmar::PCElmar(PCPolyContainer &toFill, 
                  PCTypeMap &tm)
         : myCont(toFill), myTypeMap(tm)
 {}

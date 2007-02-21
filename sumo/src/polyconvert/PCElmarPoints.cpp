@@ -71,7 +71,7 @@ using namespace std;
 // method defintions
 // ===========================================================================
 PCElmarPoints::PCElmarPoints(PCPolyContainer &toFill,
-                             const Boundary &/*netBoundary*/, PCTypeMap &tm)
+                             PCTypeMap &tm)
         : myCont(toFill), myTypeMap(tm)
 {}
 
@@ -83,7 +83,6 @@ PCElmarPoints::~PCElmarPoints()
 void
 PCElmarPoints::load(OptionsCont &oc)
 {
-    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     std::string file = oc.getString("elmar-points");
     // load the pois
     ifstream out(file.c_str());
@@ -91,6 +90,7 @@ PCElmarPoints::load(OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
         throw ProcessError();
     }
+    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
 
     // Attributes of the poi
     std::string name, desc, type, ort;

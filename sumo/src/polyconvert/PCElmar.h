@@ -70,7 +70,7 @@ class PCElmar
 {
 public:
     /// Constructor
-    PCElmar(PCPolyContainer &toFill, const Boundary &netBoundary, PCTypeMap &tm);
+    PCElmar(PCPolyContainer &toFill, PCTypeMap &tm);
 
     /// Destructor
     ~PCElmar();

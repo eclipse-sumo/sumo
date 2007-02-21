@@ -71,7 +71,7 @@ class PCElmarPoints
 public:
     /// Constructor
     PCElmarPoints(PCPolyContainer &toFill,
-                  const Boundary &netBoundary, PCTypeMap &tm);
+                  PCTypeMap &tm);
 
     /// Destructor
     ~PCElmarPoints();

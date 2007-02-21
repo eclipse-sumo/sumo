@@ -45,6 +45,7 @@
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisum.h"
 #include <utils/geoconv/GeoConvHelper.h>
+#include <utils/gfx/GfxConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -60,8 +61,8 @@ using namespace std;
 // ===========================================================================
 // method defintions
 // ===========================================================================
-PCVisum::PCVisum(PCPolyContainer &toFill)
-        : myCont(toFill)
+PCVisum::PCVisum(PCPolyContainer &toFill, PCTypeMap &tm)
+        : myCont(toFill), myTypeMap(tm)
 {}
 
 
@@ -78,6 +79,7 @@ PCVisum::load(OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform("Can not open visum-file '" + file + "'.");
         throw ProcessError();
     }
+    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     // Polygon's Attributes
     std::string id, index, xKoord, yKoord;
     Position2DVector vec;
@@ -91,8 +93,15 @@ PCVisum::load(OptionsCont &oc)
     while (out.good()) {
         getline(out,buff);
 
-        if (buff.find("$BEZIRKPOLY") != string::npos) {
-
+        string type = "";
+        if (buff.find("$BEZIRKPOLY")!=string::npos) {
+            type = "district";
+        }
+        if (buff.find("$GEBIETPOLY")!=string::npos) {
+            type = "area";
+        }
+        
+        if(type!="") {
             while (buff.find("*")==string::npos) {
                 l++;
                 getline(out,buff);
@@ -102,9 +111,26 @@ PCVisum::load(OptionsCont &oc)
 
                 id = buff.substr(0,buff.find(";"));
                 if (!first&&lastID!=id) {
-                    Polygon2D *poly = new Polygon2D(id, "bezirk", RGBColor(1, 0, 0), vec, false);
+                    RGBColor color;
+                    int layer = oc.getInt("layer");
+                    bool discard = false;
+                    if (myTypeMap.has(type)) {
+                        const PCTypeMap::TypeDef &def = myTypeMap.get(type);
+                        id = def.prefix + id;
+                        type = def.id;
+                        color = GfxConvHelper::parseColor(def.color);
+                        discard = def.discard;
+                        layer = def.layer;
+                    } else {
+                        id = oc.getString("prefix") + id;
+                        type = oc.getString("type");
+                        color = c;
+                    }
+                    if (!discard) {
+                        Polygon2D *poly = new Polygon2D(id, type, color, vec, false);
+                        myCont.insert(id, poly, 1);
+                    }
                     vec.clear();
-                    myCont.insert(id, poly, 1);
                 }
                 lastID = id;
                 first = false;
