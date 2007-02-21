@@ -57,6 +57,12 @@ public:
     static bool init(const std::string &proj,
                      const Position2D &offset);
 
+    /// Initialises the subsystem using the given proj.4-definition and complete network parameter
+    static bool init(const std::string &proj,
+                     const Position2D &offset,
+                     const Boundary &orig, 
+                     const Boundary &conv);
+
     /// Closes the subsystem
     static void close();
 
@@ -71,6 +77,9 @@ public:
 
     /// Lets this subsystem know that the given value is within the regarded area
     static void includeInOriginal(SUMOReal x, SUMOReal y);
+
+    /// Lets this subsystem know that the given boundary is within the regarded area
+    static void includeInOriginal(const Boundary &b);
 
     /// Shifts the converted boundary by the given amounts
     static void moveConvertedBy(SUMOReal x, SUMOReal y);

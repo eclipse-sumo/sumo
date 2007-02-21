@@ -12,7 +12,7 @@ NLSucceedingLaneBuilder.h NLSucceedingLaneBuilder.cpp \
 NLTriggerBuilder.h NLTriggerBuilder.cpp
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src\
--I$(XERCES_INCLUDES)
+-I$(PROJ_INCLUDES) -I$(XERCES_INCLUDES)
 
 
 

@@ -61,6 +61,8 @@ GeoConvHelper::init(const std::string &proj,
 {
     pj_free(myProjection);
     myOffset = offset;
+    myOrigBoundary.reset();
+    myConvBoundary.reset();
     if (proj.length()==0||proj[0]=='!') {
         // use no projection
         myDisableProjection = true;
@@ -76,6 +78,19 @@ GeoConvHelper::init(const std::string &proj,
     // use full projection
     myDisableProjection = false;
     myProjection = pj_init_plus("+proj=utm +zone=33 +ellps=bessel +units=m");
+    return myProjection!=0;
+}
+
+
+bool
+GeoConvHelper::init(const std::string &proj,
+                    const Position2D &offset,
+                    const Boundary &orig,
+                    const Boundary &conv)
+{
+    init(proj, offset);
+    myOrigBoundary.add(orig);
+    myConvBoundary.add(conv);
     return myProjection!=0;
 }
 
@@ -117,6 +132,7 @@ GeoConvHelper::x2cartesian(Position2D &from)
 {
     myOrigBoundary.add(from);
     if (myDisableProjection) {
+        from.add(myOffset);
         myConvBoundary.add(from);
         return;
     }
@@ -154,6 +170,13 @@ void
 GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y)
 {
     myOrigBoundary.add(x, y);
+}
+
+
+void 
+GeoConvHelper::includeInOriginal(const Boundary &b)
+{
+    myOrigBoundary.add(b);
 }
 
 

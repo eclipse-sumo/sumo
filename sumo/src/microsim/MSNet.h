@@ -341,17 +341,6 @@ public:
         return myEndOfTimestepEvents;
     }
 
-    void setOffset(const Position2D &p);
-    void setOrigBoundary(const Boundary &p);
-    void setConvBoundary(const Boundary &p);
-    void setOrigProj(const std::string &proj);
-
-
-    const Position2D &getOffset() const;
-    const Boundary &getOrigBoundary() const;
-    const Boundary &getConvBoundary() const;
-    const std::string &getOrigProj() const;
-
     /////////////////////////////////////////////
     MSPhoneNet * getMSPhoneNet()
     {
@@ -431,10 +420,6 @@ protected:
     std::string myStateDumpFiles;
 
     SUMOReal myTooSlowRTF;
-
-    Position2D myOffset;
-    Boundary myOrigBoundary, myConvBoundary;
-    std::string myOrigProj;
 
     std::vector<MSVehicle*> myConnected;
     std::vector<MSVehicle*> myClusterHeaders;

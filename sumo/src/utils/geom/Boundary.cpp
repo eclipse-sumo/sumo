@@ -50,12 +50,15 @@
 // ===========================================================================
 Boundary::Boundary()
         : _xmin(10000000000.0), _xmax(-10000000000.0),
-        _ymin(10000000000.0), _ymax(-10000000000.0)
+        _ymin(10000000000.0), _ymax(-10000000000.0),
+        myWasInitialised(false)
 {}
+
 
 Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
         : _xmin(10000000000.0), _xmax(-10000000000.0),
-        _ymin(10000000000.0), _ymax(-10000000000.0)
+        _ymin(10000000000.0), _ymax(-10000000000.0),
+        myWasInitialised(false)
 {
     add(x1, y1);
     add(x2, y2);
@@ -67,12 +70,31 @@ Boundary::~Boundary()
 
 
 void
+Boundary::reset()
+{
+    _xmin = 10000000000.0;
+    _xmax = -10000000000.0;
+    _ymin = 10000000000.0;
+    _ymax = -10000000000.0;
+    myWasInitialised = false;
+}
+
+
+void
 Boundary::add(SUMOReal x, SUMOReal y)
 {
-    _xmin = _xmin < x ? _xmin : x;
-    _xmax = _xmax > x ? _xmax : x;
-    _ymin = _ymin < y ? _ymin : y;
-    _ymax = _ymax > y ? _ymax : y;
+    if(!myWasInitialised) {
+        _ymin = y;
+        _ymax = y;
+        _xmin = x;
+        _xmax = x;
+    } else {
+        _xmin = _xmin < x ? _xmin : x;
+        _xmax = _xmax > x ? _xmax : x;
+        _ymin = _ymin < y ? _ymin : y;
+        _ymax = _ymax > y ? _ymax : y;
+    }
+    myWasInitialised = true;
 }
 
 
@@ -91,12 +113,12 @@ Boundary::add(const Boundary &p)
 }
 
 
-
 Position2D
 Boundary::getCenter() const
 {
     return Position2D((_xmin+_xmax)/(SUMOReal) 2.0, (_ymin+_ymax)/(SUMOReal) 2.0);
 }
+
 
 SUMOReal
 Boundary::xmin() const

@@ -216,7 +216,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     if (myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
         if (MSGlobals::gUsingC2C) {
-            myCellsBuilder = new MSBuildCells(*this, myConvBoundary); //Danilo
+            myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
             myCellsBuilder->build();
         }
     }
@@ -232,7 +232,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // set requests/responses
     MSJunction::postloadInitContainer(); // !!!
-    GeoConvHelper::init(myOrigProj, myOffset);
 }
 
 
@@ -858,63 +857,6 @@ MSNet::getTooSlowRTF() const
     return myTooSlowRTF;
 }
 
-
-
-void
-MSNet::setOffset(const Position2D &p)
-{
-    myOffset = p;
-}
-
-
-void
-MSNet::setOrigBoundary(const Boundary &p)
-{
-    myOrigBoundary = p;
-}
-
-
-void
-MSNet::setConvBoundary(const Boundary &p)
-{
-    myConvBoundary = p;
-}
-
-
-void
-MSNet::setOrigProj(const std::string &proj)
-{
-    myOrigProj = proj;
-}
-
-
-
-const Position2D &
-MSNet::getOffset() const
-{
-    return myOffset;
-}
-
-
-const Boundary &
-MSNet::getOrigBoundary() const
-{
-    return myOrigBoundary;
-}
-
-
-const Boundary &
-MSNet::getConvBoundary() const
-{
-    return myConvBoundary;
-}
-
-
-const std::string &
-MSNet::getOrigProj() const
-{
-    return myOrigProj;
-}
 
 
 

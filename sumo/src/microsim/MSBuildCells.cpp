@@ -46,6 +46,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <utils/geoconv/GeoConvHelper.h>
 #include "MSCell.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -65,7 +66,7 @@ using namespace std;
 MSBuildCells::MSBuildCells(MSNet &net, Boundary boundary)
         : myNet(net), _boundary(boundary)
 {
-    _boundary = net.getConvBoundary();
+    _boundary = GeoConvHelper::getConvBoundary();
     _xsize = (size_t)((_boundary.xmax()-_boundary.xmin())/MSGlobals::gLANRange) + 1;
     _ysize = (size_t)((_boundary.ymax()-_boundary.ymin())/MSGlobals::gLANRange) + 1;
 }

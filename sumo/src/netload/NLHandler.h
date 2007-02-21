@@ -359,6 +359,12 @@ protected:
     /// The id of the currently processed WAUT
     std::string myCurrentWAUTID;
 
+    /// The network offset
+    Position2D myNetworkOffset;
+
+    /// The network's boundaries
+    Boundary myOrigBoundary, myConvBoundary;
+
 
 private:
     /** invalid copy constructor */

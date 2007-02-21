@@ -68,6 +68,7 @@
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/geoconv/GeoConvHelper.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
 
@@ -1143,7 +1144,7 @@ NLHandler::myCharacters(int element, const std::string &name,
             setNetOrig(chars);
         }
         if (name=="orig-proj") { // !!!!6 change to tag*
-            myNet.setOrigProj(chars);
+            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
         }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
@@ -1281,7 +1282,7 @@ NLHandler::setNetOffset(const std::string &chars)
 {
     try {
         Position2DVector s = GeomConvHelper::parseShape(chars);
-        myNet.setOffset(s[0]);
+        myNetworkOffset = s[0];
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Invalid network offset.");
         return;
@@ -1293,10 +1294,9 @@ void
 NLHandler::setNetConv(const std::string &chars)
 {
     try {
-        Boundary s = GeomConvHelper::parseBoundary(chars);
-        myNet.setConvBoundary(s);
+        myConvBoundary = GeomConvHelper::parseBoundary(chars);
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+        MsgHandler::getErrorInstance()->inform("Invalid converted network boundary.");
         return;
     }
 }
@@ -1306,10 +1306,9 @@ void
 NLHandler::setNetOrig(const std::string &chars)
 {
     try {
-        Boundary s = GeomConvHelper::parseBoundary(chars);
-        myNet.setOrigBoundary(s);
+        myOrigBoundary = GeomConvHelper::parseBoundary(chars);
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+        MsgHandler::getErrorInstance()->inform("Invalid original network boundary.");
         return;
     }
 }
