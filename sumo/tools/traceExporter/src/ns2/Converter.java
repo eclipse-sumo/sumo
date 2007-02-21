@@ -25,7 +25,7 @@ public class Converter {
 		}
 		// call constructor
 		if (param != null) {
-			new Converter(param.net, param.trace, param.activity, param.mobility, param.config, param.begin, param.end);
+			new Converter(param.net, param.trace, param.activity, param.mobility, param.config, param.penetration, param.seed);
 		} else {
 			System.err.println("param == null");
 		}
@@ -43,46 +43,40 @@ public class Converter {
 		System.out.println("-a [activityfile]");
 		System.out.println("-m [mobilityfile]");
 		System.out.println("-c [configfile]");
-		System.out.println("-b [begin]");
-		System.out.println("-e [end]");
+		System.out.println("-p [penetration factor] with penetration factor in [0,1]");
+		System.out.println("-s [seed]");
 	}
 	
 	/**
 	 * constructor
-	 * @param net name of sumo net file
-	 * @param trace name of sumo trace file
-	 * @param activity name of ns2 activity file
-	 * @param mobility name of ns2 mobility file
-	 * @param config name of ns2 config file
-	 * @param begin sumo time at which ns2 should start to simulate 
-	 * @param end sumo time at which ns2 should stop to simulate
+	 * @param net name of net file
+	 * @param trace name of trace file
+	 * @param activity name of activity file
+	 * @param mobility name of mobility file
+	 * @param config name of config file
+	 * @param penetration value of penetration in [0,1]
 	 */
-	private Converter(String net, String trace, String activity, String mobility, String config, double begin, double end) {
-		// 1. get net
-		List<Edge> edges = new LinkedList<Edge>();
+	private Converter(String net, String trace, String activity, String mobility, String config, double penetration, long seed) {
+		List<Edge>               edges             = new LinkedList<Edge>();
+		List<Vehicle>            vehicles          = new LinkedList<Vehicle>();
+		List<Vehicle>            equippedVehicles  = new LinkedList<Vehicle>();
+		HashMap<String, Integer> vehicleIds        = new HashMap<String, Integer>();
+		HashMap<String, Integer> partialVehicleIds = new HashMap<String, Integer>();
+		
+		System.out.println("start: read netfile");
 		NetReader.read(net, edges);
-		
-		// 2. get all vehicles (IDs, first occurence, last occurence)
-		List<String> vehicleId = new LinkedList<String>();
-		HashMap<String, Double> vehicleFirstOcc = new HashMap<String, Double>();
-		HashMap<String, Double> vehicleLastOcc  = new HashMap<String, Double>();
-		VehicleReader.read(trace, vehicleId, vehicleFirstOcc, vehicleLastOcc);
-		
-		// 3. filter vehicles (intersection: [first occurence, last occurence], [begin time, end time]
-		List<String> wantedVehicle = new LinkedList<String>(vehicleId);
-		VehicleFilter.filter(vehicleId, wantedVehicle, vehicleFirstOcc, vehicleLastOcc, begin, end);
-		
-		// 4. Randomize new id
-		List<String> vehicleNewId = new LinkedList<String>();
-		IdRandomizer.randomize(wantedVehicle, vehicleNewId);
-		
-		// 5. write mobility file (contains every movement of all (wanted) vehicles
-		MobilityWriter.write(trace, mobility, wantedVehicle, vehicleNewId, edges, begin, end);
-		
-		// 6. write activity file (contains first and last occurence of all (wanted -> filtered) vehicles
-		ActivityWriter.write(activity, wantedVehicle, vehicleNewId, vehicleFirstOcc, vehicleLastOcc, begin);
-
-		// 7. write config file (contains statical information about simulation)
-		ConfigWriter.write(config, activity, mobility, edges, wantedVehicle, vehicleFirstOcc, vehicleLastOcc, begin);
+		System.out.println("finished: read netfile");
+		System.out.println("start: write mobiliy file");
+		MobilityWriter.write(mobility, trace, edges, vehicles, vehicleIds, partialVehicleIds, equippedVehicles, penetration, seed);
+		System.out.println("finished: write mobiliy file");
+		System.out.println("#edges = " +edges.size());
+		System.out.println("#vehicles = " + vehicles.size());
+		System.out.println("#vehicles equipped = " + equippedVehicles.size());
+		System.out.println("start: write activity file");
+		ActivityWriter.write(activity, vehicles, vehicleIds, partialVehicleIds, equippedVehicles);
+		System.out.println("finished: write activity file");
+		System.out.println("start: write config file");
+		ConfigWriter.write(config, mobility, activity, edges, vehicles, equippedVehicles);
+		System.out.println("finished: write config file");
 	}
 }

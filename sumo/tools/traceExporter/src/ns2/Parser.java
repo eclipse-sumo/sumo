@@ -18,16 +18,16 @@ public class Parser {
 		String activity    = "";
 		String mobility    = "";
 		String config      = "";
-		double begin       = 0;
-		double end         = 0;
+		double penetration = 0;
+		long seed          = 0;
 		
 		boolean hasNet         = false;
 		boolean hasTrace       = false;
 		boolean hasActivity    = false;
 		boolean hasMobility    = false;
+		boolean hasPenetration = false;
 		boolean hasConfig      = false;
-		boolean hasBegin       = false;
-		boolean hasEnd         = false;
+		//boolean hasSeed        = fase;
 		
 		for (int i=0; i<args.length; i++) {
 			if ("ns2".equals(args[i].toLowerCase())) {
@@ -83,26 +83,27 @@ public class Parser {
 				}
 			}
 			
-			if ("-b".equals(args[i])) {
-				// begin time
+			if ("-p".equals(args[i])) {
+				// penetration factor
 				if (++i<args.length) {
-					begin = Double.parseDouble(args[i]);
-					if (begin >= 0) {
-						hasBegin = true;
+					if (!args[i].startsWith("-")) {
+						penetration = Double.parseDouble(args[i]);
+						if (penetration>=0 && penetration<=1) {
+							hasPenetration = true;
+						} else {
+							penetration = 0;
+						}
 					}
 				}
 			}
 			
-			if ("-e".equals(args[i])) {
-				// begin time
+			if ("-s".equals(args[i])) {
+				// seed value
 				if (++i<args.length) {
-					end = Double.parseDouble(args[i]);
-					if (begin < end) { 
-						hasEnd = true;
-					}
+					seed = Long.parseLong(args[i]);
+					//hasSeed = true;
 				}
 			}
-			
 		}
 		
 		// must have net file argument
@@ -130,17 +131,13 @@ public class Parser {
 			throw new IllegalArgumentException("no config specified!");
 		}
 		
-		// defaults to begin of sumo simulation
-		if (!hasBegin) {
-			begin = 0;
+		// must have penetration argument
+		if (!hasPenetration) {
+			throw new IllegalArgumentException("no penetration specified!");
 		}
 		
-		// defaults to end of sumo simulation
-		if (!hasEnd) {
-			// end not known yet
-			end = begin;
-		}
-				
-		return new Parameter(net, trace, activity, mobility, config, begin, end);
+		// seed argument: optional
+		
+		return new Parameter(net, trace, activity, mobility, config, penetration, seed);
 	}
 }

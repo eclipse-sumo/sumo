@@ -6,29 +6,31 @@ package ns2;
  *
  */
 public class Parameter {
-	public String net;
-	public String trace;
-	public String activity;
-	public String mobility;
-	public String config;
-	public double begin;
-	public double end;
-
 	/**
 	 * constructor
-	 * @param net name of sumo net file
-	 * @param trace name of sumo trace file
-	 * @param activity name of ns2 activity file
-	 * @param mobility name of ns2 mobility file
-	 * @param config name of ns2 config file
+	 * @param net name of netfile
+	 * @param trace name of tracefile
+	 * @param activity name of activity file
+	 * @param mobility name of mobility file
+	 * @param config name of config file
+	 * @param penetration value in [0,1] of penetration factor
+	 * @param seed value for random number generator
 	 */
-	public Parameter(String net, String trace, String activity, String mobility, String config, double begin, double end) {
+	public Parameter(String net, String trace, String activity, String mobility, String config, double penetration, long seed) {
 		this.net         = net;
 		this.trace       = trace;
 		this.activity    = activity;
 		this.mobility    = mobility;
 		this.config      = config;
-		this.begin       = begin;
-		this.end         = end;
+		this.penetration = penetration;
+		this.seed        = seed;
 	}
+
+	public String net;
+	public String trace;
+	public String activity;
+	public String mobility;
+	public String config;
+	public double penetration;
+	public long seed;
 }
