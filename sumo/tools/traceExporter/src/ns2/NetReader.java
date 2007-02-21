@@ -17,8 +17,8 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class NetReader {
 	/**
-	 * method for reading net file
-	 * @param net name of netfile
+	 * method for reading sumo net file
+	 * @param net name of sumo net file
 	 * @param edges holds net after execution
 	 */
 	public static void read(String net, List<Edge> edges) {		
@@ -101,9 +101,9 @@ public class NetReader {
             }
             parser.close();
         } catch (XMLStreamException ex) {
-            System.out.println(ex);
+            System.err.println(ex);
         } catch (IOException ex) {
-            System.out.println("IOException while parsing " + net);
+            System.err.println(ex);
         }
 	}
 }
