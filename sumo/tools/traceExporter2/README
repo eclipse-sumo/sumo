@@ -3,10 +3,10 @@ traceExporter2
 (I) decription:
 traceExporter2 converts sumo trace files for use in ns2. Three files are 
 generated:
-(1) activityfile: holds time intervals at which every used vehicle 
+(1) activity-file: holds time intervals at which every used vehicle 
 occures
-(2) mobilityfile: holds movement data for every used vehicle
-(3) configfile: holds statical information about the simulation
+(2) mobility-file: holds movement data for every used vehicle
+(3) config-file: holds statical information about the simulation
 
 (II) requirements:
 To use this program you need java 5 or newer, traceExporter2.jar and 
@@ -16,10 +16,10 @@ the same location.
 
 (III) usage:
 java -jar traceExporter2.jar ns2 -n net.xml -t netstate.xml -a 
-activity.tcl -m mobility.tcl -c config.tcl -b [BEGIN] -e [END]
+activity.tcl -m mobility.tcl -c config.tcl [-b BEGIN] [-e END]
 
 * xml-files are sumo-specific input files
 * tcl-file are ns2-specific output files
 * [BEGIN], [END] form the interval for which sumo-data will be exported 
-to ns2
+to ns2. Resulting time values use BEGIN as offset.
 
