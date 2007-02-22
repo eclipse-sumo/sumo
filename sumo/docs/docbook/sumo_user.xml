@@ -898,7 +898,7 @@
         Geocoordinates</link>".</para>
       </sect2>
 
-      <sect2 id="user_chp04-xml_descriptions-edges" revision="0.9.5">
+      <sect2 id="user_chp04-xml_descriptions-edges" revision="0.9.6">
         <title>Edges Descriptions</title>
 
         <para>Edges are described quite the same way as nodes, but posses
@@ -911,10 +911,10 @@
         yfrom="<replaceable>&lt;FLOAT&gt;</replaceable>"
         xto="<replaceable>&lt;FLOAT&gt;</replaceable>"
         yto="<replaceable>&lt;FLOAT&gt;</replaceable>")
-        [(type="<replaceable>&lt;STRING&gt;</replaceable>" |
+        [type="<replaceable>&lt;STRING&gt;</replaceable>" |
         nolanes="<replaceable>&lt;INT&gt;</replaceable>"
         speed="<replaceable>&lt;FLOAT&gt;</replaceable>"
-        priority="<replaceable>&lt;FLOAT&gt;</replaceable>"
+        priority="<replaceable>&lt;UINT&gt;</replaceable>"
         length="<replaceable>&lt;FLOAT&gt;</replaceable>")]
         [shape="<replaceable>&lt;2D_POINT&gt; </replaceable>[
         <replaceable>&lt;2D_POINT&gt;</replaceable>]*
@@ -945,11 +945,11 @@
 
         <para>For each edge, some further attributes should be supplied, being
         the number of lanes the edge has, the maximum speed allowed on the
-        edge, the length the edge has (in meters) and a priority value. These
-        values - beside the length in fact - may either be given for each edge
-        using according attributes or you can omit them by giving the edge a
-        "<sgmltag>type</sgmltag>". In this case, you should also write a
-        type-file (see subchapter "<ulink
+        edge, the length the edge has (in meters). Furthermore, the priority
+        may be defined optionally. All these values - beside the length in
+        fact - may either be given for each edge using according attributes or
+        you can omit them by giving the edge a "<sgmltag>type</sgmltag>". In
+        this case, you should also write a type-file (see subchapter "<ulink
         url="#user_chp04-xml_descriptions-types">Types Descriptions</ulink>").
         A type with this name should of course be within the generated
         type-file, otherwise an error is reported. Even if you supply a type,
@@ -957,10 +957,10 @@
         parameter <sgmltag>nolanes</sgmltag>, <sgmltag>speed</sgmltag> and
         <sgmltag>priority</sgmltag>. You may also leave the edge parameter
         completely unset. In this case, default-values will be used and the
-        edge will have a single lane, a priority of 0 (zero) and the maximum
-        allowed speed on this edge will be 13.9m/s being around 50km/h. The
-        length of this edge will be computed as the distance between the
-        starting and the end point.</para>
+        edge will have a single lane, a default (unset) priority and the
+        maximum allowed speed on this edge will be 13.9m/s being around
+        50km/h. The length of this edge will be computed as the distance
+        between the starting and the end point.</para>
 
         <para>As an edge may have a more complicated geometry, you may supply
         the edge's shape within the <sgmltag>shape</sgmltag> tag. If the
@@ -1068,7 +1068,7 @@
 
                 <listitem>
                   <para><sgmltag>priority</sgmltag>: The priority of the edge;
-                  must be an integer value</para>
+                  must be a positive integer value</para>
                 </listitem>
 
                 <listitem>
@@ -1108,13 +1108,12 @@
               </itemizedlist>
             </listitem>
           </itemizedlist>The priority plays a role during the computation of
-        the way-giving rules of a node. Larger values for the priority of an
-        edge allow vehicles using it to pass without waiting - if no traffic
-        light is on the node. Also, the priority is responsible for
-        determining how many of the street's lanes are used to get to the next
-        edges (see also "<link
-        linkend="user_chp04-further_options-laneno_priority">Automatic
-        Lane-2-Lane Connections</link>").</para>
+        the way-giving rules of a node. Normally, the allowed speed on the
+        edge and the edge's number of lanes are used to compute which edge has
+        a greater priority on a junction. Using the priority attribute, you
+        may increase the priority of the edge making more lanes yielding in it
+        or making vehicles coming from this edge into the junction not
+        wait.</para>
 
         <para>Also the definitions of edges must be embedded into an opening
         and a closing tag and for the example
@@ -1239,7 +1238,7 @@
         </sect3>
       </sect2>
 
-      <sect2 id="user_chp04-xml_descriptions-types" revision="0.9.5">
+      <sect2 id="user_chp04-xml_descriptions-types" revision="0.9.6">
         <title>Types Descriptions</title>
 
         <para>As mentioned, road types are meant to be used to ease the
@@ -1252,7 +1251,7 @@
         id="<replaceable>&lt;STRING&gt;</replaceable>"
         nolanes="<replaceable>&lt;INT&gt;</replaceable>"
         speed="<replaceable>&lt;FLOAT&gt;</replaceable>"
-        priority="<replaceable>&lt;FLOAT&gt;</replaceable>" [function=(
+        priority="<replaceable>&lt;UINT&gt;</replaceable>" [function=(
         "source" | "sink" | "normal" )]/&gt;</sgmltag>.</para>
 
         <para>The attributes of a type are of course exactly the same as for
@@ -1276,7 +1275,7 @@
 
             <listitem>
               <para><sgmltag>priority</sgmltag>: The priority of the
-              referencing edge; must be an integer value</para>
+              referencing edge; must be a positive integer value</para>
             </listitem>
 
             <listitem>
@@ -3248,7 +3247,7 @@
       each option set is given.</para>
 
       <sect2 id="user_chp04-further_options-defaults">
-        <title>Setting default Values</title>
+        <title revision="0.9.6">Setting default Values</title>
 
         <para>We have mentioned, that edge parameter may be omitted and
         defaults will be used in this case. You have the possibility to define
@@ -3293,7 +3292,8 @@
 
             <listitem>
               <para>The default priority of an edge. <remark>Optional
-              (pregiven), type:int, default: 1</remark></para>
+              (pregiven), type: positive int, default: -1
+              (unset)</remark></para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -3358,45 +3358,6 @@
             per default. Instead the option
             "<option>--append-turnarounds</option>" has forced
             <application>NETCONVERT</application> to add them.</para>
-          </listitem>
-        </itemizedlist>
-      </sect2>
-
-      <sect2 id="user_chp04-further_options-laneno_priority" revision="0.9.5">
-        <title>Automatic Lane-2-Lane Connections</title>
-
-        <para>Though you can define a certain priority value for edges (see
-        "<link linkend="user_chp04-xml_descriptions-edges">Edges
-        Descriptions</link>") which is used while computing how many and which
-        lanes are used which of the connected roads, this value is not given
-        for most of the imported road network formats. Setting a priority
-        value for each of the roads is still very time consuming. Using the
-        option <option>--use-laneno-as-priority</option> forces
-        <application>NETCONVERT</application> to use the number of a street's
-        lanes as this street's priority. We strongly recommend to enable this
-        option when importing large networks.</para>
-
-        <para>Specific option:</para>
-
-        <variablelist>
-          <varlistentry>
-            <term>( ----use-laneno-as-priority )</term>
-
-            <listitem>
-              <para><remark>Optional (pregiven), type:bool, default:
-              false</remark></para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-
-        <para>This options may be used in conjunction with all import
-        formats.</para>
-
-        <para>Recent changes:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Documentation added in version 0.9.5.</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -4475,26 +4436,28 @@
         </step>
 
         <step>
-          <para>Import it using NETCONVERT and write the list of imported
-          edges/nodes using the --plain-output option</para>
+          <para>Import it using <application>NETCONVERT</application> and
+          write the list of imported edges/nodes using the
+          <option>--plain-output</option> option</para>
         </step>
 
         <step>
           <para>Build the network from the list of edges/nodes (normally
-          setting the options --guess-ramps and --use-laneno-as-priority to
-          true)</para>
+          setting the options <option>--guess-ramps</option> to true)</para>
         </step>
 
         <step>
-          <para>Load the network into GUISIM, try to determine where tls are
-          located and which connections between edges/lanes are false; A nice
-          possibility to do this is to use Google Earth besides to investigate
-          how the network looks in reality</para>
+          <para>Load the network into <application>GUISIM</application>, try
+          to determine where tls are located and which connections between
+          edges/lanes are false; A nice possibility to do this is to use
+          Google Earth besides to investigate how the network looks in
+          reality</para>
         </step>
 
         <step>
-          <para>Add type="traffic_light" attribute to those nodes in your
-          plain file which were found to be controlled by a tls</para>
+          <para>Add <sgmltag>type="traffic_light"</sgmltag> attribute to those
+          nodes in your plain file which were found to be controlled by a
+          tls</para>
         </step>
 
         <step>
@@ -4647,8 +4610,6 @@
 
       <para>There are some further options which were not yet described. Use
       at own risc.</para>
-
-      <para><option>--use-laneno-as-priority</option></para>
 
       <para><option>--x-offset-to-apply, --y-offset-to-apply,
       --rotation-to-apply</option></para>
@@ -10941,10 +10902,10 @@ myDet1;0;10;2;100;80
         <replaceable>&lt;LAYER_NO&gt;</replaceable></option>, <option>--prefix
         <replaceable>&lt;PREFIX&gt;</replaceable></option>, and <option>--type
         <replaceable>&lt;TYPENAME&gt;</replaceable></option>, respectively. As
-        the non-water polygons contain different polygon types, you can also
-        use a file which contains a type map which defines which values shall
-        be set in dependance to the type. A single entry for this typemap
-        should look like this: <sgmltag>&lt;polytype
+        some inputs may contain different polygon types, you can also use a
+        file which contains a type map which defines which values shall be set
+        in dependance to the type. A single entry for this typemap should look
+        like this: <sgmltag>&lt;polytype
         id="<replaceable>&lt;PREVIOUS_NAME&gt;</replaceable>"
         name="<replaceable>&lt;NEW_NAME&gt;</replaceable>"
         color="<replaceable>&lt;COLORDEF&gt;</replaceable>"
@@ -10984,7 +10945,10 @@ myDet1;0;10;2;100;80
         </itemizedlist>
 
         <para>An example type-map for Elmar's polygons can be found in
-        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>add/elmar_type_map.xml.</para>
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>add/elmar_type_map.xml.
+        It is given to POLYCONVERT using the <option>--typemap
+        <replaceable>&lt;TYPEMAP_FILE&gt;</replaceable></option>
+        option.</para>
 
         <para>Since version 0.9.6, <application>POLYCONVERT</application> can
         also import single points of interest from Elmar's pointcollection
@@ -10994,6 +10958,18 @@ myDet1;0;10;2;100;80
         name of the file to import. You can use a type map in this case, too.
         In this case, the attribute "filled" will be ignored, all other
         attributes are processed as in the case of importing polygons.</para>
+
+        <para>Also since this version, <application>POLYCONVERT</application>
+        can import polygons and pois from Visum-networks. The options herefore
+        are <option>--visum
+        <replaceable>&lt;VISUM_NET&gt;</replaceable></option> and
+        <option>--visum-points
+        <replaceable>&lt;VISUM_NET&gt;</replaceable></option>. In the first
+        case, polygons from "BEZIRK" and "GEBIET" are imported, in the second
+        "POI". "POIKATEGORIE" is parsed in the second steps and the values
+        stored herein are used as type names; for "BEZIRK", the type name
+        "district" is used, "area" for "GEBIET". These type names may be
+        references in the type map file.</para>
 
         <para>In some cases, it is wished not to import all polygons/pois. You
         can constrain which polygons/pois shall be written using the by
@@ -11033,8 +11009,8 @@ myDet1;0;10;2;100;80
             <replaceable>&lt;ELMAR_POLYGON_FILE&gt;</replaceable></option></term>
 
             <listitem>
-              <para>The elmar polygons-file to import. <remark>Optional,
-              type:filename, default: none</remark></para>
+              <para>Reads polygons from the given Elmar polygon file.
+              <remark>Optional, type:filename, default: none</remark></para>
             </listitem>
           </varlistentry>
 
@@ -11043,8 +11019,38 @@ myDet1;0;10;2;100;80
             <replaceable>&lt;ELMAR_POI_FILE&gt;</replaceable></option></term>
 
             <listitem>
-              <para>The elmar pointcollection-file to import.
+              <para>Reads pois from the given Elmar pointcollection file.
               <remark>Optional, type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--visum
+            <replaceable>&lt;VISUM_NET&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Reads polygons from the given VISUM net. <remark>Optional,
+              type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--visum-points
+            <replaceable>&lt;VISUM_NET&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Reads pois from the given VISUM net. <remark>Optional,
+              type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--typemap
+            <replaceable>&lt;TYPEMAP_FILE&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>Reads type maps from the given file. <remark>Optional,
+              type:filename, default: none</remark></para>
             </listitem>
           </varlistentry>
 
@@ -11154,11 +11160,6 @@ myDet1;0;10;2;100;80
           </listitem>
 
           <listitem>
-            <para>Please remark that both, the elamr-file as well as the
-            elmar-points-file do not have to be given (are optional)</para>
-          </listitem>
-
-          <listitem>
             <para>Since version 0.9.6, <application>POLYCONVERT</application>
             is able to import Elmar's pointcollection files</para>
           </listitem>
@@ -11166,6 +11167,11 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>The possibility to constrain the imported points using
             bounding boxes was introduced in version 0.9.6</para>
+          </listitem>
+
+          <listitem>
+            <para>Since version 0.9.6, <application>POLYCONVERT</application>
+            is able to import Visum polygons and points</para>
           </listitem>
         </itemizedlist>
       </sect2>
