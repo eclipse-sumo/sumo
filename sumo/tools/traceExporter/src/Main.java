@@ -1,6 +1,6 @@
 /**
  * Main class of application
- * @author Thimor
+ * @author Thimor Bohn <bohn@itm.uni-luebeck.de>
  *
  */
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		boolean isNs2    = false;
+		boolean isNs2 = false;
 		boolean isAnsim = false;
 		// choose one of two possible actions
 		for (String arg: args) {
@@ -41,8 +41,6 @@ public class Main {
 			ns2.Converter.convert(args);
 		} else if (isAnsim) {
 			ansim.Converter.convert(args);
-
 		}
 	}
-
 }

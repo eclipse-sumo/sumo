@@ -18,16 +18,19 @@ public class Parser {
 		String activity    = "";
 		String mobility    = "";
 		String config      = "";
+		double begin       = 0;
+		double end         = 0;
 		double penetration = 0;
-		long seed          = 0;
+		long   seed        = 0;
 		
 		boolean hasNet         = false;
 		boolean hasTrace       = false;
 		boolean hasActivity    = false;
 		boolean hasMobility    = false;
-		boolean hasPenetration = false;
 		boolean hasConfig      = false;
-		//boolean hasSeed        = fase;
+		boolean hasBegin       = false;
+		boolean hasEnd         = false;
+		boolean hasPenetration = false;
 		
 		for (int i=0; i<args.length; i++) {
 			if ("ns2".equals(args[i].toLowerCase())) {
@@ -83,6 +86,26 @@ public class Parser {
 				}
 			}
 			
+			if ("-b".equals(args[i])) {
+				// begin time
+				if (++i<args.length) {
+					begin = Double.parseDouble(args[i]);
+					if (begin >= 0) {
+						hasBegin = true;
+					}
+				}
+			}
+			
+			if ("-e".equals(args[i])) {
+				// begin time
+				if (++i<args.length) {
+					end = Double.parseDouble(args[i]);
+					if (begin < end) { 
+						hasEnd = true;
+					}
+				}
+			}
+			
 			if ("-p".equals(args[i])) {
 				// penetration factor
 				if (++i<args.length) {
@@ -131,13 +154,21 @@ public class Parser {
 			throw new IllegalArgumentException("no config specified!");
 		}
 		
-		// must have penetration argument
-		if (!hasPenetration) {
-			throw new IllegalArgumentException("no penetration specified!");
+		// defaults to begin of sumo simulation
+		if (!hasBegin) {
+			begin = 0;
 		}
 		
-		// seed argument: optional
+		// defaults to end of sumo simulation
+		if (!hasEnd) {
+			// end not known yet
+			end = begin;
+		}
+
+		// penetration argument: optional
 		
-		return new Parameter(net, trace, activity, mobility, config, penetration, seed);
+		// seed argument: optional
+				
+		return new Parameter(net, trace, activity, mobility, config, begin, end, penetration, seed, hasPenetration);
 	}
 }
