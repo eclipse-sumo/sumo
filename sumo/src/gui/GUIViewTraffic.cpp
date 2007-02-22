@@ -294,15 +294,6 @@ GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
 void
 GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 {
-    if (myTrackedID>0) {
-        GUIGlObject *o = gIDStorage.getObjectBlocking(myTrackedID);
-        if (o!=0) {
-            Boundary b;
-            b.add(static_cast<GUIVehicle*>(o)->getPosition());
-            b.grow(20);
-            _changer->centerTo(myGrid->getBoundary(), b, false);
-        }
-    }
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -521,24 +512,6 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
     draw(vo.vehicle->getRoute(routeNo));
     if (_useToolTips) {
         glPopName();
-    }
-}
-
-
-void
-GUIViewTraffic::centerTo(GUIGlObject *o)
-{
-    if (o->getType()!=GLO_VEHICLE) {
-        GUISUMOAbstractView::centerTo(o);
-    } else {
-        try {
-            Boundary b;
-            b.add(static_cast<GUIVehicle*>(o)->getPosition());
-            b.grow(20);
-            _changer->centerTo(myGrid->getBoundary(), b);
-            _changer->otherChange();
-            update();
-        } catch (GUIExcp_VehicleIsInvisible) {}
     }
 }
 

@@ -109,7 +109,6 @@ public:
     long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
 
-    void centerTo(GUIGlObject *o);
     void rename(GUIGlObject *o);
     void moveTo(GUIGlObject *o);
     void changeCol(GUIGlObject *o);

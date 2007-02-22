@@ -354,6 +354,15 @@ GUISUMOAbstractView::paintGL()
         return;
     }
 
+    if (getTrackedID()>0) {
+        GUIGlObject *o = gIDStorage.getObjectBlocking(getTrackedID());
+        if (o!=0) {
+            Boundary b = o->getCenteringBoundary();
+            //b.grow(20);
+            _changer->centerTo(myGrid->getBoundary(), b, false);
+        }
+    }
+
     unsigned int id = 0;
     if (_useToolTips) {
         id = getObjectUnderCursor();

@@ -341,7 +341,10 @@ GUIVehicle::getDesiredDepart() const
 Boundary
 GUIVehicle::getCenteringBoundary() const
 {
-    throw 1;
+    Boundary b;
+    b.add(getPosition());
+    b.grow(20);
+    return b;
 }
 
 
