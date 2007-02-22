@@ -34,7 +34,7 @@ public class ActivityWriter {
 	        for (String id: wantedVehicle) {
 	        	String newId =  vehicleNewId.get(wantedVehicle.indexOf(id));
 				double minP =  Double.parseDouble(newId)/wantedVehicle.size();
-				out.println("if { $opt(p) <= " + minP  + " } { ");
+				out.println("if { $opt(penetration) <= " + minP  + " } { ");
 	            out.println("  $ns_ at " + (vehicleFirstOcc.get(id)-begin) + " \"$g(" + newId + ") start\"");
 	            out.println("  $ns_ at " + (vehicleLastOcc.get(id)-begin) + " \"$g(" + newId + ") stop\"");
 	            out.println("}");

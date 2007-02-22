@@ -128,7 +128,7 @@ public class MobilityWriter {
 							// write to mobility file
 							String newId =  vehicleNewId.get(wantedVehicle.indexOf(id));
 							double minP =  Double.parseDouble(newId)/wantedVehicle.size();
-							out.print("if { $opt(p) <= " + minP  + " } { ");
+							out.print("if { $opt(penetration) <= " + minP  + " } { ");
 							out.print("$ns_ at " + (time-begin) + " \"$node_(" + newId + ") " + "setdest " + x + " " + y + " " + v + "\"");
 							out.println(" }");
 						}
@@ -141,7 +141,7 @@ public class MobilityWriter {
 	        for (String id: wantedVehicle) {
 				String newId =  vehicleNewId.get(wantedVehicle.indexOf(id));
 				double minP =  Double.parseDouble(newId)/wantedVehicle.size();
-				out.println("if { $opt(p) <= " + minP  + " } { ");
+				out.println("if { $opt(penetration) <= " + minP  + " } { ");
 	            out.print("  $node_(" + newId + ") ");
 	            out.println("  set X_ " + initialX.get(id));
 	            out.print("  $node_(" + newId + ") ");
