@@ -144,6 +144,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib"
 				OutputFile=".\Release\z_libutils_common.lib"
 				SuppressStartupBanner="true"
 			/>
