@@ -65,12 +65,8 @@
 #include <utils/geoconv/GeoConvHelper.h>
 
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
-#else
-#ifndef CALLBACK
-#define CALLBACK
-#endif
 #endif
 
 #include <GL/gl.h>
@@ -1002,12 +998,12 @@ GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*)
     return 1;
 }
 
-void CALLBACK beginCallback(GLenum which)
+void APIENTRY beginCallback(GLenum which)
 {
     glBegin(which);
 }
 
-void CALLBACK errorCallback(GLenum errorCode)
+void APIENTRY errorCallback(GLenum errorCode)
 {
     const GLubyte *estring;
 
@@ -1016,12 +1012,12 @@ void CALLBACK errorCallback(GLenum errorCode)
     exit(0);
 }
 
-void CALLBACK endCallback(void)
+void APIENTRY endCallback(void)
 {
     glEnd();
 }
 
-void CALLBACK vertexCallback(GLvoid *vertex)
+void APIENTRY vertexCallback(GLvoid *vertex)
 {
     const GLdouble *pointer;
 
@@ -1034,7 +1030,7 @@ void CALLBACK vertexCallback(GLvoid *vertex)
  *  but weight[4] may be used to average color, normal, or texture
  *  coordinate data.  In this program, color is weighted.
  */
-void CALLBACK combineCallback(GLdouble coords[3],
+void APIENTRY combineCallback(GLdouble coords[3],
                               GLdouble *vertex_data[4],
                               GLfloat weight[4], GLdouble **dataOut)
 {
@@ -1072,11 +1068,11 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
     if (polygon.fill()) {
         double *points = new double[polygon.getPosition2DVector().size()*3];
         GLUtesselator *tobj = gluNewTess();
-        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
-        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
-        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
-        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
-        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineCallback);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, NULL);
         gluTessBeginContour(tobj);

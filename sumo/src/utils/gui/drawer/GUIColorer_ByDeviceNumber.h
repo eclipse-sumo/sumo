@@ -46,19 +46,19 @@
 
 #include <GL/gl.h>
 
-template<class _T, class _P>
+template<class _T, class _D>
 class GUIColorer_ByDeviceNumber : public GUIBaseColorer<_T>
 {
 public:
     /// Type of the function to execute.
-    typedef bool(_T::* HasOperation)(_P) const;
-    typedef SUMOReal(_T::* NumberOperation)(_P) const;
+    typedef bool(_T::* HasOperation)(_D) const;
+    typedef SUMOReal(_T::* NumberOperation)(_D) const;
 
     GUIColorer_ByDeviceNumber(HasOperation hasOperation,
                               NumberOperation numberOperation,
                               bool catchNo, SUMOReal min, SUMOReal max,
                               const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
-                              _P param)
+                              _D param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
             myMin(min), myMax(max), myParameter(param)
@@ -71,14 +71,14 @@ public:
 
     void setGlColor(const _T& i) const
     {
-        if (!(i.*myHasOperation)((_P) myParameter)) {
+        if (!(i.*myHasOperation)((_D) myParameter)) {
             if (myCatchNo) {
                 glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
                 glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
-            SUMOReal val = (i.*myNumberOperation)((_P) myParameter) - myMin;
+            SUMOReal val = (i.*myNumberOperation)((_D) myParameter) - myMin;
             if (val<myMin) {
                 val = myMin;
             } else if (val>myMax) {
@@ -115,7 +115,7 @@ protected:
     bool myCatchNo;
     RGBColor myNoColor, myMinColor, myMaxColor;
     SUMOReal myMin, myMax, myScale;
-    _P myParameter;
+    _D myParameter;
 
 };
 
