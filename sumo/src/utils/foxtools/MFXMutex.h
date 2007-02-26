@@ -21,14 +21,22 @@
 ********************************************************************************/
 #ifndef MFXMUTEX_H
 #define MFXMUTEX_H
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
 
-#ifdef HAVE_CONFIG_H
+
+// ===========================================================================
+// included modules
+// ===========================================================================
 #ifdef WIN32
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
-#endif // HAVE_CONFIG_H
 
 #ifndef WIN32
 typedef void*		FXThreadMutex;        // handle to a mutex

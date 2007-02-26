@@ -204,14 +204,14 @@ public:
     SUMOReal getGridHeight() const;
 
     /// shows a vehicle route
-    virtual void showRoute(GUIVehicle *v, int index=-1)
+    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/)
     { }
 
     /// hides a vehicle route
-    virtual void hideRoute(GUIVehicle *v, int index=-1)
+    virtual void hideRoute(GUIVehicle * /*v*/, int /*index=-1*/)
     { }
 
-    virtual void startTrack(int id)
+    virtual void startTrack(int /*id*/)
     { }
     virtual void stopTrack()
     { }
@@ -219,7 +219,7 @@ public:
     {
         return -1;
     }
-    virtual bool amShowingRouteFor(GUIVehicle *v, int index=-1)
+    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/)
     {
         return false;
     }
