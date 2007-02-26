@@ -1,8 +1,12 @@
 #!/bin/bash
 PREFIX=$HOME/DLR
-MAKELOG=$PREFIX/gcc4make.log
-RUNLOG=$PREFIX/gcc4examplelogs.tar.gz
-MAKEALLLOG=$PREFIX/gcc4makealloptions.log
+FILEPREFIX=gcc4
+REMOTEDIR="shell.sf.net:sumo-www/"
+MAKELOG=$PREFIX/${FILEPREFIX}make.log
+RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
+MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
+BATCH_RESULT_DIR=$PREFIX/${FILEPREFIX}batch_result
+REPORT_DIR=$PREFIX/${FILEPREFIX}report
 
 cd $PREFIX/sumo
 make distclean &> /dev/null
@@ -17,19 +21,20 @@ make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed"; tail -20 $MAKELOG)
 make install >> $MAKELOG 2>&1 || (echo "make install failed"; tail -10 $MAKELOG)
 gzip -f $MAKELOG
-scp -q $MAKELOG.gz shell.sf.net:sumo-www/
+scp -q $MAKELOG.gz $REMOTEDIR
 
 if test -e $PREFIX/bin/sumo; then
   # run tests
   export PATH=$PREFIX/texttest:$PATH
-  tests/testDaily.sh $PREFIX/bin &> /dev/null
-  scp -qr /tmp/sumo_report shell.sf.net:sumo-www/
+  mkdir $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
+  tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
+  scp -qr $REPORT_DIR $REMOTEDIR
 
   # run examples
   find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
   find data/examples/ -newer $MAKELOG.gz -type f > /tmp/sumo_examples 2> /dev/null
   tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
-  scp -q $RUNLOG shell.sf.net:sumo-www/
+  scp -q $RUNLOG $REMOTEDIR
 fi
 
 export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
@@ -39,5 +44,5 @@ export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
 make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed"; tail -20 $MAKEALLLOG)
 gzip -f $MAKEALLLOG
-scp -q $MAKEALLLOG.gz shell.sf.net:sumo-www/
+scp -q $MAKEALLLOG.gz $REMOTEDIR
 
