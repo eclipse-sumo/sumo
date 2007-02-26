@@ -308,12 +308,10 @@ public:
                 << "UPS, vehicles"
                 << " TOT " << myVehicleControl->getEmittedVehicleNo()
                 << " ACT " << myVehicleControl->getRunningVehicleNo()
-                << "       "
+                << ")       "
                 << (char) 13;
             } else {
-                std::cout << " (" << mySimStepDuration << "ms; further information not available"
-                << "       "
-                << (char) 13;
+                std::cout << " (0ms; no further information available)          \r";
             }
         }
     }
