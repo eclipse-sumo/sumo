@@ -1,5 +1,0 @@
-EXTRA_DIST =
-
-SUBDIRS =
-
-

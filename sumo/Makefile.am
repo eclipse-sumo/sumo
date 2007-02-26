@@ -13,4 +13,5 @@ dist-hook:
 	cp --parents `find data tests -regextype posix-awk -name .svn -prune -o -regex ".*/(errors|output|options|testsuite)\..*" -print` $(distdir)
 	cp --parents `find tools -regextype posix-awk -regex ".*\.(pl|py|java|jar)"` $(distdir)
 	cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $(distdir)/tools/traceExporter
-	mkdir $(distdir)/bin
+	cp --parents `find docs -name .svn -prune -or -type f -print` $(distdir)
+

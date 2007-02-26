@@ -402,32 +402,6 @@ dnl AC_ARG_PROGRAM
 
 dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
-docs/Makefile
-docs/docbook/Makefile
-docs/docbook/gfx/Makefile
-docs/docbook/gfx/dev/Makefile
-docs/docbook/gfx/in_progress/Makefile
-docs/docbook/gfx/more/Makefile
-docs/docbook/gfx/user/Makefile
-docs/docbook/tools/Makefile
-docs/docbook/xslt/Makefile
-docs/docbook/xslt/sumo_html/Makefile
-docs/graphviz/Makefile
-docs/internet/Makefile
-docs/internet/css/Makefile
-docs/internet/docs/Makefile
-docs/internet/docs/gen/Makefile
-docs/internet/docs/gen/gfx/Makefile
-docs/internet/docs/gen/gfx/dev/Makefile
-docs/internet/docs/gen/gfx/more/Makefile
-docs/internet/docs/gen/gfx/user/Makefile
-docs/internet/docs/gen/images/Makefile
-docs/internet/downloads/Makefile
-docs/internet/images/Makefile
-docs/internet/links/Makefile
-docs/internet/menus/Makefile
-docs/internet/screens/Makefile
-docs/man/Makefile
 src/Makefile
 src/foreign/Makefile
 src/foreign/nvwa/Makefile
