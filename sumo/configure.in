@@ -7,7 +7,8 @@ dnl create an config-header
 AM_CONFIG_HEADER(src/config.h)
 
 dnl enable automake-support
-AM_INIT_AUTOMAKE([tar-ustar])
+dnl AM_INIT_AUTOMAKE([tar-ustar])
+AM_INIT_AUTOMAKE()
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then

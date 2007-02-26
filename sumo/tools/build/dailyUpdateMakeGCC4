@@ -1,7 +1,19 @@
 #!/bin/bash
-PREFIX=$HOME/DLR
-FILEPREFIX=gcc4
-REMOTEDIR="shell.sf.net:sumo-www/"
+if test "x$1" = "x"; then
+  PREFIX=$HOME/DLR
+else
+  PREFIX=$1
+fi
+if test "x$2" = "x"; then
+  FILEPREFIX=gcc4
+else
+  FILEPREFIX=$2
+fi
+if test "x$3" = "x"; then
+  REMOTEDIR="shell.sf.net:sumo-www/"
+else
+  REMOTEDIR=$3
+fi
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
@@ -13,8 +25,7 @@ make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 svn up &> $MAKELOG || (echo "svn up failed"; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1
-./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
---with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
+./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
 --with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
 --prefix=$PREFIX >> $MAKELOG 2>&1
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
