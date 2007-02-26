@@ -533,10 +533,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXThreadDefs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXMutex.h"
 				>
 			</File>
