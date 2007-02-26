@@ -1,4 +1,4 @@
-SUBDIRS = docs src
+SUBDIRS = src
 
 AUTOMAKE_OPTIONS = gnu dist-zip #1.6
 
