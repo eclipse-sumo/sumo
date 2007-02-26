@@ -1,27 +1,28 @@
 #!/bin/bash
-MAKELOG=$HOME/DLR/sumomake.log
-RUNLOG=$HOME/DLR/sumologs.tar.gz
-MAKEALLLOG=$HOME/DLR/sumomakeall.log
+PREFIX=$HOME/DLR
+MAKELOG=$PREFIX/gcc4make.log
+RUNLOG=$PREFIX/gcc4examplelogs.tar.gz
+MAKEALLLOG=$PREFIX/gcc4makealloptions.log
 
-cd $HOME/DLR/sumo
+cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 svn up &> $MAKELOG || (echo "svn up failed"; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1
-./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
---with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
---with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
---prefix=$HOME/DLR >> $MAKELOG 2>&1
+./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
+--with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
+--with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
+--prefix=$PREFIX >> $MAKELOG 2>&1
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed"; tail -20 $MAKELOG)
 make install >> $MAKELOG 2>&1 || (echo "make install failed"; tail -10 $MAKELOG)
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz shell.sf.net:sumo-www/
 
-if test -e $HOME/DLR/bin/sumo; then
+if test -e $PREFIX/bin/sumo; then
   # run tests
-  export PATH=$HOME/DLR/texttest:$PATH
-  tests/testDaily.sh $HOME/DLR/bin &> /dev/null
+  export PATH=$PREFIX/texttest:$PATH
+  tests/testDaily.sh $PREFIX/bin &> /dev/null
   scp -qr /tmp/sumo_report shell.sf.net:sumo-www/
 
   # run examples
@@ -32,9 +33,9 @@ if test -e $HOME/DLR/bin/sumo; then
 fi
 
 export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
-#--with-xmlrpc=$HOME/DLR/xmlrpc++0.7
-./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
---with-proj-gdal=$HOME/DLR --enable-double-precision \
+#--with-xmlrpc=$PREFIX/xmlrpc++0.7
+./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
+--with-proj-gdal=$PREFIX --enable-double-precision \
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
 make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed"; tail -20 $MAKEALLLOG)
 gzip -f $MAKEALLLOG

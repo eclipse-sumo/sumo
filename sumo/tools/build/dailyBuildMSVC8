@@ -1,0 +1,14 @@
+MAKELOG=msvc8buildRelease.log
+RUNLOG=msvc8examplelogs.tar.gz
+MAKEALLLOG=msvc8buildDebug.log
+
+cd $HOME/workspace/sumo
+svn up
+/cygdrive/c/Programme/Microsoft\ Visual\ Studio\ 8/Common7/IDE/VCExpress.exe /rebuild Release build\\msvc8\\prj.sln /out $MAKELOG
+gzip -f $MAKELOG
+/cygdrive/c/Programme/Microsoft\ Visual\ Studio\ 8/Common7/IDE/VCExpress.exe /rebuild Debug build\\msvc8\\prj.sln /out $MAKEALLLOG
+gzip -f $MAKEALLLOG
+
+chmod -x $MAKELOG.gz $MAKEALLLOG.gz
+scp -q $MAKELOG.gz $MAKEALLLOG.gz behrisch@shell.sf.net:sumo-www/
+
