@@ -6,15 +6,15 @@ MAKEALLLOG=$HOME/DLR/sumomakeall.log
 cd $HOME/DLR/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
-svn up &> $MAKELOG
+svn up &> $MAKELOG || (echo "svn up failed"; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1
 ./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
 --with-gdal-libraries=$HOME/DLR/lib --with-gdal-includes=$HOME/DLR/include \
 --with-proj-libraries=$HOME/DLR/lib --with-proj-includes=$HOME/DLR/include \
 --prefix=$HOME/DLR >> $MAKELOG 2>&1
-make dist >> $MAKELOG 2>&1
-make >> $MAKELOG 2>&1
-make install >> $MAKELOG 2>&1
+make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
+make >> $MAKELOG 2>&1 || (echo "make failed"; tail -20 $MAKELOG)
+make install >> $MAKELOG 2>&1 || (echo "make install failed"; tail -10 $MAKELOG)
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz shell.sf.net:sumo-www/
 
@@ -36,7 +36,7 @@ export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 ./configure --with-fox-libraries=$HOME/DLR/lib --with-fox-includes=$HOME/DLR/include/fox-1.4 \
 --with-proj-gdal=$HOME/DLR --enable-double-precision \
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
-make clean all >> $MAKEALLLOG 2>&1
+make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed"; tail -20 $MAKEALLLOG)
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz shell.sf.net:sumo-www/
 
