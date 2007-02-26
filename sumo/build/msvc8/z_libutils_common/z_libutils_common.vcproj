@@ -68,6 +68,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib"
 				OutputFile=".\Debug\z_libutils_common.lib"
 				SuppressStartupBanner="true"
 				IgnoreAllDefaultLibraries="true"
