@@ -50,9 +50,6 @@ public:
   /// lock mutex
   void lock();
 
-  /// try to lock the mutex, within some period
-  FXbool trylock(FXuint ms);
-
   /// release mutex lock
   void unlock();
 

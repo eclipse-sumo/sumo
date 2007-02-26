@@ -86,21 +86,6 @@ void MFXMutex::lock() {
   lock_++;
   }
 
-// try to lock mutex - lock_ is safe because we dont increment it
-// unles we enter the locked state
-FXbool MFXMutex::trylock(FXuint ms){
-#ifndef WIN32
-  struct timespec due={0,0};
-      due.tv_nsec = ms * 1000000;
-  if (pthread_mutex_timedlock((pthread_mutex_t*)mutexHandle,&due)==0){ lock_++; return TRUE; }
-  return FALSE;
-#else
-  DWORD result=WaitForSingleObject(mutexHandle,ms);
-  if (result==WAIT_OBJECT_0){ lock_++; return TRUE; }
-  return FALSE;
-#endif
-  }
-
 // lock_ is safe because we decrement it, before leaving the locked state
 void MFXMutex::unlock() {
   lock_--;
