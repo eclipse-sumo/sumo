@@ -32,7 +32,7 @@ fi
 if test x"$3" = x; then
   export SUMO_REPORT=/tmp/sumo_report
 else
-  export SUMO_REPORT=$2
+  export SUMO_REPORT=$3
 fi
 
 texttest.py -b
