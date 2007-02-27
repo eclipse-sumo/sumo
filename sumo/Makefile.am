@@ -1,7 +1,5 @@
 SUBDIRS = src
 
-AUTOMAKE_OPTIONS = gnu dist-zip tar-ustar #1.6
-
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
 dist-hook:

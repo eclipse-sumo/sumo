@@ -24,10 +24,10 @@ cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 svn up &> $MAKELOG || (echo "svn up failed"; tail -10 $MAKELOG)
-make -f Makefile.cvs >> $MAKELOG 2>&1
+make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed"; tail -10 $MAKELOG; exit)
 ./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
 --with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
---prefix=$PREFIX >> $MAKELOG 2>&1
+--prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed"; tail -10 $MAKELOG; exit)
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed"; tail -20 $MAKELOG)
 make install >> $MAKELOG 2>&1 || (echo "make install failed"; tail -10 $MAKELOG)
