@@ -60,35 +60,41 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/// Collection of E3-detectors. E3-detectors are defined by a set of
-/// in-cross-sections and out-cross-sections. Vehicles, that pass an
-/// in- and out-cross-section are detected when they pass the
-/// out-cross-section. Vehicles passing the out-cross-section without
-/// having passed the in-cross-section are not detected. You can add
-/// detectors via addDetector() out of E3::DetType to work on the
-/// detection area. You get a sampled value via getAggregate(). As
-/// MSE3Collector inherits from MSDetectorFileOutput there is the
-/// possibility to get file output by calling
-/// MSDetector2File::addDetectorAndInterval().
-///
+/**
+ * @class MSE3Collector
+ * @brief Collection of E3-detectors
+ * 
+ * E3-detectors are defined by a set of in-cross-sections and out-cross-sections. 
+ * Vehicles, that pass an in- and out-cross-section are detected when they pass the
+ * out-cross-section. Vehicles passing the out-cross-section without having 
+ * passed the in-cross-section are not detected. You can add detectors via 
+ * addDetector() out of E3::DetType to work on the detection area. 
+ * You get a sampled value via getAggregate(). As MSE3Collector inherits from 
+ * MSDetectorFileOutput there is the possibility to get file output by calling
+ * MSDetector2File::addDetectorAndInterval().
+ */
 class MSE3Collector : public MSDetectorFileOutput,
             public MSVehicleQuitReminded
 {
 public:
     /**
-    *
-    */
-class MSE3EntryReminder : public MSMoveReminder
+     * @class MSE3EntryReminder
+     * @brief A place on the road net where the E3-collector begins
+     */
+    class MSE3EntryReminder : public MSMoveReminder
     {
     public:
+        /// Constructor
         MSE3EntryReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
+        //{ methods from MSMoveReminder
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
         void dismissByLaneChange(MSVehicle& veh);
 
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+        //}
 
     private:
         MSE3Collector& collectorM;
@@ -124,9 +130,7 @@ class MSE3LeaveReminder : public MSMoveReminder
         MEAN_TRAVELTIME = 0,
         MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE,
         NUMBER_OF_VEHICLES,
-        ALL        ///< Use this to generate all possible
-        ///detectors in
-        ///MSE3Collector::addDetector().
+        ALL        ///< Use this to generate all possible detectors in MSE3Collector::addDetector().
     };
 
     /// Increment operator that allows us to iterate over the
@@ -307,14 +311,14 @@ protected:
     EntryReminders entryRemindersM; ///< Container of entryReminders.
     LeaveReminders leaveRemindersM; ///< Container of leaveReminders.
 
-    MSUnit::Steps haltingTimeThresholdM; ///< Time-theshold to
-    ///determine if a vehicle is
-    ///halting.
-    MSUnit::CellsPerStep haltingSpeedThresholdM; ///< Speed-theshold
-    ///to determine if a
-    ///vehicle is
-    ///halting.
-    SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
+    /// Time-theshold to determine if a vehicle is halting.
+    MSUnit::Steps haltingTimeThresholdM; 
+
+    /// Speed-theshold to determine if a vehicle is halting.
+    MSUnit::CellsPerStep haltingSpeedThresholdM;
+
+    /// Data removal interval.
+    SUMOTime deleteDataAfterSecondsM;
 
     DetectorCont detectorsM;    ///< Container of E3-detectors.
 

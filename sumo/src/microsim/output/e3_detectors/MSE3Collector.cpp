@@ -376,9 +376,6 @@ MSE3Collector::createDetector(DetType type, std::string detId)
 {
     if (hasDetector(type)) {
         return;
-// ===========================================================================
-// used namespaces
-// ===========================================================================
     }
     using namespace Detector;
     switch (type) {
