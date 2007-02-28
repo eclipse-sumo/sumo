@@ -37,7 +37,6 @@ scp -q $MAKELOG.gz $REMOTEDIR
 if test -e $PREFIX/bin/sumo; then
   # run tests
   export PATH=$PREFIX/texttest:$PATH
-  mkdir $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
   tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
   scp -qr $REPORT_DIR $REMOTEDIR
 
