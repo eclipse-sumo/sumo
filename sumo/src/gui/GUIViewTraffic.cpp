@@ -56,7 +56,6 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
-#include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <utils/glutils/polyfonts.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>

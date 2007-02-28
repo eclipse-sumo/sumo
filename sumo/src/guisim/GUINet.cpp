@@ -51,7 +51,6 @@
 #include "GUINetWrapper.h"
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
-#include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUIInductLoop.h>

@@ -371,9 +371,6 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIExcp_VehicleIsInvisible.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIGlobals.h">
 			</File>
 			<File

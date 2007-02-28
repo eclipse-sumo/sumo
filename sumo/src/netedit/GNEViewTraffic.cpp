@@ -58,7 +58,6 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
-#include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GNEViewParent.h"
 

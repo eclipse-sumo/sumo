@@ -486,10 +486,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIExcp_VehicleIsInvisible.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIGlobals.h"
 				>
 			</File>
