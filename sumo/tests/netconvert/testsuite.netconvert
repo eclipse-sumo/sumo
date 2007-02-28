@@ -14,3 +14,5 @@ meta
 # testing error input
 errors
 
+# testing previous bugs
+bugs

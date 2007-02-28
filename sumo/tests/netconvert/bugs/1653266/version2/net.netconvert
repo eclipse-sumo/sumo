@@ -1,0 +1,57 @@
+<net>
+
+   <net-offset>500.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,1011.000000,0.000000</conv-boundary>
+   <orig-boundary>-500.000000,0.000000,511.000000,0.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="2">1to2 out</edges>
+   <node_count>4</node_count>
+
+
+   <edge id="1to2" Length="996.75" Speed="13.90" Name="1to2" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1000.00" YTo="0.00" from="SUMOGenerated0" to="SUMOGenerated1" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="996.75">0.00,-1.65 996.75,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="out" Length="7.65" Speed="13.90" Name="out" NoLanes="1" XFrom="1000.10" YFrom="0.00" XTo="1011.00" YTo="0.00" from="SUMOGenerated2" to="SUMOGenerated3" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="7.65">1000.10,-1.65 1007.75,-1.65</lane>
+      </lanes>
+   </edge>
+
+
+
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>-0.05,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated1" type="DEAD_END" x="1000.00" y="0.00">
+      <inclanes>1to2_0</inclanes>
+      <shape>996.75,-3.25 996.75,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated2" type="DEAD_END" x="1000.10" y="0.00">
+      <inclanes></inclanes>
+      <shape>1000.05,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated3" type="DEAD_END" x="1011.00" y="0.00">
+      <inclanes>out_0</inclanes>
+      <shape>1007.75,-3.25 1007.75,-0.05</shape>
+   </junction>
+
+
+   <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="out" lane="out_0" junction="SUMOGenerated3">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

@@ -1,0 +1,7 @@
+
+# edge starts at 500.09 - should be joined with the one at 500. (eps<.1)
+version1
+
+# edge starts at 500.1 - should not be joined with the one at 500. (eps>=.1)
+version2
+

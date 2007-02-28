@@ -89,8 +89,8 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 {
     NodeCont::iterator i = _nodes.find(id);
     if (i!=_nodes.end()) {
-        if ((*i).second->getPosition().x()==position.x() &&
-                (*i).second->getPosition().y()==position.y()) {
+        if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
+                fabs((*i).second->getPosition().y()-position.y())<POSITION_EPS) {
             return true;
         }
         return false;
@@ -139,8 +139,8 @@ NBNodeCont::insert(NBNode *node)
     string id = node->getID();
     NodeCont::iterator i = _nodes.find(id);
     if (i!=_nodes.end()) {
-        if ((*i).second->getPosition().x()==node->getPosition().x() &&
-                (*i).second->getPosition().y()==node->getPosition().y()) {
+        if (fabs((*i).second->getPosition().x()-node->getPosition().x())<POSITION_EPS &&
+                fabs((*i).second->getPosition().y()-node->getPosition().y())<POSITION_EPS) {
             return true;
         }
         return false;
