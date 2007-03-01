@@ -266,7 +266,7 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
         {
             SUMOReal meanTravelTime = 0.;
             size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
                     meanTravelTime += steps;
@@ -279,7 +279,7 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
         {
             SUMOReal meanHaltsPerVehicle = 0.;
             size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
                     noFound++;
@@ -290,7 +290,7 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
     case NUMBER_OF_VEHICLES:
         {
             SUMOReal vehicleNumber = 0.;
-            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     vehicleNumber += 1.;
                 }
@@ -301,7 +301,7 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
         {
             SUMOReal meanSpeed = 0.;
             size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
                     meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
