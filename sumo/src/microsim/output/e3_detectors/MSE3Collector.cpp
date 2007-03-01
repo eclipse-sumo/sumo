@@ -140,24 +140,6 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 
 
 /* -------------------------------------------------------------------------
- * definitions of operators
- * ----------------------------------------------------------------------- */
-MSE3Collector::DetType&
-operator++(MSE3Collector::DetType& det)
-{
-    return det = (MSE3Collector::ALL == det) ? MSE3Collector::MEAN_TRAVELTIME : MSE3Collector::DetType(det + 1);
-}
-
-
-MSE3Collector::Containers&
-operator++(MSE3Collector::Containers& cont)
-{
-    return cont = (MSE3Collector::TRAVELTIME == cont) ? MSE3Collector::VEHICLES : MSE3Collector::Containers(cont + 1);
-}
-
-
-
-/* -------------------------------------------------------------------------
  * MSE3Collector - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3Collector(const std::string &id,
@@ -167,10 +149,9 @@ MSE3Collector::MSE3Collector(const std::string &id,
                              MSUnit::MetersPerSecond haltingSpeedThreshold,
                              SUMOTime deleteDataAfterSeconds)
         : idM(id), entriesM(entries), exitsM(exits),
-        haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
+        // !dk! kept for later use: haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
         haltingSpeedThresholdM(MSUnit::getInstance()->getCellsPerStep(haltingSpeedThreshold)),
-        deleteDataAfterSecondsM(deleteDataAfterSeconds),
-        detectorsM(3), containersM(3)
+        deleteDataAfterSecondsM(deleteDataAfterSeconds)
 {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1) {
@@ -179,82 +160,46 @@ MSE3Collector::MSE3Collector(const std::string &id,
     for (CrossSectionVectorConstIt crossSec2 = exits.begin(); crossSec2!=exits.end(); ++crossSec2) {
         leaveRemindersM.push_back(new MSE3LeaveReminder(*crossSec2, *this));
     }
+    MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->addItemToUpdate(this);
 }
 
 
 MSE3Collector::~MSE3Collector(void)
 {
-    deleteContainer(entryRemindersM);
-    deleteContainer(leaveRemindersM);
-    deleteContainer(detectorsM);
-    deleteContainer(containersM);
+    for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+        pair->first->quitRemindedLeft(this);
+    }
 }
 
 
 void
 MSE3Collector::enter(MSVehicle& veh)
 {
-    for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
-        if (*it != 0) {
-            (*it)->enterDetectorByMove(&veh);
-        }
-    }
     veh.quitRemindedEntered(this);
+    E3Values v;
+    v.entryTime = MSNet::getInstance()->getCurrentTimeStep();
+    v.leaveTime = 0;
+    v.speedSum = 0;
+    v.haltings = 0;
+    if(myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
+    }
+    myEnteredContainer[&veh] = v;
 }
 
 
 void
 MSE3Collector::leave(MSVehicle& veh)
 {
-    for (DetContIter det = detectorsM.begin(); det != detectorsM.end(); ++det) {
-        if (*det != 0) {
-            (*det)->leave(veh);
-        }
-    }
-    for (ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont) {
-        if (*cont != 0) {
-            (*cont)->leaveDetectorByMove(&veh);
-        }
+    if(myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
+    } else {
+        E3Values v = myEnteredContainer[&veh];
+        v.leaveTime = MSNet::getInstance()->getCurrentTimeStep();
+        myEnteredContainer.erase(&veh);
+        myLeftContainer[&veh] = v;
     }
     veh.quitRemindedLeft(this);
-}
-
-
-void
-MSE3Collector::addDetector(DetType type, std::string detId)
-{
-    if (detId == "") {
-        detId = idM;
-    }
-    if (type != ALL) {
-        createDetector(type, detId);
-    } else {
-        for (DetType typ = MEAN_TRAVELTIME; typ <ALL; ++typ) {
-            createDetector(typ, detId);
-        }
-    }
-}
-
-
-bool
-MSE3Collector::hasDetector(DetType type)
-{
-    return getDetector(type) != 0;
-}
-
-
-SUMOReal
-MSE3Collector::getAggregate(DetType type, MSUnit::Seconds lastNSeconds)
-{
-    assert(type != ALL);
-    LDDetector* det = getDetector(type);
-    if (det != 0) {
-        return det->getAggregate(lastNSeconds);
-    }
-    // requested type not present
-    // create it and return nonsens value for the first access
-    addDetector(type, "");
-    return -1;
 }
 
 
@@ -268,10 +213,10 @@ MSE3Collector::getID() const
 void
 MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 {
-    for (ContainerContIter cont = containersM.begin(); cont != containersM.end(); ++cont) {
-        if (*cont != 0) {
-            (*cont)->removeOnTripEnd(veh);
-        }
+    if(myEnteredContainer.find(veh)==myEnteredContainer.end()) {
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh->getID() + "' left E3-detector '" + getID() + "' before entering it.");
+    } else {
+        myEnteredContainer.erase(veh);
     }
 }
 
@@ -293,8 +238,81 @@ MSE3Collector::writeXMLOutput(XMLDevice &dev,
     if (dev.needsDetectorName()) {
         dev.writeString("id=\"").writeString(idM).writeString("\" ");
     }
-    writeXMLOutput(dev, detectorsM, startTime, stopTime);
-    dev.writeString("/>");
+    // collect values
+    SUMOReal vehicleSum = myLeftContainer.size();
+    SUMOReal meanTravelTime = 0.;
+    SUMOReal meanSpeed = 0.;
+    SUMOReal meanHaltsPerVehicle = 0.;
+        //
+    for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+        meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
+        SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
+        meanTravelTime += steps;
+        meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
+    }
+    meanTravelTime /= (SUMOReal) myLeftContainer.size();
+    meanSpeed /= (SUMOReal) myLeftContainer.size();
+    meanHaltsPerVehicle /= (SUMOReal) myLeftContainer.size();
+    // write values
+    dev.writeString("meanTravelTime=\"").writeString(toString(meanTravelTime)).writeString(
+        "\" meanSpeed=\"").writeString(toString(meanSpeed)).writeString(
+        "\" meanHaltsPerVehicle=\"").writeString(toString(meanHaltsPerVehicle)).writeString(
+        "\" vehicleSum=\"").writeString(toString(vehicleSum)).writeString("\"/>");
+    // clear container
+    myLeftContainer.clear();
+}
+
+
+SUMOReal
+MSE3Collector::getValue(MSE3Collector::Value which) const
+{
+    SUMOTime ctime = MSNet::getInstance()->getCurrentTimeStep();
+    switch(which) {
+    case MEAN_TRAVELTIME:
+        {
+            SUMOReal meanTravelTime = 0.;
+            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+                if((*i).second.leaveTime==ctime) {
+                    SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
+                    meanTravelTime += steps;
+                }
+            }
+            return meanTravelTime / (SUMOReal) myLeftContainer.size();
+        }
+    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
+        {
+            SUMOReal meanHaltsPerVehicle = 0.;
+            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+                if((*i).second.leaveTime==ctime) {
+                    meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
+                }
+            }
+            return meanHaltsPerVehicle / (SUMOReal) myLeftContainer.size();
+        }
+    case NUMBER_OF_VEHICLES:
+        {
+            SUMOReal vehicleNumber = 0.;
+            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+                if((*i).second.leaveTime==ctime) {
+                    vehicleNumber += 1.;
+                }
+            }
+            return vehicleNumber;
+        }
+    case MEAN_SPEED:
+        {
+            SUMOReal meanSpeed = 0.;
+            for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+                if((*i).second.leaveTime==ctime) {
+                    SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
+                    meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
+                }
+            }
+            return meanSpeed / (SUMOReal) myLeftContainer.size();
+        }
+    default:
+        return 0;
+    }
 }
 
 
@@ -326,92 +344,41 @@ MSE3Collector::writeXMLDetectorInfoEnd(XMLDevice &dev) const
 }
 
 
-SUMOTime
-MSE3Collector::getDataCleanUpSteps(void) const
+bool 
+MSE3Collector::updateEachTimestep(void)
 {
-    return deleteDataAfterSecondsM; // !!! Konvertierung
-}
-
-
-MSE3Collector::LDDetector*
-MSE3Collector::getDetector(DetType type) const
-{
-    assert(type != ALL);
-    return detectorsM[ type ];
-}
-
-
-void
-MSE3Collector::createContainer(Containers type)
-{
-    switch (type) {
-    case VEHICLES: {
-        if (containersM[ VEHICLES ] == 0) {
-            containersM[ VEHICLES ] = new DetectorContainer::VehicleMap();
+    for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+        MSVehicle* veh = pair->first;
+        E3Values& values = pair->second;
+        values.speedSum += veh->getSpeed();
+        if (veh->getSpeed() < haltingSpeedThresholdM) {
+            values.haltings++;
+        } 
+        /*
+        halting.posM += veh->getMovedDistance();
+        if (veh->getSpeed() >= speedThresholdM) {
+            halting.timeBelowSpeedThresholdM = 0;
+            halting.isHaltingM = false;
+            halting.haltingDurationM = 0.0;
+        } else {
+            halting.timeBelowSpeedThresholdM++;
+            if (halting.timeBelowSpeedThresholdM > timeThresholdM) {
+                if (! halting.isHaltingM) {
+                    // beginning of new halt detected
+                    halting.isHaltingM = true;
+                    // time to detect halting contributes to
+                    // halting-duration
+                    halting.haltingDurationM = halting.timeBelowSpeedThresholdM++;
+                    halting.nHalts++;
+                } else {
+                    halting.haltingDurationM++;
+                }
+            }
         }
-        break;
+        */
     }
-    case TRAVELTIME: {
-        if (containersM[ TRAVELTIME ] == 0) {
-            containersM[ TRAVELTIME ] = new DetectorContainer::TimeMap();
-        }
-        break;
-    }
-    case HALTINGS: {
-        if (containersM[ HALTINGS ] == 0) {
-            containersM[ HALTINGS ] = new DetectorContainer::HaltingsMap(
-                                          haltingTimeThresholdM, haltingSpeedThresholdM);
-        }
-        break;
-    }
-    default: {
-        assert(0);
-    }
-    }
+    return false; // to please MSVC++
 }
-
-
-void
-MSE3Collector::createDetector(DetType type, std::string detId)
-{
-    if (hasDetector(type)) {
-        return;
-    }
-    using namespace Detector;
-    switch (type) {
-    case MEAN_TRAVELTIME: {
-        createContainer(TRAVELTIME);
-        detectorsM[ MEAN_TRAVELTIME ] =
-            new E3Traveltime(
-                E3Traveltime::getDetectorName() + detId,
-                (MSUnit::Seconds) deleteDataAfterSecondsM,
-                *static_cast< DetectorContainer::TimeMap* >(containersM[ TRAVELTIME ]));
-        break;
-    }
-    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: {
-        createContainer(HALTINGS);
-        detectorsM[ MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
-            new E3MeanNHaltings(
-                E3MeanNHaltings::getDetectorName() + detId,
-                (MSUnit::Seconds) deleteDataAfterSecondsM,
-                *static_cast< DetectorContainer::HaltingsMap* >(containersM[ HALTINGS ]));
-        break;
-    }
-    case NUMBER_OF_VEHICLES: {
-        createContainer(VEHICLES);
-        detectorsM[ NUMBER_OF_VEHICLES ] =
-            new E3NVehicles(
-                E3NVehicles::getDetectorName() + detId,
-                (MSUnit::Seconds) deleteDataAfterSecondsM,
-                *static_cast< DetectorContainer::VehicleMap* >(containersM[ VEHICLES ]));
-        break;
-    }
-    default: {
-        assert(0);
-    }
-    }
-}
-
 
 
 /****************************************************************************/

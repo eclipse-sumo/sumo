@@ -124,7 +124,7 @@ class MyWrapper : public GUIDetectorWrapper
     protected:
         /// Builds a view within the parameter table if the according type is available
         void myMkExistingItem(GUIParameterTableWindow &ret,
-                              const std::string &name, MSE3Collector::DetType type);
+                              const std::string &name, MSE3Collector::Value type);
 
         /// Builds the description about the position of the entry/exit point
         SingleCrossingDefinition buildDefinition(const MSCrossSection &section,
@@ -160,8 +160,8 @@ class MyWrapper : public GUIDetectorWrapper
         public:
             /// Constructor
             MyValueRetriever(GUIE3Collector &det,
-                             MSE3Collector::DetType type, size_t nSec)
-                    : myDetector(det), myType(type), myNSec(nSec)
+                             MSE3Collector::Value v)
+                    : myDetector(det), myValue(v)
             { }
 
             /// Destructor
@@ -171,13 +171,13 @@ class MyWrapper : public GUIDetectorWrapper
             /// Returns the current value
             SUMOReal getValue() const
             {
-                return myDetector.getAggregate(myType, (MSUnit::Seconds) myNSec);
+                return myDetector.getValue(myValue);
             }
 
             /// Returns a copy of this instance
             ValueSource<SUMOReal> *copy() const
             {
-                return new MyValueRetriever(myDetector, myType, myNSec);
+                return new MyValueRetriever(myDetector, myValue);
             }
 
         private:
@@ -185,10 +185,8 @@ class MyWrapper : public GUIDetectorWrapper
             GUIE3Collector &myDetector;
 
             /// The type of the value to retrieve
-            MSE3Collector::DetType myType;
+            MSE3Collector::Value myValue;
 
-            /// The aggregation interval
-            size_t myNSec;
         };
 
     };

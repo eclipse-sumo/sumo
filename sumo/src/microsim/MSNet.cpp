@@ -510,14 +510,10 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         myEdges->detectCollisions(step);
     }
 
-    MSUpdateEachTimestepContainer<
-    DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<
-    DetectorContainer::UpdateE3Haltings >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<
-    Detector::UpdateE2Detectors >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<
-    Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
 
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();

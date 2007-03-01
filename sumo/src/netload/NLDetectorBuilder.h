@@ -173,7 +173,7 @@ public:
     E2MeasuresVector parseE2Measures(const std::string &measures);
 
     /// Definition of an E2-measures vector
-    typedef std::vector<MSE3Collector::DetType> E3MeasuresVector;
+    typedef std::vector<MSE3Collector::Value> E3MeasuresVector;
 
     /// Parses the measures an E3-detector shall compute
     E3MeasuresVector parseE3Measures(const std::string &measures);

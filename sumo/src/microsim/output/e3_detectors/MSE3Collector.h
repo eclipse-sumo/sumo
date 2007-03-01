@@ -74,7 +74,8 @@
  * MSDetector2File::addDetectorAndInterval().
  */
 class MSE3Collector : public MSDetectorFileOutput,
-            public MSVehicleQuitReminded
+            public MSVehicleQuitReminded,
+            public MSUpdateEachTimestep< MSE3Collector >
 {
 public:
     /**
@@ -104,7 +105,7 @@ public:
 
 
 
-class MSE3LeaveReminder : public MSMoveReminder
+    class MSE3LeaveReminder : public MSMoveReminder
     {
     public:
         MSE3LeaveReminder(
@@ -122,51 +123,13 @@ class MSE3LeaveReminder : public MSMoveReminder
 
     };
 
-    ///
-    /// Collection of all possible E3-detectors. Names should be
-    /// self-explanatory. All E3-detectors are LD-detectors (leave-data).
-    ///
-    enum DetType {
+    enum Value {
         MEAN_TRAVELTIME = 0,
         MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE,
         NUMBER_OF_VEHICLES,
-        ALL        ///< Use this to generate all possible detectors in MSE3Collector::addDetector().
+        MEAN_SPEED
     };
 
-    /// Increment operator that allows us to iterate over the
-    /// E3::DetType detectors.
-    ///
-    /// @param det A detector out of E3::DetType (an integral type).
-    ///
-    /// @return The detector that follows det.
-    ///
-    friend MSE3Collector::DetType& operator++(MSE3Collector::DetType& det);
-
-    ///
-    /// Collection of different "vehicle" containers used by MSE3Collector.
-    ///
-    enum Containers {
-        VEHICLES = 0,
-        HALTINGS,
-        TRAVELTIME
-    };
-
-    /// Increment operator that allows us to iterate over the
-    /// E3::Containers detectors.
-    ///
-    /// @param cont A container out of E3::Containers (an integral type).
-    ///
-    /// @return The container that follows cont.
-
-    friend MSE3Collector::Containers& operator++(MSE3Collector::Containers& cont);
-
-
-    typedef LD::MSDetectorInterface LDDetector;
-    typedef std::vector< LDDetector* > DetectorCont;
-    typedef DetectorCont::iterator DetContIter;
-
-    typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
-    typedef ContainerCont::iterator ContainerContIter;
     typedef std::vector<MSE3EntryReminder*> EntryReminders;
     typedef std::vector<MSE3LeaveReminder*> LeaveReminders;
 
@@ -208,35 +171,6 @@ class MSE3LeaveReminder : public MSMoveReminder
     /// @param veh The leaving vehicle.
     ///
     void leave(MSVehicle& veh);
-
-    /// Add, i.e. create the requested detector or all detectors out
-    /// of E3::DetType.
-    ///
-    /// @param type One detetcor out of E3::DetType. ALL will create
-    /// all detectors.
-    /// @param detId Optional id of the newly created detector(s).
-    ///
-    void addDetector(DetType type, std::string detId = "");
-
-    /// Checks if the requested detector is present.
-    ///
-    /// @param type The detector out of E3::DetType you are interested in.
-    ///
-    /// @return True if the detector exists, false otherwise.
-    ///
-    bool hasDetector(DetType type);
-
-    /// Get the aggregated value of a detector. If the detector
-    /// doesn't exist, create it and return -1 for this first call.
-    ///
-    /// @param type The detector of E3::DetType you are interested in.
-    /// @param lastNSeconds Length of the aggregation intervall
-    /// (now-lastNSeconds, now].
-    ///
-    /// @return If the detector exists, return it's aggregated value,
-    /// else return -1.
-    ///
-    SUMOReal getAggregate(DetType type, MSUnit::Seconds lastNSeconds);
 
     /// Get the detectors unique id.
     ///
@@ -284,25 +218,14 @@ class MSE3LeaveReminder : public MSMoveReminder
     ///
     void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
 
-    /// Get the clean-up interval length.
-    ///
-    /// @return Interval-length in steps.
-    ///
-    SUMOTime getDataCleanUpSteps(void) const;
-
     /// @}
 
+
+        bool updateEachTimestep(void);
+
+        SUMOReal getValue(Value which) const;
+
 protected:
-
-    /// Get a pointer to the requested detector out of E3::DetType.
-    ///
-    /// @param type The detector you are interested in.
-    ///
-    /// @return If the detector exists, a pointer to the valid object,
-    /// 0 otherwise.
-    ///
-    LDDetector* getDetector(DetType type) const;
-
     std::string idM;            ///< The detector's unique id.
 
     CrossSectionVector entriesM; ///< Container of detector entries.
@@ -311,76 +234,29 @@ protected:
     EntryReminders entryRemindersM; ///< Container of entryReminders.
     LeaveReminders leaveRemindersM; ///< Container of leaveReminders.
 
-    /// Time-theshold to determine if a vehicle is halting.
-    MSUnit::Steps haltingTimeThresholdM; 
+    // Time-theshold to determine if a vehicle is halting.
+    //MSUnit::Steps haltingTimeThresholdM; 
+    // !dk! kept for later use
 
     /// Speed-theshold to determine if a vehicle is halting.
-    MSUnit::CellsPerStep haltingSpeedThresholdM;
+    MSUnit::MetersPerSecond haltingSpeedThresholdM;
 
     /// Data removal interval.
     SUMOTime deleteDataAfterSecondsM;
-
-    DetectorCont detectorsM;    ///< Container of E3-detectors.
-
-    ContainerCont containersM;  ///< Container of helper-containers.
 
     static std::string xmlHeaderM; ///< Header for the XML-output.
 
     static std::string infoEndM; ///< Closing detector tag.
 
-    /// Create a "vehicle"-container out of E3::Containers. They may
-    /// be shared among several detectors. The created container is
-    /// put into the member containersM. A container holds pointers to
-    /// all "vehicles" currently on the detector.
-    ///
-    /// @param type The container you are interested in.
-    ///
-    void createContainer(Containers type);
+    struct E3Values {
+        SUMOTime entryTime;
+        SUMOTime leaveTime;
+        SUMOReal speedSum;
+        size_t haltings;
+    };
 
-    /// Create a detector out of E3::DetType. The created detector is
-    /// put into member detectorsM. On creation, the detector gets one
-    /// of the "vehicle"-containers out of E3::Containers.
-    ///
-    /// @param type The detector you are interested in.
-    /// @param detId Detector-id, need not be unique.
-    ///
-    void createDetector(DetType type, std::string detId);
-
-    /// Get aggregated XML-output for all detectors in a container.
-    ///
-    /// @param container A container holding detectors.
-    /// @param lastNTimesteps The length of the aggregation interval.
-    ///
-    /// @return A XML-formatted string.
-    ///
-    template< class Cont >
-    void writeXMLOutput(XMLDevice &dev, Cont& container,
-                        SUMOTime startTime, SUMOTime stopTime)
-    {
-        MSUnit::Seconds lastNSeconds = (MSUnit::Seconds) stopTime-startTime+1;
-        for (typename Cont::iterator it = container.begin(); it != container.end(); ++it) {
-            if (*it == 0) {
-                continue;
-            }
-            dev.writeString((*it)->getName()).writeString("=\"").writeString(
-                toString((*it)->getAggregate(lastNSeconds))).writeString(
-                    "\" ");
-        }
-    }
-
-    /// Deletes the elements of a container.
-    ///
-    /// @param cont The container whose elements shall be deleted.
-    ///
-    template< class Cont >
-    void deleteContainer(Cont& cont)
-    {
-        for (typename Cont::iterator it = cont.begin(); it != cont.end(); ++it) {
-            if (*it != 0) {
-                delete *it;
-            }
-        }
-    }
+    std::map<MSVehicle*, E3Values> myEnteredContainer;
+    std::map<MSVehicle*, E3Values> myLeftContainer;
 
 };
 

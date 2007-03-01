@@ -389,10 +389,12 @@ NLDetectorBuilder::endE3Detector()
                              myE3Definition->myHaltingTimeThreshold,
                              myE3Definition->myHaltingSpeedThreshold,
                              myE3Definition->myDeleteDataAfterSeconds);
+    /*
     E3MeasuresVector &toAdd = myE3Definition->myMeasures;
     for (E3MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
         det->addDetector(*i);
     }
+    */
     // add to net
     myNet.getDetectorControl().add(
         static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -522,8 +524,14 @@ NLDetectorBuilder::parseE3Measures(const std::string &measures)
     if (my.find("NUMBER_OF_VEHICLES")!=string::npos) {
         ret.push_back(MSE3Collector::NUMBER_OF_VEHICLES);
     }
+    if (my.find("MEAN_SPEED")!=string::npos) {
+        ret.push_back(MSE3Collector::MEAN_SPEED);
+    }
     if (my.find("ALL")!=string::npos) {
-        ret.push_back(MSE3Collector::ALL);
+        ret.push_back(MSE3Collector::MEAN_TRAVELTIME);
+        ret.push_back(MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
+        ret.push_back(MSE3Collector::NUMBER_OF_VEHICLES);
+        ret.push_back(MSE3Collector::MEAN_SPEED);
     }
     return ret;
 }

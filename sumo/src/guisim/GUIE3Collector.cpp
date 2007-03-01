@@ -131,13 +131,14 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 void
 GUIE3Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
         const std::string &name,
-        MSE3Collector::DetType type)
+        MSE3Collector::Value v)
 {
+    /*
     if (!myDetector.hasDetector(type)) {
         return;
     }
-    MyValueRetriever *binding =
-        new MyValueRetriever(myDetector, type, 1);
+    */
+    MyValueRetriever *binding = new MyValueRetriever(myDetector, v);
     ret.mkItem(name.c_str(), true, binding);
 }
 

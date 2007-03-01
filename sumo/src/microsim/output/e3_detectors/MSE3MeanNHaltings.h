@@ -36,6 +36,7 @@
 #endif
 
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
+#include "MSE3Collector.h"
 
 
 // ===========================================================================
@@ -49,12 +50,13 @@ class MSVehicle;
 /**
  *
  */
+/*
 class MSE3MeanNHaltings
 {
 protected:
     typedef SUMOReal DetectorAggregate;
-    typedef DetectorContainer::HaltingsMap Container;
-    typedef Container::InnerContainer HaltingsMap;
+    typedef MSE3Collector::HaltingMap Container;
+    typedef std::map< MSVehicle*, MSE3Collector::HaltingMap::E3Halting> HaltingsMap;
 
     MSE3MeanNHaltings(const Container& container)
             : containerM(container)
@@ -87,7 +89,7 @@ private:
     MSE3MeanNHaltings(const MSE3MeanNHaltings&);
     MSE3MeanNHaltings& operator=(const MSE3MeanNHaltings&);
 };
-
+*/
 
 #endif
 
