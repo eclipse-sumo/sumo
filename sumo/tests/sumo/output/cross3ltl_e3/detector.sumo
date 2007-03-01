@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="yes"?>
+
+<e3-detector>
+   <entry lane="1o_0" pos="0"/>
+   <exit lane="2o_0" pos="0"/>
+
+   <interval begin="0" end="299" meanTravelTime="122.5" meanSpeed="8.02337" meanHaltsPerVehicle="25.5" vehicleSum="4"/>
+   <interval begin="300" end="599" meanTravelTime="125.037" meanSpeed="7.8328" meanHaltsPerVehicle="21.7778" vehicleSum="27"/>
+   <interval begin="600" end="899" meanTravelTime="125.778" meanSpeed="7.78656" meanHaltsPerVehicle="21.4815" vehicleSum="27"/>
+   <interval begin="900" end="1000" meanTravelTime="125.75" meanSpeed="7.79122" meanHaltsPerVehicle="21.75" vehicleSum="12"/>
+</e3-detector>

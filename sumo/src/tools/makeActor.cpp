@@ -27,6 +27,7 @@ struct tolseg{
 };
 
 map<string, set<string> > mcedge;
+map<string, set<string> > cmedge;
 
 /*
 float
@@ -254,6 +255,76 @@ buildDirectedEdges(const vector<string> &edges)
     return ret;
 }
 
+string
+tryFindBegEdge(const map<string, Position2DVector> &edgeShapes, 
+               const string &beginAt,
+               const Position2D &begPointPos,
+               bool first);
+
+
+string
+tryFindEndEdge(const map<string, Position2DVector> &edgeShapes, 
+               const string &beginAt,
+               const Position2D &endPointPos,
+               bool first)
+{
+    string current = beginAt;
+    while(mcedge.find(current)!=mcedge.end()) {
+        const set<string> &nextEdges = mcedge.find(current)->second;
+        if(nextEdges.size()==0) {
+            return "";
+        }
+        if(nextEdges.size()!=1) {
+            if(first) {
+                return tryFindBegEdge(edgeShapes, beginAt, endPointPos, false);
+            }
+            return "";
+        }
+        current = *(nextEdges.begin());
+        const Position2DVector &v = edgeShapes.find(current)->second;
+        for(size_t j=0; j<v.size()-1; ++j) {
+            Line2D l = v.lineAt(j);
+            double d = l.distanceTo(endPointPos);
+            if(d>=0) {
+                return current;
+            }
+        }
+    }
+    return "";
+}
+
+
+
+string
+tryFindBegEdge(const map<string, Position2DVector> &edgeShapes, 
+               const string &beginAt,
+               const Position2D &begPointPos,
+               bool first)
+{
+    string current = beginAt;
+    while(cmedge.find(current)!=cmedge.end()) {
+        const set<string> &nextEdges = cmedge.find(current)->second;
+        if(nextEdges.size()==0) {
+            return "";
+        }
+        if(nextEdges.size()!=1) {
+            if(first) {
+                return tryFindEndEdge(edgeShapes, beginAt, begPointPos, false);
+            }
+            return "";
+        }
+        current = *(nextEdges.begin());
+        const Position2DVector &v = edgeShapes.find(current)->second;
+        for(size_t j=0; j<v.size()-1; ++j) {
+            Line2D l = v.lineAt(j);
+            double d = l.distanceTo(begPointPos);
+            if(d>=0) {
+                return current;
+            }
+        }
+    }
+    return "";
+}
 
 
 
@@ -320,7 +391,9 @@ int main(int ac, char * av[]){
 		else if( strcmp(bline.substr(0,7).c_str(), "<cedge ")==0 ){
 			strcpy(foo, bline.c_str());
 			strtok(foo, "\"");
-			mcedge[id].insert(strtok(NULL, "\""));
+            string next = strtok(NULL, "\"");
+			mcedge[id].insert(next);
+            cmedge[next].insert(id);
 		}
 		else if( strcmp(bline.substr(0,6).c_str(), "<lane ")==0 ){
             size_t beg = bline.find('>');
@@ -646,14 +719,30 @@ int main(int ac, char * av[]){
         string endEdge2 = findNearest(shapes, endPointPos);
 
         if(beginEdge2=="") {
-            cout << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
-            logF << " Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            cout << " Begin edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
+            logF << " Begin edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
             beginEdge2 = *nEdges.begin();
+            beginEdge2 = tryFindBegEdge(edgeShapes, beginEdge2, begPointPos, true);
+            if(beginEdge2=="") {
+                cout << "  Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+                logF << "  Could not find begin edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            } else {
+                cout << "  Found " << beginEdge2 << endl;
+                logF << "  Found " << beginEdge2 << endl;
+            }
         }
         if(endEdge2=="") {
-            cout << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
-            logF << " Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            cout << " End edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
+            logF << " End edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
             endEdge2 = *(nEdges.end()-1);
+            endEdge2 = tryFindEndEdge(edgeShapes, endEdge2, endPointPos, true);
+            if(endEdge2=="") {
+                cout << "  Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+                logF << "  Could not find end edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+            } else {
+                cout << "  Found " << endEdge2 << endl;
+                logF << "  Found " << endEdge2 << endl;
+            }
         }
         // !!! beinhaltet noch keine off/on-ramps
 

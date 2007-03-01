@@ -3,8 +3,7 @@ noinst_LIBRARIES = libmicrosimoutpute3.a
 
 EXTRA_DIST =
 
-libmicrosimoutpute3_a_SOURCES = MSE3Collector.cpp MSE3Collector.h \
-MSE3MeanNHaltings.h MSE3NVehicles.h MSE3Traveltime.h
+libmicrosimoutpute3_a_SOURCES = MSE3Collector.cpp MSE3Collector.h
 
 SUBDIRS =
 

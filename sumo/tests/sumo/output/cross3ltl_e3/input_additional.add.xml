@@ -1,6 +1,6 @@
 <additional>
 
-	<e3-detector id="e3_1" freq="300" file="emissions.xml">
+	<e3-detector id="e3_1" freq="300" file="detector.xml">
 		<det_entry lane="1o_0" pos="0"/>
 		<det_exit lane="2o_0" pos="0"/>
 	</e3-detector>

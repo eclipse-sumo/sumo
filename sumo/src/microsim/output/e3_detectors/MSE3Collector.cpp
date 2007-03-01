@@ -43,16 +43,10 @@
 // ===========================================================================
 // variable declarations
 // ===========================================================================
-std::string MSE3Collector::xmlHeaderM(
-    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-    "<!--\n"
-    "- nVehicles [veh]\n"
-    "- meanTraveltime [s]\n"
-    "- meanNHaltsPerVehicle [n]\n"
-    "-->\n\n");
+std::string MSE3Collector::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
 
 
-std::string MSE3Collector::infoEndM = "</detector>";
+std::string MSE3Collector::infoEndM = "</e3-detector>";
 
 
 // ===========================================================================
@@ -232,7 +226,7 @@ void
 MSE3Collector::writeXMLOutput(XMLDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("<interval begin=\"").writeString(
+    dev.writeString("   <interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
             toString(stopTime)).writeString("\" ");
     if (dev.needsDetectorName()) {
@@ -319,20 +313,19 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
 void
 MSE3Collector::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
-    dev.writeString("<detector type=\"E3_Collector\" id=\"");
-    dev.writeString(idM).writeString("\" >\n");
+    dev.writeString("<e3-detector>\n");
     std::string entries;
     CrossSectionVectorConstIt crossSec;
     for (crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec) {
-        dev.writeString("  <entry lane=\"").writeString(
+        dev.writeString("   <entry lane=\"").writeString(
             crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                toString(crossSec->posM)).writeString("\" />\n");
+                toString(crossSec->posM)).writeString("\"/>\n");
     }
     std::string exits;
     for (crossSec = exitsM.begin(); crossSec != exitsM.end(); ++crossSec) {
-        dev.writeString("  <exit lane=\"").writeString(
+        dev.writeString("   <exit lane=\"").writeString(
             crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                toString(crossSec->posM)).writeString("\" />\n");
+                toString(crossSec->posM)).writeString("\"/>\n");
     }
 }
 

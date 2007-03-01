@@ -37,9 +37,6 @@
 
 // concrete E3 detectors, all LD
 #include <microsim/output/e3_detectors/MSE3Collector.h>
-#include <microsim/output/e3_detectors/MSE3Traveltime.h>
-#include <microsim/output/e3_detectors/MSE3NVehicles.h>
-#include <microsim/output/e3_detectors/MSE3MeanNHaltings.h>
 
 #include "MSMeanDetector.h"
 #include "MSSumDetector.h"
@@ -120,14 +117,6 @@ typedef MSMeanDetector< LD::MSDetector<
 MSHaltDuration>, true > E2HaltingDurationMean;
 
 
-// E3
-/*
-typedef MSSumDetector< LD::MSDetector< MSE3NVehicles >, true > E3NVehicles;
-
-typedef MSMeanDetector< LD::MSDetector< MSE3Traveltime >, true> E3Traveltime;
-
-typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true > E3MeanNHaltings;
-*/
 // E1 are all LD
 typedef MSMeanDetector< LD::MSDetector<
 MSE1MeanSpeed >, true> E1MeanSpeed;

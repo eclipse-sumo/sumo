@@ -438,16 +438,7 @@
 				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3Collector.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3MeanNHaltings.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3MoveReminder.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3NVehicles.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3Traveltime.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSEDDetector.h">

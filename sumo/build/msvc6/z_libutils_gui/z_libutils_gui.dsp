@@ -315,10 +315,6 @@ SOURCE=..\..\..\src\utils\gui\events\GUIEvents.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\gui\div\GUIExcp_VehicleIsInvisible.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\gui\div\GUIFrame.h
 # End Source File
 # Begin Source File

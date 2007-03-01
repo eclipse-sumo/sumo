@@ -223,18 +223,6 @@ SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Collector.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3MeanNHaltings.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3NVehicles.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Traveltime.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\output\MSEDDetector.h
 # End Source File
 # Begin Source File
