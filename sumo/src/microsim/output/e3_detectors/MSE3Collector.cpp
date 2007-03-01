@@ -265,23 +265,27 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
     case MEAN_TRAVELTIME:
         {
             SUMOReal meanTravelTime = 0.;
+            size_t noFound = 0;
             for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
                     meanTravelTime += steps;
+                    noFound++;
                 }
             }
-            return meanTravelTime / (SUMOReal) myLeftContainer.size();
+            return noFound!=0 ? meanTravelTime / (SUMOReal) myLeftContainer.size() : 0;
         }
     case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
         {
             SUMOReal meanHaltsPerVehicle = 0.;
+            size_t noFound = 0;
             for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
+                    noFound++;
                 }
             }
-            return meanHaltsPerVehicle / (SUMOReal) myLeftContainer.size();
+            return noFound!=0 ? meanHaltsPerVehicle / (SUMOReal) myLeftContainer.size() : 0;
         }
     case NUMBER_OF_VEHICLES:
         {
@@ -296,13 +300,15 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
     case MEAN_SPEED:
         {
             SUMOReal meanSpeed = 0.;
+            size_t noFound = 0;
             for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
                 if((*i).second.leaveTime==ctime) {
                     SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
                     meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
+                    noFound++;
                 }
             }
-            return meanSpeed / (SUMOReal) myLeftContainer.size();
+            return noFound!=0 ? meanSpeed / (SUMOReal) myLeftContainer.size() : 0;
         }
     default:
         return 0;
