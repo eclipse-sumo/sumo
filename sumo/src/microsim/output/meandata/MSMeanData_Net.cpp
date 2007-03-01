@@ -323,13 +323,5 @@ MSMeanData_Net::writeXMLDetectorInfoEnd(XMLDevice &dev) const
 }
 
 
-SUMOTime
-MSMeanData_Net::getDataCleanUpSteps(void) const
-{
-    return myInterval;
-}
-
-
-
 /****************************************************************************/
 

@@ -272,15 +272,6 @@ public:
         return infoEndM;
     }
 
-    /// Get the clean-up interval length.
-    ///
-    /// @return Interval-length in steps.
-    ///
-    SUMOTime getDataCleanUpSteps(void) const
-    {
-        return deleteDataAfterSecondsM; /// !!! Konvertierung
-    }
-
     /// @}
 
 protected:

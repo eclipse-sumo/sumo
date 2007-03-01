@@ -80,22 +80,6 @@ struct Halting
     MSUnit::Steps haltingDurationM;
 };
 
-struct E3Halting
-{
-    E3Halting(MSVehicle* veh)
-            :
-            posM(veh->getPositionOnLane())
-            , timeBelowSpeedThresholdM(0)
-            , isHaltingM(false)
-            , haltingDurationM(0)
-            , nHalts(0)
-    {}
-    SUMOReal posM;
-    MSUnit::Steps timeBelowSpeedThresholdM;
-    bool isHaltingM;
-    MSUnit::Steps haltingDurationM;
-    unsigned nHalts;
-};
 }
 
 namespace halt
@@ -256,7 +240,7 @@ struct MSDetectorHaltingContainerWrapper
     MSLane &myLane;
 };
 
-
+/*
 // template< class T >
 struct MSDetectorHaltingMapWrapper
             :
@@ -313,7 +297,7 @@ struct MSDetectorHaltingMapWrapper
             /*                halting.posM = veh->pos();
                             if(&myLane!=&veh->getLane()) {
                                 halting.posM += myLane.length();
-                            }*/
+                            }/
             if (veh->getSpeed() >= speedThresholdM) {
                 halting.timeBelowSpeedThresholdM = 0;
                 halting.isHaltingM = false;
@@ -344,7 +328,7 @@ struct MSDetectorHaltingMapWrapper
 //    MSLane &myLane;
 };
 
-
+*/
 
 
 namespace DetectorContainer
@@ -356,9 +340,9 @@ typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 
 //     typedef MSDetectorHaltingMapWrapper<
 //         std::map< MSVehicle*, E3Halting > > HaltingsMap;
-typedef MSDetectorHaltingMapWrapper HaltingsMap;
+//typedef MSDetectorHaltingMapWrapper HaltingsMap;
 
-typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;
+//typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;
 }
 
 

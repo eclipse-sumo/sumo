@@ -87,16 +87,10 @@ MSDetectorControl::~MSDetectorControl()
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
 
-    delete MSUpdateEachTimestepContainer<
-    DetectorContainer::UpdateHaltings >::getInstance();
-    delete MSUpdateEachTimestepContainer<
-    Detector::UpdateE2Detectors >::getInstance();
-    delete MSUpdateEachTimestepContainer<
-    Detector::UpdateOccupancyCorrections >::getInstance();
-    delete MSUpdateEachTimestepContainer<
-    MSDetectorHaltingMapWrapper>::getInstance();
-    delete MSUpdateEachTimestepContainer<
-    MSUpdateEachTimestep<MSDetectorHaltingMapWrapper> >::getInstance();
+    delete MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance();
+    delete MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance();
+    delete MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance();
+    delete MSUpdateEachTimestepContainer< MSE3Collector >::getInstance();
     delete MSUnit::getInstance();
 }
 

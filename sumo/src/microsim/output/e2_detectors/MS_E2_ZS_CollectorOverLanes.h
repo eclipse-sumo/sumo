@@ -133,15 +133,6 @@ public:
         dev.writeString(infoEndM);
     }
 
-    /**
-     * Get the data-clean up interval in timesteps.
-     */
-    SUMOTime getDataCleanUpSteps(void) const
-    {
-        return deleteDataAfterSecondsM; // !!! Konvertierung
-    }
-    //@}
-
     /// Returns this detector's length
     SUMOReal getLength() const
     {

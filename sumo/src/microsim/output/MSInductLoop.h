@@ -290,12 +290,6 @@ public:
      * @see getXMLDetectorInfoStart
      */
     void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
-
-    /**
-     * Get the data-clean up interval in timesteps.
-     *
-     */
-    SUMOTime getDataCleanUpSteps(void) const;
     //@}
 
     /**

@@ -121,12 +121,13 @@ MSHaltDuration>, true > E2HaltingDurationMean;
 
 
 // E3
+/*
 typedef MSSumDetector< LD::MSDetector< MSE3NVehicles >, true > E3NVehicles;
 
 typedef MSMeanDetector< LD::MSDetector< MSE3Traveltime >, true> E3Traveltime;
 
 typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true > E3MeanNHaltings;
-
+*/
 // E1 are all LD
 typedef MSMeanDetector< LD::MSDetector<
 MSE1MeanSpeed >, true> E1MeanSpeed;

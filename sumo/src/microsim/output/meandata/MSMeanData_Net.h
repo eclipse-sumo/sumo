@@ -90,7 +90,6 @@ public:
                                 SUMOTime startTime, SUMOTime stopTime);
     void writeXMLDetectorInfoStart(XMLDevice &dev) const;
     void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
-    SUMOTime getDataCleanUpSteps(void) const;
 
 protected:
     void resetOnly(SUMOTime stopTime);

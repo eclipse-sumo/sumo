@@ -87,11 +87,6 @@ public:
      */
     virtual void writeXMLDetectorInfoEnd(XMLDevice &dev) const = 0;
 
-    /**
-     * Get the data-clean up interval in timesteps.
-     */
-    virtual SUMOTime getDataCleanUpSteps(void) const = 0;
-
 };
 
 

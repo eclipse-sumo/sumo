@@ -301,13 +301,6 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
 }
 
 
-SUMOTime
-MSInductLoop::getDataCleanUpSteps(void) const
-{
-    return deleteDataAfterStepsM;
-}
-
-
 void
 MSInductLoop::enterDetectorByMove(MSVehicle& veh,
                                   SUMOReal entryTimestep)

@@ -557,15 +557,6 @@ public:
         dev.writeString(infoEndM);
     }
 
-    /// Get the clean-up interval length.
-    ///
-    /// @return Interval-length in steps.
-    ///
-    SUMOTime getDataCleanUpSteps(void) const
-    {
-        return deleteDataAfterSecondsM; // !!! Konvertierung
-    }
-
     /// @}
 
     /// Get the start-position of the detector-collection on it's lane.

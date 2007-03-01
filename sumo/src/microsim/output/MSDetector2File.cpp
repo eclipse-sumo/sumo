@@ -101,13 +101,6 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
                                         SUMOTime interval,
                                         bool reinsert)
 {
-    if (det->getDataCleanUpSteps() < interval) {
-        interval = det->getDataCleanUpSteps();
-        WRITE_WARNING("MSDetector2File::addDetectorAndInterval: ");
-        WRITE_WARNING("Write2File interval greater than detectors clean-up interval.");
-        WRITE_WARNING("Reducing Write2File interval to clean-up interval.");
-    }
-
     IntervalsKey key = interval;
     Intervals::iterator it = intervalsM.find(key);
     if (it == intervalsM.end()) {
