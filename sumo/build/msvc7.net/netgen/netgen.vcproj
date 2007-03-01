@@ -45,7 +45,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\include,$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
 				OutputFile=".\Release/netgen.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -93,7 +93,7 @@ copy Release\netgen.exe ..\..\..\bin\netgen.exe
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -114,7 +114,7 @@ copy Release\netgen.exe ..\..\..\bin\netgen.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
 				OutputFile=".\Debug/netgen.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
