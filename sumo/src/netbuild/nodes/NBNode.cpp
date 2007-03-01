@@ -225,7 +225,6 @@ NBNode::NBNode(const string &id, const Position2D &position)
         : _id(StringUtils::convertUmlaute(id)), myPosition(position),
         _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
 {
-    GeoConvHelper::x2cartesian(myPosition);
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
@@ -236,7 +235,6 @@ NBNode::NBNode(const string &id, const Position2D &position,
         : _id(StringUtils::convertUmlaute(id)), myPosition(position),
         _type(type), myDistrict(0), _request(0)
 {
-    GeoConvHelper::x2cartesian(myPosition);
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }
@@ -246,7 +244,6 @@ NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *distric
         : _id(StringUtils::convertUmlaute(id)), myPosition(position),
         _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
 {
-    GeoConvHelper::x2cartesian(myPosition);
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
 }

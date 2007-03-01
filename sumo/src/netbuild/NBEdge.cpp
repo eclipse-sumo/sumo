@@ -2040,6 +2040,12 @@ NBEdge::computeEdgeShape()
         }
         if (((int) myLaneGeoms[i].length())==0) {
             myLaneGeoms[i] = old;
+        } else {
+            Line2D lc(myLaneGeoms[i][0], myLaneGeoms[i][-1]);
+            Line2D lo(old[0], old[-1]);
+            if(135<MIN2(GeomHelper::getCCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()), GeomHelper::getCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()))) {
+                myLaneGeoms[i] = myLaneGeoms[i].reverse();
+            }
         }
     }
     // recompute edge's length
