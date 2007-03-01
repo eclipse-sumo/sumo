@@ -45,7 +45,7 @@
 // ===========================================================================
 projPJ GeoConvHelper::myProjection = 0;
 Position2D GeoConvHelper::myOffset;
-bool GeoConvHelper::myDisableProjection;
+bool GeoConvHelper::myDisableProjection = true;
 SUMOReal GeoConvHelper::myInitX;
 SUMOReal GeoConvHelper::myInitY;
 Boundary GeoConvHelper::myOrigBoundary;
