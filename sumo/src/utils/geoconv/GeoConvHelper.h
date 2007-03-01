@@ -75,8 +75,11 @@ public:
     /// Returns the information whether the subsystem was initialised
     static bool usingGeoProjection();
 
-    /// Lets this subsystem know that the given value is within the regarded area
+    /// Lets this subsystem know that the given position is within the regarded area
     static void includeInOriginal(SUMOReal x, SUMOReal y);
+
+    /// Lets this subsystem know that the given position is within the regarded area
+    static void includeInOriginal(const Position2D &p);
 
     /// Lets this subsystem know that the given boundary is within the regarded area
     static void includeInOriginal(const Boundary &b);

@@ -44,6 +44,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/geoconv/GeoConvHelper.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
@@ -120,7 +121,9 @@ TNode::buildNBNode(NBNetBuilder &nb) const
                           NBNode::NODETYPE_NOJUNCTION);
     }
     //
-    NBNode *node = new NBNode(myID, myPosition);
+    Position2D pos(myPosition);
+    GeoConvHelper::x2cartesian(pos);
+    NBNode *node = new NBNode(myID, pos);
     // check whether it is a traffic light junction
     string nodeType = OptionsSubSys::getOptions().getString("default-junction-type");
     if (nodeType=="priority") {
@@ -130,8 +133,7 @@ TNode::buildNBNode(NBNetBuilder &nb) const
         nodeType = "static";
     }
     // this traffic light is visited the first time
-    NBTrafficLightDefinition *tlDef =
-        new NBOwnTLDef(myID, nodeType, node);
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, nodeType, node);
     if (!nb.getTLLogicCont().insert(myID, tlDef)) {
         // actually, nothing should fail here
         delete tlDef;

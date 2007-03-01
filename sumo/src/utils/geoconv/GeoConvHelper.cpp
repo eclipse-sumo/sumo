@@ -174,6 +174,13 @@ GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y)
 
 
 void 
+GeoConvHelper::includeInOriginal(const Position2D &p)
+{
+    myOrigBoundary.add(p);
+}
+
+
+void 
 GeoConvHelper::includeInOriginal(const Boundary &b)
 {
     myOrigBoundary.add(b);
