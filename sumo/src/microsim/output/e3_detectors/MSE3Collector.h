@@ -156,21 +156,15 @@ public:
     /// Dtor. Deletes the created detectors.
     virtual ~MSE3Collector(void);
 
-    /// Call if a vehicle touches an entry-cross-section. Usually
-    /// called by LD::MSMoveReminder. Inserts vehicle into internal
-    /// containers.
-    ///
-    /// @param veh The entering vehicle.
-    ///
-    void enter(MSVehicle& veh);
+    /** @brief Call if a vehicle touches an entry-cross-section. 
+     *
+     * Inserts vehicle into internal containers.*/
+    void enter(MSVehicle& veh, SUMOReal entryTimestep);
 
-    /// Call if a vehicle passes a leave-cross-section. Usually called
-    /// by LD::MSMoveReminder. Removed vehicle from internal
-    /// containers.
-    ///
-    /// @param veh The leaving vehicle.
-    ///
-    void leave(MSVehicle& veh);
+    /** @brief Call if a vehicle passes a leave-cross-section. 
+     *
+     * Removed vehicle from internal containers. */
+    void leave(MSVehicle& veh, SUMOReal leaveTimestep);
 
     /// Get the detectors unique id.
     ///
@@ -249,8 +243,8 @@ protected:
     static std::string infoEndM; ///< Closing detector tag.
 
     struct E3Values {
-        SUMOTime entryTime;
-        SUMOTime leaveTime;
+        SUMOReal entryTime;
+        SUMOReal leaveTime;
         SUMOReal speedSum;
         size_t haltings;
     };

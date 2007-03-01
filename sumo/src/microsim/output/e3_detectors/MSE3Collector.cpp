@@ -63,14 +63,16 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal ,
-        SUMOReal newPos, SUMOReal)
+MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+        SUMOReal newPos, SUMOReal newSpeed)
 {
     if (newPos <= posM) {
         // crossSection not yet reached
         return true;
     }
-    collectorM.enter(veh);
+    SUMOReal dist = SPEED2DIST(newSpeed);
+    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal) (1 - (posM - oldPos) / dist);
+    collectorM.enter(veh, entryTimestep);
     return false;
 }
 
@@ -101,8 +103,8 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal ,
-        SUMOReal newPos, SUMOReal)
+MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+        SUMOReal newPos, SUMOReal newSpeed)
 {
     if (newPos <= posM) {
         // crossSection not yet reached
@@ -110,7 +112,9 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal ,
     }
     if (newPos - veh.getLength() > posM) {
         // crossSection completely left
-        collectorM.leave(veh);
+        SUMOReal dist = SPEED2DIST(newSpeed);
+        SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal) (1 - (posM - oldPos) / dist);
+        collectorM.leave(veh, leaveTimestep);
         return false;
     }
     // crossSection partially left
@@ -167,11 +171,11 @@ MSE3Collector::~MSE3Collector(void)
 
 
 void
-MSE3Collector::enter(MSVehicle& veh)
+MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep)
 {
     veh.quitRemindedEntered(this);
     E3Values v;
-    v.entryTime = MSNet::getInstance()->getCurrentTimeStep();
+    v.entryTime = entryTimestep;
     v.leaveTime = 0;
     v.speedSum = 0;
     v.haltings = 0;
@@ -183,13 +187,13 @@ MSE3Collector::enter(MSVehicle& veh)
 
 
 void
-MSE3Collector::leave(MSVehicle& veh)
+MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep)
 {
     if(myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
         E3Values v = myEnteredContainer[&veh];
-        v.leaveTime = MSNet::getInstance()->getCurrentTimeStep();
+        v.leaveTime = leaveTimestep;
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = v;
     }
@@ -233,7 +237,7 @@ MSE3Collector::writeXMLOutput(XMLDevice &dev,
         dev.writeString("id=\"").writeString(idM).writeString("\" ");
     }
     // collect values
-    SUMOReal vehicleSum = myLeftContainer.size();
+    SUMOReal vehicleSum = (SUMOReal) myLeftContainer.size();
     SUMOReal meanTravelTime = 0.;
     SUMOReal meanSpeed = 0.;
     SUMOReal meanHaltsPerVehicle = 0.;
@@ -244,9 +248,9 @@ MSE3Collector::writeXMLOutput(XMLDevice &dev,
         meanTravelTime += steps;
         meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
     }
-    meanTravelTime /= (SUMOReal) myLeftContainer.size();
-    meanSpeed /= (SUMOReal) myLeftContainer.size();
-    meanHaltsPerVehicle /= (SUMOReal) myLeftContainer.size();
+    meanTravelTime /= vehicleSum;
+    meanSpeed /= vehicleSum;
+    meanHaltsPerVehicle /= vehicleSum;
     // write values
     dev.writeString("meanTravelTime=\"").writeString(toString(meanTravelTime)).writeString(
         "\" meanSpeed=\"").writeString(toString(meanSpeed)).writeString(
