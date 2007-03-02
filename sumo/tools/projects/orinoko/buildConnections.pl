@@ -21,8 +21,14 @@ $lastOffset = 0;
 $lastLSA = "";
 $lastLine = "";
 $tmp = <INDAT>;
-while(<INDAT>) {
-	$line = $_;
+$ok = 1;
+while($ok==1) {
+	$line = <INDAT>;
+	if($line eq "") {
+		$ok = 0;
+		$line = "111;-1";
+	}
+#	$line = <INDAT>;
 	($Datum_Dateneingabe, $LSA_ID, $Knoten_ID, $Fahrstreifen_Nr, $RistkVon_Ref, $RistkBis_Ref, $Fahrstreifen_Laenge, $Signalgr_Nr, $Signalgr_Bez, $Spur_Typ) = split(";", $line);
 	$SignalgrTest = $Signalgr_Bez;
 	$SignalgrTest =~ s/\d//g;
@@ -110,26 +116,33 @@ while(<INDAT>) {
 			}
 			close(INDAT2);
 			$lastLSA = $LSA_ID;
-			$name = $LSA_ID.".prg.txt";
-			open(OUTDAT2, "> $name");
-			print OUTDAT2 "Kreuzungsdaten\n";
-			print OUTDAT2 "\n";
-			print OUTDAT2 "Knotenpunkt - Bezeichnung:	Breslauer Str. / Gleiwitzer Str.				// Angabe optional - nur zur Visualisierung in gui notwendig\n";
-			print OUTDAT2 "Knotenpunkt - Nummer:	".$LSA_ID."				// Angabe optional - nur zur Visualisierung in gui notwendig\n";	
-			print OUTDAT2 "KP-ID:	".$LSA_ID."				// Angabe der Kreunzungs-ID - Auf Eindeutigkeit achten!	\n";				
-			print OUTDAT2 "Anzahl Signalprogramme:	".$noSignalProgs."				// Anzahl der zu verwendenden Signalprogramme dieser Kreuzung\n";
-			print OUTDAT2 "Signalprogramme:	\"".$signalProgs."\"				// Angabe aller Signalprogramm-ID's der an dieser Kreuzung zu verwendenden Signalprogramme.// Hier nicht genannte Signalprogramme werden nicht benutzt!\n";
-			print OUTDAT2 "Umschaltverfahren:	GSP				// Bezeichnung des an dieser Kreuzung zu verwendenden LSA-Umschalteverfahrens\n";
-			print OUTDAT2 "Synchronität:	ja				// Angabe, ob Synchronität bezüglich der in der WAUT angegebenen Refernzzeit erforderlich ist.\n";
-			print OUTDAT2 "WAUT-ID:	W01_IST				// ID der an dieser Kreuzung zu verwendenden WAUT\n";	
-			print OUTDAT2 "\n";
-			print OUTDAT2 "Zuordnungstabelle Signalgruppen <--> Verkehrsströme\n";
-			print OUTDAT2 "Signalgruppe	Lane_von	Nach			// Lane_von = Lane auf der sich die SG befindet\n";
+			if($LSA_ID != -1) {
+				$name = $LSA_ID.".prg.txt";
+				open(OUTDAT2, "> $name");
+				print OUTDAT2 "Kreuzungsdaten\n";
+				print OUTDAT2 "\n";
+				print OUTDAT2 "Knotenpunkt - Bezeichnung:	Breslauer Str. / Gleiwitzer Str.				// Angabe optional - nur zur Visualisierung in gui notwendig\n";
+				print OUTDAT2 "Knotenpunkt - Nummer:	".$LSA_ID."				// Angabe optional - nur zur Visualisierung in gui notwendig\n";	
+				print OUTDAT2 "KP-ID:	".$LSA_ID."				// Angabe der Kreunzungs-ID - Auf Eindeutigkeit achten!	\n";				
+				print OUTDAT2 "Anzahl Signalprogramme:	".$noSignalProgs."				// Anzahl der zu verwendenden Signalprogramme dieser Kreuzung\n";
+				print OUTDAT2 "Signalprogramme:	\"".$signalProgs."\"				// Angabe aller Signalprogramm-ID's der an dieser Kreuzung zu verwendenden Signalprogramme.// Hier nicht genannte Signalprogramme werden nicht benutzt!\n";
+				print OUTDAT2 "Umschaltverfahren:	GSP				// Bezeichnung des an dieser Kreuzung zu verwendenden LSA-Umschalteverfahrens\n";
+				print OUTDAT2 "Synchronität:	ja				// Angabe, ob Synchronität bezüglich der in der WAUT angegebenen Refernzzeit erforderlich ist.\n";
+				print OUTDAT2 "WAUT-ID:	W01_IST				// ID der an dieser Kreuzung zu verwendenden WAUT\n";	
+				print OUTDAT2 "\n";
+				print OUTDAT2 "Zuordnungstabelle Signalgruppen <--> Verkehrsströme\n";
+				print OUTDAT2 "Signalgruppe	Lane_von	Nach			// Lane_von = Lane auf der sich die SG befindet\n";
+			}
             
 		}
 		$lastLSA = $LSA_ID;
 	
 		$lane = $Fahrstreifen_Nr - $lastOffset;
+		if($RistkVon_Ref eq $RistkBis_Ref) {
+			$RistkBis_Ref = $RistkBis_Ref."/s";
+			$splitK{$RistkVon_Ref} = $LSA_ID;
+			$splitP{$RistkVon_Ref} = $Fahrstreifen_Laenge;
+		}
 		if($RistkVon_Ref ne "") {
 			print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
 		}
@@ -183,6 +196,18 @@ close(INDAT);
 
 
 
+open(INDAT, "< lanes.txt");
+while(<INDAT>) {
+	$line = $_;
+	if(index($line, "\:")>=0) {
+		($edge, $laneno) = split("\:", $line);
+		$laneno =~ s/\s//g;
+		$lanes{$edge} = $laneno - 1;
+		print $edge."<->".$laneno."\n";
+	}
+}
+close(INDAT);
+
 # patch edges
 open(INDAT, "< nuernberg_vls.edg.xml");
 open(OUTDAT, "> nuernberg_vls.edg.xml.new.xml");
@@ -197,12 +222,15 @@ while(<INDAT>) {
 			$tmp =~ s/\/\>/\>/g;
 			$laneno = $lanes{$id} + 1;
 			$tmp =~ s/nolanes=\"(.*?)\"/nolanes=\"$laneno\"/g;
-			print OUTDAT $tmp;
-			$lane = 0;
-
-			if($id eq "-53091078") {
-				print "Type: ".$type{$id}."\n";
+			if(defined($splitK{$id})) {
+				$tmp =~ s/shape=\"(.*?)\"//g;
+				$tmp2 = $tmp;
+				$tmp2 =~ s/tonode=\"(.*?)\"/tonode=\"$id\/s\"/g;
+				print OUTDAT $tmp2;
+			} else {
+				print OUTDAT $tmp;
 			}
+			$lane = 0;
 
 			if($type{$id}!=9) {
 				$skipNext = 1;
@@ -214,6 +242,14 @@ while(<INDAT>) {
 				}
 			}
 			print OUTDAT "   </edge>\n";
+			if(defined($splitK{$id})) {
+				$splitF{$id} = getAttr($tmp, "fromnode");
+				$splitT{$id} = getAttr($tmp, "tonode");
+				$tmp =~ s/fromnode=\"(.*?)\"/fromnode=\"$id\/s\"/g;
+				$tmp =~ s/id=\"(.*?)\"/id=\"$id\/s\"/g;
+				print OUTDAT $tmp;
+				print OUTDAT "   </edge>\n";
+			}
 		} else {
 			if(defined($lanes{$id})) {
 				$laneno = $lanes{$id} + 1;
@@ -234,17 +270,43 @@ close(INDAT);
 # write nodes 
 open(INDAT, "< nuernberg_vls.nod.xml");
 open(OUTDAT, "> nuernberg_vls.nod.xml.new.xml");
+print OUTDAT "<nodes>\n";
 while(<INDAT>) {
 	$tmp = $_;
 	if($tmp =~ "<node ") {
 		$id = getAttr($tmp, "id");
+		$nodex{$id} = getAttr($tmp, "x");
+		$nodey{$id} = getAttr($tmp, "y");
 		if(defined($lights{$id})) {
 			$tmp =~ s/\/\>.*//g;
 			$tmp = $tmp." type=\"traffic_light\" tl=\"".$lights{$id}."\"/>\n";
 		}
+		print OUTDAT $tmp;
 	}
-	print OUTDAT $tmp;
 }
-close(OUTDAT);
 close(INDAT);
+foreach $id (keys(%splitK)) {
+	if($id ne "") {
+		print $id."\n";
+		print "a: ".$splitF{$id}." ".$splitT{$id}."\n";
+		print "b: ".$nodex{$splitF{$id}}." ".$nodey{$splitF{$id}}."\n";
+		print "c: ".$nodex{$splitT{$id}}." ".$nodey{$splitT{$id}}."\n";
+		$xq = ($nodex{$splitF{$id}}-$nodex{$splitT{$id}});
+		$yq = ($nodey{$splitF{$id}}-$nodey{$splitT{$id}});
+		print "xq: ".$xq."\n";
+		print "yq: ".$yq."\n";
+		$xq = $xq * $xq;
+		$yq = $yq * $yq;
+		$len = sqrt($xq + $yq);
+		print "xq: ".$xq."\n";
+		print "yq: ".$yq."\n";
+		print "len: ".$len."\n";
+		$x = $nodex{$splitF{$id}} + (($nodex{$splitT{$id}} - $nodex{$splitF{$id}}) / $len * $splitP{$id});
+		$y = $nodey{$splitF{$id}} + (($nodey{$splitT{$id}} - $nodey{$splitF{$id}}) / $len * $splitP{$id});
+
+		print OUTDAT " <node id=\"".$id."/s\" x=\"".$x."\" y=\"".$y."\" type=\"traffic_light\" tl=\"".$splitK{$id}."\"/>\n";
+	}
+}
+print OUTDAT "</nodes>\n";
+close(OUTDAT);
 
