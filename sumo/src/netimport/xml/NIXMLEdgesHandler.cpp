@@ -192,7 +192,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
         }
         // set information about later beginning lanes
 
-        SUMOReal forcedLength = getFloatSecure(attrs, "forceLength", -1);
+        int forcedLength = getIntSecure(attrs, "forceLength", -1); // !!! describe
         // to split?
         if (forcedLength>0) {
             // maybe the edge has already been split at this position
@@ -213,7 +213,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                         toNext = false;
                         break;
                     }
-                    SUMOReal dist = TplConvert<char>::_2SUMOReal(nextID.substr(myCurrentID.length()+1).c_str());
+                    int dist = TplConvert<char>::_2int(nextID.substr(myCurrentID.length()+1).c_str());
                     if (forcedLength>dist) {
                         toNext = false;
                         splitLength -= dist;

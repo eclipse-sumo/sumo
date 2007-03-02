@@ -187,12 +187,12 @@ NIVisumParser_Lanes::myDependentReport()
             if (edgeID.substr(edgeID.length()-node->getID().length()-1)=="_" + node->getID()) {
                 edgeID = edgeID.substr(0, edgeID.find('_'));
             }
-            NBNode *rn = new NBNode(edgeID + "_" +  toString(length) + "_" + node->getID(), p);
+            NBNode *rn = new NBNode(edgeID + "_" +  toString((size_t) length) + "_" + node->getID(), p);
             if (!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
                 throw ProcessError();
             }
-            string nid = edgeID + "_" +  toString(length) + "_" + node->getID();
+            string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
             myEdgeCont.splitAt(myDistrictCont, edge, useLength/*edge->getLength()-length*/, rn,
                                edge->getID(), nid,
                                edge->getNoLanes()+0, edge->getNoLanes()+1);
