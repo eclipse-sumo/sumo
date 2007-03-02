@@ -203,7 +203,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
 //        flowS = flowS * 10 * (1000./absLen);
         dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
             "\" traveltime=\"").writeString(toString(traveltimeS)).writeString(
-                "\" nSamples=\"").writeString(toString(nVehS)).writeString(
+                "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
                     "\" density=\"").writeString(toString(meanDensityS)).writeString(
                         "\" occupancy=\"").writeString(toString(meanOccupancyS)).writeString(
                             "\" noStops=\"").writeString(toString(noStopsS)).writeString(
@@ -248,7 +248,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         assert(lanes->size()!=0);
         dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
             "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
-                "\" nSamples=\"").writeString(toString(nVehS)).writeString(
+                "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
                     "\" density=\"").writeString(toString(meanDensityS)).writeString(
                         "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
                             "\" noStops=\"").writeString(toString(noStopsS)).writeString(
@@ -278,7 +278,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
          traveltime, meanSpeed, meanDensity, meanOccupancy);
     dev.writeString("         <lane id=\"").writeString(lane.getID()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
-            "\" nSamples=\"").writeString(toString(meanData.nSamples)).writeString(
+            "\" nSamples=\"").writeString(toString((size_t) meanData.nSamples)).writeString(
                 "\" density=\"").writeString(toString(meanDensity)).writeString(
                     "\" occupancy=\"").writeString(toString(meanOccupancy)).writeString(
                         "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(

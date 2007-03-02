@@ -1107,8 +1107,8 @@ NBNode::writeXMLInternalNodes(ostream &into)
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
                 into << " type=\"" << "internal\"";
-                into << " x=\"" << setprecision(2) << pos.x()
-                << "\" y=\"" << setprecision(2) << pos.y() << "\"";
+                into << " x=\"" << setprecision(OUTPUT_ACCURACY) << pos.x()
+                << "\" y=\"" << setprecision(OUTPUT_ACCURACY) << pos.y() << "\"";
                 into <<  ">" << endl;
                 // write the incoming and the internal lanes
                 string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).edge, (*k).lane);
@@ -1182,8 +1182,8 @@ NBNode::writeXML(ostream &into)
     } else {
         into << " type=\"DEAD_END\"";
     }
-    into << " x=\"" << setprecision(2) << myPosition.x()
-    << "\" y=\"" << setprecision(2) << myPosition.y() << "\"";
+    into << " x=\"" << setprecision(OUTPUT_ACCURACY) << myPosition.x()
+    << "\" y=\"" << setprecision(OUTPUT_ACCURACY) << myPosition.y() << "\"";
     into <<  ">" << endl;
     // write the incoming lanes
     EdgeVector::iterator i;

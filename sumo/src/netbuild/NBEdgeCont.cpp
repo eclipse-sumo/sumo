@@ -727,7 +727,7 @@ NBEdgeCont::savePlain(const std::string &file)
     res << "<edges>" << endl;
     for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         NBEdge *e = (*i).second;
-        res << std::setprecision(2);
+        res << std::setprecision(OUTPUT_ACCURACY);
         res << "   <edge id=\"" << e->getID()
         << "\" fromnode=\"" << e->getFromNode()->getID()
         << "\" tonode=\"" << e->getToNode()->getID()

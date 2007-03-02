@@ -271,8 +271,7 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
                             ? OptionsSubSys::getOptions().getBool("suppress-warnings")
                             : myRetrievers.size()==0;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages =
-            !(myRetrievers.size()==0||myReport2COUT);
+        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
 }
 
@@ -286,9 +285,9 @@ MsgHandler::report2cout(bool value)
                             ? OptionsSubSys::getOptions().getBool("suppress-warnings")
                             : !myReport2COUT;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages =
-            !(myRetrievers.size()==0||myReport2COUT);
+        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
+    cout.setf(ios::fixed,ios::floatfield);
 }
 
 
@@ -301,9 +300,9 @@ MsgHandler::report2cerr(bool value)
                             ? OptionsSubSys::getOptions().getBool("suppress-warnings")
                             : !myReport2COUT;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages =
-            !(myRetrievers.size()==0||myReport2COUT);
+        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
+    cerr.setf(ios::fixed,ios::floatfield);
 }
 
 
@@ -328,7 +327,6 @@ MsgHandler::MsgHandler(MsgType type)
 
 MsgHandler::~MsgHandler()
 {
-//    delete myLock;
 }
 
 

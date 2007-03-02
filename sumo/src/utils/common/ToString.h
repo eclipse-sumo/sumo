@@ -38,6 +38,7 @@
 
 #include <sstream>
 #include <string>
+#include <iomanip>
 
 
 // ===========================================================================
@@ -51,6 +52,8 @@ template <class T>
 inline std::string toString(const T& t)
 {
     std::ostringstream oss;
+    oss.setf(std::ios::fixed, std::ios::floatfield);
+    oss << std::setprecision(OUTPUT_ACCURACY);
     oss << t;
     return oss.str();
 }

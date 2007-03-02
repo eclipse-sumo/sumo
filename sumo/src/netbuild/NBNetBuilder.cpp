@@ -422,7 +422,7 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
             res << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>" << endl;
         }
         res << endl;
-        res << setprecision(2);
+        res << setprecision(OUTPUT_ACCURACY);
 
         // write the numbers of some elements
         // edges

@@ -37,6 +37,9 @@
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1
 
+/* defines the number of digits after the comma in output */
+#define OUTPUT_ACCURACY 2
+
 /* Version number of package */
 #define VERSION "0.9.6"
 

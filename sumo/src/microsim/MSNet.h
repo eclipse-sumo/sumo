@@ -301,7 +301,7 @@ public:
             if (mySimStepDuration!=0) {
                 std::cout.setf(std::ios::fixed , std::ios::floatfield) ;    // use decimal format
                 std::cout.setf(std::ios::showpoint) ;    // print decimal point
-                std::cout << std::setprecision(2) ;
+                std::cout << std::setprecision(OUTPUT_ACCURACY) ;
                 std::cout << " (" << mySimStepDuration << "ms ~= "
                 << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
                 << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)

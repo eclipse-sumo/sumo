@@ -440,7 +440,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
         MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.\n (Used for '" + optionName + "').");
         throw ProcessError();
     }
-    (*ret) << setprecision(3) << setiosflags(ios::fixed);
+    (*ret) << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
     return new OutputDevice_File(ret);
 }
 

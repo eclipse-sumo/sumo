@@ -189,7 +189,7 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
     // write polygons
     {
         for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-            out << setprecision(2);
+            out << setprecision(OUTPUT_ACCURACY);
             out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << (*i).second->getColor() << "\" fill=\""
@@ -202,7 +202,7 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
     // write pois
     {
         for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
-            out << setprecision(2);
+            out << setprecision(OUTPUT_ACCURACY);
             out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << *static_cast<RGBColor*>((*i).second) << '"';

@@ -437,7 +437,7 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
         SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;
         cout.setf(ios::fixed , ios::floatfield) ;    // use decimal format
         cout.setf(ios::showpoint) ;    // print decimal point
-        cout << setprecision(2);
+        cout << setprecision(OUTPUT_ACCURACY);
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
 }
