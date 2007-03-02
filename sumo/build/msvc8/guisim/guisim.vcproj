@@ -282,67 +282,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\helpers\Command.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\Counter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\gcc_NullType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\gcc_Typelist.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\gcc_TypeManip.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\gcc_TypeTraits.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSExtendedTrafficLightLogic.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\msvc6_NullType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\msvc6_static_check.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\msvc6_Typelist.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\msvc6_TypeManip.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\msvc6_TypeTraits.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\OneArgumentCommand.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\ValueRetriever.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\ValueSource.h"
 				>
 			</File>
 		</Filter>
