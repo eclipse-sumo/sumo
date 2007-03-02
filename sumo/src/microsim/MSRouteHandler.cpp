@@ -291,7 +291,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
 {
     StringTokenizer st(chars);
     if (st.size()==0) {
-        MsgHandler::getErrorInstance()->inform("Empty route (" + name + ")");
+        MsgHandler::getErrorInstance()->inform("Empty route (" + myActiveRouteID + ")");
         return;
     }
     MSEdge *edge = 0;
@@ -308,7 +308,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
     }
     // check whether the route is long enough
     if (myActiveRoute.size()<2) {
-        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least two edges long ('" + name + "' has " + toString(myActiveRoute.size()) + ").");
+        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
         throw ProcessError();
     }
 }
