@@ -493,7 +493,7 @@ GUIApplicationWindow::buildToolBars()
         myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
                                     LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
-        myLCDLabel->setVertical(2);
+        myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
         myLCDLabel->setGroove(2);
         myLCDLabel->setText("-----------");
@@ -502,13 +502,13 @@ GUIApplicationWindow::buildToolBars()
         // Simulation Delay
         myToolBarDrag4=new FXToolBarShell(this,FRAME_NORMAL);
         myToolBar4 = new FXToolBar(myTopDock,myToolBarDrag4,
-                                   LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+                                   LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED|LAYOUT_FILL_Y);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_Y);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_Y);
         mySimDelayTarget->setNumberFormat(0);
         mySimDelayTarget->setIncrements(1,10,10);
         mySimDelayTarget->setRange(0,1000);
