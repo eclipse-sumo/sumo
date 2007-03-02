@@ -1,6 +1,9 @@
 
-# Tests the detector types on the dlr-testtrack are computed properly
+# Tests detector types computation on the dlr-testtrack 
 messstrecke
+
+# Tests detector types computation on an abstract net
+tri
 
 
 
