@@ -37,8 +37,7 @@ MSWeightsHandler.cpp MSWeightsHandler.h
 
 SUBDIRS = actions devices lanechanging logging output traffic_lights trigger
 
-AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
--I$(PROJ_INCLUDES) -I$(XERCES_INCLUDES)
+AM_CPPFLAGS = -I$(PROJ_INCLUDES) -I$(XERCES_INCLUDES)
 
 
 
