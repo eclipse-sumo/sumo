@@ -61,7 +61,7 @@ using namespace std;
 // ===========================================================================
 NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node,
         std::ofstream * const out)
-        : myNode(node), myOut(out)
+        : myNode(node), myNodeShapePOIOut(out)
 {}
 
 NBNodeShapeComputer::~NBNodeShapeComputer()
@@ -97,9 +97,9 @@ NBNodeShapeComputer::compute()
         ret = computeNodeShapeByCrosses();
     }
     {
-        if (myOut!=0) {
+        if (myNodeShapePOIOut!=0) {
             for (int i=0; i<(int) ret.size(); ++i) {
-                (*myOut) << "   <poi id=\"end_" << myNode.getID() << "_"
+                (*myNodeShapePOIOut) << "   <poi id=\"end_" << myNode.getID() << "_"
                 << toString(i) << "\" type=\"nodeshape.end\" color=\"1,0,1\""
                 << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
                 << endl;
@@ -166,13 +166,19 @@ computeSameEnd(Position2DVector& l1, Position2DVector &l2)
 
 
 void
-replaceLastChecking(Position2DVector &g, bool decenter,
+NBNodeShapeComputer::replaceLastChecking(Position2DVector &g, bool decenter,
                     Position2DVector counter,
                     size_t counterLanes, SUMOReal counterDist,
                     int laneDiff)
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
+    Position2DVector t = g;
+    t.extrapolate(100);
+    SUMOReal p = t.nearest_position_on_line_to_point(counterPos);
+    if(p>=0) {
+        counterPos = t.positionAtLengthPosition(p);
+    }
     if (GeomHelper::distance(g[-1], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(g.size()-1, counterPos);
     } else {
@@ -188,13 +194,19 @@ replaceLastChecking(Position2DVector &g, bool decenter,
 
 
 void
-replaceFirstChecking(Position2DVector &g, bool decenter,
+NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
                      Position2DVector counter,
                      size_t counterLanes, SUMOReal counterDist,
                      int laneDiff)
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
+    Position2DVector t = g;
+    t.extrapolate(100);
+    SUMOReal p = t.nearest_position_on_line_to_point(counterPos);
+    if(p>=0) {
+        counterPos = t.positionAtLengthPosition(p);
+    }
     if (GeomHelper::distance(g[0], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(0, counterPos);
     } else {
@@ -280,7 +292,32 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-
+/*
+    if(myNode.getID()=="3/1") {
+        cout << "same#1 " << myNode.getID() << endl;
+        for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
+            cout << (*i).first->getID() << ": ";
+            std::vector<NBEdge*> v = (*i).second;
+            for(std::vector<NBEdge*>::iterator j=v.begin(); j!=v.end(); ++j) {
+                cout << (*j)->getID() << ", ";
+            }
+            cout << endl;
+        }
+        int bla = 0;
+    }
+    if(myNode.getID()=="3/2") {
+        cout << "same#1 " << myNode.getID() << endl;
+        for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
+            cout << (*i).first->getID() << ": ";
+            std::vector<NBEdge*> v = (*i).second;
+            for(std::vector<NBEdge*>::iterator j=v.begin(); j!=v.end(); ++j) {
+                cout << (*j)->getID() << ", ";
+            }
+            cout << endl;
+        }
+        int bla = 0;
+    }
+*/
     // compute unique direction list
     std::vector<NBEdge*> newAll = myNode._allEdges;
     std::map<NBEdge*, std::vector<NBEdge*> >::iterator k;
@@ -318,7 +355,24 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-
+/*
+    if(myNode.getID()=="3/1") {
+        cout << "newAll#1 " << myNode.getID() << endl;
+            for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
+                cout << (*j)->getID() << ", ";
+            }
+            cout << endl;
+        int bla = 0;
+    }
+    if(myNode.getID()=="3/2") {
+        cout << "newAll " << myNode.getID() << endl;
+            for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
+                cout << (*j)->getID() << ", ";
+            }
+            cout << endl;
+        int bla = 0;
+    }
+*/
     // compute boundaries
     if (newAll.size()<2) {
         return Position2DVector();
@@ -328,6 +382,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     std::map<NBEdge*, bool> myExtended;
     std::map<NBEdge*, SUMOReal> distances;
     for (i=newAll.begin(); i!=newAll.end(); ++i) {
+/*
+        if((*i)->getID()=="3/3to3/2"&&myNode.getID()=="3/2") {
+            int bla = 0;
+        }
+        if((*i)->getID()=="3/2to3/1"&&myNode.getID()=="3/1") {
+            int bla = 0;
+        }
+        */
         EdgeVector::const_iterator cwi = i;
         cwi++;
         if (cwi==newAll.end()) {
@@ -381,8 +443,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         if (simpleContinuation&&cad<(SUMOReal)(45./180.*PI)) {
             cad += twoPI;
         }
-
-
+/*
+        if((*i)->getID()=="3/3to3/2"&&myNode.getID()=="3/2") {
+            int bla = 0;
+        }
+        if((*i)->getID()=="3/2to3/1"&&myNode.getID()=="3/1") {
+            int bla = 0;
+        }
+*/
         if (fabs(ccad-cad)<(SUMOReal) 0.1&&*cwi==*ccwi) {
             // only two edges, almost parallel
             //  compute the position where both would meet
@@ -474,7 +542,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
 
         } else {
-            if (ccad>(90.+45.)/180.*pi&&cad>(90.+45.)/180.*PI&&*ccwi!=*cwi/*&&cwBoundary[*i]==ccwBoundary[*i]*/) {
+            if (ccad>(90.+70.)/180.*pi&&cad>(90.+70.)/180.*PI&&*ccwi!=*cwi/*&&cwBoundary[*i]==ccwBoundary[*i]*/) {
                 // ok, in this case we have a street which is opposite to at least
                 //  two edges which have a very similar angle
                 // let's skip the computation for now, because we want the current
@@ -494,7 +562,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                                     if (mmin>100) {
                                         distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
                                     }
-                                } else  if (a2>a1&&a2-a1<(SUMOReal) 10) {
+                                } else  if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
                                     distances[*i] = a2;
                                 }
                             }
@@ -519,12 +587,12 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                             if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
                                 SUMOReal a1 = distances[*i];
                                 SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0]);
-                                if (ccad>(90.+45.)/180.*pi&&cad>(90.+45.)/180.*PI) {
+                                if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
                                     SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                     if (mmin>100) {
-                                        distances[*i] = (SUMOReal)(5. + 100. - (mmin-100.));  //100 + 1.5;
+                                        distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
                                     }
-                                } else if (a2>a1&&a2-a1<10) {
+                                } else if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
                                     distances[*i] = a2;
                                 }
                             }
@@ -546,8 +614,22 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-
-
+/*
+    if(myNode.getID()=="3/2") {
+        cout << myNode.getID() << endl;
+        for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
+            cout << (*i).first->getID() << "\t" << (*i).second << endl;
+        }
+        int bla = 0;
+    }
+    if(myNode.getID()=="3/1") {
+        cout << myNode.getID() << endl;
+        for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
+            cout << (*i).first->getID() << "\t" << (*i).second << endl;
+        }
+        int bla = 0;
+    }
+*/
     for (i=newAll.begin(); i!=newAll.end(); ++i) {
         if (distances.find(*i)!=distances.end()) {
             continue;
@@ -885,9 +967,9 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
         */
     }
     {
-        if (myOut!=0) {
+        if (myNodeShapePOIOut!=0) {
             for (int i=0; i<(int) ret.size(); ++i) {
-                (*myOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
+                (*myNodeShapePOIOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
                 toString(i) << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
                 << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
                 << endl;

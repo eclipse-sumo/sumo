@@ -4,7 +4,7 @@
 /// @date    2004-01-12
 /// @version $Id$
 ///
-// missing_desc
+// This class computes shapes of junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,24 +39,52 @@
 #include <fstream>
 #include <utils/geom/Position2DVector.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class NBNode;
 class NBEdge;
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+/**
+ * @class NBNodeShapeComputer
+ * brief This class computes shapes of junctions
+ */
 class NBNodeShapeComputer
 {
 public:
+    /// Constructor
     NBNodeShapeComputer(const NBNode &node, std::ofstream * const out);
+
+    /// Destructor
     ~NBNodeShapeComputer();
+
+    /// Computes the shape of the assigned junction
     Position2DVector compute();
 
 private:
+    /// Adds internal geometry information
     void addInternalGeometry();
+
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);
     Position2DVector computeNodeShapeByCrosses();
+    void replaceLastChecking(Position2DVector &g, bool decenter,
+        Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+        int laneDiff);
+    void replaceFirstChecking(Position2DVector &g, bool decenter,
+        Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+        int laneDiff);
 
 private:
+    /// The node to compute the geometry for
     const NBNode &myNode;
-    std::ofstream * const myOut;
+
+    /// The stream to write the node shape pois to
+    std::ofstream * const myNodeShapePOIOut;
 
 };
 
