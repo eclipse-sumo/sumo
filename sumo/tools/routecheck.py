@@ -5,12 +5,15 @@
 # routes are defined in separate files, the vehicle types file should
 # be the second parameter and the routes files the third and subsequent.
 # At the moment it is not possible to specify multiple vehicle types files.
-# Warnings will be issued if there is an unknown esge in the route,
+# Warnings will be issued if there is an unknown edge in the route,
 # if the route is too short (only one edge), if the route is disconnected
 # or if the first edge is too short for the vehicle.
-import sys
+# If one specifies -f or --fix all subsequent route files will be fixed
+# (if possible). At the moment this means only removal of the first edge
+# if it is too short.
+import string, sys
 
-from xml.sax import make_parser, handler
+from xml.sax import saxutils, make_parser, handler
 
 class NetReader(handler.ContentHandler):
 
@@ -59,13 +62,25 @@ class VehicleTypeReader(handler.ContentHandler):
 
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self, net, types):
+    def __init__(self, net, types, outFileName):
         self._vType = ''
         self._vID = ''
         self._routeID = ''
         self._routeString = ''
         self._net = net
         self._types = types
+        if outFileName != '':
+            self._out = open(outFileName, 'w')
+        else:
+            self._out = None
+        
+    def startDocument(self):
+        if self._out:
+            self._out.write('<?xml version="1.0" encoding="iso-8859-1"?>\n')
+
+    def endDocument(self):
+        if self._out:
+            self._out.close()
 
     def startElement(self, name, attrs):
         if name == 'vehicle':
@@ -77,17 +92,29 @@ class RouteReader(handler.ContentHandler):
             else:
                 self._routeID = "for vehicle " + self._vID
             self._routeString = ''
+        if self._out:
+            self._out.write('<' + name)
+            for (name, value) in attrs.items():
+                self._out.write(' %s="%s"' % (name, saxutils.escape(value)))
+            self._out.write('>')
 
     def endElement(self, name):
         if name == 'route':
             self.testRoute()
+            if self._out:
+                self._out.write(self._routeString)
             self._routeID = ''
             self._routeString = ''
         if name == 'vehicle':
             self._vType = ''
+        if self._out:
+            self._out.write('</%s>' % name)
 
     def characters(self, content):
-        self._routeString += content
+        if self._routeID != '':
+            self._routeString += content
+        elif self._out:
+            self._out.write(saxutils.escape(content))
 
     def testRoute(self):
         if self._routeID != '':
@@ -109,17 +136,31 @@ class RouteReader(handler.ContentHandler):
                             print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + rdata[i+1]
             if doLengthTest:
                 edgeL = self._net.getLength(rdata[0]);
+                removeFirst = False
                 if self._vType != '':
                     if self._types.isCarLongerThanEdge(self._vType, edgeL):
                         print "Warning: Vehicle too long for " + rdata[0] + ", first edge of route " + self._routeID
+                        removeFirst = True
                 else:
                     if self._types.isEveryCarLongerThanEdge(edgeL):
                         print "Warning: All vehicles too long for " + rdata[0] + ", first edge of route " + self._routeID
+                        removeFirst = True
+                if removeFirst and self._out:
+                    self._routeString = string.join(rdata[1:])
+                    self.testRoute()
                     
+    def ignorableWhitespace(self, content):
+        if self._out:
+            self._out.write(content)
+        
+    def processingInstruction(self, target, data):
+        if self._out:
+            self._out.write('<?%s %s?>' % (target, data))
+
 
             
 if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <net> <vehicletypes> <routes>+"
+    print "Usage: " + sys.argv[0] + " <net> <vehicletypes> [-f|--fix] <routes>+"
     print "    or " + sys.argv[0] + " <net> <vehicletypes+routes>"
     sys.exit()
 parser = make_parser()
@@ -131,10 +172,18 @@ types = VehicleTypeReader()
 parser.setContentHandler(types)
 parser.parse(sys.argv[2])
 parser = make_parser()
-parser.setContentHandler(RouteReader(net, types))
+fixMode = False
+parser.setContentHandler(RouteReader(net, types, ''))
 if len(sys.argv) > 3:
     for f in sys.argv[3:]:
-        print "checking " + f
+        if f == "-f" or f == "--fix":
+            fixMode = True;
+            continue
+        if fixMode:
+            parser.setContentHandler(RouteReader(net, types, f + '.fixed'))
+            print "fixing " + f
+        else:
+            print "checking " + f
         parser.parse(f)
 else:
     parser.parse(sys.argv[2])
