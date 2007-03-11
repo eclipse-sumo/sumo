@@ -4,19 +4,18 @@ AC_CONFIG_SRCDIR(src/sumo_main.cpp)
 AC_CANONICAL_SYSTEM
 
 dnl create an config-header
-AM_CONFIG_HEADER(src/config.h)
+AC_CONFIG_HEADER(src/config.h)
 
 dnl enable automake-support
 AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
-AC_PREFIX_DEFAULT(/usr/local)
-if test "x$prefix" = "xNONE"; then
-  prefix=$ac_default_prefix
-  ac_configure_args="$ac_configure_args --prefix $prefix"
-fi
-
 dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
 AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
 
 dnl enable libtool-support
 AM_PROG_LIBTOOL
@@ -319,6 +318,29 @@ fi
 
 
 AC_SUBST(AM_CPPFLAGS)
+
+
+dnl Checks for header files.
+AC_FUNC_ALLOCA
+AC_HEADER_STDC
+AC_CHECK_HEADERS([float.h limits.h malloc.h math.h stddef.h stdlib.h string.h sys/time.h unistd.h wchar.h])
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+AC_C_VOLATILE
+
+dnl Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_MALLOC
+AC_FUNC_SELECT_ARGTYPES
+AC_TYPE_SIGNAL
+AC_FUNC_STAT
+AC_CHECK_FUNCS([floor getcwd gettimeofday memset pow select socket sqrt])
 
 
 dnl ---------------------------------------------
