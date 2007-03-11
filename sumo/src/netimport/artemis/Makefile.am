@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libartemisimport.a
 
-EXTRA_DIST =
-
 libartemisimport_a_SOURCES = NIArtemisLoader.cpp NIArtemisLoader.h \
 NIArtemisParser_HVdests.cpp NIArtemisParser_HVdests.h \
 NIArtemisParser_Lanes.cpp NIArtemisParser_Lanes.h \
@@ -14,7 +12,3 @@ NIArtemisParser_Signals.cpp NIArtemisParser_Signals.h \
 NIArtemisTempEdgeLanes.cpp NIArtemisTempEdgeLanes.h \
 NIArtemisTempSegments.cpp NIArtemisTempSegments.h \
 NIArtemisTempSignal.cpp NIArtemisTempSignal.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
-
-

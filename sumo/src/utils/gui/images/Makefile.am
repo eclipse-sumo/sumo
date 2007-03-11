@@ -28,6 +28,3 @@ yes.xpm
 libguiutilsimages_a_SOURCES = GUIIconSubSys.cpp GUIIconSubSys.h \
 GUIIcons.h GUIImageGlobals.cpp GUIImageGlobals.h GUITextures.h \
 GUITexturesHelper.cpp GUITexturesHelper.h
-
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
-

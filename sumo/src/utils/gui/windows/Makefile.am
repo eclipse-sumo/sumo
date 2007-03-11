@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libguiutilsWindows.a
 
-EXTRA_DIST =
-
 libguiutilsWindows_a_SOURCES = \
 GUIAbstractLoadThread.cpp GUIAbstractLoadThread.h \
 GUIAbstractRunThread.cpp GUIAbstractRunThread.h \
@@ -15,9 +13,3 @@ GUIGrid.cpp GUIGrid.h GUIInterface_GridSpeedUp.h \
 GUIMainWindow.cpp GUIMainWindow.h \
 GUIPerspectiveChanger.cpp GUIPerspectiveChanger.h \
 GUISUMOAbstractView.cpp GUISUMOAbstractView.h
-
-AM_CPPFLAGS = \
--I$(top_srcdir)/src -I$(FOX_INCLUDES) -I$(PROJ_INCLUDES) \
--I$(XERCES_INCLUDES)
-
-

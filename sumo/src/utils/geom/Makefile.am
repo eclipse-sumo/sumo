@@ -8,5 +8,3 @@ GeomHelper.cpp GeomHelper.h HaveBoundary.h \
 Helper_ConvexHull.cpp Helper_ConvexHull.h Line2D.cpp Line2D.h \
 Position2D.h \
 Position2DVector.cpp Position2DVector.h bezier.cpp bezier.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

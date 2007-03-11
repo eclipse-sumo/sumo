@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libvissimtypeload.a
 
-EXTRA_DIST =
-
 libvissimtypeload_a_SOURCES = NIVissimSingleTypeParser_Auswertungsdefinition.cpp \
 NIVissimSingleTypeParser_Auswertungsdefinition.h \
 NIVissimSingleTypeParser_Detektordefinition.cpp \
@@ -110,6 +108,3 @@ NIVissimSingleTypeParser__XKurvedefinition.cpp \
 NIVissimSingleTypeParser__XKurvedefinition.h \
 NIVissimSingleTypeParser__XVerteilungsdefinition.cpp \
 NIVissimSingleTypeParser__XVerteilungsdefinition.h
-
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

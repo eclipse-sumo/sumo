@@ -26,24 +26,55 @@ dnl Check for enable-features that shall go into config.h
 AC_ARG_ENABLE([geomcheck], [AS_HELP_STRING([--enable-geomcheck],[enable compilation of geometry checks [default=no].])],
               [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1, [Define to 1 in order to enable geometry checking.])])
 AM_CONDITIONAL(CHECK_UNIQUE_POINTS_GEOMETRY, test x$enable_geomcheck = xyes)
+if test x$enable_geomcheck = xyes; then
+   ac_enabled="$ac_enabled GeometryChecks"
+else
+   ac_disabled="$ac_disabled GeometryChecks"
+fi
 
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])],
               [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])])
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
+if test x$enable_memcheck = xyes; then
+   ac_enabled="$ac_enabled MemoryChecks"
+else
+   ac_disabled="$ac_disabled MemoryChecks"
+fi
 
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
-              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])], [CXXFLAGS="-O2"])
+              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
+CXXFLAGS="-g"], [CXXFLAGS="-O2"])
+if test x$enable_debug = xyes; then
+   ac_enabled="$ac_enabled Debug"
+else
+   ac_disabled="$ac_disabled Debug"
+fi
 AC_PROG_CXX
 
 AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])],
               [AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])])
+if test x$enable_speedcheck = xyes; then
+   ac_enabled="$ac_enabled SpeedChecks"
+else
+   ac_disabled="$ac_disabled SpeedChecks"
+fi
 
 AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes.])],
               [],[AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])])
+if test x$enable_internal_lanes != xno; then
+   ac_enabled="$ac_enabled InternalLanes"
+else
+   ac_disabled="$ac_disabled InternalLanes"
+fi
 
 AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--enable-double-precision],[Use "double" instead of "float" for calculations.])],
               [AC_DEFINE([SUMOReal], [double], [defines the precision of floats])],
-	      [AC_DEFINE([SUMOReal], [float], [defines the precision of floats])])
+              [AC_DEFINE([SUMOReal], [float], [defines the precision of floats])])
+if test x$enable_double_precision = xyes; then
+   ac_enabled="$ac_enabled DoublePrecision"
+else
+   ac_disabled="$ac_disabled DoublePrecision"
+fi
 
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
@@ -88,9 +119,8 @@ else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_xerces_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [XERCES_INCLUDES="$with_xerces_includes"], [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
+   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
    CPPFLAGS=$save_cppflags
-   AC_SUBST(XERCES_INCLUDES)
 fi
 
 
@@ -137,9 +167,8 @@ else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_proj_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([proj_api.h], [PROJ_INCLUDES="$with_proj_includes"], [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
+   AC_CHECK_HEADER([proj_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
    CPPFLAGS=$save_cppflags
-   AC_SUBST(PROJ_INCLUDES)
 fi
 
 
@@ -168,9 +197,8 @@ else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_gdal_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([ogr_api.h], [GDAL_INCLUDES="$with_gdal_includes"], [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
+   AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
    CPPFLAGS=$save_cppflags
-   AC_SUBST(GDAL_INCLUDES)
 fi
 
 
@@ -191,7 +219,7 @@ dnl   ... for libs
 LIB_FOX="FOX-1.4"
 AC_ARG_WITH([fox-libraries], [AS_HELP_STRING([--with-fox-libraries=DIR],[where the Fox library is installed.])])
 if test x"$with_fox_libraries" = x; then
-   AC_CHECK_LIB([$LIB_FOX], [main], [true], [AC_MSG_RESULT([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
+   AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes], [AC_MSG_WARN([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_fox_libraries"
@@ -205,100 +233,95 @@ AC_SUBST(LIB_FOX)
 dnl   ... for includes
 AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
 if test x"$with_fox_includes" = x; then
-   AC_CHECK_HEADER([$fox_include_prefix/fxver.h], [], [
-      AC_MSG_RESULT([---------------------------])
-      AC_MSG_RESULT([fox-includes not found.])
-      AC_MSG_RESULT([Specify path with option --with-fox-includes=DIR for gui-enabled applications.])
-      AC_MSG_RESULT([---------------------------])
-   ])
+   save_cppflags=$CPPFLAGS
+   CPPFLAGS="$CPPFLAGS -I/usr/local/include/$fox_include_prefix -I/usr/include/$fox_include_prefix"
+   export CPPFLAGS
+   AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
+   CPPFLAGS=$save_cppflags
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_fox_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([fxver.h], [FOX_INCLUDES="$with_fox_includes"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
+   AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
    CPPFLAGS=$save_cppflags
-   AC_SUBST(FOX_INCLUDES)
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
+if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
+   ac_enabled="$ac_enabled GUI"
+else
+   ac_disabled="$ac_disabled GUI"
+fi
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for XmlRpc++
-AC_ARG_WITH([xmlrpc],
-            [AS_HELP_STRING([--with-xmlrpc=DIR],[where XmlRpc is installed (libraries in DIR/lib, headers in DIR/include).])],
-            [ac_xmlrpc="$withval"])
-if test x"$ac_xmlrpc" != x; then
-   if test x"$ac_xmlrpc" != xyes; then
-      if test x"$ac_xmlrpc_libraries" = x; then
-         ac_xmlrpc_libraries=$ac_xmlrpc/lib
+AC_ARG_WITH([xmlrpc],[AS_HELP_STRING([--with-xmlrpc=DIR],[where XmlRpc is installed (currently disabled).])])
+dnl disabled
+with_xmlrpc=""
+if test x"$with_xmlrpc" != x; then
+   if test x"$with_xmlrpc" != xyes; then
+      if test x"$with_xmlrpc_libraries" = x; then
+         with_xmlrpc_libraries=$with_xmlrpc/lib
       fi
-      if test x"$ac_xmlrpc_includes" = x; then
-         ac_xmlrpc_includes=$ac_xmlrpc/include
+      if test x"$with_xmlrpc_includes" = x; then
+         with_xmlrpc_includes=$with_xmlrpc/include
       fi
    fi
    AC_DEFINE(_RPC, 1, [Define to 1 in order to enable rpc features.])
 fi
-AM_CONDITIONAL([WITH_XMLRPC], [test x"$ac_xmlrpc" != x])
-dnl   ... for libs
-AC_ARG_WITH(xmlrpc-libraries,
-    [  --with-xmlrpc-libraries=DIR where the XmlRpc++ library is installed.],
-    [  ac_xmlrpc_libraries="$withval"
-    ])
+AM_CONDITIONAL([WITH_XMLRPC], [test x"$with_xmlrpc" != x])
 
-AC_MSG_CHECKING([for xmlrpc-libraries])
-if test x"$ac_xmlrpc_libraries" = x; then
-   AC_CHECK_LIB([XmlRpc], [main], [ac_xmlrpc_libraries=true], [AC_MSG_RESULT([xmlrpc-lib not found. Specify path with option --with-xmlrpc-libraries=DIR to enable XML-RPC.])])
+dnl   ... for libs
+LIB_XMLRPC="XmlRpc"
+if test x"$with_xmlrpc_libraries" = x; then
+   AC_CHECK_LIB([$LIB_XMLRPC], [main], [with_xmlrpc_libraries=true], [AC_MSG_RESULT([xmlrpc-lib not found. Specify path with option --with-xmlrpc-libraries=DIR to enable XML-RPC.])])
 else
    save_ldflags=$LDFLAGS
-   LDFLAGS="-L$ac_xmlrpc_libraries"
+   LDFLAGS="-L$with_xmlrpc_libraries"
    export LDFLAGS
-   AC_CHECK_LIB([XmlRpc], [main], [XMLRPC_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xmlrpc-lib not found in "$ac_xmlrpc_libraries".])])
+   AC_CHECK_LIB([XmlRpc], [main], [XMLRPC_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xmlrpc-lib not found in "$with_xmlrpc_libraries".])])
    LDFLAGS=$save_ldflags
    AC_SUBST(XMLRPC_LDFLAGS)
 fi
-LIB_XMLRPC="XmlRpc"
 AC_SUBST(LIB_XMLRPC)
 
 dnl   ... for includes
-AC_ARG_WITH(xmlrpc-includes,
-    [  --with-xmlrpc-includes=DIR  where the XmlRpc++ includes are. ],
-    [
-       ac_xmlrpc_includes="$withval"
-    ])
-AC_MSG_CHECKING([for xmlrpc-includes])
-if test x"$ac_xmlrpc_includes" = x; then
+if test x"$with_xmlrpc_includes" = x; then
    if test -e /usr/local/include/xmlrpc/XmlRpc.h; then
       AC_MSG_RESULT([yes])
-      ac_xmlrpc_includes=/usr/local/include/xmlrpc
+      with_xmlrpc_includes=/usr/local/include/xmlrpc
    elif test -e /usr/include/XmlRpc.h; then
       AC_MSG_RESULT([yes])
-      ac_xmlrpc_includes=/usr/include
+      with_xmlrpc_includes=/usr/include
    elif test -e /usr/local/include/XmlRpc.h; then
       AC_MSG_RESULT([yes])
-      ac_xmlrpc_includes=/usr/local/include
+      with_xmlrpc_includes=/usr/local/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_RESULT([xmlrpc-includes not found.])
       AC_MSG_RESULT([Specify path with option --with-xmlrpc-includes=DIR.])
    fi
 else
-   if test -e "$ac_xmlrpc_includes/XmlRpc.h"; then
+   if test -e "$with_xmlrpc_includes/XmlRpc.h"; then
       AC_MSG_RESULT([yes])
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])
    fi
 fi
-XMLRPC_INCLUDES="$ac_xmlrpc_includes"
+XMLRPC_INCLUDES="$with_xmlrpc_includes"
 AC_SUBST(XMLRPC_INCLUDES)
+if test x"$with_xmlrpc" != x; then
+   ac_enabled="$ac_enabled XML-RPC"
+else
+   ac_disabled="$ac_disabled XML-RPC"
+fi
+
+
+AC_SUBST(AM_CPPFLAGS)
 
 
 dnl ---------------------------------------------
-
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-dnl perform program name transformation
-dnl AC_ARG_PROGRAM
-
 dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
 src/Makefile
@@ -379,3 +402,11 @@ src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 Makefile)
 
+dnl ---------------------------------------------
+dnl Summary
+
+AC_MSG_RESULT()
+AC_MSG_RESULT([Optional features summary])
+AC_MSG_RESULT([-------------------------])
+AC_MSG_RESULT([Enabled:$ac_enabled])
+AC_MSG_RESULT([Disabled:$ac_disabled])

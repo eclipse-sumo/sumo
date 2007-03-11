@@ -20,5 +20,3 @@ MFXEditableTable.cpp MFXEditableTable.h \
 MFXMenuHeader.cpp MFXMenuHeader.h \
 MFXMutex.cpp MFXMutex.h \
 MFXUtils.cpp MFXUtils.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I $(FOX_INCLUDES)

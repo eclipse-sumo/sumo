@@ -5,6 +5,3 @@ endif
 EXTRA_DIST = additional.txt
 
 SUBDIRS = mersenne $(MEMDIRS)
-
-
-

@@ -16,7 +16,3 @@ MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
 ToString.h TplConvert.h TplConvertSec.h \
 XMLHelpers.cpp XMLHelpers.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
--I$(PROJ_INCLUDES) -I$(XERCES_INCLUDES)
-

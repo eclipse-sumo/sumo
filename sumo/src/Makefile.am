@@ -1,7 +1,6 @@
 if WITH_GUI
 GUI_APPS = sumo-guisim
 GUI_DIRS = gui guinetload guisim icons
-GUI_INCS = -I$(FOX_INCLUDES)
 endif
 
 if WITH_XMLRPC
@@ -247,10 +246,6 @@ $(MEM_LIBS) \
 -l$(LIB_FOX) \
 $(LIB_X11) -l$(LIB_PROJ)
 endif
-
-
-AM_CPPFLAGS = -I$(XERCES_INCLUDES) \
-$(GUI_INCS) -I$(PROJ_INCLUDES) -I$(GDAL_INCLUDES) $(XMLRPC_INCS)
 
 
 SUBDIRS = foreign microsim multimodal \

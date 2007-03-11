@@ -7,5 +7,3 @@ NamedColumnsParser.cpp \
 LineReader.h \
 NamedColumnsParser.h \
 CSVHelpers.cpp CSVHelpers.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

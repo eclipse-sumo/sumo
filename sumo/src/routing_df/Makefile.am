@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libdfrouting.a
 
-EXTRA_DIST =
-
 libdfrouting_a_SOURCES = DFDetFlowLoader.cpp DFDetFlowLoader.h \
 DFDetector.cpp DFDetector.h DFDetectorFlow.cpp DFDetectorFlow.h \
 DFDetectorHandler.cpp DFDetectorHandler.h \
@@ -10,14 +8,3 @@ DFRORouteDesc.h RODFEdgeBuilder.cpp RODFEdgeBuilder.h \
 RODFEdge.cpp RODFEdge.h \
 RODFFrame.cpp RODFFrame.h \
 RODFLoader.cpp RODFLoader.h RODFNetHandler.cpp RODFNetHandler.h
-
-SUBDIRS =
-
-AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
--I$(XERCES_INCLUDES)
-
-
-
-
-
-

@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libvisumimport.a
 
-EXTRA_DIST =
-
 libvisumimport_a_SOURCES = NIVisumLoader.cpp NIVisumLoader.h \
 NIVisumParser_Connectors.cpp NIVisumParser_Connectors.h \
 NIVisumParser_Districts.cpp NIVisumParser_Districts.h \
@@ -20,11 +18,3 @@ NIVisumParser_Types.cpp NIVisumParser_Types.h \
 NIVisumParser_VSysTypes.cpp NIVisumParser_VSysTypes.h \
 NIVisumTL.cpp NIVisumTL.h \
 NIVisumParser_EdgePolys.cpp NIVisumParser_EdgePolys.h
-
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(PROJ_INCLUDES)
-
-
-
-
-

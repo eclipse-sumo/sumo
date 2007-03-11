@@ -6,12 +6,3 @@ MSLCM_Sparmann.cpp MSLCM_Sparmann.h
 
 libmicrosimlanechange_a_SOURCES = \
 MSLCM_DK2004.cpp MSLCM_DK2004.h
-
-
-SUBDIRS =
-
-AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src
-
-
-
-

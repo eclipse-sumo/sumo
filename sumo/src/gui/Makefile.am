@@ -13,9 +13,6 @@ GUISupplementaryWeightsHandler.cpp GUISupplementaryWeightsHandler.h \
 GUIThreadFactory.cpp GUIThreadFactory.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
--I$(XERCES_INCLUDES)
-
 SUBDIRS = dialogs drawerimpl
 
 

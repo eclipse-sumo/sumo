@@ -9,5 +9,3 @@ DistributionCont.h \
 Distribution.h \
 Distribution_MeanDev.h \
 Distribution_Points.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

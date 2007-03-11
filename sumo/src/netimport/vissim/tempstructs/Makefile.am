@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libvissimtmpstr.a
 
-EXTRA_DIST =
-
 libvissimtmpstr_a_SOURCES = NIVissimAbstractEdge.cpp NIVissimAbstractEdge.h \
 NIVissimBoundedClusterObject.cpp NIVissimBoundedClusterObject.h \
 NIVissimClosedLaneDef.cpp NIVissimClosedLaneDef.h \
@@ -24,9 +22,3 @@ NIVissimTrafficDescription.cpp NIVissimTrafficDescription.h \
 NIVissimVehTypeClass.cpp NIVissimVehTypeClass.h \
 NIVissimVehicleClass.cpp NIVissimVehicleClass.h \
 NIVissimVehicleClassVector.h NIVissimVehicleType.cpp NIVissimVehicleType.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
-
-SUBDIRS =
-
-

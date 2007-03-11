@@ -1,17 +1,4 @@
 noinst_LIBRARIES = libduarouting.a
 
-
-EXTRA_DIST =
-
 libduarouting_a_SOURCES = RODUAEdgeBuilder.cpp RODUAEdgeBuilder.h \
 RODUAFrame.cpp RODUAFrame.h
-
-SUBDIRS =
-
-AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
--I$(XERCES_INCLUDES)
-
-
-
-
-

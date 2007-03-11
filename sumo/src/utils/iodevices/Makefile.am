@@ -7,5 +7,3 @@ OutputDevice_COUT.cpp OutputDevice_COUT.h \
 OutputDevice_File.cpp OutputDevice_File.h \
 SharedOutputDevices.cpp SharedOutputDevices.h \
 XMLDevice.h
-
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src

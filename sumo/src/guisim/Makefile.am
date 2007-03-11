@@ -29,8 +29,5 @@ GUIVehicleType.cpp GUIVehicleType.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \
--I$(XERCES_INCLUDES)
-
 SUBDIRS = guilogging
 

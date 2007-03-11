@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libmicrosim.a
 
-EXTRA_DIST =
-
 libmicrosim_a_SOURCES = MSAbstractLaneChangeModel.h MSBitSetLogic.h \
 MSBuildCells.cpp MSBuildCells.h MSCell.cpp MSCell.h \
 MSDebugHelper.cpp MSDebugHelper.h \
@@ -36,10 +34,3 @@ MSVehicleType.cpp MSVehicleType.h \
 MSWeightsHandler.cpp MSWeightsHandler.h
 
 SUBDIRS = actions devices lanechanging logging output traffic_lights trigger
-
-AM_CPPFLAGS = -I$(PROJ_INCLUDES) -I$(XERCES_INCLUDES)
-
-
-
-
-

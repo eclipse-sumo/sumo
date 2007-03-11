@@ -1,7 +1,5 @@
 noinst_LIBRARIES = libguiutilsdiv.a
 
-EXTRA_DIST =
-
 libguiutilsdiv_a_SOURCES = GUIColorSetter.h \
 GUIDialog_GLChosenEditor.cpp GUIDialog_GLChosenEditor.h \
 GUIFrame.cpp GUIFrame.h GUIGlobalSelection.cpp GUIGlobalSelection.h \
@@ -11,6 +9,3 @@ GUIParameterTableItem.cpp GUIParameterTableItem.h \
 GUIParameterTableWindow.cpp GUIParameterTableWindow.h \
 GUISelectedStorage.cpp GUISelectedStorage.h \
 GUIUserIO.cpp GUIUserIO.h
-
-AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
-
