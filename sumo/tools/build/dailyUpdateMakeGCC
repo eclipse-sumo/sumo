@@ -17,26 +17,28 @@ fi
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
+STATUSLOG=$PREFIX/${FILEPREFIX}status.log
 BATCH_RESULT_DIR=$PREFIX/${FILEPREFIX}batch_result
 REPORT_DIR=$PREFIX/${FILEPREFIX}report
 
 cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
-svn up &> $MAKELOG || (echo "svn up failed"; tail -10 $MAKELOG)
-make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed"; tail -10 $MAKELOG; exit)
+svn up &> $MAKELOG || (echo "svn up failed" | tee $STATUSLOG; tail -10 $MAKELOG)
+make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
 --with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
---prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed"; tail -10 $MAKELOG; exit)
-make dist >> $MAKELOG 2>&1 || (echo "make dist failed"; tail -10 $MAKELOG)
-make >> $MAKELOG 2>&1 || (echo "make failed"; tail -20 $MAKELOG)
-make install >> $MAKELOG 2>&1 || (echo "make install failed"; tail -10 $MAKELOG)
+--prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+make dist >> $MAKELOG 2>&1 || (echo "make dist failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+make >> $MAKELOG 2>&1 || (echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG)
+make install >> $MAKELOG 2>&1 || (echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz $REMOTEDIR
 
-if test -e $PREFIX/bin/sumo; then
+if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest:$PATH
+  export TEXTTEST_TMP=$PREFIX/texttesttmp
   tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
   scp -qr $REPORT_DIR $REMOTEDIR
 
@@ -52,7 +54,7 @@ export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 ./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
 --with-proj-gdal=$PREFIX --enable-double-precision \
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
-make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed"; tail -20 $MAKEALLLOG)
+make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG)
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR
-
+scp -q $STATUSLOG $REMOTEDIR
