@@ -210,8 +210,8 @@ while(<INDAT2>) {
 			$linkno = getAttr($line, "linkno");
 			$yield = getAttr($line, "yield");
 			$dir = getAttr($line, "dir");
-			$from_lane =~ s/\/.*?_/_/g;
-			$to_lane =~ s/\/.*?_/_/g;
+			$from_lane =~ s/\/[0-9]*?_/_/g;
+			$to_lane =~ s/\/[0-9]*?_/_/g;
 			$con = $from_lane.";".$to_lane.";".$linkno.";".$yield.";".$dir;
 			if($linkno>=$noSignals) {
 				$noSignals = $linkno + 1;
