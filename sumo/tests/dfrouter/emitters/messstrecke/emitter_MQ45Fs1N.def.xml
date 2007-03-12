@@ -1,7 +1,0 @@
-<triggeredsource>
-   <routedistelem id="AltglienickerBreitN_to_ErnstRuska5O" probability="1"/>
-   <routedistelem id="AltglienickerBreitN_to_VolmerN" probability="1"/>
-   <routedistelem id="AltglienickerBreitN_to_HavestadtN" probability="1"/>
-   <routedistelem id="AltglienickerBreitN_to_EinsteinN" probability="1"/>
-   <routedistelem id="AltglienickerBreitN_to_ErnstRuskaSink1W" probability="1"/>
-</triggeredsource>
