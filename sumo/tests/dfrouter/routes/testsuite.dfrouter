@@ -5,5 +5,5 @@ messstrecke
 # Tests route computation on an abstract network
 tri
 
-
-
+# Tests route computation on an abstract network (only shortest)
+tri_only_shortest
