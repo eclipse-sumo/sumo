@@ -1,4 +1,7 @@
 
-# Tests the detector types on the dlr-testtrack are computed properly
+# Tests emitter building on the dlr-testtrack 
 messstrecke
+
+# Tests emitter building on an abstract network
+tri
 

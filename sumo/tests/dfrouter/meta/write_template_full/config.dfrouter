@@ -28,6 +28,7 @@
       <revalidate-routes>false</revalidate-routes>
       <all-end-follower>false</all-end-follower>
       <keep-unfound-ends>false</keep-unfound-ends>
+      <keep-longer-routes>false</keep-longer-routes>
       <fast-flows>false</fast-flows>
       <time-offset>0</time-offset>
       <write-calibrators>false</write-calibrators>

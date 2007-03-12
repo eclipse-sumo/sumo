@@ -48,6 +48,7 @@ Usage: dfrouter.exe [OPTION]*
   --all-end-follower                 Continues routes till the first street
                                        after a sink
   --keep-unfound-ends                Keeps routes ending at no sinks
+  --keep-longer-routes               Keeps routes even if a shorter one exists
   --fast-flows                       Assumes flows to be stored in a less
                                        complex format
   --time-offset INT                  Subtracts INT from flow times

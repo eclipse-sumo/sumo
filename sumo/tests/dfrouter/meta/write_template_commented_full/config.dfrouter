@@ -70,6 +70,9 @@
       <!-- Keeps routes ending at no sinks -->
       <keep-unfound-ends>false</keep-unfound-ends>
 
+      <!-- Keeps routes even if a shorter one exists -->
+      <keep-longer-routes>false</keep-longer-routes>
+
       <!-- Assumes flows to be stored in a less complex format -->
       <fast-flows>false</fast-flows>
 
