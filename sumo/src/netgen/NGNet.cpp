@@ -4,7 +4,7 @@
 /// @date    Mar, 2003
 /// @version $Id$
 ///
-// -------------------
+// The class storing the generated network
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -69,7 +69,18 @@ TNGNet::TNGNet(NBNetBuilder &nb)
 
 
 TNGNet::~TNGNet()
-{}
+{
+    {
+        for(TLinkList::iterator ni=myLinkList.begin(); ni!=myLinkList.end(); ++ni) {
+            delete *ni;
+        }
+    }
+    {
+        for(TNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
+            delete *ni;
+        }
+    }
+}
 
 
 std::string
@@ -82,9 +93,8 @@ TNGNet::GetID()
 TNode*
 TNGNet::FindNode(int xID, int yID)
 {
-    TNodeList::iterator ni;
-    ni = NodeList.begin();
-    while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != NodeList.end())) {
+    TNodeList::iterator ni = myNodeList.begin();
+    while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != myNodeList.end())) {
         ni++;
     }
     if (((*ni)->xID == xID) && ((*ni)->yID == yID)) {
@@ -107,7 +117,7 @@ TNGNet::CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY)
             Node = new TNode(nodeID, ix, iy);
             Node->SetX(ix * SpaceX);
             Node->SetY(iy * SpaceY);
-            NodeList.push_back(Node);
+            myNodeList.push_back(Node);
             // create Links
             if (ix > 0) {
                 connect(Node, FindNode(ix-1, iy));
@@ -150,7 +160,7 @@ TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad)
                        toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
             Node->SetX(RadialToX((ic) * SpaceRad, (ir-1) * angle));
             Node->SetY(RadialToY((ic) * SpaceRad, (ir-1) * angle));
-            NodeList.push_back(Node);
+            myNodeList.push_back(Node);
             // create Links
             if (ir > 1) {
                 connect(Node, FindNode(ir-1, ic));
@@ -168,7 +178,7 @@ TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad)
     Node = new TNode(GetID(), 0, 0, true);
     Node->SetX(0);
     Node->SetY(0);
-    NodeList.push_back(Node);
+    myNodeList.push_back(Node);
     // links
     for (ir=1; ir<NumRadDiv+1; ir++) {
         connect(Node, FindNode(ir, 1));
@@ -183,24 +193,44 @@ TNGNet::connect(TNode *node1, TNode *node2)
     string id2 = node2->GetID() + "to" + node1->GetID();
     TLink *link1 = new TLink(id1, node1, node2);
     TLink *link2 = new TLink(id2, node2, node1);
-    LinkList.push_back(link1);
-    LinkList.push_back(link2);
+    myLinkList.push_back(link1);
+    myLinkList.push_back(link2);
 }
 
 
 void
 TNGNet::toNB() const
 {
-    for (TNodeList::const_iterator i1=NodeList.begin(); i1!=NodeList.end(); i1++) {
+    for (TNodeList::const_iterator i1=myNodeList.begin(); i1!=myNodeList.end(); i1++) {
         NBNode *node = (*i1)->buildNBNode(myNetBuilder);
         myNetBuilder.getNodeCont().insert(node);
     }
-    for (TLinkList::const_iterator i2=LinkList.begin(); i2!=LinkList.end(); i2++) {
+    for (TLinkList::const_iterator i2=myLinkList.begin(); i2!=myLinkList.end(); i2++) {
         NBEdge *edge = (*i2)->buildNBEdge(myNetBuilder);
         myNetBuilder.getEdgeCont().insert(edge);
     }
 }
 
+
+void 
+TNGNet::add(TNode *node)
+{
+    myNodeList.push_back(node);
+}
+
+
+void 
+TNGNet::add(TLink *edge)
+{
+    myLinkList.push_back(edge);
+}
+
+
+size_t 
+TNGNet::nodeNo() const
+{
+    return myNodeList.size();
+}
 
 
 /****************************************************************************/

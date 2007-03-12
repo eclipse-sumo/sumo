@@ -4,7 +4,7 @@
 /// @date    Mar, 2003
 /// @version $Id$
 ///
-// -------------------
+// Additional structures for building random nets
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,7 +49,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-//------------------------------ TNeighbourDistribution ----------------
+// ---------------------------------------------------------------------------
+// TNeighbourDistribution-definitions
+// ---------------------------------------------------------------------------
 void
 TNeighbourDistribution::Add(int NumNeighbours, SUMOReal ratio)
 {
@@ -78,12 +80,12 @@ TNeighbourDistribution::Num()
 }
 
 
-//------------------------------ TNGRandomNet ----------------------------
+// ---------------------------------------------------------------------------
+// TNGRandomNet-definitions
+// ---------------------------------------------------------------------------
 TNGRandomNet::TNGRandomNet(TNGNet *Net)
 {
     myNet = Net;
-    Nodes = &Net->NodeList;
-    Links = &Net->LinkList;
 }
 
 
@@ -265,10 +267,10 @@ TNGRandomNet::CreateNewNode(TNode *BaseNode)
     NewLink = new TLink(myNet->GetID(), BaseNode, NewNode);
     if (CanConnect(BaseNode, NewNode)) {
         // add node
-        Nodes->push_back(NewNode);
+        myNet->add(NewNode);
         OuterNodes.push_front(NewNode);
         // add link
-        Links->push_back(NewLink);
+        myNet->add(NewLink);
         OuterLinks.push_back(NewLink);
         // check basenode for being outer node
         if (BaseNode->LinkList.size() >= BaseNode->MaxNeighbours())
@@ -293,11 +295,11 @@ TNGRandomNet::CreateNet(int NumNodes)
     OuterNode->SetY(0);
     OuterNode->SetMaxNeighbours(4);
 
-    Nodes->push_back(OuterNode);
+    myNet->add(OuterNode);
     OuterNodes.push_back(OuterNode);
 
     bool created = true;
-    while (((int) Nodes->size() < NumNodes) && (OuterNodes.size() > 0)) {
+    while (((int) myNet->nodeNo() < NumNodes) && (OuterNodes.size() > 0)) {
         // brings last element to front
         if (!created) {
             OuterNodes.push_front(OuterNodes.back());
@@ -312,7 +314,7 @@ TNGRandomNet::CreateNet(int NumNodes)
             NewLink = new TLink(myNet->GetID(), OuterNode, ConNodes.back());
             if (CanConnect(OuterNode, ConNodes.back())) {
                 // add link
-                Links->push_back(NewLink);
+                myNet->add(NewLink);
                 OuterLinks.push_back(NewLink);
                 // check nodes for being outer node
                 if (OuterNode->LinkList.size() >= OuterNode->MaxNeighbours())
@@ -336,7 +338,6 @@ TNGRandomNet::CreateNet(int NumNodes)
         }
     }
 }
-
 
 
 /****************************************************************************/

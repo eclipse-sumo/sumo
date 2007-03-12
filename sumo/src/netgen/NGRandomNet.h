@@ -4,7 +4,7 @@
 /// @date    Mar, 2003
 /// @version $Id$
 ///
-// -------------------
+// Additional structures for building random nets
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,19 +46,29 @@
 // ------------------- TNeighbourList ----------------------------------------
 typedef std::map<int, SUMOReal> TNeighbourList;
 
-// ------------------- TNeighbourDistribution --------------------------------
+/**
+ * @class TNeighbourDistribution
+ */
 class TNeighbourDistribution
 {
 public:
     TNeighbourList Neighbours;
-    // adds a NeighbourItem to list - if NumNeighbours is already existing,
-    // the old ratio is overwritten
+
+    /** 
+     * @brief adds a NeighbourItem to list - if NumNeighbours is already existing,
+     *
+     * the old ratio is overwritten */
     void Add(int NumNeighbours, SUMOReal ratio);
-    // get random number of neighbours
+
+    /// get random number of neighbours
     int Num();
+
 };
 
-// ------------------- TNGRandomNet- -------------------------------------------
+
+/**
+ * @class TNGRandomNet
+ */
 class TNGRandomNet
 {
 public:
@@ -111,8 +121,6 @@ public:
     void CreateNet(int NumNodes);
 private:
     // lists of all nodes and links
-    TNodeList *Nodes;
-    TLinkList *Links;
     TNGNet *myNet;
     // lists of outer nodes and links
     TNodeList OuterNodes;

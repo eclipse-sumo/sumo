@@ -4,7 +4,7 @@
 /// @date    Mar, 2003
 /// @version $Id$
 ///
-// -------------------
+// The class storing the generated network
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,13 +39,22 @@
 #include "NGNetElements.h"
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBNetBuilder;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
+ * @class TNGNet
+ * The class storing the generated network
  *
+ * An instance of this class stores both the edges and the nodes build during
+ *  the generation of a network (using any type of generation algorithm).
+ * These instances are later transformed into netbuild-structures using toNB()
  */
 class TNGNet
 {
@@ -76,12 +85,15 @@ public:
     /// Transfer to netbuild-structures
     void toNB() const;
 
+    /// Adds a node to the network
+    void add(TNode *node);
 
-    /// list of nodes
-    TNodeList NodeList;
+    /// Adds an edge to the network
+    void add(TLink *edge);
 
-    /// list of links
-    TLinkList LinkList;
+    /// Returns the number of stored nodes
+    size_t nodeNo() const;
+
 
 private:
     /// Connects both noes with two edges, one for each direction
@@ -91,7 +103,14 @@ private:
     /// last ID given to node or link
     int myLastID;
 
+    /// The builder used to build NB*-structures
     NBNetBuilder &myNetBuilder;
+
+    /// list of nodes
+    TNodeList myNodeList;
+
+    /// list of links
+    TLinkList myLinkList;
 
 };
 

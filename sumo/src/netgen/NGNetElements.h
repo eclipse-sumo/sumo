@@ -4,7 +4,7 @@
 /// @date    Mar, 2003
 /// @version $Id$
 ///
-// -------------------
+// netgen-representations of a network's nodes and edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,7 +58,8 @@ typedef std::list<TNode*> TNodeList;
 typedef std::list<TLink*> TLinkList;
 
 /**
- *
+ * @class TNode
+ * @brief A netgen-representation of a node
  */
 class TNode
 {
@@ -131,7 +132,8 @@ private:
 
 
 /**
- *
+ * @class TLink
+ * @brief A netgen-representation of an edge
  */
 class TLink
 {
