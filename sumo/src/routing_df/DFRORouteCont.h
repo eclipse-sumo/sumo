@@ -42,6 +42,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class DFRONet;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -51,7 +57,7 @@
 class DFRORouteCont
 {
 public:
-    DFRORouteCont();
+    DFRORouteCont(const DFRONet &net);
 //	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
     void addRouteDesc(DFRORouteDesc *desc);
@@ -81,17 +87,17 @@ protected:
         }
     };
 
-    class route_by_id_finder
+    class route_finder
     {
     public:
         /** constructor */
-        explicit route_by_id_finder(const DFRORouteDesc &desc) : myDesc(desc)
+        explicit route_finder(const DFRORouteDesc &desc) : myDesc(desc)
         { }
 
         /** the comparing function */
         bool operator()(DFRORouteDesc *desc)
         {
-            return myDesc.routename==desc->routename;
+            return myDesc.edges2Pass==desc->edges2Pass;
         }
 
     private:
@@ -103,6 +109,7 @@ protected:
 
     std::vector<DFRORouteDesc*> myRoutes;
     std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;
+    const DFRONet &myNet;
 
 };
 

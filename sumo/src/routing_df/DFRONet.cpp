@@ -227,15 +227,6 @@ DFRONet::computeTypes(DFDetectorCon &detcont,
 }
 
 
-std::string
-DFRONet::buildRouteID(const DFRORouteDesc &desc) const
-{
-    ROEdge *first = *(desc.edges2Pass.begin());
-    ROEdge *last = *(desc.edges2Pass.end()-1);
-    return first->getID() + "_to_" + last->getID();
-}
-
-
 bool
 DFRONet::hasInBetweenDetectorsOnly(ROEdge *edge,
                                    const DFDetectorCon &detectors) const
@@ -274,6 +265,7 @@ DFRONet::hasSourceDetector(ROEdge *edge,
 void
 DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                           bool allEndFollower, bool keepUnfoundEnds,
+                          bool keepShortestOnly,
                           std::vector<ROEdge*> &/*visited*/,
                           const DFDetector &det, DFRORouteCont &into,
                           const DFDetectorCon &detectors,
@@ -303,20 +295,13 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
         }
 
         // do not process an edge twice
-        if (find(seen.begin(), seen.end(), last)!=seen.end()) {
-            /// no: // ... but keep the way to it
-            /*
-            current->routename = buildRouteID(*current);
-            current->factor = 1.;
-            into.addRouteDesc(current);
-            */
+        if (find(seen.begin(), seen.end(), last)!=seen.end() && keepShortestOnly) {
             continue;
         }
         seen.push_back(last);
         // end if the edge has no further connections
         if (!hasApproached(last)) {
             // ok, no further connections to follow
-            current->routename = buildRouteID(*current);
             current->factor = 1.;
             into.addRouteDesc(current);
             continue;
@@ -338,7 +323,6 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                     if (hasSourceDetector(last, detectors)) {
 ///!!!                        //toDiscard.push_back(current);
                     }
-                    current->routename = buildRouteID(*current);
                     current->factor = 1.;
                     into.addRouteDesc(current);
                     continue;
@@ -356,13 +340,6 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
         if (myAmInHighwayMode) {
             // if it's beside the highway...
             if (last->getSpeed()<19.4&&last!=getDetectorEdge(det)) {
-                /*
-                // ... and has a detector which is not in-between (!!!)
-                if(hasDetector(last)&&!hasInBetweenDetectorsOnly(last, detectors)) {
-                	// -> let's add this edge and the following, but not any further
-                	addNextNoFurther = true;
-                }
-                */
                 // ... and has more than one following edge
                 if (myApproachedEdges.find(last)->second.size()>1) {
                     // -> let's add this edge and the following, but not any further
@@ -379,7 +356,6 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 // mark not to process any further
                 MsgHandler::getWarningInstance()->inform("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
-                current->routename = buildRouteID(*current);
                 current->factor = 1.;
                 into.addRouteDesc(current);
                 continue; // !!!
@@ -402,7 +378,6 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 toSolve.push(t);
             } else {
                 if (!hadOne||allEndFollower) {
-                    t->routename = buildRouteID(*t);
 //a                    if(allEndFollower) {
                     t->factor = (SUMOReal) 1. / (SUMOReal) appr.size();
                     /*a                    } else {
@@ -557,7 +532,8 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
 
 void
 DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
-                     bool keepUnfoundEnds, bool includeInBetween) const
+                     bool keepUnfoundEnds, bool includeInBetween,
+                     bool keepShortestOnly) const
 {
     std::vector<std::vector<ROEdge*> > illegals;
     std::vector<ROEdge*> i1;
@@ -620,7 +596,7 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
             continue;
         }
         std::vector<ROEdge*> seen;
-        DFRORouteCont *routes = new DFRORouteCont();
+        DFRORouteCont *routes = new DFRORouteCont(*this);
         doneEdges[e] = routes;
         DFRORouteDesc *rd = new DFRORouteDesc();
         rd->edges2Pass.push_back(e);
@@ -635,7 +611,7 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
 
         std::vector<ROEdge*> visited;
         visited.push_back(e);
-        computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds,
+        computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds, keepShortestOnly,
                          visited, **i, *routes, detcont, seen);
         routes->removeIllegal(illegals);
         (*i)->addRoutes(routes);
@@ -666,7 +642,6 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
                         if (m.getType()==BETWEEN_DETECTOR) {
                             DFRORouteDesc *nrd = new DFRORouteDesc();
                             copy(k, routeend, back_inserter(nrd->edges2Pass));
-                            nrd->routename = buildRouteID(*nrd);
                             nrd->duration_2 = duration;//!!!;
                             nrd->endDetectorEdge = mrd->endDetectorEdge;
                             nrd->lastDetectorEdge = mrd->lastDetectorEdge;
@@ -675,7 +650,7 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
                             nrd->duration2Last = mrd->duration2Last;
                             nrd->overallProb = mrd->overallProb;
                             nrd->factor = mrd->factor;
-                            ((DFDetector&) m).addRoute(nrd);
+                            ((DFDetector&) m).addRoute(*this, nrd);
                         }
                     }
                     duration -= (*k)->getLength()/(*k)->getSpeed();
@@ -1295,6 +1270,23 @@ DFRONet::buildDetectorDependencies(DFDetectorCon &detectors)
         }
     }
 }
+
+
+void
+DFRONet::computeID4Route(DFRORouteDesc &desc) const
+{
+    ROEdge *first = *(desc.edges2Pass.begin());
+    ROEdge *last = *(desc.edges2Pass.end()-1);
+    pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
+    desc.routename = first->getID() + "_to_" + last->getID();
+    if(myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
+        myConnectionOccurences[c] = 0;
+    } else {
+        myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
+        desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
+    }
+}
+
 
 #ifdef HAVE_MESOSIM
 void

@@ -253,11 +253,6 @@ readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
 }
 
 
-
-
-/**
- * Computes the routes saving them
- */
 void
 startComputation(DFRONet *optNet, OptionsCont &oc)
 {
@@ -289,7 +284,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
             optNet->buildRoutes(*detectors,
                                 oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"),
-                                oc.getBool("routes-for-all"));
+                                oc.getBool("routes-for-all"), !oc.getBool("keep-longer-routes"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }

@@ -2,7 +2,7 @@
 /// @file    DFDetector.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id$
+/// @version $Id: $
 ///
 // Class representing a detector within the DFROUTER
 /****************************************************************************/
@@ -564,10 +564,10 @@ DFDetector::addRoutes(DFRORouteCont *routes)
 
 
 void
-DFDetector::addRoute(DFRORouteDesc *nrd)
+DFDetector::addRoute(const DFRONet &net, DFRORouteDesc *nrd)
 {
     if (myRoutes==0) {
-        myRoutes = new DFRORouteCont();
+        myRoutes = new DFRORouteCont(net);
     }
     myRoutes->addRouteDesc(nrd);
 }
@@ -845,6 +845,29 @@ DFDetectorCon::writeEmitters(const std::string &file,
     strm << "</additional>" << endl;
 }
 
+/*
+void
+DFDetectorCon::writeVehicles(const std::string &file,
+                             const DFDetectorFlows &flows,
+                             SUMOTime startTime, SUMOTime endTime,
+                             SUMOTime stepOffset, bool writeCalibrators)
+{
+    ofstream strm(file.c_str());
+    if (!strm.good()) {
+        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
+        throw ProcessError();
+    }
+    strm << "<routes>" << endl;
+    for(SUMOTime t=startTime; t<endTime; t++) {
+        for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+            DFDetector *det = *i;
+            det->writeVehicles(defFileName, *this, flows, t);
+            strm << endl;
+        }
+    }
+    strm << "</routes>" << endl;
+}
+*/
 
 void
 DFDetectorCon::writeEmitterPOIs(const std::string &file,

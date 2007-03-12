@@ -51,6 +51,7 @@ class DFRORouteCont;
 class DFDetectorFlows;
 class ROEdge;
 class DFDetectorCon;
+class DFRONet;
 struct DFRORouteDesc;
 
 
@@ -107,7 +108,7 @@ public:
     bool writeEmitterDefinition(const std::string &file,
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset) const;
-    void addRoute(DFRORouteDesc *nrd);
+    void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
     void addRoutes(DFRORouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,

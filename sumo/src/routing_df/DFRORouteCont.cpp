@@ -38,6 +38,7 @@
 #include <cassert>
 #include "DFRORouteDesc.h"
 #include "DFRORouteCont.h"
+#include "DFRONet.h"
 #include <router/ROEdge.h>
 
 
@@ -50,7 +51,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFRORouteCont::DFRORouteCont()
+DFRORouteCont::DFRORouteCont(const DFRONet &net)
+    : myNet(net)
 {}
 
 /*
@@ -83,17 +85,12 @@ DFRORouteCont::~DFRORouteCont()
 void
 DFRORouteCont::addRouteDesc(DFRORouteDesc *desc)
 {
-    /*
-       ROEdge *start = desc.edges2Pass[0];
-       if(myRoutes.find(start)==myRoutes.end()) {
-           myRoutes[start] = std::vector<DFRORouteDesc>();
-       }
-    */
     // routes may be duplicate as in-between routes may have different starting points
-    if (find_if(myRoutes.begin(), myRoutes.end(), route_by_id_finder(*desc))==myRoutes.end()) {
+    if (find_if(myRoutes.begin(), myRoutes.end(), route_finder(*desc))==myRoutes.end()) {
+        myNet.computeID4Route(*desc);
         myRoutes.push_back(desc);
     } else {
-        DFRORouteDesc *prev = *find_if(myRoutes.begin(), myRoutes.end(), route_by_id_finder(*desc));
+        DFRORouteDesc *prev = *find_if(myRoutes.begin(), myRoutes.end(), route_finder(*desc));
         prev->overallProb += desc->overallProb;
     }
 }

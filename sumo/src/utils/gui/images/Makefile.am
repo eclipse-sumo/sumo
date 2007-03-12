@@ -19,7 +19,7 @@ pl_1.xpm pl_2.xpm pl_3.xpm play.xpm pr_1.xpm pr_2.xpm pr_3.xpm \
 rarify.xpm \
 recenter_view.xpm reload.xpm \
 rubber1x.xpm rubber2x.xpm rubber3x.xpm rubber4x.xpm rubber5x.xpm \
-show_geometry.xpm show_grid.xpm show_legend.xpm show_tooltips.xpm \
+show_geometry.xpm show_grid.xpm show_tooltips.xpm \
 skeletonize.xpm \
 step.xpm stop.xpm view1.xpm view2.xpm view3.xpm \
 windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \

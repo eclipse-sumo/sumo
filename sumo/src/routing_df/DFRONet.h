@@ -67,7 +67,8 @@ public:
     void computeTypes(DFDetectorCon &dets,
                       bool sourcesStrict) const;
     void buildRoutes(DFDetectorCon &det, bool allEndFollower,
-                     bool keepUnfoundEnds, bool includeInBetween) const;
+                     bool keepUnfoundEnds, bool includeInBetween,
+                     bool keepShortestOnly) const;
     SUMOReal getAbsPos(const DFDetector &det) const;
 
     void buildEdgeFlowMap(const DFDetectorFlows &flows,
@@ -89,7 +90,7 @@ public:
 #ifdef HAVE_MESOSIM
     void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
 #endif
-
+    void computeID4Route(DFRORouteDesc &desc) const;
 
 
 protected:
@@ -114,6 +115,7 @@ protected:
 
     void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
                           bool allEndFollower, bool keepUnfoundEnds,
+                          bool keepShortestOnly,
                           std::vector<ROEdge*> &visited, const DFDetector &det,
                           DFRORouteCont &into, const DFDetectorCon &detectors,
                           std::vector<ROEdge*> &seen) const;
@@ -123,8 +125,6 @@ protected:
     bool hasApproaching(ROEdge *edge) const;
     bool hasApproached(ROEdge *edge) const;
     bool hasDetector(ROEdge *edge) const;
-
-    std::string buildRouteID(const DFRORouteDesc &desc) const;
 
     bool hasInBetweenDetectorsOnly(ROEdge *edge,
                                    const DFDetectorCon &detectors) const;
@@ -167,6 +167,7 @@ private:
 
     mutable std::map<ROEdge*, std::vector<std::string> > myDetectorsOnEdges;
     mutable std::map<std::string, ROEdge*> myDetectorEdges;
+    mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
 
     /*
     	// edge->mapped edge

@@ -160,6 +160,10 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("keep-unfound-ends", new Option_Bool(false));
     oc.addDescription("keep-unfound-ends", "Processing", "Keeps routes ending at no sinks");
 
+    oc.doRegister("keep-longer-routes", new Option_Bool(false));
+    oc.addDescription("keep-longer-routes", "Processing", "Keeps routes even if a shorter one exists");
+
+
     // flow reading
     oc.doRegister("fast-flows", new Option_Bool(false));
     oc.addDescription("fast-flows", "Processing", "Assumes flows to be stored in a less complex format");
