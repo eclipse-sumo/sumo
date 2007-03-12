@@ -3,5 +3,5 @@ batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
 batch_recipients:behrisch@informatik.hu-berlin.de,daniel.krajzewicz@dlr.de
 batch_sender:behrisch@informatik.hu-berlin.de
-smtp_server:mail
+smtp_server:$SMTP_SERVER
 batch_use_collection:true

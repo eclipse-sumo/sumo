@@ -1,9 +1,10 @@
 #!/bin/bash
 #Bash script for the daily test run.
-#Accepts up to three parameters:
+#Accepts up to four parameters:
 #1. Directory for SUMO binaries (defaults to <SUMO_DIST>/src)
 #2. Directory for the batch results
 #3. Directory for the reports (HTML)
+#4. SMTP server used for sending reports
 
 OLDDIR=$PWD
 cd `dirname $0`
@@ -33,6 +34,12 @@ if test x"$3" = x; then
   export SUMO_REPORT=/tmp/sumo_report
 else
   export SUMO_REPORT=$3
+fi
+
+if test x"$4" = x; then
+  export SMTP_SERVER=mail
+else
+  export SMTP_SERVER=$4
 fi
 
 texttest.py -b

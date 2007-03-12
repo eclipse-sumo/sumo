@@ -24,7 +24,9 @@ REPORT_DIR=$PREFIX/${FILEPREFIX}report
 cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
-svn up &> $MAKELOG || (echo "svn up failed" | tee $STATUSLOG; tail -10 $MAKELOG)
+rm -f $STATUSLOG
+touch $STATUSLOG
+svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
 --with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
@@ -40,6 +42,7 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   export PATH=$PREFIX/texttest:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
   tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
+  find $TEXTTEST_TMP -name batchreport."*" -execdir echo -n '{} ' \; -execdir head -1 '{}' \; >> $STATUSLOG
   scp -qr $REPORT_DIR $REMOTEDIR
 
   # run examples
