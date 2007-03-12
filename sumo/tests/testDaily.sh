@@ -42,6 +42,6 @@ else
   export SMTP_SERVER=$4
 fi
 
-texttest.py -b
-texttest.py -b -coll
+texttest.py -b `basename $SUMO_REPORT`
+texttest.py -b `basename $SUMO_REPORT` -coll
 

@@ -14,6 +14,9 @@ if test "x$3" = "x"; then
 else
   REMOTEDIR=$3
 fi
+if test "x$4" != "x"; then
+  SMTP_SERVER=$4
+fi
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
@@ -41,8 +44,8 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
-  tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR &> /dev/null
-  find $TEXTTEST_TMP -name batchreport."*" -execdir echo -n '{} ' \; -execdir head -1 '{}' \; >> $STATUSLOG
+  tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR $SMTP_SERVER &> /dev/null
+  find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; >> $STATUSLOG
   scp -qr $REPORT_DIR $REMOTEDIR
 
   # run examples
