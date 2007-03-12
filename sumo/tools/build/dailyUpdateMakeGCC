@@ -37,6 +37,7 @@ make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STA
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG)
 make install >> $MAKELOG 2>&1 || (echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+echo `grep -c warning $MAKELOG` warnings >> $STATUSLOG
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz $REMOTEDIR
 
@@ -45,7 +46,7 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   export PATH=$PREFIX/texttest:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
   tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR $SMTP_SERVER &> /dev/null
-  find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; >> $STATUSLOG
+  find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
   scp -qr $REPORT_DIR $REMOTEDIR
 
   # run examples
@@ -59,8 +60,9 @@ export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 #--with-xmlrpc=$PREFIX/xmlrpc++0.7
 ./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
 --with-proj-gdal=$PREFIX --enable-double-precision \
---enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG
+--enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG)
+echo `grep -c warning $MAKEALLLOG` warnings >> $STATUSLOG
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR
 scp -q $STATUSLOG $REMOTEDIR
