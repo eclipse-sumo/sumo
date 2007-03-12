@@ -71,10 +71,10 @@ AttributesHandler::AttributesHandler(Attr *attrs, int noAttrs)
 AttributesHandler::~AttributesHandler()
 {
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
-        delete(*i1).second;
+        delete[] (*i1).second;
     }
     for (StrAttrMap::iterator i2=myStrTags.begin(); i2!=myStrTags.end(); i2++) {
-        delete(*i2).second;
+        delete[] (*i2).second;
     }
 }
 
