@@ -11,6 +11,9 @@ extended
 # tests for the traffic lights subsystem
 tls
 
+# tests for vehicle type handling
+vtypes
+
 # traffic online checks
 traffic_online
 
