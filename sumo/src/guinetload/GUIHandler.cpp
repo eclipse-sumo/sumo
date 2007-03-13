@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The XML-Handler for building networks within the gui-version derived
+// The XML-Handler for building networks within the gui-version
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -137,13 +137,14 @@ GUIHandler::addVehicleType(const Attributes &attrs)
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
             addParsedVehicleType(id,
-                                 getFloat(attrs, SUMO_ATTR_LENGTH),
-                                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
-                                 getFloat(attrs, SUMO_ATTR_ACCEL),
-                                 getFloat(attrs, SUMO_ATTR_DECEL),
-                                 getFloat(attrs, SUMO_ATTR_SIGMA),
+                                 getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
+                                 getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
+                                 getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
+                                 getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
+                                 getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
-                                 col);
+                                 col,
+                                 getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -162,11 +163,11 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                  const SUMOReal maxspeed, const SUMOReal bmax,
                                  const SUMOReal dmax, const SUMOReal sigma,
                                  SUMOVehicleClass vclass,
-                                 const RGBColor &c)
+                                 const RGBColor &c, SUMOReal prob)
 {
     GUIVehicleType *vtype =
         new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, vclass);
-    if (!MSVehicleType::dictionary(id, vtype)) {
+    if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
         delete vtype;
         if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);

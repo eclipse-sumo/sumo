@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The XML-Handler for building networks within the gui-version derived
+// The XML-Handler for building networks within the gui-version
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -51,6 +51,9 @@ class NLContainer;
 // class definitions
 // ===========================================================================
 /**
+ * @class GUIHandler
+ * @brief The XML-Handler for building networks within the gui-version
+ *
  * This SAX-Handler overrides some methods of the NLHandler, the original
  * network description handler in order to be used together with a GUIContainer
  * and allow instantiations of gui versions of the microsimulation artifacts
@@ -86,18 +89,21 @@ protected:
     virtual void addParsedVehicleType(const std::string &id,
                                       const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
                                       const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
-                                      const RGBColor &c);
+                                      const RGBColor &c, SUMOReal prob);
 
+    /// Ends route processing
     void closeRoute();
+
+    /// Starts route processing
     void openRoute(const Attributes &attrs);
 
 private:
+    /// parses the shape of a junction
     void addJunctionShape(const std::string &chars);
 
-
 private:
+    /// The currently parsed route's color
     RGBColor myColor;
-
 
 private:
     /** invalid copy constructor */
