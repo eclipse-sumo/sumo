@@ -249,30 +249,8 @@ public:
     //@}
 
 
-    //@{ access functions to the vehicle type dictionary
-    /** Inserts a MSVehicleType into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
-    static bool dictionary(std::string id, MSVehicleType* edge);
-
-    /** Returns the MSVehicleType associated to the key id if exists,
-        otherwise returns 0. */
-    static MSVehicleType* dictionary(std::string id);
-
-    static MSVehicleType* dict_Random();
-
-    /** Clears the dictionary */
-    static void clear();
-
-    /// Saves the states of all vehicles
-    static void dict_saveState(std::ostream &os, long what);
-
     /// Saves the states of a vehicle
     void saveState(std::ostream &os, long what);
-
-    /// Loads vehicle state
-    static void dict_loadState(BinaryInputDevice &bis, long what);
-    //@}
 
     SUMOVehicleClass getVehicleClass() const
     {
@@ -333,15 +311,6 @@ private:
     /// Maximum length of all vehicle-types.
     static SUMOReal myMaxLength;
     //@}
-
-
-    //@{ the static dictionary
-    /// Definition of the type of the static dictionary to associate string-ids with objects.
-    typedef std::map< std::string, MSVehicleType* > DictType;
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
-    //@}
-
 
     /// Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);

@@ -40,6 +40,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/helpers/RandomDistributor.h>
 
 
 // ===========================================================================
@@ -132,6 +133,11 @@ public:
     constVehIt loadedVehBegin() const;
     constVehIt loadedVehEnd() const;
 
+    MSVehicleType *getRandomVType() const;
+    bool addVType(MSVehicleType* vehType, SUMOReal prob);
+    MSVehicleType *getVType(const std::string &id);
+
+
 private:
     void deleteVehicle(const std::string &id);
 
@@ -159,6 +165,13 @@ protected:
 
     /// Dictionary of vehicles
     VehicleDictType myVehicleDict;
+
+    typedef std::map< std::string, MSVehicleType* > VehTypeDictType;
+    VehTypeDictType myVTypeDict;
+
+    RandomDistributor<MSVehicleType*> myVehicleTypeDistribution;
+
+    bool myHaveDefaultVTypeOnly;
 
 };
 

@@ -86,6 +86,7 @@ class BinaryInputDevice;
 class MSRouteLoader;
 class MSBuildCells;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -178,18 +179,6 @@ public:
 
     /// compute the distance between equipped vehicle
     void computeCar2Car(void);
-
-    /** @brief Inserts a MSNet into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false. */
-    static bool dictionary(std::string id, MSNet* net);
-
-    /** @brief Returns the MSNet associated to the key id if exists,
-        otherwise returns 0. */
-    static MSNet* dictionary(std::string id);
-
-    /** Clears the dictionary */
-    static void clear();
 
     /** Clears all dictionaries */
     static void clearAll();
@@ -391,7 +380,7 @@ protected:
 
     /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;
-    MSPersonControl *myPersonControl;
+    mutable MSPersonControl *myPersonControl;
     MSDetectorControl *myDetectorControl;
     MSTriggerControl *myTriggerControl;
     MSEventControl myBeginOfTimestepEvents;

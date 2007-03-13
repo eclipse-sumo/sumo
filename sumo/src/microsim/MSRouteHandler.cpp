@@ -205,12 +205,13 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
             addParsedVehicleType(id,
-                                 getFloat(attrs, SUMO_ATTR_LENGTH),
-                                 getFloat(attrs, SUMO_ATTR_MAXSPEED),
-                                 getFloat(attrs, SUMO_ATTR_ACCEL),
-                                 getFloat(attrs, SUMO_ATTR_DECEL),
-                                 getFloat(attrs, SUMO_ATTR_SIGMA),
-                                 parseVehicleClass(*this, attrs, "vehicle", id));
+                                 getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
+                                 getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
+                                 getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
+                                 getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
+                                 getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                 parseVehicleClass(*this, attrs, "vehicle", id),
+                                 getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
@@ -228,10 +229,10 @@ void
 MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                      const SUMOReal maxspeed, const SUMOReal bmax,
                                      const SUMOReal dmax, const SUMOReal sigma,
-                                     SUMOVehicleClass vclass)
+                                     SUMOVehicleClass vclass, SUMOReal prob)
 {
     MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, vclass);
-    if (!MSVehicleType::dictionary(id, vtype)) {
+    if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
         delete vtype;
         if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
@@ -364,10 +365,16 @@ MSRouteHandler::closeVehicle()
 {
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle's type
-    MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
-    if (vtype==0) {
-        MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
-        throw ProcessError();
+    MSVehicleType *vtype = 0;
+    if(myCurrentVType!="") {
+        vtype = MSNet::getInstance()->getVehicleControl().getVType(myCurrentVType);
+        if (vtype==0) {
+            MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+            throw ProcessError();
+        }
+    } else {
+        // there should be one (at least the default one)
+        vtype = MSNet::getInstance()->getVehicleControl().getRandomVType();
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle
@@ -440,7 +447,6 @@ MSRouteHandler::closeVehicle()
     myLastDepart = myCurrentDepart;
     myCurrentEmbeddedRoute = 0;
 }
-
 
 
 /****************************************************************************/

@@ -55,7 +55,6 @@ using namespace std;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-MSVehicleType::DictType MSVehicleType::myDict;
 SUMOReal MSVehicleType::myMinDecel  = 0;
 SUMOReal MSVehicleType::myMaxLength = 0;
 
@@ -89,72 +88,10 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
 }
 
 
-bool
-MSVehicleType::dictionary(string id, MSVehicleType* vehType)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, vehType));
-        return true;
-    }
-    return false;
-}
-
-
-MSVehicleType*
-MSVehicleType::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-void
-MSVehicleType::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete(*i).second;
-    }
-    myDict.clear();
-}
-
-
-MSVehicleType*
-MSVehicleType::dict_Random()
-{
-    assert(myDict.size()!=0);
-    size_t r = (size_t) (randSUMO() * myDict.size());
-    if (r>=myDict.size()) {
-        r = myDict.size() - 1;
-    }
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++, r-=1) {
-        if (r==0) {
-            return (*i).second;
-        }
-    }
-    return myDict.begin()->second;
-}
-
-
 const std::string &
 MSVehicleType::getID() const
 {
     return myID;
-}
-
-
-void
-MSVehicleType::dict_saveState(std::ostream &os, long what)
-{
-    FileHelpers::writeUInt(os, myDict.size());
-    for (DictType::iterator it=myDict.begin(); it!=myDict.end(); ++it) {
-        (*it).second->saveState(os, what);
-    }
 }
 
 
@@ -169,29 +106,6 @@ MSVehicleType::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeFloat(os, myDawdle);
     FileHelpers::writeInt(os, (int) myVehicleClass);
 }
-
-
-void
-MSVehicleType::dict_loadState(BinaryInputDevice &bis, long /*what*/)
-{
-    unsigned int size;
-    bis >> size;
-    while (size-->0) {
-        string id;
-        SUMOReal length, maxSpeed, accel, decel, dawdle;
-        int vclass;
-        bis >> id;
-        bis >> length;
-        bis >> maxSpeed;
-        bis >> accel;
-        bis >> decel;
-        bis >> dawdle;
-        bis >> vclass;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, (SUMOVehicleClass) vclass);
-        dictionary(id, t);
-    }
-}
-
 
 
 /****************************************************************************/

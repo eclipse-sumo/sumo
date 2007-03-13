@@ -664,7 +664,7 @@ MSNet::clearAll()
     MSJunctionControl::clear();
     MSJunctionLogic::clear();
     MSLane::clear();
-    MSVehicleType::clear();
+//    MSVehicleType::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
 }

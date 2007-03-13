@@ -57,7 +57,9 @@ class RGBColor;
 // class definitions
 // ===========================================================================
 /**
- * MSRouteHandler
+ * @class MSRouteHandler
+ * @brief Parser and container for routes during their loading
+ * 
  * MSRouteHandler is the container for routes while they are build until
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
@@ -86,8 +88,10 @@ public:
         b) another route with the same id already exists */
     virtual void closeRoute();
 
+    /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;
 
+    /// Returns the last loaded vehicle
     MSVehicle *retrieveLastReadVehicle();
 
 protected:
@@ -110,17 +114,8 @@ protected:
     virtual void addParsedVehicleType(const std::string &id,
                                       const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
                                       const SUMOReal dmax, const SUMOReal sigma,
-                                      SUMOVehicleClass vclass);
+                                      SUMOVehicleClass vclass, SUMOReal prob);
 
-
-    /* parses an occured vehicle definition */
-    //void openVehicle(const Attributes &attrs);
-
-    /** adds the parsed vehicle /
-    MSVehicle *addParsedVehicle(const std::string &id,
-        const std::string &vtypeid, const std::string &routeid,
-        const long &depart, int repNumber, int repOffset, RGBColor &c);
-    */
 
     /** opens a route for reading */
     virtual void openRoute(const Attributes &attrs);
@@ -129,10 +124,11 @@ protected:
     void addRouteElements(const std::string &name,
                           const std::string &chars);
 
+    /// Ends the processing of a vehicle
     void closeVehicle();
 
-
 protected:
+    /// The vehicle control to use for vehicle building
     MSVehicleControl &myVehicleControl;
 
     /// the emission time of the vehicle read last

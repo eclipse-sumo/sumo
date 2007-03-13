@@ -4,7 +4,7 @@
 /// @date    Thu, 17. Jun 2004
 /// @version $Id$
 ///
-// Parser and container for routes during their loading
+// Parser and container for routes during their loading (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,6 +46,7 @@
 // ===========================================================================
 /**
  * @class GUIRouteHandler
+ * @brief Parser and container for routes during their loading (gui-version)
  */
 class GUIRouteHandler : public MSRouteHandler
 {
@@ -65,12 +66,16 @@ protected:
     virtual void addParsedVehicleType(const std::string &id,
                                       const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
                                       const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
-                                      const RGBColor &c);
+                                      const RGBColor &c, SUMOReal prob);
 
+    /// Ends route processing
     void closeRoute();
+
+    /// Starts route processing
     void openRoute(const Attributes &attrs);
 
 private:
+    /// The currently parsed route's color
     RGBColor myColor;
 
 private:

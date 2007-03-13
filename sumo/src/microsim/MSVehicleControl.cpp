@@ -68,8 +68,13 @@ using namespace std;
 // ===========================================================================
 MSVehicleControl::MSVehicleControl()
         : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
-        myAbsVehWaitingTime(0), myAbsVehTravelTime(0)
-{}
+        myAbsVehWaitingTime(0), myAbsVehTravelTime(0), myHaveDefaultVTypeOnly(true)
+{
+    // add a default vehicle type (probability to choose=1)
+    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, SVC_UNKNOWN), 1.);
+    // mark that we have a default only
+    myHaveDefaultVTypeOnly = true;
+}
 
 
 MSVehicleControl::~MSVehicleControl()
@@ -227,9 +232,15 @@ MSVehicleControl::saveState(std::ostream &os, long what)
 
     FileHelpers::writeInt(os, myAbsVehWaitingTime);
     FileHelpers::writeInt(os, myAbsVehTravelTime);
-    MSVehicleType::dict_saveState(os, what);
+    // save vehicle types
+    {
+        FileHelpers::writeUInt(os, myVTypeDict.size());
+        for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
+            (*it).second->saveState(os, what);
+        }
+    }
     MSRoute::dict_saveState(os, what);
-    //MSVehicle::dict_saveState(os, what);
+    // save vehicles
     {
         FileHelpers::writeUInt(os, myVehicleDict.size());
         for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
@@ -254,7 +265,25 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
 
 //    long t;
     //os >> t;
-    MSVehicleType::dict_loadState(bis, what);
+    // load vehicle types
+    {
+        unsigned int size;
+        bis >> size;
+        while (size-->0) {
+            string id;
+            SUMOReal length, maxSpeed, accel, decel, dawdle;
+            int vclass;
+            bis >> id;
+            bis >> length;
+            bis >> maxSpeed;
+            bis >> accel;
+            bis >> decel;
+            bis >> dawdle;
+            bis >> vclass;
+            MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, (SUMOVehicleClass) vclass);
+            addVType(t, 1.); // !!!
+        }
+    }
     MSRoute::dict_loadState(bis, what);
     {
         // load vehicles
@@ -297,7 +326,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                 route = MSRoute::dictionary(routeID);
                 route->incReferenceCnt();
                 assert(route!=0);
-                type = MSVehicleType::dictionary(typeID);
+                type = getVType(typeID);
                 assert(type!=0);
                 if (getVehicle(id)!=0) {
                     DEBUG_OUT << "Error: vehicle was already added" << endl;
@@ -404,6 +433,44 @@ MSVehicleControl::loadedVehEnd() const
     return myVehicleDict.end();
 }
 
+
+MSVehicleType *
+MSVehicleControl::getRandomVType() const
+{
+    return myVehicleTypeDistribution.get();
+}
+
+
+bool
+MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob)
+{
+    if(myHaveDefaultVTypeOnly) {
+        myVehicleTypeDistribution.clear();
+        // hmmm - delete the default or not?
+    }
+    myHaveDefaultVTypeOnly = false;
+    const string &id = vehType->getID();
+    VehTypeDictType::iterator it = myVTypeDict.find(id);
+    if (it == myVTypeDict.end()) {
+        // id not in myDict.
+        myVTypeDict[id] = vehType;
+        myVehicleTypeDistribution.add(prob, vehType);
+        return true;
+    }
+    return false;
+}
+
+
+MSVehicleType*
+MSVehicleControl::getVType(const string &id)
+{
+    VehTypeDictType::iterator it = myVTypeDict.find(id);
+    if (it == myVTypeDict.end()) {
+        // id not in myDict.
+        return 0;
+    }
+    return it->second;
+}
 
 
 /****************************************************************************/

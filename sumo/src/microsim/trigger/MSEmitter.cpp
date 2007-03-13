@@ -4,7 +4,7 @@
 /// @date    Thu, 21.07.2005
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// A vehicle emitting device
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -109,7 +109,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
     string aVehicleId = myParent.getID() + "_" + toString(myRunningID++);
     MSVehicleType* aVehType = myVTypeDist.getOverallProb()>0
                               ? myVTypeDist.get()
-                              : MSVehicleType::dict_Random();
+                              : MSNet::getInstance()->getVehicleControl().getRandomVType();
     if (aVehType==0) {
         WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
         WRITE_WARNING("Continuing with next element.");
@@ -178,7 +178,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
             MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vtype-object.");
             return;
         }
-        MSVehicleType *vtype = MSVehicleType::dictionary(id);
+        MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (vtype==0) {
             MsgHandler::getErrorInstance()->inform("Error in description: unknown vtype-object '" + id + "'.");
             return;
@@ -245,13 +245,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
         }
         // check and assign vehicle type
         string emitType = getStringSecure(attrs, "vehtype", "");
-        MSVehicleType* aVehType = MSVehicleType::dictionary(emitType);
+        MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(emitType);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
                 aVehType = myVTypeDist.get();
             }
             if (aVehType==0) {
-                aVehType = MSVehicleType::dict_Random();
+                aVehType = MSNet::getInstance()->getVehicleControl().getRandomVType();
                 if (aVehType==0) {
                     WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
                     WRITE_WARNING("Continuing with next element.");
@@ -441,7 +441,6 @@ MSEmitter::setActiveChild(MSEmitterChild *c)
 {
     myActiveChild = c;
 }
-
 
 
 /****************************************************************************/

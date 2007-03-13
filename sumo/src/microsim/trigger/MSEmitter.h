@@ -4,7 +4,7 @@
 /// @date    Thu, 21.07.2005
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// A vehicle emitting device
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,10 +55,13 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * MSEmitter
- * This trigger reads the next maximum velocity of the lane he is
- * responsible for from a file and sets it.
- * Lanes with variable speeds are so possible.
+ * @class MSEmitter
+ * @brief A vehicle emitting device
+ *
+ * Instances of this class are places at a lane where vehicles are inserted into
+ *  the network. This mechanism can be used in parallel to the standard vehicle
+ *  emission on roads. An emitter is meant to be used to simulate the entry of a
+ *  flow into an area at places where induction loops are located at in reality.
  */
 class MSEmitter : public MSTrigger
 {
@@ -72,41 +75,56 @@ public:
 
 
 public:
+    /**
+     * @class MSEmitterChild
+     * @brief Holder of information about vehicle routes and types
+     *
+     * Classes which realise different schemes to emit vehicles (file-based,
+     *  based on user entries on the gui, etc.) should subclass this class
+     */
     class MSEmitterChild
     {
     public:
+        /// Constructor
         MSEmitterChild(MSEmitter &parent, MSVehicleControl &vc)
                 : myParent(parent), myVehicleControl(vc), myTimeOffset(0)
         { }
 
+        /// Destructor
         virtual ~MSEmitterChild()
         { }
 
+        /// Returns a random route
         MSRoute *getRndRoute() const
         {
             return myRouteDist.get();
         }
 
+        /// Returns a list of all available routes
         const std::vector<MSRoute*> &getAllRoutes() const
         {
             return myRouteDist.getVals();
         }
 
+        /// Returns a random type 
         MSVehicleType *getRndVType() const
         {
             return myVTypeDist.get();
         }
 
+        /// Returns the information whether any route is stored
         bool hasRoutes() const
         {
             return myRouteDist.getOverallProb()!=0;
         }
 
+        /// Returns the information whether any vehicle type is stored
         bool hasVTypes() const
         {
             return myVTypeDist.getOverallProb()!=0;
         }
 
+        /// Returns the time offset till the next vehicle emission for a given flow
         SUMOReal computeOffset(SUMOReal flow) const
         {
             SUMOReal freq = (SUMOReal)(1. / (flow / 3600.));
@@ -122,40 +140,67 @@ public:
             return ret;
         }
 
+        /// Returns the routes probability 
         RandomDistributor<MSRoute*> &getRouteDist()
         {
             return myRouteDist;
         }
 
     protected:
+        /// The emitter this instance is child of
         MSEmitter &myParent;
+
+        /// The vehicle control to use for vehicle building
         MSVehicleControl &myVehicleControl;
+
+        /// The used route probability distribution
         RandomDistributor<MSRoute*> myRouteDist;
+
+        /// The used vehicle type probability distribution
         RandomDistributor<MSVehicleType*> myVTypeDist;
+
+        /// The time offset till next emission
         mutable SUMOReal myTimeOffset;
+
     };
 
 public:
+    /** Called by a MSEmitterChild (given as parameter) this method checks whether
+     * this child is the currently active one and whether a vehicle from this source
+     * can be emitted.
+     * Returns true if the child can continue with the next vehicle, false otherwise */
     bool childCheckEmit(MSEmitterChild *child);
+
+    /// Returns the index of the currently active child
     size_t getActiveChildIndex() const;
+
+    /// Sets the given child as the currently used one
     void setActiveChild(MSEmitterChild *child);
 
 
 protected:
+    /**
+     * @class MSEmitter_FileTriggeredChild
+     * @brief An EmitterChild which uses information from a parsed file
+     */
     class MSEmitter_FileTriggeredChild
                 : public MSTriggeredXMLReader, public MSEmitterChild, public Command
     {
     public:
+        /// Constructor
         MSEmitter_FileTriggeredChild(MSNet &net,
                                      const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
 
+        /// Destructor
         ~MSEmitter_FileTriggeredChild();
 
         /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
         bool processNextEntryReaderTriggered();
 
+        /// Builds a vehicle and tries to emit it
         SUMOTime execute(SUMOTime currentTime);
 
+        /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;
 
     protected:
@@ -173,31 +218,55 @@ protected:
             element ends */
         void myEndElement(int element, const std::string &name);
 
+        /// Informs the child that the end of the processed file has been reached
         void inputEndReached();
 
+        /// Returns the information whether a next valid entry has been reached
+        // !!! seee
         bool nextRead();
 
+        /// Builds a vehicle and schedules it for further processing
         void buildAndScheduleFlowVehicle();
 
     protected:
+        /// Information whether a further vehicle to emit exists
         bool myHaveNext;
+
+        /// The last loaded flow
         SUMOReal myFlow;
+
+        /// Information whether the flow is used
         bool myHaveInitialisedFlow;
+
+        /// A running vehicle id
         int myRunningID;
+
+        /// Information about the simulation time the processing starts at; previous vehicles are discarded
         SUMOTime myBeginTime;
+
     };
 
 public:
+    /// Schedules a vehicle to emit
     void schedule(MSEmitterChild *child, MSVehicle *v, SUMOReal speed);
 
-
 protected:
+    /// The network the emitter is located in
     MSNet &myNet;
-    /** the lane the trigger is responsible for */
+
+    /** the lane the emitter is placed on */
     MSLane *myDestLane;
+
+    /// The position of the emitter at the lane
     SUMOReal myPos;
+
+    /// The file-based child
     MSEmitterChild *myFileBasedEmitter;
+
+    /// A map children->vehicles to emit
     std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> > myToEmit;
+
+    /// The currently active child
     MSEmitterChild *myActiveChild;
 
 };
