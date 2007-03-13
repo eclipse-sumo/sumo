@@ -302,9 +302,7 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
         myTripDurationsOutput->getOStream() << "c2c";
         addSem = true;
     }
-    myTripDurationsOutput->getOStream() << '"';
-    //
-    myTripDurationsOutput->getOStream() << "/>" << endl;
+    myTripDurationsOutput->getOStream() << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>" << endl;
 }
 
 
