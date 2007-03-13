@@ -194,7 +194,6 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     pfSetPosition(0, 0);
     pfSetScale(size);
-    glColor3d(.8, .6, 0);
     SUMOReal w = pfdkGetStringWidth(veh.microsimID().c_str());
     glRotated(180, 0, 1, 0);
     glTranslated(-w/2., 0.4, 0);
@@ -322,6 +321,8 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             */
         }
         if (settings.drawVehicleName) {
+            // compute name colors
+            glColor3f(settings.vehicleNameColor.red(), settings.vehicleNameColor.green(), settings.vehicleNameColor.blue());
             drawAction_drawVehicleName(*veh, settings.vehicleNameSize / scale);
         }
         // removed the gl-id if wished

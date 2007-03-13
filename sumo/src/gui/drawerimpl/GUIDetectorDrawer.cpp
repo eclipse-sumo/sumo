@@ -97,7 +97,6 @@ GUIDetectorDrawer::drawGLDetectors(size_t *which,
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                     pfSetPosition(0, 0);
                     pfSetScale(settings.addNameSize / scale);
-                    glColor3d(0, 0, 1);
                     SUMOReal w = pfdkGetStringWidth(myAdditionals[j+(i<<5)]->microsimID().c_str());
                     glRotated(180, 1, 0, 0);
                     glTranslated(-w/2., 0.4, 0);

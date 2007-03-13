@@ -53,6 +53,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
@@ -101,10 +102,8 @@ const FXchar patterns[]=
 // ===========================================================================
 FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
     {
-        FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,   GUISUMOViewParent::onCmdRecenterView),
-        FXMAPFUNC(SEL_COMMAND,  MID_SHOWLEGEND,     GUISUMOViewParent::onCmdShowLegend),
         FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
-        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
+//        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
@@ -128,8 +127,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXuint opts,
                                      FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
         : GUIGlChildWindow(p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200),
-        myParent(parentWindow), _zoomingFactor(100),
-        _showLegend(true), _allowRotation(false), _chooser(0)
+        myParent(parentWindow), _chooser(0)
 
 {
     myParent->addChild(this, false);
@@ -139,6 +137,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
 void
 GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 {
+    /*
     // Make MDI Window Menu
     setTracking();
     FXVerticalFrame *glcanvasFrame =
@@ -147,16 +146,17 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
                             0,0,0,0,0,0,0,0);
     // build the tool bar
     buildToolBar(glcanvasFrame);
+    */
     switch (view) {
     default:
     case MICROSCOPIC_VIEW:
         if (share!=0) {
             _view =
-                new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
+                new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual(), share);
         } else {
             _view =
-                new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
+                new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual());
         }
         break;
@@ -164,11 +164,11 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
     case EDGE_MESO_VIEW:
         if (share!=0) {
             _view =
-                new GUIViewMesoEdges(glcanvasFrame, *myParent, this,
+                new GUIViewMesoEdges(myContentFrame, *myParent, this,
                                      net, myParent->getGLVisual(), share);
         } else {
             _view =
-                new GUIViewMesoEdges(glcanvasFrame, *myParent, this,
+                new GUIViewMesoEdges(myContentFrame, *myParent, this,
                                      net, myParent->getGLVisual());
         }
         break;
@@ -181,68 +181,14 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 GUISUMOViewParent::~GUISUMOViewParent()
 {
     myParent->removeChild(this);
-    delete myToolBar;
 //    delete myToolBarDrag;
-}
-
-
-void
-GUISUMOViewParent::buildToolBar(FXComposite *c)
-{
-    myToolBar = new FXToolBar(c,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-
-    // build the view settings
-    // recenter view
-    new FXButton(myToolBar,
-                 "\tRecenter View\tRecenter view to the simulated Area.",
-                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW,
-                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    // show legend
-    new MFXCheckableButton(_showLegend,
-                           myToolBar,"\tShow Legend\tToggle whether the Legend shall be shown.",
-                           GUIIconSubSys::getIcon(ICON_SHOWLEGEND), this, MID_SHOWLEGEND,
-                           ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    // make snapshot
-    new FXButton(myToolBar,
-                 "\tMake Snapshot\tMakes a snapshot of the view.",
-                 GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT,
-                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    // allow rotation
-    /*    new MFXCheckableButton(_allowRotation,
-            myToolBar,"\tAllow Rotation\tToggle whether Scene rotation is allowed.",
-            GUIIconSubSys::getIcon(ICON_ALLOWROTATION), this, MID_ALLOWROTATION,
-            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    */
 }
 
 
 void
 GUISUMOViewParent::create()
 {
-    FXMDIChild::create();
-    _view->create();
-    myToolBar->create();
-}
-
-
-long
-GUISUMOViewParent::onCmdRecenterView(FXObject*,FXSelector,void*)
-{
-    _zoomingFactor = 100;
-    _view->recenterView();
-    _view->update();
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdShowLegend(FXObject*sender,FXSelector,void*)
-{
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    _showLegend = button->amChecked();
-    _view->update();
-    return 1;
+    GUIGlChildWindow::create();
 }
 
 
@@ -256,7 +202,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if (!opendialog.execute()) {
+    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
     gCurrentFolder = opendialog.getDirectory().text();
@@ -287,18 +233,11 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
         FXMessageBox::error(this, MBOX_OK, "Saving failed.",
                             msg.c_str());
     }
-    /*
-    // Save the image.
-    FXFileStream stream;
-    stream.open(file.c_str(), FXStreamSave);
-    fxsaveBMP(stream, buf, _view->getWidth(), _view->getHeight());
-    */
     FXFREE(&buf);
-
     return 1;
 }
 
-
+/*
 long
 GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 {
@@ -307,15 +246,14 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
     _allowRotation = button->amChecked();
     return 1;
 }
-
+*/
 
 long
 GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
 {
-    _view->getLocatorPopup(*this)->popdown();
-    _view->getLocatorPopup(*this)->killFocus();
-    _view->getLocatorPopup(*this)->lower();
-    _view->getLocatorPopup(*this)->update();
+    myLocatorPopup->popdown();
+    myLocatorButton->killFocus();
+    myLocatorPopup->update();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_JUNCTION, gIDStorage);
     chooser->create();
@@ -327,6 +265,9 @@ GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 {
+    myLocatorPopup->popdown();
+    myLocatorButton->killFocus();
+    myLocatorPopup->update();
     static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_EDGE, gIDStorage);
@@ -339,6 +280,9 @@ GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 {
+    myLocatorPopup->popdown();
+    myLocatorButton->killFocus();
+    myLocatorPopup->update();
     static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_VEHICLE, gIDStorage);
@@ -351,26 +295,15 @@ GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateAdd(FXObject *sender,FXSelector,void*)
 {
+    myLocatorPopup->popdown();
+    myLocatorButton->killFocus();
+    myLocatorPopup->update();
     static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
         new GUIDialog_GLObjChooser(this, GLO_ADDITIONAL, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
-}
-
-
-SUMOReal
-GUISUMOViewParent::getZoomingFactor() const
-{
-    return _zoomingFactor;
-}
-
-
-void
-GUISUMOViewParent::setZoomingFactor(SUMOReal val)
-{
-    _zoomingFactor = val;
 }
 
 
@@ -381,25 +314,12 @@ GUISUMOViewParent::setView(GUIGlObject *o)
 }
 
 
-bool
-GUISUMOViewParent::showLegend() const
-{
-    return _showLegend;
-}
-
-
-bool
-GUISUMOViewParent::allowRotation() const
-{
-    return _allowRotation;
-}
-
-
 int
 GUISUMOViewParent::getMaxGLWidth() const
 {
     return myParent->getMaxGLWidth();
 }
+
 
 int
 GUISUMOViewParent::getMaxGLHeight() const

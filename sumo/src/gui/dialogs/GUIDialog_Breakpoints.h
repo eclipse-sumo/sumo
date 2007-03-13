@@ -4,7 +4,7 @@
 /// @date    Thu, 17 Jun 2004
 /// @version $Id$
 ///
-//
+// Editor for simulation breakpoints
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -54,9 +54,10 @@ class MFXAddEditTypedTable;
 // ===========================================================================
 /**
  * @class GUIDialog_Breakpoints
- * Instances of this class are windows that display the list of instances
- * from a given artifact like vehicles, edges or junctions and allow
- * one of their items
+ * @brief Editor for simulation breakpoints
+ *
+ * This dialog shows and lets the user edit the list of breakpoint - simulation
+ *  time steps where the simulation halts.
  */
 class GUIDialog_Breakpoints : public FXMainWindow
 {
@@ -69,18 +70,30 @@ public:
     /// destructor
     ~GUIDialog_Breakpoints();
 
-    FXbool close(FXbool notify=FALSE);
-
+    /// Called when the user presses the Load-button
     long onCmdLoad(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Save-button
     long onCmdSave(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Deselect-button
     long onCmdDeselect(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Clear-button
     long onCmdClear(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Close-button
     long onCmdClose(FXObject*,FXSelector,void*);
+
+    /// Called when the table was changed
     long onCmdEditTable(FXObject*,FXSelector,void*);
 //    long onUpdSave(FXObject*,FXSelector,void*);
 
 private:
+    /// Rebuilds the entire list
     void rebuildList();
+
+    /// Builds a text representation of the items in the list
     std::string encode2TXT();
 
 private:
@@ -91,6 +104,7 @@ private:
     GUIMainWindow *myParent;
 
 protected:
+    /// FOX needs this
     GUIDialog_Breakpoints()
     { }
 

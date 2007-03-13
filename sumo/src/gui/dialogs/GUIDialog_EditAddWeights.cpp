@@ -4,7 +4,7 @@
 /// @date    Mon, 16 Jun 2004
 /// @version $Id$
 ///
-//
+// A dialog for editing additional weights
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,6 +45,7 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <guisim/GUINet.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include "GUIDialog_EditAddWeights.h"
@@ -281,13 +282,14 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
-        string file = opendialog.getFilename().text();
-        string content = encode2XML();
-        ofstream strm(file.c_str());
-        strm << content;
+    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
     }
+    gCurrentFolder = opendialog.getDirectory().text();
+    string file = opendialog.getFilename().text();
+    string content = encode2XML();
+    ofstream strm(file.c_str());
+    strm << content;
     return 1;
 }
 
@@ -477,13 +479,6 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         rebuildList();
     }
     return 1;
-}
-
-
-FXbool
-GUIDialog_EditAddWeights::close(FXbool notify)
-{
-    return FXMainWindow::close(notify);
 }
 
 

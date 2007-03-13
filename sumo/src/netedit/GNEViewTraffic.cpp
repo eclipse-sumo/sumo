@@ -146,7 +146,7 @@ GNEViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 {
     GUIViewTraffic::buildViewToolBars(v);
 
-    FXToolBar &toolbar = v.getToolBar(*this);
+    FXToolBar &toolbar = v.getNavigationToolBar(*this);
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 

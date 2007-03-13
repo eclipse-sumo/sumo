@@ -104,6 +104,8 @@ private:
     std::vector<GUISUMOAbstractView::Decal> *myDecals;
     MFXMutex *myDecalsLock;
     FXComboBox *mySchemeName;
+    FXCheckButton *myShowGrid;
+    FXRealSpinDial *myGridXSizeDialer, *myGridYSizeDialer;
 
     FXColorWell *myBackgroundColor;
     FXVerticalFrame *myDecalsFrame;
@@ -114,6 +116,7 @@ private:
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
     FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName;
     FXRealSpinDial *myEdgeNameSizeDialer;
+    FXColorWell *myEdgeNameColor;
 
     FXComboBox *myVehicleColorMode;
     FXVerticalFrame *myVehicleColorSettingFrame;
@@ -121,21 +124,25 @@ private:
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton *myShowBlinker, *myShowC2CRadius, *myShowLaneChangePreference, *myShowVehicleName;
     FXRealSpinDial *myVehicleNameSizeDialer;
+    FXColorWell *myVehicleNameColor;
 
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
     FXCheckButton *myShowJunctionName;
     FXRealSpinDial *myJunctionNameSizeDialer;
+    FXColorWell *myJunctionNameColor;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer, *myAddNameSizeDialer;
     FXCheckButton *myShowAddName;
+    //FXColorWell *myDetectorNameColor;
 
     FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer, *myPOINameSizeDialer;
     FXCheckButton *myShowPOIName;
+    FXColorWell *myPOINameColor;
 
     FXCheckButton *myShowLane2Lane;
     FXCheckButton *myAntialiase;
     FXCheckButton *myDither;
-
+    FXCheckButton *myShowSizeLegend;
 
     GUISUMOAbstractView::VisualizationSettings myBackup;
 

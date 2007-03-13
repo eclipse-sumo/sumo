@@ -42,6 +42,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <guisim/GUINet.h>
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -184,11 +185,12 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
-        string file = opendialog.getFilename().text();
-        gSelected.save(-1, file);
+    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
     }
+    gCurrentFolder = opendialog.getDirectory().text();
+    string file = opendialog.getFilename().text();
+    gSelected.save(-1, file);
     return 1;
 }
 

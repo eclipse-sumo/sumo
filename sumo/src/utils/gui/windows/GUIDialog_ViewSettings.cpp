@@ -107,48 +107,79 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
     mySchemeName->setNumVisible(5);
     //
     FXTabBook *tabbook =
-        new FXTabBook(contentFrame,0,0,PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
+        new FXTabBook(contentFrame,0,0,TABBOOK_LEFTTABS|PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
     {
         // tab for the background
-        FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL);
+        FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame1 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
-        FXMatrix *m1 =
+        FXMatrix *m11 =
             new FXMatrix(frame1,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
-        new FXLabel(m1, "Color", 0, LAYOUT_CENTER_Y);
-        myBackgroundColor = new FXColorWell(m1, convert(settings->backgroundColor),
+        new FXLabel(m11, "Color", 0, LAYOUT_CENTER_Y);
+        myBackgroundColor = new FXColorWell(m11, convert(settings->backgroundColor),
                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                             0, 0, 100, 0,   0, 0, 0, 0);
 
         new FXHorizontalSeparator(frame1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-        new FXLabel(frame1, "Decals:");
-        myDecalsFrame = new FXVerticalFrame(frame1);
+        FXVerticalFrame *frame11 =
+            new FXVerticalFrame(frame1,LAYOUT_FILL_Y, 0,0,0,0, 10,10,10,10, 5,5);
+        new FXLabel(frame11, "Decals:");
+        myDecalsFrame = new FXVerticalFrame(frame11);
+
+        new FXHorizontalSeparator(frame1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
+        FXMatrix *m12 =
+            new FXMatrix(frame1,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        myShowGrid = 
+            new FXCheckButton(m12, "Show grid", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowGrid->setCheck(mySettings->showGrid);
+        new FXLabel(m12, "");
+        FXMatrix *m121 =
+            new FXMatrix(m12,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m121, "x-spacing", 0, LAYOUT_CENTER_Y);
+        myGridXSizeDialer =
+            new FXRealSpinDial(m121, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myGridXSizeDialer->setRange(1, 10000);
+        myGridXSizeDialer->setValue(mySettings->gridXSize);
+        FXMatrix *m122 =
+            new FXMatrix(m12,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m122, "y-spacing", 0, LAYOUT_CENTER_Y);
+        myGridYSizeDialer =
+            new FXRealSpinDial(m122, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myGridYSizeDialer->setRange(1, 10000);
+        myGridYSizeDialer->setValue(mySettings->gridXSize);
     }
     {
         // tab for the streets
-        FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL);
+        FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
-        FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
+        //FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
         FXMatrix *m21 =
-            new FXMatrix(s2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                         0,0,0,0, 10,10,10,10, 5,5);
+            new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,2, 5,5);
         new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         laneEdgeModeSource->fill(*myLaneEdgeColorMode);
         myLaneEdgeColorMode->setNumVisible(10);
+
         myLaneColorSettingFrame =
-            new FXVerticalFrame(s2, LAYOUT_FIX_HEIGHT|LAYOUT_FIX_Y|LAYOUT_FILL_Y,  0,0,  0,0, 10,10,10,10, 5,2);
+            new FXVerticalFrame(frame2, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 
         new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
         FXMatrix *m22 =
-            new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+            new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
         myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowLaneBorders->setCheck(mySettings->laneShowBorders);
@@ -159,23 +190,36 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowRails->setCheck(mySettings->showRails);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
-        myShowEdgeName = new FXCheckButton(m22, "Show edge names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowEdgeName = new FXCheckButton(m22, "Show edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowEdgeName->setCheck(mySettings->drawEdgeName);
+        new FXLabel(m22, "");
+        FXMatrix *m221 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m221, "Size", 0, LAYOUT_CENTER_Y);
         myEdgeNameSizeDialer =
-            new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+            new FXRealSpinDial(m221, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myEdgeNameSizeDialer->setRange(10, 1000);
         myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
+        FXMatrix *m222 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m222, "Color", 0, LAYOUT_CENTER_Y);
+        myEdgeNameColor = new FXColorWell(m222, convert(settings->edgeNameColor),
+                                            this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                            0, 0, 100, 0,   0, 0, 0, 0);
     }
     {
         if (myVehicleColoringInfoSource!=0) {
-            FXTabItem *tab3 = new FXTabItem(tabbook,"Vehicles",NULL);
+            FXTabItem *tab3 = new FXTabItem(tabbook,"Vehicles",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
             FXVerticalFrame *frame3 =
                 new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
             FXMatrix *m31 =
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,10, 5,5);
+                             0,0,0,0, 10,10,10,2, 5,5);
             new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
             FXComboBox *c31 = new FXComboBox(m31, 20, 0, 0, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             c31->appendItem("triangles");
@@ -187,16 +231,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
 
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-            FXSplitter *s3 = new FXSplitter(frame3, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,400);
             FXMatrix *m32 =
-                new FXMatrix(s3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,10, 5,5);
+                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                             0,0,0,0, 10,10,10,2, 5,5);
             new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
             myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             myVehicleColoringInfoSource->fill(*myVehicleColorMode);
             myVehicleColorMode->setNumVisible(10);
+
             myVehicleColorSettingFrame =
-                new FXVerticalFrame(s3, 0, 0,0,80,0, 10,10,10,10, 5,2);
+                new FXVerticalFrame(frame3, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -212,13 +256,26 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
             new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
             myShowVehicleName->setCheck(mySettings->drawVehicleName);
+            new FXLabel(m33, "");
+            FXMatrix *m331 =
+                new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                             0,0,0,0, 10,10,0,0, 5,5);
+            new FXLabel(m331, "Size", 0, LAYOUT_CENTER_Y);
             myVehicleNameSizeDialer =
-                new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                   CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
+                new FXRealSpinDial(m331, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                   LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
             myVehicleNameSizeDialer->setRange(10, 1000);
             myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
+            FXMatrix *m332 =
+                new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                             0,0,0,0, 10,10,0,0, 5,5);
+            new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
+            myVehicleNameColor = new FXColorWell(m332, convert(settings->vehicleNameColor),
+                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                0, 0, 100, 0,   0, 0, 0, 0);
             /*
             FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
             tmpc->disable();
@@ -229,23 +286,29 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
             FXMatrix *m34 =
-                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                              0,0,0,0, 10,10,10,10, 5,5);
-            new FXLabel(m34, "Minimum size to show", 0, LAYOUT_CENTER_Y);
+            FXMatrix *m341 =
+                new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                             0,0,0,0, 10,10,0,0, 5,5);
+            new FXLabel(m341, "Minimum size", 0, LAYOUT_CENTER_Y);
             myVehicleMinSizeDialer =
-                new FXRealSpinDial(m34, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                new FXRealSpinDial(m341, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                    LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
             myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
-            new FXLabel(m34, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+            FXMatrix *m342 =
+                new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                             0,0,0,0, 10,10,0,0, 5,5);
+            new FXLabel(m342, "Exaggerate by", 0, LAYOUT_CENTER_Y);
             myVehicleUpscaleDialer =
-                new FXRealSpinDial(m34, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                new FXRealSpinDial(m342, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                    LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
             myVehicleUpscaleDialer->setRange(1, 100);
             myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
         }
     }
     {
-        FXTabItem *tab4 = new FXTabItem(tabbook,"Nodes",NULL);
+        FXTabItem *tab4 = new FXTabItem(tabbook,"Nodes",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame4 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -258,86 +321,167 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myShowJunctionIndex = new FXCheckButton(m33, "Show link junction index", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-        myShowJunctionName = new FXCheckButton(m33, "Show junction names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowLane2Lane = new FXCheckButton(m33, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowLane2Lane->setCheck(mySettings->showLane2Lane);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+
+        myShowJunctionName = new FXCheckButton(m33, "Show junction name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowJunctionName->setCheck(mySettings->drawJunctionName);
+        new FXLabel(m33, "");
+        FXMatrix *m331 =
+            new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m331, "Size", 0, LAYOUT_CENTER_Y);
         myJunctionNameSizeDialer =
-            new FXRealSpinDial(m33, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+            new FXRealSpinDial(m331, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
         myJunctionNameSizeDialer->setRange(10, 1000);
         myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
+        FXMatrix *m332 =
+            new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
+        myJunctionNameColor = new FXColorWell(m332, convert(settings->junctionNameColor),
+                            this, MID_SIMPLE_VIEW_COLORCHANGE,
+                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                            0, 0, 100, 0,   0, 0, 0, 0);
     }
     {
-        FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL);
+        FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame5 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
         FXMatrix *m51 =
             new FXMatrix(frame5,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
-        new FXLabel(m51, "Minimum size to show", 0, LAYOUT_CENTER_Y);
-        myDetectorMinSizeDialer =
-            new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
-        new FXLabel(m51, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myDetectorUpscaleDialer =
-            new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myDetectorUpscaleDialer->setRange(1, 100);
-        myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
-        myShowAddName = new FXCheckButton(m51, "Show detector names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowAddName = new FXCheckButton(m51, "Show detector name", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowAddName->setCheck(mySettings->drawAddName);
+        new FXLabel(m51, "");
+        FXMatrix *m511 =
+            new FXMatrix(m51,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m511, "Size", 0, LAYOUT_CENTER_Y);
         myAddNameSizeDialer =
-            new FXRealSpinDial(m51, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+            new FXRealSpinDial(m511, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y);
         myAddNameSizeDialer->setRange(10, 1000);
         myAddNameSizeDialer->setValue(mySettings->addNameSize);
+        FXMatrix *m512 =
+            new FXMatrix(m51,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m512, "");
+        new FXLabel(m512, "");
+
+        new FXHorizontalSeparator(frame5 ,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+
+        FXMatrix *m52 =
+            new FXMatrix(frame5,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        FXMatrix *m521 =
+            new FXMatrix(m52,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m521, "Minimum size", 0, LAYOUT_CENTER_Y);
+        myDetectorMinSizeDialer =
+            new FXRealSpinDial(m521, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        FXMatrix *m522 =
+            new FXMatrix(m52,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
+        new FXLabel(m522, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myDetectorUpscaleDialer =
+            new FXRealSpinDial(m522, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myDetectorUpscaleDialer->setRange(1, 100);
+        myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
+
+        
+        /*
+        new FXLabel(m522, "Color", 0, LAYOUT_CENTER_Y);
+        myDetectorNameColor = new FXColorWell(m522, convert(settings->addNameColor),
+                            this, MID_SIMPLE_VIEW_COLORCHANGE,
+                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                            0, 0, 100, 0,   0, 0, 0, 0);
+                            */
     }
     {
-        FXTabItem *tab6 = new FXTabItem(tabbook,"Further",NULL);
+        FXTabItem *tab6 = new FXTabItem(tabbook,"POIs",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame6 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
         FXMatrix *m61 =
-            new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                         0,0,0,0, 10,10,10,10, 5,5);
-        myShowLane2Lane = new FXCheckButton(m61, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLane2Lane->setCheck(mySettings->showLane2Lane);
-
-        new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
-        FXMatrix *m62 =
-            new FXMatrix(frame6,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                         0,0,0,0, 10,10,10,10, 5,5);
-        myAntialiase = new FXCheckButton(m62, "Antialiase", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myAntialiase->setCheck(mySettings->antialiase);
-        myDither = new FXCheckButton(m62, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myDither->setCheck(mySettings->dither);
-
-        new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
-        new FXLabel(frame6, "points of interest");
-        FXMatrix *m63 =
             new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
-        new FXLabel(m63, "Minimum size to show", 0, LAYOUT_CENTER_Y);
-        myPOIMinSizeDialer =
-            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myPOIMinSizeDialer->setValue(mySettings->minAddSize);
-        new FXLabel(m63, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-        myPOIUpscaleDialer =
-            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myPOIUpscaleDialer->setRange(1, 100);
-        myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
-        myShowPOIName = new FXCheckButton(m63, "Show poi names; Size:", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowPOIName = new FXCheckButton(m61, "Show poi name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowPOIName->setCheck(mySettings->drawPOIName);
+        new FXLabel(m61, "");
+        FXMatrix *m611 =
+            new FXMatrix(m61,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m611, "Size", 0, LAYOUT_CENTER_Y);
         myPOINameSizeDialer =
-            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+            new FXRealSpinDial(m611, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOINameSizeDialer->setRange(10, 1000);
         myPOINameSizeDialer->setValue(mySettings->poiNameSize);
+        FXMatrix *m612 =
+            new FXMatrix(m61,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m612, "Color", 0, LAYOUT_CENTER_Y);
+        myPOINameColor = new FXColorWell(m612, convert(settings->poiNameColor),
+                            this, MID_SIMPLE_VIEW_COLORCHANGE,
+                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                            0, 0, 100, 0,   0, 0, 0, 0);
+
+        new FXHorizontalSeparator(frame6 ,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+    
+        FXMatrix *m62 =
+            new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        FXMatrix *m621 =
+            new FXMatrix(m62,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m621, "Minimum size to show", 0, LAYOUT_CENTER_Y);
+        myPOIMinSizeDialer =
+            new FXRealSpinDial(m621, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        FXMatrix *m622 =
+            new FXMatrix(m62,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        myPOIMinSizeDialer->setValue(mySettings->minAddSize);
+        new FXLabel(m622, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myPOIUpscaleDialer =
+            new FXRealSpinDial(m622, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myPOIUpscaleDialer->setRange(1, 100);
+        myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
+    
+    
+    }
+    {
+        FXTabItem *tab7 = new FXTabItem(tabbook,"Legend",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        FXVerticalFrame *frame7 =
+            new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
+        FXMatrix *m72 =
+            new FXMatrix(frame7,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowSizeLegend->setCheck(mySettings->showSizeLegend);
+        new FXLabel(m72, "");
+    }
+    {
+        FXTabItem *tab8 = new FXTabItem(tabbook,"openGL",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        FXVerticalFrame *frame8 =
+            new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
+        FXMatrix *m82 =
+            new FXMatrix(frame8,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        myAntialiase = new FXCheckButton(m82, "Antialiase", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myAntialiase->setCheck(mySettings->antialiase);
+        myDither = new FXCheckButton(m82, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myDither->setCheck(mySettings->dither);
     }
     FXHorizontalFrame *f2 = new FXHorizontalFrame(contentFrame, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&Use",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
@@ -417,6 +561,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowRails->setCheck(mySettings->showRails);
     myShowEdgeName->setCheck(mySettings->drawEdgeName);
     myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
+    myEdgeNameColor->setRGBA(convert(mySettings->edgeNameColor));
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
@@ -426,25 +571,30 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     myShowVehicleName->setCheck(mySettings->drawVehicleName);
     myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
+    myVehicleNameColor->setRGBA(convert(mySettings->vehicleNameColor));
 
     myShowTLIndex->setCheck(mySettings->drawLinkTLIndex);
     myShowJunctionIndex->setCheck(mySettings->drawLinkJunctionIndex);
     myShowJunctionName->setCheck(mySettings->drawJunctionName);
     myJunctionNameSizeDialer->setValue(mySettings->junctionNameSize);
+    myJunctionNameColor->setRGBA(convert(mySettings->junctionNameColor));
 
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
     myShowAddName->setCheck(mySettings->drawAddName);
     myAddNameSizeDialer->setValue(mySettings->addNameSize);
+    //myDetectorNameColor->setRGBA(convert(mySettings->addNameColor));
 
     myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
     myPOIMinSizeDialer->setValue(mySettings->minPOISize);
     myShowPOIName->setCheck(mySettings->drawPOIName);
     myPOINameSizeDialer->setValue(mySettings->poiNameSize);
+    myPOINameColor->setRGBA(convert(mySettings->poiNameColor));
 
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myAntialiase->setCheck(mySettings->antialiase);
     myDither->setCheck(mySettings->dither);
+    myShowSizeLegend->setCheck(mySettings->showSizeLegend);
 
     // lanes
     switch (myLaneColoringInfoSource->getColorSetType(myBackup.laneEdgeMode)) {
@@ -492,6 +642,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     int prevVehicleMode = mySettings->vehicleMode;
 
     mySettings->backgroundColor = convert(myBackgroundColor->getRGBA());
+    mySettings->showGrid = myShowGrid->getCheck()!=0;
+    mySettings->gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
+    mySettings->gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
     mySettings->laneEdgeMode = myLaneEdgeColorMode->getCurrentItem();
     mySettings->laneShowBorders = myShowLaneBorders->getCheck()!=0;
@@ -499,6 +652,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->showRails = myShowRails->getCheck()!=0;
     mySettings->drawEdgeName = myShowEdgeName->getCheck()!=0;
     mySettings->edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
+    mySettings->edgeNameColor = convert(myEdgeNameColor->getRGBA());
 
     if (myVehicleColoringInfoSource!=0) {
         mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
@@ -509,26 +663,31 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
         mySettings->drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
         mySettings->drawVehicleName = myShowVehicleName->getCheck()!=0;
         mySettings->vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
+        mySettings->vehicleNameColor = convert(myVehicleNameColor->getRGBA());
     }
 
     mySettings->drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
     mySettings->drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
     mySettings->drawJunctionName = myShowJunctionName->getCheck()!=0;
     mySettings->junctionNameSize = (SUMOReal) myJunctionNameSizeDialer->getValue();
+    mySettings->junctionNameColor = convert(myJunctionNameColor->getRGBA());
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
     mySettings->drawAddName = myShowAddName->getCheck()!=0;
     mySettings->addNameSize = (SUMOReal) myAddNameSizeDialer->getValue();
+    //mySettings->addNameColor = convert(myDetectorNameColor->getRGBA());
 
     mySettings->poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
     mySettings->minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
     mySettings->drawPOIName = myShowPOIName->getCheck()!=0;
     mySettings->poiNameSize = (SUMOReal) myPOINameSizeDialer->getValue();
+    mySettings->poiNameColor = convert(myPOINameColor->getRGBA());
 
     mySettings->showLane2Lane = myShowLane2Lane->getCheck()!=0;
     mySettings->antialiase = myAntialiase->getCheck()!=0;
     mySettings->dither = myDither->getCheck()!=0;
+    mySettings->showSizeLegend = myShowSizeLegend->getCheck()!=0;
 
 
     if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
@@ -689,7 +848,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
         FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,2,
                                    LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                   0,0,0,80,10,10,10,10, 5,3);
+                                   0,0,0,80,10,10,0,0, 5,3);
         mySingleLaneColor = 0;
         myMinLaneColor = 0;
         myMaxLaneColor = 0;
@@ -729,7 +888,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             MFXUtils::deleteChildren(myVehicleColorSettingFrame);
             FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,2,
                                        LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                       0,0,0,80,10,10,10,10, 5,3);
+                                       0,0,0,80,10,10,0,0, 5,3);
             mySingleVehicleColor = 0;
             myMinVehicleColor = 0;
             myMaxVehicleColor = 0;

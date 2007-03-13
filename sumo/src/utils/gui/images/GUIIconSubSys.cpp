@@ -62,7 +62,6 @@
 
 #include "colorwheel.xpm"
 #include "recenter_view.xpm"
-#include "show_legend.xpm"
 #include "allow_rotation.xpm"
 /*
 #include "colour_lane.xpm"
@@ -141,7 +140,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_MICROVIEW] = new FXXPMIcon(a, new_window_xpm);
     myIcons[ICON_LAGGRVIEW] = new FXXPMIcon(a, new_window_xpm);
     myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
-    myIcons[ICON_SHOWLEGEND] = new FXXPMIcon(a, show_legend_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
 

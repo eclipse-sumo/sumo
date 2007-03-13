@@ -90,20 +90,6 @@ GUIColoringSchemesMap<GUILaneWrapper> GUIViewTraffic::myLaneColoringSchemes;
 
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[]={
-            FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,   GUIViewTraffic::onCmdChangeColorScheme),
-
-            FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewTraffic::onCmdShowToolTips),
-            FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewTraffic::onCmdShowGrid),
-        };
-
-FXIMPLEMENT(GUIViewTraffic,GUISUMOAbstractView,GUIViewTrafficMap,ARRAYNUMBER(GUIViewTrafficMap))
-
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 GUIViewTraffic::GUIViewTraffic(FXComposite *p,
@@ -164,7 +150,6 @@ GUIViewTraffic::~GUIViewTraffic()
     delete[] _edges2Show;
     delete[] _junctions2Show;
     delete[] _additional2Show;
-    delete myLocatorPopup;
 }
 
 
@@ -172,85 +157,47 @@ void
 GUIViewTraffic::create()
 {
     FXGLCanvas::create();
-    myLocatorPopup->create();
 }
 
 
 void
 GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 {
-    FXToolBar &toolbar = v.getToolBar(*this);
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
     // build coloring tools
     {
-        FXComboBox *myColoringSchemes =
-            new FXComboBox(&toolbar, 12, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         const std::vector<std::string> &names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
-            myColoringSchemes->appendItem((*i).c_str());
+            v.getColoringSchemesCombo().appendItem((*i).c_str());
         }
-        myColoringSchemes->setNumVisible(5);
+        v.getColoringSchemesCombo().setNumVisible(5);
     }
-
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
-
-    // build the locator buttons
-    myLocatorPopup = new FXPopup(&toolbar, POPUP_VERTICAL);
     // for junctions
-    new FXButton(myLocatorPopup,
-                 "\tLocate Junction\tLocate a Junction within the Network.",
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Junction\tLocate a junction within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
     // for edges
-    new FXButton(myLocatorPopup,
-                 "\tLocate Street\tLocate a Street within the Network.",
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Street\tLocate a street within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
     // for vehicles
-    new FXButton(myLocatorPopup,
-                 "\tLocate Vehicle\tLocate a Vehicle within the Network.",
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Vehicle\tLocate a vehicle within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
     // for additional stuff
-    new FXButton(myLocatorPopup,
-                 "\tLocate Additional\tLocate an additional Structure within the Network.",
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Additional\tLocate an additional structure within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
-    new FXMenuButton(&toolbar,"\tLocate structures",
-                     GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
-                     MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
-    // add viewport button
-    new FXButton(&toolbar,
-                 "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
-                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
-                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(&toolbar,
-                 "\tEdit Coloring Schemes...\tOpens a menu which lets you edit the coloring schemes.",
-                 GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEW,
-                 ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
-
-    // add toggle button for grid on/off
-    new MFXCheckableButton(false,
-                           &toolbar,
-                           "\tToggles Net Grid\tToggle whether the Grid shall be visualised.",
-                           GUIIconSubSys::getIcon(ICON_SHOWGRID), this, MID_SHOWGRID,
-                           ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    // add toggle button for tool-tips on/off
-    new MFXCheckableButton(false,
-                           &toolbar,
-                           "\tToggles Tool Tips\tToggle whether Tool Tips shall be shown.",
-                           GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS,
-                           ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 }
 
 
-long
-GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
+void
+GUIViewTraffic::setColorScheme(char* data)
 {
-    char *dataC = (char*) data; // !!! unicode
-    myVisualizationSettings = &gSchemeStorage.get(dataC);
+    myVisualizationSettings = &gSchemeStorage.get(data);
     // lanes
     switch (myLaneColoringSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
     case CST_SINGLE:
@@ -286,7 +233,6 @@ GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
         break;
     }
     update();
-    return 1;
 }
 
 
@@ -572,8 +518,8 @@ GUIViewTraffic::amShowingRouteFor(GUIVehicle *v, int index)
 }
 
 
-long
-GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
+void
+GUIViewTraffic::showViewschemeEditor()
 {
     if (myVisualizationChanger==0) {
         myVisualizationChanger =
@@ -584,7 +530,6 @@ GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
         myVisualizationChanger->create();
     }
     myVisualizationChanger->show();
-    return 1;
 }
 
 

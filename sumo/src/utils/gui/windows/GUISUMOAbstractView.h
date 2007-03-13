@@ -138,7 +138,7 @@ public:
     SUMOReal p2m(SUMOReal pixel);
 
     /// Returns the information whether rotation is allowd
-    bool allowRotation() const;
+//    bool allowRotation() const;
 
     /// Returns the gl-id of the object under the given coordinates
     void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
@@ -160,10 +160,8 @@ public:
     virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onMouseLeft(FXObject*,FXSelector,void*);
-    virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
-    virtual long onCmdEditViewport(FXObject*,FXSelector,void*);
-    virtual long onCmdEditView(FXObject*,FXSelector,void*) = 0;
-    long onCmdShowGrid(FXObject*,FXSelector,void*);
+
+//    long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
     long onKeyPress(FXObject *o,FXSelector sel,void *data);
@@ -184,8 +182,10 @@ public:
     /// paints the area to a buffer
     FXColor *getSnapshot();
 
-    /// Builds the popup-menu containing the location-menu
-    virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
+    void showViewportEditor();
+    virtual void showViewschemeEditor() = 0;
+    void showToolTips(bool val);
+    virtual void setColorScheme(char* data) { }
 
     void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 
@@ -287,10 +287,16 @@ public:
         /// Information whether dithering shall be enabled
         bool dither;
 
+        ///{ background visualization settings
         /// The background color to use
         RGBColor backgroundColor;
         /// Information whether background decals (textures) shall be used
         bool showBackgroundDecals;
+        /// information whether a grid shall be shown
+        bool showGrid;
+        /// Information about the grid spacings
+        SUMOReal gridXSize, gridYSize;
+        ///}
 
         ///{ lane visualization settings
         /// The lane visualization scheme
@@ -310,6 +316,8 @@ public:
         bool drawEdgeName;
         /// The size of the edge name
         float edgeNameSize;
+        /// The color of edge names
+        RGBColor edgeNameColor;
         ///}
 
         ///{ vehicle visualization settings
@@ -331,6 +339,8 @@ public:
         bool drawVehicleName;
         /// The size of the vehicle name
         float vehicleNameSize;
+        /// The color of vehicle names
+        RGBColor vehicleNameColor;
         ///}
 
         ///{ junction visualization settings
@@ -344,6 +354,8 @@ public:
         bool drawJunctionName;
         /// The size of the junction name
         float junctionNameSize;
+        /// The color of junction names
+        RGBColor junctionNameColor;
         ///}
 
         /// Information whether lane-to-lane arrows shall be drawn
@@ -358,8 +370,10 @@ public:
         float addExaggeration;
         /// Information whether the additional's name shall be drawn
         bool drawAddName;
-        /// The size of the additional's name
+        /// The size of the additionals' name
         float addNameSize;
+        // The color of additionals' names
+        //RGBColor addNameColor;
         ///}
 
         ///{ shapes visualization settings
@@ -371,7 +385,13 @@ public:
         bool drawPOIName;
         /// The size of the poi name
         float poiNameSize;
+        /// The color of poi names
+        RGBColor poiNameColor;
         ///}
+
+        /// Information whether the size legend shall be drawn
+        bool showSizeLegend;
+
 
     };
 
@@ -439,14 +459,10 @@ protected:
     /// the scale of the net (the maximum size, either width or height)
     SUMOReal myNetScale;
 
-    /// information whether the grid shall be displayed
-    bool _showGrid;
-
     /// The perspective changer
     GUIPerspectiveChanger *_changer;
 
     /// Information whether too-tip informations shall be generated
-    bool _useToolTips;
     bool _inEditMode;
 
     /// The used tooltip-class
@@ -481,11 +497,10 @@ protected:
 
     VisualizationSettings *myVisualizationSettings;
 
+    bool _useToolTips;
+
     /// Internal information whether doInit() was called
     bool myAmInitialised;
-
-    /// The locator menu
-    FXPopup *myLocatorPopup;
 
 
     GUIDialog_EditViewport *myViewportChooser;

@@ -103,6 +103,7 @@ void
 GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet &net)
 {
     // Make MDI Window Menu
+    /*
     setTracking();
     FXVerticalFrame *contentFrame =
         new FXVerticalFrame(this,
@@ -114,18 +115,19 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
         new FXHorizontalFrame(contentFrame,
                               FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                               0,0,0,0,0,0,0,0);
+                              */
     switch (view) {
     case MICROSCOPIC_VIEW:
     default:
         if (share!=0) {
-            buildEditFrame(glcanvasFrame);
+            buildEditFrame(myContentFrame);
             _view =
-                new GNEViewTraffic(glcanvasFrame, *myParent, this, net,
+                new GNEViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual(), share);
         } else {
-            buildEditFrame(glcanvasFrame);
+            buildEditFrame(myContentFrame);
             _view =
-                new GNEViewTraffic(glcanvasFrame, *myParent, this, net,
+                new GNEViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual());
             //if(!(_view->isInEditMode()))
             //	groupBox->hide();
@@ -138,6 +140,7 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
 
 GNEViewParent::~GNEViewParent()
 {}
+
 
 void
 GNEViewParent::buildEditFrame(FXComposite *c)
@@ -193,11 +196,6 @@ GNEViewParent::getEditGroupBox()
 }
 
 
-void
-GNEViewParent::buildToolBar(FXComposite *c)
-{
-    GUISUMOViewParent::buildToolBar(c);
-}
 
 
 

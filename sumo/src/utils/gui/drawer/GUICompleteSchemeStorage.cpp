@@ -50,7 +50,10 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.antialiase = false;
         vs.dither = false;
 
-        vs.backgroundColor = RGBColor(1, 1, 1);
+        vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
+        vs.showGrid = false;
+        vs.gridXSize = 100;
+        vs.gridYSize = 100;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
@@ -62,6 +65,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.showRails = true;
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
+        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -72,12 +76,14 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawLaneChangePreference = true;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
+        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
         vs.drawJunctionName = false;
         vs.junctionNameSize = 50;
+        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
 
         vs.showLane2Lane = false;
 
@@ -86,11 +92,15 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addExaggeration = 1;
         vs.drawAddName = false;
         vs.addNameSize = 50;
+        //vs.addNameColor = RGBColor(0, .5, 1);
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;
         vs.drawPOIName = false;
         vs.poiNameSize = 50;
+        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
+
+        vs.showSizeLegend = true;
 
         gSchemeStorage.add("standard", vs);
     }
@@ -99,7 +109,10 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.antialiase = false;
         vs.dither = false;
 
-        vs.backgroundColor = RGBColor(1, 1, 1);
+        vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
+        vs.showGrid = false;
+        vs.gridXSize = 100;
+        vs.gridYSize = 100;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
@@ -111,6 +124,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.showRails = false;
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
+        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -121,12 +135,14 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
+        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
         vs.drawJunctionName = false;
         vs.junctionNameSize = 50;
+        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
 
         vs.showLane2Lane = false;
 
@@ -135,11 +151,15 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addExaggeration = 1;
         vs.drawAddName = false;
         vs.addNameSize = 50;
+        //vs.addNameColor = RGBColor(0, .5, 1);
 
         vs.poiExaggeration = 1;
         vs.minPOISize = 0;
         vs.drawPOIName = false;
         vs.poiNameSize = 50;
+        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
+
+        vs.showSizeLegend = true;
 
         gSchemeStorage.add("faster standard", vs);
     }
@@ -149,6 +169,9 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.dither = true;
 
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
+        vs.showGrid = false;
+        vs.gridXSize = 100;
+        vs.gridYSize = 100;
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
@@ -160,6 +183,7 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.showRails = true;
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
+        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -175,12 +199,14 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
+        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
 
         vs.junctionMode = 0;
         vs.drawLinkTLIndex = false;
         vs.drawLinkJunctionIndex = false;
         vs.drawJunctionName = false;
         vs.junctionNameSize = 50;
+        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
 
         vs.showLane2Lane = false;
 
@@ -189,11 +215,15 @@ GUICompleteSchemeStorage::init(const map<int, vector<RGBColor> > &vehColMap,
         vs.addExaggeration = 1;
         vs.drawAddName = false;
         vs.addNameSize = 50;
+        //vs.addNameColor = RGBColor(0, .5, 1);
 
         vs.minPOISize = 0;
         vs.poiExaggeration = 1;
         vs.drawPOIName = false;
         vs.poiNameSize = 50;
+        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
+
+        vs.showSizeLegend = true;
 
         gSchemeStorage.add("real world", vs);
     }

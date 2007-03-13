@@ -147,8 +147,6 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]=
         FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
         FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
         FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
-        FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditViewport),
-        FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEW,      GUISUMOAbstractView::onCmdEditView),
 
     };
 
@@ -170,14 +168,13 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myApp(&app),
         _parent(parent),
         myGrid(&((GUIGrid&) grid)),
-        _showGrid(false),
         _changer(0),
-        _useToolTips(false),
         _mouseHotspotX(app.getDefaultCursor()->getHotX()),
         _mouseHotspotY(app.getDefaultCursor()->getHotY()),
         _popup(0),
         myAmInitialised(false),
-        myViewportChooser(0), myVisualizationChanger(0)
+        myViewportChooser(0), myVisualizationChanger(0),
+        _useToolTips(false)
 {
     flags|=FLAG_ENABLED;
     _inEditMode=false;
@@ -202,14 +199,13 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myApp(&app),
         _parent(parent),
         myGrid(&((GUIGrid&) grid)),
-        _showGrid(false),
         _changer(0),
-        _useToolTips(false),
         _mouseHotspotX(app.getDefaultCursor()->getHotX()),
         _mouseHotspotY(app.getDefaultCursor()->getHotY()),
         _popup(0),
         myAmInitialised(false),
-        myViewportChooser(0), myVisualizationChanger(0)
+        myViewportChooser(0), myVisualizationChanger(0),
+        _useToolTips(false)
 {
     flags|=FLAG_ENABLED;
     _inEditMode=false;
@@ -389,12 +385,12 @@ GUISUMOAbstractView::paintGL()
     }
 
     applyChanges(1.0, 0, 0);
-    if (_showGrid) {
+    if (myVisualizationSettings->showGrid) {
         paintGLGrid();
     }
     //
     doPaintGL(GL_RENDER, 1.0);
-    if (_parent->showLegend()) {
+    if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
     // check whether the select mode /tooltips)
@@ -515,18 +511,19 @@ GUISUMOAbstractView::paintGLGrid()
     SUMOReal ymin = myGrid->getBoundary().ymin();
     SUMOReal ypos = ymin;
     SUMOReal xpos = xmin;
-    SUMOReal xend = (myGrid->getNoXCells()) * myGrid->getXCellSize() + myGrid->getBoundary().xmin();
-    SUMOReal yend = (myGrid->getNoYCells()) * myGrid->getYCellSize() + myGrid->getBoundary().ymin();
+    SUMOReal xend = myGrid->getBoundary().xmax();//(myGrid->getNoXCells()) * myGrid->getXCellSize() + myGrid->getBoundary().xmin();
+    SUMOReal yend = myGrid->getBoundary().ymax();//(myGrid->getNoYCells()) * myGrid->getYCellSize() + myGrid->getBoundary().ymin();
 
+    /*
     // draw boxes
     {
         glBegin(GL_QUADS);
         SUMOReal yb = ymin;
         for (int yr=0; yr<myGrid->getNoYCells(); yr++) {
-            SUMOReal ye = yb + myGrid->getYCellSize();
+            SUMOReal ye = yb + myVisualizationSettings->gridYSize;
             SUMOReal xb = xmin;
             for (int xr=0; xr<myGrid->getNoXCells(); xr++) {
-                SUMOReal xe = xb + myGrid->getXCellSize();
+                SUMOReal xe = xb + myVisualizationSettings->gridXSize;
                 switch (myGrid->getPaintState(xr, yr)) {
                 case GUIGrid::GPS_NOT_DRAWN:
                     continue;
@@ -549,21 +546,21 @@ GUISUMOAbstractView::paintGLGrid()
         }
         glEnd();
     }
-
+*/
     // draw horizontal lines
     glColor3f(0.5, 0.5, 0.5);
     {
         glBegin(GL_LINES);
-        for (int yr=0; yr<myGrid->getNoYCells()+1; yr++) {
+        for (; ypos<yend; ) {
             glVertex2d(xmin, ypos);
             glVertex2d(xend, ypos);
-            ypos += myGrid->getYCellSize();
+            ypos += myVisualizationSettings->gridYSize;
         }
         // draw vertical lines
-        for (int xr=0; xr<myGrid->getNoXCells()+1; xr++) {
+        for (; xpos<xend;) {
             glVertex2d(xpos, ymin);
             glVertex2d(xpos, yend);
-            xpos += myGrid->getXCellSize();
+            xpos += myVisualizationSettings->gridXSize;
         }
         glEnd();
     }
@@ -735,13 +732,13 @@ GUISUMOAbstractView::centerTo(Boundary bound)
     _changer->centerTo(myGrid->getBoundary(), bound);
 }
 
-
+/*
 bool
 GUISUMOAbstractView::allowRotation() const
 {
     return _parent->allowRotation();
 }
-
+*/
 
 void
 GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
@@ -968,18 +965,7 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data)
 }
 
 
-
-long
-GUISUMOAbstractView::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
-{
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    _useToolTips = button->amChecked();
-    update();
-    return 1;
-}
-
-
+/*
 long
 GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
 {
@@ -989,7 +975,7 @@ GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
     update();
     return 1;
 }
-
+*/
 
 long
 GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*)
@@ -1114,7 +1100,7 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p, SUMOReal width) const
     glTranslated(p.x(), p.y(), 0);
     GLHelper::drawFilledCircle((SUMOReal) 1.3*myVisualizationSettings->poiExaggeration, 16);
     if (myVisualizationSettings->drawPOIName) {
-        glColor3d(.2, .2, .2);
+        glColor3f(myVisualizationSettings->poiNameColor.red(), myVisualizationSettings->poiNameColor.green(), myVisualizationSettings->poiNameColor.blue());
         glPushMatrix();
         glTranslated((SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, (SUMOReal) 1.32*myVisualizationSettings->poiExaggeration, 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -1161,11 +1147,11 @@ GUISUMOAbstractView::getSnapshot()
     }
 
     applyChanges(1.0, 0, 0);
-    if (_showGrid) {
+    if (myVisualizationSettings->showGrid) {
         paintGLGrid();
     }
     doPaintGL(GL_RENDER, 1.0);
-    if (_parent->showLegend()) {
+    if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
 
@@ -1185,15 +1171,8 @@ GUISUMOAbstractView::getSnapshot()
 }
 
 
-FXPopup *
-GUISUMOAbstractView::getLocatorPopup(GUIGlChildWindow &)
-{
-    return myLocatorPopup;
-}
-
-
-long
-GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
+void
+GUISUMOAbstractView::showViewportEditor()
 {
     if (myViewportChooser==0) {
         myViewportChooser =
@@ -1205,7 +1184,6 @@ GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
     myViewportChooser->setOldValues(
         _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
     myViewportChooser->show();
-    return 1;
 }
 
 
@@ -1215,6 +1193,13 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
     _changer->setViewport(zoom, xPos, yPos);
     _changer->otherChange();
     update();
+}
+
+
+void 
+GUISUMOAbstractView::showToolTips(bool val)
+{
+    _useToolTips = val;
 }
 
 

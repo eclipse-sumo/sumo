@@ -91,10 +91,8 @@ public:
 
     virtual void create();
 
-    long onCmdRecenterView(FXObject*,FXSelector,void*);
-    long onCmdShowLegend(FXObject*,FXSelector,void*);
     long onCmdMakeSnapshot(FXObject*sender,FXSelector,void*);
-    long onCmdAllowRotation(FXObject*,FXSelector,void*);
+//    long onCmdAllowRotation(FXObject*,FXSelector,void*);
     long onCmdLocateJunction(FXObject*,FXSelector,void*);
     long onCmdLocateEdge(FXObject*,FXSelector,void*);
     long onCmdLocateVehicle(FXObject*,FXSelector,void*);
@@ -104,17 +102,8 @@ public:
     /// centers the view onto the given artifact
     void setView(GUIGlObject *o);
 
-    /// returns the zooming factor
-    SUMOReal getZoomingFactor() const;
-
-    /// sets the zooming factor
-    void setZoomingFactor(SUMOReal val);
-
-    /// returns the information whether the legend shall be shown
-    bool showLegend() const;
-
     /// information whether the canvas may be rotated
-    bool allowRotation() const;
+//    bool allowRotation() const;
 
     /// Returns the maximum width of gl-windows
     int getMaxGLWidth() const;
@@ -128,8 +117,6 @@ public:
     }
 
 protected:
-    /** builds the toolbar  */
-    virtual void buildToolBar(FXComposite *c);
 
     /** builds the edit frame  */
 //	void buildEditFrame(FXComposite *c);
@@ -142,14 +129,8 @@ protected:
     GUIMainWindow *myParent;
 
 private:
-    /// the zooming factor
-    SUMOReal _zoomingFactor;
-
-    /// information whether the legend shall be shown
-    bool _showLegend;
-
     /// information whether the canvas may be rotated
-    bool _allowRotation;
+  //  bool _allowRotation;
 
     FXGroupBox  *groupBox;
     FXTextField *JunctionNameTextField;
@@ -162,6 +143,8 @@ private:
     FXTextField *LengthTextField;
     /// the artifact chooser
     GUIDialog_GLObjChooser *_chooser;
+
+//    FXVerticalFrame *myContentFrame;
 
 protected:
     GUISUMOViewParent()

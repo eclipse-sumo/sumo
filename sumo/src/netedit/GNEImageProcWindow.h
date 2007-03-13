@@ -75,15 +75,12 @@ public:
         return 0;
     }
 
-    virtual bool showLegend() const
-    {
-        return false;
-    }
+    /*
     virtual bool allowRotation() const
     {
         return false;
     }
-
+*/
     /// Extracts the bitmaps´ pixels which are determined as road area
     long onCmdExtractStreets(FXObject*,FXSelector,void*);
 

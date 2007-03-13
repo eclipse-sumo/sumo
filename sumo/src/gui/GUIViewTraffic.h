@@ -79,7 +79,6 @@ class GUIPerspectiveChanger;
  */
 class GUIViewTraffic : public GUISUMOAbstractView
 {
-    FXDECLARE(GUIViewTraffic)
 public:
     /// constructor
     GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
@@ -103,11 +102,10 @@ public:
     void stopTrack();
     int getTrackedID() const;
 
-    long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
     long onLeftBtnRelease(FXObject*,FXSelector,void*);
     long onMouseMove(FXObject *o,FXSelector sel,void *data);
-
+    void setColorScheme(char* data);
 
     void rename(GUIGlObject *o);
     void moveTo(GUIGlObject *o);
@@ -120,11 +118,12 @@ public:
 
     /// hides a vehicle route
     void hideRoute(GUIVehicle *v, int index=-1);
+    void showViewschemeEditor();
+
+
 
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingRouteFor(GUIVehicle *v, int index=-1);
-
-    virtual long onCmdEditView(FXObject*,FXSelector,void*);
 
     /// Returns the list of available vehicle coloring schemes
     static GUIColoringSchemesMap<GUIVehicle> &getVehiclesSchemesMap();

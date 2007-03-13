@@ -75,6 +75,7 @@
 #include <guisim/GUINetWrapper.h>
 #include "GNEViewParent.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/foxtools/MFXUtils.h>
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNetBuilder.h>
@@ -317,14 +318,14 @@ GNEApplicationWindow::fillMenuBar()
     //mySubFileMenu1 = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar,"&File",NULL,myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Open Simulation...\tCtl-O\tOpen a Simulation (Configuration File).",
+                      "&Open Simulation...\tCtl-O\tOpen a simulation (Configuration file).",
                       GUIIconSubSys::getIcon(ICON_OPEN),this,MID_OPEN);
     new FXMenuCommand(myFileMenu,
-                      "&Reload Simulation\tCtl-R\tReloads the Simulation (Configuration File).",
+                      "&Reload Simulation\tCtl-R\tReloads the simulation (Configuration file).",
                       GUIIconSubSys::getIcon(ICON_RELOAD),this,MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Close\tCtl-C\tClose the Simulation.",
+                      "&Close\tCtl-C\tClose the simulation.",
                       GUIIconSubSys::getIcon(ICON_CLOSE),this,MID_CLOSE);
     new FXMenuSeparator(myFileMenu);
 //    new FXMenuCascade(myFileMenu,"Import",NULL,mySubFileMenu1);
@@ -522,10 +523,10 @@ GNEApplicationWindow::buildToolBars()
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         // build file tools
-        new FXButton(myToolBar1,"\t\tOpen a Simulation (Configuration File).",
+        new FXButton(myToolBar1,"\t\tOpen a simulation (Configuration file).",
                      GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar1,"\t\tReload the Simulation (Configuration File).",
+        new FXButton(myToolBar1,"\t\tReload the simulation (Configuration file).",
                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -536,13 +537,13 @@ GNEApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar2,"\t\tStart the loaded Simulation.",
+        new FXButton(myToolBar2,"\t\tStart the loaded simulation.",
                      GUIIconSubSys::getIcon(ICON_START), this, MID_START,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar2,"\t\tStop the running Simulation.",
+        new FXButton(myToolBar2,"\t\tStop the running simulation.",
                      GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar2,"\t\tPerform a single Simulation Step..",
+        new FXButton(myToolBar2,"\t\tPerform a single simulation step..",
                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -586,7 +587,7 @@ GNEApplicationWindow::buildToolBars()
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         // build view tools
-        new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
+        new FXButton(myToolBar5,"\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -858,41 +859,43 @@ GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
     savedialog.setSelectMode(SELECTFILE_ANY);
     savedialog.setPatternList("*");
     savedialog.setCurrentPattern(0);
-    if (gCurrentFolder.length()!=0)
+    if (gCurrentFolder.length()!=0) {
         savedialog.setDirectory(gCurrentFolder.c_str());
-    if (savedialog.execute()) {
-        //setCurrentPattern(savedialog.getCurrentPattern());
-        FXString file = savedialog.getFilename();
-        string filestr = file.text();
+    }
+    if (!savedialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, savedialog.getFilename())) {
+        return 1;
+    }
+    //setCurrentPattern(savedialog.getCurrentPattern());
+    FXString file = savedialog.getFilename();
+    string filestr = file.text();
 
-        // prune the postfix
-        if (filestr.rfind(".nod.xml")==filestr.length()-8
-                ||
-                filestr.rfind(".edg.xml")==filestr.length()-8) {
+    // prune the postfix
+    if (filestr.rfind(".nod.xml")==filestr.length()-8
+        ||
+        filestr.rfind(".edg.xml")==filestr.length()-8) {
 
-            filestr = filestr.substr(0, filestr.length()-8);
-            file = filestr.c_str();
+        filestr = filestr.substr(0, filestr.length()-8);
+        file = filestr.c_str();
+    }
+    bool saveNodes = true;
+    bool saveEdges = true;
+    if (FXFile::exists(file+".nod.xml")) {
+        if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
+                (file+".nod.xml").text())) {
+            saveNodes = false;
         }
-        bool saveNodes = true;
-        bool saveEdges = true;
-        if (FXFile::exists(file+".nod.xml")) {
-            if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
-                    (file+".nod.xml").text())) {
-                saveNodes = false;
-            }
+    }
+    if (FXFile::exists(file+".edg.xml")) {
+        if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
+                (file+".edg.xml").text())) {
+            saveEdges = false;
         }
-        if (FXFile::exists(file+".edg.xml")) {
-            if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
-                    (file+".edg.xml").text())) {
-                saveEdges = false;
-            }
-        }
-        if (saveNodes) {
-            myNetBuilder.getNodeCont().savePlain(filestr + ".nod.xml");
-        }
-        if (saveEdges) {
-            myNetBuilder.getEdgeCont().savePlain(filestr + ".edg.xml");
-        }
+    }
+    if (saveNodes) {
+        myNetBuilder.getNodeCont().savePlain(filestr + ".nod.xml");
+    }
+    if (saveEdges) {
+        myNetBuilder.getEdgeCont().savePlain(filestr + ".edg.xml");
     }
     return 1;
 }
@@ -905,30 +908,32 @@ GNEApplicationWindow::onCmdSaveNet(FXObject*,FXSelector,void*)
     savedialog.setSelectMode(SELECTFILE_ANY);
     savedialog.setPatternList("SUMO Networks (*.net.xml)");
     savedialog.setCurrentPattern(0);
-    if (gCurrentFolder.length()!=0)
+    if (gCurrentFolder.length()!=0) {
         savedialog.setDirectory(gCurrentFolder.c_str());
-    if (savedialog.execute()) {
-        //setCurrentPattern(savedialog.getCurrentPattern());
-        FXString file = savedialog.getFilename();
-        string filestr = file.text();
-
-        // prune the postfix
-        if (filestr.rfind(".net.xml")==filestr.length()-8) {
-            filestr = filestr.substr(0, filestr.length()-8);
-            file = filestr.c_str();
-        }
-        if (FXFile::exists(file+".net.xml")) {
-            if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
-                    (file+".net.xml").text())) {
-                return 1;
-            }
-        }
-        ofstream out((filestr + ".net.xml").c_str());
-        OptionsCont &oc = OptionsSubSys::getOptions();
-        oc.clear();
-        myNetBuilder.insertNetBuildOptions(oc);
-        myNetBuilder.save(out, oc);
     }
+    if (!savedialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, savedialog.getFilename())) {
+        return 1;
+    }
+    //setCurrentPattern(savedialog.getCurrentPattern());
+    FXString file = savedialog.getFilename();
+    string filestr = file.text();
+
+    // prune the postfix
+    if (filestr.rfind(".net.xml")==filestr.length()-8) {
+        filestr = filestr.substr(0, filestr.length()-8);
+        file = filestr.c_str();
+    }
+    if (FXFile::exists(file+".net.xml")) {
+        if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
+                (file+".net.xml").text())) {
+            return 1;
+        }
+    }
+    ofstream out((filestr + ".net.xml").c_str());
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    oc.clear();
+    myNetBuilder.insertNetBuildOptions(oc);
+    myNetBuilder.save(out, oc);
     return 1;
 }
 

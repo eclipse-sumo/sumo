@@ -4,7 +4,7 @@
 /// @date    Mon, 16 Jun 2004
 /// @version $Id$
 ///
-//
+// A dialog for editing additional weights
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -69,20 +69,38 @@ public:
     /// destructor
     ~GUIDialog_EditAddWeights();
 
-    FXbool close(FXbool notify=FALSE);
-
+    /// Called when the user presses the Load-button
     long onCmdLoad(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Save-button
     long onCmdSave(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Deselect-button
     long onCmdDeselect(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Clear-button
     long onCmdClear(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Close-button
     long onCmdClose(FXObject*,FXSelector,void*);
+
+    /// Called when the table was changed
     long onCmdEditTable(FXObject*,FXSelector,void*);
+
+    /// Called to determine whether the Save-button shall be enabled
     long onUpdSave(FXObject*,FXSelector,void*);
 
 private:
+    /// Rebuilds the entry list
     void rebuildList();
+
+    /// Builds a text representation of the items in the list
     std::string encode2XML();
 
+    /**
+     * @class time_sorter
+     * @brief A comparison of GUIAddWeights by begin time
+     */
     class time_sorter
     {
     public:
@@ -103,10 +121,11 @@ private:
     /// the parent window
     GUIMainWindow *myParent;
 
-    ///
+    /// Information whether the entered values are valid
     bool myEntriesAreValid;
 
 protected:
+    /// FOX needs this
     GUIDialog_EditAddWeights()
     { }
 

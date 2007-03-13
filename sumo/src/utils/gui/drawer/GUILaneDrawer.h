@@ -174,6 +174,8 @@ public:
     virtual void drawGLLaneNames(size_t *which, size_t maxEdges,
                                  SUMOReal width, GUISUMOAbstractView::VisualizationSettings &settings)
     {
+        // set name colors
+        glColor3f(settings.edgeNameColor.red(), settings.edgeNameColor.green(), settings.edgeNameColor.blue());
         // initialise drawing
         initStep();
         // go through edges
@@ -195,13 +197,11 @@ public:
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                     pfSetPosition(0, 0);
                     pfSetScale(settings.edgeNameSize / width);
-                    glColor3d(1, .5, 0);
                     SUMOReal w = pfdkGetStringWidth(edge->microsimID().c_str());
                     glRotated(180, 1, 0, 0);
                     SUMOReal angle = lane1.getShape().rotationDegreeAtLengthPosition(lane1.getShape().length()/(SUMOReal) 2.);
                     angle += 90;
                     if (angle>90&&angle<270) {
-                        glColor3d(1, 0, .5);
                         angle -= 180;
                     }
                     glRotated(angle, 0, 0, 1);
@@ -219,7 +219,6 @@ protected:
     {
         glLineWidth(1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glColor3d(0, 0, 0);
     }
 
     /// draws a single lane as a box list

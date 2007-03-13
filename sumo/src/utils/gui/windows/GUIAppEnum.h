@@ -174,8 +174,6 @@ enum {
     //@{ Common View Settings - IDs
     /// Recenter View - Button
     MID_RECENTERVIEW,
-    /// Show Legend - Button
-    MID_SHOWLEGEND,
     /// Allow Rotation - Button
     MID_ALLOWROTATION,
     /// Locate Junction - Button
@@ -189,7 +187,7 @@ enum {
     /// Open Viewport Editor - Button
     MID_EDITVIEWPORT,
     /// Open View Editor - Button
-    MID_EDITVIEW,
+    MID_EDITVIEWSCHEME,
     /// Show Grid - Button
     MID_SHOWGRID,
     /// Show Tool Tips - Button

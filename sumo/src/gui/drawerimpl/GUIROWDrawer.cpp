@@ -119,7 +119,6 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(1);
-        glColor3d(1, 0, 0);
         SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
         glRotated(180, 0, 1, 0);
         glTranslated(x2-tw/2., 0.5, 0);
@@ -162,7 +161,6 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(1);
-        glColor3d(1, 0, 0);
         SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
         glRotated(180, 0, 1, 0);
         glTranslated(x2-tw/2., 0.5, 0);

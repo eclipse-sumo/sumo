@@ -42,6 +42,7 @@
 #include "GUIParameterTracker.h"
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -274,46 +275,47 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
-        string file = opendialog.getFilename().text();
-        ofstream strm(file.c_str());
-        if (!strm.good()) {
-            return 1; // !!! inform the user
+    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+    gCurrentFolder = opendialog.getDirectory().text();
+    string file = opendialog.getFilename().text();
+    ofstream strm(file.c_str());
+    if (!strm.good()) {
+        return 1; // !!! inform the user
+    }
+    // write header
+    TrackedVarsVector::iterator i;
+    strm << "# ";
+    for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+        if (i!=myTracked.begin()) {
+            strm << ';';
         }
-        // write header
-        TrackedVarsVector::iterator i;
-        strm << "# ";
+        TrackerValueDesc *tvd = *i;
+        strm << tvd->getName();
+    }
+    strm << endl;
+    // count entries
+    size_t max = 0;
+    for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+        TrackerValueDesc *tvd = *i;
+        size_t sizei = tvd->getAggregatedValues().size();
+        if (max<sizei) {
+            max = sizei;
+        }
+        tvd->unlockValues();
+    }
+    // write entries
+    for (unsigned int j=0; j<max; j++) {
         for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
             if (i!=myTracked.begin()) {
                 strm << ';';
             }
             TrackerValueDesc *tvd = *i;
-            strm << tvd->getName();
-        }
-        strm << endl;
-        // count entries
-        size_t max = 0;
-        for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
-            TrackerValueDesc *tvd = *i;
-            size_t sizei = tvd->getAggregatedValues().size();
-            if (max<sizei) {
-                max = sizei;
-            }
+            strm << tvd->getAggregatedValues()[j];
             tvd->unlockValues();
         }
-        // write entries
-        for (unsigned int j=0; j<max; j++) {
-            for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
-                if (i!=myTracked.begin()) {
-                    strm << ';';
-                }
-                TrackerValueDesc *tvd = *i;
-                strm << tvd->getAggregatedValues()[j];
-                tvd->unlockValues();
-            }
-            strm << endl;
-        }
+        strm << endl;
     }
     return 1;
 }

@@ -4,7 +4,7 @@
 /// @date    2006-01-09
 /// @version $Id$
 ///
-// missing_desc
+// Some helper functions for FOX
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,6 +36,10 @@
 
 #include "MFXUtils.h"
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 void
 MFXUtils::deleteChildren(FXWindow *w)
 {
@@ -43,6 +47,23 @@ MFXUtils::deleteChildren(FXWindow *w)
         FXWindow *child = w->childAtIndex(0);
         delete child;
     }
+}
+
+
+FXbool
+MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow *parent,
+                                               FXString &file)
+{
+    if(!FXFile::exists(file)) {
+        return TRUE;
+    }
+    int answer = 
+        FXMessageBox::question(parent, MBOX_YES_NO, "File Exists", 
+            "Overwrite '%s'?", file);
+    if(answer==MBOX_CLICKED_NO) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 

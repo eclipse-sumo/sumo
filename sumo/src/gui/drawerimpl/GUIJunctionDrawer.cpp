@@ -120,7 +120,7 @@ GUIJunctionDrawer::drawGLJunctionNames(
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 pfSetPosition(0, 0);
                 pfSetScale(settings.junctionNameSize / scale);
-                glColor3d(0, 1, 0);
+                glColor3f(settings.junctionNameColor.red(), settings.junctionNameColor.green(), settings.junctionNameColor.blue());
                 SUMOReal w = pfdkGetStringWidth(myJunctions[j+(i<<5)]->microsimID().c_str());
                 glRotated(180, 1, 0, 0);
                 glTranslated(-w/2., 0.4, 0);

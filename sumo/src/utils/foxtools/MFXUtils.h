@@ -4,7 +4,7 @@
 /// @date    2006-01-09
 /// @version $Id$
 ///
-// missing_desc
+// Some helper functions for FOX
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,10 +38,23 @@
 
 #include <fx.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MFXUtils
+ * @brief Some helper functions for FOX
+ */
 class MFXUtils
 {
 public:
+    /// Deletes all children of the given window
     static void deleteChildren(FXWindow *w);
+
+    /// Returns true if either the file given by its name does not exist or the user allows overwriting it
+    static FXbool userPermitsOverwritingWhenFileExists(
+        FXWindow *parent, FXString &file);
 
 };
 

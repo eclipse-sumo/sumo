@@ -93,8 +93,6 @@ public:
 
 
 protected:
-    /** builds the toolbar  */
-    void buildToolBar(FXComposite *c);
 
     /** builds the edit frame  */
     void buildEditFrame(FXComposite *c);

@@ -52,6 +52,7 @@
  */
 class GUIGlChildWindow : public FXMDIChild
 {
+    FXDECLARE(GUIGlChildWindow)
 public:
     GUIGlChildWindow(FXMDIClient* p, FXMDIMenu *mdimenu, const FXString& name,
                      FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
@@ -60,18 +61,38 @@ public:
     virtual ~GUIGlChildWindow();
 
     virtual FXGLCanvas *getBuildGLCanvas() const;
+    virtual void create();
 
-    virtual bool showLegend() const = 0;
-    virtual bool allowRotation() const = 0;
+    long onCmdRecenterView(FXObject*,FXSelector,void*);
+    long onCmdEditViewport(FXObject*,FXSelector,void*);
+    long onCmdEditViewScheme(FXObject*,FXSelector,void*);
+    long onCmdShowToolTips(FXObject*sender,FXSelector,void*);
+    long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
 
-    FXToolBar &getToolBar(GUISUMOAbstractView &v);
+    virtual void buildNavigationToolBar();
+    virtual void buildColoringToolBar();
+    virtual void buildScreenshotToolBar();
+    
+
+    FXToolBar &getNavigationToolBar(GUISUMOAbstractView &v);
+    FXPopup *getLocatorPopup();
+    FXComboBox &getColoringSchemesCombo();
 
 protected:
     /// the view
     GUISUMOAbstractView *_view;
 
     /// The tool bar
-    FXToolBar *myToolBar;
+    FXToolBar *myNavigationToolBar;
+
+    /// The locator menu
+    FXPopup *myLocatorPopup;
+    FXMenuButton *myLocatorButton;
+
+    FXVerticalFrame *myContentFrame;
+
+    FXComboBox *myColoringSchemes;
+
 
 protected:
     GUIGlChildWindow()
