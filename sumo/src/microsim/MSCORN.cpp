@@ -289,9 +289,11 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     myTripDurationsOutput->getOStream() << "devices=\"";
     bool addSem = false;
     if (v->hasCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
-        myTripDurationsOutput->getOStream()
-        << "cphones=" << v->getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
-        addSem = true;
+        int noCPhones = (int) v->getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
+        if(noCPhones!=0) {
+            myTripDurationsOutput->getOStream() << "cphones=" << noCPhones;
+            addSem = true;
+        }
     }
     if (v->isEquipped()) {
         if (addSem) {

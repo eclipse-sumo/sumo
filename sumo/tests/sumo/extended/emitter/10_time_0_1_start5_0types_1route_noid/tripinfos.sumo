@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="no"?>
 <tripinfos>
-   <tripinfo vehicle_id="emitter_5_0" start="5" wished="5" end="122" duration="117" waited="0" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_6_1" start="8" wished="6" end="126" duration="118" waited="2" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_7_2" start="11" wished="7" end="129" duration="118" waited="4" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_8_3" start="14" wished="8" end="133" duration="119" waited="6" reroutes="0" devices="cphones=0"/>
-   <tripinfo vehicle_id="emitter_9_4" start="17" wished="9" end="135" duration="118" waited="8" reroutes="0" devices="cphones=0"/>
+   <tripinfo vehicle_id="emitter_5_0" start="5" wished="5" end="122" duration="117" waited="0" reroutes="0" devices=""/>
+   <tripinfo vehicle_id="emitter_6_1" start="8" wished="6" end="126" duration="118" waited="2" reroutes="0" devices=""/>
+   <tripinfo vehicle_id="emitter_7_2" start="11" wished="7" end="129" duration="118" waited="4" reroutes="0" devices=""/>
+   <tripinfo vehicle_id="emitter_8_3" start="14" wished="8" end="133" duration="119" waited="6" reroutes="0" devices=""/>
+   <tripinfo vehicle_id="emitter_9_4" start="17" wished="9" end="135" duration="118" waited="8" reroutes="0" devices=""/>
 </tripinfos>
