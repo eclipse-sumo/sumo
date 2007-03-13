@@ -11,6 +11,11 @@ sub getAttr($$) {
 }
 
 
+$spurattrs = "Spurattribute.csv";
+if(defined($ARGV[0])) {
+	$spurattrs = $ARGV[0];
+}
+
 
 # write connections
 open(INDAT, "< Spurattribute.csv");
@@ -311,20 +316,20 @@ while(<INDAT>) {
 close(INDAT);
 foreach $id (keys(%splitK)) {
 	if($id ne "") {
-		print $id."\n";
-		print "a: ".$splitF{$id}." ".$splitT{$id}."\n";
-		print "b: ".$nodex{$splitF{$id}}." ".$nodey{$splitF{$id}}."\n";
-		print "c: ".$nodex{$splitT{$id}}." ".$nodey{$splitT{$id}}."\n";
+#		print $id."\n";
+#		print "a: ".$splitF{$id}." ".$splitT{$id}."\n";
+#		print "b: ".$nodex{$splitF{$id}}." ".$nodey{$splitF{$id}}."\n";
+#		print "c: ".$nodex{$splitT{$id}}." ".$nodey{$splitT{$id}}."\n";
 		$xq = ($nodex{$splitF{$id}}-$nodex{$splitT{$id}});
 		$yq = ($nodey{$splitF{$id}}-$nodey{$splitT{$id}});
-		print "xq: ".$xq."\n";
-		print "yq: ".$yq."\n";
+#		print "xq: ".$xq."\n";
+#		print "yq: ".$yq."\n";
 		$xq = $xq * $xq;
 		$yq = $yq * $yq;
 		$len = sqrt($xq + $yq);
-		print "xq: ".$xq."\n";
-		print "yq: ".$yq."\n";
-		print "len: ".$len."\n";
+#		print "xq: ".$xq."\n";
+#		print "yq: ".$yq."\n";
+#		print "len: ".$len."\n";
 		$x = $nodex{$splitF{$id}} + (($nodex{$splitT{$id}} - $nodex{$splitF{$id}}) / $len * $splitP{$id});
 		$y = $nodey{$splitF{$id}} + (($nodey{$splitT{$id}} - $nodey{$splitF{$id}}) / $len * $splitP{$id});
 
