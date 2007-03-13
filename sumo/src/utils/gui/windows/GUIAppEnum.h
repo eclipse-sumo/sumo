@@ -43,68 +43,68 @@
 // enumeration
 // ===========================================================================
 enum {
-    /// Show About - Dialog
+    /// Show about - dialog
     ID_ABOUT=FXMainWindow::ID_LAST,
 
     //@{ Application specific
-    /// Main Window-ID
+    /// Main window-ID
     MID_WINDOW,
-    /// Main Window closes
+    /// Main window closes
     MID_QUIT,
     //@}
 
     //@{ For some always used buttons
-    /// Ok-Button pressed
+    /// Ok-button pressed
     MID_OK,
-    /// Cancel-Button pressed
+    /// Cancel-button pressed
     MID_CANCEL,
     //@}
 
     //@{ Main Window File Menu - IDs
-    /// Open New File - ID
+    /// Open new file - ID
     MID_OPEN,
     /// Reload the previously loaded simulation
     MID_RELOAD,
     /// Loads a file previously loaded
     MID_RECENTFILE,
-    /// Close Simulation - ID
+    /// Close simulation - ID
     MID_CLOSE,
     /// About SUMO - ID
     MID_ABOUT,
     //@}
 
     //@{ Main Window Simulation Control - IDs
-    /// Start the Simulation
+    /// Start the simulation
     MID_START,
-    /// Stop the Simulation
+    /// Stop the simulation
     MID_STOP,
-    /// Perform a single Simulation Step
+    /// Perform a single simulation step
     MID_STEP,
     //@}
 
-    //@{ Main Window Windows Control - IDs
-    /// Open a new microscopic View
+    //@{ Main window windows control - IDs
+    /// Open a new microscopic view
     MID_NEW_MICROVIEW,
 #ifdef HAVE_MESOSIM
-    /// Open a new mesoscopic View
+    /// Open a new mesoscopic view
     MID_NEW_MESOVIEW,
 #endif
     //@}
 
     //@{ SubThread - IDs
-    /// The loading Thread
+    /// The loading thread
     ID_LOADTHREAD_EVENT,
-    /// The Simulation execution Thread
+    /// The Simulation execution thread
     ID_RUNTHREAD_EVENT,
-    /// ID for message passing between Threads
+    /// ID for message passing between threads
     ID_THREAD_EVENT,
     //@}
 
 
     //@{ Edit Menu Item - IDs
-    /// Open Chosen Editor - ID
+    /// Open chosen editor - ID
     MID_EDITCHOSEN,
-    /// Edit Additional Weights - ID
+    /// Edit additional weights - ID
     MID_EDIT_ADD_WEIGHTS,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
@@ -113,127 +113,126 @@ enum {
     //@}
 
     //@{ Settings Menu Item - IDs
-    /// Application Settings - Menu Entry
+    /// Application settings - menu entry
     MID_APPSETTINGS,
-    /// Simulation Settings - Menu Entry
+    /// Simulation settings - menu entry
     MID_SIMSETTINGS,
-    /// The Simulation Delay Control
+    /// The Simulation delay control
     MID_SIMDELAY,
     //@}
 
     //@{ Image Menu Item - IDs
-    /// Street Extraction - Menu Entry
+    /// Street extraction - menu entry
     MID_EXTRACT_STREETS,
-    /// Dilation - Menu Entry
+    /// Dilation - menu entry
     MID_DILATION,
-    /// Erosion - Menu Entry
+    /// Erosion - menu entry
     MID_EROSION,
-    /// Opening - Menu Entry
+    /// Opening - menu entry
     MID_OPENING,
-    /// Closing - Menu Entry
+    /// Closing - menu entry
     MID_CLOSING,
-    /// Close Gaps - Menu Entry
+    /// Close Gaps - menu entry
     MID_CLOSE_GAPS,
-    /// Skeletonize - Menu Entry
+    /// Skeletonize - menu entry
     MID_SKELETONIZE,
-    /// Rarify - Menu Entry
+    /// Rarify - menu entry
     MID_RARIFY,
-    /// Rarify - Menu Entry
+    /// Rarify - menu entry
     MID_ERASE_STAINS,
-    /// Create Graph - Menu Entry
+    /// Create Graph - menu entry
     MID_CREATE_GRAPH,
-    /// Opens a dialoge window for image-filter configuration
+    /// Opens a dialog window for image-filter configuration
     MID_OPEN_BMP_DIALOG,
     //@}
     // Clear simulation settings
     MID_CLEARMESSAGEWINDOW,
 
-    //Create Drawing Canvas for an Image
+    // Create drawing canvas for an image
     ID_CANVAS,
+    // Clear the drawing canvas
     ID_CLEAR,
 
-    //@{ Graph Menu Item - IDs
-    ///Show Graph on empty Bitmap - Menu Entry
+    //@{ Graph menu item - IDs
+    ///Show graph on empty bitmap - menu entry
     MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
-    ///Show Graph on actual Bitmap - Menu Entry
+    ///Show graph on actual bitmap - menu entry
     MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
-    ///Reduce Vertexes - Menu Entry
+    ///Reduce vertexes - menu entry
     MID_REDUCE_VERTEXES,
-    ///Reduce Vertexes Plus - Menu Entry
+    ///Reduce vertexes plus - menu entry
     MID_REDUCE_VERTEXES_PLUS,
-    ///Reduce Edges - Menu Entry
+    ///Reduce edges - menu entry
     MID_REDUCE_EDGES,
-    ///Merge Vertexes - Menu Entry
+    ///Merge vertexes - menu entry
     MID_MERGE_VERTEXES,
-    ///Export Vertex XML -Menu Entry
+    ///Export vertex XML -menu entry
     MID_EXPORT_VERTEXES_XML,
-    ///Export Edges XML - Menu Entry
+    ///Export edges XML - menu entry
     MID_EXPORT_EDGES_XML,
     //@}
 
     //@{ Common View Settings - IDs
-    /// Recenter View - Button
+    /// Recenter view - button
     MID_RECENTERVIEW,
-    /// Allow Rotation - Button
+    /// Allow rotation - button
     MID_ALLOWROTATION,
-    /// Locate Junction - Button
+    /// Locate junction - button
     MID_LOCATEJUNCTION,
-    /// Locate Edge - Button
+    /// Locate edge - button
     MID_LOCATEEDGE,
-    /// Locate Vehicle - Button
+    /// Locate vehicle - button
     MID_LOCATEVEHICLE,
-    /// Locate addtional Structure - Button
+    /// Locate addtional structure - button
     MID_LOCATEADD,
-    /// Open Viewport Editor - Button
+    /// Open viewport editor - button
     MID_EDITVIEWPORT,
-    /// Open View Editor - Button
+    /// Open view editor - button
     MID_EDITVIEWSCHEME,
-    /// Show Grid - Button
+    /// Show grid - button
     MID_SHOWGRID,
-    /// Show Tool Tips - Button
+    /// Show tool tips - button
     MID_SHOWTOOLTIPS,
-    /// Graph Edit Button
+    /// Graph edit button
     MID_EDIT_GRAPH,
-    /// Make Snapshot - Button
+    /// Make snapshot - button
     MID_MAKESNAPSHOT,
     //@}
 
-    //@{ Common View IDs
+    //@{ Common view IDs
     /// GLCanvas - ID
     MID_GLCANVAS,
-    // Right Mouse Button Timeout
-    //    ID_RMOUSETIMEOUT,
     //@}
 
-    //@{ View Settings - IDs
-    /// Change Coloring Scheme- combo
+    //@{ View settings - IDs
+    /// Change coloring scheme - combo
     MID_COLOURSCHEMECHANGE,
-    /// Change the aggregation Time Value - combo
+    /// Change the aggregation time value - combo
     MID_LANEAGGTIME,
-    /// The Aggregation Memory - dial
+    /// The aggregation memory - dial
     MID_LANEAGGRMEM,
     //@}
 
 
     //@{ Object PopUp Entries - IDs
-    /// Center View To Object - Menu Entry
+    /// Center view to object - menu entry
     MID_CENTER,
-    /// Center View To Object - Menu Entry
+    /// Center view to object - menu entry
     MID_COPY_NAME,
-    /// Center View To Object - Menu Entry
+    /// Center View to object - menu entry
     MID_COPY_TYPED_NAME,
-    /// Show Object Parameter - Menu Entry
+    /// Show object parameter - menu entry
     MID_SHOWPARS,
-    /// Show TLS phases - Menu Entry
+    /// Show TLS phases - menu entry
     MID_SWITCH,
     MID_SHOWPHASES = MID_SWITCH + 20,
-    /// Begin to track phases - Menu Entry
+    /// Begin to track phases - menu entry
     MID_TRACKPHASES,
-    /// Add to selected Items - Menu Entry
+    /// Add to selected items - menu entry
     MID_ADDSELECT,
-    /// Add successors to selected Items - Menu Entry
+    /// Add successors to selected items - menu entry
     MID_ADDSELECT_SUCC,
-    /// Remove from selected Items - Menu Etry
+    /// Remove from selected items - Menu Etry
     MID_REMOVESELECT,
     /// Open the object's manipulator
     MID_MANIP,
@@ -266,29 +265,29 @@ enum {
     //@{ IDs used by Trackers
     /// The Table
     MID_TABLE,
-    /// A Simulation Step was performed
+    /// A Simulation step was performed
     MID_SIMSTEP,
     /// A Tracker shall be opened
     MID_OPENTRACKER,
     //@}
 
     //@{ General Setting Dialogs - IDs
-    /// Ok-Button was pushed
+    /// Ok-button was pushed
     MID_SETTINGS_OK,
-    /// Cancel-Button was pushed
+    /// Cancel-button was pushed
     MID_SETTINGS_CANCEL,
-    /// Save-Button was pushed
+    /// Save-button was pushed
     MID_SETTINGS_SAVE,
     //@}
 
     //@{ Application Settings - Dialog IDs
-    /// Close Simulation at End - Option
+    /// Close simulation at end - Option
     MID_QUITONSIMEND,
-    /// Suppress End Message - Option
+    /// Suppress end message - Option
     MID_SURPRESSENDINFO,
-    /// Allow aggregated Views - Option
+    /// Allow aggregated views - Option
     MID_ALLOWAGGREGATED,
-    /// Allow floating aggregated Views - Option
+    /// Allow floating aggregated views - Option
     MID_ALLOWAFLOATING,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
@@ -299,6 +298,8 @@ enum {
     MID_CHOOSER_CENTER,
     /// Text entry
     MID_CHOOSER_TEXT,
+    /// Object list
+    MID_CHOOSER_LIST,
     //@}
 
     //@{ GLChosenEditor - Dialog IDs
@@ -321,17 +322,17 @@ enum {
     MID_TIME_SLIDER,
 
     //@{ IDs for netedit
-    /// Import a network - Menu entry
+    /// Import a network - menu entry
     MID_IMPORT_NET,
-    /// Open a bitmap file - Menu entry
+    /// Open a bitmap file - menu entry
     MID_LOAD_IMAGE,
-    /// Write a loaded bitmap file - Menu entry
+    /// Write a loaded bitmap file - menu entry
     MID_SAVE_IMAGE,
     /// ID for the imageviewer
     MID_MAP_IMAGEVIEWER,
-    /// Save generated edges and nodes - Menu entry
+    /// Save generated edges and nodes - menu entry
     MID_SAVE_EDGES_NODES,
-    /// Save generated SUMO-network - Menu entry
+    /// Save generated SUMO-network - menu entry
     MID_SAVE_NET,
     //@}
 

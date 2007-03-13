@@ -36,6 +36,7 @@
 
 #include <string>
 #include <vector>
+#include <fxkeys.h>
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -71,8 +72,9 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]=
     {
         FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
         FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
-        FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdTextChanged),
-
+        FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
+        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
+        FXMAPFUNC(SEL_KEYPRESS,  MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
     };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -101,7 +103,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
                             LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN,
                             0,0,0,0,  0, 0, 0, 0);
     myList =
-        new FXList(style1, 0, 0,
+        new FXList(style1, this, MID_CHOOSER_LIST,
                    LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
     std::vector<size_t> ids;
     // get the ids
@@ -154,7 +156,6 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
                  this, MID_CHOOSER_CENTER,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
-
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
     new FXButton(layout, "Close\t\t",
                  GUIIconSubSys::getIcon(ICON_NO),
@@ -165,6 +166,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     setIcon(GUIIconSubSys::getIcon(ICON_APP_FINDER));
 
     myParent->getParent()->addChild(this);
+    myTextEntry->setFocus();
 }
 
 
@@ -197,7 +199,7 @@ GUIDialog_GLObjChooser::onCmdClose(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLObjChooser::onCmdTextChanged(FXObject*,FXSelector,void*)
+GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*)
 {
     int id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
     if (id<0) {
@@ -208,6 +210,36 @@ GUIDialog_GLObjChooser::onCmdTextChanged(FXObject*,FXSelector,void*)
     myList->selectItem(id);
     myList->setCurrentItem(id, true);
     return 1;
+}
+
+
+long
+GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*)
+{
+    int selected = myList->getCurrentItem();
+    if (selected>=0) {
+        mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
+        myParent->setView(mySelected);
+    }
+    return 1;
+}
+
+
+long
+GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr)
+{
+    FXEvent* event=(FXEvent*)ptr; 
+    switch(event->code){ 
+    case KEY_Return:
+        {
+            int current = myList->getCurrentItem();
+            if (current>=0&&myList->isItemSelected(current)) {
+                mySelected = static_cast<GUIGlObject*>(myList->getItemData(current));
+                myParent->setView(mySelected);
+            }
+        }
+    } 
+    return 1; 
 }
 
 

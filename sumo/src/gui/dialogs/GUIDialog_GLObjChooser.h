@@ -81,8 +81,14 @@ public:
     /// The dialog shall be closed
     long onCmdClose(FXObject*,FXSelector,void*);
 
-    /// Somthing has been typed into the tet field
-    long onCmdTextChanged(FXObject*,FXSelector,void*);
+    /// Somthing has been typed into the the field
+    long onChgText(FXObject*,FXSelector,void*);
+
+    /// Selects to current item if enter is pressed
+    long onCmdText(FXObject*,FXSelector,void*);
+
+    /// Selects to current item if enter is pressed
+    long onListKeyPress(FXObject*,FXSelector,void*);
 
 private:
     /// the list that holds the ids
