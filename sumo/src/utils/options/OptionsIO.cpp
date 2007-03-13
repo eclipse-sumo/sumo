@@ -125,12 +125,10 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
     } catch (const XMLException&) {
         ok = false;
     }
-    if (oc->getBool("verbose")) {
-        if (ok) {
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        } else {
-            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        }
+    if (ok) {
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    } else {
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
     }
     if (!ok) {
         MsgHandler::getErrorInstance()->inform("Could not load configuration '" + path + "'.");
