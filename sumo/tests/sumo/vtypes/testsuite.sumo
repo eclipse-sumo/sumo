@@ -1,0 +1,22 @@
+# The vehicles are defined with no type given
+no_type
+
+# There is still no type given, but a new definition is used
+no_type_with_new
+
+# There is a type given and referenced, but not defined (only defaults are used)
+using_defaults
+
+# Two types are given; the vehicles should be assigned to them randomly
+two_types_same_prob
+
+# Two types are given; the first has a prob of .8, the second 0.2
+two_types_first_major
+
+# Two types are given; the first has a prob of zero
+two_types_first_off
+
+# Two types are given; the second has a prob of zero
+two_types_second_off
+
+

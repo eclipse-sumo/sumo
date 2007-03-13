@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<tripinfos>
+   <tripinfo vehicle_id="0" start="0" wished="0" end="121" duration="121" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="1" start="10" wished="10" end="127" duration="117" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="2" start="20" wished="20" end="135" duration="115" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="3" start="30" wished="30" end="141" duration="111" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="4" start="40" wished="40" end="147" duration="107" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="5" start="50" wished="50" end="151" duration="101" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="6" start="60" wished="60" end="181" duration="121" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="7" start="70" wished="70" end="189" duration="119" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="8" start="80" wished="80" end="195" duration="115" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="9" start="90" wished="90" end="201" duration="111" waited="0" reroutes="0" devices="" vtype="t1"/>
+</tripinfos>
