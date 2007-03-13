@@ -230,7 +230,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                     NBNode *rn = new NBNode(nid, p);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
-                        myEdgeCont.splitAt(myDistrictCont, edge, splitLength, rn,
+                        myEdgeCont.splitAt(myDistrictCont, edge, edge->getGeometry().length()-splitLength, rn,
                                            edge->getID(), nid, edge->getNoLanes(), edge->getNoLanes());
                     } else {
                         // hmm, the node could not be build!?
