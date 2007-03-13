@@ -4,7 +4,7 @@
 /// @date    Thu, 11.03.2004
 /// @version $Id$
 ///
-// Editor for the  list of chosen objects
+// Editor for the list of chosen objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,9 +53,7 @@ class GUISelectedStorage;
 // ===========================================================================
 /**
  * @class GUIDialog_GLChosenEditor
- * Instances of this class are windows that display the list of instances
- * from a given artifact like vehicles, edges or junctions and allow
- * one of their items
+ * @brief Editor for the list of chosen objects
  */
 class GUIDialog_GLChosenEditor : public FXMainWindow
 {
@@ -69,13 +67,22 @@ public:
     /// destructor
     ~GUIDialog_GLChosenEditor();
 
-    FXbool close(FXbool notify=FALSE);
-
+    /// Called when the user presses the Load-button
     long onCmdLoad(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Save-button
     long onCmdSave(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Deselect-button
     long onCmdDeselect(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Clear-button
     long onCmdClear(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Close-button
     long onCmdClose(FXObject*,FXSelector,void*);
+
+    /// Rebuilds the entire list
     void rebuildList();
 
 private:
@@ -89,6 +96,7 @@ private:
     GUISelectedStorage *myStorage;
 
 protected:
+    /// FOX needs this
     GUIDialog_GLChosenEditor()
     { }
 

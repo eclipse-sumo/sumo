@@ -4,7 +4,7 @@
 /// @date    Thu, 11.03.2004
 /// @version $Id$
 ///
-// Editor for the  list of chosen objects
+// Editor for the list of chosen objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -147,7 +147,8 @@ GUIDialog_GLChosenEditor::rebuildList()
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
-            myList->appendItem(name.c_str());
+            FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
+            item->setData((void*) *i);
             gIDStorage.unblockObject(*i);
         }
     }
@@ -199,18 +200,16 @@ long
 GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
 {
     size_t no = myList->getNumItems();
-    vector<size_t> selected;
     size_t i;
-    // remove items from list
-    std::vector<size_t> chosen = gSelected.getAllSelected();
-    std::vector<size_t>::iterator j = chosen.begin();
-    for (i=0; i<no; i++) {
+    vector<size_t> selected;
+    for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            gSelected.deselect(-1, *j);
-            selected.push_back(i);
-        } else {
-            j++;
+            selected.push_back((size_t) myList->getItem(i)->getData());
         }
+    }
+    // remove items from list
+    for (i=0; i<selected.size(); ++i) {
+        gSelected.deselect(-1, selected[i]);
     }
     // rebuild list
     rebuildList();
@@ -235,14 +234,6 @@ GUIDialog_GLChosenEditor::onCmdClose(FXObject*,FXSelector,void*)
 {
     close(true);
     return 1;
-}
-
-
-
-FXbool
-GUIDialog_GLChosenEditor::close(FXbool notify)
-{
-    return FXMainWindow::close(notify);
 }
 
 
