@@ -325,14 +325,14 @@ GUIApplicationWindow::fillMenuBar()
     myFileMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar,"&File",NULL,myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Open Simulation...\tCtl-O\tOpen a Simulation (Configuration File).",
+                      "&Open Simulation...\tCtl-O\tOpen a simulation (Configuration file).",
                       GUIIconSubSys::getIcon(ICON_OPEN),this,MID_OPEN);
     new FXMenuCommand(myFileMenu,
-                      "&Reload Simulation\tCtl-R\tReloads the Simulation (Configuration File).",
+                      "&Reload Simulation\tCtl-R\tReloads the simulation (Configuration file).",
                       GUIIconSubSys::getIcon(ICON_RELOAD),this,MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-                      "&Close\tCtl-C\tClose the Simulation.",
+                      "&Close\tCtl-C\tClose the simulation.",
                       GUIIconSubSys::getIcon(ICON_CLOSE),this,MID_CLOSE);
     // Recent files
     FXMenuSeparator* sep1=new FXMenuSeparator(myFileMenu);
@@ -452,10 +452,10 @@ GUIApplicationWindow::buildToolBars()
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         // build file tools
-        new FXButton(myToolBar1,"\t\tOpen a Simulation (Configuration File).",
+        new FXButton(myToolBar1,"\t\tOpen a simulation (Configuration file).",
                      GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar1,"\t\tReload the Simulation (Configuration File).",
+        new FXButton(myToolBar1,"\t\tReload the simulation (Configuration file).",
                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -466,13 +466,13 @@ GUIApplicationWindow::buildToolBars()
                                    LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
-        new FXButton(myToolBar2,"\t\tStart the loaded Simulation.",
+        new FXButton(myToolBar2,"\t\tStart the loaded simulation.",
                      GUIIconSubSys::getIcon(ICON_START), this, MID_START,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar2,"\t\tStop the running Simulation.",
+        new FXButton(myToolBar2,"\t\tStop the running simulation.",
                      GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar2,"\t\tPerform a single Simulation Step.",
+        new FXButton(myToolBar2,"\t\tPerform a single simulation step.",
                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         /*
@@ -522,12 +522,12 @@ GUIApplicationWindow::buildToolBars()
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         // build view tools
-        new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
+        new FXButton(myToolBar5,"\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 #ifdef HAVE_MESOSIM
         new FXButton(myToolBar5,
-                     "\t\tOpen a new edge meso View.",
+                     "\t\tOpen a new edge meso view.",
                      GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_MESOVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 #endif
