@@ -34,9 +34,6 @@
 #include <config.h>
 #endif
 
-// ITM Features
-//#define _RPC
-
 #include <ctime>
 #include <string>
 #include <iostream>
@@ -67,9 +64,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 
-#ifdef _RPC
-#include <RemoteServer.h>
-#endif
+#include <itm-remoteserver/remoteserver.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -160,13 +155,13 @@ main(int argc, char **argv)
         // load the net
         MSNet *net = load(oc);
         if (net!=0) {
-#ifdef _RPC
+#ifdef ITM
             if (oc.getInt("remote-port") != 0) {
-                //cout <<endl<< "oc.remote-port: " <<oc.getInt("remote-port")<< endl;
-                cout <<"Run from "<<oc.getInt("begin")<<" To 0"<<endl;
-                net->simulate(oc.getInt("begin"), 0);
-                cout << "Done!"<<endl;
-                RemoteServer *rs = new RemoteServer(oc.getInt("remote-port"),oc.getInt("end"));
+                WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
+		itm::RemoteServer rs(oc.getInt("remote-port"),oc.getInt("end"),oc.getFloat("penetration"));
+		WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
+		rs.run();
+		WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
             } else {
 #endif
                 // report the begin when wished
@@ -175,7 +170,7 @@ main(int argc, char **argv)
                 net->simulate(oc.getInt("begin"), oc.getInt("end"));
                 // report the end when wished
                 WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
-#ifdef _RPC
+#ifdef ITM
             }
 #endif
             delete net;

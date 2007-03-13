@@ -3,13 +3,13 @@ GUI_APPS = sumo-guisim
 GUI_DIRS = gui guinetload guisim icons
 endif
 
-if WITH_XMLRPC
-XMLRPC_INCS = -I$(XMLRPC_INCLUDES)
-XMLRPC_LIBS = $(XMLRPC_LDFLAGS)/libXmlRpc.a
-endif
-
 if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ./foreign/nvwa/libnvwa.a
+endif
+
+if ITM
+ITM_LIBS = ./itm-remoteserver/libitmremoteserver.a
+ITM_DIRS = itm-remoteserver
 endif
 
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
@@ -18,8 +18,7 @@ sumo-od2trips sumo-polyconvert $(GUI_APPS)
 
 EXTRA_PROGRAMS =
 
-sumo_SOURCES = sumo_main.cpp \
-RemoteServer.h
+sumo_SOURCES = sumo_main.cpp
 
 sumo_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
@@ -48,7 +47,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/common/SUMOVehicleClass.o \
 ./utils/geoconv/libgeoconv.a \
 $(MEM_LIBS) \
-$(XMLRPC_LIBS) \
+$(ITM_LIBS) \
 -l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
 
 
@@ -251,7 +250,7 @@ endif
 SUBDIRS = foreign microsim multimodal \
 netbuild netedit netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
-tools utils $(GUI_DIRS)
+tools utils $(GUI_DIRS) $(ITM_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 giant_main.cpp \

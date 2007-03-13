@@ -90,6 +90,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("C2C");
     oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
+    oc.addOptionSubTopic("ITM");
 
 
     // register configuration options
@@ -328,8 +329,14 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // debug
     oc.doRegister("track", new Option_Float(0.));//!!! check, describe
 
+    // ITM remote server
+#ifdef ITM
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
+    oc.addDescription("remote-port", "ITM", "enables remote server if set");
+    oc.doRegister("penetration", new Option_Float(1.0f));
+    oc.addDescription("penetration", "ITM", "value in 0..1 [default: 1]");
+#endif
     //
 #ifdef HAVE_MESOSIM
     oc.doRegister("mesosim", new Option_Bool(false));

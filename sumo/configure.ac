@@ -78,6 +78,14 @@ fi
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
+AC_ARG_ENABLE([itm],[AS_HELP_STRING([--enable-itm],[enable itm remoteserver code [default=no].])],
+              [AC_DEFINE(ITM, 1, [Define to 1 in order to enable itm remote server code.])])
+AM_CONDITIONAL(ITM, test x$enable_itm = xyes)	      
+if test x$enable_itm = xyes; then
+   ac_enabled="$ac_enabled ITM"
+else
+   ac_disabled="$ac_disabled ITM"
+fi
 
 
 dnl ---------------------------------------------
@@ -233,16 +241,20 @@ dnl   ... for includes
 AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
 if test x"$with_fox_includes" = x; then
    save_cppflags=$CPPFLAGS
-   CPPFLAGS="$CPPFLAGS -I/usr/local/include/$fox_include_prefix -I/usr/include/$fox_include_prefix"
+dnl   CPPFLAGS="$CPPFLAGS -I/usr/local/include/$fox_include_prefix -I/usr/include/$fox_include_prefix"
+   CPPFLAGS="$CPPFLAGS -I/usr/local/include -I/usr/include"
    export CPPFLAGS
    AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
+   with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
+dnl   AC_CHECK_HEADER([$fox_include_prefix/fxver.h],[AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+dnl   with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
    CPPFLAGS=$save_cppflags
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_fox_includes"
    export CPPFLAGS
    AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
+dnl   AC_CHECK_HEADER([$fox_include_prefix/fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox includes not found in "$with_fox_includes".])])
    CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
@@ -251,97 +263,6 @@ if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
 else
    ac_disabled="$ac_disabled GUI"
 fi
-
-dnl - - - - - - - - - - - - - - - - - - - - - - -
-dnl  ... for XmlRpc++
-AC_ARG_WITH([xmlrpc],[AS_HELP_STRING([--with-xmlrpc=DIR],[where XmlRpc is installed (currently disabled).])])
-dnl disabled
-with_xmlrpc=""
-if test x"$with_xmlrpc" != x; then
-   if test x"$with_xmlrpc" != xyes; then
-      if test x"$with_xmlrpc_libraries" = x; then
-         with_xmlrpc_libraries=$with_xmlrpc/lib
-      fi
-      if test x"$with_xmlrpc_includes" = x; then
-         with_xmlrpc_includes=$with_xmlrpc/include
-      fi
-   fi
-   AC_DEFINE(_RPC, 1, [Define to 1 in order to enable rpc features.])
-fi
-AM_CONDITIONAL([WITH_XMLRPC], [test x"$with_xmlrpc" != x])
-
-dnl   ... for libs
-LIB_XMLRPC="XmlRpc"
-if test x"$with_xmlrpc_libraries" = x; then
-   AC_CHECK_LIB([$LIB_XMLRPC], [main], [with_xmlrpc_libraries=true], [AC_MSG_RESULT([xmlrpc-lib not found. Specify path with option --with-xmlrpc-libraries=DIR to enable XML-RPC.])])
-else
-   save_ldflags=$LDFLAGS
-   LDFLAGS="-L$with_xmlrpc_libraries"
-   export LDFLAGS
-   AC_CHECK_LIB([XmlRpc], [main], [XMLRPC_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xmlrpc-lib not found in "$with_xmlrpc_libraries".])])
-   LDFLAGS=$save_ldflags
-   AC_SUBST(XMLRPC_LDFLAGS)
-fi
-AC_SUBST(LIB_XMLRPC)
-
-dnl   ... for includes
-if test x"$with_xmlrpc_includes" = x; then
-   if test -e /usr/local/include/xmlrpc/XmlRpc.h; then
-      AC_MSG_RESULT([yes])
-      with_xmlrpc_includes=/usr/local/include/xmlrpc
-   elif test -e /usr/include/XmlRpc.h; then
-      AC_MSG_RESULT([yes])
-      with_xmlrpc_includes=/usr/include
-   elif test -e /usr/local/include/XmlRpc.h; then
-      AC_MSG_RESULT([yes])
-      with_xmlrpc_includes=/usr/local/include
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_RESULT([xmlrpc-includes not found.])
-      AC_MSG_RESULT([Specify path with option --with-xmlrpc-includes=DIR.])
-   fi
-else
-   if test -e "$with_xmlrpc_includes/XmlRpc.h"; then
-      AC_MSG_RESULT([yes])
-   else
-      AC_MSG_RESULT([no])
-      AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])
-   fi
-fi
-XMLRPC_INCLUDES="$with_xmlrpc_includes"
-AC_SUBST(XMLRPC_INCLUDES)
-if test x"$with_xmlrpc" != x; then
-   ac_enabled="$ac_enabled XML-RPC"
-else
-   ac_disabled="$ac_disabled XML-RPC"
-fi
-
-
-AC_SUBST(AM_CPPFLAGS)
-
-
-dnl Checks for header files.
-AC_FUNC_ALLOCA
-AC_HEADER_STDC
-AC_CHECK_HEADERS([float.h limits.h malloc.h math.h stddef.h stdlib.h string.h sys/time.h unistd.h wchar.h])
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
-AC_C_CONST
-AC_C_INLINE
-AC_TYPE_SIZE_T
-AC_HEADER_TIME
-AC_STRUCT_TM
-AC_C_VOLATILE
-
-dnl Checks for library functions.
-AC_FUNC_ERROR_AT_LINE
-AC_FUNC_MALLOC
-AC_FUNC_SELECT_ARGTYPES
-AC_TYPE_SIGNAL
-AC_FUNC_STAT
-AC_CHECK_FUNCS([floor getcwd gettimeofday memset pow select socket sqrt])
-
 
 dnl ---------------------------------------------
 dnl add here all your Makefiles. These will be created by configure
@@ -422,6 +343,7 @@ src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
+src/itm-remoteserver/Makefile
 Makefile)
 
 dnl ---------------------------------------------
