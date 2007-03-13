@@ -39,6 +39,20 @@
 
 #include <string>
 
+
+// ===========================================================================
+// default vehicle type parameter
+// ===========================================================================
+const SUMOReal DEFAULT_VEH_MAXSPEED = 70.;
+const SUMOReal DEFAULT_VEH_A = 2.6;
+const SUMOReal DEFAULT_VEH_B = 4.5;
+const SUMOReal DEFAULT_VEH_SIGMA = 0.5;
+const SUMOReal DEFAULT_VEH_LENGTH = 5.;
+
+
+// ===========================================================================
+// enum definitions
+// ===========================================================================
 /**
  * Bits:
  * @arg 0-7:  vehicle ownership
@@ -56,8 +70,6 @@
  * @arg [8] Bicycle
  * @arg [9] Pedestrian
  */
-
-
 enum SUMOVehicleClass {
     SVC_UNKNOWN = 0,
 
@@ -105,12 +117,17 @@ enum SUMOVehicleClass {
     SVC_BICYCLE = 524288,
     /// is a pedestrian
     SVC_PEDESTRIAN = 1048576
-                     // }
+    // }
 
 };
 
+
+// ===========================================================================
+// enum definitions
+// ===========================================================================
 extern std::string getVehicleClassName(SUMOVehicleClass id);
 extern SUMOVehicleClass getVehicleClassID(const std::string &name);
+
 
 
 #endif
