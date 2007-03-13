@@ -43,11 +43,11 @@
 // ===========================================================================
 // default vehicle type parameter
 // ===========================================================================
-const SUMOReal DEFAULT_VEH_MAXSPEED = 70.;
-const SUMOReal DEFAULT_VEH_A = 2.6;
-const SUMOReal DEFAULT_VEH_B = 4.5;
-const SUMOReal DEFAULT_VEH_SIGMA = 0.5;
-const SUMOReal DEFAULT_VEH_LENGTH = 5.;
+const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
+const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
+const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
+const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
+const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 5.;
 
 
 // ===========================================================================
