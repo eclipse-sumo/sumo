@@ -9,15 +9,30 @@ AC_CONFIG_HEADER(src/config.h)
 dnl enable automake-support
 AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
+
+dnl the debug check has to be made before the program checks
+dnl because it modifies CXXFLAGS
+AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
+              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
+CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 $CXXFLAGS"])
+if test x$enable_debug = xyes; then
+   ac_enabled="$ac_enabled Debug"
+else
+   ac_disabled="$ac_disabled Debug"
+fi
+
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
 
 dnl enable libtool-support
+dnl gives a deprecated warning for RANLIB with newer libtools
+AC_PROG_RANLIB
 AM_PROG_LIBTOOL
 
 
@@ -39,16 +54,6 @@ if test x$enable_memcheck = xyes; then
 else
    ac_disabled="$ac_disabled MemoryChecks"
 fi
-
-AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
-              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
-CXXFLAGS="-g"], [CXXFLAGS="-O2"])
-if test x$enable_debug = xyes; then
-   ac_enabled="$ac_enabled Debug"
-else
-   ac_disabled="$ac_disabled Debug"
-fi
-AC_PROG_CXX
 
 AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])],
               [AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])])
@@ -263,6 +268,35 @@ if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
 else
    ac_disabled="$ac_disabled GUI"
 fi
+
+AC_SUBST(AM_CPPFLAGS)
+AC_SUBST(AM_CXXFLAGS)
+
+
+dnl ---------------------------------------------
+dnl Checks proposed by autoscan.
+dnl Checks for header files.
+AC_FUNC_ALLOCA
+AC_HEADER_STDC
+AC_CHECK_HEADERS([float.h limits.h malloc.h math.h stddef.h stdlib.h string.h sys/time.h unistd.h wchar.h])
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+AC_C_VOLATILE
+
+dnl Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_MALLOC
+AC_FUNC_SELECT_ARGTYPES
+AC_TYPE_SIGNAL
+AC_FUNC_STAT
+AC_CHECK_FUNCS([floor getcwd gettimeofday memset pow select socket sqrt])
+
 
 dnl ---------------------------------------------
 dnl add here all your Makefiles. These will be created by configure
