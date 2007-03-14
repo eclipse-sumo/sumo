@@ -6,6 +6,7 @@ from os.path import join
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
 texttesttmp = sys.argv[3]
+print makelog
 warnings = 0
 for l in file(makelog):
     if l.find("warning") > -1:
@@ -17,6 +18,7 @@ for root, dirs, files in os.walk(texttesttmp):
             b = open(join(root, f))
             print f + " " + b.readline(),
             b.close()
+print makealllog
 warnings = 0
 for l in file(makealllog):
     if l.find("warning") > -1:
