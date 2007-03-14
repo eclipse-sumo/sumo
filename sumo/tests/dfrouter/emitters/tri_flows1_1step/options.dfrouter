@@ -1,0 +1,1 @@
+--detector-flow-files input_tri_flows.txt --keep-longer-routes --net-file=input_tri_net.net.xml --detector-files=input_tri_detectors.det.xml --routes-output routes.rou.xml --emitters-output emitters.add.xml

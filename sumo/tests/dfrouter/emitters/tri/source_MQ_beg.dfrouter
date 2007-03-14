@@ -1,0 +1,5 @@
+<triggeredsource>
+   <routedistelem id="beg_to_end" probability="1"/>
+   <routedistelem id="beg_to_end_1" probability="1"/>
+   <routedistelem id="beg_to_end_2" probability="1"/>
+</triggeredsource>

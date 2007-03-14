@@ -5,3 +5,6 @@ messstrecke
 # Tests emitter building on an abstract network
 tri
 
+# Tests emitter building on an abstract network - with complete, correct information for one step
+tri_flows1_1step
+
