@@ -54,7 +54,7 @@ public:
 
     /// Returns true if either the file given by its name does not exist or the user allows overwriting it
     static FXbool userPermitsOverwritingWhenFileExists(
-        FXWindow *parent, FXString &file);
+        FXWindow *const parent, FXString &file);
 
 };
 
