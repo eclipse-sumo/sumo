@@ -52,7 +52,7 @@ MFXUtils::deleteChildren(FXWindow *w)
 
 FXbool
 MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
-                                               FXString &file)
+                                               const FXString &file)
 {
     if(!FXFile::exists(file)) {
         return TRUE;
