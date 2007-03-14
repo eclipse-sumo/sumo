@@ -28,7 +28,7 @@ cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 rm -f $STATUSLOG
-basename $MAKELOG > $STATUSLOG
+echo `basename $MAKELOG`.gz > $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
@@ -56,7 +56,7 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   scp -q $RUNLOG $REMOTEDIR
 fi
 
-basename $MAKEALLLOG >> $STATUSLOG
+echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
 export CXXFLAGS="-Wall -Wextra -pedantic -Wno-long-long -g -O2"
 #--with-xmlrpc=$PREFIX/xmlrpc++0.7
 ./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
