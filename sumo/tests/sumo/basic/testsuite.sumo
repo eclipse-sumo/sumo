@@ -1,0 +1,10 @@
+
+# testing route loading
+routes
+
+# tests for the traffic lights subsystem
+tls
+
+# tests for vehicle type handling
+vtypes
+

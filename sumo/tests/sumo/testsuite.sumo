@@ -1,18 +1,12 @@
 
-# testing route loading
-routes
+# handling of basic structures
+basic
 
 # output tests
 output
 
 # tests for additional structures
 extended
-
-# tests for the traffic lights subsystem
-tls
-
-# tests for vehicle type handling
-vtypes
 
 # traffic online checks
 traffic_online
