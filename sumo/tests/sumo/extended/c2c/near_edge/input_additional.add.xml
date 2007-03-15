@@ -1,3 +1,0 @@
-<additional>
-    <trigger id="vss" objecttype="lane" objectid="middle_0" attr="speed" file="input_definition.def.xml"/>
-</additional>

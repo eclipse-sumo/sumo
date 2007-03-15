@@ -22,6 +22,11 @@ config:config.cfg
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
 c2x_cluster_info:c2x_cluster_info.xml
+c2x_saved_info:c2x_saved_info.xml
+c2x_transmitted_info:c2x_transmitted_info.xml
+c2x_vehicle_in_range:c2x_vehicle_in_range.xml
+c2x_saved_info_freq:c2x_saved_info_freq.xml
+c2x_edge_near_info:c2x_edge_near_info.xml
 
 [run_dependent_text]
 output:\r{REPLACE \n}
