@@ -1191,7 +1191,7 @@ MSVehicle::leaveLaneAtMove(SUMOReal /*driven*/)
             }
             // save the information
             MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-                                             getID(),(*myCurrEdge)->getID(),"congestion",(*i).second->time,nt,-1);
+                                             getID(),(*myCurrEdge)->getID(),"congestion",(*i).second->time,nt);
             totalNrOfSavedInfos++;
         } else if (infoCont.find(*myCurrEdge)!=infoCont.end()) {
             // ok, we could pass the edge faster than assumed; remove the information
@@ -1988,7 +1988,7 @@ MSVehicle::addVehNeighbors(MSVehicle *veh, SUMOTime time)
             (*i).second->lastTimeSeen = time;
         }
         MSCORN::saveVehicleInRangeData(time, getID(), veh->getID(),
-                                       pos1.x(),pos1.y(), pos2.x(),pos2.y(),-1);
+                                       pos1.x(),pos1.y(), pos2.x(),pos2.y());
     }
 }
 
@@ -2067,7 +2067,7 @@ MSVehicle::updateInfos(SUMOTime time)
             // this is a new information about an edge where speed is too low
             Information *info = new Information(estimatedTime, time);
             infoCont[*myCurrEdge] = info;
-            MSCORN::saveSavedInformationData(time, getID(), (*myCurrEdge)->getID(), "congestion", info->time, 0, -1);
+            MSCORN::saveSavedInformationData(time, getID(), (*myCurrEdge)->getID(), "congestion", info->time, 0);
             totalNrOfSavedInfos++;
         } else {
             // this edge is already known as being too slow
@@ -2176,7 +2176,7 @@ MSVehicle::buildMyCluster(int myStep, int clId)
             }
             vehs << (*i)->connectedVeh->getID();
         }
-        MSCORN::saveClusterInfoData(myStep, clId, getID(), vehs.str(), count, -1);
+        MSCORN::saveClusterInfoData(myStep, clId, getID(), vehs.str(), count);
     }
     return count;
 }
@@ -2279,7 +2279,7 @@ MSVehicle::transferInformation(const std::string &senderID, const InfoCont &info
             ++myNoGot;
         }
         count++;
-        MSCORN::saveTransmittedInformationData(-1,senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime,-1);
+        MSCORN::saveTransmittedInformationData(MSNet::getInstance()->getCurrentTimeStep(),senderID,getID(),(*i).first->getID(),(*i).second->time,(*i).second->neededTime);
         // if the edge is on the route, mark that a relevant information has been added
         bool bWillPass = willPass((*i).first);
         if (bWillPass) {

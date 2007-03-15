@@ -430,18 +430,22 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     }
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
+        MSCORN::checkCloseClusterInfoData();
         myOutputStreams[OS_CLUSTER_INFO]->getOStream() << "</clusterInfos>" << endl;
     }
     if (myOutputStreams[OS_SAVED_INFO]!=0) {
+        MSCORN::checkCloseSavedInformationData();
         myOutputStreams[OS_SAVED_INFO]->getOStream() << "</savedInfos>" << endl;
     }
     if (myOutputStreams[OS_SAVED_INFO_FREQ]!=0) {
         myOutputStreams[OS_SAVED_INFO_FREQ]->getOStream() << "</savedInfosFreq>" << endl;
     }
     if (myOutputStreams[OS_TRANS_INFO]!=0) {
+        MSCORN::checkCloseTransmittedInformationData();
         myOutputStreams[OS_TRANS_INFO]->getOStream() << "</transmittedInfos>" << endl;
     }
     if (myOutputStreams[OS_VEH_IN_RANGE]!=0) {
+        MSCORN::checkCloseVehicleInRangeData();
         myOutputStreams[OS_VEH_IN_RANGE]->getOStream() << "</vehicleInRanges>" << endl;
     }
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
@@ -550,11 +554,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 void
 MSNet::computeCar2Car(void)
 {
-    MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,0);
-    MSCORN::saveClusterInfoData(myStep,0,"","",0,0);
-    MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,0);
-    MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,0);
-
     if (myAllEdges.size()==0) {
         myAllEdges = myEdges->getMultiLaneEdges();
         const std::vector<MSEdge*> &add = myEdges->getSingleLaneEdges();
@@ -643,11 +642,6 @@ MSNet::computeCar2Car(void)
             (*q1)->checkReroute(myStep);
         }
     }
-    //close XML-tags
-    MSCORN::saveClusterInfoData(myStep,0,"","",0,1);
-    MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,1);
-    MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,1);
-    MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,1);
 }
 
 

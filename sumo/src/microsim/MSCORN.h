@@ -2,7 +2,7 @@
 /// @file    MSCORN.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id$
+/// @version $Id: $
 ///
 // A storage for optional things to compute
 /****************************************************************************/
@@ -92,6 +92,7 @@ public:
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_NUMBERROUTE,
         CORN_VEH_DEV_NO_CPHONE,
+        CORN_VEH_NUMBER_PASSENGER,
         CORN_VEH_REROUTE_TIME,
 
         CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
@@ -101,10 +102,11 @@ public:
 
     enum Pointer {
         CORN_P_VEH_OWNCOL,
-        CORN_P_VEH_OLDROUTE,
+        CORN_P_VEH_OLDROUTE = 0,
         CORN_P_VEH_ROUTE_BEGIN_EDGE = CORN_P_VEH_OLDROUTE + 1000,
         CORN_P_VEH_DEV_CPHONE = CORN_P_VEH_ROUTE_BEGIN_EDGE + 1000,
-        CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 40
+        CORN_VEH_PASSENGER = CORN_P_VEH_DEV_CPHONE + 1000,
+        CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 10000
     };
 
     static void init();
@@ -156,14 +158,27 @@ public:
 
     //car2car
     static void saveClusterInfoData(SUMOTime step, int id,
-                                    const std::string &headID, const std::string &vehs, int quantity, int a);
-    static void saveSavedInformationData(SUMOTime step, const std::string veh,
-                                         const std::string edge, std::string type, int time, SUMOReal nt, int a);
+                                    const std::string &headID, 
+                                    const std::string &vehs, int quantity);
+    static void checkCloseClusterInfoData();
+
+    static void saveSavedInformationData(SUMOTime step, const std::string &veh,
+                                         const std::string &edge, const std::string &type, 
+                                         int time, SUMOReal nt);
+    static void checkCloseSavedInformationData();
+
     static void saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh);
-    static void saveTransmittedInformationData(SUMOTime step, const std::string from,
-            const std::string to, const std::string edge, int time, SUMOReal nt, int a);
-    static void saveVehicleInRangeData(SUMOTime step, const std::string veh1,
-                                       const std::string veh2, SUMOReal x1, SUMOReal y1, SUMOReal x2 , SUMOReal y2, int a);
+
+    static void saveTransmittedInformationData(SUMOTime step, const std::string &from,
+            const std::string &to, const std::string &edge, int time, SUMOReal nt);
+    static void checkCloseTransmittedInformationData();
+
+    static void saveVehicleInRangeData(SUMOTime step, const std::string &veh1,
+                                       const std::string &veh2, 
+                                       SUMOReal x1, SUMOReal y1, 
+                                       SUMOReal x2 , SUMOReal y2);
+    static void checkCloseVehicleInRangeData();
+
 
 private:
     //
@@ -183,6 +198,10 @@ private:
     static OutputDevice *mySavedInfoOutputFreq;
     static OutputDevice *myTransmittedInfoOutput;
     static OutputDevice *myVehicleInRangeOutput;
+    static SUMOTime myLastStepClusterInfoOutput;
+    static SUMOTime myLastStepSavedInfoOutput;
+    static SUMOTime myLastStepTransmittedInfoOutput;
+    static SUMOTime myLastStepVehicleInRangeOutput;
 
     static bool myWished[CORN_MAX];
     static bool myFirstCall[CORN_MAX];
