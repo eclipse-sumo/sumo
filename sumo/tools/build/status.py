@@ -16,7 +16,9 @@ for root, dirs, files in os.walk(texttesttmp):
     for f in files:
         if f.startswith("batchreport"):
             b = open(join(root, f))
-            print f + " " + b.readline(),
+            l = b.readline()
+            if l.startswith("FAILED") or l.startswith("succeeded"):
+            	print f + " " + l,
             b.close()
 print makealllog
 warnings = 0
