@@ -2,7 +2,7 @@ noinst_LIBRARIES = libitmremoteserver.a
 
 EXTRA_DIST =
 
-libitmremoteserver_a_SOURCES = remoteserver.cpp socket.cpp storage.cpp
+libitmremoteserver_a_SOURCES = remoteconstants.h remoteserver.h removeserver.cpp socket.h socket.cpp storage.h storage.cpp
 
 SUBDIRS = 
 
