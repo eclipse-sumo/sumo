@@ -1,0 +1,391 @@
+<?xml version="1.0" standalone="no"?>
+
+<clusterInfos>
+	<timeStep time="0">
+	</timeStep>
+	<timeStep time="1">
+	</timeStep>
+	<timeStep time="2">
+	</timeStep>
+	<timeStep time="3">
+	</timeStep>
+	<timeStep time="4">
+	</timeStep>
+	<timeStep time="5">
+	</timeStep>
+	<timeStep time="6">
+	</timeStep>
+	<timeStep time="7">
+	</timeStep>
+	<timeStep time="8">
+	</timeStep>
+	<timeStep time="9">
+	</timeStep>
+	<timeStep time="10">
+	</timeStep>
+	<timeStep time="11">
+	</timeStep>
+	<timeStep time="12">
+	</timeStep>
+	<timeStep time="13">
+	</timeStep>
+	<timeStep time="14">
+	</timeStep>
+	<timeStep time="15">
+	</timeStep>
+	<timeStep time="16">
+	</timeStep>
+	<timeStep time="17">
+	</timeStep>
+	<timeStep time="18">
+	</timeStep>
+	<timeStep time="19">
+	</timeStep>
+	<timeStep time="20">
+	</timeStep>
+	<timeStep time="21">
+	</timeStep>
+	<timeStep time="22">
+	</timeStep>
+	<timeStep time="23">
+	</timeStep>
+	<timeStep time="24">
+	</timeStep>
+	<timeStep time="25">
+	</timeStep>
+	<timeStep time="26">
+	</timeStep>
+	<timeStep time="27">
+	</timeStep>
+	<timeStep time="28">
+	</timeStep>
+	<timeStep time="29">
+	</timeStep>
+	<timeStep time="30">
+	</timeStep>
+	<timeStep time="31">
+	</timeStep>
+	<timeStep time="32">
+	</timeStep>
+	<timeStep time="33">
+	</timeStep>
+	<timeStep time="34">
+	</timeStep>
+	<timeStep time="35">
+	</timeStep>
+	<timeStep time="36">
+	</timeStep>
+	<timeStep time="37">
+	</timeStep>
+	<timeStep time="38">
+	</timeStep>
+	<timeStep time="39">
+	</timeStep>
+	<timeStep time="40">
+	</timeStep>
+	<timeStep time="41">
+	</timeStep>
+	<timeStep time="42">
+	</timeStep>
+	<timeStep time="43">
+	</timeStep>
+	<timeStep time="44">
+	</timeStep>
+	<timeStep time="45">
+	</timeStep>
+	<timeStep time="46">
+	</timeStep>
+	<timeStep time="47">
+	</timeStep>
+	<timeStep time="48">
+	</timeStep>
+	<timeStep time="49">
+	</timeStep>
+	<timeStep time="50">
+	</timeStep>
+	<timeStep time="51">
+	</timeStep>
+	<timeStep time="52">
+	</timeStep>
+	<timeStep time="53">
+	</timeStep>
+	<timeStep time="54">
+	</timeStep>
+	<timeStep time="55">
+	</timeStep>
+	<timeStep time="56">
+	</timeStep>
+	<timeStep time="57">
+	</timeStep>
+	<timeStep time="58">
+	</timeStep>
+	<timeStep time="59">
+	</timeStep>
+	<timeStep time="60">
+	</timeStep>
+	<timeStep time="61">
+	</timeStep>
+	<timeStep time="62">
+	</timeStep>
+	<timeStep time="63">
+	</timeStep>
+	<timeStep time="64">
+	</timeStep>
+	<timeStep time="65">
+	</timeStep>
+	<timeStep time="66">
+	</timeStep>
+	<timeStep time="67">
+	</timeStep>
+	<timeStep time="68">
+	</timeStep>
+	<timeStep time="69">
+	</timeStep>
+	<timeStep time="70">
+	</timeStep>
+	<timeStep time="71">
+	</timeStep>
+	<timeStep time="72">
+	</timeStep>
+	<timeStep time="73">
+	</timeStep>
+	<timeStep time="74">
+	</timeStep>
+	<timeStep time="75">
+	</timeStep>
+	<timeStep time="76">
+	</timeStep>
+	<timeStep time="77">
+	</timeStep>
+	<timeStep time="78">
+	</timeStep>
+	<timeStep time="79">
+	</timeStep>
+	<timeStep time="80">
+	</timeStep>
+	<timeStep time="81">
+	</timeStep>
+	<timeStep time="82">
+	</timeStep>
+	<timeStep time="83">
+	</timeStep>
+	<timeStep time="84">
+	</timeStep>
+	<timeStep time="85">
+	</timeStep>
+	<timeStep time="86">
+	</timeStep>
+	<timeStep time="87">
+	</timeStep>
+	<timeStep time="88">
+	</timeStep>
+	<timeStep time="89">
+	</timeStep>
+	<timeStep time="90">
+	</timeStep>
+	<timeStep time="91">
+	</timeStep>
+	<timeStep time="92">
+	</timeStep>
+	<timeStep time="93">
+	</timeStep>
+	<timeStep time="94">
+	</timeStep>
+	<timeStep time="95">
+	</timeStep>
+	<timeStep time="96">
+	</timeStep>
+	<timeStep time="97">
+	</timeStep>
+	<timeStep time="98">
+	</timeStep>
+	<timeStep time="99">
+	</timeStep>
+	<timeStep time="100">
+	</timeStep>
+	<timeStep time="101">
+	</timeStep>
+	<timeStep time="102">
+	</timeStep>
+	<timeStep time="103">
+	</timeStep>
+	<timeStep time="104">
+	</timeStep>
+	<timeStep time="105">
+	</timeStep>
+	<timeStep time="106">
+	</timeStep>
+	<timeStep time="107">
+	</timeStep>
+	<timeStep time="108">
+	</timeStep>
+	<timeStep time="109">
+	</timeStep>
+	<timeStep time="110">
+	</timeStep>
+	<timeStep time="111">
+	</timeStep>
+	<timeStep time="112">
+	</timeStep>
+	<timeStep time="113">
+	</timeStep>
+	<timeStep time="114">
+	</timeStep>
+	<timeStep time="115">
+	</timeStep>
+	<timeStep time="116">
+	</timeStep>
+	<timeStep time="117">
+	</timeStep>
+	<timeStep time="118">
+	</timeStep>
+	<timeStep time="119">
+	</timeStep>
+	<timeStep time="120">
+	</timeStep>
+	<timeStep time="121">
+	</timeStep>
+	<timeStep time="122">
+	</timeStep>
+	<timeStep time="123">
+	</timeStep>
+	<timeStep time="124">
+	</timeStep>
+	<timeStep time="125">
+	</timeStep>
+	<timeStep time="126">
+	</timeStep>
+	<timeStep time="127">
+	</timeStep>
+	<timeStep time="128">
+	</timeStep>
+	<timeStep time="129">
+	</timeStep>
+	<timeStep time="130">
+	</timeStep>
+	<timeStep time="131">
+	</timeStep>
+	<timeStep time="132">
+	</timeStep>
+	<timeStep time="133">
+	</timeStep>
+	<timeStep time="134">
+	</timeStep>
+	<timeStep time="135">
+	</timeStep>
+	<timeStep time="136">
+	</timeStep>
+	<timeStep time="137">
+	</timeStep>
+	<timeStep time="138">
+	</timeStep>
+	<timeStep time="139">
+	</timeStep>
+	<timeStep time="140">
+		<cluster id="1" headID="horizontal2" vehNo="2">horizontal1</cluster>
+	</timeStep>
+	<timeStep time="141">
+		<cluster id="1" headID="horizontal2" vehNo="2">horizontal1</cluster>
+	</timeStep>
+	<timeStep time="142">
+		<cluster id="1" headID="horizontal2" vehNo="2">horizontal1</cluster>
+	</timeStep>
+	<timeStep time="143">
+		<cluster id="1" headID="horizontal1" vehNo="2">horizontal2</cluster>
+	</timeStep>
+	<timeStep time="144">
+		<cluster id="1" headID="horizontal1" vehNo="2">horizontal2</cluster>
+	</timeStep>
+	<timeStep time="145">
+		<cluster id="1" headID="horizontal1" vehNo="2">horizontal2</cluster>
+	</timeStep>
+	<timeStep time="146">
+		<cluster id="1" headID="horizontal1" vehNo="2">horizontal2</cluster>
+	</timeStep>
+	<timeStep time="147">
+	</timeStep>
+	<timeStep time="148">
+	</timeStep>
+	<timeStep time="149">
+	</timeStep>
+	<timeStep time="150">
+	</timeStep>
+	<timeStep time="151">
+	</timeStep>
+	<timeStep time="152">
+	</timeStep>
+	<timeStep time="153">
+	</timeStep>
+	<timeStep time="154">
+	</timeStep>
+	<timeStep time="155">
+	</timeStep>
+	<timeStep time="156">
+	</timeStep>
+	<timeStep time="157">
+	</timeStep>
+	<timeStep time="158">
+	</timeStep>
+	<timeStep time="159">
+	</timeStep>
+	<timeStep time="160">
+	</timeStep>
+	<timeStep time="161">
+	</timeStep>
+	<timeStep time="162">
+	</timeStep>
+	<timeStep time="163">
+	</timeStep>
+	<timeStep time="164">
+	</timeStep>
+	<timeStep time="165">
+	</timeStep>
+	<timeStep time="166">
+	</timeStep>
+	<timeStep time="167">
+	</timeStep>
+	<timeStep time="168">
+	</timeStep>
+	<timeStep time="169">
+	</timeStep>
+	<timeStep time="170">
+	</timeStep>
+	<timeStep time="171">
+	</timeStep>
+	<timeStep time="172">
+	</timeStep>
+	<timeStep time="173">
+	</timeStep>
+	<timeStep time="174">
+	</timeStep>
+	<timeStep time="175">
+	</timeStep>
+	<timeStep time="176">
+	</timeStep>
+	<timeStep time="177">
+	</timeStep>
+	<timeStep time="178">
+	</timeStep>
+	<timeStep time="179">
+	</timeStep>
+	<timeStep time="180">
+	</timeStep>
+	<timeStep time="181">
+	</timeStep>
+	<timeStep time="182">
+	</timeStep>
+	<timeStep time="183">
+	</timeStep>
+	<timeStep time="184">
+	</timeStep>
+	<timeStep time="185">
+	</timeStep>
+	<timeStep time="186">
+	</timeStep>
+	<timeStep time="187">
+	</timeStep>
+	<timeStep time="188">
+	</timeStep>
+	<timeStep time="189">
+	</timeStep>
+</clusterInfos>
