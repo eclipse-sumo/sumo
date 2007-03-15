@@ -84,28 +84,9 @@ MSCell::addEdge(MSEdge *edge)
 
 
 void
-MSCell::removeEdge(MSEdge *)
-{}
-
-
-void
 MSCell::setCellNeighbors(std::vector<MSCell*> ret)
 {
     _neighbors = ret;
-}
-
-
-std::vector<MSCell*> &
-MSCell::getCellNeighbors(void)
-{
-    return _neighbors;
-}
-
-
-std::vector<MSEdge*> &
-MSCell::getEdges(void)
-{
-    return _edgesCont;
 }
 
 
@@ -125,14 +106,7 @@ MSCell::setEdgesNeighbors(void)
                 neighbor=neighbor+" "+(*k)->getID();
             }
         }
-        MSCORN::saveEdgeNearInfoData((*i)->getID(), neighbor, anzahl);
     }
-}
-
-size_t
-MSCell::getIndex(void)
-{
-    return myIndex;
 }
 
 

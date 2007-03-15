@@ -68,24 +68,12 @@ public:
     /// Adds an edge into the Container
     void addEdge(MSEdge *edge);
 
-    /// Removes an edge from the Container
-    void removeEdge(MSEdge *edge);
-
     /// set my Neighbors Cells
     //void setCellNeighbors(size_t pos, MSCell *cell);
     void setCellNeighbors(std::vector<MSCell*> ret);
 
-    /// get the NeighborsCells Container
-    std::vector<MSCell*>& getCellNeighbors(void);
-
-    /// get the Edge Container of this Cell
-    std::vector<MSEdge*>& getEdges(void);
-
     /// set my Edges Neighbors
     void setEdgesNeighbors(void);
-
-    // return the Index
-    size_t getIndex(void);
 
 
 private:

@@ -203,7 +203,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setCELLPHONEDUMPOutput(streams[OS_CELLPHONE_DUMP_TO]);
     //car2car
     MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
-    MSCORN::setEdgeNearInfoOutput(streams[OS_EDGE_NEAR]);
     MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
     MSCORN::setSavedInfoOutputFreq(streams[OS_SAVED_INFO_FREQ]);
     MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
@@ -215,9 +214,15 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // we may add it before the network is loaded
     if (myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
+        // check whether the c2c is used
         if (MSGlobals::gUsingC2C) {
+            // build the speed-up grid
             myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
             myCellsBuilder->build();
+            // print some debug stuff if wished
+            if(streams[OS_EDGE_NEAR]!=0) {
+                myCellsBuilder->writeNearEdges(streams[OS_EDGE_NEAR]);
+            }
         }
     }
 #ifdef HAVE_MESOSIM
@@ -367,12 +372,6 @@ MSNet::initialiseSimulation()
         << "<clusterInfos>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
     }
-    if (myOutputStreams[OS_EDGE_NEAR]!=0) {
-        myOutputStreams[OS_EDGE_NEAR]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<edgeNears>" << endl;
-        MSCORN::setWished(MSCORN::CORN_OUT_EDGE_NEAR);
-    }
     if (myOutputStreams[OS_SAVED_INFO]!=0) {
         myOutputStreams[OS_SAVED_INFO]->getOStream()
         << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
@@ -432,9 +431,6 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
         myOutputStreams[OS_CLUSTER_INFO]->getOStream() << "</clusterInfos>" << endl;
-    }
-    if (myOutputStreams[OS_EDGE_NEAR]!=0) {
-        myOutputStreams[OS_EDGE_NEAR]->getOStream() << "</edgeNears>" << endl;
     }
     if (myOutputStreams[OS_SAVED_INFO]!=0) {
         myOutputStreams[OS_SAVED_INFO]->getOStream() << "</savedInfos>" << endl;
@@ -555,7 +551,7 @@ void
 MSNet::computeCar2Car(void)
 {
     MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,0);
-    MSCORN::saveClusterInfoData(myStep,0,"",0,0);
+    MSCORN::saveClusterInfoData(myStep,0,"","",0,0);
     MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,0);
     MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,0);
 
@@ -648,7 +644,7 @@ MSNet::computeCar2Car(void)
         }
     }
     //close XML-tags
-    MSCORN::saveClusterInfoData(myStep,0,"",0,1);
+    MSCORN::saveClusterInfoData(myStep,0,"","",0,1);
     MSCORN::saveTransmittedInformationData(myStep,"","","",-1,-1,1);
     MSCORN::saveVehicleInRangeData(myStep, "", "",-1,-1,-1,-1,1);
     MSCORN::saveSavedInformationData(myStep,"","","",-1,-1,1);

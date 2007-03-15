@@ -77,7 +77,6 @@ public:
         CORN_OUT_CELLPHONE_DUMP_TO,
         // c2x-output
         CORN_OUT_CLUSTER_INFO,
-        CORN_OUT_EDGE_NEAR,
         CORN_OUT_SAVED_INFO,
         CORN_OUT_SAVED_INFO_FREQ,
         CORN_OUT_TRANS_INFO,
@@ -125,7 +124,6 @@ public:
     static void setCELLPHONEDUMPOutput(OutputDevice *s);
     // Car2Car
     static void setClusterInfoOutput(OutputDevice *s);
-    static void setEdgeNearInfoOutput(OutputDevice *s);
     static void setSavedInfoOutput(OutputDevice *s);
     static void setSavedInfoOutputFreq(OutputDevice *s);
     static void setTransmittedInfoOutput(OutputDevice *s);
@@ -158,9 +156,7 @@ public:
 
     //car2car
     static void saveClusterInfoData(SUMOTime step, int id,
-                                    const std::string &vehs, int quantity, int a);
-    static void saveEdgeNearInfoData(const std::string id,
-                                     const std::string neighbor, int quantity);
+                                    const std::string &headID, const std::string &vehs, int quantity, int a);
     static void saveSavedInformationData(SUMOTime step, const std::string veh,
                                          const std::string edge, std::string type, int time, SUMOReal nt, int a);
     static void saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh);
@@ -183,7 +179,6 @@ private:
     static OutputDevice *myCELLPHONEDUMPOutput;
     //Car2car
     static OutputDevice *myClusterInfoOutput;
-    static OutputDevice *myEdgeNearInfoOutput;
     static OutputDevice *mySavedInfoOutput;
     static OutputDevice *mySavedInfoOutputFreq;
     static OutputDevice *myTransmittedInfoOutput;

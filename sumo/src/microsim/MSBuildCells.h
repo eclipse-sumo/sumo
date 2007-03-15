@@ -43,7 +43,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GUINet;
 class MSCell;
 class GUIGlObject_AbstractAdd;
@@ -53,6 +52,7 @@ class MSJunction;
 class GUIEdge;
 class MSEdgeControl;
 class MSNet;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -74,8 +74,8 @@ public:
     /// Builds the network cells
     void build();
 
-    /// return the Cells Container
-    std::vector<MSCell*>& getCellsCont(void);
+    /// writes information about edge neighbors
+    void writeNearEdges(OutputDevice *od);
 
 private:
 
@@ -97,10 +97,6 @@ private:
     /// The sizes of each cell
     SUMOReal _xcellsize, _ycellsize;
 
-
-    /// Computes the boundary of the network
-    //Boundary computeBoundary();
-
     /// creates size's amount of new Cells
     void createCells(size_t size);
 
@@ -116,12 +112,8 @@ private:
     /// set the Neighbours of all cells
     void setCellsNeighbors(void);
 
-    /// algorithn to determine if two Cells are neighboring
-    // bool isNeighbor(size_t i, size_t j);
     /// get all the neighbors from the cell with the index i
     std::vector<MSCell*> getNeighbors(size_t i);
-
-    void closeBuilding();
 
 };
 

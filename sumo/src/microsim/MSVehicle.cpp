@@ -2176,7 +2176,7 @@ MSVehicle::buildMyCluster(int myStep, int clId)
             }
             vehs << (*i)->connectedVeh->getID();
         }
-        MSCORN::saveClusterInfoData(myStep, clId, vehs.str(), count, -1);
+        MSCORN::saveClusterInfoData(myStep, clId, getID(), vehs.str(), count, -1);
     }
     return count;
 }

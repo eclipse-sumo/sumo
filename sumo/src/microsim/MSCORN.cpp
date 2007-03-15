@@ -66,7 +66,6 @@ OutputDevice *MSCORN::myLATOSS2SQLOutput = 0;
 OutputDevice *MSCORN::myCELLPHONEDUMPOutput = 0;
 // c2x output files
 OutputDevice *MSCORN::myClusterInfoOutput= 0;
-OutputDevice *MSCORN::myEdgeNearInfoOutput= 0;
 OutputDevice *MSCORN::mySavedInfoOutput= 0;
 OutputDevice *MSCORN::mySavedInfoOutputFreq = 0;
 OutputDevice *MSCORN::myTransmittedInfoOutput= 0;
@@ -98,7 +97,6 @@ MSCORN::init()
     }
     // c2x output files
     myClusterInfoOutput = 0;
-    myEdgeNearInfoOutput = 0;
     mySavedInfoOutput = 0;
     myTransmittedInfoOutput = 0;
     myVehicleInRangeOutput = 0;
@@ -121,7 +119,6 @@ MSCORN::clear()
     delete myLATOSS2SQLOutput;
     // car2car
     delete myClusterInfoOutput;
-    delete myEdgeNearInfoOutput;
     delete mySavedInfoOutput;
     delete myTransmittedInfoOutput;
     delete myVehicleInRangeOutput;
@@ -231,12 +228,6 @@ void
 MSCORN::setClusterInfoOutput(OutputDevice *s)
 {
     myClusterInfoOutput = s;
-}
-
-void
-MSCORN::setEdgeNearInfoOutput(OutputDevice *s)
-{
-    myEdgeNearInfoOutput = s;
 }
 
 void
@@ -445,35 +436,26 @@ MSCORN::saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_typ
 
 //car2car
 void
-MSCORN::saveClusterInfoData(SUMOTime step, int id, const std::string &vehs,
+MSCORN::saveClusterInfoData(SUMOTime step, int id, 
+                            const std::string &headID, const std::string &vehs,
                             int quantity, int a)
 {
     if (myClusterInfoOutput!=0) {
         if (a==0) {
-            myClusterInfoOutput->getOStream()
-            << "	<timeStep time=\"" << step << "\">"<< "\n";
+            myClusterInfoOutput->getOStream() << "	<timeStep time=\"" << step << "\">"<< "\n";
         }
         if (a==1) {
-            myClusterInfoOutput->getOStream()
-            << "	</timeStep>"<< "\n";
+            myClusterInfoOutput->getOStream() << "	</timeStep>" << "\n";
         }
         if (a==-1) {
             myClusterInfoOutput->getOStream()
-            << "		<cluster id=\"" <<id<< "\" "<<" NOfveh =\""<<quantity<<"\""
-            <<">"<<vehs<<"</cluster>"<< "\n";
+            << "		<cluster id=\"" << id 
+                << "\" headID=\"" << headID << "\" vehNo=\"" << quantity << "\""
+                << ">" << vehs << "</cluster>" << "\n";
         }
     }
 }
 
-void
-MSCORN::saveEdgeNearInfoData(const std::string id, const std::string neighbor, int quantity)
-{
-    if (myEdgeNearInfoOutput!=0) {
-        myEdgeNearInfoOutput->getOStream()
-        << "	<edge id=\"" << id << "\" "<<" NOfNeighbor =\""<<quantity<<"\""
-        <<">"<<neighbor<<" </edge>"<< "\n";
-    }
-}
 
 void
 MSCORN::saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh)

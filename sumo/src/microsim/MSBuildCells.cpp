@@ -48,6 +48,7 @@
 #include <microsim/MSGlobals.h>
 #include <utils/geoconv/GeoConvHelper.h>
 #include "MSCell.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -81,7 +82,6 @@ MSBuildCells::~MSBuildCells()
 }
 
 
-
 void
 MSBuildCells::build()
 {
@@ -89,11 +89,6 @@ MSBuildCells::build()
     // allocate grid
     size_t size = _xsize*_ysize;
     // get the boundary
-    // _boundary = computeBoundary();
-    // assert that the boundary is not zero in neither dimension
-    //Boundary b(-6.78000, -11.7100, 2018.26, 1463.05); // realNetz
-    //Boundary b(-11.6500, -11.6500, 1011.65, 1011.65); // crossNetz
-    //_boundary = b;
     if (_boundary.getHeight()==0||_boundary.getWidth()==0) {
         _boundary.add(_boundary.xmin()+1, _boundary.ymax()+1);
         _boundary.add(_boundary.xmin()-1, _boundary.ymax()-1);
@@ -105,9 +100,8 @@ MSBuildCells::build()
     // divide Edges on grid
     divideOnGrid();
     setCellsNeighbors();
-    closeBuilding();
-
 }
+
 
 void
 MSBuildCells::createCells(size_t size)
@@ -132,7 +126,6 @@ MSBuildCells::divideOnGrid()
     for (index=0; index<sizeOfCont; index++) {
         computeEdgeCells(index, (myNet.getEdgeControl().getMultiLaneEdges())[index]);
     }
-
 }
 
 
@@ -176,7 +169,7 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
     for (size_t i=0; i<lane.size(); i++) {
         bb1.add(lane[i]);
     }
-    // compute the cells the lae is going through
+    // compute the cells the lane is going through
     for (int y=(int)(bb1.ymin()/_ycellsize); y<(int)((bb1.ymax()/_ycellsize)+1)&&y<(int) _ysize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
         for (int x=(int)(bb1.xmin()/_xcellsize); x<(int)((bb1.xmax()/_xcellsize)+1)&&x<(int) _xsize; x++) {
@@ -218,44 +211,6 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
     }
 }
 
-/*
-// andere möglichkeit ist unter
-void MSBuildCells::setCellsNeighbors(void)
-{
-	for(size_t i=0; i < _cellsCont.size(); i++) {
-        for(size_t j=0; j < _cellsCont.size(); j++) {
-			if(isNeighbor(i,j)){ // see isNeighbor(i,j)
-				_cellsCont[i]->setCellNeighbors(j, _cellsCont[j]);
-			}
-			_cellsCont[i]->setEdgesNeighbors();
-		}
-	}
-
-}
-
-
-// xsize = ysize
-bool MSBuildCells::isNeighbor(size_t i, size_t j)
-{
-	size_t x = i % _xsize;
-	if((x=0) && (j==i+1)) return true;
-	if((x=_xsize-1) && (j==i-1)) return true;
-	if((x>0) && (x<_xsize-1) && ((j==i-1) || (j==i+1))) return true;
-
-    size_t y = i / _xsize;
-	if((y=0) && (j==i+_xsize)) return true;
-	if((y=_xsize-1) && (j==i-_xsize)) return true;
-	if((y>0) && (y<_xsize-1) && ((j==i+_xsize) || (j==i-_xsize))) return true;
-
-	if((x>0) && (y>0) && (j==i-_xsize-1)) return true;
-	if((x<_xsize-1) && (y>0) && (j==i+_xsize-1)) return true;
-	if((x<_xsize-1) && (y<_xsize-1) && (j==i+_xsize+1)) return true;
-	if((x<_xsize-1) && (y>0) && (j==i-_xsize+1)) return true;
-	else return false;
-
-}
-
-*/
 
 void MSBuildCells::setCellsNeighbors(void)
 {
@@ -272,7 +227,6 @@ MSBuildCells::getNeighbors(size_t i)
 {
     std::vector<MSCell*> ret;
     ret.push_back(_cellsCont[i]); //I'am my own neighbor
-//cout<<"XSize "<<_xsize<<" Ysize "<<_ysize<<endl;
 
     size_t x = i % _xsize;
     if (x==0) {
@@ -323,67 +277,46 @@ MSBuildCells::getNeighbors(size_t i)
         ret.push_back(_cellsCont[i-_xsize+1]);
         //	cout<<"-----Nachbarn 12  "<<i-_xsize+1<<endl;
     }
-    /*
-       cout<<"---Nachbarn von  "<<i<<" Anzahl davon "<< ret.size()<<" -----------"<<endl;
-    for(std::vector<GUICell*>::iterator m = ret.begin(); m != ret.end(); m++){
-    	cout<<"-----Nachbarn  "<<(*m)->getIndex()<<endl;
-    }*/
     return ret;
 
 }
 
-std::vector<MSCell*> &
-MSBuildCells::getCellsCont(void)
-{
-    return _cellsCont;
-}
-
-/*
-std::vector<GUICell*>
-MSBuildCells::getNeighbors(size_t i)
-{
-	std::vector<GUICell*> ret;
-	size_t x = i % _xsize;
-
-	if(x==0) ret.push_back(_cellsCont[i+1]);
-	if(x==_xsize-1) ret.push_back(_cellsCont[i-1]);
-	if((x>0) && (x<_xsize-1)){
-		ret.push_back(_cellsCont[i-1]);
-		ret.push_back(_cellsCont[i+1]);
-	}
-
-    size_t y = i / _xsize;
-	if(y==0) ret.push_back(_cellsCont[i+_xsize]);
-	if(y==_xsize-1) ret.push_back(_cellsCont[i-_xsize]);
-	if((y>0) && (y<_xsize-1)){
-		ret.push_back(_cellsCont[i+_xsize]);
-		ret.push_back(_cellsCont[i-_xsize]);
-	}
-
-	if((x>0) && (y>0)) ret.push_back(_cellsCont[i-_xsize-1]);
-	if((x<_xsize-1) && (y>0)) ret.push_back(_cellsCont[i+_xsize-1]);
-	if((x<_xsize-1) && (y<_xsize-1)) ret.push_back(_cellsCont[i+_xsize+1]);
-	if((x<_xsize-1) && (y>0)) ret.push_back(_cellsCont[i-_xsize+1]);
-	return ret;
-
-}
-*/
-
 
 void
-MSBuildCells::closeBuilding()
+MSBuildCells::writeNearEdges(OutputDevice *od)
 {
-    /*
-       // ok, we now have a grid, but we don not want to draw edges more
-       //  than once; build the relationship matrix next
-    size_t size = getNoXCells() * getNoYCells();
-       for(size_t i=0; i<3; i++) {
-    	_relations[i] = new GUIGrid::GridCell[size];
-       }
-       buildRelationships();
-    */
+    od->getOStream() << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl << "<edge-neighbors>" << endl;
+    size_t index, sizeOfCont;
+    sizeOfCont = myNet.getEdgeControl().getSingleLaneEdges().size();
+    for (index=0; index<sizeOfCont; index++) {
+        MSEdge *e = myNet.getEdgeControl().getSingleLaneEdges()[index];
+        const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
+        od->getOStream() << "   <edge id=\"" << e->getID() 
+            << "\" neighborNo=\"" << neighbors.size() << "\">";
+        for(std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
+            if(j!=neighbors.begin()) {
+                od->getOStream() << ' ';
+            }
+            od->getOStream() << (*j)->getID();
+        }
+        od->getOStream() << "</edge>" << endl;
+    }
+    sizeOfCont = myNet.getEdgeControl().getMultiLaneEdges().size();
+    for (index=0; index<sizeOfCont; index++) {
+        MSEdge *e = myNet.getEdgeControl().getMultiLaneEdges()[index];
+        const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
+        od->getOStream() << "   <edge id=\"" << e->getID() 
+            << "\" neighborNo=\"" << neighbors.size() << "\">";
+        for(std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
+            if(j!=neighbors.begin()) {
+                od->getOStream() << ' ';
+            }
+            od->getOStream() << (*j)->getID();
+        }
+        od->getOStream() << "</edge>" << endl;
+    }
+    od->getOStream() << "</edge-neighbors>" << endl;
 }
-
 
 
 /****************************************************************************/
