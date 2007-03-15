@@ -208,22 +208,6 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
     FXColor *buf = _view->getSnapshot();
-    // mirror
-    size_t mwidth = _view->getWidth();
-    size_t mheight = _view->getHeight();
-    FXColor *paa = buf;
-    FXColor *pbb = buf + mwidth * (mheight-1);
-    do {
-        FXColor *pa=paa;
-        paa+=mwidth;
-        FXColor *pb=pbb;
-        pbb-=mwidth;
-        do {
-            FXColor t=*pa;
-            *pa++=*pb;
-            *pb++=t;
-        } while (pa<paa);
-    } while (paa<pbb);
     // save
     try {
         MFXImageHelper::saveimage(getApp(), file,

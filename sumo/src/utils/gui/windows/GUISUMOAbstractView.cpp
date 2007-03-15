@@ -1167,6 +1167,22 @@ GUISUMOAbstractView::getSnapshot()
     // !!! flip orientation
     makeNonCurrent();
     update();
+    // mirror
+    size_t mwidth = getWidth();
+    size_t mheight = getHeight();
+    FXColor *paa = buf;
+    FXColor *pbb = buf + mwidth * (mheight-1);
+    do {
+        FXColor *pa=paa;
+        paa+=mwidth;
+        FXColor *pb=pbb;
+        pbb-=mwidth;
+        do {
+            FXColor t=*pa;
+            *pa++=*pb;
+            *pb++=t;
+        } while (pa<paa);
+    } while (paa<pbb);
     return buf;
 }
 
