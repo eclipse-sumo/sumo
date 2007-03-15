@@ -726,6 +726,38 @@ private:
 
     size_t myNoGot, myNoSent, myNoGotRelevant;
 
+    /**
+     * @class RouteReplaceInfo
+     * @brief Information about a replaced route
+     *
+     * Generated optionally and stored in a vector within the Pointer-CORN-map
+     *  this structure contains information about a replaced route: the edge
+     *  the route was replaced at by a new one, the time this was done, and
+     *  the previous route.
+     */
+    class RouteReplaceInfo {
+    public:
+        /// Constructor
+        RouteReplaceInfo(const MSEdge * const edge_, SUMOTime time_, MSRoute *route_)
+            : edge(edge_), time(time_), route(route_) {}
+
+        /// Destructor
+        ~RouteReplaceInfo() { }
+
+        /// The edge the vehicle was on when the route was replaced
+        const MSEdge *edge;
+
+        /// The time the route was replaced
+        SUMOTime time;
+
+        /// The prior route
+        MSRoute *route;
+
+    };
+
+    /// Definition of the vector which stores information about replaced routes
+    typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
+
 };
 
 

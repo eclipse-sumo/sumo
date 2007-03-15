@@ -159,10 +159,10 @@ MSVehicle::~MSVehicle()
     }
     // delete values in CORN
     // prior routes
-    if (myIntCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myIntCORNMap.end()) {
-        int noReroutes = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        for (int i=0; i<noReroutes; ++i) {
-            delete(MSRoute*) myPointerCORNMap[(MSCORN::Pointer)(i+noReroutes)];
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
+        ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
+        for(ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
+            delete (*i).route;
         }
     }
     // devices
@@ -1530,11 +1530,11 @@ MSVehicle::getRoute(int index) const
     if (index==0) {
         return *myRoute;
     }
-    int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE + index - 1;
-    std::map<MSCORN::Pointer, void*>::const_iterator i =
-        myPointerCORNMap.find((MSCORN::Pointer) routeOffset);
+    std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
     assert(i!=myPointerCORNMap.end());
-    return *((MSRoute*)(*i).second);
+    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const) (*i).second;
+    assert(v->size()>index);
+    return *((*v)[index].route);
 }
 
 
@@ -1572,15 +1572,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
         // ... maybe the route information shall be saved for output?
         if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-            int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
-                              myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-            myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
-            int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
-                                myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-            myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
-            SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
-                                  (SUMOTime) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-            myIntCORNMap[(MSCORN::Function) timeOffset] = simTime;
+            RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
+            if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
+                myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
+            }
+            ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
         }
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
         myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
@@ -1637,15 +1633,11 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
-                          myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
-        int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
-                            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
-        SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
-                              (SUMOTime) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        myIntCORNMap[(MSCORN::Function) timeOffset] = simTime;
+        RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
+        if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
+            myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
+        }
+        ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
         myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
             myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
@@ -1891,18 +1883,16 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     // check if a previous route shall be written
     os << "      <route";
     if (index>=0) {
+        std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
+        assert(i!=myPointerCORNMap.end());
+        const ReplacedRoutesVector *v = (const ReplacedRoutesVector *) (*i).second;
+        assert(v->size()>index);
         // write edge on which the vehicle was when the route was valid
-        std::map<MSCORN::Pointer, void*>::const_iterator j =
-            myPointerCORNMap.find(
-                (MSCORN::Pointer)(MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE+index));
-        os << " replacedOnEdge=\"" << ((MSEdge*)(*j).second)->getID() << "\" ";
+        os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
         // write the time at which the route was replaced
-        int replaceTime = myIntCORNMap.find((MSCORN::Function)(MSCORN::CORN_VEH_REROUTE_TIME+index))->second;
-        os << " replacedAtTime=\"" << replaceTime << "\"";
+        os << " replacedAtTime=\"" << (*v)[index].time << "\"";
         // get the route
-        j = myPointerCORNMap.find((MSCORN::Pointer)(MSCORN::CORN_P_VEH_OLDROUTE+index));
-        assert(j!=myPointerCORNMap.end());
-        route2Write = (MSRoute*) j->second;
+        route2Write = (*v)[index].route;
     }
     os << ">";
     // write the route

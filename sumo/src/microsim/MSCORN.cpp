@@ -315,7 +315,8 @@ MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
     << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
     << "\">" << endl;
     if (v->hasCORNIntValue(CORN_VEH_NUMBERROUTE)) {
-        for (int i=0; i<v->getCORNIntValue(CORN_VEH_NUMBERROUTE); i++) {
+        int noReroutes = v->getCORNIntValue(CORN_VEH_NUMBERROUTE);
+        for (int i=0; i<noReroutes; i++) {
             v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
             myVehicleRouteOutput->getOStream() << endl;
         }
