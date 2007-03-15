@@ -230,9 +230,22 @@ while(<INDAT>) {
 	$line = $_;
 	if(index($line, "\:")>=0) {
 		($edge, $laneno) = split("\:", $line);
-		$laneno =~ s/\s//g;
-		$lanes{$edge} = $laneno - 1;
-		print $edge."<->".$laneno."\n";
+		if(index($edge, "_")>0) {
+			$laneno =~ s/\s//g;
+			$lengths{$edge} = $laneno;
+			$edge = substr($edge, 0, index($edge, "_"));
+			if(defined($elengths{$edge})) {
+				if($elengths{$edge}<$laneno) {
+					$elengths{$edge} = $laneno;
+				}
+			} else {
+				$elengths{$edge} = $laneno;
+			}
+		} else {
+			$laneno =~ s/\s//g;
+			$lanes{$edge} = $laneno - 1;
+		}
+		$edges{$edge} = 1;
 	}
 }
 close(INDAT);
