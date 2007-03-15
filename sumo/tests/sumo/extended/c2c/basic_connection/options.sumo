@@ -1,1 +1,0 @@
---no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml --device.c2x.probability 1. --c2x.cluster-info c2x_cluster_info.xml
