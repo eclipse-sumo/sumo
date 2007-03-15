@@ -4,7 +4,7 @@
 /// @date    2005-05-04
 /// @version $Id$
 ///
-// missing_desc
+// A dialog to change the viewport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,11 +37,18 @@
 #endif
 
 #include <fx.h>
-
 #include <utils/foxtools/FXRealSpinDial.h>
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GUISUMOAbstractView;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class GUIDialog_EditViewport : public FXDialogBox
 {
     // FOX-declarations
@@ -51,24 +58,46 @@ public:
         MID_CHANGED = FXDialogBox::ID_LAST
     };
 
+    /// Constructor
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
                            SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
+
+    /// Destructor
     ~GUIDialog_EditViewport();
-    void create();
+
+    /// Called when the user changes the viewport
     long onCmdChanged(FXObject*,FXSelector,void*);
+
+    /// Called when the user wants to keep the viewport
     long onCmdOk(FXObject*,FXSelector,void*);
+
+    /// Called when the user wants to restore the viewport
     long onCmdCancel(FXObject*,FXSelector,void*);
+
+    /// Sets the given values into the dialog
     void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+
+    /// Returns the information whether one of the spin dialers is grabbed
     bool haveGrabbed() const;
+
+    /// Resets old values
     void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 protected:
+    /// The calling view
     GUISUMOAbstractView *myParent;
+
+    /// The old zoom
     SUMOReal myOldZoom;
+
+    /// The old offsets
     SUMOReal myOldXOff, myOldYOff;
+
+    /// The spin dialers used to change the view
     FXRealSpinDial *myZoom, *myXOff, *myYOff;
 
 protected:
+    /// FOX needs this
     GUIDialog_EditViewport()
     { }
 

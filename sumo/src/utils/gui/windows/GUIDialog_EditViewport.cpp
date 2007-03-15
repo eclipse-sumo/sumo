@@ -45,7 +45,9 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]={
             FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CHANGED, GUIDialog_EditViewport::onCmdChanged),
             FXMAPFUNC(SEL_COMMAND, MID_OK,                              GUIDialog_EditViewport::onCmdOk),
@@ -55,6 +57,7 @@ FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]={
 
 // Object implementation
 FXIMPLEMENT(GUIDialog_EditViewport,FXDialogBox,GUIDialog_EditViewportMap, ARRAYNUMBER(GUIDialog_EditViewportMap))
+
 
 // ===========================================================================
 // method definitions
@@ -111,13 +114,6 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
                  FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,
                  0,0,0,0,  4, 4, 3, 3);
     initial->setFocus();
-}
-
-
-void
-GUIDialog_EditViewport::create()
-{
-    FXDialogBox::create();
 }
 
 
