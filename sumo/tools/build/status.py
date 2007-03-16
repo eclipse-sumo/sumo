@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
 import os, sys
-from os.path import join
+from os.path import basename, join
 
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
 texttesttmp = sys.argv[3]
-print makelog
+print basename(makelog)
 warnings = 0
 for l in file(makelog):
     if l.find("warning") > -1:
@@ -20,7 +20,7 @@ for root, dirs, files in os.walk(texttesttmp):
             if l.startswith("FAILED") or l.startswith("succeeded"):
             	print f + " " + l,
             b.close()
-print makealllog
+print basename(makealllog)
 warnings = 0
 for l in file(makealllog):
     if l.find("warning") > -1:
