@@ -378,6 +378,7 @@ src/utils/shapes/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 src/itm-remoteserver/Makefile
+tools/traceExporter/Makefile
 Makefile)
 
 dnl ---------------------------------------------
