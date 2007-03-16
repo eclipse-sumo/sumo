@@ -90,7 +90,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("C2C");
     oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
-    oc.addOptionSubTopic("ITM");
+#ifdef ITM
+    oc.addOptionSubTopic("remote options");
+#endif ITM
 
 
     // register configuration options
