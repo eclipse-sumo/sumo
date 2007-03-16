@@ -16,11 +16,13 @@
 
 using namespace std;
 
+#define NULLITER static_cast<list<unsigned char>::iterator>(0)
+
 namespace itm
   {
 // ----------------------------------------------------------------------
   Storage::Storage()
-      : pos_(0), iter_(0), iterEnd_(0)
+      : pos_(0), iter_(NULLITER), iterEnd_(NULLITER)
   {}
 
 // ----------------------------------------------------------------------
@@ -46,9 +48,9 @@ namespace itm
     assert ( count >= 0 );
 
     if (count != 1)
-      iterEnd_ = 0;
+      iterEnd_ = NULLITER;
     pos_ += count;
-    if (iter_ == 0)
+    if (iter_ == NULLITER)
       iter_ = begin();
     ::advance(iter_, count);
   }
@@ -58,7 +60,7 @@ namespace itm
   {
     if (iterEnd_ == end())
       {
-        return (iter_ != 0 && iter_ != end());
+        return (iter_ != NULLITER && iter_ != end());
       }
     else
       {
@@ -74,7 +76,7 @@ namespace itm
   {
     this->clear();
     pos_=0;
-    iter_ = 0;
+    iter_ = NULLITER;
   }
 // ----------------------------------------------------------------------
   /**
@@ -84,7 +86,7 @@ namespace itm
   unsigned char Storage::readChar()	throw()
   {
     assert( valid_pos() );
-    if (iter_ == 0)
+    if (iter_ == NULLITER)
       iter_ = begin();
     unsigned char hb = *iter_;
     advance(1);
