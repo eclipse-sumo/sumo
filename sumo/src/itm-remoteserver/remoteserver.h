@@ -1,6 +1,13 @@
 #ifndef __REMOTESERVER_H_
 #define __REMOTESERVER_H_
 
+// ===========================================================================
+// compiler pragmas
+// ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(disable: 4290)
+#endif
+
 #include "itm-remoteserver/storage.h"
 #include "utils/common/SUMOTime.h"
 
