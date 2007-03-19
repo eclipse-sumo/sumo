@@ -390,8 +390,9 @@ throw( SocketException ) {
     if ( !datawaiting( socket_) )
         return b;
 
-    unsigned char buf[bufSize];
-    int a = recv( socket_, (char*)buf, sizeof(buf), 0 );
+    unsigned char buf[2048];
+    int N = (bufSize<2048) ? bufSize:2048;
+    int a = recv( socket_, (char*)buf, N, 0 );
 
     if ( a < 0 )
         BailOnSocketError( "Socket::receive() @ recv" );
