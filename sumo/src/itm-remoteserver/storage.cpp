@@ -30,7 +30,7 @@
 
 
 #ifdef CHECK_MEMORY_LEAKS
-#include <utils/dev/debug_new.h>
+#include <foreign/nvwa/debug_new.h>
 #endif
 
 #include "storage.h"
