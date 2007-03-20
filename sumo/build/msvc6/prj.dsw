@@ -150,9 +150,6 @@ Package=<4>
     Project_Dep_Name y_libmesosim
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
 }}}
@@ -220,9 +217,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
@@ -384,9 +378,6 @@ Package=<4>
     Project_Dep_Name y_libmesosim
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
 }}}
@@ -540,9 +531,6 @@ Package=<4>
     Project_Dep_Name y_libmesosim
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_helpers
     End Project Dependency
 }}}
@@ -586,18 +574,6 @@ Package=<4>
 ###############################################################################
 
 Project: "y_libmicrosim"=.\y_libmicrosim\y_libmicrosim.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "y_libmultimodal"=.\y_libmultimodal\y_libmultimodal.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

@@ -247,8 +247,7 @@ $(LIB_X11) -l$(LIB_PROJ)
 endif
 
 
-SUBDIRS = foreign microsim multimodal \
-netbuild netedit netgen netimport netload \
+SUBDIRS = foreign microsim netbuild netedit netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS) $(ITM_DIRS)
 

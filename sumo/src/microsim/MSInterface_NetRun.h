@@ -37,13 +37,12 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
-#include <multimodal/MMLayer.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class MSInterface_NetRun : public MMLayer
+class MSInterface_NetRun 
 {
 public:
     MSInterface_NetRun()

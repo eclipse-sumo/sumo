@@ -324,7 +324,6 @@ src/microsim/output/e3_detectors/Makefile
 src/microsim/output/meandata/Makefile
 src/microsim/traffic_lights/Makefile
 src/microsim/trigger/Makefile
-src/multimodal/Makefile
 src/netbuild/Makefile
 src/netbuild/nodes/Makefile
 src/netedit/Makefile
