@@ -35,8 +35,6 @@ while($ok==1) {
 	}
 #	$line = <INDAT>;
 	($Datum_Dateneingabe, $LSA_ID, $Knoten_ID, $Fahrstreifen_Nr, $RistkVon_Ref, $RistkBis_Ref, $Fahrstreifen_Laenge, $Signalgr_Nr, $Signalgr_Bez, $Spur_Typ) = split(";", $line);
-	$SignalgrTest = $Signalgr_Bez;
-	$SignalgrTest =~ s/\d//g;
 	if(substr($Datum_Dateneingabe, 0, 1) ne "!" && $line ne $lastLine) {
 		$lastLine = $line;
 
@@ -89,7 +87,7 @@ while($ok==1) {
 						print OUTDAT2 "Signalguppe		DRG	DG	FA1	FE1	FA2	FE2	FA3	FE3\n";
 						$lastProgID = $nSignalprogramm_ID;
 					}
-					if($nRE!=0) {
+					if($nRE!=0||$nGE!=0) {
 						$FA = $nRE;#+$ngelb;
 						if($FA>$Umlaufzeiten{$nSignalprogramm_ID}) {
 							$FA = $FA - $Umlaufzeiten{$nSignalprogramm_ID};
