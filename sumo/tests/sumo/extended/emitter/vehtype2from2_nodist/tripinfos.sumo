@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<tripinfos>
+   <tripinfo vehicle_id="emitter_1_1" start="3" wished="1" end="168" duration="165" waited="2" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="170" duration="161" waited="6" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="175" duration="169" waited="4" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_5_5" start="15" wished="5" end="179" duration="164" waited="10" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_7_7" start="22" wished="7" end="186" duration="164" waited="15" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_8_8" start="25" wished="8" end="190" duration="165" waited="17" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_9_9" start="28" wished="9" end="191" duration="163" waited="19" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="192" duration="192" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT2"/>
+   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="204" duration="192" waited="8" reroutes="0" devices="" vtype="KRAUSS_DEFAULT2"/>
+   <tripinfo vehicle_id="emitter_6_6" start="19" wished="6" end="211" duration="192" waited="13" reroutes="0" devices="" vtype="KRAUSS_DEFAULT2"/>
+</tripinfos>
