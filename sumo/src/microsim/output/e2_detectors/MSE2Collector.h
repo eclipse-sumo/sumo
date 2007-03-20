@@ -514,7 +514,7 @@ public:
     ///
     void writeXMLOutput(XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
-        dev.writeString("<interval begin=\"").writeString(
+        dev.writeString("   <interval begin=\"").writeString(
             toString(startTime)).writeString("\" end=\"").writeString(
                 toString(stopTime)).writeString("\" ");
         if (dev.needsDetectorName()) {
@@ -540,11 +540,7 @@ public:
     ///
     void writeXMLDetectorInfoStart(XMLDevice &dev) const
     {
-        dev.writeString("<detector type=\"E2_Collector\" id=\"").writeString(
-            getID()).writeString("\" lane=\"").writeString(laneM->getID()).writeString(
-                "\" startpos=\"").writeString(toString(startPosM)).writeString(
-                    "\" length=\"").writeString(toString(endPosM - startPosM)).writeString(
-                        "\" >\n");
+        dev.writeString("<detector>\n");
     }
 
     /// Get an closing XML-tag corresponding to the opening tag from

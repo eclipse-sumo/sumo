@@ -59,21 +59,7 @@ using namespace std;
 // ===========================================================================
 // member variable definitions
 // ===========================================================================
-string MSInductLoop::xmlHeaderM(
-    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-    "<!--\n"
-    "- nVehContrib is the number of vehicles that passed the detector during the\n"
-    "  current interval.\n"
-    "- flow [veh/h] denotes the same quantity in [veh/h]\n"
-    "- occupancy [%] is the time the detector was occupied by vehicles.\n"
-    "- speed [m/s] is the average speed of the nVehContib vehicles.\n"
-    "  If nVehContrib==0, speed is set to -1.\n"
-    //"- speedsquare [(m/s)^2]\n"
-    //"  If nVehContrib==0, speedsquare is set to -1.\n"
-    "- length [m] is the average vehicle length of the nVehContrib vehicles.\n"
-    "  If nVehContrib==0, length is set to -1.\n"
-    "-->\n\n");
-
+string MSInductLoop::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
 string MSInductLoop::xmlDetectorInfoEndM("</detector>\n");
 
 
@@ -263,9 +249,7 @@ MSInductLoop::writeXMLHeader(XMLDevice &dev) const
 void
 MSInductLoop::writeXMLDetectorInfoStart(XMLDevice &dev) const
 {
-    dev.writeString("<detector type=\"inductionloop\" id=\"" + getID() +
-                    "\" lane=\"" + laneM->getID() + "\" pos=\"" +
-                    toString(posM) + "\" >");
+    dev.writeString("<detector>\n");
 }
 
 
@@ -285,7 +269,7 @@ MSInductLoop::writeXMLOutput(XMLDevice &dev,
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
                          + distance(
                              getDismissedStartIterator(t), mend);
-    dev.writeString("<interval begin=\"").writeString(
+    dev.writeString("   <interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
             toString(stopTime)).writeString("\" ");
     if (dev.needsDetectorName()) {

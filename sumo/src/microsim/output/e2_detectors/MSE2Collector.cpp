@@ -43,28 +43,9 @@
 // ===========================================================================
 // variable declarations
 // ===========================================================================
-
-std::string MSE2Collector::xmlHeaderM(
-    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-    "<!--\n"
-    "- densityMean [veh/km]\n"
-    "- maxJamLengthInVehiclesMean [veh]\n"
-    "- maxJamLengthInMetersMean [m]\n"
-    "- jamLengthSumInVehiclesMean [veh]\n"
-    "- jamLengthSumInMetersMean [m]\n"
-    "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
-    "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
-    "- nE2VehiclesMean [veh]\n"
-    "- occupancyDegreeMean [0,1]\n"
-    "- spaceMeanSpeedMean [m/s]\n"
-    "- currentHaltingDurationSumPerVehicleMean [s]\n"
-    "- nStartedHalts [n]\n"
-    //"- haltingDurationSum [s]\n"
-    "- haltingDurationMean [s]\n"
-    "-->\n\n");
-
-
+std::string MSE2Collector::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
 std::string MSE2Collector::infoEndM = "</detector>";
+
 
 namespace E2
 {
