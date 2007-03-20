@@ -1,0 +1,8 @@
+<additional>
+
+   <detector id="1si_0" lane="1si_0" pos="200" freq="60" style="CSV" file="detector.xml"/>
+   <detector id="2si_0" lane="2si_0" pos="200" freq="60" style="CSV" file="detector.xml"/>
+   <detector id="3si_0" lane="3si_0" pos="200" freq="60" style="CSV" file="detector.xml"/>
+   <detector id="4si_0" lane="4si_0" pos="200" freq="60" style="CSV" file="detector.xml"/>
+
+</additional>
