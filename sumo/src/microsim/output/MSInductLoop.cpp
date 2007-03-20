@@ -318,8 +318,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
     SUMOReal entryTimestep = it->second;
     vehiclesOnDetM.erase(it);
     assert(entryTimestep < leaveTimestep);
-    vehicleDataContM.push_back(VehicleData(veh, entryTimestep,
-                                           leaveTimestep));
+    vehicleDataContM.push_back(VehicleData(veh.getLength(), entryTimestep, leaveTimestep));
     lastLeaveTimestepM = leaveTimestep;
 }
 
@@ -339,12 +338,11 @@ MSInductLoop::deleteOldData(SUMOTime)
     SUMOReal deleteBeforeTimestep =
         (SUMOReal)(MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);
     if (deleteBeforeTimestep > 0) {
-        MSVehicle *v = 0; // TODO: clean up
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
             lower_bound(vehicleDataContM.begin(),
                         vehicleDataContM.end(),
-                        VehicleData(*v, 0.0f, deleteBeforeTimestep),
+                        VehicleData(5, 0.0f, deleteBeforeTimestep),
                         leaveTimeLesser()));
         dismissedContM.erase(
             dismissedContM.begin(),
@@ -365,10 +363,9 @@ MSInductLoop::getStartIterator(SUMOTime lastNTimesteps) const
                         MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps) *
                     MSNet::deltaT();
     }
-    MSVehicle *v = 0; // TODO: clean up
     return lower_bound(vehicleDataContM.begin(),
                        vehicleDataContM.end(),
-                       VehicleData(*v, 0.0f, startTime),
+                       VehicleData(5, 0.0f, startTime),
                        leaveTimeLesser());
 }
 

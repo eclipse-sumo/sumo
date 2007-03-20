@@ -302,10 +302,10 @@ public:
     struct VehicleData
     {
         /// Use this constructor if the vehicle has passed the induct loop completely
-        VehicleData(MSVehicle& veh,
+        VehicleData(SUMOReal vehLength,
                     SUMOReal entryTimestep,
                     SUMOReal leaveTimestep)
-                : lengthM(veh.getLength()),
+                : lengthM(vehLength),
                 entryTimeM(MSNet::getSeconds(entryTimestep)),
                 leaveTimeM(MSNet::getSeconds(leaveTimestep)),
                 speedM(lengthM / (leaveTimeM - entryTimeM)),
