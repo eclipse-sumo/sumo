@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//
+// The simulation-settings dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,36 +38,57 @@
 
 #include <fx.h>
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GUIDialog_SimSettings
+ * @brief The simulation-settings dialog
+ */
 class GUIDialog_SimSettings : public FXDialogBox
 {
+    // FOX-callbacks
     FXDECLARE(GUIDialog_SimSettings)
 public:
     /// Constructor
     GUIDialog_SimSettings(FXMainWindow* parent, bool *quitOnEnd,
-                          bool *surpressEnd, bool *allowFloating);
+                          bool *surpressEnd);
+
     /// Destructor
     ~GUIDialog_SimSettings();
-    long onCmdOk(FXObject*,FXSelector,void*);
-    long onCmdCancel(FXObject*,FXSelector,void*);
-    long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
-    long onCmdSurpressEnd(FXObject*,FXSelector,void*);
-    long onCmdAllowAggregated(FXObject*,FXSelector,void*);
 
-public:
+    /// Called when the user presses the Ok-button
+    long onCmdOk(FXObject*,FXSelector,void*);
+
+    /// Called when the user presses the Cancel-button
+    long onCmdCancel(FXObject*,FXSelector,void*);
+
+    /// Called when the user changes the state of the "quit on end"-checkbox
+    long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
+
+    /// Called when the user changes the state of the "surpress end information"-checkbox
+    long onCmdSurpressEnd(FXObject*,FXSelector,void*);
+
+
 private:
+    /// Current dialog setting whether the application shall quit on simulation end
     bool myAppQuitOnEnd;
+
+    /// Current dialog setting whether no simulation end information shall be printed
     bool mySurpressEnd;
-    bool myAllowFloating;
+
+    /// Pointer to the bool that shall be set with the current "quit on end"-value
     bool *mySetAppQuitOnEnd;
+
+    /// Pointer to the bool that shall be set with the current "surpress end information"-value
     bool *mySetSurpressEnd;
-    bool *mySetAllowFloating;
 
 protected:
+    /// Fox needs this
     GUIDialog_SimSettings()
     { }
+
 };
 
 

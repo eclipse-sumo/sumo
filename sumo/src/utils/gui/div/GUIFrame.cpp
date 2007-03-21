@@ -68,12 +68,6 @@ GUIFrame::fillInitOptions(OptionsCont &oc)
     oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
 
 
-    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false)); // !!!
-    oc.addDescription("allow-floating-aggregated-views", "Visualisation", "");
-
-    oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false)); // !!!
-    oc.addDescription("disable-aggregated-views", "Visualisation", "");
-
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
 

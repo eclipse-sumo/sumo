@@ -53,10 +53,7 @@ using namespace std;
 // global variables definitions
 // ===========================================================================
 bool gQuitOnEnd;
-bool gAllowAggregated;
-bool gAllowAggregatedFloating;
 bool gSuppressEndInfo;
-SUMOReal gAggregationRememberingFactor;
 
 GUISimInfo *gSimInfo = 0;
 

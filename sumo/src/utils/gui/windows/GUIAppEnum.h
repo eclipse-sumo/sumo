@@ -285,10 +285,6 @@ enum {
     MID_QUITONSIMEND,
     /// Suppress end message - Option
     MID_SURPRESSENDINFO,
-    /// Allow aggregated views - Option
-    MID_ALLOWAGGREGATED,
-    /// Allow floating aggregated views - Option
-    MID_ALLOWAFLOATING,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
     //@}

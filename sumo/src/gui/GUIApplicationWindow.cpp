@@ -377,9 +377,11 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuCommand(mySettingsMenu,
                       "Application Settings...\t\tOpen a Dialog for Application Settings editing.",
                       NULL,this,MID_APPSETTINGS);
+    /*
     new FXMenuCommand(mySettingsMenu,
                       "Simulation Settings...\t\tOpen a Dialog for Simulation Settings editing.",
                       NULL,this,MID_SIMSETTINGS);
+                      */
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);

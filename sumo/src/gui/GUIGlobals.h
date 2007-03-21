@@ -65,24 +65,11 @@ struct GUISimInfo
 /// the window shall be closed when the simulation has ended
 extern bool gQuitOnEnd;
 
-/// Information whether aggregated views are allowed
-extern bool gAllowAggregated;
-
-/// Information whether time-floating views are allowed
-extern bool gAllowAggregatedFloating;
-
 /// Information whether not to display the information about a simulation's end
 extern bool gSuppressEndInfo;
 
 /// Structure holding the used network
 extern GUISimInfo *gSimInfo;
-
-
-/// A (global?!!!) value about how fast values shall be replaced within aggregated views
-extern SUMOReal gAggregationRememberingFactor;
-
-
-
 
 /// Storage for additional weights
 extern GUIAddWeightsStorage gAddWeightsStorage;

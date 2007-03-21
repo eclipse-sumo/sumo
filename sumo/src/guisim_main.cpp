@@ -392,8 +392,6 @@ main(int argc, char **argv)
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
-        gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
         bool useConfig = oc.isSet("configuration-file");

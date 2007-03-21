@@ -356,26 +356,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUILaneStateReporter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUILaneWrapper.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -672,9 +652,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUILaneSpeedTrigger.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUILaneStateReporter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUILaneWrapper.h">

@@ -34,7 +34,6 @@
 #include <config.h>
 #endif
 
-#include "GUILaneStateReporter.h"
 #include <string>
 #include <iostream>
 #include <utility>
@@ -71,9 +70,6 @@ using namespace std;
 // static member definitions
 // ===========================================================================
 SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
-size_t GUILaneWrapper::myAggregationSizes[] = {
-            60, 300, 900
-        };
 
 
 // ===========================================================================
@@ -82,26 +78,18 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
         : GUILaneRepresentation(idStorage, "lane:"+lane.getID()),
-        myLane(lane), myShape(shape), myAggregatedValues(0)
+        myLane(lane), myShape(shape)
 {
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
     SUMOReal y2 = shape[-1].y();
     SUMOReal length = getLength();
-    _begin = Position2D(x1, y1);
-    _end = Position2D(x2, y2);
-    _direction = Position2D((x1-x2)/length, (y1-y2)/length);
-    _rotation = (SUMOReal) atan2((x2-x1), (y1-y2))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     // also the virtual length is set in here
     _visLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
     if (myAllMaxSpeed<lane.maxSpeed()) {
         myAllMaxSpeed = lane.maxSpeed();
-    }
-    // build the storage for lane wrappers when wished
-    if (gAllowAggregated) {
-        buildAggregatedValuesStorage();
     }
     //
     myShapeRotations.reserve(myShape.size()-1);
@@ -117,40 +105,6 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 
 GUILaneWrapper::~GUILaneWrapper()
 {
-    if (myAggregatedValues!=0) {
-        for (size_t i=0; i<3; i++) {
-            delete myAggregatedValues[i];
-        }
-        delete myAggregatedValues;
-    }
-}
-
-
-const Position2D &
-GUILaneWrapper::getBegin() const
-{
-    return _begin;
-}
-
-
-const Position2D &
-GUILaneWrapper::getEnd() const
-{
-    return _end;
-}
-
-
-const Position2D &
-GUILaneWrapper::getDirection() const
-{
-    return _direction;
-}
-
-
-SUMOReal
-GUILaneWrapper::getRotation() const
-{
-    return _rotation;
 }
 
 
@@ -254,8 +208,8 @@ Boundary
 GUILaneWrapper::getCenteringBoundary() const
 {
     Boundary b;
-    b.add(_begin);
-    b.add(_end);
+    b.add(myShape[0]);
+    b.add(myShape[-1]);
     b.grow(20);
     return b;
 }
@@ -302,92 +256,6 @@ int
 GUILaneWrapper::getLinkRespondIndex(size_t pos) const
 {
     return myLane.getLinkCont()[pos]->getRespondIndex();
-}
-
-
-void
-GUILaneWrapper::buildAggregatedValuesStorage()
-{
-    /*
-    myAggregatedValues = 0;
-    if(myLane.length()<1) {
-        return;
-    }
-    // build the second SUMORealers if allowed
-    if(gAllowAggregatedFloating) {
-        myAggregatedValues = new LoggedValue_TimeFloating<SUMOReal>*[3];
-        for(size_t i=0; i<3; i++) {
-            myAggregatedValues[i] =
-                new LoggedValue_TimeFloating<SUMOReal>(60);
-        }
-    }
-    // make them read from lane
-    myAggregatedFloats[0] = 0; // density
-    myAggregatedFloats[1] = (SUMOReal) myLane.maxSpeed(); // speed
-    myAggregatedFloats[2] = 0; // haltings
-    string id = string("*") + myLane.id();
-    if(gAllowAggregatedFloating) {
-        new GUILaneStateReporter(
-            myAggregatedValues[0], myAggregatedValues[1], myAggregatedValues[2],
-            myAggregatedFloats[0], myAggregatedFloats[1], myAggregatedFloats[2],
-            id, &myLane, 60);
-    } else {
-        new GUILaneStateReporter(
-            0, 0, 0,
-            myAggregatedFloats[0], myAggregatedFloats[1], myAggregatedFloats[2],
-            id, &myLane, 60);
-    }
-    //
-    // !!!!!
-    */
-}
-
-
-SUMOReal
-GUILaneWrapper::getAggregatedNormed(E2::DetType what,
-                                    size_t /*aggregationPosition !!!*/) const
-{
-    if (myAggregatedValues==0) {
-        return -1;
-    }
-    switch (what) {
-    case E2::DENSITY:
-        return myAggregatedValues[0]->getAvg() / (SUMOReal) 200.0;
-    case E2::SPACE_MEAN_SPEED:
-        return myAggregatedValues[1]->getAvg() / myAllMaxSpeed;
-    case E2::HALTING_DURATION_MEAN: {
-            SUMOReal val = myAggregatedValues[2]->getAvg();
-            if (val>MSGlobals::gTimeToGridlock) {
-                return 1;
-            } else {
-                return val / (SUMOReal) MSGlobals::gTimeToGridlock;
-            }
-        }
-    default:
-        return -1;
-    }
-}
-
-
-SUMOReal
-GUILaneWrapper::getAggregatedFloat(E2::DetType what) const
-{
-    switch (what) {
-    case E2::DENSITY:
-        return myAggregatedFloats[0] / (SUMOReal) 200.0;
-    case E2::SPACE_MEAN_SPEED:
-        return myAggregatedFloats[1] / myAllMaxSpeed;
-    case E2::HALTING_DURATION_MEAN: {
-            SUMOReal val = myAggregatedFloats[2];
-            if (val>MSGlobals::gTimeToGridlock) {
-                return 1;
-            } else {
-                return val / (SUMOReal) MSGlobals::gTimeToGridlock;
-            }
-        }
-    default:
-        return -1;
-    }
 }
 
 

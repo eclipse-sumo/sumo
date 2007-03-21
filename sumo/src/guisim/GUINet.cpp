@@ -58,7 +58,6 @@
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
-#include <guisim/GUILaneStateReporter.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUIRouteHandler.h>

@@ -37,7 +37,6 @@
 #include <ctime>
 #include <signal.h>
 #include <iostream>
-#include <fstream>
 #include <fx.h>
 #include <fx3d.h>
 #include <microsim/MSNet.h>
@@ -162,8 +161,6 @@ main(int argc, char **argv)
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
-        gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
 

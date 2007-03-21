@@ -108,18 +108,6 @@ public:
     SUMOReal getLength() const;
 
     //{
-    /** returns the begin position of the lane */
-    const Position2D &getBegin() const;
-
-    /** returns the end position of the lane */
-    const Position2D &getEnd() const;
-
-    /** returns the direction of the lane (!!! describe better) */
-    const Position2D &getDirection() const;
-
-    /** returns the rotation of the lane (!!! describe better) */
-    SUMOReal getRotation() const;
-
     /** returns the "visualisation length"; this length may differ to the
         real length */
     SUMOReal visLength() const;
@@ -174,11 +162,6 @@ public:
     //}
 
 
-    SUMOReal getAggregatedNormed(E2::DetType what,
-                                 size_t aggregationPosition) const;
-
-    SUMOReal getAggregatedFloat(E2::DetType what) const;
-
     const MSEdge * const getMSEdge() const;
 
     SUMOReal getEdgeLaneNumber() const;
@@ -191,22 +174,7 @@ public:
     }
 
 
-private:
-    void buildAggregatedValuesStorage();
-
 protected:
-    /// the begin position of the lane
-    Position2D _begin;
-
-    /// the end position of the lane
-    Position2D _end;
-
-    /// the direction of the lane
-    Position2D _direction;
-
-    /// the direction of the lane
-    SUMOReal _rotation;
-
     /** the visualisation length; As sources and sinks may be shorter/longer
         as their visualisation length, a second length information is necessary */
     SUMOReal _visLength;
@@ -225,12 +193,6 @@ protected:
 
     /// The maximum velocity over all lanes
     static SUMOReal myAllMaxSpeed;
-
-    LoggedValue_TimeFloating<SUMOReal> **myAggregatedValues;
-
-    SUMOReal myAggregatedFloats[3];
-
-    static size_t myAggregationSizes[];
 
 };
 

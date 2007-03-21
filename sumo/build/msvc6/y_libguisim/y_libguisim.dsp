@@ -147,10 +147,6 @@ SOURCE=..\..\..\src\guisim\GUILaneSpeedTrigger.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim\GUILaneStateReporter.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\guisim\GUILaneWrapper.cpp
 # End Source File
 # Begin Source File
@@ -268,10 +264,6 @@ SOURCE=..\..\..\src\guisim\GUILane.h
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUILaneSpeedTrigger.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guisim\GUILaneStateReporter.h
 # End Source File
 # Begin Source File
 

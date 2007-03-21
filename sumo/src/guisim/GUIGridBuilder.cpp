@@ -150,13 +150,12 @@ GUIGridBuilder::computeLaneCells(size_t index, GUILaneWrapper &lane)
     // compute the outer and inner positions of the edge
     //  (meaning the real edge position and the position yielding from
     //  adding the offset of lanes)
-    const Position2D &beg = lane.getBegin();
-    const Position2D &end = lane.getEnd();
+    const Position2D &beg = lane.getShape()[0];
+    const Position2D &end = lane.getShape()[-1];
     SUMOReal length = GeomHelper::distance(beg, end);
     std::pair<SUMOReal, SUMOReal> offsets(0, 0);
     if (length!=0) {
-        offsets = GeomHelper::getNormal90D_CW(beg, end, length,
-                                              3.5 / 2.0);
+        offsets = GeomHelper::getNormal90D_CW(beg, end, length, 3.5 / 2.0);
     }
     SUMOReal x11 = beg.x() - offsets.first;
     SUMOReal y11 = beg.y() + offsets.second;

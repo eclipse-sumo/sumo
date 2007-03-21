@@ -11,7 +11,6 @@ GUIInternalLane.cpp GUIInternalLane.h \
 GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
-GUILaneStateReporter.cpp GUILaneStateReporter.h \
 GUILaneWrapper.cpp GUILaneWrapper.h \
 GUINet.cpp GUINet.h \
 GUINetWrapper.cpp GUINetWrapper.h \
