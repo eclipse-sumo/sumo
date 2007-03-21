@@ -36,7 +36,6 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <netbuild/NBNetBuilder.h>
 #include <netimport/NIOptionsIO.h>
 #include <netimport/NILoader.h>
