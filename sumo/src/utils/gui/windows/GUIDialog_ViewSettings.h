@@ -54,7 +54,7 @@ class BaseSchemeInfoSource;
 // ===========================================================================
 /**
  * @class GUIDialog_ViewSettings
- * The dialog to change the application (gui) settings.
+ * @brief The dialog to change the view (gui) settings.
  */
 class GUIDialog_ViewSettings : public FXDialogBox
 {
