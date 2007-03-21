@@ -72,90 +72,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "giant"=.\giant\giant.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_libgui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguinetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguisim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmicrosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_output
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_tls
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_iodevices
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetbuild
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetgen
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetimport
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetedit
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_helpers
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "guisim"=.\guisim\guisim.dsp - Package Owner=<4>
 
 Package=<5>
@@ -295,90 +211,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libnetimport
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "netedit"=.\netedit\netedit.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_libnetbuild
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetgen
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetimport
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libgui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguinetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguisim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmicrosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_output
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_tls
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_iodevices
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetedit
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_helpers
     End Project Dependency
 }}}
 
@@ -586,18 +418,6 @@ Package=<4>
 ###############################################################################
 
 Project: "y_libnetbuild"=.\y_libnetbuild\y_libnetbuild.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "y_libnetedit"=.\y_libnetedit\y_libnetedit.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
