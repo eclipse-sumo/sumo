@@ -105,11 +105,6 @@ NLBuilder::~NLBuilder()
 bool
 NLBuilder::build()
 {
-    /*
-    // get the matching handler
-    NLHandler handler("", myNet, myDetectorBuilder, myTriggerBuilder,
-        myEdgeBuilder, myJunctionBuilder, myShapeBuilder);
-    */
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(myXMLHandler);
     bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser);
     // try to build the net
