@@ -8,10 +8,14 @@ makealllog = sys.argv[2]
 texttesttmp = sys.argv[3]
 print basename(makelog)
 warnings = 0
+errors = 0
 for l in file(makelog):
     if l.find("warning") > -1:
         warnings = warnings + 1
-print str(warnings) + " warnings"
+    if l.find("error") > -1:
+        errors = errors + 1
+print warnings, "warnings"
+print errors, "errors"
 for root, dirs, files in os.walk(texttesttmp):
     for f in files:
         if f.startswith("batchreport"):
@@ -22,7 +26,11 @@ for root, dirs, files in os.walk(texttesttmp):
             b.close()
 print basename(makealllog)
 warnings = 0
+errors = 0
 for l in file(makealllog):
     if l.find("warning") > -1:
         warnings = warnings + 1
-print str(warnings) + " warnings"
+    if l.find("error") > -1:
+        errors = errors + 1
+print warnings, "warnings"
+print errors, "errors"
