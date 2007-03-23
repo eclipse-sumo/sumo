@@ -26,6 +26,7 @@
 // ===========================================================================
 #ifdef MSVC_VER // disable certain MSVC-compiler warnings
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4290)  // C++ exception specification ignored
 #endif
 
 
