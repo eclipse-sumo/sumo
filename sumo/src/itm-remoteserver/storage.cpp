@@ -346,7 +346,7 @@ double Storage::readDouble( ) throw () {
     double value = 0;
     unsigned char *p_value = reinterpret_cast<unsigned char*>(&value);
     short a = 0x0102;
-    unsigned char *p_a = reinterpret_cast<unsigned char*>(&value);
+    unsigned char *p_a = reinterpret_cast<unsigned char*>(&a);
     if (p_a[0] == 0x01) // big endian
     {
         // network is big endian
