@@ -1,0 +1,222 @@
+<net>
+
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,500.000000,100.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,500.000000,100.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="9">1to2 2to3 3to4 4to5 6to7 7to8 8to9 9to10 split</edges>
+   <node_count>10</node_count>
+
+
+   <edge id="1to2" Length="98.52" Speed="13.90" Name="1to2" NoLanes="1" XFrom="100.00" YFrom="0.00" XTo="200.00" YTo="0.00" from="1" to="2" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="98.52">100.00,-1.65 198.52,-1.65</lane>
+      </lanes>
+      <cedge id="2to3">1to2_0</cedge>
+      <cedge id="split">1to2_0</cedge>
+   </edge>
+
+   <edge id="2to3" Length="93.95" Speed="13.90" Name="2to3" NoLanes="1" XFrom="200.00" YFrom="0.00" XTo="300.00" YTo="0.00" from="2" to="3" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="2to3_0" depart="1" vclasses="" maxspeed="13.90" length="93.95">206.05,-1.65 300.00,-1.65</lane>
+      </lanes>
+      <cedge id="3to4">2to3_0</cedge>
+   </edge>
+
+   <edge id="3to4" Length="100.00" Speed="13.90" Name="3to4" NoLanes="1" XFrom="300.00" YFrom="0.00" XTo="400.00" YTo="0.00" from="3" to="4" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="3to4_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">300.00,-1.65 400.00,-1.65</lane>
+      </lanes>
+      <cedge id="4to5">3to4_0</cedge>
+   </edge>
+
+   <edge id="4to5" Length="96.75" Speed="13.90" Name="4to5" NoLanes="1" XFrom="400.00" YFrom="0.00" XTo="500.00" YTo="0.00" from="4" to="5" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="4to5_0" depart="1" vclasses="" maxspeed="13.90" length="96.75">400.00,-1.65 496.75,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="6to7" Length="100.00" Speed="13.90" Name="6to7" NoLanes="1" XFrom="0.00" YFrom="100.00" XTo="100.00" YTo="100.00" from="6" to="7" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="6to7_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">0.00,98.35 100.00,98.35</lane>
+      </lanes>
+      <cedge id="7to8">6to7_0</cedge>
+   </edge>
+
+   <edge id="7to8" Length="100.00" Speed="13.90" Name="7to8" NoLanes="1" XFrom="100.00" YFrom="100.00" XTo="200.00" YTo="100.00" from="7" to="8" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="7to8_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">100.00,98.35 200.00,98.35</lane>
+      </lanes>
+      <cedge id="8to9">7to8_0</cedge>
+   </edge>
+
+   <edge id="8to9" Length="95.32" Speed="13.90" Name="8to9" NoLanes="1" XFrom="200.00" YFrom="100.00" XTo="300.00" YTo="100.00" from="8" to="9" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="8to9_0" depart="1" vclasses="" maxspeed="13.90" length="95.32">200.00,98.35 295.32,98.35</lane>
+      </lanes>
+      <cedge id="9to10">8to9_0</cedge>
+   </edge>
+
+   <edge id="9to10" Length="93.90" Speed="13.90" Name="9to10" NoLanes="1" XFrom="300.00" YFrom="100.00" XTo="400.00" YTo="100.00" from="9" to="10" Priority="-1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="9to10_0" depart="1" vclasses="" maxspeed="13.90" length="93.90">302.85,98.35 396.75,98.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="split" Length="130.70" Speed="13.90" Name="split" NoLanes="1" XFrom="200.00" YFrom="0.00" XTo="300.00" YTo="100.00" from="2" to="9" Priority="-1" Angle="225.00" Type="" function="normal">
+      <lanes>
+         <lane id="split_0" depart="1" vclasses="" maxspeed="13.90" length="130.70">204.48,2.14 296.89,94.56</lane>
+      </lanes>
+      <cedge id="9to10">split_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>2</key>
+      <requestsize>2</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>3</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>4</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>7</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>8</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>9</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="1" type="DEAD_END" x="100.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>99.95,-0.05</shape>
+   </junction>
+
+   <junction id="10" type="DEAD_END" x="400.00" y="100.00">
+      <inclanes>9to10_0</inclanes>
+      <shape>396.75,96.75 396.75,99.95</shape>
+   </junction>
+
+   <junction id="2" type="priority" x="200.00" y="0.00">
+      <inclanes>1to2_0</inclanes>
+      <shape>203.34,3.27 205.61,1.01 206.05,-0.05 206.05,-3.25 198.52,-3.25 198.52,-0.05</shape>
+   </junction>
+
+   <junction id="3" type="priority" x="300.00" y="0.00">
+      <inclanes>2to3_0</inclanes>
+      <shape>300.00,-0.05 300.00,-3.25 300.00,-0.05</shape>
+   </junction>
+
+   <junction id="4" type="priority" x="400.00" y="0.00">
+      <inclanes>3to4_0</inclanes>
+      <shape>400.00,-0.05 400.00,-3.25 400.00,-0.05</shape>
+   </junction>
+
+   <junction id="5" type="DEAD_END" x="500.00" y="0.00">
+      <inclanes>4to5_0</inclanes>
+      <shape>496.75,-3.25 496.75,-0.05</shape>
+   </junction>
+
+   <junction id="6" type="DEAD_END" x="0.00" y="100.00">
+      <inclanes></inclanes>
+      <shape>-0.05,99.95</shape>
+   </junction>
+
+   <junction id="7" type="priority" x="100.00" y="100.00">
+      <inclanes>6to7_0</inclanes>
+      <shape>100.00,99.95 100.00,96.75 100.00,99.95</shape>
+   </junction>
+
+   <junction id="8" type="priority" x="200.00" y="100.00">
+      <inclanes>7to8_0</inclanes>
+      <shape>200.00,99.95 200.00,96.75 200.00,99.95</shape>
+   </junction>
+
+   <junction id="9" type="priority" x="300.00" y="100.00">
+      <inclanes>split_0 8to9_0</inclanes>
+      <shape>302.85,99.95 302.85,96.75 298.02,93.43 295.76,95.69 295.32,96.75 295.32,99.95</shape>
+   </junction>
+
+
+   <succ edge="1to2" lane="1to2_0" junction="2">
+      <succlane lane="2to3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="split_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="2to3" lane="2to3_0" junction="3">
+      <succlane lane="3to4_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="3to4" lane="3to4_0" junction="4">
+      <succlane lane="4to5_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="4to5" lane="4to5_0" junction="5">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="6to7" lane="6to7_0" junction="7">
+      <succlane lane="7to8_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="7to8" lane="7to8_0" junction="8">
+      <succlane lane="8to9_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="8to9" lane="8to9_0" junction="9">
+      <succlane lane="9to10_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="9to10" lane="9to10_0" junction="10">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="split" lane="split_0" junction="9">
+      <succlane lane="9to10_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+
+</net>

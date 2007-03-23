@@ -1,4 +1,3 @@
-
 # Tests whether the detector types are computed properly
 detector_types
 
@@ -17,4 +16,6 @@ meta
 # testing error input
 errors
 
+# testing flow maximization
+flowmax
 
