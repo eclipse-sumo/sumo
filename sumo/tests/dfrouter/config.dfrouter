@@ -2,9 +2,10 @@ import_config_file:../config_all
 binary:$DFROUTER_BINARY
 copy_test_path:input_net.net.xml
 copy_test_path:input_detectors.det.xml
+copy_test_path:input_flows.txt
 copy_test_path:input_tri_net.net.xml
 copy_test_path:input_tri_detectors.det.xml
-
+copy_test_path:input_tri_flows.txt
 
 [collate_file]
 detector_defs:detectors_def.det.xml
@@ -12,6 +13,7 @@ routes:routes.rou.xml
 pois:detectors.poi.xml
 emitters:emitters.add.xml
 config:config.cfg
+emitter_*:emitter_*.def.xml
 
 [run_dependent_text]
 output:dfrouter.exe{REPLACE sumo-dfrouter}

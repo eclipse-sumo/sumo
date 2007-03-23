@@ -1,5 +1,5 @@
 <triggeredsource>
-   <routedistelem id="beg_to_end" probability="1."/>
+   <routedistelem id="beg_to_end" probability="1"/>
    <routedistelem id="beg_to_end_1" probability="0"/>
    <routedistelem id="beg_to_end_2" probability="0"/>
    <emit id="emitter_MQ_beg_0" time="0" speed="100" route="beg_to_end" vehtype="test"/>
