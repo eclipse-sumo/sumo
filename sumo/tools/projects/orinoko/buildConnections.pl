@@ -46,12 +46,18 @@ while($ok==1) {
 			$lastDestLane = 0;
 			$lastDestEdge = "";
 		}
+		$hadSameConnection = 0;
 		if($RistkBis_Ref ne $lastDestEdge) {
 			$lastDestLane = 0;
 			$lastDestEdge = $RistkBis_Ref;
 		} else {
-			$lastDestLane = $lastDestLane + 1;
+			if($lastFahrstreifen_Nr ne $Fahrstreifen_Nr) {
+				$lastDestLane = $lastDestLane + 1;
+			} else {
+				$hadSameConnection = 1;
+			}
 		}
+		$lastFahrstreifen_Nr = $Fahrstreifen_Nr;
 
 	        # close a previously began tls-definition
 		if($LSA_ID ne $lastLSA && $lastLSA ne "") {
@@ -146,7 +152,7 @@ while($ok==1) {
 			$splitK{$RistkVon_Ref} = $LSA_ID;
 			$splitP{$RistkVon_Ref} = $Fahrstreifen_Laenge;
 		}
-		if($RistkVon_Ref ne "") {
+		if($RistkVon_Ref ne "" && $hadSameConnection==0) {
 			print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
 		}
 		if($Signalgr_Nr ne "") {
@@ -226,7 +232,7 @@ close(INDAT);
 open(INDAT, "< lanes.txt");
 while(<INDAT>) {
 	$line = $_;
-	if(index($line, "\:")>=0) {
+	if(index($line, "\:")>=0 && length($line)>0 && substr($line[0], 0, 1) ne "!") {
 		($edge, $laneno) = split("\:", $line);
 		if(index($edge, "_")>0) {
 			$laneno =~ s/\s//g;
