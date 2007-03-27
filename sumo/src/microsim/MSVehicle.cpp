@@ -201,7 +201,7 @@ MSVehicle::~MSVehicle()
     }
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
-        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
+        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
         for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }

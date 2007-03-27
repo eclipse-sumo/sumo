@@ -635,10 +635,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\person\MSPerson.cpp">
+				RelativePath="..\..\..\src\microsim\MSPerson.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\person\MSPersonControl.cpp">
+				RelativePath="..\..\..\src\microsim\MSPersonControl.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSPhoneCell.cpp">
@@ -1047,10 +1047,10 @@
 				RelativePath="..\..\..\src\microsim\MSNoLogicJunction.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\person\MSPerson.h">
+				RelativePath="..\..\..\src\microsim\MSPerson.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\person\MSPersonControl.h">
+				RelativePath="..\..\..\src\microsim\MSPersonControl.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSPhoneCell.h">

@@ -337,14 +337,14 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
             vs.backgroundColor = convert(app->reg().readIntEntry(name.c_str(), "backgroundColor", FXRGB(255, 255, 255)));
             vs.showGrid = app->reg().readIntEntry(name.c_str(), "showGrid", 0)!=0 ? 1 : 0;
-            vs.gridXSize = app->reg().readRealEntry(name.c_str(), "gridXSize", 1000);
-            vs.gridYSize = app->reg().readRealEntry(name.c_str(), "gridYSize", 1000);
+            vs.gridXSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "gridXSize", 1000);
+            vs.gridYSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "gridYSize", 1000);
 
             vs.laneEdgeMode = app->reg().readIntEntry(name.c_str(), "laneEdgeMode", 0);
             size_t nlc = app->reg().readIntEntry(name.c_str(), "noLaneCols", 0);
             for(j=0; j<nlc; ++j) {
-                int nlc1 = app->reg().readIntEntry(name.c_str(), ("nlcN" + toString(j)).c_str(), 0);
-                int nlc2 = app->reg().readIntEntry(name.c_str(), ("nlcS" + toString(j)).c_str(), 0);
+                size_t nlc1 = (size_t) app->reg().readIntEntry(name.c_str(), ("nlcN" + toString(j)).c_str(), 0);
+                size_t nlc2 = (size_t) app->reg().readIntEntry(name.c_str(), ("nlcS" + toString(j)).c_str(), 0);
                 std::vector<RGBColor> cols;
                 for(k=0; k<nlc2; ++k) {
                     cols.push_back(convert(app->reg().readIntEntry(name.c_str(), ("nlcC" + toString(j) + "_" + toString(k)).c_str(), FXRGB(255, 255, 255))));
@@ -354,53 +354,53 @@ GUICompleteSchemeStorage::init(FXApp *app,
             vs.laneShowBorders = app->reg().readIntEntry(name.c_str(), "laneShowBorders", 0)!=0 ? 1 : 0;
             vs.showLinkDecals = app->reg().readIntEntry(name.c_str(), "showLinkDecals", 0)!=0 ? 1 : 0;
             vs.laneEdgeExaggMode = app->reg().readIntEntry(name.c_str(), "laneEdgeExaggMode", 0);
-            vs.minExagg = app->reg().readRealEntry(name.c_str(), "minExagg", 1);
-            vs.maxExagg = app->reg().readRealEntry(name.c_str(), "maxExagg", 1);
+            vs.minExagg = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minExagg", 1);
+            vs.maxExagg = (SUMOReal) app->reg().readRealEntry(name.c_str(), "maxExagg", 1);
             vs.showRails = app->reg().readIntEntry(name.c_str(), "showRails", 0)!=0 ? 1 : 0;
             vs.drawEdgeName = app->reg().readIntEntry(name.c_str(), "drawEdgeName", 0)!=0 ? 1 : 0;
-            vs.edgeNameSize = app->reg().readRealEntry(name.c_str(), "edgeNameSize", 50);
+            vs.edgeNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "edgeNameSize", 50);
             vs.edgeNameColor = convert(app->reg().readIntEntry(name.c_str(), "edgeNameColor", FXRGB(255, 255, 255)));
 
             vs.vehicleMode = app->reg().readIntEntry(name.c_str(), "vehicleMode", 0);
             size_t nvc = app->reg().readIntEntry(name.c_str(), "noVehCols", 0);
             for(j=0; j<nvc; ++j) {
-                int nvc1 = app->reg().readIntEntry(name.c_str(), ("nvcN" + toString(j)).c_str(), 0);
-                int nvc2 = app->reg().readIntEntry(name.c_str(), ("nvcS" + toString(j)).c_str(), 0);
+                size_t nvc1 = (size_t) app->reg().readIntEntry(name.c_str(), ("nvcN" + toString(j)).c_str(), 0);
+                size_t nvc2 = (size_t) app->reg().readIntEntry(name.c_str(), ("nvcS" + toString(j)).c_str(), 0);
                 std::vector<RGBColor> cols;
                 for(k=0; k<nvc2; ++k) {
                     cols.push_back(convert(app->reg().readIntEntry(name.c_str(), ("nvcC" + toString(j) + "_" + toString(k)).c_str(), FXRGB(255, 255, 255))));
                 }
                 vs.vehicleColorings[nvc1] = cols;
             }
-            vs.minVehicleSize = app->reg().readRealEntry(name.c_str(), "minVehicleSize", 1);
-            vs.vehicleExaggeration = app->reg().readRealEntry(name.c_str(), "vehicleExaggeration", 1);
+            vs.minVehicleSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minVehicleSize", 1);
+            vs.vehicleExaggeration = (SUMOReal) app->reg().readRealEntry(name.c_str(), "vehicleExaggeration", 1);
             vs.showBlinker = app->reg().readIntEntry(name.c_str(), "showBlinker", 0)!=0 ? 1 : 0;
             vs.drawcC2CRadius = app->reg().readIntEntry(name.c_str(), "drawcC2CRadius", 0)!=0 ? 1 : 0;
             vs.drawLaneChangePreference = app->reg().readIntEntry(name.c_str(), "drawLaneChangePreference", 0)!=0 ? 1 : 0;
             vs.drawVehicleName = app->reg().readIntEntry(name.c_str(), "drawVehicleName", 0)!=0 ? 1 : 0;
-            vs.vehicleNameSize = app->reg().readRealEntry(name.c_str(), "vehicleNameSize", 50);
+            vs.vehicleNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "vehicleNameSize", 50);
             vs.vehicleNameColor = convert(app->reg().readIntEntry(name.c_str(), "vehicleNameColor", FXRGB(255, 255, 255)));
 
             vs.junctionMode = app->reg().readIntEntry(name.c_str(), "junctionMode", 0);
             vs.drawLinkTLIndex = app->reg().readIntEntry(name.c_str(), "drawLinkTLIndex", 0)!=0 ? 1 : 0;
             vs.drawLinkJunctionIndex = app->reg().readIntEntry(name.c_str(), "drawLinkJunctionIndex", 0)!=0 ? 1 : 0;
             vs.drawJunctionName = app->reg().readIntEntry(name.c_str(), "drawJunctionName", 0)!=0 ? 1 : 0;
-            vs.junctionNameSize = app->reg().readRealEntry(name.c_str(), "junctionNameSize", 50);
+            vs.junctionNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "junctionNameSize", 50);
             vs.junctionNameColor = convert(app->reg().readIntEntry(name.c_str(), "junctionNameColor", FXRGB(255, 255, 255)));
 
             vs.showLane2Lane = app->reg().readIntEntry(name.c_str(), "showLane2Lane", 0)!=0 ? 1 : 0;
 
             vs.addMode = app->reg().readIntEntry(name.c_str(), "addMode", 0);
-            vs.minAddSize = app->reg().readRealEntry(name.c_str(), "minAddSize", 1);
-            vs.addExaggeration = app->reg().readRealEntry(name.c_str(), "addExaggeration", 1);
+            vs.minAddSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minAddSize", 1);
+            vs.addExaggeration = (SUMOReal) app->reg().readRealEntry(name.c_str(), "addExaggeration", 1);
             vs.drawAddName = app->reg().readIntEntry(name.c_str(), "drawAddName", 0)!=0 ? 1 : 0;
-            vs.addNameSize = app->reg().readRealEntry(name.c_str(), "addNameSize", 50);
+            vs.addNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "addNameSize", 50);
                 //vs.addNameColor = RGBColor(0, .5, 1);
 
-            vs.poiExaggeration = app->reg().readRealEntry(name.c_str(), "poiExaggeration", 1);
-            vs.minPOISize = app->reg().readRealEntry(name.c_str(), "minPOISize", 1);
+            vs.poiExaggeration = (SUMOReal) app->reg().readRealEntry(name.c_str(), "poiExaggeration", 1);
+            vs.minPOISize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minPOISize", 1);
             vs.drawPOIName = app->reg().readIntEntry(name.c_str(), "drawPOIName", 0)!=0 ? 1 : 0;
-            vs.poiNameSize = app->reg().readRealEntry(name.c_str(), "poiNameSize", 50);
+            vs.poiNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "poiNameSize", 50);
             vs.poiNameColor = convert(app->reg().readIntEntry(name.c_str(), "poiNameColor", FXRGB(255, 255, 255)));
 
             vs.showSizeLegend = app->reg().readIntEntry(name.c_str(), "showSizeLegend", 0)!=0 ? 1 : 0;
