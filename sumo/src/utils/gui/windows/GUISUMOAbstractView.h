@@ -282,6 +282,9 @@ public:
      */
     struct VisualizationSettings
     {
+        /// The name of this setting
+        std::string name;
+
         /// Information whether antialiase shall be enabled
         bool antialiase;
         /// Information whether dithering shall be enabled
@@ -392,8 +395,11 @@ public:
         /// Information whether the size legend shall be drawn
         bool showSizeLegend;
 
+        bool operator==(const VisualizationSettings &vs2);
 
     };
+
+    FXComboBox &getColoringSchemesCombo();
 
 protected:
 
@@ -414,8 +420,6 @@ protected:
 
     void drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width);
 
-
-protected:
     virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/)
     { }
 
@@ -482,12 +486,6 @@ protected:
 
     /// Additional scaling factor for meters-to-pixels conversion
     SUMOReal _addScl;
-
-    /// The timer id
-    int _timer;
-
-    /// The reason (mouse state) of the timer
-    int _timerReason;
 
     /// The current popup-menu
     GUIGLObjectPopupMenu *_popup;

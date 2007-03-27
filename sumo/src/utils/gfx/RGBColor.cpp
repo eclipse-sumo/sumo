@@ -34,6 +34,7 @@
 #include <config.h>
 #endif
 
+#include <cmath>
 #include "RGBColor.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -168,14 +169,16 @@ operator/(const RGBColor &c, const SUMOReal &v)
 bool
 RGBColor::operator==(const RGBColor &c) const
 {
-    return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
+    return fabs(myRed-c.myRed)<0.1 && fabs(myGreen-c.myGreen)<0.1 && fabs(myBlue-c.myBlue)<0.1;
+    //return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor &c) const
 {
-    return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
+    return fabs(myRed-c.myRed)>0.1 || fabs(myGreen-c.myGreen)>0.1 || fabs(myBlue-c.myBlue)>0.1;
+    //return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
 }
 
 

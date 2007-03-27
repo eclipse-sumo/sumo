@@ -197,6 +197,12 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 void
 GUIViewTraffic::setColorScheme(char* data)
 {
+    string name = (char*) data;
+    if(myVisualizationChanger!=0) {
+        if(myVisualizationChanger->getCurrentScheme()!=name) {
+            myVisualizationChanger->setCurrentScheme(name);
+        }
+    }
     myVisualizationSettings = &gSchemeStorage.get(data);
     // lanes
     switch (myLaneColoringSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
@@ -524,7 +530,7 @@ GUIViewTraffic::showViewschemeEditor()
     if (myVisualizationChanger==0) {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
-                myApp, this, myVisualizationSettings,
+                this, myVisualizationSettings,
                 &myLaneColoringSchemes, &myVehicleColoringSchemes,
                 &myDecals, &myDecalsLock);
         myVisualizationChanger->create();

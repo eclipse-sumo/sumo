@@ -332,8 +332,20 @@ enum {
     MID_SAVE_NET,
     //@}
 
+    //@{ IDs for visualization settings - Dialog
+    /// Informs the dialog about a value's change
     MID_SIMPLE_VIEW_COLORCHANGE,
+    /// Informs the dialog about switching to another scheme
     MID_SIMPLE_VIEW_NAMECHANGE,
+    /// For the save-to-db - button
+    MID_SIMPLE_VIEW_SAVE,
+    /// For the delete - button
+    MID_SIMPLE_VIEW_DELETE,
+    /// For the export-to-file - button
+    MID_SIMPLE_VIEW_EXPORT,
+    /// For the import-from-file - button
+    MID_SIMPLE_VIEW_IMPORT,
+    //@}
 
 
     MID_CUTSWELL,

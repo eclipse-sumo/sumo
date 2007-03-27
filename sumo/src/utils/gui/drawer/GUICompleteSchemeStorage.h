@@ -42,46 +42,51 @@
 #include <map>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class GUICompleteSchemeStorage
+ * @brief This class contains all available visualization settings
+ */
 class GUICompleteSchemeStorage
 {
 public:
-    GUICompleteSchemeStorage()
-    { }
-    ~GUICompleteSchemeStorage()
-    { }
-    void add(const std::string &name, GUISUMOAbstractView::VisualizationSettings &scheme)
-    {
-        if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
-            mySortedSchemeNames.push_back(name);
-        }
-        mySettings[name] = scheme;
-    }
+    /// Constructor
+    GUICompleteSchemeStorage();
 
-    GUISUMOAbstractView::VisualizationSettings &get(const std::string &name)
-    {
-        return mySettings.find(name)->second;
-    }
+    /// Destructor
+    ~GUICompleteSchemeStorage();
 
-    bool contains(const std::string &name) const
-    {
-        return mySettings.find(name)!=mySettings.end();
-    }
+    /// Adds a visualization setting
+    void add(GUISUMOAbstractView::VisualizationSettings &scheme);
 
-    const std::vector<std::string> &getNames() const
-    {
-        return mySortedSchemeNames;
-    }
+    /// Returns the named setting
+    GUISUMOAbstractView::VisualizationSettings &get(const std::string &name);
 
-    void init(const std::map<int, std::vector<RGBColor> > &vehColMap,
+    /// Returns the information whether a setting with the given name is stored
+    bool contains(const std::string &name) const;
+
+    /// Returns the information whether a setting with the given name is stored
+    void remove(const std::string &name);
+
+    /// Returns a list of stored settings names
+    const std::vector<std::string> &getNames() const;
+
+    /// initialises the storage with some default settings
+    void init(FXApp *app,
+        const std::map<int, std::vector<RGBColor> > &vehColMap,
               const std::map<int, std::vector<RGBColor> > &laneColMap);
 
-    const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &getItems() const
-    {
-        return mySettings;
-    }
+    /// Returns all settings
+    const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &getItems() const;
 
 protected:
+    /// A map of settings referenced by their names
     std::map<std::string, GUISUMOAbstractView::VisualizationSettings> mySettings;
+
+    /// List of known setting names
     std::vector<std::string> mySortedSchemeNames;
 
 };

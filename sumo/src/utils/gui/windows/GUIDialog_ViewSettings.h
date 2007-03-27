@@ -4,7 +4,7 @@
 /// @date    Wed, 21. Dec 2005
 /// @version $Id$
 ///
-// The application-settings dialog
+// The view-settings dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -62,8 +62,7 @@ class GUIDialog_ViewSettings : public FXDialogBox
     FXDECLARE(GUIDialog_ViewSettings)
 public:
     /// constructor
-    GUIDialog_ViewSettings(FXMainWindow* mainWindow,
-                           GUISUMOAbstractView *parent,
+    GUIDialog_ViewSettings(GUISUMOAbstractView *parent,
                            GUISUMOAbstractView::VisualizationSettings *settings,
                            BaseSchemeInfoSource *laneEdgeModeSource,
                            BaseSchemeInfoSource *vehicleModeSource,
@@ -88,6 +87,18 @@ public:
     long onChgNameChange(FXObject*,FXSelector,void*);
     long onCmdNameChange(FXObject*,FXSelector,void*);
 
+    long onCmdSaveSetting(FXObject*,FXSelector,void*data);
+    long onUpdSaveSetting(FXObject*,FXSelector,void*data);
+    long onCmdDeleteSetting(FXObject*,FXSelector,void*data);
+    long onUpdDeleteSetting(FXObject*,FXSelector,void*data);
+    long onCmdExportSetting(FXObject*,FXSelector,void*data);
+    long onUpdExportSetting(FXObject*,FXSelector,void*data);
+    long onCmdImportSetting(FXObject*,FXSelector,void*data);
+    long onUpdImportSetting(FXObject*,FXSelector,void*data);
+
+    std::string getCurrentScheme() const;
+    void setCurrentScheme(const std::string &);
+
 protected:
     RGBColor convert(const FXColor c);
     FXColor convert(const RGBColor &c);
@@ -95,8 +106,11 @@ protected:
     void rebuildColorMatrices(bool doCreate=false);
     void rebuildList();
 
+    void writeSettings();
+    void saveSettings(const std::string &file);
+    void loadSettings(const std::string &file);
+
 private:
-    FXMainWindow* myMainWindow;
     GUISUMOAbstractView *myParent;
     GUISUMOAbstractView::VisualizationSettings *mySettings;
     BaseSchemeInfoSource *myLaneColoringInfoSource;
