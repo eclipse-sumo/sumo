@@ -227,11 +227,11 @@ SOURCE=..\..\..\src\microsim\MSNoLogicJunction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\person\MSPerson.cpp
+SOURCE=..\..\..\src\microsim\MSPerson.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\person\MSPersonControl.cpp
+SOURCE=..\..\..\src\microsim\MSPersonControl.cpp
 # End Source File
 # Begin Source File
 
@@ -503,11 +503,11 @@ SOURCE=..\..\..\src\microsim\MSNoLogicJunction.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\person\MSPerson.h
+SOURCE=..\..\..\src\microsim\MSPerson.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\person\MSPersonControl.h
+SOURCE=..\..\..\src\microsim\MSPersonControl.h
 # End Source File
 # Begin Source File
 
