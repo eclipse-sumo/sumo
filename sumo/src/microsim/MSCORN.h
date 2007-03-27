@@ -92,7 +92,6 @@ public:
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_NUMBERROUTE,
         CORN_VEH_DEV_NO_CPHONE,
-        CORN_VEH_NUMBER_PASSENGER,
 
 
         CORN_MAX
@@ -101,8 +100,8 @@ public:
     enum Pointer {
         CORN_P_VEH_OWNCOL,
         CORN_P_VEH_OLDROUTE,
+        CORN_VEH_PASSENGER,
         CORN_P_VEH_DEV_CPHONE,
-        CORN_VEH_PASSENGER = CORN_P_VEH_DEV_CPHONE + 1000,
         CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 10000
     };
 

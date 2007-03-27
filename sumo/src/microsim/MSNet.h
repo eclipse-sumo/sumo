@@ -52,7 +52,7 @@
 #include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
-#include "person/MSPersonControl.h"
+#include "MSPersonControl.h"
 #include "MSEventControl.h"
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>

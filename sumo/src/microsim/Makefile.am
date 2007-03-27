@@ -16,6 +16,7 @@ MSLaneChanger.cpp MSLaneChanger.h \
 MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.h \
 MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
+MSPerson.cpp MSPerson.h MSPersonControl.cpp MSPersonControl.h \
 MSPhoneCell.cpp MSPhoneCell.h MSPhoneLA.cpp MSPhoneLA.h \
 MSPhoneNet.cpp MSPhoneNet.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \

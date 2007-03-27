@@ -2,7 +2,7 @@
 /// @file    MSVehicle.cpp
 /// @author  Christian Roessel
 /// @date    Mon, 05 Mar 2001
-/// @version $Id$
+/// @version $Id: $
 ///
 // micro-simulation Vehicles.
 /****************************************************************************/
@@ -63,6 +63,7 @@
 #include <utils/bindevice/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
 #include <utils/helpers/SUMODijkstraRouter.h>
+#include "MSPerson.h"
 #include <utils/common/RandHelper.h>
 
 
@@ -197,6 +198,14 @@ MSVehicle::~MSVehicle()
     }
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         delete (RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
+    // persons
+    if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
+        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
+        for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
+            (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
+        }
+        delete persons;
     }
 }
 
@@ -1517,6 +1526,7 @@ MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const
 }
 
 
+
 const MSRoute &
 MSVehicle::getRoute() const
 {
@@ -1543,7 +1553,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
 {
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        int textdummy = 0;
         for (MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
@@ -1586,7 +1595,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     }
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        int textdummy = 0;
         for (MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
@@ -1602,7 +1610,6 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
 {
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        int textdummy = 0;
         for (MSEdgeVector::const_iterator i=newRoute->begin(); i!=newRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
@@ -1644,7 +1651,6 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     }
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        int textdummy = 0;
         for (MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }

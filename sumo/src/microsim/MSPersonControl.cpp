@@ -2,7 +2,7 @@
 /// @file    MSPersonControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
+/// @version $Id: MSPersonControl.cpp 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
 ///
 // missing_desc
 /****************************************************************************/

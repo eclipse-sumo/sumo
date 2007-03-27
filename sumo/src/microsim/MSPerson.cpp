@@ -2,7 +2,7 @@
 /// @file    MSPerson.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
+/// @version $Id: MSPerson.cpp 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
 ///
 // missing_desc
 /****************************************************************************/
@@ -36,20 +36,21 @@
 
 #include <string>
 #include <vector>
-#include <microsim/MSNet.h>
-#include <microsim/MSEdge.h>
-#include <microsim/person/MSPerson.h>
-#include <microsim/person/MSPersonControl.h>
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSEmitControl.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSVehicleType.h>
+#include "MSNet.h"
+#include "MSEdge.h"
+#include "MSPerson.h"
+#include "MSPersonControl.h"
+#include "MSEdgeControl.h"
+#include "MSEmitControl.h"
+#include "MSVehicle.h"
+#include "MSVehicleType.h"
+
 
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
+
 
 // ===========================================================================
 // method definitions

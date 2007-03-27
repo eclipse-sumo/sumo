@@ -300,14 +300,14 @@ initLaneColoringSchemes()
 
 
 void
-initColoringSchemes()
+initColoringSchemes(FXApp *a)
 {
     map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
     map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes
-    gSchemeStorage.init(vehColMap, laneColMap);
+    gSchemeStorage.init(a, vehColMap, laneColMap);
 }
 
 
@@ -405,7 +405,7 @@ main(int argc, char **argv)
                                      oc.getInt("w"), oc.getInt("h"), "*.sumo.cfg");
         window->dependentBuild(tf);
         gGradients = new GUIGradientStorage(window);
-        initColoringSchemes();
+        initColoringSchemes(&application);
         // delete startup-options
         OptionsSubSys::close();
         // Create app

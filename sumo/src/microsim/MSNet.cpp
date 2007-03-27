@@ -84,10 +84,12 @@
 #include "MSBuildCells.h"
 #include <utils/geoconv/GeoConvHelper.h>
 #include <ctime>
+#include "MSPerson.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
 #endif
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -136,6 +138,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myRouteLoaders = 0;
     myLogics = 0;
     myCellsBuilder = 0;
+    myPersonControl = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
     myMSPhoneNet = new MSPhoneNet();
@@ -165,6 +168,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myRouteLoaders = 0;
     myLogics = 0;
     myCellsBuilder = 0;
+    myPersonControl = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
     myMSPhoneNet = new MSPhoneNet();
@@ -535,6 +539,21 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         computeCar2Car();
     }
 
+    // persons
+    if (myPersonControl!=0) {
+        if (myPersonControl->hasWaitingPersons(myStep)) {
+            const MSPersonControl::PersonVector &persons = myPersonControl->getWaitingPersons(myStep);
+            for (MSPersonControl::PersonVector::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
+                MSPerson *person = *i;
+                if (person->endReached()) {
+                    delete person;
+                } else {
+                    person->proceed(this, myStep);
+                }
+            }
+        }
+    }
+
     // check state dumps
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
         string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
@@ -843,6 +862,15 @@ MSNet::getTooSlowRTF() const
     return myTooSlowRTF;
 }
 
+
+MSPersonControl &
+MSNet::getPersonControl() const
+{
+    if (myPersonControl==0) {
+        myPersonControl = new MSPersonControl();
+    }
+    return *myPersonControl;
+}
 
 
 

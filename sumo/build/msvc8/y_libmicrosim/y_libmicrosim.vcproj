@@ -816,6 +816,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSPerson.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPersonControl.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSPhoneCell.cpp"
 				>
 			</File>
@@ -1334,6 +1342,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSNoLogicJunction.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPerson.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSPersonControl.h"
 				>
 			</File>
 			<File
