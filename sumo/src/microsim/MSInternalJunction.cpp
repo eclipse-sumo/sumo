@@ -177,6 +177,9 @@ MSInternalJunction::setAllowed()
     const MSLinkCont &lc2 = l->getLinkCont();
     link = lc2[0];
     MSLane *dest = link->getLane();
+    if(dest==0) {
+        return true;
+    }
     const MSVehicle * const lastOnDest = dest->getLastVehicle();
     if (lastOnDest!=0) {
         if (lastOnDest->getPositionOnLane()-lastOnDest->getLength()<5) { // !!! explcite vehicle length
