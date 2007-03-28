@@ -188,17 +188,15 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
 
 
 void
-NIXMLNodesHandler::myCharacters(int element, const std::string &name,
-                                const std::string &chars)
+NIXMLNodesHandler::myCharacters(int , const std::string &,
+                                const std::string &)
 {
-    myCharactersDump(element, name, chars);
 }
 
 
 void
-NIXMLNodesHandler::myEndElement(int element, const std::string &name)
+NIXMLNodesHandler::myEndElement(int , const std::string &)
 {
-    myEndElementDump(element, name);
 }
 
 

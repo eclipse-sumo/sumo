@@ -224,18 +224,8 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform("Missing or non-numeric index of a route alternative (id='" + id + "'.");
         return;
     }
-    myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
     // try to get the color
-//!!!    myCurrentColor = parseColor(attrs, "route", id);
-    // try to get the start time
-    /*    SUMOTime time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
-        if(time<0) {
-            getErrorHandlerMarkInvalid()->inform(
-                string("Missing or non-numeric departure time of a route alternative (id='")
-                + id + string("'."));
-            return;
-        }*/
-    // !!!
+    myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
     // build the alternative cont
     myCurrentAlternatives = new RORouteDef_Alternatives(id, myCurrentColor,
                             index, myGawronBeta, myGawronA, myMaxRouteNumber);

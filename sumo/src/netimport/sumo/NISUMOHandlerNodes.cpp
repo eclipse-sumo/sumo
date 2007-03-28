@@ -145,16 +145,14 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
 
 
 void
-NISUMOHandlerNodes::myCharacters(int element, const std::string &name,
-                                 const std::string &chars)
+NISUMOHandlerNodes::myCharacters(int , const std::string &,
+                                 const std::string &)
 {
-    myCharactersDump(element, name, chars);
 }
 
 void
-NISUMOHandlerNodes::myEndElement(int element, const std::string &name)
+NISUMOHandlerNodes::myEndElement(int , const std::string &)
 {
-    myEndElementDump(element, name);
 }
 
 

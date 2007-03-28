@@ -185,26 +185,6 @@ GenericSAX2Handler::fatalError(const SAXParseException&)
 {}
 
 
-void
-GenericSAX2Handler::myStartElementDump(int /*element*/,
-                                       const std::string &/*name*/,
-                                       const Attributes &/*attrs*/)
-{}
-
-
-void
-GenericSAX2Handler::myCharactersDump(int /*element*/,
-                                     const std::string &/*name*/,
-                                     const std::string &/*chars*/)
-{}
-
-
-void
-GenericSAX2Handler::myEndElementDump(int /*element*/,
-                                     const std::string &/*name*/)
-{}
-
-
 int
 GenericSAX2Handler::convertTag(const std::string &tag) const
 {

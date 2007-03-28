@@ -162,16 +162,14 @@ NISUMOHandlerEdges::getIntReporting(const Attributes &attrs,
     return -1;
 }
 
-void NISUMOHandlerEdges::myCharacters(int element, const std::string &name,
-                                      const std::string &chars)
+void NISUMOHandlerEdges::myCharacters(int , const std::string &,
+                                      const std::string &)
 {
-    myCharactersDump(element, name, chars);
 }
 
 
-void NISUMOHandlerEdges::myEndElement(int element, const std::string &name)
+void NISUMOHandlerEdges::myEndElement(int , const std::string &)
 {
-    myEndElementDump(element, name);
 }
 
 

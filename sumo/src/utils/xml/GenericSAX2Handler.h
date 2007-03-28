@@ -141,17 +141,6 @@ protected:
         This tag is only called when tha tag name was supplied by the user */
     virtual void myEndElement(int element, const std::string &name) = 0;
 
-    /** a dump-methods that may be used to avoid "unused attribute"-warnings */
-    void myStartElementDump(int element, const std::string &name,
-                            const Attributes &attrs);
-
-    /** a dump-methods that may be used to avoid "unused attribute"-warnings */
-    void myCharactersDump(int element, const std::string &name,
-                          const std::string &chars);
-
-    /** a dump-methods that may be used to avoid "unused attribute"-warnings */
-    void myEndElementDump(int element, const std::string &name);
-
     /** build an error description */
     std::string buildErrorMessage(const std::string &file,
                                   const std::string &type,

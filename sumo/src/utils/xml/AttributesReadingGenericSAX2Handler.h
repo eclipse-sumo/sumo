@@ -44,11 +44,12 @@
 // ===========================================================================
 /**
  * @class AttributesReadingGenericSAX2Handler
+ *
  * This class is a combination of an AttributesHandler and a
- * GenericSAX2Handler allowing direct access to and handling of XML-tags
- * (elements) and attributes.
+ *  GenericSAX2Handler allowing direct access to and handling of XML-tags
+ *  (elements) and attributes.
  * By now, almost every class that handles XML-data is derived from this
- * class.
+ *  class.
  */
 class AttributesReadingGenericSAX2Handler : public AttributesHandler,
             public GenericSAX2Handler
