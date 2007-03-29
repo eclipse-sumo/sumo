@@ -99,6 +99,7 @@ GUIJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
     }
 }
 
+
 void
 GUIJunctionDrawer::drawGLJunctionNames(
     size_t *which, size_t maxJunctions, SUMOReal scale,

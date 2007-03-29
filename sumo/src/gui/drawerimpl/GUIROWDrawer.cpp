@@ -103,7 +103,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
     SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
     SUMOReal x1 = SUMO_const_laneWidth / (SUMOReal) 2.;
     glPushMatrix();
-    glColor3d(1, 0, 0);
+    glColor3d(.5, .5, 1);
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
@@ -142,7 +142,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
     SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
     SUMOReal x1 = (SUMOReal)(SUMO_const_laneWidth / 2.);
     glPushMatrix();
-    glColor3d(1, 0, 0);
+    glColor3d(.5, .5, 1);
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
