@@ -165,11 +165,6 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
             return;
         }
         // check whether this lane exists
-        /*
-        if(edge->getNoLanes()<lane) {
-            edge->incLaneNo(lane - edge->getNoLanes());
-        }
-        */
         // set information about allwed / disallowed vehicle classes
         string disallowed = getStringSecure(attrs, "disallow", "");
         string allowed = getStringSecure(attrs, "allow", "");
@@ -190,8 +185,9 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                 }
             }
         }
-        // set information about later beginning lanes
 
+        // set information about later beginning lanes
+        size_t priorLaneNo = edge->getNoLanes();
         int forcedLength = getIntSecure(attrs, "forceLength", -1); // !!! describe
         // to split?
         if (forcedLength>0) {
@@ -227,11 +223,12 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                 //  build the node
                 if (edge->getGeometry().length()-splitLength>0) {
                     Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getGeometry().length() - splitLength);
+                    string pid = edge->getID();
                     NBNode *rn = new NBNode(nid, p);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
                         myEdgeCont.splitAt(myDistrictCont, edge, edge->getGeometry().length()-splitLength, rn,
-                                           edge->getID(), nid, edge->getNoLanes(), edge->getNoLanes());
+                                           pid, nid, edge->getNoLanes(), edge->getNoLanes());
                     } else {
                         // hmm, the node could not be build!?
                         delete rn;
@@ -256,13 +253,27 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                                     prev->decLaneNo(1);
                                 } else {
                                     MsgHandler::getWarningInstance()->inform("Could not split edge '" + prev->getID() + "'.");
+                                    return;
                                 }
                                 cont = true;
                             }
                         }
                     } while (cont);
+                    // set proper connections
+                    NBEdge *ce = myEdgeCont.retrieve(nid);
+                    NBEdge *pe = myEdgeCont.retrieve(pid);
+                    if(priorLaneNo/2>lane) {
+                        // new lane on the right side
+                        pe->addLane2LaneConnections(0, ce, 1, pe->getNoLanes(), false, true);
+                        pe->addLane2LaneConnection(0, ce, 0, false, true);
+                    } else {
+                        // new lane on the left side
+                        pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
+                        pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
+                    }
                 } else {
                     MsgHandler::getWarningInstance()->inform("Could not split edge '" + edge->getID() + "'.");
+                    return;
                 }
             }
         }
