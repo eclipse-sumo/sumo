@@ -233,6 +233,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 ./utils/common/libcommon.a \
+./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/glutils/libglutils.a \
