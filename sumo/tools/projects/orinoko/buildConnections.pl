@@ -93,7 +93,7 @@ while($ok==1) {
 						print OUTDAT2 "Signalguppe		DRG	DG	FA1	FE1	FA2	FE2	FA3	FE3\n";
 						$lastProgID = $nSignalprogramm_ID;
 					}
-					if( ($nRE!=0||$nGE!=0) && ($nRE!=127||$nGE!=1) && ($nRE!=0||$nGE!=1) ) {
+					if( ($nRE!=0||$nGE!=0) && ($nRE!=127||$nGE!=1) && ($nRE!=0||$nGE!=1) && ($nRE!=0||$nGE!=0) ) {
 						$FA = $nRE;#+$ngelb;
 						if($FA>$Umlaufzeiten{$nSignalprogramm_ID}) {
 							$FA = $FA - $Umlaufzeiten{$nSignalprogramm_ID};
