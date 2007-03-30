@@ -39,3 +39,7 @@ unsorted_time_typedefined
 
 # Test whether the vehicle class is processed
 increasing_time_typedefined_withclass
+
+# Test whether embedding further information works
+embedded
+

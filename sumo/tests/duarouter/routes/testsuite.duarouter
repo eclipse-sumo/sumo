@@ -42,3 +42,11 @@ newstyle_colorcheck
 
 # Checks whether the vehicle class is processed
 newstyle_with_vehtype_withclass
+
+# Checks whether the vehicle type can be omitted
+newstyle_no_vehtype
+
+# Checks whether further information can be embedded
+newstyle_embedded
+
+
