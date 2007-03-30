@@ -262,7 +262,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, myID, false);
     myEndEdge = getEdge(attrs, "destination",
                         SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-    myType = getVehicleType(attrs);
+    myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
     mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
     try {

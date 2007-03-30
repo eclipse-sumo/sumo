@@ -202,7 +202,7 @@ RONet::getVehicleTypeSecure(const std::string &id)
     if (type!=0) {
         return type;
     }
-    if (id=="!") { // !!! make this is static const
+    if (id=="") {
         // ok, no vehicle type was given within the user input
         //  return the default type
         return 0;

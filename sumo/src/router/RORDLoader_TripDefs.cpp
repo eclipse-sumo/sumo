@@ -97,7 +97,7 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &/*name*/,
                               SUMO_ATTR_FROM, myID, false);
         myEndEdge = getEdge(attrs, "destination",
                             SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-        myType = getVehicleType(attrs);
+        myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
         mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
         myPeriodTime = getPeriod(attrs, myID);
@@ -205,17 +205,6 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
         }
     }
     return 0;
-}
-
-
-std::string
-RORDLoader_TripDefs::getVehicleType(const Attributes &attrs)
-{
-    try {
-        return getString(attrs, SUMO_ATTR_TYPE);
-    } catch (EmptyData) {
-        return "!";// !!! make this is static const
-    }
 }
 
 

@@ -101,9 +101,6 @@ protected:
     ROEdge *getEdge(const Attributes &attrs, const std::string &purpose,
                     AttrEnum which, const std::string &id, bool emptyAllowed);
 
-    /// Parses the vehicle type
-    std::string getVehicleType(const Attributes &attrs);
-
     /** @brief Parses a SUMOReal value which is optional;
         Avoids exceptions */
     SUMOReal getOptionalFloat(const Attributes &attrs,
