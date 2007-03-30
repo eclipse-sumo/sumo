@@ -136,14 +136,14 @@ private:
 class equal : public std::unary_function<SameDepartureTimeCont, bool>
     {
     public:
-        equal(unsigned int value) : m_value(value)
+        equal(SUMOTime value) : m_value(value)
         {}
         bool operator()(SameDepartureTimeCont arg) const
         {
             return m_value == arg.getTime();
         }
     private:
-        unsigned int m_value;
+        SUMOTime m_value;
     };
 
 public:

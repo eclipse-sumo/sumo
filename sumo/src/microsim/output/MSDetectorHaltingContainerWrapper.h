@@ -294,7 +294,7 @@ struct MSDetectorHaltingMapWrapper
             MSVehicle* veh = pair->first;
             DetectorContainer::E3Halting& halting = pair->second;
             halting.posM += veh->getMovedDistance();
-            /*                halting.posM = veh->pos();
+            /                halting.posM = veh->pos();
                             if(&myLane!=&veh->getLane()) {
                                 halting.posM += myLane.length();
                             }/
