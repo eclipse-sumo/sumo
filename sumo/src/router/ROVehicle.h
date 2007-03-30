@@ -91,18 +91,13 @@ public:
     * Saves the vehicle itself.
     * Use this method polymorph if no route alternatives shall be generated */
     void saveAllAsXML(std::ostream * const os, std::ostream * const altos,
-                      ROVehicleType &defType, const RORouteDef * const route) const;
+                      const RORouteDef * const route) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
                             const std::string &id, unsigned int depTime, RORouteDef *newRoute);
 
 protected:
-    /** @brief Returns the type of the vehicle
-    *
-     * Returns the default vehicle type if no vehicle type was set */
-    ROVehicleType &getTypeForSaving(ROVehicleType &defType) const;
-
     /// Saves the vehicle definition only into the given stream
     void saveXMLVehicle(std::ostream * const os) const;
 

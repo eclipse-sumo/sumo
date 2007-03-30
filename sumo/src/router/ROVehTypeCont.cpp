@@ -54,21 +54,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehTypeCont::ROVehTypeCont(ROVehicleType *defType)
-        : _defaultType(defType)
+ROVehTypeCont::ROVehTypeCont()
 {}
 
 
 ROVehTypeCont::~ROVehTypeCont()
 {
-    delete _defaultType;
-}
-
-
-ROVehicleType *
-ROVehTypeCont::getDefault() const
-{
-    return _defaultType;
 }
 
 

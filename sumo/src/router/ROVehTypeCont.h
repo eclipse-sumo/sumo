@@ -54,17 +54,10 @@ class ROVehTypeCont :
 {
 public:
     /// Constructor
-    ROVehTypeCont(ROVehicleType *defType);
+    ROVehTypeCont();
 
     /// Destructor
     ~ROVehTypeCont();
-
-    /// Returns the default vehicle type
-    ROVehicleType *getDefault() const;
-
-private:
-    /// The default vehicle type
-    ROVehicleType *_defaultType;
 
 private:
     /// we made the copy constructor invalid

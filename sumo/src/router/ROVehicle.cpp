@@ -100,18 +100,13 @@ ROVehicle::getDepartureTime() const
 }
 
 
-bool
-ROVehicle::periodical() const
-{
-    return myRepetitionPeriod!=-1;
-}
-
-
 void
 ROVehicle::saveXMLVehicle(std::ostream * const os) const
 {
     (*os) << "<vehicle id=\"" << myID << "\"";
-    (*os) << " type=\"" << myType->getID() << "\"";
+    if(myType!=0) {
+        (*os) << " type=\"" << myType->getID() << "\"";
+    }
     (*os) << " depart=\"" << myDepartTime << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
         (*os) << " color=\"" << myColor << "\"";
@@ -126,19 +121,16 @@ ROVehicle::saveXMLVehicle(std::ostream * const os) const
 void
 ROVehicle::saveAllAsXML(std::ostream * const os,
                         std::ostream * const altos,
-                        ROVehicleType &defType,
                         const RORouteDef * const route) const
 {
-    // get the reference vehicle's type
-    ROVehicleType &type = getTypeForSaving(defType);
-    // check whether it was saved before
-    if (!type.isSaved()) {
+    // check whether the vehicle's type was saved before
+    if (myType!=0&&!myType->isSaved()) {
         // ... save if not
-        type.xmlOut(*os);
+        myType->xmlOut(*os);
         if (altos!=0) {
-            type.xmlOut(*altos);
+            myType->xmlOut(*altos);
         }
-        type.markSaved();
+        myType->markSaved();
     }
 
     // write the vehicle (new style, with included routes)
@@ -195,18 +187,6 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
     (*os) << "   </vehicle>" << endl;
     if (altos!=0) {
         (*altos) << "   </vehicle>" << endl;
-    }
-}
-
-
-ROVehicleType &
-ROVehicle::getTypeForSaving(ROVehicleType &defType) const
-{
-    if (myType==0) {
-        WRITE_WARNING("The vehicle '" + getID() + "' has no valid type; Using default.");
-        return defType;
-    } else {
-        return *myType;
     }
 }
 

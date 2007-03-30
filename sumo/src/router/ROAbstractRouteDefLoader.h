@@ -97,9 +97,10 @@ public:
 
 protected:
     /** @brief Builds routes
-        All routes between the loader's current time step and the one given shall
-        be processed. If the route's departure time is lower than the value of
-        "myBegin", the route should not be added into the container. */ // !!! not very good
+     *
+     * All routes between the loader's current time step and the one given shall
+     * be processed. If the route's departure time is lower than the value of
+     * "myBegin", the route should not be added into the container. */ // !!! not very good
     virtual bool myReadRoutesAtLeastUntil(SUMOTime time) = 0;
 
 protected:

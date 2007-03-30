@@ -116,9 +116,6 @@ public:
     /// Adds a complete, read vehicle type to the network
     virtual void addVehicleType(ROVehicleType *type);
 
-    /// Retrieves the default vehicle type
-    ROVehicleType *getDefaultVehicleType() const;
-
     /** @brief Retrieves the named vehicle type
         Returns 0 if the type is not known */
     ROVehicleType *getVehicleType(const std::string &name) const;

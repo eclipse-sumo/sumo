@@ -74,6 +74,8 @@ public:
     static SUMOReal myDefault_A, myDefault_B, myDefault_EPS,
     myDefault_LENGTH, myDefault_MAXSPEED;
 
+    static SUMOVehicleClass myDefault_CLASS;
+
 };
 
 

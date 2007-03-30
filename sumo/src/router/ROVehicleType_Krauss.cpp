@@ -53,11 +53,12 @@ using namespace std;
 // ===========================================================================
 // static member variable definitions
 // ===========================================================================
-SUMOReal ROVehicleType_Krauss::myDefault_A = (SUMOReal) 0.8;
+SUMOReal ROVehicleType_Krauss::myDefault_A = (SUMOReal) 2.6;
 SUMOReal ROVehicleType_Krauss::myDefault_B = (SUMOReal) 4.5;
 SUMOReal ROVehicleType_Krauss::myDefault_EPS = (SUMOReal) 0.5;
 SUMOReal ROVehicleType_Krauss::myDefault_LENGTH = (SUMOReal) 5.0;
 SUMOReal ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
+SUMOVehicleClass ROVehicleType_Krauss::myDefault_CLASS = SVC_UNKNOWN;
 
 
 // ===========================================================================

@@ -152,7 +152,7 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
         string id = _vehicleIdSupplier.getNext();
         _net.addVehicle(id, myVehicleBuilder.buildVehicle(
                             id, altDef, _driverParser.getRouteStart(),
-                            _net.getDefaultVehicleType(), RGBColor(), -1, 0));
+                            0, RGBColor(), -1, 0));
     } while (!ended()&&(int) time<_driverParser.getRouteStart());
     return true;
 }

@@ -134,7 +134,7 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
                             new RORouteDef_OrigDest(myRouteIDSupplier.getNext(),
                                                     RGBColor(-1, -1, -1), from, to);
                         _net.addRouteDef(route);
-                        ROVehicleType *type = _net.getDefaultVehicleType();
+                        ROVehicleType *type = 0;
                         string vehID = myVehIDSupplier.getNext();
                         _net.addVehicle(vehID,
                                         myVehicleBuilder.buildVehicle(vehID, route, time, type,

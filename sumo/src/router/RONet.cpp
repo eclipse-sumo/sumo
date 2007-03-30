@@ -75,7 +75,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RONet::RONet(bool /*multireferencedRoutes*/)
-        : _vehicleTypes(new ROVehicleType_Krauss()),
+        : _vehicleTypes(),
         myRoutesOutput(0), myRouteAlternativesOutput(0),
         myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
         myHaveRestrictions(false)
@@ -205,20 +205,13 @@ RONet::getVehicleTypeSecure(const std::string &id)
     if (id=="!") { // !!! make this is static const
         // ok, no vehicle type was given within the user input
         //  return the default type
-        return getDefaultVehicleType();
+        return 0;
     }
     // Assume, the user will define the type somewhere else
     //  return a type which contains the id only
     type = new ROVehicleType_ID(id);
     addVehicleType(type);
     return type;
-}
-
-
-ROVehicleType *
-RONet::getDefaultVehicleType() const
-{
-    return _vehicleTypes.getDefault();
 }
 
 
@@ -278,7 +271,8 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
-    while (current->getFirst()->getLength()<=veh->getType()->getLength()) {
+    SUMOReal vehLength = veh->getType()!=0 ? veh->getType()->getLength() : (SUMOReal) ROVehicleType_Krauss::myDefault_LENGTH;
+    while (current->getFirst()->getLength()<=vehLength) {
         mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.");
         if (!options.getBool("move-on-short")||current->size()<3) {
             mh->inform(" Discarded.");
@@ -325,7 +319,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         const RORouteDef * const route = computeRoute(options, router, veh);
         if (route!=0) {
             // write the route
-            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput, *_vehicleTypes.getDefault(), route);
+            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput, route);
             myWrittenRouteNo++;
         } else {
             myDiscardedRouteNo++;
