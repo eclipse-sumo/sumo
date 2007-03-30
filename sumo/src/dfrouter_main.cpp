@@ -408,7 +408,6 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        ROFrame::setDefaults(oc);
         net = loadNet(oc);
         // build routes
         startComputation(net, oc);

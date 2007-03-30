@@ -225,7 +225,6 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        ROFrame::setDefaults(oc);
         std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
         ROVehicleBuilder vb;

@@ -51,9 +51,6 @@
 class ROVehicleType_Krauss : public ROVehicleType
 {
 public:
-    /// Constructor - uses default values
-    ROVehicleType_Krauss();
-
     /// Parametrised constructor
     ROVehicleType_Krauss(const std::string &id, const RGBColor &col,
                          SUMOReal length, SUMOVehicleClass vclass,
@@ -66,15 +63,8 @@ public:
     std::ostream &xmlOut(std::ostream &os) const;
 
 private:
-    /// Krauﬂ-parameter
+    /// Krauss-parameter
     SUMOReal myA, myB, myEps, myMaxSpeed;
-
-public:
-    /// default parameter
-    static SUMOReal myDefault_A, myDefault_B, myDefault_EPS,
-    myDefault_LENGTH, myDefault_MAXSPEED;
-
-    static SUMOVehicleClass myDefault_CLASS;
 
 };
 

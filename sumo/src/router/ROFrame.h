@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Class encapsulating options common to routers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,6 +48,7 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class ROFrame
+ * @brief Class encapsulating options common to routers
  */
 class ROFrame
 {
@@ -55,9 +56,8 @@ public:
     /// Builds the simulation options
     static void fillOptions(OptionsCont &oc);
 
+    /// Checks whether options are valid
     static bool checkOptions(OptionsCont &oc);
-
-    static void setDefaults(OptionsCont &oc);
 
 };
 

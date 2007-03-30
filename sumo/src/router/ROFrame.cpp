@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Class encapsulating options common to routers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -119,23 +119,6 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.addDescription("remove-loops", "Processing", "");
 
 
-    // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
-    oc.addDescription("krauss-vmax", "Generated Vehicles", "Defines emitted vehicles' max. velocity");
-
-    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
-    oc.addDescription("krauss-a", "Generated Vehicles", "Defines emitted vehicles' max. acceleration");
-
-    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
-    oc.addDescription("krauss-b", "Generated Vehicles", "Defines emitted vehicles' max. deceleration");
-
-    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
-    oc.addDescription("krauss-length", "Generated Vehicles", "Defines emitted vehicles' length");
-
-    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
-    oc.addDescription("krauss-eps", "Generated Vehicles", "Defines emitted vehicles' driver imperfection");
-
-
     // register report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output");
@@ -173,22 +156,6 @@ ROFrame::checkOptions(OptionsCont &oc)
     }
     //
     return true;
-}
-
-
-/**
- * Inserts the default from options into the vehicle
- *  type descriptions
- */
-void
-ROFrame::setDefaults(OptionsCont &oc)
-{
-    // insert the krauss-values
-    ROVehicleType_Krauss::myDefault_A = oc.getFloat("krauss-a");
-    ROVehicleType_Krauss::myDefault_B = oc.getFloat("krauss-b");
-    ROVehicleType_Krauss::myDefault_EPS = oc.getFloat("krauss-eps");
-    ROVehicleType_Krauss::myDefault_LENGTH = oc.getFloat("krauss-length");
-    ROVehicleType_Krauss::myDefault_MAXSPEED = oc.getFloat("krauss-vmax");
 }
 
 

@@ -50,7 +50,6 @@
 #include "RORouteDefCont.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
-#include "ROVehicleType_Krauss.h"
 #include "ROVehicleType_ID.h"
 #include "ROAbstractRouter.h"
 #include "ROAbstractEdgeBuilder.h"
@@ -59,6 +58,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -271,7 +271,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     }
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
-    SUMOReal vehLength = veh->getType()!=0 ? veh->getType()->getLength() : (SUMOReal) ROVehicleType_Krauss::myDefault_LENGTH;
+    SUMOReal vehLength = veh->getType()!=0 ? veh->getType()->getLength() : (SUMOReal) DEFAULT_VEH_LENGTH;
     while (current->getFirst()->getLength()<=vehLength) {
         mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.");
         if (!options.getBool("move-on-short")||current->size()<3) {

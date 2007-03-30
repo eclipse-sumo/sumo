@@ -182,7 +182,6 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        ROFrame::setDefaults(oc);
         // load data
         ROVehicleBuilder vb;
         loader = new ROLoader(oc, vb, false);

@@ -51,26 +51,8 @@ using namespace std;
 
 
 // ===========================================================================
-// static member variable definitions
-// ===========================================================================
-SUMOReal ROVehicleType_Krauss::myDefault_A = (SUMOReal) 2.6;
-SUMOReal ROVehicleType_Krauss::myDefault_B = (SUMOReal) 4.5;
-SUMOReal ROVehicleType_Krauss::myDefault_EPS = (SUMOReal) 0.5;
-SUMOReal ROVehicleType_Krauss::myDefault_LENGTH = (SUMOReal) 5.0;
-SUMOReal ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
-SUMOVehicleClass ROVehicleType_Krauss::myDefault_CLASS = SVC_UNKNOWN;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicleType_Krauss::ROVehicleType_Krauss()
-        : ROVehicleType("KRAUSS_DEFAULT",  RGBColor(1,1,0), myDefault_LENGTH, SVC_UNKNOWN),
-        myA(myDefault_A), myB(myDefault_B), myEps(myDefault_EPS),
-        myMaxSpeed(myDefault_MAXSPEED)
-{}
-
-
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
         const RGBColor &col,
         SUMOReal length,
@@ -90,12 +72,13 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss()
 std::ostream &
 ROVehicleType_Krauss::xmlOut(std::ostream &os) const
 {
-    os << "   <vtype id=\"" << myID << "\"";
-    os << " accel=\"" << myA << "\"";
-    os << " decel=\"" << myB << "\"";
-    os << " sigma=\"" << myEps << "\"";
-    os << " length=\"" << myLength << "\"";
-    os << " maxspeed=\"" << myMaxSpeed << "\"";
+    os << "   <vtype model=\"SUMO_KRAUSS\""
+        << " id=\"" << myID << "\""
+        << " accel=\"" << myA << "\""
+        << " decel=\"" << myB << "\""
+        << " sigma=\"" << myEps << "\""
+        << " length=\"" << myLength << "\""
+        << " maxspeed=\"" << myMaxSpeed << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
         os << " color=\"" << myColor << "\"";
     }
