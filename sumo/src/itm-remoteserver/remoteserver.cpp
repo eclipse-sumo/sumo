@@ -173,6 +173,7 @@ throw (RemoteException) {
                 Position2D pos = vehicle->getPosition();
                 out.writeFloat(pos.x());
                 out.writeFloat(pos.y());
+		out.writeFloat(vehicle->getSpeed());
             }
             if (rtype_rel) {
                 out.writeString(vehicle->getEdge()->getID());
