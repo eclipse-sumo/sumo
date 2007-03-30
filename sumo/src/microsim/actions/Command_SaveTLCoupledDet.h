@@ -47,7 +47,6 @@
 // class declarations
 // ===========================================================================
 class MSNet;
-class FileWriter;
 class MSTrafficLightLogic;
 class MSDetectorFileOutput;
 class OutputDevice;
