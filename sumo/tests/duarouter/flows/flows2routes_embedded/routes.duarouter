@@ -1,0 +1,14 @@
+<routes>
+   <vehicle id="0_0" depart="1">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_0" depart="1">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_1" depart="51">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_1" depart="51">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>
