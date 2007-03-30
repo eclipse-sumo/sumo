@@ -38,6 +38,7 @@
 
 #include <string>
 #include <utils/xml/AttributesReadingGenericSAX2Handler.h>
+#include <utils/xml/XMLSnippletStorage.h>
 #include <utils/common/FileErrorReporter.h>
 
 
@@ -46,8 +47,10 @@
 // ===========================================================================
 /**
  * @class SUMOSAXHandler
- * Base class for XML-loading. This class knows all tags SUMO uses, so all
- * SUMO-XML - loading classes should be derived from it.
+ * @brief Base class for XML-loading. 
+ *
+ * This class knows all tags SUMO uses, so all SUMO-XML - loading classes 
+ *  should be derived from it.
  */
 class SUMOSAXHandler : public FileErrorReporter,
             public AttributesReadingGenericSAX2Handler
@@ -72,12 +75,35 @@ public:
     /// called on a XML-fatal error; the error is reported to the SErrorHandler
     void fatalError(const SAXParseException& exception);
 
+protected:
+    /// Begins processing of an unknown snippet
+    void addUnknownSnippet(const std::string &name, const Attributes &attrs);
+
+    /// Adds characters
+    void addSnippetCharacters(const std::string &chars);
+
+    /// Moves one level down
+    void closeSnippet();
+
+    /// Writes the snippet to the given stream
+    void flushSnippet(std::ostream &strm, int level);
+
+    /// Deletes the loaded snippets
+    void deleteSnippet();
+
+    /// Returns loaded snippet, detaching it from the parent
+    XMLSnippletStorage *extractSnippet();
+
+protected:
+    XMLSnippletStorage *myCurrentSnippet;
+
 private:
     /// invalidated copy constructo
     SUMOSAXHandler(const SUMOSAXHandler &s);
 
     /// invalidated assignment operator
     const SUMOSAXHandler &operator=(const SUMOSAXHandler &s);
+
 };
 
 
