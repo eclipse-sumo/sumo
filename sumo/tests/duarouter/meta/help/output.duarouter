@@ -51,16 +51,6 @@ Usage: duarouter.exe [OPTION]*
   --gBeta FLOAT                       Use FLOAT as Gawron's beta
   --gA FLOAT                          Use FLOAT as Gawron's alpha
 
- Generated Vehicles Options:
-  -V, --krauss-vmax FLOAT             Defines emitted vehicles' max. velocity
-  -A, --krauss-a FLOAT                Defines emitted vehicles' max.
-                                        acceleration
-  -B, --krauss-b FLOAT                Defines emitted vehicles' max.
-                                        deceleration
-  -L, --krauss-length FLOAT           Defines emitted vehicles' length
-  -E, --krauss-eps FLOAT              Defines emitted vehicles' driver
-                                        imperfection
-
  Time Options:
   -b, --begin INT                     Defines the begin time;
                                         Previous trips will be discarded
