@@ -36,18 +36,7 @@
 #include <config.h>
 #endif
 
-
 #include <string>
-
-
-// ===========================================================================
-// default vehicle type parameter
-// ===========================================================================
-const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
-const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
-const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
-const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
-const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 5.;
 
 
 // ===========================================================================
@@ -123,10 +112,21 @@ enum SUMOVehicleClass {
 
 
 // ===========================================================================
-// enum definitions
+// method declarations
 // ===========================================================================
 extern std::string getVehicleClassName(SUMOVehicleClass id);
 extern SUMOVehicleClass getVehicleClassID(const std::string &name);
+
+
+// ===========================================================================
+// default vehicle type parameter
+// ===========================================================================
+const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
+const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
+const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
+const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
+const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 5.;
+const SUMOVehicleClass DEFAULT_VEH_CLASS = SVC_UNKNOWN;
 
 
 
