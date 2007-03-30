@@ -1,11 +1,8 @@
 noinst_LIBRARIES = libxml.a
 
-libxml_a_SOURCES = AttributesHandler.cpp \
-GenericSAX2Handler.cpp \
-XMLBuildingExceptions.cpp \
-XMLSubSys.cpp \
-AttributesHandler.h \
+libxml_a_SOURCES = AttributesHandler.cpp AttributesHandler.h \
 AttributesReadingGenericSAX2Handler.h \
-GenericSAX2Handler.h \
-XMLBuildingExceptions.h \
-XMLSubSys.h
+GenericSAX2Handler.cpp GenericSAX2Handler.h \
+XMLBuildingExceptions.cpp XMLBuildingExceptions.h \
+XMLSnippletStorage.cpp XMLSnippletStorage.h \
+XMLSubSys.cpp XMLSubSys.h

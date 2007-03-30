@@ -75,14 +75,20 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
 
 void
 RORDLoader_SUMOBase::myStartElement(int element,
-                                    const std::string &/*name*/,
+                                    const std::string &name,
                                     const Attributes &attrs)
 {
+    if(element==-1) {
+        // save unknown elements
+        addUnknownSnippet(name, attrs);
+        return;
+    }
     switch (element) {
     case SUMO_TAG_ROUTE:
         startRoute(attrs);
         break;
     case SUMO_TAG_VEHICLE:
+        deleteSnippet();
         // try to parse the vehicle definition
         if (!SUMOBaseRouteHandler::openVehicle(*this, attrs, true)) {
             mySkipCurrent = true;
@@ -112,6 +118,7 @@ RORDLoader_SUMOBase::closeVehicle()
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle id
     if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
+        deleteSnippet();
         mySkipCurrent = true;
         return;
     }
@@ -124,6 +131,7 @@ RORDLoader_SUMOBase::closeVehicle()
     }
     if (route==0) {
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
+        deleteSnippet();
         return;
     }
     // get the vehicle color
@@ -133,12 +141,14 @@ RORDLoader_SUMOBase::closeVehicle()
         if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
             _net.removeRouteSecure(route);
             // !!! was ist mit type?
+            deleteSnippet();
             return;
         }
-        _net.addVehicle(myActiveVehicleID,
-                        myVehicleBuilder.buildVehicle(
+        ROVehicle *veh = myVehicleBuilder.buildVehicle(
                             myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
-                            myRepOffset, myRepNumber));
+                            myRepOffset, myRepNumber);
+        _net.addVehicle(myActiveVehicleID, veh);
+        veh->addEmbedded(extractSnippet());
     }
 }
 

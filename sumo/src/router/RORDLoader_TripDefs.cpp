@@ -84,11 +84,17 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs()
 
 
 void
-RORDLoader_TripDefs::myStartElement(int element, const std::string &/*name*/,
+RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
                                     const Attributes &attrs)
 {
+    if(element==-1) {
+        // save unknown elements
+        addUnknownSnippet(name, attrs);
+        return;
+    }
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
+        deleteSnippet();
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         myID = getVehicleID(attrs);
@@ -347,18 +353,19 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &/*name*/)
         _net.addRouteDef(route);
         _nextRouteRead = true;
         // build the vehicle
+        ROVehicle *veh = 0;
         if (myPos>=0||mySpeed>=0) {
-            _net.addVehicle(myID,
-                            myVehicleBuilder.buildRunningVehicle(
+            veh = myVehicleBuilder.buildRunningVehicle(
                                 myID, route, myDepartureTime,
                                 type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, myPeriodTime,
-                                myNumberOfRepetitions));
+                                myNumberOfRepetitions);
         } else {
-            _net.addVehicle(myID,
-                            myVehicleBuilder.buildVehicle(
+            veh = myVehicleBuilder.buildVehicle(
                                 myID, route, myDepartureTime,
-                                type, myColor, myPeriodTime, myNumberOfRepetitions));
+                                type, myColor, myPeriodTime, myNumberOfRepetitions);
         }
+        _net.addVehicle(myID, veh);
+        veh->addEmbedded(extractSnippet());
     }
 }
 

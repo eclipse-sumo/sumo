@@ -37,6 +37,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/xml/XMLSnippletStorage.h>
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
@@ -66,11 +67,15 @@ ROVehicle::ROVehicle(ROVehicleBuilder &,
                      int period, int repNo)
         : myID(id), myColor(color), myType(type), myRoute(route),
         myDepartTime(depart),
-        myRepetitionPeriod(period), myRepetitionNumber(repNo)
+        myRepetitionPeriod(period), myRepetitionNumber(repNo),
+        myEmbeddedParams(0)
 {}
 
+
 ROVehicle::~ROVehicle()
-{}
+{
+    delete myEmbeddedParams;
+}
 
 
 RORouteDef * const
@@ -118,6 +123,7 @@ ROVehicle::saveXMLVehicle(std::ostream * const os) const
     (*os) << ">" << endl;
 }
 
+
 void
 ROVehicle::saveAllAsXML(std::ostream * const os,
                         std::ostream * const altos,
@@ -146,16 +152,11 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
         // write the route
         const ROEdgeVector &routee = route->getCurrentEdgeVector();
         (*os) << "      <route";
-        if (periodical()) {
-            // remark for further usage if referenced by more than one vehicle
-            (*os) << " multi_ref=\"x\"";
-        }
         const RGBColor &c = route->getColor();
         if (c!=RGBColor(-1,-1,-1)) {
             (*os) << " color=\"" << c << "\"";
         }
         (*os) << ">" << routee << "</route>" << endl;
-        //route->xmlOutCurrent(*os, periodical());
         // check whether the alternatives shall be written
         if (altos!=0) {
             (*altos) << "      <routealt last=\"" << myRoute->getLastUsedIndex() << "\"";
@@ -183,7 +184,13 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
             (*altos) << "      </routealt>" << endl;
         }
     }
-
+    
+    if(myEmbeddedParams!=0) {
+        myEmbeddedParams->flush(*os, 2);
+        if (altos!=0) {
+            myEmbeddedParams->flush(*altos, 2);
+        }
+    }
     (*os) << "   </vehicle>" << endl;
     if (altos!=0) {
         (*altos) << "   </vehicle>" << endl;
@@ -196,10 +203,20 @@ ROVehicle::copy(ROVehicleBuilder &vb,
                 const std::string &id, unsigned int depTime,
                 RORouteDef *newRoute)
 {
-    return new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
+    ROVehicle *ret = new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
                          myRepetitionPeriod, myRepetitionNumber);
+    if(myEmbeddedParams!=0) {
+        ret->addEmbedded(myEmbeddedParams->duplicate());
+    }
+    return ret;
 }
 
+
+void 
+ROVehicle::addEmbedded(XMLSnippletStorage *embedded)
+{
+    myEmbeddedParams = embedded;
+}
 
 
 /****************************************************************************/

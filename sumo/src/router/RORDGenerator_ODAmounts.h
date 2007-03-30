@@ -124,7 +124,8 @@ protected:
         /// Constructor
         FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,
                 SUMOTime intBegin, SUMOTime intEnd,
-                unsigned int vehicles2Emit, bool randomize);
+                unsigned int vehicles2Emit, bool randomize,
+                XMLSnippletStorage *embedded);
 
         /// Destructor
         ~FlowDef();
@@ -169,6 +170,9 @@ protected:
 
         /// Information whether randomized departures are used
         bool myRandom;
+
+        /// Embedded (unknown) parameter
+        XMLSnippletStorage *myEmbedded;
 
     };
 

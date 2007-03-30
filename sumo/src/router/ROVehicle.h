@@ -47,6 +47,7 @@
 // ===========================================================================
 class ROVehicleType;
 class RORouteDef;
+class XMLSnippletStorage;
 
 
 // ===========================================================================
@@ -80,10 +81,6 @@ public:
     /// Returns the time the vehicle starts his route
     SUMOTime getDepartureTime() const;
 
-    /** Returns the information whether more than a single vehicle with these
-        settings shall be emitted. */
-    bool periodical() const;
-
     /** @brief Saves the complete vehicle description.
     *
     * Saves the vehicle type if it was not saved before.
@@ -96,6 +93,10 @@ public:
     /// Returns a copy of the vehicle using a new id, departure time and route
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
                             const std::string &id, unsigned int depTime, RORouteDef *newRoute);
+
+    /// Adds embedded parameter
+    void addEmbedded(XMLSnippletStorage *embedded);
+
 
 protected:
     /// Saves the vehicle definition only into the given stream
@@ -122,6 +123,9 @@ protected:
 
     /// The number of times such vehicles shall be emitted
     int myRepetitionNumber;
+
+    /// Embedded (free) parameter
+    XMLSnippletStorage *myEmbeddedParams;
 
 };
 

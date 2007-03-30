@@ -78,7 +78,6 @@ RODUAFrame::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Generated Vehicles");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Report");
 
