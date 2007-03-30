@@ -93,24 +93,6 @@
 
    </processing>
 
-   <generated_vehicles>
-      <!-- Defines emitted vehicles' max. velocity -->
-      <krauss-vmax>70</krauss-vmax>
-
-      <!-- Defines emitted vehicles' max. acceleration -->
-      <krauss-a>2.6</krauss-a>
-
-      <!-- Defines emitted vehicles' max. deceleration -->
-      <krauss-b>4.5</krauss-b>
-
-      <!-- Defines emitted vehicles' length -->
-      <krauss-length>5</krauss-length>
-
-      <!-- Defines emitted vehicles' driver imperfection -->
-      <krauss-eps>0.5</krauss-eps>
-
-   </generated_vehicles>
-
    <time>
       <!-- Defines the begin time; Previous defs will be discarded -->
       <begin>0</begin>

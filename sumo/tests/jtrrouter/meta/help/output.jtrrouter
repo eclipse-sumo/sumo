@@ -39,15 +39,7 @@ Usage: jtrrouter.exe [OPTION]*
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sinks STR                  Use STR as sink list
-  --accept-all-destinations        
-
- Generated Vehicles Options:
-  -V, --krauss-vmax FLOAT          Defines emitted vehicles' max. velocity
-  -A, --krauss-a FLOAT             Defines emitted vehicles' max. acceleration
-  -B, --krauss-b FLOAT             Defines emitted vehicles' max. deceleration
-  -L, --krauss-length FLOAT        Defines emitted vehicles' length
-  -E, --krauss-eps FLOAT           Defines emitted vehicles' driver
-                                     imperfection
+  -A, --accept-all-destinations    
 
  Time Options:
   -b, --begin INT                  Defines the begin time;

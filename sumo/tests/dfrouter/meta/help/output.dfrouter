@@ -57,16 +57,6 @@ Usage: dfrouter.exe [OPTION]*
   --remove-empty-detectors           Removes empty detectors from the list
   --strict-sources                   
 
- Generated Vehicles Options:
-  -V, --krauss-vmax FLOAT            Defines emitted vehicles' max. velocity
-  -A, --krauss-a FLOAT               Defines emitted vehicles' max.
-                                       acceleration
-  -B, --krauss-b FLOAT               Defines emitted vehicles' max.
-                                       deceleration
-  -L, --krauss-length FLOAT          Defines emitted vehicles' length
-  --krauss-eps FLOAT                 Defines emitted vehicles' driver
-                                       imperfection
-
  Time Options:
   -b, --begin INT                    Defines the begin time;
                                        Previous defs will be discarded

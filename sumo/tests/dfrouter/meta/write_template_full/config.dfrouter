@@ -37,14 +37,6 @@
       <strict-sources>false</strict-sources>
    </processing>
 
-   <generated_vehicles>
-      <krauss-vmax>70</krauss-vmax>
-      <krauss-a>2.6</krauss-a>
-      <krauss-b>4.5</krauss-b>
-      <krauss-length>5</krauss-length>
-      <krauss-eps>0.5</krauss-eps>
-   </generated_vehicles>
-
    <time>
       <begin>0</begin>
       <end>86400</end>
