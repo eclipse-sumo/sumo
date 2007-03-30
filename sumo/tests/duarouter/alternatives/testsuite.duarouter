@@ -30,3 +30,9 @@ newstyle_colorcheck
 
 # Checks whether the vehicle class is processed
 newstyle_with_vehtype_with_class
+
+# Checks whether processing of vehicles with no vevtapye works
+newstyle_no_vehtype
+
+# Checks whether embedding unkown tags works
+newstyle_embedded
