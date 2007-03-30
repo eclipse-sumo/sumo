@@ -79,7 +79,6 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Generated Vehicles");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Report");
 
@@ -194,23 +193,6 @@ RODFFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.addDescription("end", "Time", "Defines the end time; Later defs will be discarded");
-
-
-    // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
-    oc.addDescription("krauss-vmax", "Generated Vehicles", "Defines emitted vehicles' max. velocity");
-
-    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
-    oc.addDescription("krauss-a", "Generated Vehicles", "Defines emitted vehicles' max. acceleration");
-
-    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
-    oc.addDescription("krauss-b", "Generated Vehicles", "Defines emitted vehicles' max. deceleration");
-
-    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
-    oc.addDescription("krauss-length", "Generated Vehicles", "Defines emitted vehicles' length");
-
-    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
-    oc.addDescription("krauss-eps", "Generated Vehicles", "Defines emitted vehicles' driver imperfection");
 
 
     // register report options
