@@ -40,8 +40,8 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/bindevice/libbindevice.a \
 ./utils/common/libcommon.a \
 ./utils/options/liboptions.a \
-./utils/xml/libxml.a \
 ./utils/sumoxml/libsumoxml.a \
+./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
