@@ -76,11 +76,11 @@ class MTRand {
 public:
 	typedef unsigned long uint32;  // unsigned integer type, at least 32 bits
 	
-	static const uint32 N = 624;       // length of state vector
-	static const uint32 SAVE = N + 1;  // length of array for save()
+	enum { N = 624 };       // length of state vector
+	enum { SAVE = N + 1 };  // length of array for save()
 
 protected:
-	static const uint32 M = 397;  // period parameter
+	enum { M = 397 };  // period parameter
 	
 	uint32 state[N];   // internal state
 	uint32 *pNext;     // next value to get from state
@@ -234,9 +234,10 @@ inline void MTRand::seed( uint32 *const bigSeed, const uint32 seedLength )
 	// in each element are discarded.
 	// Just call seed() if you want to get array from /dev/urandom
 	initialize(19650218UL);
-	register uint32 i = 1;
+	register int i = 1;
 	register uint32 j = 0;
-	register int k = ( N > seedLength ? N : seedLength );
+	register uint32 k = N;
+	if( seedLength > k ) k = seedLength;
 	for( ; k; --k )
 	{
 		state[i] =
@@ -293,7 +294,7 @@ inline void MTRand::initialize( const uint32 seed )
 	// only MSBs of the state array.  Modified 9 Jan 2002 by Makoto Matsumoto.
 	register uint32 *s = state;
 	register uint32 *r = state;
-	register uint32 i = 1;
+	register int i = 1;
 	*s++ = seed & 0xffffffffUL;
 	for( ; i < N; ++i )
 	{
