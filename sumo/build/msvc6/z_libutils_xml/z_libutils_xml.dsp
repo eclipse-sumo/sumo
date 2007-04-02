@@ -99,6 +99,10 @@ SOURCE=..\..\..\src\utils\xml\XMLBuildingExceptions.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\xml\XMLSnippletStorage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\xml\XMLSubSys.cpp
 # End Source File
 # End Group
@@ -120,6 +124,10 @@ SOURCE=..\..\..\src\utils\xml\GenericSAX2Handler.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\xml\XMLBuildingExceptions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\XMLSnippletStorage.h
 # End Source File
 # Begin Source File
 
