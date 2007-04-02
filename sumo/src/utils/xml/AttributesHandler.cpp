@@ -106,6 +106,14 @@ AttributesHandler::hasAttribute(const Attributes &attrs,
 }
 
 
+bool
+AttributesHandler::hasAttribute(const Attributes &attrs,
+                                const XMLCh * const id)
+{
+    return attrs.getIndex(id)>=0;
+}
+
+
 int
 AttributesHandler::getInt(const Attributes &attrs, int id) const
 {
@@ -252,6 +260,15 @@ AttributesHandler::getFloatSecure(const Attributes &attrs,
     return TplConvertSec<XMLCh>::_2SUMORealSec(
                getAttributeValueSecure(attrs, id), def);
 }
+
+
+SUMOReal
+AttributesHandler::getFloat(const Attributes &attrs,
+                            const XMLCh * const id) const
+{
+    return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
+}
+
 
 
 const XMLCh *const

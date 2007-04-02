@@ -87,6 +87,7 @@ public:
 
     bool hasAttribute(const Attributes &attrs, int id);
     bool hasAttribute(const Attributes &attrs, const std::string &id);
+    bool hasAttribute(const Attributes &attrs, const XMLCh * const id);
 
     /** returns the named (by id) attribute as a bool */
     bool getBool(const Attributes &attrs, int id) const;
@@ -117,6 +118,7 @@ public:
     SUMOReal getFloatSecure(const Attributes &attrs, int id, SUMOReal def) const;
     SUMOReal getFloat(const Attributes &attrs, const std::string &id) const;
     SUMOReal getFloatSecure(const Attributes &attrs, const std::string &id, SUMOReal def) const;
+    SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const;
 
     /** returns the named (by id) attribute as a c-string */
     char *getCharP(const Attributes &attrs, int id) const;
