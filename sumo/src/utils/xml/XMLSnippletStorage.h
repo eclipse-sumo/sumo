@@ -70,7 +70,7 @@ public:
     XMLSnippletStorage *getParent();
 
     /// Writes to the given stream including the children
-    void flush(std::ostream &strm, int level);
+    void flush(std::ostream &strm, size_t level);
 
     /// Returns a copy of this element and his children
     XMLSnippletStorage *duplicate(XMLSnippletStorage *parent=0);

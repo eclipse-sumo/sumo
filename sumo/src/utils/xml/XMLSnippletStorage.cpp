@@ -107,7 +107,7 @@ XMLSnippletStorage::getParent()
 
 
 void 
-XMLSnippletStorage::flush(std::ostream &strm, int level)
+XMLSnippletStorage::flush(std::ostream &strm, size_t level)
 {
     size_t i;
     for(i=0; i<level; i++) {
