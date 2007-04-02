@@ -50,12 +50,13 @@ class RORouteDef;
 // ===========================================================================
 /**
  * @class CellDriverInfoParser
- * A parser for cell driver entries. As cell files may differ in dependence
- * to the origination system (Intel/Sparc), they are read using helper functions
- * and the information whether to switch the byte order (SUMO may currently
- * run on one of both systems, too) must be given.
+ * @brief A parser for cell driver entries. 
+ *
+ * As cell files may differ in dependence to the origination system (Intel/Sparc), 
+ *  they are read using helper functions and the information whether to switch 
+ *  the byte order (SUMO may currently run on one of both systems, too) must be given.
  * Also, it is supported to choose between using the last route or the best
- * route in the list.
+ *  route in the list.
  */
 class CellDriverInfoParser
 {
@@ -67,25 +68,18 @@ public:
     {
         /// the departure time
         int start;
-
         /// the number of performed assignments
         int age;
-
         /// index to the routes
         int route[3];
-
         /// the probability of the routes
         SUMOReal p[3];
-
         /// the costs of the routes
         SUMOReal cost[3];
-
         /// cost of the last route
         int lastcost;
-
         /// index of the last route
         int lastroute;
-
     };
 
 public:

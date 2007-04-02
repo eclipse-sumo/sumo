@@ -56,7 +56,7 @@ class ROVehicle;
 // ===========================================================================
 /**
  * @class ROEdge
- * An edge.
+ * An edge (for routing).
  */
 class ROEdge
 {
@@ -126,17 +126,17 @@ public:
     /// returns the effort for this edge only
     virtual SUMOReal getEffort(const ROVehicle *const, SUMOTime time) const;
 
-    /// Takes pointers to FloatValueTimeLines and assigns them to the
-    /// classes supplementary weights. You must provide all three
-    /// FloatValueTimeLines and they must be valid objects. These
-    /// objects will be deleted on deletion of this ROEdge. The flag
-    /// hasSupplementaryWeights will be set to true and getMyEffort()
-    /// will use this supplementary weights in subsequent calls.
-    ///
-    /// @param absolut Pointer to the absolut-FloatValueTimeLine.
-    /// @param add Pointer to the add-FloatValueTimeLine.
-    /// @param mult Pointer to the mult-FloatValueTimeLine.
-    ///
+    /**
+     * Takes pointers to FloatValueTimeLines and assigns them to the classes 
+     *  supplementary weights. You must provide all three FloatValueTimeLines 
+     *  and they must be valid objects. These objects will be deleted on deletion 
+     *  of this ROEdge. The flag hasSupplementaryWeights will be set to true and 
+     *  getMyEffort() will use this supplementary weights in subsequent calls.
+     * @param absolut Pointer to the absolut-FloatValueTimeLine.
+     *
+     * @param add Pointer to the add-FloatValueTimeLine.
+     * @param mult Pointer to the mult-FloatValueTimeLine.
+     */
     void setSupplementaryWeights(FloatValueTimeLine* absolut,
                                  FloatValueTimeLine* add,
                                      FloatValueTimeLine* mult);

@@ -50,9 +50,10 @@ class ROEdge;
 // ===========================================================================
 /**
  * @class ROAbstractEdgeBuilder
- * This interface is used to build instances of router-edges. As the
- *  different routing algorithms may need certain types of edges, edges are
- *  build via a factory object derived from this class.
+ * @brief This interface is used to build instances of router-edges. 
+ *
+ * As the different routing algorithms may need certain types of edges, 
+ *  edges are build via a factory object derived from this class.
  */
 class ROAbstractEdgeBuilder
 {
@@ -68,12 +69,15 @@ public:
     /// Builds an edge with the given name
     virtual ROEdge *buildEdge(const std::string &name) = 0;
 
+protected:
+    /// Returns the index of the last built edge
     size_t getCurrentIndex()
     {
         return myCurrentIndex++;
     }
 
 private:
+    /// The next edge's index
     size_t myCurrentIndex;
 
 };

@@ -54,9 +54,10 @@ class ROVehicleBuilder;
 // ===========================================================================
 /**
  * @class ROAbstractRouteDefLoader
- * Base class for loaders of route which do have a certain format. XML-reading
- * loaders are not derived directly, but use the derived ROTypedXMLRoutesLoader
- * class as their upper class.
+ * @brief Base class for loaders of route which do have a certain format. 
+ *
+ * XML-reading loaders are not derived directly, but use the derived 
+ *  ROTypedXMLRoutesLoader class as their upper class.
  */
 class ROAbstractRouteDefLoader
 {
@@ -69,10 +70,11 @@ public:
     virtual ~ROAbstractRouteDefLoader();
 
     /** @brief Skips routes which begin before the given time
-        This method uses the method myReadRoutesAtLeastUntil(time) to overread
-        the first routes, so the loaders must determine by themselves whether
-        to build a route or not (the departure time has to be between myBegin
-        and the given timestep */
+     *
+     * This method uses the method myReadRoutesAtLeastUntil(time) to overread
+     * the first routes, so the loaders must determine by themselves whether
+     * to build a route or not (the departure time has to be between myBegin
+     * and the given timestep */
     void skipUntilBegin();
 
     /// Adds routes from the file until the given time is reached

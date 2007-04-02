@@ -142,13 +142,6 @@ RONet::addVehicleID(const std::string &id)
 }
 
 
-ROVehicleType *
-RONet::getVehicleType(const std::string &name) const
-{
-    return _vehicleTypes.get(name);
-}
-
-
 RORouteDef *
 RONet::getRouteDef(const std::string &name) const
 {

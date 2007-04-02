@@ -67,8 +67,7 @@ class ROAbstractEdgeBuilder;
 // ===========================================================================
 /**
  * @class RONet
- * The network holding all currently needed routes and vehicles and also
- * edges and nodes.
+ * @brief The router's network representation.
  */
 class RONet
 {
@@ -117,10 +116,6 @@ public:
     virtual void addVehicleType(ROVehicleType *type);
 
     /** @brief Retrieves the named vehicle type
-        Returns 0 if the type is not known */
-    ROVehicleType *getVehicleType(const std::string &name) const;
-
-    /** @brief Retrieves the named vehicle type
         Returns the default type if the type is not known */
     ROVehicleType *getVehicleTypeSecure(const std::string &id);
 
@@ -166,7 +161,6 @@ public:
     bool hasRestrictions() const;
 
     void setRestrictionFound();
-
 
 protected:
     /** Saves the given route together with her alternatives */
