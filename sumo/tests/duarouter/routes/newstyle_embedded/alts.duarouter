@@ -4,10 +4,18 @@
       <routealt last="0">
          <route cost="125.126" probability="1">beg middle end rend</route>
       </routealt>
+      <test0>
+      </test0>
    </vehicle>
    <vehicle id="1" type="0" depart="0">
       <routealt last="0">
          <route cost="125.126" probability="1">beg middle end rend</route>
       </routealt>
+      <test1>
+         <test2 id="1">
+            <test3>
+            </test3>
+         </test2>
+      </test1>
    </vehicle>
 </route-alternatives>
