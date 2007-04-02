@@ -9,7 +9,6 @@ GUIManipulator.h GUIManipulator.cpp \
 GUILoadThread.cpp GUILoadThread.h \
 GUIRunThread.cpp GUIRunThread.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
-GUISupplementaryWeightsHandler.cpp GUISupplementaryWeightsHandler.h \
 GUIThreadFactory.cpp GUIThreadFactory.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 

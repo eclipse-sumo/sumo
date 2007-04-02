@@ -54,7 +54,6 @@
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
-#include <gui/GUISupplementaryWeightsHandler.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>

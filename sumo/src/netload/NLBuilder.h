@@ -43,6 +43,7 @@
 #include <xercesc/framework/XMLFormatter.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
+#include <utils/sumoxml/WeightsHandler.h>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
@@ -79,7 +80,8 @@ class GNEImageProcWindow;
 // ===========================================================================
 /**
  * @class NLBuilder
- * The class is the main interface to load simulations.
+ * @brief The class is the main interface to load simulations.
+ *
  * It is a black-box where only the options and factories must be supplied
  * on the constructor call
  */
@@ -120,6 +122,29 @@ protected:
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
 
 
+    /**
+     * @class EdgeFloatTimeLineRetriever_EdgeWeight
+     * @brief Obtains edge weights from a weights handler and stores them within the edges
+     */
+    class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever {
+    public:
+        /// Constructor
+        EdgeFloatTimeLineRetriever_EdgeWeight(MSNet *net);
+
+        /// Destructor
+        ~EdgeFloatTimeLineRetriever_EdgeWeight();
+
+        /// Sets the given value as the edge weight for the given period
+        void addEdgeWeight(const std::string &id,
+            SUMOReal val, SUMOTime beg, SUMOTime end);
+
+    private:
+        /// The network edges shall be obtained from
+        MSNet *myNet;
+
+    };
+
+
 protected:
     /// the options to get the names from
     const OptionsCont &m_pOptions;
@@ -142,6 +167,7 @@ protected:
     /// The net to fill
     MSNet &myNet;
 
+    /// The handler used to parse the net
     NLHandler &myXMLHandler;
 
 private:

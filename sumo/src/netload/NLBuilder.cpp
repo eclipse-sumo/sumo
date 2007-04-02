@@ -64,7 +64,6 @@
 #include <utils/common/XMLHelpers.h>
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/MSWeightsHandler.h> // !!! move to netload
 #include <sumo_only/SUMOFrame.h>
 #include <utils/bindevice/BinaryInputDevice.h>
 #include "NLGeomShapeBuilder.h"
@@ -83,6 +82,40 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight - methods
+// ---------------------------------------------------------------------------
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
+    MSNet *net)
+    : myNet(net)
+{
+}
+
+
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight()
+{
+}
+
+
+void 
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
+                                                                SUMOReal val, 
+                                                                SUMOTime beg, 
+                                                                SUMOTime end)
+{
+    MSEdge *e = MSEdge::dictionary(id);
+    if(e!=0) {
+        e->addWeight(val, beg, end);
+    } else {
+        MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+    }
+}
+
+
+
+// ---------------------------------------------------------------------------
+// NLBuilder - methods
+// ---------------------------------------------------------------------------
 NLBuilder::NLBuilder(const OptionsCont &oc,
                      MSNet &net,
                      NLEdgeControlBuilder &eb,
@@ -128,11 +161,7 @@ NLBuilder::build()
         if (!FileHelpers::checkFileList("weights", m_pOptions.getString("weight-files"))) {
             ok = false;
         }
-        // start parsing
-        MSWeightsHandler wh(m_pOptions, myNet, "", false);
-        parser->setContentHandler(&wh);
-        parser->setErrorHandler(&wh);
-        // for each file in the list
+        // start parsing; for each file in the list
         StringTokenizer st(m_pOptions.getString("weight-files"), ';');
         while (st.hasNext()&&ok) {
             string tmp = st.next();
@@ -144,9 +173,11 @@ NLBuilder::build()
                 MsgHandler::getErrorInstance()->inform("The weights file '" + tmp + "' does not exist!");
                 ok = false;
             } else {
+                EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
+                WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("edge", "traveltime", true, retriever);
+                WeightsHandler wh(def, tmp);
                 // parse the file
-                myXMLHandler.setFileName(tmp);
-                parser->parse(tmp.c_str());
+                XMLHelpers::runParser(wh, tmp);
                 ok = !(MsgHandler::getErrorInstance()->wasInformed());
             }
         }

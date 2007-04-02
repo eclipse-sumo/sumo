@@ -628,26 +628,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROSupplementaryWeightsHandler.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -791,26 +771,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROWeightsHandler.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\router\TextHelpers.cpp">
 			</File>
 		</Filter>
@@ -923,9 +883,6 @@
 				RelativePath="..\..\..\src\router\RORunningVehicle.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROSupplementaryWeightsHandler.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.h">
 			</File>
 			<File
@@ -948,9 +905,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROVehTypeCont.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROWeightsHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\router\TextHelpers.h">

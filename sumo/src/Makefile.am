@@ -205,7 +205,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guisim/libguisim.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/dialogs/libguidialogs.a \
-./gui/GUISupplementaryWeightsHandler.o \
 ./utils/gui/windows/libguiutilsWindows.a \
 ./utils/gui/globjects/libguiutilsglobjects.a \
 ./utils/gui/div/libguiutilsdiv.a \

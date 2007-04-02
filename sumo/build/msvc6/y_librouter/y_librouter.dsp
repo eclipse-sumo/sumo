@@ -195,10 +195,6 @@ SOURCE=..\..\..\src\router\RORunningVehicle.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\router\ROSupplementaryWeightsHandler.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\router\ROTypedXMLRoutesLoader.cpp
 # End Source File
 # Begin Source File
@@ -228,10 +224,6 @@ SOURCE=..\..\..\src\router\ROVehicleType_Krauss.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROVehTypeCont.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\router\ROWeightsHandler.cpp
 # End Source File
 # Begin Source File
 
@@ -375,10 +367,6 @@ SOURCE=..\..\..\src\router\RORunningVehicle.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\router\ROSupplementaryWeightsHandler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\router\ROTypedXMLRoutesLoader.h
 # End Source File
 # Begin Source File
@@ -408,10 +396,6 @@ SOURCE=..\..\..\src\router\ROVehicleType_Krauss.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROVehTypeCont.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\router\ROWeightsHandler.h
 # End Source File
 # End Group
 # End Target

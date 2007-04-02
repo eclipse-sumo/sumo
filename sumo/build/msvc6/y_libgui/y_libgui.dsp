@@ -147,10 +147,6 @@ SOURCE=..\..\..\src\gui\GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\GUISupplementaryWeightsHandler.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\GUIThreadFactory.cpp
 # End Source File
 # Begin Source File
@@ -232,10 +228,6 @@ SOURCE=..\..\..\src\gui\GUIRunThread.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUISUMOViewParent.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUISupplementaryWeightsHandler.h
 # End Source File
 # Begin Source File
 

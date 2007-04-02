@@ -97,6 +97,10 @@ SOURCE=..\..\..\src\utils\sumoxml\SUMOSAXHandler.cpp
 
 SOURCE=..\..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\sumoxml\WeightsHandler.cpp
+# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
@@ -112,6 +116,10 @@ SOURCE=..\..\..\src\utils\sumoxml\SUMOSAXHandler.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\sumoxml\WeightsHandler.h
 # End Source File
 # End Group
 # End Target
