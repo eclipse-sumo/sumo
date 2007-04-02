@@ -53,7 +53,6 @@
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/XMLHelpers.h>
-#include <gui/GUISupplementaryWeightsHandler.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -98,6 +97,102 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever - methods
+// ---------------------------------------------------------------------------
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::SingleWeightRetriever(
+    WeightType type, Retriever_AddWeights *parent)
+    : myType(type), myParent(parent)
+{
+}
+
+
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::~SingleWeightRetriever()
+{
+}
+
+
+void
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::addEdgeWeight(
+        const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
+{
+    myParent->addTypedWeight(myType, id, val, beg, end);
+}
+
+
+
+// ---------------------------------------------------------------------------
+// GUIDialog_EditAddWeights::Retriever_AddWeights - methods
+// ---------------------------------------------------------------------------
+GUIDialog_EditAddWeights::Retriever_AddWeights::Retriever_AddWeights()
+{
+    myAbsoluteRetriever = new SingleWeightRetriever(ABSOLUTE_WEIGHT, this);
+    myAddRetriever = new SingleWeightRetriever(ADD_WEIGHT, this);
+    myMultRetriever = new SingleWeightRetriever(MULT_WEIGHT, this);
+}
+
+
+GUIDialog_EditAddWeights::Retriever_AddWeights::~Retriever_AddWeights()
+{
+    delete myAbsoluteRetriever;
+    delete myAddRetriever;
+    delete myMultRetriever;
+}
+
+
+void 
+GUIDialog_EditAddWeights::Retriever_AddWeights::addTypedWeight(WeightType type, const std::string &id,
+                SUMOReal val, SUMOTime beg, SUMOTime end)
+{
+    GUIAddWeight aw;
+    aw.edgeID = id;
+    aw.timeBeg = beg;
+    aw.timeEnd = end;
+    aw.absolute = (SUMOReal) -1.;
+    aw.summand = (SUMOReal) -1.;
+    aw.factor = (SUMOReal) -1.;
+    switch(type) {
+    case ABSOLUTE_WEIGHT:
+        aw.absolute = val;
+        break;
+    case ADD_WEIGHT:
+        aw.summand = val;
+        break;
+    case MULT_WEIGHT:
+        aw.factor = val;
+        break;
+    default:
+        break;
+    }
+    gAddWeightsStorage.push_back(aw);
+}
+
+
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
+GUIDialog_EditAddWeights::Retriever_AddWeights::getAbsoluteRetriever()
+{
+    return *myAbsoluteRetriever;
+}
+
+
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
+GUIDialog_EditAddWeights::Retriever_AddWeights::getAddRetriever()
+{
+    return *myAddRetriever;
+}
+
+
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
+GUIDialog_EditAddWeights::Retriever_AddWeights::getMultRetriever()
+{
+    return *myMultRetriever;
+}
+
+
+
+// ---------------------------------------------------------------------------
+// GUIDialog_EditAddWeights - methods
+// ---------------------------------------------------------------------------
 GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
         : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,500, 300),
         myParent(parent), myEntriesAreValid(false)
@@ -213,11 +308,11 @@ GUIDialog_EditAddWeights::rebuildList()
         myTable->setItemText(row, 2,
                              toString<int>((*j).timeEnd).c_str());
         myTable->setItemText(row, 3,
-                             toString<SUMOReal>((*j).abs).c_str());
+                             toString<SUMOReal>((*j).absolute).c_str());
         myTable->setItemText(row, 4,
-                             toString<SUMOReal>((*j).add).c_str());
+                             toString<SUMOReal>((*j).summand).c_str());
         myTable->setItemText(row, 5,
-                             toString<SUMOReal>((*j).mult).c_str());
+                             toString<SUMOReal>((*j).factor).c_str());
         // replace "invalid" values by empty fields
         for (k=1; k<6; k++) {
             string val = myTable->getItem(row, k)->getText().text();
@@ -264,7 +359,12 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
-        GUISupplementaryWeightsHandler handler(file);
+        Retriever_AddWeights retriever;
+        std::vector<WeightsHandler::ToRetrieveDefinition*> defs;
+        defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "absolute", true, retriever.getAbsoluteRetriever()));
+        defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "summand", true, retriever.getAddRetriever()));
+        defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "factor", true, retriever.getMultRetriever()));
+        WeightsHandler handler(defs, file);
         XMLHelpers::runParser(handler, file);
         rebuildList();
     }
@@ -304,17 +404,17 @@ GUIDialog_EditAddWeights::encode2XML()
     strm << "<supplementary-weights>" << endl;
     for (GUIAddWeightsStorage::iterator j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
         const GUIAddWeight &aw = (*j);
-        if (aw.abs!=INVALID_VALUE||aw.add!=INVALID_VALUE||aw.mult!=INVALID_VALUE) {
+        if (aw.absolute!=INVALID_VALUE||aw.summand!=INVALID_VALUE||aw.factor!=INVALID_VALUE) {
             strm << "   <interval begin=\"" << aw.timeBeg << "\" end=\"" << aw.timeEnd << "\">" << endl;
-            strm << "      <weight edge-id=\"" << aw.edgeID << "\" ";
-            if (aw.abs!=INVALID_VALUE) {
-                strm << "absolut=\"" << aw.abs << "\" ";
+            strm << "      <edge id=\"" << aw.edgeID << "\" ";
+            if (aw.absolute!=INVALID_VALUE) {
+                strm << "absolute=\"" << aw.absolute << "\" ";
             }
-            if (aw.add!=INVALID_VALUE) {
-                strm << "add=\"" << aw.add << "\" ";
+            if (aw.summand!=INVALID_VALUE) {
+                strm << "summand=\"" << aw.summand << "\" ";
             }
-            if (aw.mult!=INVALID_VALUE) {
-                strm << "mult=\"" << aw.mult << "\" ";
+            if (aw.factor!=INVALID_VALUE) {
+                strm << "factor=\"" << aw.factor << "\" ";
             }
             strm << "/>" << endl;
             strm << "   </interval>" << endl;
@@ -394,9 +494,9 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     int row = i->row;
     if (row==(int) gAddWeightsStorage.size()) {
         aw.edgeID = " ";
-        aw.abs = INVALID_VALUE;
-        aw.add = INVALID_VALUE;
-        aw.mult = INVALID_VALUE;
+        aw.absolute = INVALID_VALUE;
+        aw.summand = INVALID_VALUE;
+        aw.factor = INVALID_VALUE;
         aw.timeBeg = 0;
         aw.timeEnd = 0;
         gAddWeightsStorage.push_back(aw);
@@ -449,7 +549,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 3:
         try {
-            aw.abs = TplConvert<char>::_2SUMOReal(value.c_str());
+            aw.absolute = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -457,7 +557,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 4:
         try {
-            aw.add = TplConvert<char>::_2SUMOReal(value.c_str());
+            aw.summand = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -465,7 +565,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 5:
         try {
-            aw.mult = TplConvert<char>::_2SUMOReal(value.c_str());
+            aw.factor = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
