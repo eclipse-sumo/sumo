@@ -15,6 +15,8 @@ class NetReader(handler.ContentHandler):
         self._edgeSpeed = {}
         self._det2edge = {}
         self._detPos = {}
+        self._edgeMap = {}
+        self._edgePos = {}
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
@@ -27,9 +29,12 @@ class NetReader(handler.ContentHandler):
             mapDef = l.split()
             if not mapDef[0] in self._edgeSpeed:
                 print >> sys.stderr, "Warning! Unknown edge " + mapDef[0]
+            cumLength = 0.0
             for mEdge in mapDef[1:]:
                 edgeDef = mEdge.split(':')
-                self._edgeSpeed[edgeDef[0]] = self._edgeSpeed[mapDef[0]]
+                self._edgeMap[edgeDef[0]] = mapDef[0]
+                self._edgePos[edgeDef[0]] = cumLength
+                cumLength = cumLength + float(edgeDef[1])
 
     def readDetectors(self, detectorFile):
         for l in file(detectorFile):
@@ -37,20 +42,21 @@ class NetReader(handler.ContentHandler):
                 detDef = l.split()
                 if len(detDef) < 6 or detDef[1] != "5":
                     continue
-                if not detDef[5] in self._edgeSpeed:
+                edge = detDef[5]
+                if not edge in self._edgeSpeed and not edge in self._edgeMap:
                     print >> sys.stderr, "Warning! Unknown edge " + detDef[5]
                 else:
                     detName = detDef[2].split(';')
                     if detName[0] in self._det2edge:
                         print >> sys.stderr, "Warning! Detector " + detName[0] + " already known"
-                    self._det2edge[detName[0]] = detDef[5]
+                    self._det2edge[detName[0]] = edge
                     if len(detName) > 2 and detName[len(detName)-2].startswith('DISTANCE'):
-                        self._detPos[detName[0]] = detName[len(detName)-2][8:]
+                        self._detPos[detName[0]] = float(detName[len(detName)-2][8:])
                         
 
     def printBabMap(self):
         for k, v in self._det2edge.iteritems():
-            print k, v, self._edgeSpeed[v]
+            print k, v, self._edgeSpeed[self._edgeMap.get(v, v)]
 
     def printDetectors(self):
         print "<a>"
@@ -58,9 +64,12 @@ class NetReader(handler.ContentHandler):
             lane = 0
             if k[len(k)-1] >= "0" and k[len(k)-1] <= "9":
                 lane = int(k[len(k)-1]) - 1
-            pos = self._detPos.get(k, "0")
+            pos = self._detPos.get(k, 0.0)
+            if v in self._edgePos:
+                pos += self._edgePos[v]
             print '   <detector_definition id="' + k + '"',
-            print 'lane="' + v + '_' + str(lane) + '" pos="' + pos + '"/>'
+            print 'lane="' + self._edgeMap.get(v, v) + '_' + str(lane) + '"',
+            print 'pos="' + str(pos) + '"/>'
         print "</a>"
 
             
