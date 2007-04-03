@@ -9,14 +9,14 @@
    <node_count>200</node_count>
 
 
-   <edge id="1010" Length="189.16" Speed="13.90" Name="1010" NoLanes="1" XFrom="2063.74" YFrom="1194.12" XTo="2173.52" YTo="1360.09" from="985" to="1009" Priority="-1" Angle="213.48" Type="netgen-default" function="normal">
+   <edge id="1010" from="985" to="1009" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1010_0" depart="1" vclasses="" maxspeed="13.90" length="189.16">2066.55,1195.37 2170.90,1353.15</lane>
       </lanes>
       <cedge id="1239">1010_0</cedge>
    </edge>
 
-   <edge id="1016" Length="211.05" Speed="13.90" Name="1016" NoLanes="1" XFrom="2063.74" YFrom="1194.12" XTo="2278.79" YTo="1140.37" from="985" to="1015" Priority="-1" Angle="284.03" Type="netgen-default" function="normal">
+   <edge id="1016" from="985" to="1015" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1016_0" depart="1" vclasses="" maxspeed="13.90" length="211.05">2068.12,1191.32 2272.88,1140.15</lane>
       </lanes>
@@ -24,21 +24,21 @@
       <cedge id="1241">1016_0</cedge>
    </edge>
 
-   <edge id="1018" Length="214.93" Speed="13.90" Name="1018" NoLanes="1" XFrom="2049.07" YFrom="1543.05" XTo="2173.52" YTo="1360.09" from="463" to="1009" Priority="-1" Angle="325.78" Type="netgen-default" function="normal">
+   <edge id="1018" from="463" to="1009" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1018_0" depart="1" vclasses="" maxspeed="13.90" length="214.93">2050.43,1538.12 2171.31,1360.41</lane>
       </lanes>
       <cedge id="1239">1018_0</cedge>
    </edge>
 
-   <edge id="1023" Length="222.40" Speed="13.90" Name="1023" NoLanes="1" XFrom="1021.46" YFrom="1482.37" XTo="822.17" YTo="1365.85" from="156" to="998" Priority="-1" Angle="59.69" Type="netgen-default" function="normal">
+   <edge id="1023" from="156" to="998" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1023_0" depart="1" vclasses="" maxspeed="13.90" length="222.40">1016.46,1481.36 824.47,1369.10</lane>
       </lanes>
       <cedge id="1225">1023_0</cedge>
    </edge>
 
-   <edge id="1039" Length="204.83" Speed="13.90" Name="1039" NoLanes="1" XFrom="1021.46" YFrom="1482.37" XTo="1082.53" YTo="1282.30" from="156" to="1038" Priority="-1" Angle="343.03" Type="netgen-default" function="normal">
+   <edge id="1039" from="156" to="1038" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1039_0" depart="1" vclasses="" maxspeed="13.90" length="204.83">1020.53,1479.77 1080.33,1283.86</lane>
       </lanes>
@@ -47,19 +47,19 @@
       <cedge id="1297">1039_0</cedge>
    </edge>
 
-   <edge id="1111" Length="106.73" Speed="13.90" Name="1111" NoLanes="1" XFrom="1021.46" YFrom="1482.37" XTo="1068.85" YTo="1589.46" from="156" to="1110" Priority="-1" Angle="203.87" Type="netgen-default" function="normal">
+   <edge id="1111" from="156" to="1110" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1111_0" depart="1" vclasses="" maxspeed="13.90" length="106.73">1025.86,1488.22 1069.04,1585.82</lane>
       </lanes>
    </edge>
 
-   <edge id="12" Length="178.06" Speed="13.90" Name="12" NoLanes="1" XFrom="1018.90" YFrom="1801.34" XTo="1013.15" YTo="1613.68" from="4" to="11" Priority="-1" Angle="1.76" Type="netgen-default" function="normal">
+   <edge id="12" from="4" to="11" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="12_0" depart="1" vclasses="" maxspeed="13.90" length="178.06">1017.07,1795.49 1011.61,1617.52</lane>
       </lanes>
    </edge>
 
-   <edge id="1223" Length="182.70" Speed="13.90" Name="1223" NoLanes="1" XFrom="732.91" YFrom="1680.23" XTo="557.29" YTo="1618.47" from="6" to="1222" Priority="-1" Angle="70.63" Type="netgen-default" function="normal">
+   <edge id="1223" from="6" to="1222" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1223_0" depart="1" vclasses="" maxspeed="13.90" length="182.70">730.46,1681.12 558.11,1620.51</lane>
       </lanes>
@@ -67,7 +67,7 @@
       <cedge id="1857">1223_0</cedge>
    </edge>
 
-   <edge id="1225" Length="162.66" Speed="13.90" Name="1225" NoLanes="1" XFrom="822.17" YFrom="1365.85" XTo="774.59" YTo="1206.49" from="998" to="1224" Priority="-1" Angle="16.63" Type="netgen-default" function="normal">
+   <edge id="1225" from="998" to="1224" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1225_0" depart="1" vclasses="" maxspeed="13.90" length="162.66">820.20,1365.01 773.66,1209.14</lane>
       </lanes>
@@ -75,14 +75,14 @@
       <cedge id="1402">1225_0</cedge>
    </edge>
 
-   <edge id="1237" Length="100.06" Speed="13.90" Name="1237" NoLanes="1" XFrom="1560.41" YFrom="2037.41" XTo="1602.85" YTo="2136.12" from="418" to="1236" Priority="-1" Angle="203.27" Type="netgen-default" function="normal">
+   <edge id="1237" from="418" to="1236" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1237_0" depart="1" vclasses="" maxspeed="13.90" length="100.06">1564.26,2042.17 1603.78,2134.10</lane>
       </lanes>
       <cedge id="1428">1237_0</cedge>
    </edge>
 
-   <edge id="1239" Length="232.27" Speed="13.90" Name="1239" NoLanes="1" XFrom="2173.52" YFrom="1360.09" XTo="2278.79" YTo="1140.37" from="1009" to="1015" Priority="-1" Angle="334.40" Type="netgen-default" function="normal">
+   <edge id="1239" from="1009" to="1015" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1239_0" depart="1" vclasses="" maxspeed="13.90" length="232.27">2175.15,1352.85 2275.51,1143.38</lane>
       </lanes>
@@ -90,14 +90,14 @@
       <cedge id="1241">1239_0</cedge>
    </edge>
 
-   <edge id="1241" Length="141.45" Speed="13.90" Name="1241" NoLanes="1" XFrom="2278.79" YFrom="1140.37" XTo="2353.94" YTo="1261.83" from="1015" to="1240" Priority="-1" Angle="211.75" Type="netgen-default" function="normal">
+   <edge id="1241" from="1015" to="1240" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1241_0" depart="1" vclasses="" maxspeed="13.90" length="141.45">2280.93,1140.70 2355.36,1260.98</lane>
       </lanes>
       <cedge id="5643">1241_0</cedge>
    </edge>
 
-   <edge id="1245" Length="153.25" Speed="13.90" Name="1245" NoLanes="1" XFrom="2278.79" YFrom="1140.37" XTo="2392.04" YTo="1025.74" from="1015" to="1244" Priority="-1" Angle="315.34" Type="netgen-default" function="normal">
+   <edge id="1245" from="1015" to="1244" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1245_0" depart="1" vclasses="" maxspeed="13.90" length="153.25">2281.02,1135.76 2388.73,1026.74</lane>
       </lanes>
@@ -106,41 +106,41 @@
       <cedge id="3984">1245_0</cedge>
    </edge>
 
-   <edge id="1261" Length="150.18" Speed="13.90" Name="1261" NoLanes="1" XFrom="1331.57" YFrom="1242.53" XTo="1188.52" YTo="1171.74" from="380" to="1260" Priority="-1" Angle="63.67" Type="netgen-default" function="normal">
+   <edge id="1261" from="380" to="1260" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1261_0" depart="1" vclasses="" maxspeed="13.90" length="150.18">1327.40,1242.31 1192.80,1175.70</lane>
       </lanes>
       <cedge id="2500">1261_0</cedge>
    </edge>
 
-   <edge id="1263" Length="143.07" Speed="13.90" Name="1263" NoLanes="1" XFrom="1082.53" YFrom="1282.30" XTo="1188.52" YTo="1171.74" from="1038" to="1260" Priority="-1" Angle="316.21" Type="netgen-default" function="normal">
+   <edge id="1263" from="1038" to="1260" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1263_0" depart="1" vclasses="" maxspeed="13.90" length="143.07">1084.92,1277.43 1183.92,1174.15</lane>
       </lanes>
       <cedge id="2500">1263_0</cedge>
    </edge>
 
-   <edge id="1265" Length="220.40" Speed="13.90" Name="1265" NoLanes="1" XFrom="1082.53" YFrom="1282.30" XTo="1061.07" YTo="1047.70" from="1038" to="1264" Priority="-1" Angle="5.23" Type="netgen-default" function="normal">
+   <edge id="1265" from="1038" to="1264" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1265_0" depart="1" vclasses="" maxspeed="13.90" length="220.40">1080.36,1276.71 1060.28,1057.23</lane>
       </lanes>
       <cedge id="1455">1265_0</cedge>
    </edge>
 
-   <edge id="1297" Length="115.31" Speed="13.90" Name="1297" NoLanes="1" XFrom="1082.53" YFrom="1282.30" XTo="1194.79" YTo="1313.10" from="1038" to="1296" Priority="-1" Angle="254.66" Type="netgen-default" function="normal">
+   <edge id="1297" from="1038" to="1296" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1297_0" depart="1" vclasses="" maxspeed="13.90" length="115.31">1086.06,1281.56 1197.26,1312.07</lane>
       </lanes>
    </edge>
 
-   <edge id="1402" Length="219.03" Speed="13.90" Name="1402" NoLanes="1" XFrom="774.59" YFrom="1206.49" XTo="925.59" YTo="1037.80" from="1224" to="1401" Priority="-1" Angle="318.17" Type="netgen-default" function="normal">
+   <edge id="1402" from="1224" to="1401" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1402_0" depart="1" vclasses="" maxspeed="13.90" length="219.03">774.51,1204.11 920.60,1040.91</lane>
       </lanes>
       <cedge id="1575">1402_0</cedge>
    </edge>
 
-   <edge id="1404" Length="231.97" Speed="13.90" Name="1404" NoLanes="1" XFrom="774.59" YFrom="1206.49" XTo="608.77" YTo="1031.13" from="1224" to="1403" Priority="-1" Angle="43.40" Type="netgen-default" function="normal">
+   <edge id="1404" from="1224" to="1403" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1404_0" depart="1" vclasses="" maxspeed="13.90" length="231.97">770.12,1204.17 610.74,1035.63</lane>
       </lanes>
@@ -148,14 +148,14 @@
       <cedge id="1583">1404_0</cedge>
    </edge>
 
-   <edge id="1410" Length="149.73" Speed="13.90" Name="1410" NoLanes="1" XFrom="1745.29" YFrom="2072.62" XTo="1602.85" YTo="2136.12" from="394" to="1236" Priority="-1" Angle="114.03" Type="netgen-default" function="normal">
+   <edge id="1410" from="394" to="1236" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1410_0" depart="1" vclasses="" maxspeed="13.90" length="149.73">1744.62,2074.73 1607.86,2135.69</lane>
       </lanes>
       <cedge id="1428">1410_0</cedge>
    </edge>
 
-   <edge id="1422" Length="146.76" Speed="13.90" Name="1422" NoLanes="1" XFrom="1745.29" YFrom="2072.62" XTo="1860.19" YTo="2181.09" from="394" to="1421" Priority="-1" Angle="226.65" Type="netgen-default" function="normal">
+   <edge id="1422" from="394" to="1421" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1422_0" depart="1" vclasses="" maxspeed="13.90" length="146.76">1750.09,2074.88 1856.81,2175.63</lane>
       </lanes>
@@ -165,7 +165,7 @@
       <cedge id="1590">1422_0</cedge>
    </edge>
 
-   <edge id="1428" Length="98.05" Speed="13.90" Name="1428" NoLanes="1" XFrom="1602.85" YFrom="2136.12" XTo="1639.56" YTo="2233.43" from="1236" to="1427" Priority="-1" Angle="200.67" Type="netgen-default" function="normal">
+   <edge id="1428" from="1236" to="1427" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1428_0" depart="1" vclasses="" maxspeed="13.90" length="98.05">1606.01,2139.81 1640.62,2231.54</lane>
       </lanes>
@@ -173,47 +173,47 @@
       <cedge id="1651">1428_0</cedge>
    </edge>
 
-   <edge id="1444" Length="154.11" Speed="13.90" Name="1444" NoLanes="1" XFrom="1560.41" YFrom="2037.41" XTo="1495.60" YTo="2184.01" from="418" to="1443" Priority="-1" Angle="156.15" Type="netgen-default" function="normal">
+   <edge id="1444" from="418" to="1443" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1444_0" depart="1" vclasses="" maxspeed="13.90" length="154.11">1560.12,2042.15 1497.81,2183.10</lane>
       </lanes>
       <cedge id="1670">1444_0</cedge>
    </edge>
 
-   <edge id="145" Length="135.33" Speed="13.90" Name="145" NoLanes="1" XFrom="777.53" YFrom="1971.87" XTo="884.53" YTo="1880.14" from="30" to="144" Priority="-1" Angle="310.60" Type="netgen-default" function="normal">
+   <edge id="145" from="30" to="144" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="145_0" depart="1" vclasses="" maxspeed="13.90" length="135.33">778.24,1969.08 880.98,1881.00</lane>
       </lanes>
    </edge>
 
-   <edge id="1451" Length="202.25" Speed="13.90" Name="1451" NoLanes="1" XFrom="1379.07" YFrom="1081.08" XTo="1188.52" YTo="1171.74" from="378" to="1260" Priority="-1" Angle="115.44" Type="netgen-default" function="normal">
+   <edge id="1451" from="378" to="1260" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1451_0" depart="1" vclasses="" maxspeed="13.90" length="202.25">1375.47,1084.62 1192.84,1171.51</lane>
       </lanes>
       <cedge id="2500">1451_0</cedge>
    </edge>
 
-   <edge id="1454" Length="142.06" Speed="13.90" Name="1454" NoLanes="1" XFrom="1331.57" YFrom="1242.53" XTo="1194.79" YTo="1313.10" from="380" to="1296" Priority="-1" Angle="117.29" Type="netgen-default" function="normal">
+   <edge id="1454" from="380" to="1296" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1454_0" depart="1" vclasses="" maxspeed="13.90" length="142.06">1327.44,1246.52 1201.19,1311.65</lane>
       </lanes>
    </edge>
 
-   <edge id="1455" Length="130.12" Speed="13.90" Name="1455" NoLanes="1" XFrom="1061.07" YFrom="1047.70" XTo="925.59" YTo="1037.80" from="1264" to="1401" Priority="-1" Angle="85.82" Type="netgen-default" function="normal">
+   <edge id="1455" from="1264" to="1401" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1455_0" depart="1" vclasses="" maxspeed="13.90" length="130.12">1056.70,1049.04 926.93,1039.56</lane>
       </lanes>
       <cedge id="1575">1455_0</cedge>
    </edge>
 
-   <edge id="146" Length="211.78" Speed="13.90" Name="146" NoLanes="1" XFrom="777.53" YFrom="1971.87" XTo="682.92" YTo="1769.43" from="30" to="38" Priority="-1" Angle="25.05" Type="netgen-default" function="normal">
+   <edge id="146" from="30" to="38" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="146_0" depart="1" vclasses="" maxspeed="13.90" length="211.78">773.97,1968.16 684.31,1776.30</lane>
       </lanes>
       <cedge id="1855">146_0</cedge>
    </edge>
 
-   <edge id="148" Length="185.30" Speed="13.90" Name="148" NoLanes="1" XFrom="1379.77" YFrom="1685.72" XTo="1473.01" YTo="1849.19" from="32" to="147" Priority="-1" Angle="209.70" Type="netgen-default" function="normal">
+   <edge id="148" from="32" to="147" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="148_0" depart="1" vclasses="" maxspeed="13.90" length="185.30">1381.94,1686.19 1473.74,1847.15</lane>
       </lanes>
@@ -221,7 +221,7 @@
       <cedge id="174">148_0</cedge>
    </edge>
 
-   <edge id="150" Length="195.56" Speed="13.90" Name="150" NoLanes="1" XFrom="1379.77" YFrom="1685.72" XTo="1440.22" YTo="1491.22" from="32" to="149" Priority="-1" Angle="342.74" Type="netgen-default" function="normal">
+   <edge id="150" from="32" to="149" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="150_0" depart="1" vclasses="" maxspeed="13.90" length="195.56">1379.97,1679.51 1438.01,1492.76</lane>
       </lanes>
@@ -229,7 +229,7 @@
       <cedge id="179">150_0</cedge>
    </edge>
 
-   <edge id="151" Length="241.51" Speed="13.90" Name="151" NoLanes="1" XFrom="1193.58" YFrom="1467.64" XTo="1440.22" YTo="1491.22" from="34" to="149" Priority="-1" Angle="264.54" Type="netgen-default" function="normal">
+   <edge id="151" from="34" to="149" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="151_0" depart="1" vclasses="" maxspeed="13.90" length="241.51">1195.18,1466.14 1435.59,1489.12</lane>
       </lanes>
@@ -237,7 +237,7 @@
       <cedge id="179">151_0</cedge>
    </edge>
 
-   <edge id="157" Length="161.31" Speed="13.90" Name="157" NoLanes="1" XFrom="1193.58" YFrom="1467.64" XTo="1021.46" YTo="1482.37" from="34" to="156" Priority="-1" Angle="94.89" Type="netgen-default" function="normal">
+   <edge id="157" from="34" to="156" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="157_0" depart="1" vclasses="" maxspeed="13.90" length="161.31">1188.35,1469.74 1027.64,1483.50</lane>
       </lanes>
@@ -246,14 +246,14 @@
       <cedge id="1039">157_0</cedge>
    </edge>
 
-   <edge id="1575" Length="94.08" Speed="13.90" Name="1575" NoLanes="1" XFrom="925.59" YFrom="1037.80" XTo="891.53" YTo="941.34" from="1401" to="1574" Priority="-1" Angle="19.44" Type="netgen-default" function="normal">
+   <edge id="1575" from="1401" to="1574" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1575_0" depart="1" vclasses="" maxspeed="13.90" length="94.08">922.89,1035.12 891.58,946.41</lane>
       </lanes>
       <cedge id="1707">1575_0</cedge>
    </edge>
 
-   <edge id="1579" Length="191.85" Speed="13.90" Name="1579" NoLanes="1" XFrom="608.77" YFrom="1031.13" XTo="455.25" YTo="1165.10" from="1403" to="1578" Priority="-1" Angle="131.11" Type="netgen-default" function="normal">
+   <edge id="1579" from="1403" to="1578" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1579_0" depart="1" vclasses="" maxspeed="13.90" length="191.85">606.37,1035.42 461.82,1161.56</lane>
       </lanes>
@@ -262,7 +262,7 @@
       <cedge id="1714">1579_0</cedge>
    </edge>
 
-   <edge id="1583" Length="102.68" Speed="13.90" Name="1583" NoLanes="1" XFrom="608.77" YFrom="1031.13" XTo="689.45" YTo="955.16" from="1403" to="1582" Priority="-1" Angle="313.28" Type="netgen-default" function="normal">
+   <edge id="1583" from="1403" to="1582" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1583_0" depart="1" vclasses="" maxspeed="13.90" length="102.68">608.69,1028.94 683.45,958.55</lane>
       </lanes>
@@ -270,14 +270,14 @@
       <cedge id="1744">1583_0</cedge>
    </edge>
 
-   <edge id="1585" Length="160.92" Speed="13.90" Name="1585" NoLanes="1" XFrom="1387.39" YFrom="2314.27" XTo="1495.60" YTo="2184.01" from="215" to="1443" Priority="-1" Angle="320.28" Type="netgen-default" function="normal">
+   <edge id="1585" from="215" to="1443" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1585_0" depart="1" vclasses="" maxspeed="13.90" length="160.92">1390.60,2307.83 1493.42,2184.05</lane>
       </lanes>
       <cedge id="1670">1585_0</cedge>
    </edge>
 
-   <edge id="1590" Length="220.56" Speed="13.90" Name="1590" NoLanes="1" XFrom="1860.19" YFrom="2181.09" XTo="1639.56" YTo="2233.43" from="1421" to="1427" Priority="-1" Angle="103.35" Type="netgen-default" function="normal">
+   <edge id="1590" from="1421" to="1427" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1590_0" depart="1" vclasses="" maxspeed="13.90" length="220.56">1859.20,2183.02 1644.60,2233.93</lane>
       </lanes>
@@ -285,7 +285,7 @@
       <cedge id="1651">1590_0</cedge>
    </edge>
 
-   <edge id="1592" Length="134.14" Speed="13.90" Name="1592" NoLanes="1" XFrom="1860.19" YFrom="2181.09" XTo="1936.27" YTo="2300.09" from="1421" to="1591" Priority="-1" Angle="212.59" Type="netgen-default" function="normal">
+   <edge id="1592" from="1421" to="1591" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1592_0" depart="1" vclasses="" maxspeed="13.90" length="134.14">1864.25,2184.38 1936.51,2297.39</lane>
       </lanes>
@@ -294,20 +294,20 @@
       <cedge id="2109">1592_0</cedge>
    </edge>
 
-   <edge id="1604" Length="128.70" Speed="13.90" Name="1604" NoLanes="1" XFrom="1860.19" YFrom="2181.09" XTo="1912.00" YTo="2056.56" from="1421" to="1603" Priority="-1" Angle="337.41" Type="netgen-default" function="normal">
+   <edge id="1604" from="1421" to="1603" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1604_0" depart="1" vclasses="" maxspeed="13.90" length="128.70">1861.05,2174.73 1910.48,2055.89</lane>
       </lanes>
       <cedge id="1779">1604_0</cedge>
    </edge>
 
-   <edge id="162" Length="120.69" Speed="13.90" Name="162" NoLanes="1" XFrom="1194.18" YFrom="1955.53" XTo="1249.39" YTo="1836.95" from="26" to="161" Priority="-1" Angle="335.03" Type="netgen-default" function="normal">
+   <edge id="162" from="26" to="161" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="162_0" depart="1" vclasses="" maxspeed="13.90" length="120.69">1194.84,1950.22 1245.78,1840.81</lane>
       </lanes>
    </edge>
 
-   <edge id="164" Length="204.77" Speed="13.90" Name="164" NoLanes="1" XFrom="1194.18" YFrom="1955.53" XTo="1405.70" YTo="1951.21" from="26" to="163" Priority="-1" Angle="271.17" Type="netgen-default" function="normal">
+   <edge id="164" from="26" to="163" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="164_0" depart="1" vclasses="" maxspeed="13.90" length="204.77">1199.52,1953.77 1404.25,1949.59</lane>
       </lanes>
@@ -315,27 +315,27 @@
       <cedge id="197">164_0</cedge>
    </edge>
 
-   <edge id="1650" Length="180.68" Speed="13.90" Name="1650" NoLanes="1" XFrom="1860.19" YFrom="2181.09" XTo="2037.84" YTo="2127.68" from="1421" to="1649" Priority="-1" Angle="286.73" Type="netgen-default" function="normal">
+   <edge id="1650" from="1421" to="1649" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1650_0" depart="1" vclasses="" maxspeed="13.90" length="180.68">1864.37,2178.11 2037.40,2126.09</lane>
       </lanes>
       <cedge id="2744">1650_0</cedge>
    </edge>
 
-   <edge id="1651" Length="141.59" Speed="13.90" Name="1651" NoLanes="1" XFrom="1639.56" YFrom="2233.43" XTo="1495.60" YTo="2184.01" from="1427" to="1443" Priority="-1" Angle="71.05" Type="netgen-default" function="normal">
+   <edge id="1651" from="1427" to="1443" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1651_0" depart="1" vclasses="" maxspeed="13.90" length="141.59">1637.40,2234.43 1503.49,2188.46</lane>
       </lanes>
       <cedge id="1670">1651_0</cedge>
    </edge>
 
-   <edge id="1670" Length="191.75" Speed="13.90" Name="1670" NoLanes="1" XFrom="1495.60" YFrom="2184.01" XTo="1578.49" YTo="2373.05" from="1443" to="1669" Priority="-1" Angle="203.68" Type="netgen-default" function="normal">
+   <edge id="1670" from="1443" to="1669" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1670_0" depart="1" vclasses="" maxspeed="13.90" length="191.75">1500.69,2191.50 1577.69,2367.12</lane>
       </lanes>
    </edge>
 
-   <edge id="1680" Length="220.93" Speed="13.90" Name="1680" NoLanes="1" XFrom="1379.07" YFrom="1081.08" XTo="1561.99" YTo="942.25" from="378" to="1679" Priority="-1" Angle="307.20" Type="netgen-default" function="normal">
+   <edge id="1680" from="378" to="1679" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1680_0" depart="1" vclasses="" maxspeed="13.90" length="220.93">1379.43,1078.74 1555.41,945.17</lane>
       </lanes>
@@ -344,7 +344,7 @@
       <cedge id="1830">1680_0</cedge>
    </edge>
 
-   <edge id="1702" Length="170.53" Speed="13.90" Name="1702" NoLanes="1" XFrom="1379.07" YFrom="1081.08" XTo="1282.38" YTo="931.28" from="378" to="1701" Priority="-1" Angle="32.84" Type="netgen-default" function="normal">
+   <edge id="1702" from="378" to="1701" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1702_0" depart="1" vclasses="" maxspeed="13.90" length="170.53">1375.11,1077.98 1282.62,934.70</lane>
       </lanes>
@@ -352,7 +352,7 @@
       <cedge id="1847">1702_0</cedge>
    </edge>
 
-   <edge id="1707" Length="197.17" Speed="13.90" Name="1707" NoLanes="1" XFrom="891.53" YFrom="941.34" XTo="689.45" YTo="955.16" from="1574" to="1582" Priority="-1" Angle="93.91" Type="netgen-default" function="normal">
+   <edge id="1707" from="1574" to="1582" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1707_0" depart="1" vclasses="" maxspeed="13.90" length="197.17">887.69,943.25 690.98,956.71</lane>
       </lanes>
@@ -360,21 +360,21 @@
       <cedge id="1744">1707_0</cedge>
    </edge>
 
-   <edge id="1710" Length="159.78" Speed="13.90" Name="1710" NoLanes="1" XFrom="455.25" YFrom="1165.10" XTo="328.87" YTo="1272.76" from="1578" to="1709" Priority="-1" Angle="130.43" Type="netgen-default" function="normal">
+   <edge id="1710" from="1578" to="1709" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1710_0" depart="1" vclasses="" maxspeed="13.90" length="159.78">452.69,1169.45 331.06,1273.06</lane>
       </lanes>
       <cedge id="4271">1710_0</cedge>
    </edge>
 
-   <edge id="1714" Length="149.17" Speed="13.90" Name="1714" NoLanes="1" XFrom="455.25" YFrom="1165.10" XTo="369.46" YTo="1038.29" from="1578" to="1713" Priority="-1" Angle="34.08" Type="netgen-default" function="normal">
+   <edge id="1714" from="1578" to="1713" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1714_0" depart="1" vclasses="" maxspeed="13.90" length="149.17">453.08,1164.83 369.48,1041.28</lane>
       </lanes>
       <cedge id="3344">1714_0</cedge>
    </edge>
 
-   <edge id="172" Length="204.88" Speed="13.90" Name="172" NoLanes="1" XFrom="1194.18" YFrom="1955.53" XTo="1314.97" YTo="2129.35" from="26" to="171" Priority="-1" Angle="214.80" Type="netgen-default" function="normal">
+   <edge id="172" from="26" to="171" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="172_0" depart="1" vclasses="" maxspeed="13.90" length="204.88">1197.59,1957.55 1314.51,2125.79</lane>
       </lanes>
@@ -382,7 +382,7 @@
       <cedge id="200">172_0</cedge>
    </edge>
 
-   <edge id="1720" Length="116.77" Speed="13.90" Name="1720" NoLanes="1" XFrom="455.25" YFrom="1165.10" XTo="574.83" YTo="1203.13" from="1578" to="1719" Priority="-1" Angle="252.36" Type="netgen-default" function="normal">
+   <edge id="1720" from="1578" to="1719" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1720_0" depart="1" vclasses="" maxspeed="13.90" length="116.77">462.69,1165.73 573.96,1201.12</lane>
       </lanes>
@@ -390,7 +390,7 @@
       <cedge id="1871">1720_0</cedge>
    </edge>
 
-   <edge id="1732" Length="150.25" Speed="13.90" Name="1732" NoLanes="1" XFrom="689.45" YFrom="955.16" XTo="566.75" YTo="855.85" from="1582" to="1731" Priority="-1" Angle="51.01" Type="netgen-default" function="normal">
+   <edge id="1732" from="1582" to="1731" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1732_0" depart="1" vclasses="" maxspeed="13.90" length="150.25">684.35,953.16 567.56,858.63</lane>
       </lanes>
@@ -398,13 +398,13 @@
       <cedge id="2555">1732_0</cedge>
    </edge>
 
-   <edge id="174" Length="220.46" Speed="13.90" Name="174" NoLanes="1" XFrom="1473.01" YFrom="1849.19" XTo="1249.39" YTo="1836.95" from="147" to="161" Priority="-1" Angle="86.87" Type="netgen-default" function="normal">
+   <edge id="174" from="147" to="161" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="174_0" depart="1" vclasses="" maxspeed="13.90" length="220.46">1469.58,1850.65 1249.45,1838.61</lane>
       </lanes>
    </edge>
 
-   <edge id="1744" Length="145.72" Speed="13.90" Name="1744" NoLanes="1" XFrom="689.45" YFrom="955.16" XTo="740.05" YTo="811.92" from="1582" to="1743" Priority="-1" Angle="340.54" Type="netgen-default" function="normal">
+   <edge id="1744" from="1582" to="1743" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1744_0" depart="1" vclasses="" maxspeed="13.90" length="145.72">688.76,952.16 737.30,814.77</lane>
       </lanes>
@@ -412,13 +412,13 @@
       <cedge id="2566">1744_0</cedge>
    </edge>
 
-   <edge id="1746" Length="192.90" Speed="13.90" Name="1746" NoLanes="1" XFrom="1387.39" YFrom="2314.27" XTo="1578.49" YTo="2373.05" from="215" to="1669" Priority="-1" Angle="252.90" Type="netgen-default" function="normal">
+   <edge id="1746" from="215" to="1669" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1746_0" depart="1" vclasses="" maxspeed="13.90" length="192.90">1390.55,2313.52 1574.93,2370.22</lane>
       </lanes>
    </edge>
 
-   <edge id="175" Length="111.51" Speed="13.90" Name="175" NoLanes="1" XFrom="1473.01" YFrom="1849.19" XTo="1405.70" YTo="1951.21" from="147" to="163" Priority="-1" Angle="146.59" Type="netgen-default" function="normal">
+   <edge id="175" from="147" to="163" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="175_0" depart="1" vclasses="" maxspeed="13.90" length="111.51">1471.50,1854.47 1410.10,1947.54</lane>
       </lanes>
@@ -426,7 +426,7 @@
       <cedge id="197">175_0</cedge>
    </edge>
 
-   <edge id="1779" Length="222.55" Speed="13.90" Name="1779" NoLanes="1" XFrom="1912.00" YFrom="2056.56" XTo="2135.85" YTo="2051.95" from="1603" to="1778" Priority="-1" Angle="271.18" Type="netgen-default" function="normal">
+   <edge id="1779" from="1603" to="1778" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1779_0" depart="1" vclasses="" maxspeed="13.90" length="222.55">1911.93,2054.91 2134.43,2050.33</lane>
       </lanes>
@@ -434,13 +434,13 @@
       <cedge id="2111">1779_0</cedge>
    </edge>
 
-   <edge id="1782" Length="141.76" Speed="13.90" Name="1782" NoLanes="1" XFrom="1639.56" YFrom="2233.43" XTo="1578.49" YTo="2373.05" from="1427" to="1669" Priority="-1" Angle="156.37" Type="netgen-default" function="normal">
+   <edge id="1782" from="1427" to="1669" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1782_0" depart="1" vclasses="" maxspeed="13.90" length="141.76">1639.17,2238.45 1582.36,2368.32</lane>
       </lanes>
    </edge>
 
-   <edge id="179" Length="179.91" Speed="13.90" Name="179" NoLanes="1" XFrom="1440.22" YFrom="1491.22" XTo="1544.34" YTo="1649.98" from="149" to="178" Priority="-1" Angle="213.26" Type="netgen-default" function="normal">
+   <edge id="179" from="149" to="178" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="179_0" depart="1" vclasses="" maxspeed="13.90" length="179.91">1442.36,1491.48 1541.03,1641.92</lane>
       </lanes>
@@ -449,7 +449,7 @@
       <cedge id="219">179_0</cedge>
    </edge>
 
-   <edge id="18" Length="226.11" Speed="13.90" Name="18" NoLanes="1" XFrom="1018.90" YFrom="1801.34" XTo="997.55" YTo="2034.76" from="4" to="17" Priority="-1" Angle="174.77" Type="netgen-default" function="normal">
+   <edge id="18" from="4" to="17" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="18_0" depart="1" vclasses="" maxspeed="13.90" length="226.11">1020.41,1802.94 999.82,2028.12</lane>
       </lanes>
@@ -457,14 +457,14 @@
       <cedge id="31">18_0</cedge>
    </edge>
 
-   <edge id="1822" Length="187.98" Speed="13.90" Name="1822" NoLanes="1" XFrom="1560.41" YFrom="2037.41" XTo="1526.77" YTo="1844.07" from="418" to="1821" Priority="-1" Angle="9.87" Type="netgen-default" function="normal">
+   <edge id="1822" from="418" to="1821" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1822_0" depart="1" vclasses="" maxspeed="13.90" length="187.98">1557.36,2029.51 1525.13,1844.30</lane>
       </lanes>
       <cedge id="2299">1822_0</cedge>
    </edge>
 
-   <edge id="1827" Length="189.17" Speed="13.90" Name="1827" NoLanes="1" XFrom="2049.07" YFrom="1543.05" XTo="2230.96" YTo="1608.12" from="463" to="1826" Priority="-1" Angle="250.32" Type="netgen-default" function="normal">
+   <edge id="1827" from="463" to="1826" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1827_0" depart="1" vclasses="" maxspeed="13.90" length="189.17">2051.78,1542.27 2229.89,1605.99</lane>
       </lanes>
@@ -472,13 +472,13 @@
       <cedge id="2407">1827_0</cedge>
    </edge>
 
-   <edge id="1830" Length="240.48" Speed="13.90" Name="1830" NoLanes="1" XFrom="1561.99" YFrom="942.25" XTo="1632.33" YTo="1173.71" from="1679" to="1829" Priority="-1" Angle="196.91" Type="netgen-default" function="normal">
+   <edge id="1830" from="1679" to="1829" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1830_0" depart="1" vclasses="" maxspeed="13.90" length="240.48">1563.98,943.14 1633.91,1173.23</lane>
       </lanes>
    </edge>
 
-   <edge id="1842" Length="197.54" Speed="13.90" Name="1842" NoLanes="1" XFrom="1561.99" YFrom="942.25" XTo="1633.90" YTo="748.30" from="1679" to="1841" Priority="-1" Angle="339.66" Type="netgen-default" function="normal">
+   <edge id="1842" from="1679" to="1841" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1842_0" depart="1" vclasses="" maxspeed="13.90" length="197.54">1562.85,935.18 1631.53,749.96</lane>
       </lanes>
@@ -486,21 +486,21 @@
       <cedge id="2431">1842_0</cedge>
    </edge>
 
-   <edge id="1846" Length="173.55" Speed="13.90" Name="1846" NoLanes="1" XFrom="1561.99" YFrom="942.25" XTo="1395.61" YTo="868.48" from="1679" to="1845" Priority="-1" Angle="66.09" Type="netgen-default" function="normal">
+   <edge id="1846" from="1679" to="1845" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1846_0" depart="1" vclasses="" maxspeed="13.90" length="173.55">1554.91,940.92 1396.26,870.57</lane>
       </lanes>
       <cedge id="2433">1846_0</cedge>
    </edge>
 
-   <edge id="1847" Length="122.42" Speed="13.90" Name="1847" NoLanes="1" XFrom="1282.38" YFrom="931.28" XTo="1395.61" YTo="868.48" from="1701" to="1845" Priority="-1" Angle="299.01" Type="netgen-default" function="normal">
+   <edge id="1847" from="1701" to="1845" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1847_0" depart="1" vclasses="" maxspeed="13.90" length="122.42">1282.84,929.14 1389.90,869.76</lane>
       </lanes>
       <cedge id="2433">1847_0</cedge>
    </edge>
 
-   <edge id="1849" Length="158.73" Speed="13.90" Name="1849" NoLanes="1" XFrom="1282.38" YFrom="931.28" XTo="1109.96" YTo="908.69" from="1701" to="1848" Priority="-1" Angle="82.54" Type="netgen-default" function="normal">
+   <edge id="1849" from="1701" to="1848" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1849_0" depart="1" vclasses="" maxspeed="13.90" length="158.73">1275.19,932.00 1117.81,911.39</lane>
       </lanes>
@@ -511,7 +511,7 @@
       <cedge id="2443">1849_0</cedge>
    </edge>
 
-   <edge id="1855" Length="188.91" Speed="13.90" Name="1855" NoLanes="1" XFrom="682.92" YFrom="1769.43" XTo="559.87" YTo="1927.69" from="38" to="1854" Priority="-1" Angle="142.13" Type="netgen-default" function="normal">
+   <edge id="1855" from="38" to="1854" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1855_0" depart="1" vclasses="" maxspeed="13.90" length="188.91">680.04,1775.82 564.09,1924.96</lane>
       </lanes>
@@ -519,7 +519,7 @@
       <cedge id="2502">1855_0</cedge>
    </edge>
 
-   <edge id="1857" Length="206.97" Speed="13.90" Name="1857" NoLanes="1" XFrom="557.29" YFrom="1618.47" XTo="618.72" YTo="1412.67" from="1222" to="1856" Priority="-1" Angle="343.38" Type="netgen-default" function="normal">
+   <edge id="1857" from="1222" to="1856" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1857_0" depart="1" vclasses="" maxspeed="13.90" length="206.97">556.32,1615.96 615.52,1417.64</lane>
       </lanes>
@@ -527,7 +527,7 @@
       <cedge id="2531">1857_0</cedge>
    </edge>
 
-   <edge id="1863" Length="206.77" Speed="13.90" Name="1863" NoLanes="1" XFrom="557.29" YFrom="1618.47" XTo="364.12" YTo="1513.57" from="1222" to="1862" Priority="-1" Angle="61.50" Type="netgen-default" function="normal">
+   <edge id="1863" from="1222" to="1862" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1863_0" depart="1" vclasses="" maxspeed="13.90" length="206.77">552.27,1617.63 370.57,1518.95</lane>
       </lanes>
@@ -536,7 +536,7 @@
       <cedge id="2532">1863_0</cedge>
    </edge>
 
-   <edge id="1867" Length="206.08" Speed="13.90" Name="1867" NoLanes="1" XFrom="574.83" YFrom="1203.13" XTo="618.72" YTo="1412.67" from="1719" to="1856" Priority="-1" Angle="191.83" Type="netgen-default" function="normal">
+   <edge id="1867" from="1719" to="1856" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1867_0" depart="1" vclasses="" maxspeed="13.90" length="206.08">577.64,1208.52 619.89,1410.22</lane>
       </lanes>
@@ -544,13 +544,13 @@
       <cedge id="2511">1867_0</cedge>
    </edge>
 
-   <edge id="1871" Length="240.36" Speed="13.90" Name="1871" NoLanes="1" XFrom="574.83" YFrom="1203.13" XTo="429.56" YTo="1404.54" from="1719" to="1870" Priority="-1" Angle="144.20" Type="netgen-default" function="normal">
+   <edge id="1871" from="1719" to="1870" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1871_0" depart="1" vclasses="" maxspeed="13.90" length="240.36">573.59,1207.66 432.99,1402.60</lane>
       </lanes>
    </edge>
 
-   <edge id="191" Length="114.63" Speed="13.90" Name="191" NoLanes="1" XFrom="1440.22" YFrom="1491.22" XTo="1512.84" YTo="1392.28" from="149" to="190" Priority="-1" Angle="323.72" Type="netgen-default" function="normal">
+   <edge id="191" from="149" to="190" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="191_0" depart="1" vclasses="" maxspeed="13.90" length="114.63">1441.84,1486.22 1509.67,1393.81</lane>
       </lanes>
@@ -559,7 +559,7 @@
       <cedge id="252">191_0</cedge>
    </edge>
 
-   <edge id="197" Length="193.18" Speed="13.90" Name="197" NoLanes="1" XFrom="1405.70" YFrom="1951.21" XTo="1314.97" YTo="2129.35" from="163" to="171" Priority="-1" Angle="153.01" Type="netgen-default" function="normal">
+   <edge id="197" from="163" to="171" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="197_0" depart="1" vclasses="" maxspeed="13.90" length="193.18">1406.46,1953.36 1318.78,2125.50</lane>
       </lanes>
@@ -567,7 +567,7 @@
       <cedge id="200">197_0</cedge>
    </edge>
 
-   <edge id="20" Length="214.13" Speed="13.90" Name="20" NoLanes="1" XFrom="1018.90" YFrom="1801.34" XTo="1177.47" YTo="1643.94" from="4" to="19" Priority="-1" Angle="314.79" Type="netgen-default" function="normal">
+   <edge id="20" from="4" to="19" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="20_0" depart="1" vclasses="" maxspeed="13.90" length="214.13">1022.44,1795.51 1174.40,1644.65</lane>
       </lanes>
@@ -575,13 +575,13 @@
       <cedge id="33">20_0</cedge>
    </edge>
 
-   <edge id="200" Length="124.99" Speed="13.90" Name="200" NoLanes="1" XFrom="1314.97" YFrom="2129.35" XTo="1205.14" YTo="2205.70" from="171" to="199" Priority="-1" Angle="124.80" Type="netgen-default" function="normal">
+   <edge id="200" from="171" to="199" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="200_0" depart="1" vclasses="" maxspeed="13.90" length="124.99">1314.09,2131.98 1211.46,2203.32</lane>
       </lanes>
    </edge>
 
-   <edge id="2081" Length="208.85" Speed="13.90" Name="2081" NoLanes="1" XFrom="1936.27" YFrom="2300.09" XTo="1861.08" YTo="2507.09" from="1591" to="2080" Priority="-1" Angle="160.04" Type="netgen-default" function="normal">
+   <edge id="2081" from="1591" to="2080" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2081_0" depart="1" vclasses="" maxspeed="13.90" length="208.85">1935.91,2305.93 1864.61,2502.22</lane>
       </lanes>
@@ -589,7 +589,7 @@
       <cedge id="2629">2081_0</cedge>
    </edge>
 
-   <edge id="2087" Length="199.31" Speed="13.90" Name="2087" NoLanes="1" XFrom="1936.27" YFrom="2300.09" XTo="2110.73" YTo="2421.26" from="1591" to="2086" Priority="-1" Angle="235.22" Type="netgen-default" function="normal">
+   <edge id="2087" from="1591" to="2086" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2087_0" depart="1" vclasses="" maxspeed="13.90" length="199.31">1941.20,2301.50 2104.91,2415.20</lane>
       </lanes>
@@ -598,7 +598,7 @@
       <cedge id="2634">2087_0</cedge>
    </edge>
 
-   <edge id="2109" Length="206.51" Speed="13.90" Name="2109" NoLanes="1" XFrom="1936.27" YFrom="2300.09" XTo="1733.81" YTo="2367.55" from="1591" to="2108" Priority="-1" Angle="108.43" Type="netgen-default" function="normal">
+   <edge id="2109" from="1591" to="2108" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2109_0" depart="1" vclasses="" maxspeed="13.90" length="206.51">1932.99,2302.93 1737.07,2368.21</lane>
       </lanes>
@@ -606,7 +606,7 @@
       <cedge id="2706">2109_0</cedge>
    </edge>
 
-   <edge id="2111" Length="129.12" Speed="13.90" Name="2111" NoLanes="1" XFrom="2135.85" YFrom="2051.95" XTo="2257.69" YTo="2117.53" from="1778" to="2110" Priority="-1" Angle="241.71" Type="netgen-default" function="normal">
+   <edge id="2111" from="1778" to="2110" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2111_0" depart="1" vclasses="" maxspeed="13.90" length="129.12">2139.81,2052.21 2253.51,2113.41</lane>
       </lanes>
@@ -615,7 +615,7 @@
       <cedge id="2708">2111_0</cedge>
    </edge>
 
-   <edge id="2133" Length="171.75" Speed="13.90" Name="2133" NoLanes="1" XFrom="2135.85" YFrom="2051.95" XTo="2297.43" YTo="1966.03" from="1778" to="2132" Priority="-1" Angle="298.00" Type="netgen-default" function="normal">
+   <edge id="2133" from="1778" to="2132" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2133_0" depart="1" vclasses="" maxspeed="13.90" length="171.75">2139.82,2047.97 2291.47,1967.33</lane>
       </lanes>
@@ -624,7 +624,7 @@
       <cedge id="2713">2133_0</cedge>
    </edge>
 
-   <edge id="216" Length="186.76" Speed="13.90" Name="216" NoLanes="1" XFrom="1314.97" YFrom="2129.35" XTo="1387.39" YTo="2314.27" from="171" to="215" Priority="-1" Angle="201.39" Type="netgen-default" function="normal">
+   <edge id="216" from="171" to="215" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="216_0" depart="1" vclasses="" maxspeed="13.90" length="186.76">1318.27,2133.25 1386.37,2307.15</lane>
       </lanes>
@@ -632,7 +632,7 @@
       <cedge id="1746">216_0</cedge>
    </edge>
 
-   <edge id="219" Length="163.40" Speed="13.90" Name="219" NoLanes="1" XFrom="1544.34" YFrom="1649.98" XTo="1678.47" YTo="1760.47" from="178" to="218" Priority="-1" Angle="230.52" Type="netgen-default" function="normal">
+   <edge id="219" from="178" to="218" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="219_0" depart="1" vclasses="" maxspeed="13.90" length="163.40">1547.93,1650.80 1674.05,1754.70</lane>
       </lanes>
@@ -641,13 +641,13 @@
       <cedge id="284">219_0</cedge>
    </edge>
 
-   <edge id="22" Length="193.33" Speed="13.90" Name="22" NoLanes="1" XFrom="832.47" YFrom="1528.21" XTo="1013.15" YTo="1613.68" from="8" to="11" Priority="-1" Angle="244.68" Type="netgen-default" function="normal">
+   <edge id="22" from="8" to="11" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="22_0" depart="1" vclasses="" maxspeed="13.90" length="193.33">834.46,1527.33 1009.22,1610.00</lane>
       </lanes>
    </edge>
 
-   <edge id="225" Length="165.26" Speed="13.90" Name="225" NoLanes="1" XFrom="1544.34" YFrom="1649.98" XTo="1708.55" YTo="1587.42" from="178" to="224" Priority="-1" Angle="290.85" Type="netgen-default" function="normal">
+   <edge id="225" from="178" to="224" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="225_0" depart="1" vclasses="" maxspeed="13.90" length="165.26">1548.62,1646.58 1703.05,1587.75</lane>
       </lanes>
@@ -656,26 +656,26 @@
       <cedge id="289">225_0</cedge>
    </edge>
 
-   <edge id="2299" Length="164.08" Speed="13.90" Name="2299" NoLanes="1" XFrom="1526.77" YFrom="1844.07" XTo="1503.21" YTo="1678.41" from="1821" to="2298" Priority="-1" Angle="8.09" Type="netgen-default" function="normal">
+   <edge id="2299" from="1821" to="2298" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2299_0" depart="1" vclasses="" maxspeed="13.90" length="164.08">1525.13,1844.30 1502.03,1681.86</lane>
       </lanes>
    </edge>
 
-   <edge id="24" Length="112.90" Speed="13.90" Name="24" NoLanes="1" XFrom="919.45" YFrom="1685.95" XTo="1013.15" YTo="1613.68" from="2" to="11" Priority="-1" Angle="307.64" Type="netgen-default" function="normal">
+   <edge id="24" from="2" to="11" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="24_0" depart="1" vclasses="" maxspeed="13.90" length="112.90">918.41,1684.67 1007.80,1615.72</lane>
       </lanes>
    </edge>
 
-   <edge id="2407" Length="154.79" Speed="13.90" Name="2407" NoLanes="1" XFrom="2230.96" YFrom="1608.12" XTo="2121.18" YTo="1729.17" from="1826" to="2406" Priority="-1" Angle="137.79" Type="netgen-default" function="normal">
+   <edge id="2407" from="1826" to="2406" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2407_0" depart="1" vclasses="" maxspeed="13.90" length="154.79">2231.22,1610.29 2127.23,1724.95</lane>
       </lanes>
       <cedge id="3986">2407_0</cedge>
    </edge>
 
-   <edge id="2409" Length="216.07" Speed="13.90" Name="2409" NoLanes="1" XFrom="2230.96" YFrom="1608.12" XTo="2448.99" YTo="1653.74" from="1826" to="2408" Priority="-1" Angle="258.18" Type="netgen-default" function="normal">
+   <edge id="2409" from="1826" to="2408" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2409_0" depart="1" vclasses="" maxspeed="13.90" length="216.07">2236.48,1607.59 2447.97,1651.84</lane>
       </lanes>
@@ -684,20 +684,20 @@
       <cedge id="2951">2409_0</cedge>
    </edge>
 
-   <edge id="2423" Length="140.41" Speed="13.90" Name="2423" NoLanes="1" XFrom="1830.43" YFrom="1197.84" XTo="1814.61" YTo="1048.60" from="752" to="2422" Priority="-1" Angle="6.05" Type="netgen-default" function="normal">
+   <edge id="2423" from="752" to="2422" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2423_0" depart="1" vclasses="" maxspeed="13.90" length="140.41">1828.29,1193.28 1813.48,1053.65</lane>
       </lanes>
       <cedge id="3994">2423_0</cedge>
    </edge>
 
-   <edge id="2424" Length="188.36" Speed="13.90" Name="2424" NoLanes="1" XFrom="1830.43" YFrom="1197.84" XTo="1632.33" YTo="1173.71" from="752" to="1829" Priority="-1" Angle="83.05" Type="netgen-default" function="normal">
+   <edge id="2424" from="752" to="1829" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2424_0" depart="1" vclasses="" maxspeed="13.90" length="188.36">1824.16,1198.74 1637.17,1175.97</lane>
       </lanes>
    </edge>
 
-   <edge id="2427" Length="227.01" Speed="13.90" Name="2427" NoLanes="1" XFrom="1633.90" YFrom="748.30" XTo="1593.38" YTo="516.50" from="1841" to="2426" Priority="-1" Angle="9.92" Type="netgen-default" function="normal">
+   <edge id="2427" from="1841" to="2426" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2427_0" depart="1" vclasses="" maxspeed="13.90" length="227.01">1631.32,743.12 1592.23,519.50</lane>
       </lanes>
@@ -705,7 +705,7 @@
       <cedge id="2970">2427_0</cedge>
    </edge>
 
-   <edge id="2431" Length="208.32" Speed="13.90" Name="2431" NoLanes="1" XFrom="1633.90" YFrom="748.30" XTo="1827.41" YTo="842.42" from="1841" to="2430" Priority="-1" Angle="244.06" Type="netgen-default" function="normal">
+   <edge id="2431" from="1841" to="2430" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2431_0" depart="1" vclasses="" maxspeed="13.90" length="208.32">1635.92,747.45 1823.26,838.57</lane>
       </lanes>
@@ -715,7 +715,7 @@
       <cedge id="3017">2431_0</cedge>
    </edge>
 
-   <edge id="2433" Length="101.06" Speed="13.90" Name="2433" NoLanes="1" XFrom="1395.61" YFrom="868.48" XTo="1453.24" YTo="777.64" from="1845" to="2432" Priority="-1" Angle="327.61" Type="netgen-default" function="normal">
+   <edge id="2433" from="1845" to="2432" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2433_0" depart="1" vclasses="" maxspeed="13.90" length="101.06">1395.46,865.63 1449.60,780.29</lane>
       </lanes>
@@ -723,21 +723,21 @@
       <cedge id="3097">2433_0</cedge>
    </edge>
 
-   <edge id="2434" Length="140.74" Speed="13.90" Name="2434" NoLanes="1" XFrom="1109.96" YFrom="908.69" XTo="1061.07" YTo="1047.70" from="1848" to="1264" Priority="-1" Angle="160.62" Type="netgen-default" function="normal">
+   <edge id="2434" from="1848" to="1264" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2434_0" depart="1" vclasses="" maxspeed="13.90" length="140.74">1109.81,914.10 1063.11,1046.87</lane>
       </lanes>
       <cedge id="1455">2434_0</cedge>
    </edge>
 
-   <edge id="2435" Length="209.88" Speed="13.90" Name="2435" NoLanes="1" XFrom="1109.96" YFrom="908.69" XTo="891.53" YTo="941.34" from="1848" to="1574" Priority="-1" Angle="98.50" Type="netgen-default" function="normal">
+   <edge id="2435" from="1848" to="1574" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2435_0" depart="1" vclasses="" maxspeed="13.90" length="209.88">1104.64,911.16 897.07,942.18</lane>
       </lanes>
       <cedge id="1707">2435_0</cedge>
    </edge>
 
-   <edge id="2437" Length="183.37" Speed="13.90" Name="2437" NoLanes="1" XFrom="1109.96" YFrom="908.69" XTo="967.14" YTo="776.44" from="1848" to="2436" Priority="-1" Angle="47.20" Type="netgen-default" function="normal">
+   <edge id="2437" from="1848" to="2436" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2437_0" depart="1" vclasses="" maxspeed="13.90" length="183.37">1104.96,906.31 970.41,781.72</lane>
       </lanes>
@@ -745,7 +745,7 @@
       <cedge id="3098">2437_0</cedge>
    </edge>
 
-   <edge id="2443" Length="237.67" Speed="13.90" Name="2443" NoLanes="1" XFrom="1109.96" YFrom="908.69" XTo="1156.98" YTo="667.88" from="1848" to="2442" Priority="-1" Angle="348.95" Type="netgen-default" function="normal">
+   <edge id="2443" from="1848" to="2442" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2443_0" depart="1" vclasses="" maxspeed="13.90" length="237.67">1109.00,904.99 1154.55,671.73</lane>
       </lanes>
@@ -753,19 +753,19 @@
       <cedge id="3100">2443_0</cedge>
    </edge>
 
-   <edge id="2499" Length="149.90" Speed="13.90" Name="2499" NoLanes="1" XFrom="1109.96" YFrom="908.69" XTo="1193.62" YTo="1051.62" from="1848" to="2498" Priority="-1" Angle="210.34" Type="netgen-default" function="normal">
+   <edge id="2499" from="1848" to="2498" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2499_0" depart="1" vclasses="" maxspeed="13.90" length="149.90">1115.49,914.88 1191.22,1044.24</lane>
       </lanes>
    </edge>
 
-   <edge id="2500" Length="121.14" Speed="13.90" Name="2500" NoLanes="1" XFrom="1188.52" YFrom="1171.74" XTo="1193.62" YTo="1051.62" from="1260" to="2498" Priority="-1" Angle="357.57" Type="netgen-default" function="normal">
+   <edge id="2500" from="1260" to="2498" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2500_0" depart="1" vclasses="" maxspeed="13.90" length="121.14">1186.99,1168.94 1192.13,1047.91</lane>
       </lanes>
    </edge>
 
-   <edge id="2502" Length="194.21" Speed="13.90" Name="2502" NoLanes="1" XFrom="559.87" YFrom="1927.69" XTo="424.81" YTo="1773.55" from="1854" to="2501" Priority="-1" Angle="41.23" Type="netgen-default" function="normal">
+   <edge id="2502" from="1854" to="2501" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2502_0" depart="1" vclasses="" maxspeed="13.90" length="194.21">557.68,1927.70 429.69,1781.63</lane>
       </lanes>
@@ -773,7 +773,7 @@
       <cedge id="4126">2502_0</cedge>
    </edge>
 
-   <edge id="251" Length="213.23" Speed="13.90" Name="251" NoLanes="1" XFrom="1544.34" YFrom="1649.98" XTo="1606.62" YTo="1435.59" from="178" to="250" Priority="-1" Angle="343.80" Type="netgen-default" function="normal">
+   <edge id="251" from="178" to="250" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="251_0" depart="1" vclasses="" maxspeed="13.90" length="213.23">1545.14,1641.30 1604.63,1436.54</lane>
       </lanes>
@@ -781,7 +781,7 @@
       <cedge id="376">251_0</cedge>
    </edge>
 
-   <edge id="2510" Length="177.73" Speed="13.90" Name="2510" NoLanes="1" XFrom="559.87" YFrom="1927.69" XTo="705.02" YTo="2040.67" from="1854" to="2509" Priority="-1" Angle="232.10" Type="netgen-default" function="normal">
+   <edge id="2510" from="1854" to="2509" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2510_0" depart="1" vclasses="" maxspeed="13.90" length="177.73">564.63,1929.31 704.89,2038.47</lane>
       </lanes>
@@ -789,13 +789,13 @@
       <cedge id="3210">2510_0</cedge>
    </edge>
 
-   <edge id="2511" Length="178.31" Speed="13.90" Name="2511" NoLanes="1" XFrom="618.72" YFrom="1412.67" XTo="429.56" YTo="1404.54" from="1856" to="1870" Priority="-1" Angle="87.54" Type="netgen-default" function="normal">
+   <edge id="2511" from="1856" to="1870" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2511_0" depart="1" vclasses="" maxspeed="13.90" length="178.31">612.98,1414.08 434.84,1406.42</lane>
       </lanes>
    </edge>
 
-   <edge id="252" Length="94.16" Speed="13.90" Name="252" NoLanes="1" XFrom="1512.84" YFrom="1392.28" XTo="1606.62" YTo="1435.59" from="190" to="250" Priority="-1" Angle="245.21" Type="netgen-default" function="normal">
+   <edge id="252" from="190" to="250" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="252_0" depart="1" vclasses="" maxspeed="13.90" length="94.16">1516.92,1392.35 1602.41,1431.83</lane>
       </lanes>
@@ -803,27 +803,27 @@
       <cedge id="376">252_0</cedge>
    </edge>
 
-   <edge id="2531" Length="155.64" Speed="13.90" Name="2531" NoLanes="1" XFrom="618.72" YFrom="1412.67" XTo="710.92" YTo="1544.72" from="1856" to="2530" Priority="-1" Angle="214.92" Type="netgen-default" function="normal">
+   <edge id="2531" from="1856" to="2530" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2531_0" depart="1" vclasses="" maxspeed="13.90" length="155.64">621.31,1413.50 710.42,1541.11</lane>
       </lanes>
    </edge>
 
-   <edge id="2532" Length="234.40" Speed="13.90" Name="2532" NoLanes="1" XFrom="364.12" YFrom="1513.57" XTo="328.87" YTo="1272.76" from="1862" to="1709" Priority="-1" Angle="8.33" Type="netgen-default" function="normal">
+   <edge id="2532" from="1862" to="1709" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2532_0" depart="1" vclasses="" maxspeed="13.90" length="234.40">361.96,1510.23 328.01,1278.31</lane>
       </lanes>
       <cedge id="4271">2532_0</cedge>
    </edge>
 
-   <edge id="2536" Length="164.23" Speed="13.90" Name="2536" NoLanes="1" XFrom="364.12" YFrom="1513.57" XTo="206.37" YTo="1438.31" from="1862" to="2535" Priority="-1" Angle="64.49" Type="netgen-default" function="normal">
+   <edge id="2536" from="1862" to="2535" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2536_0" depart="1" vclasses="" maxspeed="13.90" length="164.23">358.56,1512.75 210.33,1442.03</lane>
       </lanes>
       <cedge id="4256">2536_0</cedge>
    </edge>
 
-   <edge id="2550" Length="122.52" Speed="13.90" Name="2550" NoLanes="1" XFrom="364.12" YFrom="1513.57" XTo="387.12" YTo="1643.99" from="1862" to="2549" Priority="-1" Angle="190.00" Type="netgen-default" function="normal">
+   <edge id="2550" from="1862" to="2549" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2550_0" depart="1" vclasses="" maxspeed="13.90" length="122.52">367.18,1521.40 388.45,1642.06</lane>
       </lanes>
@@ -832,7 +832,7 @@
       <cedge id="3342">2550_0</cedge>
    </edge>
 
-   <edge id="2555" Length="169.12" Speed="13.90" Name="2555" NoLanes="1" XFrom="566.75" YFrom="855.85" XTo="740.05" YTo="811.92" from="1731" to="1743" Priority="-1" Angle="284.22" Type="netgen-default" function="normal">
+   <edge id="2555" from="1731" to="1743" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2555_0" depart="1" vclasses="" maxspeed="13.90" length="169.12">567.71,853.91 731.64,812.35</lane>
       </lanes>
@@ -840,7 +840,7 @@
       <cedge id="2566">2555_0</cedge>
    </edge>
 
-   <edge id="256" Length="120.37" Speed="13.90" Name="256" NoLanes="1" XFrom="1512.84" YFrom="1392.28" XTo="1476.30" YTo="1268.87" from="190" to="255" Priority="-1" Angle="16.49" Type="netgen-default" function="normal">
+   <edge id="256" from="190" to="255" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="256_0" depart="1" vclasses="" maxspeed="13.90" length="120.37">1509.89,1388.11 1475.71,1272.69</lane>
       </lanes>
@@ -849,7 +849,7 @@
       <cedge id="377">256_0</cedge>
    </edge>
 
-   <edge id="2565" Length="140.16" Speed="13.90" Name="2565" NoLanes="1" XFrom="566.75" YFrom="855.85" XTo="423.29" YTo="833.37" from="1731" to="2564" Priority="-1" Angle="81.09" Type="netgen-default" function="normal">
+   <edge id="2565" from="1731" to="2564" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2565_0" depart="1" vclasses="" maxspeed="13.90" length="140.16">562.94,856.92 424.47,835.22</lane>
       </lanes>
@@ -857,7 +857,7 @@
       <cedge id="3370">2565_0</cedge>
    </edge>
 
-   <edge id="2566" Length="226.27" Speed="13.90" Name="2566" NoLanes="1" XFrom="740.05" YFrom="811.92" XTo="967.14" YTo="776.44" from="1743" to="2436" Priority="-1" Angle="278.88" Type="netgen-default" function="normal">
+   <edge id="2566" from="1743" to="2436" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2566_0" depart="1" vclasses="" maxspeed="13.90" length="226.27">741.25,810.06 964.81,775.14</lane>
       </lanes>
@@ -865,7 +865,7 @@
       <cedge id="3099">2566_0</cedge>
    </edge>
 
-   <edge id="2570" Length="209.32" Speed="13.90" Name="2570" NoLanes="1" XFrom="2102.14" YFrom="1860.05" XTo="2297.43" YTo="1966.03" from="578" to="2132" Priority="-1" Angle="241.51" Type="netgen-default" function="normal">
+   <edge id="2570" from="578" to="2132" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2570_0" depart="1" vclasses="" maxspeed="13.90" length="209.32">2106.77,1860.69 2290.75,1960.53</lane>
       </lanes>
@@ -874,14 +874,14 @@
       <cedge id="2713">2570_0</cedge>
    </edge>
 
-   <edge id="2571" Length="124.44" Speed="13.90" Name="2571" NoLanes="1" XFrom="2102.14" YFrom="1860.05" XTo="2121.18" YTo="1729.17" from="578" to="2406" Priority="-1" Angle="351.72" Type="netgen-default" function="normal">
+   <edge id="2571" from="578" to="2406" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2571_0" depart="1" vclasses="" maxspeed="13.90" length="124.44">2101.25,1854.72 2119.16,1731.58</lane>
       </lanes>
       <cedge id="3986">2571_0</cedge>
    </edge>
 
-   <edge id="2581" Length="157.04" Speed="13.90" Name="2581" NoLanes="1" XFrom="2102.14" YFrom="1860.05" XTo="1965.90" YTo="1763.44" from="578" to="2580" Priority="-1" Angle="54.66" Type="netgen-default" function="normal">
+   <edge id="2581" from="578" to="2580" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2581_0" depart="1" vclasses="" maxspeed="13.90" length="157.04">2095.68,1857.49 1967.58,1766.65</lane>
       </lanes>
@@ -891,13 +891,13 @@
       <cedge id="3457">2581_0</cedge>
    </edge>
 
-   <edge id="2627" Length="160.75" Speed="13.90" Name="2627" NoLanes="1" XFrom="2102.14" YFrom="1860.05" XTo="2263.83" YTo="1803.28" from="578" to="2626" Priority="-1" Angle="289.35" Type="netgen-default" function="normal">
+   <edge id="2627" from="578" to="2626" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2627_0" depart="1" vclasses="" maxspeed="13.90" length="160.75">2107.10,1856.56 2258.78,1803.30</lane>
       </lanes>
    </edge>
 
-   <edge id="2629" Length="177.97" Speed="13.90" Name="2629" NoLanes="1" XFrom="1861.08" YFrom="2507.09" XTo="1733.81" YTo="2367.55" from="2080" to="2108" Priority="-1" Angle="42.37" Type="netgen-default" function="normal">
+   <edge id="2629" from="2080" to="2108" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2629_0" depart="1" vclasses="" maxspeed="13.90" length="177.97">1856.47,2504.49 1736.54,2373.00</lane>
       </lanes>
@@ -905,35 +905,35 @@
       <cedge id="2706">2629_0</cedge>
    </edge>
 
-   <edge id="2633" Length="235.50" Speed="13.90" Name="2633" NoLanes="1" XFrom="1861.08" YFrom="2507.09" XTo="2103.06" YTo="2525.76" from="2080" to="2632" Priority="-1" Angle="265.59" Type="netgen-default" function="normal">
+   <edge id="2633" from="2080" to="2632" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2633_0" depart="1" vclasses="" maxspeed="13.90" length="235.50">1866.97,2505.89 2101.77,2524.00</lane>
       </lanes>
       <cedge id="5583">2633_0</cedge>
    </edge>
 
-   <edge id="2634" Length="98.25" Speed="13.90" Name="2634" NoLanes="1" XFrom="2110.73" YFrom="2421.26" XTo="2103.06" YTo="2525.76" from="2086" to="2632" Priority="-1" Angle="175.80" Type="netgen-default" function="normal">
+   <edge id="2634" from="2086" to="2632" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2634_0" depart="1" vclasses="" maxspeed="13.90" length="98.25">2112.25,2423.16 2105.06,2521.14</lane>
       </lanes>
       <cedge id="5583">2634_0</cedge>
    </edge>
 
-   <edge id="2636" Length="172.59" Speed="13.90" Name="2636" NoLanes="1" XFrom="2110.73" YFrom="2421.26" XTo="2098.78" YTo="2239.40" from="2086" to="2635" Priority="-1" Angle="3.76" Type="netgen-default" function="normal">
+   <edge id="2636" from="2086" to="2635" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2636_0" depart="1" vclasses="" maxspeed="13.90" length="172.59">2108.55,2413.14 2097.22,2240.92</lane>
       </lanes>
       <cedge id="3757">2636_0</cedge>
    </edge>
 
-   <edge id="2654" Length="233.81" Speed="13.90" Name="2654" NoLanes="1" XFrom="2110.73" YFrom="2421.26" XTo="2348.51" YTo="2463.52" from="2086" to="2653" Priority="-1" Angle="259.92" Type="netgen-default" function="normal">
+   <edge id="2654" from="2086" to="2653" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2654_0" depart="1" vclasses="" maxspeed="13.90" length="233.81">2115.71,2420.47 2345.91,2461.38</lane>
       </lanes>
       <cedge id="4497">2654_0</cedge>
    </edge>
 
-   <edge id="2656" Length="196.72" Speed="13.90" Name="2656" NoLanes="1" XFrom="1733.81" YFrom="2367.55" XTo="1626.79" YTo="2545.70" from="2108" to="2655" Priority="-1" Angle="149.00" Type="netgen-default" function="normal">
+   <edge id="2656" from="2108" to="2655" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2656_0" depart="1" vclasses="" maxspeed="13.90" length="196.72">1732.20,2373.43 1630.90,2542.06</lane>
       </lanes>
@@ -941,7 +941,7 @@
       <cedge id="3860">2656_0</cedge>
    </edge>
 
-   <edge id="27" Length="202.39" Speed="13.90" Name="27" NoLanes="1" XFrom="997.55" YFrom="2034.76" XTo="1194.18" YTo="1955.53" from="17" to="26" Priority="-1" Angle="291.95" Type="netgen-default" function="normal">
+   <edge id="27" from="17" to="26" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="27_0" depart="1" vclasses="" maxspeed="13.90" length="202.39">1003.26,2030.68 1190.99,1955.04</lane>
       </lanes>
@@ -950,14 +950,14 @@
       <cedge id="172">27_0</cedge>
    </edge>
 
-   <edge id="2706" Length="147.51" Speed="13.90" Name="2706" NoLanes="1" XFrom="1733.81" YFrom="2367.55" XTo="1581.45" YTo="2385.66" from="2108" to="2705" Priority="-1" Angle="96.78" Type="netgen-default" function="normal">
+   <edge id="2706" from="2108" to="2705" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2706_0" depart="1" vclasses="" maxspeed="13.90" length="147.51">1730.07,2369.66 1583.60,2387.06</lane>
       </lanes>
       <cedge id="5603">2706_0</cedge>
    </edge>
 
-   <edge id="2707" Length="146.57" Speed="13.90" Name="2707" NoLanes="1" XFrom="2257.69" YFrom="2117.53" XTo="2297.43" YTo="1966.03" from="2110" to="2132" Priority="-1" Angle="345.30" Type="netgen-default" function="normal">
+   <edge id="2707" from="2110" to="2132" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2707_0" depart="1" vclasses="" maxspeed="13.90" length="146.57">2257.52,2111.67 2294.71,1969.90</lane>
       </lanes>
@@ -966,14 +966,14 @@
       <cedge id="2713">2707_0</cedge>
    </edge>
 
-   <edge id="2708" Length="191.71" Speed="13.90" Name="2708" NoLanes="1" XFrom="2257.69" YFrom="2117.53" XTo="2098.78" YTo="2239.40" from="2110" to="2635" Priority="-1" Angle="127.48" Type="netgen-default" function="normal">
+   <edge id="2708" from="2110" to="2635" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2708_0" depart="1" vclasses="" maxspeed="13.90" length="191.71">2257.56,2119.71 2105.44,2236.37</lane>
       </lanes>
       <cedge id="3757">2708_0</cedge>
    </edge>
 
-   <edge id="2710" Length="195.13" Speed="13.90" Name="2710" NoLanes="1" XFrom="2257.69" YFrom="2117.53" XTo="2460.80" YTo="2159.00" from="2110" to="2709" Priority="-1" Angle="258.46" Type="netgen-default" function="normal">
+   <edge id="2710" from="2110" to="2709" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2710_0" depart="1" vclasses="" maxspeed="13.90" length="195.13">2263.75,2117.08 2454.94,2156.12</lane>
       </lanes>
@@ -982,27 +982,27 @@
       <cedge id="3870">2710_0</cedge>
    </edge>
 
-   <edge id="2711" Length="152.51" Speed="13.90" Name="2711" NoLanes="1" XFrom="2297.43" YFrom="1966.03" XTo="2263.83" YTo="1803.28" from="2132" to="2626" Priority="-1" Angle="11.67" Type="netgen-default" function="normal">
+   <edge id="2711" from="2132" to="2626" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2711_0" depart="1" vclasses="" maxspeed="13.90" length="152.51">2294.10,1958.04 2263.26,1808.69</lane>
       </lanes>
    </edge>
 
-   <edge id="2713" Length="153.25" Speed="13.90" Name="2713" NoLanes="1" XFrom="2297.43" YFrom="1966.03" XTo="2439.37" YTo="2043.00" from="2132" to="2712" Priority="-1" Angle="241.53" Type="netgen-default" function="normal">
+   <edge id="2713" from="2132" to="2712" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2713_0" depart="1" vclasses="" maxspeed="13.90" length="153.25">2300.42,1965.77 2435.13,2038.83</lane>
       </lanes>
       <cedge id="4681">2713_0</cedge>
    </edge>
 
-   <edge id="272" Length="130.50" Speed="13.90" Name="272" NoLanes="1" XFrom="1512.84" YFrom="1392.28" XTo="1635.83" YTo="1321.43" from="190" to="271" Priority="-1" Angle="299.94" Type="netgen-default" function="normal">
+   <edge id="272" from="190" to="271" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="272_0" depart="1" vclasses="" maxspeed="13.90" length="130.50">1516.73,1388.13 1629.81,1322.99</lane>
       </lanes>
       <cedge id="382">272_0</cedge>
    </edge>
 
-   <edge id="2743" Length="216.37" Speed="13.90" Name="2743" NoLanes="1" XFrom="2297.43" YFrom="1966.03" XTo="2458.74" YTo="1812.47" from="2132" to="2742" Priority="-1" Angle="313.59" Type="netgen-default" function="normal">
+   <edge id="2743" from="2132" to="2742" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2743_0" depart="1" vclasses="" maxspeed="13.90" length="216.37">2299.84,1961.45 2456.56,1812.27</lane>
       </lanes>
@@ -1010,14 +1010,14 @@
       <cedge id="3877">2743_0</cedge>
    </edge>
 
-   <edge id="2744" Length="117.95" Speed="13.90" Name="2744" NoLanes="1" XFrom="2037.84" YFrom="2127.68" XTo="2098.78" YTo="2239.40" from="1649" to="2635" Priority="-1" Angle="208.61" Type="netgen-default" function="normal">
+   <edge id="2744" from="1649" to="2635" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2744_0" depart="1" vclasses="" maxspeed="13.90" length="117.95">2039.27,2126.85 2095.75,2230.41</lane>
       </lanes>
       <cedge id="3757">2744_0</cedge>
    </edge>
 
-   <edge id="282" Length="165.19" Speed="13.90" Name="282" NoLanes="1" XFrom="1678.47" YFrom="1760.47" XTo="1708.55" YTo="1587.42" from="218" to="224" Priority="-1" Angle="350.14" Type="netgen-default" function="normal">
+   <edge id="282" from="218" to="224" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="282_0" depart="1" vclasses="" maxspeed="13.90" length="165.19">1678.06,1753.21 1706.35,1590.46</lane>
       </lanes>
@@ -1026,7 +1026,7 @@
       <cedge id="289">282_0</cedge>
    </edge>
 
-   <edge id="284" Length="180.09" Speed="13.90" Name="284" NoLanes="1" XFrom="1678.47" YFrom="1760.47" XTo="1753.45" YTo="1929.94" from="218" to="283" Priority="-1" Angle="203.87" Type="netgen-default" function="normal">
+   <edge id="284" from="218" to="283" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="284_0" depart="1" vclasses="" maxspeed="13.90" length="180.09">1680.59,1761.17 1753.45,1925.86</lane>
       </lanes>
@@ -1035,27 +1035,27 @@
       <cedge id="419">284_0</cedge>
    </edge>
 
-   <edge id="288" Length="204.68" Speed="13.90" Name="288" NoLanes="1" XFrom="1678.47" YFrom="1760.47" XTo="1869.09" YTo="1664.58" from="218" to="287" Priority="-1" Angle="296.70" Type="netgen-default" function="normal">
+   <edge id="288" from="218" to="287" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="288_0" depart="1" vclasses="" maxspeed="13.90" length="204.68">1681.98,1756.86 1864.83,1664.88</lane>
       </lanes>
       <cedge id="420">288_0</cedge>
    </edge>
 
-   <edge id="289" Length="168.29" Speed="13.90" Name="289" NoLanes="1" XFrom="1708.55" YFrom="1587.42" XTo="1869.09" YTo="1664.58" from="224" to="287" Priority="-1" Angle="244.33" Type="netgen-default" function="normal">
+   <edge id="289" from="224" to="287" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="289_0" depart="1" vclasses="" maxspeed="13.90" length="168.29">1713.11,1587.78 1864.79,1660.69</lane>
       </lanes>
       <cedge id="420">289_0</cedge>
    </edge>
 
-   <edge id="2951" Length="229.19" Speed="13.90" Name="2951" NoLanes="1" XFrom="2448.99" YFrom="1653.74" XTo="2263.83" YTo="1803.28" from="2408" to="2626" Priority="-1" Angle="128.92" Type="netgen-default" function="normal">
+   <edge id="2951" from="2408" to="2626" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2951_0" depart="1" vclasses="" maxspeed="13.90" length="229.19">2447.11,1657.38 2268.81,1801.38</lane>
       </lanes>
    </edge>
 
-   <edge id="2952" Length="144.90" Speed="13.90" Name="2952" NoLanes="1" XFrom="2448.99" YFrom="1653.74" XTo="2458.74" YTo="1812.47" from="2408" to="2742" Priority="-1" Angle="183.51" Type="netgen-default" function="normal">
+   <edge id="2952" from="2408" to="2742" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2952_0" depart="1" vclasses="" maxspeed="13.90" length="144.90">2450.97,1659.08 2459.85,1803.71</lane>
       </lanes>
@@ -1063,34 +1063,34 @@
       <cedge id="3877">2952_0</cedge>
    </edge>
 
-   <edge id="2960" Length="122.54" Speed="13.90" Name="2960" NoLanes="1" XFrom="2448.99" YFrom="1653.74" XTo="2573.95" YTo="1698.20" from="2408" to="2959" Priority="-1" Angle="250.42" Type="netgen-default" function="normal">
+   <edge id="2960" from="2408" to="2959" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2960_0" depart="1" vclasses="" maxspeed="13.90" length="122.54">2454.27,1653.87 2569.72,1694.94</lane>
       </lanes>
       <cedge id="3988">2960_0</cedge>
    </edge>
 
-   <edge id="2964" Length="176.06" Speed="13.90" Name="2964" NoLanes="1" XFrom="1593.38" YFrom="516.50" XTo="1447.28" YTo="404.02" from="2426" to="2963" Priority="-1" Angle="52.41" Type="netgen-default" function="normal">
+   <edge id="2964" from="2426" to="2963" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2964_0" depart="1" vclasses="" maxspeed="13.90" length="176.06">1588.36,514.71 1448.85,407.31</lane>
       </lanes>
    </edge>
 
-   <edge id="2970" Length="113.10" Speed="13.90" Name="2970" NoLanes="1" XFrom="1593.38" YFrom="516.50" XTo="1617.90" YTo="403.08" from="2426" to="2969" Priority="-1" Angle="347.80" Type="netgen-default" function="normal">
+   <edge id="2970" from="2426" to="2969" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2970_0" depart="1" vclasses="" maxspeed="13.90" length="113.10">1592.40,513.23 1616.30,402.68</lane>
       </lanes>
       <cedge id="6008">2970_0</cedge>
    </edge>
 
-   <edge id="2971" Length="192.84" Speed="13.90" Name="2971" NoLanes="1" XFrom="1827.41" YFrom="842.42" XTo="1814.61" YTo="1048.60" from="2430" to="2422" Priority="-1" Angle="176.45" Type="netgen-default" function="normal">
+   <edge id="2971" from="2430" to="2422" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2971_0" depart="1" vclasses="" maxspeed="13.90" length="192.84">1828.73,847.79 1816.78,1040.26</lane>
       </lanes>
       <cedge id="3994">2971_0</cedge>
    </edge>
 
-   <edge id="2973" Length="157.47" Speed="13.90" Name="2973" NoLanes="1" XFrom="1827.41" YFrom="842.42" XTo="1871.50" YTo="680.25" from="2430" to="2972" Priority="-1" Angle="344.79" Type="netgen-default" function="normal">
+   <edge id="2973" from="2430" to="2972" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2973_0" depart="1" vclasses="" maxspeed="13.90" length="157.47">1827.24,836.76 1868.55,684.80</lane>
       </lanes>
@@ -1099,14 +1099,14 @@
       <cedge id="3999">2973_0</cedge>
    </edge>
 
-   <edge id="3" Length="94.79" Speed="13.90" Name="3" NoLanes="1" XFrom="841.85" YFrom="1749.32" XTo="919.45" YTo="1685.95" from="1" to="2" Priority="-1" Angle="309.24" Type="netgen-default" function="normal">
+   <edge id="3" from="1" to="2" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="94.79">844.99,1744.63 918.41,1684.67</lane>
       </lanes>
       <cedge id="24">3_0</cedge>
    </edge>
 
-   <edge id="3001" Length="180.46" Speed="13.90" Name="3001" NoLanes="1" XFrom="1827.41" YFrom="842.42" XTo="2011.87" YTo="800.23" from="2430" to="3000" Priority="-1" Angle="282.88" Type="netgen-default" function="normal">
+   <edge id="3001" from="2430" to="3000" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3001_0" depart="1" vclasses="" maxspeed="13.90" length="180.46">1831.82,839.72 2007.74,799.48</lane>
       </lanes>
@@ -1114,34 +1114,34 @@
       <cedge id="4012">3001_0</cedge>
    </edge>
 
-   <edge id="301" Length="99.71" Speed="13.90" Name="301" NoLanes="1" XFrom="1708.55" YFrom="1587.42" XTo="1734.72" YTo="1485.46" from="224" to="300" Priority="-1" Angle="345.60" Type="netgen-default" function="normal">
+   <edge id="301" from="224" to="300" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="301_0" depart="1" vclasses="" maxspeed="13.90" length="99.71">1708.33,1581.62 1733.12,1485.04</lane>
       </lanes>
       <cedge id="440">301_0</cedge>
    </edge>
 
-   <edge id="3017" Length="153.22" Speed="13.90" Name="3017" NoLanes="1" XFrom="1827.41" YFrom="842.42" XTo="1685.11" YTo="917.78" from="2430" to="3016" Priority="-1" Angle="117.91" Type="netgen-default" function="normal">
+   <edge id="3017" from="2430" to="3016" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3017_0" depart="1" vclasses="" maxspeed="13.90" length="153.22">1825.15,845.49 1689.75,917.19</lane>
       </lanes>
       <cedge id="4014">3017_0</cedge>
    </edge>
 
-   <edge id="3025" Length="150.35" Speed="13.90" Name="3025" NoLanes="1" XFrom="1453.24" YFrom="777.64" XTo="1338.99" YTo="670.07" from="2432" to="3024" Priority="-1" Angle="46.72" Type="netgen-default" function="normal">
+   <edge id="3025" from="2432" to="3024" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3025_0" depart="1" vclasses="" maxspeed="13.90" length="150.35">1448.36,775.32 1338.90,672.25</lane>
       </lanes>
       <cedge id="4865">3025_0</cedge>
    </edge>
 
-   <edge id="3097" Length="183.55" Speed="13.90" Name="3097" NoLanes="1" XFrom="1453.24" YFrom="777.64" XTo="1505.24" YTo="593.97" from="2432" to="3096" Priority="-1" Angle="344.19" Type="netgen-default" function="normal">
+   <edge id="3097" from="2432" to="3096" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3097_0" depart="1" vclasses="" maxspeed="13.90" length="183.55">1452.50,774.18 1502.51,597.57</lane>
       </lanes>
    </edge>
 
-   <edge id="3098" Length="210.84" Speed="13.90" Name="3098" NoLanes="1" XFrom="967.14" YFrom="776.44" XTo="1156.98" YTo="667.88" from="2436" to="2442" Priority="-1" Angle="299.76" Type="netgen-default" function="normal">
+   <edge id="3098" from="2436" to="2442" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3098_0" depart="1" vclasses="" maxspeed="13.90" length="210.84">968.14,773.97 1151.17,669.30</lane>
       </lanes>
@@ -1149,14 +1149,14 @@
       <cedge id="3100">3098_0</cedge>
    </edge>
 
-   <edge id="3099" Length="171.85" Speed="13.90" Name="3099" NoLanes="1" XFrom="967.14" YFrom="776.44" XTo="891.53" YTo="941.34" from="2436" to="1574" Priority="-1" Angle="155.37" Type="netgen-default" function="normal">
+   <edge id="3099" from="2436" to="1574" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3099_0" depart="1" vclasses="" maxspeed="13.90" length="171.85">966.15,782.57 894.52,938.79</lane>
       </lanes>
       <cedge id="1707">3099_0</cedge>
    </edge>
 
-   <edge id="31" Length="221.68" Speed="13.90" Name="31" NoLanes="1" XFrom="997.55" YFrom="2034.76" XTo="777.53" YTo="1971.87" from="17" to="30" Priority="-1" Angle="74.05" Type="netgen-default" function="normal">
+   <edge id="31" from="17" to="30" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="31_0" depart="1" vclasses="" maxspeed="13.90" length="221.68">991.57,2034.77 778.43,1973.84</lane>
       </lanes>
@@ -1164,14 +1164,14 @@
       <cedge id="145">31_0</cedge>
    </edge>
 
-   <edge id="3100" Length="176.99" Speed="13.90" Name="3100" NoLanes="1" XFrom="1156.98" YFrom="667.88" XTo="1338.99" YTo="670.07" from="2442" to="3024" Priority="-1" Angle="269.31" Type="netgen-default" function="normal">
+   <edge id="3100" from="2442" to="3024" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3100_0" depart="1" vclasses="" maxspeed="13.90" length="176.99">1158.46,666.25 1335.44,668.38</lane>
       </lanes>
       <cedge id="4865">3100_0</cedge>
    </edge>
 
-   <edge id="3106" Length="113.08" Speed="13.90" Name="3106" NoLanes="1" XFrom="1156.98" YFrom="667.88" XTo="1086.19" YTo="567.88" from="2442" to="3105" Priority="-1" Angle="35.30" Type="netgen-default" function="normal">
+   <edge id="3106" from="2442" to="3105" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3106_0" depart="1" vclasses="" maxspeed="13.90" length="113.08">1152.43,664.30 1087.09,572.00</lane>
       </lanes>
@@ -1179,7 +1179,7 @@
       <cedge id="4119">3106_0</cedge>
    </edge>
 
-   <edge id="3210" Length="174.35" Speed="13.90" Name="3210" NoLanes="1" XFrom="705.02" YFrom="2040.67" XTo="627.26" YTo="2208.21" from="2509" to="3209" Priority="-1" Angle="155.10" Type="netgen-default" function="normal">
+   <edge id="3210" from="2509" to="3209" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3210_0" depart="1" vclasses="" maxspeed="13.90" length="174.35">705.57,2043.42 632.16,2201.56</lane>
       </lanes>
@@ -1188,7 +1188,7 @@
       <cedge id="4135">3210_0</cedge>
    </edge>
 
-   <edge id="3224" Length="176.62" Speed="13.90" Name="3224" NoLanes="1" XFrom="705.02" YFrom="2040.67" XTo="850.41" YTo="2158.39" from="2509" to="3223" Priority="-1" Angle="231.00" Type="netgen-default" function="normal">
+   <edge id="3224" from="2509" to="3223" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3224_0" depart="1" vclasses="" maxspeed="13.90" length="176.62">709.82,2042.44 847.09,2153.57</lane>
       </lanes>
@@ -1196,7 +1196,7 @@
       <cedge id="4153">3224_0</cedge>
    </edge>
 
-   <edge id="33" Length="200.65" Speed="13.90" Name="33" NoLanes="1" XFrom="1177.47" YFrom="1643.94" XTo="1379.77" YTo="1685.72" from="19" to="32" Priority="-1" Angle="258.33" Type="netgen-default" function="normal">
+   <edge id="33" from="19" to="32" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="33_0" depart="1" vclasses="" maxspeed="13.90" length="200.65">1179.24,1642.62 1375.75,1683.21</lane>
       </lanes>
@@ -1204,7 +1204,7 @@
       <cedge id="148">33_0</cedge>
    </edge>
 
-   <edge id="3328" Length="128.37" Speed="13.90" Name="3328" NoLanes="1" XFrom="387.12" YFrom="1643.99" XTo="424.81" YTo="1773.55" from="2549" to="2501" Priority="-1" Angle="196.22" Type="netgen-default" function="normal">
+   <edge id="3328" from="2549" to="2501" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3328_0" depart="1" vclasses="" maxspeed="13.90" length="128.37">390.13,1648.47 425.99,1771.72</lane>
       </lanes>
@@ -1212,19 +1212,19 @@
       <cedge id="4126">3328_0</cedge>
    </edge>
 
-   <edge id="3330" Length="144.72" Speed="13.90" Name="3330" NoLanes="1" XFrom="387.12" YFrom="1643.99" XTo="275.72" YTo="1750.25" from="2549" to="3329" Priority="-1" Angle="133.65" Type="netgen-default" function="normal">
+   <edge id="3330" from="2549" to="3329" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3330_0" depart="1" vclasses="" maxspeed="13.90" length="144.72">384.42,1648.84 279.71,1748.74</lane>
       </lanes>
    </edge>
 
-   <edge id="3342" Length="228.79" Speed="13.90" Name="3342" NoLanes="1" XFrom="387.12" YFrom="1643.99" XTo="157.62" YTo="1584.78" from="2549" to="3341" Priority="-1" Angle="75.53" Type="netgen-default" function="normal">
+   <edge id="3342" from="2549" to="3341" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3342_0" depart="1" vclasses="" maxspeed="13.90" length="228.79">383.35,1644.73 161.81,1587.57</lane>
       </lanes>
    </edge>
 
-   <edge id="3344" Length="204.13" Speed="13.90" Name="3344" NoLanes="1" XFrom="369.46" YFrom="1038.29" XTo="423.29" YTo="833.37" from="1713" to="2564" Priority="-1" Angle="345.28" Type="netgen-default" function="normal">
+   <edge id="3344" from="1713" to="2564" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3344_0" depart="1" vclasses="" maxspeed="13.90" length="204.13">368.41,1035.77 420.28,838.34</lane>
       </lanes>
@@ -1232,7 +1232,7 @@
       <cedge id="3370">3344_0</cedge>
    </edge>
 
-   <edge id="3348" Length="125.83" Speed="13.90" Name="3348" NoLanes="1" XFrom="423.29" YFrom="833.37" XTo="288.97" YTo="828.98" from="2564" to="3347" Priority="-1" Angle="88.13" Type="netgen-default" function="normal">
+   <edge id="3348" from="2564" to="3347" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3348_0" depart="1" vclasses="" maxspeed="13.90" length="125.83">417.67,834.84 291.91,830.72</lane>
       </lanes>
@@ -1241,7 +1241,7 @@
       <cedge id="5436">3348_0</cedge>
    </edge>
 
-   <edge id="3370" Length="238.64" Speed="13.90" Name="3370" NoLanes="1" XFrom="423.29" YFrom="833.37" XTo="479.79" YTo="595.43" from="2564" to="3369" Priority="-1" Angle="346.64" Type="netgen-default" function="normal">
+   <edge id="3370" from="2564" to="3369" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3370_0" depart="1" vclasses="" maxspeed="13.90" length="238.64">422.02,831.58 477.16,599.40</lane>
       </lanes>
@@ -1250,40 +1250,40 @@
       <cedge id="4276">3370_0</cedge>
    </edge>
 
-   <edge id="3372" Length="186.85" Speed="13.90" Name="3372" NoLanes="1" XFrom="740.05" YFrom="811.92" XTo="563.47" YTo="678.39" from="1743" to="3371" Priority="-1" Angle="52.90" Type="netgen-default" function="normal">
+   <edge id="3372" from="1743" to="3371" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3372_0" depart="1" vclasses="" maxspeed="13.90" length="186.85">732.47,808.25 583.43,695.55</lane>
       </lanes>
    </edge>
 
-   <edge id="3456" Length="102.72" Speed="13.90" Name="3456" NoLanes="1" XFrom="1965.90" YFrom="1763.44" XTo="2027.42" YTo="1665.97" from="2580" to="3455" Priority="-1" Angle="327.74" Type="netgen-default" function="normal">
+   <edge id="3456" from="2580" to="3455" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3456_0" depart="1" vclasses="" maxspeed="13.90" length="102.72">1967.72,1757.46 2022.55,1670.60</lane>
       </lanes>
       <cedge id="4290">3456_0</cedge>
    </edge>
 
-   <edge id="3457" Length="149.42" Speed="13.90" Name="3457" NoLanes="1" XFrom="1965.90" YFrom="1763.44" XTo="2121.18" YTo="1729.17" from="2580" to="2406" Priority="-1" Angle="282.45" Type="netgen-default" function="normal">
+   <edge id="3457" from="2580" to="2406" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3457_0" depart="1" vclasses="" maxspeed="13.90" length="149.42">1970.08,1760.82 2115.99,1728.62</lane>
       </lanes>
       <cedge id="3986">3457_0</cedge>
    </edge>
 
-   <edge id="3475" Length="111.76" Speed="13.90" Name="3475" NoLanes="1" XFrom="1965.90" YFrom="1763.44" XTo="1877.97" YTo="1678.36" from="2580" to="3474" Priority="-1" Angle="45.94" Type="netgen-default" function="normal">
+   <edge id="3475" from="2580" to="3474" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3475_0" depart="1" vclasses="" maxspeed="13.90" length="111.76">1961.30,1761.28 1880.98,1683.56</lane>
       </lanes>
    </edge>
 
-   <edge id="3485" Length="125.72" Speed="13.90" Name="3485" NoLanes="1" XFrom="1965.90" YFrom="1763.44" XTo="1843.63" YTo="1809.60" from="2580" to="3484" Priority="-1" Angle="110.68" Type="netgen-default" function="normal">
+   <edge id="3485" from="2580" to="3484" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3485_0" depart="1" vclasses="" maxspeed="13.90" length="125.72">1961.74,1766.77 1844.12,1811.18</lane>
       </lanes>
       <cedge id="4393">3485_0</cedge>
    </edge>
 
-   <edge id="35" Length="166.87" Speed="13.90" Name="35" NoLanes="1" XFrom="1177.47" YFrom="1643.94" XTo="1193.58" YTo="1467.64" from="19" to="34" Priority="-1" Angle="354.78" Type="netgen-default" function="normal">
+   <edge id="35" from="19" to="34" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="35_0" depart="1" vclasses="" maxspeed="13.90" length="166.87">1176.26,1639.03 1191.44,1472.85</lane>
       </lanes>
@@ -1291,7 +1291,7 @@
       <cedge id="151">35_0</cedge>
    </edge>
 
-   <edge id="353" Length="237.42" Speed="13.90" Name="353" NoLanes="1" XFrom="1708.55" YFrom="1587.42" XTo="1937.46" YTo="1488.95" from="224" to="352" Priority="-1" Angle="293.28" Type="netgen-default" function="normal">
+   <edge id="353" from="224" to="352" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="353_0" depart="1" vclasses="" maxspeed="13.90" length="237.42">1713.19,1583.63 1931.29,1489.81</lane>
       </lanes>
@@ -1300,34 +1300,34 @@
       <cedge id="464">353_0</cedge>
    </edge>
 
-   <edge id="354" Length="107.84" Speed="13.90" Name="354" NoLanes="1" XFrom="1606.62" YFrom="1435.59" XTo="1635.83" YTo="1321.43" from="250" to="271" Priority="-1" Angle="345.65" Type="netgen-default" function="normal">
+   <edge id="354" from="250" to="271" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="354_0" depart="1" vclasses="" maxspeed="13.90" length="107.84">1606.36,1429.95 1633.09,1325.48</lane>
       </lanes>
       <cedge id="382">354_0</cedge>
    </edge>
 
-   <edge id="3757" Length="117.12" Speed="13.90" Name="3757" NoLanes="1" XFrom="2098.78" YFrom="2239.40" XTo="2209.57" YTo="2285.39" from="2635" to="3756" Priority="-1" Angle="247.46" Type="netgen-default" function="normal">
+   <edge id="3757" from="2635" to="3756" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3757_0" depart="1" vclasses="" maxspeed="13.90" length="117.12">2105.99,2240.60 2214.16,2285.50</lane>
       </lanes>
    </edge>
 
-   <edge id="376" Length="110.07" Speed="13.90" Name="376" NoLanes="1" XFrom="1606.62" YFrom="1435.59" XTo="1721.21" YTo="1414.64" from="250" to="375" Priority="-1" Angle="280.36" Type="netgen-default" function="normal">
+   <edge id="376" from="250" to="375" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="376_0" depart="1" vclasses="" maxspeed="13.90" length="110.07">1609.22,1433.44 1717.49,1413.65</lane>
       </lanes>
       <cedge id="753">376_0</cedge>
    </edge>
 
-   <edge id="377" Length="160.74" Speed="13.90" Name="377" NoLanes="1" XFrom="1476.30" YFrom="1268.87" XTo="1635.83" YTo="1321.43" from="255" to="271" Priority="-1" Angle="251.76" Type="netgen-default" function="normal">
+   <edge id="377" from="255" to="271" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="377_0" depart="1" vclasses="" maxspeed="13.90" length="160.74">1478.15,1267.74 1630.82,1318.04</lane>
       </lanes>
       <cedge id="382">377_0</cedge>
    </edge>
 
-   <edge id="379" Length="200.63" Speed="13.90" Name="379" NoLanes="1" XFrom="1476.30" YFrom="1268.87" XTo="1379.07" YTo="1081.08" from="255" to="378" Priority="-1" Angle="27.37" Type="netgen-default" function="normal">
+   <edge id="379" from="255" to="378" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="379_0" depart="1" vclasses="" maxspeed="13.90" length="200.63">1471.99,1264.12 1379.74,1085.96</lane>
       </lanes>
@@ -1336,7 +1336,7 @@
       <cedge id="1680">379_0</cedge>
    </edge>
 
-   <edge id="381" Length="138.93" Speed="13.90" Name="381" NoLanes="1" XFrom="1476.30" YFrom="1268.87" XTo="1331.57" YTo="1242.53" from="255" to="380" Priority="-1" Angle="79.69" Type="netgen-default" function="normal">
+   <edge id="381" from="255" to="380" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="381_0" depart="1" vclasses="" maxspeed="13.90" length="138.93">1470.53,1269.49 1333.84,1244.62</lane>
       </lanes>
@@ -1344,21 +1344,21 @@
       <cedge id="1261">381_0</cedge>
    </edge>
 
-   <edge id="382" Length="118.79" Speed="13.90" Name="382" NoLanes="1" XFrom="1635.83" YFrom="1321.43" XTo="1721.21" YTo="1414.64" from="271" to="375" Priority="-1" Angle="222.49" Type="netgen-default" function="normal">
+   <edge id="382" from="271" to="375" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="382_0" depart="1" vclasses="" maxspeed="13.90" length="118.79">1638.00,1321.35 1718.23,1408.95</lane>
       </lanes>
       <cedge id="753">382_0</cedge>
    </edge>
 
-   <edge id="3860" Length="153.89" Speed="13.90" Name="3860" NoLanes="1" XFrom="1626.79" YFrom="2545.70" XTo="1581.45" YTo="2385.66" from="2655" to="2705" Priority="-1" Angle="15.82" Type="netgen-default" function="normal">
+   <edge id="3860" from="2655" to="2705" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3860_0" depart="1" vclasses="" maxspeed="13.90" length="153.89">1624.06,2542.12 1582.11,2394.06</lane>
       </lanes>
       <cedge id="5603">3860_0</cedge>
    </edge>
 
-   <edge id="3862" Length="191.38" Speed="13.90" Name="3862" NoLanes="1" XFrom="1626.79" YFrom="2545.70" XTo="1809.02" YTo="2623.17" from="2655" to="3861" Priority="-1" Angle="246.97" Type="netgen-default" function="normal">
+   <edge id="3862" from="2655" to="3861" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3862_0" depart="1" vclasses="" maxspeed="13.90" length="191.38">1632.25,2546.23 1808.38,2621.10</lane>
       </lanes>
@@ -1367,14 +1367,14 @@
       <cedge id="4576">3862_0</cedge>
    </edge>
 
-   <edge id="3864" Length="108.46" Speed="13.90" Name="3864" NoLanes="1" XFrom="2460.80" YFrom="2159.00" XTo="2439.37" YTo="2043.00" from="2709" to="2712" Priority="-1" Angle="10.46" Type="netgen-default" function="normal">
+   <edge id="3864" from="2709" to="2712" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3864_0" depart="1" vclasses="" maxspeed="13.90" length="108.46">2457.71,2151.39 2438.02,2044.73</lane>
       </lanes>
       <cedge id="4681">3864_0</cedge>
    </edge>
 
-   <edge id="3868" Length="186.35" Speed="13.90" Name="3868" NoLanes="1" XFrom="2460.80" YFrom="2159.00" XTo="2588.54" YTo="2307.64" from="2709" to="3867" Priority="-1" Angle="220.68" Type="netgen-default" function="normal">
+   <edge id="3868" from="2709" to="3867" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3868_0" depart="1" vclasses="" maxspeed="13.90" length="186.35">2465.29,2161.69 2586.75,2303.02</lane>
       </lanes>
@@ -1382,35 +1382,35 @@
       <cedge id="5610">3868_0</cedge>
    </edge>
 
-   <edge id="3870" Length="110.70" Speed="13.90" Name="3870" NoLanes="1" XFrom="2460.80" YFrom="2159.00" XTo="2406.77" YTo="2260.39" from="2709" to="3869" Priority="-1" Angle="151.95" Type="netgen-default" function="normal">
+   <edge id="3870" from="2709" to="3869" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3870_0" depart="1" vclasses="" maxspeed="13.90" length="110.70">2460.98,2162.17 2408.92,2259.86</lane>
       </lanes>
       <cedge id="4680">3870_0</cedge>
    </edge>
 
-   <edge id="3877" Length="223.15" Speed="13.90" Name="3877" NoLanes="1" XFrom="2458.74" YFrom="1812.47" XTo="2592.21" YTo="2001.86" from="2742" to="3876" Priority="-1" Angle="215.17" Type="netgen-default" function="normal">
+   <edge id="3877" from="2742" to="3876" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3877_0" depart="1" vclasses="" maxspeed="13.90" length="223.15">2460.92,1812.70 2589.46,1995.10</lane>
       </lanes>
       <cedge id="4683">3877_0</cedge>
    </edge>
 
-   <edge id="3878" Length="150.59" Speed="13.90" Name="3878" NoLanes="1" XFrom="2458.74" YFrom="1812.47" XTo="2573.95" YTo="1698.20" from="2742" to="2959" Priority="-1" Angle="314.76" Type="netgen-default" function="normal">
+   <edge id="3878" from="2742" to="2959" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3878_0" depart="1" vclasses="" maxspeed="13.90" length="150.59">2463.74,1805.19 2570.66,1699.14</lane>
       </lanes>
       <cedge id="3988">3878_0</cedge>
    </edge>
 
-   <edge id="39" Length="95.82" Speed="13.90" Name="39" NoLanes="1" XFrom="732.91" YFrom="1680.23" XTo="682.92" YTo="1769.43" from="6" to="38" Priority="-1" Angle="150.73" Type="netgen-default" function="normal">
+   <edge id="39" from="6" to="38" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="39_0" depart="1" vclasses="" maxspeed="13.90" length="95.82">731.94,1685.34 685.09,1768.93</lane>
       </lanes>
       <cedge id="1855">39_0</cedge>
    </edge>
 
-   <edge id="393" Length="234.41" Speed="13.90" Name="393" NoLanes="1" XFrom="1753.45" YFrom="1929.94" XTo="1994.31" YTo="1917.89" from="283" to="392" Priority="-1" Angle="272.86" Type="netgen-default" function="normal">
+   <edge id="393" from="283" to="392" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="393_0" depart="1" vclasses="" maxspeed="13.90" length="234.41">1758.13,1928.06 1992.25,1916.34</lane>
       </lanes>
@@ -1418,7 +1418,7 @@
       <cedge id="599">393_0</cedge>
    </edge>
 
-   <edge id="395" Length="134.58" Speed="13.90" Name="395" NoLanes="1" XFrom="1753.45" YFrom="1929.94" XTo="1745.29" YTo="2072.62" from="283" to="394" Priority="-1" Angle="176.73" Type="netgen-default" function="normal">
+   <edge id="395" from="283" to="394" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="395_0" depart="1" vclasses="" maxspeed="13.90" length="134.58">1754.79,1935.34 1747.11,2069.71</lane>
       </lanes>
@@ -1426,7 +1426,7 @@
       <cedge id="1410">395_0</cedge>
    </edge>
 
-   <edge id="3984" Length="200.51" Speed="13.90" Name="3984" NoLanes="1" XFrom="2392.04" YFrom="1025.74" XTo="2428.36" YTo="1230.53" from="1244" to="3983" Priority="-1" Angle="190.06" Type="netgen-default" function="normal">
+   <edge id="3984" from="1244" to="3983" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3984_0" depart="1" vclasses="" maxspeed="13.90" length="200.51">2394.18,1028.36 2429.20,1225.79</lane>
       </lanes>
@@ -1435,13 +1435,13 @@
       <cedge id="4686">3984_0</cedge>
    </edge>
 
-   <edge id="3986" Length="149.12" Speed="13.90" Name="3986" NoLanes="1" XFrom="2121.18" YFrom="1729.17" XTo="2263.83" YTo="1803.28" from="2406" to="2626" Priority="-1" Angle="242.55" Type="netgen-default" function="normal">
+   <edge id="3986" from="2406" to="2626" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3986_0" depart="1" vclasses="" maxspeed="13.90" length="149.12">2127.02,1730.34 2259.34,1799.09</lane>
       </lanes>
    </edge>
 
-   <edge id="3988" Length="148.28" Speed="13.90" Name="3988" NoLanes="1" XFrom="2573.95" YFrom="1698.20" XTo="2696.45" YTo="1599.78" from="2959" to="3987" Priority="-1" Angle="308.78" Type="netgen-default" function="normal">
+   <edge id="3988" from="2959" to="3987" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3988_0" depart="1" vclasses="" maxspeed="13.90" length="148.28">2575.50,1694.84 2691.09,1601.96</lane>
       </lanes>
@@ -1450,7 +1450,7 @@
       <cedge id="4707">3988_0</cedge>
    </edge>
 
-   <edge id="3994" Length="178.94" Speed="13.90" Name="3994" NoLanes="1" XFrom="1814.61" YFrom="1048.60" XTo="1966.64" YTo="936.67" from="2422" to="3993" Priority="-1" Angle="306.36" Type="netgen-default" function="normal">
+   <edge id="3994" from="2422" to="3993" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3994_0" depart="1" vclasses="" maxspeed="13.90" length="178.94">1820.44,1042.26 1964.54,936.17</lane>
       </lanes>
@@ -1458,7 +1458,7 @@
       <cedge id="4777">3994_0</cedge>
    </edge>
 
-   <edge id="3999" Length="173.88" Speed="13.90" Name="3999" NoLanes="1" XFrom="1871.50" YFrom="680.25" XTo="2011.87" YTo="800.23" from="2972" to="3000" Priority="-1" Angle="229.48" Type="netgen-default" function="normal">
+   <edge id="3999" from="2972" to="3000" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3999_0" depart="1" vclasses="" maxspeed="13.90" length="173.88">1875.81,681.77 2007.99,794.75</lane>
       </lanes>
@@ -1466,7 +1466,7 @@
       <cedge id="4012">3999_0</cedge>
    </edge>
 
-   <edge id="4003" Length="90.31" Speed="13.90" Name="4003" NoLanes="1" XFrom="1871.50" YFrom="680.25" XTo="1767.99" YTo="665.03" from="2972" to="4002" Priority="-1" Angle="81.64" Type="netgen-default" function="normal">
+   <edge id="4003" from="2972" to="4002" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4003_0" depart="1" vclasses="" maxspeed="13.90" length="90.31">1858.49,680.01 1769.14,666.87</lane>
       </lanes>
@@ -1474,13 +1474,13 @@
       <cedge id="4863">4003_0</cedge>
    </edge>
 
-   <edge id="4011" Length="175.06" Speed="13.90" Name="4011" NoLanes="1" XFrom="1871.50" YFrom="680.25" XTo="2055.38" YTo="652.97" from="2972" to="4010" Priority="-1" Angle="278.44" Type="netgen-default" function="normal">
+   <edge id="4011" from="2972" to="4010" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4011_0" depart="1" vclasses="" maxspeed="13.90" length="175.06">1876.96,677.77 2050.13,652.08</lane>
       </lanes>
    </edge>
 
-   <edge id="4012" Length="135.13" Speed="13.90" Name="4012" NoLanes="1" XFrom="2011.87" YFrom="800.23" XTo="1966.64" YTo="936.67" from="3000" to="3993" Priority="-1" Angle="161.66" Type="netgen-default" function="normal">
+   <edge id="4012" from="3000" to="3993" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4012_0" depart="1" vclasses="" maxspeed="13.90" length="135.13">2012.99,802.09 1970.47,930.36</lane>
       </lanes>
@@ -1488,20 +1488,20 @@
       <cedge id="4777">4012_0</cedge>
    </edge>
 
-   <edge id="4013" Length="144.10" Speed="13.90" Name="4013" NoLanes="1" XFrom="2011.87" YFrom="800.23" XTo="2055.38" YTo="652.97" from="3000" to="4010" Priority="-1" Angle="343.54" Type="netgen-default" function="normal">
+   <edge id="4013" from="3000" to="4010" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4013_0" depart="1" vclasses="" maxspeed="13.90" length="144.10">2012.13,793.52 2052.96,655.33</lane>
       </lanes>
    </edge>
 
-   <edge id="4014" Length="172.93" Speed="13.90" Name="4014" NoLanes="1" XFrom="1685.11" YFrom="917.78" XTo="1814.61" YTo="1048.60" from="3016" to="2422" Priority="-1" Angle="224.71" Type="netgen-default" function="normal">
+   <edge id="4014" from="3016" to="2422" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4014_0" depart="1" vclasses="" maxspeed="13.90" length="172.93">1689.37,919.73 1811.02,1042.63</lane>
       </lanes>
       <cedge id="3994">4014_0</cedge>
    </edge>
 
-   <edge id="4119" Length="205.72" Speed="13.90" Name="4119" NoLanes="1" XFrom="1086.19" YFrom="567.88" XTo="958.27" YTo="401.57" from="3105" to="4118" Priority="-1" Angle="37.57" Type="netgen-default" function="normal">
+   <edge id="4119" from="3105" to="4118" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4119_0" depart="1" vclasses="" maxspeed="13.90" length="205.72">1083.29,566.81 957.87,403.75</lane>
       </lanes>
@@ -1509,7 +1509,7 @@
       <cedge id="4872">4119_0</cedge>
    </edge>
 
-   <edge id="4125" Length="227.63" Speed="13.90" Name="4125" NoLanes="1" XFrom="1086.19" YFrom="567.88" XTo="863.36" YTo="639.29" from="3105" to="4124" Priority="-1" Angle="107.77" Type="netgen-default" function="normal">
+   <edge id="4125" from="3105" to="4124" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4125_0" depart="1" vclasses="" maxspeed="13.90" length="227.63">1081.99,570.96 865.22,640.43</lane>
       </lanes>
@@ -1517,19 +1517,19 @@
       <cedge id="4925">4125_0</cedge>
    </edge>
 
-   <edge id="4126" Length="140.98" Speed="13.90" Name="4126" NoLanes="1" XFrom="424.81" YFrom="1773.55" XTo="275.72" YTo="1750.25" from="2501" to="3329" Priority="-1" Angle="81.12" Type="netgen-default" function="normal">
+   <edge id="4126" from="2501" to="3329" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4126_0" depart="1" vclasses="" maxspeed="13.90" length="140.98">420.25,1774.51 280.96,1752.74</lane>
       </lanes>
    </edge>
 
-   <edge id="4130" Length="224.70" Speed="13.90" Name="4130" NoLanes="1" XFrom="424.81" YFrom="1773.55" XTo="243.68" YTo="1921.34" from="2501" to="4129" Priority="-1" Angle="129.21" Type="netgen-default" function="normal">
+   <edge id="4130" from="2501" to="4129" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4130_0" depart="1" vclasses="" maxspeed="13.90" length="224.70">421.34,1778.51 247.24,1920.56</lane>
       </lanes>
    </edge>
 
-   <edge id="4131" Length="216.54" Speed="13.90" Name="4131" NoLanes="1" XFrom="627.26" YFrom="2208.21" XTo="850.41" YTo="2158.39" from="3209" to="3223" Priority="-1" Angle="282.59" Type="netgen-default" function="normal">
+   <edge id="4131" from="3209" to="3223" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4131_0" depart="1" vclasses="" maxspeed="13.90" length="216.54">634.79,2204.83 846.13,2157.65</lane>
       </lanes>
@@ -1537,7 +1537,7 @@
       <cedge id="4153">4131_0</cedge>
    </edge>
 
-   <edge id="4135" Length="183.22" Speed="13.90" Name="4135" NoLanes="1" XFrom="627.26" YFrom="2208.21" XTo="438.32" YTo="2171.91" from="3209" to="4134" Priority="-1" Angle="79.13" Type="netgen-default" function="normal">
+   <edge id="4135" from="3209" to="4134" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4135_0" depart="1" vclasses="" maxspeed="13.90" length="183.22">625.51,2209.55 445.58,2174.99</lane>
       </lanes>
@@ -1547,13 +1547,13 @@
       <cedge id="5035">4135_0</cedge>
    </edge>
 
-   <edge id="4149" Length="183.98" Speed="13.90" Name="4149" NoLanes="1" XFrom="627.26" YFrom="2208.21" XTo="653.45" YTo="2398.59" from="3209" to="4148" Priority="-1" Angle="187.83" Type="netgen-default" function="normal">
+   <edge id="4149" from="3209" to="4148" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4149_0" depart="1" vclasses="" maxspeed="13.90" length="183.98">629.57,2212.88 654.64,2395.14</lane>
       </lanes>
    </edge>
 
-   <edge id="4151" Length="200.30" Speed="13.90" Name="4151" NoLanes="1" XFrom="850.41" YFrom="2158.39" XTo="1055.41" YTo="2190.59" from="3223" to="4150" Priority="-1" Angle="261.07" Type="netgen-default" function="normal">
+   <edge id="4151" from="3223" to="4150" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4151_0" depart="1" vclasses="" maxspeed="13.90" length="200.30">856.23,2157.63 1054.10,2188.71</lane>
       </lanes>
@@ -1562,7 +1562,7 @@
       <cedge id="5184">4151_0</cedge>
    </edge>
 
-   <edge id="4153" Length="217.11" Speed="13.90" Name="4153" NoLanes="1" XFrom="850.41" YFrom="2158.39" XTo="962.05" YTo="2353.16" from="3223" to="4152" Priority="-1" Angle="209.82" Type="netgen-default" function="normal">
+   <edge id="4153" from="3223" to="4152" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4153_0" depart="1" vclasses="" maxspeed="13.90" length="217.11">853.85,2161.07 961.82,2349.44</lane>
       </lanes>
@@ -1570,7 +1570,7 @@
       <cedge id="5212">4153_0</cedge>
    </edge>
 
-   <edge id="419" Length="213.00" Speed="13.90" Name="419" NoLanes="1" XFrom="1753.45" YFrom="1929.94" XTo="1560.41" YTo="2037.41" from="283" to="418" Priority="-1" Angle="119.11" Type="netgen-default" function="normal">
+   <edge id="419" from="283" to="418" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="419_0" depart="1" vclasses="" maxspeed="13.90" length="213.00">1751.19,1933.09 1565.09,2036.70</lane>
       </lanes>
@@ -1579,7 +1579,7 @@
       <cedge id="1822">419_0</cedge>
    </edge>
 
-   <edge id="420" Length="178.84" Speed="13.90" Name="420" NoLanes="1" XFrom="1869.09" YFrom="1664.58" XTo="1937.46" YTo="1488.95" from="287" to="352" Priority="-1" Angle="338.73" Type="netgen-default" function="normal">
+   <edge id="420" from="287" to="352" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="420_0" depart="1" vclasses="" maxspeed="13.90" length="178.84">1869.37,1659.32 1934.24,1492.66</lane>
       </lanes>
@@ -1588,13 +1588,13 @@
       <cedge id="464">420_0</cedge>
    </edge>
 
-   <edge id="4256" Length="147.52" Speed="13.90" Name="4256" NoLanes="1" XFrom="206.37" YFrom="1438.31" XTo="157.62" YTo="1584.78" from="2535" to="3341" Priority="-1" Angle="161.59" Type="netgen-default" function="normal">
+   <edge id="4256" from="2535" to="3341" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4256_0" depart="1" vclasses="" maxspeed="13.90" length="147.52">206.30,1443.75 159.72,1583.71</lane>
       </lanes>
    </edge>
 
-   <edge id="4271" Length="108.13" Speed="13.90" Name="4271" NoLanes="1" XFrom="328.87" YFrom="1272.76" XTo="220.08" YTo="1228.36" from="1709" to="4270" Priority="-1" Angle="67.80" Type="netgen-default" function="normal">
+   <edge id="4271" from="1709" to="4270" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4271_0" depart="1" vclasses="" maxspeed="13.90" length="108.13">325.14,1273.02 225.02,1232.16</lane>
       </lanes>
@@ -1603,65 +1603,65 @@
       <cedge id="5317">4271_0</cedge>
    </edge>
 
-   <edge id="4276" Length="137.69" Speed="13.90" Name="4276" NoLanes="1" XFrom="479.79" YFrom="595.43" XTo="563.47" YTo="678.39" from="3369" to="3371" Priority="-1" Angle="225.25" Type="netgen-default" function="normal">
+   <edge id="4276" from="3369" to="3371" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4276_0" depart="1" vclasses="" maxspeed="13.90" length="137.69">483.22,596.50 581.00,693.45</lane>
       </lanes>
    </edge>
 
-   <edge id="4280" Length="200.58" Speed="13.90" Name="4280" NoLanes="1" XFrom="479.79" YFrom="595.43" XTo="279.72" YTo="528.46" from="3369" to="4279" Priority="-1" Angle="71.49" Type="netgen-default" function="normal">
+   <edge id="4280" from="3369" to="4279" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4280_0" depart="1" vclasses="" maxspeed="13.90" length="200.58">472.48,594.72 282.27,531.06</lane>
       </lanes>
    </edge>
 
-   <edge id="4286" Length="190.77" Speed="13.90" Name="4286" NoLanes="1" XFrom="479.79" YFrom="595.43" XTo="672.97" YTo="536.25" from="3369" to="4285" Priority="-1" Angle="287.03" Type="netgen-default" function="normal">
+   <edge id="4286" from="3369" to="4285" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4286_0" depart="1" vclasses="" maxspeed="13.90" length="190.77">484.25,592.34 666.65,536.47</lane>
       </lanes>
    </edge>
 
-   <edge id="4290" Length="139.16" Speed="13.90" Name="4290" NoLanes="1" XFrom="2027.42" YFrom="1665.97" XTo="1877.97" YTo="1678.36" from="3455" to="3474" Priority="-1" Angle="94.74" Type="netgen-default" function="normal">
+   <edge id="4290" from="3455" to="3474" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4290_0" depart="1" vclasses="" maxspeed="13.90" length="139.16">2021.06,1668.15 1882.37,1679.65</lane>
       </lanes>
    </edge>
 
-   <edge id="4393" Length="130.55" Speed="13.90" Name="4393" NoLanes="1" XFrom="1843.63" YFrom="1809.60" XTo="1877.97" YTo="1678.36" from="3484" to="3474" Priority="-1" Angle="345.34" Type="netgen-default" function="normal">
+   <edge id="4393" from="3484" to="3474" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4393_0" depart="1" vclasses="" maxspeed="13.90" length="130.55">1842.01,1809.27 1875.06,1682.98</lane>
       </lanes>
    </edge>
 
-   <edge id="440" Length="176.64" Speed="13.90" Name="440" NoLanes="1" XFrom="1734.72" YFrom="1485.46" XTo="1857.85" YTo="1352.10" from="300" to="439" Priority="-1" Angle="317.29" Type="netgen-default" function="normal">
+   <edge id="440" from="300" to="439" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="440_0" depart="1" vclasses="" maxspeed="13.90" length="176.64">1733.50,1484.35 1853.33,1354.57</lane>
       </lanes>
       <cedge id="602">440_0</cedge>
    </edge>
 
-   <edge id="442" Length="150.65" Speed="13.90" Name="442" NoLanes="1" XFrom="1937.46" YFrom="1488.95" XTo="1857.85" YTo="1352.10" from="352" to="439" Priority="-1" Angle="30.19" Type="netgen-default" function="normal">
+   <edge id="442" from="352" to="439" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="442_0" depart="1" vclasses="" maxspeed="13.90" length="150.65">1933.41,1485.26 1857.66,1355.04</lane>
       </lanes>
       <cedge id="602">442_0</cedge>
    </edge>
 
-   <edge id="446" Length="157.27" Speed="13.90" Name="446" NoLanes="1" XFrom="1937.46" YFrom="1488.95" XTo="2019.58" YTo="1345.25" from="352" to="445" Priority="-1" Angle="330.25" Type="netgen-default" function="normal">
+   <edge id="446" from="352" to="445" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="446_0" depart="1" vclasses="" maxspeed="13.90" length="157.27">1938.39,1484.00 2016.42,1347.46</lane>
       </lanes>
       <cedge id="986">446_0</cedge>
    </edge>
 
-   <edge id="4497" Length="201.96" Speed="13.90" Name="4497" NoLanes="1" XFrom="2348.51" YFrom="2463.52" XTo="2406.77" YTo="2260.39" from="2653" to="3869" Priority="-1" Angle="344.00" Type="netgen-default" function="normal">
+   <edge id="4497" from="2653" to="3869" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4497_0" depart="1" vclasses="" maxspeed="13.90" length="201.96">2347.73,2460.25 2403.41,2266.11</lane>
       </lanes>
       <cedge id="4680">4497_0</cedge>
    </edge>
 
-   <edge id="4500" Length="159.80" Speed="13.90" Name="4500" NoLanes="1" XFrom="1809.02" YFrom="2623.17" XTo="1780.79" YTo="2792.80" from="3861" to="4499" Priority="-1" Angle="170.55" Type="netgen-default" function="normal">
+   <edge id="4500" from="3861" to="4499" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4500_0" depart="1" vclasses="" maxspeed="13.90" length="159.80">1809.72,2628.97 1783.49,2786.61</lane>
       </lanes>
@@ -1669,13 +1669,13 @@
       <cedge id="5587">4500_0</cedge>
    </edge>
 
-   <edge id="4504" Length="202.77" Speed="13.90" Name="4504" NoLanes="1" XFrom="1809.02" YFrom="2623.17" XTo="1990.27" YTo="2736.28" from="3861" to="4503" Priority="-1" Angle="238.03" Type="netgen-default" function="normal">
+   <edge id="4504" from="3861" to="4503" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4504_0" depart="1" vclasses="" maxspeed="13.90" length="202.77">1814.13,2624.41 1986.15,2731.76</lane>
       </lanes>
    </edge>
 
-   <edge id="4576" Length="167.79" Speed="13.90" Name="4576" NoLanes="1" XFrom="1809.02" YFrom="2623.17" XTo="1656.18" YTo="2708.17" from="3861" to="4575" Priority="-1" Angle="119.08" Type="netgen-default" function="normal">
+   <edge id="4576" from="3861" to="4575" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4576_0" depart="1" vclasses="" maxspeed="13.90" length="167.79">1806.30,2626.56 1659.67,2708.12</lane>
       </lanes>
@@ -1683,7 +1683,7 @@
       <cedge id="5595">4576_0</cedge>
    </edge>
 
-   <edge id="464" Length="118.05" Speed="13.90" Name="464" NoLanes="1" XFrom="1937.46" YFrom="1488.95" XTo="2049.07" YTo="1543.05" from="352" to="463" Priority="-1" Angle="244.14" Type="netgen-default" function="normal">
+   <edge id="464" from="352" to="463" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="464_0" depart="1" vclasses="" maxspeed="13.90" length="118.05">1939.68,1488.19 2045.91,1539.69</lane>
       </lanes>
@@ -1691,33 +1691,33 @@
       <cedge id="1827">464_0</cedge>
    </edge>
 
-   <edge id="4680" Length="184.21" Speed="13.90" Name="4680" NoLanes="1" XFrom="2406.77" YFrom="2260.39" XTo="2209.57" YTo="2285.39" from="3869" to="3756" Priority="-1" Angle="97.23" Type="netgen-default" function="normal">
+   <edge id="4680" from="3869" to="3756" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4680_0" depart="1" vclasses="" maxspeed="13.90" length="184.21">2400.60,2262.83 2217.85,2286.00</lane>
       </lanes>
    </edge>
 
-   <edge id="4681" Length="152.84" Speed="13.90" Name="4681" NoLanes="1" XFrom="2439.37" YFrom="2043.00" XTo="2592.21" YTo="2001.86" from="2712" to="3876" Priority="-1" Angle="285.07" Type="netgen-default" function="normal">
+   <edge id="4681" from="2712" to="3876" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4681_0" depart="1" vclasses="" maxspeed="13.90" length="152.84">2441.65,2040.68 2589.23,2000.95</lane>
       </lanes>
       <cedge id="4683">4681_0</cedge>
    </edge>
 
-   <edge id="4683" Length="211.84" Speed="13.90" Name="4683" NoLanes="1" XFrom="2592.21" YFrom="2001.86" XTo="2683.59" YTo="1806.17" from="3876" to="4682" Priority="-1" Angle="334.97" Type="netgen-default" function="normal">
+   <edge id="4683" from="3876" to="4682" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4683_0" depart="1" vclasses="" maxspeed="13.90" length="211.84">2593.72,1994.72 2683.35,1802.78</lane>
       </lanes>
       <cedge id="5635">4683_0</cedge>
    </edge>
 
-   <edge id="4686" Length="97.91" Speed="13.90" Name="4686" NoLanes="1" XFrom="2428.36" YFrom="1230.53" XTo="2371.59" YTo="1317.77" from="3983" to="4685" Priority="-1" Angle="146.95" Type="netgen-default" function="normal">
+   <edge id="4686" from="3983" to="4685" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4686_0" depart="1" vclasses="" maxspeed="13.90" length="97.91">2428.15,1233.88 2374.75,1315.95</lane>
       </lanes>
    </edge>
 
-   <edge id="4694" Length="168.83" Speed="13.90" Name="4694" NoLanes="1" XFrom="2428.36" YFrom="1230.53" XTo="2606.35" YTo="1212.56" from="3983" to="4693" Priority="-1" Angle="275.76" Type="netgen-default" function="normal">
+   <edge id="4694" from="3983" to="4693" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4694_0" depart="1" vclasses="" maxspeed="13.90" length="168.83">2433.28,1228.37 2601.26,1211.42</lane>
       </lanes>
@@ -1726,7 +1726,7 @@
       <cedge id="5746">4694_0</cedge>
    </edge>
 
-   <edge id="4700" Length="181.06" Speed="13.90" Name="4700" NoLanes="1" XFrom="2428.36" YFrom="1230.53" XTo="2530.24" YTo="1390.64" from="3983" to="4699" Priority="-1" Angle="212.47" Type="netgen-default" function="normal">
+   <edge id="4700" from="3983" to="4699" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4700_0" depart="1" vclasses="" maxspeed="13.90" length="181.06">2432.47,1233.90 2529.66,1386.66</lane>
       </lanes>
@@ -1735,52 +1735,52 @@
       <cedge id="5756">4700_0</cedge>
    </edge>
 
-   <edge id="4702" Length="178.69" Speed="13.90" Name="4702" NoLanes="1" XFrom="2392.04" YFrom="1025.74" XTo="2372.36" YTo="839.85" from="1244" to="4701" Priority="-1" Angle="6.05" Type="netgen-default" function="normal">
+   <edge id="4702" from="1244" to="4701" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4702_0" depart="1" vclasses="" maxspeed="13.90" length="178.69">2389.88,1020.95 2371.06,843.25</lane>
       </lanes>
    </edge>
 
-   <edge id="4706" Length="188.93" Speed="13.90" Name="4706" NoLanes="1" XFrom="2392.04" YFrom="1025.74" XTo="2584.50" YTo="1076.62" from="1244" to="4705" Priority="-1" Angle="255.19" Type="netgen-default" function="normal">
+   <edge id="4706" from="1244" to="4705" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4706_0" depart="1" vclasses="" maxspeed="13.90" length="188.93">2397.36,1025.44 2580.01,1073.72</lane>
       </lanes>
    </edge>
 
-   <edge id="4707" Length="193.86" Speed="13.90" Name="4707" NoLanes="1" XFrom="2696.45" YFrom="1599.78" XTo="2683.59" YTo="1806.17" from="3987" to="4682" Priority="-1" Angle="176.44" Type="netgen-default" function="normal">
+   <edge id="4707" from="3987" to="4682" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4707_0" depart="1" vclasses="" maxspeed="13.90" length="193.86">2697.94,1602.30 2685.89,1795.79</lane>
       </lanes>
       <cedge id="5635">4707_0</cedge>
    </edge>
 
-   <edge id="4709" Length="196.08" Speed="13.90" Name="4709" NoLanes="1" XFrom="2696.45" YFrom="1599.78" XTo="2890.08" YTo="1671.45" from="3987" to="4708" Priority="-1" Angle="249.69" Type="netgen-default" function="normal">
+   <edge id="4709" from="3987" to="4708" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4709_0" depart="1" vclasses="" maxspeed="13.90" length="196.08">2701.59,1599.92 2885.48,1667.99</lane>
       </lanes>
       <cedge id="5901">4709_0</cedge>
    </edge>
 
-   <edge id="4719" Length="200.68" Speed="13.90" Name="4719" NoLanes="1" XFrom="2696.45" YFrom="1599.78" XTo="2528.25" YTo="1464.53" from="3987" to="4718" Priority="-1" Angle="51.20" Type="netgen-default" function="normal">
+   <edge id="4719" from="3987" to="4718" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4719_0" depart="1" vclasses="" maxspeed="13.90" length="200.68">2686.14,1593.61 2529.75,1467.85</lane>
       </lanes>
    </edge>
 
-   <edge id="4723" Length="178.00" Speed="13.90" Name="4723" NoLanes="1" XFrom="1966.64" YFrom="936.67" XTo="2153.10" YTo="949.92" from="3993" to="4722" Priority="-1" Angle="265.94" Type="netgen-default" function="normal">
+   <edge id="4723" from="3993" to="4722" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4723_0" depart="1" vclasses="" maxspeed="13.90" length="178.00">1972.42,935.43 2149.97,948.04</lane>
       </lanes>
    </edge>
 
-   <edge id="4777" Length="141.98" Speed="13.90" Name="4777" NoLanes="1" XFrom="1966.64" YFrom="936.67" XTo="1958.06" YTo="1079.73" from="3993" to="4776" Priority="-1" Angle="176.57" Type="netgen-default" function="normal">
+   <edge id="4777" from="3993" to="4776" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4777_0" depart="1" vclasses="" maxspeed="13.90" length="141.98">1968.20,938.16 1959.70,1079.89</lane>
       </lanes>
       <cedge id="5904">4777_0</cedge>
    </edge>
 
-   <edge id="4785" Length="221.49" Speed="13.90" Name="4785" NoLanes="1" XFrom="1767.99" YFrom="665.03" XTo="1749.96" YTo="437.10" from="4002" to="4784" Priority="-1" Angle="4.53" Type="netgen-default" function="normal">
+   <edge id="4785" from="4002" to="4784" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4785_0" depart="1" vclasses="" maxspeed="13.90" length="221.49">1765.89,659.42 1748.42,438.62</lane>
       </lanes>
@@ -1788,26 +1788,26 @@
       <cedge id="6010">4785_0</cedge>
    </edge>
 
-   <edge id="4863" Length="164.75" Speed="13.90" Name="4863" NoLanes="1" XFrom="1767.99" YFrom="665.03" XTo="1887.65" YTo="543.08" from="4002" to="4862" Priority="-1" Angle="315.55" Type="netgen-default" function="normal">
+   <edge id="4863" from="4002" to="4862" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4863_0" depart="1" vclasses="" maxspeed="13.90" length="164.75">1769.80,660.84 1885.18,543.24</lane>
       </lanes>
    </edge>
 
-   <edge id="4865" Length="174.88" Speed="13.90" Name="4865" NoLanes="1" XFrom="1338.99" YFrom="670.07" XTo="1505.24" YTo="593.97" from="3024" to="3096" Priority="-1" Angle="294.60" Type="netgen-default" function="normal">
+   <edge id="4865" from="3024" to="3096" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4865_0" depart="1" vclasses="" maxspeed="13.90" length="174.88">1340.33,667.64 1499.34,594.86</lane>
       </lanes>
    </edge>
 
-   <edge id="4868" Length="220.88" Speed="13.90" Name="4868" NoLanes="1" XFrom="958.27" YFrom="401.57" XTo="762.91" YTo="287.11" from="4118" to="4867" Priority="-1" Angle="59.63" Type="netgen-default" function="normal">
+   <edge id="4868" from="4118" to="4867" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4868_0" depart="1" vclasses="" maxspeed="13.90" length="220.88">952.57,400.14 761.99,288.48</lane>
       </lanes>
       <cedge id="6024">4868_0</cedge>
    </edge>
 
-   <edge id="4872" Length="181.44" Speed="13.90" Name="4872" NoLanes="1" XFrom="958.27" YFrom="401.57" XTo="930.23" YTo="215.88" from="4118" to="4871" Priority="-1" Angle="8.59" Type="netgen-default" function="normal">
+   <edge id="4872" from="4118" to="4871" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4872_0" depart="1" vclasses="" maxspeed="13.90" length="181.44">956.03,397.80 928.94,218.39</lane>
       </lanes>
@@ -1815,19 +1815,19 @@
       <cedge id="6027">4872_0</cedge>
    </edge>
 
-   <edge id="4873" Length="213.22" Speed="13.90" Name="4873" NoLanes="1" XFrom="863.36" YFrom="639.29" XTo="672.97" YTo="536.25" from="4124" to="4285" Priority="-1" Angle="61.58" Type="netgen-default" function="normal">
+   <edge id="4873" from="4124" to="4285" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4873_0" depart="1" vclasses="" maxspeed="13.90" length="213.22">858.15,638.35 670.63,536.86</lane>
       </lanes>
    </edge>
 
-   <edge id="4925" Length="141.42" Speed="13.90" Name="4925" NoLanes="1" XFrom="863.36" YFrom="639.29" XTo="874.83" YTo="492.18" from="4124" to="4924" Priority="-1" Angle="355.54" Type="netgen-default" function="normal">
+   <edge id="4925" from="4124" to="4924" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4925_0" depart="1" vclasses="" maxspeed="13.90" length="141.42">861.94,636.29 872.93,495.29</lane>
       </lanes>
    </edge>
 
-   <edge id="5" Length="174.89" Speed="13.90" Name="5" NoLanes="1" XFrom="841.85" YFrom="1749.32" XTo="1018.90" YTo="1801.34" from="1" to="4" Priority="-1" Angle="253.63" Type="netgen-default" function="normal">
+   <edge id="5" from="1" to="4" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5_0" depart="1" vclasses="" maxspeed="13.90" length="174.89">845.83,1748.77 1013.63,1798.07</lane>
       </lanes>
@@ -1836,31 +1836,31 @@
       <cedge id="18">5_0</cedge>
    </edge>
 
-   <edge id="5029" Length="181.72" Speed="13.90" Name="5029" NoLanes="1" XFrom="438.32" YFrom="2171.91" XTo="252.68" YTo="2132.73" from="4134" to="5028" Priority="-1" Angle="78.08" Type="netgen-default" function="normal">
+   <edge id="5029" from="4134" to="5028" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5029_0" depart="1" vclasses="" maxspeed="13.90" length="181.72">433.32,2172.54 255.52,2135.01</lane>
       </lanes>
    </edge>
 
-   <edge id="5031" Length="169.00" Speed="13.90" Name="5031" NoLanes="1" XFrom="438.32" YFrom="2171.91" XTo="360.15" YTo="2330.82" from="4134" to="5030" Priority="-1" Angle="153.81" Type="netgen-default" function="normal">
+   <edge id="5031" from="4134" to="5030" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5031_0" depart="1" vclasses="" maxspeed="13.90" length="169.00">437.66,2176.98 363.07,2328.63</lane>
       </lanes>
    </edge>
 
-   <edge id="5035" Length="101.90" Speed="13.90" Name="5035" NoLanes="1" XFrom="438.32" YFrom="2171.91" XTo="452.20" YTo="2065.96" from="4134" to="5034" Priority="-1" Angle="352.54" Type="netgen-default" function="normal">
+   <edge id="5035" from="4134" to="5034" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5035_0" depart="1" vclasses="" maxspeed="13.90" length="101.90">436.90,2170.01 450.14,2068.97</lane>
       </lanes>
    </edge>
 
-   <edge id="5081" Length="154.95" Speed="13.90" Name="5081" NoLanes="1" XFrom="438.32" YFrom="2171.91" XTo="505.58" YTo="2323.58" from="4134" to="5080" Priority="-1" Angle="203.92" Type="netgen-default" function="normal">
+   <edge id="5081" from="4134" to="5080" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5081_0" depart="1" vclasses="" maxspeed="13.90" length="154.95">442.95,2178.30 505.77,2319.94</lane>
       </lanes>
    </edge>
 
-   <edge id="5184" Length="175.73" Speed="13.90" Name="5184" NoLanes="1" XFrom="1055.41" YFrom="2190.59" XTo="962.05" YTo="2353.16" from="4150" to="4152" Priority="-1" Angle="150.13" Type="netgen-default" function="normal">
+   <edge id="5184" from="4150" to="4152" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5184_0" depart="1" vclasses="" maxspeed="13.90" length="175.73">1055.33,2194.06 967.81,2346.44</lane>
       </lanes>
@@ -1868,81 +1868,81 @@
       <cedge id="5212">5184_0</cedge>
    </edge>
 
-   <edge id="5185" Length="147.18" Speed="13.90" Name="5185" NoLanes="1" XFrom="1055.41" YFrom="2190.59" XTo="1205.14" YTo="2205.70" from="4150" to="199" Priority="-1" Angle="264.24" Type="netgen-default" function="normal">
+   <edge id="5185" from="4150" to="199" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5185_0" depart="1" vclasses="" maxspeed="13.90" length="147.18">1061.23,2189.52 1207.66,2204.30</lane>
       </lanes>
    </edge>
 
-   <edge id="5209" Length="142.06" Speed="13.90" Name="5209" NoLanes="1" XFrom="1055.41" YFrom="2190.59" XTo="1140.16" YTo="2316.96" from="4150" to="5208" Priority="-1" Angle="213.84" Type="netgen-default" function="normal">
+   <edge id="5209" from="4150" to="5208" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5209_0" depart="1" vclasses="" maxspeed="13.90" length="142.06">1059.63,2193.91 1138.75,2311.89</lane>
       </lanes>
    </edge>
 
-   <edge id="5210" Length="170.27" Speed="13.90" Name="5210" NoLanes="1" XFrom="962.05" YFrom="2353.16" XTo="1140.16" YTo="2316.96" from="4152" to="5208" Priority="-1" Angle="281.49" Type="netgen-default" function="normal">
+   <edge id="5210" from="4152" to="5208" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5210_0" depart="1" vclasses="" maxspeed="13.90" length="170.27">970.24,2349.81 1137.10,2315.90</lane>
       </lanes>
    </edge>
 
-   <edge id="5212" Length="171.81" Speed="13.90" Name="5212" NoLanes="1" XFrom="962.05" YFrom="2353.16" XTo="785.67" YTo="2347.58" from="4152" to="5211" Priority="-1" Angle="88.19" Type="netgen-default" function="normal">
+   <edge id="5212" from="4152" to="5211" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5212_0" depart="1" vclasses="" maxspeed="13.90" length="171.81">960.59,2354.76 788.87,2349.33</lane>
       </lanes>
    </edge>
 
-   <edge id="5317" Length="235.41" Speed="13.90" Name="5317" NoLanes="1" XFrom="220.08" YFrom="1228.36" XTo="369.46" YTo="1038.29" from="4270" to="1713" Priority="-1" Angle="321.84" Type="netgen-default" function="normal">
+   <edge id="5317" from="4270" to="1713" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5317_0" depart="1" vclasses="" maxspeed="13.90" length="235.41">219.67,1226.22 365.13,1041.12</lane>
       </lanes>
       <cedge id="3344">5317_0</cedge>
    </edge>
 
-   <edge id="5318" Length="202.89" Speed="13.90" Name="5318" NoLanes="1" XFrom="220.08" YFrom="1228.36" XTo="206.37" YTo="1438.31" from="4270" to="2535" Priority="-1" Angle="176.26" Type="netgen-default" function="normal">
+   <edge id="5318" from="4270" to="2535" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5318_0" depart="1" vclasses="" maxspeed="13.90" length="202.89">221.33,1234.47 208.11,1436.93</lane>
       </lanes>
       <cedge id="4256">5318_0</cedge>
    </edge>
 
-   <edge id="5320" Length="218.42" Speed="13.90" Name="5320" NoLanes="1" XFrom="220.08" YFrom="1228.36" XTo="0.00" YTo="1290.80" from="4270" to="5319" Priority="-1" Angle="105.84" Type="netgen-default" function="normal">
+   <edge id="5320" from="4270" to="5319" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5320_0" depart="1" vclasses="" maxspeed="13.90" length="218.42">213.70,1231.89 3.58,1291.50</lane>
       </lanes>
    </edge>
 
-   <edge id="5424" Length="141.16" Speed="13.90" Name="5424" NoLanes="1" XFrom="288.97" YFrom="828.98" XTo="187.65" YTo="939.74" from="3347" to="5423" Priority="-1" Angle="137.55" Type="netgen-default" function="normal">
+   <edge id="5424" from="3347" to="5423" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5424_0" depart="1" vclasses="" maxspeed="13.90" length="141.16">286.34,834.29 191.06,938.45</lane>
       </lanes>
    </edge>
 
-   <edge id="5436" Length="189.78" Speed="13.90" Name="5436" NoLanes="1" XFrom="288.97" YFrom="828.98" XTo="246.70" YTo="638.25" from="3347" to="5435" Priority="-1" Angle="12.49" Type="netgen-default" function="normal">
+   <edge id="5436" from="3347" to="5435" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5436_0" depart="1" vclasses="" maxspeed="13.90" length="189.78">286.86,827.07 245.80,641.78</lane>
       </lanes>
    </edge>
 
-   <edge id="5476" Length="133.46" Speed="13.90" Name="5476" NoLanes="1" XFrom="288.97" YFrom="828.98" XTo="147.55" YTo="822.70" from="3347" to="5475" Priority="-1" Angle="87.46" Type="netgen-default" function="normal">
+   <edge id="5476" from="3347" to="5475" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5476_0" depart="1" vclasses="" maxspeed="13.90" length="133.46">284.05,830.41 150.72,824.49</lane>
       </lanes>
    </edge>
 
-   <edge id="5583" Length="232.66" Speed="13.90" Name="5583" NoLanes="1" XFrom="2103.06" YFrom="2525.76" XTo="1990.27" YTo="2736.28" from="2632" to="4503" Priority="-1" Angle="151.82" Type="netgen-default" function="normal">
+   <edge id="5583" from="2632" to="4503" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5583_0" depart="1" vclasses="" maxspeed="13.90" length="232.66">2103.84,2527.79 1993.97,2732.87</lane>
       </lanes>
    </edge>
 
-   <edge id="5586" Length="205.96" Speed="13.90" Name="5586" NoLanes="1" XFrom="1780.79" YFrom="2792.80" XTo="1990.27" YTo="2736.28" from="4499" to="4503" Priority="-1" Angle="285.10" Type="netgen-default" function="normal">
+   <edge id="5586" from="4499" to="4503" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5586_0" depart="1" vclasses="" maxspeed="13.90" length="205.96">1786.69,2789.50 1985.54,2735.85</lane>
       </lanes>
    </edge>
 
-   <edge id="5587" Length="139.08" Speed="13.90" Name="5587" NoLanes="1" XFrom="1780.79" YFrom="2792.80" XTo="1656.18" YTo="2708.17" from="4499" to="4575" Priority="-1" Angle="55.82" Type="netgen-default" function="normal">
+   <edge id="5587" from="4499" to="4575" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5587_0" depart="1" vclasses="" maxspeed="13.90" length="139.08">1776.25,2791.72 1661.20,2713.58</lane>
       </lanes>
@@ -1950,50 +1950,50 @@
       <cedge id="5595">5587_0</cedge>
    </edge>
 
-   <edge id="5595" Length="149.29" Speed="13.90" Name="5595" NoLanes="1" XFrom="1656.18" YFrom="2708.17" XTo="1530.40" YTo="2619.29" from="4575" to="5594" Priority="-1" Angle="54.75" Type="netgen-default" function="normal">
+   <edge id="5595" from="4575" to="5594" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5595_0" depart="1" vclasses="" maxspeed="13.90" length="149.29">1654.02,2708.67 1532.10,2622.52</lane>
       </lanes>
    </edge>
 
-   <edge id="5597" Length="163.83" Speed="13.90" Name="5597" NoLanes="1" XFrom="1656.18" YFrom="2708.17" XTo="1645.10" YTo="2882.09" from="4575" to="5596" Priority="-1" Angle="176.36" Type="netgen-default" function="normal">
+   <edge id="5597" from="4575" to="5596" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5597_0" depart="1" vclasses="" maxspeed="13.90" length="163.83">1657.37,2715.45 1646.96,2878.95</lane>
       </lanes>
    </edge>
 
-   <edge id="5603" Length="171.49" Speed="13.90" Name="5603" NoLanes="1" XFrom="1581.45" YFrom="2385.66" XTo="1475.18" YTo="2534.65" from="2705" to="5602" Priority="-1" Angle="144.50" Type="netgen-default" function="normal">
+   <edge id="5603" from="2705" to="5602" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5603_0" depart="1" vclasses="" maxspeed="13.90" length="171.49">1577.99,2393.35 1478.41,2532.96</lane>
       </lanes>
    </edge>
 
-   <edge id="5610" Length="149.96" Speed="13.90" Name="5610" NoLanes="1" XFrom="2588.54" YFrom="2307.64" XTo="2719.51" YTo="2391.86" from="3867" to="5609" Priority="-1" Angle="237.25" Type="netgen-default" function="normal">
+   <edge id="5610" from="3867" to="5609" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5610_0" depart="1" vclasses="" maxspeed="13.90" length="149.96">2591.54,2307.60 2717.67,2388.72</lane>
       </lanes>
    </edge>
 
-   <edge id="5634" Length="134.94" Speed="13.90" Name="5634" NoLanes="1" XFrom="2588.54" YFrom="2307.64" XTo="2699.30" YTo="2217.04" from="3867" to="5633" Priority="-1" Angle="309.28" Type="netgen-default" function="normal">
+   <edge id="5634" from="3867" to="5633" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5634_0" depart="1" vclasses="" maxspeed="13.90" length="134.94">2591.29,2303.26 2695.74,2217.82</lane>
       </lanes>
    </edge>
 
-   <edge id="5635" Length="234.73" Speed="13.90" Name="5635" NoLanes="1" XFrom="2683.59" YFrom="1806.17" XTo="2890.08" YTo="1671.45" from="4682" to="4708" Priority="-1" Angle="303.12" Type="netgen-default" function="normal">
+   <edge id="5635" from="4682" to="4708" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5635_0" depart="1" vclasses="" maxspeed="13.90" length="234.73">2689.36,1800.44 2885.95,1672.17</lane>
       </lanes>
       <cedge id="5901">5635_0</cedge>
    </edge>
 
-   <edge id="5643" Length="146.13" Speed="13.90" Name="5643" NoLanes="1" XFrom="2353.94" YFrom="1261.83" XTo="2305.16" YTo="1402.49" from="1240" to="5642" Priority="-1" Angle="160.87" Type="netgen-default" function="normal">
+   <edge id="5643" from="1240" to="5642" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5643_0" depart="1" vclasses="" maxspeed="13.90" length="146.13">2355.51,1262.35 2307.62,1400.41</lane>
       </lanes>
    </edge>
 
-   <edge id="574" Length="163.79" Speed="13.90" Name="574" NoLanes="1" XFrom="1405.70" YFrom="1951.21" XTo="1560.41" YTo="2037.41" from="163" to="418" Priority="-1" Angle="240.87" Type="netgen-default" function="normal">
+   <edge id="574" from="163" to="418" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="574_0" depart="1" vclasses="" maxspeed="13.90" length="163.79">1410.87,1952.20 1553.95,2031.92</lane>
       </lanes>
@@ -2002,7 +2002,7 @@
       <cedge id="1444">574_0</cedge>
    </edge>
 
-   <edge id="5746" Length="185.59" Speed="13.90" Name="5746" NoLanes="1" XFrom="2606.35" YFrom="1212.56" XTo="2530.24" YTo="1390.64" from="4693" to="4699" Priority="-1" Angle="156.86" Type="netgen-default" function="normal">
+   <edge id="5746" from="4693" to="4699" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5746_0" depart="1" vclasses="" maxspeed="13.90" length="185.59">2607.31,1214.51 2534.37,1385.17</lane>
       </lanes>
@@ -2011,31 +2011,31 @@
       <cedge id="5756">5746_0</cedge>
    </edge>
 
-   <edge id="5747" Length="132.74" Speed="13.90" Name="5747" NoLanes="1" XFrom="2606.35" YFrom="1212.56" XTo="2584.50" YTo="1076.62" from="4693" to="4705" Priority="-1" Angle="9.13" Type="netgen-default" function="normal">
+   <edge id="5747" from="4693" to="4705" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5747_0" depart="1" vclasses="" maxspeed="13.90" length="132.74">2603.93,1207.94 2582.87,1076.88</lane>
       </lanes>
    </edge>
 
-   <edge id="5755" Length="172.79" Speed="13.90" Name="5755" NoLanes="1" XFrom="2606.35" YFrom="1212.56" XTo="2787.36" YTo="1216.82" from="4693" to="5754" Priority="-1" Angle="268.65" Type="netgen-default" function="normal">
+   <edge id="5755" from="4693" to="5754" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5755_0" depart="1" vclasses="" maxspeed="13.90" length="172.79">2611.41,1211.03 2784.15,1215.10</lane>
       </lanes>
    </edge>
 
-   <edge id="5756" Length="216.36" Speed="13.90" Name="5756" NoLanes="1" XFrom="2530.24" YFrom="1390.64" XTo="2305.16" YTo="1402.49" from="4699" to="5642" Priority="-1" Angle="93.01" Type="netgen-default" function="normal">
+   <edge id="5756" from="4699" to="5642" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5756_0" depart="1" vclasses="" maxspeed="13.90" length="216.36">2526.28,1392.50 2310.22,1403.87</lane>
       </lanes>
    </edge>
 
-   <edge id="5772" Length="170.14" Speed="13.90" Name="5772" NoLanes="1" XFrom="2530.24" YFrom="1390.64" XTo="2425.73" YTo="1535.98" from="4699" to="5771" Priority="-1" Angle="144.28" Type="netgen-default" function="normal">
+   <edge id="5772" from="4699" to="5771" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5772_0" depart="1" vclasses="" maxspeed="13.90" length="170.14">2528.29,1396.17 2428.96,1534.30</lane>
       </lanes>
    </edge>
 
-   <edge id="579" Length="110.53" Speed="13.90" Name="579" NoLanes="1" XFrom="1994.31" YFrom="1917.89" XTo="2102.14" YTo="1860.05" from="392" to="578" Priority="-1" Angle="298.21" Type="netgen-default" function="normal">
+   <edge id="579" from="392" to="578" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="579_0" depart="1" vclasses="" maxspeed="13.90" length="110.53">1998.01,1914.03 2095.42,1861.78</lane>
       </lanes>
@@ -2045,32 +2045,32 @@
       <cedge id="2570">579_0</cedge>
    </edge>
 
-   <edge id="5790" Length="117.26" Speed="13.90" Name="5790" NoLanes="1" XFrom="2530.24" YFrom="1390.64" XTo="2657.29" YTo="1385.26" from="4699" to="5789" Priority="-1" Angle="272.43" Type="netgen-default" function="normal">
+   <edge id="5790" from="4699" to="5789" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5790_0" depart="1" vclasses="" maxspeed="13.90" length="117.26">2536.82,1388.71 2653.97,1383.75</lane>
       </lanes>
    </edge>
 
-   <edge id="5901" Length="177.91" Speed="13.90" Name="5901" NoLanes="1" XFrom="2890.08" YFrom="1671.45" XTo="2905.98" YTo="1853.33" from="4708" to="5900" Priority="-1" Angle="185.00" Type="netgen-default" function="normal">
+   <edge id="5901" from="4708" to="5900" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5901_0" depart="1" vclasses="" maxspeed="13.90" length="177.91">2891.84,1672.72 2907.34,1849.95</lane>
       </lanes>
    </edge>
 
-   <edge id="5904" Length="144.33" Speed="13.90" Name="5904" NoLanes="1" XFrom="1958.06" YFrom="1079.73" XTo="1814.61" YTo="1048.60" from="4776" to="2422" Priority="-1" Angle="77.76" Type="netgen-default" function="normal">
+   <edge id="5904" from="4776" to="2422" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="5904_0" depart="1" vclasses="" maxspeed="13.90" length="144.33">1957.77,1081.35 1816.72,1050.75</lane>
       </lanes>
       <cedge id="3994">5904_0</cedge>
    </edge>
 
-   <edge id="599" Length="179.11" Speed="13.90" Name="599" NoLanes="1" XFrom="1994.31" YFrom="1917.89" XTo="2144.48" YTo="2026.59" from="392" to="598" Priority="-1" Angle="234.10" Type="netgen-default" function="normal">
+   <edge id="599" from="392" to="598" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="599_0" depart="1" vclasses="" maxspeed="13.90" length="179.11">1997.72,1918.32 2142.81,2023.34</lane>
       </lanes>
    </edge>
 
-   <edge id="6008" Length="131.47" Speed="13.90" Name="6008" NoLanes="1" XFrom="1617.90" YFrom="403.08" XTo="1749.96" YTo="437.10" from="2969" to="4784" Priority="-1" Angle="255.55" Type="netgen-default" function="normal">
+   <edge id="6008" from="2969" to="4784" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6008_0" depart="1" vclasses="" maxspeed="13.90" length="131.47">1618.26,401.47 1745.57,434.27</lane>
       </lanes>
@@ -2078,26 +2078,26 @@
       <cedge id="6010">6008_0</cedge>
    </edge>
 
-   <edge id="6010" Length="167.17" Speed="13.90" Name="6010" NoLanes="1" XFrom="1749.96" YFrom="437.10" XTo="1887.65" YTo="543.08" from="4784" to="4862" Priority="-1" Angle="232.42" Type="netgen-default" function="normal">
+   <edge id="6010" from="4784" to="4862" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6010_0" depart="1" vclasses="" maxspeed="13.90" length="167.17">1752.40,436.90 1884.87,538.86</lane>
       </lanes>
    </edge>
 
-   <edge id="602" Length="155.15" Speed="13.90" Name="602" NoLanes="1" XFrom="1857.85" YFrom="1352.10" XTo="2019.58" YTo="1345.25" from="439" to="445" Priority="-1" Angle="272.42" Type="netgen-default" function="normal">
+   <edge id="602" from="439" to="445" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="602_0" depart="1" vclasses="" maxspeed="13.90" length="155.15">1859.20,1350.39 2014.21,1343.83</lane>
       </lanes>
       <cedge id="986">602_0</cedge>
    </edge>
 
-   <edge id="6020" Length="223.05" Speed="13.90" Name="6020" NoLanes="1" XFrom="1749.96" YFrom="437.10" XTo="1910.40" YTo="270.83" from="4784" to="6019" Priority="-1" Angle="316.02" Type="netgen-default" function="normal">
+   <edge id="6020" from="4784" to="6019" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6020_0" depart="1" vclasses="" maxspeed="13.90" length="223.05">1752.08,432.53 1906.96,272.02</lane>
       </lanes>
    </edge>
 
-   <edge id="6024" Length="177.11" Speed="13.90" Name="6024" NoLanes="1" XFrom="762.91" YFrom="287.11" XTo="930.23" YTo="215.88" from="4867" to="4871" Priority="-1" Angle="293.06" Type="netgen-default" function="normal">
+   <edge id="6024" from="4867" to="4871" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6024_0" depart="1" vclasses="" maxspeed="13.90" length="177.11">762.17,285.63 925.13,216.26</lane>
       </lanes>
@@ -2105,19 +2105,19 @@
       <cedge id="6027">6024_0</cedge>
    </edge>
 
-   <edge id="6027" Length="179.77" Speed="13.90" Name="6027" NoLanes="1" XFrom="930.23" YFrom="215.88" XTo="1104.35" YTo="151.37" from="4871" to="6026" Priority="-1" Angle="290.33" Type="netgen-default" function="normal">
+   <edge id="6027" from="4871" to="6026" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6027_0" depart="1" vclasses="" maxspeed="13.90" length="179.77">932.16,213.41 1100.73,150.95</lane>
       </lanes>
    </edge>
 
-   <edge id="6033" Length="207.68" Speed="13.90" Name="6033" NoLanes="1" XFrom="930.23" YFrom="215.88" XTo="931.08" YTo="0.00" from="4871" to="6032" Priority="-1" Angle="359.78" Type="netgen-default" function="normal">
+   <edge id="6033" from="4871" to="6032" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="6033_0" depart="1" vclasses="" maxspeed="13.90" length="207.68">928.60,210.92 929.41,3.24</lane>
       </lanes>
    </edge>
 
-   <edge id="7" Length="111.06" Speed="13.90" Name="7" NoLanes="1" XFrom="841.85" YFrom="1749.32" XTo="732.91" YTo="1680.23" from="1" to="6" Priority="-1" Angle="57.62" Type="netgen-default" function="normal">
+   <edge id="7" from="1" to="6" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="7_0" depart="1" vclasses="" maxspeed="13.90" length="111.06">829.98,1743.75 736.19,1684.27</lane>
       </lanes>
@@ -2125,7 +2125,7 @@
       <cedge id="1223">7_0</cedge>
    </edge>
 
-   <edge id="753" Length="230.43" Speed="13.90" Name="753" NoLanes="1" XFrom="1721.21" YFrom="1414.64" XTo="1830.43" YTo="1197.84" from="375" to="752" Priority="-1" Angle="333.26" Type="netgen-default" function="normal">
+   <edge id="753" from="375" to="752" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="753_0" depart="1" vclasses="" maxspeed="13.90" length="230.43">1722.53,1408.36 1826.21,1202.57</lane>
       </lanes>
@@ -2134,7 +2134,7 @@
       <cedge id="989">753_0</cedge>
    </edge>
 
-   <edge id="9" Length="214.25" Speed="13.90" Name="9" NoLanes="1" XFrom="841.85" YFrom="1749.32" XTo="832.47" YTo="1528.21" from="1" to="8" Priority="-1" Angle="2.43" Type="netgen-default" function="normal">
+   <edge id="9" from="1" to="8" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="9_0" depart="1" vclasses="" maxspeed="13.90" length="214.25">839.97,1743.88 830.89,1529.81</lane>
       </lanes>
@@ -2142,7 +2142,7 @@
       <cedge id="22">9_0</cedge>
    </edge>
 
-   <edge id="986" Length="151.17" Speed="13.90" Name="986" NoLanes="1" XFrom="2019.58" YFrom="1345.25" XTo="2063.74" YTo="1194.12" from="445" to="985" Priority="-1" Angle="343.71" Type="netgen-default" function="normal">
+   <edge id="986" from="445" to="985" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="986_0" depart="1" vclasses="" maxspeed="13.90" length="151.17">2019.07,1341.11 2061.47,1196.01</lane>
       </lanes>
@@ -2150,7 +2150,7 @@
       <cedge id="1010">986_0</cedge>
    </edge>
 
-   <edge id="989" Length="226.98" Speed="13.90" Name="989" NoLanes="1" XFrom="1830.43" YFrom="1197.84" XTo="2063.74" YTo="1194.12" from="752" to="985" Priority="-1" Angle="270.91" Type="netgen-default" function="normal">
+   <edge id="989" from="752" to="985" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="989_0" depart="1" vclasses="" maxspeed="13.90" length="226.98">1831.88,1196.17 2058.83,1192.55</lane>
       </lanes>
@@ -2158,7 +2158,7 @@
       <cedge id="1010">989_0</cedge>
    </edge>
 
-   <edge id="999" Length="152.06" Speed="13.90" Name="999" NoLanes="1" XFrom="832.47" YFrom="1528.21" XTo="822.17" YTo="1365.85" from="8" to="998" Priority="-1" Angle="3.63" Type="netgen-default" function="normal">
+   <edge id="999" from="8" to="998" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="999_0" depart="1" vclasses="" maxspeed="13.90" length="152.06">830.50,1523.08 820.87,1371.33</lane>
       </lanes>

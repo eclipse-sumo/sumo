@@ -96,14 +96,14 @@
    </district>
 
 
-   <edge id="-53091382" Length="582.60" Speed="13.89" Name="-53091382" NoLanes="1" XFrom="560.00" YFrom="508.00" XTo="0.00" YTo="588.00" from="1556" to="1555" Priority="-1" Angle="98.13" Type="83" function="normal">
+   <edge id="-53091382" from="1556" to="1555" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091382_0" depart="1" vclasses="" maxspeed="13.89" length="582.60">559.36,509.57 420.87,486.65 270.14,487.65 141.40,508.61 73.80,531.47 3.57,587.27</lane>
       </lanes>
       <cedge id="53091382">-53091382_0</cedge>
    </edge>
 
-   <edge id="-53091482" Length="28.71" Speed="13.89" Name="-53091482" NoLanes="2" XFrom="362.00" YFrom="1844.00" XTo="330.00" YTo="1828.00" from="100667830" to="1567" Priority="-1" Angle="63.43" Type="83" function="normal">
+   <edge id="-53091482" from="100667830" to="1567" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091482_0" depart="1" vclasses="" maxspeed="13.89" length="28.71">359.33,1848.20 333.64,1835.36</lane>
          <lane id="-53091482_1" depart="0" vclasses="" maxspeed="13.89" length="28.71">360.80,1845.25 335.12,1832.41</lane>
@@ -111,7 +111,7 @@
       <cedge id="53091482">-53091482_1</cedge>
    </edge>
 
-   <edge id="-53091559" Length="357.11" Speed="13.89" Name="-53091559" NoLanes="2" XFrom="1054.00" YFrom="2472.00" XTo="798.00" YTo="2223.00" from="100667891" to="1566" Priority="-1" Angle="45.79" Type="83" function="normal">
+   <edge id="-53091559" from="100667891" to="1566" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091559_0" depart="1" vclasses="" maxspeed="13.89" length="357.11">1050.54,2475.54 794.55,2226.55</lane>
          <lane id="-53091559_1" depart="0" vclasses="" maxspeed="13.89" length="357.11">1052.83,2473.16 796.85,2224.18</lane>
@@ -120,7 +120,7 @@
       <cedge id="53091559">-53091559_1</cedge>
    </edge>
 
-   <edge id="-53091570" Length="174.99" Speed="13.89" Name="-53091570" NoLanes="1" XFrom="1170.00" YFrom="916.00" XTo="1057.00" YTo="1056.00" from="100667898" to="100667780" Priority="-1" Angle="141.09" Type="83" function="normal">
+   <edge id="-53091570" from="100667898" to="100667780" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091570_0" depart="1" vclasses="" maxspeed="13.89" length="174.99">1168.23,920.82 1058.32,1056.99</lane>
       </lanes>
@@ -128,14 +128,14 @@
       <cedge id="53091570">-53091570_0</cedge>
    </edge>
 
-   <edge id="-53091573" Length="24.51" Speed="13.89" Name="-53091573" NoLanes="1" XFrom="1057.00" YFrom="1056.00" XTo="1040.00" YTo="1078.00" from="100667780" to="1507" Priority="-1" Angle="142.31" Type="83" function="normal">
+   <edge id="-53091573" from="100667780" to="1507" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091573_0" depart="1" vclasses="" maxspeed="13.89" length="24.51">1058.28,1057.05 1043.29,1076.44</lane>
       </lanes>
       <cedge id="53091573">-53091573_0</cedge>
    </edge>
 
-   <edge id="-53091615" Length="155.29" Speed="13.89" Name="-53091615" NoLanes="2" XFrom="1977.00" YFrom="1737.00" XTo="2080.00" YTo="1608.00" from="1562" to="1560" Priority="-1" Angle="321.39" Type="83" function="normal">
+   <edge id="-53091615" from="1562" to="1560" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091615_0" depart="1" vclasses="" maxspeed="13.89" length="155.29">1974.07,1732.74 2070.96,1611.38</lane>
          <lane id="-53091615_1" depart="0" vclasses="" maxspeed="13.89" length="155.29">1976.65,1734.80 2073.54,1613.44</lane>
@@ -146,7 +146,7 @@
       <cedge id="53091615">-53091615_1</cedge>
    </edge>
 
-   <edge id="-53091628" Length="353.03" Speed="13.89" Name="-53091628" NoLanes="1" XFrom="1520.00" YFrom="2298.00" XTo="1760.00" YTo="2038.00" from="1564" to="1563" Priority="-1" Angle="317.29" Type="83" function="normal">
+   <edge id="-53091628" from="1564" to="1563" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091628_0" depart="1" vclasses="" maxspeed="13.89" length="353.03">1519.15,2296.49 1758.61,2037.07</lane>
       </lanes>
@@ -154,7 +154,7 @@
       <cedge id="53091628">-53091628_0</cedge>
    </edge>
 
-   <edge id="-53091655" Length="335.59" Speed="13.89" Name="-53091655" NoLanes="2" XFrom="1501.00" YFrom="2906.00" XTo="1250.00" YTo="2668.00" from="1672" to="1565" Priority="-1" Angle="46.52" Type="83" function="normal">
+   <edge id="-53091655" from="1672" to="1565" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53091655_0" depart="1" vclasses="" maxspeed="13.89" length="335.59">1493.69,2905.89 1250.17,2674.98</lane>
          <lane id="-53091655_1" depart="0" vclasses="" maxspeed="13.89" length="335.59">1495.96,2903.49 1252.44,2672.59</lane>
@@ -164,7 +164,7 @@
       <cedge id="53091655">-53091655_1</cedge>
    </edge>
 
-   <edge id="-53092310" Length="35.17" Speed="13.89" Name="-53092310" NoLanes="1" XFrom="2951.00" YFrom="2261.00" XTo="2984.00" YTo="2291.00" from="100668287" to="1661" Priority="-1" Angle="227.73" Type="83" function="normal">
+   <edge id="-53092310" from="100668287" to="1661" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-53092310_0" depart="1" vclasses="" maxspeed="13.89" length="35.17">2955.74,2263.08 2981.76,2286.74</lane>
       </lanes>
@@ -173,7 +173,7 @@
       <cedge id="53092310">-53092310_0</cedge>
    </edge>
 
-   <edge id="-53092402" Length="204.14" Speed="8.33" Name="-53092402" NoLanes="1" XFrom="2853.00" YFrom="2458.00" XTo="2984.00" YTo="2291.00" from="1669" to="1661" Priority="-1" Angle="321.89" Type="81" function="normal">
+   <edge id="-53092402" from="1669" to="1661" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-53092402_0" depart="1" vclasses="" maxspeed="8.33" length="204.14">2853.71,2454.42 2979.71,2293.80</lane>
       </lanes>
@@ -182,7 +182,7 @@
       <cedge id="53092402">-53092402_0</cedge>
    </edge>
 
-   <edge id="-53092407" Length="91.48" Speed="22.22" Name="-53092407" NoLanes="1" XFrom="3499.00" YFrom="2732.00" XTo="3412.00" YTo="2687.00" from="605001135" to="1610" Priority="-1" Angle="62.65" Type="86" function="normal">
+   <edge id="-53092407" from="605001135" to="1610" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="-53092407_0" depart="1" vclasses="" maxspeed="22.22" length="91.48">3497.91,2733.29 3416.65,2691.26</lane>
       </lanes>
@@ -191,7 +191,7 @@
       <cedge id="53092407">-53092407_0</cedge>
    </edge>
 
-   <edge id="-53092869" Length="13.32" Speed="8.33" Name="-53092869" NoLanes="1" XFrom="2964.00" YFrom="2248.00" XTo="2951.00" YTo="2261.00" from="100668332" to="100668287" Priority="-1" Angle="135.00" Type="81" function="normal">
+   <edge id="-53092869" from="100668332" to="100668287" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-53092869_0" depart="1" vclasses="" maxspeed="8.33" length="13.32">2965.06,2249.28 2955.64,2258.70</lane>
       </lanes>
@@ -200,7 +200,7 @@
       <cedge id="53092869">-53092869_0</cedge>
    </edge>
 
-   <edge id="-545279717" Length="156.11" Speed="19.44" Name="-545279717" NoLanes="1" XFrom="3425.00" YFrom="20.00" XTo="3271.00" YTo="50.00" from="100674949" to="100674627" Priority="-1" Angle="101.02" Type="85" function="normal">
+   <edge id="-545279717" from="100674949" to="100674627" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="-545279717_0" depart="1" vclasses="" maxspeed="19.44" length="156.11">3422.98,21.68 3363.19,22.65 3300.57,36.56 3272.00,51.34</lane>
       </lanes>
@@ -208,7 +208,7 @@
       <cedge id="545279717">-545279717_0</cedge>
    </edge>
 
-   <edge id="-545279727" Length="432.75" Speed="22.22" Name="-545279727" NoLanes="1" XFrom="3930.00" YFrom="3109.00" XTo="3605.00" YTo="2823.00" from="100674916" to="100668362" Priority="-1" Angle="48.65" Type="86" function="normal">
+   <edge id="-545279727" from="100674916" to="100668362" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="-545279727_0" depart="1" vclasses="" maxspeed="22.22" length="432.75">3928.77,3110.12 3776.91,2973.24 3603.93,2824.25</lane>
       </lanes>
@@ -216,7 +216,7 @@
       <cedge id="545279727">-545279727_0</cedge>
    </edge>
 
-   <edge id="-545285123" Length="451.35" Speed="16.67" Name="-545285123" NoLanes="1" XFrom="2240.00" YFrom="2808.00" XTo="1881.00" YTo="3058.00" from="1671" to="814" Priority="-1" Angle="124.85" Type="84" function="normal">
+   <edge id="-545285123" from="1671" to="814" priority="-1" type="84" function="normal">
       <lanes>
          <lane id="-545285123_0" depart="1" vclasses="" maxspeed="16.67" length="451.35">2238.97,2809.78 2108.67,2824.58 2086.10,2843.23 1998.12,2928.22 1946.16,2973.17 1894.41,3031.90 1885.62,3051.67</lane>
       </lanes>
@@ -224,7 +224,7 @@
       <cedge id="545285123">-545285123_0</cedge>
    </edge>
 
-   <edge id="-545285124" Length="369.76" Speed="13.89" Name="-545285124" NoLanes="1" XFrom="1760.00" YFrom="2038.00" XTo="1977.00" YTo="1737.00" from="1563" to="1562" Priority="-1" Angle="324.21" Type="83" function="normal">
+   <edge id="-545285124" from="1563" to="1562" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-545285124_0" depart="1" vclasses="" maxspeed="13.89" length="369.76">1758.77,2036.87 1861.66,1881.03 1974.78,1737.15</lane>
       </lanes>
@@ -232,7 +232,7 @@
       <cedge id="545285124">-545285124_0</cedge>
    </edge>
 
-   <edge id="-545285126" Length="671.47" Speed="13.89" Name="-545285126" NoLanes="2" XFrom="2620.00" YFrom="2018.00" XTo="2080.00" YTo="1608.00" from="1662" to="1560" Priority="-1" Angle="52.79" Type="83" function="normal">
+   <edge id="-545285126" from="1662" to="1560" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-545285126_0" depart="1" vclasses="" maxspeed="13.89" length="671.47">2616.10,2021.39 2365.09,1863.02 2228.75,1750.74 2082.38,1616.88</lane>
          <lane id="-545285126_1" depart="0" vclasses="" maxspeed="13.89" length="671.47">2617.86,2018.60 2367.03,1860.34 2230.92,1748.25 2084.60,1614.45</lane>
@@ -243,7 +243,7 @@
       <cedge id="545285126">-545285126_1</cedge>
    </edge>
 
-   <edge id="-545285142" Length="323.22" Speed="13.89" Name="-545285142" NoLanes="1" XFrom="1170.00" YFrom="916.00" XTo="1420.00" YTo="1128.00" from="100667898" to="1558" Priority="-1" Angle="229.70" Type="83" function="normal">
+   <edge id="-545285142" from="100667898" to="1558" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-545285142_0" depart="1" vclasses="" maxspeed="13.89" length="323.22">1174.68,917.37 1204.03,938.71 1420.89,1126.59</lane>
       </lanes>
@@ -251,7 +251,7 @@
       <cedge id="545285142">-545285142_0</cedge>
    </edge>
 
-   <edge id="-59394061" Length="345.19" Speed="11.11" Name="-59394061" NoLanes="1" XFrom="3235.00" YFrom="77.00" XTo="3023.00" YTo="350.00" from="100674626" to="100668229" Priority="-1" Angle="142.17" Type="82" function="normal">
+   <edge id="-59394061" from="100674626" to="100668229" priority="-1" type="82" function="normal">
       <lanes>
          <lane id="-59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.19">3236.04,78.36 3024.32,350.99</lane>
       </lanes>
@@ -259,7 +259,7 @@
       <cedge id="59394061">-59394061_0</cedge>
    </edge>
 
-   <edge id="-59394070" Length="44.29" Speed="19.44" Name="-59394070" NoLanes="1" XFrom="3271.00" YFrom="50.00" XTo="3235.00" YTo="77.00" from="100674627" to="100674626" Priority="-1" Angle="126.87" Type="85" function="normal">
+   <edge id="-59394070" from="100674627" to="100674626" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="-59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">3271.77,51.48 3236.34,78.06</lane>
       </lanes>
@@ -267,14 +267,14 @@
       <cedge id="59394070">-59394070_0</cedge>
    </edge>
 
-   <edge id="-83535600" Length="163.50" Speed="19.44" Name="-83535600" NoLanes="1" XFrom="3449.00" YFrom="15.00" XTo="3616.00" YTo="2.00" from="100674947" to="1678" Priority="-1" Angle="274.45" Type="85" function="normal">
+   <edge id="-83535600" from="100674947" to="1678" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="-83535600_0" depart="1" vclasses="" maxspeed="19.44" length="163.50">3450.96,12.86 3513.83,-1.65 3612.78,0.29</lane>
       </lanes>
       <cedge id="83535600">-83535600_0</cedge>
    </edge>
 
-   <edge id="-83535603" Length="30.22" Speed="3.06" Name="-83535603" NoLanes="1" XFrom="3425.00" YFrom="20.00" XTo="3449.00" YTo="15.00" from="100674949" to="100674947" Priority="-1" Angle="281.77" Type="0" function="normal">
+   <edge id="-83535603" from="100674949" to="100674947" priority="-1" type="0" function="normal">
       <lanes>
          <lane id="-83535603_0" depart="1" vclasses="" maxspeed="3.06" length="30.22">3427.39,21.09 3429.07,24.45 3446.48,26.19 3447.17,17.25</lane>
       </lanes>
@@ -282,7 +282,7 @@
       <cedge id="83535603">-83535603_0</cedge>
    </edge>
 
-   <edge id="-905001136" Length="731.51" Speed="13.89" Name="-905001136" NoLanes="1" XFrom="1170.00" YFrom="916.00" XTo="560.00" YTo="508.00" from="100667898" to="1556" Priority="-1" Angle="56.22" Type="83" function="normal">
+   <edge id="-905001136" from="100667898" to="1556" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905001136_0" depart="1" vclasses="" maxspeed="13.89" length="731.51">1165.12,914.40 1125.01,884.32 1104.00,868.32 721.14,582.42 645.32,545.50 559.71,509.67</lane>
       </lanes>
@@ -290,7 +290,7 @@
       <cedge id="905001136">-905001136_0</cedge>
    </edge>
 
-   <edge id="-905001580" Length="434.36" Speed="8.33" Name="-905001580" NoLanes="1" XFrom="2964.00" YFrom="2248.00" XTo="3157.00" YTo="1859.00" from="100668332" to="1668" Priority="-1" Angle="333.61" Type="81" function="normal">
+   <edge id="-905001580" from="100668332" to="1668" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905001580_0" depart="1" vclasses="" maxspeed="8.33" length="434.36">2962.83,2246.83 3014.62,2184.08 3076.48,2066.34 3133.47,1904.37 3154.31,1860.80</lane>
       </lanes>
@@ -298,7 +298,7 @@
       <cedge id="905001580">-905001580_0</cedge>
    </edge>
 
-   <edge id="-905001592" Length="249.51" Speed="8.33" Name="-905001592" NoLanes="1" XFrom="3399.00" YFrom="1940.00" XTo="3157.00" YTo="1859.00" from="100668295" to="1668" Priority="-1" Angle="71.49" Type="81" function="normal">
+   <edge id="-905001592" from="100668295" to="1668" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905001592_0" depart="1" vclasses="" maxspeed="8.33" length="249.51">3395.71,1940.55 3275.48,1896.57 3159.19,1861.39</lane>
       </lanes>
@@ -306,7 +306,7 @@
       <cedge id="905001592">-905001592_0</cedge>
    </edge>
 
-   <edge id="-905002241" Length="242.92" Speed="8.33" Name="-905002241" NoLanes="1" XFrom="3051.00" YFrom="2609.00" XTo="2853.00" YTo="2458.00" from="100668353" to="1669" Priority="-1" Angle="52.67" Type="81" function="normal">
+   <edge id="-905002241" from="100668353" to="1669" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905002241_0" depart="1" vclasses="" maxspeed="8.33" length="242.92">3047.73,2608.59 2988.00,2563.31 2919.99,2512.31 2854.56,2461.31</lane>
       </lanes>
@@ -314,7 +314,7 @@
       <cedge id="905002241">-905002241_0</cedge>
    </edge>
 
-   <edge id="-905002243" Length="173.04" Speed="8.33" Name="-905002243" NoLanes="1" XFrom="3539.00" YFrom="1147.00" XTo="3640.00" YTo="1288.00" from="100668282" to="1665" Priority="-1" Angle="215.61" Type="81" function="normal">
+   <edge id="-905002243" from="100668282" to="1665" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905002243_0" depart="1" vclasses="" maxspeed="8.33" length="173.04">3540.42,1146.15 3583.35,1209.05 3635.29,1279.97 3641.13,1286.79</lane>
       </lanes>
@@ -322,7 +322,7 @@
       <cedge id="905002243">-905002243_0</cedge>
    </edge>
 
-   <edge id="-905002245" Length="313.97" Speed="13.89" Name="-905002245" NoLanes="1" XFrom="3200.00" YFrom="2488.00" XTo="3412.00" YTo="2687.00" from="1649" to="1610" Priority="-1" Angle="226.81" Type="83" function="normal">
+   <edge id="-905002245" from="1649" to="1610" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905002245_0" depart="1" vclasses="" maxspeed="13.89" length="313.97">3201.42,2486.97 3266.99,2531.68 3308.07,2565.75 3366.06,2614.74 3431.47,2670.94 3417.56,2684.03</lane>
       </lanes>
@@ -331,7 +331,7 @@
       <cedge id="905002245">-905002245_0</cedge>
    </edge>
 
-   <edge id="-905002246" Length="513.24" Speed="8.33" Name="-905002246" NoLanes="1" XFrom="3466.00" YFrom="1708.00" XTo="3640.00" YTo="1288.00" from="1666" to="1665" Priority="-1" Angle="337.50" Type="81" function="normal">
+   <edge id="-905002246" from="1666" to="1665" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905002246_0" depart="1" vclasses="" maxspeed="8.33" length="513.24">3464.93,1706.67 3700.99,1380.97 3638.74,1289.08</lane>
       </lanes>
@@ -339,7 +339,7 @@
       <cedge id="905002246">-905002246_0</cedge>
    </edge>
 
-   <edge id="-905002247" Length="314.01" Speed="8.33" Name="-905002247" NoLanes="1" XFrom="3051.00" YFrom="2609.00" XTo="2820.00" YTo="2828.00" from="100668353" to="1670" Priority="-1" Angle="133.47" Type="81" function="normal">
+   <edge id="-905002247" from="100668353" to="1670" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905002247_0" depart="1" vclasses="" maxspeed="8.33" length="314.01">3051.02,2612.30 3048.31,2617.04 2822.81,2827.64</lane>
       </lanes>
@@ -347,7 +347,7 @@
       <cedge id="905002247">-905002247_0</cedge>
    </edge>
 
-   <edge id="-905002541" Length="579.44" Speed="13.89" Name="-905002541" NoLanes="2" XFrom="362.00" YFrom="1844.00" XTo="798.00" YTo="2223.00" from="100667830" to="1566" Priority="-1" Angle="229.00" Type="83" function="normal">
+   <edge id="-905002541" from="100667830" to="1566" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905002541_0" depart="1" vclasses="" maxspeed="13.89" length="579.44">365.29,1840.27 399.86,1864.96 429.87,1885.97 561.22,1981.22 691.49,2111.48 801.45,2219.45</lane>
          <lane id="-905002541_1" depart="0" vclasses="" maxspeed="13.89" length="579.44">363.38,1842.96 397.96,1867.66 427.96,1888.66 559.07,1983.74 689.16,2113.83 799.15,2221.82</lane>
@@ -356,7 +356,7 @@
       <cedge id="905002541">-905002541_1</cedge>
    </edge>
 
-   <edge id="-905002550" Length="450.29" Speed="13.89" Name="-905002550" NoLanes="1" XFrom="1250.00" YFrom="2668.00" XTo="1520.00" YTo="2298.00" from="1565" to="1564" Priority="-1" Angle="323.88" Type="83" function="normal">
+   <edge id="-905002550" from="1565" to="1564" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905002550_0" depart="1" vclasses="" maxspeed="13.89" length="450.29">1255.54,2660.12 1292.76,2622.91 1380.68,2509.01 1399.69,2483.00 1482.58,2378.14 1518.27,2297.82</lane>
       </lanes>
@@ -364,7 +364,7 @@
       <cedge id="905002550">-905002550_0</cedge>
    </edge>
 
-   <edge id="-905002551" Length="272.23" Speed="13.89" Name="-905002551" NoLanes="2" XFrom="1054.00" YFrom="2472.00" XTo="1250.00" YTo="2668.00" from="100667891" to="1565" Priority="-1" Angle="225.00" Type="83" function="normal">
+   <edge id="-905002551" from="100667891" to="1565" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905002551_0" depart="1" vclasses="" maxspeed="13.89" length="272.23">1057.40,2468.41 1135.40,2542.40 1223.46,2626.46 1246.07,2649.07 1251.25,2659.43</lane>
          <lane id="-905002551_1" depart="0" vclasses="" maxspeed="13.89" length="272.23">1055.13,2470.80 1133.14,2544.81 1221.15,2628.82 1243.36,2651.02 1248.30,2660.90</lane>
@@ -374,7 +374,7 @@
       <cedge id="905002551">-905002551_1</cedge>
    </edge>
 
-   <edge id="-905002586" Length="468.77" Speed="11.11" Name="-905002586" NoLanes="1" XFrom="2735.00" YFrom="728.00" XTo="3023.00" YTo="350.00" from="605000010" to="100668229" Priority="-1" Angle="322.70" Type="82" function="normal">
+   <edge id="-905002586" from="605000010" to="100668229" priority="-1" type="82" function="normal">
       <lanes>
          <lane id="-905002586_0" depart="1" vclasses="" maxspeed="11.11" length="468.77">2737.60,721.86 3021.70,348.99</lane>
       </lanes>
@@ -382,7 +382,7 @@
       <cedge id="905002586">-905002586_0</cedge>
    </edge>
 
-   <edge id="-905005462" Length="100.59" Speed="13.89" Name="-905005462" NoLanes="1" XFrom="3380.00" YFrom="2788.00" XTo="3412.00" YTo="2687.00" from="1612" to="1610" Priority="-1" Angle="342.42" Type="83" function="normal">
+   <edge id="-905005462" from="1612" to="1610" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905005462_0" depart="1" vclasses="" maxspeed="13.89" length="100.59">3378.43,2787.50 3408.81,2691.61</lane>
       </lanes>
@@ -391,7 +391,7 @@
       <cedge id="905005462">-905005462_0</cedge>
    </edge>
 
-   <edge id="-905005617" Length="419.85" Speed="13.89" Name="-905005617" NoLanes="1" XFrom="2735.00" YFrom="728.00" XTo="2480.00" YTo="1068.00" from="605000010" to="1561" Priority="-1" Angle="143.13" Type="83" function="normal">
+   <edge id="-905005617" from="605000010" to="1561" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905005617_0" depart="1" vclasses="" maxspeed="13.89" length="419.85">2734.13,731.91 2482.22,1067.79</lane>
       </lanes>
@@ -399,7 +399,7 @@
       <cedge id="905005617">-905005617_0</cedge>
    </edge>
 
-   <edge id="-905005621" Length="288.76" Speed="13.89" Name="-905005621" NoLanes="1" XFrom="2984.00" YFrom="2291.00" XTo="3200.00" YTo="2488.00" from="1661" to="1649" Priority="-1" Angle="227.63" Type="83" function="normal">
+   <edge id="-905005621" from="1661" to="1649" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905005621_0" depart="1" vclasses="" maxspeed="13.89" length="288.76">2988.78,2292.84 3118.02,2400.71 3173.23,2446.88 3201.01,2486.57</lane>
       </lanes>
@@ -407,7 +407,7 @@
       <cedge id="905005621">-905005621_0</cedge>
    </edge>
 
-   <edge id="-905005623" Length="405.19" Speed="13.89" Name="-905005623" NoLanes="1" XFrom="2951.00" YFrom="2261.00" XTo="2620.00" YTo="2018.00" from="100668287" to="1662" Priority="-1" Angle="53.72" Type="83" function="normal">
+   <edge id="-905005623" from="100668287" to="1662" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905005623_0" depart="1" vclasses="" maxspeed="13.89" length="405.19">2946.50,2259.27 2926.90,2242.23 2863.91,2188.24 2831.00,2159.31 2620.35,2020.21</lane>
       </lanes>
@@ -415,7 +415,7 @@
       <cedge id="905005623">-905005623_0</cedge>
    </edge>
 
-   <edge id="-905005626" Length="405.66" Speed="13.89" Name="-905005626" NoLanes="2" XFrom="1501.00" YFrom="2906.00" XTo="1881.00" YTo="3058.00" from="1672" to="814" Priority="-1" Angle="248.20" Type="83" function="normal">
+   <edge id="-905005626" from="1672" to="814" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905005626_0" depart="1" vclasses="" maxspeed="13.89" length="405.66">1507.52,2905.20 1561.66,2953.74 1619.62,2977.32 1878.65,3052.17</lane>
          <lane id="-905005626_1" depart="0" vclasses="" maxspeed="13.89" length="405.66">1505.32,2907.66 1559.89,2956.58 1618.54,2980.44 1877.73,3055.34</lane>
@@ -424,7 +424,7 @@
       <cedge id="905005626">-905005626_1</cedge>
    </edge>
 
-   <edge id="-905006036" Length="860.76" Speed="8.33" Name="-905006036" NoLanes="1" XFrom="2240.00" YFrom="2808.00" XTo="2820.00" YTo="2828.00" from="1671" to="1670" Priority="-1" Angle="268.03" Type="81" function="normal">
+   <edge id="-905006036" from="1671" to="1670" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905006036_0" depart="1" vclasses="" maxspeed="8.33" length="860.76">2241.95,2807.35 2578.98,3042.67 2656.61,3103.39 2671.23,3104.30 2842.10,2882.77 2819.41,2830.77</lane>
       </lanes>
@@ -432,7 +432,7 @@
       <cedge id="905006036">-905006036_0</cedge>
    </edge>
 
-   <edge id="-905006038" Length="238.31" Speed="8.33" Name="-905006038" NoLanes="1" XFrom="3399.00" YFrom="1940.00" XTo="3466.00" YTo="1708.00" from="100668295" to="1666" Priority="-1" Angle="343.89" Type="81" function="normal">
+   <edge id="-905006038" from="100668295" to="1666" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905006038_0" depart="1" vclasses="" maxspeed="8.33" length="238.31">3398.82,1936.67 3403.45,1927.41 3454.43,1734.50 3464.30,1707.84</lane>
       </lanes>
@@ -440,7 +440,7 @@
       <cedge id="905006038">-905006038_0</cedge>
    </edge>
 
-   <edge id="-905006039" Length="286.86" Speed="8.33" Name="-905006039" NoLanes="1" XFrom="2735.00" YFrom="728.00" XTo="3020.00" YTo="798.00" from="605000010" to="1663" Priority="-1" Angle="256.20" Type="81" function="normal">
+   <edge id="-905006039" from="605000010" to="1663" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905006039_0" depart="1" vclasses="" maxspeed="8.33" length="286.86">2741.67,727.94 3020.24,796.36</lane>
       </lanes>
@@ -448,7 +448,7 @@
       <cedge id="905006039">-905006039_0</cedge>
    </edge>
 
-   <edge id="-905006040" Length="341.96" Speed="8.33" Name="-905006040" NoLanes="1" XFrom="3360.00" YFrom="848.00" XTo="3020.00" YTo="798.00" from="1664" to="1663" Priority="-1" Angle="81.63" Type="81" function="normal">
+   <edge id="-905006040" from="1664" to="1663" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905006040_0" depart="1" vclasses="" maxspeed="8.33" length="341.96">3358.24,849.41 3019.91,799.65</lane>
       </lanes>
@@ -456,7 +456,7 @@
       <cedge id="905006040">-905006040_0</cedge>
    </edge>
 
-   <edge id="-905006041" Length="346.85" Speed="8.33" Name="-905006041" NoLanes="1" XFrom="3539.00" YFrom="1147.00" XTo="3360.00" YTo="848.00" from="100668282" to="1664" Priority="-1" Angle="30.91" Type="81" function="normal">
+   <edge id="-905006041" from="100668282" to="1664" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="-905006041_0" depart="1" vclasses="" maxspeed="8.33" length="346.85">3537.54,1147.77 3359.38,850.17</lane>
       </lanes>
@@ -464,7 +464,7 @@
       <cedge id="905006041">-905006041_0</cedge>
    </edge>
 
-   <edge id="-905006042" Length="662.37" Speed="13.89" Name="-905006042" NoLanes="2" XFrom="2480.00" YFrom="1068.00" XTo="2080.00" YTo="1608.00" from="1561" to="1560" Priority="-1" Angle="143.47" Type="83" function="normal">
+   <edge id="-905006042" from="1561" to="1560" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905006042_0" depart="1" vclasses="" maxspeed="13.89" length="662.37">2483.09,1072.15 2088.82,1604.41</lane>
          <lane id="-905006042_1" depart="0" vclasses="" maxspeed="13.89" length="662.37">2480.43,1070.19 2086.17,1602.44</lane>
@@ -475,14 +475,14 @@
       <cedge id="905006042">-905006042_1</cedge>
    </edge>
 
-   <edge id="-905006117" Length="130.38" Speed="22.22" Name="-905006117" NoLanes="1" XFrom="3930.00" YFrom="3109.00" XTo="4020.00" YTo="3208.00" from="100674916" to="1659" Priority="-1" Angle="222.27" Type="86" function="normal">
+   <edge id="-905006117" from="100674916" to="1659" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="-905006117_0" depart="1" vclasses="" maxspeed="22.22" length="130.38">3931.33,3108.01 4019.03,3204.49</lane>
       </lanes>
       <cedge id="905006117">-905006117_0</cedge>
    </edge>
 
-   <edge id="-905006119" Length="341.94" Speed="13.89" Name="-905006119" NoLanes="1" XFrom="1700.00" YFrom="1338.00" XTo="1420.00" YTo="1128.00" from="1559" to="1558" Priority="-1" Angle="53.13" Type="83" function="normal">
+   <edge id="-905006119" from="1559" to="1558" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905006119_0" depart="1" vclasses="" maxspeed="13.89" length="341.94">1692.12,1332.53 1603.97,1245.30 1419.34,1129.53</lane>
       </lanes>
@@ -490,7 +490,7 @@
       <cedge id="905006119">-905006119_0</cedge>
    </edge>
 
-   <edge id="-905006120" Length="464.98" Speed="13.89" Name="-905006120" NoLanes="1" XFrom="2080.00" YFrom="1608.00" XTo="1700.00" YTo="1338.00" from="1560" to="1559" Priority="-1" Angle="54.61" Type="83" function="normal">
+   <edge id="-905006120" from="1560" to="1559" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="-905006120_0" depart="1" vclasses="" maxspeed="13.89" length="464.98">2072.62,1604.32 1757.22,1357.49 1695.64,1338.37</lane>
       </lanes>
@@ -498,14 +498,14 @@
       <cedge id="905006120">-905006120_0</cedge>
    </edge>
 
-   <edge id="-905006352" Length="93.79" Speed="3.06" Name="-905006352" NoLanes="1" XFrom="1501.00" YFrom="2906.00" XTo="1566.00" YTo="2823.00" from="1672" to="261" Priority="-1" Angle="321.93" Type="0" function="normal">
+   <edge id="-905006352" from="1672" to="261" priority="-1" type="0" function="normal">
       <lanes>
          <lane id="-905006352_0" depart="1" vclasses="" maxspeed="3.06" length="93.79">1504.87,2898.38 1562.70,2824.54</lane>
       </lanes>
       <cedge id="905006352">-905006352_0</cedge>
    </edge>
 
-   <edge id="-905006790" Length="139.33" Speed="22.22" Name="-905006790" NoLanes="1" XFrom="3499.00" YFrom="2732.00" XTo="3605.00" YTo="2823.00" from="605001135" to="100668362" Priority="-1" Angle="229.35" Type="86" function="normal">
+   <edge id="-905006790" from="605001135" to="100668362" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="-905006790_0" depart="1" vclasses="" maxspeed="22.22" length="139.33">3500.36,2731.00 3606.08,2821.75</lane>
       </lanes>
@@ -513,7 +513,7 @@
       <cedge id="905006790">-905006790_0</cedge>
    </edge>
 
-   <edge id="53091382" Length="588.62" Speed="13.89" Name="53091382" NoLanes="1" XFrom="0.00" YFrom="588.00" XTo="560.00" YTo="508.00" from="1555" to="1556" Priority="-1" Angle="278.13" Type="83" function="normal">
+   <edge id="53091382" from="1555" to="1556" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091382_0" depart="1" vclasses="" maxspeed="13.89" length="588.62">-1.03,586.71 72.20,528.53 140.60,505.39 269.86,484.35 421.13,483.35 559.90,506.31</lane>
       </lanes>
@@ -521,7 +521,7 @@
       <cedge id="-53091382">53091382_0</cedge>
    </edge>
 
-   <edge id="53091482" Length="35.26" Speed="13.89" Name="53091482" NoLanes="2" XFrom="330.00" YFrom="1828.00" XTo="362.00" YTo="1844.00" from="1567" to="100667830" Priority="-1" Angle="243.43" Type="83" function="normal">
+   <edge id="53091482" from="1567" to="100667830" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">332.21,1823.57 363.75,1839.34</lane>
          <lane id="53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">330.74,1826.52 362.28,1842.29</lane>
@@ -530,7 +530,7 @@
       <cedge id="-53091482">53091482_1</cedge>
    </edge>
 
-   <edge id="53091559" Length="357.08" Speed="13.89" Name="53091559" NoLanes="2" XFrom="798.00" YFrom="2223.00" XTo="1054.00" YTo="2472.00" from="1566" to="100667891" Priority="-1" Angle="225.79" Type="83" function="normal">
+   <edge id="53091559" from="1566" to="100667891" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091559_0" depart="1" vclasses="" maxspeed="13.89" length="357.08">801.45,2219.45 1057.40,2468.41</lane>
          <lane id="53091559_1" depart="0" vclasses="" maxspeed="13.89" length="357.08">799.15,2221.82 1055.13,2470.80</lane>
@@ -539,7 +539,7 @@
       <cedge id="-53091559">53091559_1</cedge>
    </edge>
 
-   <edge id="53091570" Length="175.03" Speed="13.89" Name="53091570" NoLanes="1" XFrom="1057.00" YFrom="1056.00" XTo="1170.00" YTo="916.00" from="100667780" to="100667898" Priority="-1" Angle="321.09" Type="83" function="normal">
+   <edge id="53091570" from="100667780" to="100667898" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091570_0" depart="1" vclasses="" maxspeed="13.89" length="175.03">1055.72,1054.95 1165.66,918.75</lane>
       </lanes>
@@ -548,7 +548,7 @@
       <cedge id="-53091570">53091570_0</cedge>
    </edge>
 
-   <edge id="53091573" Length="27.83" Speed="13.89" Name="53091573" NoLanes="1" XFrom="1040.00" YFrom="1078.00" XTo="1057.00" YTo="1056.00" from="1507" to="100667780" Priority="-1" Angle="322.31" Type="83" function="normal">
+   <edge id="53091573" from="1507" to="100667780" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091573_0" depart="1" vclasses="" maxspeed="13.89" length="27.83">1038.69,1076.99 1055.71,1054.97</lane>
       </lanes>
@@ -556,7 +556,7 @@
       <cedge id="-53091573">53091573_0</cedge>
    </edge>
 
-   <edge id="53091615" Length="155.29" Speed="13.89" Name="53091615" NoLanes="1" XFrom="2080.00" YFrom="1608.00" XTo="1977.00" YTo="1737.00" from="1560" to="1562" Priority="-1" Angle="141.39" Type="83" function="normal">
+   <edge id="53091615" from="1560" to="1562" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091615_0" depart="1" vclasses="" maxspeed="13.89" length="155.29">2076.12,1615.50 1979.22,1736.86</lane>
       </lanes>
@@ -564,7 +564,7 @@
       <cedge id="-53091615">53091615_0</cedge>
    </edge>
 
-   <edge id="53091628" Length="353.03" Speed="13.89" Name="53091628" NoLanes="1" XFrom="1760.00" YFrom="2038.00" XTo="1520.00" YTo="2298.00" from="1563" to="1564" Priority="-1" Angle="137.29" Type="83" function="normal">
+   <edge id="53091628" from="1563" to="1564" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091628_0" depart="1" vclasses="" maxspeed="13.89" length="353.03">1761.03,2039.31 1521.58,2298.72</lane>
       </lanes>
@@ -572,7 +572,7 @@
       <cedge id="-53091628">53091628_0</cedge>
    </edge>
 
-   <edge id="53091655" Length="335.59" Speed="13.89" Name="53091655" NoLanes="2" XFrom="1250.00" YFrom="2668.00" XTo="1501.00" YTo="2906.00" from="1565" to="1672" Priority="-1" Angle="226.52" Type="83" function="normal">
+   <edge id="53091655" from="1565" to="1672" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53091655_0" depart="1" vclasses="" maxspeed="13.89" length="335.59">1256.98,2667.80 1500.50,2898.70</lane>
          <lane id="53091655_1" depart="0" vclasses="" maxspeed="13.89" length="335.59">1254.71,2670.19 1498.23,2901.10</lane>
@@ -582,7 +582,7 @@
       <cedge id="-53091655">53091655_1</cedge>
    </edge>
 
-   <edge id="53092310" Length="35.17" Speed="13.89" Name="53092310" NoLanes="1" XFrom="2984.00" YFrom="2291.00" XTo="2951.00" YTo="2261.00" from="1661" to="100668287" Priority="-1" Angle="47.73" Type="83" function="normal">
+   <edge id="53092310" from="1661" to="100668287" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="53092310_0" depart="1" vclasses="" maxspeed="13.89" length="35.17">2979.54,2289.18 2953.52,2265.52</lane>
       </lanes>
@@ -591,7 +591,7 @@
       <cedge id="-53092310">53092310_0</cedge>
    </edge>
 
-   <edge id="53092402" Length="204.14" Speed="8.33" Name="53092402" NoLanes="1" XFrom="2984.00" YFrom="2291.00" XTo="2853.00" YTo="2458.00" from="1661" to="1669" Priority="-1" Angle="141.89" Type="81" function="normal">
+   <edge id="53092402" from="1661" to="1669" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="53092402_0" depart="1" vclasses="" maxspeed="8.33" length="204.14">2982.30,2295.83 2856.31,2456.45</lane>
       </lanes>
@@ -599,7 +599,7 @@
       <cedge id="-53092402">53092402_0</cedge>
    </edge>
 
-   <edge id="53092407" Length="91.48" Speed="22.22" Name="53092407" NoLanes="1" XFrom="3412.00" YFrom="2687.00" XTo="3499.00" YTo="2732.00" from="1610" to="605001135" Priority="-1" Angle="242.65" Type="86" function="normal">
+   <edge id="53092407" from="1610" to="605001135" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="53092407_0" depart="1" vclasses="" maxspeed="22.22" length="91.48">3418.17,2688.33 3499.42,2730.36</lane>
       </lanes>
@@ -607,7 +607,7 @@
       <cedge id="-53092407">53092407_0</cedge>
    </edge>
 
-   <edge id="53092869" Length="13.32" Speed="8.33" Name="53092869" NoLanes="1" XFrom="2951.00" YFrom="2261.00" XTo="2964.00" YTo="2248.00" from="100668287" to="100668332" Priority="-1" Angle="315.00" Type="81" function="normal">
+   <edge id="53092869" from="100668287" to="100668332" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="53092869_0" depart="1" vclasses="" maxspeed="8.33" length="13.32">2953.30,2256.36 2962.72,2246.94</lane>
       </lanes>
@@ -615,7 +615,7 @@
       <cedge id="-53092869">53092869_0</cedge>
    </edge>
 
-   <edge id="545279717" Length="157.64" Speed="19.44" Name="545279717" NoLanes="1" XFrom="3271.00" YFrom="50.00" XTo="3425.00" YTo="20.00" from="100674627" to="100674949" Priority="-1" Angle="281.02" Type="85" function="normal">
+   <edge id="545279717" from="100674627" to="100674949" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="545279717_0" depart="1" vclasses="" maxspeed="19.44" length="157.64">3270.48,48.41 3299.43,33.44 3362.81,19.35 3422.93,18.38</lane>
       </lanes>
@@ -623,7 +623,7 @@
       <cedge id="-545279717">545279717_0</cedge>
    </edge>
 
-   <edge id="545279727" Length="432.82" Speed="22.22" Name="545279727" NoLanes="1" XFrom="3605.00" YFrom="2823.00" XTo="3930.00" YTo="3109.00" from="100668362" to="100674916" Priority="-1" Angle="228.65" Type="86" function="normal">
+   <edge id="545279727" from="100668362" to="100674916" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="545279727_0" depart="1" vclasses="" maxspeed="22.22" length="432.82">3606.08,2821.75 3779.09,2970.76 3930.98,3107.67</lane>
       </lanes>
@@ -631,7 +631,7 @@
       <cedge id="-545279727">545279727_0</cedge>
    </edge>
 
-   <edge id="545285123" Length="454.84" Speed="16.67" Name="545285123" NoLanes="1" XFrom="1881.00" YFrom="3058.00" XTo="2240.00" YTo="2808.00" from="814" to="1671" Priority="-1" Angle="304.85" Type="84" function="normal">
+   <edge id="545285123" from="814" to="1671" priority="-1" type="84" function="normal">
       <lanes>
          <lane id="545285123_0" depart="1" vclasses="" maxspeed="16.67" length="454.84">1882.60,3050.33 1891.59,3030.10 1943.84,2970.83 1995.88,2925.78 2083.90,2840.77 2107.33,2821.42 2238.59,2806.50</lane>
       </lanes>
@@ -639,7 +639,7 @@
       <cedge id="-545285123">545285123_0</cedge>
    </edge>
 
-   <edge id="545285124" Length="369.49" Speed="13.89" Name="545285124" NoLanes="1" XFrom="1977.00" YFrom="1737.00" XTo="1760.00" YTo="2038.00" from="1562" to="1563" Priority="-1" Angle="144.21" Type="83" function="normal">
+   <edge id="545285124" from="1562" to="1563" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="545285124_0" depart="1" vclasses="" maxspeed="13.89" length="369.49">1977.37,1739.19 1864.34,1882.97 1761.52,2038.69</lane>
       </lanes>
@@ -647,7 +647,7 @@
       <cedge id="-545285124">545285124_0</cedge>
    </edge>
 
-   <edge id="545285126" Length="670.59" Speed="13.89" Name="545285126" NoLanes="1" XFrom="2080.00" YFrom="1608.00" XTo="2620.00" YTo="2018.00" from="1560" to="1662" Priority="-1" Angle="232.79" Type="83" function="normal">
+   <edge id="545285126" from="1560" to="1662" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="545285126_0" depart="1" vclasses="" maxspeed="13.89" length="670.59">2086.83,1612.01 2233.08,1745.75 2368.97,1857.66 2619.62,2015.81</lane>
       </lanes>
@@ -655,7 +655,7 @@
       <cedge id="-545285126">545285126_0</cedge>
    </edge>
 
-   <edge id="545285142" Length="322.93" Speed="13.89" Name="545285142" NoLanes="1" XFrom="1420.00" YFrom="1128.00" XTo="1170.00" YTo="916.00" from="1558" to="100667898" Priority="-1" Angle="49.70" Type="83" function="normal">
+   <edge id="545285142" from="1558" to="100667898" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="545285142_0" depart="1" vclasses="" maxspeed="13.89" length="322.93">1418.73,1129.08 1201.97,941.29 1172.74,920.03</lane>
       </lanes>
@@ -664,7 +664,7 @@
       <cedge id="-545285142">545285142_0</cedge>
    </edge>
 
-   <edge id="59394061" Length="345.21" Speed="11.11" Name="59394061" NoLanes="1" XFrom="3023.00" YFrom="350.00" XTo="3235.00" YTo="77.00" from="100668229" to="100674626" Priority="-1" Angle="322.17" Type="82" function="normal">
+   <edge id="59394061" from="100668229" to="100674626" priority="-1" type="82" function="normal">
       <lanes>
          <lane id="59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.21">3021.70,348.98 3233.43,76.33</lane>
       </lanes>
@@ -672,7 +672,7 @@
       <cedge id="-59394061">59394061_0</cedge>
    </edge>
 
-   <edge id="59394070" Length="44.29" Speed="19.44" Name="59394070" NoLanes="1" XFrom="3235.00" YFrom="77.00" XTo="3271.00" YTo="50.00" from="100674626" to="100674627" Priority="-1" Angle="306.87" Type="85" function="normal">
+   <edge id="59394070" from="100674626" to="100674627" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">3234.36,75.42 3269.79,48.84</lane>
       </lanes>
@@ -680,7 +680,7 @@
       <cedge id="-59394070">59394070_0</cedge>
    </edge>
 
-   <edge id="83535600" Length="165.93" Speed="19.44" Name="83535600" NoLanes="1" XFrom="3616.00" YFrom="2.00" XTo="3449.00" YTo="15.00" from="1678" to="100674947" Priority="-1" Angle="94.45" Type="85" function="normal">
+   <edge id="83535600" from="1678" to="100674947" priority="-1" type="85" function="normal">
       <lanes>
          <lane id="83535600_0" depart="1" vclasses="" maxspeed="19.44" length="165.93">3615.97,3.65 3514.17,1.65 3451.70,16.07</lane>
       </lanes>
@@ -688,7 +688,7 @@
       <cedge id="-83535600">83535600_0</cedge>
    </edge>
 
-   <edge id="83535603" Length="40.61" Speed="22.22" Name="83535603" NoLanes="1" XFrom="3449.00" YFrom="15.00" XTo="3425.00" YTo="20.00" from="100674947" to="100674949" Priority="-1" Angle="101.77" Type="86" function="normal">
+   <edge id="83535603" from="100674947" to="100674949" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="83535603_0" depart="1" vclasses="" maxspeed="22.22" length="40.61">3450.46,17.51 3449.52,29.81 3426.93,27.55 3424.44,22.57</lane>
       </lanes>
@@ -696,7 +696,7 @@
       <cedge id="-83535603">83535603_0</cedge>
    </edge>
 
-   <edge id="905001136" Length="732.32" Speed="13.89" Name="905001136" NoLanes="1" XFrom="560.00" YFrom="508.00" XTo="1170.00" YTo="916.00" from="1556" to="100667898" Priority="-1" Angle="236.22" Type="83" function="normal">
+   <edge id="905001136" from="1556" to="100667898" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905001136_0" depart="1" vclasses="" maxspeed="13.89" length="732.32">560.99,506.62 646.68,542.50 722.86,579.58 1105.99,865.68 1127.00,881.68 1167.10,911.76</lane>
       </lanes>
@@ -705,7 +705,7 @@
       <cedge id="-905001136">905001136_0</cedge>
    </edge>
 
-   <edge id="905001580" Length="435.17" Speed="8.33" Name="905001580" NoLanes="1" XFrom="3157.00" YFrom="1859.00" XTo="2964.00" YTo="2248.00" from="1668" to="100668332" Priority="-1" Angle="153.61" Type="81" function="normal">
+   <edge id="905001580" from="1668" to="100668332" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905001580_0" depart="1" vclasses="" maxspeed="8.33" length="435.17">3157.29,1862.23 3136.53,1905.63 3079.52,2067.66 3017.38,2185.92 2965.37,2248.93</lane>
       </lanes>
@@ -713,7 +713,7 @@
       <cedge id="-905001580">905001580_0</cedge>
    </edge>
 
-   <edge id="905001592" Length="249.70" Speed="8.33" Name="905001592" NoLanes="1" XFrom="3157.00" YFrom="1859.00" XTo="3399.00" YTo="1940.00" from="1668" to="100668295" Priority="-1" Angle="251.49" Type="81" function="normal">
+   <edge id="905001592" from="1668" to="100668295" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905001592_0" depart="1" vclasses="" maxspeed="8.33" length="249.70">3160.15,1858.23 3276.52,1893.43 3396.84,1937.45</lane>
       </lanes>
@@ -721,7 +721,7 @@
       <cedge id="-905001592">905001592_0</cedge>
    </edge>
 
-   <edge id="905002241" Length="242.88" Speed="8.33" Name="905002241" NoLanes="1" XFrom="2853.00" YFrom="2458.00" XTo="3051.00" YTo="2609.00" from="1669" to="100668353" Priority="-1" Angle="232.67" Type="81" function="normal">
+   <edge id="905002241" from="1669" to="100668353" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905002241_0" depart="1" vclasses="" maxspeed="8.33" length="242.88">2856.59,2458.70 2922.01,2509.69 2989.99,2560.68 3049.72,2605.96</lane>
       </lanes>
@@ -729,7 +729,7 @@
       <cedge id="-905002241">905002241_0</cedge>
    </edge>
 
-   <edge id="905002243" Length="173.40" Speed="8.33" Name="905002243" NoLanes="1" XFrom="3640.00" YFrom="1288.00" XTo="3539.00" YTo="1147.00" from="1665" to="100668282" Priority="-1" Angle="35.61" Type="81" function="normal">
+   <edge id="905002243" from="1665" to="100668282" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905002243_0" depart="1" vclasses="" maxspeed="8.33" length="173.40">3638.63,1288.93 3632.71,1282.03 3580.65,1210.95 3537.69,1148.01</lane>
       </lanes>
@@ -737,7 +737,7 @@
       <cedge id="-905002243">905002243_0</cedge>
    </edge>
 
-   <edge id="905002245" Length="306.27" Speed="13.89" Name="905002245" NoLanes="1" XFrom="3412.00" YFrom="2687.00" XTo="3200.00" YTo="2488.00" from="1610" to="1649" Priority="-1" Angle="46.81" Type="83" function="normal">
+   <edge id="905002245" from="1610" to="1649" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905002245_0" depart="1" vclasses="" maxspeed="13.89" length="306.27">3415.30,2681.63 3426.53,2671.06 3363.93,2617.26 3305.92,2568.25 3265.01,2534.32 3199.56,2489.70</lane>
       </lanes>
@@ -745,7 +745,7 @@
       <cedge id="-905002245">905002245_0</cedge>
    </edge>
 
-   <edge id="905002246" Length="517.86" Speed="8.33" Name="905002246" NoLanes="1" XFrom="3640.00" YFrom="1288.00" XTo="3466.00" YTo="1708.00" from="1665" to="1666" Priority="-1" Angle="157.50" Type="81" function="normal">
+   <edge id="905002246" from="1665" to="1666" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905002246_0" depart="1" vclasses="" maxspeed="8.33" length="517.86">3641.47,1287.23 3705.01,1381.03 3467.60,1708.61</lane>
       </lanes>
@@ -753,7 +753,7 @@
       <cedge id="-905002246">905002246_0</cedge>
    </edge>
 
-   <edge id="905002247" Length="313.01" Speed="8.33" Name="905002247" NoLanes="1" XFrom="2820.00" YFrom="2828.00" XTo="3051.00" YTo="2609.00" from="1670" to="100668353" Priority="-1" Angle="313.47" Type="81" function="normal">
+   <edge id="905002247" from="1670" to="100668353" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905002247_0" depart="1" vclasses="" maxspeed="8.33" length="313.01">2820.55,2825.23 3045.69,2614.96 3048.15,2610.66</lane>
       </lanes>
@@ -761,7 +761,7 @@
       <cedge id="-905002247">905002247_0</cedge>
    </edge>
 
-   <edge id="905002541" Length="578.42" Speed="13.89" Name="905002541" NoLanes="2" XFrom="798.00" YFrom="2223.00" XTo="362.00" YTo="1844.00" from="1566" to="100667830" Priority="-1" Angle="49.00" Type="83" function="normal">
+   <edge id="905002541" from="1566" to="100667830" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905002541_0" depart="1" vclasses="" maxspeed="13.89" length="578.42">794.53,2226.53 684.51,2118.51 554.78,1988.78 424.13,1894.03 394.14,1873.04 359.54,1848.33</lane>
          <lane id="905002541_1" depart="0" vclasses="" maxspeed="13.89" length="578.42">796.84,2224.17 686.84,2116.18 556.93,1986.26 426.04,1891.34 396.05,1870.35 361.46,1845.64</lane>
@@ -770,7 +770,7 @@
       <cedge id="-905002541">905002541_1</cedge>
    </edge>
 
-   <edge id="905002550" Length="451.51" Speed="13.89" Name="905002550" NoLanes="1" XFrom="1520.00" YFrom="2298.00" XTo="1250.00" YTo="2668.00" from="1564" to="1565" Priority="-1" Angle="143.88" Type="83" function="normal">
+   <edge id="905002550" from="1564" to="1565" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905002550_0" depart="1" vclasses="" maxspeed="13.89" length="451.51">1521.29,2299.16 1485.42,2379.86 1402.31,2485.00 1383.32,2510.99 1295.24,2625.09 1257.88,2662.46</lane>
       </lanes>
@@ -779,7 +779,7 @@
       <cedge id="-905002550">905002550_0</cedge>
    </edge>
 
-   <edge id="905002551" Length="269.91" Speed="13.89" Name="905002551" NoLanes="2" XFrom="1250.00" YFrom="2668.00" XTo="1054.00" YTo="2472.00" from="1565" to="100667891" Priority="-1" Angle="45.00" Type="83" function="normal">
+   <edge id="905002551" from="1565" to="100667891" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905002551_0" depart="1" vclasses="" maxspeed="13.89" length="269.91">1242.39,2663.86 1237.93,2654.93 1216.54,2633.54 1128.59,2549.59 1050.59,2475.59</lane>
          <lane id="905002551_1" depart="0" vclasses="" maxspeed="13.89" length="269.91">1245.34,2662.38 1240.64,2652.98 1218.85,2631.18 1130.84,2547.18 1052.86,2473.19</lane>
@@ -788,7 +788,7 @@
       <cedge id="-905002551">905002551_1</cedge>
    </edge>
 
-   <edge id="905002586" Length="468.74" Speed="11.11" Name="905002586" NoLanes="1" XFrom="3023.00" YFrom="350.00" XTo="2735.00" YTo="728.00" from="100668229" to="605000010" Priority="-1" Angle="142.70" Type="82" function="normal">
+   <edge id="905002586" from="100668229" to="605000010" priority="-1" type="82" function="normal">
       <lanes>
          <lane id="905002586_0" depart="1" vclasses="" maxspeed="11.11" length="468.74">3024.30,351.01 2740.23,723.86</lane>
       </lanes>
@@ -797,14 +797,14 @@
       <cedge id="-905002586">905002586_0</cedge>
    </edge>
 
-   <edge id="905005462" Length="97.34" Speed="13.89" Name="905005462" NoLanes="1" XFrom="3412.00" YFrom="2687.00" XTo="3380.00" YTo="2788.00" from="1610" to="1612" Priority="-1" Angle="162.42" Type="83" function="normal">
+   <edge id="905005462" from="1610" to="1612" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905005462_0" depart="1" vclasses="" maxspeed="13.89" length="97.34">3411.95,2692.61 3382.55,2785.40</lane>
       </lanes>
       <cedge id="-905005462">905005462_0</cedge>
    </edge>
 
-   <edge id="905005617" Length="419.85" Speed="13.89" Name="905005617" NoLanes="1" XFrom="2480.00" YFrom="1068.00" XTo="2735.00" YTo="728.00" from="1561" to="605000010" Priority="-1" Angle="323.13" Type="83" function="normal">
+   <edge id="905005617" from="1561" to="605000010" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905005617_0" depart="1" vclasses="" maxspeed="13.89" length="419.85">2479.58,1065.81 2731.49,729.93</lane>
       </lanes>
@@ -813,7 +813,7 @@
       <cedge id="-905005617">905005617_0</cedge>
    </edge>
 
-   <edge id="905005621" Length="287.88" Speed="13.89" Name="905005621" NoLanes="1" XFrom="3200.00" YFrom="2488.00" XTo="2984.00" YTo="2291.00" from="1649" to="1661" Priority="-1" Angle="47.63" Type="83" function="normal">
+   <edge id="905005621" from="1649" to="1661" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905005621_0" depart="1" vclasses="" maxspeed="13.89" length="287.88">3198.31,2488.46 3170.77,2449.13 3115.90,2403.23 2986.67,2295.37</lane>
       </lanes>
@@ -822,7 +822,7 @@
       <cedge id="-905005621">905005621_0</cedge>
    </edge>
 
-   <edge id="905005623" Length="405.62" Speed="13.89" Name="905005623" NoLanes="1" XFrom="2620.00" YFrom="2018.00" XTo="2951.00" YTo="2261.00" from="1662" to="100668287" Priority="-1" Angle="233.72" Type="83" function="normal">
+   <edge id="905005623" from="1662" to="100668287" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905005623_0" depart="1" vclasses="" maxspeed="13.89" length="405.62">2622.17,2017.45 2833.00,2156.69 2866.09,2185.76 2929.09,2239.77 2948.66,2256.78</lane>
       </lanes>
@@ -831,7 +831,7 @@
       <cedge id="-905005623">905005623_0</cedge>
    </edge>
 
-   <edge id="905005626" Length="408.65" Speed="13.89" Name="905005626" NoLanes="2" XFrom="1881.00" YFrom="3058.00" XTo="1501.00" YTo="2906.00" from="814" to="1672" Priority="-1" Angle="68.20" Type="83" function="normal">
+   <edge id="905005626" from="814" to="1672" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905005626_0" depart="1" vclasses="" maxspeed="13.89" length="408.65">1875.90,3061.68 1616.37,2986.68 1556.34,2962.26 1500.91,2912.57</lane>
          <lane id="905005626_1" depart="0" vclasses="" maxspeed="13.89" length="408.65">1876.82,3058.51 1617.46,2983.56 1558.11,2959.42 1503.12,2910.11</lane>
@@ -841,7 +841,7 @@
       <cedge id="-905005626">905005626_1</cedge>
    </edge>
 
-   <edge id="905006036" Length="870.03" Speed="8.33" Name="905006036" NoLanes="1" XFrom="2820.00" YFrom="2828.00" XTo="2240.00" YTo="2808.00" from="1670" to="1671" Priority="-1" Angle="88.03" Type="81" function="normal">
+   <edge id="905006036" from="1670" to="1671" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905006036_0" depart="1" vclasses="" maxspeed="8.33" length="870.03">2822.43,2829.45 2845.90,2883.24 2672.77,3107.70 2655.39,3106.61 2577.02,3045.33 2240.06,2810.06</lane>
       </lanes>
@@ -849,7 +849,7 @@
       <cedge id="-905006036">905006036_0</cedge>
    </edge>
 
-   <edge id="905006038" Length="238.67" Speed="8.33" Name="905006038" NoLanes="1" XFrom="3466.00" YFrom="1708.00" XTo="3399.00" YTo="1940.00" from="1666" to="100668295" Priority="-1" Angle="163.89" Type="81" function="normal">
+   <edge id="905006038" from="1666" to="100668295" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905006038_0" depart="1" vclasses="" maxspeed="8.33" length="238.67">3467.39,1708.99 3457.57,1735.50 3406.55,1928.59 3401.77,1938.14</lane>
       </lanes>
@@ -857,7 +857,7 @@
       <cedge id="-905006038">905006038_0</cedge>
    </edge>
 
-   <edge id="905006039" Length="286.86" Speed="8.33" Name="905006039" NoLanes="1" XFrom="3020.00" YFrom="798.00" XTo="2735.00" YTo="728.00" from="1663" to="605000010" Priority="-1" Angle="76.20" Type="81" function="normal">
+   <edge id="905006039" from="1663" to="605000010" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905006039_0" depart="1" vclasses="" maxspeed="8.33" length="286.86">3019.46,799.57 2740.88,731.14</lane>
       </lanes>
@@ -866,7 +866,7 @@
       <cedge id="-905006039">905006039_0</cedge>
    </edge>
 
-   <edge id="905006040" Length="341.96" Speed="8.33" Name="905006040" NoLanes="1" XFrom="3020.00" YFrom="798.00" XTo="3360.00" YTo="848.00" from="1663" to="1664" Priority="-1" Angle="261.63" Type="81" function="normal">
+   <edge id="905006040" from="1663" to="1664" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905006040_0" depart="1" vclasses="" maxspeed="8.33" length="341.96">3020.39,796.39 3358.72,846.14</lane>
       </lanes>
@@ -874,7 +874,7 @@
       <cedge id="-905006040">905006040_0</cedge>
    </edge>
 
-   <edge id="905006041" Length="346.85" Speed="8.33" Name="905006041" NoLanes="1" XFrom="3360.00" YFrom="848.00" XTo="3539.00" YTo="1147.00" from="1664" to="100668282" Priority="-1" Angle="210.91" Type="81" function="normal">
+   <edge id="905006041" from="1664" to="100668282" priority="-1" type="81" function="normal">
       <lanes>
          <lane id="905006041_0" depart="1" vclasses="" maxspeed="8.33" length="346.85">3362.21,848.47 3540.37,1146.07</lane>
       </lanes>
@@ -882,7 +882,7 @@
       <cedge id="-905006041">905006041_0</cedge>
    </edge>
 
-   <edge id="905006042" Length="662.37" Speed="13.89" Name="905006042" NoLanes="1" XFrom="2080.00" YFrom="1608.00" XTo="2480.00" YTo="1068.00" from="1560" to="1561" Priority="-1" Angle="323.47" Type="83" function="normal">
+   <edge id="905006042" from="1560" to="1561" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905006042_0" depart="1" vclasses="" maxspeed="13.89" length="662.37">2083.52,1600.48 2477.78,1068.22</lane>
       </lanes>
@@ -890,7 +890,7 @@
       <cedge id="-905006042">905006042_0</cedge>
    </edge>
 
-   <edge id="905006117" Length="133.63" Speed="22.22" Name="905006117" NoLanes="1" XFrom="4020.00" YFrom="3208.00" XTo="3930.00" YTo="3109.00" from="1659" to="100674916" Priority="-1" Angle="42.27" Type="86" function="normal">
+   <edge id="905006117" from="1659" to="100674916" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="905006117_0" depart="1" vclasses="" maxspeed="22.22" length="133.63">4018.78,3209.11 3928.89,3110.23</lane>
       </lanes>
@@ -898,7 +898,7 @@
       <cedge id="-905006117">905006117_0</cedge>
    </edge>
 
-   <edge id="905006119" Length="342.67" Speed="13.89" Name="905006119" NoLanes="1" XFrom="1420.00" YFrom="1128.00" XTo="1700.00" YTo="1338.00" from="1558" to="1559" Priority="-1" Angle="233.13" Type="83" function="normal">
+   <edge id="905006119" from="1558" to="1559" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905006119_0" depart="1" vclasses="" maxspeed="13.89" length="342.67">1421.09,1126.74 1606.03,1242.70 1694.44,1330.18</lane>
       </lanes>
@@ -906,7 +906,7 @@
       <cedge id="-905006119">905006119_0</cedge>
    </edge>
 
-   <edge id="905006120" Length="466.80" Speed="13.89" Name="905006120" NoLanes="2" XFrom="1700.00" YFrom="1338.00" XTo="2080.00" YTo="1608.00" from="1559" to="1560" Priority="-1" Angle="234.61" Type="83" function="normal">
+   <edge id="905006120" from="1559" to="1560" priority="-1" type="83" function="normal">
       <lanes>
          <lane id="905006120_0" depart="1" vclasses="" maxspeed="13.89" length="466.80">1697.59,1332.07 1760.34,1351.54 2076.69,1599.12</lane>
          <lane id="905006120_1" depart="0" vclasses="" maxspeed="13.89" length="466.80">1696.61,1335.22 1758.78,1354.51 2074.65,1601.72</lane>
@@ -917,7 +917,7 @@
       <cedge id="-905006120">905006120_1</cedge>
    </edge>
 
-   <edge id="905006352" Length="97.04" Speed="3.06" Name="905006352" NoLanes="1" XFrom="1566.00" YFrom="2823.00" XTo="1501.00" YTo="2906.00" from="261" to="1672" Priority="-1" Angle="141.93" Type="0" function="normal">
+   <edge id="905006352" from="261" to="1672" priority="-1" type="0" function="normal">
       <lanes>
          <lane id="905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1567.30,2824.02 1507.47,2900.41</lane>
       </lanes>
@@ -926,7 +926,7 @@
       <cedge id="-905006352">905006352_0</cedge>
    </edge>
 
-   <edge id="905006790" Length="139.32" Speed="22.22" Name="905006790" NoLanes="1" XFrom="3605.00" YFrom="2823.00" XTo="3499.00" YTo="2732.00" from="100668362" to="605001135" Priority="-1" Angle="49.35" Type="86" function="normal">
+   <edge id="905006790" from="100668362" to="605001135" priority="-1" type="86" function="normal">
       <lanes>
          <lane id="905006790_0" depart="1" vclasses="" maxspeed="22.22" length="139.32">3603.92,2824.25 3498.21,2733.50</lane>
       </lanes>

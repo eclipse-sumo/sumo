@@ -9,13 +9,13 @@
    <node_count>4</node_count>
 
 
-   <edge id="1to2" Length="996.75" Speed="13.90" Name="1to2" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1000.00" YTo="0.00" from="SUMOGenerated0" to="SUMOGenerated1" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="996.75">0.00,-1.65 996.75,-1.65</lane>
       </lanes>
    </edge>
 
-   <edge id="out" Length="7.65" Speed="13.90" Name="out" NoLanes="1" XFrom="1000.10" YFrom="0.00" XTo="1011.00" YTo="0.00" from="SUMOGenerated2" to="SUMOGenerated3" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="out" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="7.65">1000.10,-1.65 1007.75,-1.65</lane>
       </lanes>

@@ -9,7 +9,7 @@
    <node_count>6</node_count>
 
 
-   <edge id="1" Length="1196.86" Speed="28.00" Name="1" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="1700.00" YTo="0.00" from="dl" to="dr" Priority="2" Angle="270.00" Type="" function="normal">
+   <edge id="1" from="dl" to="dr" priority="2" type="" function="normal">
       <lanes>
          <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="1196.86">501.57,0.00 1698.43,0.00</lane>
       </lanes>
@@ -17,28 +17,28 @@
       <cedge id="2">1_0</cedge>
    </edge>
 
-   <edge id="2" Length="297.98" Speed="28.00" Name="2" NoLanes="1" XFrom="1700.00" YFrom="0.00" XTo="1700.00" YTo="190.99" from="dr" to="tr" Priority="2" Angle="180.00" Type="" function="normal">
+   <edge id="2" from="dr" to="tr" priority="2" type="" function="normal">
       <lanes>
          <lane id="2_0" depart="1" vclasses="" maxspeed="28.00" length="297.98">1701.56,0.14 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.08 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
       </lanes>
       <cedge id="3">2_0</cedge>
    </edge>
 
-   <edge id="3" Length="1199.86" Speed="28.00" Name="3" NoLanes="1" XFrom="1700.00" YFrom="190.99" XTo="500.00" YTo="190.99" from="tr" to="tl" Priority="2" Angle="90.00" Type="" function="normal">
+   <edge id="3" from="tr" to="tl" priority="2" type="" function="normal">
       <lanes>
          <lane id="3_0" depart="1" vclasses="" maxspeed="28.00" length="1199.86">1699.93,190.99 500.07,190.99</lane>
       </lanes>
       <cedge id="4">3_0</cedge>
    </edge>
 
-   <edge id="4" Length="297.98" Speed="28.00" Name="4" NoLanes="1" XFrom="500.00" YFrom="190.99" XTo="500.00" YTo="0.00" from="tl" to="dl" Priority="2" Angle="0.00" Type="" function="normal">
+   <edge id="4" from="tl" to="dl" priority="2" type="" function="normal">
       <lanes>
          <lane id="4_0" depart="1" vclasses="" maxspeed="28.00" length="297.98">499.93,190.98 483.42,189.54 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 483.42,1.45 498.44,0.14</lane>
       </lanes>
       <cedge id="1">4_0</cedge>
    </edge>
 
-   <edge id="sink" Length="500.00" Speed="30.00" Name="sink" NoLanes="3" XFrom="1700.00" YFrom="0.00" XTo="2200.00" YTo="0.00" from="dr" to="sink" Priority="1" Angle="270.00" Type="" function="sink">
+   <edge id="sink" from="dr" to="sink" priority="1" type="" function="sink">
       <lanes>
          <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2190.15,-8.25</lane>
          <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2190.15,-4.95</lane>
@@ -46,7 +46,7 @@
       </lanes>
    </edge>
 
-   <edge id="source" Length="500.00" Speed="40.00" Name="source" NoLanes="2" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" from="source" to="dl" Priority="1" Angle="270.00" Type="" function="source">
+   <edge id="source" from="source" to="dl" priority="1" type="" function="source">
       <lanes>
          <lane id="source_0" depart="1" vclasses="" maxspeed="40.00" length="500.00">0.00,-4.95 500.00,-4.95</lane>
          <lane id="source_1" depart="0" vclasses="" maxspeed="40.00" length="500.00">0.00,-1.65 500.00,-1.65</lane>

@@ -456,19 +456,10 @@ NBEdge::writeXMLStep1(std::ostream &into)
 {
     // write the edge's begin
     into << "   <edge id=\"" << _id <<
-    "\" Length=\"" << _length <<
-    "\" Speed=\"" << _speed <<
-    "\" Name=\"" << _name <<
-    "\" NoLanes=\"" << _nolanes <<
-    "\" XFrom=\"" << _from->getPosition().x() <<
-    "\" YFrom=\"" << _from->getPosition().y() <<
-    "\" XTo=\"" << _to->getPosition().x() <<
-    "\" YTo=\"" << _to->getPosition().y() <<
     "\" from=\"" << _from->getID() <<
     "\" to=\"" << _to->getID() <<
-    "\" Priority=\"" << _priority <<
-    "\" Angle=\"" << getAngle() <<
-    "\" Type=\"" << _type <<
+    "\" priority=\"" << _priority <<
+    "\" type=\"" << _type <<
     "\" function=\"";
     switch (_basicType) {
     case EDGEFUNCTION_NORMAL:
