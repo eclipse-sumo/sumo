@@ -22,6 +22,7 @@ def getStructure(dir):
 
 # main
 files = getStructure("./dfrouter")
+files.extend(getStructure("./duarouter"))
 for file in files:
     if(file.endswith(".netc.cfg")):
         print "----------------------------------"
@@ -30,19 +31,6 @@ for file in files:
             (cin, cout) = os.popen4("..\\bin\\netconvert -v -c " + file)
         else:
             (cin, cout) = os.popen4("../src/sumo-netconvert -v -c " + file)
-        line = cout.readline()
-        while line:
-             print line[:-1]
-             line = cout.readline()
-        print "----------------------------------\n"
-for file in files:
-    if(file.endswith(".netg.cfg")):
-        print "----------------------------------"
-        print "Runnning: " + file
-        if(sys.platform=="win32"):
-            (cin, cout) = os.popen4("..\\bin\\netgen -v -c " + file)
-        else:
-            (cin, cout) = os.popen4("../src/sumo-netgen -v -c " + file)
         line = cout.readline()
         while line:
              print line[:-1]
