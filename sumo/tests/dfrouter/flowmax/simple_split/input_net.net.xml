@@ -9,7 +9,7 @@
    <node_count>10</node_count>
 
 
-   <edge id="1to2" Length="98.52" Speed="13.90" Name="1to2" NoLanes="1" XFrom="100.00" YFrom="0.00" XTo="200.00" YTo="0.00" from="1" to="2" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="1to2" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="98.52">100.00,-1.65 198.52,-1.65</lane>
       </lanes>
@@ -17,54 +17,54 @@
       <cedge id="split">1to2_0</cedge>
    </edge>
 
-   <edge id="2to3" Length="93.95" Speed="13.90" Name="2to3" NoLanes="1" XFrom="200.00" YFrom="0.00" XTo="300.00" YTo="0.00" from="2" to="3" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="2to3" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2to3_0" depart="1" vclasses="" maxspeed="13.90" length="93.95">206.05,-1.65 300.00,-1.65</lane>
       </lanes>
       <cedge id="3to4">2to3_0</cedge>
    </edge>
 
-   <edge id="3to4" Length="100.00" Speed="13.90" Name="3to4" NoLanes="1" XFrom="300.00" YFrom="0.00" XTo="400.00" YTo="0.00" from="3" to="4" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="3to4" from="3" to="4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="3to4_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">300.00,-1.65 400.00,-1.65</lane>
       </lanes>
       <cedge id="4to5">3to4_0</cedge>
    </edge>
 
-   <edge id="4to5" Length="96.75" Speed="13.90" Name="4to5" NoLanes="1" XFrom="400.00" YFrom="0.00" XTo="500.00" YTo="0.00" from="4" to="5" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="4to5" from="4" to="5" priority="-1" type="" function="normal">
       <lanes>
          <lane id="4to5_0" depart="1" vclasses="" maxspeed="13.90" length="96.75">400.00,-1.65 496.75,-1.65</lane>
       </lanes>
    </edge>
 
-   <edge id="6to7" Length="100.00" Speed="13.90" Name="6to7" NoLanes="1" XFrom="0.00" YFrom="100.00" XTo="100.00" YTo="100.00" from="6" to="7" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="6to7" from="6" to="7" priority="-1" type="" function="normal">
       <lanes>
          <lane id="6to7_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">0.00,98.35 100.00,98.35</lane>
       </lanes>
       <cedge id="7to8">6to7_0</cedge>
    </edge>
 
-   <edge id="7to8" Length="100.00" Speed="13.90" Name="7to8" NoLanes="1" XFrom="100.00" YFrom="100.00" XTo="200.00" YTo="100.00" from="7" to="8" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="7to8" from="7" to="8" priority="-1" type="" function="normal">
       <lanes>
          <lane id="7to8_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">100.00,98.35 200.00,98.35</lane>
       </lanes>
       <cedge id="8to9">7to8_0</cedge>
    </edge>
 
-   <edge id="8to9" Length="95.32" Speed="13.90" Name="8to9" NoLanes="1" XFrom="200.00" YFrom="100.00" XTo="300.00" YTo="100.00" from="8" to="9" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="8to9" from="8" to="9" priority="-1" type="" function="normal">
       <lanes>
          <lane id="8to9_0" depart="1" vclasses="" maxspeed="13.90" length="95.32">200.00,98.35 295.32,98.35</lane>
       </lanes>
       <cedge id="9to10">8to9_0</cedge>
    </edge>
 
-   <edge id="9to10" Length="93.90" Speed="13.90" Name="9to10" NoLanes="1" XFrom="300.00" YFrom="100.00" XTo="400.00" YTo="100.00" from="9" to="10" Priority="-1" Angle="270.00" Type="" function="normal">
+   <edge id="9to10" from="9" to="10" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9to10_0" depart="1" vclasses="" maxspeed="13.90" length="93.90">302.85,98.35 396.75,98.35</lane>
       </lanes>
    </edge>
 
-   <edge id="split" Length="130.70" Speed="13.90" Name="split" NoLanes="1" XFrom="200.00" YFrom="0.00" XTo="300.00" YTo="100.00" from="2" to="9" Priority="-1" Angle="225.00" Type="" function="normal">
+   <edge id="split" from="2" to="9" priority="-1" type="" function="normal">
       <lanes>
          <lane id="split_0" depart="1" vclasses="" maxspeed="13.90" length="130.70">204.48,2.14 296.89,94.56</lane>
       </lanes>

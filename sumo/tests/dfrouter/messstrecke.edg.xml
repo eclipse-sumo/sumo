@@ -1,0 +1,53 @@
+<edges>
+
+	<edge id="ErnstRuskaSink1O" fromnode="ErnstRuskaSink1" tonode="ErnstRuskaEnd1" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska1O" fromnode="ErnstRuskaEnd1" tonode="ErnstRuskaEinstein" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska2O" fromnode="ErnstRuskaEinstein" tonode="ErnstRuskaHavestadtDiv1" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska231O" fromnode="ErnstRuskaHavestadtDiv1" tonode="ErnstRuskaHavestadt" speed="19." nolanes="3" priority="1"/>
+	<edge id="ErnstRuska232O" fromnode="ErnstRuskaHavestadt" tonode="ErnstRuskaHavestadtDiv2" speed="19." nolanes="3" priority="1"/>
+	<edge id="ErnstRuska3O" fromnode="ErnstRuskaHavestadtDiv2" tonode="ErnstRuskaVolmer" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska4O" fromnode="ErnstRuskaVolmer" tonode="ErnstRuskaAltglienicker" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska5O" fromnode="ErnstRuskaAltglienicker" tonode="ErnstRuskaEnd2" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuskaSink5O" fromnode="ErnstRuskaEnd2" tonode="ErnstRuskaSink2" speed="19." nolanes="2" priority="1"/>
+
+	<edge id="ErnstRuskaSink5W" fromnode="ErnstRuskaSink2" tonode="ErnstRuskaEnd2" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska5W" fromnode="ErnstRuskaEnd2" tonode="ErnstRuskaAltglienicker" speed="19." nolanes="3" priority="1"/>
+	<edge id="ErnstRuska4W" fromnode="ErnstRuskaAltglienicker" tonode="ErnstRuskaVolmer" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska3W" fromnode="ErnstRuskaVolmer" tonode="ErnstRuskaHavestadtDiv2" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska232W" fromnode="ErnstRuskaHavestadtDiv2" tonode="ErnstRuskaHavestadt" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska231W" fromnode="ErnstRuskaHavestadt" tonode="ErnstRuskaHavestadtDiv1" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska2W" fromnode="ErnstRuskaHavestadtDiv1" tonode="ErnstRuskaEinstein" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuska1W" fromnode="ErnstRuskaEinstein" tonode="ErnstRuskaEnd1" speed="19." nolanes="2" priority="1"/>
+	<edge id="ErnstRuskaSink1W" fromnode="ErnstRuskaEnd1" tonode="ErnstRuskaSink1" speed="19." nolanes="2" priority="1"/>
+
+
+	<edge id="EinsteinN" fromnode="ErnstRuskaEinstein" tonode="EinsteinEnd" speed="14." nolanes="1"/>
+	<edge id="EinsteinSinkN" fromnode="EinsteinEnd" tonode="EinsteinSinkEnd" speed="14." nolanes="1"/>
+
+	<edge id="EinsteinSinkS" fromnode="EinsteinSinkEnd" tonode="EinsteinEnd" speed="14." nolanes="1"/>
+	<edge id="EinsteinS" fromnode="EinsteinEnd" tonode="ErnstRuskaEinstein" speed="14." nolanes="1"/>
+
+
+	<edge id="HavestadtN" fromnode="ErnstRuskaHavestadt" tonode="HavestadtEnd" speed="14." nolanes="2"/>
+	<edge id="HavestadtSinkN" fromnode="HavestadtEnd" tonode="HavestadtSinkEnd" speed="14." nolanes="2"/>
+
+	<edge id="HavestadtSinkS" fromnode="HavestadtSinkEnd" tonode="HavestadtEnd" speed="14." nolanes="2"/>
+	<edge id="HavestadtS" fromnode="HavestadtEnd" tonode="ErnstRuskaHavestadt" speed="14." nolanes="2"/>
+
+
+	<edge id="VolmerN" fromnode="ErnstRuskaVolmer" tonode="VolmerEnd" speed="14." nolanes="1"/>
+	<edge id="VolmerSinkN" fromnode="VolmerEnd" tonode="VolmerSinkEnd" speed="14." nolanes="1"/>
+
+	<edge id="VolmerSinkS" fromnode="VolmerSinkEnd" tonode="VolmerEnd" speed="14." nolanes="1"/>
+	<edge id="VolmerS" fromnode="VolmerEnd" tonode="ErnstRuskaVolmer" speed="14." nolanes="1"/>
+
+
+	<edge id="AltglienickerBreitS" fromnode="ErnstRuskaAltglienicker" tonode="AltglienickerBreit" speed="14." nolanes="1"/>
+	<edge id="AltglienickerS" fromnode="AltglienickerBreit" tonode="AltglienickerEnd" speed="14." nolanes="1"/>
+	<edge id="AltglienickerSinkS" fromnode="AltglienickerEnd" tonode="AltglienickerSinkEnd" speed="14." nolanes="1"/>
+
+	<edge id="AltglienickerSinkN" fromnode="AltglienickerSinkEnd" tonode="AltglienickerEnd" speed="14." nolanes="1"/>
+	<edge id="AltglienickerN" fromnode="AltglienickerEnd" tonode="AltglienickerBreit" speed="14." nolanes="1"/>
+	<edge id="AltglienickerBreitN" fromnode="AltglienickerBreit" tonode="ErnstRuskaAltglienicker" speed="14." nolanes="2"/>
+
+</edges>

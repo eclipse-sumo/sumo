@@ -1,1 +1,1 @@
---net-file=input_net.net.xml --detector-files=input_detectors.det.xml
+--net-file=input_messstrecke.net.xml --detector-files=input_messstrecke.det.xml

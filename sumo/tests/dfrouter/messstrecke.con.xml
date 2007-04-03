@@ -1,0 +1,36 @@
+<connections>
+	<connection from="ErnstRuska5W" to="ErnstRuska4W" lane="0:0"/>
+	<connection from="ErnstRuska5W" to="ErnstRuska4W" lane="1:1"/>
+	<connection from="ErnstRuska5W" to="AltglienickerBreitS" lane="2:0"/>
+
+
+	<connection from="ErnstRuska3W" to="ErnstRuska232W" lane="0:0"/>
+	<connection from="ErnstRuska3W" to="ErnstRuska232W" lane="1:1"/>
+
+	<connection from="ErnstRuska232W" to="HavestadtN" lane="0:0"/>
+	<connection from="ErnstRuska232W" to="ErnstRuska231W" lane="0:0"/>
+	<connection from="ErnstRuska232W" to="ErnstRuska231W" lane="1:1"/>
+
+	<connection from="ErnstRuska231W" to="ErnstRuska2W" lane="0:0"/>
+	<connection from="ErnstRuska231W" to="ErnstRuska2W" lane="1:1"/>
+
+
+
+
+	<connection from="ErnstRuska1O" to="ErnstRuska2O" lane="0:0"/>
+	<connection from="ErnstRuska1O" to="ErnstRuska2O" lane="1:1"/>
+	<connection from="ErnstRuska1O" to="EinsteinN" lane="1:0"/>
+
+
+	<connection from="ErnstRuska231O" to="ErnstRuska232O" lane="0:0"/>
+	<connection from="ErnstRuska231O" to="ErnstRuska232O" lane="1:1"/>
+	<connection from="ErnstRuska231O" to="HavestadtN" lane="2:0"/>
+
+
+	<connection from="ErnstRuska3O" to="ErnstRuska4O" lane="0:0"/>
+	<connection from="ErnstRuska3O" to="ErnstRuska4O" lane="1:1"/>
+	<connection from="ErnstRuska3O" to="VolmerN" lane="1:0"/>
+
+
+
+</connections>
