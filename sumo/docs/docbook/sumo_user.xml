@@ -437,7 +437,8 @@
         model developed by Stefan Krauß is used (see <ulink
         url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_1">[Krauss1998_1]</ulink>,
         <ulink
-        url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_2">[Krauss1998_2]</ulink>).
+        url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_2">[Krauss1998_2]</ulink>),
+        extended by some further methods (see !!!).
         <emphasis>Mesoscopic</emphasis> simulations are located at the
         boundary between microscopic and macroscopic ones. Herein, vehicle
         movement is mostly simulated using queue approaches and single
@@ -488,8 +489,9 @@
         driver is herein meant to be dependent on his distance to the vehicle
         in front of him and of this vehicle's speed. Although SUMO is meant to
         be a test bed for such vehicle models, only one is implemented by now,
-        which was developed by Stefan Krauß. Other obstacles such as traffic
-        lights are of course considered herein, too.</para>
+        an extension to the one developed by Stefan Krauß (see !!! for furhter
+        details). Other obstacles such as traffic lights are of course
+        considered herein, too.</para>
 
         <para>It seems obvious, that each driver is trying to use to shortest
         path through the network. But when all are trying to do this, some of
@@ -4846,7 +4848,7 @@
           <para>The values used above are the ones most of the examples use.
           They resemble a standard vehicle as used within the Stefan Krauß'
           thesis besides that the minimum gap between vehicles is not added to
-          the length. These values have the following meanings:</para>
+          the length!!!. These values have the following meanings:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
@@ -4856,7 +4858,7 @@
 
             <listitem>
               <para><sgmltag>accel</sgmltag>: The acceleration ability of
-              vehicles of this type (in m/s^2)</para>
+              vehicles of this type (in m/s^2) !!!</para>
             </listitem>
 
             <listitem>
@@ -6291,13 +6293,13 @@
     </sect1>
 
     <sect1 id="user_chp05-additional_weights">
-      <title>Additional Weights</title>
+      <title revision="0.9.6">Additional Weights</title>
 
       <para>From version 0.8.0.1 on, SUMO is capable to load additional
       weights for edges. The idea behind this is to virtually increase the
       costs for an edge in order to make it less attractive to pass.
-      Additional weights are used by the DUA-Router only and are supplied
-      using the <option>--supplementary-weights
+      Additional weights are used by <application>DUAROUTER</application> only
+      and are supplied using the <option>--supplementary-weights
       <replaceable>&lt;FILE&gt;</replaceable></option> (or <option>--add
       <replaceable>&lt;FILE&gt;</replaceable></option> or <option>-S
       <replaceable>&lt;FILE&gt;</replaceable></option>) - option. A file
@@ -6305,15 +6307,15 @@
 
       <programlisting><sgmltag>&lt;supplementary-weights&gt;</sgmltag>
    <sgmltag>&lt;interval begin="60" end="119"&gt;</sgmltag>
-      <sgmltag>&lt;weight edge-id="1fi" absolut="42" mult="2.5" add="-21"/&gt;</sgmltag>
-      <sgmltag>&lt;weight edge-id="2o" mult="13"/&gt;</sgmltag>
+      <sgmltag>&lt;edge id="1fi" absolute="42" factor="2.5" summand="-21"/&gt;</sgmltag>
+      <sgmltag>&lt;edge id="2o" factor="13"/&gt;</sgmltag>
 
       ... further weights ...
 
    <sgmltag>&lt;/interval&gt;</sgmltag>
    <sgmltag>&lt;interval begin="120" end="179"&gt;</sgmltag>
-      <sgmltag>&lt;weight edge-id="1fi" absolut="48" mult="2.5"/&gt;</sgmltag>
-      <sgmltag>&lt;weight edge-id="2o" add="7"/&gt;</sgmltag>
+      <sgmltag>&lt;edge id="1fi" absolute="48" factor="2.5"/&gt;</sgmltag>
+      <sgmltag>&lt;edge id="2o" summand="7"/&gt;</sgmltag>
 
       ... further weights ...
 
@@ -6323,21 +6325,28 @@
 
 <sgmltag>&lt;/supplementary-weights&gt;</sgmltag></programlisting>
 
-      <caution>
-        <para>The attribute "absolut" is misspelled and will be changed in the
-        near future.</para>
-      </caution>
-
       <para>When additional weights are supplied, the DUA-Router first looks
       whether an additional, absolute value has been provide for the currently
-      watched edge (value of the "<sgmltag>absolut</sgmltag>"-attribute for
+      watched edge (value of the "<sgmltag>absolute</sgmltag>"-attribute for
       the current edge and time). If so, this value will be used. If not,
       either the edge's loaded weight (if available for the current time step)
       or the default value (length/vallowed) will be changed first by applying
-      the loaded factor (value of the "<sgmltag>mult</sgmltag>"-attribute for
-      the current edge and time) and than by the loaded addend (value of the
-      "<sgmltag>add</sgmltag>"-attribute for the current edge and
+      the loaded factor (value of the "<sgmltag>factor</sgmltag>"-attribute
+      for the current edge and time) and than by the loaded addend (value of
+      the "<sgmltag>summand</sgmltag>"-attribute for the current edge and
       time).</para>
+
+      <para>You can also use GUISIM to generate an additional weights file
+      using the interface which appears when choosing "<guimenu>Edit-&gt;Edit
+      Additional Weights...</guimenu>".</para>
+
+      <para>Recent Changes:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para> The format has changed in version 0.9.6</para>
+        </listitem>
+      </itemizedlist>
     </sect1>
 
     <sect1 id="user_chp05-dfrouter" revision="0.9.5">
@@ -6900,7 +6909,7 @@ myDet1;0;10;2;100;80
 
             <listitem>
               <para>Types given in trips were always replaced by
-              "KRAUSS_DEFAULT". This has been patched. Now the type you
+              "KRAUSS_DEFAULT"!!!. This has been patched. Now the type you
               specify will be used and only if no type information was given,
               "KRAUSS_DEFAULT" will be used.</para>
             </listitem>
@@ -9718,6 +9727,47 @@ myDet1;0;10;2;100;80
               disallowed vehicle classes on for this lane</para>
             </listitem>
           </itemizedlist>
+        </sect3>
+      </sect2>
+
+      <sect2 id="user_chp06-management-c2c" revision="0.9.5">
+        <title>Car2Car-Simulation!!!</title>
+
+        <para>!!!!</para>
+
+        <caution>
+          <para>Please keep in mind that this feature is quite new and that du
+          to this some things may not work as suspected and may get changed in
+          the near future.</para>
+
+          <para>We want to ask you to supply us any comments on this topic -
+          it is not completely designed, yet.</para>
+        </caution>
+
+        <para>Examples: !!!</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>A first support for vehicle classes was added in version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
+
+        <sect3 id="user_chp06-management-c2c-cluster_info">
+          <title>---c2x.cluster-info</title>
+
+          <para>!!!:</para>
+
+          <programlisting>   <sgmltag>&lt;timeStep time="<replaceable>&lt;SIM_STEP&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;cluster id="<replaceable>&lt;CLUSTER_ID&gt;</replaceable>" headID="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" \
+         vehNo="<replaceable>&lt;CLUSTER_SIZE&gt;</replaceable>"&gt;<replaceable>&lt;VEHICLES_IN_CLUSTER&gt;</replaceable>&lt;/cluster&gt;</sgmltag>
+      ... further clusters ...
+   <sgmltag>&lt;/timeStep&gt;</sgmltag>
+   ... further time steps ...</programlisting>
+
+          <para>!!!.</para>
         </sect3>
       </sect2>
     </sect1>
