@@ -106,11 +106,11 @@ protected:
 
     ROEdge *getDetectorEdge(const DFDetector &det) const;
     bool isSource(const DFDetector &det, ROEdge *edge,
-                  std::vector<ROEdge*> seen, const DFDetectorCon &detectors,
+                  std::vector<ROEdge*> &seen, const DFDetectorCon &detectors,
                   bool strict) const;
     bool isFalseSource(const DFDetector &det, ROEdge *edge,
-                       std::vector<ROEdge*> seen, const DFDetectorCon &detectors) const;
-    bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
+                       std::vector<ROEdge*> &seen, const DFDetectorCon &detectors) const;
+    bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const;
 
     void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,

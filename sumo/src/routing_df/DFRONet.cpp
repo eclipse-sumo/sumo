@@ -46,6 +46,7 @@
 #include <cmath>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -864,7 +865,12 @@ DFRONet::getDetectorEdge(const DFDetector &det) const
 {
     string edgeName = det.getLaneID();
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
-    return ro->getEdge(edgeName);
+    ROEdge *ret = ro->getEdge(edgeName);
+    if(ret==0) {
+        MsgHandler::getErrorInstance()->inform("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
+        throw ProcessError();
+    }
+    return ret;
 }
 
 
@@ -932,10 +938,14 @@ DFRONet::isDestination(const DFDetector &det, const DFDetectorCon &detectors) co
 
 bool
 DFRONet::isSource(const DFDetector &det, ROEdge *edge,
-                  std::vector<ROEdge*> seen,
+                  std::vector<ROEdge*> &seen,
                   const DFDetectorCon &detectors,
                   bool strict) const
 {
+    if(seen.size()==1000) { // !!!
+        MsgHandler::getWarningInstance()->inform("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
+        return false;
+    }
     if (edge==getDetectorEdge(det)) {
         // maybe there is another detector at the same edge
         //  get the list of this/these detector(s)
@@ -1031,9 +1041,13 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge,
 
 
 bool
-DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
+DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
+    if(seen.size()==1000) { // !!!
+        MsgHandler::getWarningInstance()->inform("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
+        return false;
+    }
     if (edge==getDetectorEdge(det)) {
         // maybe there is another detector at the same edge
         //  get the list of this/these detector(s)
@@ -1105,9 +1119,13 @@ DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 }
 
 bool
-DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
+DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
+    if(seen.size()==1000) { // !!!
+        MsgHandler::getWarningInstance()->inform("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
+        return false;
+    }
     seen.push_back(edge);
     if (edge!=getDetectorEdge(det)) {
         // ok, we are at one of the edges coming behind
