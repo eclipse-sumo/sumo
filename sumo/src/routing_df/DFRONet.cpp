@@ -917,22 +917,24 @@ bool
 DFRONet::isSource(const DFDetector &det, const DFDetectorCon &detectors,
                   bool strict) const
 {
+    std::vector<ROEdge*> seen;
     return
-        isSource(det, getDetectorEdge(det), std::vector<ROEdge*>(), detectors, strict);
+        isSource(det, getDetectorEdge(det), seen, detectors, strict);
 }
 
 bool
 DFRONet::isFalseSource(const DFDetector &det, const DFDetectorCon &detectors) const
 {
+    std::vector<ROEdge*> seen;
     return
-        isFalseSource(det, getDetectorEdge(det), std::vector<ROEdge*>(), detectors);
+        isFalseSource(det, getDetectorEdge(det), seen, detectors);
 }
 
 bool
 DFRONet::isDestination(const DFDetector &det, const DFDetectorCon &detectors) const
 {
-    return isDestination(det, getDetectorEdge(det), std::vector<ROEdge*>(),
-                         detectors);
+    std::vector<ROEdge*> seen;
+    return isDestination(det, getDetectorEdge(det), seen, detectors);
 }
 
 
