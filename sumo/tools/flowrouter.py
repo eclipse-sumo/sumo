@@ -5,6 +5,7 @@
 import os, string, sys
 
 from xml.sax import saxutils, make_parser, handler
+from optparse import OptionParser
 
 MAX_POS_DEVIATION = 1
 
@@ -40,6 +41,7 @@ class NetReader(handler.ContentHandler):
         self._source = self.newVertex()
         self._sink = self.newVertex()
         self._edgeString = ''
+        self._routeOut = None
 
     def newVertex(self):
         self._currVertex += 1
@@ -76,7 +78,8 @@ class NetReader(handler.ContentHandler):
                 self._edgeDetPos[edge] = pos
                 self._det2edge[attrs['id']] = edge
             if not 'type' in attrs:
-                print "Warning! No type for detector " + attrs['id']
+                if not options.sourcesink:
+                    print "Warning! No type for detector " + attrs['id']
             else:
                 if attrs['type'] == 'source':
                     edgeSource = self._edges[edge].source
@@ -214,10 +217,19 @@ class NetReader(handler.ContentHandler):
             currEdge.flow += flowDelta
             currEdge = pred[currEdge]
         currEdge.flow += flowDelta
-        print route, flowDelta
+        route = route.strip()
+        if self._routeOut:
+            routeID = route.replace(' ', '_')
+            self._routeOut.write('    <route id="'+routeID+'" multi_ref="x">')
+            self._routeOut.write(route+'</route>\n')
+        else:
+            print route, flowDelta
 
     def calcRoutes(self):
         self.adaptCapacities()
+        if options.routefile:
+            self._routeOut = open(options.routefile, 'w')
+            self._routeOut.write("<routes>\n")
         routeFound = True
         while routeFound:
             routeFound = False
@@ -236,17 +248,37 @@ class NetReader(handler.ContentHandler):
                         if not edge.target in seenVertices:
                             pred[edge] = currEdge
                             queue.append(edge)
+        if options.routefile:
+            self._routeOut.write("</routes>\n")
+            self._routeOut.close()
 
 
             
-if len(sys.argv) < 4:
-    print "Usage: " + sys.argv[0] + " <net> <detectors> <flows>"
+optParser = OptionParser()
+optParser.add_option("-n", "--net-file", dest="netfile",
+                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-d", "--detector-file", dest="detfile",
+                     help="read detectors from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-f", "--detector-flow-file", dest="flowfiles", action="append",
+                     help="read detector flows from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-o", "--routes-output", dest="routefile",
+                     help="write routes to FILE", metavar="FILE")
+optParser.add_option("-e", "--emitters-output", dest="emitfile",
+                     help="write emitters to FILE and create files per emitter", metavar="FILE")
+optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
+                     default=0.0, help="only respect edges with at least this maxspeed")
+optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
+                     default=False, help="detect sources and sinks")
+(options, args) = optParser.parse_args()
+if not options.netfile or not options.detfile or not options.flowfiles:
+    optParser.print_help()
     sys.exit()
 parser = make_parser()
 net = NetReader()
 parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-parser.parse(sys.argv[2])
-net.readFlows(sys.argv[3])
-if net.checkNet(False):
+parser.parse(options.netfile)
+parser.parse(options.detfile)
+for flow in options.flowfiles:
+    net.readFlows(flow)
+if net.checkNet(options.sourcesink):
     net.calcRoutes()
