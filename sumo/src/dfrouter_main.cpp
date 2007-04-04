@@ -276,7 +276,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         // compute the detector types (optionally)
-        if (!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
+        if (!detectors->detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {
             optNet->computeTypes(*detectors, oc.getBool("strict-sources"));
         }
         // compute routes between the detectors (optionally)
