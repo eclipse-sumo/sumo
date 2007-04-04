@@ -62,27 +62,30 @@ public class Converter {
 		List<Edge> edges = new LinkedList<Edge>();
 		NetReader.read(net, edges);
 		
-		// 2. get all vehicles (IDs, first occurence, last occurence)
+		// 2. translate net
+		NetTranslater.translate(edges);
+		
+		// 3. get all vehicles (IDs, first occurence, last occurence)
 		List<String> vehicleId = new LinkedList<String>();
 		HashMap<String, Double> vehicleFirstOcc = new HashMap<String, Double>();
 		HashMap<String, Double> vehicleLastOcc  = new HashMap<String, Double>();
 		VehicleReader.read(trace, vehicleId, vehicleFirstOcc, vehicleLastOcc);
 		
-		// 3. filter vehicles (intersection: [first occurence, last occurence], [begin time, end time]
+		// 4. filter vehicles (intersection: [first occurence, last occurence], [begin time, end time]
 		List<String> wantedVehicle = new LinkedList<String>(vehicleId);
 		VehicleFilter.filter(vehicleId, wantedVehicle, vehicleFirstOcc, vehicleLastOcc, begin, end);
 		
-		// 4. Randomize new id
+		// 5. Randomize new id
 		List<String> vehicleNewId = new LinkedList<String>();
 		IdRandomizer.randomize(wantedVehicle, vehicleNewId, seed);
 		
-		// 5. write mobility file (contains every movement of all (wanted) vehicles
+		// 6. write mobility file (contains every movement of all (wanted) vehicles
 		MobilityWriter.write(trace, mobility, wantedVehicle, vehicleNewId, edges, begin, end, penetration, hasPenetration);
 		
-		// 6. write activity file (contains first and last occurence of all (wanted -> filtered) vehicles
+		// 7. write activity file (contains first and last occurence of all (wanted -> filtered) vehicles
 		ActivityWriter.write(activity, wantedVehicle, vehicleNewId, vehicleFirstOcc, vehicleLastOcc, begin, penetration, hasPenetration);
 
-		// 7. write config file (contains statical information about simulation)
+		// 8. write config file (contains statical information about simulation)
 		ConfigWriter.write(config, activity, mobility, edges, wantedVehicle, vehicleFirstOcc, vehicleLastOcc, begin, penetration, hasPenetration);
 	}
 }
