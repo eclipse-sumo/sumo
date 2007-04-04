@@ -273,7 +273,7 @@ public:
 
     EdgeVector getEdgesFromLane(size_t lane) const;
 
-    void removeFromConnections(NBEdge *which);
+    void removeFromConnections(NBEdge *which, int lane=-1);
 
     void invalidateConnections(bool reallowSetting=false);
 
@@ -340,7 +340,7 @@ public:
 
     void incLaneNo(int by);
 
-    void decLaneNo(int by);
+    void decLaneNo(int by, int dir=0);
 
     void copyConnectionsFrom(NBEdge *src);
 

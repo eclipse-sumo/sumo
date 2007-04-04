@@ -1,0 +1,69 @@
+<net>
+
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,100.000000,0.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,100.000000,0.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="2">1 1/50</edges>
+   <node_count>3</node_count>
+
+
+   <edge id="1" from="SUMOGenerated0" to="1/50" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="48.50">0.00,-1.65 48.50,-1.65</lane>
+      </lanes>
+      <cedge id="1/50">1_0</cedge>
+   </edge>
+
+   <edge id="1/50" from="1/50" to="SUMOGenerated1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1/50_0" depart="1" vclasses="" maxspeed="28.00" length="41.95">51.50,-4.95 93.45,-4.95</lane>
+         <lane id="1/50_1" depart="0" vclasses="" maxspeed="28.00" length="41.95">51.50,-1.65 93.45,-1.65</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>1/50</key>
+      <requestsize>2</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="1/50" type="priority" x="50.00" y="0.00">
+      <inclanes>1_0</inclanes>
+      <shape>51.50,-0.05 51.50,-6.55 48.50,-3.25 48.50,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>-0.05,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00">
+      <inclanes>1/50_0 1/50_1</inclanes>
+      <shape>93.45,-6.55 93.45,-0.05</shape>
+   </junction>
+
+
+   <succ edge="1" lane="1_0" junction="1/50">
+      <succlane lane="1/50_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1/50_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="1/50" lane="1/50_0" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1/50" lane="1/50_1" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

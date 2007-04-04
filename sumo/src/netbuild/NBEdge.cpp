@@ -1007,8 +1007,7 @@ void
 NBEdge::moveConnectionToLeft(size_t lane)
 {
     assert(lane<_reachable.size() && _reachable[lane].size()>0);
-    pair<NBEdge*, size_t> dest =
-        getConnectionRemoving(lane, _reachable[lane].size()-1);
+    pair<NBEdge*, size_t> dest = getConnectionRemoving(lane, _reachable[lane].size()-1);
     setConnection(lane+1, dest.first, dest.second, false);
 }
 
@@ -1494,32 +1493,42 @@ NBEdge::remapConnections(const EdgeVector &incoming)
 
 
 void
-NBEdge::removeFromConnections(NBEdge *which)
+NBEdge::removeFromConnections(NBEdge *which, int lane)
 {
     // remove from "_connectedEdges"
-    for (size_t i=0; i<_connectedEdges.size(); i++) {
-        if (_connectedEdges[i]==which) {
-            _connectedEdges.erase(_connectedEdges.begin()+i);
-            i--;
+    if(lane<0) {
+        for (int i=0; i<(int) _connectedEdges.size(); i++) {
+            if (_connectedEdges[i]==which) {
+                _connectedEdges.erase(_connectedEdges.begin()+i);
+                i--;
+            }
         }
     }
     // check whether it was the turn destination
-    if (_turnDestination==which) {
+    if (_turnDestination==which&&lane<0) {
         _turnDestination = 0;
     }
     // remove in _ToEdges
     {
         std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges.find(which);
         if (j!=_ToEdges.end()) {
-            _ToEdges.erase(which);
+            if(lane<0) {
+                _ToEdges.erase(which);
+            } else {
+                std::vector<size_t> &lanes = (*j).second;
+                if(find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+                    lanes.erase(find(lanes.begin(), lanes.end(), lane));
+                }
+            }
         }
     }
     // remove in _reachable
     {
+        if(lane<0) {
         for (ReachableFromLaneVector::iterator k=_reachable.begin(); k!=_reachable.end(); k++) {
             EdgeLaneVector::iterator l=(*k).begin();
             while (l!=(*k).end()) {
-                if ((*l).edge==which) {
+                if ((*l).edge==which/* && ((*l).lane==lane||lane<0) */) {
                     (*k).erase(l);
                     l = (*k).begin();
                 } else {
@@ -1527,12 +1536,20 @@ NBEdge::removeFromConnections(NBEdge *which)
                 }
             }
         }
+        }
     }
     // remove in _succeedinglanes
     {
         LanesThatSucceedEdgeCont::iterator l=_succeedinglanes.find(which);
         if (l!=_succeedinglanes.end()) {
-            _succeedinglanes.erase(l);
+            if(lane<0) {
+                _succeedinglanes.erase(l);
+            } else {
+                LaneVector &lanes = (*l).second;
+                if(find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+                    lanes.erase(find(lanes.begin(), lanes.end(), lane));
+                }
+            }
         }
     }
 }
@@ -2150,11 +2167,19 @@ NBEdge::incLaneNo(int by)
 
 
 void
-NBEdge::decLaneNo(int by)
+NBEdge::decLaneNo(int by, int dir)
 {
     _nolanes -= by;
-    _reachable.clear();
-    _reachable.resize(_nolanes, EdgeLaneVector());
+    if(dir==0) {
+        _reachable.clear();
+        _reachable.resize(_nolanes, EdgeLaneVector());
+    } else {
+        if(dir<0) {
+            _reachable.erase(_reachable.begin());
+        } else {
+            _reachable.pop_back();
+        }
+    }
     while (myLaneSpeeds.size()>_nolanes) {
         myLaneSpeeds.pop_back();
         myAllowedOnLanes.pop_back();
@@ -2165,7 +2190,18 @@ NBEdge::decLaneNo(int by)
     for (EdgeVector::const_iterator i=incs.begin(); i!=incs.end(); ++i) {
         (*i)->invalidateConnections(true);
     }
-    invalidateConnections(true);
+    if(dir==0) {
+        invalidateConnections(true);
+    } else {
+        const EdgeVector &outs = _to->getOutgoingEdges();
+        assert(outs.size()==1);
+        NBEdge *out = outs[0];
+        if(dir<0) {
+            removeFromConnections(out, 0);
+        } else {
+            removeFromConnections(out, _nolanes);
+        }
+    }
 }
 
 

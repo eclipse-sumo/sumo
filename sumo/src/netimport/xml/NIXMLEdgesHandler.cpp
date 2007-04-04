@@ -193,6 +193,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
         if (forcedLength>0) {
             // maybe the edge has already been split at this position
             string nid = myCurrentID + "/" +  toString(forcedLength);
+            string pid;
             if (myNodeCont.retrieve(nid)==0) {
                 SUMOReal splitLength = forcedLength;
                 // split only if not
@@ -223,7 +224,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                 //  build the node
                 if (edge->getGeometry().length()-splitLength>0) {
                     Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getGeometry().length() - splitLength);
-                    string pid = edge->getID();
+                    pid = edge->getID();
                     NBNode *rn = new NBNode(nid, p);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
@@ -249,7 +250,6 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                             if (idp2==idc2) {
                                 e = prev;
                                 if (prev->getNoLanes()>1) {
-                                    assert(prev->getNoLanes()>1);
                                     prev->decLaneNo(1);
                                 } else {
                                     MsgHandler::getWarningInstance()->inform("Could not split edge '" + prev->getID() + "'.");
@@ -259,23 +259,43 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                             }
                         }
                     } while (cont);
-                    // set proper connections
-                    NBEdge *ce = myEdgeCont.retrieve(nid);
-                    NBEdge *pe = myEdgeCont.retrieve(pid);
-                    if(priorLaneNo/2>lane) {
-                        // new lane on the right side
-                        pe->addLane2LaneConnections(0, ce, 1, pe->getNoLanes(), false, true);
-                        pe->addLane2LaneConnection(0, ce, 0, false, true);
-                    } else {
-                        // new lane on the left side
-                        pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
-                        pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
-                    }
                 } else {
                     MsgHandler::getWarningInstance()->inform("Could not split edge '" + edge->getID() + "'.");
                     return;
                 }
+                // set proper connections
+                NBEdge *ce = myEdgeCont.retrieve(nid);
+                NBEdge *pe = myEdgeCont.retrieve(pid);
+                if(priorLaneNo/2>=lane) {
+                    // new lane on the right side
+                    pe->addLane2LaneConnections(0, ce, 1, pe->getNoLanes(), false, true);
+                    pe->addLane2LaneConnection(0, ce, 0, false, true);
+                } else {
+                    // new lane on the left side
+                    pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
+                    pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
+                }
+            } else {
+                pid = myNodeCont.retrieve(nid)->getIncomingEdges()[0]->getID();
+                // set proper connections
+                NBEdge *ce = myEdgeCont.retrieve(nid);
+                NBEdge *pe = myEdgeCont.retrieve(pid);
+                if (pe->getNoLanes()>1) {
+                    if(priorLaneNo/2>lane) {
+                        pe->decLaneNo(1, -1);
+//                        pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
+                    } else {
+                        pe->decLaneNo(1, 1);
+//                        pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
+                    }
+                } else {
+                    MsgHandler::getWarningInstance()->inform("Could not split edge '" + pe->getID() + "'.");
+                    return;
+                }
             }
+            /*
+            }
+            */
         }
     }
 }

@@ -1,0 +1,107 @@
+<net>
+
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,100.000000,0.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,100.000000,0.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="3">1 1/30 1/70</edges>
+   <node_count>4</node_count>
+
+
+   <edge id="1" from="SUMOGenerated0" to="1/70" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="28.50">0.00,-1.65 28.50,-1.65</lane>
+      </lanes>
+      <cedge id="1/70">1_0</cedge>
+   </edge>
+
+   <edge id="1/30" from="1/30" to="SUMOGenerated1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1/30_0" depart="1" vclasses="" maxspeed="28.00" length="18.65">71.50,-8.25 90.15,-8.25</lane>
+         <lane id="1/30_1" depart="0" vclasses="" maxspeed="28.00" length="18.65">71.50,-4.95 90.15,-4.95</lane>
+         <lane id="1/30_2" depart="0" vclasses="" maxspeed="28.00" length="18.65">71.50,-1.65 90.15,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="1/70" from="1/70" to="1/30" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1/70_0" depart="1" vclasses="" maxspeed="28.00" length="37.00">31.50,-4.95 68.50,-4.95</lane>
+         <lane id="1/70_1" depart="0" vclasses="" maxspeed="28.00" length="37.00">31.50,-1.65 68.50,-1.65</lane>
+      </lanes>
+      <cedge id="1/30">1/70_0 1/70_1</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>1/30</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="000"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="000" foes="000"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>1/70</key>
+      <requestsize>2</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="1/30" type="priority" x="70.00" y="0.00">
+      <inclanes>1/70_0 1/70_1</inclanes>
+      <shape>71.50,-0.05 71.50,-9.85 68.50,-6.55 68.50,-0.05</shape>
+   </junction>
+
+   <junction id="1/70" type="priority" x="30.00" y="0.00">
+      <inclanes>1_0</inclanes>
+      <shape>31.50,-0.05 31.50,-6.55 28.50,-3.25 28.50,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>-0.05,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00">
+      <inclanes>1/30_0 1/30_1 1/30_2</inclanes>
+      <shape>90.15,-9.85 90.15,-0.05</shape>
+   </junction>
+
+
+   <succ edge="1" lane="1_0" junction="1/70">
+      <succlane lane="1/70_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1/70_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="1/30" lane="1/30_0" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1/30" lane="1/30_1" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1/30" lane="1/30_2" junction="SUMOGenerated1">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1/70" lane="1/70_0" junction="1/30">
+      <succlane lane="1/30_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="1/70" lane="1/70_1" junction="1/30">
+      <succlane lane="1/30_1" yield="0" dir="s" state="M"/>
+      <succlane lane="1/30_2" yield="0" dir="s" state="M"/>
+   </succ>
+
+
+</net>

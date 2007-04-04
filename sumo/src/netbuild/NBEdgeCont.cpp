@@ -310,7 +310,7 @@ NBEdgeCont::report()
 {
     WRITE_MESSAGE("   " + toString<int>(getNo()) + " edges loaded.");
     if (EdgesSplit>0) {
-        WRITE_WARNING("The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
+        WRITE_MESSAGE("The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
     }
 }
 
