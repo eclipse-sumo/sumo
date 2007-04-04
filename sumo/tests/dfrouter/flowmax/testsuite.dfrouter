@@ -1,4 +1,8 @@
 # Tests flows on simple split network
 simple_split
 
+# No flow over the splitting edge
 zero_split
+
+# Flow over the splitting edge violates flow equality
+wrong_split

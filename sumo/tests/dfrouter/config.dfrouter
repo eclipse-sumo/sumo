@@ -6,6 +6,8 @@ copy_test_path:input_tri.det.xml
 copy_test_path:input_tri_flows.txt
 copy_test_path:input_messstrecke.net.xml
 copy_test_path:input_messstrecke.det.xml
+copy_test_path:input_net.net.xml
+copy_test_path:input_detectors.det.xml
 
 [collate_file]
 detector_defs:detectors_def.det.xml
