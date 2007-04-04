@@ -2,9 +2,9 @@
 <html>
         <link rel="stylesheet" type="text/css" href="./css/sumo.css">
         <head>
-                <title>SUMO - Simulation of Urban MObility  -  Home</title>
+                <title>SUMO - Simulation of Urban MObility  -  Status of daily build and test</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Home">
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Status of daily build and test">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
 <META NAME="DC.Description" CONTENT="">
@@ -78,7 +78,7 @@ $column++;
 
 foreach (glob("*status.log") as $filename) {
     $prefix = substr($filename, 0, strpos($filename, "status.log"));
-    $cells[$column][0] = $prefix;
+    $cells[$column][0] = $prefix.date (" (F d Y H:i:s)", filemtime($filename));
     $cells[$column][1] = '';
     $cells[$column][3] = '';
     $statusdata = file($filename);
@@ -89,7 +89,7 @@ foreach (glob("*status.log") as $filename) {
             $testbegin = true;
             $br_arr = split(' ', $br);
             $br_dir = substr($br_arr[0], 12).'/test_.html';
-            $cells[$column][2] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.$br.'</a><br/>';
+            $cells[$column][2] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.substr($br, 12).'</a><br/>';
         } else {
             if ($testbegin) {
                 if ($cells[$column][3] == '') {
