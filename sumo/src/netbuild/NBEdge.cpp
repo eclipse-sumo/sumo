@@ -1525,17 +1525,17 @@ NBEdge::removeFromConnections(NBEdge *which, int lane)
     // remove in _reachable
     {
         if(lane<0) {
-        for (ReachableFromLaneVector::iterator k=_reachable.begin(); k!=_reachable.end(); k++) {
-            EdgeLaneVector::iterator l=(*k).begin();
-            while (l!=(*k).end()) {
-                if ((*l).edge==which/* && ((*l).lane==lane||lane<0) */) {
-                    (*k).erase(l);
-                    l = (*k).begin();
-                } else {
-                    l++;
+            for (ReachableFromLaneVector::iterator k=_reachable.begin(); k!=_reachable.end(); k++) {
+                EdgeLaneVector::iterator l=(*k).begin();
+                while (l!=(*k).end()) {
+                    if ((*l).edge==which/* && ((*l).lane==lane||lane<0) */) {
+                        (*k).erase(l);
+                        l = (*k).begin();
+                    } else {
+                        l++;
+                    }
                 }
             }
-        }
         }
     }
     // remove in _succeedinglanes
@@ -2346,6 +2346,9 @@ NBEdge::recheckEdgeGeomForDoublePositions()
 void
 NBEdge::addAdditionalConnections()
 {
+    if(_step==LANES2LANES) {
+        return;
+    }
     // go through the lanes
     for (size_t i=0; i<_nolanes; i++) {
         // get the connections from the current lane
@@ -2417,6 +2420,41 @@ NBEdge::getNotAllowedVehicleClasses() const
     return ret;
 }
 
+
+int 
+NBEdge::getMinConnectedLane(NBEdge *of) const
+{
+    int ret = -1;
+    for(ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
+        const EdgeLaneVector &elv = (*i);
+        for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
+            if((*j).edge==of) {
+                if(ret==-1 || (*j).lane<ret) {
+                    ret = (*j).lane;
+                }
+            }
+        }
+    }
+    return ret;
+}
+
+
+int 
+NBEdge::getMaxConnectedLane(NBEdge *of) const
+{
+    int ret = -1;
+    for(ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
+        const EdgeLaneVector &elv = (*i);
+        for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
+            if((*j).edge==of) {
+                if(ret==-1 || (*j).lane>ret) {
+                    ret = (*j).lane;
+                }
+            }
+        }
+    }
+    return ret;
+}
 
 
 /****************************************************************************/

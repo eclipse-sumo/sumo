@@ -360,6 +360,9 @@ public:
 
     void addAdditionalConnections();
 
+    int getMinConnectedLane(NBEdge *of) const;
+    int getMaxConnectedLane(NBEdge *of) const;
+
 private:
     /**
      * ToEdgeConnectionsAdder

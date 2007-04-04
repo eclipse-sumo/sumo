@@ -266,14 +266,14 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                 // set proper connections
                 NBEdge *ce = myEdgeCont.retrieve(nid);
                 NBEdge *pe = myEdgeCont.retrieve(pid);
-                if(priorLaneNo/2>=lane) {
+                if((SUMOReal) lane<(SUMOReal) priorLaneNo/(SUMOReal) 2) {
                     // new lane on the right side
                     pe->addLane2LaneConnections(0, ce, 1, pe->getNoLanes(), false, true);
-                    pe->addLane2LaneConnection(0, ce, 0, false, true);
+                    pe->addLane2LaneConnection(0, ce, 0, false, false);
                 } else {
                     // new lane on the left side
                     pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
-                    pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
+                    pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, false);
                 }
             } else {
                 pid = myNodeCont.retrieve(nid)->getIncomingEdges()[0]->getID();
@@ -281,21 +281,21 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                 NBEdge *ce = myEdgeCont.retrieve(nid);
                 NBEdge *pe = myEdgeCont.retrieve(pid);
                 if (pe->getNoLanes()>1) {
-                    if(priorLaneNo/2>lane) {
-                        pe->decLaneNo(1, -1);
-//                        pe->addLane2LaneConnections(0, ce, 0, pe->getNoLanes(), false, true);
-                    } else {
+                    if((SUMOReal) lane<(SUMOReal) priorLaneNo/(SUMOReal) 2) {
                         pe->decLaneNo(1, 1);
-//                        pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, ce->getNoLanes()-1, false, true);
+                        int to = MAX2(pe->getMinConnectedLane(ce)-1, 0);
+                        //pe->addLane2LaneConnection(0, ce, to, false, false);
+                    } else {
+                        pe->decLaneNo(1, -1);
+                        int to = MIN2(pe->getMaxConnectedLane(ce)+1, (int) ce->getNoLanes()-1);
+                        //pe->addLane2LaneConnection(pe->getNoLanes()-1, ce, to, false, false);
                     }
+                    pe->invalidateConnections(true);
                 } else {
                     MsgHandler::getWarningInstance()->inform("Could not split edge '" + pe->getID() + "'.");
                     return;
                 }
             }
-            /*
-            }
-            */
         }
     }
 }
