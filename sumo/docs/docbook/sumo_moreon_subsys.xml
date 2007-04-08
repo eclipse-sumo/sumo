@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>SUMO - More On... Application Subsystems</title>
@@ -253,7 +255,7 @@ main(int argc, char **argv)
     </sect1>
   </chapter>
 
-  <chapter id="dev_chp02">
+  <chapter id="dev_chp03">
     <title>The Options Subsystem</title>
 
     <para>All major SUMO applications use the same classes for parsing command
@@ -434,7 +436,7 @@ oc.addSynonyme("name-of-vehicle-that-shall-halt", "v2h");</programlisting>
     </figure>
   </chapter>
 
-  <chapter id="dev_chp02">
+  <chapter id="dev_chp04">
     <title>Program Flow</title>
 
 
@@ -451,9 +453,9 @@ oc.addSynonyme("name-of-vehicle-that-shall-halt", "v2h");</programlisting>
 
         <para>All command line applications (sumo, duarouter, jtrrouter,
         netconvert, netgen, od2trips) are working quite the same way. At
-        first, the subsystem is initialised as described in <link
-        linkend="TheApplicationSub-system">"The application
-        sub-system"</link>. Then, the options are parsed and validated as also
+        first, the subsystem is initialised as described in <!--link
+        linkend="TheApplicationSub-system"-->"The application
+        sub-system"<!--/link-->. Then, the options are parsed and validated as also
         already described. If the options are invalid or any other error
         occured, a "<exceptionname>ProcessError</exceptionname>" exception is
         thrown and catched within the application's main. This should allow a

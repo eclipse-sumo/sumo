@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>SUMO developer documentation</title>
@@ -35,8 +37,8 @@
       <title>Basics</title>
 
       <para>SUMO is a command line application and its workflow is the same as
-      for others (see <link
-      linkend="ProgramFlowWithinCommandLineApplications">"ProgramFlowWithinCommandLineApplications"</link>).
+      for others (see <!--link
+      linkend="ProgramFlowWithinCommandLineApplications"-->"ProgramFlowWithinCommandLineApplications"<!--/link-->).
       The next two chapter describe some relevant things about data loading
       and about the simulation itself. The next picture shows the packages
       used by SUMO.</para>

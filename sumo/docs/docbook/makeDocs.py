@@ -3,6 +3,11 @@ import os
 import sys
 import shutil
 
+# create the directory if it does not exist
+def condMkdir(dir):
+    if not os.access(dir, os.F_OK):
+	os.mkdir(dir)
+    
 # get all files from the given folder recursively
 def getStructure(dir):
 	if(dir[-1:]!='/' and dir[-1:]!='\\'):
@@ -46,27 +51,21 @@ print "  ...building"
 os.system(xsltproc + xsltparams + " --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_howto_building.html more_docbook.xsl sumo_howto_building.xml")
 
 
+condMkdir("../internet/docs/gen/gfx/")
+condMkdir("../internet/docs/gen/gfx/dev/")
+condMkdir("../internet/docs/gen/gfx/user/")
+condMkdir("../internet/docs/gen/gfx/more/")
 if(sys.platform=="win32"):
     print "Installing (Windows)"
     os.system("move *.html ..\\internet\\docs\\gen\\")
-    os.system("move *.1 ..\\man\\")
-    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\")
-    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\dev\\")
     os.system("copy  gfx\\dev\\*.gif ..\\internet\\docs\\gen\\gfx\\dev\\")
-    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\user\\")
     os.system("copy  gfx\\user\\*.gif ..\\internet\\docs\\gen\\gfx\\user\\")
-    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\more\\")
     os.system("copy  gfx\\more\\*.gif ..\\internet\\docs\\gen\\gfx\\more\\")
 else:
     print "Installing (Linux/UNIX)"
     os.system("mv *.html ../internet/docs/gen/")
-    os.system("mv *.1 ../man/")
-    os.system("mkdir ../internet/docs/gen/gfx/")
-    os.system("mkdir ../internet/docs/gen/gfx/dev/")
     os.system("cp  gfx/dev/*.gif ../internet/docs/gen/gfx/dev/")
-    os.system("mkdir ../internet/docs/gen/gfx/user/")
     os.system("cp  gfx/user/*.gif ../internet/docs/gen/gfx/user/")
-    os.system("mkdir ../internet/docs/gen/gfx/more/")
     os.system("cp  gfx/more/*.gif ../internet/docs/gen/gfx/more/")
 
 files = getStructure("../internet/docs/gen/")

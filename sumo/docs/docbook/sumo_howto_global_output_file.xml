@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title id="howto_global_output">SUMO - HowTo... Add a global output
@@ -166,9 +168,9 @@
       <para>This means that the user can enable the output using the option
       <option>--ss2-output=<replaceable>&lt;FILENAME&gt;</replaceable></option>.
       The application can determine whether this option is set using
-      <code>oc.isSet("ss2-output")</code> and can retrieve the file name - if
+      oc.isSet("ss2-output") and can retrieve the file name - if
       the option is set - using
-      <code>oc.getString("ss2-output")</code>.</para>
+      oc.getString("ss2-output").</para>
 
       <para>Then we have to add procedures which build and close this new
       output. Most of the simulation wide output files are opened within

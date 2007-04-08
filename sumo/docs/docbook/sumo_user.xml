@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>SUMO - Simulation of Urban MObility - User Documentation</title>
@@ -2563,7 +2565,7 @@
 
         <para>Visum is a macroscopic simulation developed by ptv.
         <application>NETCONVERT</application> is capable to read
-        VISUM-networks written as <filename class="extension">.net</filename>
+        VISUM-networks written as <filename>.net</filename>
         files. An usage import call could be this one:</para>
 
         <screen>netconvert --visum=<replaceable>&lt;VISUM_FILE&gt;</replaceable> --output-file=<replaceable>MySUMOFile.net.xml</replaceable></screen>
@@ -3558,7 +3560,7 @@
 
         <variablelist>
           <varlistentry>
-            <term><option><option>--guess-tls</option></option></term>
+            <term><option>--guess-tls</option></term>
 
             <listitem>
               <para>Forces NETCONVERT/NETGEN to guess whether a junction is
@@ -3568,10 +3570,10 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--tls-guess.min-incoming-speed
+            <term><option>--tls-guess.min-incoming-speed
             <replaceable>&lt;SPEED&gt;</replaceable>,
             --tls-guess.max-incoming-speed
-            <replaceable>&lt;SPEED&gt;</replaceable></option></option></term>
+            <replaceable>&lt;SPEED&gt;</replaceable></option></term>
 
             <listitem>
               <para>Sets the minimum and the maximum of the velocity a
@@ -3583,10 +3585,10 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--tls-guess.min-outgoing-speed
+            <term><option>--tls-guess.min-outgoing-speed
             <replaceable>&lt;SPEED&gt;</replaceable>,
             --tls-guess.max-outgoing-speed
-            <replaceable>&lt;SPEED&gt;</replaceable></option></option></term>
+            <replaceable>&lt;SPEED&gt;</replaceable></option></term>
 
             <listitem>
               <para>Sets the minimum and the maximum of the velocity a
@@ -3598,10 +3600,10 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--tls-guess.no-incoming-min
+            <term><option>--tls-guess.no-incoming-min
             <replaceable>&lt;LANE_NUMBER&gt;</replaceable>,
             --tls-guess.no-incoming-max
-            <replaceable>&lt;LANE_NUMBER&gt;</replaceable></option></option></term>
+            <replaceable>&lt;LANE_NUMBER&gt;</replaceable></option></term>
 
             <listitem>
               <para>Sets the minimum and the maximum number of a junction's
@@ -3613,10 +3615,10 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--tls-guess.no-outgoing-min
+            <term><option>--tls-guess.no-outgoing-min
             <replaceable>&lt;LANE_NUMBER&gt;</replaceable>,
             --tls-guess.no-outgoing-max
-            <replaceable>&lt;LANE_NUMBER&gt;</replaceable></option></option></term>
+            <replaceable>&lt;LANE_NUMBER&gt;</replaceable></option></term>
 
             <listitem>
               <para>Sets the minimum and the maximum number of a junction's
@@ -3628,8 +3630,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--explicite-tls
-            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></option></term>
+            <term><option>--explicite-tls
+            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
 
             <listitem>
               <para>Informs the network builder that the given junctions shall
@@ -3640,8 +3642,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--explicite-no-tls
-            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></option></term>
+            <term><option>--explicite-no-tls
+            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
 
             <listitem>
               <para>Informs the network builder that the given junctions shall
@@ -3652,7 +3654,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--all-logics</option></option></term>
+            <term><option>--all-logics</option></term>
 
             <listitem>
               <para>Computes and saves all possible cliques and phases for a
@@ -3779,8 +3781,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--ramp-guess.max-ramp-speed
-            <replaceable>&lt;SPEED&gt;</replaceable></option></option></term>
+            <term><option>--ramp-guess.max-ramp-speed
+            <replaceable>&lt;SPEED&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines the maximum speed an edge may have in order to be
@@ -3792,8 +3794,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--ramp-guess.min-highway-speed
-            <replaceable>&lt;SPEED&gt;</replaceable></option></option></term>
+            <term><option>--ramp-guess.min-highway-speed
+            <replaceable>&lt;SPEED&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines the minimum speed an edge may have in order to be
@@ -3803,8 +3805,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--ramp-guess.ramp-length
-            <replaceable>&lt;LENGTH&gt;</replaceable></option></option></term>
+            <term><option>--ramp-guess.ramp-length
+            <replaceable>&lt;LENGTH&gt;</replaceable></option></term>
 
             <listitem>
               <para>Sets the length of the ramps to build in meters.
@@ -3843,7 +3845,7 @@
 
         <variablelist>
           <varlistentry>
-            <term><option><option>--use-projection</option></option></term>
+            <term><option>--use-projection</option></term>
 
             <listitem>
               <para>Enables reprojection of the network's coordinates.
@@ -3852,8 +3854,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--proj
-            <replaceable>&lt;STRING&gt;</replaceable></option></option></term>
+            <term><option>--proj
+            <replaceable>&lt;STRING&gt;</replaceable></option></term>
 
             <listitem>
               <para>Defines projection. <remark>Optional (pregiven),
@@ -3980,7 +3982,7 @@
 
         <para>Specific options:</para>
 
-        <variablelist spacing="compact">
+        <variablelist>
           <varlistentry>
             <term><option>--keep-edges
             <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]+</replaceable></option></term>
@@ -4005,7 +4007,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>--keep-edges.postload</option></option></term>
+            <term><option>--keep-edges.postload</option></term>
 
             <listitem>
               <para>Forces <application>NETCONVERT</application> to read all
@@ -4082,7 +4084,7 @@
 
           <para>Specific options:</para>
 
-          <variablelist spacing="compact">
+          <variablelist>
             <varlistentry>
               <term><option>--plain-output
               <replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable></option></term>
@@ -4142,7 +4144,7 @@
 
           <para>Specific options:</para>
 
-          <variablelist spacing="compact">
+          <variablelist>
             <varlistentry>
               <term><option>( --map-output | -M )
               <replaceable>&lt;MAP_OUTPUT_FILE&gt;</replaceable></option></term>
@@ -4176,7 +4178,7 @@
 
           <para>Specific options:</para>
 
-          <variablelist spacing="compact">
+          <variablelist>
             <varlistentry>
               <term><option>--node-geometry-dump
               <replaceable>&lt;DUMP_FILENAME&gt;</replaceable></option></term>
@@ -5483,8 +5485,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option><option>( --alternatives | -a )
-            <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable></option></option></term>
+            <term><option>( --alternatives | -a )
+            <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable></option></term>
 
             <listitem>
               <para>Forces <application>JTRROUTER</application> to use the
@@ -6161,8 +6163,8 @@
 
       <variablelist>
         <varlistentry>
-          <term><option><option>( --alternatives | -a )
-          <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable></option></option></term>
+          <term><option>( --alternatives | -a )
+          <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable></option></term>
 
           <listitem>
             <para>Forces DUAROUTER to use the previously generated
@@ -6172,8 +6174,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option><option>--gBeta
-          <replaceable>&lt;FLOAT&gt;</replaceable></option></option></term>
+          <term><option>--gBeta
+          <replaceable>&lt;FLOAT&gt;</replaceable></option></term>
 
           <listitem>
             <para>Defines Christian Gawron's beta. <remark>Optional
@@ -6182,8 +6184,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option><option>--gA
-          <replaceable>&lt;FLOAT&gt;</replaceable></option></option></term>
+          <term><option>--gA
+          <replaceable>&lt;FLOAT&gt;</replaceable></option></term>
 
           <listitem>
             <para>Defines Christian Gawron's alpha. <remark>Optional

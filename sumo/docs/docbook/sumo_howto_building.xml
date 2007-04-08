@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book revision="0.9.5">
   <bookinfo>
     <title id="howto_build">SUMO - HowTo... Build</title>
@@ -141,113 +143,6 @@
 
         <step>
           <para><literal>cd</literal> into the generated directory.</para>
-        </step>
-
-        <step>
-          <para>Call <command>./configure</command>. You can get a list of
-          <command>configure</command>-option by calling <command>./configure
-          --help</command>. <command>./configure</command> builds a
-          <filename>Makefile</filename> for each
-          <filename>Makefile.in</filename>.</para>
-
-          <para>Normally, you have to supply the places the includes and the
-          libraries are located at, for all libraries. This is done
-          using:</para>
-
-          <para><option>--with-xerces-libraries=<replaceable>&lt;PATH_TO_XERCES_LIBS&gt;</replaceable></option></para>
-
-          <para><option>--with-xerces-includes=<replaceable>&lt;PATH_TO_XERCES_INCLUDES&gt;</replaceable></option></para>
-
-          <para><option>--with-fox-libraries=<replaceable>&lt;PATH_TO_FOX_LIBS&gt;</replaceable></option></para>
-
-          <para><option>--with-fox-includes=<replaceable>&lt;PATH_TO_FOX_INCLUDES&gt;</replaceable></option></para>
-
-          <para><option>--with-gdal-libraries=<replaceable>&lt;PATH_TO_GDAL_LIBS&gt;</replaceable></option></para>
-
-          <para><option>--with-gdal-includes=<replaceable>&lt;PATH_TO_GDAL_INCLUDES&gt;</replaceable></option></para>
-
-          <para><option>--with-proj-libraries=<replaceable>&lt;PATH_TO_PROJ_LIBS&gt;</replaceable></option></para>
-
-          <para><option>--with-proj-includes=<replaceable>&lt;PATH_TO_PROJ_INCLUDES&gt;</replaceable></option></para>
-
-          <caution>
-            <para>Please remark that version 0.9.6 needs to know where the
-            proj-includes and libraries are located. This was not needed in
-            earlier versions.</para>
-          </caution>
-        </step>
-
-        <step>
-          <para>Call <command>make</command> to build all applications within
-          the SUMO package.</para>
-        </step>
-      </procedure>
-
-      <para>If everything was build, the applications may be found in
-      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
-      You can also install SUMO by calling <command>make install</command>.
-      The default location is <filename>/usr/local/</filename> (you will need
-      root grant for this). You can also choose another location to install
-      SUMO using
-      <option>--prefix=<replaceable>&lt;LOCATION&gt;</replaceable></option>
-      when running <command>configure</command>. Run
-      <command>configure</command> with <option>--help</option> for further
-      information.</para>
-
-      <para>Enjoy!</para>
-    </sect1>
-
-    <sect1 id="howto_build-linux-from_cvs">
-      <title>Building SUMO from CVS</title>
-
-      <procedure>
-        <step>
-          <para>Download the sources from <ulink
-          url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
-          The cvs-server is <literal>sumo.cvs.sourceforge.net</literal>, the
-          module name is <literal>sumo</literal>. An example session could
-          be:</para>
-
-          <screen>cvs -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo login
-cvs -z3 -d:pserver:anonymous@sumo.cvs.sourceforge.net:/cvsroot/sumo
-co -P sumo</screen>
-        </step>
-
-        <step>
-          <para>Download the <ulink
-          url="http://xml.apache.org/xerces-c/">Xerces C++ library</ulink>
-          (version 2.7 or greater), the <ulink
-          url="http://www.fox-toolkit.org">FOX</ulink>-library (version
-          1.4.x), the <ulink
-          url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
-          (version 4.5.0), and the <ulink
-          url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
-          (version 1.3.1). All libraries are also available at our <ulink
-          url="http://sumo.sourceforge.net/downloads/downloads.html">download</ulink>-pages.</para>
-
-          <caution>
-            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
-            will also not need the PROJ and the GDAL library.</para>
-          </caution>
-        </step>
-
-        <step>
-          <para>Install all libraries into desired folder (FOX and GDAL must
-          be build, Xerces possibly not)</para>
-        </step>
-
-        <step>
-          <para><literal>cd</literal> into the directory
-          <literal>sumo</literal>.</para>
-        </step>
-
-        <step>
-          <para>Execute <command>make -f Makefile.cvs</command>. This will
-          create the <filename>configure</filename>-script from
-          <filename>configure.in</filename> and
-          <filename>Makefile.in</filename> for each
-          <filename>Makefile.am</filename> by calling the GNU
-          Autotools.</para>
         </step>
 
         <step>
@@ -747,7 +642,7 @@ SUBDIRS = icons</screen>
     <para>SUMO has several features that are not enabled by default. Herein,
     it is only discussed how to enable them, not exactly what they do.</para>
 
-    <sect1 id="howto_build-windows-msvc6">
+    <sect1 id="howto_build-ITM-server">
       <title>Usage of XML-RPC</title>
 
       <para>This feature enables SUMO to communicate with ns-2.</para>
@@ -782,7 +677,7 @@ SUBDIRS = icons</screen>
       </sect2>
     </sect1>
 
-    <sect1 id="howto_build-windows-msvc6">
+    <sect1 id="howto_build-geom-debug">
       <title>Geometry Computation Debugging</title>
 
       <para>This feature enables some additional checks while computing road
@@ -821,125 +716,9 @@ SUBDIRS = icons</screen>
       </sect2>
     </sect1>
 
-    <sect1 id="howto_build-windows-msvc6">
-      <title>Geometry Computation Debugging</title>
-
-      <para>This feature enables some additional checks while computing road
-      and junction geometries in <application>NETCONVERT</application>. To be
-      exact, when enabled, <application>NETCONVERT</application> will check
-      all geometries for not containing the same point twice after each
-      other.</para>
-
-      <sect2>
-        <title>Windows!!!</title>
-
-        <procedure>
-          <step>
-            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
-          </step>
-
-          <step>
-            <para>Uncomment the following define-statement:!!!</para>
-
-            <programlisting><remark>/* define to use XML-RPC */</remark>
-//#define _RPC
-</programlisting>
-          </step>
-        </procedure>
-      </sect2>
-
-      <sect2>
-        <title>Linux/Unix!!!</title>
-
-        <procedure>
-          <step>
-            <para>Call <command>configure</command> with
-            <option>--enable-rpc</option></para>
-          </step>
-        </procedure>
-      </sect2>
-    </sect1>
-
-    <sect1 id="howto_build-windows-msvc6">
-      <title>Geometry Computation Debugging</title>
-
-      <para>This feature enables some additional checks while computing road
-      and junction geometries in <application>NETCONVERT</application>. To be
-      exact, when enabled, <application>NETCONVERT</application> will check
-      all geometries for not containing the same point twice after each
-      other.</para>
-
-      <sect2>
-        <title>Windows!!!</title>
-
-        <procedure>
-          <step>
-            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
-          </step>
-
-          <step>
-            <para>Uncomment the following define-statement:!!!</para>
-
-            <programlisting><remark>/* define to use XML-RPC */</remark>
-//#define _RPC
-</programlisting>
-          </step>
-        </procedure>
-      </sect2>
-
-      <sect2>
-        <title>Linux/Unix!!!</title>
-
-        <procedure>
-          <step>
-            <para>Call <command>configure</command> with
-            <option>--enable-rpc</option></para>
-          </step>
-        </procedure>
-      </sect2>
-    </sect1>
-
-    <sect1 id="howto_build-windows-msvc6">
-      <title>Geometry Computation Debugging</title>
-
-      <para>This feature enables some additional checks while computing road
-      and junction geometries in <application>NETCONVERT</application>. To be
-      exact, when enabled, <application>NETCONVERT</application> will check
-      all geometries for not containing the same point twice after each
-      other.</para>
-
-      <sect2>
-        <title>Windows!!!</title>
-
-        <procedure>
-          <step>
-            <para>Open &lt;SUMO_DIST&gt;/src/windows_config.h</para>
-          </step>
-
-          <step>
-            <para>Uncomment the following define-statement:!!!</para>
-
-            <programlisting><remark>/* define to use XML-RPC */</remark>
-//#define _RPC
-</programlisting>
-          </step>
-        </procedure>
-      </sect2>
-
-      <sect2>
-        <title>Linux/Unix!!!</title>
-
-        <procedure>
-          <step>
-            <para>Call <command>configure</command> with
-            <option>--enable-rpc</option></para>
-          </step>
-        </procedure>
-      </sect2>
-    </sect1>
   </chapter>
 
-  <chapter id="howto_build-extending_linux">
+  <chapter id="howto_build-troubleshooting">
     <title>Troubleshooting</title>
 
     <para>Some further information and solutions for problems can be found in
