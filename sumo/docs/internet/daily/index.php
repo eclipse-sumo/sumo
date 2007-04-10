@@ -75,13 +75,13 @@ $cells[$column][1] = "Standard build";
 $cells[$column][2] = "Texttest tests";
 $cells[$column][3] = "Debug build";
 $column++;
-$row = 0;
 
 foreach (glob("*status.log") as $filename) {
     $prefix = substr($filename, 0, strpos($filename, "status.log"));
     $cells[$column][0] = '';
     $cells[$column][1] = '';
     $cells[$column][3] = '';
+    $row = 0;
     $statusdata = file($filename);
     foreach ($statusdata as $line) {
         if ($line == "--\n") {
