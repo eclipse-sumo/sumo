@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-        <link rel="stylesheet" type="text/css" href="./css/sumo.css">
+        <link rel="stylesheet" type="text/css" href="../css/sumo.css">
         <head>
                 <title>SUMO - Simulation of Urban MObility  -  Status of daily build and test</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
@@ -14,19 +14,19 @@
 <META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
 <META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
-<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/status.php">
+<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/daily/index.php">
 <META NAME="DC.Coverage" CONTENT="Introduction, Navigation">
 <META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
-<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
+<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2007-04-08">
 
         </head>
         <body>
 
         <table border="0">
           <tr>
-              <td><img src="./images/64x64_web.gif" width="64" height="64"></td>
-              <td><img src="./images/sumo_logo.gif" width="72" height="17"><br>
-              <img src="./images/sumo_full.gif" width="211" height="16"></td>
+              <td><img src="../images/64x64_web.gif" width="64" height="64"></td>
+              <td><img src="../images/sumo_logo.gif" width="72" height="17"><br>
+              <img src="../images/sumo_full.gif" width="211" height="16"></td>
           </tr>
           </table>
                 <hr>
@@ -36,16 +36,16 @@
                 <table border="0" ID="Table1">
                 <tr><td valign="top" width="120">
                 <div class="navbar">
-                        <a href="index.shtml" class="SUMOMainLink">Home</a><br>
-                        <a href="overview.shtml" class="SUMOMainLink">Overview</a><br>
-                        <a href="docs/documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-                        <a href="screens/screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
-                        <a href="downloads/downloads.shtml" class="SUMOMainLink">Downloads</a><br>
-                        <a href="participants.shtml" class="SUMOMainLink">Participants</a><br>
-                        <a href="projects.shtml" class="SUMOMainLink">Projects</a><br>
-                        <a href="links/links.shtml" class="SUMOMainLink">Links</a><br>
-                        <a href="disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
-                        <a href="contact.shtml" class="SUMOMainLink">Contact</a><br>
+                        <a href="../index.shtml" class="SUMOMainLink">Home</a><br>
+                        <a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
+                        <a href="../docs/documentation.shtml" class="SUMOMainLink">Documentation</a><br>
+                        <a href="../screens/screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
+                        <a href="../downloads/downloads.shtml" class="SUMOMainLink">Downloads</a><br>
+                        <a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
+                        <a href="../projects.shtml" class="SUMOMainLink">Projects</a><br>
+                        <a href="../links/links.shtml" class="SUMOMainLink">Links</a><br>
+                        <a href="../disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
+                        <a href="../contact.shtml" class="SUMOMainLink">Contact</a><br>
 
                         <a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
 
@@ -75,39 +75,35 @@ $cells[$column][1] = "Standard build";
 $cells[$column][2] = "Texttest tests";
 $cells[$column][3] = "Debug build";
 $column++;
+$row = 0;
 
 foreach (glob("*status.log") as $filename) {
     $prefix = substr($filename, 0, strpos($filename, "status.log"));
-    $cells[$column][0] = $prefix.date (" (F d Y H:i:s)", filemtime($filename));
+    $cells[$column][0] = '';
     $cells[$column][1] = '';
     $cells[$column][3] = '';
     $statusdata = file($filename);
-    $testbegin = false;
     foreach ($statusdata as $line) {
+        if ($line == "--\n") {
+            if (strstr($cells[$column][$row], "<pre>")) {
+                $cells[$column][$row] .= "</pre></a>";
+            }
+            $row++;
+            continue;
+        }
         $br = strstr($line, "batchreport");
         if ($br) {
-            $testbegin = true;
             $br_arr = split(' ', $br);
             $br_dir = substr($br_arr[0], 12).'/test_.html';
-            $cells[$column][2] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.substr($br, 12).'</a><br/>';
+            $cells[$column][$row] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.substr($br, 12).'</a><br/>';
         } else {
-            if ($testbegin) {
-                if ($cells[$column][3] == '') {
-                    $cells[$column][3] = '<a href="'.$line.'"><pre>';
-                } else {
-                    $cells[$column][3] .= $line;
-                }
+            if ($cells[$column][$row] == '' && $row > 0) {
+                $cells[$column][$row] = '<a href="'.$line.'"><pre>';
             } else {
-                if ($cells[$column][1] == '') {
-                    $cells[$column][1] = '<a href="'.$line.'"><pre>';
-                } else {
-                    $cells[$column][1] .= $line;
-                }
+                $cells[$column][$row] .= $line;
             }
         }
     }
-    $cells[$column][1] .= "</pre></a>";
-    $cells[$column][3] .= "</pre></a>";
 
     $column++;
 }
@@ -115,12 +111,12 @@ for ($j = 0; $j < count($cells[0]); $j++) {
     echo "<tr>";
     for ($i = 0; $i < $column; $i++) {
         if ($i == 0 || $j == 0) {
-            echo "<th>".$cells[$i][$j]."</th>";
+            echo "<th>".$cells[$i][$j]."</th>\n";
         } else {
-            echo "<td>".$cells[$i][$j]."</td>";
+            echo "<td>".$cells[$i][$j]."</td>\n";
         }
     }
-    echo "</tr>";
+    echo "</tr>\n";
 }
 ?> 
 </table>

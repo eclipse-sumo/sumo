@@ -10,7 +10,7 @@ else
   FILEPREFIX=$2
 fi
 if test "x$3" = "x"; then
-  REMOTEDIR="shell.sf.net:sumo-www/"
+  REMOTEDIR="shell.sf.net:sumo-www/daily/"
 else
   REMOTEDIR=$3
 fi
@@ -24,11 +24,14 @@ STATUSLOG=$PREFIX/${FILEPREFIX}status.log
 BATCH_RESULT_DIR=$PREFIX/${FILEPREFIX}batch_result
 REPORT_DIR=$PREFIX/${FILEPREFIX}report
 
+rm -f $STATUSLOG
+echo -n "$FILEPREFIX, " > $STATUSLOG
+date >> $STATUSLOG
+echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
-rm -f $STATUSLOG
-echo `basename $MAKELOG`.gz > $STATUSLOG
+echo `basename $MAKELOG`.gz >> $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
@@ -41,6 +44,7 @@ echo `grep -c warning $MAKELOG` warnings >> $STATUSLOG
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz $REMOTEDIR
 
+echo "--" >> $STATUSLOG
 if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest:$PATH
@@ -56,6 +60,7 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   scp -q $RUNLOG $REMOTEDIR
 fi
 
+echo "--" >> $STATUSLOG
 echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
 export CXXFLAGS="-Wall -W -pedantic -Wno-long-long"
 ./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
@@ -65,4 +70,5 @@ make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed" | tee
 echo `grep -c warning $MAKEALLLOG` warnings >> $STATUSLOG
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR
+echo "--" >> $STATUSLOG
 scp -q $STATUSLOG $REMOTEDIR

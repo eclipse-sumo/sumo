@@ -30,4 +30,4 @@ xcopy %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT% /Y /E
 cd ..\tools\build
 status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% > %REMOTE_DIR%\%STATUSLOG%
 
-WinSCP3.com behrisch@shell.sf.net /privatekey=%REMOTE_DIR%\..\key.ppk /command "option batch on" "option confirm off" "cd sumo-www" "put %REMOTE_DIR%\*.*" "exit"
+WinSCP3.com behrisch@shell.sf.net /privatekey=%REMOTE_DIR%\..\key.ppk /command "option batch on" "option confirm off" "cd sumo-www" "cd daily" "put %REMOTE_DIR%\*.*" "exit"

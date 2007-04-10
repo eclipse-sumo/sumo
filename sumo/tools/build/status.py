@@ -2,10 +2,13 @@
 
 import os, sys
 from os.path import basename, join
+from datetime import datetime
 
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
 texttesttmp = sys.argv[3]
+print basename(makelog), datetime.now()
+print "--"
 print basename(makelog)
 warnings = 0
 errors = 0
@@ -15,7 +18,9 @@ for l in file(makelog):
     if l.find("error") > -1:
         errors = errors + 1
 print warnings, "warnings"
-print errors, "errors"
+if errors:
+    print errors, "errors"
+print "--"
 for root, dirs, files in os.walk(texttesttmp):
     for f in files:
         if f.startswith("batchreport"):
@@ -24,6 +29,7 @@ for root, dirs, files in os.walk(texttesttmp):
             if l.startswith("FAILED") or l.startswith("succeeded"):
             	print f + " " + l,
             b.close()
+print "--"
 print basename(makealllog)
 warnings = 0
 errors = 0
@@ -33,4 +39,6 @@ for l in file(makealllog):
     if l.find("error") > -1:
         errors = errors + 1
 print warnings, "warnings"
-print errors, "errors"
+if errors:
+    print errors, "errors"
+print "--"
