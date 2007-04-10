@@ -6,8 +6,7 @@ from datetime import datetime
 
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
-texttesttmp = sys.argv[3]
-print basename(makelog), datetime.now()
+print basename(makelog), datetime.now().ctime()
 print "--"
 print basename(makelog)
 warnings = 0
@@ -21,14 +20,16 @@ print warnings, "warnings"
 if errors:
     print errors, "errors"
 print "--"
-for root, dirs, files in os.walk(texttesttmp):
-    for f in files:
-        if f.startswith("batchreport"):
-            b = open(join(root, f))
-            l = b.readline()
-            if l.startswith("FAILED") or l.startswith("succeeded"):
-            	print f + " " + l,
-            b.close()
+if len(sys.argv) > 3:
+    texttesttmp = sys.argv[3]
+    for root, dirs, files in os.walk(texttesttmp):
+        for f in files:
+            if f.startswith("batchreport"):
+                b = open(join(root, f))
+                l = b.readline()
+                if l.startswith("FAILED") or l.startswith("succeeded"):
+                	print f, l,
+                b.close()
 print "--"
 print basename(makealllog)
 warnings = 0
