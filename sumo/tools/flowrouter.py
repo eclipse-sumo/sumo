@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # This script does flow routing similar to the dfrouter.
-# It needs three parameters, the SUMO net (.net.xml), a file
-# specifying detectors (with types!) and one for the flows.
+# It has three mandatory parameters, the SUMO net (.net.xml), a file
+# specifying detectors and one for the flows. It may detect the type
+# of the detectors (source, sink, inbetween) itself or read it from
+# the detectors file.
 import os, string, sys
 
 from xml.sax import saxutils, make_parser, handler
@@ -18,6 +20,7 @@ class Edge:
         self.capacity = sys.maxint
         self.flow = 0
         self.kind = kind
+        self.maxSpeed = 0.0
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -42,6 +45,8 @@ class NetReader(handler.ContentHandler):
         self._sink = self.newVertex()
         self._edgeString = ''
         self._routeOut = None
+        self._routes = {}
+        self._routeFreq = {}
 
     def newVertex(self):
         self._currVertex += 1
@@ -57,6 +62,14 @@ class NetReader(handler.ContentHandler):
         else:
             self._auxEdges.append(edgeObj)
                 
+    def removeEdge(self, edgeObj):
+        self._outEdges[edgeObj.source].remove(edgeObj)
+        self._inEdges[edgeObj.target].remove(edgeObj)
+        if edgeObj.kind == "real":
+            del self._edges[edgeObj.label]
+        else:
+            self._auxEdges.remove(edgeObj)
+                
     def startElement(self, name, attrs):
         if name == 'edges':
             self._edgeString = ' '
@@ -69,7 +82,12 @@ class NetReader(handler.ContentHandler):
             self.addEdge(newEdge)
         if name == 'lane':
             self._lane2edge[attrs['id']] = self._edge
+            edgeObj = self._edges[self._edge]
+            edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
         if name == 'detector_definition':
+            if not attrs['lane'] in self._lane2edge:
+                print "Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id']
+                return
             edge = self._lane2edge[attrs['lane']]
             pos = float(attrs['pos'])
             if edge in self._edgeDetPos and abs(self._edgeDetPos[edge] - pos) > MAX_POS_DEVIATION:
@@ -117,6 +135,12 @@ class NetReader(handler.ContentHandler):
                 else:
                     edge.capacity += int(flowDef[2])
 
+    def compressNet(self):
+        if options.minspeed > 0.0:
+            for edge in self._edges.values():
+                if edge.maxSpeed < options.minSpeed:
+                    self.removeEdge(edge)
+        
     def detectSourceSink(self):
         for edge in self._edges.values():
             if len(self._inEdges[edge.source]) == 0:
@@ -127,6 +151,7 @@ class NetReader(handler.ContentHandler):
                 self.addEdge(newEdge)
         
     def checkNet(self, forcedSourceSinkDetection):
+        self.compressNet()
         if not forcedSourceSinkDetection:
             if len(self._inEdges[self._sink]) == 0:
                 print "Warning! No sinks, trying to find some."
@@ -213,13 +238,21 @@ class NetReader(handler.ContentHandler):
             currEdge = pred[currEdge]
         flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
         currEdge = endEdge
+        firstReal = ''
         while not currEdge.source == self._source:
             currEdge.flow += flowDelta
             currEdge = pred[currEdge]
+            if currEdge.kind == "real":
+                firstReal = currEdge.label
         currEdge.flow += flowDelta
         route = route.strip()
+        assert firstReal != ''
         if self._routeOut:
             routeID = route.replace(' ', '_')
+            if not firstReal in self._routes:
+                self._routes[firstReal] = []
+            self._routes[firstReal].append(routeID)
+            self._routeFreq[routeID] = flowDelta
             self._routeOut.write('    <route id="'+routeID+'" multi_ref="x">')
             self._routeOut.write(route+'</route>\n')
         else:
@@ -251,22 +284,51 @@ class NetReader(handler.ContentHandler):
         if options.routefile:
             self._routeOut.write("</routes>\n")
             self._routeOut.close()
+        if options.emitfile:
+            emitOut = open(options.emitfile, 'w')
+            emitOut.write("<additional>\n")
+            for src in self._outEdges[self._source]:
+                for edge in self._outEdges[src.target]:
+                    srcFile = "src_"+edge.label + ".def.xml"
+                    emitOut.write('    <trigger id="src_' + edge.label + '" objecttype="emitter" ')
+                    emitOut.write('pos="5" friendlypos="x" ')
+                    emitOut.write('objectid="' + edge.label + '_0" file="' + srcFile + '"/>\n')
+                    srcOut = open(srcFile, 'w')
+                    srcOut.write("<triggeredsource>\n")
+                    for route in self._routes[edge.label]:
+                        srcOut.write('    <routedistelem id="'+route+'" probability="'+str(self._routeFreq[route])+'"/>\n')
+                    for time in range(edge.flow):
+                        srcOut.write('    <emit time="'+str(time)+'"/>\n')                                     
+                    srcOut.write("</triggeredsource>\n")
+            emitOut.write("</additional>\n")
+            emitOut.close()
 
 
-            
+def addFlowFile(option, opt_str, value, parser):
+    if not getattr(parser.values, option.dest, None):
+        setattr(parser.values, option.dest, [])
+    fileList = getattr(parser.values, option.dest)
+    fileList.append(value)
+    index = 0
+    while index < len(parser.rargs) and not parser.rargs[index].startswith("-"):
+        index += 1
+    fileList.extend(parser.rargs[0:index])
+    parser.rargs = parser.rargs[index:]
+
 optParser = OptionParser()
 optParser.add_option("-n", "--net-file", dest="netfile",
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-d", "--detector-file", dest="detfile",
                      help="read detectors from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-f", "--detector-flow-file", dest="flowfiles", action="append",
-                     help="read detector flows from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-f", "--detector-flow-files", dest="flowfiles",
+                     action="callback", callback=addFlowFile, type="string",
+                     help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--routes-output", dest="routefile",
                      help="write routes to FILE", metavar="FILE")
 optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                     default=0.0, help="only respect edges with at least this maxspeed")
+                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
                      default=False, help="detect sources and sinks")
 (options, args) = optParser.parse_args()

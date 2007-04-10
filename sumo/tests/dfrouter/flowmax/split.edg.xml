@@ -8,6 +8,8 @@
    <edge id="7to8" fromnode="7" tonode="8" />
    <edge id="8to9" fromnode="8" tonode="9" />
    <edge id="9to10" fromnode="9" tonode="10" />
-   <edge id="split" fromnode="2" tonode="9" />
+   <edge id="2to9split" fromnode="2" tonode="9" />
+   <edge id="5out" fromnode="5" tonode="5a" />
+   <edge id="10out" fromnode="10" tonode="10a" />
 
 </edges>

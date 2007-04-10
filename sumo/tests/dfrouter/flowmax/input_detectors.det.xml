@@ -9,5 +9,5 @@
    <detector_definition id="MQ_8to9"  lane="8to9_0" pos="5"/>
    <detector_definition id="MQ_9to10"  lane="9to10_0" pos="5"/>
 
-   <detector_definition id="MQ_split" lane="split_0" pos="5"/>
+   <detector_definition id="MQ_split" lane="2to9split_0" pos="5"/>
 </a>
