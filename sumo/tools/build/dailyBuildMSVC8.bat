@@ -23,8 +23,8 @@ SET PATH=D:\Programme\TextTest3.8\;%PATH%
 cd tests
 SET TEXTTEST_TMP=%CD%\texttesttmp
 call testEnv.bat
-texttest.py -b gcc3report
-texttest.py -b gcc3report -coll
+texttest.py -b %SUMO_REPORT%
+texttest.py -b %SUMO_REPORT% -coll
 mkdir %REMOTE_DIR%\%SUMO_REPORT%
 xcopy %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT% /Y /E
 cd ..\tools\build
