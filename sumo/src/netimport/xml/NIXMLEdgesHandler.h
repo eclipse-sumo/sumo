@@ -176,6 +176,27 @@ private:
 
     NBDistrictCont &myDistrictCont;
 
+    struct Expansion {
+        std::vector<int> lanes;
+        SUMOReal pos;
+        Position2D gpos;
+    };
+
+    std::vector<Expansion> myExpansions;
+
+    class expansions_sorter
+    {
+    public:
+        explicit expansions_sorter() { }
+
+        /// comparing operator
+        int operator()(const Expansion &e1, const Expansion &e2) const
+        {
+            return e1.pos < e2.pos;
+        }
+    };
+
+
 private:
     /** invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);

@@ -153,7 +153,11 @@ while($ok==1) {
 			$splitP{$RistkVon_Ref} = $Fahrstreifen_Laenge;
 		}
 		if($RistkVon_Ref ne "" && $hadSameConnection==0) {
-			print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
+			if($Signalgr_Nr ne "") {
+				print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
+			} else {
+				print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\" uncontrolled=\"1\"/>\n";
+			}
 		}
 		if($Signalgr_Nr ne "") {
 			print OUTDAT2 "K".$Signalgr_Nr."\t".$RistkVon_Ref."_".$lane."\t".$RistkBis_Ref."_".$lastDestLane."\n";

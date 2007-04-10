@@ -279,8 +279,8 @@ public:
 
     bool lanesWereAssigned() const;
 
-
-    void setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
+    /// Returns if the link could be set as to be controlled
+    bool setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                      const std::string &tlID, size_t tlPos);
 
     void normalisePosition(const NBNodeCont &nc);
@@ -355,6 +355,7 @@ public:
     std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
     std::vector<SUMOVehicleClass> getNotAllowedVehicleClasses() const;
 
+    void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 
     void recheckEdgeGeomForDoublePositions();
 
@@ -518,8 +519,43 @@ private:
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;
 
-private:
+    struct TLSDisabledConnection {
+        int fromLane;
+        NBEdge *to;
+        int toLane;
+    };
+    
+    std::vector<TLSDisabledConnection> myTLSDisabledConnections;
 
+    /**
+     * @class tls_disable_finder
+     */
+    class tls_disable_finder
+    {
+    public:
+        /// constructor
+        tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl) { }
+
+        bool operator()(const TLSDisabledConnection &e) const {
+            if(e.to!=myDefinition.to) {
+                return false;
+            }
+            if(e.fromLane!=myDefinition.fromLane) {
+                return false;
+            }
+            if(e.toLane!=myDefinition.toLane) {
+                return false;
+            }
+            return true;
+        }
+
+    private:
+        TLSDisabledConnection myDefinition;
+
+    };
+
+
+private:
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const std::vector<NBEdge*> *outgoing);
 

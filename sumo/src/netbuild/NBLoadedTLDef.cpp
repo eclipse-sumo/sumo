@@ -460,9 +460,11 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
             NBConnection tst(conn);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
-                edge->setControllingTLInformation(
+                if(edge->setControllingTLInformation(
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos++);
+                    getID(), pos)) {
+                    pos++;
+                }
             } else {
                 WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID()+ ")");
             }

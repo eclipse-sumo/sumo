@@ -87,10 +87,11 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler()
 
 
 void
-NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
+NIXMLEdgesHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
     if (element==SUMO_TAG_EDGE) {
+        myExpansions.clear();
         // retrieve the id of the edge
         setID(attrs);
         // retrieve the name of the edge
@@ -296,6 +297,27 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &/*name*/,
                     return;
                 }
             }
+        }
+    }
+    if (name=="expansion") {
+        try {
+            Expansion e;
+            e.pos = getFloat(attrs, SUMO_ATTR_POS);
+            NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
+            if (edge==0) {
+                if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
+                    addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                }
+                return;
+            }
+            if(e.pos<0) {
+                e.pos = edge->getGeometry().length() + e.pos;
+            }
+            myExpansions.push_back(e);
+        } catch(EmptyData&) {
+            MsgHandler::getErrorInstance()->inform("The position of an expansion is missing (edge '" + myCurrentID + "').");
+        } catch(NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform("The position of an expansion is not numeric (edge '" + myCurrentID + "').");
         }
     }
 }
@@ -613,14 +635,68 @@ NIXMLEdgesHandler::getSpreadFunction(const Attributes &attrs)
 
 
 void
-NIXMLEdgesHandler::myCharacters(int /*element*/, const std::string &/*name*/,
-                                const std::string &/*chars*/)
-{}
+NIXMLEdgesHandler::myCharacters(int /*element*/, const std::string &name,
+                                const std::string &chars)
+{
+    if (name=="expansion") {
+        if(myExpansions.size()!=0) {
+            Expansion &e = myExpansions.back();
+            StringTokenizer st(chars, ";");
+            while(st.hasNext()) {
+                try {
+                    int lane = TplConvert<char>::_2int(st.next().c_str());
+                    e.lanes.push_back(lane);
+                } catch(NumberFormatException &) {
+                    MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+                } catch(EmptyData &) {
+                    MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+                }
+            }
+        } else {
+            MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+        }
+    }
+}
 
 
 void
-NIXMLEdgesHandler::myEndElement(int /*element*/, const std::string &/*name*/)
-{}
+NIXMLEdgesHandler::myEndElement(int element, const std::string &/*name*/)
+{
+    if (element==SUMO_TAG_EDGE) {
+        if(myExpansions.size()!=0) {
+            std::vector<Expansion>::iterator i;
+            sort(myExpansions.begin(), myExpansions.end(), expansions_sorter());
+            NBEdge *e = myEdgeCont.retrieve(myCurrentID);
+            // compute the node positions
+            for(i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
+                (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
+            }
+            SUMOReal seen = 0;
+            // split the edge
+            for(i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
+                const Expansion &exp = *i;
+                if (e->getGeometry().length()-exp.pos>0) {
+                    string nid = myCurrentID + "/" +  toString(exp.pos);
+                    NBNode *rn = new NBNode(nid, exp.gpos);
+                    if (myNodeCont.insert(rn)) {
+                        //  split the edge
+                        string nid = myCurrentID + "/" +  toString(exp.pos);
+                        string pid = myCurrentID;
+                        myEdgeCont.splitAt(myDistrictCont, e, e->getGeometry().length()-exp.pos, rn,
+                                           pid, nid, e->getNoLanes(), e->getNoLanes());
+                        NBEdge *ne = myEdgeCont.retrieve(nid);
+                        NBEdge *pe = myEdgeCont.retrieve(pid);
+                        // !!! reconnect
+                    } else {
+                        MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+                    }
+                } else {
+                    MsgHandler::getErrorInstance()->inform("Expansion at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
+                }
+            }
+        }
+    }
+}
 
 
 

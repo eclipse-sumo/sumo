@@ -243,10 +243,17 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                 } while (toNext);
                 if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, false)) {
                     WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
+                } else {
+                    from = nFrom;
                 }
             }
         } catch (NumberFormatException) {
             addError("At least one of the defined lanes was not numeric");
+        }
+        //
+        bool keepUncontrolled = getBoolSecure(attrs, "uncontrolled", false);
+        if(keepUncontrolled) {
+            from->disableConnection4TLS(fromLane, to, toLane);
         }
     }
 }

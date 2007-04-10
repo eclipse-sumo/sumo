@@ -544,8 +544,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     if (myLaneSpeeds[lane]==0) {
         WRITE_WARNING("Lane #" + toString<size_t>(lane) + " of edge '" + _id + "' has a maximum velocity of 0.");
     } else if (myLaneSpeeds[lane]<0) {
-        MsgHandler::getErrorInstance()->inform(
-            "Negative velocity (" + toString<SUMOReal>(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString<size_t>(lane) + ".");
+        MsgHandler::getErrorInstance()->inform("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString(lane) + ".");
         throw ProcessError();
     }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
@@ -1231,7 +1230,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input
     // what happens is that under some circumstances a single lane may set to
-    //  be approached by more than once by the one of our lanes.
+    //  be approached more than once by the one of our lanes.
     //  This must not be!
     // we test whether it is the case and do nothing if so - the connection
     //  will be refused
@@ -1248,6 +1247,10 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
                 return;
             }
         }
+    }
+    EdgeLaneVector &tmp = _reachable[src_lane];
+    if (find(tmp.begin(), tmp.end(), el)!=tmp.end()) {
+        return;
     }
 
     // this connection has not yet been set
@@ -1697,10 +1700,27 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 }
 
 
-void
+bool
 NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                     const std::string &tlID, size_t tlPos)
 {
+    // check whether the connection was not set as not to be controled previously
+    {
+        if(tlID=="538") {
+            int bla = 0;
+        }
+        TLSDisabledConnection tpl;
+        tpl.fromLane = fromLane;
+        tpl.to = toEdge;
+        tpl.toLane = toLane;
+        std::vector<TLSDisabledConnection>::iterator i;
+        i = find_if(myTLSDisabledConnections.begin(), myTLSDisabledConnections.end(),
+                    tls_disable_finder(tpl));
+        if(i!=myTLSDisabledConnections.end()) {
+            return false;
+        }
+    }
+
     assert(fromLane<0||fromLane<(int) _nolanes);
     // try to use information about the connections if given
     if (fromLane>=0&&toLane>=0) {
@@ -1718,7 +1738,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
             // set the information about the tl
             connection.tlID = tlID;
             connection.tlLinkNo = tlPos;
-            return;
+            return true;
         }
     }
     // if the original connection was not found, set the information for all
@@ -1752,6 +1772,18 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
     if (hadError&&no==0) {
         WRITE_WARNING("Could not set any signal of the traffic light '" + tlID + "' (unknown group)");
     }
+    return true;
+}
+
+
+void 
+NBEdge::disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane)
+{
+    TLSDisabledConnection c;
+    c.fromLane = fromLane;
+    c.to = toEdge;
+    c.toLane = toLane;
+    myTLSDisabledConnections.push_back(c);
 }
 
 
