@@ -84,7 +84,7 @@ foreach (glob("*status.log") as $filename) {
     $row = 0;
     $statusdata = file($filename);
     foreach ($statusdata as $line) {
-        if ($line == "--\n") {
+        if (chop($line) == "--") {
             if (strstr($cells[$column][$row], "<pre>")) {
                 $cells[$column][$row] .= "</pre></a>";
             }
