@@ -1706,9 +1706,6 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 {
     // check whether the connection was not set as not to be controled previously
     {
-        if(tlID=="538") {
-            int bla = 0;
-        }
         TLSDisabledConnection tpl;
         tpl.fromLane = fromLane;
         tpl.to = toEdge;

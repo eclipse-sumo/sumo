@@ -179,6 +179,7 @@ private:
     struct Expansion {
         std::vector<int> lanes;
         SUMOReal pos;
+        int nameid;
         Position2D gpos;
     };
 
@@ -192,8 +193,28 @@ private:
         /// comparing operator
         int operator()(const Expansion &e1, const Expansion &e2) const
         {
-            return e1.pos < e2.pos;
+            return e1.pos > e2.pos;
         }
+    };
+
+    class expansion_by_pos_finder
+    {
+    public:
+        /** constructor */
+        explicit expansion_by_pos_finder(SUMOReal pos)
+                : myPosition(pos)
+        { }
+
+        /** the comparing function */
+        bool operator()(const Expansion &e)
+        {
+            return e.pos==myPosition;
+        }
+
+    private:
+        /// The position to search for
+        SUMOReal myPosition;
+
     };
 
 
