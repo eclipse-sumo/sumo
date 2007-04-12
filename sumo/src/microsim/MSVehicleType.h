@@ -71,6 +71,7 @@ public:
     /// Constructor.
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                   SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
+                  SUMOReal tau,
                   SUMOVehicleClass vclass);
 
     /// Destructor.

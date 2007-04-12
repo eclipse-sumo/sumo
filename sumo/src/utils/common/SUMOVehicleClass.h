@@ -126,6 +126,7 @@ const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
 const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
 const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
 const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 5.;
+const SUMOReal DEFAULT_VEH_TAU = (SUMOReal) 1.;
 const SUMOVehicleClass DEFAULT_VEH_CLASS = SVC_UNKNOWN;
 
 

@@ -210,6 +210,7 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
                                  getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                 getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (XMLIdAlreadyUsedException &e) {
@@ -229,9 +230,10 @@ void
 MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                      const SUMOReal maxspeed, const SUMOReal bmax,
                                      const SUMOReal dmax, const SUMOReal sigma,
+                                     SUMOReal tau,
                                      SUMOVehicleClass vclass, SUMOReal prob)
 {
-    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, vclass);
+    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
     if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
         delete vtype;
         if (!MSGlobals::gStateLoaded) {

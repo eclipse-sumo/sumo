@@ -69,9 +69,10 @@ MSVehicleType::~MSVehicleType()
 MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOReal maxSpeed, SUMOReal accel,
                              SUMOReal decel, SUMOReal dawdle,
+                             SUMOReal tau,
                              SUMOVehicleClass vclass)
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-        myDecel(decel), myDawdle(dawdle), myTau(1), myVehicleClass(vclass)
+        myDecel(decel), myDawdle(dawdle), myTau(tau), myVehicleClass(vclass)
 {
     assert(myLength > 0);
     assert(myMaxSpeed > 0);
@@ -104,6 +105,7 @@ MSVehicleType::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeFloat(os, myAccel);
     FileHelpers::writeFloat(os, myDecel);
     FileHelpers::writeFloat(os, myDawdle);
+    FileHelpers::writeFloat(os, myTau);
     FileHelpers::writeInt(os, (int) myVehicleClass);
 }
 

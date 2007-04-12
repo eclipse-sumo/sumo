@@ -71,7 +71,7 @@ MSVehicleControl::MSVehicleControl()
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0), myHaveDefaultVTypeOnly(true)
 {
     // add a default vehicle type (probability to choose=1)
-    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, SVC_UNKNOWN), 1.);
+    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, DEFAULT_VEH_TAU, SVC_UNKNOWN), 1.);
     // mark that we have a default only
     myHaveDefaultVTypeOnly = true;
 }
@@ -271,7 +271,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
         bis >> size;
         while (size-->0) {
             string id;
-            SUMOReal length, maxSpeed, accel, decel, dawdle;
+            SUMOReal length, maxSpeed, accel, decel, dawdle, tau;
             int vclass;
             bis >> id;
             bis >> length;
@@ -279,8 +279,9 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
             bis >> accel;
             bis >> decel;
             bis >> dawdle;
+            bis >> tau;
             bis >> vclass;
-            MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, (SUMOVehicleClass) vclass);
+            MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, (SUMOVehicleClass) vclass);
             addVType(t, 1.); // !!!
         }
     }

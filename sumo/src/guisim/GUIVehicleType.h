@@ -4,7 +4,7 @@
 /// @date    Thu, 17. Jun 2004
 /// @version $Id$
 ///
-// parameters.
+// GUI-version of a MSVehicleType (extended by a color)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,7 @@ public:
     GUIVehicleType(const RGBColor &c, const std::string &id,
                    SUMOReal length, SUMOReal maxSpeed,
                    SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
-                   SUMOVehicleClass vclass);
+                   SUMOReal tau, SUMOVehicleClass vclass);
 
     /// Destructor.
     ~GUIVehicleType();

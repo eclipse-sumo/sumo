@@ -4,7 +4,7 @@
 /// @date    Thu, 17. Jun 2004
 /// @version $Id$
 ///
-// parameters.
+// GUI-version of a MSVehicleType (extended by a color)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,16 +50,17 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIVehicleType::~GUIVehicleType()
-{}
-
-
 GUIVehicleType::GUIVehicleType(const RGBColor &c, const string &id,
                                SUMOReal length, SUMOReal maxSpeed,
                                SUMOReal accel, SUMOReal decel,
-                               SUMOReal dawdle, SUMOVehicleClass vclass)
-        : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, vclass),
+                               SUMOReal dawdle, SUMOReal tau,
+                               SUMOVehicleClass vclass)
+        : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, vclass),
         myColor(c)
+{}
+
+
+GUIVehicleType::~GUIVehicleType()
 {}
 
 

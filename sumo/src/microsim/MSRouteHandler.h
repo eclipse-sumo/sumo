@@ -114,6 +114,7 @@ protected:
     virtual void addParsedVehicleType(const std::string &id,
                                       const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
                                       const SUMOReal dmax, const SUMOReal sigma,
+                                      SUMOReal tau,
                                       SUMOVehicleClass vclass, SUMOReal prob);
 
 

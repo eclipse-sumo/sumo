@@ -65,7 +65,8 @@ protected:
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
                                       const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-                                      const SUMOReal dmax, const SUMOReal sigma, SUMOVehicleClass vclass,
+                                      const SUMOReal dmax, const SUMOReal sigma, 
+                                      SUMOReal tau, SUMOVehicleClass vclass,
                                       const RGBColor &c, SUMOReal prob);
 
     /// Ends route processing

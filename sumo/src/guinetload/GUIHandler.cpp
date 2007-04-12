@@ -142,6 +142,7 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
                                  getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                 getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
@@ -162,11 +163,12 @@ void
 GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                  const SUMOReal maxspeed, const SUMOReal bmax,
                                  const SUMOReal dmax, const SUMOReal sigma,
+                                 SUMOReal tau,
                                  SUMOVehicleClass vclass,
                                  const RGBColor &c, SUMOReal prob)
 {
     GUIVehicleType *vtype =
-        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, vclass);
+        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
     if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
         delete vtype;
         if (!MSGlobals::gStateLoaded) {
