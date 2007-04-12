@@ -44,7 +44,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <utils/iodevices/XMLDevice.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
 
 
@@ -251,7 +251,7 @@ public:
      * @see MSDetector2File
      * @see getXMLOutput
      */
-    void writeXMLHeader(XMLDevice &dev) const;
+    void writeXMLHeader(OutputDevice &dev) const;
 
 
     /**
@@ -266,7 +266,7 @@ public:
      *
      * @see MSDetector2File
      */
-    void writeXMLOutput(XMLDevice &dev,
+    void writeXMLOutput(OutputDevice &dev,
                         SUMOTime startTime, SUMOTime stopTime);
 
     /**
@@ -278,7 +278,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoEnd
      */
-    void writeXMLDetectorInfoStart(XMLDevice &dev) const;
+    void writeXMLDetectorInfoStart(OutputDevice &dev) const;
 
 
     /**
@@ -289,7 +289,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoStart
      */
-    void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
+    void writeXMLDetectorInfoEnd(OutputDevice &dev) const;
     //@}
 
     /**

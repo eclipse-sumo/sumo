@@ -118,7 +118,7 @@ OutputDevice_Network::getOStream()
     return std::cerr;
 }
 
-XMLDevice &
+OutputDevice &
 OutputDevice_Network::writeString(const std::string &str)
 {
     m_Message+= str;

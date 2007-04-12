@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// An abstract output device that encapsulates an ostream
+// An abstract output device
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,7 +37,6 @@
 #endif
 
 #include <string>
-#include "XMLDevice.h"
 
 
 // ===========================================================================
@@ -45,9 +44,9 @@
 // ===========================================================================
 /**
  * @class OutputDevice
- * An abstract output device that encapsulates an ostream
+ * An abstract output device
  */
-class OutputDevice : public XMLDevice
+class OutputDevice 
 {
 public:
     /// Constructor
@@ -74,7 +73,7 @@ public:
 
     //{
     /// Writes the given string
-    virtual XMLDevice &writeString(const std::string &str) = 0;
+    virtual OutputDevice &writeString(const std::string &str) = 0;
 
     virtual void closeInfo() = 0;
 

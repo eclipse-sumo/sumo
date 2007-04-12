@@ -90,7 +90,7 @@ OutputDevice_File::getOStream()
 }
 
 
-XMLDevice &
+OutputDevice &
 OutputDevice_File::writeString(const std::string &str)
 {
     (*myFileStream) << str;

@@ -240,28 +240,28 @@ MSInductLoop::getNVehContributed(SUMOTime lastNTimesteps) const
 
 
 void
-MSInductLoop::writeXMLHeader(XMLDevice &dev) const
+MSInductLoop::writeXMLHeader(OutputDevice &dev) const
 {
     dev.writeString(xmlHeaderM);
 }
 
 
 void
-MSInductLoop::writeXMLDetectorInfoStart(XMLDevice &dev) const
+MSInductLoop::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
     dev.writeString("<detector>\n");
 }
 
 
 void
-MSInductLoop::writeXMLDetectorInfoEnd(XMLDevice &dev) const
+MSInductLoop::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
     dev.writeString(xmlDetectorInfoEndM);
 }
 
 
 void
-MSInductLoop::writeXMLOutput(XMLDevice &dev,
+MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime)
 {
     SUMOTime t(stopTime-startTime+1);

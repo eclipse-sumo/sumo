@@ -45,7 +45,6 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <utils/iodevices/XMLDevice.h>
 #include <microsim/devices/MSDevice_CPhone.h>
 
 

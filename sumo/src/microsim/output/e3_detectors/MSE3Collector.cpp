@@ -4,7 +4,7 @@
 /// @date    Tue Dec 02 2003 22:17 CET
 /// @version $Id$
 ///
-// / @author  Christian Roessel <christian.roessel@dlr.de>
+// A detector of vehicles passing an area between entry/exit points
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,8 +44,6 @@
 // variable declarations
 // ===========================================================================
 std::string MSE3Collector::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
-
-
 std::string MSE3Collector::infoEndM = "</e3-detector>";
 
 
@@ -218,14 +216,14 @@ MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 
 
 void
-MSE3Collector::writeXMLHeader(XMLDevice &dev) const
+MSE3Collector::writeXMLHeader(OutputDevice &dev) const
 {
     dev.writeString(xmlHeaderM);
 }
 
 
 void
-MSE3Collector::writeXMLOutput(XMLDevice &dev,
+MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("   <interval begin=\"").writeString(
@@ -319,7 +317,7 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
 
 
 void
-MSE3Collector::writeXMLDetectorInfoStart(XMLDevice &dev) const
+MSE3Collector::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
     dev.writeString("<e3-detector>\n");
     std::string entries;
@@ -339,7 +337,7 @@ MSE3Collector::writeXMLDetectorInfoStart(XMLDevice &dev) const
 
 
 void
-MSE3Collector::writeXMLDetectorInfoEnd(XMLDevice &dev) const
+MSE3Collector::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
     dev.writeString(infoEndM);
 }

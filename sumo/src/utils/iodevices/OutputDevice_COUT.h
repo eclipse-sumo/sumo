@@ -70,7 +70,7 @@ public:
 
     //{
     /// Writes the given string
-    XMLDevice &writeString(const std::string &str);
+    OutputDevice &writeString(const std::string &str);
 
     void closeInfo();
     //}

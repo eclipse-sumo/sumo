@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// An output device that encapsulates cout
+// An output device
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -86,7 +86,7 @@ OutputDevice_COUT::supportsStreams() const
 }
 
 
-XMLDevice &
+OutputDevice &
 OutputDevice_COUT::writeString(const std::string &str)
 {
     cout << str;

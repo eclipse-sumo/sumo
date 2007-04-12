@@ -47,7 +47,6 @@
 #include "MSLane.h"
 #include <utils/common/ToString.h>
 #include <utils/helpers/OneArgumentCommand.h>
-#include <utils/iodevices/XMLDevice.h>
 #include <utils/common/SUMOTime.h>
 
 

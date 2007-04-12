@@ -72,24 +72,24 @@ public:
     /// destructor
     virtual ~MSMeanData_Net();
 
-    virtual void write(XMLDevice &dev,
+    virtual void write(OutputDevice &dev,
                        SUMOTime startTime, SUMOTime stopTime);
 
-    virtual void writeEdge(XMLDevice &dev,
+    virtual void writeEdge(OutputDevice &dev,
                            const MSEdge &edge,
                            SUMOTime startTime, SUMOTime stopTime);
 
-    virtual void writeLane(XMLDevice &dev,
+    virtual void writeLane(OutputDevice &dev,
                            const MSLane &lane,
                            SUMOTime startTime, SUMOTime stopTime);
 
     friend class MSMeanData_Net_Utils;
 
-    void writeXMLHeader(XMLDevice &dev) const;
-    virtual void writeXMLOutput(XMLDevice &dev,
+    void writeXMLHeader(OutputDevice &dev) const;
+    virtual void writeXMLOutput(OutputDevice &dev,
                                 SUMOTime startTime, SUMOTime stopTime);
-    void writeXMLDetectorInfoStart(XMLDevice &dev) const;
-    void writeXMLDetectorInfoEnd(XMLDevice &dev) const;
+    void writeXMLDetectorInfoStart(OutputDevice &dev) const;
+    void writeXMLDetectorInfoEnd(OutputDevice &dev) const;
 
 protected:
     void resetOnly(SUMOTime stopTime);

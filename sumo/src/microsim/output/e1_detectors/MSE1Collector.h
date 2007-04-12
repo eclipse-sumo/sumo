@@ -48,7 +48,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <utils/common/ToString.h>
-#include <utils/iodevices/XMLDevice.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -223,7 +223,7 @@ public:
     ///
     /// @return The member xmlHeaderM.
     ///
-    void writeXMLHeader(XMLDevice &dev) const
+    void writeXMLHeader(OutputDevice &dev) const
     {
         dev.writeString(xmlHeaderM);
     }
@@ -237,7 +237,7 @@ public:
     ///
     /// @return XML-output of all existing concrete detectors.
     ///
-    void writeXMLOutput(XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime)
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
         dev.writeString("<interval begin=\"").writeString(
             toString(startTime)).writeString("\" end=\"").writeString(
@@ -253,7 +253,7 @@ public:
     ///
     /// @return String describing the detetctor-collection.
     ///
-    void writeXMLDetectorInfoStart(XMLDevice &dev) const
+    void writeXMLDetectorInfoStart(OutputDevice &dev) const
     {
         dev.writeString("<detector type=\"E1_Collector\" id=\"").writeString(
             idM).writeString("\" >\n");
@@ -389,7 +389,7 @@ protected:
     /// @return A XML-formatted string.
     ///
     template< class Cont >
-    void writeXMLOutput(XMLDevice &dev, Cont& container,
+    void writeXMLOutput(OutputDevice &dev, Cont& container,
                         SUMOTime startTime, SUMOTime stopTime)
     {
         MSUnit::Seconds lastNSeconds =

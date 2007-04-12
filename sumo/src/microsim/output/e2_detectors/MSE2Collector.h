@@ -52,7 +52,7 @@
 #include <vector>
 #include <limits>
 #include <microsim/output/MSApproachingVehiclesStates.h>
-#include <utils/iodevices/XMLDevice.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Named.h>
@@ -497,7 +497,7 @@ public:
     ///
     /// @return The member xmlHeaderM.
     ///
-    void writeXMLHeader(XMLDevice &dev) const
+    void writeXMLHeader(OutputDevice &dev) const
     {
         dev.writeString(xmlHeaderM);
     }
@@ -512,7 +512,7 @@ public:
     /// @return XML-output of all existing concrete detectors. Except
     /// APPROACHING_VEHICLES_STATES.
     ///
-    void writeXMLOutput(XMLDevice &dev, SUMOTime startTime, SUMOTime stopTime)
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
         dev.writeString("   <interval begin=\"").writeString(
             toString(startTime)).writeString("\" end=\"").writeString(
@@ -538,7 +538,7 @@ public:
     ///
     /// @return String describing the detetctor-collection.
     ///
-    void writeXMLDetectorInfoStart(XMLDevice &dev) const
+    void writeXMLDetectorInfoStart(OutputDevice &dev) const
     {
         dev.writeString("<detector>\n");
     }
@@ -548,7 +548,7 @@ public:
     ///
     /// @return The member infoEndM.
     ///
-    void writeXMLDetectorInfoEnd(XMLDevice &dev) const
+    void writeXMLDetectorInfoEnd(OutputDevice &dev) const
     {
         dev.writeString(infoEndM);
     }
@@ -894,7 +894,7 @@ private:
     /// @return A XML-formatted string.
     ///
     template< class Cont >
-    void writeXMLOutput(XMLDevice &dev, Cont& container,
+    void writeXMLOutput(OutputDevice &dev, Cont& container,
                         SUMOTime startTime, SUMOTime stopTime)
     {
         MSUnit::Seconds lastNSeconds =

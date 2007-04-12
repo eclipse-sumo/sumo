@@ -351,7 +351,7 @@ MS_E2_ZS_CollectorOverLanes::addDetector(E2::DetType type,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
+MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("<interval begin=\"").writeString(
@@ -373,7 +373,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart(XMLDevice &dev) const
+MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
     dev.writeString("<detector type=\"E2_ZS_Collector\" id=\"").writeString(
         myID).writeString("\" startlane=\"").writeString(

@@ -123,7 +123,7 @@ MSMeanData_Net::resetOnly(SUMOTime stopTime)
 
 
 void
-MSMeanData_Net::write(XMLDevice &dev,
+MSMeanData_Net::write(OutputDevice &dev,
                       SUMOTime startTime, SUMOTime stopTime)
 {
     // the folowing may happen on closure
@@ -158,7 +158,7 @@ MSMeanData_Net::write(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeEdge(XMLDevice &dev,
+MSMeanData_Net::writeEdge(OutputDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
@@ -262,7 +262,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeLane(XMLDevice &dev,
+MSMeanData_Net::writeLane(OutputDevice &dev,
                           const MSLane &lane,
                           SUMOTime startTime, SUMOTime stopTime)
 {
@@ -289,12 +289,12 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLHeader(XMLDevice &) const
+MSMeanData_Net::writeXMLHeader(OutputDevice &) const
     {}
 
 
 void
-MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
+MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime)
 {
     dev.writeString("   <interval begin=\"").writeString(
@@ -310,14 +310,14 @@ MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLDetectorInfoStart(XMLDevice &dev) const
+MSMeanData_Net::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
     dev.writeString("<netstats>");
 }
 
 
 void
-MSMeanData_Net::writeXMLDetectorInfoEnd(XMLDevice &dev) const
+MSMeanData_Net::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
     dev.writeString("</netstats>");
 }
