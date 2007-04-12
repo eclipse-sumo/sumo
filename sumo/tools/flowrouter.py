@@ -21,6 +21,7 @@ class Edge:
         self.flow = 0
         self.kind = kind
         self.maxSpeed = 0.0
+        self.finalizer = None
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -29,21 +30,15 @@ class Edge:
         return self.kind+"_"+self.label+"<"+str(self.flow)+"|"+cap+">"
     
         
-class NetReader(handler.ContentHandler):
+class Net:
 
     def __init__(self):
         self._currVertex = 0
-        self._edge = ''
         self._edges = {}
-        self._auxEdges = []
         self._inEdges = {}
         self._outEdges = {}
-        self._lane2edge = {}
-        self._edgeDetPos = {}
-        self._det2edge = {}
         self._source = self.newVertex()
         self._sink = self.newVertex()
-        self._edgeString = ''
         self._routeOut = None
         self._routes = {}
         self._routeFreq = {}
@@ -54,91 +49,37 @@ class NetReader(handler.ContentHandler):
         self._outEdges[self._currVertex] = set()
         return self._currVertex
 
+    def getEdge(self, edgeLabel):
+        return self._edges[edgeLabel]
+
     def addEdge(self, edgeObj):
         self._outEdges[edgeObj.source].add(edgeObj)
         self._inEdges[edgeObj.target].add(edgeObj)
         if edgeObj.kind == "real":
             self._edges[edgeObj.label] = edgeObj
-        else:
-            self._auxEdges.append(edgeObj)
                 
     def removeEdge(self, edgeObj):
         self._outEdges[edgeObj.source].remove(edgeObj)
         self._inEdges[edgeObj.target].remove(edgeObj)
         if edgeObj.kind == "real":
             del self._edges[edgeObj.label]
-        else:
-            self._auxEdges.remove(edgeObj)
+            checkEdges = self._inEdges[edgeObj.source].union(self._outEdges[edgeObj.target])
+            for edge in checkEdges:
+                if edge.kind != "real":
+                    self.removeEdge(edge)
                 
-    def startElement(self, name, attrs):
-        if name == 'edges':
-            self._edgeString = ' '
-        if name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
-            self._edge = attrs['id']
-        if name == 'cedge':
-            fromEdge = self._edges[self._edge]
-            toEdge = self._edges[attrs['id']]
-            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
-            self.addEdge(newEdge)
-        if name == 'lane':
-            self._lane2edge[attrs['id']] = self._edge
-            edgeObj = self._edges[self._edge]
-            edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
-        if name == 'detector_definition':
-            if not attrs['lane'] in self._lane2edge:
-                warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
-                return
-            edge = self._lane2edge[attrs['lane']]
-            pos = float(attrs['pos'])
-            if edge in self._edgeDetPos and abs(self._edgeDetPos[edge] - pos) > MAX_POS_DEVIATION:
-                warn("Warning! Edge " + edge + " has detectors at multiple positions, ignoring " + attrs['id'])
-            else:
-                self._edgeDetPos[edge] = pos
-                self._det2edge[attrs['id']] = edge
-            if not 'type' in attrs:
-                if not options.sourcesink:
-                    print "Warning! No type for detector " + attrs['id']
-            else:
-                if attrs['type'] == 'source':
-                    edgeSource = self._edges[edge].source
-                    newEdge = Edge("s_"+edge, self._source, edgeSource, "source")
-                    self.addEdge(newEdge)
-                if attrs['type'] == 'sink':
-                    edgeTarget = self._edges[edge].target
-                    newEdge = Edge("t_"+edge, edgeTarget, self._sink, "sink")
-                    self.addEdge(newEdge)
-
-    def characters(self, content):
-        if self._edgeString != '':
-            self._edgeString += content
-
-    def endElement(self, name):
-        if name == 'edges':
-            for edge in self._edgeString.split():
-                edgeObj = Edge(edge, self.newVertex(), self.newVertex(), "real")
-                self.addEdge(edgeObj)
-            self._edgeString = ''
-
-    def readFlows(self, flowFile):
-        headerSeen = False
-        for l in file(flowFile):
-            index = 2
-            if options.whitespace:
-                flowDef = l.split()
-                index = 1
-            else:
-                flowDef = l.split(';')
-            if not headerSeen and flowDef[0] == "Detector":
-                headerSeen = True
-                continue
-            if not flowDef[0] in self._det2edge:
-                warn("Warning! Unknown detector " + flowDef[0])
-            else:
-                edge = self._edges[self._det2edge[flowDef[0]]]
-                if edge.capacity == sys.maxint:
-                    edge.capacity = int(flowDef[index])
-                else:
-                    edge.capacity += int(flowDef[index])
+    def addIsolatedRealEdge(self, edgeLabel):
+        self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(), "real"))
+                
+    def addSourceEdge(self, edgeLabel):
+        edgeSource = self._edges[edgeLabel].source
+        newEdge = Edge("s_"+edgeLabel, self._source, edgeSource, "source")
+        self.addEdge(newEdge)
+                
+    def addSinkEdge(self, edgeLabel):
+        edgeTarget = self._edges[edgeLabel].target
+        newEdge = Edge("t_"+edgeLabel, edgeTarget, self._sink, "sink")
+        self.addEdge(newEdge)
 
     def compressNet(self):
         if options.minspeed > 0.0:
@@ -146,27 +87,47 @@ class NetReader(handler.ContentHandler):
                 print "Removing edges with maxspeed <", options.minspeed, "... ", 
             for edge in self._edges.values():
                 if edge.maxSpeed < options.minspeed:
-                    self.removeEdge(edge)
+                    delete = True
+                    if options.keepsucc:
+                        for auxpred in self._inEdges[edge.source]:
+                            for realpred in self._inEdges[auxpred.source]:
+                                if realpred.maxSpeed >= options.minspeed:
+                                    delete = False
+                                    break
+                            if not delete: break
+                    if delete and options.keeppred:
+                        for auxsucc in self._outEdges[edge.target]:
+                            for realsucc in self._outEdges[auxsucc.target]:
+                                if realsucc.maxSpeed >= options.minspeed:
+                                    delete = False
+                                    break
+                            if not delete: break
+                    if options.keepdet and edge.capacity < sys.maxint:
+                        delete = False
+                    if delete:
+                        self.removeEdge(edge)
             if options.verbose:
                 print len(self._edges), "left"
         
     def detectSourceSink(self):
         for edge in self._edges.values():
             if len(self._inEdges[edge.source]) == 0:
-                newEdge = Edge("s_"+edge.label, self._source, edge.source, "source")
-                self.addEdge(newEdge)
+                self.addSourceEdge(edge.label)
             if len(self._outEdges[edge.target]) == 0:
-                newEdge = Edge("t_"+edge.label, edge.target, self._sink, "sink")
-                self.addEdge(newEdge)
+                self.addSinkEdge(edge.label)
         
     def checkNet(self, forcedSourceSinkDetection):
         self.compressNet()
+        if options.ignorezero:
+            for edge in self._edges.values():
+                if edge.capacity == 0:
+                    edge.capacity = sys.maxint
         if not forcedSourceSinkDetection:
             if len(self._inEdges[self._sink]) == 0:
-                print "Warning! No sinks, trying to find some."
+                warn("Warning! No sinks, trying to find some.")
                 forcedSourceSinkDetection = True
             if len(self._outEdges[self._source]) == 0:
-                print "Warning! No sources, trying to find some."
+                warn("Warning! No sources, trying to find some.")
                 forcedSourceSinkDetection = True
         if forcedSourceSinkDetection:
             self.detectSourceSink()
@@ -177,7 +138,7 @@ class NetReader(handler.ContentHandler):
             while len(queue) > 0:
                 currVertex = queue.pop(0)
                 if currVertex == self._sink:
-                    print "Warning! Source " + source.label + " leads to path with unlimited capacity, ignoring it."
+                    warn("Warning! Source " + source.label + " leads to path with unlimited capacity, ignoring it.")
                     self.removeEdge(source)
                     break
                 seenVertices.add(currVertex)
@@ -237,9 +198,17 @@ class NetReader(handler.ContentHandler):
                     if not edge.source in seenVertices and edge.flow > 0:
                         queue.append(edge.source)
                         pred[edge.source] = edge
-        for edge in self._auxEdges + self._edges.values():
+        for edge in self._edges.itervalues():
             edge.capacity = edge.flow
             edge.flow = 0
+            for succEdge in self._outEdges[edge.target]:
+                if succEdge.kind != "real":
+                    succEdge.capacity = succEdge.flow
+                    succEdge.flow = 0
+        for srcEdge in self._outEdges[self._source]:
+            if srcEdge.kind != "real":
+                srcEdge.capacity = srcEdge.flow
+                srcEdge.flow = 0
 
     def printRouteAndUpdateFlow(self, pred, endEdge):
         route = ''
@@ -247,6 +216,8 @@ class NetReader(handler.ContentHandler):
         currEdge = endEdge
         while not currEdge.source == self._source:
             if currEdge.kind == "real":
+                if route == '' and currEdge.finalizer:
+                    route = currEdge.finalizer
                 route = currEdge.label + " " + route
             flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
             currEdge = pred[currEdge]
@@ -304,22 +275,104 @@ class NetReader(handler.ContentHandler):
             for edgeLabel, routes in self._routes.iteritems():
                 srcFile = "src_"+edgeLabel + ".def.xml"
                 emitOut.write('    <trigger id="src_' + edgeLabel + '" objecttype="emitter" ')
-                emitOut.write('pos="5" friendlypos="x" ')
+                emitOut.write('pos="0" friendly_pos="x" ')
                 emitOut.write('objectid="' + edgeLabel + '_0" file="' + srcFile + '"/>\n')
                 srcOut = open(srcFile, 'w')
                 srcOut.write("<triggeredsource>\n")
                 for route in routes:
                     srcOut.write('    <routedistelem id="'+route+'" probability="'+str(self._routeFreq[route])+'"/>\n')
+                print self._edges[edgeLabel].flow
                 for time in range(self._edges[edgeLabel].flow):
                     srcOut.write('    <emit time="'+str(time)+'"/>\n')                                     
                 srcOut.write("</triggeredsource>\n")
+                srcOut.close()
             emitOut.write("</additional>\n")
             emitOut.close()
 
 
+class NetDetectorFlowReader(handler.ContentHandler):
+
+    def __init__(self, net):
+        self._net = net
+        self._edgeString = ''
+        self._edge = ''
+        self._lane2edge = {}
+        self._edgeDetPos = {}
+        self._det2edge = {}
+        self._detIgnore = set()
+
+    def startElement(self, name, attrs):
+        if name == 'edges':
+            self._edgeString = ' '
+        if name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
+            self._edge = attrs['id']
+        if name == 'cedge':
+            fromEdge = self._net.getEdge(self._edge)
+            toEdge = self._net.getEdge(attrs['id'])
+            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
+            self._net.addEdge(newEdge)
+            fromEdge.finalizer = attrs['id']
+        if name == 'lane':
+            self._lane2edge[attrs['id']] = self._edge
+            edgeObj = self._net.getEdge(self._edge)
+            edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
+        if name == 'detector_definition':
+            if not attrs['lane'] in self._lane2edge:
+                warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
+                return
+            edge = self._lane2edge[attrs['lane']]
+            pos = float(attrs['pos'])
+            if edge in self._edgeDetPos and abs(self._edgeDetPos[edge] - pos) > MAX_POS_DEVIATION:
+                warn("Warning! Edge " + edge + " has detectors at multiple positions, ignoring " + attrs['id'])
+                self._detIgnore.add(attrs['id'])
+            else:
+                self._edgeDetPos[edge] = pos
+                self._det2edge[attrs['id']] = edge
+            if not 'type' in attrs:
+                if not options.sourcesink:
+                    warn("Warning! No type for detector " + attrs['id'])
+            else:
+                if attrs['type'] == 'source':
+                    self._net.addSourceEdge(edge)
+                if attrs['type'] == 'sink':
+                    self._net.addSinkEdge(edge)
+
+    def characters(self, content):
+        if self._edgeString != '':
+            self._edgeString += content
+
+    def endElement(self, name):
+        if name == 'edges':
+            for edge in self._edgeString.split():
+                self._net.addIsolatedRealEdge(edge)
+            self._edgeString = ''
+
+    def readFlows(self, flowFile):
+        headerSeen = False
+        for l in file(flowFile):
+            index = 2
+            if options.whitespace:
+                flowDef = l.split()
+                index = 1
+            else:
+                flowDef = l.split(';')
+            if not headerSeen and flowDef[0] == "Detector":
+                headerSeen = True
+                continue
+            if not flowDef[0] in self._det2edge:
+                if not flowDef[0] in self._detIgnore and options.unknowndet:
+                    warn("Warning! Unknown detector " + flowDef[0])
+            else:
+                edge = self._net.getEdge(self._det2edge[flowDef[0]])
+                if edge.capacity == sys.maxint:
+                    edge.capacity = int(flowDef[index])
+                else:
+                    edge.capacity += int(flowDef[index])
+
+
 def warn(msg):
     if not options.quiet:
-        print msg
+        print >> sys.stderr, msg
 
 def addFlowFile(option, opt_str, value, parser):
     if not getattr(parser.values, option.dest, None):
@@ -346,10 +399,20 @@ optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
+optParser.add_option("-P", "--keep-pred", action="store_true", dest="keeppred",
+                     default=False, help='keep predecessors of "fast" edges when deleting "slow" edges')
+optParser.add_option("-S", "--keep-succ", action="store_true", dest="keepsucc",
+                     default=False, help='keep successors of "fast" edges when deleting "slow" edges')
+optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
+                     default=False, help='keep pedges with detectors when deleting "slow" edges')
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
                      default=False, help="detect sources and sinks")
 optParser.add_option("-w", "--whitespace-separated", action="store_true", dest="whitespace",
                      default=False, help="entries in flow files are whitespace separated, without time column")
+optParser.add_option("-u", "--unknown-detectors", action="store_true", dest="unknowndet",
+                     default=False, help="warn about unknown detectors")
+optParser.add_option("-i", "--ignore-zero", action="store_true", dest="ignorezero",
+                     default=False, help="ignore detectors with zero flow")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -361,17 +424,18 @@ if not options.netfile or not options.detfile or not options.flowfiles:
 parser = make_parser()
 if options.verbose:
     print "Reading net"
-net = NetReader()
-parser.setContentHandler(net)
+net = Net()
+reader = NetDetectorFlowReader(net)
+parser.setContentHandler(reader)
 parser.parse(options.netfile)
 if options.verbose:
-    print len(net._edges), "read"
+    print len(net._edges), "edges read"
     print "Reading detectors"
 parser.parse(options.detfile)
 if options.verbose:
     print "Reading flows"
 for flow in options.flowfiles:
-    net.readFlows(flow)
+    reader.readFlows(flow)
 if net.checkNet(options.sourcesink):
     if options.verbose:
         print "Calculating routes"
