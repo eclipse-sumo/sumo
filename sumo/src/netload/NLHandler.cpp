@@ -866,9 +866,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
-                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                          GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
-                                         );
+                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {

@@ -334,12 +334,11 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice *device, int splInterval,
                                    const std::string &measures,
                                    SUMOReal /*haltingTimeThreshold*/,
-                                   MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                   SUMOTime deleteDataAfterSeconds)
+                                   MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
-                     haltingSpeedThreshold, haltingSpeedThreshold, deleteDataAfterSeconds,
+                     haltingSpeedThreshold, haltingSpeedThreshold, 
                      toAdd, splInterval);
 }
 

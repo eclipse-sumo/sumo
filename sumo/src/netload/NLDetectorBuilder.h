@@ -124,8 +124,7 @@ public:
                          OutputDevice *device, int splInterval,
                          const std::string &measures,
                          SUMOReal haltingTimeThreshold,
-                         MSUnit::MetersPerSecond haltingSpeedThreshold,
-                         SUMOTime deleteDataAfterSeconds);
+                         MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     /// builds an entry point of an e3 detector
     void addE3Entry(const std::string &lane, SUMOReal pos);
