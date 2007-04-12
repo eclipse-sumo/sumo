@@ -44,6 +44,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice_File.h>
+#include <utils/iodevices/SharedOutputDevices.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
@@ -444,13 +445,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
     if (!oc.isSet(optionName)) {
         return 0;
     }
-    ofstream *ret = new ofstream(oc.getString(optionName).c_str(), ios::out|ios::trunc);
-    if (!ret->good()) {
-        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.\n (Used for '" + optionName + "').");
-        throw ProcessError();
-    }
-    (*ret) << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
-    return new OutputDevice_File(ret);
+    return SharedOutputDevices::getInstance()->getOutputDevice(oc.getString(optionName).c_str());
 }
 
 

@@ -38,10 +38,12 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 #include <cassert>
 #include "SharedOutputDevices.h"
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
+#include "OutputDevice_COUT.h"
 #include "OutputDevice_Network.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -101,17 +103,28 @@ SharedOutputDevices::~SharedOutputDevices()
 OutputDevice *
 SharedOutputDevices::getOutputDevice(const std::string &name)
 {
+    // check whether the device has already been aqcuired
     DeviceMap::iterator i = myOutputDevices.find(name);
     if (i!=myOutputDevices.end()) {
+        // marks that extra definitions of the outputted values are needed
         (*i).second->setNeedsDetectorName(true);
+        // return
         return (*i).second;
     }
-    std::ofstream *strm = new std::ofstream(name.c_str());
-    if (!strm->good()) {
-        delete strm;
-        throw FileBuildError("Could not build output file '" + name + "'.");
+    // build the device
+    OutputDevice *dev = 0;
+    // check whether the device shall print to stdout
+    if(name=="stdout") {
+        dev = new OutputDevice_COUT();
+    } else {
+        std::ofstream *strm = new std::ofstream(name.c_str());
+        if (!strm->good()) {
+            delete strm;
+            throw FileBuildError("Could not build output file '" + name + "'.");
+        }
+        (*strm) << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
+        dev = new OutputDevice_File(strm);
     }
-    OutputDevice *dev = new OutputDevice_File(strm);
     myOutputDevices[name] = dev;
     return dev;
 }
@@ -121,8 +134,7 @@ OutputDevice *
 SharedOutputDevices::getOutputDeviceChecking(const std::string &base,
         const std::string &name)
 {
-    return getOutputDevice(
-               FileHelpers::checkForRelativity(name, base));
+    return getOutputDevice(FileHelpers::checkForRelativity(name, base));
 }
 
 

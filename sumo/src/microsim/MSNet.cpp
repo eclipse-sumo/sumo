@@ -269,11 +269,6 @@ MSNet::~MSNet()
 #endif
     delete myTriggerControl;
     delete myCellsBuilder;
-    // close outputs
-    for (size_t i2=0; i2<OS_MAX&&i2<myOutputStreams.size(); i2++) {
-        delete myOutputStreams[i2];
-    }
-
     clearAll();
     GeoConvHelper::close();
 }

@@ -44,7 +44,7 @@
 // ===========================================================================
 /**
  * @class OutputDevice_COUT
- * An output device that encapsulates cout
+ * @brief An output device that encapsulates cout
  */
 class OutputDevice_COUT : public OutputDevice
 {

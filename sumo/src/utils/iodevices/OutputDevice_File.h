@@ -45,7 +45,7 @@
 // ===========================================================================
 /**
  * @class OutputDevice_File
- * An output device that encapsulates an ofstream
+ * @brief An output device that encapsulates an ofstream
  */
 class OutputDevice_File : public OutputDevice
 {
