@@ -43,7 +43,6 @@
 #include "ROEdge.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
-#include "ROVehicleType_Krauss.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

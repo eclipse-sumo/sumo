@@ -43,7 +43,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
-#include <router/ROVehicleType_Krauss.h>
 #include "ROFrame.h"
 
 #ifdef CHECK_MEMORY_LEAKS
