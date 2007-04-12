@@ -98,13 +98,10 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
             return;
         }
         // get some other parameter
-        SUMOReal speed = getFloatReporting(attrs, SUMO_ATTR_SPEED, "speed", id);
-        SUMOReal length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, "length",
-                                            id);
-        int nolanes = getIntReporting(attrs, SUMO_ATTR_NOLANES,
-                                      "number of lanes", id);
-        int priority = getIntReporting(attrs, SUMO_ATTR_PRIORITY,
-                                       "priority", id);
+        SUMOReal speed = getFloat(attrs, SUMO_ATTR_SPEED);
+        SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
+        int nolanes = getInt(attrs, SUMO_ATTR_NOLANES);
+        int priority = getInt(attrs, SUMO_ATTR_PRIORITY);
         if (speed>0&&length>0&&nolanes>0&&priority>0) {
             myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
                                          nolanes, length, priority));
@@ -129,37 +126,6 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
         addError("Missing " + dir + "-node name for edge with id '" + name + "'");
     }
     return 0;
-}
-
-SUMOReal
-NISUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
-                                      AttrEnum id, const std::string &name,
-                                      const std::string &objid)
-{
-    try {
-        return getFloat(attrs, id);
-    } catch (EmptyData) {
-        addError("The " + name + " is not given within the object '" + objid + "'.");
-    } catch (NumberFormatException) {
-        addError("The " + name + " is not numeric within the object '" + objid + "'.");
-    }
-    return -1;
-}
-
-
-int
-NISUMOHandlerEdges::getIntReporting(const Attributes &attrs,
-                                    AttrEnum id, const std::string &name,
-                                    const std::string &objid)
-{
-    try {
-        return getInt(attrs, id);
-    } catch (EmptyData) {
-        addError("The " + name + " is not given within the object '" + objid + "'.");
-    } catch (NumberFormatException) {
-        addError("The " + name + " is not numeric within the object '" + objid + "'.");
-    }
-    return -1;
 }
 
 void NISUMOHandlerEdges::myCharacters(int , const std::string &,

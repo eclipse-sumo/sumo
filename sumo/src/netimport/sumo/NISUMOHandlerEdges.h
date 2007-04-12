@@ -69,11 +69,6 @@ private:
     void addEdge(const Attributes &attrs);
     NBNode *getNode(const Attributes &attrs, unsigned int id,
                     const std::string &dir, const std::string &name);
-    SUMOReal getFloatReporting(const Attributes &attrs, AttrEnum id,
-                               const std::string &name, const std::string &objid);
-    int getIntReporting(const Attributes &attrs, AttrEnum id,
-                        const std::string &name, const std::string &objid);
-
 private:
     NBEdgeCont &myEdgeCont;
     NBNodeCont &myNodeCont;
