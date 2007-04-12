@@ -22,6 +22,25 @@ class Edge:
         self.kind = kind
         self.maxSpeed = 0.0
         self.finalizer = None
+        self.detPos = []
+        self.detGroup = []
+        self.detFlow = []
+
+    def addDet(self, pos, det):
+        for index, compPos in enumerate(self.detPos):
+            if abs(compPos - pos) <= MAX_POS_DEVIATION:
+                self.detGroup[index].append(det)
+                return
+        self.detPos.append(pos)
+        self.detGroup.append([det])
+        self.detFlow.append(0)
+
+    def addFlow(self, det, flow):
+        for index, group in enumerate(self.detGroup):
+            if det in group:
+                self.detFlow[index] += flow
+                return
+        assert False
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -71,14 +90,12 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(), "real"))
                 
-    def addSourceEdge(self, edgeLabel):
-        edgeSource = self._edges[edgeLabel].source
-        newEdge = Edge("s_"+edgeLabel, self._source, edgeSource, "source")
+    def addSourceEdge(self, edgeObj):
+        newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source, "source")
         self.addEdge(newEdge)
                 
-    def addSinkEdge(self, edgeLabel):
-        edgeTarget = self._edges[edgeLabel].target
-        newEdge = Edge("t_"+edgeLabel, edgeTarget, self._sink, "sink")
+    def addSinkEdge(self, edgeObj):
+        newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink, "sink")
         self.addEdge(newEdge)
 
     def compressNet(self):
@@ -112,16 +129,17 @@ class Net:
     def detectSourceSink(self):
         for edge in self._edges.values():
             if len(self._inEdges[edge.source]) == 0:
-                self.addSourceEdge(edge.label)
+                self.addSourceEdge(edge)
             if len(self._outEdges[edge.target]) == 0:
-                self.addSinkEdge(edge.label)
+                self.addSinkEdge(edge)
         
     def checkNet(self, forcedSourceSinkDetection):
         self.compressNet()
-        if options.ignorezero:
-            for edge in self._edges.values():
-                if edge.capacity == 0:
-                    edge.capacity = sys.maxint
+        for edge in self._edges.valuesiter():
+            if len(edge.detFlow) > 0:
+                edge.capacity = max(edge.detFlow)
+            if options.ignorezero and edge.capacity == 0:
+                edge.capacity = sys.maxint
         if not forcedSourceSinkDetection:
             if len(self._inEdges[self._sink]) == 0:
                 warn("Warning! No sinks, trying to find some.")
@@ -297,9 +315,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         self._edgeString = ''
         self._edge = ''
         self._lane2edge = {}
-        self._edgeDetPos = {}
         self._det2edge = {}
-        self._detIgnore = set()
 
     def startElement(self, name, attrs):
         if name == 'edges':
@@ -320,22 +336,17 @@ class NetDetectorFlowReader(handler.ContentHandler):
             if not attrs['lane'] in self._lane2edge:
                 warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
                 return
-            edge = self._lane2edge[attrs['lane']]
-            pos = float(attrs['pos'])
-            if edge in self._edgeDetPos and abs(self._edgeDetPos[edge] - pos) > MAX_POS_DEVIATION:
-                warn("Warning! Edge " + edge + " has detectors at multiple positions, ignoring " + attrs['id'])
-                self._detIgnore.add(attrs['id'])
-            else:
-                self._edgeDetPos[edge] = pos
-                self._det2edge[attrs['id']] = edge
+            edgeObj = self._net.getEdge(self._lane2edge[attrs['lane']])
+            edgeObj.addDet(float(attrs['pos']), attrs['id'])
+            self._det2edge[attrs['id']] = edgeObj
             if not 'type' in attrs:
                 if not options.sourcesink:
                     warn("Warning! No type for detector " + attrs['id'])
             else:
                 if attrs['type'] == 'source':
-                    self._net.addSourceEdge(edge)
+                    self._net.addSourceEdge(edgeObj)
                 if attrs['type'] == 'sink':
-                    self._net.addSinkEdge(edge)
+                    self._net.addSinkEdge(edgeObj)
 
     def characters(self, content):
         if self._edgeString != '':
@@ -360,14 +371,10 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 headerSeen = True
                 continue
             if not flowDef[0] in self._det2edge:
-                if not flowDef[0] in self._detIgnore and options.unknowndet:
+                if options.unknowndet:
                     warn("Warning! Unknown detector " + flowDef[0])
             else:
-                edge = self._net.getEdge(self._det2edge[flowDef[0]])
-                if edge.capacity == sys.maxint:
-                    edge.capacity = int(flowDef[index])
-                else:
-                    edge.capacity += int(flowDef[index])
+                self._det2edge[flowDef[0]].addFlow(flowDef[0], int(flowDef[index]))
 
 
 def warn(msg):
@@ -404,7 +411,7 @@ optParser.add_option("-P", "--keep-pred", action="store_true", dest="keeppred",
 optParser.add_option("-S", "--keep-succ", action="store_true", dest="keepsucc",
                      default=False, help='keep successors of "fast" edges when deleting "slow" edges')
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
-                     default=False, help='keep pedges with detectors when deleting "slow" edges')
+                     default=False, help='keep edges with detectors when deleting "slow" edges')
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
                      default=False, help="detect sources and sinks")
 optParser.add_option("-w", "--whitespace-separated", action="store_true", dest="whitespace",
