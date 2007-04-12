@@ -27,12 +27,11 @@
 
    <row-logic>
       <key>1/50</key>
-      <requestsize>3</requestsize>
+      <requestsize>2</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="000" foes="000"/>
-         <logicitem request="1" response="000" foes="000"/>
-         <logicitem request="2" response="000" foes="000"/>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
 
@@ -55,9 +54,8 @@
 
 
    <succ edge="1" lane="1_0" junction="1/50">
-      <succlane lane="1/50_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/50_1" yield="0" dir="s" state="M"/>
       <succlane lane="1/50_2" yield="0" dir="s" state="M"/>
+      <succlane lane="1/50_1" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="1/50" lane="1/50_0" junction="SUMOGenerated1">
