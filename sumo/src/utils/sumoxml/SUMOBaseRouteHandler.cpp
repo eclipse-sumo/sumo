@@ -59,24 +59,6 @@ SUMOBaseRouteHandler::~SUMOBaseRouteHandler()
 {}
 
 
-SUMOReal
-SUMOBaseRouteHandler::getFloatReporting(SUMOSAXHandler &helper,
-                                        const Attributes &attrs,
-                                        AttrEnum attr,
-                                        const std::string &id,
-                                        const std::string &name)
-{
-    try {
-        return helper.getFloat(attrs, attr);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing " + name + " in vehicle '" + id + "'.");
-    } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(name + " in vehicle '" + id + "' is not numeric.");
-    }
-    return -1;
-}
-
-
 SUMOTime
 SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
         const Attributes &attrs,

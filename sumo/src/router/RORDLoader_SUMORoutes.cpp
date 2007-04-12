@@ -45,7 +45,6 @@
 #include "RORouteDef_Complete.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
-#include "ROVehicleType_Krauss.h"
 #include "RORDLoader_SUMORoutes.h"
 #include "ROEdgeVector.h"
 #include "RONet.h"

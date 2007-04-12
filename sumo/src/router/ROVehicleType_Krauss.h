@@ -54,7 +54,8 @@ public:
     /// Parametrised constructor
     ROVehicleType_Krauss(const std::string &id, const RGBColor &col,
                          SUMOReal length, SUMOVehicleClass vclass,
-                         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed);
+                         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
+                         SUMOReal tau);
 
     /// Destructor
     ~ROVehicleType_Krauss();
@@ -64,7 +65,7 @@ public:
 
 private:
     /// Krauss-parameter
-    SUMOReal myA, myB, myEps, myMaxSpeed;
+    SUMOReal myA, myB, myEps, myMaxSpeed, myTau;
 
 };
 

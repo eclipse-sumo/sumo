@@ -54,14 +54,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
-        const RGBColor &col,
-        SUMOReal length,
-        SUMOVehicleClass vclass,
-        SUMOReal a, SUMOReal b,
-        SUMOReal eps,
-        SUMOReal maxSpeed)
+        const RGBColor &col, SUMOReal length, SUMOVehicleClass vclass,
+        SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
+        SUMOReal tau)
         : ROVehicleType(id, col, length, vclass), myA(a), myB(b), myEps(eps),
-        myMaxSpeed(maxSpeed)
+        myMaxSpeed(maxSpeed), myTau(tau)
 {}
 
 
@@ -78,7 +75,8 @@ ROVehicleType_Krauss::xmlOut(std::ostream &os) const
         << " decel=\"" << myB << "\""
         << " sigma=\"" << myEps << "\""
         << " length=\"" << myLength << "\""
-        << " maxspeed=\"" << myMaxSpeed << "\"";
+        << " maxspeed=\"" << myMaxSpeed << "\""
+        << " tau=\"" << myTau << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
         os << " color=\"" << myColor << "\"";
     }

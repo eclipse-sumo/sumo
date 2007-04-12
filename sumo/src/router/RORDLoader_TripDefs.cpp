@@ -131,6 +131,7 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
             SUMOReal vmax = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
             SUMOReal eps = getFloat(attrs, SUMO_ATTR_SIGMA);
+            SUMOReal tau = getFloat(attrs, "tau");
 
             RGBColor col(-1,-1,-1);
             string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
@@ -153,7 +154,7 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
                     MsgHandler::getErrorInstance()->inform("The vehicle class for vehicle type '" + id + "' is malicious.");
                 }
             }
-            ROVehicleType *vt = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax);
+            ROVehicleType *vt = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax, tau);
             _net.addVehicleType(vt);
         } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");

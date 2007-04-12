@@ -62,10 +62,6 @@ public:
 
 protected:
     //{ parse helper (reporting errors)
-    /// Retrieves a SUMOReal from the attributes and reports errors, if any occure
-    SUMOReal getFloatReporting(SUMOSAXHandler &helper, const Attributes &attrs,
-                               AttrEnum attr, const std::string &id, const std::string &name);
-
     /// Retrieves a color definition
     RGBColor parseColor(SUMOSAXHandler &helper, const Attributes &attrs,
                         const std::string &type, const std::string &id);

@@ -174,24 +174,24 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         return;
     }
     // get the other values
-    SUMOReal maxspeed =
-        getFloatReporting(*this, attrs, SUMO_ATTR_MAXSPEED, id, "maxspeed");
-    SUMOReal length =
-        getFloatReporting(*this, attrs, SUMO_ATTR_LENGTH, id, "length");
-    SUMOReal accel =
-        getFloatReporting(*this, attrs, SUMO_ATTR_ACCEL, id, "accel");
-    SUMOReal decel =
-        getFloatReporting(*this, attrs, SUMO_ATTR_DECEL, id, "decel");
-    SUMOReal sigma =
-        getFloatReporting(*this, attrs, SUMO_ATTR_SIGMA, id, "sigma");
-    RGBColor color = parseColor(*this, attrs, "vehicle type", id);
-    SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
-    // build the vehicle type after checking
-    //  by now, only vehicles using the krauss model are supported
-    if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
-        _net.addVehicleType(
-            new ROVehicleType_Krauss(
-                id, color, length, vclass, accel, decel, sigma, maxspeed));
+    try {
+        SUMOReal maxspeed = getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
+        SUMOReal length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
+        SUMOReal accel = getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
+        SUMOReal decel = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
+        SUMOReal sigma = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
+        SUMOReal tau = getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU);
+        RGBColor color = parseColor(*this, attrs, "vehicle type", id);
+        SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
+        // build the vehicle type after checking
+        //  by now, only vehicles using the krauss model are supported
+        if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
+            _net.addVehicleType(
+                new ROVehicleType_Krauss(
+                    id, color, length, vclass, accel, decel, sigma, maxspeed, tau));
+        }
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");
     }
 }
 
