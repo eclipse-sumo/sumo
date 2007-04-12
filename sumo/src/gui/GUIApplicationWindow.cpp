@@ -103,7 +103,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
         FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,        GUIApplicationWindow::onCmdQuit),
         FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,      GUIApplicationWindow::onCmdQuit),
 
-        FXMAPFUNC(SEL_COMMAND,  MID_OPEN,              GUIApplicationWindow::onCmdOpen),
+        FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,       GUIApplicationWindow::onCmdOpenConfiguration),
+        FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,      GUIApplicationWindow::onCmdOpenNetwork),
         FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,        GUIApplicationWindow::onCmdOpenRecent),
         FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,            GUIApplicationWindow::onCmdReload),
         FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,             GUIApplicationWindow::onCmdClose),
@@ -123,7 +124,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
         FXMAPFUNC(SEL_COMMAND,  MID_NEW_MESOVIEW,       GUIApplicationWindow::onCmdNewMesoView),
 #endif
 
-        FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GUIApplicationWindow::onUpdOpen),
+        FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,       GUIApplicationWindow::onUpdOpen),
+        FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,      GUIApplicationWindow::onUpdOpen),
         FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GUIApplicationWindow::onUpdReload),
         FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,        GUIApplicationWindow::onUpdOpenRecent),
         FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,     GUIApplicationWindow::onUpdAddMicro),
@@ -326,9 +328,12 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuTitle(myMenuBar,"&File",NULL,myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "&Open Simulation...\tCtl-O\tOpen a simulation (Configuration file).",
-                      GUIIconSubSys::getIcon(ICON_OPEN),this,MID_OPEN);
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG),this,MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
-                      "&Reload Simulation\tCtl-R\tReloads the simulation (Configuration file).",
+                      "&Open Network...\tCtl-O\tOpen a network.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET),this,MID_OPEN_NETWORK);
+    new FXMenuCommand(myFileMenu,
+                      "&Reload\tCtl-R\tReloads the simulation / the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD),this,MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
@@ -455,9 +460,12 @@ GUIApplicationWindow::buildToolBars()
                           TOOLBARGRIP_DOUBLE);
         // build file tools
         new FXButton(myToolBar1,"\t\tOpen a simulation (Configuration file).",
-                     GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar1,"\t\tReload the simulation (Configuration file).",
+        new FXButton(myToolBar1,"\t\tOpen a network.",
+                     GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK,
+                     ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar1,"\t\tReloads the simulation / the network.",
                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -589,12 +597,32 @@ GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
+GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this,"Open Simulation Configuration");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
+    if (gCurrentFolder.length()!=0) {
+        opendialog.setDirectory(gCurrentFolder.c_str());
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory().text();
+        string file = opendialog.getFilename().text();
+        load(file);
+        myRecentFiles.appendFile(file.c_str());
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
+{
+    // get the new file name
+    FXFileDialog opendialog(this,"Open Simulation Configuration");
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("*.net.xml");
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
@@ -1048,7 +1076,11 @@ GUIApplicationWindow::load(const std::string &file)
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    myLoadThread->load(file);
+    if(FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
+        myLoadThread->load(file, true);
+    } else {
+        myLoadThread->load(file, false);
+    }
     string text = "Loading '" + file + "'.";
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());

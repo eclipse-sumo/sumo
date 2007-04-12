@@ -41,6 +41,7 @@
 
 #include "filesave.xpm"
 #include "fileopen.xpm"
+#include "netopen.xpm"
 #include "play.xpm"
 #include "stop.xpm"
 #include "step.xpm"
@@ -130,7 +131,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
-    myIcons[ICON_OPEN] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
     myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);

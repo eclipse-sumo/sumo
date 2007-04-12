@@ -122,9 +122,8 @@ public:
 
 
 public:
-    /** @brief Called by FOX if a simulation shall be opened
-        Called either by FileMenu->Open or the Toolbar Open-Button */
-    long onCmdOpen(FXObject*,FXSelector,void*);
+    long onCmdOpenConfiguration(FXObject*,FXSelector,void*);
+    long onCmdOpenNetwork(FXObject*,FXSelector,void*);
     long onCmdReload(FXObject*,FXSelector,void*);
     long onCmdOpenRecent(FXObject*,FXSelector,void*);
 

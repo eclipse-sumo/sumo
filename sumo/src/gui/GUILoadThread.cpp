@@ -218,7 +218,11 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
 bool
 GUILoadThread::initOptions()
 {
-    return OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file);
+    if(myLoadNet) {
+        return OptionsSubSys::guiInit(SUMOFrame::fillOptions, "net-file", _file);
+    } else {
+        return OptionsSubSys::guiInit(SUMOFrame::fillOptions, "configuration-file", _file);
+    }
 }
 
 

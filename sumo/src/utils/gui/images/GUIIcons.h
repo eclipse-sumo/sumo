@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// Base class for additional objects (emitter, detectors etc.)
+// An enumeration of icons used by the gui applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,9 +40,14 @@
 // ===========================================================================
 // enumerations
 // ===========================================================================
+/**
+ * @enum GUIIcon
+ * @brief An enumeration of icons used by the gui applications
+ */
 enum GUIIcon {
     ICON_APP = 0,
-    ICON_OPEN,
+    ICON_OPEN_CONFIG,
+    ICON_OPEN_NET,
     ICON_RELOAD,
     ICON_SAVE,
     ICON_CLOSE,

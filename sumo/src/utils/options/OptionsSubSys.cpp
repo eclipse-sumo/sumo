@@ -4,7 +4,7 @@
 /// @date    Mon, 23.06.2003
 /// @version $Id$
 ///
-// missing_desc
+// Static methods for options initialisation and parsing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -84,10 +84,12 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
 
 
 bool
-OptionsSubSys::guiInit(fill_options *fill_f, const std::string &conf)
+OptionsSubSys::guiInit(fill_options *fill_f,
+                       const std::string &optionName, 
+                       const std::string &optionValue)
 {
     (*fill_f)(myOptions);
-    myOptions.set("configuration-file", conf);
+    myOptions.set(optionName, optionValue);
     // parse options
     if (!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
         // the options could not be parsed

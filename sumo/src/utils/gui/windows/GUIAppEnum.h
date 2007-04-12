@@ -42,6 +42,9 @@
 // ===========================================================================
 // enumeration
 // ===========================================================================
+/**
+ * @brief Message and object IDs used by the FOX-version of the gui
+ */
 enum {
     /// Show about - dialog
     ID_ABOUT=FXMainWindow::ID_LAST,
@@ -61,8 +64,10 @@ enum {
     //@}
 
     //@{ Main Window File Menu - IDs
-    /// Open new file - ID
-    MID_OPEN,
+    /// Open configuration - ID
+    MID_OPEN_CONFIG,
+    /// Open network - ID
+    MID_OPEN_NETWORK,
     /// Reload the previously loaded simulation
     MID_RELOAD,
     /// Loads a file previously loaded

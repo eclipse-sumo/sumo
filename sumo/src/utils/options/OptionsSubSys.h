@@ -4,7 +4,7 @@
 /// @date    Mon, 23.06.2003
 /// @version $Id$
 ///
-// missing_desc
+// Static methods for options initialisation and parsing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,8 @@ typedef bool(check_options)(OptionsCont &);
 // ===========================================================================
 /**
  * @class OptionsSubSys
- * A class which holds the options for an application in a static container.
+ * @brief Static methods for options initialisation and parsing
+ *
  * This shall not only allow an easier access to the command line options,
  * but also generalise the performing of option-related functions common
  * to all applications such as checking whether to print the help-screen,
@@ -67,23 +68,27 @@ class OptionsSubSys
 {
 public:
     /** @brief Initialises the options container
-        fill_f is used to fill the given OptionsCont with values, check_f
-        to validate them. This method performs the parsing of options and
-        also other options-related function (printing the help screen etc.) */
+     *
+     * fill_f is used to fill the given OptionsCont with values, check_f
+     * to validate them. This method performs the parsing of options and
+     * also other options-related function (printing the help screen etc.) */
     static bool init(bool loadConfig, int argc, char **argv,
                      fill_options *fill_f, check_options *check_f=0);
 
     /** @brief Initialisation method for gui-based applications
-        We may be sure that we set our options when performing gui-based
-        options processes right (not via the command line), so checking
-        is left out here; we also do not have to parse command line options
-        or to print anything.
-        The name will be inserted as the name of the configuration to load. */
+     *
+     * We may be sure that we set our options when performing gui-based
+     * options processes right (not via the command line), so checking
+     * is left out here; we also do not have to parse command line options
+     * or to print anything.
+     *
+     * The name will be inserted as the name of the configuration to load. */
     static bool guiInit(fill_options *fill_f,
-                        const std::string &conf);
+        const std::string &optionName, const std::string &optionValue);
 
-    /** @brief Retrives the options
-        They should be initialised before. */
+    /** @brief Retrieves the options
+     * 
+     * They should be initialised before. */
     static OptionsCont &getOptions();
 
     /// Clears all previously set options
@@ -98,10 +103,10 @@ protected:
     static OptionsCont myOptions;
 
 protected:
-    /// (No) constructor
+    /// Invalidated constructor
     OptionsSubSys();
 
-    /// (No) destructor
+    /// Invalidated destructor
     ~OptionsSubSys();
 
 };

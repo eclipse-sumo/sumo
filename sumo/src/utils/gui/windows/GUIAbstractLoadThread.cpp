@@ -93,9 +93,11 @@ GUIAbstractLoadThread::~GUIAbstractLoadThread()
 
 
 void
-GUIAbstractLoadThread::load(const std::string &file)
+GUIAbstractLoadThread::load(const std::string &file,
+                            bool isNet)
 {
     _file = file;
+    myLoadNet = isNet;
     start();
 }
 

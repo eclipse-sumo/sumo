@@ -73,7 +73,7 @@ public:
     virtual ~GUIAbstractLoadThread();
 
     /// begins the loading of the given file
-    virtual void load(const std::string &file);
+    virtual void load(const std::string &file, bool isNet);
 
     /** starts the thread
         the thread ends after the net has been loaded */
@@ -104,6 +104,9 @@ protected:
     MFXEventQue &myEventQue;
 
     FXEX::FXThreadEvent &myEventThrow;
+
+    /// Information whether only the network shall be loaded
+    bool myLoadNet;
 
 };
 
