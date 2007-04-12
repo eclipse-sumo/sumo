@@ -126,12 +126,12 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
         }
         // get the rest of the parameter
         try {
-            SUMOReal a = getFloat(attrs, SUMO_ATTR_ACCEL);
-            SUMOReal b = getFloat(attrs, SUMO_ATTR_DECEL);
-            SUMOReal vmax = getFloat(attrs, SUMO_ATTR_MAXSPEED);
-            SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
-            SUMOReal eps = getFloat(attrs, SUMO_ATTR_SIGMA);
-            SUMOReal tau = getFloat(attrs, "tau");
+            SUMOReal a = getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
+            SUMOReal b = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
+            SUMOReal vmax = getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
+            SUMOReal length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
+            SUMOReal eps = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
+            SUMOReal tau = getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU);
 
             RGBColor col(-1,-1,-1);
             string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
