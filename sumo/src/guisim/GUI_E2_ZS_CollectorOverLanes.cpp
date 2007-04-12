@@ -34,7 +34,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/output/MSInductLoop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"

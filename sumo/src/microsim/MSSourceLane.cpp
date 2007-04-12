@@ -39,7 +39,6 @@
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
-#include "output/MSInductLoop.h"
 #include "MSLink.h"
 #include "MSSourceLane.h"
 #include <cmath>
