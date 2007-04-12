@@ -162,6 +162,9 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\sumoxml\WeightsHandler.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -171,6 +174,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\sumoxml\SUMOXMLDefinitions.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\sumoxml\WeightsHandler.h">
 			</File>
 		</Filter>
 	</Files>
