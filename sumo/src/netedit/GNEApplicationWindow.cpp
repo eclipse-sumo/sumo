@@ -110,7 +110,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
         FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,        GNEApplicationWindow::onCmdQuit),
         FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,      GNEApplicationWindow::onCmdQuit),
 
-        FXMAPFUNC(SEL_COMMAND,  MID_OPEN,              GNEApplicationWindow::onCmdOpen),
+        FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,       GNEApplicationWindow::onCmdOpen),
         FXMAPFUNC(SEL_COMMAND,  MID_IMPORT_NET,        GNEApplicationWindow::onCmdImportNet),
         FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,        GNEApplicationWindow::onCmdOpenRecent),
         FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,            GNEApplicationWindow::onCmdReload),
@@ -120,7 +120,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
         FXMAPFUNC(SEL_COMMAND,  MID_SAVE_EDGES_NODES,  GNEApplicationWindow::onCmdSaveEdgesNodes),
         FXMAPFUNC(SEL_COMMAND,  MID_SAVE_NET,          GNEApplicationWindow::onCmdSaveNet),
 
-        FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GNEApplicationWindow::onUpdOpen),
+        FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,       GNEApplicationWindow::onUpdOpen),
         FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GNEApplicationWindow::onUpdReload),
         FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,        GNEApplicationWindow::onUpdOpenRecent),
         FXMAPFUNC(SEL_UPDATE,   MID_SAVE_IMAGE,        GNEApplicationWindow::onUpdSaveImage),
@@ -319,9 +319,9 @@ GNEApplicationWindow::fillMenuBar()
     new FXMenuTitle(myMenuBar,"&File",NULL,myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "&Open Simulation...\tCtl-O\tOpen a simulation (Configuration file).",
-                      GUIIconSubSys::getIcon(ICON_OPEN),this,MID_OPEN);
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG),this,MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
-                      "&Reload Simulation\tCtl-R\tReloads the simulation (Configuration file).",
+                      "&Reload\tCtl-R\tReloads the simulation / the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD),this,MID_RELOAD);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
@@ -331,10 +331,10 @@ GNEApplicationWindow::fillMenuBar()
 //    new FXMenuCascade(myFileMenu,"Import",NULL,mySubFileMenu1);
     new FXMenuCommand(myFileMenu,
                       "&Import...\t\tImports from a supported network.",
-                      GUIIconSubSys::getIcon(ICON_OPEN),this,MID_IMPORT_NET);
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG),this,MID_IMPORT_NET);
     new FXMenuCommand(myFileMenu,
                       "&Load Bitmap\t\tOpens a bitmap file.",
-                      GUIIconSubSys::getIcon(ICON_OPEN),this,MID_LOAD_IMAGE);
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG),this,MID_LOAD_IMAGE);
     new FXMenuCommand(myFileMenu,
                       "&Save Bitmap\t\tSaves the current bitmap file.",
                       GUIIconSubSys::getIcon(ICON_CLOSE),this,MID_SAVE_IMAGE);
@@ -524,9 +524,9 @@ GNEApplicationWindow::buildToolBars()
                           TOOLBARGRIP_DOUBLE);
         // build file tools
         new FXButton(myToolBar1,"\t\tOpen a simulation (Configuration file).",
-                     GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar1,"\t\tReload the simulation (Configuration file).",
+        new FXButton(myToolBar1,"\t\tReloads the simulation / the network.",
                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -1342,7 +1342,11 @@ GNEApplicationWindow::load(const std::string &file)
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    myLoadThread->load(file);
+    if(FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
+        myLoadThread->load(file, true);
+    } else {
+        myLoadThread->load(file, false);
+    }
     string text = "Loading '" + file + "'.";
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
@@ -1439,7 +1443,7 @@ GNEApplicationWindow::getDefaultCursor()
 }
 
 
-size_t
+SUMOTime
 GNEApplicationWindow::getCurrentSimTime() const
 {
     return myRunThread->getCurrentTimeStep();

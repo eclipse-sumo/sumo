@@ -434,7 +434,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             string description = strm.str();
             //
             OptionsSubSys::getOptions().clear();
-            OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/);
+            OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/, "hallo");
             OptionsCont &oc2 = OptionsSubSys::getOptions();
             SUMOFrame::setMSGlobals(oc2);
             GUINet *net = new GUINet(oc2.getInt("begin"), oc2.getInt("end"),

@@ -194,7 +194,7 @@ public:
     long onCmdGraphMenu(FXObject*,FXSelector,void*);
 
     FXGLCanvas *getBuildGLCanvas() const;
-    size_t getCurrentSimTime() const;
+    SUMOTime getCurrentSimTime() const;
 
     FXCursor *getDefaultCursor();
 
