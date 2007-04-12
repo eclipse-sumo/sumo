@@ -46,6 +46,9 @@ typedef int SUMOTime;
 // ===========================================================================
 // some defines
 // ===========================================================================
+// the step length in s
+#define DELTA_T 1
+
 // x*deltaT
 #define SPEED2DIST(x) x
 

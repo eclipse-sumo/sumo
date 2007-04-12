@@ -30,7 +30,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #ifdef WIN32
 #include <windows_config.h>
 #else
@@ -40,6 +39,7 @@
 #include <fx.h>
 #include <vector>
 #include <utils/foxtools/MFXMutex.h>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -75,7 +75,7 @@ public:
 
     virtual FXGLCanvas *getBuildGLCanvas() const = 0;
 
-    virtual size_t getCurrentSimTime() const = 0;
+    virtual SUMOTime getCurrentSimTime() const = 0;
 
     virtual void loadSelection(const std::string &file) const = 0;
 

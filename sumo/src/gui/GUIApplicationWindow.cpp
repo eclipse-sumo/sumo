@@ -990,7 +990,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         setTitle(caption.c_str());
         ostringstream str;
         // set simulation step begin information
-        str << myRunThread->getCurrentTimeStep();
+        str << (int) myRunThread->getCurrentTimeStep();
         myLCDLabel->setText(str.str().c_str());
     }
     getApp()->endWaitCursor();
@@ -1007,7 +1007,7 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *)
 {
     updateChildren();
     ostringstream str;
-    str << myRunThread->getCurrentTimeStep();
+    str << (int) myRunThread->getCurrentTimeStep();
     myLCDLabel->setText(str.str().c_str());
     update();
 }
@@ -1180,7 +1180,7 @@ GUIApplicationWindow::getDefaultCursor()
 }
 
 
-size_t
+SUMOTime
 GUIApplicationWindow::getCurrentSimTime() const
 {
     return myRunThread->getCurrentTimeStep();

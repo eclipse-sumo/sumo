@@ -78,13 +78,11 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     OutputDevice *device,
     MSUnit::Seconds haltingTimeThreshold,
     MSUnit::MetersPerSecond haltingSpeedThreshold,
-    SUMOTime deleteDataAfterSeconds,
     const E3MeasuresVector &measures,
     int splInterval) :
         myID(id), myDevice(device),
         myHaltingTimeThreshold(haltingTimeThreshold),
         myHaltingSpeedThreshold(haltingSpeedThreshold),
-        myDeleteDataAfterSeconds(deleteDataAfterSeconds),
         myMeasures(measures), mySampleInterval(splInterval)
 {}
 
@@ -387,8 +385,7 @@ NLDetectorBuilder::endE3Detector()
                              myE3Definition->myEntries,
                              myE3Definition->myExits,
                              myE3Definition->myHaltingTimeThreshold,
-                             myE3Definition->myHaltingSpeedThreshold,
-                             myE3Definition->myDeleteDataAfterSeconds);
+                             myE3Definition->myHaltingSpeedThreshold);
     /*
     E3MeasuresVector &toAdd = myE3Definition->myMeasures;
     for (E3MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
@@ -591,11 +588,10 @@ NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,
                                     SUMOReal haltingTimeThreshold,
-                                    MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                    SUMOTime deleteDataAfterSeconds)
+                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
     return new MSE3Collector(id, entries, exits,
-                             haltingTimeThreshold, haltingSpeedThreshold, deleteDataAfterSeconds);
+                             haltingTimeThreshold, haltingSpeedThreshold);
 }
 
 

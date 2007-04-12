@@ -182,7 +182,7 @@ GUIRunThread::makeStep()
         myEventQue.add(e);
         myEventThrow.signal();
         // increase step counter
-        _step++;
+        _step += DELTA_T;
         // stop the simulation when the last step has been reached
         if (_step==_simEndTime) {
             e = new GUIEvent_SimulationEnded(

@@ -144,14 +144,10 @@ public:
     /// at a speed lesser than haltingSpeedThreshold to be a "halting" vehicle.
     /// @param haltingSpeedThreshold A vehicle must not drive a greater speed
     /// for at more than haltingTimeThreshold  to be a "halting" vehicle.
-    /// @param deleteDataAfterSeconds Delete the data that is collected every
-    /// timestep so that data is always present for at least
-    /// deleteDataAfterSeconds.
     ///
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold,
-                  SUMOTime deleteDataAfterSeconds);
+                  MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     /// Dtor. Deletes the created detectors.
     virtual ~MSE3Collector(void);
@@ -234,9 +230,6 @@ protected:
 
     /// Speed-theshold to determine if a vehicle is halting.
     MSUnit::MetersPerSecond haltingSpeedThresholdM;
-
-    /// Data removal interval.
-    SUMOTime deleteDataAfterSecondsM;
 
     static std::string xmlHeaderM; ///< Header for the XML-output.
 

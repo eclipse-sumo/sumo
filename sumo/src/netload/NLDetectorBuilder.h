@@ -209,8 +209,7 @@ public:
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
                                             SUMOReal haltingTimeThreshold,
-                                            MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                            SUMOTime deleteDataAfterSeconds);
+                                            MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     // converts the name of an output style into it's enumeration value
     /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
@@ -229,7 +228,6 @@ public:
                              OutputDevice *device,
                              SUMOReal haltingTimeThreshold,
                              MSUnit::MetersPerSecond haltingSpeedThreshold,
-                             SUMOTime deleteDataAfterSeconds,
                              const E3MeasuresVector &measures,
                              int splInterval);
 
@@ -243,7 +241,6 @@ public:
         //{ further detector descriptions
         SUMOReal myHaltingTimeThreshold;
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
-        SUMOTime myDeleteDataAfterSeconds;
         E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;
         CrossSectionVector myExits;

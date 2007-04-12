@@ -170,7 +170,7 @@ class MyWrapper : public GUIDetectorWrapper
             /// Returns the current value
             SUMOReal getValue() const
             {
-                return myDetector.getAggregate(myType, (MSUnit::Seconds) myNSec);
+                return myDetector.getAggregate(myType, myNSec);
             }
 
             /// Returns a copy of this instance

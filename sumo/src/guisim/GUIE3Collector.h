@@ -59,9 +59,8 @@ public:
     /// Constructor
     GUIE3Collector(const std::string &id,
                    const CrossSectionVector &entries, const CrossSectionVector &exits,
-                   MSUnit::Seconds haltingTimeThreshold,
-                   MSUnit::MetersPerSecond haltingSpeedThreshold,
-                   SUMOTime deleteDataAfterSeconds);
+                   SUMOTime haltingTimeThreshold,
+                   MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     /// Destructor
     ~GUIE3Collector();
