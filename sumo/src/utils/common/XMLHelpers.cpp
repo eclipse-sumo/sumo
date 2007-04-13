@@ -39,7 +39,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/xml/GenericSAX2Handler.h>
 #include "XMLHelpers.h"
 
 #ifdef CHECK_MEMORY_LEAKS
