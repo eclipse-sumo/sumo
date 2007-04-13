@@ -11,17 +11,9 @@ from optparse import OptionParser
 
 MAX_POS_DEVIATION = 1
 
-class Edge:
+class DetectorData:
 
-    def __init__(self, label, source, target, kind="junction"):
-        self.label = label
-        self.source = source
-        self.target = target
-        self.capacity = sys.maxint
-        self.flow = 0
-        self.kind = kind
-        self.maxSpeed = 0.0
-        self.finalizer = None
+    def __init__(self):
         self.detPos = []
         self.detGroup = []
         self.detFlow = []
@@ -41,6 +33,21 @@ class Edge:
                 self.detFlow[index] += flow
                 return
         assert False
+
+
+class Edge:
+
+    def __init__(self, label, source, target, kind="junction"):
+        self.label = label
+        self.source = source
+        self.target = target
+        self.capacity = sys.maxint
+        self.flow = 0
+        self.kind = kind
+        self.maxSpeed = 0.0
+        self.laneCount = 0
+        self.finalizer = None
+        self.data = DetectorData()
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -105,29 +112,33 @@ class Net:
             for edge in self._edges.values():
                 if edge.maxSpeed < options.minspeed:
                     delete = True
-                    if options.keepsucc:
-                        for auxpred in self._inEdges[edge.source]:
-                            for realpred in self._inEdges[auxpred.source]:
-                                if realpred.maxSpeed >= options.minspeed:
-                                    delete = False
-                                    break
-                            if not delete: break
-                    if delete and options.keeppred:
-                        for auxsucc in self._outEdges[edge.target]:
-                            for realsucc in self._outEdges[auxsucc.target]:
-                                if realsucc.maxSpeed >= options.minspeed:
-                                    delete = False
-                                    break
-                            if not delete: break
+                    for auxpred in self._inEdges[edge.source]:
+                        for realpred in self._inEdges[auxpred.source]:
+                            if realpred.maxSpeed >= options.minspeed:
+                                delete = False
+                                break
+                        if not delete: break
+                    for auxsucc in self._outEdges[edge.target]:
+                        for realsucc in self._outEdges[auxsucc.target]:
+                            if realsucc.maxSpeed >= options.minspeed:
+                                delete = False
+                                break
+                        if not delete: break
                     if options.keepdet and edge.capacity < sys.maxint:
                         delete = False
                     if delete:
                         self.removeEdge(edge)
             if options.verbose:
                 print len(self._edges), "left"
+            if options.trimfile:
+                trimOut = open(options.trimfile, 'w')
+                for edge in self._edges.values():
+                    for lane in range(edge.laneCount):
+                        trimOut.write("lane:"+edge.label+"_"+str(lane)+"\n")
+                trimOut.close()
         
     def detectSourceSink(self):
-        for edge in self._edges.values():
+        for edge in self._edges.itervalues():
             if len(self._inEdges[edge.source]) == 0:
                 self.addSourceEdge(edge)
             if len(self._outEdges[edge.target]) == 0:
@@ -135,9 +146,9 @@ class Net:
         
     def checkNet(self, forcedSourceSinkDetection):
         self.compressNet()
-        for edge in self._edges.valuesiter():
-            if len(edge.detFlow) > 0:
-                edge.capacity = max(edge.detFlow)
+        for edge in self._edges.itervalues():
+            if len(edge.data.detFlow) > 0:
+                edge.capacity = max(edge.data.detFlow)
             if options.ignorezero and edge.capacity == 0:
                 edge.capacity = sys.maxint
         if not forcedSourceSinkDetection:
@@ -332,12 +343,13 @@ class NetDetectorFlowReader(handler.ContentHandler):
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
+            edgeObj.laneCount += 1
         if name == 'detector_definition':
             if not attrs['lane'] in self._lane2edge:
                 warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
                 return
             edgeObj = self._net.getEdge(self._lane2edge[attrs['lane']])
-            edgeObj.addDet(float(attrs['pos']), attrs['id'])
+            edgeObj.data.addDet(float(attrs['pos']), attrs['id'])
             self._det2edge[attrs['id']] = edgeObj
             if not 'type' in attrs:
                 if not options.sourcesink:
@@ -374,7 +386,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 if options.unknowndet:
                     warn("Warning! Unknown detector " + flowDef[0])
             else:
-                self._det2edge[flowDef[0]].addFlow(flowDef[0], int(flowDef[index]))
+                self._det2edge[flowDef[0]].data.addFlow(flowDef[0], int(flowDef[index]))
 
 
 def warn(msg):
@@ -404,12 +416,10 @@ optParser.add_option("-o", "--routes-output", dest="routefile",
                      help="write routes to FILE", metavar="FILE")
 optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter", metavar="FILE")
+optParser.add_option("-t", "--trimmed-output", dest="trimfile",
+                     help="write edges of trimmed network to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
-optParser.add_option("-P", "--keep-pred", action="store_true", dest="keeppred",
-                     default=False, help='keep predecessors of "fast" edges when deleting "slow" edges')
-optParser.add_option("-S", "--keep-succ", action="store_true", dest="keepsucc",
-                     default=False, help='keep successors of "fast" edges when deleting "slow" edges')
+                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s), together with their predecessors and successors")
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
