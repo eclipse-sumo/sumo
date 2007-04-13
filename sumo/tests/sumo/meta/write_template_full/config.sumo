@@ -73,6 +73,7 @@
    </c2c>
 
    <cellular>
+      <device.cell-phone.percent-of-activity>false</device.cell-phone.percent-of-activity>
       <device.cell-phone.knownveh></device.cell-phone.knownveh>
       <device.cell-phone.probability>0</device.cell-phone.probability>
       <ss2-cellload-file></ss2-cellload-file>

@@ -106,6 +106,7 @@ Usage: sumo.exe [OPTION]*
                                          FILE
 
  Cellular Options:
+  --device.cell-phone.percent-of-activity  
   --device.cell-phone.knownveh STR     
   --device.cell-phone.probability FLOAT  
   --ss2-cellload-file FILE             

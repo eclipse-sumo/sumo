@@ -55,6 +55,7 @@ GenericSAXHandler::GenericSAXHandler()
 GenericSAXHandler::GenericSAXHandler(
         GenericSAXHandler::Tag *tags, int noTags, 
         GenericSAXHandler::Attr *attrs, int noAttrs)
+        : _errorOccured(false), _unknownOccured(false)
 { 
     int i;
     for (i=0; i<noTags; i++) {

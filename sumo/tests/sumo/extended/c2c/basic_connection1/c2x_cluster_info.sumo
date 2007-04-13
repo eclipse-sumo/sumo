@@ -19,28 +19,28 @@
       <cluster id="1" headID="horizontal2" vehNo="4">horizontal1 vertical1 vertical2</cluster>
    </timestep>
    <timestep time="136">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="137">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="138">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="139">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="140">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="141">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="142">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="143">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal1 horizontal2 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
    </timestep>
    <timestep time="144">
       <cluster id="1" headID="vertical1" vehNo="3">horizontal2 vertical2</cluster>

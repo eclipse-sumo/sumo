@@ -182,6 +182,9 @@
 
    <cellular>
       <!--  -->
+      <device.cell-phone.percent-of-activity>false</device.cell-phone.percent-of-activity>
+
+      <!--  -->
       <device.cell-phone.knownveh></device.cell-phone.knownveh>
 
       <!--  -->
