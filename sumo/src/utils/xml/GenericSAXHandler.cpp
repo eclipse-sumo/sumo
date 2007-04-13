@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    AttributesHandler.cpp
+/// @file    GenericSAXHandler.cpp
 /// @author  Daniel Krajzewicz
-/// @date    Mon, 15 Apr 2002
-/// @version $Id$
+/// @date    Sept 2002
+/// @version $Id: GenericSAXHandler.h 3712 2007-03-28 14:23:50 +0200 (Mi, 28 Mrz 2007) dkrajzew $
 ///
-// This class realises the access to the
+// A combination between a GenericSAXHandler and an GenericSAXHandler
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -34,18 +34,10 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/Attributes.hpp>
-#include <string>
-#include <map>
+#include "GenericSAXHandler.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
-#include "AttributesHandler.h"
 
-/*
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-*/
 
 // ===========================================================================
 // used namespaces
@@ -54,22 +46,28 @@ using namespace std;
 
 
 // ===========================================================================
-// method definitions
+// class definitions
 // ===========================================================================
-AttributesHandler::AttributesHandler()
-{}
+GenericSAXHandler::GenericSAXHandler()
+{ }
 
 
-AttributesHandler::AttributesHandler(Attr *attrs, int noAttrs)
-{
-    for (int i=0; i<noAttrs; i++) {
+GenericSAXHandler::GenericSAXHandler(
+        GenericSAXHandler::Tag *tags, int noTags, 
+        GenericSAXHandler::Attr *attrs, int noAttrs)
+{ 
+    int i;
+    for (i=0; i<noTags; i++) {
+        addTag(tags[i].name, tags[i].value);
+    }
+    for (i=0; i<noAttrs; i++) {
         add(attrs[i].key, attrs[i].name);
     }
 }
 
 
-AttributesHandler::~AttributesHandler()
-{
+GenericSAXHandler::~GenericSAXHandler()
+{ 
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[] (*i1).second;
     }
@@ -77,10 +75,8 @@ AttributesHandler::~AttributesHandler()
         delete[] (*i2).second;
     }
 }
-
-
 void
-AttributesHandler::add(int id, const std::string &name)
+GenericSAXHandler::add(int id, const std::string &name)
 {
     check(id);
     myPredefinedTags.insert(AttrMap::value_type(id, convert(name)));
@@ -88,7 +84,7 @@ AttributesHandler::add(int id, const std::string &name)
 
 
 bool
-AttributesHandler::hasAttribute(const Attributes &attrs, int id)
+GenericSAXHandler::hasAttribute(const Attributes &attrs, int id)
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
@@ -99,7 +95,7 @@ AttributesHandler::hasAttribute(const Attributes &attrs, int id)
 
 
 bool
-AttributesHandler::hasAttribute(const Attributes &attrs,
+GenericSAXHandler::hasAttribute(const Attributes &attrs,
                                 const std::string &id)
 {
     return attrs.getIndex(getAttributeNameSecure(id))>=0;
@@ -107,7 +103,7 @@ AttributesHandler::hasAttribute(const Attributes &attrs,
 
 
 bool
-AttributesHandler::hasAttribute(const Attributes &attrs,
+GenericSAXHandler::hasAttribute(const Attributes &attrs,
                                 const XMLCh * const id)
 {
     return attrs.getIndex(id)>=0;
@@ -115,14 +111,14 @@ AttributesHandler::hasAttribute(const Attributes &attrs,
 
 
 int
-AttributesHandler::getInt(const Attributes &attrs, int id) const
+GenericSAXHandler::getInt(const Attributes &attrs, int id) const
 {
     return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
 }
 
 
 int
-AttributesHandler::getIntSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getIntSecure(const Attributes &attrs, int id,
                                 int def) const
 {
     return TplConvertSec<XMLCh>::_2intSec(
@@ -131,14 +127,14 @@ AttributesHandler::getIntSecure(const Attributes &attrs, int id,
 
 
 int
-AttributesHandler::getInt(const Attributes &attrs, const std::string &id) const
+GenericSAXHandler::getInt(const Attributes &attrs, const std::string &id) const
 {
     return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
 }
 
 
 int
-AttributesHandler::getIntSecure(const Attributes &attrs,
+GenericSAXHandler::getIntSecure(const Attributes &attrs,
                                 const std::string &id,
                                 int def) const
 {
@@ -148,14 +144,14 @@ AttributesHandler::getIntSecure(const Attributes &attrs,
 
 
 bool
-AttributesHandler::getBool(const Attributes &attrs, int id) const
+GenericSAXHandler::getBool(const Attributes &attrs, int id) const
 {
     return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
 }
 
 
 bool
-AttributesHandler::getBoolSecure(const Attributes &attrs, int id, bool val) const
+GenericSAXHandler::getBoolSecure(const Attributes &attrs, int id, bool val) const
 {
     return TplConvertSec<XMLCh>::_2boolSec(
                getAttributeValueSecure(attrs, id), val);
@@ -163,14 +159,14 @@ AttributesHandler::getBoolSecure(const Attributes &attrs, int id, bool val) cons
 
 
 bool
-AttributesHandler::getBool(const Attributes &attrs, const std::string &id) const
+GenericSAXHandler::getBool(const Attributes &attrs, const std::string &id) const
 {
     return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
 }
 
 
 bool
-AttributesHandler::getBoolSecure(const Attributes &attrs,
+GenericSAXHandler::getBoolSecure(const Attributes &attrs,
                                  const std::string &id, bool val) const
 {
     return TplConvertSec<XMLCh>::_2boolSec(
@@ -179,14 +175,14 @@ AttributesHandler::getBoolSecure(const Attributes &attrs,
 
 
 std::string
-AttributesHandler::getString(const Attributes &attrs, int id) const
+GenericSAXHandler::getString(const Attributes &attrs, int id) const
 {
     return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
 }
 
 
 std::string
-AttributesHandler::getStringSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getStringSecure(const Attributes &attrs, int id,
                                    const std::string &str) const
 {
     return TplConvertSec<XMLCh>::_2strSec(
@@ -195,7 +191,7 @@ AttributesHandler::getStringSecure(const Attributes &attrs, int id,
 
 
 std::string
-AttributesHandler::getString(const Attributes &attrs,
+GenericSAXHandler::getString(const Attributes &attrs,
                              const std::string &id) const
 {
     return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
@@ -203,7 +199,7 @@ AttributesHandler::getString(const Attributes &attrs,
 
 
 std::string
-AttributesHandler::getStringSecure(const Attributes &attrs,
+GenericSAXHandler::getStringSecure(const Attributes &attrs,
                                    const std::string &id,
                                    const std::string &str) const
 {
@@ -213,14 +209,14 @@ AttributesHandler::getStringSecure(const Attributes &attrs,
 
 
 long
-AttributesHandler::getLong(const Attributes &attrs, int id) const
+GenericSAXHandler::getLong(const Attributes &attrs, int id) const
 {
     return TplConvert<XMLCh>::_2long(getAttributeValueSecure(attrs, id));
 }
 
 
 long
-AttributesHandler::getLongSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getLongSecure(const Attributes &attrs, int id,
                                  long def) const
 {
     return TplConvertSec<XMLCh>::_2longSec(
@@ -229,14 +225,14 @@ AttributesHandler::getLongSecure(const Attributes &attrs, int id,
 
 
 SUMOReal
-AttributesHandler::getFloat(const Attributes &attrs, int id) const
+GenericSAXHandler::getFloat(const Attributes &attrs, int id) const
 {
     return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
 }
 
 
 SUMOReal
-AttributesHandler::getFloatSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getFloatSecure(const Attributes &attrs, int id,
                                   SUMOReal def) const
 {
     return TplConvertSec<XMLCh>::_2SUMORealSec(
@@ -245,7 +241,7 @@ AttributesHandler::getFloatSecure(const Attributes &attrs, int id,
 
 
 SUMOReal
-AttributesHandler::getFloat(const Attributes &attrs,
+GenericSAXHandler::getFloat(const Attributes &attrs,
                             const std::string &id) const
 {
     return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
@@ -253,7 +249,7 @@ AttributesHandler::getFloat(const Attributes &attrs,
 
 
 SUMOReal
-AttributesHandler::getFloatSecure(const Attributes &attrs,
+GenericSAXHandler::getFloatSecure(const Attributes &attrs,
                                   const std::string &id,
                                   SUMOReal def) const
 {
@@ -263,7 +259,7 @@ AttributesHandler::getFloatSecure(const Attributes &attrs,
 
 
 SUMOReal
-AttributesHandler::getFloat(const Attributes &attrs,
+GenericSAXHandler::getFloat(const Attributes &attrs,
                             const XMLCh * const id) const
 {
     return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
@@ -272,7 +268,7 @@ AttributesHandler::getFloat(const Attributes &attrs,
 
 
 const XMLCh *const
-AttributesHandler::getAttributeNameSecure(int id) const
+GenericSAXHandler::getAttributeNameSecure(int id) const
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
@@ -283,7 +279,7 @@ AttributesHandler::getAttributeNameSecure(int id) const
 
 
 const XMLCh *const
-AttributesHandler::getAttributeNameSecure(const std::string &id) const
+GenericSAXHandler::getAttributeNameSecure(const std::string &id) const
 {
     StrAttrMap::const_iterator i=myStrTags.find(id);
     if (i==myStrTags.end()) {
@@ -295,7 +291,7 @@ AttributesHandler::getAttributeNameSecure(const std::string &id) const
 
 
 const XMLCh *
-AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
+GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
         int id) const
 {
     return attrs.getValue(getAttributeNameSecure(id));
@@ -303,7 +299,7 @@ AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
 
 
 const XMLCh *
-AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
+GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
         const std::string &id) const
 {
     return attrs.getValue(getAttributeNameSecure(id));
@@ -311,7 +307,7 @@ AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
 
 
 char *
-AttributesHandler::getCharP(const Attributes &attrs, int id) const
+GenericSAXHandler::getCharP(const Attributes &attrs, int id) const
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     return TplConvert<XMLCh>::_2charp(attrs.getValue(0, (*i).second));
@@ -319,7 +315,7 @@ AttributesHandler::getCharP(const Attributes &attrs, int id) const
 
 
 void
-AttributesHandler::check(int id) const
+GenericSAXHandler::check(int id) const
 {
     if (myPredefinedTags.find(id)!=myPredefinedTags.end()) {
         throw exception();
@@ -328,7 +324,7 @@ AttributesHandler::check(int id) const
 
 
 XMLCh*
-AttributesHandler::convert(const std::string &name) const
+GenericSAXHandler::convert(const std::string &name) const
 {
     size_t len = name.length();
     XMLCh *ret = new XMLCh[len+1];
@@ -338,6 +334,144 @@ AttributesHandler::convert(const std::string &name) const
     }
     ret[i] = 0;
     return ret;
+}
+
+
+
+void
+GenericSAXHandler::addTag(const std::string &name, int id)
+{
+    _tagMap.insert(TagMap::value_type(name, id));
+}
+
+
+bool
+GenericSAXHandler::errorOccured() const
+{
+    return _errorOccured;
+}
+
+
+bool
+GenericSAXHandler::unknownOccured() const
+{
+    return _unknownOccured;
+}
+
+
+void
+GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
+                                 const XMLCh* const /*localname*/,
+                                 const XMLCh* const qname,
+                                 const Attributes& attrs)
+{
+    string name = TplConvert<XMLCh>::_2str(qname);
+    int element = convertTag(name);
+    _tagTree.push(element);
+    //_characters = "";
+    myCharactersVector.clear();
+    if (element<0) {
+        _unknownOccured = true;
+    }
+    myStartElement(element, name, attrs);
+}
+
+
+void
+GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
+                               const XMLCh* const /*localname*/,
+                               const XMLCh* const qname)
+{
+    string name = TplConvert<XMLCh>::_2str(qname);
+    int element = convertTag(name);
+    if (element<0) {
+        _unknownOccured = true;
+    }
+    // call user handler
+    // collect characters
+    size_t len = 0;
+    size_t i;
+    for (i=0; i<myCharactersVector.size(); ++i) {
+        len += myCharactersVector[i].length();
+    }
+    char *buf = new char[len+1];
+    int pos = 0;
+    for (i=0; i<myCharactersVector.size(); ++i) {
+        memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
+               sizeof(char)*myCharactersVector[i].length());
+        pos += myCharactersVector[i].length();
+    }
+    buf[pos] = 0;
+
+    myCharacters(element, name, buf);
+    delete[] buf;
+    myEndElement(element, name);
+    // update the tag tree
+    if (_tagTree.size()==0) {
+        _errorOccured = true;
+    } else {
+        _tagTree.pop();
+    }
+}
+
+
+void
+GenericSAXHandler::characters(const XMLCh* const chars,
+                               const unsigned int length)
+{
+    myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
+}
+
+
+void
+GenericSAXHandler::ignorableWhitespace(const XMLCh* const /*chars*/,
+                                        const unsigned int /*length*/)
+{}
+
+
+void
+GenericSAXHandler::resetDocument()
+{}
+
+
+void
+GenericSAXHandler::warning(const SAXParseException&)
+{}
+
+
+void
+GenericSAXHandler::error(const SAXParseException&)
+{}
+
+
+void
+GenericSAXHandler::fatalError(const SAXParseException&)
+{}
+
+
+int
+GenericSAXHandler::convertTag(const std::string &tag) const
+{
+    TagMap::const_iterator i=_tagMap.find(tag);
+    if (i==_tagMap.end()) {
+        return -1; // !!! should it be reported (as error)
+    }
+    return (*i).second;
+}
+
+
+string
+GenericSAXHandler::buildErrorMessage(const std::string &file,
+                                      const string &type,
+                                      const SAXParseException& exception)
+{
+    ostringstream buf;
+    buf << type << endl;
+    buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+    buf << " In file: " << file << endl;
+    buf << " At line/column " << exception.getLineNumber()+1
+    << '/' << exception.getColumnNumber() << ")." << endl;
+    return buf.str();
 }
 
 

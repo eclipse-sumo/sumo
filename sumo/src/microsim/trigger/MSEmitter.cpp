@@ -39,7 +39,7 @@
 #include <utils/helpers/Command.h>
 #include <utils/helpers/WrappingCommand.h>
 #include <microsim/MSLane.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>

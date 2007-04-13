@@ -43,7 +43,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
 #include "ROJTRHelpers.h"
 #include "ROJTREdge.h"

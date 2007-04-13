@@ -35,8 +35,6 @@
 #endif
 
 #include <string>
-#include <utils/xml/AttributesHandler.h>
-#include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>

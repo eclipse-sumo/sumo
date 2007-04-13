@@ -35,8 +35,7 @@
 #endif
 
 #include "NLDiscreteEventBuilder.h"
-#include <utils/xml/AttributesHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
@@ -62,8 +61,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
-        : AttributesHandler(sumoattrs, noSumoAttrs),
-        myNet(net)
+        : myNet(net)
 {
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
     myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
@@ -75,10 +73,11 @@ NLDiscreteEventBuilder::~NLDiscreteEventBuilder()
 
 
 void
-NLDiscreteEventBuilder::addAction(const Attributes &attrs,
+NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
+                                  const Attributes &attrs,
                                   const std::string &basePath)
 {
-    string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    string type = parser.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     // check whether the type was given
     if (type=="") {
         MsgHandler::getErrorInstance()->inform("An action's type is not given.");
@@ -95,10 +94,10 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
     Command *a;
     switch (at) {
     case EV_SAVETLSTATE:
-        a = buildSaveTLStateCommand(attrs, basePath);
+        a = buildSaveTLStateCommand(parser, attrs, basePath);
         break;
     case EV_SAVETLSWITCHES:
-        a = buildSaveTLSwitchesCommand(attrs, basePath);
+        a = buildSaveTLSwitchesCommand(parser, attrs, basePath);
         break;
     default:
         throw 1;
@@ -107,12 +106,13 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
 
 
 Command *
-NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
+NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
+                                                const Attributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
-    string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
-    string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
+    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
@@ -133,12 +133,13 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
 
 
 Command *
-NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const Attributes &attrs,
+NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
+                                                   const Attributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
-    string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
-    string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
+    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");

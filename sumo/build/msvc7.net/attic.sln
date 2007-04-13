@@ -79,10 +79,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_options", "z_lib
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_sumoxml", "z_libutils_sumoxml\z_libutils_sumoxml.vcproj", "{8481DC94-5A2E-4FD2-B992-7385DD90140D}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_xml", "z_libutils_xml\z_libutils_xml.vcproj", "{508F0BFF-83FE-444C-9509-A359BCA83BC4}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection

@@ -35,11 +35,11 @@
 #endif
 
 #include <string>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerNodes.h"
 
 #ifdef CHECK_MEMORY_LEAKS

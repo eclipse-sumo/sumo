@@ -43,7 +43,7 @@
 #include <xercesc/framework/XMLFormatter.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <utils/sumoxml/WeightsHandler.h>
+#include <utils/xml/WeightsHandler.h>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"

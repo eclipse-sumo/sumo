@@ -39,8 +39,8 @@
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "ODDistrict.h"
 #include "ODDistrictCont.h"
 #include "ODDistrictHandler.h"

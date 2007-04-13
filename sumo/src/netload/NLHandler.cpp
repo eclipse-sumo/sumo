@@ -45,15 +45,14 @@
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
 #include "NLTriggerBuilder.h"
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/xml/AttributesHandler.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -208,7 +207,7 @@ NLHandler::myStartElement(int element, const std::string &name,
             addTrigger(attrs);
             break;
         case SUMO_TAG_TIMEDEVENT:
-            myActionBuilder.addAction(attrs, _file);
+            myActionBuilder.addAction(*this, attrs, _file);
             break;
         }
     }

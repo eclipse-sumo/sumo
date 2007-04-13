@@ -40,7 +40,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/XMLHelpers.h>
 #include <microsim/MSEventControl.h>
 #include "MSTriggeredReader.h"

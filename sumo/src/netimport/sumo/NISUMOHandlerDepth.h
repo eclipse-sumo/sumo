@@ -37,8 +37,9 @@
 #endif
 
 #include <string>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NLLoadFilter.h>
+
 
 // ===========================================================================
 // class definitions

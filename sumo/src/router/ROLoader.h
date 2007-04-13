@@ -41,7 +41,7 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
 #include "ROAbstractRouter.h"
-#include <utils/sumoxml/WeightsHandler.h>
+#include <utils/xml/WeightsHandler.h>
 
 
 // ===========================================================================
@@ -59,7 +59,6 @@ class OptionsCont;
 class RONet;
 class RONetHandler;
 class ROAbstractRouteDefLoader;
-class GenericSAX2Handler;
 class ROAbstractEdgeBuilder;
 class ROVehicleBuilder;
 class GUIRouterRunThread;

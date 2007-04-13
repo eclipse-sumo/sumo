@@ -36,9 +36,12 @@
 #include <config.h>
 #endif
 
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBTypeCont;
 
 

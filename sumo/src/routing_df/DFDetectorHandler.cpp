@@ -39,8 +39,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "DFDetectorHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS

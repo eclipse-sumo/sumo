@@ -52,7 +52,7 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>

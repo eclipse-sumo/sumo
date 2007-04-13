@@ -39,8 +39,6 @@
 #include <string>
 #include "RORDLoader_SUMOBase.h"
 #include <utils/gfx/RGBColor.h>
-#include <utils/xml/AttributesHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================

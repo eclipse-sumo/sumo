@@ -39,7 +39,7 @@
 #include <string>
 #include <vector>
 #include <utils/helpers/Command.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include "MSTrigger.h"
 
 

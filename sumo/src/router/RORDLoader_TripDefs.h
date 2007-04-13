@@ -37,12 +37,10 @@
 #endif
 
 #include <string>
-#include <utils/xml/AttributesHandler.h>
-#include <utils/xml/GenericSAX2Handler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/router/IDSupplier.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
 

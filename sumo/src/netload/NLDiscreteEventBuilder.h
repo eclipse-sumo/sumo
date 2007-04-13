@@ -39,7 +39,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <string>
 #include <map>
-#include <utils/xml/AttributesHandler.h>
+#include <utils/xml/GenericSAXHandler.h>
 
 
 // ===========================================================================
@@ -65,7 +65,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * This class is responsible for building event-handling actions which
  *  the simulation shall execute.
  */
-class NLDiscreteEventBuilder : public AttributesHandler
+class NLDiscreteEventBuilder 
 {
 public:
     /// Known action types
@@ -81,17 +81,17 @@ public:
     ~NLDiscreteEventBuilder();
 
     /// Builds an action and saves it for further use
-    void addAction(const Attributes &attrs,
-                   const std::string &basePath);
+    void addAction(GenericSAXHandler &parser,
+        const Attributes &attrs, const std::string &basePath);
 
 private:
     /// Builds an action which save the state of a certain tls into a file
-    Command *buildSaveTLStateCommand(const Attributes &attrs,
-                                     const std::string &basePath);
+    Command *buildSaveTLStateCommand(GenericSAXHandler &parser,
+        const Attributes &attrs, const std::string &basePath);
 
     /// Builds an action which save the state of a certain tls into a file
-    Command *buildSaveTLSwitchesCommand(const Attributes &attrs,
-                                        const std::string &basePath);
+    Command *buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
+        const Attributes &attrs, const std::string &basePath);
 
 protected:
     /// Definitions of a storage for build actions

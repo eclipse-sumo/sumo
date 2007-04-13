@@ -39,7 +39,7 @@
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/framework/XMLPScanToken.hpp>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include "ROAbstractRouteDefLoader.h"
 
 

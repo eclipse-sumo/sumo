@@ -245,9 +245,6 @@ copy Debug\od2trips.exe ..\..\..\bin\od2tripsD.exe
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\Named.h">
 			</File>
 			<File

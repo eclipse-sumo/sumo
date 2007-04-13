@@ -40,7 +40,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/bindevice/libbindevice.a \
 ./utils/common/libcommon.a \
 ./utils/options/liboptions.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
@@ -73,7 +72,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/NINavTeqHelper.o \
 ./netbuild/libnetbuild.a \
 ./netbuild/nodes/libnodesnetbuild.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 ./utils/gfx/libgfx.a \
@@ -94,7 +92,6 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/geoconv/libgeoconv.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/geom/libgeom.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
@@ -115,7 +112,6 @@ sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
@@ -134,7 +130,6 @@ sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
@@ -152,7 +147,6 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
@@ -165,7 +159,6 @@ sumo_od2trips_SOURCES = od2trips_main.cpp
 sumo_od2trips_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
@@ -183,7 +176,6 @@ sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./polyconvert/libpolyconvert.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
@@ -225,7 +217,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/lanechanging/libmicrosimlanechange.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
-./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
 ./sumo_only/libsumoonly.a \
 ./utils/bindevice/libbindevice.a \

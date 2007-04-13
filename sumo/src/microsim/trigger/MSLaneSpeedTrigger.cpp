@@ -38,7 +38,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/helpers/WrappingCommand.h>
 #include <microsim/MSLane.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSLaneSpeedTrigger.h"
 #include <utils/common/XMLHelpers.h>

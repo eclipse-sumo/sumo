@@ -37,7 +37,7 @@
 #endif
 
 #include <utils/geom/Position2DVector.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBEdge.h>
 
 

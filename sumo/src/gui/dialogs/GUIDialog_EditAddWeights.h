@@ -40,7 +40,7 @@
 #include <vector>
 #include <fx.h>
 #include <gui/GUIAddWeightsStorage.h>
-#include <utils/sumoxml/WeightsHandler.h>
+#include <utils/xml/WeightsHandler.h>
 
 
 // ===========================================================================

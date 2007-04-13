@@ -15,9 +15,6 @@ Package=<4>
     Project_Dep_Name z_libutils_options
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
@@ -54,9 +51,6 @@ Package=<4>
     Project_Dep_Name z_libutils_common
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
@@ -88,9 +82,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
@@ -168,9 +159,6 @@ Package=<4>
     Project_Dep_Name z_libutils_options
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
 }}}
@@ -193,9 +181,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
@@ -267,9 +252,6 @@ Package=<4>
     Project_Dep_Name z_libutils_common
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
@@ -312,9 +294,6 @@ Package=<4>
     Project_Dep_Name z_libutils_options
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_xml
     End Project Dependency
 }}}
@@ -334,9 +313,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
@@ -625,18 +601,6 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_options"=.\z_libutils_options\z_libutils_options.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_sumoxml"=.\z_libutils_sumoxml\z_libutils_sumoxml.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

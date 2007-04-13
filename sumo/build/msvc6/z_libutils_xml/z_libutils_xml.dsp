@@ -87,11 +87,23 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\AttributesHandler.cpp
+SOURCE=..\..\..\src\utils\xml\GenericSAXHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\GenericSAX2Handler.cpp
+SOURCE=..\..\..\src\utils\xml\SUMOBaseRouteHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\SUMOSAXHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\SUMOXMLDefinitions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\WeightsHandler.cpp
 # End Source File
 # Begin Source File
 
@@ -111,15 +123,23 @@ SOURCE=..\..\..\src\utils\xml\XMLSubSys.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\AttributesHandler.h
+SOURCE=..\..\..\src\utils\xml\GenericSAXHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
+SOURCE=..\..\..\src\utils\xml\SUMOBaseRouteHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\GenericSAX2Handler.h
+SOURCE=..\..\..\src\utils\xml\SUMOSAXHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\SUMOXMLDefinitions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\xml\WeightsHandler.h
 # End Source File
 # Begin Source File
 

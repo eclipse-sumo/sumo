@@ -42,8 +42,8 @@
 #include <xercesc/sax/SAXException.hpp>
 #include "NIXMLTypesHandler.h"
 #include <netbuild/NBTypeCont.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLBuildingExceptions.h>

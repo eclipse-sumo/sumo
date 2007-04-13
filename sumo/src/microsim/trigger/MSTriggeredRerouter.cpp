@@ -41,12 +41,12 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSTriggeredRerouter.h"
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/TplConvert.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
 #include <utils/common/RandHelper.h>
 

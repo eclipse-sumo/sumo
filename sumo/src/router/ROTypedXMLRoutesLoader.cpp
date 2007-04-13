@@ -40,7 +40,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <utils/xml/GenericSAX2Handler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/XMLHelpers.h>

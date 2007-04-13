@@ -45,8 +45,8 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/nodes/NBNode.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>

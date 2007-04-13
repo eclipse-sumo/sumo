@@ -47,7 +47,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>

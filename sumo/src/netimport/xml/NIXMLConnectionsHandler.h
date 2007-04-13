@@ -36,8 +36,9 @@
 #include <config.h>
 #endif
 
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBConnection.h>
+
 
 // ===========================================================================
 // class declarations

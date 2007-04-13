@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    AttributesHandler.h
+/// @file    GenericSAXHandler.h
 /// @author  Daniel Krajzewicz
-/// @date    Mon, 15 Apr 2002
-/// @version $Id$
+/// @date    Sept 2002
+/// @version $Id: GenericSAXHandler.h 3712 2007-03-28 14:23:50 +0200 (Mi, 28 Mrz 2007) dkrajzew $
 ///
-// This class realises the access to the
+// A combination between a GenericSAXHandler and an AttributesHandler
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef AttributesHandler_h
-#define AttributesHandler_h
+#ifndef GenericSAXHandler_h
+#define GenericSAXHandler_h
 // ===========================================================================
 // compiler pragmas
 // ===========================================================================
@@ -36,9 +36,13 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/Attributes.hpp>
 #include <string>
 #include <map>
+#include <stack>
+#include <sstream>
+#include <vector>
+#include <xercesc/sax2/Attributes.hpp>
+#include <xercesc/sax2/DefaultHandler.hpp>
 
 
 // ===========================================================================
@@ -53,34 +57,94 @@ using namespace XERCES_CPP_NAMESPACE;
 // class definitions
 // ===========================================================================
 /**
- * @class AttributesHandler
- * To allow a better access to the SAX2-Attributes considering their representation
- * as unsigned short * and the so needed conversion utils, this class allows
- * to access them via a numerical id supplied before parsing of the document
+ * @class GenericSAXHandler
+ *
+ * This class is a combination of an AttributesHandler and a
+ *  GenericSAX2Handler allowing direct access to and handling of XML-tags
+ *  (elements) and attributes.
+ * By now, almost every class that handles XML-data is derived from this
+ *  class.
  */
-class AttributesHandler
+class GenericSAXHandler : public DefaultHandler
 {
 public:
     /** the structure that describes the relationship between an attribute
         name and its numerical representation */
     struct Attr
     {
-        /// The xml-attribute-name (latin1)
+        /// The xml-attribute-name (ascii)
         const char *name;
         /// The numerical representation of the attribute
         int key;
     };
 
+    /** a tag name with its numerical representation */
+    struct Tag
+    {
+        /// The xml-element-name (ascii)
+        const char *name;
+        /// The numerical representation of the attribute
+        int value;
+    };
+
+
 public:
     /** constructor */
-    AttributesHandler();
+    GenericSAXHandler();
 
-    /** constructor */
-    AttributesHandler(Attr *attrs, int noAttrs);
+    /** parametrised constructor */
+    GenericSAXHandler(
+        Tag *tags, int noTags, Attr *attrs, int noAttrs);
 
     /** destructor */
-    virtual ~AttributesHandler();
+    virtual ~GenericSAXHandler();
 
+
+    //{ methods for dealing with attributes
+    /** adds a known tag to the list */
+    void addTag(const std::string &name, int id);
+
+    /** returns the information whether an error occured during the parsing */
+    bool errorOccured() const;
+
+    /** returns the information whether an unknown tag occured */
+    bool unknownOccured() const;
+
+    /** @brief The inherited method called when a new tag opens
+        This method calls the user-implemented methof myStartElement */
+    void startElement(const XMLCh* const uri, const XMLCh* const localname,
+                      const XMLCh* const qname, const Attributes& attrs);
+
+    /** @brief The inherited method called when characters occured
+        The characters are appended into a private buffer and given to
+        myCharacters when the according tag is being closed */
+    void characters(const XMLCh* const chars, const unsigned int length);
+
+    /** @brief The inherited method called when a tag is being closed
+        This method calls the user-implemented methods myCharacters and
+        and myEndElement */
+    void endElement(const XMLCh* const uri, const XMLCh* const localname,
+                    const XMLCh* const qname);
+
+    /** called when ignorable whitespaces occure */
+    void ignorableWhitespace(const XMLCh* const chars,
+                             const unsigned int length);
+
+    /** called when the document shall be resetted */
+    virtual void resetDocument();
+
+    /** called when a XML-warning occures */
+    virtual void warning(const SAXParseException& exception);
+
+    /** called when a XML-error occures */
+    virtual void error(const SAXParseException& exception);
+
+    /** called when a XML-fatal error occures */
+    virtual void fatalError(const SAXParseException& exception);
+    //}
+
+
+    //{ methods for dealing with attributes
     /** @brief method to assign an id to a name;
         the name will be transcoded into unicode */
     void add(int id, const std::string &name);
@@ -122,13 +186,38 @@ public:
 
     /** returns the named (by id) attribute as a c-string */
     char *getCharP(const Attributes &attrs, int id) const;
+    //}
 
-    /** checks whether the id was not previously set */
-    void check(int id) const;
+protected:
+    /** @brief handler method for an opening tag to implement by derived classes
+        This method is only called when the tag name was supplied by the user */
+    virtual void myStartElement(int element, const std::string &name,
+                                const Attributes &attrs) = 0;
 
+    /** @brief handler method for characters to implement by derived classes
+        This method is only called when tha tag name was supplied by the user */
+    virtual void myCharacters(int element, const std::string &name,
+                              const std::string &chars) = 0;
+
+    /** @brief handler method for a closing tag to implement by derived classes
+        This tag is only called when tha tag name was supplied by the user */
+    virtual void myEndElement(int element, const std::string &name) = 0;
+
+    /** build an error description */
+    std::string buildErrorMessage(const std::string &file,
+                                  const std::string &type,
+                                  const SAXParseException& exception);
+
+
+private:
     /** converts from c++-string into unicode */
     XMLCh *convert(const std::string &name) const;
+
+    /** converts a tag from its string into its numerical representation */
+    int convertTag(const std::string &tag) const;
+
 private:
+    //{ methods for dealing with attributes
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
     const XMLCh *const getAttributeNameSecure(int id) const;
@@ -147,14 +236,12 @@ private:
     const XMLCh *getAttributeValueSecure(const Attributes &attrs,
                                          const std::string &id) const;
 
-private:
-    /** invalidated copy constructor */
-    AttributesHandler(const AttributesHandler &s);
-
-    /** invalidated assignment operator */
-    AttributesHandler &operator=(const AttributesHandler &s);
+    /** checks whether the id was not previously set */
+    void check(int id) const;
+    //}
 
 private:
+    //{ Variables for attributes parsing
     /** the type of the map from ids to their unicode-string representation */
     typedef std::map<int, XMLCh*> AttrMap;
 
@@ -166,6 +253,25 @@ private:
 
     /** the map from ids to their unicode-string representation */
     mutable StrAttrMap myStrTags;
+    //}
+
+    /** the type of the map the maps tag names to ints */
+    typedef std::map<std::string, int> TagMap;
+
+    /** the information whether an error occured during the parsing */
+    bool _errorOccured;
+
+    /** the information whether an unknown tag occured */
+    bool _unknownOccured;
+
+    /** the map of tag names to their internal numerical representation */
+    TagMap _tagMap;
+
+    /** the current position in the xml-tree as a stack */
+    std::stack<int> _tagTree;
+
+    /// A list of characters string obtained so far to build the complete characters string at the end
+    std::vector<std::string> myCharactersVector;
 
 
 };

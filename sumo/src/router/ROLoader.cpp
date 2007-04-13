@@ -49,7 +49,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/XMLHelpers.h>
-#include <utils/sumoxml/WeightsHandler.h>
+#include <utils/xml/WeightsHandler.h>
 #include <utils/importio/LineReader.h>
 #include "RONet.h"
 #include "RONetHandler.h"

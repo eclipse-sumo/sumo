@@ -38,7 +38,7 @@
 
 #include <string>
 #include <utility>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 
 // ===========================================================================

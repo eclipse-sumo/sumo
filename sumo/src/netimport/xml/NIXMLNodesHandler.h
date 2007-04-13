@@ -36,7 +36,7 @@
 #include <config.h>
 #endif
 
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/geom/Position2D.h>
 
 

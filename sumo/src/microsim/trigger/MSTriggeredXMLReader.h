@@ -38,7 +38,7 @@
 
 #include <string>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include "MSTriggeredReader.h"
 
 

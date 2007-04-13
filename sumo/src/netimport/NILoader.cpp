@@ -51,7 +51,7 @@
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <netimport/xml/NIXMLEdgesHandler.h>
 #include <netimport/xml/NIXMLNodesHandler.h>
 #include <netimport/xml/NIXMLTypesHandler.h>

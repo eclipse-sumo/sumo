@@ -121,10 +121,6 @@ SOURCE=..\..\..\src\od2trips\ODMatrix.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\common\Named.h
 # End Source File
 # Begin Source File

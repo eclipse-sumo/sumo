@@ -34,8 +34,8 @@
 #include <config.h>
 #endif
 #include <string>
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerDepth.h"
 
 #ifdef CHECK_MEMORY_LEAKS

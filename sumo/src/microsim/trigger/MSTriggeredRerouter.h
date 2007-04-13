@@ -41,7 +41,7 @@
 #include <utils/helpers/Command.h>
 #include <microsim/MSMoveReminder.h>
 #include "MSTrigger.h"
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/helpers/RandomDistributor.h>
 
 

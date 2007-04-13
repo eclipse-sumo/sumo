@@ -40,8 +40,8 @@
 #include "MSRoute.h"
 #include "MSEmitControl.h"
 #include "MSVehicle.h"
-#include <utils/sumoxml/SUMOSAXHandler.h>
-#include <utils/sumoxml/SUMOBaseRouteHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOBaseRouteHandler.h>
 #include <utils/common/SUMOTime.h>
 
 

@@ -94,7 +94,6 @@ PCElmarPoints::load(OptionsCont &oc)
 
     // Attributes of the poi
     std::string name, desc, type, ort;
-    Position2DVector vec;
 
     std::string buff, rest; // rest after doing substring
     std::string xpos, ypos;
@@ -165,7 +164,6 @@ PCElmarPoints::load(OptionsCont &oc)
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             myCont.insert(name, poi, layer, ignorePrunning);
         }
-        vec.clear();
     }
 
     out.close();

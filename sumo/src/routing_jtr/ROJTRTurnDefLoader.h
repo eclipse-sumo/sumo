@@ -38,7 +38,7 @@
 
 #include <set>
 #include <string>
-#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/importio/NamedColumnsParser.h>
 #include <utils/importio/LineHandler.h>
 
