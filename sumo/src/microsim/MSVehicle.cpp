@@ -165,15 +165,17 @@ MSVehicle::~MSVehicle()
         for(ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
             delete (*i).route;
         }
+        delete v;
     }
     // devices
     {
         // cell phones
-        if (myIntCORNMap.find(MSCORN::CORN_VEH_DEV_NO_CPHONE)!=myIntCORNMap.end()) {
-            int no = myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE];
-            for (int np=0; np<no; np++) {
-                delete((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
+        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
+            vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
+            for(vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+                delete (*i);
             }
+            delete v;
         }
     }
     delete myLaneChangeModel;
@@ -264,22 +266,35 @@ void
 MSVehicle::initDevices(int vehicleIndex)
 {
     OptionsCont &oc = OptionsSubSys::getOptions();
+
     // cell phones
-    if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
+    if ( oc.getBool("device.cell-phone.percent-of-activity") ){
+        //myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
+      //  string phoneid = getID() + "_cphone#0";
+    //    MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
+//        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;
+        if ( randSUMO()<=oc.getFloat("device.cell-phone.probability")){
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+            string phoneid = getID() + "_cphone#0";
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+        }
+    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
         bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
         bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
         if (t1||t2) {
             int noCellPhones = (int)(randSUMO()
                                      * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
                                      + oc.getFloat("device.cell-phone.amount.min"));
-            myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = noCellPhones;
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             for (int np=0; np<noCellPhones; np++) {
                 string phoneid = getID() + "_cphone#" + toString(np);
-                myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)] =
-                    (void*) new MSDevice_CPhone(*this, phoneid);
+                v->push_back(new MSDevice_CPhone(*this, phoneid));
             }
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
     }
+
     // c2c communication
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
@@ -1473,9 +1488,11 @@ MSVehicle::onDepart()
     // initialise devices
     {
         // cell phones
-        int no = myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE];
-        for (int np=0; np<no; np++) {
-            ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np)])->onDepart();
+        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
+            vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
+            for(vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+                (*i)->onDepart();
+            }
         }
     }
 }

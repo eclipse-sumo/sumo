@@ -61,6 +61,7 @@ enum ActorType{
     CELL
 };
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -186,6 +187,9 @@ private:
 
     /// Hidden assignment operator.
     MSE1VehicleActor& operator=(const MSE1VehicleActor&);
+
+    bool percentOfActivity;
+
 };
 
 

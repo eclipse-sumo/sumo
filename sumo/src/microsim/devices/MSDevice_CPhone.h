@@ -106,6 +106,7 @@ public:
     {
         return myId;
     };
+   
     void invalidateCommand();
 
 protected:
@@ -151,6 +152,7 @@ private:
     /*if it is -1 the car still not cross a cellborder*/
     int mycurrentCellId;
     int mycurrentLAId;
+
 };
 
 

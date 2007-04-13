@@ -178,8 +178,8 @@ MSPhoneCell::setnextexpectData(SUMOTime t)
         } else if (myIntervalEnd == t) {   // if t is equal to myNextIntervall, than set the expected callcounts to zero
             myStaticCallsIn = myStaticCallsOut = 0;
         }
-
     }
+
     std::map< int , DynParam >::iterator itDynCallCount = myExpectedDynamicCalls.find(t);
     if (itDynCallCount != myExpectedDynamicCalls.end()) {
         if (myCurrentExpectedCallCount > myDynOwnStarted   && myRegisteredDevices.size() > 0)

@@ -41,6 +41,8 @@
 #include <utils/helpers/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSPhoneNet.h>
 #include <utils/common/MsgHandler.h>
@@ -72,6 +74,10 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 {
     assert(posM >= 0 && posM <= laneM->length());
     //eintragen in MSPhoneNet
+    
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    percentOfActivity = oc.getBool("device.cell-phone.percent-of-activity");
+
     if (type == 1) {
         MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
         /*if ( pPhone->getMSPhoneCell( _AreaId ) == 0 )
@@ -92,20 +98,26 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                                 SUMOReal newPos,
                                 SUMOReal /*newSpeed*/)
 {
+    if (!veh.hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
+        return false;
+    }
+
     if (newPos < posM) {
         // detector not reached yet
         return true;
     }
 
+    vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+    /*get the count of mobiles for the vehicle*/
+    int noCellPhones = v->size();
+    myPassedCPhonesNo += noCellPhones;
+
     if (_ActorType == 1) { /* 1 == cell/la */
         /*get a pointer to the PhoneNet*/
         MSPhoneNet *pPhone = MSNet::getInstance()->getMSPhoneNet();
-        /*get the count of mobiles for the vehicle*/
-        int noCellPhones = veh.getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
-        myPassedCPhonesNo += noCellPhones;
         /*now change each mobile for the old cell to the new one*/
-        for (int np=0; np<noCellPhones; np++) {
-            MSDevice_CPhone *cp = (MSDevice_CPhone*)veh.getCORNPointerValue((MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+        for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+            MSDevice_CPhone *cp = (*i);
             assert(cp != 0);
 
             /* first buffer the old la, if we might change it*/
@@ -155,6 +167,14 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             case MSDevice_CPhone::STATE_OFF:
                 break;
             case MSDevice_CPhone::STATE_IDLE:
+                if ( percentOfActivity ){
+                    SUMOReal r1 = randSUMO();
+                    if ( r1 < 0.5f ) {
+                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , 86400);
+                    } else {
+                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , 86400);
+                    }
+                }
                 break;
             case MSDevice_CPhone::STATE_CONNECTED_IN:
                 assert(cp->getCallId() != -1);
@@ -183,10 +203,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             }
         }
     } else { // TOL_SA
-        int noCellPhones = veh.getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
-        myPassedCPhonesNo += noCellPhones;
-        for (int np=0; np<noCellPhones; np++) {
-            MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue((MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE+np));
+        for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+            MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
             MSDevice_CPhone::State state = cp->GetState();
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 myPassedConnectedCPhonesNo++;

@@ -162,6 +162,7 @@ initVehicleColoringSchemes()
             MSCORN::CORN_VEH_NUMBERROUTE));
             */
     // using TOL-extensions
+    /*
     sm.add("TOL: by device number",
            new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
                (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
@@ -169,7 +170,7 @@ initVehicleColoringSchemes()
                true, 1, 10,
                RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
                MSCORN::CORN_VEH_DEV_NO_CPHONE));
-    /*
+    /
     sm.add("by device state",
         new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
             (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,

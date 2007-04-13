@@ -132,6 +132,8 @@ private:
 
     std::map< std::string, int > myLAChanges;
 
+    bool percentModus;
+
 };
 
 

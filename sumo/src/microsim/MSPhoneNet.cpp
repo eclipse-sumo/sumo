@@ -58,6 +58,8 @@ MSPhoneNet::MSPhoneNet()
 {
     _LAIntervall = 300;
     _CellIntervall = 300;
+     OptionsCont &oc = OptionsSubSys::getOptions();
+     percentModus = oc.getBool("device.cell-phone.percent-of-activity");
 }
 
 

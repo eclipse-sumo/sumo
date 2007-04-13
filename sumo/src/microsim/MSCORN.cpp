@@ -38,6 +38,7 @@
 #include "MSVehicle.h"
 #include "MSCORN.h"
 #include <utils/iodevices/OutputDevice.h>
+#include "devices/MSDevice_CPhone.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -288,10 +289,10 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     // write devices
     myTripDurationsOutput->getOStream() << "devices=\"";
     bool addSem = false;
-    if (v->hasCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
-        int noCPhones = (int) v->getCORNIntValue(MSCORN::CORN_VEH_DEV_NO_CPHONE);
-        if(noCPhones!=0) {
-            myTripDurationsOutput->getOStream() << "cphones=" << noCPhones;
+    if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
+        vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+        if(phones->size()!=0) {
+            myTripDurationsOutput->getOStream() << "cphones=" << phones->size();
             addSem = true;
         }
     }

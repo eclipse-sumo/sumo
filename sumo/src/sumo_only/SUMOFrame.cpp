@@ -246,6 +246,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
 
     // cell-phones
+    oc.doRegister("device.cell-phone.percent-of-activity", new Option_Bool(false));
+    oc.addDescription("device.cell-phone.percent-of-activity", "Cellular", "");
+
     oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
     oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
 
