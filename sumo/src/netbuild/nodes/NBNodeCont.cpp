@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// }
+// Container for nodes during the netbuilding process
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -615,7 +615,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     }
 
     //
-    if (cont->getGeometry().length()-(SUMOReal) 20.<=oc.getFloat("ramp-guess.ramp-length")) {
+    if (cont->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
@@ -732,7 +732,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         return;
     }
     // append on-ramp
-    if (prev->getGeometry().length()-(SUMOReal) 20.<=oc.getFloat("ramp-guess.ramp-length")) {
+    if (prev->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), prev)==incremented.end()) {

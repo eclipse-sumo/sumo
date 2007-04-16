@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A container for all of the nets nodes
+// Container for nodes during the netbuilding process
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,6 +55,10 @@ class OptionsCont;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NBNodeCont
+ * @brief Container for nodes during the netbuilding process
+ */
 class NBNodeCont
 {
 public:
