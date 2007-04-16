@@ -17,8 +17,20 @@ if(defined($ARGV[0])) {
 }
 
 
+open(INDAT, "< $spurattrs");
+while(<INDAT>) {
+	$line = <INDAT>;
+	($Datum_Dateneingabe, $LSA_ID, $Knoten_ID, $Fahrstreifen_Nr, $RistkVon_Ref, $RistkBis_Ref, $Fahrstreifen_Laenge, $Signalgr_Nr, $Signalgr_Bez, $Spur_Typ) = split(";", $line);
+	if(substr($Datum_Dateneingabe, 0, 1) ne "!" && $RistkVon_Ref eq $RistkBis_Ref) {
+		$RistkVon_Ref =~ s/^\s|\s$|\.//g;
+		$between{$RistkVon_Ref} = 1;
+	}
+}
+close(INDAT);
+
+
 # write connections
-open(INDAT, "< Spurattribute.csv");
+open(INDAT, "< $spurattrs");
 open(OUTDAT, "> connections.con.xml");
 print OUTDAT "<connections>\n";
 $lastRef = "";
@@ -45,6 +57,9 @@ while($ok==1) {
 			$lastRef = $RistkVon_Ref;
 			$lastDestLane = 0;
 			$lastDestEdge = "";
+		}
+		if($RistkVon_Ref ne "" && defined($between{$RistkVon_Ref}) && $between{$RistkVon_Ref}==1 && $RistkVon_Ref ne $RistkBis_Ref) {
+			$RistkVon_Ref = $RistkVon_Ref."/s";
 		}
 		$hadSameConnection = 0;
 		if($RistkBis_Ref ne $lastDestEdge) {
@@ -153,11 +168,7 @@ while($ok==1) {
 			$splitP{$RistkVon_Ref} = $Fahrstreifen_Laenge;
 		}
 		if($RistkVon_Ref ne "" && $hadSameConnection==0) {
-			if($Signalgr_Nr ne "") {
-				print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
-			} else {
-				print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\" uncontrolled=\"1\"/>\n";
-			}
+			print OUTDAT "   <connection from=\"".$RistkVon_Ref."\" to=\"".$RistkBis_Ref."\" lane=\"".$lane.":".$lastDestLane."\"/>\n";
 		}
 		if($Signalgr_Nr ne "") {
 			print OUTDAT2 "K".$Signalgr_Nr."\t".$RistkVon_Ref."_".$lane."\t".$RistkBis_Ref."_".$lastDestLane."\n";
@@ -167,14 +178,6 @@ while($ok==1) {
 		$edges{$RistkVon_Ref} = 1;
 
 		# patch lane number information
-#if($RistkVon_Ref eq "53090885") {
-#	print "Before From: ";
-#	if(defined($lanes{$RistkVon_Ref})) {
-#		print $lanes{$RistkVon_Ref}."\n";
-#	} else {
-#		print "\n";
-#	}
-#}
 		if(defined($lanes{$RistkVon_Ref})) {
 			if($lanes{$RistkVon_Ref}<$lane) {
 				$lanes{$RistkVon_Ref} = $lane;
@@ -182,18 +185,7 @@ while($ok==1) {
 		} else {
 			$lanes{$RistkVon_Ref} = $lane;
 		}
-#if($RistkVon_Ref eq "53090885") {
-#	print "After From: ".$lanes{$RistkVon_Ref}."\n";
-#}
 		# patch lane number information
-#if($RistkBis_Ref eq "53090885") {
-#	print "Before To: ";
-#	if(defined($lanes{$RistkBis_Ref})) {
-#		print $lanes{$RistkBis_Ref}."\n";
-#	} else {
-#		print "\n";
-#	}
-#}
 		if(defined($lanes{$RistkBis_Ref})) {
 			if($lanes{$RistkBis_Ref}<$lastDestLane) {
 				$lanes{$RistkBis_Ref} = $lastDestLane;
@@ -201,9 +193,6 @@ while($ok==1) {
 		} else {
 			$lanes{$RistkBis_Ref} = $lastDestLane;
 		}
-#if($RistkBis_Ref eq "53090885") {
-#	print "After To: ".$lanes{$RistkBis_Ref}."\n";
-#}
 
 		# store maximum edge length
 		if(defined($elengths{$RistkVon_Ref})) {
@@ -213,6 +202,9 @@ while($ok==1) {
 		} else {
 			$elengths{$RistkVon_Ref} = $Fahrstreifen_Laenge;
 		}
+if($RistkVon_Ref eq "-547337856" || $RistkBis_Ref eq "-547337856") {
+	print $lengths{$laneID}." - ".$elengths{$RistkVon_Ref}."\n";
+}
 
 		# store type information
 		if(defined($type{$RistkVon_Ref})) {
