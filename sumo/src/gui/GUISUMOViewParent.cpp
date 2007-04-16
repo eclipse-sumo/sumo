@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A window that controls the display(s) of the simulation
+// A single child window which contains a view of the simulation area
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -107,7 +107,9 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]=
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocateTLS),
         FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocateAdd),
+        FXMAPFUNC(SEL_COMMAND,  MID_LOCATESHAPE,    GUISUMOViewParent::onCmdLocateShape),
         FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
     };
@@ -232,16 +234,24 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 }
 */
 
-long
-GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
+
+void 
+GUISUMOViewParent::showLocator(GUIGlObjectType type)
 {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_JUNCTION, gIDStorage);
+        new GUIDialog_GLObjChooser(this, type, gIDStorage);
     chooser->create();
     chooser->show();
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
+{
+    showLocator(GLO_JUNCTION);
     return 1;
 }
 
@@ -249,14 +259,7 @@ GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 {
-    myLocatorPopup->popdown();
-    myLocatorButton->killFocus();
-    myLocatorPopup->update();
-    static_cast<FXButton*>(sender)->getParent()->hide();
-    GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_EDGE, gIDStorage);
-    chooser->create();
-    chooser->show();
+    showLocator(GLO_EDGE);
     return 1;
 }
 
@@ -264,14 +267,15 @@ GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 {
-    myLocatorPopup->popdown();
-    myLocatorButton->killFocus();
-    myLocatorPopup->update();
-    static_cast<FXButton*>(sender)->getParent()->hide();
-    GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_VEHICLE, gIDStorage);
-    chooser->create();
-    chooser->show();
+    showLocator(GLO_VEHICLE);
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateTLS(FXObject *sender,FXSelector,void*)
+{
+    showLocator(GLO_TLLOGIC);
     return 1;
 }
 
@@ -279,16 +283,27 @@ GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 long
 GUISUMOViewParent::onCmdLocateAdd(FXObject *sender,FXSelector,void*)
 {
+    showLocator(GLO_ADDITIONAL);
+    return 1;
+}
+
+
+long
+GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*)
+{
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_ADDITIONAL, gIDStorage);
+        new GUIDialog_GLObjChooser(this, GLO_SHAPE, gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
 }
+
+
+
 
 
 void

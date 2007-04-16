@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A window that controls the display(s) of the simulation
+// A single child window which contains a view of the simulation area
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -59,9 +59,11 @@ class GUIApplicationWindow;
 // ===========================================================================
 /**
  * @class GUISUMOViewParent
- * This class represents a single view on the application. It is made of a
- * tool-bar containing a field to change the type of display, buttons that
- * allow to choose an artifact and some other view controlling options.
+ * @brief A single child window which contains a view of the simulation area
+ *
+ * It is made of a tool-bar containing a field to change the type of display, 
+ *  buttons that allow to choose an artifact and some other view controlling 
+ *  options.
  * The rest of the window is a canvas that contains the display itself
  */
 class GUISUMOViewParent : public GUIGlChildWindow
@@ -92,12 +94,22 @@ public:
     virtual void create();
 
     long onCmdMakeSnapshot(FXObject*sender,FXSelector,void*);
-//    long onCmdAllowRotation(FXObject*,FXSelector,void*);
-    long onCmdLocateJunction(FXObject*,FXSelector,void*);
-    long onCmdLocateEdge(FXObject*,FXSelector,void*);
-    long onCmdLocateVehicle(FXObject*,FXSelector,void*);
-    long onCmdLocateAdd(FXObject *sender,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
+
+    //{ locator-callbacks
+    /// opens a locator for junctions
+    long onCmdLocateJunction(FXObject*,FXSelector,void*);
+    /// opens a locator for edges
+    long onCmdLocateEdge(FXObject*,FXSelector,void*);
+    /// opens a locator for vehicles
+    long onCmdLocateVehicle(FXObject*,FXSelector,void*);
+    /// opens a locator for traffic lights logics
+    long onCmdLocateTLS(FXObject*,FXSelector,void*);
+    /// opens a locator for additional structures
+    long onCmdLocateAdd(FXObject *sender,FXSelector,void*);
+    /// opens a locator for shapes
+    long onCmdLocateShape(FXObject*,FXSelector,void*);
+    //}
 
     /// centers the view onto the given artifact
     void setView(GUIGlObject *o);
@@ -117,12 +129,11 @@ public:
     }
 
 protected:
-
-    /** builds the edit frame  */
-//	void buildEditFrame(FXComposite *c);
-
     /** build the artifact choosing toolbar */
     void buildTrackingTools();
+
+    /// Instantiates an object locator
+    void showLocator(GUIGlObjectType type);
 
 protected:
     /// The parent window

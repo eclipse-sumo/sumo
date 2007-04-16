@@ -265,6 +265,13 @@ MSTrafficLightLogic::getLanesAt(size_t i) const
 }
 
 
+const MSTrafficLightLogic::LaneVectorVector &
+MSTrafficLightLogic::getLanes() const
+{
+    return myLanes;
+}
+
+
 const MSTrafficLightLogic::LinkVector &
 MSTrafficLightLogic::getLinksAt(size_t i) const
 {

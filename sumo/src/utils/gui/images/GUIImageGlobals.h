@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A tooltip floating over a window
+// global variables for showing images
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,6 +40,7 @@
 // ===========================================================================
 // variable declarations
 // ===========================================================================
+/// determines whether the textures shall be displayed within the gui
 extern bool gAllowTextures;
 
 

@@ -59,7 +59,9 @@
 #include "locate_junction.xpm"
 #include "locate_edge.xpm"
 #include "locate_vehicle.xpm"
+#include "locate_tls.xpm"
 #include "locate_add.xpm"
+#include "locate_shape.xpm"
 
 #include "colorwheel.xpm"
 #include "recenter_view.xpm"
@@ -156,7 +158,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
     myIcons[ICON_LOCATEEDGE] = new FXXPMIcon(a, locate_edge_xpm);
     myIcons[ICON_LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
+    myIcons[ICON_LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
+    myIcons[ICON_LOCATESHAPE] = new FXXPMIcon(a, locate_shape_xpm);
 
     myIcons[ICON_SHOWGRID] = new FXXPMIcon(a, show_grid_xpm);
     myIcons[ICON_COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);

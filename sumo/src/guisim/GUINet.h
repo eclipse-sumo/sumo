@@ -157,11 +157,21 @@ public:
      * Returns -1 if the link is not controlled by a tls */
     int getLinkTLIndex(MSLink *link) const;
 
+
+    //{ locator-methods
     /// Returns the gl-ids of all junctions within the net
-    std::vector<size_t> getJunctionIDs() const; // !!! should not be done herein
+    std::vector<size_t> getJunctionIDs() const;
+
+    /// Returns the gl-ids of all traffic light logics within the net
+    std::vector<size_t> getTLSIDs() const;
 
     /// Returns the gl-ids of all additional things within the net
     std::vector<size_t> getAdditionalIDs() const;
+
+    /// Returns the gl-ids of all shapes within the net
+    std::vector<size_t> getShapeIDs() const;
+    //}
+
 
     /// Initialises gui wrappers
     void initGUIStructures();

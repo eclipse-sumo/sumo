@@ -119,6 +119,9 @@ public:
     /// Returns the list of lanes that are controlled by the signals at the given position
     const LaneVector &getLanesAt(size_t i) const;
 
+    /// Returns the list of lists of all lanes controlled by this tls
+    const LaneVectorVector &getLanes() const;
+
     /// Returns the list of links that are controlled by the signals at the given position
     const LinkVector &getLinksAt(size_t i) const;
 

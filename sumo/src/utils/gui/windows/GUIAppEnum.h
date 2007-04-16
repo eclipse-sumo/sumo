@@ -188,8 +188,12 @@ enum {
     MID_LOCATEEDGE,
     /// Locate vehicle - button
     MID_LOCATEVEHICLE,
+    /// Locate TLS - button
+    MID_LOCATETLS,
     /// Locate addtional structure - button
     MID_LOCATEADD,
+    /// Locate shape - button
+    MID_LOCATESHAPE,
     /// Open viewport editor - button
     MID_EDITVIEWPORT,
     /// Open view editor - button

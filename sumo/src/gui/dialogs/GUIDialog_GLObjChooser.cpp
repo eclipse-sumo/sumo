@@ -117,8 +117,14 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     case GLO_VEHICLE:
         ids = static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).getVehicleIDs();
         break;
+    case GLO_TLLOGIC:
+        ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
+        break;
     case GLO_ADDITIONAL:
         ids = GUIGlObject_AbstractAdd::getIDList();
+        break;
+    case GLO_SHAPE:
+        ids = static_cast<GUINet*>(GUINet::getInstance())->getShapeIDs();
         break;
     default:
         break;

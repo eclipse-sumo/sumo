@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// missing_desc
+// global variables for showing images
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

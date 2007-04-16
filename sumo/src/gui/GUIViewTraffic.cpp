@@ -186,10 +186,20 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
                  "\tLocate Vehicle\tLocate a vehicle within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+    // for tls
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate TLS\tLocate a tls within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATETLS), &v, MID_LOCATETLS,
+                 ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
     // for additional stuff
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
+                 ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
+    // for shapes
+    new FXButton(v.getLocatorPopup(),
+                 "\tLocate Shape\tLocate a shape within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATESHAPE), &v, MID_LOCATESHAPE,
                  ICON_ABOVE_TEXT|FRAME_THICK|FRAME_RAISED);
 }
 

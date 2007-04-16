@@ -38,6 +38,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
+#include <microsim/MSLane.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -224,10 +225,20 @@ GUITrafficLightLogicWrapper::microsimID() const
     return myTLLogic.getID();
 }
 
+
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const
 {
-    throw 1;
+    Boundary ret;
+    const MSTrafficLightLogic::LaneVectorVector &lanes = myTLLogic.getLanes();
+    for(MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        const MSTrafficLightLogic::LaneVector &lanes2 = (*i);
+        for(MSTrafficLightLogic::LaneVector::const_iterator j=lanes2.begin(); j!=lanes2.end(); ++j) {
+            ret.add((*j)->getShape()[-1]);
+        }
+    }
+    ret.grow(20);
+    return ret;
 }
 
 
