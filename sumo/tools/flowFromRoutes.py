@@ -93,17 +93,31 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 if flowDef[0] in self._detData:
                     self._detData[flowDef[0]].addDetFlow(flowDef[0], int(flowDef[2]))
 
-    def calcRMSD(self):
-        sumSquared = 0
+    def calcStatistics(self):
+        rSum = 0
+        dSum = 0
+        sumAbsDev = 0
+        sumSquaredDev = 0
+        sumSquaredPercent = 0
         n = 0
         for det in self._edge2det.itervalues():
             for rFlow, dFlow in zip(det.routeFlow, det.detFlow):
                 if dFlow > 0 or not options.ignorezero:
-                    sumSquared += (rFlow - dFlow) * (rFlow - dFlow)
+                    rSum += rFlow
+                    dSum += dFlow
+                    sumAbsDev += abs(rFlow - dFlow)
+                    sumSquaredDev += (rFlow - dFlow) * (rFlow - dFlow)
+                    if dFlow > 0:
+                        sumSquaredPercent += (rFlow - dFlow) * (rFlow - dFlow) / dFlow / dFlow
                     n += 1
-        print math.sqrt(sumSquared/n)
+        print '# avgRFlow avgDFlow avgDev RMSE RMSPE'
+        print '#', rSum/n, dSum/n, sumAbsDev/n, math.sqrt(sumSquaredDev/n), math.sqrt(sumSquaredPercent/n)
 
     def printFlows(self, includeDets):
+        if includeDets:
+            print '# detNames RFlow DFlow'
+        else:
+            print '# detNames RFlow'
         for det in self._edge2det.itervalues():
             if includeDets:
                 for group, rFlow, dFlow in zip(det.detGroup, det.routeFlow, det.detFlow):
@@ -127,8 +141,6 @@ optParser.add_option("-i", "--ignore-zero", action="store_true", dest="ignorezer
                      default=False, help="ignore detectors with zero flow in the flow input file")
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
-optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
-                     default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
@@ -151,4 +163,4 @@ if options.flowfile:
     reader.readDetFlows(options.flowfile)
 reader.printFlows(bool(options.flowfile))
 if options.flowfile:
-    reader.calcRMSD()
+    reader.calcStatistics()
