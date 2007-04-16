@@ -373,7 +373,6 @@ src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/router/Makefile
 src/utils/shapes/Makefile
-src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 src/itm-remoteserver/Makefile
 tools/traceExporter/Makefile

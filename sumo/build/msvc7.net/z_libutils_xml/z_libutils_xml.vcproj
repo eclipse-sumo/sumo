@@ -142,9 +142,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\sumoxml\SUMOBaseRouteHandler.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.cpp">
 			</File>
 			<File
@@ -205,9 +202,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOBaseRouteHandler.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\sumoxml\SUMOBaseRouteHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.h">

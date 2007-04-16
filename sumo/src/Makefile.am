@@ -178,11 +178,12 @@ sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
 ./polyconvert/libpolyconvert.a \
 ./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
-./utils/common/libcommon.a \
+./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 ./utils/gfx/libgfx.a \
-./utils/xml/libxml.a \
 ./utils/shapes/libshapes.a \
+./utils/common/libcommon.a \
+./utils/xml/XMLSubSys.o \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) -l$(LIB_PROJ)
 
