@@ -730,7 +730,7 @@ NIXMLEdgesHandler::myEndElement(int element, const std::string &/*name*/)
                         //  split the edge
                         string nid = myCurrentID + "/" +  toString(exp.nameid);
                         string pid = myCurrentID;
-                        myEdgeCont.splitAt(myDistrictCont, e, e->getGeometry().length()-exp.pos, rn,
+                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos, rn,
                                            pid, nid, e->getNoLanes(), e->getNoLanes());
                         NBEdge *pe = myEdgeCont.retrieve(pid);
                         NBEdge *ne = myEdgeCont.retrieve(nid);
