@@ -92,11 +92,39 @@ private:
         Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
         int laneDiff);
 
+    /** @brief Joins edges and computes ccw/cw boundaries
+     *
+     * This method goes through all edges and stores each edge's ccw and cw
+     *  boundary in geomsCCW/geomsCW. This boundary is extrapolated by 100m
+     *  at the node's position.
+     * In addition, "same" is filled so that this map contains a list of
+     *  all edges within the value-vector which direction at the node differs
+     *  less than 1° from the key-edge's direction.
+     */
+    void joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
+        std::map<NBEdge*, Position2DVector> &geomsCCW, 
+        std::map<NBEdge*, Position2DVector> &geomsCW);
+
+    /** @brief Joins edges and computes ccw/cw boundaries
+     *
+     * This methods joins edges which are in marked as being "same" in the means
+     *  as given by joinSameDirectionEdges. The result (list of so-to-say "directions"
+     *  is returned; additionally, the boundaries of these directions are stored in
+     *  ccwBoundary/cwBoundary.
+     */
+    std::vector<NBEdge*> computeUniqueDirectionList(
+        const std::map<NBEdge*, std::vector<NBEdge*> > &same,
+        std::map<NBEdge*, Position2DVector> &geomsCCW, 
+        std::map<NBEdge*, Position2DVector> &geomsCW,
+        std::map<NBEdge*, NBEdge*> &ccwBoundary,
+        std::map<NBEdge*, NBEdge*> &cwBoundary);
+
+
 private:
     /// The node to compute the geometry for
     const NBNode &myNode;
 
-    /// The stream to write the node shape pois to
+    /// The stream to write the node shape pois to (may be 0)
     std::ofstream * const myNodeShapePOIOut;
 
 };

@@ -233,17 +233,20 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     if(myNode.getID()=="59333170") {
         int bla = 0;
     }
+    // if we have less than two edges, we can not compute the node's shape this way
     if (myNode._allEdges.size()<2) {
         return Position2DVector();
     }
 
-    EdgeVector::const_iterator i, j;
-    EdgeVector::iterator i2;
+    // initialise
+    EdgeVector::const_iterator i;
+        // edges located in the value-vector have the same direction as the key edge
     std::map<NBEdge*, std::vector<NBEdge*> > same;
+        // the counter-clockwise boundary of the edge regarding possible same-direction edges
     std::map<NBEdge*, Position2DVector> geomsCCW;
+        // the clockwise boundary of the edge regarding possible same-direction edges
     std::map<NBEdge*, Position2DVector> geomsCW;
-
-
+        // store relationships
     std::map<NBEdge*, NBEdge*> ccwBoundary;
     std::map<NBEdge*, NBEdge*> cwBoundary;
     for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
@@ -252,50 +255,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     }
 
     // check which edges are parallel
-    for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end()-1; i++) {
-        Position2DVector g1 =
-            myNode.hasIncoming(*i)
-            ? (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
-            : (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-        Line2D l1 = g1.lineAt(0);
-        Line2D tmp = geomsCCW[*i].lineAt(0);
-        tmp.extrapolateBy(100);
-        geomsCCW[*i].replaceAt(0, tmp.p1());
-        tmp = geomsCW[*i].lineAt(0);
-        tmp.extrapolateBy(100);
-        geomsCW[*i].replaceAt(0, tmp.p1());
-        for (j=i+1; j!=myNode._allEdges.end(); j++) {
-            Position2DVector g2 =
-                myNode.hasIncoming(*j)
-                ? (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
-                : (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            geomsCW[*j] = (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            Line2D l2 = g2.lineAt(0);
-            tmp = geomsCCW[*j].lineAt(0);
-            tmp.extrapolateBy(100);
-            geomsCCW[*j].replaceAt(0, tmp.p1());
-            tmp = geomsCW[*j].lineAt(0);
-            tmp.extrapolateBy(100);
-            geomsCW[*j].replaceAt(0, tmp.p1());
-            if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())<1) {
-                if (same.find(*i)==same.end()) {
-                    same[*i] = std::vector<NBEdge*>();
-                }
-                if (same.find(*j)==same.end()) {
-                    same[*j] = std::vector<NBEdge*>();
-                }
-                if (find(same[*i].begin(), same[*i].end(), *j)==same[*i].end()) {
-                    same[*i].push_back(*j);
-                }
-                if (find(same[*j].begin(), same[*j].end(), *i)==same[*j].end()) {
-                    same[*j].push_back(*i);
-                }
-            }
-        }
-    }
+    joinSameDirectionEdges(same, geomsCCW, geomsCW);
     if(myNode.getID()=="59333170") {
         cout << "same#1 " << myNode.getID() << endl;
         for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
@@ -308,57 +268,10 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         }
         int bla = 0;
     }
-/*
-    if(myNode.getID()=="3/2") {
-        cout << "same#1 " << myNode.getID() << endl;
-        for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
-            cout << (*i).first->getID() << ": ";
-            std::vector<NBEdge*> v = (*i).second;
-            for(std::vector<NBEdge*>::iterator j=v.begin(); j!=v.end(); ++j) {
-                cout << (*j)->getID() << ", ";
-            }
-            cout << endl;
-        }
-        int bla = 0;
-    }
-*/
+
     // compute unique direction list
-    std::vector<NBEdge*> newAll = myNode._allEdges;
-    std::map<NBEdge*, std::vector<NBEdge*> >::iterator k;
-    bool changed = true;
-    while (changed) {
-        changed = false;
-        for (i2=newAll.begin(); i2!=newAll.end()&&!changed; ++i2) {
-            if ((*i2)->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
-                newAll.erase(i2);
-                changed = true;
-                continue;
-            }
-            std::vector<NBEdge*> other = same[*i2];
-            for (j=other.begin(); j!=other.end(); ++j) {
-                std::vector<NBEdge*>::iterator k =
-                    find(newAll.begin(), newAll.end(), *j);
-                if (k!=newAll.end()) {
-                    if (myNode.hasIncoming(*i2)) {
-                        if (myNode.hasIncoming(*j)) {}
-                        else {
-                            geomsCW[*i2] = geomsCW[*j];
-                            cwBoundary[*i2] = *j;
-                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
-                        }
-                    } else {
-                        if (myNode.hasIncoming(*j)) {
-                            ccwBoundary[*i2] = *j;
-                            geomsCCW[*i2] = geomsCCW[*j];
-                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
-                        } else {}
-                    }
-                    newAll.erase(k);
-                    changed = true;
-                }
-            }
-        }
-    }
+    std::vector<NBEdge*> newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
+
     if(myNode.getID()=="59333170") {
         cout << "newAll#1 " << myNode.getID() << endl;
             for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
@@ -367,17 +280,8 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             cout << endl;
         int bla = 0;
     }
-/*
-    if(myNode.getID()=="3/2") {
-        cout << "newAll " << myNode.getID() << endl;
-            for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
-                cout << (*j)->getID() << ", ";
-            }
-            cout << endl;
-        int bla = 0;
-    }
-*/
-    // compute boundaries
+
+    // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size()<2) {
         return Position2DVector();
     }
@@ -386,14 +290,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     std::map<NBEdge*, bool> myExtended;
     std::map<NBEdge*, SUMOReal> distances;
     for (i=newAll.begin(); i!=newAll.end(); ++i) {
-/*
-        if((*i)->getID()=="3/3to3/2"&&myNode.getID()=="3/2") {
-            int bla = 0;
-        }
-        if((*i)->getID()=="3/2to3/1"&&myNode.getID()=="3/1") {
-            int bla = 0;
-        }
-        */
         EdgeVector::const_iterator cwi = i;
         cwi++;
         if (cwi==newAll.end()) {
@@ -447,73 +343,20 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         if (simpleContinuation&&cad<(SUMOReal)(45./180.*PI)) {
             cad += twoPI;
         }
-/*
-        if((*i)->getID()=="3/3to3/2"&&myNode.getID()=="3/2") {
-            int bla = 0;
-        }
-        if((*i)->getID()=="3/2to3/1"&&myNode.getID()=="3/1") {
-            int bla = 0;
-        }
-*/
-        if (fabs(ccad-cad)<(SUMOReal) 0.1&&*cwi==*ccwi) {
-            // only two edges, almost parallel
-            //  compute the position where both would meet
-            //   (assume the junction position for this)
-            /*
-                        // ok, just one further thing: maybe we have the number of lanes
-                        //  has changed; let's apply the proper geometry in this case
-                        if((*i)->getNoLanes()<(*cwi)->getNoLanes()) {
-                            int diff = (*cwi)->getNoLanes() - (*i)->getNoLanes();
-                            SUMOReal factor1 =
-                                SUMO_const_laneWidthAndOffset * (SUMOReal) (diff-1)
-                                + SUMO_const_halfLaneAndOffset * (SUMOReal) (diff%2);
-                            SUMOReal factor2 = 0;
-                            Position2DVector g = (*i)->getGeometry();
-                            g.move2side(factor1);
-                            (*i)->setGeometry(g);
 
-                        }
-                        /
-                        if((*i)->getNoLanes()<(*cwi)->getNoLanes()&&myNode.hasIncoming(*i)) {
-                            int diff = (*i)->getNoLanes() - (*cwi)->getNoLanes();
-                            SUMOReal factor =
-                                SUMO_const_laneWidthAndOffset * (SUMOReal) (diff-1)
-                                + SUMO_const_halfLaneAndOffset * (SUMOReal) (diff%2);
-                            Position2DVector g = (*i)->getGeometry();
-                            g.move2side(factor, -1);
-                            (*i)->setGeometry(g);
-                        }
-                        */
+        if (fabs(ccad-cad)<(SUMOReal) 0.1&&*cwi==*ccwi) {
             // compute the mean position between both edges ends ...
             Position2D p;
             if (myExtended.find(*ccwi)!=myExtended.end()) {
                 p = geomsCCW[*ccwi][0];
                 p.add(geomsCW[*ccwi][0]);
                 p.mul(0.5);
-                /*
-                if(myNode.hasIncoming(*ccwi)) {
-                p = geomsCCW[*ccwi][0];
-                p.add(geomsCW[*ccwi][0]);
-                } else {
-                p = (*ccwi)->getGeometry()[0];
-                }
-                */
             } else {
                 p = geomsCCW[*ccwi][0];
                 p.add(geomsCW[*ccwi][0]);
                 p.add(geomsCCW[*i][0]);
                 p.add(geomsCW[*i][0]);
                 p.mul(0.25);
-                /*
-                if(myNode.hasIncoming(*i)) {
-                p = (*i)->getGeometry().at(-1);
-                p.add((*ccwi)->getGeometry()[0]);
-                } else {
-                p = (*i)->getGeometry()[0];
-                p.add((*ccwi)->getGeometry().at(-1));
-                }
-                p.mul(.5);
-                */
             }
             // ... compute the distance to this point ...
             SUMOReal dist = geomsCCW[*i].nearest_position_on_line_to_point(p);
@@ -618,6 +461,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
+
     if(myNode.getID()=="59333170") {
         cout << myNode.getID() << endl;
         for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
@@ -625,20 +469,11 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         }
         int bla = 0;
     }
-/*
-    if(myNode.getID()=="3/1") {
-        cout << myNode.getID() << endl;
-        for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
-            cout << (*i).first->getID() << "\t" << (*i).second << endl;
-        }
-        int bla = 0;
-    }
-*/
+
     for (i=newAll.begin(); i!=newAll.end(); ++i) {
         if (distances.find(*i)!=distances.end()) {
             continue;
         }
-//        assert(!simpleContinuation);
         EdgeVector::const_iterator cwi = i;
         cwi++;
         if (cwi==newAll.end()) {
@@ -704,25 +539,20 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             laneDiff = 1;
         }
 
-//        for(m=msame.begin(); m!=msame.end(); ++m) {
         Position2DVector g = (*i)->getGeometry();
         Position2DVector counter;
         if (myNode.hasIncoming(*i)) {
             if (myNode.hasOutgoing(*ccwi)&&myNode.hasOutgoing(*cwi)) {
+                if(distances.find(*cwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                     (*cwi)->getGeometry(), (*cwi)->getNoLanes(), distances[*cwi],
                                     laneDiff);
-                /*
-                                        counter = (*cwi)->getGeometry();
-                                        counter.extrapolate(100);
-                                        if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
-                                            g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*cwi]));
-                                        } else {
-                                        g.push_back_noDoublePos(
-                                            counter.positionAtLengthPosition(distances[*cwi]));
-                                        }
-                                        */
             } else {
+                if(distances.find(*ccwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 counter = (*ccwi)->getGeometry();
                 if (myNode.hasIncoming(*ccwi)) {
                     counter = counter.reverse();
@@ -730,32 +560,19 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                     counter, (*ccwi)->getNoLanes(), distances[*ccwi],
                                     laneDiff);
-                /*
-                counter.extrapolate(100);
-                if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
-                    g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*ccwi]));
-                } else {
-                g.push_back_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*ccwi]));
-                }
-                */
             }
         } else {
             if (myNode.hasIncoming(*ccwi)&&myNode.hasIncoming(*cwi)) {
-                //counter = (*ccwi)->getGeometry().reverse();
+                if(distances.find(*ccwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                      (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi],
                                      laneDiff);
-                /*
-                counter.extrapolate(100);
-                if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
-                    g.replaceAt(0, counter.positionAtLengthPosition(distances[*ccwi]));
-                } else {
-                g.push_front_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*ccwi]));
-                }
-                */
             } else {
+                if(distances.find(*cwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 counter = (*cwi)->getGeometry();
                 if (myNode.hasIncoming(*cwi)) {
                     counter = counter.reverse();
@@ -763,15 +580,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
-                /*
-                counter.extrapolate(100);
-                if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
-                    g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
-                } else {
-                g.push_front_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*cwi]));
-                }
-                */
             }
         }
         (*i)->setGeometry(g);
@@ -782,31 +590,20 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             if (myNode.hasIncoming(*cwi)) {
                 counter = counter.reverse();
             }
-            //counter.extrapolate(100);
             if (myNode.hasIncoming(cwBoundary[*i])) {
+                if(distances.find(*cwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                     counter, (*cwi)->getNoLanes(), distances[*cwi],
                                     laneDiff);
-                /*
-                if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
-                    g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*cwi]));
-                } else {
-                g.push_back_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*cwi]));
-                }
-                */
             } else {
+                if(distances.find(*cwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
-                /*
-                if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
-                    g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
-                } else {
-                g.push_front_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*cwi]));
-                }
-                */
             }
             cwBoundary[*i]->setGeometry(g);
             myExtended[cwBoundary[*i]] = true;
@@ -816,7 +613,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 
         }
 
-        //geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
         geomsCW[*i].extrapolate(100);
 
         if (ccwBoundary[*i]!=*i) {
@@ -825,31 +621,20 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             if (myNode.hasIncoming(*ccwi)) {
                 counter = counter.reverse();
             }
-            //counter.extrapolate(100);
             if (myNode.hasIncoming(ccwBoundary[*i])) {
+                if(distances.find(*ccwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                     counter, (*ccwi)->getNoLanes(), distances[*ccwi],
                                     laneDiff);
-                /*
-                if(GeomHelper::distance(g.at(-1), counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
-                    g.replaceAt(g.size()-1, counter.positionAtLengthPosition(distances[*ccwi]));
-                } else {
-                g.push_back_noDoublePos(
-                    counter.positionAtLengthPosition(distances[*ccwi]));
-                }
-                */
             } else {
+                if(distances.find(*cwi)==distances.end()) {
+                    return Position2DVector();
+                }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                                      counter, (*cwi)->getNoLanes(), distances[*cwi],
                                      laneDiff);
-                /*
-                                        if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
-                                            g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
-                                        } else {
-                                        g.push_front_noDoublePos(
-                                            counter.positionAtLengthPosition(distances[*cwi]));
-                                        }
-                                        */
             }
             ccwBoundary[*i]->setGeometry(g);
             myExtended[ccwBoundary[*i]] = true;
@@ -858,7 +643,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
 
         }
-        //geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
         geomsCCW[*i].extrapolate(100);
 
         computeSameEnd(geomsCW[*i], geomsCCW[*i]);
@@ -904,6 +688,112 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     return ret;
 }
 
+
+
+void 
+NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
+        std::map<NBEdge*, Position2DVector> &geomsCCW, 
+        std::map<NBEdge*, Position2DVector> &geomsCW)
+{
+    EdgeVector::const_iterator i, j;
+    for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end()-1; i++) {
+        // store current edge's boundary as current ccw/cw boundary
+        geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        // extend the boundary by extroplating it by 100m
+        Position2DVector g1 =
+            myNode.hasIncoming(*i)
+            ? (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
+            : (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+        Line2D l1 = g1.lineAt(0);
+        Line2D tmp = geomsCCW[*i].lineAt(0);
+        tmp.extrapolateBy(100);
+        geomsCCW[*i].replaceAt(0, tmp.p1());
+        tmp = geomsCW[*i].lineAt(0);
+        tmp.extrapolateBy(100);
+        geomsCW[*i].replaceAt(0, tmp.p1());
+        // 
+        for (j=i+1; j!=myNode._allEdges.end(); j++) {
+            geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            geomsCW[*j] = (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            Position2DVector g2 =
+                myNode.hasIncoming(*j)
+                ? (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth)
+                : (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
+            Line2D l2 = g2.lineAt(0);
+            tmp = geomsCCW[*j].lineAt(0);
+            tmp.extrapolateBy(100);
+            geomsCCW[*j].replaceAt(0, tmp.p1());
+            tmp = geomsCW[*j].lineAt(0);
+            tmp.extrapolateBy(100);
+            geomsCW[*j].replaceAt(0, tmp.p1());
+            if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())<1) {
+                if (same.find(*i)==same.end()) {
+                    same[*i] = std::vector<NBEdge*>();
+                }
+                if (same.find(*j)==same.end()) {
+                    same[*j] = std::vector<NBEdge*>();
+                }
+                if (find(same[*i].begin(), same[*i].end(), *j)==same[*i].end()) {
+                    same[*i].push_back(*j);
+                }
+                if (find(same[*j].begin(), same[*j].end(), *i)==same[*j].end()) {
+                    same[*j].push_back(*i);
+                }
+            }
+        }
+    }
+}
+
+
+std::vector<NBEdge*> 
+NBNodeShapeComputer::computeUniqueDirectionList(
+        const std::map<NBEdge*, std::vector<NBEdge*> > &same,
+        std::map<NBEdge*, Position2DVector> &geomsCCW, 
+        std::map<NBEdge*, Position2DVector> &geomsCW,
+        std::map<NBEdge*, NBEdge*> &ccwBoundary,
+        std::map<NBEdge*, NBEdge*> &cwBoundary)
+{
+    std::vector<NBEdge*> newAll = myNode._allEdges;
+    EdgeVector::const_iterator j;
+    EdgeVector::iterator i2;
+    std::map<NBEdge*, std::vector<NBEdge*> >::iterator k;
+    bool changed = true;
+    while (changed) {
+        changed = false;
+        for (i2=newAll.begin(); i2!=newAll.end()&&!changed; ++i2) {
+            if ((*i2)->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
+                newAll.erase(i2);
+                changed = true;
+                continue;
+            }
+            std::vector<NBEdge*> other = same.find(*i2)->second;
+            for (j=other.begin(); j!=other.end(); ++j) {
+                std::vector<NBEdge*>::iterator k =
+                    find(newAll.begin(), newAll.end(), *j);
+                if (k!=newAll.end()) {
+                    if (myNode.hasIncoming(*i2)) {
+                        if (myNode.hasIncoming(*j)) {}
+                        else {
+                            geomsCW[*i2] = geomsCW[*j];
+                            cwBoundary[*i2] = *j;
+                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
+                        }
+                    } else {
+                        if (myNode.hasIncoming(*j)) {
+                            ccwBoundary[*i2] = *j;
+                            geomsCCW[*i2] = geomsCCW[*j];
+                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
+                        } else {}
+                    }
+                    newAll.erase(k);
+                    changed = true;
+                }
+            }
+        }
+    }
+    return newAll;
+}
 
 
 Position2DVector
