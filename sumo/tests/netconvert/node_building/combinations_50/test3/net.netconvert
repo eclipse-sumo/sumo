@@ -20,7 +20,7 @@
 
    <edge id="2o" from="0" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" vclasses="" maxspeed="9.73" length="42.00">54.75,48.35 96.75,48.35</lane>
+         <lane id="2o_0" depart="1" vclasses="" maxspeed="9.73" length="45.25">54.75,48.35 100.00,48.35</lane>
       </lanes>
       <cedge id="2i">2o_0</cedge>
    </edge>
@@ -36,7 +36,7 @@
 
    <edge id="3o" from="0" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" vclasses="" maxspeed="5.56" length="42.00">48.35,45.25 48.35,3.25</lane>
+         <lane id="3o_0" depart="1" vclasses="" maxspeed="5.56" length="45.25">48.35,45.25 48.35,0.00</lane>
       </lanes>
       <cedge id="3i">3o_0</cedge>
    </edge>
@@ -52,7 +52,7 @@
 
    <edge id="4o" from="0" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="9.73" length="42.00">51.65,54.75 51.65,96.75</lane>
+         <lane id="4o_0" depart="1" vclasses="" maxspeed="9.73" length="45.25">51.65,54.75 51.65,100.00</lane>
       </lanes>
       <cedge id="4i">4o_0</cedge>
    </edge>
@@ -116,17 +116,17 @@
 
    <junction id="2" type="priority" x="100.00" y="50.00">
       <inclanes>2o_0</inclanes>
-      <shape>100.05,50.05 96.75,46.75 96.75,49.95</shape>
+      <shape>100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95</shape>
    </junction>
 
    <junction id="3" type="priority" x="50.00" y="0.00">
       <inclanes>3o_0</inclanes>
-      <shape>50.05,-0.05 46.75,3.25 49.95,3.25</shape>
+      <shape>50.05,-0.00 53.25,-0.00 46.75,0.00 49.95,0.00</shape>
    </junction>
 
    <junction id="4" type="priority" x="50.00" y="100.00">
       <inclanes>4o_0</inclanes>
-      <shape>49.95,100.05 53.25,96.75 50.05,96.75</shape>
+      <shape>49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00</shape>
    </junction>
 
 

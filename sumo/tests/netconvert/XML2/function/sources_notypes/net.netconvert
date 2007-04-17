@@ -40,9 +40,9 @@
 
    <edge id="sink" from="dr" to="sink" priority="1" type="" function="sink">
       <lanes>
-         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2190.15,-8.25</lane>
-         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2190.15,-4.95</lane>
-         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-1.65 2190.15,-1.65</lane>
+         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2200.00,-8.25</lane>
+         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2200.00,-4.95</lane>
+         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-1.65 2200.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -110,12 +110,12 @@
 
    <junction id="sink" type="DEAD_END" x="2200.00" y="0.00">
       <inclanes>sink_0 sink_1 sink_2</inclanes>
-      <shape>2190.15,-9.85 2190.15,-0.05</shape>
+      <shape>2200.00,-9.85 2200.00,-0.05</shape>
    </junction>
 
    <junction id="source" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05</shape>
+      <shape>-0.00,-0.05 -0.00,-6.55</shape>
    </junction>
 
    <junction id="tl" type="priority" x="500.00" y="190.99">

@@ -18,7 +18,7 @@
 
    <edge id="2o" from="0" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" vclasses="" maxspeed="9.73" length="42.00">54.75,48.35 96.75,48.35</lane>
+         <lane id="2o_0" depart="1" vclasses="" maxspeed="9.73" length="45.25">54.75,48.35 100.00,48.35</lane>
       </lanes>
    </edge>
 
@@ -32,7 +32,7 @@
 
    <edge id="4o" from="0" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="15.28" length="42.00">51.65,54.75 51.65,96.75</lane>
+         <lane id="4o_0" depart="1" vclasses="" maxspeed="15.28" length="45.25">51.65,54.75 51.65,100.00</lane>
       </lanes>
    </edge>
 
@@ -71,17 +71,17 @@
 
    <junction id="2" type="priority" x="100.00" y="50.00">
       <inclanes>2o_0</inclanes>
-      <shape>100.05,50.05 96.75,46.75 96.75,49.95</shape>
+      <shape>100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95</shape>
    </junction>
 
    <junction id="3" type="DEAD_END" x="50.00" y="0.00">
       <inclanes></inclanes>
-      <shape>50.05,-0.05</shape>
+      <shape>50.05,-0.00 53.25,-0.00</shape>
    </junction>
 
    <junction id="4" type="DEAD_END" x="50.00" y="100.00">
       <inclanes>4o_0</inclanes>
-      <shape>53.25,96.75 50.05,96.75</shape>
+      <shape>53.25,100.00 50.05,100.00</shape>
    </junction>
 
 

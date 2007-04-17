@@ -148,56 +148,56 @@
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="6.76" >3.25,501.65 1.20,502.04 -0.02,501.63 -0.42,500.39 0.00,498.35</lane>
+         <lane id=":1_0_0" depart="0" maxspeed="11.11" length="4.82" >0.00,501.65 -1.24,500.83 -1.65,500.00 -1.24,499.17 0.00,498.35</lane>
       </lanes>
       <cedge id="1fi">:1_0_0</cedge>
    </edge>
 
    <edge id=":1_1" function="internal">
       <lanes>
-         <lane id=":1_1_0" depart="0" maxspeed="11.11" length="10.74" >3.25,501.65 -0.04,501.22 -1.68,499.97 -1.66,497.92 0.00,495.05</lane>
+         <lane id=":1_1_0" depart="0" maxspeed="11.11" length="9.64" >0.00,501.65 -2.48,500.00 -3.30,498.35 -2.48,496.70 0.00,495.05</lane>
       </lanes>
       <cedge id="1fi">:1_1_0</cedge>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="6.76" >996.75,498.35 998.80,497.96 1000.03,498.38 1000.42,499.61 1000.00,501.65</lane>
+         <lane id=":2_0_0" depart="0" maxspeed="11.11" length="4.82" >1000.00,498.35 1001.24,499.17 1001.65,500.00 1001.24,500.83 1000.00,501.65</lane>
       </lanes>
       <cedge id="2fi">:2_0_0</cedge>
    </edge>
 
    <edge id=":2_1" function="internal">
       <lanes>
-         <lane id=":2_1_0" depart="0" maxspeed="11.11" length="10.74" >996.75,498.35 1000.04,498.78 1001.67,500.03 1001.66,502.08 1000.00,504.95</lane>
+         <lane id=":2_1_0" depart="0" maxspeed="11.11" length="9.64" >1000.00,498.35 1002.47,500.00 1003.30,501.65 1002.47,503.30 1000.00,504.95</lane>
       </lanes>
       <cedge id="2fi">:2_1_0</cedge>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="6.76" >498.35,3.25 497.96,1.20 498.38,-0.02 499.61,-0.42 501.65,0.00</lane>
+         <lane id=":3_0_0" depart="0" maxspeed="11.11" length="4.82" >498.35,0.00 499.17,-1.24 500.00,-1.65 500.83,-1.24 501.65,0.00</lane>
       </lanes>
       <cedge id="3fi">:3_0_0</cedge>
    </edge>
 
    <edge id=":3_1" function="internal">
       <lanes>
-         <lane id=":3_1_0" depart="0" maxspeed="11.11" length="10.74" >498.35,3.25 498.78,-0.04 500.03,-1.68 502.08,-1.66 504.95,0.00</lane>
+         <lane id=":3_1_0" depart="0" maxspeed="11.11" length="9.64" >498.35,0.00 500.00,-2.48 501.65,-3.30 503.30,-2.48 504.95,0.00</lane>
       </lanes>
       <cedge id="3fi">:3_1_0</cedge>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="6.76" >501.65,996.75 502.04,998.80 501.63,1000.03 500.39,1000.42 498.35,1000.00</lane>
+         <lane id=":4_0_0" depart="0" maxspeed="11.11" length="4.82" >501.65,1000.00 500.83,1001.24 500.00,1001.65 499.17,1001.24 498.35,1000.00</lane>
       </lanes>
       <cedge id="4fi">:4_0_0</cedge>
    </edge>
 
    <edge id=":4_1" function="internal">
       <lanes>
-         <lane id=":4_1_0" depart="0" maxspeed="11.11" length="10.74" >501.65,996.75 501.22,1000.04 499.97,1001.67 497.92,1001.66 495.05,1000.00</lane>
+         <lane id=":4_1_0" depart="0" maxspeed="11.11" length="9.64" >501.65,1000.00 500.00,1002.47 498.35,1003.30 496.70,1002.47 495.05,1000.00</lane>
       </lanes>
       <cedge id="4fi">:4_1_0</cedge>
    </edge>
@@ -300,7 +300,7 @@
 
    <edge id="1o" from="0" to="1" priority="1" type="" function="normal">
       <lanes>
-         <lane id="1o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">488.65,501.65 3.25,501.65</lane>
+         <lane id="1o_0" depart="1" vclasses="" maxspeed="11.11" length="488.65">488.65,501.65 0.00,501.65</lane>
       </lanes>
       <cedge id="1fi">1o_0</cedge>
    </edge>
@@ -327,7 +327,7 @@
 
    <edge id="2o" from="0" to="2" priority="1" type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">511.35,498.35 996.75,498.35</lane>
+         <lane id="2o_0" depart="1" vclasses="" maxspeed="11.11" length="488.65">511.35,498.35 1000.00,498.35</lane>
       </lanes>
       <cedge id="2fi">2o_0</cedge>
    </edge>
@@ -354,7 +354,7 @@
 
    <edge id="3o" from="0" to="3" priority="1" type="" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">498.35,488.65 498.35,3.25</lane>
+         <lane id="3o_0" depart="1" vclasses="" maxspeed="11.11" length="488.65">498.35,488.65 498.35,0.00</lane>
       </lanes>
       <cedge id="3fi">3o_0</cedge>
    </edge>
@@ -381,7 +381,7 @@
 
    <edge id="4o" from="0" to="4" priority="1" type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="11.11" length="485.40">501.65,511.35 501.65,996.75</lane>
+         <lane id="4o_0" depart="1" vclasses="" maxspeed="11.11" length="488.65">501.65,511.35 501.65,1000.00</lane>
       </lanes>
       <cedge id="4fi">4o_0</cedge>
    </edge>
@@ -533,25 +533,25 @@
    <junction id="1" type="priority" x="0.00" y="500.00">
       <inclanes>1o_0</inclanes>
       <intlanes>:1_0_0 :1_1_0</intlanes>
-      <shape>-0.05,499.95 3.25,503.25 3.25,500.05</shape>
+      <shape>-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05</shape>
    </junction>
 
    <junction id="2" type="priority" x="1000.00" y="500.00">
       <inclanes>2o_0</inclanes>
       <intlanes>:2_0_0 :2_1_0</intlanes>
-      <shape>1000.05,500.05 996.75,496.75 996.75,499.95</shape>
+      <shape>1000.00,500.05 1000.00,506.55 1000.00,496.75 1000.00,499.95</shape>
    </junction>
 
    <junction id="3" type="priority" x="500.00" y="0.00">
       <inclanes>3o_0</inclanes>
       <intlanes>:3_0_0 :3_1_0</intlanes>
-      <shape>500.05,-0.05 496.75,3.25 499.95,3.25</shape>
+      <shape>500.05,-0.00 506.55,-0.00 496.75,0.00 499.95,0.00</shape>
    </junction>
 
    <junction id="4" type="priority" x="500.00" y="1000.00">
       <inclanes>4o_0</inclanes>
       <intlanes>:4_0_0 :4_1_0</intlanes>
-      <shape>499.95,1000.05 503.25,996.75 500.05,996.75</shape>
+      <shape>499.95,1000.00 493.45,1000.00 503.25,1000.00 500.05,1000.00</shape>
    </junction>
 
    <junction id="m1" type="priority" x="250.00" y="500.00">

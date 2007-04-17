@@ -64,6 +64,7 @@ NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node,
         : myNode(node), myNodeShapePOIOut(out)
 {}
 
+
 NBNodeShapeComputer::~NBNodeShapeComputer()
 {}
 
@@ -229,6 +230,9 @@ NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
 Position2DVector
 NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 {
+    if(myNode.getID()=="59333170") {
+        int bla = 0;
+    }
     if (myNode._allEdges.size()<2) {
         return Position2DVector();
     }
@@ -292,8 +296,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-/*
-    if(myNode.getID()=="3/1") {
+    if(myNode.getID()=="59333170") {
         cout << "same#1 " << myNode.getID() << endl;
         for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
             cout << (*i).first->getID() << ": ";
@@ -305,6 +308,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         }
         int bla = 0;
     }
+/*
     if(myNode.getID()=="3/2") {
         cout << "same#1 " << myNode.getID() << endl;
         for(std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
@@ -355,8 +359,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-/*
-    if(myNode.getID()=="3/1") {
+    if(myNode.getID()=="59333170") {
         cout << "newAll#1 " << myNode.getID() << endl;
             for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
                 cout << (*j)->getID() << ", ";
@@ -364,6 +367,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             cout << endl;
         int bla = 0;
     }
+/*
     if(myNode.getID()=="3/2") {
         cout << "newAll " << myNode.getID() << endl;
             for(std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
@@ -614,14 +618,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
         }
     }
-/*
-    if(myNode.getID()=="3/2") {
+    if(myNode.getID()=="59333170") {
         cout << myNode.getID() << endl;
         for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
             cout << (*i).first->getID() << "\t" << (*i).second << endl;
         }
         int bla = 0;
     }
+/*
     if(myNode.getID()=="3/1") {
         cout << myNode.getID() << endl;
         for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
@@ -903,26 +907,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 
 
 Position2DVector
-rotateAround(const Position2DVector &what, const Position2D &at, SUMOReal rot)
-{
-    Position2DVector rret;
-    Position2DVector ret = what;
-    ret.resetBy(-at.x(), -at.y());
-    {
-        SUMOReal x = ret[0].x() * cos(rot) + ret[0].y() * sin(rot);
-        SUMOReal y = ret[0].y() * cos(rot) - ret[0].x() * sin(rot);
-        rret.push_back(Position2D(x, y));
-    }
-    {
-        SUMOReal x = ret[1].x() * cos(rot) + ret[1].y() * sin(rot);
-        SUMOReal y = ret[1].y() * cos(rot) - ret[1].x() * sin(rot);
-        rret.push_back(Position2D(x, y));
-    }
-    rret.resetBy(at.x(), at.y());
-    return rret;
-}
-
-Position2DVector
 NBNodeShapeComputer::computeNodeShapeByCrosses()
 {
     Position2DVector ret;
@@ -930,41 +914,22 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
     for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         // compute crossing with normal
         {
-            Position2DVector edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            Position2DVector edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            Position2DVector cross;
-            cross.push_back(edgebound1[0]);
-            cross.push_back(edgebound1[1]);
-            cross = rotateAround(cross, myNode.getPosition(), (SUMOReal)(90/180.*3.1415926535897932384626433832795));
-            cross.extrapolate(500);
-
-            edgebound1.extrapolate(500);
+            Line2D edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
+            Line2D edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
+            Line2D cross(edgebound1);
+            cross.sub(cross.p1().x(), cross.p1().y());
+            cross.rotateAround(Position2D(0, 0), (SUMOReal)(90/180.*3.1415926535897932384626433832795));
+            cross.add(myNode.getPosition());
+            cross.extrapolateBy(500);
+            edgebound1.extrapolateBy(500);
+            edgebound2.extrapolateBy(500);
             if (cross.intersects(edgebound1)) {
-                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound1));
+                ret.push_back_noDoublePos(cross.intersectsAt(edgebound1));
             }
             if (cross.intersects(edgebound2)) {
-                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound2));
+                ret.push_back_noDoublePos(cross.intersectsAt(edgebound2));
             }
         }
-        /*
-        {
-            Position2DVector edgebound = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
-            Position2DVector cross;
-            cross.push_back(edgebound[0]);
-            cross.push_back_noDoublePos(edgebound[1]);
-            cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
-            if(cross.intersects(edgebound)) {
-                ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound));
-            } else {
-                Position2DVector cross2 = cross;
-                cross2.extrapolate(500);
-                edgebound.extrapolate(500);
-                if(cross2.intersects(edgebound)) {
-                    ret.push_back_noDoublePos(cross2.intersectsAtPoint(edgebound));
-                }
-            }
-        }
-        */
     }
     {
         if (myNodeShapePOIOut!=0) {

@@ -281,6 +281,25 @@ Line2D::rotateDegAtP1(double degs)
 }
 
 
+void
+Line2D::rotateAround(const Position2D &at, SUMOReal rot)
+{
+    myP1.add(-at.x(), -at.y());
+    myP2.add(-at.x(), -at.y());
+    {
+        SUMOReal x = myP1.x() * cos(rot) + myP1.y() * sin(rot);
+        SUMOReal y = myP1.y() * cos(rot) - myP1.x() * sin(rot);
+        myP1 = Position2D(x, y);
+    }
+    {
+        SUMOReal x = myP2.x() * cos(rot) + myP2.y() * sin(rot);
+        SUMOReal y = myP2.y() * cos(rot) - myP2.x() * sin(rot);
+        myP2 = Position2D(x, y);
+    }
+    myP1.add(at.x(), at.y());
+    myP2.add(at.x(), at.y());
+}
+
 
 /****************************************************************************/
 

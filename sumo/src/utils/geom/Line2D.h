@@ -43,6 +43,8 @@
 // class declarations
 // ===========================================================================
 class Position2DVector;
+
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -77,6 +79,7 @@ public:
     Line2D &reverse();
     SUMOReal nearestPositionTo(const Position2D &p);
     void rotateDegAtP1(double degs);
+    void rotateAround(const Position2D &at, SUMOReal rot);
 
 private:
     Position2D myP1, myP2;

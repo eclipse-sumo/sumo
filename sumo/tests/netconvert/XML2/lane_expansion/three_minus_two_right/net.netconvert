@@ -18,9 +18,9 @@
 
    <edge id="1/50" from="1/50" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1/50_0" depart="1" vclasses="" maxspeed="28.00" length="38.65">51.50,-8.25 90.15,-8.25</lane>
-         <lane id="1/50_1" depart="0" vclasses="" maxspeed="28.00" length="38.65">51.50,-4.95 90.15,-4.95</lane>
-         <lane id="1/50_2" depart="0" vclasses="" maxspeed="28.00" length="38.65">51.50,-1.65 90.15,-1.65</lane>
+         <lane id="1/50_0" depart="1" vclasses="" maxspeed="28.00" length="48.50">51.50,-8.25 100.00,-8.25</lane>
+         <lane id="1/50_1" depart="0" vclasses="" maxspeed="28.00" length="48.50">51.50,-4.95 100.00,-4.95</lane>
+         <lane id="1/50_2" depart="0" vclasses="" maxspeed="28.00" length="48.50">51.50,-1.65 100.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -44,12 +44,12 @@
 
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05</shape>
+      <shape>-0.00,-0.05 -0.00,-3.25</shape>
    </junction>
 
    <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00">
       <inclanes>1/50_0 1/50_1 1/50_2</inclanes>
-      <shape>90.15,-9.85 90.15,-0.05</shape>
+      <shape>100.00,-9.85 100.00,-0.05</shape>
    </junction>
 
 

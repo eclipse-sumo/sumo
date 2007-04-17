@@ -11,13 +11,13 @@
 
    <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="996.75">0.00,-1.65 996.75,-1.65</lane>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="out" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="7.65">1000.10,-1.65 1007.75,-1.65</lane>
+         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="10.90">1000.10,-1.65 1011.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -26,22 +26,22 @@
 
    <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05</shape>
+      <shape>-0.00,-0.05 -0.00,-3.25</shape>
    </junction>
 
    <junction id="SUMOGenerated1" type="DEAD_END" x="1000.00" y="0.00">
       <inclanes>1to2_0</inclanes>
-      <shape>996.75,-3.25 996.75,-0.05</shape>
+      <shape>1000.00,-3.25 1000.00,-0.05</shape>
    </junction>
 
    <junction id="SUMOGenerated2" type="DEAD_END" x="1000.10" y="0.00">
       <inclanes></inclanes>
-      <shape>1000.05,-0.05</shape>
+      <shape>1000.10,-0.05 1000.10,-3.25</shape>
    </junction>
 
    <junction id="SUMOGenerated3" type="DEAD_END" x="1011.00" y="0.00">
       <inclanes>out_0</inclanes>
-      <shape>1007.75,-3.25 1007.75,-0.05</shape>
+      <shape>1011.00,-3.25 1011.00,-0.05</shape>
    </junction>
 
 

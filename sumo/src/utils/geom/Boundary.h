@@ -108,8 +108,9 @@ public:
     bool crosses(const Position2D &p1, const Position2D &p2) const;
 
 
-    /** brief extends the boundary by the given amount
-        The method returns a reference to the instance for further use */
+    /** @brief extends the boundary by the given amount
+     *
+     * The method returns a reference to the instance for further use */
     Boundary &grow(SUMOReal by);
 
     /// flips ymin and ymax

@@ -52,7 +52,7 @@ class NBEdge;
 // ===========================================================================
 /**
  * @class NBNodeShapeComputer
- * brief This class computes shapes of junctions
+ * @brief This class computes shapes of junctions
  */
 class NBNodeShapeComputer
 {
@@ -71,10 +71,23 @@ private:
     void addInternalGeometry();
 
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);
+
+    /** @brief Computes the node geometry using normals
+     *
+     * In the case the other method does not work, this method computes the geometry
+     *  of a node by adding points to the polygon which are computed by building
+     *  the normals of participating edges' geometry boundaries (cw/ccw)
+     *  at the node's height (the length of the edge the edge would cross the node 
+     *  point).
+     */
     Position2DVector computeNodeShapeByCrosses();
+
+
     void replaceLastChecking(Position2DVector &g, bool decenter,
         Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
         int laneDiff);
+
+
     void replaceFirstChecking(Position2DVector &g, bool decenter,
         Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
         int laneDiff);
