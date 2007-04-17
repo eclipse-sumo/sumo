@@ -105,26 +105,27 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 if dFlow > 0 or not options.ignorezero:
                     rSum += rFlow
                     dSum += dFlow
-                    sumAbsDev += abs(rFlow - dFlow)
-                    sumSquaredDev += (rFlow - dFlow) * (rFlow - dFlow)
+                    dev = float(abs(rFlow - dFlow))
+                    sumAbsDev += dev
+                    sumSquaredDev += dev * dev
                     if dFlow > 0:
-                        sumSquaredPercent += (rFlow - dFlow) * (rFlow - dFlow) / dFlow / dFlow
+                        sumSquaredPercent += dev * dev / dFlow / dFlow
                     n += 1
-        print '# avgRFlow avgDFlow avgDev RMSE RMSPE'
+        print '# avgRouteFlow avgDetFlow avgDev RMSE RMSPE'
         print '#', rSum/n, dSum/n, sumAbsDev/n, math.sqrt(sumSquaredDev/n), math.sqrt(sumSquaredPercent/n)
 
     def printFlows(self, includeDets):
         if includeDets:
-            print '# detNames RFlow DFlow'
+            print '# detNames RouteFlow DetFlow'
         else:
-            print '# detNames RFlow'
+            print '# detNames RouteFlow'
         for det in self._edge2det.itervalues():
             if includeDets:
-                for group, rFlow, dFlow in zip(det.detGroup, det.routeFlow, det.detFlow):
+                for group, rFlow, dFlow in sorted(zip(det.detGroup, det.routeFlow, det.detFlow)):
                     if dFlow > 0 or not options.ignorezero:
                         print string.join(group, ';'), rFlow, dFlow
             else:
-                for group, flow in zip(det.detGroup, det.routeFlow):
+                for group, flow in sorted(zip(det.detGroup, det.routeFlow)):
                     print string.join(group, ';'), flow
 
 

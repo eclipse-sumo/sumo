@@ -161,7 +161,18 @@ class Net:
             print "Error! No sources found."
             return False
         if options.verbose:
-            print len(self._outEdges[self._source]), "sources", len(self._inEdges[self._sink]), "sinks"
+            unlimitedSource = 0
+            for edge in self._outEdges[self._source]:
+                for src in self._outEdges[edge.target]:
+                    if src.capacity == sys.maxint:
+                        unlimitedSource += 1
+            unlimitedSink = 0
+            for edge in self._inEdges[self._sink]:
+                for sink in self._inEdges[edge.source]:
+                    if sink.capacity == sys.maxint:
+                        unlimitedSink += 1
+            print len(self._outEdges[self._source]), "sources,", unlimitedSource, "unlimited"
+            print len(self._inEdges[self._sink]), "sinks", unlimitedSink, "unlimited"
         return True
 
     def updateFlow(self, pred):
