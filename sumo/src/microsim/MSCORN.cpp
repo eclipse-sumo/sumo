@@ -54,9 +54,6 @@ using namespace std;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-// standard output files
-OutputDevice *MSCORN::myTripDurationsOutput = 0;
-OutputDevice *MSCORN::myVehicleRouteOutput = 0;
 // TrafficOnline output files
 OutputDevice *MSCORN::myVehicleDeviceTOSS2Output = 0;
 OutputDevice *MSCORN::myCellTOSS2Output = 0;
@@ -68,7 +65,6 @@ OutputDevice *MSCORN::myCELLPHONEDUMPOutput = 0;
 // c2x output files
 OutputDevice *MSCORN::myClusterInfoOutput= 0;
 OutputDevice *MSCORN::mySavedInfoOutput= 0;
-OutputDevice *MSCORN::mySavedInfoOutputFreq = 0;
 OutputDevice *MSCORN::myTransmittedInfoOutput= 0;
 OutputDevice *MSCORN::myVehicleInRangeOutput= 0;
 
@@ -87,9 +83,6 @@ bool MSCORN::myFirstCall[CORN_MAX];
 void
 MSCORN::init()
 {
-    // standard output files
-    myTripDurationsOutput = 0;
-    myVehicleRouteOutput = 0;
     // TrafficOnline output files & settings
     myVehicleDeviceTOSS2Output = 0;
     myCellTOSS2Output = 0;
@@ -106,7 +99,6 @@ MSCORN::init()
     mySavedInfoOutput = 0;
     myTransmittedInfoOutput = 0;
     myVehicleInRangeOutput = 0;
-    mySavedInfoOutputFreq = 0;
     myLastStepClusterInfoOutput = -1;
     myLastStepSavedInfoOutput = -1;
     myLastStepTransmittedInfoOutput = -1;
@@ -117,9 +109,6 @@ MSCORN::init()
 void
 MSCORN::clear()
 {
-    // standard
-    delete myTripDurationsOutput;
-    delete myVehicleRouteOutput;
     // TrafficOnline
     delete myVehicleDeviceTOSS2Output;
     delete myCellTOSS2Output;
@@ -132,7 +121,6 @@ MSCORN::clear()
     delete mySavedInfoOutput;
     delete myTransmittedInfoOutput;
     delete myVehicleInRangeOutput;
-    delete mySavedInfoOutputFreq;
 }
 
 
@@ -174,20 +162,6 @@ MSCORN::setWished(Function f)
     default:
         break;
     }
-}
-
-
-void
-MSCORN::setTripDurationsOutput(OutputDevice *s)
-{
-    myTripDurationsOutput = s;
-}
-
-
-void
-MSCORN::setVehicleRouteOutput(OutputDevice *s)
-{
-    myVehicleRouteOutput = s;
 }
 
 
@@ -247,12 +221,6 @@ MSCORN::setSavedInfoOutput(OutputDevice *s)
 }
 
 void
-MSCORN::setSavedInfoOutputFreq(OutputDevice *s)
-{
-    mySavedInfoOutputFreq = s;
-}
-
-void
 MSCORN::setTransmittedInfoOutput(OutputDevice *s)
 {
     myTransmittedInfoOutput = s;
@@ -263,69 +231,6 @@ MSCORN::setVehicleInRangeOutput(OutputDevice *s)
 {
     myVehicleInRangeOutput = s;
 }
-
-
-void
-MSCORN::compute_TripDurationsOutput(MSVehicle *v)
-{
-    SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(CORN_VEH_REALDEPART);
-    SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-    myTripDurationsOutput->getOStream()
-    << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
-    << "start=\"" << realDepart << "\" "
-    << "wished=\"" << v->desiredDepart() << "\" "
-    << "end=\"" << time << "\" "
-    << "duration=\"" << time-realDepart << "\" "
-    << "waited=\"" << realDepart-v->desiredDepart() << "\" "
-    // write reroutes
-    << "reroutes=\"";
-    if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
-        myTripDurationsOutput->getOStream()
-        << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
-    } else {
-        myTripDurationsOutput->getOStream() << '0';
-    }
-    myTripDurationsOutput->getOStream() << "\" ";
-    // write devices
-    myTripDurationsOutput->getOStream() << "devices=\"";
-    bool addSem = false;
-    if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
-        vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
-        if(phones->size()!=0) {
-            myTripDurationsOutput->getOStream() << "cphones=" << phones->size();
-            addSem = true;
-        }
-    }
-    if (v->isEquipped()) {
-        if (addSem) {
-            myTripDurationsOutput->getOStream() << ';';
-        }
-        myTripDurationsOutput->getOStream() << "c2c";
-        addSem = true;
-    }
-    myTripDurationsOutput->getOStream() << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>" << endl;
-}
-
-
-void
-MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
-{
-    myVehicleRouteOutput->getOStream() <<
-    "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
-    << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
-    << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
-    << "\">" << endl;
-    if (v->hasCORNIntValue(CORN_VEH_NUMBERROUTE)) {
-        int noReroutes = v->getCORNIntValue(CORN_VEH_NUMBERROUTE);
-        for (int i=0; i<noReroutes; i++) {
-            v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
-            myVehicleRouteOutput->getOStream() << endl;
-        }
-    }
-    v->writeXMLRoute(myVehicleRouteOutput->getOStream());
-    myVehicleRouteOutput->getOStream() << "   </vehicle>" << endl << endl;
-}
-
 
 
 inline
@@ -474,25 +379,6 @@ MSCORN::checkCloseClusterInfoData()
 {
     if(myLastStepClusterInfoOutput!=-1) {
         myClusterInfoOutput->getOStream() << "   </timestep>" << endl;
-    }
-}
-
-
-void
-MSCORN::saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh)
-{
-    if (mySavedInfoOutputFreq!=0) {
-        int noReroutes = veh.hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
-                         ? veh.getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
-        mySavedInfoOutputFreq->getOStream()
-        << "	<vehicle id=\"" << veh.getID()
-        << "\" timestep=\"" << step
-        << "\" numberOfInfos=\"" << veh.getTotalInformationNumber()
-        << "\" numberRelevant=\"" << veh.getNoGotRelevant()
-        << "\" got=\"" << veh.getNoGot()
-        << "\" sent=\"" << veh.getNoSent()
-        << "\" reroutes=\"" << noReroutes
-        << "\"/>"<<endl;
     }
 }
 

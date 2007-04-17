@@ -196,8 +196,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
-    MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
-    MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
     MSCORN::setCellTOSS2Output(streams[OS_CELL_TO_SS2]);
     MSCORN::setLATOSS2Output(streams[OS_LA_TO_SS2]);
@@ -208,7 +206,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     //car2car
     MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
     MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
-    MSCORN::setSavedInfoOutputFreq(streams[OS_SAVED_INFO_FREQ]);
     MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
     MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
 
@@ -865,6 +862,13 @@ MSNet::getPersonControl() const
         myPersonControl = new MSPersonControl();
     }
     return *myPersonControl;
+}
+
+
+OutputDevice *
+MSNet::getOutputDevice(MSNetOutputs output) const
+{
+    return myOutputStreams[output];
 }
 
 

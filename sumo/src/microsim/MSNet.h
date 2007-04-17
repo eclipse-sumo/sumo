@@ -335,6 +335,8 @@ public:
     } ;
     /////////////////////////////////////////////
 
+    OutputDevice *getOutputDevice(MSNetOutputs output) const;
+
 protected:
     MSPhoneNet * myMSPhoneNet;
     /** initialises the MeanData-container */

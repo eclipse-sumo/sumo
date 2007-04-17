@@ -110,8 +110,6 @@ public:
     static void setWished(Function f);
 
 public:
-    static void setTripDurationsOutput(OutputDevice *s);
-    static void setVehicleRouteOutput(OutputDevice *s);
     static void setVehicleDeviceTOSS2Output(OutputDevice *s);
     static void setCellTOSS2Output(OutputDevice *s);
     static void setLATOSS2Output(OutputDevice *s);
@@ -122,12 +120,9 @@ public:
     // Car2Car
     static void setClusterInfoOutput(OutputDevice *s);
     static void setSavedInfoOutput(OutputDevice *s);
-    static void setSavedInfoOutputFreq(OutputDevice *s);
     static void setTransmittedInfoOutput(OutputDevice *s);
     static void setVehicleInRangeOutput(OutputDevice *s);
 
-    static void compute_TripDurationsOutput(MSVehicle *v);
-    static void compute_VehicleRouteOutput(MSVehicle *v);
 
     static void saveTOSS2_CalledPositionData(SUMOTime time,
             int callID, const std::string &pos, int quality);
@@ -162,8 +157,6 @@ public:
                                          int time, SUMOReal nt);
     static void checkCloseSavedInformationData();
 
-    static void saveSavedInformationDataFreq(SUMOTime step, const MSVehicle &veh);
-
     static void saveTransmittedInformationData(SUMOTime step, const std::string &from,
             const std::string &to, const std::string &edge, int time, SUMOReal nt);
     static void checkCloseTransmittedInformationData();
@@ -177,8 +170,6 @@ public:
 
 private:
     //
-    static OutputDevice *myTripDurationsOutput;
-    static OutputDevice *myVehicleRouteOutput;
     static OutputDevice *myVehicleDeviceTOSS2Output;
     ///
     static OutputDevice *myCellTOSS2Output;
@@ -190,7 +181,6 @@ private:
     //Car2car
     static OutputDevice *myClusterInfoOutput;
     static OutputDevice *mySavedInfoOutput;
-    static OutputDevice *mySavedInfoOutputFreq;
     static OutputDevice *myTransmittedInfoOutput;
     static OutputDevice *myVehicleInRangeOutput;
     static SUMOTime myLastStepClusterInfoOutput;

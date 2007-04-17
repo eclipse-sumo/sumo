@@ -41,6 +41,8 @@
 #include "MSGlobals.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/OutputDevice.h>
+#include "devices/MSDevice_CPhone.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -104,12 +106,87 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     assert(myRunningVehNo>0);
     // check whether to generate the information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
-        MSCORN::compute_TripDurationsOutput(v);
+        // generate vehicle's trip information
+        MSNet *net = MSNet::getInstance();
+        OutputDevice *od = net->getOutputDevice(MSNet::OS_TRIPDURATIONS);
+        SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
+        SUMOTime time = net->getCurrentTimeStep();
+        od->getOStream()
+            << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
+            << "start=\"" << realDepart << "\" "
+            << "wished=\"" << v->desiredDepart() << "\" "
+            << "end=\"" << time << "\" "
+            << "duration=\"" << time-realDepart << "\" "
+            << "waited=\"" << realDepart-v->desiredDepart() << "\" "
+            // write reroutes
+            << "reroutes=\"";
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            od->getOStream()
+                << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+        } else {
+            od->getOStream() << '0';
+        }
+        od->getOStream() << "\" ";
+        // write devices
+        od->getOStream() << "devices=\"";
+        bool addSem = false;
+        if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
+            vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+            if(phones->size()!=0) {
+                od->getOStream() << "cphones=" << phones->size();
+                addSem = true;
+            }
+        }
+        if (v->isEquipped()) {
+            if (addSem) {
+                od->getOStream() << ';';
+            }
+            od->getOStream() << "c2c";
+            addSem = true;
+        }
+        od->getOStream() << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>" << endl;
     }
+
+    // check whether to generate the information about the vehicle's routes
     if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
-        MSCORN::compute_VehicleRouteOutput(v);
+        // generate vehicle's trip routes
+        MSNet *net = MSNet::getInstance();
+        OutputDevice *od = net->getOutputDevice(MSNet::OS_VEHROUTE);
+        SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
+        SUMOTime time = net->getCurrentTimeStep();
+        od->getOStream() 
+            << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
+            << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
+            << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
+            << "\">" << endl;
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+            for (int i=0; i<noReroutes; i++) {
+                v->writeXMLRoute(od->getOStream(), i);
+                od->getOStream() << endl;
+            }
+        }
+        v->writeXMLRoute(od->getOStream());
+        od->getOStream() << "   </vehicle>" << endl << endl;
     }
-    MSCORN::saveSavedInformationDataFreq(MSNet::getInstance()->getCurrentTimeStep(), *v);
+
+    // check whether to save c2c info output
+    MSNet *net = MSNet::getInstance();
+    OutputDevice *d = net->getOutputDevice(MSNet::OS_SAVED_INFO_FREQ);
+    if (d!=0) {
+        int noReroutes = v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
+                         ? v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
+        d->getOStream()
+            << "	<vehicle id=\"" << v->getID()
+            << "\" timestep=\"" << net->getCurrentTimeStep()
+            << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
+            << "\" numberRelevant=\"" << v->getNoGotRelevant()
+            << "\" got=\"" << v->getNoGot()
+            << "\" sent=\"" << v->getNoSent()
+            << "\" reroutes=\"" << noReroutes
+            << "\"/>"<<endl;
+    }
+
     // check whether to save information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
