@@ -174,14 +174,18 @@ RONet::closeOutput()
     // end writing
     if (myRoutesOutput!= 0) {
         (*myRoutesOutput) << "</routes>" << endl;
+        myRoutesOutput->flush();
         myRoutesOutput->close();
         delete myRoutesOutput;
+        myRoutesOutput = 0;
     }
     // only if opened
     if (myRouteAlternativesOutput!=0) {
         (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
+        myRouteAlternativesOutput->flush();
         myRouteAlternativesOutput->close();
         delete myRouteAlternativesOutput;
+        myRouteAlternativesOutput = 0;
     }
 }
 
