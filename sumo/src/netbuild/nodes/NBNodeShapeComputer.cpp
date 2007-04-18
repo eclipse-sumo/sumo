@@ -767,7 +767,10 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                 changed = true;
                 continue;
             }
-            std::vector<NBEdge*> other = same.find(*i2)->second;
+            std::vector<NBEdge*> other;
+            if(same.find(*i2)!=same.end()) {
+                other = same.find(*i2)->second;
+            }
             for (j=other.begin(); j!=other.end(); ++j) {
                 std::vector<NBEdge*>::iterator k =
                     find(newAll.begin(), newAll.end(), *j);
