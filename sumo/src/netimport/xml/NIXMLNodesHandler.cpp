@@ -47,6 +47,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -156,34 +157,45 @@ void
 NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         NBNode *currentNode)
 {
+    // try to get the tl-id
+    // if a tl-id is given, we will look whether this tl already exists
+    //  if so, we will add the node to it, otherwise allocate a new one with this id
+    // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
-    try {
-        string tlID = getString(attrs, SUMO_ATTR_TLID);
+    string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
+    if(tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
         if (tlDef==0) {
             // this traffic light is visited the first time
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(tlID, currentNode);
+            tlDef = new NBOwnTLDef(tlID, currentNode);
             if (!myTLLogicCont.insert(tlID, tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
+                MsgHandler::getErrorInstance()->inform("Could not allocate tls '" + tlID + "'.");
                 throw ProcessError();
             }
         } else {
             tlDef->addNode(currentNode);
         }
-    } catch (EmptyData) {
+    } else {
         // ok, this node is a traffic light node where no other nodes
         //  participate
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, currentNode);
+        tlDef = new NBOwnTLDef(myID, currentNode);
         if (!myTLLogicCont.insert(myID, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
+            MsgHandler::getErrorInstance()->inform("Could not allocate tls '" + tlID + "'.");
             throw ProcessError();
         }
     }
-    // inform the node
-    currentNode->addTrafficLight(tlDef);
+
+    // process inner edges which shall be controlled
+    string controlledInner = getStringSecure(attrs, "controlled_inner", "");
+    if(controlledInner!="") {
+        StringTokenizer st(controlledInner, ";");
+        tlDef->addControlledInnerEdges(st.getVector());
+    }
 }
 
 

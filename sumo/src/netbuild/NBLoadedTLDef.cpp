@@ -440,7 +440,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     logic->closeBuilding();
     // returns the build logic
     NBTrafficLightLogicVector *ret =
-        new NBTrafficLightLogicVector(_links, type);
+        new NBTrafficLightLogicVector(myControlledLinks, type);
     ret->add(logic);
     return ret;
 }
@@ -587,7 +587,7 @@ NBLoadedTLDef::collectNodes()
             const NBConnection &conn = group->getConnection(j);
             NBEdge *edge = conn.getFrom();
             NBNode *node = edge->getToNode();
-            _nodes.insert(node);
+            myControlledNodes.insert(node);
         }
     }
 }
@@ -597,7 +597,7 @@ void
 NBLoadedTLDef::collectLinks()
 {
     // build the list of links which are controled by the traffic light
-    for (EdgeVector::iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
@@ -605,7 +605,7 @@ NBLoadedTLDef::collectLinks()
             for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {
-                    _links.push_back(
+                    myControlledLinks.push_back(
                         NBConnection(incoming, j, el.edge, el.lane));
                 }
             }

@@ -63,7 +63,7 @@ NBRequestEdgeLinkIterator::NBRequestEdgeLinkIterator(
 {
     init(request, joinLaneLinks, removeTurnArounds, removalType);
     setValidNonLeft(removeTurnArounds, removalType);
-    joinLaneLinksFunc(request->_incoming, joinLaneLinks);
+    joinLaneLinksFunc(request->getIncomingEdges(), joinLaneLinks);
     computeValidLinks();
 }
 
@@ -78,7 +78,7 @@ NBRequestEdgeLinkIterator::init(
     bool /*removeTurnArounds*/, NBOwnTLDef::LinkRemovalType /*removalType*/)
 {
     // build complete lists first
-    const EdgeVector &incoming = request->_incoming;
+    const EdgeVector &incoming = request->getIncomingEdges();
     size_t i1;
     for (i1=0; i1<incoming.size(); i1++) {
         assert(i1<incoming.size());

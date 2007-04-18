@@ -157,7 +157,7 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
     // compute the possible logics
     NBTrafficLightLogicVector *logics =
         phases->computeLogics(key, type, getSizes().second, cei1,
-                              _links, breakingTime);
+                              myControlledLinks, breakingTime);
     // clean everything
     delete v;
     delete phases;
@@ -207,7 +207,7 @@ void
 NBOwnTLDef::collectLinks()
 {
     // build the list of links which are controled by the traffic light
-    for (EdgeVector::iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
@@ -219,7 +219,7 @@ NBOwnTLDef::collectLinks()
                         MsgHandler::getErrorInstance()->inform("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
                         throw ProcessError();
                     }
-                    _links.push_back(NBConnection(incoming, j, el.edge, el.lane));
+                    myControlledLinks.push_back(NBConnection(incoming, j, el.edge, el.lane));
                 }
             }
         }
@@ -243,7 +243,7 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     size_t pos = 0;
-    for (NBConnectionVector::const_iterator j=_links.begin(); j!=_links.end(); j++) {
+    for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
         if(edge->setControllingTLInformation(
