@@ -61,6 +61,16 @@ while($ok==1) {
 		if($RistkVon_Ref ne "" && defined($between{$RistkVon_Ref}) && $between{$RistkVon_Ref}==1 && $RistkVon_Ref ne $RistkBis_Ref) {
 			$RistkVon_Ref = $RistkVon_Ref."/s";
 		}
+
+		if($Signalgr_Nr ne "") {
+			if(defined($controlledInner{$LSA_ID})) {
+				$controlledInner{$LSA_ID} = $controlledInner{$LSA_ID}.";".$RistkVon_Ref;
+			} else {
+				$controlledInner{$LSA_ID} = $RistkVon_Ref;
+			}
+		}
+
+
 		$hadSameConnection = 0;
 		if($RistkBis_Ref ne $lastDestEdge) {
 			$lastDestLane = 0;
@@ -109,7 +119,7 @@ while($ok==1) {
 						$lastProgID = $nSignalprogramm_ID;
 					}
 					if( ($nRE!=0||$nGE!=0) && ($nRE!=127||$nGE!=1) && ($nRE!=0||$nGE!=1) && ($nRE!=0||$nGE!=0) ) {
-						$FA = $nRE;#+$ngelb;
+						$FA = $nRE + $nrotgelb;
 						if($FA>$Umlaufzeiten{$nSignalprogramm_ID}) {
 							$FA = $FA - $Umlaufzeiten{$nSignalprogramm_ID};
 						}
@@ -217,6 +227,7 @@ if($RistkVon_Ref eq "-547337856" || $RistkBis_Ref eq "-547337856") {
 
 		$Knoten_ID =~ s/^\s|\s$|\.//g;
 		$lights{$Knoten_ID} = $LSA_ID;
+
 	}
 }
 print OUTDAT "</connections>\n";
@@ -308,6 +319,22 @@ while(<INDAT>) {
 close(OUTDAT);
 close(INDAT);
 
+# read controlled inner edges
+#open(INDAT, "< controlledInner.txt");
+#while(<INDAT>) {
+#	$line = $_;
+#	if(index($line, "\:")>=0 && length($line)>0 && substr($line[0], 0, 1) ne "!") {
+#		($tls, $edge) = split("\:", $line);
+#		$edge =~ s/\s//g;
+#		if(defined($controlledInner{$tls})) {
+#			$controlledInner{$tls} = $controlledInner{$tls}.";".$edge;
+#		} else {
+#			$controlledInner{$tls} = $edge;
+#		}
+#	}
+#}
+#close(INDAT);
+
 
 # write nodes 
 open(INDAT, "< nuernberg_vls.nod.xml");
@@ -319,9 +346,10 @@ while(<INDAT>) {
 		$id = getAttr($tmp, "id");
 		$nodex{$id} = getAttr($tmp, "x");
 		$nodey{$id} = getAttr($tmp, "y");
+
 		if(defined($lights{$id})) {
 			$tmp =~ s/\/\>.*//g;
-			$tmp = $tmp." type=\"traffic_light\" tl=\"".$lights{$id}."\"/>\n";
+			$tmp = $tmp." type=\"traffic_light\" tl=\"".$lights{$id}."\" controlled_inner=\"".$controlledInner{$lights{$id}}."\"/>\n";
 		}
 		print OUTDAT $tmp;
 	}
