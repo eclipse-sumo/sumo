@@ -91,6 +91,9 @@
       <!--  -->
       <strict-sources>false</strict-sources>
 
+      <!-- Joins detectors lying on same height -->
+      <mesosim>false</mesosim>
+
    </processing>
 
    <time>

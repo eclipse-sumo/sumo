@@ -96,9 +96,7 @@ public:
     SUMOReal getFlowSumSecure(const std::string &id) const;
     SUMOReal getMaxDetectorFlow() const;
 
-#ifdef HAVE_MESOSIM
     void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
-#endif
 
     //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 protected:

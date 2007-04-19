@@ -35,6 +35,7 @@
       <revalidate-flows>false</revalidate-flows>
       <remove-empty-detectors>false</remove-empty-detectors>
       <strict-sources>false</strict-sources>
+      <mesosim>false</mesosim>
    </processing>
 
    <time>

@@ -1308,7 +1308,6 @@ DFRONet::computeID4Route(DFRORouteDesc &desc) const
 }
 
 
-#ifdef HAVE_MESOSIM
 void
 DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
 {
@@ -1355,7 +1354,6 @@ DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
     }
 }
 
-#endif
 
 
 /****************************************************************************/

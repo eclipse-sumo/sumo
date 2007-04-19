@@ -231,7 +231,7 @@ DFDetectorFlows::getMaxDetectorFlow() const
     return myMaxDetectorFlow;
 }
 
-#ifdef HAVE_MESOSIM
+
 void
 DFDetectorFlows::mesoJoin(const std::string &nid,
                           const std::vector<std::string> &oldids)
@@ -249,8 +249,6 @@ DFDetectorFlows::mesoJoin(const std::string &nid,
         myFastAccessFlows.erase(j);
     }
 }
-
-#endif
 
 
 /****************************************************************************/

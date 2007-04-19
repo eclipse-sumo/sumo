@@ -1134,7 +1134,6 @@ DFDetectorCon::guessEmptyFlows(DFDetectorFlows &flows)
 }
 
 
-#ifdef HAVE_MESOSIM
 void
 DFDetectorCon::mesoJoin(const std::string &nid,
                         const std::vector<std::string> &oldids)
@@ -1149,7 +1148,6 @@ DFDetectorCon::mesoJoin(const std::string &nid,
     }
 }
 
-#endif
 
 /****************************************************************************/
 

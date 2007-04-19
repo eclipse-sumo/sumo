@@ -56,6 +56,7 @@ Usage: dfrouter.exe [OPTION]*
   --revalidate-flows                 
   --remove-empty-detectors           Removes empty detectors from the list
   --strict-sources                   
+  --mesosim                          Joins detectors lying on same height
 
  Time Options:
   -b, --begin INT                    Defines the begin time;
