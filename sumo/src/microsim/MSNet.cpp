@@ -337,6 +337,14 @@ MSNet::initialiseSimulation()
         << "<vehicleroutes>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
+    // ... the same for the vehicle route information
+    if (myOutputStreams[OS_PHYSSTATES]!=0) {
+        myOutputStreams[OS_PHYSSTATES]->getOStream()
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+        << "<physical-states>" << endl;
+        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
+    }
+    
     // ... the same for TrafficOnline-SS2 information
     if (myOutputStreams[OS_DEVICE_TO_SS2]!=0) {
         MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2);
@@ -413,6 +421,10 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     // ... the same for the vehicle trip information
     if (myOutputStreams[OS_VEHROUTE]!=0) {
         myOutputStreams[OS_VEHROUTE]->getOStream() << "</vehicleroutes>" << endl;
+    }
+    // ... the same for the physical vehicle states
+    if (myOutputStreams[OS_PHYSSTATES]!=0) {
+        myOutputStreams[OS_PHYSSTATES]->getOStream() << "</physical-states>" << endl;
     }
     // ... the same for the OS_CELL_TO_SS2_SQL
     if (myOutputStreams[OS_CELL_TO_SS2_SQL]!=0) {

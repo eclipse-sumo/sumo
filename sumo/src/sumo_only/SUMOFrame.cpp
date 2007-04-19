@@ -154,6 +154,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("dump-ends", new Option_IntVector(""));
     oc.addDescription("dump-ends", "Output", "Use INT[] as times at which a dump must end in order to be written");
 
+    oc.doRegister("physical-states-output", new Option_FileName());
+    oc.addDescription("physical-states-output", "Output", "Write vehicle states");
+
     oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
@@ -364,6 +367,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
     ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
     ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
+    ret[MSNet::OS_PHYSSTATES] = buildStream(oc, "physical-states-output");
     // TrafficOnline-outputs
     ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
     ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");

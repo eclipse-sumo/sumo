@@ -271,7 +271,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     const std::string &getID() const;
 
-    void addMean2(SUMOReal v, SUMOReal l);
+    void addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap);
 
     /// The shape of the lane
     Position2DVector myShape;

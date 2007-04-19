@@ -113,6 +113,8 @@ public:
         OS_TRIPDURATIONS,
         /// route information output
         OS_VEHROUTE,
+        /// vehicles' physical states output
+        OS_PHYSSTATES,
         /// TrafficOnline-SS2 output
         OS_DEVICE_TO_SS2,
         /// TrafficOnline-SS2 Cell output

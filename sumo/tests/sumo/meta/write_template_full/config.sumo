@@ -20,6 +20,7 @@
       <dump-empty-edges>false</dump-empty-edges>
       <dump-begins></dump-begins>
       <dump-ends></dump-ends>
+      <physical-states-output></physical-states-output>
       <save-state.times></save-state.times>
       <save-state.prefix></save-state.prefix>
    </output>

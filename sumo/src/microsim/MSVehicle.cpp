@@ -405,6 +405,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << endl;
     }
 #endif
+    // save old v for optional acceleration computation
+    SUMOReal oldV = myState.mySpeed;
     // compute gap to use
     SUMOReal gap = gap2pred(*pred);
     if (gap<0.1) {
@@ -430,7 +432,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
                 myStops.begin()->duration--;
                 myTarget = myLane;
                 myState.mySpeed = 0;
-                myLane->addMean2(0, myType->getLength());
+                myLane->addMean2(*this, 0, oldV, gap);
                 return; // !!!detectore etc?
             }
         } else {
@@ -497,7 +499,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
             myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
-    myLane->addMean2(vNext, myType->getLength());
+    myLane->addMean2(*this, vNext, oldV, gap);
 #ifdef RAKNET_DEMO
     setPosition(position().x(), 0, position().y());
 #endif
@@ -572,6 +574,8 @@ MSVehicle::moveFirstChecked()
         int textdummy = 0;
     }
 #endif
+    // save old v for optional acceleration computation
+    SUMOReal oldV = myState.mySpeed;
     // get vsafe
     SUMOReal vSafe = 0;
 
@@ -618,7 +622,7 @@ MSVehicle::moveFirstChecked()
                 myStops.begin()->duration--;
                 myTarget = myLane;
                 myState.mySpeed = 0;
-                myLane->addMean2(0, myType->getLength());
+                myLane->addMean2(*this, 0, oldV, -1);
                 return; // !!!detectore etc?
             }
         } else {
@@ -666,7 +670,7 @@ MSVehicle::moveFirstChecked()
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
-    approachedLane->addMean2(vNext, myType->getLength());
+    approachedLane->addMean2(*this, vNext, oldV, -1);
 
 
     // move the vehicle forward
@@ -704,7 +708,7 @@ MSVehicle::moveFirstChecked()
         }
         // set information about approaching
         approachedLane->setApproaching(myState.pos(), this);
-        approachedLane->addMean2(vNext, getLength());
+        approachedLane->addMean2(*this, vNext, oldV, -1);
         no++;
     }
     // set approaching information for consecutive lanes the vehicle may reach in the

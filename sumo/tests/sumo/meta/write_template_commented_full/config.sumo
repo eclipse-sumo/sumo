@@ -52,6 +52,9 @@
       <!-- Use INT[] as times at which a dump must end in order to be written -->
       <dump-ends></dump-ends>
 
+      <!-- Write vehicle states -->
+      <physical-states-output></physical-states-output>
+
       <!-- Use INT[] as times at which a network state written -->
       <save-state.times></save-state.times>
 
