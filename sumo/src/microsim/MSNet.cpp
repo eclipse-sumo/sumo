@@ -342,7 +342,6 @@ MSNet::initialiseSimulation()
         myOutputStreams[OS_PHYSSTATES]->getOStream()
         << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
         << "<physical-states>" << endl;
-        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
     
     // ... the same for TrafficOnline-SS2 information

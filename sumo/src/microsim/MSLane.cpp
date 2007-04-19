@@ -880,6 +880,7 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_PHYSSTATES);
     if(od!=0) {
         od->getOStream() << "   <vphys id=\"" << veh.getID() 
+            << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()  
             << "\" v=\"" << newV  
             << "\" a=\"" << (newV-oldV)  
             << "\" g=\"" << gap 
