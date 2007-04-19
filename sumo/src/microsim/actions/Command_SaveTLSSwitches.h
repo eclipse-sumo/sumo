@@ -47,6 +47,7 @@
 // class declarations
 // ===========================================================================
 class MSTrafficLightLogic;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -61,7 +62,7 @@ class Command_SaveTLSSwitches : public Command
 public:
     /// Constructor
     Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
-                            const std::string &file);
+                            OutputDevice *od);
 
     /// Destructor
     ~Command_SaveTLSSwitches();
@@ -70,8 +71,8 @@ public:
     SUMOTime execute(SUMOTime currentTime);
 
 private:
-    /// The file to write to
-    std::ofstream myFile;
+    /// The device to write to
+    OutputDevice *myOutputDevice;
 
     /// The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;

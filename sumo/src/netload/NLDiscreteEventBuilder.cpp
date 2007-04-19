@@ -45,6 +45,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/SharedOutputDevices.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -118,17 +119,16 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
         return 0;
     }
-    if (!FileHelpers::isAbsolute(dest)) {
-        dest = FileHelpers::getConfigurationRelative(basePath, dest);
-    }
-    // get the logics
+    // get the logic
     if (!myNet.getTLSControl().knows(source)) {
         MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+    // build the output
+    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
     // build the action
-    return new Command_SaveTLSState(logics, dest);
+    return new Command_SaveTLSState(logics, od);
 }
 
 
@@ -145,17 +145,16 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
         MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
         return 0;
     }
-    if (!FileHelpers::isAbsolute(dest)) {
-        dest = FileHelpers::getConfigurationRelative(basePath, dest);
-    }
-    // get the logics
+    // get the logic
     if (!myNet.getTLSControl().knows(source)) {
         MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+    // build the output
+    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
     // build the action
-    return new Command_SaveTLSSwitches(logics, dest);
+    return new Command_SaveTLSSwitches(logics, od);
 }
 
 

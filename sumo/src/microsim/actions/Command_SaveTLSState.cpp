@@ -40,6 +40,7 @@
 #include <microsim/MSNet.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -57,23 +58,18 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSState::Command_SaveTLSState(
     const MSTLLogicControl::TLSLogicVariants &logics,
-    const std::string &file)
-        : myLogics(logics)
+    OutputDevice *od)
+        : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myFile.open(file.c_str());
-    if (!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform("The file '" + file + "' to save the tl-states into could not be opened.");
-        throw ProcessError();
-    }
-    myFile << "<tls-states>" << endl;
+    myOutputDevice->getOStream() << "<tls-states>" << endl;
 }
 
 
 Command_SaveTLSState::~Command_SaveTLSState()
 {
-    myFile << "</tls-states>" << endl;
+    myOutputDevice->getOStream() << "</tls-states>" << endl;
 }
 
 
@@ -82,7 +78,7 @@ Command_SaveTLSState::execute(SUMOTime currentTime)
 {
     for (std::map<std::string, MSTrafficLightLogic*>::const_iterator i=myLogics.ltVariants.begin(); i!=myLogics.ltVariants.end(); ++i) {
         string subid = (*i).second->getSubID();
-        myFile << "   <tlsstate time=\"" << currentTime
+        myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
         << "\" id=\"" << (*i).second->getID()
         << "\" subid=\"" << subid << "\">"
         << (*i).second->buildStateList() << "</tlsstate>" << endl;

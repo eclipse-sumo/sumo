@@ -42,6 +42,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -59,23 +60,18 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSSwitches::Command_SaveTLSSwitches(
     const MSTLLogicControl::TLSLogicVariants &logics,
-    const std::string &file)
-        : myLogics(logics)
+    OutputDevice *od)
+        : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myFile.open(file.c_str());
-    if (!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform("The file '" + file + "' to save the tl-states into could not be opened.");
-        throw ProcessError();
-    }
-    myFile << "<tls-switches>" << endl;
+    myOutputDevice->getOStream() << "<tls-switches>" << endl;
 }
 
 
 Command_SaveTLSSwitches::~Command_SaveTLSSwitches()
 {
-    myFile << "</tls-switches>" << endl;
+    myOutputDevice->getOStream() << "</tls-switches>" << endl;
 }
 
 
@@ -97,7 +93,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime)
                     SUMOTime lastOn = myPreviousLinkStates[link].first;
                     bool saved = myPreviousLinkStates[link].second;
                     if (!saved) {
-                        myFile << "   <switch tls=\"" << light->getID()
+                        myOutputDevice->getOStream() << "   <switch tls=\"" << light->getID()
                         << "\" subid=\"" << light->getSubID()
                         << "\" fromLane=\"" << currLanes[j]->getID()
                         << "\" toLane=\"" << link->getLane()->getID()
