@@ -184,6 +184,7 @@ while($ok==1) {
 			print OUTDAT2 "K".$Signalgr_Nr."\t".$RistkVon_Ref."_".$lane."\t".$RistkBis_Ref."_".$lastDestLane."\n";
 		}
 		$laneID = $RistkVon_Ref."_".$lane;
+
 		$lengths{$laneID} = $Fahrstreifen_Laenge;
 		$edges{$RistkVon_Ref} = 1;
 
@@ -298,9 +299,20 @@ while(<INDAT>) {
 			if(defined($splitK{$id})) {
 				$splitF{$id} = getAttr($tmp, "fromnode");
 				$splitT{$id} = getAttr($tmp, "tonode");
+				$laneno = $lanes{$id."/s"} + 1;
+				$tmp =~ s/nolanes=\"(.*?)\"/nolanes=\"$laneno\"/g;
 				$tmp =~ s/fromnode=\"(.*?)\"/fromnode=\"$id\/s\"/g;
 				$tmp =~ s/id=\"(.*?)\"/id=\"$id\/s\"/g;
 				print OUTDAT $tmp;
+				if($type{$id}!=9) {
+					$skipNext = 1;
+					while(defined($lengths{$id."/s_".$lane})) {
+						if($lengths{$id."/s_".$lane}<$elengths{$id."/s"}) {
+							print OUTDAT "      <lane id=\"".$lane."\" forceLength=\"".($lengths{$id."/s_".$lane})."\"/>\n";
+						}
+						$lane = $lane + 1;
+					}
+				}
 				print OUTDAT "   </edge>\n";
 			}
 		} else {
