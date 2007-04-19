@@ -11,6 +11,13 @@ from optparse import OptionParser
 
 MAX_POS_DEVIATION = 1
 
+class Vertex:
+
+    def __init__(self):
+        self.inEdges = set()
+        self.outEdges = set()
+
+
 class Edge:
 
     def __init__(self, label, source, target, kind="junction"):
@@ -48,15 +55,13 @@ class Edge:
         if self.capacity == sys.maxint:
             cap = "inf"
         return self.kind+"_"+self.label+"<"+str(self.flow)+"|"+cap+">"
-    
-        
+
+
 class Net:
 
     def __init__(self):
-        self._currVertex = 0
+        self._vertices = []
         self._edges = {}
-        self._inEdges = {}
-        self._outEdges = {}
         self._source = self.newVertex()
         self._sink = self.newVertex()
         self._routeOut = None
@@ -64,37 +69,36 @@ class Net:
         self._routeFreq = {}
 
     def newVertex(self):
-        self._currVertex += 1
-        self._inEdges[self._currVertex] = set()
-        self._outEdges[self._currVertex] = set()
-        return self._currVertex
+        v = Vertex()
+        self._vertices.append(v)
+        return v
 
     def getEdge(self, edgeLabel):
         return self._edges[edgeLabel]
 
     def addEdge(self, edgeObj):
-        self._outEdges[edgeObj.source].add(edgeObj)
-        self._inEdges[edgeObj.target].add(edgeObj)
+        edgeObj.source.outEdges.add(edgeObj)
+        edgeObj.target.inEdges.add(edgeObj)
         if edgeObj.kind == "real":
             self._edges[edgeObj.label] = edgeObj
-                
+
     def removeEdge(self, edgeObj):
-        self._outEdges[edgeObj.source].remove(edgeObj)
-        self._inEdges[edgeObj.target].remove(edgeObj)
+        edgeObj.source.outEdges.remove(edgeObj)
+        edgeObj.target.inEdges.remove(edgeObj)
         if edgeObj.kind == "real":
             del self._edges[edgeObj.label]
-            checkEdges = self._inEdges[edgeObj.source].union(self._outEdges[edgeObj.target])
+            checkEdges = edgeObj.source.inEdges.union(edgeObj.target.outEdges)
             for edge in checkEdges:
                 if edge.kind != "real":
                     self.removeEdge(edge)
-                
+
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(), "real"))
-                
+
     def addSourceEdge(self, edgeObj):
         newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source, "source")
         self.addEdge(newEdge)
-                
+
     def addSinkEdge(self, edgeObj):
         newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink, "sink")
         self.addEdge(newEdge)
@@ -103,25 +107,25 @@ class Net:
         if options.minspeed > 0.0:
             if options.verbose:
                 print "Removing edges with maxspeed <", options.minspeed, "... ", 
-            for edge in self._edges.values():
-                if edge.maxSpeed < options.minspeed:
+            for edgeObj in self._edges.values():
+                if edgeObj.maxSpeed < options.minspeed:
                     delete = True
-                    for auxpred in self._inEdges[edge.source]:
-                        for realpred in self._inEdges[auxpred.source]:
+                    for auxpred in edgeObj.source.inEdges:
+                        for realpred in auxpred.source.inEdges:
                             if realpred.maxSpeed >= options.minspeed:
                                 delete = False
                                 break
                         if not delete: break
-                    for auxsucc in self._outEdges[edge.target]:
-                        for realsucc in self._outEdges[auxsucc.target]:
+                    for auxsucc in edgeObj.target.outEdges:
+                        for realsucc in auxsucc.target.outEdges:
                             if realsucc.maxSpeed >= options.minspeed:
                                 delete = False
                                 break
                         if not delete: break
-                    if options.keepdet and edge.capacity < sys.maxint:
+                    if options.keepdet and edgeObj.capacity < sys.maxint:
                         delete = False
                     if delete:
-                        self.removeEdge(edge)
+                        self.removeEdge(edgeObj)
             if options.verbose:
                 print len(self._edges), "left"
             if options.trimfile:
@@ -130,14 +134,14 @@ class Net:
                     for lane in range(edge.laneCount):
                         trimOut.write("lane:"+edge.label+"_"+str(lane)+"\n")
                 trimOut.close()
-        
+
     def detectSourceSink(self):
-        for edge in self._edges.itervalues():
-            if len(self._inEdges[edge.source]) == 0:
-                self.addSourceEdge(edge)
-            if len(self._outEdges[edge.target]) == 0:
-                self.addSinkEdge(edge)
-        
+        for edgeObj in self._edges.itervalues():
+            if len(edgeObj.source.inEdges) == 0:
+                self.addSourceEdge(edgeObj)
+            if len(edgeObj.target.outEdges) == 0:
+                self.addSinkEdge(edgeObj)
+
     def checkNet(self, forcedSourceSinkDetection):
         self.trimNet()
         for edge in self._edges.itervalues():
@@ -146,33 +150,33 @@ class Net:
             if options.ignorezero and edge.capacity == 0:
                 edge.capacity = sys.maxint
         if not forcedSourceSinkDetection:
-            if len(self._inEdges[self._sink]) == 0:
+            if len(self._sink.inEdges) == 0:
                 warn("Warning! No sinks, trying to find some.")
                 forcedSourceSinkDetection = True
-            if len(self._outEdges[self._source]) == 0:
+            if len(self._source.outEdges) == 0:
                 warn("Warning! No sources, trying to find some.")
                 forcedSourceSinkDetection = True
         if forcedSourceSinkDetection:
             self.detectSourceSink()
-        if len(self._inEdges[self._sink]) == 0:
+        if len(self._sink.inEdges) == 0:
             print "Error! No sinks found."
             return False
-        if len(self._outEdges[self._source]) == 0:
+        if len(self._source.outEdges) == 0:
             print "Error! No sources found."
             return False
         if options.verbose:
             unlimitedSource = 0
-            for edge in self._outEdges[self._source]:
-                for src in self._outEdges[edge.target]:
+            for edgeObj in self._source.outEdges:
+                for src in edgeObj.target.outEdges:
                     if src.capacity == sys.maxint:
                         unlimitedSource += 1
             unlimitedSink = 0
-            for edge in self._inEdges[self._sink]:
-                for sink in self._inEdges[edge.source]:
+            for edgeObj in self._sink.inEdges:
+                for sink in edgeObj.source.inEdges:
                     if sink.capacity == sys.maxint:
                         unlimitedSink += 1
-            print len(self._outEdges[self._source]), "sources,", unlimitedSource, "unlimited"
-            print len(self._inEdges[self._sink]), "sinks", unlimitedSink, "unlimited"
+            print len(self._source.outEdges), "sources,", unlimitedSource, "unlimited"
+            print len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited"
         return True
 
     def updateFlow(self, pred):
@@ -204,16 +208,14 @@ class Net:
             queue = [self._source]
             unlimited = set(queue)
             pred = {}
-            seenVertices = set()
             while len(queue) > 0:
                 currVertex = queue.pop(0)
                 if currVertex == self._sink:
                     self.updateFlow(pred)
                     pathFound = True
                     break
-                seenVertices.add(currVertex)
-                for edge in self._outEdges[currVertex]:
-                    if not edge.target in seenVertices and edge.flow < edge.capacity:
+                for edge in currVertex.outEdges:
+                    if not edge.target in pred and edge.flow < edge.capacity:
                         if edge.target != self._sink or not currVertex in unlimited:
                             queue.append(edge.target)
                             pred[edge.target] = edge
@@ -222,22 +224,15 @@ class Net:
                                     unlimited.add(edge.target)
                                 else:
                                     unlimited.discard(edge.target)
-                for edge in self._inEdges[currVertex]:
-                    if not edge.source in seenVertices and edge.flow > 0:
+                for edge in currVertex.inEdges:
+                    if not edge.source in pred and edge.flow > 0:
                         queue.append(edge.source)
                         pred[edge.source] = edge
                         unlimited.discard(edge.source)
-        for edge in self._edges.itervalues():
-            edge.capacity = edge.flow
-            edge.flow = 0
-            for succEdge in self._outEdges[edge.target]:
-                if succEdge.kind != "real":
-                    succEdge.capacity = succEdge.flow
-                    succEdge.flow = 0
-        for srcEdge in self._outEdges[self._source]:
-            if srcEdge.kind != "real":
-                srcEdge.capacity = srcEdge.flow
-                srcEdge.flow = 0
+        for vertex in self._vertices:
+            for succEdge in vertex.outEdges:
+                succEdge.capacity = succEdge.flow
+                succEdge.flow = 0
 
     def printRouteAndUpdateFlow(self, pred, endEdge):
         route = ''
@@ -283,25 +278,25 @@ class Net:
         routeFound = True
         while routeFound:
             routeFound = False
-            queue = list(self._outEdges[self._source])
+            queue = list(self._source.outEdges)
             pred = {}
-            seenVertices = set()
-            seenVertices.add(self._source)
             while len(queue) > 0:
                 currEdge = queue.pop(0)
-                seenVertices.add(currEdge.target)
                 if currEdge.kind != "real" or currEdge.flow < currEdge.capacity:
                     if currEdge.target == self._sink:
                         routeFound = True
                         self.printRouteAndUpdateFlow(pred, currEdge)
                         break
-                    for edge in self._outEdges[currEdge.target]:
-                        if not edge.target in seenVertices:
+                    for edge in currEdge.target.outEdges:
+                        if not edge in pred:
                             pred[edge] = currEdge
                             queue.append(edge)
         if options.routefile:
             self._routeOut.write("</routes>\n")
             self._routeOut.close()
+        for vertex in self._vertices:
+            for succEdge in vertex.outEdges:
+                assert succEdge.capacity == succEdge.flow
 
     def writeEmitters(self, emitFileName):
         emitOut = open(emitFileName, 'w')
@@ -316,7 +311,7 @@ class Net:
             for route in routes:
                 srcOut.write('    <routedistelem id="'+route+'" probability="'+str(self._routeFreq[route])+'"/>\n')
             for time in range(self._edges[edgeLabel].flow):
-                srcOut.write('    <emit time="'+str(time)+'"/>\n')                                     
+                srcOut.write('    <emit time="'+str(time)+'"/>\n')
             srcOut.write("</triggeredsource>\n")
             srcOut.close()
         emitOut.write("</additional>\n")

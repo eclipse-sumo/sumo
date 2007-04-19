@@ -57,7 +57,7 @@ for f in args:
                 readLines(zipf.read(fileName).splitlines())
             zipf.close()
         else:
-            readLines(f)
+            readLines(file(f))
     else:
         print >> sys.stderr, "Cannot read", f
 print "Detector;Time;qPKW;qLKW;vPKW;vLKW"

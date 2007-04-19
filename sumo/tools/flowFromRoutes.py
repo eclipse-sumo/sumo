@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # This script recreates a flow file from routes and emitters.
-import math, string
+import math, string, sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
@@ -119,14 +119,22 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             print '# detNames RouteFlow DetFlow'
         else:
             print '# detNames RouteFlow'
+        output = []
         for det in self._edge2det.itervalues():
+            det.detString = []
+            for group in det.detGroup:
+                det.detString.append(string.join(sorted(group), ';'))
             if includeDets:
-                for group, rFlow, dFlow in sorted(zip(det.detGroup, det.routeFlow, det.detFlow)):
-                    if dFlow > 0 or not options.ignorezero:
-                        print string.join(group, ';'), rFlow, dFlow
+                output.extend(zip(det.detString, det.routeFlow, det.detFlow))
             else:
-                for group, flow in sorted(zip(det.detGroup, det.routeFlow)):
-                    print string.join(group, ';'), flow
+                output.extend(zip(det.detString, det.routeFlow))
+        if includeDets:
+            for group, rflow, dflow in sorted(output):
+                if dflow > 0 or not options.ignorezero:
+                    print group, rflow, dflow
+        else:
+            for group, flow in sorted(output):
+                print group, flow
 
 
 optParser = OptionParser()
