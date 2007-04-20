@@ -54,11 +54,11 @@
       <requestsize>6</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="000000" foes="000000"/>
+         <logicitem request="0" response="000000" foes="010000"/>
          <logicitem request="1" response="000000" foes="110000"/>
          <logicitem request="2" response="001000" foes="001000"/>
          <logicitem request="3" response="000000" foes="000100"/>
-         <logicitem request="4" response="000000" foes="000010"/>
+         <logicitem request="4" response="000000" foes="000011"/>
          <logicitem request="5" response="000010" foes="000010"/>
       </logic>
    </row-logic>

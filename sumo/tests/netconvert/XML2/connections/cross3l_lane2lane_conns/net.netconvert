@@ -121,17 +121,17 @@
       <requestsize>16</requestsize>
       <lanenumber>12</lanenumber>
       <logic>
-         <logicitem request="0" response="0000000000000000" foes="1000000001000000"/>
+         <logicitem request="0" response="0000000000000000" foes="1000010001000000"/>
          <logicitem request="1" response="0000000000000000" foes="0101110001000000"/>
-         <logicitem request="2" response="0000001000000000" foes="0100001011000000"/>
+         <logicitem request="2" response="0000001100000000" foes="0100001111000000"/>
          <logicitem request="3" response="0000001000010000" foes="0000001000010000"/>
          <logicitem request="4" response="0000001000000000" foes="0000001000001000"/>
          <logicitem request="5" response="1111111111111111" foes="0000000000000000"/>
          <logicitem request="6" response="0000011000000111" foes="1000011000000111"/>
          <logicitem request="7" response="0100000100000100" foes="0100000100000100"/>
-         <logicitem request="8" response="0000000000000000" foes="0100000010000000"/>
+         <logicitem request="8" response="0000000000000000" foes="0100000010000100"/>
          <logicitem request="9" response="0000000000000000" foes="0100000001011100"/>
-         <logicitem request="10" response="0000000000000010" foes="1100000001000010"/>
+         <logicitem request="10" response="0000000000000011" foes="1100000001000011"/>
          <logicitem request="11" response="0001000000000010" foes="0001000000000010"/>
          <logicitem request="12" response="0000000000000010" foes="0000100000000010"/>
          <logicitem request="13" response="1111111111111111" foes="0000000000000000"/>

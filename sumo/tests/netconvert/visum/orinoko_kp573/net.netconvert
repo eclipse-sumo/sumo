@@ -745,19 +745,19 @@
       <requestsize>20</requestsize>
       <lanenumber>13</lanenumber>
       <logic>
-         <logicitem request="0" response="00000000000000000000" foes="10000000000000000000"/>
-         <logicitem request="1" response="01010000000000000000" foes="01111110000000000000"/>
-         <logicitem request="2" response="01010000100000000000" foes="01111000100100000000"/>
+         <logicitem request="0" response="00000000000000000000" foes="10000001000001100000"/>
+         <logicitem request="1" response="01010000000000000000" foes="01111111000011100000"/>
+         <logicitem request="2" response="01010000110000000000" foes="01111000110111100000"/>
          <logicitem request="3" response="01000000100000000000" foes="01100000100000010000"/>
-         <logicitem request="4" response="00100000000000000000" foes="01100000000000001000"/>
-         <logicitem request="5" response="00100000000000000000" foes="11100000000000000000"/>
-         <logicitem request="6" response="01000000000000000000" foes="11100000000000000000"/>
-         <logicitem request="7" response="00010000000000000000" foes="00011110000000000000"/>
+         <logicitem request="4" response="00100000000000000000" foes="01100000100000001000"/>
+         <logicitem request="5" response="00100000000000000001" foes="11100001100000000111"/>
+         <logicitem request="6" response="01000000000000000110" foes="11100001100000000111"/>
+         <logicitem request="7" response="00010000000000000110" foes="00011111100000000110"/>
          <logicitem request="8" response="00010000010000000100" foes="00011000010000000100"/>
          <logicitem request="9" response="11111111111111111111" foes="00000000000000000000"/>
-         <logicitem request="10" response="00010000000000000000" foes="00011000000100000000"/>
-         <logicitem request="11" response="01010000000000000000" foes="01111000000000001100"/>
-         <logicitem request="12" response="01010000000000000000" foes="11111000000000000000"/>
+         <logicitem request="10" response="00010000000000000000" foes="00011000000100000100"/>
+         <logicitem request="11" response="01010000000011000000" foes="01111000000011111100"/>
+         <logicitem request="12" response="01010000000011000010" foes="11111000000011100011"/>
          <logicitem request="13" response="00000000000010000010" foes="00000100000010000010"/>
          <logicitem request="14" response="00000000000000000000" foes="00000010000010000010"/>
          <logicitem request="15" response="00000000000000000000" foes="00000001110110000110"/>
@@ -799,13 +799,13 @@
       <logic>
          <logicitem request="0" response="000000000000" foes="100001000000"/>
          <logicitem request="1" response="000000000000" foes="100001000000"/>
-         <logicitem request="2" response="000000000000" foes="011011000000"/>
+         <logicitem request="2" response="000100000000" foes="011111000000"/>
          <logicitem request="3" response="010000000000" foes="011000110000"/>
          <logicitem request="4" response="000000000000" foes="011000001000"/>
          <logicitem request="5" response="000000000000" foes="011000001000"/>
          <logicitem request="6" response="000000000010" foes="111000000111"/>
          <logicitem request="7" response="000100000100" foes="000100000100"/>
-         <logicitem request="8" response="000000000000" foes="000010000000"/>
+         <logicitem request="8" response="000000000000" foes="000010000100"/>
          <logicitem request="9" response="000000000000" foes="000001111100"/>
          <logicitem request="10" response="000000000000" foes="000001111100"/>
          <logicitem request="11" response="000001000010" foes="000001000011"/>
@@ -875,13 +875,13 @@
       <logic>
          <logicitem request="0" response="000000000000" foes="100001100000"/>
          <logicitem request="1" response="000000000000" foes="100001100000"/>
-         <logicitem request="2" response="001000000000" foes="011011100000"/>
+         <logicitem request="2" response="001100000000" foes="011111100000"/>
          <logicitem request="3" response="010000000000" foes="011000010000"/>
          <logicitem request="4" response="001000000000" foes="011000001000"/>
          <logicitem request="5" response="000000000000" foes="111000000111"/>
          <logicitem request="6" response="010000000010" foes="111000000111"/>
          <logicitem request="7" response="000100000100" foes="000100000100"/>
-         <logicitem request="8" response="000000000000" foes="000010000000"/>
+         <logicitem request="8" response="000000000000" foes="000010000100"/>
          <logicitem request="9" response="000000000000" foes="000001111100"/>
          <logicitem request="10" response="000000000000" foes="000001111100"/>
          <logicitem request="11" response="000000100000" foes="000001100011"/>
@@ -928,12 +928,12 @@
          <logicitem request="1" response="00000000000" foes="10000100000"/>
          <logicitem request="2" response="00000000000" foes="01111100000"/>
          <logicitem request="3" response="01000000000" foes="01100010000"/>
-         <logicitem request="4" response="00000000000" foes="00000001000"/>
-         <logicitem request="5" response="00000000010" foes="10000000111"/>
+         <logicitem request="4" response="00000000000" foes="01100001000"/>
+         <logicitem request="5" response="00000000010" foes="11100000111"/>
          <logicitem request="6" response="00010000100" foes="00010000100"/>
          <logicitem request="7" response="00000000100" foes="00001000100"/>
-         <logicitem request="8" response="00000000100" foes="00000001100"/>
-         <logicitem request="9" response="00000000000" foes="00000001100"/>
+         <logicitem request="8" response="00000010100" foes="00000111100"/>
+         <logicitem request="9" response="00000100000" foes="00000111100"/>
          <logicitem request="10" response="00000100010" foes="00000100011"/>
       </logic>
    </row-logic>
@@ -949,15 +949,15 @@
       <phase duration="7" phase="111100000000" brake="000011111111" yellow="000000000000"/>
       <phase duration="4" phase="101100000000" brake="010011111111" yellow="000000000000"/>
       <phase duration="5" phase="100000000000" brake="011111111111" yellow="011100000000"/>
-      <phase duration="1" phase="100000001100" brake="011111110011" yellow="011100000000"/>
-      <phase duration="2" phase="100000001100" brake="011111110011" yellow="001100000000"/>
-      <phase duration="2" phase="100000011100" brake="011111100011" yellow="001100000000"/>
-      <phase duration="2" phase="100000011100" brake="011111100011" yellow="000000000000"/>
+      <phase duration="1" phase="100000001100" brake="011111111011" yellow="011100000000"/>
+      <phase duration="2" phase="100000001100" brake="011111111011" yellow="001100000000"/>
+      <phase duration="2" phase="100000011100" brake="011111101011" yellow="001100000000"/>
+      <phase duration="2" phase="100000011100" brake="011111101011" yellow="000000000000"/>
       <phase duration="10" phase="000000011100" brake="111111100011" yellow="100000000000"/>
       <phase duration="1" phase="000000011100" brake="111111100011" yellow="000000000000"/>
       <phase duration="10" phase="000000000000" brake="111111111111" yellow="000000011100"/>
-      <phase duration="2" phase="000011100011" brake="111100011101" yellow="000000000000"/>
-      <phase duration="18" phase="100011100011" brake="011100011101" yellow="000000000000"/>
+      <phase duration="2" phase="000011100011" brake="111101011101" yellow="000000000000"/>
+      <phase duration="18" phase="100011100011" brake="011101011101" yellow="000000000000"/>
    </tl-logic>
 
 

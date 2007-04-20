@@ -63,11 +63,11 @@
       <requestsize>9</requestsize>
       <lanenumber>3</lanenumber>
       <logic>
-         <logicitem request="0" response="000000000" foes="100000000"/>
+         <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="000000000" foes="011110000"/>
          <logicitem request="2" response="010001000" foes="010001000"/>
          <logicitem request="3" response="000000000" foes="010000100"/>
-         <logicitem request="4" response="000000010" foes="110000010"/>
+         <logicitem request="4" response="000000011" foes="110000011"/>
          <logicitem request="5" response="001000010" foes="001000010"/>
          <logicitem request="6" response="000000010" foes="000100010"/>
          <logicitem request="7" response="000011010" foes="000011110"/>

@@ -72,17 +72,17 @@
       <requestsize>12</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="000000010000" foes="100000010000"/>
-         <logicitem request="1" response="011000110000" foes="011100110000"/>
+         <logicitem request="0" response="000000010000" foes="100010010000"/>
+         <logicitem request="1" response="011000110000" foes="011110110000"/>
          <logicitem request="2" response="010001001000" foes="010001001000"/>
-         <logicitem request="3" response="000000000000" foes="000001000100"/>
+         <logicitem request="3" response="000000000000" foes="010001000100"/>
          <logicitem request="4" response="000000000000" foes="110011000011"/>
-         <logicitem request="5" response="000000000000" foes="000111000010"/>
+         <logicitem request="5" response="001000000000" foes="001111000010"/>
          <logicitem request="6" response="010000111000" foes="010000111100"/>
-         <logicitem request="7" response="010000110000" foes="110000110000"/>
+         <logicitem request="7" response="010000110011" foes="110000110011"/>
          <logicitem request="8" response="001000100010" foes="001000100010"/>
-         <logicitem request="9" response="000000000000" foes="000100000010"/>
-         <logicitem request="10" response="000000010000" foes="000011010110"/>
+         <logicitem request="9" response="000000000000" foes="000100100010"/>
+         <logicitem request="10" response="000000011000" foes="000011011110"/>
          <logicitem request="11" response="000010010001" foes="000010010001"/>
       </logic>
    </row-logic>
@@ -155,7 +155,7 @@
    <succ edge="2i" lane="2i_0" junction="0">
       <succlane lane="4o_0" yield="0" dir="r" state="M"/>
       <succlane lane="1o_0" yield="0" dir="s" state="M"/>
-      <succlane lane="3o_0" yield="0" dir="l" state="M"/>
+      <succlane lane="3o_0" yield="1" dir="l" state="m"/>
    </succ>
 
    <succ edge="3i" lane="3i_0" junction="0">
