@@ -34,5 +34,8 @@ newstyle_with_vehtype_with_class
 # Checks whether processing of vehicles with no vevtapye works
 newstyle_no_vehtype
 
-# Checks whether embedding unkown tags works
+# Checks whether embedding unknown tags within vehicles works
 newstyle_embedded
+
+# Checks whether embedding unknown tags within vehicle type works
+newstyle_with_vehtype_with_embedded

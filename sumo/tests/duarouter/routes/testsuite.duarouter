@@ -49,4 +49,7 @@ newstyle_no_vehtype
 # Checks whether further information can be embedded
 newstyle_embedded
 
+# Checks whether embedding unknown tags within vehicle type works
+newstyle_with_vehtype_with_embedded
+
 
