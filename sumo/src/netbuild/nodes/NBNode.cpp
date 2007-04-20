@@ -903,6 +903,10 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
                 }
             }
         }
+        if(dir==MMLDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
+            // let turnarounds wait at the begin if no other crossing point was found
+            ret.first = POSITION_EPS;
+        }
     }
     break;
     default:

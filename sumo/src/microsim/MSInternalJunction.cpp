@@ -133,7 +133,7 @@ MSInternalJunction::setAllowed()
     }
 
     // do nothing if there is no vehicle
-    if (myIncomingLanes[0]->empty()) {
+    if(!myRequest.test(0)) {
         return true;
     }
 

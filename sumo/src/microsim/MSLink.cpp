@@ -77,6 +77,8 @@ MSLink::setRequestInformation(
     size_t requestIdx, MSLogicJunction::Respond *respond,
     size_t respondIdx)
 {
+    assert(myRequest==0);
+    assert(myRespond==0);
     myRequest = request;
     myRequestIdx = requestIdx;
     myRespond = respond;
