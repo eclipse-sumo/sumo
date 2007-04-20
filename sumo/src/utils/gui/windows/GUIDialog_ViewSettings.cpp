@@ -671,7 +671,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
+GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 {
     GUISUMOAbstractView::VisualizationSettings tmpSettings = *mySettings;
     int prevLaneMode = mySettings->laneEdgeMode;
@@ -726,6 +726,58 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     tmpSettings.dither = myDither->getCheck()!=0;
     tmpSettings.showSizeLegend = myShowSizeLegend->getCheck()!=0;
 
+    // lanes
+    if (tmpSettings.laneEdgeMode==prevLaneMode) {
+        switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
+        case CST_SINGLE:
+            if(sender==mySingleLaneColor) {
+                cout << (int) FXREDVAL((FXColor) val) << " " << (int) FXGREENVAL((FXColor) val) << " " << (int) FXBLUEVAL((FXColor) val) << endl;
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
+                myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
+                    tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0]);
+            }
+            break;
+        case CST_MINMAX:
+            if(sender==myMinLaneColor) {
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
+            }
+            if(sender==myMaxLaneColor) {
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1] = convert((FXColor) val);
+            }
+            myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0],
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1]);
+            break;
+        default:
+            break;
+        }
+    }
+    // vehicles
+    if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode!=prevVehicleMode) {
+        switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
+        case CST_SINGLE:
+            if(sender==mySingleVehicleColor) {
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
+            }
+            myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0]);
+            break;
+        case CST_MINMAX:
+            if(sender==myMinVehicleColor) {
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
+            }
+            if(sender==myMaxVehicleColor) {
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1] = convert((FXColor) val);
+            }
+            myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0],
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1]);
+            break;
+        default:
+            break;
+        }
+    }
+
     if(tmpSettings==*mySettings) {
         return 1;
     }
@@ -749,47 +801,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     gSchemeStorage.add(tmpSettings);
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
-
     if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
         rebuildColorMatrices(true);
     }
-    // lanes
-    switch (myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
-    case CST_SINGLE:
-        mySettings->laneColorings[mySettings->laneEdgeMode][0] = convert(mySingleLaneColor->getRGBA());
-        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(
-            mySettings->laneColorings[mySettings->laneEdgeMode][0]);//mySettings->singleLaneColor);
-        break;
-    case CST_MINMAX:
-        mySettings->laneColorings[mySettings->laneEdgeMode][0] = convert(myMinLaneColor->getRGBA());
-        mySettings->laneColorings[mySettings->laneEdgeMode][1] = convert(myMaxLaneColor->getRGBA());
-        myLaneColoringInfoSource->getColorerInterface(mySettings->laneEdgeMode)->resetColor(
-            mySettings->laneColorings[mySettings->laneEdgeMode][0],
-            mySettings->laneColorings[mySettings->laneEdgeMode][1]);
-        break;
-    default:
-        break;
-    }
-    // vehicles
-    if (myVehicleColoringInfoSource!=0) {
-        switch (myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
-        case CST_SINGLE:
-            mySettings->vehicleColorings[mySettings->vehicleMode][0] = convert(mySingleVehicleColor->getRGBA());
-            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(
-                mySettings->vehicleColorings[mySettings->vehicleMode][0]);
-            break;
-        case CST_MINMAX:
-            mySettings->vehicleColorings[mySettings->vehicleMode][0] = convert(myMinVehicleColor->getRGBA());
-            mySettings->vehicleColorings[mySettings->vehicleMode][1] = convert(myMaxVehicleColor->getRGBA());
-            myVehicleColoringInfoSource->getColorerInterface(mySettings->vehicleMode)->resetColor(
-                mySettings->vehicleColorings[mySettings->vehicleMode][0],
-                mySettings->vehicleColorings[mySettings->vehicleMode][1]);
-            break;
-        default:
-            break;
-        }
-    }
-    myParent->update();
+    
+    getApp()->forceRefresh();
     return 1;
 }
 
