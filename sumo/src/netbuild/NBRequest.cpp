@@ -235,17 +235,16 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-    /*
         if(_junction->getID()=="15620399") {
             int bla = 0;
         }
         if(_junction->getID()=="15620399") {
             int bla = 0;
         }
-        string from1ID = "-153114464";
-        string to1ID = "15620546";
-        string from2ID = "-15620546";
-        string to2ID = "15620547";
+        string from1ID = "1si";
+        string to1ID = "4o";
+        string from2ID = "2si";
+        string to2ID = "4o";
         if(from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
             int bla = 0;
         }
@@ -253,7 +252,7 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
         if(from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
             int bla = 0;
         }
-    */
+
     // check whether one of the links has a dead end
     if (to1==0||to2==0) {
         return;
@@ -325,28 +324,28 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
 
     // compute the yielding due to the right-before-left rule
     // get the position of the incoming lanes in the junction-wheel
-    EdgeVector::const_iterator inIncoming1 = find(_all->begin(), _all->end(), from1);
-    NBContHelper::nextCW(_all, inIncoming1);
+    EdgeVector::const_iterator c1 = find(_all->begin(), _all->end(), from1);
+    NBContHelper::nextCW(_all, c1);
     // go through next edges clockwise...
-    while (*inIncoming1!=from1&&*inIncoming1!=to1&&*inIncoming1!=from2) {
-        if (*inIncoming1==to2) {
+    while (*c1!=from1&&*c1!=from2) {
+        if (*c1==to2) {
             // if we encounter to2 the second one prohibits the first
             _forbids[idx2][idx1] = true;
             return;
         }
-        NBContHelper::nextCW(_all, inIncoming1);
+        NBContHelper::nextCW(_all, c1);
     }
     // get the position of the incoming lanes in the junction-wheel
-    EdgeVector::const_iterator inIncoming2 = find(_all->begin(), _all->end(), from2);
-    NBContHelper::nextCW(_all, inIncoming2);
+    EdgeVector::const_iterator c2 = find(_all->begin(), _all->end(), from2);
+    NBContHelper::nextCW(_all, c2);
     // go through next edges clockwise...
-    while (*inIncoming2!=from2&&*inIncoming2!=to2&&*inIncoming2!=from1) {
-        if (*inIncoming2==to1) {
+    while (*c2!=from2&&*c2!=from1) {
+        if (*c2==to1) {
             // if we encounter to1 the second one prohibits the first
-            _forbids[idx2][idx2] = true;
+            _forbids[idx1][idx2] = true;
+            return;
         }
-        return;
-        NBContHelper::nextCW(_all, inIncoming2);
+        NBContHelper::nextCW(_all, c2);
     }
 }
 
@@ -537,6 +536,12 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
+    if(from->getID()=="1si"&&fromLane==2) {
+        int bla = 0;
+    }
+    if(from->getID()=="2si"&&fromLane==0) {
+        int bla = 0;
+    }
     const EdgeLaneVector &connected = from->getEdgeLanesFromLane(fromLane);
     for (EdgeLaneVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
@@ -572,6 +577,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
     for (EdgeVector::const_reverse_iterator i=_incoming->rbegin();
             i!=_incoming->rend(); i++) {
 
+                NBEdge *bla = *i;
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
             const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
@@ -587,6 +593,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert((size_t) idx<_incoming->size()*_outgoing->size());
                     assert(connected[k].edge==0 || (size_t) getIndex(*i, connected[k].edge)<_incoming->size()*_outgoing->size());
                     // check whether the connection is prohibited by another one
+                    bool bla = _forbids[getIndex(*i, connected[k].edge)][idx];
                     if (connected[k].edge!=0
                             &&
                             _forbids[getIndex(*i, connected[k].edge)][idx]
