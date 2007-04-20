@@ -95,6 +95,8 @@ RORDLoader_SUMOBase::myStartElement(int element,
         }
         break;
     case SUMO_TAG_VTYPE:
+        deleteSnippet();
+        myCurrentVehicleType = 0;
         startVehType(attrs);
         break;
     default:
@@ -106,8 +108,15 @@ RORDLoader_SUMOBase::myStartElement(int element,
 void
 RORDLoader_SUMOBase::myEndElement(int element, const std::string &/*name*/)
 {
-    if (element==SUMO_TAG_VEHICLE) {
+    switch (element) {
+    case SUMO_TAG_VEHICLE:
         closeVehicle();
+        break;
+    case SUMO_TAG_VTYPE:
+        if(myCurrentVehicleType!=0) {
+            myCurrentVehicleType->addEmbedded(extractSnippet());
+        }
+        break;
     }
 }
 
@@ -186,9 +195,9 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         // build the vehicle type after checking
         //  by now, only vehicles using the krauss model are supported
         if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
-            _net.addVehicleType(
-                new ROVehicleType_Krauss(
-                    id, color, length, vclass, accel, decel, sigma, maxspeed, tau));
+            myCurrentVehicleType = new ROVehicleType_Krauss(
+                    id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
+            _net.addVehicleType(myCurrentVehicleType);
         }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");

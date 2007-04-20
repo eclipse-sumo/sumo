@@ -38,6 +38,7 @@
 #include <iostream>
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
+#include <utils/xml/XMLSnippletStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -83,7 +84,13 @@ ROVehicleType_Krauss::xmlOut(std::ostream &os) const
     if (myClass!=SVC_UNKNOWN) {
         os << " class=\"" << getVehicleClassName(myClass) << "\"";
     }
-    os << "/>" << endl;
+    if(myEmbeddedParams!=0) {
+        os << ">" << endl;
+        myEmbeddedParams->flush(os, 2);
+        os << "   </vtype>" << endl;
+    } else {
+        os << "/>" << endl;
+    }
     return os;
 }
 

@@ -322,18 +322,11 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     SUMOTime lastStep = time;
     for (; time<end&&!errorOccured&&!endReached; time++) {
         writeStats(time, start, absNo);
-        RouteLoaderCont::iterator i;
-        // go through all handlers
-        for (i=_handler.begin(); i!=_handler.end(); i++) {
-            // load routes until the time point is reached
-            (*i)->readRoutesAtLeastUntil(time);
-            // save the routes
-            net.saveAndRemoveRoutesUntil(_options, router, time);
-        }
+        makeSingleStep(time, net, router);
         // check whether further data exist
         endReached = !net.furtherStored();
         lastStep = time;
-        for (i=_handler.begin(); endReached&&i!=_handler.end(); i++) {
+        for (RouteLoaderCont::iterator i=_handler.begin(); endReached&&i!=_handler.end(); i++) {
             if (!(*i)->ended()) {
                 endReached = false;
             }

@@ -51,7 +51,7 @@
 ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
                              SUMOReal length, SUMOVehicleClass vclass)
         : ReferencedItem(), myID(id), myColor(col), myLength(length),
-        myClass(vclass)
+        myClass(vclass), myEmbeddedParams(0)
 {}
 
 
@@ -79,6 +79,11 @@ ROVehicleType::getClass() const
     return myClass;
 }
 
+void 
+ROVehicleType::addEmbedded(XMLSnippletStorage *embedded)
+{
+    myEmbeddedParams = embedded;
+}
 
 
 /****************************************************************************/
