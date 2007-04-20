@@ -41,3 +41,6 @@ cross3ltl_e2_joined
 # Tests whether e3-detectors work
 cross3ltl_e3
 
+# Tests whether physical-states-output work
+cross3ltl_physical_states
+
