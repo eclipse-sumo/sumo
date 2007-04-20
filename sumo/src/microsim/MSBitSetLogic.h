@@ -74,7 +74,8 @@ public:
                   std::bitset<64> conts)
             : MSJunctionLogic(nLinks, nInLanes), myLogic(logic),
             myInternalLinksFoes(foes), myConts(conts)
-    {}
+    {
+    }
 
 
     /// Destructor.
@@ -98,17 +99,6 @@ public:
                               ((request&(*myLogic)[i]).none() || myConts.test(i));
             respond.set(i, linkPermit);
         }
-        // check whether internal lanes disallow any movement
-        //  the number of internal lanes is equal to the number of links
-        /*
-        #ifdef HAVE_INTERNAL_LANES
-        for ( i = 0; i < myNLinks; ++i ) {
-            bool linkPermit = request.test( i ) && respond.test( i ) &&
-                (( innerState & ( *myInternalLinksFoes )[ i ]).none()  || myConts.test(i));
-            respond.set( i, linkPermit );
-        }
-        #endif
-        */
     }
 
 
