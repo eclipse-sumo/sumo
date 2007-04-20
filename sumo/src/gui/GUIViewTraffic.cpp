@@ -356,10 +356,6 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     myLaneDrawer.drawGLLanes(_edges2Show, _edges2ShowSize, width,
                              *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
                              *myVisualizationSettings);
-    if (myVisualizationSettings->drawJunctionName) {
-        myJunctionDrawer.drawGLJunctionNames(_junctions2Show, _junctions2ShowSize,
-                                             width, _junctionColScheme, *myVisualizationSettings);
-    }
     myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
                                      width, *myVisualizationSettings);
     myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
@@ -367,6 +363,10 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     if (myVisualizationSettings->drawEdgeName) {
         myLaneDrawer.drawGLLaneNames(_edges2Show, _edges2ShowSize, width,
                                      *myVisualizationSettings);
+    }
+    if (myVisualizationSettings->drawJunctionName) {
+        myJunctionDrawer.drawGLJunctionNames(_junctions2Show, _junctions2ShowSize,
+                                             width, _junctionColScheme, *myVisualizationSettings);
     }
     //
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
