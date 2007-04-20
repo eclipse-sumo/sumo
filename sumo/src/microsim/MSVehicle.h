@@ -210,10 +210,10 @@ public:
     const MSRoute &getRoute(int index) const;
 
     /// Replaces the current route by the given edges
-    bool replaceRoute(const MSEdgeVector &edges, size_t simTime);
+    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime);
 
     /// Replaces the current route by the given route
-    bool replaceRoute(MSRoute *r, size_t simTime);
+    bool replaceRoute(MSRoute *r, SUMOTime simTime);
     //@}
 
 
@@ -526,11 +526,11 @@ public:
     class Information
     {
     public:
-        Information(SUMOReal neededTime_, int time_)
+        Information(SUMOReal neededTime_, SUMOTime time_)
                 : neededTime(neededTime_), time(time_)
         { }
         SUMOReal neededTime; // how long needed the vehicle to travel on the edge
-        int time; // the Time, when the Info was saved
+        SUMOTime time; // the Time, when the Info was saved
     };
 
     // enumeration for all type of Connection
@@ -544,7 +544,7 @@ public:
     {
         MSVehicle  *connectedVeh;
         C2CConnectionState state;
-        int lastTimeSeen;
+        SUMOTime lastTimeSeen;
     };
     typedef std::map<MSVehicle * const, C2CConnection *> VehCont;
 

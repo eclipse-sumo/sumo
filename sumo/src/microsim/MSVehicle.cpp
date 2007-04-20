@@ -992,7 +992,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             // then let it pass
             //  [m]>
             if (seen>=myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
-                vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());//vaccel(myState.mySpeed, myLane->maxSpeed())); // otherwise vsafe may become incredibly large
+                vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
                 (*link)->setApproaching(this);
             } else {
                 // let it wait in the other cases
@@ -1484,7 +1484,7 @@ void
 MSVehicle::onDepart()
 {
     // check whether the vehicle's departure time shall be saved
-    myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = MSNet::getInstance()->getCurrentTimeStep();
+    myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = (int) MSNet::getInstance()->getCurrentTimeStep(); // !!!
     // check whether the vehicle control shall be informed
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
@@ -1570,7 +1570,7 @@ MSVehicle::getRoute(int index) const
 
 
 bool
-MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
+MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
 {
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
@@ -1627,7 +1627,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
 
 
 bool
-MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
+MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
 {
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
