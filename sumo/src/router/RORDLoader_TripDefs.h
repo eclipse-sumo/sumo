@@ -169,6 +169,9 @@ protected:
     /// The information whether the next route was read
     bool _nextRouteRead;
 
+    /// The vehicle type currently being parsed
+    ROVehicleType *myCurrentVehicleType;
+
 private:
     /// we made the copy constructor invalid
     RORDLoader_TripDefs(const RORDLoader_TripDefs &src);

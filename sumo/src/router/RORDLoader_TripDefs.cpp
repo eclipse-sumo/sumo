@@ -73,7 +73,7 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
         const std::string &fileName)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-        myDepartureTime(0)
+        myDepartureTime(0), myCurrentVehicleType(0)
 {}
 
 
@@ -116,6 +116,7 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
     }
     // check whether a vehicle type shall be parsed
     if (element==SUMO_TAG_VTYPE) {
+        deleteSnippet();
         // get and check the vtype-id
         string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
         if (id=="") {
@@ -152,8 +153,8 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
                     MsgHandler::getErrorInstance()->inform("The vehicle class for vehicle type '" + id + "' is malicious.");
                 }
             }
-            ROVehicleType *vt = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax, tau);
-            _net.addVehicleType(vt);
+            myCurrentVehicleType = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax, tau);
+            _net.addVehicleType(myCurrentVehicleType);
         } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");
             return;
@@ -311,6 +312,11 @@ void
 RORDLoader_TripDefs::myCharacters(int element, const std::string &/*name*/,
                                   const std::string &chars)
 {
+    if(element==-1) {
+        // save unknown elements
+        addSnippetCharacters(chars);
+        return;
+    }
     if (element==SUMO_TAG_TRIPDEF) {
         StringTokenizer st(chars);
         myEdges.clear();
@@ -330,6 +336,11 @@ RORDLoader_TripDefs::myCharacters(int element, const std::string &/*name*/,
 void
 RORDLoader_TripDefs::myEndElement(int element, const std::string &/*name*/)
 {
+    if(element==-1) {
+        // save unknown elements
+        closeSnippet();
+        return;
+    }
     if (element==SUMO_TAG_TRIPDEF &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
@@ -365,6 +376,11 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &/*name*/)
         }
         _net.addVehicle(myID, veh);
         veh->addEmbedded(extractSnippet());
+    }
+    if(element==SUMO_TAG_VTYPE) {
+        if(myCurrentVehicleType!=0) {
+            myCurrentVehicleType->addEmbedded(extractSnippet());
+        }
     }
 }
 
