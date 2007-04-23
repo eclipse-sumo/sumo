@@ -47,7 +47,15 @@ while($ok==1) {
 	}
 #	$line = <INDAT>;
 	($Datum_Dateneingabe, $LSA_ID, $Knoten_ID, $Fahrstreifen_Nr, $RistkVon_Ref, $RistkBis_Ref, $Fahrstreifen_Laenge, $Signalgr_Nr, $Signalgr_Bez, $Spur_Typ) = split(";", $line);
-	if(substr($Datum_Dateneingabe, 0, 1) ne "!" && $line ne $lastLine) {
+	if(substr($Datum_Dateneingabe, 0, 1) ne "!") {
+		$hadSameConnection2 = 0;
+		if($lastLine eq $line) {
+			$hadSameConnection2 = 1;
+			$sameConnectionOffset = $sameConnectionOffset + 1;
+		} else {
+			$sameConnectionOffset = 0;
+		}
+
 		$lastLine = $line;
 
 		$RistkVon_Ref =~ s/^\s|\s$|\.//g;
@@ -79,10 +87,16 @@ while($ok==1) {
 			if($lastFahrstreifen_Nr ne $Fahrstreifen_Nr) {
 				$lastDestLane = $lastDestLane + 1;
 			} else {
-				$hadSameConnection = 1;
+				if($Signalgr_Nr ne $last_Signalgr_Nr) {
+					$hadSameConnection = 1;
+				} else {
+					$lastDestLane = $lastDestLane + 1;
+				}
+#				$hadSameConnection = 1;
 			}
 		}
 		$lastFahrstreifen_Nr = $Fahrstreifen_Nr;
+		$last_Signalgr_Nr = $Signalgr_Nr;
 
 	        # close a previously began tls-definition
 		if($LSA_ID ne $lastLSA && $lastLSA ne "") {
