@@ -96,6 +96,11 @@ void
 RORDLoader_SUMORoutes::myCharacters(int element, const std::string &/*name*/,
                                     const std::string &chars)
 {
+    if(element==-1) {
+        // save unknown elements
+        addSnippetCharacters(chars);
+        return;
+    }
     if (element==SUMO_TAG_ROUTE&&myCurrentRouteName.length()!=0) {
         // parse the list of edges
         ROEdgeVector list;
