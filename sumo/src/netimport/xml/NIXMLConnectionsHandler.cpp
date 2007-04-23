@@ -130,6 +130,30 @@ void
 NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name,
                                         const Attributes &attrs)
 {
+    if (name=="reset") {
+        string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
+        string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
+        if (from.length()==0) {
+            addError("A from-edge is not specified within one of the connections-resets.");
+            return;
+        }
+        if (to.length()==0) {
+            addError("A to-edge is not specified within one of the connection-resets.");
+            return;
+        }
+        NBEdge *fromEdge = myEdgeCont.retrieve(from);
+        NBEdge *toEdge = myEdgeCont.retrieve(to);
+        if (fromEdge==0) {
+            addError("The connection-source edge '" + from + "' to reset is not known.");
+            return;
+        }
+        if (toEdge==0) {
+            addError("The connection-destination edge '" + to + "' to reset is not known.");
+            return;
+        }
+        fromEdge->removeFromConnections(toEdge);
+    }
+
     if (name=="connection") {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
