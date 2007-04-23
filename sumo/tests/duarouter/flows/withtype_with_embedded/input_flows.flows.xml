@@ -1,0 +1,13 @@
+<flowdefs>
+	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" vclass="public_bus">
+		<test1/>
+	</vtype>
+
+	<vtype id="2" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" vclass="public_bus">
+		<test2 id="2"><test3/></test2>
+	</vtype>
+
+	<flow id="0" from="beg" to="rend" begin="0" end="100" no="10" type="0"/>
+	<flow id="1" from="beg" to="rend" begin="0" end="100" no="10" type="2"/>
+
+</flowdefs>

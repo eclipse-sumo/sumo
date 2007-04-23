@@ -1,38 +1,32 @@
 <route-alternatives>
-   <vehicle id="0_0" depart="1">
-      <routealt last="0">
-         <route cost="124.876" probability="1">beg middle end rend</route>
-      </routealt>
-      <test0>
-      </test0>
-   </vehicle>
-   <vehicle id="1_0" depart="1">
-      <routealt last="0">
-         <route cost="124.876" probability="1">beg middle end rend</route>
-      </routealt>
+   <vtype model="SUMO_KRAUSS" id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" tau="1" color="1,0,0" class="pedestrian">
       <test1>
-         <test2>
-         </test2>
+      </test1>
+   </vtype>
+   <vehicle id="0" type="0" depart="0">
+      <routealt last="0">
+         <route cost="124.876" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vtype model="SUMO_KRAUSS" id="2" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" tau="1" color="1,0,0" class="pedestrian">
+      <test2 id="2">
          <test3>
          </test3>
-      </test1>
-   </vehicle>
-   <vehicle id="0_1" depart="51">
+      </test2>
+   </vtype>
+   <vehicle id="1" type="2" depart="1">
       <routealt last="0">
          <route cost="124.876" probability="1">beg middle end rend</route>
       </routealt>
-      <test0>
-      </test0>
    </vehicle>
-   <vehicle id="1_1" depart="51">
+   <vehicle id="2" type="0" depart="2">
       <routealt last="0">
          <route cost="124.876" probability="1">beg middle end rend</route>
       </routealt>
-      <test1>
-         <test2>
-         </test2>
-         <test3>
-         </test3>
-      </test1>
+   </vehicle>
+   <vehicle id="3" type="2" depart="3">
+      <routealt last="0">
+         <route cost="124.876" probability="1">beg middle end rend</route>
+      </routealt>
    </vehicle>
 </route-alternatives>

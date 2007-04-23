@@ -28,7 +28,9 @@ flows2routes_100s_interval_typedefined
 # Test whether the vehicle class is processed
 flows2routes_100s_interval_withtype_withclass
 
-# Test whether embedding information works
+# Test whether embedding information into vehicles works
 flows2routes_embedded
 
+# Tests whether embeding into vehicle types works
+withtype_with_embedded
 

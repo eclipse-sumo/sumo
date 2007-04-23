@@ -1,0 +1,13 @@
+<tripdefs>
+	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" vclass="pedestrian">
+		<test1/>
+	</vtype>
+	<vtype id="2" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0" vclass="pedestrian">
+		<test2 id="2"><test3/></test2>
+	</vtype>
+
+	<tripdef depart="0" from="beg" to="rend" type="0"/>
+	<tripdef depart="1" from="beg" to="rend" type="2"/>
+	<tripdef depart="2" from="beg" to="rend" type="0"/>
+	<tripdef depart="3" from="beg" to="rend" type="2"/>
+</tripdefs>

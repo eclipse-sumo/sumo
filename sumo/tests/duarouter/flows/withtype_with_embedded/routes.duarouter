@@ -1,0 +1,72 @@
+<routes>
+   <vtype model="SUMO_KRAUSS" id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" tau="1" color="1,0,0" class="bus">
+      <test1>
+      </test1>
+   </vtype>
+   <vehicle id="0_0" type="0" depart="1">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vtype model="SUMO_KRAUSS" id="2" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" tau="1" color="1,0,0" class="bus">
+      <test2 id="2">
+         <test3>
+         </test3>
+      </test2>
+   </vtype>
+   <vehicle id="1_0" type="2" depart="1">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_1" type="0" depart="11">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_1" type="2" depart="11">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_2" type="0" depart="21">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_2" type="2" depart="21">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_3" type="0" depart="31">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_3" type="2" depart="31">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_4" type="0" depart="41">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_4" type="2" depart="41">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_5" type="0" depart="51">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_5" type="2" depart="51">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_6" type="0" depart="61">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_6" type="2" depart="61">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_7" type="0" depart="71">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_7" type="2" depart="71">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_8" type="0" depart="81">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_8" type="2" depart="81">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_9" type="0" depart="91">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1_9" type="2" depart="91">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>

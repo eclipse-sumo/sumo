@@ -40,6 +40,9 @@ unsorted_time_typedefined
 # Test whether the vehicle class is processed
 increasing_time_typedefined_withclass
 
-# Test whether embedding further information works
+# Test whether embedding further information into vehicles works
 embedded
+
+# Tests whether embedding information into vehicle types works
+increasing_time_typedefined_with_embedded
 
