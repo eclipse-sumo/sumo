@@ -45,9 +45,7 @@
 // ===========================================================================
 // definitions
 // ===========================================================================
-size_t noSumoTags = 54;
-
-GenericSAXHandler::Tag sumotags[54] =
+GenericSAXHandler::Tag sumotags[] =
     {
         { "simulation",       SUMO_TAG_SIMULATION },
         { "edge",             SUMO_TAG_EDGE },
@@ -102,12 +100,12 @@ GenericSAXHandler::Tag sumotags[54] =
         { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
         { "weight",           SUMO_TAG_WEIGHT },
         { "reroute-agent",	SUMO_TAG_REROUTE_AGENT },
-        { "param",	        SUMO_TAG_PARAM }
+        { "param",	        SUMO_TAG_PARAM },
+        { "", -1 }
     };
 
-size_t noSumoAttrs = 91;
 
-GenericSAXHandler::Attr sumoattrs[91] =
+GenericSAXHandler::Attr sumoattrs[] =
     {
         { "id",             SUMO_ATTR_ID },
         { "name",           SUMO_ATTR_NAME },
@@ -214,7 +212,8 @@ GenericSAXHandler::Attr sumoattrs[91] =
 
         { "host",			SUMO_ATTR_HOST },
         { "port",			SUMO_ATTR_PORT },
-        { "protocol",		SUMO_ATTR_PROTOCOL }
+        { "protocol",		SUMO_ATTR_PROTOCOL },
+        { "",               -1 }
 
     };
 

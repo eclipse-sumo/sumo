@@ -84,7 +84,7 @@ public:
         /// The xml-element-name (ascii)
         const char *name;
         /// The numerical representation of the attribute
-        int value;
+        int key;
     };
 
 
@@ -94,7 +94,7 @@ public:
 
     /** parametrised constructor */
     GenericSAXHandler(
-        Tag *tags, int noTags, Attr *attrs, int noAttrs);
+        Tag *tags, Attr *attrs);
 
     /** destructor */
     virtual ~GenericSAXHandler();

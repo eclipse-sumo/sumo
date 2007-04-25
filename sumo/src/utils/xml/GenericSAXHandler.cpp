@@ -53,16 +53,19 @@ GenericSAXHandler::GenericSAXHandler()
 
 
 GenericSAXHandler::GenericSAXHandler(
-        GenericSAXHandler::Tag *tags, int noTags, 
-        GenericSAXHandler::Attr *attrs, int noAttrs)
+        GenericSAXHandler::Tag *tags, 
+        GenericSAXHandler::Attr *attrs)
         : _errorOccured(false), _unknownOccured(false)
 { 
-    int i;
-    for (i=0; i<noTags; i++) {
-        addTag(tags[i].name, tags[i].value);
+    int i = 0;
+    while (tags[i].key>=0) {
+        addTag(tags[i].name, tags[i].key);
+        i++;
     }
-    for (i=0; i<noAttrs; i++) {
+    i = 0;
+    while (attrs[i].key>=0) {
         add(attrs[i].key, attrs[i].name);
+        i++;
     }
 }
 
@@ -76,6 +79,8 @@ GenericSAXHandler::~GenericSAXHandler()
         delete[] (*i2).second;
     }
 }
+
+
 void
 GenericSAXHandler::add(int id, const std::string &name)
 {

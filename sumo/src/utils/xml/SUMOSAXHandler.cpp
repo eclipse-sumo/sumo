@@ -62,8 +62,7 @@ using namespace std;
 SUMOSAXHandler::SUMOSAXHandler(const std::string &filetype,
                                const std::string &file)
         : FileErrorReporter(filetype, file),
-        GenericSAXHandler(sumotags, noSumoTags,
-                                            sumoattrs, noSumoAttrs),
+        GenericSAXHandler(sumotags, sumoattrs),
         myCurrentSnippet(0)
 {}
 

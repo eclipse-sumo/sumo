@@ -307,15 +307,11 @@ enum AttrEnum
 // ===========================================================================
 // declarations
 // ===========================================================================
-/// The number of SUMO-XML element names
-extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAXHandler::Tag sumotags[54];
+extern GenericSAXHandler::Tag sumotags[];
 
-/// The number of SUMO-XML attributes
-extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern GenericSAXHandler::Attr sumoattrs[91];
+extern GenericSAXHandler::Attr sumoattrs[];
 
 
 #endif
