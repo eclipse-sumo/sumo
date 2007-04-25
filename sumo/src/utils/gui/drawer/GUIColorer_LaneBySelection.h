@@ -65,7 +65,8 @@ public:
 
     void setGlColor(const _T& i) const
     {
-        if (gSelected.isSelected(i.getType(), i.getGlID())) {
+        const GUIEdge *e = static_cast<const GUIEdge * const>(i.getMSEdge());
+        if (gSelected.isSelected(i.getType(), i.getGlID()) || gSelected.isSelected(e->getType(), e->getGlID())) {
             glColor3f(0, .4f, .8f);
         } else {
             glColor3f(0.7f, 0.7f, 0.7f);

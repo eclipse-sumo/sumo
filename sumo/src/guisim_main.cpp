@@ -242,7 +242,7 @@ initLaneColoringSchemes()
     //
     sm.add("uniform",
            new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
-    sm.add("by selection (lanewise)",
+    sm.add("by selection (lane-/streetwise)",
            new GUIColorer_LaneBySelection<GUILaneWrapper>());
     sm.add("by purpose (lanewise)",
            new GUIColorer_LaneByPurpose<GUILaneWrapper>());

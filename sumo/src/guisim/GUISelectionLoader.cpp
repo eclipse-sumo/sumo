@@ -99,7 +99,12 @@ GUISelectionLoader::loadSelection(const std::string &file)
                 }
             }
             break;
-            case GLO_EDGE: {}
+            case GLO_EDGE: {
+                MSEdge *e = MSEdge::dictionary(name);
+                if (e!=0) {
+                    oid = static_cast<const GUIEdge * const>(e)->getGlID();
+                }
+            }
             break;
             case GLO_JUNCTION: {}
             break;
