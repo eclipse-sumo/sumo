@@ -53,6 +53,7 @@ Usage: dfrouter.exe [OPTION]*
                                        complex format
   --time-offset INT                  Subtracts INT from flow times
   --write-calibrators                
+  --include-unused-routes            
   --revalidate-flows                 
   --remove-empty-detectors           Removes empty detectors from the list
   --strict-sources                   

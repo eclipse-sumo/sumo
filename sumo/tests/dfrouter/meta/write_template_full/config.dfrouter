@@ -32,6 +32,7 @@
       <fast-flows>false</fast-flows>
       <time-offset>0</time-offset>
       <write-calibrators>false</write-calibrators>
+      <include-unused-routes>false</include-unused-routes>
       <revalidate-flows>false</revalidate-flows>
       <remove-empty-detectors>false</remove-empty-detectors>
       <strict-sources>false</strict-sources>

@@ -83,6 +83,9 @@
       <write-calibrators>false</write-calibrators>
 
       <!--  -->
+      <include-unused-routes>false</include-unused-routes>
+
+      <!--  -->
       <revalidate-flows>false</revalidate-flows>
 
       <!-- Removes empty detectors from the list -->

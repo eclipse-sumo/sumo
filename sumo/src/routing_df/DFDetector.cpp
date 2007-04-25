@@ -102,7 +102,7 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 
 
 void
-DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
+DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         const DFDetectorFlows &flows,
         SUMOTime startTime,
         SUMOTime endTime,
@@ -125,7 +125,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
     }
     */
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    //const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
     int time;
     for (time=startTime; time<endTime; time+=stepOffset) {
@@ -140,12 +140,10 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
 
             SUMOReal distanceFactor = computeDistanceFactor(*rd);
 
-            /*
-
             // the current probability is 1
             SUMOReal ovProb = 1.;
             bool hadMissing = false;
-            // go thrught this route's edges
+            // go through this route's edges
             std::vector<ROEdge*>::reverse_iterator i = rd->edges2Pass.rbegin() + 1;
             while(i!=rd->edges2Pass.rend()) {
                 if((*i)->getNoFollowing()>1||hadMissing) {
@@ -159,7 +157,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
                             SUMOReal cflow = 0;
                             if(true) { // !!!
                                 cflow = (SUMOReal) detectors.getAggFlowFor(*k, time, 30*60, flows);
-                                /
+                                /*
                                 for(SUMOTime t2 = 0; t2<30*60&&t2+time<endTime; t2+=stepOffset) { // !!!
                                     SUMOReal tmpFlow = (SUMOReal) detectors.getFlowFor(*k, (t2+time/!!! + desc->duration2Last/), flows);
                                     if(tmpFlow<0) {
@@ -167,14 +165,14 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
                                     }
                                     cflow += tmpFlow;
                                 }
-                                /
+                                */
                             } else {
-                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/!!! + desc->duration2Last/), flows);
+                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
                             }
                             if(cflow<0) {
                                 cflow = 0; // !!!
                             }
-                            if(my==0&&find((*ri)->edges2Pass.begin(), (*ri)->edges2Pass.end(), *k)!=(*ri)->edges2Pass.end()) {
+                            if(my==0&&find(rd->edges2Pass.begin(), rd->edges2Pass.end(), *k)!=rd->edges2Pass.end()) {
                                 my = *k;
                                 myFlow = cflow;
                             }
@@ -196,7 +194,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
                 }
                 ++i;
             }
-            */
+            /*
             //
             std::vector<ROEdge*>::iterator i = rd->edges2Pass.begin();
             SUMOReal noRamps = 0;
@@ -250,6 +248,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &/*detectors*/,
             rd->factor = rd->factor * rd->factor;
             // SUMOReal laneFactor = (noLanes/noEdges);
             SUMOReal ovProb = (rd->factor * distanceFactor * length * edgeFactor * noLanes);
+            */
             into[time]->add(ovProb, index);
             (*ri)->overallProb = ovProb;
         }
@@ -421,7 +420,8 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                                    const DFDetectorCon &detectors,
                                    const DFDetectorFlows &flows,
                                    SUMOTime startTime, SUMOTime endTime,
-                                   SUMOTime stepOffset) const
+                                   SUMOTime stepOffset,
+                                   bool includeUnusedRoutes) const
 {
     // write the definition
     ofstream strm(file.c_str());
@@ -461,7 +461,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                 // !!! check things about intervals
                 // !!! optional
                 for (i=routes.begin(); i!=routes.end(); ++i) {
-                    if ((*i)->overallProb>0) {
+                    if ((*i)->overallProb>0||includeUnusedRoutes) {
                         strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << ((*i)->overallProb/overallSum) << "\"/>" << endl; // !!!
                         writtenRoutes++;
                     }
@@ -799,7 +799,8 @@ void
 DFDetectorCon::writeEmitters(const std::string &file,
                              const DFDetectorFlows &flows,
                              SUMOTime startTime, SUMOTime endTime,
-                             SUMOTime stepOffset, bool writeCalibrators)
+                             SUMOTime stepOffset, bool writeCalibrators,
+                             bool includeUnusedRoutes)
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
@@ -821,7 +822,7 @@ DFDetectorCon::writeEmitters(const std::string &file,
             continue;
         }
         // try to write the definition
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset)) {
+        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, includeUnusedRoutes)) {
             // skip if something failed... (!!!)
             continue;
         }

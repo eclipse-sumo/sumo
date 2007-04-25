@@ -174,6 +174,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("write-calibrators", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("write-calibrators", "Processing", "");
 
+    oc.doRegister("include-unused-routes", new Option_Bool(false)); // !!!undescribed
+    oc.addDescription("include-unused-routes", "Processing", "");
+
     oc.doRegister("revalidate-flows", new Option_Bool(false));
     oc.addDescription("revalidate-flows", "Processing", "");
 

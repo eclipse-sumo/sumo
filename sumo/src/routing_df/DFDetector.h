@@ -107,7 +107,9 @@ public:
     void setType(dfdetector_type type);
     bool writeEmitterDefinition(const std::string &file,
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
-                                SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset) const;
+                                SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                bool includeUnusedRoutes) const;
+
     void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
     void addRoutes(DFRORouteCont *routes);
     bool hasRoutes() const;
@@ -165,7 +167,8 @@ public:
     void writeEmitters(const std::string &file,
                        const DFDetectorFlows &flows,
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                       bool writeCalibrators);
+                       bool writeCalibrators, bool includeUnusedRoutes);
+
     void writeEmitterPOIs(const std::string &file,
                           const DFDetectorFlows &flows,
                           SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);

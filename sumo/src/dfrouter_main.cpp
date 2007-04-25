@@ -272,7 +272,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     if (optNet!=0) {
         if (oc.getBool("remove-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
-            optNet->removeEmptyDetectors(*detectors, *flows, 0, 86400, 60);
+            optNet->removeEmptyDetectors(*detectors, *flows, oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         // compute the detector types (optionally)
@@ -323,22 +323,23 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 
     // save emitters if wished
     if (oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
-        optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
+        optNet->buildEdgeFlowMap(*flows, *detectors, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
         if (oc.getBool("revalidate-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
-            optNet->revalidateFlows(*detectors, *flows, 0, 86400, 60);
+            optNet->revalidateFlows(*detectors, *flows, oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
             detectors->writeEmitters(oc.getString("emitters-output"), *flows,
-                                     0, 86400, 60, oc.getBool("write-calibrators"));
+                                     oc.getInt("begin"), oc.getInt("end"), 60, oc.getBool("write-calibrators"),
+                                     oc.getBool("include-unused-routes"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-poi-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
             detectors->writeEmitterPOIs(oc.getString("emitters-poi-output"), *flows,
-                                        0, 86400, 60);
+                                        oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
@@ -346,7 +347,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     if (oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
         detectors->writeSpeedTrigger(oc.getString("speed-trigger-output"), *flows,
-                                     0, 86400, 60);
+                                     oc.getInt("begin"), oc.getInt("end"), 60);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // save checking detectors if wished
