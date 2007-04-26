@@ -25,6 +25,7 @@ class Edge:
         self.source = source
         self.target = target
         self.capacity = sys.maxint
+        self.startCapacity = sys.maxint
         self.flow = 0
         self.kind = kind
         self.maxSpeed = 0.0
@@ -131,8 +132,7 @@ class Net:
             if options.trimfile:
                 trimOut = open(options.trimfile, 'w')
                 for edge in self._edges.values():
-                    for lane in range(edge.laneCount):
-                        trimOut.write("lane:"+edge.label+"_"+str(lane)+"\n")
+                    print >> trimOut, "edge:"+edge.label
                 trimOut.close()
 
     def detectSourceSink(self):
@@ -147,8 +147,9 @@ class Net:
         for edge in self._edges.itervalues():
             if len(edge.detFlow) > 0:
                 edge.capacity = max(edge.detFlow)
-            if options.ignorezero and edge.capacity == 0:
+            if not options.respectzero and edge.capacity == 0:
                 edge.capacity = sys.maxint
+            edge.startCapacity = edge.capacity
         if not forcedSourceSinkDetection:
             if len(self._sink.inEdges) == 0:
                 warn("Warning! No sinks, trying to find some.")
@@ -300,22 +301,47 @@ class Net:
 
     def writeEmitters(self, emitFileName):
         emitOut = open(emitFileName, 'w')
-        emitOut.write("<additional>\n")
+        print >> emitOut, "<additional>"
         for edgeLabel, routes in self._routes.iteritems():
             srcFile = "src_"+edgeLabel + ".def.xml"
-            emitOut.write('    <trigger id="src_' + edgeLabel + '" objecttype="emitter" ')
-            emitOut.write('pos="0" friendly_pos="x" ')
-            emitOut.write('objectid="' + edgeLabel + '_0" file="' + srcFile + '"/>\n')
+            print >> emitOut, '    <trigger id="src_' + edgeLabel + '"',
+            print >> emitOut, 'objecttype="emitter" pos="0"',
+            print >> emitOut, 'friendly_pos="x" objectid="' + edgeLabel + '_0"',
+            print >> emitOut, 'file="' + srcFile + '"/>'
             srcOut = open(srcFile, 'w')
-            srcOut.write("<triggeredsource>\n")
+            print >> srcOut, "<triggeredsource>"
             for route in routes:
-                srcOut.write('    <routedistelem id="'+route+'" probability="'+str(self._routeFreq[route])+'"/>\n')
+                print >> srcOut, '    <routedistelem id="' + route + '"',
+                print >> srcOut, 'probability="' + str(self._routeFreq[route]) + '"/>'
             for time in range(self._edges[edgeLabel].flow):
-                srcOut.write('    <emit time="'+str(time)+'"/>\n')
-            srcOut.write("</triggeredsource>\n")
+                print >> srcOut, '    <emit time="' + str(time) + '"/>'
+            print >> srcOut, "</triggeredsource>"
             srcOut.close()
-        emitOut.write("</additional>\n")
+        print >> emitOut, "</additional>"
         emitOut.close()
+
+    def writeFlowPOIs(self, poiFileName):
+        poiOut = open(poiFileName, 'w')
+        print >> poiOut, "<pois>"
+        for edge in self._edges.itervalues():
+            color = "0,0,1"
+            for src in edge.source.inEdges:
+                if src.source == self._source:
+                    color = "0,1,0"
+                    break
+            for sink in edge.target.outEdges:
+                if sink.target == self._sink:
+                    color = "1,"+color[2]+",0"
+                    break
+            label = edge.label
+            flow = str(edge.flow)
+            cap = str(edge.startCapacity)
+            if edge.startCapacity == sys.maxint:
+                cap = "inf"
+            print >> poiOut, '    <poi id="' + label + '_f' + flow + 'c' + cap + '"',
+            print >> poiOut, 'color = "' + color + '" lane="' + label + '_0" pos="0"/>'
+        print >> poiOut, "</pois>"
+        poiOut.close()
 
 
 class NetDetectorFlowReader(handler.ContentHandler):
@@ -410,15 +436,17 @@ optParser.add_option("-o", "--routes-output", dest="routefile",
 optParser.add_option("-e", "--emitters-output", dest="emitfile",
                      help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
 optParser.add_option("-t", "--trimmed-output", dest="trimfile",
-                     help="write lanes of trimmed network to FILE", metavar="FILE")
+                     help="write edges of trimmed network to FILE", metavar="FILE")
+optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
+                     help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s), together with their predecessors and successors")
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
                      default=False, help="detect sources and sinks")
-optParser.add_option("-i", "--ignore-zero", action="store_true", dest="ignorezero",
-                     default=False, help="ignore detectors with zero flow")
+optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
+                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
                      default=False, help="suppress warnings")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -451,3 +479,5 @@ if net.checkNet(options.sourcesink):
     net.calcRoutes()
     if options.emitfile:
         net.writeEmitters(options.emitfile)
+    if options.flowpoifile:
+        net.writeFlowPOIs(options.flowpoifile)

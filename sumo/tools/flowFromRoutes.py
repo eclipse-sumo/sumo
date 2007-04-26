@@ -102,7 +102,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         n = 0
         for det in self._edge2det.itervalues():
             for rFlow, dFlow in zip(det.routeFlow, det.detFlow):
-                if dFlow > 0 or not options.ignorezero:
+                if dFlow > 0 or options.respectzero:
                     rSum += rFlow
                     dSum += dFlow
                     dev = float(abs(rFlow - dFlow))
@@ -130,7 +130,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 output.extend(zip(det.detString, det.routeFlow))
         if includeDets:
             for group, rflow, dflow in sorted(output):
-                if dflow > 0 or not options.ignorezero:
+                if dflow > 0 or options.respectzero:
                     print group, rflow, dflow
         else:
             for group, flow in sorted(output):
@@ -146,8 +146,8 @@ optParser.add_option("-e", "--emitters", dest="emitfile",
                      help="read emitters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
                      help="read detector flows to compare to from FILE", metavar="FILE")
-optParser.add_option("-i", "--ignore-zero", action="store_true", dest="ignorezero",
-                     default=False, help="ignore detectors with zero flow in the flow input file")
+optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
+                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
