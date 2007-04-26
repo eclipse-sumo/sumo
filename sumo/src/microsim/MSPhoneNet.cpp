@@ -43,6 +43,7 @@
 #include "utils/options/OptionsSubSys.h"
 #include "MSPhoneCell.h"
 #include "MSPhoneLA.h"
+#include "MSNet.h"
 
 
 // ===========================================================================
@@ -119,8 +120,6 @@ MSPhoneNet::getCurrentVehicleLA(const std::string &id)
 void
 MSPhoneNet::addMSPhoneCell(int id)
 {
-    /*MSPhoneCell* c = new MSPhoneCell( id );
-    _mMSPhoneCells[id] = c;*/
     std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find(id);
     if (cit == _mMSPhoneCells.end()) {
         MSPhoneCell* c = new MSPhoneCell(id);
@@ -204,53 +203,38 @@ MSPhoneNet::remMSPhoneLA(int id)
 void
 MSPhoneNet::writeOutput(SUMOTime t)
 {
-    std::map< int, MSPhoneCell* >::iterator cit;
-    for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
-        cit->second->setnextexpectData(t);
-    }
-
-    if (MSCORN::wished(MSCORN::CORN_OUT_CELL_TO_SS2) && (t % _CellIntervall) == 0) {
-        std::map< int, MSPhoneCell* >::iterator cit;
-        for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
-            cit->second->writeOutput(t);
+    {
+        // cell output / sql cell output
+        OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
+        OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
+        if ((od1!=0||od2!=0) && (t % _CellIntervall) == 0) {
+            std::map< int, MSPhoneCell* >::iterator cit;
+            for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
+                cit->second->writeOutput(t);
+            }
         }
     }
-
-    if (MSCORN::wished(MSCORN::CORN_OUT_LA_TO_SS2) && (t % _LAIntervall) == 0) {
-        std::map< int, MSPhoneLA* >::iterator lit;
-        for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
-            lit->second->writeOutput(t);
-        }
-    }
-    /*the same but for the sql version*/
-    if (MSCORN::wished(MSCORN::CORN_OUT_CELL_TO_SS2_SQL) && (t % _CellIntervall) == 0) {
-        std::map< int, MSPhoneCell* >::iterator cit;
-        for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
-            cit->second->writeSQLOutput(t);
-        }
-    }
-
-    if (MSCORN::wished(MSCORN::CORN_OUT_LA_TO_SS2_SQL) && (t % _LAIntervall) == 0) {
-        /*std::map< int, MSPhoneLA* >::iterator lit;
-        for ( lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++ ) {
-            lit->second->writeSQLOutput( t );
-        }*/
-        std::map< std::string, int >::iterator lit;
-        for (lit = myLAChanges.begin(); lit != myLAChanges.end(); lit++) {
-            MSCORN::saveTOSS2SQL_LA_ChangesData(t, atoi(lit->first.c_str()), 0, lit->second, 30, _LAIntervall);
+    {
+        // la output / sql la output
+        OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
+        OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
+        if ((od1!=0||od2!=0) && (t % _LAIntervall) == 0) {
+            std::map< int, MSPhoneLA* >::iterator lit;
+            for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
+                lit->second->writeOutput(t);
+            }
         }
         myLAChanges.clear();
     }
-    //setCellStatData(t);
 }
 
 
-void
-MSPhoneNet::setCellStatData(SUMOTime t)
+void 
+MSPhoneNet::setDynamicCalls(SUMOTime time)
 {
     std::map< int, MSPhoneCell* >::iterator cit;
     for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
-        cit->second->setnextexpectData(t);
+        cit->second->setDynamicCalls(time);
     }
 }
 
@@ -258,10 +242,11 @@ void
 MSPhoneNet::addLAChange(const std::string & pos_id)
 {
     std::map< std::string, int >::iterator it = myLAChanges.find(pos_id);
-    if (it == myLAChanges.end())
+    if (it == myLAChanges.end()) {
         myLAChanges.insert(make_pair(pos_id, 1));
-    else
+    } else {
         myLAChanges[pos_id]++;
+    }
 }
 
 

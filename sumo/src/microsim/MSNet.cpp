@@ -196,13 +196,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
-    MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
-    MSCORN::setCellTOSS2Output(streams[OS_CELL_TO_SS2]);
-    MSCORN::setLATOSS2Output(streams[OS_LA_TO_SS2]);
-    MSCORN::setVehicleDeviceTOSS2SQLOutput(streams[OS_DEVICE_TO_SS2_SQL]);
-    MSCORN::setCellTOSS2SQLOutput(streams[OS_CELL_TO_SS2_SQL]);
-    MSCORN::setLATOSS2SQLOutput(streams[OS_LA_TO_SS2_SQL]);
-    MSCORN::setCELLPHONEDUMPOutput(streams[OS_CELLPHONE_DUMP_TO]);
     //car2car
     MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
     MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
@@ -344,30 +337,6 @@ MSNet::initialiseSimulation()
         << "<physical-states>" << endl;
     }
     
-    // ... the same for TrafficOnline-SS2 information
-    if (myOutputStreams[OS_DEVICE_TO_SS2]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2);
-    }
-    if (myOutputStreams[OS_CELL_TO_SS2]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_CELL_TO_SS2);
-    }
-    if (myOutputStreams[OS_LA_TO_SS2]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2);
-    }
-    // ... the same for TrafficOnline-SS2-SQL information
-    if (myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL);
-    }
-    if (myOutputStreams[OS_CELL_TO_SS2_SQL]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_CELL_TO_SS2_SQL);
-    }
-    if (myOutputStreams[OS_LA_TO_SS2_SQL]!=0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2_SQL);
-    }
-    // ... the same for TrafficOnline cellphone-dump
-    if (myOutputStreams[OS_CELLPHONE_DUMP_TO] != 0) {
-        MSCORN::setWished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO);
-    }
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
         myOutputStreams[OS_CLUSTER_INFO]->getOStream()
@@ -476,6 +445,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
     myBeginOfTimestepEvents.execute(myStep);
+
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
     // emit Vehicles
@@ -485,6 +455,10 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         myEdges->detectCollisions(step);
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
+
+    if(myMSPhoneNet!=0) {
+        myMSPhoneNet->setDynamicCalls(myStep);
+    }
 
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);

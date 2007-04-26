@@ -4,7 +4,7 @@
 /// @date    unknown
 /// @version $Id$
 ///
-// missing_desc
+// Some static methods for string processing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -162,6 +162,23 @@ StringUtils::upper(std::string &str)
             str[i] = str[i] - 'a' + 'A';
         }
     }
+}
+
+
+std::string
+StringUtils::toTimeString(int time)
+{
+    std::ostringstream oss;
+    char buffer[4];
+    sprintf(buffer, "%02i:",(time/3600));
+    oss << buffer;
+    time=time%3600;
+    sprintf(buffer, "%02i:",(time/60));
+    oss << buffer;
+    time=time%60;
+    sprintf(buffer, "%02i", time);
+    oss << buffer;
+    return oss.str();
 }
 
 

@@ -258,23 +258,20 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.addDescription("device.cell-phone.probability", "Cellular", "");
 
-    oc.doRegister("ss2-cellload-file", new Option_FileName());//!!! check, describe
-    oc.addDescription("ss2-cellload-file", "Cellular", "");
-
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
     oc.addDescription("ss2-output", "Cellular", "");
-
-    oc.doRegister("ss2-cell-output", new Option_FileName());
-    oc.addDescription("ss2-cell-output", "Cellular", "");
-
-    oc.doRegister("ss2-la-output", new Option_FileName());
-    oc.addDescription("ss2-la-output", "Cellular", "");
 
     oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
     oc.addDescription("ss2-sql-output", "Cellular", "");
 
+    oc.doRegister("ss2-cell-output", new Option_FileName());
+    oc.addDescription("ss2-cell-output", "Cellular", "");
+
     oc.doRegister("ss2-sql-cell-output", new Option_FileName());
     oc.addDescription("ss2-sql-cell-output", "Cellular", "");
+
+    oc.doRegister("ss2-la-output", new Option_FileName());
+    oc.addDescription("ss2-la-output", "Cellular", "");
 
     oc.doRegister("ss2-sql-la-output", new Option_FileName());
     oc.addDescription("ss2-sql-la-output", "Cellular", "");

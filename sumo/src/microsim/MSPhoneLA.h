@@ -73,9 +73,6 @@ public:
     /// !!!?
     void writeOutput(SUMOTime t);
 
-    /// !!!?
-    void writeSQLOutput(SUMOTime t);
-
     /// comparison operator
     bool operator==(MSPhoneLA*);
 

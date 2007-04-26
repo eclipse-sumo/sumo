@@ -37,6 +37,7 @@
 #endif
 
 #include <string>
+#include <map>
 
 
 // ===========================================================================
@@ -114,6 +115,30 @@ public:
         myNeedDetectorName = value;
     }
 
+    ///{ methods for saving/reading an abstract state
+    /** @brief Returns the value of the named boolean marker
+     *
+     * If the boolean marker was not set before, false is returned
+     */
+    bool getBoolMarker(const std::string &name) const {
+        if(myBoolMarkers.find(name)==myBoolMarkers.end()) {
+            return false;
+        }
+        return myBoolMarkers.find(name)->second;
+    }
+
+    /** @brief Sets the named boolean marker to the given state
+     *
+     * The previous value will be overwritten
+     */
+    void setBoolMarker(const std::string &name, bool value) {
+        myBoolMarkers[name] = value;
+    }
+    ///}
+
+
+
+
 
 protected:
     /// The information whether a header shall be written
@@ -124,6 +149,9 @@ protected:
 
     /// The information wheter the detector's name should be printed
     bool myNeedDetectorName;
+
+    /// Map of boolean markers
+    std::map<std::string, bool> myBoolMarkers;
 
 };
 

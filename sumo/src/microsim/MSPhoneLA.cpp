@@ -36,6 +36,9 @@
 
 #include <cassert>
 #include "MSPhoneLA.h"
+#include "MSNet.h"
+#include <utils/common/StringUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
@@ -77,8 +80,9 @@ void
 MSPhoneLA::remCall(const std::string &id)
 {
     std::map<std::string, int>::iterator icalls = _Calls.find(id);
-    assert(icalls!=_Calls.end());
-    _Calls.erase(icalls);
+    if(icalls!=_Calls.end()) {
+        _Calls.erase(icalls);
+    }
 }
 
 
@@ -115,19 +119,29 @@ void
 MSPhoneLA::writeOutput(SUMOTime t)
 {
     intervall = t - last_time;
-    MSCORN::saveTOSS2_LA_ChangesData(t, position_id, dir, sum_changes, quality_id, intervall);
-    last_time = t;
-    sum_changes = 0;
-}
-
-
-//#include <microsim/MSNet.h>
-
-void
-MSPhoneLA::writeSQLOutput(SUMOTime t)
-{
-    intervall = t - last_time;
-    MSCORN::saveTOSS2SQL_LA_ChangesData(t, position_id, dir, sum_changes, quality_id, intervall);
+    {
+        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
+        if(od!=0) {
+            std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+            od->getOStream()
+                << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
+                << ';' << quality_id << ';' << intervall << "\n";
+        }
+    }
+    {
+        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
+        if(od!=0) {
+            std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+            if (od->getBoolMarker("hadFirstCall")) {
+                od->getOStream() << "," << endl;
+            } else {
+                od->setBoolMarker("hadFirstCall", true);
+            }
+            od->getOStream()
+                << "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
+                << quality_id << ',' << intervall << ")";
+        }
+    }
     last_time = t;
     sum_changes = 0;
 }

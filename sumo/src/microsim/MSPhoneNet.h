@@ -105,9 +105,7 @@ public:
 
     /// ?!!!
     void writeOutput(SUMOTime time);
-
-    /// Adapts the previously loaded statistics
-    void setCellStatData(SUMOTime time);
+    void setDynamicCalls(SUMOTime time);
 
 
     void addLAChange(const std::string &pos_id);

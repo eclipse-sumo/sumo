@@ -67,14 +67,6 @@ public:
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
-        // TrafficOnline-output
-        CORN_OUT_DEVICE_TO_SS2,
-        CORN_OUT_CELL_TO_SS2,
-        CORN_OUT_LA_TO_SS2,
-        CORN_OUT_DEVICE_TO_SS2_SQL,
-        CORN_OUT_CELL_TO_SS2_SQL,
-        CORN_OUT_LA_TO_SS2_SQL,
-        CORN_OUT_CELLPHONE_DUMP_TO,
         // c2x-output
         CORN_OUT_CLUSTER_INFO,
         CORN_OUT_SAVED_INFO,
@@ -101,7 +93,7 @@ public:
         CORN_P_VEH_OLDROUTE,
         CORN_VEH_PASSENGER,
         CORN_P_VEH_DEV_CPHONE,
-        CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 10000
+        CORN_P_MAX = CORN_P_VEH_DEV_CPHONE
     };
 
     static void init();
@@ -110,13 +102,6 @@ public:
     static void setWished(Function f);
 
 public:
-    static void setVehicleDeviceTOSS2Output(OutputDevice *s);
-    static void setCellTOSS2Output(OutputDevice *s);
-    static void setLATOSS2Output(OutputDevice *s);
-    static void setVehicleDeviceTOSS2SQLOutput(OutputDevice *s);
-    static void setCellTOSS2SQLOutput(OutputDevice *s);
-    static void setLATOSS2SQLOutput(OutputDevice *s);
-    static void setCELLPHONEDUMPOutput(OutputDevice *s);
     // Car2Car
     static void setClusterInfoOutput(OutputDevice *s);
     static void setSavedInfoOutput(OutputDevice *s);
@@ -127,24 +112,6 @@ public:
     static void saveTOSS2_CalledPositionData(SUMOTime time,
             int callID, const std::string &pos, int quality);
 
-    static void saveTOSS2_CellStateData(SUMOTime time,
-                                        int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
-                                        int Dyn_Calls_Out, int Sum_Calls, int Intervall);
-
-    static void saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
-                                         int dir, int sum_changes, int quality_id, int intervall);
-
-    static void saveTOSS2SQL_CalledPositionData(SUMOTime time,
-            int callID, const std::string &pos, int quality);
-
-    static void saveTOSS2SQL_CellStateData(SUMOTime time,
-                                           int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
-                                           int Dyn_Calls_Out, int Sum_Calls, int Intervall);
-
-    static void saveTOSS2SQL_LA_ChangesData(SUMOTime time, int position_id,
-                                            int dir, int sum_changes, int quality_id, int intervall);
-
-    static void saveCELLPHONEDUMP(SUMOTime time, int cell_id, int call_id, int event_type);
 
     //car2car
     static void saveClusterInfoData(SUMOTime step, int id,
@@ -170,14 +137,7 @@ public:
 
 private:
     //
-    static OutputDevice *myVehicleDeviceTOSS2Output;
     ///
-    static OutputDevice *myCellTOSS2Output;
-    static OutputDevice *myLATOSS2Output;
-    static OutputDevice *myVehicleDeviceTOSS2SQLOutput;
-    static OutputDevice *myCellTOSS2SQLOutput;
-    static OutputDevice *myLATOSS2SQLOutput;
-    static OutputDevice *myCELLPHONEDUMPOutput;
     //Car2car
     static OutputDevice *myClusterInfoOutput;
     static OutputDevice *mySavedInfoOutput;

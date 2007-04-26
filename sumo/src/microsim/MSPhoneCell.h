@@ -81,9 +81,6 @@ public:
     /// Returns the information whether the named call takes place in this cell
     bool hasCall(int callid);
 
-    /// !!!?
-    int  getIntervall();
-
     /// Sets the number of static calls for the given period
     void setStatParams(int interval, int statcallcount);
 
@@ -92,9 +89,7 @@ public:
 
     /// !!!?
     void writeOutput(SUMOTime time);
-
-    /// !!!?
-    void writeSQLOutput(SUMOTime time);
+    void setDynamicCalls(SUMOTime time);
 
     /// !!!?
     void setnextexpectData(SUMOTime time);
@@ -114,6 +109,72 @@ public:
     void addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer);
     bool hasCPhone(const std::string &device_id);
     void remCPhone(const std::string &device_id);
+
+private:
+class SetStatParamsCommand : public Command
+    {
+    public:
+        // / Constructor
+        SetStatParamsCommand(MSPhoneCell &p)
+                : myParent(p)
+        { }
+
+        /// Destructor
+        ~SetStatParamsCommand()
+        { }
+
+        /** @brief Executes the command what forces the logic control to
+         * initialise a switch process
+         *
+         * The control will ask for the index and increment it.
+         */
+        SUMOTime execute(SUMOTime time)
+        {
+            return myParent.nextStatPeriod(time);
+        }
+
+    protected:
+        /// The control to call
+        MSPhoneCell &myParent;
+
+    };
+
+
+class SetDynParamsCommand : public Command
+    {
+    public:
+        // / Constructor
+        SetDynParamsCommand(MSPhoneCell &p)
+                : myParent(p)
+        { }
+
+        /// Destructor
+        ~SetDynParamsCommand()
+        { }
+
+        /** @brief Executes the command what forces the logic control to
+         * initialise a switch process
+         *
+         * The control will ask for the index and increment it.
+         */
+        SUMOTime execute(SUMOTime time)
+        {
+            return myParent.nextDynPeriod(time);
+        }
+
+    protected:
+        /// The control to call
+        MSPhoneCell &myParent;
+
+    };
+
+    friend class SetStatParamsCommand;
+    friend class SetDynParamsCommand;
+
+    SUMOTime nextStatPeriod(SUMOTime time);
+    SUMOTime nextDynPeriod(SUMOTime time);
+
+
 private:
     int myCellId;                   /* the id of the gsm-cell */
     int myStaticCallsIn;            /* the number of stacic incoming calls for this interval */
@@ -125,6 +186,8 @@ private:
     int myIntervalBegin;            /* the begintime of the current interval*/
     int myIntervalEnd;              /* the endtime of the current interval*/
     int myCurrentExpectedCallCount;
+    SUMOTime myDynIntervalBegin;
+    SUMOTime myDynIntervalDuration;
     float myCallDuration;
     float myCallDeviation;
     bool myConnectionTypSelector;
@@ -143,9 +206,9 @@ private:
     std::map<int, CallType>::iterator myitCalls;
 
 
-    std::map< int, int > myExpectedStaticCalls;
+    std::vector<std::pair<int, int> > myExpectedStaticCalls;
 
-    std::map< int, DynParam> myExpectedDynamicCalls;
+    std::vector<std::pair<int, DynParam> > myExpectedDynamicCalls;
 
     //std::vector<std::pair<int, int > > vexpectStatCount;
     //std::vector<std::pair<int, int > >::iterator itCount;

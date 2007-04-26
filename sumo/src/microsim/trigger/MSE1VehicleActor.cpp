@@ -40,6 +40,7 @@
 #include <utility>
 #include <utils/helpers/WrappingCommand.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
@@ -197,28 +198,46 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 break;
             }
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
-                if (MSCORN::wished(MSCORN::CORN_OUT_CELLPHONE_DUMP_TO)) {
-                    MSCORN::saveCELLPHONEDUMP(MSNet::getInstance()->getCurrentTimeStep(), _AreaId, cp->getCallId(), 1);
+                OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
+                if(od!=0) {
+                    od->getOStream()
+                        << MSNet::getInstance()->getCurrentTimeStep() << ';' 
+                        << cp->getCallId() << ';' 
+                        << _AreaId << ';' 
+                        << "1\n";
                 }
             }
         }
     } else { // TOL_SA
         for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
-            MSDevice_CPhone* cp = (MSDevice_CPhone*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+            MSDevice_CPhone* cp = *i;
             MSDevice_CPhone::State state = cp->GetState();
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 myPassedConnectedCPhonesNo++;
-                if (MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2)) {
-                    MSCORN::saveTOSS2_CalledPositionData(
-                        MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(),
-                        toString(_AreaId), 0); // !!! recheck quality indicator
+                {
+                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
+                    if(od!=0) {
+                        std::string timestr="1970-01-01 " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        // !!! recheck quality indicator
+                        od->getOStream()
+                            << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
+                    }
                 }
-                if (MSCORN::wished(MSCORN::CORN_OUT_DEVICE_TO_SS2_SQL)) {
-                    MSCORN::saveTOSS2SQL_CalledPositionData(
-                        MSNet::getInstance()->getCurrentTimeStep(), cp->getCallId(),
-                        toString(_AreaId), 0); // !!! recheck quality indicator
+                {
+                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2_SQL);
+                    if(od!=0) {
+                        if (od->getBoolMarker("hadFirstCall")) {
+                            od->getOStream() << "," << endl;
+                        } else {
+                            od->setBoolMarker("hadFirstCall", true);
+                        }
+                        std::string timestr="1970-01-01 " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        od->getOStream()
+                            << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
+                            << ", " << 0 << ")"; // !!! recheck quality indicator
+                    }
                 }
-            }
+             }
         }
     }
     return false;
