@@ -102,7 +102,7 @@ public:
     {
         return myCallId;
     };
-    std::string getId()
+    std::string getID()
     {
         return myId;
     };
