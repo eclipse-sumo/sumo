@@ -156,13 +156,13 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 }*/
             }
 
-            MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getId());
+            MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
             MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
 
             if (oldCell != 0)
-                oldCell->remCPhone(cp->getId());
+                oldCell->remCPhone(cp->getID());
             assert(newCell != 0);
-            newCell->addCPhone(cp->getId(), cp);
+            newCell->addCPhone(cp->getID(), cp);
 
             switch (cp->GetState()) {
             case MSDevice_CPhone::STATE_OFF:
