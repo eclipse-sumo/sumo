@@ -427,7 +427,7 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
-                                    getIntSecure(attrs, SUMO_ATTR_LAYER, 1),// !!!
+                                    getIntSecure(attrs, SUMO_ATTR_LAYER, 1),
                                     getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                     GfxConvHelper::parseColor(getStringSecure(attrs, SUMO_ATTR_COLOR, "1,0,0")),
                                     getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
@@ -454,7 +454,7 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
-                                        getIntSecure(attrs, SUMO_ATTR_LAYER, -1),// !!!
+                                        getIntSecure(attrs, SUMO_ATTR_LAYER, -1),
                                         getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                                         getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
