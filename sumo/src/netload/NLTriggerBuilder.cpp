@@ -456,7 +456,7 @@ NLTriggerBuilder::getLane(const Attributes &attrs,
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     MSLane *lane = MSLane::dictionary(objectid);
     if (lane==0) {
-        MsgHandler::getErrorInstance()->inform("The lane to use within the " + tt + " '" + tid + "' is not known.");
+        MsgHandler::getErrorInstance()->inform("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
         throw ProcessError();
     }
     return lane;
