@@ -82,12 +82,12 @@ PCTypeDefHandler::myStartElement(int /*element*/, const std::string &name,
             MsgHandler::getErrorInstance()->inform("A polygon type without an id occured within '" + _file + ".");
             return;
         }
-        string type = getStringSecure(attrs, "name", myOptions.getString("type"));
-        string prefix = getStringSecure(attrs, "prefix", myOptions.getString("prefix"));
-        int layer = getIntSecure(attrs, "layer", myOptions.getInt("layer"));
+        string type = getStringSecure(attrs, SUMO_ATTR_NAME, myOptions.getString("type"));
+        string prefix = getStringSecure(attrs, SUMO_ATTR_PREFIX, myOptions.getString("prefix"));
+        int layer = getIntSecure(attrs, SUMO_ATTR_LAYER, myOptions.getInt("layer"));
         string color = getStringSecure(attrs, SUMO_ATTR_COLOR, myOptions.getString("color"));
-        bool discard = getBoolSecure(attrs, "discard", false);
-        bool allowFill = getBoolSecure(attrs, "fill", true);
+        bool discard = getBoolSecure(attrs, SUMO_ATTR_DISCARD, false);
+        bool allowFill = getBoolSecure(attrs, SUMO_ATTR_FILL, true);
         if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
             MsgHandler::getErrorInstance()->inform("Could not add polygon type '" + id + "' (probably the id is already used).");
         }

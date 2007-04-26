@@ -427,9 +427,9 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
-                                    getIntSecure(attrs, "layer", 1),// !!!
-                                    getString(attrs, SUMO_ATTR_TYPE),
-                                    GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                                    getIntSecure(attrs, SUMO_ATTR_LAYER, 1),// !!!
+                                    getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
+                                    GfxConvHelper::parseColor(getStringSecure(attrs, SUMO_ATTR_COLOR, "1,0,0")),
                                     getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
@@ -442,7 +442,7 @@ NLHandler::addPOI(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("POI '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing name of an poly-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing name of a POI-object.");
     }
 }
 
@@ -454,10 +454,10 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
-                                        getIntSecure(attrs, "layer", -1),// !!!
-                                        getString(attrs, SUMO_ATTR_TYPE),
+                                        getIntSecure(attrs, SUMO_ATTR_LAYER, -1),// !!!
+                                        getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                                        getBoolSecure(attrs, "fill", false));// !!!
+                                        getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
         } catch (NumberFormatException &) {
@@ -466,7 +466,7 @@ NLHandler::addPoly(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing name of an poly-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing name of a poly-object.");
     }
 }
 

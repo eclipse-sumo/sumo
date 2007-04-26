@@ -178,6 +178,10 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "color",          SUMO_ATTR_COLOR },
         { "dir",            SUMO_ATTR_DIR },
         { "state",          SUMO_ATTR_STATE },
+        { "layer",          SUMO_ATTR_LAYER },
+        { "fill",           SUMO_ATTR_FILL },
+        { "prefix",         SUMO_ATTR_PREFIX },
+        { "discard",        SUMO_ATTR_DISCARD },
 
         { "dest",           SUMO_ATTR_DEST },
         { "source",         SUMO_ATTR_SOURCE },

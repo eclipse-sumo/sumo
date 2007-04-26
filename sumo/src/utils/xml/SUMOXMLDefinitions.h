@@ -255,6 +255,12 @@ enum AttrEnum
     SUMO_ATTR_DIR,
     /// The state of a link
     SUMO_ATTR_STATE,
+    /// A layer number
+    SUMO_ATTR_LAYER,
+    /// Fill the polygon
+    SUMO_ATTR_FILL,
+    SUMO_ATTR_PREFIX,
+    SUMO_ATTR_DISCARD,
 
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
