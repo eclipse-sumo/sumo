@@ -1,1 +1,1 @@
---no-duration-log --net net.net.xml --routes input_routes.rou.xml -a input_additional.add.xml --ss2-sql-cell-output tol_sql.txt --ss2-cell-output tol_plain.txt -e 599
+--no-duration-log --net net.net.xml --routes input_routes.rou.xml -a "input_additional.add.xml;input_additional2.add.xml" --ss2-sql-cell-output tol_sql.txt --ss2-cell-output tol_plain.txt -e 599

@@ -1,0 +1,6 @@
+<add>
+
+	<!-- dynamic calls -->
+	<trigger objecttype="vehicle_actor" id="1" objectid="0" pos="5" to="2" xto="0" type="4"/>
+
+</add>

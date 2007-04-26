@@ -1,0 +1,14 @@
+<add>
+
+	<!-- static calls -->
+	<trigger objecttype="vehicle_actor" id="1" objectid="0" pos="10" to="-1" xto="-1" type="3"/>
+	<trigger objecttype="vehicle_actor" id="2" objectid="0" pos="20" to="-1" xto="-1" type="3"/>
+
+	<trigger objecttype="vehicle_actor" id="1" objectid="300" pos="30" to="-1" xto="-1" type="3"/>
+	<trigger objecttype="vehicle_actor" id="2" objectid="300" pos="40" to="-1" xto="-1" type="3"/>
+
+
+	<!-- dynamic calls -->
+	<trigger objecttype="vehicle_actor" id="1" objectid="0" pos="5" to="2" xto="0" type="4"/>
+
+</add>

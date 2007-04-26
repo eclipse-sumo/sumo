@@ -1,0 +1,1 @@
+--no-duration-log --net net.net.xml --routes input_routes.rou.xml -a "input_additional.add.xml;input_additional2.add.xml" --ss2-cell-output tol_plain.txt -e 3600  --device.cell-phone.probability 1
