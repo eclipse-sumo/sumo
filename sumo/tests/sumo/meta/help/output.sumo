@@ -110,12 +110,11 @@ Usage: sumo.exe [OPTION]*
   --device.cell-phone.percent-of-activity  
   --device.cell-phone.knownveh STR     
   --device.cell-phone.probability FLOAT  
-  --ss2-cellload-file FILE             
   --ss2-output FILE                    
-  --ss2-cell-output FILE               
-  --ss2-la-output FILE                 
   --ss2-sql-output FILE                
+  --ss2-cell-output FILE               
   --ss2-sql-cell-output FILE           
+  --ss2-la-output FILE                 
   --ss2-sql-la-output FILE             
   --cellphone-dump FILE                
   --device.cell-phone.amount.min FLOAT  

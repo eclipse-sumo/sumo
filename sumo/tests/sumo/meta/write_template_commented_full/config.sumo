@@ -194,22 +194,19 @@
       <device.cell-phone.probability>0</device.cell-phone.probability>
 
       <!--  -->
-      <ss2-cellload-file></ss2-cellload-file>
-
-      <!--  -->
       <ss2-output></ss2-output>
-
-      <!--  -->
-      <ss2-cell-output></ss2-cell-output>
-
-      <!--  -->
-      <ss2-la-output></ss2-la-output>
 
       <!--  -->
       <ss2-sql-output></ss2-sql-output>
 
       <!--  -->
+      <ss2-cell-output></ss2-cell-output>
+
+      <!--  -->
       <ss2-sql-cell-output></ss2-sql-cell-output>
+
+      <!--  -->
+      <ss2-la-output></ss2-la-output>
 
       <!--  -->
       <ss2-sql-la-output></ss2-sql-la-output>
