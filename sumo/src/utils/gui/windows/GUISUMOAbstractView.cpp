@@ -324,13 +324,13 @@ GUISUMOAbstractView::updatePositionInformation() const
     if (true) {
         string text;
         Position2D pos = getPositionInformation();
-        text = "x:" + StringUtils::trim(pos.x(), 3) + ", y:" + StringUtils::trim(pos.y(), 3);
+        text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
         myApp->getCartesianLabel().setText(text.c_str());
         GeoConvHelper::cartesian2geo(pos);
         if(GeoConvHelper::usingGeoProjection()) {
-            text = "lat:" + StringUtils::trim(pos.y(), 6) + ", lon:" + StringUtils::trim(pos.x(), 6);
+            text = "lat:" + toString(pos.y(), 5) + ", lon:" + toString(pos.x(), 5);
         } else {
-            text = "x:" + StringUtils::trim(pos.x(), 3) + ", y:" + StringUtils::trim(pos.y(), 3);
+            text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
         }
         myApp->getGeoLabel().setText(text.c_str());
     }
