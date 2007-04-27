@@ -196,14 +196,30 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
-    //car2car
+    // intialise outputs
+    myOutputStreams = streams;
+    myMeanData = meanData;
+        // c2c
     MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
     MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
     MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
     MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
-
-    myOutputStreams = streams;
-    myMeanData = meanData;
+        // tol
+    if(getOutputDevice(OS_CELL_TO_SS2)!=0||getOutputDevice(OS_CELL_TO_SS2_SQL)!=0) {
+        // start old-data removal through MSEventControl
+        Command* writeDate = new WrappingCommand< MSPhoneNet >(
+            myMSPhoneNet, &MSPhoneNet::writeCellOutput);
+        getEndOfTimestepEvents().addEvent(
+            writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
+    }
+    if(getOutputDevice(OS_LA_TO_SS2)!=0||getOutputDevice(OS_LA_TO_SS2_SQL)!=0) {
+        // start old-data removal through MSEventControl
+        Command* writeDate = new WrappingCommand< MSPhoneNet >(
+            myMSPhoneNet, &MSPhoneNet::writeLAOutput);
+        getEndOfTimestepEvents().addEvent(
+            writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
+    }
+    //
 
     // we may add it before the network is loaded
     if (myEdges!=0) {
@@ -395,14 +411,8 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
         myOutputStreams[OS_PHYSSTATES]->getOStream() << "</physical-states>" << endl;
     }
     // ... the same for the OS_CELL_TO_SS2_SQL
-    if (myOutputStreams[OS_CELL_TO_SS2_SQL]!=0) {
-        myOutputStreams[OS_CELL_TO_SS2_SQL]->getOStream() << ";" << endl;
-    }
     if (myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0) {
         myOutputStreams[OS_DEVICE_TO_SS2_SQL]->getOStream() << ";" << endl;
-    }
-    if (myOutputStreams[OS_LA_TO_SS2_SQL]!=0) {
-        myOutputStreams[OS_LA_TO_SS2_SQL]->getOStream() << ";" << endl;
     }
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
@@ -701,14 +711,6 @@ MSNet::writeOutput()
         }
         myOutputStreams[OS_EMISSIONS]->getOStream()
         << "/>" << endl;
-    }
-    if (myOutputStreams[OS_CELL_TO_SS2_SQL] != 0
-            || myOutputStreams[OS_LA_TO_SS2_SQL] != 0
-            || myOutputStreams[OS_DEVICE_TO_SS2_SQL] != 0
-            || myOutputStreams[OS_LA_TO_SS2] != 0
-            || myOutputStreams[OS_CELL_TO_SS2] != 0
-            || myOutputStreams[OS_DEVICE_TO_SS2] != 0) {
-        myMSPhoneNet->writeOutput(myStep);
     }
 }
 

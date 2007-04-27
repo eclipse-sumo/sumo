@@ -104,7 +104,8 @@ public:
     void connectLA2Cell(int cell_ID, int la_ID);
 
     /// ?!!!
-    void writeOutput(SUMOTime time);
+    SUMOTime writeCellOutput(SUMOTime time);
+    SUMOTime writeLAOutput(SUMOTime time);
     void setDynamicCalls(SUMOTime time);
 
 
@@ -122,15 +123,10 @@ private:
     /// A map from cells to location areas
     std::map< int, int > _mCell2LA;
 
-    /// The used adaptation interval for location areas (!!! fix)
-    unsigned int _LAIntervall;
-
-    /// The used adaptation interval for cells (!!! fix)
-    unsigned int _CellIntervall;
-
     std::map< std::string, int > myLAChanges;
 
     bool percentModus;
+
 
 };
 

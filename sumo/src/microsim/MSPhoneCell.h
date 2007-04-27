@@ -92,9 +92,6 @@ public:
     void setDynamicCalls(SUMOTime time);
 
     /// !!!?
-    void setnextexpectData(SUMOTime time);
-
-    /// !!!?
     //int getExpectDynCallCount() { return dyncallcount; }
 
     /// !!!?

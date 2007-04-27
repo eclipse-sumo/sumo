@@ -39,8 +39,9 @@
 #include "MSCORN.h"
 #include <iostream>
 #include <fstream>
-#include "utils/options/OptionsCont.h"
-#include "utils/options/OptionsSubSys.h"
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "MSPhoneCell.h"
 #include "MSPhoneLA.h"
 #include "MSNet.h"
@@ -57,8 +58,6 @@ using namespace std;
 // ===========================================================================
 MSPhoneNet::MSPhoneNet()
 {
-    _LAIntervall = 300;
-    _CellIntervall = 300;
      OptionsCont &oc = OptionsSubSys::getOptions();
      percentModus = oc.getBool("device.cell-phone.percent-of-activity");
 }
@@ -66,6 +65,23 @@ MSPhoneNet::MSPhoneNet()
 
 MSPhoneNet::~MSPhoneNet()
 {
+    // close outputs
+    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+    if((currentTime-1)%300!=0) {
+        if(MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2)!=0||MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)!=0) {
+            writeCellOutput(currentTime);
+        }
+        if(MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2)!=0||MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)!=0) {
+            writeLAOutput(currentTime);
+        }
+    }
+    if(MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)!=0) {
+        MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)->getOStream() << ";" << endl;
+    }
+    if(MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)!=0) {
+        MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)->getOStream() << ";" << endl;
+    }
+    // delete cells and las
     std::map< int, MSPhoneCell* >::iterator cit;
     for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
         delete cit->second;
@@ -200,32 +216,32 @@ MSPhoneNet::remMSPhoneLA(int id)
 }
 
 
-void
-MSPhoneNet::writeOutput(SUMOTime t)
+SUMOTime
+MSPhoneNet::writeCellOutput(SUMOTime t)
 {
-    {
-        // cell output / sql cell output
-        OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
-        OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
-        if ((od1!=0||od2!=0) && (t % _CellIntervall) == 0) {
-            std::map< int, MSPhoneCell* >::iterator cit;
-            for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
-                cit->second->writeOutput(t);
-            }
-        }
+    // cell output / sql cell output
+    OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
+    OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
+    std::map< int, MSPhoneCell* >::iterator cit;
+    for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
+        cit->second->writeOutput(t);
     }
-    {
-        // la output / sql la output
-        OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
-        OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
-        if ((od1!=0||od2!=0) && (t % _LAIntervall) == 0) {
-            std::map< int, MSPhoneLA* >::iterator lit;
-            for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
-                lit->second->writeOutput(t);
-            }
-        }
-        myLAChanges.clear();
+    return 300;
+}
+
+
+SUMOTime
+MSPhoneNet::writeLAOutput(SUMOTime t)
+{
+    // la output / sql la output
+    OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
+    OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
+    std::map< int, MSPhoneLA* >::iterator lit;
+    for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
+        lit->second->writeOutput(t);
     }
+    myLAChanges.clear();
+    return 300;
 }
 
 

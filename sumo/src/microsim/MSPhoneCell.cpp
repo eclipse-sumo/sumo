@@ -62,7 +62,8 @@ MSPhoneCell::MSPhoneCell(int id)
 
 
 MSPhoneCell::~MSPhoneCell()
-{}
+{
+}
 
 
 void
@@ -215,73 +216,6 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
 }
 
 
-void
-MSPhoneCell::setnextexpectData(SUMOTime t)
-{
-    /* look if there is a new set of expected callcounts in the map*/
-    /*
-    if (t >= myIntervalEnd) {
-        std::map< int , int >::iterator itCallCount = myExpectedStaticCalls.find(t);
-        if (itCallCount != myExpectedStaticCalls.end()) {
-            myIntervalBegin = itCallCount->first;
-            int counts =itCallCount->second ;
-            if (counts < 2)
-                myStaticCallsIn = myStaticCallsOut = counts;
-            else
-                myStaticCallsIn = myStaticCallsOut = counts/2;
-            myExpectedStaticCalls.erase(itCallCount);
-        } else if (myIntervalEnd == t) {   // if t is equal to myNextIntervall, than set the expected callcounts to zero
-            myStaticCallsIn = myStaticCallsOut = 0;
-        }
-        myIntervalEnd = myIntervalBegin+300;
-    }
-    */
-    /*
-
-    std::map< int , DynParam >::iterator itDynCallCount = myExpectedDynamicCalls.find(t);
-    if (itDynCallCount != myExpectedDynamicCalls.end()) {
-        if (myCurrentExpectedCallCount > myDynOwnStarted   && myRegisteredDevices.size() > 0)
-            int foobar = 0;
-        myCurrentExpectedCallCount  = itDynCallCount->second.count;
-        myCallDuration              = itDynCallCount->second.duration;
-        myCallDeviation             = itDynCallCount->second.deviation;
-        myDynOwnStarted = 0;
-        myCallProbability = (float)myCurrentExpectedCallCount / (float)3600;
-    }
-*/
-    /*if we got a count of expected call-counts myNextInterval should at least be 300 ( interval (0) + 300 (
-    the usual duration of an interval ) )*/
-    assert(myIntervalEnd != -1);
-    if (myIntervalEnd > t) {
-        //assert how much calls this sumulationstep should start.
-        //int startingCalls = ( (myCurrentExpectedCallCount) - (myDynOwnStarted*10) ) / ( myIntervalEnd - t );
-        if (myCurrentExpectedCallCount > 0) {
-            SUMOReal r1 = randSUMO();
-            int startingCalls = 0 ;
-            if (r1 < myCallProbability)
-                ++startingCalls;
-            // search for the first idle cphones in the list an activating them for an dynamic call
-            for (int i = 0; i < startingCalls; i++) {
-                std::map<std::string, MSDevice_CPhone*>::iterator itdev = myRegisteredDevices.end();
-                for (itdev = myRegisteredDevices.begin(); itdev != myRegisteredDevices.end(); itdev++) {
-                    if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE)
-                        break;
-                }
-                if (itdev != myRegisteredDevices.end()) {
-                    //assert ( myCallDuration != 0 );
-                    if (myConnectionTypSelector)
-                        itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int)myCallDuration);
-                    else
-                        itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int)myCallDuration);
-                    myConnectionTypSelector = !myConnectionTypSelector;
-
-                }
-            }
-        }
-    }
-}
-
-
 void 
 MSPhoneCell::setDynamicCalls(SUMOTime time)
 {
@@ -329,7 +263,7 @@ MSPhoneCell::writeOutput(SUMOTime t)
             << myStaticCallsIn << ';' << myStaticCallsOut << ';' 
             << myDynCallsIn << ';' << myDynCallsOut << ';' 
             << (myStaticCallsIn + myStaticCallsOut + mySumCalls) << ';' 
-            << t << "\n";
+            << t << ';' << "\n";
         }
     }
     {
