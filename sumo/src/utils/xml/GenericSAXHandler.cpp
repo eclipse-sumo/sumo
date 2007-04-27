@@ -90,21 +90,13 @@ GenericSAXHandler::add(int id, const std::string &name)
 
 
 bool
-GenericSAXHandler::hasAttribute(const Attributes &attrs, int id)
+GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id)
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
         return false;
     }
     return attrs.getIndex((*i).second)>=0;
-}
-
-
-bool
-GenericSAXHandler::hasAttribute(const Attributes &attrs,
-                                const std::string &id)
-{
-    return attrs.getIndex(getAttributeNameSecure(id))>=0;
 }
 
 
@@ -156,24 +148,6 @@ GenericSAXHandler::getString(const Attributes &attrs, int id) const
 
 std::string
 GenericSAXHandler::getStringSecure(const Attributes &attrs, int id,
-                                   const std::string &str) const
-{
-    return TplConvertSec<XMLCh>::_2strSec(
-               getAttributeValueSecure(attrs, id), str);
-}
-
-
-std::string
-GenericSAXHandler::getString(const Attributes &attrs,
-                             const std::string &id) const
-{
-    return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
-}
-
-
-std::string
-GenericSAXHandler::getStringSecure(const Attributes &attrs,
-                                   const std::string &id,
                                    const std::string &str) const
 {
     return TplConvertSec<XMLCh>::_2strSec(

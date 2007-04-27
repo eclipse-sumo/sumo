@@ -166,7 +166,7 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
                     } catch (EmptyData) {
                         MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myMMLAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                     } catch (NumberFormatException) {
-                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_TRAVELTIME) + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
                     }
                 } else {
                     (*i)->myHadAttribute = false;
@@ -187,7 +187,7 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
                 } catch (EmptyData) {
                     MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myMMLAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                 } catch (NumberFormatException) {
-                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_TRAVELTIME) + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
                 }
             }
         }

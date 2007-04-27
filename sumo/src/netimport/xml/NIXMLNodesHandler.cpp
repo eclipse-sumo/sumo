@@ -191,7 +191,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     }
 
     // process inner edges which shall be controlled
-    string controlledInner = getStringSecure(attrs, "controlled_inner", "");
+    string controlledInner = getStringSecure(attrs, SUMO_ATTR_CONTROLLED_INNER, "");
     if(controlledInner!="") {
         StringTokenizer st(controlledInner, ";");
         tlDef->addControlledInnerEdges(st.getVector());

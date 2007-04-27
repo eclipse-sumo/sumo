@@ -167,8 +167,8 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &name,
         }
         // check whether this lane exists
         // set information about allwed / disallowed vehicle classes
-        string disallowed = getStringSecure(attrs, "disallow", "");
-        string allowed = getStringSecure(attrs, "allow", "");
+        string disallowed = getStringSecure(attrs, SUMO_ATTR_DISALLOW, "");
+        string allowed = getStringSecure(attrs, SUMO_ATTR_ALLOW, "");
         if (disallowed!="") {
             StringTokenizer st(disallowed, ";");
             while (st.hasNext()) {

@@ -225,13 +225,13 @@ NLHandler::addParam(const Attributes &attrs)
 {
     string key, val;
     try {
-        key = getString(attrs, "key");
+        key = getString(attrs, SUMO_ATTR_KEY);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing key for a parameter.");
         return;
     }
     try {
-        val = getString(attrs, "value");
+        val = getString(attrs, SUMO_ATTR_VALUE);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing value for a parameter.");
         return;
@@ -404,7 +404,7 @@ NLHandler::addLane(const Attributes &attrs)
             myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
-            myVehicleClasses = getStringSecure(attrs, "vclasses", "");
+            myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {

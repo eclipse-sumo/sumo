@@ -185,8 +185,8 @@ NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name
         }
     }
     if (name=="prohibition") {
-        string prohibitor = getStringSecure(attrs, "prohibitor", "");
-        string prohibited = getStringSecure(attrs, "prohibited", "");
+        string prohibitor = getStringSecure(attrs, SUMO_ATTR_PROHIBITOR, "");
+        string prohibited = getStringSecure(attrs, SUMO_ATTR_PROHIBITED, "");
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
         NBConnection prohibitedC = parseConnection("prohibited", prohibited);
         if (prohibitorC.getFrom()==0||prohibitedC.getFrom()==0) {

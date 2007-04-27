@@ -169,7 +169,7 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "objectid",       SUMO_ATTR_OBJECTID },
         { "time",           SUMO_ATTR_TIME },
         { "multi_ref",      SUMO_ATTR_MULTIR },
-        { "traveltime",     SUMO_ATTR_VALUE },
+        { "traveltime",     SUMO_ATTR_TRAVELTIME },
         { "begin",          SUMO_ATTR_BEGIN },
         { "end",            SUMO_ATTR_END },
         { "tl",             SUMO_ATTR_TLID },
@@ -230,6 +230,15 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "vehtype",        SUMO_ATTR_VEHTYPE },
         { "pass",           SUMO_ATTR_PASS },
         { "forceLength",    SUMO_ATTR_FORCE_LENGTH },
+        { "bus_stop",       SUMO_ATTR_BUS_STOP },
+        { "lines",          SUMO_ATTR_LINES },
+        { "vclasses",       SUMO_ATTR_VCLASSES },
+        { "value",          SUMO_ATTR_VALUE },
+        { "prohibitor",     SUMO_ATTR_PROHIBITOR },
+        { "prohibited",     SUMO_ATTR_PROHIBITED },
+        { "allow",          SUMO_ATTR_ALLOW },
+        { "disallow",       SUMO_ATTR_DISALLOW },
+        { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
         { "",               SUMO_ATTR_NOTHING }
     };
 

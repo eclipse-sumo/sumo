@@ -149,8 +149,7 @@ public:
         the name will be transcoded into unicode */
     void add(int id, const std::string &name);
 
-    bool hasAttribute(const Attributes &attrs, int id);
-    bool hasAttribute(const Attributes &attrs, const std::string &id);
+    bool hasAttribute(const Attributes &attrs, SumoXMLAttr id);
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id);
 
     /** returns the named (by id) attribute as a bool */
@@ -164,9 +163,6 @@ public:
     /** returns the named (by id) attribute as a string */
     std::string getString(const Attributes &attrs, int id) const;
     std::string getStringSecure(const Attributes &attrs, int id,
-                                const std::string &str) const;
-    std::string getString(const Attributes &attrs, const std::string &id) const;
-    std::string getStringSecure(const Attributes &attrs, const std::string &id,
                                 const std::string &str) const;
 
     /** returns the named (by id) attribute as a SUMOReal */

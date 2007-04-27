@@ -229,7 +229,7 @@ enum SumoXMLAttr
     /** routes: information whether not only one vehicle uses the route */
     SUMO_ATTR_MULTIR,
     /** weights: one possible value */
-    SUMO_ATTR_VALUE,
+    SUMO_ATTR_TRAVELTIME,
     /** weights: time range begin */
     SUMO_ATTR_BEGIN,
     /** weights: time range end */
@@ -312,7 +312,16 @@ enum SumoXMLAttr
     SUMO_ATTR_UNCONTROLLED,
     SUMO_ATTR_VEHTYPE,
     SUMO_ATTR_PASS,
-    SUMO_ATTR_FORCE_LENGTH
+    SUMO_ATTR_FORCE_LENGTH,
+    SUMO_ATTR_BUS_STOP,
+    SUMO_ATTR_LINES,
+    SUMO_ATTR_VCLASSES,
+    SUMO_ATTR_VALUE,
+    SUMO_ATTR_PROHIBITOR,
+    SUMO_ATTR_PROHIBITED,
+    SUMO_ATTR_ALLOW,
+    SUMO_ATTR_DISALLOW,
+    SUMO_ATTR_CONTROLLED_INNER
 };
 
 

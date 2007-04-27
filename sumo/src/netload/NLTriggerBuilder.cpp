@@ -219,7 +219,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
         topos = lane->length() + topos;
     }
     // get the lines
-    std::string lineStr = helper.getStringSecure(attrs, "lines", "");
+    std::string lineStr = helper.getStringSecure(attrs, SUMO_ATTR_LINES, "");
     std::vector<std::string> lines;
     if (lineStr.length()!=0) {
         StringTokenizer st(lineStr, ";");

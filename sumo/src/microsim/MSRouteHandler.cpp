@@ -141,7 +141,7 @@ MSRouteHandler::myStartElement(int element, const std::string &name,
         stop.lane = 0;
         stop.busstop = 0;
         // try to parse the assigne bus stop
-        string bus_stop = getStringSecure(attrs, "bus_stop", "");
+        string bus_stop = getStringSecure(attrs, SUMO_ATTR_BUS_STOP, "");
         if (bus_stop!="") {
             // ok, we have obviously a bus stop
             MSBusStop *bs =

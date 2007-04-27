@@ -215,7 +215,7 @@ RONetHandler::parseLane(const Attributes &attrs)
         return;
     }
     // get the vehicle classes
-    string allowedS = getStringSecure(attrs, "vclasses" , "");
+    string allowedS = getStringSecure(attrs, SUMO_ATTR_VCLASSES , "");
     if (allowedS.length()!=0) {
         StringTokenizer st(allowedS, ";");
         while (st.hasNext()) {
