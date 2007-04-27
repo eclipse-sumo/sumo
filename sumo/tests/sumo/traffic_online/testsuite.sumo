@@ -1,29 +1,5 @@
-# check whether static calls are processed properly (within cell-output)
-cell_static1
-
-# the same, only one output (sql)
-cell_static1_sql_only
-
-# the same, only one output (txt)
-cell_static1_plain_only
-
-# check whether dynamic calls are processed properly (within cell-output)
-cell_dynamic1
-
-# the same, only one output (sql)
-cell_dynamic1_sql_only
-
-# the same, only one output (txt)
-cell_dynamic1_plain_only
-
-# combination of dynamic1/static1 (within cell-output)
-cell_both1
-
-# the same, only one output (sql)
-cell_both1_sql_only
-
-# the same, only one output (txt)
-cell_both1_plain_only
+# cell-output tests using the cross-scenario
+cross
 
 # check ss2-output
 ss2-output1
