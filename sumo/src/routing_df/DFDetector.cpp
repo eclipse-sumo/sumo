@@ -154,21 +154,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                         SUMOReal sumFlows = 0;
                         SUMOReal myFlow = 0;
                         for(std::vector<ROEdge*>::const_iterator k=possNext.begin(); k!=possNext.end(); ++k) {
-                            SUMOReal cflow = 0;
-                            if(true) { // !!!
-                                cflow = (SUMOReal) detectors.getAggFlowFor(*k, time, 30*60, flows);
-                                /*
-                                for(SUMOTime t2 = 0; t2<30*60&&t2+time<endTime; t2+=stepOffset) { // !!!
-                                    SUMOReal tmpFlow = (SUMOReal) detectors.getFlowFor(*k, (t2+time/!!! + desc->duration2Last/), flows);
-                                    if(tmpFlow<0) {
-                                        tmpFlow = 0;
-                                    }
-                                    cflow += tmpFlow;
-                                }
-                                */
-                            } else {
-                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
-                            }
+                            SUMOReal cflow = (SUMOReal) detectors.getAggFlowFor(*k, time, 30*60, flows);
                             if(cflow<0) {
                                 cflow = 0; // !!!
                             }
