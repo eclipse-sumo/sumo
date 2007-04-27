@@ -100,10 +100,6 @@ public:
     virtual ~GenericSAXHandler();
 
 
-    //{ methods for dealing with attributes
-    /** adds a known tag to the list */
-    void addTag(const std::string &name, int id);
-
     /** returns the information whether an error occured during the parsing */
     bool errorOccured() const;
 
@@ -141,14 +137,9 @@ public:
 
     /** called when a XML-fatal error occures */
     virtual void fatalError(const SAXParseException& exception);
-    //}
 
 
-    //{ methods for dealing with attributes
-    /** @brief method to assign an id to a name;
-        the name will be transcoded into unicode */
-    void add(int id, const std::string &name);
-
+    // methods for retrieving attribute values
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id);
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id);
 

@@ -59,12 +59,15 @@ GenericSAXHandler::GenericSAXHandler(
 { 
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
-        addTag(tags[i].name, tags[i].key);
+        _tagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
         i++;
     }
     i = 0;
     while (attrs[i].key != SUMO_ATTR_NOTHING) {
-        add(attrs[i].key, attrs[i].name);
+        if (myPredefinedTags.find(attrs[i].key)!=myPredefinedTags.end()) {
+            throw exception();
+        }
+        myPredefinedTags.insert(AttrMap::value_type(attrs[i].key, convert(attrs[i].name)));
         i++;
     }
 }
@@ -75,16 +78,6 @@ GenericSAXHandler::~GenericSAXHandler()
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[] (*i1).second;
     }
-}
-
-
-void
-GenericSAXHandler::add(int id, const std::string &name)
-{
-    if (myPredefinedTags.find(id)!=myPredefinedTags.end()) {
-        throw exception();
-    }
-    myPredefinedTags.insert(AttrMap::value_type(id, convert(name)));
 }
 
 
@@ -203,13 +196,6 @@ GenericSAXHandler::convert(const std::string &name) const
     return ret;
 }
 
-
-
-void
-GenericSAXHandler::addTag(const std::string &name, int id)
-{
-    _tagMap.insert(TagMap::value_type(name, id));
-}
 
 
 bool
