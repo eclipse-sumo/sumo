@@ -56,37 +56,57 @@ MSPhoneCell::MSPhoneCell(int id)
         myDynCallsOut(0), mySumCalls(0), myDynOwnStarted(0), myIntervalBegin(0), myIntervalEnd(0),
         myCurrentExpectedCallCount(0), myCallDuration(0),
         myCallDeviation(0), myConnectionTypSelector(true),
-        myDynIntervalDuration(0)
-
+        myDynIntervalDuration(0), myLaterDynamicStarted(0)
 {}
 
 
 MSPhoneCell::~MSPhoneCell()
-{
-}
+{}
 
 
 void
-MSPhoneCell::addCall(int callid, CallType ct)
+MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
 {
-    myCalls[callid] = ct;
-    switch (ct) {
-    case STATICIN:
-        ++myStaticCallsIn;
-        break;
-    case STATICOUT:
-        ++myStaticCallsOut;
-        break;
-    case DYNIN:
-        ++myDynCallsIn;
-        ++myDynOwnStarted;
-        break;
-    case DYNOUT:
-        ++myDynCallsOut;
-        ++myDynOwnStarted;
-        break;
-    }
-    ++mySumCalls;
+	myCalls[callid] = ct; 
+	if ( cellCount < 2 )
+	{
+		switch( ct )
+		{
+		case STATICIN:
+		case DYNIN:
+			//++myStaticCallsIn;
+			break;
+		case STATICOUT:
+		case DYNOUT:
+			//++myStaticCallsOut;
+			break;
+		}
+	}
+	else
+	{
+		switch (ct) 
+		{
+		case STATICIN:
+			//++myStaticCallsIn;
+			break;
+		case STATICOUT:
+			//++myStaticCallsOut;
+			break;
+		case DYNIN:
+			++myDynCallsIn;
+			//++myDynOwnStarted;
+            ++mySumCalls;
+			break;
+		case DYNOUT:
+			++myDynCallsOut;
+            ++mySumCalls;
+			//++myDynOwnStarted;
+			break;
+		}
+	}
+	if( cellCount == 0 && ( ct == DYNIN || ct == DYNOUT ) )
+		++myDynOwnStarted;
+	//++mySumCalls;
 }
 
 
@@ -244,6 +264,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
                 itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int)myCallDuration);
             }
             myConnectionTypSelector = !myConnectionTypSelector;
+            myLaterDynamicStarted++;
             itoStart--;
         }
     }
@@ -262,8 +283,9 @@ MSPhoneCell::writeOutput(SUMOTime t)
             << myCellId << ';' 
             << myStaticCallsIn << ';' << myStaticCallsOut << ';' 
             << myDynCallsIn << ';' << myDynCallsOut << ';' 
-            << (myStaticCallsIn + myStaticCallsOut + mySumCalls) << ';' 
-            << t << ';' << "\n";
+            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ';' 
+            << t << ';'
+            << myLaterDynamicStarted << endl;
         }
     }
     {
@@ -280,11 +302,12 @@ MSPhoneCell::writeOutput(SUMOTime t)
             << myCellId << ',' 
             << myStaticCallsIn << ',' << myStaticCallsOut << ','
             << myDynCallsIn << ',' << myDynCallsOut << ',' 
-            << (myStaticCallsIn + myStaticCallsOut + mySumCalls) << ',' 
+            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ',' 
             << t << ")";
         }
     }
-    myDynCallsIn = myDynCallsOut = 0;
+    myDynCallsIn = myDynCallsOut = myLaterDynamicStarted = 0;
+    mySumCalls = 0;
     for (myitCalls = myCalls.begin(); myitCalls != myCalls.end(); myitCalls++) {
         if (myitCalls->second == DYNIN) {
             ++myDynCallsIn;

@@ -73,7 +73,7 @@ public:
     ~MSPhoneCell();
 
     /// Adds a call (?!!!)
-    void addCall(int callid, CallType ct);
+    void addCall(int callid, CallType ct, int cellCount);
 
     /// Removes a named call from the cell
     void remCall(int callid);
@@ -182,6 +182,7 @@ private:
     int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
     int myIntervalBegin;            /* the begintime of the current interval*/
     int myIntervalEnd;              /* the endtime of the current interval*/
+    int myLaterDynamicStarted;
     int myCurrentExpectedCallCount;
     SUMOTime myDynIntervalBegin;
     SUMOTime myDynIntervalDuration;

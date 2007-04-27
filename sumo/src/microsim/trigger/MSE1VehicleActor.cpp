@@ -164,6 +164,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
 
+			int callCount = cp->GetCallCellCount();
+			cp->IncCallCellCount();
             switch (cp->GetState()) {
             case MSDevice_CPhone::STATE_OFF:
                 break;
@@ -184,7 +186,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     oldCell->remCall(cp->getCallId());
                 }
                 // move to the new cell if the phone is connected
-                newCell->addCall(cp->getCallId(), DYNIN);
+                newCell->addCall(cp->getCallId(), DYNIN, callCount);
                 myPassedConnectedCPhonesNo++;
                 break;
             case MSDevice_CPhone::STATE_CONNECTED_OUT:
@@ -193,7 +195,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 if (oldCell != 0) {
                     oldCell->remCall(cp->getCallId());
                 }
-                newCell->addCall(cp->getCallId(), DYNOUT);
+                newCell->addCall(cp->getCallId(), DYNOUT, callCount );
                 myPassedConnectedCPhonesNo++;
                 break;
             }

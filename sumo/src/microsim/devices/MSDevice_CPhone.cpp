@@ -114,7 +114,7 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     mycurrentLAId = -1;
     myCallId = -1;
     m_State = STATE_IDLE;
-
+	myCallCellCount = 0;
 }
 
 //---------------------------------------------------------------------------
@@ -206,15 +206,19 @@ MSDevice_CPhone::SetState(State s, int dur)
     /*wenn s == dynin oder dynout starte ein neues gespraech.*/
     /*setze den gewuenschten status*/
     m_State = s;
+
+	/*wird fuer das neue gespraech zurueck gesetzt*/
+	myCallCellCount = 0;
+
     /*pruefe, dass das cphone wirklich eine aktuelle zelle hat.*/
     /*gib den cphone eine eindeutige verbindungsnummer*/
     myCallId = ++gCallID;
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
     MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
     if (m_State == STATE_CONNECTED_IN)
-        cell->addCall(myCallId, DYNIN);
+		cell->addCall(myCallId, DYNIN, myCallCellCount);
     else
-        cell->addCall(myCallId, DYNOUT);
+        cell->addCall(myCallId, DYNOUT, myCallCellCount);
 
     /*erzeuge einen neuen Event, damit das cphone aufhoehrt zu telefonieren*/
     myCommand = new MyCommand(*this);

@@ -80,6 +80,8 @@ public:
     int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
     int SetState(State s, int Duration);
+	int GetCallCellCount(){return myCallCellCount;}
+	void IncCallCellCount(){++myCallCellCount;}
     SUMOTime changeState();
     void setCurrentCellId(unsigned int id)
     {
@@ -152,6 +154,9 @@ private:
     /*if it is -1 the car still not cross a cellborder*/
     int mycurrentCellId;
     int mycurrentLAId;
+
+	/*if the device is calling,it counts the passed cells*/
+	int myCallCellCount;
 
 };
 
