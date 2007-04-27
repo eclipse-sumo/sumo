@@ -126,9 +126,11 @@ GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                       SUMOVehicleClass vclass,
                                       const RGBColor &c, SUMOReal prob)
 {
-    GUIVehicleType *vtype =
+    myCurrentVehicleType =
         new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
-    if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
+    if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
+        delete myCurrentVehicleType;
+        myCurrentVehicleType = 0;
         if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
         }

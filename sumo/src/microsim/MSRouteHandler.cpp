@@ -126,6 +126,7 @@ MSRouteHandler::myStartElement(int element, const std::string &name,
         openVehicle(*this, attrs, myWantVehicleColor);
         break;
     case SUMO_TAG_VTYPE:
+        deleteSnippet();
         addVehicleType(attrs);
         break;
     case SUMO_TAG_ROUTE:
@@ -183,7 +184,7 @@ MSRouteHandler::myStartElement(int element, const std::string &name,
 
         // get the standing duration
         try {
-            stop.duration = (SUMOTime) getFloat(attrs, "duration"); // time-parser
+            stop.duration = (SUMOTime) getFloat(attrs, SUMO_ATTR_DURATION); // time-parser
         } catch (EmptyData&) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
@@ -193,6 +194,10 @@ MSRouteHandler::myStartElement(int element, const std::string &name,
         }
         stop.reached = false;
         myVehicleStops.push_back(stop);
+    }
+
+    if(element==-1) {
+        addUnknownSnippet(name, attrs);
     }
 }
 
@@ -233,9 +238,10 @@ MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                      SUMOReal tau,
                                      SUMOVehicleClass vclass, SUMOReal prob)
 {
-    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
-    if (!MSNet::getInstance()->getVehicleControl().addVType(vtype, prob)) {
-        delete vtype;
+    myCurrentVehicleType = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
+    if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
+        delete myCurrentVehicleType;
+        myCurrentVehicleType = 0;
         if (!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
         }

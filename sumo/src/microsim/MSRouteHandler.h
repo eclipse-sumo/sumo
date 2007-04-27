@@ -49,7 +49,7 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class MSVehicle;
+class MSVehicleType;
 class RGBColor;
 
 
@@ -161,6 +161,8 @@ protected:
     /// List of the stops the vehicle will make
     std::vector<MSVehicle::Stop> myVehicleStops;
 
+    /// The currently parsed vehicle type
+    MSVehicleType *myCurrentVehicleType;
 
     /// Information whether not all vehicle shall be emitted due to inc-dua
     bool myAmUsingIncrementalDUA;
