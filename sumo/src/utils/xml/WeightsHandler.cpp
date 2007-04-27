@@ -131,8 +131,8 @@ void WeightsHandler::myStartElement(int element, const std::string &/*name*/,
     switch (element) {
     case SUMO_TAG_INTERVAL:
         try {
-            myCurrentTimeBeg = getLong(attrs, SUMO_ATTR_BEGIN);
-            myCurrentTimeEnd = getLong(attrs, SUMO_ATTR_END);
+            myCurrentTimeBeg = getInt(attrs, SUMO_ATTR_BEGIN);
+            myCurrentTimeEnd = getInt(attrs, SUMO_ATTR_END);
         } catch (...) {
             MsgHandler::getErrorInstance()->inform("Timestep value is not numeric.");
         }

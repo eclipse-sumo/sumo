@@ -347,7 +347,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
         throw ProcessError();
     }
     MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
-    if (helper.getBoolSecure(attrs, "off", false)) {
+    if (helper.getBoolSecure(attrs, SUMO_ATTR_OFF, false)) {
         ret->setUserMode(true);
         ret->setUserUsageProbability(0);
     }
@@ -470,7 +470,7 @@ NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
 {
 
     SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
-    bool friendly_pos = helper.getBoolSecure(attrs, "friendly_pos", false);
+    bool friendly_pos = helper.getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false);
     if (pos<0) {
         pos = lane->length() + pos;
     }

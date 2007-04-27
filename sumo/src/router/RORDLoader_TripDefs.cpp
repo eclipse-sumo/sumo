@@ -130,7 +130,7 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
             SUMOReal vmax = getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
             SUMOReal length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
             SUMOReal eps = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-            SUMOReal tau = getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU);
+            SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
 
             RGBColor col(-1,-1,-1);
             string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
@@ -189,7 +189,7 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
 ROEdge *
 RORDLoader_TripDefs::getEdge(const Attributes &attrs,
                              const std::string &purpose,
-                             AttrEnum which, const string &vid,
+                             SumoXMLAttr which, const string &vid,
                              bool emptyAllowed)
 {
     ROEdge *e = 0;
@@ -217,7 +217,7 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
 SUMOReal
 RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
                                       const std::string &name,
-                                      AttrEnum which,
+                                      SumoXMLAttr which,
                                       const std::string &place)
 {
     if (!hasAttribute(attrs, which)) {
@@ -236,12 +236,12 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
 
 
 SUMOTime
-RORDLoader_TripDefs::getTime(const Attributes &attrs, AttrEnum which,
+RORDLoader_TripDefs::getTime(const Attributes &attrs, SumoXMLAttr which,
                              const std::string &id)
 {
     // get the departure time
     try {
-        return getLong(attrs, which);
+        return getInt(attrs, which);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing time in description of a route.");
         if (id.length()!=0)

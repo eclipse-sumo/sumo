@@ -257,13 +257,13 @@ NLHandler::openWAUT(const Attributes &attrs)
         return;
     }
     try {
-        t = getIntSecure(attrs, "refTime", 0);
+        t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
     } catch (NumberFormatException&) {
         MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
         return;
     }
     try {
-        pro = getString(attrs, "startProg");
+        pro = getString(attrs, SUMO_ATTR_START_PROG);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
         return;
@@ -302,19 +302,19 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
 {
     std::string wautID, junctionID, procedure;
     try {
-        wautID = getString(attrs, "wautID");
+        wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
         return;
     }
     try {
-        junctionID = getString(attrs, "junctionID");
+        junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
         return;
     }
-    procedure = getStringSecure(attrs, "procedure", "");
-    bool synchron = getBoolSecure(attrs, "synchron", false);
+    procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
+    bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
     myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
 }
 
@@ -525,7 +525,7 @@ NLHandler::addLogicItem(const Attributes &attrs)
     bool cont = false;
 #ifdef HAVE_INTERNAL_LANES
     if (MSGlobals::gUsingInternalLanes) {
-        cont = getBoolSecure(attrs, "cont", false);
+        cont = getBoolSecure(attrs, SUMO_ATTR_CONT, false);
     }
 #endif
     // store received information
@@ -716,7 +716,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                               SharedOutputDevices::getInstance()->getOutputDeviceChecking(
                                                   _file, getString(attrs, SUMO_ATTR_FILE)),
-                                              getBoolSecure(attrs, "friendly_pos", false),
+                                              getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
         } else {
             // this detector sends it's data to some host on the network
@@ -727,7 +727,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                               SharedOutputDevices::getInstance()->getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
                                                       getInt(attrs, SUMO_ATTR_PORT),
                                                       getString(attrs, SUMO_ATTR_PROTOCOL)),
-                                              getBoolSecure(attrs, "friendly_pos", false),
+                                              getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
         }
 #else //#ifdef USE_SOCKETS
@@ -737,7 +737,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           SharedOutputDevices::getInstance()->getOutputDeviceChecking(
                                               _file, getString(attrs, SUMO_ATTR_FILE)),
-                                          getBoolSecure(attrs, "friendly_pos", false),
+                                          getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
     } catch (XMLBuildingException &e) {
@@ -993,7 +993,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
-                getFloatSecure(attrs, "pass", -1), // !!! make this an enum
+                getFloatSecure(attrs, SUMO_ATTR_PASS, -1),
 #endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
@@ -1005,7 +1005,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
-                getFloatSecure(attrs, "pass", -1), // !!! make this an enum
+                getFloatSecure(attrs, SUMO_ATTR_PASS, -1),
 #endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),

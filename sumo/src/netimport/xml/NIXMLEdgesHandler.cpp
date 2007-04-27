@@ -160,7 +160,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &name,
             }
             return;
         }
-        int lane = getIntSecure(attrs, "id", -1);
+        int lane = getIntSecure(attrs, SUMO_ATTR_ID, -1);
         if (lane<0) {
             addError("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
             return;
@@ -189,9 +189,9 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &name,
 
         // set information about later beginning lanes
         size_t priorLaneNo = edge->getNoLanes();
-        if(hasAttribute(attrs, "forceLength")) {
+        if(hasAttribute(attrs, SUMO_ATTR_FORCE_LENGTH)) {
             try {
-                int forcedLength = getInt(attrs, "forceLength"); // !!! describe
+                int forcedLength = getInt(attrs, SUMO_ATTR_FORCE_LENGTH); // !!! describe
                 int nameid = forcedLength;
                 forcedLength = (int) (edge->getGeometry().length() - forcedLength);
                 std::vector<Expansion>::iterator i;

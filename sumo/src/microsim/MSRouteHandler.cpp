@@ -215,7 +215,7 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
                                  getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                 getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU),
+                                 getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (XMLIdAlreadyUsedException &e) {

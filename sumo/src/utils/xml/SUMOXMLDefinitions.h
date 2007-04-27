@@ -36,16 +36,6 @@
 #include <config.h>
 #endif
 
-#include <utils/xml/GenericSAXHandler.h>
-
-
-// ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
 
 // ===========================================================================
 // definitions
@@ -53,7 +43,7 @@ using namespace XERCES_CPP_NAMESPACE;
 /**
  * Numbers representing SUMO-XML - tags (element names)
  */
-enum TagEnum
+enum SumoXMLTag
 {
     /** invalid tag */
     SUMO_TAG_NOTHING,
@@ -167,8 +157,10 @@ enum TagEnum
 /**
  * Numbers representing SUMO-XML - attributes
  */
-enum AttrEnum
+enum SumoXMLAttr
 {
+    /** invalid attribute */
+    SUMO_ATTR_NOTHING,
     /* common attributes */
     SUMO_ATTR_ID,
     SUMO_ATTR_NAME,
@@ -200,6 +192,7 @@ enum AttrEnum
     SUMO_ATTR_ACCEL,
     SUMO_ATTR_DECEL,
     SUMO_ATTR_SIGMA,
+    SUMO_ATTR_TAU,
     SUMO_ATTR_VCLASS,
     SUMO_ATTR_REPNUMBER,
     /* route alternatives attributes */
@@ -305,19 +298,22 @@ enum AttrEnum
     // IP port number (1..65535)
     SUMO_ATTR_PORT,
     // IP protocol (either 'udp', 'tcp-client' or 'tcp-server')
-    SUMO_ATTR_PROTOCOL
+    SUMO_ATTR_PROTOCOL,
 
+    SUMO_ATTR_WAUT_ID,
+    SUMO_ATTR_JUNCTION_ID,
+    SUMO_ATTR_PROCEDURE,
+    SUMO_ATTR_SYNCHRON,
+    SUMO_ATTR_REF_TIME,
+    SUMO_ATTR_START_PROG,
+
+    SUMO_ATTR_OFF,
+    SUMO_ATTR_FRIENDLY_POS,
+    SUMO_ATTR_UNCONTROLLED,
+    SUMO_ATTR_VEHTYPE,
+    SUMO_ATTR_PASS,
+    SUMO_ATTR_FORCE_LENGTH
 };
-
-
-// ===========================================================================
-// declarations
-// ===========================================================================
-/// The names of SUMO-XML elements
-extern GenericSAXHandler::Tag sumotags[];
-
-/// The names of SUMO-XML attributes
-extern GenericSAXHandler::Attr sumoattrs[];
 
 
 #endif

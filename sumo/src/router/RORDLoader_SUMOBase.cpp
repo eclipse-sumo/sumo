@@ -189,7 +189,7 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         SUMOReal accel = getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
         SUMOReal decel = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
         SUMOReal sigma = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-        SUMOReal tau = getFloatSecure(attrs, "tau", DEFAULT_VEH_TAU);
+        SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
         RGBColor color = parseColor(*this, attrs, "vehicle type", id);
         SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
         // build the vehicle type after checking

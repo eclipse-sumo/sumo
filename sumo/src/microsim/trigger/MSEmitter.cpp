@@ -225,13 +225,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
     // check whethe the correct tag is read
     if (name=="emit") {
         // check and assign emission time
-        int aEmitTime = getIntSecure(attrs, "time", -1);
+        int aEmitTime = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
         if (aEmitTime<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
         // check and assign id
-        string aVehicleId = getStringSecure(attrs, "id", "");
+        string aVehicleId = getStringSecure(attrs, SUMO_ATTR_ID, "");
         if (myVehicleControl.getVehicle(aVehicleId)!=0) {
             WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Generating a default id.");
             aVehicleId = "";
@@ -244,7 +244,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
             }
         }
         // check and assign vehicle type
-        string emitType = getStringSecure(attrs, "vehtype", "");
+        string emitType = getStringSecure(attrs, SUMO_ATTR_VEHTYPE, "");
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(emitType);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
@@ -260,7 +260,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
             }
         }
         // check and assign vehicle type
-        string emitRoute = getStringSecure(attrs, "route", "");
+        string emitRoute = getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
         MSRoute *aEmitRoute = MSRoute::dictionary(emitRoute);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
@@ -273,7 +273,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
             }
         }
         // build vehicle
-        SUMOReal aEmitSpeed = getFloatSecure(attrs, "speed", -1);
+        SUMOReal aEmitSpeed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1);
         MSVehicle *veh =
             MSNet::getInstance()->getVehicleControl().buildVehicle(
                 aVehicleId, aEmitRoute, aEmitTime, aVehType, 0, 0);

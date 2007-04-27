@@ -97,15 +97,15 @@ protected:
 
     /// Parses a named edge frm the attributes
     ROEdge *getEdge(const Attributes &attrs, const std::string &purpose,
-                    AttrEnum which, const std::string &id, bool emptyAllowed);
+                    SumoXMLAttr which, const std::string &id, bool emptyAllowed);
 
     /** @brief Parses a SUMOReal value which is optional;
         Avoids exceptions */
     SUMOReal getOptionalFloat(const Attributes &attrs,
-                              const std::string &name, AttrEnum which, const std::string &place);
+                              const std::string &name, SumoXMLAttr which, const std::string &place);
 
     /// Parses and returns the time the vehicle should start at
-    SUMOTime getTime(const Attributes &attrs, AttrEnum which,
+    SUMOTime getTime(const Attributes &attrs, SumoXMLAttr which,
                      const std::string &id);
 
     /// Parses and returns the period the trip shall be repeated with

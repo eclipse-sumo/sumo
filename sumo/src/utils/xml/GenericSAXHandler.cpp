@@ -58,12 +58,12 @@ GenericSAXHandler::GenericSAXHandler(
         : _errorOccured(false), _unknownOccured(false)
 { 
     int i = 0;
-    while (tags[i].key>=0) {
+    while (tags[i].key != SUMO_TAG_NOTHING) {
         addTag(tags[i].name, tags[i].key);
         i++;
     }
     i = 0;
-    while (attrs[i].key>=0) {
+    while (attrs[i].key != SUMO_ATTR_NOTHING) {
         add(attrs[i].key, attrs[i].name);
         i++;
     }
@@ -116,6 +116,21 @@ GenericSAXHandler::hasAttribute(const Attributes &attrs,
 }
 
 
+bool
+GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const
+{
+    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
+}
+
+
+bool
+GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const
+{
+    return TplConvertSec<XMLCh>::_2boolSec(
+               getAttributeValueSecure(attrs, id), val);
+}
+
+
 int
 GenericSAXHandler::getInt(const Attributes &attrs, int id) const
 {
@@ -129,54 +144,6 @@ GenericSAXHandler::getIntSecure(const Attributes &attrs, int id,
 {
     return TplConvertSec<XMLCh>::_2intSec(
                getAttributeValueSecure(attrs, id), def);
-}
-
-
-int
-GenericSAXHandler::getInt(const Attributes &attrs, const std::string &id) const
-{
-    return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
-}
-
-
-int
-GenericSAXHandler::getIntSecure(const Attributes &attrs,
-                                const std::string &id,
-                                int def) const
-{
-    return TplConvertSec<XMLCh>::_2intSec(
-               getAttributeValueSecure(attrs, id), def);
-}
-
-
-bool
-GenericSAXHandler::getBool(const Attributes &attrs, int id) const
-{
-    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
-}
-
-
-bool
-GenericSAXHandler::getBoolSecure(const Attributes &attrs, int id, bool val) const
-{
-    return TplConvertSec<XMLCh>::_2boolSec(
-               getAttributeValueSecure(attrs, id), val);
-}
-
-
-bool
-GenericSAXHandler::getBool(const Attributes &attrs, const std::string &id) const
-{
-    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
-}
-
-
-bool
-GenericSAXHandler::getBoolSecure(const Attributes &attrs,
-                                 const std::string &id, bool val) const
-{
-    return TplConvertSec<XMLCh>::_2boolSec(
-               getAttributeValueSecure(attrs, id), val);
 }
 
 
@@ -214,22 +181,6 @@ GenericSAXHandler::getStringSecure(const Attributes &attrs,
 }
 
 
-long
-GenericSAXHandler::getLong(const Attributes &attrs, int id) const
-{
-    return TplConvert<XMLCh>::_2long(getAttributeValueSecure(attrs, id));
-}
-
-
-long
-GenericSAXHandler::getLongSecure(const Attributes &attrs, int id,
-                                 long def) const
-{
-    return TplConvertSec<XMLCh>::_2longSec(
-               getAttributeValueSecure(attrs, id), def);
-}
-
-
 SUMOReal
 GenericSAXHandler::getFloat(const Attributes &attrs, int id) const
 {
@@ -248,29 +199,10 @@ GenericSAXHandler::getFloatSecure(const Attributes &attrs, int id,
 
 SUMOReal
 GenericSAXHandler::getFloat(const Attributes &attrs,
-                            const std::string &id) const
-{
-    return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
-}
-
-
-SUMOReal
-GenericSAXHandler::getFloatSecure(const Attributes &attrs,
-                                  const std::string &id,
-                                  SUMOReal def) const
-{
-    return TplConvertSec<XMLCh>::_2SUMORealSec(
-               getAttributeValueSecure(attrs, id), def);
-}
-
-
-SUMOReal
-GenericSAXHandler::getFloat(const Attributes &attrs,
                             const XMLCh * const id) const
 {
     return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
 }
-
 
 
 const XMLCh *const
@@ -309,14 +241,6 @@ GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
         const std::string &id) const
 {
     return attrs.getValue(getAttributeNameSecure(id));
-}
-
-
-char *
-GenericSAXHandler::getCharP(const Attributes &attrs, int id) const
-{
-    AttrMap::const_iterator i=myPredefinedTags.find(id);
-    return TplConvert<XMLCh>::_2charp(attrs.getValue(0, (*i).second));
 }
 
 

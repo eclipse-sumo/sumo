@@ -43,7 +43,7 @@
 #include <vector>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
-
+#include "SUMOXMLDefinitions.h"
 
 // ===========================================================================
 // xerces 2.2 compatibility
@@ -75,7 +75,7 @@ public:
         /// The xml-attribute-name (ascii)
         const char *name;
         /// The numerical representation of the attribute
-        int key;
+        SumoXMLAttr key;
     };
 
     /** a tag name with its numerical representation */
@@ -84,7 +84,7 @@ public:
         /// The xml-element-name (ascii)
         const char *name;
         /// The numerical representation of the attribute
-        int key;
+        SumoXMLTag key;
     };
 
 
@@ -154,16 +154,12 @@ public:
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id);
 
     /** returns the named (by id) attribute as a bool */
-    bool getBool(const Attributes &attrs, int id) const;
-    bool getBoolSecure(const Attributes &attrs, int id, bool val) const;
-    bool getBool(const Attributes &attrs, const std::string &id) const;
-    bool getBoolSecure(const Attributes &attrs, const std::string &id, bool val) const;
+    bool getBool(const Attributes &attrs, SumoXMLAttr id) const;
+    bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const;
 
     /** returns the named (by id) attribute as an int */
     int getInt(const Attributes &attrs, int id) const;
     int getIntSecure(const Attributes &attrs, int id, int def) const;
-    int getInt(const Attributes &attrs, const std::string &id) const;
-    int getIntSecure(const Attributes &attrs, const std::string &id, int def) const;
 
     /** returns the named (by id) attribute as a string */
     std::string getString(const Attributes &attrs, int id) const;
@@ -173,20 +169,10 @@ public:
     std::string getStringSecure(const Attributes &attrs, const std::string &id,
                                 const std::string &str) const;
 
-    /** returns the named (by id) attribute as a long */
-    long getLong(const Attributes &attrs, int id) const;
-    long getLongSecure(const Attributes &attrs, int id, long def) const;
-
     /** returns the named (by id) attribute as a SUMOReal */
     SUMOReal getFloat(const Attributes &attrs, int id) const;
     SUMOReal getFloatSecure(const Attributes &attrs, int id, SUMOReal def) const;
-    SUMOReal getFloat(const Attributes &attrs, const std::string &id) const;
-    SUMOReal getFloatSecure(const Attributes &attrs, const std::string &id, SUMOReal def) const;
     SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const;
-
-    /** returns the named (by id) attribute as a c-string */
-    char *getCharP(const Attributes &attrs, int id) const;
-    //}
 
 protected:
     /** @brief handler method for an opening tag to implement by derived classes
@@ -275,6 +261,17 @@ private:
 
 
 };
+
+
+// ===========================================================================
+// declarations
+// ===========================================================================
+
+/// The names of SUMO-XML elements
+extern GenericSAXHandler::Tag sumotags[];
+
+/// The names of SUMO-XML attributes
+extern GenericSAXHandler::Attr sumoattrs[];
 
 
 #endif

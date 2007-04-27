@@ -99,9 +99,9 @@ GenericSAXHandler::Tag sumotags[] =
         { "sink",             SUMO_TAG_SINK },
         { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
         { "weight",           SUMO_TAG_WEIGHT },
-        { "reroute-agent",	SUMO_TAG_REROUTE_AGENT },
-        { "param",	        SUMO_TAG_PARAM },
-        { "", -1 }
+        { "reroute-agent",	  SUMO_TAG_REROUTE_AGENT },
+        { "param",	          SUMO_TAG_PARAM },
+        { "",                 SUMO_TAG_NOTHING }
     };
 
 
@@ -137,6 +137,7 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "accel",          SUMO_ATTR_ACCEL },
         { "decel",          SUMO_ATTR_DECEL },
         { "sigma",          SUMO_ATTR_SIGMA },
+        { "tau",            SUMO_ATTR_TAU },
         { "vclass",         SUMO_ATTR_VCLASS },
         { "repno",          SUMO_ATTR_REPNUMBER },
 
@@ -217,8 +218,19 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "host",			SUMO_ATTR_HOST },
         { "port",			SUMO_ATTR_PORT },
         { "protocol",		SUMO_ATTR_PROTOCOL },
-        { "",               -1 }
-
+        { "wautID",		    SUMO_ATTR_WAUT_ID },
+        { "junctionID",     SUMO_ATTR_JUNCTION_ID },
+        { "procedure",	    SUMO_ATTR_PROCEDURE },
+        { "synchron",	    SUMO_ATTR_SYNCHRON },
+        { "refTime",	    SUMO_ATTR_REF_TIME },
+        { "startProg",	    SUMO_ATTR_START_PROG },
+        { "off",            SUMO_ATTR_OFF },
+        { "friendly_pos",   SUMO_ATTR_FRIENDLY_POS },
+        { "uncontrolled",   SUMO_ATTR_UNCONTROLLED },
+        { "vehtype",        SUMO_ATTR_VEHTYPE },
+        { "pass",           SUMO_ATTR_PASS },
+        { "forceLength",    SUMO_ATTR_FORCE_LENGTH },
+        { "",               SUMO_ATTR_NOTHING }
     };
 
 
