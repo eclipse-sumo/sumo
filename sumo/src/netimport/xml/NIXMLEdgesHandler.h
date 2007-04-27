@@ -114,7 +114,7 @@ private:
 
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
-    SUMOReal tryGetPosition(const Attributes &attrs, int tag,
+    SUMOReal tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
                             const std::string &attrName);
 
     /** @brief Build the enodes in respect to the given parameters

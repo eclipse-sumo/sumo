@@ -75,16 +75,15 @@ GenericSAXHandler::~GenericSAXHandler()
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[] (*i1).second;
     }
-    for (StrAttrMap::iterator i2=myStrTags.begin(); i2!=myStrTags.end(); i2++) {
-        delete[] (*i2).second;
-    }
 }
 
 
 void
 GenericSAXHandler::add(int id, const std::string &name)
 {
-    check(id);
+    if (myPredefinedTags.find(id)!=myPredefinedTags.end()) {
+        throw exception();
+    }
     myPredefinedTags.insert(AttrMap::value_type(id, convert(name)));
 }
 
@@ -124,14 +123,14 @@ GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool v
 
 
 int
-GenericSAXHandler::getInt(const Attributes &attrs, int id) const
+GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const
 {
     return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
 }
 
 
 int
-GenericSAXHandler::getIntSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
                                 int def) const
 {
     return TplConvertSec<XMLCh>::_2intSec(
@@ -140,14 +139,14 @@ GenericSAXHandler::getIntSecure(const Attributes &attrs, int id,
 
 
 std::string
-GenericSAXHandler::getString(const Attributes &attrs, int id) const
+GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const
 {
     return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
 }
 
 
 std::string
-GenericSAXHandler::getStringSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
                                    const std::string &str) const
 {
     return TplConvertSec<XMLCh>::_2strSec(
@@ -156,14 +155,14 @@ GenericSAXHandler::getStringSecure(const Attributes &attrs, int id,
 
 
 SUMOReal
-GenericSAXHandler::getFloat(const Attributes &attrs, int id) const
+GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const
 {
     return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
 }
 
 
 SUMOReal
-GenericSAXHandler::getFloatSecure(const Attributes &attrs, int id,
+GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
                                   SUMOReal def) const
 {
     return TplConvertSec<XMLCh>::_2SUMORealSec(
@@ -179,51 +178,15 @@ GenericSAXHandler::getFloat(const Attributes &attrs,
 }
 
 
-const XMLCh *const
-GenericSAXHandler::getAttributeNameSecure(int id) const
+const XMLCh *
+GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
+        SumoXMLAttr id) const
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
         throw EmptyData();
     }
-    return (*i).second;
-}
-
-
-const XMLCh *const
-GenericSAXHandler::getAttributeNameSecure(const std::string &id) const
-{
-    StrAttrMap::const_iterator i=myStrTags.find(id);
-    if (i==myStrTags.end()) {
-        myStrTags.insert(StrAttrMap::value_type(id, convert(id)));
-        return myStrTags.find(id)->second;
-    }
-    return (*i).second;
-}
-
-
-const XMLCh *
-GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
-        int id) const
-{
-    return attrs.getValue(getAttributeNameSecure(id));
-}
-
-
-const XMLCh *
-GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
-        const std::string &id) const
-{
-    return attrs.getValue(getAttributeNameSecure(id));
-}
-
-
-void
-GenericSAXHandler::check(int id) const
-{
-    if (myPredefinedTags.find(id)!=myPredefinedTags.end()) {
-        throw exception();
-    }
+    return attrs.getValue((*i).second);
 }
 
 

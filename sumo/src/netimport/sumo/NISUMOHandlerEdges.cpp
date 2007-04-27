@@ -112,7 +112,7 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
 }
 
 NBNode *
-NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
+NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
                             const std::string &dir, const std::string &name)
 {
     try {

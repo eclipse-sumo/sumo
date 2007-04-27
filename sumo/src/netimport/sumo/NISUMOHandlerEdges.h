@@ -67,7 +67,7 @@ protected:
     void myEndElement(int element, const std::string &name);
 private:
     void addEdge(const Attributes &attrs);
-    NBNode *getNode(const Attributes &attrs, unsigned int id,
+    NBNode *getNode(const Attributes &attrs, SumoXMLAttr id,
                     const std::string &dir, const std::string &name);
 private:
     NBEdgeCont &myEdgeCont;

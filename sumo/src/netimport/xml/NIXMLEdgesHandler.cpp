@@ -492,11 +492,11 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
 
 
 SUMOReal
-NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, int tag,
+NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
                                   const std::string &attrName)
 {
     try {
-        return getFloatSecure(attrs, tag, -1);
+        return getFloatSecure(attrs, attrID, -1);
     } catch (NumberFormatException) {
         addError("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
         return -1.0;

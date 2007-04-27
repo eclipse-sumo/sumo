@@ -157,17 +157,17 @@ public:
     bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const;
 
     /** returns the named (by id) attribute as an int */
-    int getInt(const Attributes &attrs, int id) const;
-    int getIntSecure(const Attributes &attrs, int id, int def) const;
+    int getInt(const Attributes &attrs, SumoXMLAttr id) const;
+    int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const;
 
     /** returns the named (by id) attribute as a string */
-    std::string getString(const Attributes &attrs, int id) const;
-    std::string getStringSecure(const Attributes &attrs, int id,
+    std::string getString(const Attributes &attrs, SumoXMLAttr id) const;
+    std::string getStringSecure(const Attributes &attrs, SumoXMLAttr id,
                                 const std::string &str) const;
 
     /** returns the named (by id) attribute as a SUMOReal */
-    SUMOReal getFloat(const Attributes &attrs, int id) const;
-    SUMOReal getFloatSecure(const Attributes &attrs, int id, SUMOReal def) const;
+    SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const;
+    SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const;
     SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const;
 
 protected:
@@ -202,24 +202,8 @@ private:
     //{ methods for dealing with attributes
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
-    const XMLCh *const getAttributeNameSecure(int id) const;
-
-    /** returns the xml-name of an attribute in a way that no NULL-pointer
-        exceptions may occure */
-    const XMLCh *const getAttributeNameSecure(const std::string &id) const;
-
-    /** returns the xml-name of an attribute in a way that no NULL-pointer
-        exceptions may occure */
     const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-                                         int id) const;
-
-    /** returns the xml-name of an attribute in a way that no NULL-pointer
-        exceptions may occure */
-    const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-                                         const std::string &id) const;
-
-    /** checks whether the id was not previously set */
-    void check(int id) const;
+                                         SumoXMLAttr id) const;
     //}
 
 private:
@@ -229,12 +213,6 @@ private:
 
     /** the map from ids to their unicode-string representation */
     AttrMap myPredefinedTags;
-
-    /** the type of the map from ids to their unicode-string representation */
-    typedef std::map<std::string, XMLCh*> StrAttrMap;
-
-    /** the map from ids to their unicode-string representation */
-    mutable StrAttrMap myStrTags;
     //}
 
     /** the type of the map the maps tag names to ints */
