@@ -141,19 +141,6 @@ StringUtils::replace(std::string str, const char *what,
 }
 
 
-std::string
-StringUtils::trim(SUMOReal val, size_t to)
-{
-    string ret = toString<SUMOReal>(val);
-    size_t idx = ret.rfind('.');
-    if (idx!=string::npos) {
-        return ret.substr(0, ret.find('.') + to);
-    } else {
-        return ret;
-    }
-}
-
-
 void
 StringUtils::upper(std::string &str)
 {

@@ -66,10 +66,6 @@ public:
     static std::string replace(std::string str, const char *what,
                                const char *by);
 
-    /** Returns the given SUMOReal as a string with as many digits
-        after the dot as defined by the second parameter */
-    static std::string trim(SUMOReal val, size_t to);
-
     /// Converts the given string to upper characters
     static void upper(std::string &str);
 

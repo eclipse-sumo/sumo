@@ -449,7 +449,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
-    string begStr = StringUtils::trim((SUMOReal) beginStep, 2);
+    string begStr = toString((SUMOReal) beginStep);
     SUMOReal w = pfdkGetStringWidth(begStr.c_str());
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
@@ -462,8 +462,8 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     glTranslated(0.75, 0.88, 0);
-    pfDrawString(StringUtils::trim(
-                     (SUMOReal) beginStep + (SUMOReal) values.size() *(SUMOReal) desc.getAggregationSpan(), 2).c_str());
+    pfDrawString(toString(
+                     (SUMOReal) beginStep + (SUMOReal) values.size() *(SUMOReal) desc.getAggregationSpan()).c_str());
     glTranslated(-0.75, -0.88, 0);
     glRotated(-180, 1, 0, 0);
 
@@ -471,7 +471,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     glTranslated(-0.98, 0.82, 0);
-    pfDrawString(StringUtils::trim(desc.getMin(), 2).c_str());
+    pfDrawString(toString(desc.getMin()).c_str());
     glTranslated(0.98, -0.82, 0);
     glRotated(-180, 1, 0, 0);
 
@@ -479,7 +479,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);
     glTranslated(-0.98, -0.78, 0);
-    pfDrawString(StringUtils::trim(desc.getMax(), 2).c_str());
+    pfDrawString(toString(desc.getMax()).c_str());
     glTranslated(0.98, 0.78, 0);
     glRotated(-180, 1, 0, 0);
 
@@ -489,7 +489,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     SUMOReal p = (SUMOReal) 0.8 -
                  ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * (latest-desc.getMin()));
     glTranslated(-0.98, p+.02, 0);
-    pfDrawString(StringUtils::trim(latest, 2).c_str());
+    pfDrawString(toString(latest).c_str());
     glTranslated(0.98, -(p+.02), 0);
     glRotated(-180, 1, 0, 0);
 
@@ -505,11 +505,11 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
     GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMin()),
-        StringUtils::trim(desc.getMin(), 2));
+        toString(desc.getMin()));
         // draw maximum boundary
     GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMax()),
-        StringUtils::trim(desc.getMax(), 2));
+        toString(desc.getMax()));
         // draw some further lines
     glColor4f(red, green, blue, 0.3f);
     for(int a=1; a<6; a++) {
@@ -551,7 +551,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glPopMatrix();
     // set the begin and the end time step
         // begin
-    std::string val = StringUtils::trim(beginStep, 2);
+    std::string val = toString(beginStep);
     GUITexturesHelper::getFontRenderer().StringOut(
         (SUMOReal) (getWidth()/10.0*1.0
             - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2),
@@ -559,7 +559,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
             + GUITexturesHelper::getFontRenderer().GetHeight()),
         val);
         // end
-    val = StringUtils::trim(beginStep + values.size()*desc.getAggregationSpan(), 2);
+    val = toString(beginStep + values.size()*desc.getAggregationSpan());
     GUITexturesHelper::getFontRenderer().StringOut(
         (SUMOReal) (getWidth()/10.0*9.0
             - GUITexturesHelper::getFontRenderer().GetStringWidth(val)/2),
@@ -568,7 +568,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         val);
     // add current value string
     GUITexturesHelper::getFontRenderer().StringOut(3,
-        patchHeightVal(desc, yp), StringUtils::trim(yp, 2));
+        patchHeightVal(desc, yp), toString(yp));
     GUITexturesHelper::getFontRenderer().StringOut(namePos+3, 0,
         desc.getName());
         */
