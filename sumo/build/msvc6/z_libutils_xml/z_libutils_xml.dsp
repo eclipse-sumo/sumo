@@ -107,10 +107,6 @@ SOURCE=..\..\..\src\utils\xml\WeightsHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\XMLBuildingExceptions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\xml\XMLSnippletStorage.cpp
 # End Source File
 # Begin Source File

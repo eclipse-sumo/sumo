@@ -152,10 +152,6 @@ SOURCE=..\..\..\src\utils\geom\Position2DVector.cpp
 
 SOURCE=..\..\..\src\utils\common\StringTokenizer.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\common\UtilExceptions.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
