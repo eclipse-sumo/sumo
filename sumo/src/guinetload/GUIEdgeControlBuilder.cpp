@@ -111,7 +111,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw XMLDepartLaneDuplicationException();
+        throw XMLDepartLaneDuplicationException(id);
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);

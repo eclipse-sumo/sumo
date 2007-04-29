@@ -70,7 +70,7 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
             }
             i += add;
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform("On processing option '" + string(argv[i]) + "':\n " + e.msg());
+            MsgHandler::getErrorInstance()->inform("On processing option '" + string(argv[i]) + "':\n " + e.what());
             i++;
             ok = false;
         }

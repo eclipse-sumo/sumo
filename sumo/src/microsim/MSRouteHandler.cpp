@@ -219,7 +219,7 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException) {
@@ -333,9 +333,9 @@ MSRouteHandler::myEndElement(int element, const std::string &)
         try {
             closeRoute();
         } catch (XMLListEmptyException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
         break;
     case SUMO_TAG_VEHICLE:
@@ -350,7 +350,7 @@ MSRouteHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        throw XMLListEmptyException();
+        throw XMLListEmptyException("route", myActiveRouteID);
     }
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
     myActiveRoute.clear();

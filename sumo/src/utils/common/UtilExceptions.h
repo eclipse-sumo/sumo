@@ -37,48 +37,32 @@
 #endif
 
 #include <string>
-#include <exception>
+#include <stdexcept>
+
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
+using namespace std;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class UtilException : public std::exception
-{
-public:
-    virtual const std::string &msg() const
-    {
-        return myDefaultMessage;
-    }
-private:
-    static std::string myDefaultMessage;
-};
-
-
 /**
  * InvalidArgument
  * Thrown when an argument was not proper in the current context
  * A message will be supplied
  */
-class InvalidArgument : public UtilException
+class InvalidArgument : public runtime_error
 {
 public:
     /** constructor */
-    InvalidArgument(const std::string &msg);
-
-    /** destructor */
-    ~InvalidArgument() throw();
-
-    /** returns the error description */
-    const std::string &msg() const;
-
-private:
-    /** the meaning of the argument within the context */
-    std::string   _msg;
+    InvalidArgument(const string &message)
+        : runtime_error(message)
+    {}
 
 };
-
-
 
 
 /**
@@ -87,67 +71,30 @@ private:
  * longer able to proceed due to any reason. The reason itself is mostly
  * reported before throwing the exception
  */
-class ProcessError : public UtilException
+class ProcessError : runtime_error
 {
 public:
     /** constructor */
-    ProcessError();
-
-    /** destructor */
-    ~ProcessError() throw();
-
-};
-
-
-
-
-
-/**
- * UnsupportedFeature
- * An exception that is thrown when an (yet) unsupported class or
- * feature shall be instantiated
- */
-class UnsupportedFeature : public UtilException
-{
-public:
-    /** constructor */
-    UnsupportedFeature(const std::string &message);
-
-    /** destructor */
-    ~UnsupportedFeature() throw();
-
-    /** returns the message */
-    const std::string &msg() const;
-
-private:
-    /** the message of the exception */
-    std::string _message;
+    ProcessError()
+        : runtime_error("Process Error")
+    {}
 
 };
-
-
-
 
 
 /**
  * EmptyData
  * Thrown when data required by a method is missing
  */
-class EmptyData : public UtilException
+class EmptyData : public runtime_error
 {
 public:
     /** constructor */
     EmptyData()
-    { }
-
-    /** destructor */
-    ~EmptyData() throw()
-    { }
+        : runtime_error("Empty Data")
+    {}
 
 };
-
-
-
 
 
 /**
@@ -156,22 +103,15 @@ public:
  * numerical representation has any other chracters then
  * digits and a dot
  */
-class NumberFormatException : UtilException
+class NumberFormatException : runtime_error
 {
 public:
     /** constructor */
     NumberFormatException()
-    { }
-
-    /** destructor */
-    ~NumberFormatException() throw()
-    { }
+        : runtime_error("Number Format")
+    {}
 
 };
-
-
-
-
 
 
 /**
@@ -179,21 +119,15 @@ public:
  * Thrown when an array element out of the array's
  * bounderies is accessed
  */
-class OutOfBoundsException : UtilException
+class OutOfBoundsException : runtime_error
 {
 public:
     /** constructor */
     OutOfBoundsException()
-    { }
-
-    /** destructor */
-    ~OutOfBoundsException() throw()
-    { }
+        : runtime_error("Out Of Bounds")
+    {}
 
 };
-
-
-
 
 
 /**
@@ -201,86 +135,39 @@ public:
  * Thrown when a named element is tried to be accesed
  * which is not known to the container
  */
-class UnknownElement : UtilException
+class UnknownElement : runtime_error
 {
 public:
     /** constructor */
     UnknownElement()
-    { }
-
-    /** destructor */
-    ~UnknownElement() throw()
-    { }
+        : runtime_error("Unknown Element")
+    {}
 
 };
 
 
-
-/**
- * SignalException
- */
-class SignalException : UtilException
+class FileBuildError : public runtime_error
 {
 public:
     /** constructor */
-    SignalException(int signal) : mySignal(signal)
-    { }
-
-    /** destructor */
-    ~SignalException() throw()
-    { }
-
-    int getSignal()
-    {
-        return mySignal;
-    }
-
-protected:
-    int mySignal;
+    FileBuildError(const string &message)
+        : runtime_error(message)
+    {}
 
 };
 
 
-
-class FileBuildError : public UtilException
-{
-public:
-    /** constructor */
-    FileBuildError(const std::string &message);
-
-    /** destructor */
-    ~FileBuildError() throw();
-
-    /** returns the message */
-    const std::string &msg() const;
-
-private:
-    /** the message of the exception */
-    std::string myMessage;
-
-};
-
-
-
-class NetworkError : public UtilException
+class NetworkError : public runtime_error
 {
 public:
     // constructor
-    NetworkError(const std::string &message);
+    NetworkError(const string &message)
+        : runtime_error(message)
+    {}
 
-    // destructor
-    ~NetworkError() throw();
-
-    // return the exceptions message
-    const std::string &msg() const;
-
-private:
-    // the exceptions message
-    std::string myMessage;
 };
 
 
 #endif
 
 /****************************************************************************/
-

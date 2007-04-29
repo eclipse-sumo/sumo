@@ -152,15 +152,8 @@ GUILoadThread::run()
             RandHelper::initRandGlobal(oc);
         }
 #ifndef _DEBUG
-    } catch (UtilException &e) {
-        string error = e.msg();
-        MsgHandler::getErrorInstance()->inform(error);
-        delete net;
-        MSNet::clearAll();
-        net = 0;
-    } catch (XMLBuildingException &e) {
-        string error = e.getMessage("", "");
-        MsgHandler::getErrorInstance()->inform(error);
+    } catch (exception &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
         delete net;
         MSNet::clearAll();
         net = 0;

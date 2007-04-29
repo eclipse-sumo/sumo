@@ -220,7 +220,7 @@ OptionsCont::set(const string &name, const string &value, bool isDefault)
             return false;
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.msg());
+        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.what());
         return false;
     }
     return true;
@@ -243,7 +243,7 @@ OptionsCont::set(const string &name, bool value, bool isDefault)
             return false;
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.msg());
+        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.what());
         return false;
     }
     return true;

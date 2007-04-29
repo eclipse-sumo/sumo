@@ -475,7 +475,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                         net, 0, 86400, "hallo"/*!!!*/);
                 myParent->handleEvent_SimulationLoaded(e);
             } catch (RandHelper &) {}
-            /*                string error = e.msg();
+            /*                string error = e.what();
                             MsgHandler::getErrorInstance()->inform(error);
                             delete net;
                             MSNet::clearAll();

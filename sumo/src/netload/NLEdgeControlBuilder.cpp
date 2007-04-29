@@ -125,7 +125,7 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw XMLDepartLaneDuplicationException();
+        throw XMLDepartLaneDuplicationException(id);
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);
@@ -203,7 +203,7 @@ NLEdgeControlBuilder::addAllowed(MSLane *lane)
     // checks if the lane is inside the edge
     MSEdge::LaneCont::iterator i1 = find(m_pLanes->begin(), m_pLanes->end(), lane);
     if (i1==m_pLanes->end()) {
-        throw XMLInvalidChildException();
+        throw XMLInvalidChildException("lane", lane->getID());
     }
     m_pLaneStorage->push_back(lane);
 }

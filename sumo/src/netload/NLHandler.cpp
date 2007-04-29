@@ -348,7 +348,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("edge", id));
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
     // get the function
     string func;
@@ -406,9 +406,9 @@ NLHandler::addLane(const Attributes &attrs)
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
             myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (XMLDepartLaneDuplicationException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
         } catch (NumberFormatException) {
@@ -435,7 +435,7 @@ NLHandler::addPOI(const Attributes &attrs)
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
                                     getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("poi", name));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of POI '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -459,7 +459,7 @@ NLHandler::addPoly(const Attributes &attrs)
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                                         getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -489,7 +489,7 @@ NLHandler::openAllowedEdge(const Attributes &attrs)
         // continuation
         myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("cedge", id));
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an cedge-object.");
     }
@@ -741,15 +741,15 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
     } catch (XMLBuildingException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NetworkError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -835,13 +835,13 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                              );
         }
     } catch (XMLBuildingException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -867,13 +867,13 @@ NLHandler::beginE3Detector(const Attributes &attrs)
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
     } catch (XMLBuildingException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -886,7 +886,7 @@ NLHandler::addE3Entry(const Attributes &attrs)
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     }
@@ -901,11 +901,11 @@ NLHandler::addE3Exit(const Attributes &attrs)
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -924,16 +924,16 @@ NLHandler::addSource(const Attributes &attrs)
                 myNet, attrs, _file, *this);
             return;
         } catch (XMLBuildingException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.msg());
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
     } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -948,13 +948,13 @@ NLHandler::addTrigger(const Attributes &attrs)
             myTriggerBuilder.buildTrigger(myNet, attrs, _file, *this);
             return;
         } catch (XMLBuildingException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("trigger", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.msg());
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
         } catch (FileBuildError &e) {
-            MsgHandler::getErrorInstance()->inform(e.msg());
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a trigger-object.");
@@ -1014,8 +1014,8 @@ NLHandler::addSuccLane(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("", "") +
-                                               "\n While building lane '" + m_pSLB.getSuccingLaneName() + "'");
+        MsgHandler::getErrorInstance()->inform(e.what());
+        MsgHandler::getErrorInstance()->inform("While building lane '" + m_pSLB.getSuccingLaneName() + "'");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
@@ -1204,9 +1204,9 @@ NLHandler::addAllowedEdges(const std::string &chars)
             }
             myEdgeControlBuilder.addAllowed(lane);
         } catch (XMLIdNotKnownException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("clane", set));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (XMLInvalidChildException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("clane", set));
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
 }
@@ -1328,7 +1328,7 @@ NLHandler::addIncomingLanes(const std::string &chars)
             }
             myJunctionControlBuilder.addIncomingLane(lane);
         } catch (XMLIdNotKnownException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
 }
@@ -1361,7 +1361,7 @@ NLHandler::addInternalLanes(const std::string &chars)
             }
             myJunctionControlBuilder.addInternalLane(lane);
         } catch (XMLIdNotKnownException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
+            MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
 }
@@ -1483,9 +1483,9 @@ NLHandler::closeJunction()
     try {
         myJunctionControlBuilder.closeJunction();
     } catch (XMLIdAlreadyUsedException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("junction", ""));
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("junction", ""));
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -1501,7 +1501,7 @@ NLHandler::closeSuccLane()
     try {
         m_pSLB.closeSuccLane();
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -1522,7 +1522,7 @@ NLHandler::endE3Detector()
     try {
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (ProcessError) {}
 }
 

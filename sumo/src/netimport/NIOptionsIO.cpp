@@ -217,7 +217,7 @@ NIOptionsIO::checkOptions(OptionsCont &oc)
             if (!checkOutput(oc)) ok = false;
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+        MsgHandler::getErrorInstance()->inform(e.what());
         return false;
     }
     return ok;

@@ -5,6 +5,6 @@ SUMOBaseRouteHandler.cpp SUMOBaseRouteHandler.h \
 SUMOSAXHandler.cpp SUMOSAXHandler.h \
 SUMOXMLDefinitions.cpp SUMOXMLDefinitions.h \
 WeightsHandler.cpp WeightsHandler.h \
-XMLBuildingExceptions.cpp XMLBuildingExceptions.h \
+XMLBuildingExceptions.h \
 XMLSnippletStorage.cpp XMLSnippletStorage.h \
 XMLSubSys.cpp XMLSubSys.h

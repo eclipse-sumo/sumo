@@ -135,7 +135,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
                 _error = true;
             }
         } catch (InvalidArgument e) {
-            MsgHandler::getErrorInstance()->inform(e.msg());
+            MsgHandler::getErrorInstance()->inform(e.what());
             _error = true;
         }
     }

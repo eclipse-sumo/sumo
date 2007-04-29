@@ -37,38 +37,35 @@
 #endif
 
 #include <string>
+#include <stdexcept>
+
+
+// ===========================================================================
+// used namespaces
+// ===========================================================================
+using namespace std;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * for XMLBuildingException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLBuildingException
  *
  * Basic class for all following exception classes which are exceptions
  * which may be thrown during the parsing of XML-files.
  */
-class XMLBuildingException
+class XMLBuildingException : public runtime_error
 {
 public:
     /** constructor */
-    XMLBuildingException();
-
-    /** destructor */
-    virtual ~XMLBuildingException();
-
-    /** returns the error message */
-    virtual std::string getMessage(const std::string &obj,
-                                   const std::string &id);
+    XMLBuildingException(const string &message)
+        : runtime_error(message)
+    {}
 
 };
 
 
-/* -------------------------------------------------------------------------
- * for XMLIdNotKnownException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLIdNotKnownException
  * thrown when an object of the named class and id is not known
@@ -78,27 +75,14 @@ class XMLIdNotKnownException : public XMLBuildingException
 {
 public:
     /** constructor */
-    XMLIdNotKnownException(std::string object, std::string id);
-
-    /** destructor */
-    ~XMLIdNotKnownException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-
-private:
-    /** the object type with the unknown id */
-    std::string   m_Object;
-
-    /** the id of the parent */
-    std::string   m_Id;
+    XMLIdNotKnownException(const string &object, const string &id)
+        : XMLBuildingException("The object " + object + " with the id " + id
+                        + " is not known")
+    {}
 
 };
 
 
-/* -------------------------------------------------------------------------
- * for XMLIdAlreadyUsedException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLIdAlreadyUsedException
  * thrown when a duplicate key for the same object type is given
@@ -107,28 +91,13 @@ class XMLIdAlreadyUsedException : public XMLBuildingException
 {
 public:
     /** constructor */
-    XMLIdAlreadyUsedException(const std::string object,
-                              const std::string id);
-
-    /** destructor */
-    ~XMLIdAlreadyUsedException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-
-private:
-    /** the object type with the duplicate id */
-    std::string   m_Object;
-
-    /** previous id of the object */
-    std::string   m_Id;
+    XMLIdAlreadyUsedException(const string &object, const string &id)
+        : XMLBuildingException("Another " + object + " with the id " + id + " exists")
+    {}
 
 };
 
 
-/* -------------------------------------------------------------------------
- * for XMLDepartLaneDuplicationException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLDepartLaneDuplicationException
  * thrown when an edge has two or more defined depart lanes
@@ -137,20 +106,14 @@ class XMLDepartLaneDuplicationException : public XMLBuildingException
 {
 public:
     /** constructor */
-    XMLDepartLaneDuplicationException();
-
-    /** destructor */
-    ~XMLDepartLaneDuplicationException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
+    XMLDepartLaneDuplicationException(const string &id)
+        : XMLBuildingException("The lane with the id " + id
+                        + " was tried to be added as a depart lane to an edge which already has a depart lane")
+    {}
 
 };
 
 
-/* -------------------------------------------------------------------------
- * for XMLInvalidChildException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLInvalidChildException
  * thrown when a child to add to a larger structure is invalid
@@ -160,35 +123,26 @@ class XMLInvalidChildException : public XMLBuildingException
 {
 public:
     /** constructor */
-    XMLInvalidChildException();
-
-    /** destructor */
-    ~XMLInvalidChildException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
+    XMLInvalidChildException(const string &object, const string &id)
+        : XMLBuildingException("The object " + object + " with the id " + id
+                        + " is not nested properly")
+    {}
 
 };
 
 
-/* -------------------------------------------------------------------------
- * for XMLListEmptyException
- * ----------------------------------------------------------------------- */
 /**
  * @class XMLListEmptyException
  * thrown when an empty list which should have values is used
  */
-class XMLListEmptyException  : public XMLBuildingException
+class XMLListEmptyException : public XMLBuildingException
 {
 public:
     /** constructor */
-    XMLListEmptyException();
-
-    /** destructor */
-    ~XMLListEmptyException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
+    XMLListEmptyException(const string &object, const string &id)
+        : XMLBuildingException("The list belonging to the '" + object + "' with the id '"
+                        + id + "' is empty")
+    {}
 
 };
 
@@ -196,4 +150,3 @@ public:
 #endif
 
 /****************************************************************************/
-

@@ -7,7 +7,7 @@ BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
 IntVector.cpp IntVector.h InstancePool.h \
 Named.h StringTokenizer.cpp StringTokenizer.h \
-StringUtils.cpp StringUtils.h UtilExceptions.cpp UtilExceptions.h \
+StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
 RandHelper.h RandHelper.cpp \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \

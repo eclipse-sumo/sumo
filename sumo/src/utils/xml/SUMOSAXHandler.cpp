@@ -74,27 +74,27 @@ SUMOSAXHandler::~SUMOSAXHandler()
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform("Warning: " + TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
-    throw XMLBuildingException();
+    throw XMLBuildingException("Warning: " + TplConvert<XMLCh>::_2str(exception.getMessage()) + 
+                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
+                               "/" + toString<int>(exception.getColumnNumber()) + ").");
 }
 
 
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
-    throw XMLBuildingException();
+    throw XMLBuildingException(TplConvert<XMLCh>::_2str(exception.getMessage()) + 
+                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
+                               "/" + toString<int>(exception.getColumnNumber()) + ").");
 }
 
 
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
-    throw XMLBuildingException();
+    throw XMLBuildingException(TplConvert<XMLCh>::_2str(exception.getMessage()) + 
+                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
+                               "/" + toString<int>(exception.getColumnNumber()) + ").");
 }
 
 

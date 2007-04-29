@@ -147,7 +147,7 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException) {
@@ -194,7 +194,7 @@ GUIHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        throw XMLListEmptyException();
+        throw XMLListEmptyException("route", myActiveRouteID);
     }
     GUIRoute *route =
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
