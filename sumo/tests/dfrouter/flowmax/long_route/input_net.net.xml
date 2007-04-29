@@ -1,0 +1,222 @@
+<net>
+
+   <net-offset>0.000000,100.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,300.000000,205.000000</conv-boundary>
+   <orig-boundary>0.000000,-100.000000,300.000000,105.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="9">1to2 2to3 3to4 in1 in2 out3 out4 post3 post4</edges>
+   <node_count>10</node_count>
+
+
+   <edge id="1to2" from="r1" to="r2" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="95.30">3.25,98.35 98.55,98.35</lane>
+      </lanes>
+      <cedge id="2to3">1to2_0</cedge>
+   </edge>
+
+   <edge id="2to3" from="r2" to="r3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="2to3_0" depart="1" vclasses="" maxspeed="13.90" length="93.80">104.75,98.35 198.55,98.35</lane>
+      </lanes>
+      <cedge id="3to4">2to3_0</cedge>
+      <cedge id="out3">2to3_0</cedge>
+   </edge>
+
+   <edge id="3to4" from="r3" to="r4" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="3to4_0" depart="1" vclasses="" maxspeed="13.90" length="95.30">204.75,98.35 300.05,98.35</lane>
+      </lanes>
+      <cedge id="out4">3to4_0</cedge>
+   </edge>
+
+   <edge id="in1" from="i1" to="r1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="in1_0" depart="1" vclasses="" maxspeed="13.90" length="96.75">1.65,0.00 1.65,96.75</lane>
+      </lanes>
+      <cedge id="1to2">in1_0</cedge>
+   </edge>
+
+   <edge id="in2" from="i2" to="r2" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="in2_0" depart="1" vclasses="" maxspeed="13.90" length="95.25">101.65,0.00 101.65,95.25</lane>
+      </lanes>
+      <cedge id="2to3">in2_0</cedge>
+   </edge>
+
+   <edge id="out3" from="r3" to="o3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="out3_0" depart="1" vclasses="" maxspeed="13.90" length="98.55">201.65,101.45 201.65,200.00</lane>
+      </lanes>
+      <cedge id="post3">out3_0</cedge>
+   </edge>
+
+   <edge id="out4" from="r4" to="o4" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="out4_0" depart="1" vclasses="" maxspeed="13.90" length="100.05">301.65,99.95 301.65,200.00</lane>
+      </lanes>
+      <cedge id="post4">out4_0</cedge>
+   </edge>
+
+   <edge id="post3" from="o3" to="p3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="post3_0" depart="1" vclasses="" maxspeed="13.90" length="5.00">201.65,200.00 201.65,205.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="post4" from="o4" to="p4" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="post4_0" depart="1" vclasses="" maxspeed="13.90" length="5.00">301.65,200.00 301.65,205.00</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>o3</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>o4</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>r1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>r2</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>r3</key>
+      <requestsize>2</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>r4</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="i1" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>0.05,-0.00 3.25,-0.00</shape>
+   </junction>
+
+   <junction id="i2" type="DEAD_END" x="100.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>100.05,-0.00 103.25,-0.00</shape>
+   </junction>
+
+   <junction id="o3" type="priority" x="200.00" y="200.00">
+      <inclanes>out3_0</inclanes>
+      <shape>200.05,200.00 203.25,200.00 200.05,200.00</shape>
+   </junction>
+
+   <junction id="o4" type="priority" x="300.00" y="200.00">
+      <inclanes>out4_0</inclanes>
+      <shape>300.05,200.00 303.25,200.00 300.05,200.00</shape>
+   </junction>
+
+   <junction id="p3" type="DEAD_END" x="200.00" y="205.00">
+      <inclanes>post3_0</inclanes>
+      <shape>203.25,205.00 200.05,205.00</shape>
+   </junction>
+
+   <junction id="p4" type="DEAD_END" x="300.00" y="205.00">
+      <inclanes>post4_0</inclanes>
+      <shape>303.25,205.00 300.05,205.00</shape>
+   </junction>
+
+   <junction id="r1" type="priority" x="0.00" y="100.00">
+      <inclanes>in1_0</inclanes>
+      <shape>3.25,99.95 3.25,96.75 0.05,96.75</shape>
+   </junction>
+
+   <junction id="r2" type="priority" x="100.00" y="100.00">
+      <inclanes>in2_0 1to2_0</inclanes>
+      <shape>104.75,99.95 104.75,96.75 103.25,95.25 100.05,95.25 98.55,96.75 98.55,99.95</shape>
+   </junction>
+
+   <junction id="r3" type="priority" x="200.00" y="100.00">
+      <inclanes>2to3_0</inclanes>
+      <shape>200.05,101.45 203.25,101.45 204.75,99.95 204.75,96.75 198.55,96.75 198.55,99.95</shape>
+   </junction>
+
+   <junction id="r4" type="priority" x="300.00" y="100.00">
+      <inclanes>3to4_0</inclanes>
+      <shape>300.05,99.95 303.25,99.95 300.05,96.75 300.05,99.95</shape>
+   </junction>
+
+
+   <succ edge="1to2" lane="1to2_0" junction="r2">
+      <succlane lane="2to3_0" yield="1" dir="s" state="m"/>
+   </succ>
+
+   <succ edge="2to3" lane="2to3_0" junction="r3">
+      <succlane lane="3to4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="out3_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="3to4" lane="3to4_0" junction="r4">
+      <succlane lane="out4_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="in1" lane="in1_0" junction="r1">
+      <succlane lane="1to2_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="in2" lane="in2_0" junction="r2">
+      <succlane lane="2to3_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="out3" lane="out3_0" junction="o3">
+      <succlane lane="post3_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="out4" lane="out4_0" junction="o4">
+      <succlane lane="post4_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="post3" lane="post3_0" junction="p3">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="post4" lane="post4_0" junction="p4">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

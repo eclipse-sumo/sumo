@@ -20,7 +20,7 @@
 #*   (at your option) any later version.                                   *
 #*                                                                         *
 #***************************************************************************
-# $Id: $
+# $Id$
 
 if(!defined($ARGV[2])) {
 	print "Syntax-Error!\n";

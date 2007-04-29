@@ -16,6 +16,26 @@ class Vertex:
     def __init__(self):
         self.inEdges = set()
         self.outEdges = set()
+        self.reset()
+
+    def reset(self):
+        self.inPathEdge = None
+        self.flowDelta = sys.maxint
+        self.gain = 0
+
+    def update(self, edge, flow, isForward):
+        self.inPathEdge = edge
+        self.flowDelta = flow
+        if isForward:
+            numSatEdges = edge.source.gain / edge.source.flowDelta
+            self.gain = numSatEdges * flow
+            if edge.capacity < sys.maxint:
+                self.gain += flow
+        else:
+            numSatEdges = edge.target.gain / edge.target.flowDelta
+            self.gain = numSatEdges * flow
+            if edge.capacity < sys.maxint:
+                self.gain -= flow
 
 
 class Edge:
@@ -180,26 +200,18 @@ class Net:
             print len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited"
         return True
 
-    def updateFlow(self, pred):
-        flowDelta = sys.maxint
-        currVertex = self._sink
-        while not currVertex == self._source:
-            currEdge = pred[currVertex]
+    def updateFlow(self, startVertex, endVertex):
+        assert endVertex.flowDelta < sys.maxint
+        cycleStartStep = (startVertex == endVertex)
+        currVertex = endVertex
+        while currVertex != startVertex or cycleStartStep:
+            cycleStartStep = False
+            currEdge = currVertex.inPathEdge
             if currEdge.target == currVertex:
-                flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
+                currEdge.flow += endVertex.flowDelta
                 currVertex = currEdge.source
             else:
-                flowDelta = min(flowDelta, currEdge.flow)
-                currVertex = currEdge.target
-        assert flowDelta < sys.maxint
-        currVertex = self._sink
-        while not currVertex == self._source:
-            currEdge = pred[currVertex]
-            if currEdge.target == currVertex:
-                currEdge.flow += flowDelta
-                currVertex = currEdge.source
-            else:
-                currEdge.flow -= flowDelta
+                currEdge.flow -= endVertex.flowDelta
                 currVertex = currEdge.target
 
     def adaptCapacities(self):
@@ -207,29 +219,24 @@ class Net:
         while pathFound:
             pathFound = False
             queue = [self._source]
-            unlimited = set(queue)
-            pred = {}
+            for vertex in self._vertices:
+                vertex.reset()
             while len(queue) > 0:
                 currVertex = queue.pop(0)
-                if currVertex == self._sink:
-                    self.updateFlow(pred)
+                if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
+                    self.updateFlow(self._source, currVertex)
                     pathFound = True
                     break
                 for edge in currVertex.outEdges:
-                    if not edge.target in pred and edge.flow < edge.capacity:
-                        if edge.target != self._sink or not currVertex in unlimited:
+                    if not edge.target.inPathEdge and edge.flow < edge.capacity:
+                        if edge.target != self._sink or currVertex.gain > 0:
                             queue.append(edge.target)
-                            pred[edge.target] = edge
-                            if currVertex in unlimited:
-                                if edge.capacity == sys.maxint:
-                                    unlimited.add(edge.target)
-                                else:
-                                    unlimited.discard(edge.target)
+                            edge.target.update(edge, min(currVertex.flowDelta, edge.capacity - edge.flow), True)
                 for edge in currVertex.inEdges:
-                    if not edge.source in pred and edge.flow > 0:
-                        queue.append(edge.source)
-                        pred[edge.source] = edge
-                        unlimited.discard(edge.source)
+                    if not edge.source.inPathEdge and edge.flow > 0:
+                        if edge.source != self._source or currVertex.gain > 0:
+                            queue.append(edge.source)
+                            edge.source.update(edge, min(currVertex.flowDelta, edge.flow), False)
         for vertex in self._vertices:
             for succEdge in vertex.outEdges:
                 succEdge.capacity = succEdge.flow
