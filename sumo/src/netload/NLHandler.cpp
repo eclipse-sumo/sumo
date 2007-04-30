@@ -1559,14 +1559,6 @@ NLHandler::setWanted(NLLoadFilter filter)
 }
 
 
-void
-NLHandler::setError(const string &type,
-                    const SAXParseException& exception)
-{
-    MsgHandler::getErrorInstance()->inform(buildErrorMessage(_file, type, exception));
-}
-
-
 const MSEdgeContinuations &
 NLHandler::getContinuations() const
 {

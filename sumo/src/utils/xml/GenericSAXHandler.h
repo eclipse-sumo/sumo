@@ -122,22 +122,6 @@ public:
     void endElement(const XMLCh* const uri, const XMLCh* const localname,
                     const XMLCh* const qname);
 
-    /** called when ignorable whitespaces occure */
-    void ignorableWhitespace(const XMLCh* const chars,
-                             const unsigned int length);
-
-    /** called when the document shall be resetted */
-    virtual void resetDocument();
-
-    /** called when a XML-warning occures */
-    virtual void warning(const SAXParseException& exception);
-
-    /** called when a XML-error occures */
-    virtual void error(const SAXParseException& exception);
-
-    /** called when a XML-fatal error occures */
-    virtual void fatalError(const SAXParseException& exception);
-
 
     // methods for retrieving attribute values
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id);
@@ -175,11 +159,6 @@ protected:
     /** @brief handler method for a closing tag to implement by derived classes
         This tag is only called when tha tag name was supplied by the user */
     virtual void myEndElement(int element, const std::string &name) = 0;
-
-    /** build an error description */
-    std::string buildErrorMessage(const std::string &file,
-                                  const std::string &type,
-                                  const SAXParseException& exception);
 
 
 private:

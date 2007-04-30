@@ -75,6 +75,9 @@ public:
     ///}
 
 protected:
+    /// build an error description
+    std::string buildErrorMessage(const SAXParseException& exception);
+
     /// Begins processing of an unknown snippet
     void addUnknownSnippet(const std::string &name, const Attributes &attrs);
 

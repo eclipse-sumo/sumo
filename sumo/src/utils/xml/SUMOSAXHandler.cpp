@@ -71,30 +71,36 @@ SUMOSAXHandler::~SUMOSAXHandler()
 {}
 
 
+string
+SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
+{
+    ostringstream buf;
+    buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
+    buf << " In file: " << getFileName() << endl;
+    buf << " At line/column " << exception.getLineNumber()+1
+    << '/' << exception.getColumnNumber() << ")." << endl;
+    return buf.str();
+}
+
+
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    throw XMLBuildingException("Warning: " + TplConvert<XMLCh>::_2str(exception.getMessage()) + 
-                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
-                               "/" + toString<int>(exception.getColumnNumber()) + ").");
+    throw XMLBuildingException("Warning: " + buildErrorMessage(exception));
 }
 
 
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    throw XMLBuildingException(TplConvert<XMLCh>::_2str(exception.getMessage()) + 
-                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
-                               "/" + toString<int>(exception.getColumnNumber()) + ").");
+    throw XMLBuildingException(buildErrorMessage(exception));
 }
 
 
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    throw XMLBuildingException(TplConvert<XMLCh>::_2str(exception.getMessage()) + 
-                               "\n (At line/column " + toString<int>(exception.getLineNumber()+1) +
-                               "/" + toString<int>(exception.getColumnNumber()) + ").");
+    throw XMLBuildingException(buildErrorMessage(exception));
 }
 
 

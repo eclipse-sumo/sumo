@@ -34,6 +34,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include "GenericSAXHandler.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
@@ -64,9 +65,7 @@ GenericSAXHandler::GenericSAXHandler(
     }
     i = 0;
     while (attrs[i].key != SUMO_ATTR_NOTHING) {
-        if (myPredefinedTags.find(attrs[i].key)!=myPredefinedTags.end()) {
-            throw exception();
-        }
+        assert(myPredefinedTags.find(attrs[i].key)==myPredefinedTags.end());
         myPredefinedTags.insert(AttrMap::value_type(attrs[i].key, convert(attrs[i].name)));
         i++;
     }
@@ -176,9 +175,7 @@ GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
         SumoXMLAttr id) const
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
-    if (i==myPredefinedTags.end()) {
-        throw EmptyData();
-    }
+    assert(i!=myPredefinedTags.end());
     return attrs.getValue((*i).second);
 }
 
@@ -276,32 +273,6 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 }
 
 
-void
-GenericSAXHandler::ignorableWhitespace(const XMLCh* const /*chars*/,
-                                        const unsigned int /*length*/)
-{}
-
-
-void
-GenericSAXHandler::resetDocument()
-{}
-
-
-void
-GenericSAXHandler::warning(const SAXParseException&)
-{}
-
-
-void
-GenericSAXHandler::error(const SAXParseException&)
-{}
-
-
-void
-GenericSAXHandler::fatalError(const SAXParseException&)
-{}
-
-
 int
 GenericSAXHandler::convertTag(const std::string &tag) const
 {
@@ -310,21 +281,6 @@ GenericSAXHandler::convertTag(const std::string &tag) const
         return -1; // !!! should it be reported (as error)
     }
     return (*i).second;
-}
-
-
-string
-GenericSAXHandler::buildErrorMessage(const std::string &file,
-                                      const string &type,
-                                      const SAXParseException& exception)
-{
-    ostringstream buf;
-    buf << type << endl;
-    buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
-    buf << " In file: " << file << endl;
-    buf << " At line/column " << exception.getLineNumber()+1
-    << '/' << exception.getColumnNumber() << ")." << endl;
-    return buf.str();
 }
 
 

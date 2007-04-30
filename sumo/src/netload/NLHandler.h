@@ -146,11 +146,6 @@ protected:
 
 
 protected:
-    /** adds the message about the occured error to the error handler
-    after building it */
-    void setError(const std::string &type,
-                  const SAXParseException& exception);
-
     /** returns the information whether instances belonging to the
         given class of data shall be extracted during this parsing */
     bool wanted(NLLoadFilter filter) const;
