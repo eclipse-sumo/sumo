@@ -2,7 +2,7 @@
 /// @file    MSPhoneCell.cpp
 /// @author  Eric Nicolay
 /// @date    2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // A cell of a cellular network (GSM)
 /****************************************************************************/
@@ -40,6 +40,9 @@
 #include "MSNet.h"
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+
 
 
 // ===========================================================================
@@ -57,7 +60,13 @@ MSPhoneCell::MSPhoneCell(int id)
         myCurrentExpectedCallCount(0), myCallDuration(0),
         myCallDeviation(0), myConnectionTypSelector(true),
         myDynIntervalDuration(0), myLaterDynamicStarted(0)
-{}
+{
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    myStaticCallCountScaleFactor =  (int)oc.getFloat("cell-static-callcount-scale-factor");
+    myDynamicCallCountScaleFactor = (int)oc.getFloat("cell-dynamic-callcount-scale-factor");
+    myDynamicCallDeviationScaleFactor = oc.getFloat("cell-dynamic-calldeviation-scale-factor");
+    myDynamicCallDurationScaleFactor = oc.getFloat("cell-dynamic-callduration-scale-factor");
+}
 
 
 MSPhoneCell::~MSPhoneCell()
@@ -170,7 +179,7 @@ MSPhoneCell::setStatParams(int interval, int statcallcount)
             new SetStatParamsCommand(*this),
             interval, MSEventControl::NO_CHANGE);
     }
-    myExpectedStaticCalls.push_back(make_pair(interval, statcallcount));
+    myExpectedStaticCalls.push_back(make_pair(interval, (statcallcount*myStaticCallCountScaleFactor)));
 }
 
 
@@ -183,9 +192,9 @@ MSPhoneCell::setDynParams(int interval, int count, float duration, float deviati
             interval, MSEventControl::NO_CHANGE);
     }
     DynParam p;
-    p.count = count;
-    p.deviation = deviation;
-    p.duration = duration;
+    p.count = count*myDynamicCallCountScaleFactor;
+    p.deviation = deviation*myDynamicCallDeviationScaleFactor;
+    p.duration = duration*myDynamicCallDurationScaleFactor;
     myExpectedDynamicCalls.push_back(make_pair(interval, p));
     //vexpectDuration.push_back( std::make_pair( interval, p ) );
 }

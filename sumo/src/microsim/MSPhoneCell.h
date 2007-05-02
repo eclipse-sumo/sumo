@@ -190,6 +190,10 @@ private:
     float myCallDeviation;
     bool myConnectionTypSelector;
     float myCallProbability;
+    int myStaticCallCountScaleFactor;
+    int myDynamicCallCountScaleFactor;
+    float myDynamicCallDurationScaleFactor;
+    float myDynamicCallDeviationScaleFactor;
 
     /*myConnectionTypSelector is for selecting if a connection is
       going in( == true ) or out ( == false ).*/
