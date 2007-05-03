@@ -201,12 +201,14 @@ class Net:
         return True
 
     def updateFlow(self, startVertex, endVertex):
+        #if endVertex == self._source: print "Source path"
         assert endVertex.flowDelta < sys.maxint
         cycleStartStep = (startVertex == endVertex)
         currVertex = endVertex
         while currVertex != startVertex or cycleStartStep:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
+            #print currEdge
             if currEdge.target == currVertex:
                 currEdge.flow += endVertex.flowDelta
                 currVertex = currEdge.source
@@ -214,29 +216,86 @@ class Net:
                 currEdge.flow -= endVertex.flowDelta
                 currVertex = currEdge.target
 
+    def findPath(self, startVertex, pathStart):
+        queue = [startVertex]
+        while len(queue) > 0:
+            currVertex = queue.pop(0)
+            #if startVertex != self._source: print currVertex
+            if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
+                self.updateFlow(pathStart, currVertex)
+                return True
+            for edge in currVertex.outEdges:
+                #if startVertex != self._source: print edge
+                if not edge.target.inPathEdge and edge.flow < edge.capacity:
+                    if edge.target != self._sink or currVertex.gain > 0:
+                        queue.append(edge.target)
+                        edge.target.update(edge, min(currVertex.flowDelta, edge.capacity - edge.flow), True)
+            for edge in currVertex.inEdges:
+                #if startVertex != self._source: print edge
+                if not edge.source.inPathEdge and edge.flow > 0:
+                    if edge.source != self._source or currVertex.gain > 0:
+                        queue.append(edge.source)
+                        edge.source.update(edge, min(currVertex.flowDelta, edge.flow), False)
+        return False
+
+    def savePulledPath(self, startVertex, unsatEdge, pred):
+        numSatEdges = 1
+        currVertex = startVertex
+        while currVertex != unsatEdge.source:
+            currEdge = pred[currVertex]
+            if currEdge.target == currVertex:
+                currEdge.source.inPathEdge = currEdge
+                currVertex = currEdge.source
+                if currEdge.capacity < sys.maxint:
+                    numSatEdges -= 1
+            else:
+                currEdge.target.inPathEdge = currEdge
+                currVertex = currEdge.target
+                if currEdge.capacity < sys.maxint:
+                    numSatEdges += 1
+        startVertex.inPathEdge = None
+        unsatEdge.target.flowDelta = self._source.flowDelta
+        unsatEdge.target.gain = self._source.flowDelta * numSatEdges
+        #print "path", pred
+
+    def pullFlow(self, unsatEdge):
+        #print "pulling", unsatEdge
+        for vertex in self._vertices:
+            vertex.reset()
+        pred = {}
+        unsatEdge.target.inPathEdge = unsatEdge
+        unsatEdge.source.flowDelta = unsatEdge.capacity - unsatEdge.flow
+        queue = [unsatEdge.source]
+        while len(queue) > 0:
+            currVertex = queue.pop(0)
+            if currVertex == self._source or currVertex == self._sink:
+                self.savePulledPath(currVertex, unsatEdge, pred)
+                return self.findPath(unsatEdge.target, currVertex)
+            for edge in currVertex.inEdges:
+                if edge.source not in pred and edge.flow < edge.capacity:
+                    queue.append(edge.source)
+                    pred[edge.source] = edge
+                    edge.source.flowDelta = min(currVertex.flowDelta, edge.capacity - edge.flow)
+            for edge in currVertex.outEdges:
+                if edge.target not in pred and edge.flow > 0 and edge.target != self._sink:
+                    queue.append(edge.target)
+                    pred[edge.target] = edge
+                    edge.target.flowDelta = min(currVertex.flowDelta, edge.flow)
+        return False
+
     def adaptCapacities(self):
         pathFound = True
         while pathFound:
-            pathFound = False
-            queue = [self._source]
             for vertex in self._vertices:
                 vertex.reset()
-            while len(queue) > 0:
-                currVertex = queue.pop(0)
-                if currVertex == self._sink or (currVertex == self._source and currVertex.inPathEdge):
-                    self.updateFlow(self._source, currVertex)
-                    pathFound = True
-                    break
-                for edge in currVertex.outEdges:
-                    if not edge.target.inPathEdge and edge.flow < edge.capacity:
-                        if edge.target != self._sink or currVertex.gain > 0:
-                            queue.append(edge.target)
-                            edge.target.update(edge, min(currVertex.flowDelta, edge.capacity - edge.flow), True)
-                for edge in currVertex.inEdges:
-                    if not edge.source.inPathEdge and edge.flow > 0:
-                        if edge.source != self._source or currVertex.gain > 0:
-                            queue.append(edge.source)
-                            edge.source.update(edge, min(currVertex.flowDelta, edge.flow), False)
+            pathFound = self.findPath(self._source, self._source)
+            if not pathFound:
+                #print "start pulling"
+                for edge in self._edges.itervalues():
+                    if edge.capacity < sys.maxint and edge.flow < edge.capacity:
+                        if self.pullFlow(edge):
+                            pathFound = True
+                            #print edge
         for vertex in self._vertices:
             for succEdge in vertex.outEdges:
                 succEdge.capacity = succEdge.flow
