@@ -39,7 +39,8 @@
 #include <config.h>
 #endif
 
-#include "itm-remoteserver/storage.h"
+#define BUILD_TCPIP
+#include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 
 #include <map>
@@ -91,7 +92,7 @@ public:
     // report node positions if wanted
     // @param in contains unparsed parameters targetTime, ResultType
     // @param out contains node positions ready for output
-    void simStep(Storage &in, Storage &out) throw(RemoteException);
+    void simStep(tcpip::Storage &in, tcpip::Storage &out) throw(RemoteException);
 
 private:
     // port on which server is listening on

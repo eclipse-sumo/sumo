@@ -305,6 +305,7 @@ src/Makefile
 src/foreign/Makefile
 src/foreign/nvwa/Makefile
 src/foreign/mersenne/Makefile
+src/foreign/tcpip/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile

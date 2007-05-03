@@ -29,8 +29,8 @@
 // ===========================================================================
 #include "itm-remoteserver/remoteconstants.h"
 #include "itm-remoteserver/remoteserver.h"
-#include "itm-remoteserver/socket.h"
-#include "itm-remoteserver/storage.h"
+#include "foreign/tcpip/socket.h"
+#include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 #include "microsim/MSNet.h"
 #include "microsim/MSVehicleControl.h"
@@ -48,6 +48,7 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
+using namespace tcpip;
 
 
 // ===========================================================================
@@ -109,7 +110,7 @@ RemoteServer::run() {
 /*****************************************************************************/
 
 void
-RemoteServer::simStep(Storage &in, Storage &out)
+RemoteServer::simStep(tcpip::Storage &in, tcpip::Storage &out)
 throw (RemoteException) {
     // prepare out
     out.reset();

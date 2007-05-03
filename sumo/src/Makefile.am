@@ -8,6 +8,7 @@ MEM_LIBS  = ./foreign/nvwa/libnvwa.a
 endif
 
 if ITM
+TCPIP_LIBS = ./foreign/tcpip/libtcpip.a
 ITM_LIBS = ./itm-remoteserver/libitmremoteserver.a
 ITM_DIRS = itm-remoteserver
 endif
@@ -47,6 +48,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/geoconv/libgeoconv.a \
 $(MEM_LIBS) \
 $(ITM_LIBS) \
+$(TCPIP_LIBS) \
 -l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
 
 

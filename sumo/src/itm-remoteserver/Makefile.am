@@ -1,3 +1,4 @@
 noinst_LIBRARIES = libitmremoteserver.a
 
-libitmremoteserver_a_SOURCES = remoteconstants.h remoteserver.h remoteserver.cpp socket.h socket.cpp storage.h storage.cpp
+libitmremoteserver_a_SOURCES = remoteconstants.h remoteserver.h remoteserver.cpp
+
