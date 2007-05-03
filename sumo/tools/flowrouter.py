@@ -11,6 +11,9 @@ from optparse import OptionParser
 
 MAX_POS_DEVIATION = 1
 
+# Vertex class which stores incoming and outgoing edges as well as
+# auxiliary data for the flow computation. The members are accessed
+# directly.
 class Vertex:
 
     def __init__(self):
@@ -38,6 +41,9 @@ class Vertex:
                 self.gain -= flow
 
 
+# Edge class which stores start and end vertex, type amd label of the edge
+# as well as flow and capacity for the flow computation and some parameters
+# read from the net. The members are accessed directly.
 class Edge:
 
     def __init__(self, label, source, target, kind="junction"):
@@ -78,6 +84,10 @@ class Edge:
         return self.kind+"_"+self.label+"<"+str(self.flow)+"|"+cap+">"
 
 
+# Net class which stores the network (vertex and edge collection) and the
+# routes. All the algorithmic stuff and the output generation are also
+# inside this class. The members are either "private" or have get/add/remove
+# methods.
 class Net:
 
     def __init__(self):
@@ -201,7 +211,6 @@ class Net:
         return True
 
     def updateFlow(self, startVertex, endVertex):
-        #if endVertex == self._source: print "Source path"
         assert endVertex.flowDelta < sys.maxint
         cycleStartStep = (startVertex == endVertex)
         currVertex = endVertex
@@ -255,7 +264,8 @@ class Net:
         unsatEdge.target.gain = startVertex.flowDelta * numSatEdges
 
     def pullFlow(self, unsatEdge):
-        print "pulling", unsatEdge
+        if options.verbose:
+            print "Trying to increase flow on", unsatEdge
         for vertex in self._vertices:
             vertex.reset()
         pred = {unsatEdge.target:unsatEdge, unsatEdge.source:unsatEdge}
@@ -287,10 +297,9 @@ class Net:
             pathFound = self.findPath(self._source, self._source)
             if not pathFound:
                 for edge in self._edges.itervalues():
-                    if edge.capacity < sys.maxint and edge.flow < edge.capacity:
-                        if self.pullFlow(edge):
+                    if edge.capacity < sys.maxint:
+                        while edge.flow < edge.capacity and self.pullFlow(edge):
                             pathFound = True
-                            print edge
         for vertex in self._vertices:
             sum = 0
             for preEdge in vertex.inEdges:
@@ -313,7 +322,8 @@ class Net:
                     if currEdge.finalizer:
                         route = currEdge.finalizer
                     else:
-                        warn("Warning! No finalizer for " + currEdge.label + ". Route will be one edge too short.")
+                        warn("Warning! No finalizer for " + currEdge.label +
+                             ". Route will be one edge too short.")
                 route = currEdge.label + " " + route
             flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
             currEdge = pred[currEdge]
@@ -343,7 +353,7 @@ class Net:
         self.adaptCapacities()
         if options.routefile:
             self._routeOut = open(options.routefile, 'w')
-            self._routeOut.write("<routes>\n")
+            print >> self._routeOut, "<routes>"
         routeFound = True
         while routeFound:
             routeFound = False
@@ -361,11 +371,18 @@ class Net:
                             pred[edge] = currEdge
                             queue.append(edge)
         if options.routefile:
-            self._routeOut.write("</routes>\n")
+            print >> self._routeOut, "</routes>"
             self._routeOut.close()
-        #for vertex in self._vertices:
-            #for succEdge in vertex.outEdges:
-                #assert succEdge.capacity == succEdge.flow
+        miss = 0
+        n = 0
+        for vertex in self._vertices:
+            for succEdge in vertex.outEdges:
+                if succEdge.startCapacity < sys.maxint:
+                    miss += succEdge.capacity - succEdge.flow
+                    n += 1
+        if options.verbose and miss > 0:
+            print "With correct routes the average flow increases by", miss/n
+        #assert miss == 0
 
     def writeEmitters(self, emitFileName):
         emitOut = open(emitFileName, 'w')
@@ -412,6 +429,8 @@ class Net:
         poiOut.close()
 
 
+# The class for parsing the XML and CSV input files. The data parsed is
+# written into the net. All members are "private".
 class NetDetectorFlowReader(handler.ContentHandler):
 
     def __init__(self, net):
