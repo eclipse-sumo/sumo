@@ -5,25 +5,5 @@ messstrecke
 # Tests emitter building on an abstract network
 tri
 
-# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run straight
-tri_flows1_1step_straight
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run right
-tri_flows1_1step_right
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run left
-tri_flows1_1step_left
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, vehicles spread uniformly
-tri_flows1_1step_equal
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, vehicles spread uniformly
-tri_flows1_1step_more_straight
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, vehicles spread uniformly
-tri_flows1_1step_more_right
-
-# Tests emitter building on an abstract network - with complete, correct information for one minute, vehicles spread uniformly
-tri_flows1_1step_more_left
-
-
+# Tests emitter building on an abstract network - with complete, correct information for one minute
+tri_completely_defined
