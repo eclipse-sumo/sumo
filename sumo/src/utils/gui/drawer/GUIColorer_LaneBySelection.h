@@ -65,8 +65,12 @@ public:
 
     void setGlColor(const _T& i) const
     {
+#ifdef HAVE_MESOSIM
+        if (gSelected.isSelected(i.getType(), i.getGlID())) {
+#else
         const GUIEdge *e = static_cast<const GUIEdge * const>(i.getMSEdge());
         if (gSelected.isSelected(i.getType(), i.getGlID()) || gSelected.isSelected(e->getType(), e->getGlID())) {
+#endif
             glColor3f(0, .4f, .8f);
         } else {
             glColor3f(0.7f, 0.7f, 0.7f);

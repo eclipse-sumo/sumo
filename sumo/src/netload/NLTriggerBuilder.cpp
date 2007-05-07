@@ -256,7 +256,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
 
-    string rfile = helper.getStringSecure(attrs, "rfile", "");
+    string rfile = helper.getStringSecure(attrs, SUMO_ATTR_RFILE, "");
     if (rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
         rfile = FileHelpers::getConfigurationRelative(base, rfile);
     }
@@ -292,7 +292,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
 
     SUMOReal scale;
     try {
-        scale = helper.getFloatSecure(attrs, SUMO_TAG_WEIGHT, 1);
+        scale = helper.getFloatSecure(attrs, SUMO_ATTR_WEIGHT, (SUMOReal)1);
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Invalid scale in definition of METriggeredScaler '" + id + "'.");
         throw ProcessError();

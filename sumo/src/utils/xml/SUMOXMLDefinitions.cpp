@@ -239,6 +239,9 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "allow",          SUMO_ATTR_ALLOW },
         { "disallow",       SUMO_ATTR_DISALLOW },
         { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
+        { "v",              SUMO_ATTR_V },
+        { "q",              SUMO_ATTR_Q },
+        { "rfile",          SUMO_ATTR_RFILE },
         { "",               SUMO_ATTR_NOTHING }
     };
 
