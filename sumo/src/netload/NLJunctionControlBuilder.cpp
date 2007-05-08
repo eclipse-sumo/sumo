@@ -544,9 +544,7 @@ void
 NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
                                   const std::string &startProg)
 {
-    if (!getTLLogicControlToUse().addWAUT(refTime, id, startProg)) {
-        MsgHandler::getErrorInstance()->inform("WAUT '" + id + "' was already defined.");
-    }
+    getTLLogicControlToUse().addWAUT(refTime, id, startProg);
 }
 
 
@@ -554,9 +552,7 @@ void
 NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
                                         SUMOTime when, const std::string &to)
 {
-    if (!getTLLogicControlToUse().addWAUTSwitch(wautid, when, to)) {
-        MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' was not defined.");
-    }
+    getTLLogicControlToUse().addWAUTSwitch(wautid, when, to);
 }
 
 
@@ -565,9 +561,7 @@ NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
         const std::string &junc,
         const std::string &proc, bool sync)
 {
-    if (!getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync)) {
-        MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' or tls '" + junc + "' was not defined.");
-    }
+    getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync);
 }
 
 

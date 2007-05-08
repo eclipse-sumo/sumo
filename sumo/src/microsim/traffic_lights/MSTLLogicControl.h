@@ -138,23 +138,16 @@ public:
     bool switchTo(const std::string &id, const std::string &subid);
 
     /** @brief Adds a WAUT to the control
-     *
-     * If a WAUT with the same ID has already been defined, false is returned
      */
-    bool addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
+    void addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
 
     /** @brief Adds a timestep at which the named WAUT shall switch to another program
-     *
-     * If a WAUT with the given id does not exist, false is returned.
      */
-    bool addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
 
     /** @brief Assigns the named junction to be controlled by the named WAUT
-     *
-     * If a WAUT with the given id does not exist, or a junction with the given id,
-     *  false is returned.
      */
-    bool addWAUTJunction(const std::string &wautid, const std::string &junc,
+    void addWAUTJunction(const std::string &wautid, const std::string &junc,
                          const std::string &proc, bool synchron);
 
     /** @brief Checks whether any WAUT is trying to switch a tls into another program

@@ -592,69 +592,97 @@ MSTLLogicControl::getActive(const std::string &id) const
 bool
 MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
 {
+    // try to get the tls program definitions
     std::map<std::string, TLSLogicVariants>::iterator i = myLogics.find(id);
+    // handle problems
     if (i==myLogics.end()) {
-        return false;
+        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
+        throw ProcessError();
     }
+    if ((*i).second.ltVariants.find(subid)==(*i).second.ltVariants.end()) {
+        // maybe this switch shall move the tls to an off-state
+        //  in this case, we mybe have to build the program
+        //  (this is done internally)
+            // otherwise we'll inform the user about the missing tls program
+            MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
+            throw ProcessError();
+    }
+    // try to get the program to switch to
     MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
+    // ... and the current program
     std::vector<MSTrafficLightLogic*>::iterator j =
         find(myActiveLogics.begin(), myActiveLogics.end(), (*i).second.defaultTL);
+    // handle problems
     if (j==myActiveLogics.end()) {
-        return false;
+        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
+        throw ProcessError();
     }
+    // switch to the wished program
     *j = touse;
     (*i).second.defaultTL = touse;
     return true;
 }
 
 
-bool
+void
 MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
                           const std::string &startProg)
 {
+    // check whether the waut was already defined
     if (myWAUTs.find(id)!=myWAUTs.end()) {
-        return false;
+        // report an error if so
+        MsgHandler::getErrorInstance()->inform("Waut '" + id + "' was already defined.");
+        throw ProcessError();
     }
     WAUT *w = new WAUT;
     w->id = id;
     w->refTime = refTime;
     w->startProg = startProg;
     myWAUTs[id] = w;
-    return true;
 }
 
 
-bool
+void
 MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
                                 SUMOTime when, const std::string &to)
 {
+    // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
-        return false;
+        // report an error if the waut is not known
+        MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
+        throw ProcessError();
     }
+    // build and save the waut switch definition
     WAUTSwitch s;
     s.to = to;
     s.when = when;
     myWAUTs[wautid]->switches.push_back(s);
+    // activate it if it's the first one
     if (myWAUTs[wautid]->switches.size()==1) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid),
             when-myWAUTs[wautid]->refTime, MSEventControl::NO_CHANGE);
     }
-    return true;
 }
 
 
-bool
+void
 MSTLLogicControl::addWAUTJunction(const std::string &wautid,
                                   const std::string &junc,
                                   const std::string &proc,
                                   bool synchron)
 {
+    // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
-        return false;
+        // report an error if the waut is not known
+        MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
+        throw ProcessError();
     }
+    // try to get the tls to switch
     if (myLogics.find(junc)==myLogics.end()) {
-        return false;
+        // report an error if the tls is not known
+        MsgHandler::getErrorInstance()->inform("TLS '" + junc + "' to switch in WAUT '" + wautid + "' was not yet defined.");
+        throw ProcessError();
     }
     WAUTJunction j;
     j.junction = junc;
@@ -664,7 +692,6 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     // set the current program
     TLSLogicVariants &vars = myLogics.find(junc)->second;
     switchTo(vars.defaultTL->getID(), myWAUTs[wautid]->startProg);
-    return true;
 }
 
 
@@ -676,8 +703,13 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
     WAUTSwitch s = myWAUTs[wautid]->switches[index];
     for (std::vector<WAUTJunction>::iterator i=myWAUTs[wautid]->junctions.begin(); i!=myWAUTs[wautid]->junctions.end(); ++i) {
 
+        // get the current program and the one to instantiate
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
+        if(vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
+            MsgHandler::getErrorInstance()->inform("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
+            throw ProcessError();
+        }
         MSTrafficLightLogic *to = vars.ltVariants.find(s.to)->second;
 
         WAUTSwitchProcedure *proc = 0;
