@@ -659,9 +659,21 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     myWAUTs[wautid]->switches.push_back(s);
     // activate it if it's the first one
     if (myWAUTs[wautid]->switches.size()==1) {
+        SUMOTime begin = when;
+        // check reference time
+        if(myWAUTs[wautid]->refTime<=begin) {
+            // add the reference time if it's within the same day
+            begin += myWAUTs[wautid]->refTime;
+        }
+        if(myWAUTs[wautid]->refTime>begin) {
+            // make a day period
+            begin = begin - (86400-myWAUTs[wautid]->refTime);
+        }
+        begin = (86400 + begin) % 86400;
+        // activate
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid),
-            when-myWAUTs[wautid]->refTime, MSEventControl::NO_CHANGE);
+            begin, MSEventControl::NO_CHANGE);
     }
 }
 
