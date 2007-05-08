@@ -368,7 +368,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         resetQueueLengthAheadOfTrafficLights();
     }
     myDetectorCombinations[0][0]->writeXMLOutput(dev, startTime, stopTime);
-    dev.writeString("/>");
+    dev.writeString("/>\n");
 }
 
 
