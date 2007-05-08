@@ -1,0 +1,39 @@
+# One switch in second 100 to a plan which allows only one direction (offset=0)
+cross3ltl_switch100_off0
+
+# One switch in second 200 to a plan which allows only one direction (offset=0)
+cross3ltl_switch200_off0
+
+# One switch in second 100 to a plan which allows only one direction, next direction in 200 (offset=0)
+cross3ltl_switch100_200_off0
+
+
+# One switch in second 100 to a plan which allows only one direction (offset=50)
+cross3ltl_switch100_off50
+
+# One switch in second 200 to a plan which allows only one direction (offset=50)
+cross3ltl_switch200_off50
+
+# One switch in second 100 to a plan which allows only one direction, next direction in 200 (offset=50)
+cross3ltl_switch100_200_off50
+
+
+# One switch in second 100 to a plan which allows only one direction (offset=500)
+cross3ltl_switch100_off500
+
+# One switch in second 200 to a plan which allows only one direction (offset=500)
+cross3ltl_switch200_off500
+
+# One switch in second 100 to a plan which allows only one direction, next direction in 200 (offset=500)
+cross3ltl_switch100_200_off500
+
+
+# One switch in second 100 to a plan which allows only one direction (offset=86000)
+cross3ltl_switch100_off86000
+
+# One switch in second 200 to a plan which allows only one direction (offset=86000)
+cross3ltl_switch200_off86000
+
+# One switch in second 100 to a plan which allows only one direction, next direction in 200 (offset=86000)
+cross3ltl_switch100_200_off86000
+

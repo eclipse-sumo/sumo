@@ -1,0 +1,34 @@
+<additional>
+    <timed_event type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+   <tl-logic type="static">
+      <key>0</key>
+      <subkey>S1</subkey>
+      <phaseno>1</phaseno>
+      <offset>0</offset>
+      <inclanes>1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2</inclanes>
+      <phase duration="50" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>0</key>
+      <subkey>S2</subkey>
+      <phaseno>1</phaseno>
+      <offset>0</offset>
+      <inclanes>1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2</inclanes>
+      <phase duration="50" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
+   </tl-logic>
+
+
+	<WAUT refTime="50" id="w1" startProg="0">
+		<wautSwitch time="50" to="S1"/>
+		<wautSwitch time="150" to="S2"/>
+	</WAUT>
+
+	<wautJunction wautID="w1" junctionID="0"/>
+
+
+
+
+
+</additional>
