@@ -78,7 +78,7 @@ public:
 
 public:
     /// Constructor
-    MSTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+    MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
                         const std::string &id, const std::string &subid, size_t delay);
 
     /// Destructor
@@ -199,8 +199,6 @@ protected:
 
     /// The id of the logic
     std::string myID, mySubID;
-
-    MSNet &myNet;
 
     /// The list of links which do participate in this traffic light
     LinkVectorVector myLinks;

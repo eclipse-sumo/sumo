@@ -57,7 +57,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
         const Phases &phases,
         size_t step,
         size_t delay)
-        : MSTrafficLightLogic(net, tlcontrol, id, subid, delay), myPhases(phases),
+        : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
         myStep(step), myCycleTime(0)
 {
     myCycleTime=getCycleTime();
