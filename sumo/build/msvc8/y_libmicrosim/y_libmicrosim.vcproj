@@ -251,6 +251,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSBuildCells.cpp"
 				>
 			</File>
@@ -1174,6 +1178,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.h"
 				>
 			</File>
 			<File

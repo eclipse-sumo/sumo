@@ -40,6 +40,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/actions/Command_SaveTLSSwitches.h>
+#include <microsim/actions/Command_SaveTLSSwitchStates.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -66,6 +67,7 @@ NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
 {
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
     myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
+    myActions["SaveTLSSwitchStates"] = EV_SAVETLSWITCHSTATES;
 }
 
 
@@ -99,6 +101,9 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
         break;
     case EV_SAVETLSWITCHES:
         a = buildSaveTLSwitchesCommand(parser, attrs, basePath);
+        break;
+    case EV_SAVETLSWITCHSTATES:
+        a = buildSaveTLSwitchStatesCommand(parser, attrs, basePath);
         break;
     default:
         throw 1;
@@ -155,6 +160,32 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
     // build the action
     return new Command_SaveTLSSwitches(logics, od);
+}
+
+
+Command *
+NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
+                                                   const Attributes &attrs,
+        const std::string &basePath)
+{
+    // get the parameter
+    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
+    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    // check the parameter
+    if (dest==""||source=="") {
+        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
+        return 0;
+    }
+    // get the logic
+    if (!myNet.getTLSControl().knows(source)) {
+        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
+        throw ProcessError();
+    }
+    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+    // build the output
+    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
+    // build the action
+    return new Command_SaveTLSSwitchStates(logics, od);
 }
 
 

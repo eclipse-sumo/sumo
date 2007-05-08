@@ -70,8 +70,12 @@ class NLDiscreteEventBuilder
 public:
     /// Known action types
     enum ActionType {
+        /// "SaveTLSStates"
         EV_SAVETLSTATE,
-        EV_SAVETLSWITCHES
+        /// "SaveTLSSwitchTimes"
+        EV_SAVETLSWITCHES,
+        /// "SaveTLSSwitchStates"
+        EV_SAVETLSWITCHSTATES
     };
 
     /// Constructor
@@ -85,12 +89,16 @@ public:
         const Attributes &attrs, const std::string &basePath);
 
 private:
-    /// Builds an action which save the state of a certain tls into a file
+    /// Builds an action which saves the state of a certain tls into a file
     Command *buildSaveTLStateCommand(GenericSAXHandler &parser,
         const Attributes &attrs, const std::string &basePath);
 
-    /// Builds an action which save the state of a certain tls into a file
+    /// Builds an action which saves the switch times of links into a file
     Command *buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
+        const Attributes &attrs, const std::string &basePath);
+
+    /// Builds an action which saves the switch times and states of tls into a file
+    Command *buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
         const Attributes &attrs, const std::string &basePath);
 
 protected:
