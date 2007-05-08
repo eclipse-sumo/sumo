@@ -76,13 +76,10 @@ Command_SaveTLSState::~Command_SaveTLSState()
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime)
 {
-    for (std::map<std::string, MSTrafficLightLogic*>::const_iterator i=myLogics.ltVariants.begin(); i!=myLogics.ltVariants.end(); ++i) {
-        string subid = (*i).second->getSubID();
-        myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
-        << "\" id=\"" << (*i).second->getID()
-        << "\" subid=\"" << subid << "\">"
-        << (*i).second->buildStateList() << "</tlsstate>" << endl;
-    }
+    myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
+        << "\" id=\"" << myLogics.defaultTL->getID()
+        << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
+        << myLogics.defaultTL->buildStateList() << "</tlsstate>" << endl;
     return 1;
 }
 
