@@ -93,7 +93,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime)
                     SUMOTime lastOn = myPreviousLinkStates[link].first;
                     bool saved = myPreviousLinkStates[link].second;
                     if (!saved) {
-                        myOutputDevice->getOStream() << "   <switch tls=\"" << light->getID()
+                        myOutputDevice->getOStream() << "   <tlsswitch tls=\"" << light->getID()
                         << "\" subid=\"" << light->getSubID()
                         << "\" fromLane=\"" << currLanes[j]->getID()
                         << "\" toLane=\"" << link->getLane()->getID()
