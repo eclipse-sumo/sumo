@@ -254,19 +254,19 @@ NLHandler::openWAUT(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
-        return;
+        throw ProcessError();
     }
     try {
         t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
     } catch (NumberFormatException&) {
         MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
-        return;
+        throw ProcessError();
     }
     try {
         pro = getString(attrs, SUMO_ATTR_START_PROG);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
-        return;
+        throw ProcessError();
     }
     myCurrentWAUTID = id;
     myJunctionControlBuilder.addWAUT(t, id, pro);
@@ -281,17 +281,17 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
     try {
         t = getInt(attrs, SUMO_ATTR_TIME);
     } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
-        return;
+        MsgHandler::getErrorInstance()->inform("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
+        throw ProcessError();
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing reference time for WAUT '" + myCurrentWAUTID + "'.");
-        return;
+        MsgHandler::getErrorInstance()->inform("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
+        throw ProcessError();
     }
     try {
         to = getString(attrs, SUMO_ATTR_TO);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
-        return;
+        throw ProcessError();
     }
     myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
 }
@@ -305,13 +305,13 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
         wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
-        return;
+        throw ProcessError();
     }
     try {
         junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
-        return;
+        throw ProcessError();
     }
     procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
     bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);

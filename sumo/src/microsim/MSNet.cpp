@@ -307,8 +307,9 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         } else {
             WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
         }
-    } catch (ProcessError &) {
+    } catch (ProcessError &e) {
         WRITE_MESSAGE("Simulation End: An error occured (see log).");
+        throw e;
     }
     // exit simulation loop
     closeSimulation(start, stop);
