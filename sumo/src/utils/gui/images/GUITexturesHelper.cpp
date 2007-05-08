@@ -120,7 +120,7 @@ GUITexturesHelper::assignTextures()
 unsigned int
 GUITexturesHelper::add(FXImage *i)
 {
-    unsigned int id;
+    GLuint id;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,

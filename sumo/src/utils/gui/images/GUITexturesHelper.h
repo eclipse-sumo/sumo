@@ -39,6 +39,12 @@
 #include <fx.h>
 #include "GUITextures.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 
 // ===========================================================================
 // class definitions
@@ -85,7 +91,7 @@ private:
     static FXApp *myApp;
 
     /// Storage for texture ids (!!! as a fixed-size container?)
-    static size_t myTextureIDs[TEXTURE_MAX];
+    static GLuint myTextureIDs[TEXTURE_MAX];
 
     /// Storage for textures (!!! as a fixed-size container?)
     static FXImage *myTextures[TEXTURE_MAX];
