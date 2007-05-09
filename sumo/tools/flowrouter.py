@@ -55,7 +55,7 @@ class Edge:
         self.flow = 0
         self.kind = kind
         self.maxSpeed = 0.0
-        self.laneCount = 0
+        self.length = 0.0
         self.finalizer = None
         self.detPos = []
         self.detGroup = []
@@ -424,7 +424,8 @@ class Net:
             if edge.startCapacity == sys.maxint:
                 cap = "inf"
             print >> poiOut, '    <poi id="' + label + '_f' + flow + 'c' + cap + '"',
-            print >> poiOut, 'color = "' + color + '" lane="' + label + '_0" pos="0"/>'
+            print >> poiOut, 'color = "' + color + '" lane="' + label + '_0"',
+            print >> poiOut, ' pos="' + str(edge.length/2) + '"/>'
         print >> poiOut, "</pois>"
         poiOut.close()
 
@@ -455,7 +456,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
-            edgeObj.laneCount += 1
+            edgeObj.length = float(attrs['length'])
         if name == 'detector_definition':
             if not attrs['lane'] in self._lane2edge:
                 warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
