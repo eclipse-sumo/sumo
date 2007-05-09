@@ -39,6 +39,7 @@
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line2D.h>
+#include <utils/geoconv/GeoConvHelper.h>
 #include "NIVissimAbstractEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -50,8 +51,17 @@ NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const Position2DVector &geom)
-        : myID(id), myGeom(geom), myNode(-1)
+        : myID(id), myNode(-1)
 {
+    // convert/publicate geometry
+    std::deque<Position2D>::const_iterator i;
+    const std::deque<Position2D> &geomC = geom.getCont();
+    for(i=geomC.begin(); i!=geomC.end(); ++i) {
+        Position2D p = *i;
+        GeoConvHelper::x2cartesian(p);
+        myGeom.push_back_noDoublePos(p);
+    }
+    //
     dictionary(id, this);
 }
 

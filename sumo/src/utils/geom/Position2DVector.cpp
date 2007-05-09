@@ -412,11 +412,11 @@ Position2DVector::splitAt(SUMOReal where) const
     seen -= currdist;
     i--;
 
-    if (seen+currdist==where) {
+    if (fabs(seen+currdist-where)<POSITION_EPS) {
         one.push_back(curr);
     } else {
         Line2D tmpL(last, curr);
-        assert(seen+currdist>where);
+        assert(seen+currdist-where>POSITION_EPS);
         Position2D p = tmpL.getPositionAtDistance(seen+currdist-where);
         one.push_back(p);
         two.push_back(p);

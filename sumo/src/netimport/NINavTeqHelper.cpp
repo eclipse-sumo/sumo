@@ -55,17 +55,17 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
         case 1:
             return (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
         case 2:
-            return (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
+            return (SUMOReal) 120 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
         case 3:
-            return (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
+            return (SUMOReal) 100 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
         case 4:
             return (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
         case 5:
-            return (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
+            return (SUMOReal) 70 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
         case 6:
-            return (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
+            return (SUMOReal) 50 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
         case 7:
-            return (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
+            return (SUMOReal) 30 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
         case 8:
             return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
         default:

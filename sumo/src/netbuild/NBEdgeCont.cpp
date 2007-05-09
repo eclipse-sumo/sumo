@@ -337,12 +337,11 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                   edge->_from->getPosition(), edge->_to->getPosition(),
                   node->getPosition());
     }
-    if (pos<=0) {
+    if (pos<=0||pos+POSITION_EPS>edge->getGeometry().length()) {
         return false;
     }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
                    noLanesFirstEdge, noLanesSecondEdge);
-    //!!! does not regard the real edge geometry
 }
 
 bool
