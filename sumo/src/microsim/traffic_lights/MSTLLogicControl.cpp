@@ -189,6 +189,9 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
     // gets the actual position from the myToLogic
     size_t actPosTo = LogicTo->getPosition(simStep);
     size_t deltaToStretch= 0;
+	if (gspTo == cycleTimeTo){
+		gspTo=0;
+	}
     size_t diff = getDiffToStartOfPhase(LogicTo, (size_t) gspTo);
     if (gspTo >= actPosTo) {
         deltaToStretch = (size_t)(gspTo - actPosTo);
