@@ -4,7 +4,7 @@
 /// @date    Mon, 08.03.2004
 /// @version $Id$
 ///
-// Helper for texture loading and usage
+// Global storage for textures; manages and draws them
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,18 +58,19 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
+
 
 // ===========================================================================
 // static member variable definitions
 // ===========================================================================
 bool GUITexturesHelper::myWasInitialised = false;
 FXApp* GUITexturesHelper::myApp = 0;
-size_t GUITexturesHelper::myTextureIDs[TEXTURE_MAX];
+GLuint GUITexturesHelper::myTextureIDs[TEXTURE_MAX];
 FXImage *GUITexturesHelper::myTextures[TEXTURE_MAX];
 
 

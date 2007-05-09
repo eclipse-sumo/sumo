@@ -62,14 +62,14 @@ public:
     /// Draws the given link arrow as a box of the given size
     static void drawDirectionArrow(GUITexture which, SUMOReal size);
 
-    /// Draws the given link arrow as a rectangle of the givens sizes
+    /// Draws the given link arrow as a rectangle with the given sizes
     static void drawDirectionArrow(unsigned int which,
                                    SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
-    /// Draws a named texture as a box of the given size
+    /// Draws a named texture as a box with the given size
     static void drawTexturedBox(unsigned int which, SUMOReal size);
 
-    /// Draws a named texture as a rectangle of the givens sizes
+    /// Draws a named texture as a rectangle with the given sizes
     static void drawTexturedBox(unsigned int which,
                                 SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
