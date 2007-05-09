@@ -1,0 +1,23 @@
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run straight
+tri_cd_1min_straight
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run right
+tri_cd_1min_right
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, all vehicles shall run left
+tri_cd_1min_left
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, vehicles spread uniformly
+tri_cd_1min_equal
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, 20 veh straight, 10 vehs each left & right
+tri_cd_1min_more_straight
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, 20 veh right, 10 vehs each left & straight
+tri_cd_1min_more_right
+
+# Tests emitter building on an abstract network - with complete, correct information for one minute, 20 veh left , 10 vehs each straight & right
+tri_cd_1min_more_left
+
+

@@ -5,5 +5,12 @@ messstrecke
 # Tests emitter building on an abstract network
 tri
 
-# Tests emitter building on an abstract network - with complete, correct information for one minute
+# Tests emitter building on an abstract network - complete coverage, correct information for one minute
 tri_completely_defined
+
+# Tests emitter building on an abstract network - first arms have no detectors, correct information for one minute
+tri_no_first
+
+# Tests emitter building on an abstract network - only last arms have detectors, correct information for one minute
+tri_last_only
+
