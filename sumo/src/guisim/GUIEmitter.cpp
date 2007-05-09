@@ -473,8 +473,8 @@ void
 GUIEmitter::drawGL(SUMOReal scale, SUMOReal upscale)
 {
     glPushMatrix();
-    glScaled(upscale, upscale, upscale);
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
+    glScaled(upscale, upscale, upscale);
     glRotated(myFGRotation, 0, 0, 1);
 
     glBegin(GL_TRIANGLES);
