@@ -1065,10 +1065,12 @@ DFDetectorCon::removeDetector(const std::string &id)
     bool found = false;
     for (std::map<std::string, std::vector<DFDetector*> >::iterator rr3=myDetectorEdgeMap.begin(); !found&&rr3!=myDetectorEdgeMap.end(); ++rr3) {
         std::vector<DFDetector*> &dets = (*rr3).second;
-        for (std::vector<DFDetector*>::iterator ri3=dets.begin(); !found&&ri3!=dets.end(); ++ri3) {
+        for (std::vector<DFDetector*>::iterator ri3=dets.begin(); !found&&ri3!=dets.end(); ) {
             if (*ri3==oldDet) {
                 found = true;
-                dets.erase(ri3);
+                ri3 = dets.erase(ri3);
+            } else {
+                ++ri3;
             }
         }
     }
