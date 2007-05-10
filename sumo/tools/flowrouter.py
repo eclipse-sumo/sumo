@@ -444,20 +444,20 @@ class NetDetectorFlowReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'edges':
             self._edgeString = ' '
-        if name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
+        elif name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
             self._edge = attrs['id']
-        if name == 'cedge':
+        elif name == 'cedge' and self._edge != '':
             fromEdge = self._net.getEdge(self._edge)
             toEdge = self._net.getEdge(attrs['id'])
             newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
             self._net.addEdge(newEdge)
             fromEdge.finalizer = attrs['id']
-        if name == 'lane':
+        elif name == 'lane' and self._edge != '':
             self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
             edgeObj.length = float(attrs['length'])
-        if name == 'detector_definition':
+        elif name == 'detector_definition':
             if not attrs['lane'] in self._lane2edge:
                 warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
                 return
@@ -482,6 +482,8 @@ class NetDetectorFlowReader(handler.ContentHandler):
             for edge in self._edgeString.split():
                 self._net.addIsolatedRealEdge(edge)
             self._edgeString = ''
+        elif name == 'edge':
+            self._edge = ''
 
     def readFlows(self, flowFile):
         headerSeen = False
