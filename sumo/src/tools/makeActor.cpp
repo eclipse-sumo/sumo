@@ -23,6 +23,7 @@ using namespace std;
 struct tolseg{
 	string bpoint;
 	string epoint;
+	vector<string> mpoints;
 	vector<string> edges;
 };
 
@@ -213,6 +214,9 @@ buildDirectedEdges(const vector<string> &edges)
         if(!found) {
             string firstE = "-" + *c;
             string afE = firstE + "-AddedOffRampEdge";
+            if(afE=="-572676251-AddedOffRampEdge") {
+                int bla = 0;
+            }
             if(mcedge.find(afE)!=mcedge.end()) {
                 firstE = afE;
             }
@@ -223,6 +227,9 @@ buildDirectedEdges(const vector<string> &edges)
             }
             if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
                 found = true;
+                if(firstE.find("-AddedOffRampEdge")!=string::npos&&ret.size()==0) {
+                    ret.push_back( "-" + *c);
+                }
                 ret.push_back(firstE);
                 lastE = nextE;
             }
@@ -231,6 +238,10 @@ buildDirectedEdges(const vector<string> &edges)
         if(!found) {
             string firstE = "-" + *c;
             string afE = firstE + "-AddedOffRampEdge";
+            if(afE=="-572676251-AddedOffRampEdge") {
+                int bla = 0;
+            }
+
             if(mcedge.find(afE)!=mcedge.end()) {
                 firstE = afE;
             }
@@ -242,6 +253,9 @@ buildDirectedEdges(const vector<string> &edges)
             if(mcedge[firstE].find(nextE)!=mcedge[firstE].end()) {
                 found = true;
                 ret.push_back(firstE);
+                if(firstE.find("-AddedOffRampEdge")!=string::npos) {
+                    ret.push_back( "-" + *c);
+                }
                 lastE = nextE;
             }
         }
@@ -567,10 +581,17 @@ int main(int ac, char * av[]){
 			mtol[tmp] = ts;
 			ittol=mtol.find(tmp);
 		}
-		if( strcmp(pos.c_str(), "0")==0)
+        switch(pos[0]) {
+        case '0':
 			ittol->second.bpoint = to;
-		else
-			ittol->second.epoint = to;
+            break;
+        default:
+            if(ittol->second.epoint!="") {
+                ittol->second.mpoints.push_back(ittol->second.epoint);
+            }
+            ittol->second.epoint = to;
+            break;
+        }
 	}
 	/*einlesen der tolsegmente*/
     cout << "Parsing tol segments '" << av[4] << "'." << endl;
@@ -637,6 +658,9 @@ int main(int ac, char * av[]){
         poses[point_id] = Position2D(x, y);
     }
 
+
+    std::map<string, bool> doneSAPoints;
+
 	/*jetzt suchen wir fuer jeden tolpoint eine kante aus der netdatei*/
 	string edge, be1, be2, ee1, ee2; // beginedge==be endedge==ee
     size_t bla = mtol.size();
@@ -648,6 +672,13 @@ int main(int ac, char * av[]){
                 logF << "At least one point lies within area, but no edge exists (" << ittol->second.bpoint << "/" << ittol->second.epoint << ")" << endl;
             }
             continue;
+        }
+        {
+        string beginPoint = ittol->second.bpoint;
+        string endPoint = ittol->second.epoint;
+        if(beginPoint=="11123"&&endPoint=="11101") {
+            int bla = 0;
+        }
         }
         vector<string> nEdges = buildDirectedEdges(ittol->second.edges);
         /*da wir in der net die richtung durch ein - angezeigt ist muessen wir erst eraus-
@@ -679,14 +710,10 @@ int main(int ac, char * av[]){
             continue;
         }
 
-        string beginPoint = ittol->second.bpoint;
-        string endPoint = ittol->second.epoint;
-
-
-        if(beginPoint=="17579") {
-            int bla = 0;
-        }
-
+        vector<string> allPoints;
+        allPoints.push_back(ittol->second.bpoint);
+        copy(ittol->second.mpoints.begin(), ittol->second.mpoints.end(), back_inserter(allPoints));
+        allPoints.push_back(ittol->second.epoint);
         vector<string>::iterator it;
         std::map<string, Position2DVector> shapes;
         for(it=nEdges.begin(); it!=nEdges.end(); ++it) {
@@ -704,10 +731,22 @@ int main(int ac, char * av[]){
             }
         }
 
+
+        string beginPoint = ittol->second.bpoint;
+        string endPoint = ittol->second.epoint;
+        if(beginPoint=="11101"&&endPoint=="10831") {
+            int bla = 0;
+        }
+
+
+        if(beginPoint=="17579") {
+            int bla = 0;
+        }
+
         Position2D begPointPos = poses[beginPoint];
         Position2D endPointPos = poses[endPoint];
 
-        if(beginPoint=="13854") {
+        if(beginPoint=="11006") {
             int bla = 0;
         }
         if(beginPoint=="17579") {
@@ -752,20 +791,67 @@ int main(int ac, char * av[]){
             SUMOReal pos = shape.nearest_position_on_line_to_point(begPointPos);
             int count=atoi(medge[beginEdge2].first.c_str());
 		    for(int i=0; i!=count;i++){
-                fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << beginPoint << '_' << i
-	        	    <<"\" objectid=\"" << beginEdge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
-		        	<< beginPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+                string withLaneID = beginPoint + "_" + toString(i);
+                if(doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
+                    fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << beginPoint << '_' << i
+	            	    <<"\" objectid=\"" << beginEdge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
+		            	<< beginPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+                    doneSAPoints[withLaneID] = true;
+                }
             }
         }
+
+        for(vector<string>::iterator pi=ittol->second.mpoints.begin(); pi!=ittol->second.mpoints.end(); ++pi) {
+            Position2D pointPos = poses[*pi];
+            if(*pi=="11207") {
+                int bla = 0;
+            }
+            string edge2 = findNearest(shapes, pointPos);
+            if(edge2=="") {
+                cout << " In-between edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
+                logF << " In-between edge (points: " << beginPoint << "/" << endPoint << ") is beyond the sa" << endl;
+                edge2 = *nEdges.begin();
+                edge2 = tryFindBegEdge(edgeShapes, edge2, pointPos, true);
+                if(edge2=="") {
+                    cout << "  Could not find in-between edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+                    logF << "  Could not find in-between edge (points: " << beginPoint << "/" << endPoint << ")" << endl;
+                } else {
+                    cout << "  Found " << edge2 << endl;
+                    logF << "  Found " << edge2 << endl;
+                }
+            }
+            if(edge2!="") {
+                Position2DVector shape = edgeShapes[edge2];
+                SUMOReal pos = shape.nearest_position_on_line_to_point(pointPos);
+                int count=atoi(medge[edge2].first.c_str());
+    		    for(int i=0; i!=count;i++){
+                    string withLaneID = *pi + "_" + toString(i);
+                    if(doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
+                        fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << *pi << '_' << i
+    	            	    <<"\" objectid=\"" << edge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
+		                	<< *pi << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+                        doneSAPoints[withLaneID] = true;
+                    }
+                }
+            }   
+        }
+
+
+
+
         // write end position
         if(endEdge2!="") {
             Position2DVector shape = edgeShapes[endEdge2];
             SUMOReal pos = shape.nearest_position_on_line_to_point(endPointPos);
             int count=atoi(medge[endEdge2].first.c_str());
 		    for(int i=0; i!=count;i++){
-                fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << endPoint << '_' << i
-	        	    <<"\" objectid=\"" << endEdge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
-		        	<< endPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+                string withLaneID = endPoint + "_" + toString(i);
+                if(doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
+                    fout <<"\t<trigger objecttype=\"vehicle_actor\" id=\"" << endPoint << '_' << i
+    	        	    <<"\" objectid=\"" << endEdge2  << '_' << i << "\" pos=\"" << pos << "\" to=\""
+		            	<< endPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
+                    doneSAPoints[withLaneID] = true;
+                }
             }
         }
 
