@@ -839,21 +839,35 @@ DFRONet::removeEmptyDetectors(DFDetectorCon &detectors,
         bool remove = true;
         // check whether there is at least one entry with a flow larger than zero
         if (flows.knows((*i)->getID())) {
-            const std::vector<FlowDef> &detFlows = flows.getFlowDefs((*i)->getID());
-            for (std::vector<FlowDef>::const_iterator j=detFlows.begin(); remove&&j!=detFlows.end(); ++j) {
-                    if ((*j).qPKW>0||(*j).qLKW>0) {
-                        remove = false;
-                    }
-                }
+            remove = false;
         }
         if (remove) {
-            cout << "Removed '" << (*i)->getID() << "'." << endl;
+            MsgHandler::getMessageInstance()->inform("Removed detector '" + (*i)->getID() + "' because no flows for him exist.");
             flows.removeFlow((*i)->getID());
             detectors.removeDetector((*i)->getID());
             i = dets.begin();
         }
         else {
             i++;
+        }
+    }
+}
+
+
+
+void
+DFRONet::reportEmptyDetectors(DFDetectorCon &detectors,
+                              DFDetectorFlows &flows)
+{
+    const std::vector<DFDetector*> &dets = detectors.getDetectors();
+    for (std::vector<DFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
+        bool remove = true;
+        // check whether there is at least one entry with a flow larger than zero
+        if (flows.knows((*i)->getID())) {
+            remove = false;
+        }
+        if (remove) {
+            MsgHandler::getMessageInstance()->inform("Detector '" + (*i)->getID() + "' has no flow.");
         }
     }
 }

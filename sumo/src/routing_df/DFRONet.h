@@ -84,6 +84,9 @@ public:
                               DFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
                               SUMOTime stepOffset);
 
+    void reportEmptyDetectors(DFDetectorCon &detectors,
+                              DFDetectorFlows &flows);
+
     ROEdge *getEdge(const std::string &name) const;
 
     void buildDetectorDependencies(DFDetectorCon &detectors);
