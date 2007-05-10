@@ -274,6 +274,10 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
             optNet->removeEmptyDetectors(*detectors, *flows, oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        } else  if (oc.getBool("report-empty-detectors")) {
+            MsgHandler::getMessageInstance()->beginProcessMsg("Scanning for empty detectors...");
+            optNet->reportEmptyDetectors(*detectors, *flows);
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         // compute the detector types (optionally)
         if (!detectors->detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {

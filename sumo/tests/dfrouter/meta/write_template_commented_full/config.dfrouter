@@ -109,6 +109,9 @@
    </time>
 
    <report>
+      <!-- Lists detectors with no flow (enable -v) -->
+      <report-empty-detectors>false</report-empty-detectors>
+
       <!-- Switches to verbose output -->
       <verbose>false</verbose>
 

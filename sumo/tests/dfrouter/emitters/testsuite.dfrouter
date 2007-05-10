@@ -5,6 +5,7 @@ messstrecke
 # Tests emitter building on an abstract network
 tri
 
+
 # Tests emitter building on an abstract network - complete coverage, correct information for one minute
 tri_completely_defined
 
@@ -13,4 +14,11 @@ tri_no_first
 
 # Tests emitter building on an abstract network - only last arms have detectors, correct information for one minute
 tri_last_only
+
+
+# As tri_completely_defined but with values for MQ_1toL removed
+tri_missing_first_left_values
+
+# As tri_missing_first_left_values but with --remove-empty-detectors 
+tri_missing_first_left_noempty
 
