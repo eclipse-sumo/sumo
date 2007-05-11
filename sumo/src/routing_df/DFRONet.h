@@ -68,7 +68,7 @@ public:
                       bool sourcesStrict) const;
     void buildRoutes(DFDetectorCon &det, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
-                     bool keepShortestOnly) const;
+                     bool keepShortestOnly, int maxFollowingLength) const;
     SUMOReal getAbsPos(const DFDetector &det) const;
 
     void buildEdgeFlowMap(const DFDetectorFlows &flows,
@@ -122,6 +122,7 @@ protected:
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &visited, const DFDetector &det,
                           DFRORouteCont &into, const DFDetectorCon &detectors,
+                          int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const;
 
     void buildDetectorEdgeDependencies(DFDetectorCon &dets) const;

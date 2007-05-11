@@ -162,6 +162,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("keep-longer-routes", new Option_Bool(false));
     oc.addDescription("keep-longer-routes", "Processing", "Keeps routes even if a shorter one exists");
 
+    oc.doRegister("max-nodet-follower", new Option_Integer(30));
+    oc.addDescription("max-nodet-follower", "Processing", "Number of edges until which a route is followed");
+
 
     // flow reading
     oc.doRegister("fast-flows", new Option_Bool(false));

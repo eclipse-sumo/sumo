@@ -29,6 +29,7 @@
       <all-end-follower>false</all-end-follower>
       <keep-unfound-ends>false</keep-unfound-ends>
       <keep-longer-routes>false</keep-longer-routes>
+      <max-nodet-follower>30</max-nodet-follower>
       <fast-flows>false</fast-flows>
       <time-offset>0</time-offset>
       <write-calibrators>false</write-calibrators>

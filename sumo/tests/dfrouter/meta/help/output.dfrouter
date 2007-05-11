@@ -49,6 +49,8 @@ Usage: dfrouter.exe [OPTION]*
                                        after a sink
   --keep-unfound-ends                Keeps routes ending at no sinks
   --keep-longer-routes               Keeps routes even if a shorter one exists
+  --max-nodet-follower INT           Number of edges until which a route is
+                                       followed
   --fast-flows                       Assumes flows to be stored in a less
                                        complex format
   --time-offset INT                  Subtracts INT from flow times

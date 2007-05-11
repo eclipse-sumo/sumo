@@ -270,6 +270,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                           std::vector<ROEdge*> &/*visited*/,
                           const DFDetector &det, DFRORouteCont &into,
                           const DFDetectorCon &detectors,
+                          int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const
 {
     std::vector<DFRORouteDesc*> unfoundEnds;
@@ -353,7 +354,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
         if (!addNextNoFurther) {
             // ... if this one would be processed, but already too many edge
             //  without a detector occured
-            if (current->passedNo>15) { // !!!
+            if (current->passedNo>maxFollowingLength) {
                 // mark not to process any further
                 MsgHandler::getWarningInstance()->inform("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
@@ -534,7 +535,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
 void
 DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
-                     bool keepShortestOnly) const
+                     bool keepShortestOnly, int maxFollowingLength) const
 {
     std::vector<std::vector<ROEdge*> > illegals;
     std::vector<ROEdge*> i1;
@@ -613,7 +614,7 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
         std::vector<ROEdge*> visited;
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds, keepShortestOnly,
-                         visited, **i, *routes, detcont, seen);
+                         visited, **i, *routes, detcont, maxFollowingLength, seen);
         routes->removeIllegal(illegals);
         (*i)->addRoutes(routes);
         //cout << (*i)->getID() << " : " << routes->get().size() << endl;
