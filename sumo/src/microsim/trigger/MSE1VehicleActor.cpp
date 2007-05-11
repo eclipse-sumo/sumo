@@ -219,7 +219,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 {
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
                     if(od!=0) {
-                        std::string timestr="1970-01-01 " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
                         od->getOStream()
                             << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
@@ -233,7 +234,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         } else {
                             od->setBoolMarker("hadFirstCall", true);
                         }
-                        std::string timestr="1970-01-01 " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         od->getOStream()
                             << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
                             << ", " << 0 << ")"; // !!! recheck quality indicator

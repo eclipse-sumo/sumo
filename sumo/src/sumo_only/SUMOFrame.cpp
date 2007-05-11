@@ -297,6 +297,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
     oc.addDescription("device.cell-phone.amount.max", "Cellular", "");
 
+    oc.doRegister("device.cell-phone.sql-date", new Option_String("1970-01-01"));
+    oc.addDescription("device.cell-phone.sql-date", "Cellular", "Sets the date to use in sql-dumps");
+
 
     // tls
     oc.doRegister("agent-tl.detector-len", new Option_Float(75));//!!! recheck

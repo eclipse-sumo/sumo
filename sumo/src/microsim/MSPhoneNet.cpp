@@ -257,14 +257,16 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
 		{
 			if ( od1 != 0 )
 			{
-				std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+                std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                timestr = timestr + " " + StringUtils::toTimeString(t);
 				od1->getOStream()
 					<< "03;" << timestr << ';' << coit->first << ";0;" << coit->second
 					<< ";0;" << intervall << "\n";
 			}
 			if ( od2 != 0 )
 			{
-				std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+                std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                timestr = timestr + " " + StringUtils::toTimeString(t);
 				if (od2->getBoolMarker("hadFirstCall")) {
 					od2->getOStream() << "," << endl;
 				} else {

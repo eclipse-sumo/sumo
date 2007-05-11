@@ -286,7 +286,8 @@ MSPhoneCell::writeOutput(SUMOTime t)
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
         if(od!=0) {
-            std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+            timestr = timestr + " " + StringUtils::toTimeString(t);
             od->getOStream()
             << "02;" << timestr << ';' 
             << myCellId << ';' 
@@ -300,7 +301,8 @@ MSPhoneCell::writeOutput(SUMOTime t)
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
         if(od!=0) {
-            std::string timestr="1970-01-01 " + StringUtils::toTimeString(t);
+            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+            timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od->getBoolMarker("hadFirstCall")) {
                 od->getOStream() << "," << endl;
             } else {
