@@ -156,7 +156,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
     }
     std::vector<DFRORouteDesc*>::const_iterator ri;
     const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
-    if(getID()=="MQ270_0") {
+    if(getID()=="MQ257_0") {
         int bla = 0;
     }
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -176,6 +176,9 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                     // ok, we have a split; check probability for each of the successors
                     map<ROEdge*, double> probs;
                     SUMOReal allProbs = 0;
+    if(getID()=="MQ257_0"&&(*q)->getID()=="572684192-AddedOffRampEdge") {
+        int bla = 0;
+    }
                     for(size_t i=0; i<(*q)->getNoFollowing(); ++i) {
                         ROEdge *ne = (*q)->getFollower(i);
                         SUMOReal prob = getUsage(ne, q, detectors, flows, time, net);
@@ -484,9 +487,10 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                                    SUMOTime startTime, SUMOTime endTime,
                                    SUMOTime stepOffset,
                                    const DFRONet &net,
-                                   bool includeUnusedRoutes) const
+                                   bool includeUnusedRoutes,
+                                   SUMOReal scale) const
 {
-    if(getID()=="MQ270_0") {
+    if(getID()=="MQ257_0") {
         int bla = 0;
     }
     // write the definition
@@ -566,7 +570,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
             // get flows at end
             RandomDistributor<size_t> *destDist = dists[time];
             // go through the cars
-            size_t carNo = (size_t)(srcFD.qPKW + srcFD.qLKW);
+            size_t carNo = (size_t) (srcFD.qPKW + srcFD.qLKW) * scale;
 //            cout << "b1 " << carNo <<  endl;
             for (size_t car=0; car<carNo; ++car) {
                 // get the vehicle parameter
@@ -867,7 +871,8 @@ DFDetectorCon::writeEmitters(const std::string &file,
                              SUMOTime startTime, SUMOTime endTime,
                              SUMOTime stepOffset, const DFRONet &net,
                              bool writeCalibrators,
-                             bool includeUnusedRoutes)
+                             bool includeUnusedRoutes,
+                             SUMOReal scale)
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
@@ -889,7 +894,7 @@ DFDetectorCon::writeEmitters(const std::string &file,
             continue;
         }
         // try to write the definition
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes)) {
+        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale)) {
             // skip if something failed... (!!!)
             continue;
         }

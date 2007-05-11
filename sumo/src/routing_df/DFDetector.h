@@ -109,7 +109,7 @@ public:
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 const DFRONet &net,
-                                bool includeUnusedRoutes) const;
+                                bool includeUnusedRoutes, SUMOReal scale) const;
 
     void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
     void addRoutes(DFRORouteCont *routes);
@@ -174,7 +174,8 @@ public:
                        const DFDetectorFlows &flows,
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                        const DFRONet &net,
-                       bool writeCalibrators, bool includeUnusedRoutes);
+                       bool writeCalibrators, bool includeUnusedRoutes,
+                       SUMOReal scale);
 
     void writeEmitterPOIs(const std::string &file,
                           const DFDetectorFlows &flows,

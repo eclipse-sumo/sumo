@@ -342,7 +342,8 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
                                      oc.getInt("begin"), oc.getInt("end"), 60, 
                                      *optNet,
                                      oc.getBool("write-calibrators"),
-                                     oc.getBool("include-unused-routes"));
+                                     oc.getBool("include-unused-routes"),
+                                     oc.getFloat("scale"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-poi-output")) {

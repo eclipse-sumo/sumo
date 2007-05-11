@@ -180,6 +180,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("include-unused-routes", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("include-unused-routes", "Processing", "");
 
+    //
     oc.doRegister("revalidate-flows", new Option_Bool(false));
     oc.addDescription("revalidate-flows", "Processing", "");
 
@@ -189,8 +190,15 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("strict-sources", new Option_Bool(false)); // !!!undescribed
     oc.addDescription("strict-sources", "Processing", "");
 
+    //
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Processing", "Joins detectors lying on same height");
+
+    // 
+    oc.doRegister("scale", new Option_Float(1.));
+    oc.addDescription("scale", "Processing", "Scale factor for flows");
+
+
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
