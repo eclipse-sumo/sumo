@@ -6,41 +6,41 @@
       <cluster id="2" headID="horizontal1" vehNo="2">vertical1</cluster>
    </timestep>
    <timestep time="132">
-      <cluster id="1" headID="horizontal2" vehNo="3">vertical1 vertical2</cluster>
+      <cluster id="1" headID="horizontal2" vehNo="3">vertical2 vertical1</cluster>
       <cluster id="2" headID="horizontal1" vehNo="1"></cluster>
    </timestep>
    <timestep time="133">
-      <cluster id="1" headID="horizontal2" vehNo="4">horizontal1 vertical1 vertical2</cluster>
+      <cluster id="1" headID="horizontal2" vehNo="4">vertical2 horizontal1 vertical1</cluster>
    </timestep>
    <timestep time="134">
-      <cluster id="1" headID="horizontal2" vehNo="4">horizontal1 vertical1 vertical2</cluster>
+      <cluster id="1" headID="horizontal2" vehNo="4">vertical2 horizontal1 vertical1</cluster>
    </timestep>
    <timestep time="135">
-      <cluster id="1" headID="horizontal2" vehNo="4">horizontal1 vertical1 vertical2</cluster>
+      <cluster id="1" headID="horizontal2" vehNo="4">vertical2 horizontal1 vertical1</cluster>
    </timestep>
    <timestep time="136">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="137">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="138">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="139">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="140">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="141">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="142">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="143">
-      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 horizontal1 vertical2</cluster>
+      <cluster id="1" headID="vertical1" vehNo="4">horizontal2 vertical2 horizontal1</cluster>
    </timestep>
    <timestep time="144">
       <cluster id="1" headID="vertical1" vehNo="3">horizontal2 vertical2</cluster>

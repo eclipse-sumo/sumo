@@ -5,7 +5,7 @@
    <exit lane="2o_0" pos="0.00"/>
 
    <interval begin="0" end="299" meanTravelTime="121.10" meanSpeed="8.12" meanHaltsPerVehicle="25.50" vehicleSum="4.00"/>
-   <interval begin="300" end="599" meanTravelTime="123.80" meanSpeed="7.91" meanHaltsPerVehicle="21.78" vehicleSum="27.00"/>
+   <interval begin="300" end="599" meanTravelTime="123.86" meanSpeed="7.91" meanHaltsPerVehicle="21.79" vehicleSum="28.00"/>
    <interval begin="600" end="899" meanTravelTime="124.47" meanSpeed="7.87" meanHaltsPerVehicle="21.48" vehicleSum="27.00"/>
    <interval begin="900" end="1000" meanTravelTime="124.38" meanSpeed="7.88" meanHaltsPerVehicle="21.75" vehicleSum="12.00"/>
 </e3-detector>
