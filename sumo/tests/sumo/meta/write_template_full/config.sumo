@@ -84,6 +84,10 @@
       <ss2-la-output></ss2-la-output>
       <ss2-sql-la-output></ss2-sql-la-output>
       <cellphone-dump></cellphone-dump>
+      <cell-dynamic-callcount-scale-factor>1</cell-dynamic-callcount-scale-factor>
+      <cell-static-callcount-scale-factor>1</cell-static-callcount-scale-factor>
+      <cell-dynamic-calldeviation-scale-factor>1</cell-dynamic-calldeviation-scale-factor>
+      <cell-dynamic-callduration-scale-factor>1</cell-dynamic-callduration-scale-factor>
       <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
       <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
    </cellular>
