@@ -25,6 +25,11 @@ physstates:physstates.xml
 config:config.cfg
 tol_sql:tol_sql.txt
 tol_plain:tol_plain.txt
+tol_la_sql:tol_la_sql.txt
+tol_la_plain:tol_la_plain.txt
+tol_cell_sql:tol_cell_sql.txt
+tol_cell_plain:tol_cell_plain.txt
+tol_phone_dump:tol_phone_dump.txt
 c2x_cluster_info:c2x_cluster_info.xml
 c2x_saved_info:c2x_saved_info.xml
 c2x_transmitted_info:c2x_transmitted_info.xml
