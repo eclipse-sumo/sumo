@@ -124,7 +124,7 @@ private:
     std::map< int, int > _mCell2LA;
 
     std::map< std::string, int > myLAChanges;
-
+	int lastTime;
     bool percentModus;
 
 

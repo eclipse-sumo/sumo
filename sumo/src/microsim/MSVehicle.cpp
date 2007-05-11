@@ -2,7 +2,7 @@
 /// @file    MSVehicle.cpp
 /// @author  Christian Roessel
 /// @date    Mon, 05 Mar 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // micro-simulation Vehicles.
 /****************************************************************************/
@@ -268,18 +268,20 @@ MSVehicle::initDevices(int vehicleIndex)
     OptionsCont &oc = OptionsSubSys::getOptions();
 
     // cell phones
-    if ( oc.getBool("device.cell-phone.percent-of-activity") ){
-        //myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
-      //  string phoneid = getID() + "_cphone#0";
-    //    MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
-//        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;
+    if ( oc.getBool("device.cell-phone.percent-of-activity") )
+    {
+        /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
+        string phoneid = getID() + "_cphone#0";
+        MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;*/
         if ( randSUMO()<=oc.getFloat("device.cell-phone.probability")){
             vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             string phoneid = getID() + "_cphone#0";
             v->push_back(new MSDevice_CPhone(*this, phoneid));
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
+    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) 
+    {
         bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
         bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
         if (t1||t2) {
@@ -293,6 +295,24 @@ MSVehicle::initDevices(int vehicleIndex)
             }
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
+    }
+    else if ( false )
+    {
+        int noCellPhones = 1;
+            if ( myType->getID().compare( "pkw" )== 0 )
+                noCellPhones = 1;
+            else if ( myType->getID().compare( "bus" )== 0 )
+                noCellPhones = 2;
+            else if ( myType->getID().compare( "sbahn" )== 0 )
+                noCellPhones = 3;
+            else if ( myType->getID().compare( "zug" )== 0 )
+                noCellPhones = 4;
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+            for (int np=0; np<noCellPhones; np++) {
+                string phoneid = getID() + "_cphone#" + toString(np);
+                v->push_back(new MSDevice_CPhone(*this, phoneid));
+            }
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
     }
 
     // c2c communication

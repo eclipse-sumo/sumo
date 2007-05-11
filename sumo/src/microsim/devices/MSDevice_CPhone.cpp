@@ -115,6 +115,15 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     myCallId = -1;
     m_State = STATE_IDLE;
 	myCallCellCount = 0;
+    if ( myVehicle.getVehicleType().getID().compare("zug") == 0 )
+    {
+        notTriggeredByCell = true;    
+
+    }
+    else
+    {
+        notTriggeredByCell = false;
+    }
 }
 
 //---------------------------------------------------------------------------

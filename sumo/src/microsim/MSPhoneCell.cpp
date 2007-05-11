@@ -77,7 +77,7 @@ void
 MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
 {
 	myCalls[callid] = ct; 
-	if ( cellCount < 2 )
+	if ( cellCount < 1 )
 	{
 		switch( ct )
 		{
@@ -266,7 +266,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
     int itoStart = (int) toStart;
     std::map<std::string, MSDevice_CPhone*>::iterator itdev = myRegisteredDevices.end();
     for (itdev = myRegisteredDevices.begin(); itoStart>0&&itdev != myRegisteredDevices.end(); itdev++) {
-        if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE) {
+        if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE && !itdev->second->getNotTriggeredByCell() ) {
             if (myConnectionTypSelector) {
                 itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int)myCallDuration);
             } else {

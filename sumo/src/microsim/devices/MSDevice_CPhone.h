@@ -111,6 +111,16 @@ public:
    
     void invalidateCommand();
 
+    void setNotTriggeredByCell()
+    {
+        notTriggeredByCell = true;
+    };
+    
+    bool getNotTriggeredByCell()
+    {
+        return notTriggeredByCell;
+    };
+
 protected:
 class MyCommand : public Command
     {
@@ -158,6 +168,8 @@ private:
 	/*if the device is calling,it counts the passed cells*/
 	int myCallCellCount;
 
+    /*if this */
+    bool notTriggeredByCell;
 };
 
 
