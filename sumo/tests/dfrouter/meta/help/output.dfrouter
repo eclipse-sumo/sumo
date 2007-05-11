@@ -60,6 +60,7 @@ Usage: dfrouter.exe [OPTION]*
   --remove-empty-detectors           Removes empty detectors from the list
   --strict-sources                   
   --mesosim                          Joins detectors lying on same height
+  --scale FLOAT                      Scale factor for flows
 
  Time Options:
   -b, --begin INT                    Defines the begin time;

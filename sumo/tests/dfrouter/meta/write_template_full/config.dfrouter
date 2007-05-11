@@ -38,6 +38,7 @@
       <remove-empty-detectors>false</remove-empty-detectors>
       <strict-sources>false</strict-sources>
       <mesosim>false</mesosim>
+      <scale>1</scale>
    </processing>
 
    <time>
