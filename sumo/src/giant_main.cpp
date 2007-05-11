@@ -29,7 +29,6 @@
 #include <ctime>
 #include <signal.h>
 #include <iostream>
-#include <fstream>
 #include <fx.h>
 #include <fx3d.h>
 #include <microsim/MSNet.h>

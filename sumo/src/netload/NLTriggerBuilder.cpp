@@ -35,7 +35,6 @@
 #endif
 
 #include <string>
-#include <fstream>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>

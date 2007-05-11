@@ -36,7 +36,6 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
@@ -51,6 +50,7 @@
 #include <polyconvert/PCVisumPoints.h>
 #include <polyconvert/PCElmar.h>
 #include <polyconvert/PCElmarPoints.h>
+#include <polyconvert/PCXMLPoints.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/common/XMLHelpers.h>
@@ -114,9 +114,14 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("visum-points", new Option_FileName());
     oc.addDescription("visum-points", "Input", "Reads pois from FILE assuming it's a Visum-net");
 
+    // xml import
+    oc.doRegister("xml-points", new Option_FileName());
+    oc.addDescription("xml-points", "Input", "Reads pois from FILE assuming they're coded in XML");
+
     // typemap reading
     oc.doRegister("typemap", new Option_FileName());
     oc.addDescription("typemap", "Input", "Reads types from FILE");
+
 
     // output
     oc.doRegister("output", 'o', new Option_FileName("polygons.xml"));
@@ -382,6 +387,11 @@ main(int argc, char **argv)
         // visum-points
         if (oc.isSet("visum-points")) {
             PCVisumPoints pcv(toFill, tm);
+            pcv.load(oc);
+        }
+        // xml-points
+        if (oc.isSet("xml-points")) {
+            PCXMLPoints pcv(toFill, tm, oc);
             pcv.load(oc);
         }
 

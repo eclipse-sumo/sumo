@@ -37,7 +37,6 @@
 #endif
 
 #include <string>
-#include <fstream>
 #include <map>
 #include <utils/helpers/Command.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>

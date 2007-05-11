@@ -36,7 +36,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <fstream>
 #include <utils/geom/GeomHelper.h>
 #include "MSEdge.h"
 #include "MSCell.h"

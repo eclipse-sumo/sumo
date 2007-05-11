@@ -2,7 +2,7 @@
 /// @file    guisim_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id: $
 ///
 // Revision 1.23  2007/01/10 08:33:04  dkrajzew
 /****************************************************************************/
@@ -37,7 +37,6 @@
 #include <ctime>
 #include <signal.h>
 #include <iostream>
-#include <fstream>
 #include <fx.h>
 #include <fx3d.h>
 #include <microsim/MSNet.h>
@@ -72,6 +71,7 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByCastedFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByParametrisedFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
 #include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
 #include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
@@ -108,6 +108,9 @@ using namespace std;
 // ===========================================================================
 // methods
 // ===========================================================================
+int myShowingBlaTime;
+
+
 /* -------------------------------------------------------------------------
  * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
@@ -173,8 +176,8 @@ initVehicleColoringSchemes()
     /
     sm.add("by device state",
         new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
             true, 1, 10,
             RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
             MSCORN::CORN_VEH_DEV_NO_CPHONE));
@@ -267,6 +270,13 @@ initLaneColoringSchemes()
                0, (SUMOReal) 5,
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+    /*
+    sm.add("by loaded weights (streetwise)",
+           new GUIColorer_ShadeByParametrisedFunctionValue<GUILaneWrapper>(
+               0, (SUMOReal) 5,
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUILaneWrapper::*)(SUMOTime) const) &GUILaneWrapper::getEdgeEffort));
+               */
     // using C2C extensions
     /*
     sm.add("C2C: by vehicle knowledge",

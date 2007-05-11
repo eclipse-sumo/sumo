@@ -37,7 +37,6 @@
 #include <ctime>
 #include <string>
 #include <iostream>
-#include <fstream>
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEmitControl.h>

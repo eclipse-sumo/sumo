@@ -38,7 +38,6 @@
 #include "MSPhoneNet.h"
 #include "MSCORN.h"
 #include <iostream>
-#include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/iodevices/OutputDevice.h>

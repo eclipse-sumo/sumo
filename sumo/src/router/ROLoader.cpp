@@ -35,7 +35,6 @@
 #endif
 
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <iomanip>
 #include <xercesc/parsers/SAXParser.hpp>
