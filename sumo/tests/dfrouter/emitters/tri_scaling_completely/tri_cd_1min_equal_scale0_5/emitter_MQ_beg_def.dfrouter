@@ -1,0 +1,20 @@
+<triggeredsource>
+   <routedistelem id="beg_to_end" probability="0.333333"/>
+   <routedistelem id="beg_to_end_1" probability="0.333333"/>
+   <routedistelem id="beg_to_end_2" probability="0.333333"/>
+   <emit id="emitter_MQ_beg_0" time="0" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_4" time="4" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_8" time="8" speed="100" route="beg_to_end" vehtype="test"/>
+   <emit id="emitter_MQ_beg_12" time="12" speed="100" route="beg_to_end_1" vehtype="test"/>
+   <emit id="emitter_MQ_beg_16" time="16" speed="100" route="beg_to_end_1" vehtype="test"/>
+   <emit id="emitter_MQ_beg_20" time="20" speed="100" route="beg_to_end" vehtype="test"/>
+   <emit id="emitter_MQ_beg_24" time="24" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_28" time="28" speed="100" route="beg_to_end" vehtype="test"/>
+   <emit id="emitter_MQ_beg_32" time="32" speed="100" route="beg_to_end_1" vehtype="test"/>
+   <emit id="emitter_MQ_beg_36" time="36" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_40" time="40" speed="100" route="beg_to_end" vehtype="test"/>
+   <emit id="emitter_MQ_beg_44" time="44" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_48" time="48" speed="100" route="beg_to_end_1" vehtype="test"/>
+   <emit id="emitter_MQ_beg_52" time="52" speed="100" route="beg_to_end_1" vehtype="test"/>
+   <emit id="emitter_MQ_beg_56" time="56" speed="100" route="beg_to_end_1" vehtype="test"/>
+</triggeredsource>

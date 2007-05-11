@@ -22,3 +22,10 @@ tri_missing_first_left_values
 # As tri_missing_first_left_values but with --remove-empty-detectors 
 tri_missing_first_left_noempty
 
+
+
+# As tri_completely_defined but with flow scales
+tri_scaling_completely
+
+
+
