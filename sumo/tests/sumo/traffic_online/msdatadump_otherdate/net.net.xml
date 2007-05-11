@@ -1,0 +1,112 @@
+<net>
+
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,4000.000000,0.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,4000.000000,0.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="4">0 1 2 3</edges>
+   <node_count>5</node_count>
+
+
+   <edge id="0" from="N0" to="N1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="0_0" depart="1" vclasses="" maxspeed="36.00" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
+      </lanes>
+      <cedge id="1">0_0</cedge>
+   </edge>
+
+   <edge id="1" from="N1" to="N2" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="36.00" length="1000.00">1000.00,-1.65 2000.00,-1.65</lane>
+      </lanes>
+      <cedge id="2">1_0</cedge>
+   </edge>
+
+   <edge id="2" from="N2" to="N3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="36.00" length="1000.00">2000.00,-1.65 3000.00,-1.65</lane>
+      </lanes>
+      <cedge id="3">2_0</cedge>
+   </edge>
+
+   <edge id="3" from="N3" to="N4" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="36.00" length="1000.00">3000.00,-1.65 4000.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>N1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>N2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>N3</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="N0" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>-0.00,-0.05 -0.00,-3.25</shape>
+   </junction>
+
+   <junction id="N1" type="priority" x="1000.00" y="0.00">
+      <inclanes>0_0</inclanes>
+      <shape>1000.00,-0.05 1000.00,-3.25 1000.00,-0.05</shape>
+   </junction>
+
+   <junction id="N2" type="priority" x="2000.00" y="0.00">
+      <inclanes>1_0</inclanes>
+      <shape>2000.00,-0.05 2000.00,-3.25 2000.00,-0.05</shape>
+   </junction>
+
+   <junction id="N3" type="priority" x="3000.00" y="0.00">
+      <inclanes>2_0</inclanes>
+      <shape>3000.00,-0.05 3000.00,-3.25 3000.00,-0.05</shape>
+   </junction>
+
+   <junction id="N4" type="DEAD_END" x="4000.00" y="0.00">
+      <inclanes>3_0</inclanes>
+      <shape>4000.00,-3.25 4000.00,-0.05</shape>
+   </junction>
+
+
+   <succ edge="0" lane="0_0" junction="N1">
+      <succlane lane="1_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="1" lane="1_0" junction="N2">
+      <succlane lane="2_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="2" lane="2_0" junction="N3">
+      <succlane lane="3_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="3" lane="3_0" junction="N4">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

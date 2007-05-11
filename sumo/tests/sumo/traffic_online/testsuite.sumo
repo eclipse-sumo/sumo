@@ -10,5 +10,9 @@ cellphone-dump1
 # check msdata-dump
 msdatadump
 
+# check outputs with a new sql-date
+msdatadump_otherdate
+
+
 
 
