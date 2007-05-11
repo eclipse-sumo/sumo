@@ -67,6 +67,7 @@ Usage: dfrouter.exe [OPTION]*
 
  Report Options:
   --report-empty-detectors           Lists detectors with no flow (enable -v)
+  --print-absolute-flows             Prints aggregated detector flows
   -v, --verbose                      Switches to verbose output
   -W, --suppress-warnings            Disables output of warnings
   -p, --print-options                Prints option values before processing

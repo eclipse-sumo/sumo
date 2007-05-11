@@ -94,6 +94,7 @@ public:
     void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
 
     void computeID4Route(DFRORouteDesc &desc) const;
+    bool hasDetector(ROEdge *edge) const;
 
 
 protected:
@@ -127,7 +128,6 @@ protected:
 
     bool hasApproaching(ROEdge *edge) const;
     bool hasApproached(ROEdge *edge) const;
-    bool hasDetector(ROEdge *edge) const;
 
     bool hasInBetweenDetectorsOnly(ROEdge *edge,
                                    const DFDetectorCon &detectors) const;

@@ -201,6 +201,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("report-empty-detectors", new Option_Bool(false));
     oc.addDescription("report-empty-detectors", "Report", "Lists detectors with no flow (enable -v)");
 
+    oc.doRegister("print-absolute-flows", new Option_Bool(false));
+    oc.addDescription("print-absolute-flows", "Report", "Prints aggregated detector flows");
+
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output");
 

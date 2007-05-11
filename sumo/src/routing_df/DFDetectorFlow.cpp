@@ -34,6 +34,7 @@
 #include <config.h>
 #endif
 
+#include <iostream>
 #include <cassert>
 #include "DFDetectorFlow.h"
 
@@ -250,6 +251,22 @@ DFDetectorFlows::mesoJoin(const std::string &nid,
     }
 }
 
+
+void 
+DFDetectorFlows::printAbsolute() const
+{
+    for(std::map<std::string, std::vector<FlowDef> >::const_iterator i=myFastAccessFlows.begin(); i!=myFastAccessFlows.end(); ++i) {
+        cout << (*i).first << ":";
+        const std::vector<FlowDef> &flows = (*i).second;
+        SUMOReal qPKW = 0;
+        SUMOReal qLKW = 0;
+        for(std::vector<FlowDef>::const_iterator j=flows.begin(); j!=flows.end(); ++j) {
+            qPKW += (*j).qPKW;
+            qLKW += (*j).qLKW;
+        }
+        cout << qPKW << "/" << qLKW << endl;
+    }
+}
 
 /****************************************************************************/
 

@@ -95,6 +95,7 @@ public:
     bool knows(const std::string &det_id, SUMOTime time) const;
     SUMOReal getFlowSumSecure(const std::string &id) const;
     SUMOReal getMaxDetectorFlow() const;
+    void printAbsolute() const;
 
     void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
 

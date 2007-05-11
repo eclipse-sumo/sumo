@@ -112,6 +112,9 @@
       <!-- Lists detectors with no flow (enable -v) -->
       <report-empty-detectors>false</report-empty-detectors>
 
+      <!-- Prints aggregated detector flows -->
+      <print-absolute-flows>false</print-absolute-flows>
+
       <!-- Switches to verbose output -->
       <verbose>false</verbose>
 

@@ -108,6 +108,7 @@ public:
     bool writeEmitterDefinition(const std::string &file,
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                const DFRONet &net,
                                 bool includeUnusedRoutes) const;
 
     void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
@@ -129,9 +130,14 @@ protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,
                                       const DFDetectorFlows &flows,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                      const DFRONet &net,
                                       std::map<size_t, RandomDistributor<size_t>* > &into) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
+    SUMOReal getUsage(ROEdge *e,
+        std::vector<ROEdge*>::const_iterator q,
+        const DFDetectorCon &detectors, 
+        const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net) const;
 
 protected:
     std::string myID;
@@ -167,6 +173,7 @@ public:
     void writeEmitters(const std::string &file,
                        const DFDetectorFlows &flows,
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                       const DFRONet &net,
                        bool writeCalibrators, bool includeUnusedRoutes);
 
     void writeEmitterPOIs(const std::string &file,

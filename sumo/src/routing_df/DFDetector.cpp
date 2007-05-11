@@ -100,6 +100,44 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
     return (distance/length);
 }
 
+#include "DFRONet.h"
+
+SUMOReal
+DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator q,
+                                       const DFDetectorCon &detectors,
+                                       const DFDetectorFlows &flows,
+                                       SUMOTime time,
+                                       const DFRONet &net) const
+{
+    while(e!=0) {
+        if(net.hasDetector(e)) {
+            return (SUMOReal) detectors.getAggFlowFor(e, time, 30*60, flows);
+        }
+        if(e->getNoFollowing()>1) {
+            map<ROEdge*, double> probs;
+            SUMOReal allProbs = 0;
+            for(size_t i=0; i<e->getNoFollowing(); ++i) {
+                ROEdge *ne = e->getFollower(i);
+                SUMOReal prob = getUsage(ne, q, detectors, flows, time, net);
+                probs[ne] = prob;
+                allProbs += prob;
+            }
+            if(allProbs!=0) {
+                return probs[*(q+1)] / allProbs;
+            } else {
+                return 0;
+            }
+        } else if(e->getNoFollowing()==1) {
+            e = e->getFollower(0);
+            q = q + 1;
+        } else {
+            // no follower!?
+            return 0;
+        }
+    }
+    return 0;
+}
+
 
 void
 DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
@@ -107,6 +145,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         SUMOTime startTime,
         SUMOTime endTime,
         SUMOTime stepOffset,
+        const DFRONet &net,
         std::map<size_t, RandomDistributor<size_t>* > &into) const
 {
     if (myRoutes==0) {
@@ -117,13 +156,50 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
     }
     std::vector<DFRORouteDesc*>::const_iterator ri;
     const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+    if(getID()=="MQ270_0") {
+        int bla = 0;
+    }
+    const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
+    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+    // iterate through time (in output interval steps)
+    int time;
+    for (time=startTime; time<endTime; time+=stepOffset) {
+        into[time] = new RandomDistributor<size_t>();
+        // iterate through the routes
+        size_t index = 0;
+        for (ri=descs.begin(); ri!=descs.end(); ++ri, index++) {
+            DFRORouteDesc *rd = *ri;
+            SUMOReal lastProb = 1;
+            ROEdge *lastDetEdge = *rd->edges2Pass.begin();
+            for(vector<ROEdge*>::const_iterator q=rd->edges2Pass.begin(); lastProb!=0&&q!=rd->edges2Pass.end(); ++q) {
+                if((*q)->getNoFollowing()>1&&q!=rd->edges2Pass.end()-1) {
+                    // ok, we have a split; check probability for each of the successors
+                    map<ROEdge*, double> probs;
+                    SUMOReal allProbs = 0;
+                    for(size_t i=0; i<(*q)->getNoFollowing(); ++i) {
+                        ROEdge *ne = (*q)->getFollower(i);
+                        SUMOReal prob = getUsage(ne, q, detectors, flows, time, net);
+                        probs[ne] = prob;
+                        allProbs += prob;
+                    }
+                    if(allProbs!=0) {
+                        lastProb *= (probs[*(q+1)] / allProbs);
+                    } else {
+                        lastProb = 0;
+                    }
+                }
+            }
+            into[time]->add(lastProb, index);
+            (*ri)->overallProb = lastProb;
+        }
+    }
     /*
     std::map<const ROEdge *, int> lastDetNo;
     for(ri=descs.begin(); ri!=descs.end(); ++ri) {
         DFRORouteDesc *rd = *ri;
         rd->lastDetectorEdge
     }
-    */
+    /
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
@@ -234,7 +310,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             rd->factor = rd->factor * rd->factor;
             // SUMOReal laneFactor = (noLanes/noEdges);
             SUMOReal ovProb = (rd->factor * distanceFactor * length * edgeFactor * noLanes);
-            */
+            /
             into[time]->add(ovProb, index);
             (*ri)->overallProb = ovProb;
         }
@@ -407,8 +483,12 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                                    const DFDetectorFlows &flows,
                                    SUMOTime startTime, SUMOTime endTime,
                                    SUMOTime stepOffset,
+                                   const DFRONet &net,
                                    bool includeUnusedRoutes) const
 {
+    if(getID()=="MQ270_0") {
+        int bla = 0;
+    }
     // write the definition
     ofstream strm(file.c_str());
     if (!strm.good()) {
@@ -426,7 +506,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 //    cout << "a2" << endl;
     std::map<size_t, RandomDistributor<size_t>* > dists;
     if (flows.knows(myID)) {
-        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, dists); // !!!
+        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists); // !!!
     }
 //    cout << "a3" << endl;
 
@@ -785,7 +865,8 @@ void
 DFDetectorCon::writeEmitters(const std::string &file,
                              const DFDetectorFlows &flows,
                              SUMOTime startTime, SUMOTime endTime,
-                             SUMOTime stepOffset, bool writeCalibrators,
+                             SUMOTime stepOffset, const DFRONet &net,
+                             bool writeCalibrators,
                              bool includeUnusedRoutes)
 {
     ofstream strm(file.c_str());
@@ -808,7 +889,7 @@ DFDetectorCon::writeEmitters(const std::string &file,
             continue;
         }
         // try to write the definition
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, includeUnusedRoutes)) {
+        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes)) {
             // skip if something failed... (!!!)
             continue;
         }
@@ -942,6 +1023,18 @@ DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
     SUMOReal startTime = 0; // !!!
     assert(myDetectorEdgeMap.find(edge->getID())!=myDetectorEdgeMap.end());
     const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(edge)->getFlows();
+    SUMOReal agg = 0;
+    for(std::vector<FlowDef>::const_iterator i=flows.begin(); i!=flows.end(); ++i) {
+            const FlowDef &srcFD = *i;
+            if (srcFD.qLKW>=0) {
+                agg += srcFD.qLKW;
+            }
+            if (srcFD.qPKW>=0) {
+                agg += srcFD.qPKW;
+            }
+    }
+    return agg;
+    /* !!! make this time variable
     if (flows.size()!=0) {
         SUMOReal agg = 0;
         size_t beginIndex = (int)((time/stepOffset) - startTime);  // !!! falsch!!!
@@ -956,6 +1049,7 @@ DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
         }
         return (int) agg;
     }
+    */
     return -1;
 }
 
