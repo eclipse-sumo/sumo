@@ -4,7 +4,7 @@
 # specifying detectors and one for the flows. It may detect the type
 # of the detectors (source, sink, inbetween) itself or read it from
 # the detectors file.
-import os, string, sys
+import os, random, string, sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
@@ -60,6 +60,7 @@ class Edge:
         self.detPos = []
         self.detGroup = []
         self.detFlow = []
+        self.routes = []
 
     def addDet(self, pos, det):
         for index, compPos in enumerate(self.detPos):
@@ -84,6 +85,24 @@ class Edge:
         return self.kind+"_"+self.label+"<"+str(self.flow)+"|"+cap+">"
 
 
+# Route class storing the list of edges and the frequency of a route.
+class Route:
+
+    def __init__(self, freq, edges):
+        self.frequency = freq
+        self.edges = edges
+
+    def __repr__(self):
+        result = str(self.frequency) + " * ["
+        lastLabel = ""
+        for edge in self.edges:
+            if edge.kind == "real":
+                if lastLabel:
+                    result += lastLabel + ", "
+                lastLabel = edge.label
+        return result + lastLabel + "]"
+
+
 # Net class which stores the network (vertex and edge collection) and the
 # routes. All the algorithmic stuff and the output generation are also
 # inside this class. The members are either "private" or have get/add/remove
@@ -95,9 +114,6 @@ class Net:
         self._edges = {}
         self._source = self.newVertex()
         self._sink = self.newVertex()
-        self._routeOut = None
-        self._routes = {}
-        self._routeFreq = {}
 
     def newVertex(self):
         v = Vertex()
@@ -124,20 +140,23 @@ class Net:
                     self.removeEdge(edge)
 
     def addIsolatedRealEdge(self, edgeLabel):
-        self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(), "real"))
+        self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
+                          "real"))
 
     def addSourceEdge(self, edgeObj):
-        newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source, "source")
+        newEdge = Edge("s_"+edgeObj.label, self._source, edgeObj.source,
+                       "source")
         self.addEdge(newEdge)
 
     def addSinkEdge(self, edgeObj):
-        newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink, "sink")
+        newEdge = Edge("t_"+edgeObj.label, edgeObj.target, self._sink,
+                       "sink")
         self.addEdge(newEdge)
 
     def trimNet(self):
         if options.minspeed > 0.0:
             if options.verbose:
-                print "Removing edges with maxspeed <", options.minspeed, "... ", 
+                print "Removing edges with maxspeed < %s," % options.minspeed,
             for edgeObj in self._edges.values():
                 if edgeObj.maxSpeed < options.minspeed:
                     delete = True
@@ -153,7 +172,7 @@ class Net:
                                 delete = False
                                 break
                         if not delete: break
-                    if options.keepdet and edgeObj.capacity < sys.maxint:
+                    if options.keepdet and len(edgeObj.detGroup) > 0:
                         delete = False
                     if delete:
                         self.removeEdge(edgeObj)
@@ -206,24 +225,55 @@ class Net:
                 for sink in edgeObj.source.inEdges:
                     if sink.capacity == sys.maxint:
                         unlimitedSink += 1
-            print len(self._source.outEdges), "sources,", unlimitedSource, "unlimited"
+            print len(self._source.outEdges), "sources,",
+            print unlimitedSource, "unlimited"
             print len(self._sink.inEdges), "sinks,", unlimitedSink, "unlimited"
         return True
+
+    def splitRoutes(self, stubs, currEdge):
+        newStubs = []
+        while len(stubs) > 0:
+            routeStub = stubs.pop()
+            if len(routeStub.edges) > 0 and currEdge == routeStub.edges[0]:
+                routeStub.edges.pop(0)
+                newStubs.append(routeStub)
+            else:
+                while routeStub.frequency > 0:
+                    route = currEdge.routes[0]
+                    edgePos = route.edges.index(currEdge)
+                    newRoute = Route(min(routeStub.frequency, route.frequency),
+                                     route.edges[:edgePos] + routeStub.edges)
+                    for edge in newRoute.edges:
+                        edge.routes.append(newRoute)
+                    newStubs.append(Route(newRoute.frequency,
+                                          route.edges[edgePos+1:]))
+                    route.frequency -= newRoute.frequency
+                    if route.frequency == 0:
+                        for edge in route.edges:
+                            edge.routes.remove(route)
+                    routeStub.frequency -= newRoute.frequency
+        stubs.extend(newStubs)
 
     def updateFlow(self, startVertex, endVertex):
         assert endVertex.flowDelta < sys.maxint
         cycleStartStep = (startVertex == endVertex)
         currVertex = endVertex
+        stubs = [Route(endVertex.flowDelta, [])]
         while currVertex != startVertex or cycleStartStep:
             cycleStartStep = False
             currEdge = currVertex.inPathEdge
-            #print currEdge
             if currEdge.target == currVertex:
                 currEdge.flow += endVertex.flowDelta
                 currVertex = currEdge.source
+                for routeStub in stubs:
+                    routeStub.edges.insert(0, currEdge)
             else:
                 currEdge.flow -= endVertex.flowDelta
                 currVertex = currEdge.target
+                self.splitRoutes(stubs, currEdge)
+        for route in stubs:
+            for edge in route.edges:
+                edge.routes.append(route)
 
     def findPath(self, startVertex, pathStart):
         queue = [startVertex]
@@ -236,12 +286,15 @@ class Net:
                 if not edge.target.inPathEdge and edge.flow < edge.capacity:
                     if edge.target != self._sink or currVertex.gain > 0:
                         queue.append(edge.target)
-                        edge.target.update(edge, min(currVertex.flowDelta, edge.capacity - edge.flow), True)
+                        edge.target.update(edge, min(currVertex.flowDelta,
+                                                     edge.capacity - edge.flow),
+                                           True)
             for edge in currVertex.inEdges:
                 if not edge.source.inPathEdge and edge.flow > 0:
                     if edge.source != self._source or currVertex.gain > 0:
                         queue.append(edge.source)
-                        edge.source.update(edge, min(currVertex.flowDelta, edge.flow), False)
+                        edge.source.update(edge, min(currVertex.flowDelta,
+                                                     edge.flow), False)
         return False
 
     def savePulledPath(self, startVertex, unsatEdge, pred):
@@ -289,7 +342,7 @@ class Net:
                     edge.target.flowDelta = min(currVertex.flowDelta, edge.flow)
         return False
 
-    def adaptCapacities(self):
+    def calcRoutes(self):
         pathFound = True
         while pathFound:
             for vertex in self._vertices:
@@ -300,106 +353,74 @@ class Net:
                     if edge.capacity < sys.maxint:
                         while edge.flow < edge.capacity and self.pullFlow(edge):
                             pathFound = True
+        # the rest of this function only tests assertions
         for vertex in self._vertices:
             sum = 0
             for preEdge in vertex.inEdges:
                 sum += preEdge.flow
             for succEdge in vertex.outEdges:
                 sum -= succEdge.flow
+                flowSum = 0
+                for route in succEdge.routes:
+                    assert route.frequency > 0
+                    flowSum += route.frequency
+                assert flowSum == succEdge.flow
             assert vertex == self._source or vertex == self._sink or sum == 0
-        for vertex in self._vertices:
-            for succEdge in vertex.outEdges:
-                succEdge.capacity = succEdge.flow
-                succEdge.flow = 0
 
-    def printRouteAndUpdateFlow(self, pred, endEdge):
-        route = ''
-        flowDelta = sys.maxint
-        currEdge = endEdge
-        while not currEdge.source == self._source:
-            if currEdge.kind == "real":
-                if route == '':
-                    if currEdge.finalizer:
-                        route = currEdge.finalizer
-                    else:
-                        warn("Warning! No finalizer for " + currEdge.label +
-                             ". Route will be one edge too short.")
-                route = currEdge.label + " " + route
-            flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
-            currEdge = pred[currEdge]
-        flowDelta = min(flowDelta, currEdge.capacity - currEdge.flow)
-        currEdge = endEdge
-        firstReal = ''
-        while not currEdge.source == self._source:
-            currEdge.flow += flowDelta
-            currEdge = pred[currEdge]
-            if currEdge.kind == "real":
-                firstReal = currEdge.label
-        currEdge.flow += flowDelta
-        route = route.strip()
-        assert firstReal != ''
-        if self._routeOut:
-            if not firstReal in self._routes:
-                self._routes[firstReal] = []
-            routeID = firstReal+"."+str(len(self._routes[firstReal]))
-            self._routes[firstReal].append(routeID)
-            self._routeFreq[routeID] = flowDelta
-            self._routeOut.write('    <route id="'+routeID+'" multi_ref="x">')
-            self._routeOut.write(route+'</route>\n')
-        else:
-            print route, flowDelta
-
-    def calcRoutes(self):
-        self.adaptCapacities()
-        if options.routefile:
-            self._routeOut = open(options.routefile, 'w')
-            print >> self._routeOut, "<routes>"
-        routeFound = True
-        while routeFound:
-            routeFound = False
-            queue = list(self._source.outEdges)
-            pred = {}
-            while len(queue) > 0:
-                currEdge = queue.pop(0)
-                if currEdge.kind != "real" or currEdge.flow < currEdge.capacity:
-                    if currEdge.target == self._sink:
-                        routeFound = True
-                        self.printRouteAndUpdateFlow(pred, currEdge)
-                        break
-                    for edge in currEdge.target.outEdges:
-                        if not edge in pred:
-                            pred[edge] = currEdge
-                            queue.append(edge)
-        if options.routefile:
-            print >> self._routeOut, "</routes>"
-            self._routeOut.close()
-        miss = 0
-        n = 0
-        for vertex in self._vertices:
-            for succEdge in vertex.outEdges:
-                if succEdge.startCapacity < sys.maxint:
-                    miss += succEdge.capacity - succEdge.flow
-                    n += 1
-        if options.verbose and miss > 0:
-            print "With correct routes the average flow increases by", miss/n
-        #assert miss == 0
+    def writeRoutes(self, routeFileName):
+        routeOut = open(routeFileName, 'w')
+        unfinalizedEdges = set()
+        unfinalizedRoutes = set()
+        print >> routeOut, "<routes>"
+        for edge in self._source.outEdges:
+            for id, route in enumerate(edge.routes):
+                firstReal = ''
+                lastReal = None
+                routeString = ''
+                for redge in route.edges:
+                    if redge.kind == "real":
+                        routeString += redge.label + " "
+                        if firstReal == '':
+                            firstReal = redge.label
+                        lastReal = redge
+                assert firstReal != '' and lastReal != None
+                routeID = "%s.%s" % (firstReal, id)
+                if lastReal.finalizer:
+                    routeString += lastReal.finalizer
+                else:
+                    routeString = routeString.strip()
+                    unfinalizedEdges.add(lastReal.label)
+                    unfinalizedRoutes.add(routeID)
+                print >> routeOut, '    <route id="%s" multi_ref="x">%s</route>' % (routeID, routeString)
+        if len(unfinalizedRoutes) > 0:
+            warn("Warning! No finalizers for %s." % unfinalizedEdges)
+            warn("The routes %s will be one edge too short." % unfinalizedRoutes)
+        print >> routeOut, "</routes>"
+        routeOut.close()
 
     def writeEmitters(self, emitFileName):
         emitOut = open(emitFileName, 'w')
         print >> emitOut, "<additional>"
-        for edgeLabel, routes in self._routes.iteritems():
-            srcFile = "src_"+edgeLabel + ".def.xml"
-            print >> emitOut, '    <trigger id="src_' + edgeLabel + '"',
+        for sedge in self._source.outEdges:
+            if len(sedge.routes) == 0:
+                continue
+            assert len(sedge.target.outEdges) == 1
+            for edge in sedge.target.outEdges: pass
+            srcFile = "src_" + edge.label + ".def.xml"
+            print >> emitOut, '    <trigger id="src_' + edge.label + '"',
             print >> emitOut, 'objecttype="emitter" pos="0"',
-            print >> emitOut, 'friendly_pos="x" objectid="' + edgeLabel + '_0"',
+            print >> emitOut, 'friendly_pos="x" objectid="' + edge.label + '_0"',
             print >> emitOut, 'file="' + srcFile + '"/>'
             srcOut = open(srcFile, 'w')
             print >> srcOut, "<triggeredsource>"
-            for route in routes:
-                print >> srcOut, '    <routedistelem id="' + route + '"',
-                print >> srcOut, 'probability="' + str(self._routeFreq[route]) + '"/>'
-            for time in range(self._edges[edgeLabel].flow):
-                print >> srcOut, '    <emit time="' + str(time) + '"/>'
+            for id, route in enumerate(edge.routes):
+                for redge in route.edges:
+                    if redge.kind == "real":
+                        print >> srcOut, '    <routedistelem id="%s.%s"' % (redge.label, id),
+                        print >> srcOut, 'probability="%s"/>' % route.frequency
+                        break
+            for time in range(edge.flow):
+                print >> srcOut, '    <emit time="%s"/>' % time
             print >> srcOut, "</triggeredsource>"
             srcOut.close()
         print >> emitOut, "</additional>"
@@ -425,7 +446,7 @@ class Net:
                 cap = "inf"
             print >> poiOut, '    <poi id="' + label + '_f' + flow + 'c' + cap + '"',
             print >> poiOut, 'color = "' + color + '" lane="' + label + '_0"',
-            print >> poiOut, ' pos="' + str(edge.length/2) + '"/>'
+            print >> poiOut, ' pos="' + str(random.random()*edge.length) + '"/>'
         print >> poiOut, "</pois>"
         poiOut.close()
 
@@ -567,6 +588,12 @@ if net.checkNet(options.sourcesink):
     if options.verbose:
         print "Calculating routes"
     net.calcRoutes()
+    if options.routefile:
+        net.writeRoutes(options.routefile)
+    else:
+        for edge in net._source.outEdges:
+            for route in edge.routes:
+                print route
     if options.emitfile:
         net.writeEmitters(options.emitfile)
     if options.flowpoifile:

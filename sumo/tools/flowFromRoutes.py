@@ -76,9 +76,11 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-            for edge in self._routeString.split()[:-1]:
+            for edge in self._routeString.split():
                 if edge in self._edge2det:
                     self._route2dets[self._routeID].append(self._edge2det[edge])
+            if not options.respectsink and edge in self._edge2det:
+                self._route2dets[self._routeID].pop()
             self._routeID = ''
             self._routeString = ''
 
@@ -148,6 +150,8 @@ optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
                      help="read detector flows to compare to from FILE", metavar="FILE")
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+optParser.add_option("-s", "--respect-sinks", action="store_true", dest="respectsink",
+                     default=False, help="respect last edge of the route (although a SUMO car probably will not use it)")
 optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
                      default=False, help="emitter files in dfrouter style (explicit routes)")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",

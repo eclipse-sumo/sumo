@@ -52,9 +52,8 @@ class NetReader(handler.ContentHandler):
 class VehicleTypeReader(handler.ContentHandler):
 
     def __init__(self):
-        self._type = ''
         self._length = {}
-        self._minLength = 100000.
+        self._minLength = 5. # length of the default car
 
     def startElement(self, name, attrs):
         if name == 'vtype':
