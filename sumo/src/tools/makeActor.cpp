@@ -952,7 +952,7 @@ int main(int ac, char * av[]){
         if(find(cells.begin(), cells.end(), toString(cell))==cells.end())
             continue;
         int no   = TplConvert<char>::_2int(st.next().c_str());
-        st.next(); // count_entries
+        int entries = TplConvert<char>::_2int(st.next().c_str());// // count_entries
         st.next(); // count_exits
         st.next(); // count_starts
         st.next(); // count_ends
@@ -960,7 +960,8 @@ int main(int ac, char * av[]){
         SUMOReal dev  = TplConvert<char>::_2SUMOReal(st.next().c_str());
         fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
             <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
-            << mean << "\" xto=\"" << dev << "\" type=\"4\"/>" << endl;
+            << mean << "\" xto=\"" << dev << "\" entering=\""
+            << entries << "\" type=\"4\"/>" << endl;
     }
 
     fout << "</additional>"<<endl;

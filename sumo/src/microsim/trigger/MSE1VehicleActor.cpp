@@ -92,6 +92,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 MSE1VehicleActor::~MSE1VehicleActor()
 {}
 
+map<MSVehicle *, MSPhoneCell*> LastCells;
 
 bool
 MSE1VehicleActor::isStillActive(MSVehicle& veh,
@@ -99,14 +100,27 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                                 SUMOReal newPos,
                                 SUMOReal /*newSpeed*/)
 {
-    if (!veh.hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
-        return false;
-    }
-
     if (newPos < posM) {
         // detector not reached yet
         return true;
     }
+    myPassedVehicleNo++;
+    if(_ActorType == 1) {
+        SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+        if(LastCells.find(&veh)!=LastCells.end()) {
+            MSPhoneCell *cell = LastCells[&veh];
+            if(cell!=0) {
+                cell->removeVehicle(veh, time);
+            }
+        }
+        MSPhoneCell *cell = MSNet::getInstance()->getMSPhoneNet()->getMSPhoneCell(_AreaId);
+        cell->incVehiclesEntered(veh, time);
+        LastCells[&veh] = cell;
+    }
+    if (!veh.hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
+        return false;
+    }
+
 
     vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
     /*get the count of mobiles for the vehicle*/
@@ -159,8 +173,19 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
             MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
 
-            if (oldCell != 0)
+            if (oldCell != 0) {
                 oldCell->remCPhone(cp->getID());
+            } /*else {
+                // check whether a call shall be started
+                SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+                if(newCell->useAsIncomingDynamic(time)) {
+                    if(randSUMO()>.5) {
+                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
+                    } else {
+                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
+                    }
+                }
+            }*/
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
 

@@ -85,11 +85,15 @@ public:
     void setStatParams(int interval, int statcallcount);
 
     /// Sets the parameter of dynamic calls for the given period
-    void setDynParams(int interval, int count, float duration, float deviation);
+    void setDynParams(int interval, int count, float duration, float deviation,
+        int entering);
 
     /// !!!?
     void writeOutput(SUMOTime time);
     void setDynamicCalls(SUMOTime time);
+    bool useAsIncomingDynamic(SUMOTime time);
+
+    SUMOTime getCallDuration() const { return myCallDuration; }
 
     /// !!!?
     //int getExpectDynCallCount() { return dyncallcount; }
@@ -106,6 +110,17 @@ public:
     void addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer);
     bool hasCPhone(const std::string &device_id);
     void remCPhone(const std::string &device_id);
+
+    void incVehiclesEntered(MSVehicle& veh, SUMOTime t) { 
+        myVehiclesEntered++;
+        myVehicles[&veh] = t;
+    }
+
+    void removeVehicle(MSVehicle& veh, SUMOTime t) {
+        SUMOTime prev = myVehicles[&veh];
+        myVehicleTimes = myVehicleTimes + (t-prev);
+        myVehicles.erase(myVehicles.find(&veh));
+    }
 
 private:
 class SetStatParamsCommand : public Command
@@ -180,10 +195,12 @@ private:
     int myDynCallsOut;              /* ... interval which where singaled by a cphone.*/
     int mySumCalls;                 /* the total number of calls in this interval.*/
     int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
+    int myDynIncomingStarted;
     int myIntervalBegin;            /* the begintime of the current interval*/
     int myIntervalEnd;              /* the endtime of the current interval*/
     int myLaterDynamicStarted;
     int myCurrentExpectedCallCount;
+    int myCurrentExpectedEntering;
     SUMOTime myDynIntervalBegin;
     SUMOTime myDynIntervalDuration;
     float myCallDuration;
@@ -202,6 +219,7 @@ private:
         int count;
         float duration;
         float deviation;
+        int entering;
     };
 
     std::map<int, CallType> myCalls;
@@ -218,6 +236,10 @@ private:
     std::vector<std::pair<int, DynParam> >::iterator itDuration;
 
     std::map<std::string, MSDevice_CPhone*> myRegisteredDevices;
+
+    size_t myVehiclesEntered;
+    std::map<MSVehicle *, SUMOTime> myVehicles;
+    long myVehicleTimes;
 };
 
 

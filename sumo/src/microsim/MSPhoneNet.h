@@ -39,13 +39,13 @@
 #include <utils/common/SUMOTime.h>
 #include <map>
 #include <string>
-
+#include "MSPhoneCell.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSPhoneCell;
 class MSPhoneLA;
+extern std::map<MSVehicle *, MSPhoneCell*> LastCells;
 
 
 // ===========================================================================
@@ -110,6 +110,15 @@ public:
 
 
     void addLAChange(const std::string &pos_id);
+
+    void removeVehicle(MSVehicle &veh, SUMOTime t) {
+        if(LastCells.find(&veh)!=LastCells.end()) {
+            MSPhoneCell *cell = LastCells[&veh];
+            if(cell!=0) {
+                cell->removeVehicle(veh, t);
+            }
+        }
+    }
 
 private:
     void CallReminding(SUMOTime &t);

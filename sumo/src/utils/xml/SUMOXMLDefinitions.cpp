@@ -242,6 +242,9 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "v",              SUMO_ATTR_V },
         { "q",              SUMO_ATTR_Q },
         { "rfile",          SUMO_ATTR_RFILE },
+
+        { "entering",       SUMO_ATTR_ENTERING },
+        
         { "",               SUMO_ATTR_NOTHING }
     };
 

@@ -177,6 +177,9 @@ MSVehicle::~MSVehicle()
             }
             delete v;
         }
+        if(MSNet::getInstance()->getMSPhoneNet()!=0) {
+            MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*this, MSNet::getInstance()->getCurrentTimeStep());
+        }
     }
     delete myLaneChangeModel;
     delete akt;

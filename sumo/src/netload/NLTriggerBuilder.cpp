@@ -118,10 +118,11 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             unsigned int count = helper.getInt(attrs, SUMO_ATTR_POS);
             float duration = helper.getFloat(attrs, SUMO_ATTR_TO);
             float deviation  = helper.getFloat(attrs, SUMO_ATTR_XTO);
+            unsigned int entering  = helper.getFloat(attrs, SUMO_ATTR_ENTERING);
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
             if (pPhone->getMSPhoneCell(cell_id) != 0)
-                pPhone->getMSPhoneCell(cell_id)->setDynParams( interval, count, duration, deviation );
+                pPhone->getMSPhoneCell(cell_id)->setDynParams( interval, count, duration, deviation, entering );
         } else {
             /*check that the depending lane realy exist. if not just forget this VehicleActor. */
             MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));

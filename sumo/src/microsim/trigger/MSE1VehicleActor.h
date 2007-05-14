@@ -61,6 +61,7 @@ enum ActorType{
     CELL
 };
 
+extern std::map<MSVehicle *, MSPhoneCell*> LastCells;
 
 // ===========================================================================
 // class definitions
