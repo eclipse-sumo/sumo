@@ -112,6 +112,8 @@ class Net:
     def __init__(self):
         self._vertices = []
         self._edges = {}
+        self._possibleSources = set()
+        self._possibleSinks = set()
         self._source = self.newVertex()
         self._sink = self.newVertex()
 
@@ -157,24 +159,19 @@ class Net:
         if options.minspeed > 0.0:
             if options.verbose:
                 print "Removing edges with maxspeed < %s," % options.minspeed,
+            # The code in the following loop assumes there are still all
+            # auxiliary junction edges present.
             for edgeObj in self._edges.values():
                 if edgeObj.maxSpeed < options.minspeed:
-                    delete = True
-                    for auxpred in edgeObj.source.inEdges:
-                        for realpred in auxpred.source.inEdges:
-                            if realpred.maxSpeed >= options.minspeed:
-                                delete = False
-                                break
-                        if not delete: break
-                    for auxsucc in edgeObj.target.outEdges:
-                        for realsucc in auxsucc.target.outEdges:
-                            if realsucc.maxSpeed >= options.minspeed:
-                                delete = False
-                                break
-                        if not delete: break
-                    if options.keepdet and len(edgeObj.detGroup) > 0:
-                        delete = False
-                    if delete:
+                    if len(edgeObj.detGroup) == 0 or not options.keepdet:
+                        for auxpred in edgeObj.source.inEdges:
+                            for realpred in auxpred.source.inEdges:
+                                if realpred.maxSpeed >= options.minspeed:
+                                    self._possibleSinks.add(realpred)
+                        for auxsucc in edgeObj.target.outEdges:
+                            for realsucc in auxsucc.target.outEdges:
+                                if realsucc.maxSpeed >= options.minspeed:
+                                    self._possibleSources.add(realsucc)
                         self.removeEdge(edgeObj)
             if options.verbose:
                 print len(self._edges), "left"
@@ -186,9 +183,9 @@ class Net:
 
     def detectSourceSink(self):
         for edgeObj in self._edges.itervalues():
-            if len(edgeObj.source.inEdges) == 0:
+            if len(edgeObj.source.inEdges) == 0 or edgeObj in self._possibleSources:
                 self.addSourceEdge(edgeObj)
-            if len(edgeObj.target.outEdges) == 0:
+            if len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks:
                 self.addSinkEdge(edgeObj)
 
     def checkNet(self, forcedSourceSinkDetection):
@@ -401,11 +398,11 @@ class Net:
     def writeEmitters(self, emitFileName):
         emitOut = open(emitFileName, 'w')
         print >> emitOut, "<additional>"
-        for sedge in self._source.outEdges:
-            if len(sedge.routes) == 0:
+        for srcEdge in self._source.outEdges:
+            if len(srcEdge.routes) == 0:
                 continue
-            assert len(sedge.target.outEdges) == 1
-            for edge in sedge.target.outEdges: pass
+            assert len(srcEdge.target.outEdges) == 1
+            for edge in srcEdge.target.outEdges: pass
             srcFile = "src_" + edge.label + ".def.xml"
             print >> emitOut, '    <trigger id="src_' + edge.label + '"',
             print >> emitOut, 'objecttype="emitter" pos="0"',
@@ -413,14 +410,10 @@ class Net:
             print >> emitOut, 'file="' + srcFile + '"/>'
             srcOut = open(srcFile, 'w')
             print >> srcOut, "<triggeredsource>"
-            for id, route in enumerate(edge.routes):
-                for redge in route.edges:
-                    if redge.kind == "real":
-                        print >> srcOut, '    <routedistelem id="%s.%s"' % (redge.label, id),
-                        print >> srcOut, 'probability="%s"/>' % route.frequency
-                        break
-            for time in range(edge.flow):
-                print >> srcOut, '    <emit time="%s"/>' % time
+            for id, route in enumerate(srcEdge.routes):
+                print >> srcOut, '    <routedistelem id="%s.%s"' % (edge.label, id),
+                print >> srcOut, 'probability="%s"/>' % route.frequency
+            print >> srcOut, '    <flow no="%s" end="3600"/>' % srcEdge.flow
             print >> srcOut, "</triggeredsource>"
             srcOut.close()
         print >> emitOut, "</additional>"
