@@ -418,6 +418,13 @@ GUIE1VehicleActor::drawGL(SUMOReal scale, SUMOReal upscale)
         glVertex2d(0, -1.7);
         glEnd();
     }
+    if (_ActorType==1) {
+        glColor3f(0, 1, 1);
+    } else if (_ActorType==2) {
+        glColor3f(1, 0, 1);
+    } else {
+        glColor3f(1, 0, 0);
+    }
     glPopMatrix();
 }
 
