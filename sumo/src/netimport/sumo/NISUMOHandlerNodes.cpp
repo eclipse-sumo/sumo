@@ -63,7 +63,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes()
 
 
 void
-NISUMOHandlerNodes::myStartElement(int element, const std::string &/*name*/,
+NISUMOHandlerNodes::myStartElement(SumoXMLTag element, const std::string &/*name*/,
                                    const Attributes &attrs)
 {
     switch (element) {
@@ -145,13 +145,13 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
 
 
 void
-NISUMOHandlerNodes::myCharacters(int , const std::string &,
+NISUMOHandlerNodes::myCharacters(SumoXMLTag , const std::string &,
                                  const std::string &)
 {
 }
 
 void
-NISUMOHandlerNodes::myEndElement(int , const std::string &)
+NISUMOHandlerNodes::myEndElement(SumoXMLTag , const std::string &)
 {
 }
 

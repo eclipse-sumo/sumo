@@ -67,11 +67,11 @@ public:
 protected:
     //{ XML-handling methods
     /** the user-implemented handler method for characters */
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
-    void myEndElement(int element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name);
     //}
 
 protected:

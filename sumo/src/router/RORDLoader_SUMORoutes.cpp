@@ -93,7 +93,7 @@ RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMORoutes::myCharacters(int element, const std::string &/*name*/,
+RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                     const std::string &chars)
 {
     if(element==-1) {
@@ -137,7 +137,7 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &/*name*/,
 
 
 void
-RORDLoader_SUMORoutes::myEndElement(int element, const std::string &name)
+RORDLoader_SUMORoutes::myEndElement(SumoXMLTag element, const std::string &name)
 {
     RORDLoader_SUMOBase::myEndElement(element, name);
     switch (element) {

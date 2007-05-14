@@ -70,7 +70,7 @@ ODDistrictHandler::~ODDistrictHandler()
 
 
 void
-ODDistrictHandler::myStartElement(int element, const std::string &/*name*/,
+ODDistrictHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
                                   const Attributes &attrs)
 {
     switch (element) {
@@ -88,7 +88,7 @@ ODDistrictHandler::myStartElement(int element, const std::string &/*name*/,
 
 
 void
-ODDistrictHandler::myEndElement(int element, const std::string &/*name*/)
+ODDistrictHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     if (element==SUMO_TAG_DISTRICT) {
         closeDistrict();
@@ -97,7 +97,7 @@ ODDistrictHandler::myEndElement(int element, const std::string &/*name*/)
 
 
 void
-ODDistrictHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+ODDistrictHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
                                 const std::string &/*chars*/)
 {}
 

@@ -75,11 +75,11 @@ public:
 protected:
     /** called on the occurence of the beginning of a tag;
         this method */
-    void myStartElement(int element, const std::string &name,
+    void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs);
 
     /** called when simple characters occure; this method */
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
     /** parses an occured vehicle type definition */

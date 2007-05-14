@@ -92,7 +92,7 @@ std::set<ROJTREdge*>
 
 
 void
-ROJTRTurnDefLoader::myStartElement(int element, const std::string &/*name*/,
+ROJTRTurnDefLoader::myStartElement(SumoXMLTag element, const std::string &/*name*/,
                                    const Attributes &attrs)
 {
     switch (element) {
@@ -110,7 +110,7 @@ ROJTRTurnDefLoader::myStartElement(int element, const std::string &/*name*/,
 
 
 void
-ROJTRTurnDefLoader::myCharacters(int element, const std::string &/*name*/,
+ROJTRTurnDefLoader::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                  const std::string &chars)
 {
     switch (element) {
@@ -122,7 +122,7 @@ ROJTRTurnDefLoader::myCharacters(int element, const std::string &/*name*/,
 
 
 void
-ROJTRTurnDefLoader::myEndElement(int element, const std::string &/*name*/)
+ROJTRTurnDefLoader::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:

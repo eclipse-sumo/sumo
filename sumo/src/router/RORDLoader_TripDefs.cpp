@@ -82,7 +82,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs()
 
 
 void
-RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
+RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
                                     const Attributes &attrs)
 {
     if(element==-1) {
@@ -309,7 +309,7 @@ RORDLoader_TripDefs::getLane(const Attributes &attrs)
 
 
 void
-RORDLoader_TripDefs::myCharacters(int element, const std::string &/*name*/,
+RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                   const std::string &chars)
 {
     if(element==-1) {
@@ -334,7 +334,7 @@ RORDLoader_TripDefs::myCharacters(int element, const std::string &/*name*/,
 
 
 void
-RORDLoader_TripDefs::myEndElement(int element, const std::string &/*name*/)
+RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     if(element==-1) {
         // save unknown elements

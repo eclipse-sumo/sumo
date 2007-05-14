@@ -148,17 +148,17 @@ public:
 protected:
     /** @brief handler method for an opening tag to implement by derived classes
         This method is only called when the tag name was supplied by the user */
-    virtual void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs) = 0;
 
     /** @brief handler method for characters to implement by derived classes
         This method is only called when tha tag name was supplied by the user */
-    virtual void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element, const std::string &name,
                               const std::string &chars) = 0;
 
     /** @brief handler method for a closing tag to implement by derived classes
         This tag is only called when tha tag name was supplied by the user */
-    virtual void myEndElement(int element, const std::string &name) = 0;
+    virtual void myEndElement(SumoXMLTag element, const std::string &name) = 0;
 
 
 private:
@@ -166,7 +166,7 @@ private:
     XMLCh *convert(const std::string &name) const;
 
     /** converts a tag from its string into its numerical representation */
-    int convertTag(const std::string &tag) const;
+    SumoXMLTag convertTag(const std::string &tag) const;
 
 private:
     //{ methods for dealing with attributes
@@ -179,14 +179,14 @@ private:
 private:
     //{ Variables for attributes parsing
     /** the type of the map from ids to their unicode-string representation */
-    typedef std::map<int, XMLCh*> AttrMap;
+    typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
     /** the map from ids to their unicode-string representation */
     AttrMap myPredefinedTags;
     //}
 
     /** the type of the map the maps tag names to ints */
-    typedef std::map<std::string, int> TagMap;
+    typedef std::map<std::string, SumoXMLTag> TagMap;
 
     /** the information whether an error occured during the parsing */
     bool _errorOccured;

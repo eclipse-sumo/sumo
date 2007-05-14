@@ -68,7 +68,7 @@ DFDetectorHandler::~DFDetectorHandler()
 
 
 void
-DFDetectorHandler::myStartElement(int /*element*/, const std::string &name,
+DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
                                   const Attributes &attrs)
 {
     if (name=="detector_definition") {
@@ -120,7 +120,7 @@ DFDetectorHandler::myStartElement(int /*element*/, const std::string &name,
 
 
 void
-DFDetectorHandler::myCharacters(int element, const std::string&,
+DFDetectorHandler::myCharacters(SumoXMLTag element, const std::string&,
                                 const std::string &/*chars*/)
 {
     if (element==SUMO_TAG_EDGES) {
@@ -141,7 +141,7 @@ DFDetectorHandler::preallocateEdges(const std::string &chars)
 
 
 void
-DFDetectorHandler::myEndElement(int, const std::string&)
+DFDetectorHandler::myEndElement(SumoXMLTag, const std::string&)
 {}
 
 

@@ -73,7 +73,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler()
 
 
 void
-NIXMLTypesHandler::myStartElement(int /*element*/, const std::string &name,
+NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
                                   const Attributes &attrs)
 {
     string id;
@@ -131,13 +131,13 @@ NIXMLTypesHandler::myStartElement(int /*element*/, const std::string &name,
 
 
 void
-NIXMLTypesHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+NIXMLTypesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
                                 const std::string &/*chars*/)
 {}
 
 
 void
-NIXMLTypesHandler::myEndElement(int /*element*/, const std::string &/*name*/)
+NIXMLTypesHandler::myEndElement(SumoXMLTag /*element*/, const std::string &/*name*/)
 {}
 
 

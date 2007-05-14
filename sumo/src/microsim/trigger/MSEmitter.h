@@ -206,17 +206,17 @@ protected:
     protected:
         /** the implementation of the SAX-handler interface for reading
             element begins */
-        virtual void myStartElement(int element, const std::string &name,
+        virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                     const Attributes &attrs);
 
         /** the implementation of the SAX-handler interface for reading
             characters */
-        void myCharacters(int element, const std::string &name,
+        void myCharacters(SumoXMLTag element, const std::string &name,
                           const std::string &chars);
 
         /** the implementation of the SAX-handler interface for reading
             element ends */
-        void myEndElement(int element, const std::string &name);
+        void myEndElement(SumoXMLTag element, const std::string &name);
 
         /// Informs the child that the end of the processed file has been reached
         void inputEndReached();

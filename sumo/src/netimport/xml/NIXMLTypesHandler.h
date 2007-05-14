@@ -59,15 +59,15 @@ public:
 
 protected:
     /// called on the opening of a tag; inherited
-    void myStartElement(int element, const std::string &name,
+    void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs);
 
     /// called after reading intermediate characters; inherited
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
     /// called on the closing of a tag; inherited
-    void myEndElement(int element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name);
 
 private:
     /// The type container to fill

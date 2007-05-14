@@ -96,15 +96,15 @@ public:
 
 protected:
     /** implementation of the GenericSAXHandler-myStartElement - interface */
-    virtual void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs);
 
     /** implementation of the GenericSAXHandler-myCharacters - interface */
-    virtual void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element, const std::string &name,
                               const std::string &chars);
 
     /** implementation of the GenericSAXHandler-myEndElement - interface */
-    virtual void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(SumoXMLTag element, const std::string &name);
 
 
     /** parses an occured vehicle type definition */

@@ -125,7 +125,7 @@ WeightsHandler::~WeightsHandler()
 }
 
 
-void WeightsHandler::myStartElement(int element, const std::string &/*name*/,
+void WeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
                                       const Attributes &attrs)
 {
     switch (element) {
@@ -196,13 +196,13 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 
 
 void 
-WeightsHandler::myCharacters(int /*element*/, const std::string &/*name*/,
+WeightsHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
                                     const std::string &/*chars*/)
 {}
 
 
 void 
-WeightsHandler::myEndElement(int element, const std::string &/*name*/)
+WeightsHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     if (element==SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;

@@ -112,7 +112,7 @@ NLHandler::~NLHandler()
 
 
 void
-NLHandler::myStartElement(int element, const std::string &name,
+NLHandler::myStartElement(SumoXMLTag element, const std::string &name,
                           const Attributes &attrs)
 {
     // check static net information
@@ -1071,7 +1071,7 @@ NLHandler::parseLinkState(char state)
 
 
 void
-NLHandler::myCharacters(int element, const std::string &name,
+NLHandler::myCharacters(SumoXMLTag element, const std::string &name,
                         const std::string &chars)
 {
     // check static net information
@@ -1370,7 +1370,7 @@ NLHandler::addInternalLanes(const std::string &chars)
 // ----------------------------------
 
 void
-NLHandler::myEndElement(int element, const std::string &name)
+NLHandler::myEndElement(SumoXMLTag element, const std::string &name)
 {
     if (wanted(LOADFILTER_NET)) {
         switch (element) {

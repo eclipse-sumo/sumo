@@ -94,7 +94,7 @@ GUIHandler::~GUIHandler()
 
 
 void
-GUIHandler::myStartElement(int element, const std::string &name,
+GUIHandler::myStartElement(SumoXMLTag element, const std::string &name,
                            const Attributes &attrs)
 {
     NLHandler::myStartElement(element, name, attrs);
@@ -102,7 +102,7 @@ GUIHandler::myStartElement(int element, const std::string &name,
 
 
 void
-GUIHandler::myCharacters(int element, const std::string &name,
+GUIHandler::myCharacters(SumoXMLTag element, const std::string &name,
                          const std::string &chars)
 {
     NLHandler::myCharacters(element, name, chars);

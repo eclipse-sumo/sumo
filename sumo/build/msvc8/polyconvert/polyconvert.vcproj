@@ -358,6 +358,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\polyconvert_main.cpp"
 				>
 				<FileConfiguration
@@ -413,6 +417,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.h"
 				>
 			</File>
 		</Filter>

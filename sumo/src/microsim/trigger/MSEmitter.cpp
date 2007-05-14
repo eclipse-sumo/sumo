@@ -132,7 +132,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 
 void
-MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
+MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         const std::string &name,
         const Attributes &attrs)
 {
@@ -291,13 +291,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int /*element*/,
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myCharacters(
-    int , const std::string &, const std::string &)
+    SumoXMLTag , const std::string &, const std::string &)
 {}
 
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myEndElement(
-    int , const std::string &)
+    SumoXMLTag , const std::string &)
 {}
 
 

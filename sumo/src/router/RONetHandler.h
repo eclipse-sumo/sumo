@@ -69,15 +69,15 @@ public:
 
 protected:
     /** the user-impemlented handler method for an opening tag */
-    virtual void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs);
 
     /** the user-implemented handler method for characters */
-    virtual void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element, const std::string &name,
                               const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
-    virtual void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(SumoXMLTag element, const std::string &name);
 
 protected:
     /// Parses an edge

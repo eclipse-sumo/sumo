@@ -90,7 +90,7 @@ PCXMLPoints::load(OptionsCont &oc)
 
 
 void 
-PCXMLPoints::myStartElement(int element, const std::string &name,
+PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
                             const Attributes &attrs)
 {
     if(name!="poi") {
@@ -137,14 +137,14 @@ PCXMLPoints::myStartElement(int element, const std::string &name,
 
 
 void 
-PCXMLPoints::myCharacters(int , const std::string &,
+PCXMLPoints::myCharacters(SumoXMLTag , const std::string &,
                           const std::string &)
 {
 }
 
 
 void 
-PCXMLPoints::myEndElement(int , const std::string &)
+PCXMLPoints::myEndElement(SumoXMLTag , const std::string &)
 {
 }
 

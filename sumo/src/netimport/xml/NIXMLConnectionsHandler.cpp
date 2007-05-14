@@ -127,7 +127,7 @@ NIXMLConnectionsHandler::getNode(const string &def)
 
 
 void
-NIXMLConnectionsHandler::myStartElement(int /*element*/, const std::string &name,
+NIXMLConnectionsHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
                                         const Attributes &attrs)
 {
     if (name=="reset") {
@@ -284,14 +284,14 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
 
 
 void
-NIXMLConnectionsHandler::myCharacters(int /*element*/,
+NIXMLConnectionsHandler::myCharacters(SumoXMLTag /*element*/,
                                       const std::string &/*name*/,
                                       const std::string &/*chars*/)
 {}
 
 
 void
-NIXMLConnectionsHandler::myEndElement(int /*element*/,
+NIXMLConnectionsHandler::myEndElement(SumoXMLTag /*element*/,
                                       const std::string &/*name*/)
 {}
 

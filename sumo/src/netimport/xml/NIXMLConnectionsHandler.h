@@ -61,15 +61,15 @@ public:
 
 protected:
     /// The method called by the SAX-handler to parse start tags
-    void myStartElement(int element, const std::string &name,
+    void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs);
 
     /// The method called by the SAX-handler to parse intermediate characters
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
     /// The method called by the SAX-handler to parse closing tags
-    void myEndElement(int element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name);
 
 private:
     // parses a connection when it describes a edge-2-edge relationship

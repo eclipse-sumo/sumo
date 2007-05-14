@@ -76,7 +76,7 @@ RONetHandler::~RONetHandler()
 
 
 void
-RONetHandler::myStartElement(int element, const std::string&,
+RONetHandler::myStartElement(SumoXMLTag element, const std::string&,
                              const Attributes &attrs)
 {
     switch (element) {
@@ -271,7 +271,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
 
 
 void
-RONetHandler::myCharacters(int element, const std::string&,
+RONetHandler::myCharacters(SumoXMLTag element, const std::string&,
                            const std::string &chars)
 {
     if (element==SUMO_TAG_EDGES) {
@@ -297,7 +297,7 @@ RONetHandler::preallocateEdges(const std::string &chars)
 
 
 void
-RONetHandler::myEndElement(int, const std::string&)
+RONetHandler::myEndElement(SumoXMLTag, const std::string&)
 {}
 
 

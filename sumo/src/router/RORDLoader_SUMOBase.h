@@ -92,11 +92,11 @@ public:
 protected:
     //{ XML-handling methods
     /** the user-impemlented handler method for an opening tag */
-    virtual void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs);
 
     /** the user-implemented handler method for a closing tag */
-    virtual void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(SumoXMLTag element, const std::string &name);
     //}
 
     /// Return the information whether a route was read

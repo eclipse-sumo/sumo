@@ -74,7 +74,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
 
 
 void
-RORDLoader_SUMOBase::myStartElement(int element,
+RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
                                     const std::string &name,
                                     const Attributes &attrs)
 {
@@ -106,7 +106,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(int element, const std::string &/*name*/)
+RORDLoader_SUMOBase::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:

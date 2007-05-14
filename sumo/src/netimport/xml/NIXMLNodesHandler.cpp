@@ -83,7 +83,7 @@ NIXMLNodesHandler::~NIXMLNodesHandler()
 
 
 void
-NIXMLNodesHandler::myStartElement(int /*element*/, const std::string &tag,
+NIXMLNodesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &tag,
                                   const Attributes &attrs)
 {
     if (tag!="node") {
@@ -200,14 +200,14 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
 
 
 void
-NIXMLNodesHandler::myCharacters(int , const std::string &,
+NIXMLNodesHandler::myCharacters(SumoXMLTag , const std::string &,
                                 const std::string &)
 {
 }
 
 
 void
-NIXMLNodesHandler::myEndElement(int , const std::string &)
+NIXMLNodesHandler::myEndElement(SumoXMLTag , const std::string &)
 {
 }
 

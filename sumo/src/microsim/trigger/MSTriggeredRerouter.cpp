@@ -160,7 +160,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter()
 
 // ------------ loading begin
 void
-MSTriggeredRerouter::myStartElement(int /*element*/,
+MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
                                     const std::string &name,
                                     const Attributes &attrs)
 {
@@ -234,13 +234,13 @@ MSTriggeredRerouter::myStartElement(int /*element*/,
 
 
 void
-MSTriggeredRerouter::myCharacters(int , const std::string &,
+MSTriggeredRerouter::myCharacters(SumoXMLTag , const std::string &,
                                   const std::string &)
 {}
 
 
 void
-MSTriggeredRerouter::myEndElement(int , const std::string &name)
+MSTriggeredRerouter::myEndElement(SumoXMLTag , const std::string &name)
 {
     if (name=="interval") {
         RerouteInterval ri;

@@ -66,14 +66,14 @@ public:
 
 protected:
     /// Called when an opening-tag occures
-    void myStartElement(int element, const std::string &name,
+    void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs);
 
     /// Called when a closing tag occures
-    void myEndElement(int element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name);
 
     /// Called on characters
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
 private:

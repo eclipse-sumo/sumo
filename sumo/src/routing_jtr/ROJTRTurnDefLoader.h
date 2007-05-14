@@ -77,15 +77,15 @@ public:
 
 protected:
     /// SAX-callback for tag start
-    void myStartElement(int element, const std::string &name,
+    void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs);
 
     /// SAX-callback for characters section
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
     /// SAX-callback for tag end
-    void myEndElement(int element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name);
 
 private:
     /// Begins the processing of an interval

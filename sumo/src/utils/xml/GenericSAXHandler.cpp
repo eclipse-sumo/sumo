@@ -216,7 +216,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                  const Attributes& attrs)
 {
     string name = TplConvert<XMLCh>::_2str(qname);
-    int element = convertTag(name);
+    SumoXMLTag element = convertTag(name);
     _tagTree.push(element);
     //_characters = "";
     myCharactersVector.clear();
@@ -233,8 +233,8 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                                const XMLCh* const qname)
 {
     string name = TplConvert<XMLCh>::_2str(qname);
-    int element = convertTag(name);
-    if (element<0) {
+    SumoXMLTag element = convertTag(name);
+    if (element == SUMO_TAG_NOTHING) {
         _unknownOccured = true;
     }
     // call user handler
@@ -273,12 +273,12 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 }
 
 
-int
+SumoXMLTag
 GenericSAXHandler::convertTag(const std::string &tag) const
 {
     TagMap::const_iterator i=_tagMap.find(tag);
     if (i==_tagMap.end()) {
-        return -1; // !!! should it be reported (as error)
+        return SUMO_TAG_NOTHING; // !!! should it be reported (as error)
     }
     return (*i).second;
 }

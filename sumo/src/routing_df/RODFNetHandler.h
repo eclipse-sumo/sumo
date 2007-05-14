@@ -65,7 +65,7 @@ public:
 
 protected:
     /** the user-implemented handler method for characters */
-    void myCharacters(int element, const std::string &name,
+    void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars);
 
 };

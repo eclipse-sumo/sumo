@@ -80,7 +80,7 @@ RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt()
 
 
 void
-RORDLoader_SUMOAlt::myStartElement(int element,
+RORDLoader_SUMOAlt::myStartElement(SumoXMLTag element,
                                    const std::string &name,
                                    const Attributes &attrs)
 {
@@ -144,7 +144,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
+RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
                                  const std::string &chars)
 {
     if(element==-1) {
@@ -184,7 +184,7 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
 
 
 void
-RORDLoader_SUMOAlt::myEndElement(int element, const std::string &name)
+RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element, const std::string &name)
 {
     if(element==-1) {
         // save unknown elements

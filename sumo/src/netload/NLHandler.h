@@ -108,16 +108,16 @@ public:
 protected:
     /** called on the occurence of the beginning of a tag;
         this method */
-    virtual void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs);
 
     /** called when simple characters occure; this method */
-    virtual void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element, const std::string &name,
                               const std::string &chars);
 
     /** called on the end of an element;
         this method */
-    virtual void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(SumoXMLTag element, const std::string &name);
 
     void addParam(const Attributes &attrs);
 
