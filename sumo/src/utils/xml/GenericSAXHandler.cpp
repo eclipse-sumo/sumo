@@ -278,7 +278,7 @@ GenericSAXHandler::convertTag(const std::string &tag) const
 {
     TagMap::const_iterator i=_tagMap.find(tag);
     if (i==_tagMap.end()) {
-        return SUMO_TAG_NOTHING; // !!! should it be reported (as error)
+        return SUMO_TAG_NOTHING;
     }
     return (*i).second;
 }
