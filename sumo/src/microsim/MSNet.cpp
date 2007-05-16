@@ -139,9 +139,9 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myLogics = 0;
     myCellsBuilder = 0;
     myPersonControl = 0;
+    myMSPhoneNet = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-    myMSPhoneNet = new MSPhoneNet();
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet = new MELoop();
@@ -169,9 +169,9 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
     myLogics = 0;
     myCellsBuilder = 0;
     myPersonControl = 0;
+    myMSPhoneNet = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-    myMSPhoneNet = new MSPhoneNet();
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet = new MELoop();
@@ -196,6 +196,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
+    myMSPhoneNet = new MSPhoneNet();
     // intialise outputs
     myOutputStreams = streams;
     myMeanData = meanData;
