@@ -4978,7 +4978,49 @@
           <para>This knowledge should enable you to specify own route
           definitions by hand or using self-written scripts. All routing
           modules are generating route files that match this routes and
-          vehicles specification.</para>
+          vehicles specification.There are a few important things to consider
+          when building your own routes:<itemizedlist>
+              <listitem>
+                <para><emphasis>Routes have to be connected.</emphasis> At the
+                moment the simulation does not raise an error if the next edge
+                of the current route is not a successor of the current edge.
+                The car will simply stop at the end of the current edge and
+                will possibly be "teleported" to the next edge after a waiting
+                time. This is very likely to change in future versions.</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis>Routes have to contain at least two
+                edges.</emphasis> The simulation stops the car at the start of
+                the last edge, thus a route consisting of a single edge is
+                empty.</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis>The starting edge has to be at least as long
+                as the car starting on it.</emphasis> At the moment cars can
+                only start at a position which makes them fit on the road
+                completely.</para>
+              </listitem>
+
+              <listitem>
+                <para><emphasis>The route file has to be sorted by starting
+                times.</emphasis> In fact this is only relevant, when you
+                define a lot of routes or have large gaps between departure
+                times. The simulation parameter
+                <option>--route-steps</option>, which defaults to 200, defines
+                the size of the time interval with which the simulation loads
+                its routes. That means by default at startup only route with
+                departure time &lt;200 are loaded, if all the vehicles have
+                departed, the routes up to departure time 400 are loaded etc.
+                pp. This works only if the route file is sorted. This
+                behaviour may be disabled by specifying <option>--route-steps
+                0</option>.</para>
+              </listitem>
+            </itemizedlist></para>
+
+          <para> The first three conditions can be checked using
+          <replaceable>&lt;SUMO_DIST&gt;</replaceable><filename>/tools/routecheck.py</filename>.</para>
         </sect3>
 
         <sect3 id="user_chp05-explicite-trips">
