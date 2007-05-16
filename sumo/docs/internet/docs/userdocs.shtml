@@ -16,7 +16,7 @@
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
 <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/docs/devdocs.html">
 <META NAME="DC.Coverage" CONTENT="Introduction to the user documentation, Navigation">
-<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+<META NAME="DC.Rights" CONTENT="(c) IFS/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
 	</head>
@@ -61,7 +61,7 @@
 			<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
 
 			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+			<a href="http://www.dlr.de/fs/" class="SUMOMainLink">
             <img src="../images/logo_dlr.gif" width="40" height="42"></a>
 			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="../images/logo_zaik.gif" width="40" height="42"></a><br>

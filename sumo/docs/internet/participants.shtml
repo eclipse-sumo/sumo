@@ -16,7 +16,7 @@
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
 <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/participants.html">
 <META NAME="DC.Coverage" CONTENT="List of participants, Navigation">
-<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+<META NAME="DC.Rights" CONTENT="(c) IFS/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
 	</head>
@@ -50,7 +50,7 @@
 			<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
 
 			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+			<a href="http://www.dlr.de/fs/" class="SUMOMainLink">
             <img src="./images/logo_dlr.gif" width="40" height="42"></a>
 			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="./images/logo_zaik.gif" width="40" height="42"></a><br>
@@ -75,8 +75,8 @@
 <b>SUMO is developed by:</b></br>
 <table>
 <tr>
-	<td><a href="http://ivf.dlr.de" target="new"><img src="images/logo_dlr.gif" width="40" height="42" alt="logo_dlr.gif 40x42" border="0"></a></td>
-	<td><a class="SUMOBoldInLineLink" href="http://ivf.dlr.de" target="new"><b>Institute of Transport Research at the German Aerospace Centre</b></a></td>
+	<td><a href="http://www.dlr.de/fs/" target="new"><img src="images/logo_dlr.gif" width="40" height="42" alt="logo_dlr.gif 40x42" border="0"></a></td>
+	<td><a class="SUMOBoldInLineLink" href="http://www.dlr.de/fs/" target="new"><b>Institute of Transport Research at the German Aerospace Centre</b></a></td>
 </tr>
 <tr>
 	<td><a href="http://www.zaik.uni-koeln.de/" target="new"><img src="images/logo_zaik.gif" width="40" height="42" alt="logo_zaik.gif 40x42" border="0"></a></td>
@@ -89,7 +89,7 @@
 <b>In the recent past we got much support from:</b></br>
 <table>
 <tr>
-	<td><a href="http://ivf.dlr.de" target="new"><img src="images/logo_itm_luebeck.jpg" width="40" height="40" alt="logo_itm_luebeck.jpg" border="0"></a></td>
+	<td><a href="http://www.dlr.de/fs/" target="new"><img src="images/logo_itm_luebeck.jpg" width="40" height="40" alt="logo_itm_luebeck.jpg" border="0"></a></td>
 	<td><a class="SUMOBoldInLineLink" href="http://www.itm.uni-luebeck.de/index.html" target="new"><b>Institute of Telematics at the L&uuml;beck University</b></a></td>
 </tr>
 </table>

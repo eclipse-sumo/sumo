@@ -16,7 +16,7 @@
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
 <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/contact.html">
 <META NAME="DC.Coverage" CONTENT="Contact Information, Navigation">
-<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+<META NAME="DC.Rights" CONTENT="(c) IFS/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
 	</head>
@@ -50,7 +50,7 @@
 			<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
 
 			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+			<a href="http://www.dlr.de/fs/" class="SUMOMainLink">
             <img src="./images/logo_dlr.gif" width="40" height="42"></a>
 			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="./images/logo_zaik.gif" width="40" height="42"></a><br>
@@ -110,12 +110,12 @@ the project's bug tracking service at
 <p><center>
 Deutsches Zentrum für Luft- und Raumfahrt e.V. (DLR)<br>
 in der Helmholtz-Gemeinschaft<br>
-Institut für Verkehrsforschung (IVF)<br>
+Institut für Verkehrsführung und Fahrzeugsteuerung (FS)<br>
 (Daniel Krajzewicz)<br>
 Rutherfordstraße 2<br>
 12489 Berlin<br>
 Germany<br>
-<a class="SUMOInLineLink" href="http://ivf.dlr.de">http://ivf.dlr.de</a>.</p>
+<a class="SUMOInLineLink" href="http://www.dlr.de/fs/">http://www.dlr.de/fs/</a>.</p>
 </center></p>
 
 <hr class="thin"/>

@@ -16,7 +16,7 @@
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
 <META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/documentation.html">
 <META NAME="DC.Coverage" CONTENT="Introduction to the documentation, Navigation">
-<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+<META NAME="DC.Rights" CONTENT="(c) IFS/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
 	</head>
@@ -61,7 +61,7 @@
 			<a href="http://sumo.sourceforge.net/wiki/" class="SUMOMainLink">wiki</a><br/>
 
 			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
+			<a href="http://www.dlr.de/fs/" class="SUMOMainLink">
             <img src="../images/logo_dlr.gif" width="40" height="42"></a>
 			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
             <img src="../images/logo_zaik.gif" width="40" height="42"></a><br>
@@ -85,11 +85,11 @@
 <p>We apologize that it still is in progress and is incomplete...</p>
 <p>The following documentation is available:
 <ul>
-	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="userdocs.shtml">User Documentation</a><br>
-		A complete documentation of how to use SUMO and its applications. Status: In work<br><br>
+	<li><a class="SUMOInLineLink" href="userdocs.shtml">User Documentation</a><br>
+		A complete documentation of how to use SUMO and its applications.<br><br>
 
-	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="moredocs.shtml">More On...</a><br>
-		Some additional information on special subjects (traffic lights, ...). Status: In work<br><br>
+	<li><a class="SUMOInLineLink" href="moredocs.shtml">More On...</a><br>
+		Some additional information on special subjects (traffic lights, ...).<br><br>
 
 <!--	<li><a class="SUMOInLineLink" href="examples.shtml">Examples Documentation</a><br>
 		Some examples for usage of SUMO. Status: Non existing; Look into User Documentation<br>-->
@@ -97,22 +97,32 @@
 	<li><a class="SUMOInLineLink" href="bibliography.shtml">Some relevant or assigned publications</a><br>
 		Some publications you may refer to.<br><br>
 
-	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="gen/faq.shtml">Frequently Questions and Answers (FAQ)</a><br>
-		Some other things that have not found their way into the documentation. Status: In work<br>
+	<li><a class="SUMOInLineLink" href="gen/faq.shtml">Frequently Questions and Answers (FAQ)</a><br>
+		Some other things that have not found their way into the documentation.<br>
 		You may also take also a look into our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki">Wiki</a> and into our <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">Mailing Lists</a>.<br><br>
 
-	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="manpages.shtml">Man pages for the command line applications</a><br>
-            Status: In work<br><br>
+	<li><a class="SUMOInLineLink" href="manpages.shtml">Man pages for the command line applications</a>
 
 </ul>
 
 <hr class="thin"/>
 
-<center><b>Documentation from other contributors</b></center>
+<center><b>Additional Developer Ressources</b></center>
 <ul>
 	<li><a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen Class Documentation</a><br>
 		A daily refreshed doxygen class documentation. Contributed by the <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a>.<br>
 		It comes with a <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/sumo_doxygen_lastrun.log">Log-file</a> for those who want to add some missing documentation.<br><br>
+
+	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/DailyBuild">Make logs</a><br>
+	<ul>
+		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomake.log.gz">SUSE 10.1 make log 
+		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomakeall.log.gz">SUSE 10.1 make log with additional configure options 
+		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumologs.log.gz">SUSE 10.1 log files of the examples 
+		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomakecf.log.gz">Debian 3.1 make log (out of date, because the compile farm is not working properly) 
+	</ul><br><br>
+	
+	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumo_report/">Test Reports (Linux)</a><br>
+		Tests that run at night on a Linux machine...
 
 
 </p>
