@@ -196,7 +196,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
         myVehicleStops.push_back(stop);
     }
 
-    if(element==-1) {
+    if(element==SUMO_TAG_NOTHING) {
         addUnknownSnippet(name, attrs);
     }
 }

@@ -85,7 +85,7 @@ void
 RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
                                     const Attributes &attrs)
 {
-    if(element==-1) {
+    if(element==SUMO_TAG_NOTHING) {
         // save unknown elements
         addUnknownSnippet(name, attrs);
         return;
