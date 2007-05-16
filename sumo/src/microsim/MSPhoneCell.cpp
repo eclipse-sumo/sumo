@@ -162,9 +162,9 @@ MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_poi
                 SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
                 if(useAsIncomingDynamic(time)) {
                     if(randSUMO()>.5) {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , getCallDuration() / 2.);
+                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , getCallDuration() / 2.5);
                     } else {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , getCallDuration() / 2.);
+                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , getCallDuration() / 2.5);
                     }
                 }
     }
