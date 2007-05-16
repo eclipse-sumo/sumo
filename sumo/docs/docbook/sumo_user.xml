@@ -8378,7 +8378,7 @@ myDet1;0;10;2;100;80
       </sect2>
 
       <sect2 id="user_chp06-output-tls" revision="0.9.5">
-        <title>Output coupled to Traffic Lights</title>
+        <title revision="0.9.6">Output coupled to Traffic Lights</title>
 
         <para>SUMO offers some possibilities to save states of traffic lights
         during the simulation, a feature mainly used to evaluate adaptive
@@ -8418,14 +8418,31 @@ myDet1;0;10;2;100;80
    ... further states ...
 <sgmltag>&lt;/tls-states&gt;</sgmltag></programlisting>
 
-          <para>The state itself is coded as a list of the characters 'G',
-          'Y', and 'R', standing for "green", "yellow", and "red",
-          respectively. Each character describes a link controlled by the
-          traffic light. As indicated by the attribute
-          <sgmltag>subid</sgmltag>, each sub-tls state is written into the
-          file (see also "<link
+          <para>The state is saved in each simulation second. The state itself
+          is coded as a list of the characters 'G', 'Y', and 'R', standing for
+          "green", "yellow", and "red", respectively. Each character describes
+          a link controlled by the traffic light. Only the state of the
+          current program is saved (see also "<link
           linkend="user_chp06-management-traffic_lights-add_programs">Adding
-          new Programs</link>").</para>
+          new Programs</link>"). The attributes have the following
+          meaning:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>time</sgmltag>: The simulation time this entry
+              was generated for</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The id of the tls that is
+              responsible for the link</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>subid</sgmltag>: The sub-id of the tls that is
+              (currently) responsible for the link</para>
+            </listitem>
+          </itemizedlist>
 
           <para>Missing:</para>
 
@@ -8434,19 +8451,32 @@ myDet1;0;10;2;100;80
               <para>An easy mapping from positions within the state to
               links.</para>
             </listitem>
-
-            <listitem>
-              <para>A way to write only one/a set of sub-tls into the
-              file.</para>
-            </listitem>
           </itemizedlist>
 
           <para>Recent changes:</para>
 
           <itemizedlist>
             <listitem>
-              <para>This output is available since a long time, still several
-              issues may made him unworking before version 0.9.5</para>
+              <para>Changes in version 0.9.5</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>This output is available since a long time, still
+                  several issues may made him unworking before version
+                  0.9.5</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Changes in version 0.9.6</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Since version 0.9.6 only the state of the current
+                  program is saved</para>
+                </listitem>
+              </itemizedlist>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -8455,11 +8485,12 @@ myDet1;0;10;2;100;80
           <title>TLS Switches</title>
 
           <para>This output contains information about the green light phases
-          of links (lane-to-lane connections). Each phase is describes by its
-          begin, end and duration. An entry is written into the file as soon a
-          green phase of a link ends. To enable writing tls switch information
-          you have to add the following definition into one of your additional
-          files: <sgmltag>&lt;timed_event type="SaveTLSSwitchTimes"
+          of links (lane-to-lane connections). Each green light phase is
+          describes by its begin, end and duration. An entry is written into
+          the file as soon a green phase of a link ends. To enable writing tls
+          switch information you have to add the following definition into one
+          of your additional files: <sgmltag>&lt;timed_event
+          type="SaveTLSSwitchTimes"
           source="<replaceable>&lt;TLS_ID&gt;</replaceable>"
           dest="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag>.
           The attributes have herein the following meanings:</para>
@@ -8484,10 +8515,10 @@ myDet1;0;10;2;100;80
           <para>The output looks like this:</para>
 
           <programlisting><sgmltag>&lt;tls-switches&gt;</sgmltag>
-   <sgmltag>&lt;</sgmltag>switch tls="<replaceable>&lt;JUNCTION_ID&gt;</replaceable>" subid="<replaceable>&lt;JUNCTION_SUB_ID&gt;</replaceable>" \
+   <sgmltag>&lt;tlsswitch tls="<replaceable>&lt;JUNCTION_ID&gt;</replaceable>" subid="<replaceable>&lt;JUNCTION_SUB_ID&gt;</replaceable>" \
       fromLane="<replaceable>&lt;LINKS_SOURCE_LANE&gt;</replaceable>" toLane="<replaceable>&lt;LINK_DESTINATION_LANE&gt;</replaceable>" \
       begin="<replaceable>&lt;BEGIN_OF_GREEN_PHASE&gt;</replaceable>" end="<replaceable>&lt;END_OF_GREEN_PHASE&gt;</replaceable>" \
-      duration="<replaceable>&lt;DURATION_OF_GREEN_PHASE&gt;</replaceable>"/<sgmltag>&gt;</sgmltag>
+      duration="<replaceable>&lt;DURATION_OF_GREEN_PHASE&gt;</replaceable>"/&gt;</sgmltag>
    ... further switch points ...
 <sgmltag>&lt;/tls-switches&gt;</sgmltag></programlisting>
 
@@ -8533,9 +8564,99 @@ myDet1;0;10;2;100;80
 
           <para>Recent changes:</para>
 
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Changes in version 0.9.5</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>This output is available since version 0.9.5</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+
+            <listitem>
+              <para>Changes in version 0.9.6</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>The element "switch" was renamed to "tlsswitch" in
+                  version 0.9.6</para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-tls-switch_states">
+          <title>TLS Switch States</title>
+
+          <para>This output saves tls-states as the TLS States - output does
+          but not every second but only at times the phases or the program
+          (see also "<link
+          linkend="user_chp06-management-traffic_lights-add_programs">Adding
+          new Programs</link>") change. The output is instantiated by adding
+          the following definition into one of your additional files:
+          <sgmltag>&lt;timed_event type="SaveTLSSwitchStates"
+          source="<replaceable>&lt;TLS_ID&gt;</replaceable>"
+          dest="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag>.
+          The attributes have herein the following meanings:</para>
+
           <itemizedlist>
             <listitem>
-              <para>This output is available since version 0.9.5</para>
+              <para><sgmltag>type</sgmltag>: type of the event trigger; always
+              "<literal>SaveTLSSwitches</literal>" herein</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>source</sgmltag>: The id of the traffic light
+              which state shall be written</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>dest</sgmltag>: The file to save the state
+              into</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The output looks like this:</para>
+
+          <programlisting><sgmltag>&lt;tls-switch-states&gt;</sgmltag>
+   <sgmltag>&lt;tlsstate time="<replaceable>&lt;SIM_STEP&gt;</replaceable>" id="<replaceable>&lt;TLS_ID&gt;</replaceable>" subid="<replaceable>&lt;TLS_SUBID&gt;</replaceable>"&gt;</sgmltag><replaceable>&lt;STATE&gt;</replaceable><sgmltag>&lt;/tlsstate&gt;</sgmltag>
+   ... further states ...
+<sgmltag>&lt;/tls-switch-states&gt;</sgmltag></programlisting>
+
+          <para>Each entry is written into a single line. The values have the
+          following meanings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>time</sgmltag>: The simulation time this entry
+              was generated for</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The id of the tls that is
+              responsible for the link</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>subid</sgmltag>: The sub-id of the tls that is
+              (currently) responsible for the link</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Changes in version 0.9.6</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>This output is available since version 0.9.6</para>
+                </listitem>
+              </itemizedlist>
             </listitem>
           </itemizedlist>
         </sect3>
