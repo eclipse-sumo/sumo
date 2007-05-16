@@ -211,6 +211,7 @@ MSDevice_CPhone::SetState(int ActualState)
 int
 MSDevice_CPhone::SetState(State s, int dur)
 {
+    if(dur<1) dur = 1;
     assert(mycurrentCellId != -1);
     /*wenn s == dynin oder dynout starte ein neues gespraech.*/
     /*setze den gewuenschten status*/
