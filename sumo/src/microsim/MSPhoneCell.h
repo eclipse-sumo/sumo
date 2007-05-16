@@ -203,7 +203,7 @@ private:
     int myCurrentExpectedEntering;
     SUMOTime myDynIntervalBegin;
     SUMOTime myDynIntervalDuration;
-    float myCallDuration;
+    SUMOTime myCallDuration;
     float myCallDeviation;
     bool myConnectionTypSelector;
     float myCallProbability;
