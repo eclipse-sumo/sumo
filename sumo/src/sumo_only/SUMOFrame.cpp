@@ -399,23 +399,21 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     // initialise TrafficOnline-outputs
     if (ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0) {
         (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-        << "DROP TABLE IF EXISTS `COLLECTORPOS`;\n"
         << "CREATE TABLE `COLLECTORPOS` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
         << "`DATE_TIME` datetime default NULL,\n"
-        << "`POSITIONS_ID` int(5) NOT NULL default '0',\n"
+        << "`POSITION_ID` int(5) NOT NULL default '0',\n"
         << "`CALL_ID` int(5) NOT NULL default '0',\n"
         << "`QUALITY_ID` int(5) NOT NULL default '30',\n"
         << "PRIMARY KEY  (`ID`)\n"
         << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
         (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
-        << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITIONS_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
+        << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITION_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
         << endl;
     }
     if (ret[MSNet::OS_CELL_TO_SS2_SQL]!=0) {
         (ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
-        << "DROP TABLE IF EXISTS `COLLECTORCS`;\n"
         << "CREATE TABLE `COLLECTORCS` ("
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -436,7 +434,6 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     }
     if (ret[MSNet::OS_LA_TO_SS2_SQL]!=0) {
         (ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
-        << "DROP TABLE IF EXISTS `COLLECTORLA`;\n"
         << "CREATE TABLE `COLLECTORLA` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
