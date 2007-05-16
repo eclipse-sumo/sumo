@@ -2543,11 +2543,16 @@
 
         <para>Recent changes:</para>
 
-        <para>!!!</para>
-
-        <para>--vissim.speed-norm, --vissim.default-speed, and --vissim.offset
-        were named --vissim-speed-norm, --vissim-default-speed, and
-        --vissim-offset in version prior to 0.9.6.</para>
+        <itemizedlist>
+          <listitem>
+            <para><option>--vissim.speed-norm</option>,
+            <option>--vissim.default-speed</option>, and
+            <option>--vissim.offset</option> were named
+            <option>--vissim-speed-norm</option>,
+            <option>--vissim-default-speed</option>, and
+            <option>--vissim-offset</option> in version prior to 0.9.6.</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-other_input-visum">
