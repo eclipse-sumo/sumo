@@ -125,6 +125,10 @@ SOURCE=..\..\..\src\polyconvert\PCVisumPoints.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\polyconvert\PCXMLPoints.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\polyconvert_main.cpp
 # End Source File
 # End Group
@@ -158,6 +162,10 @@ SOURCE=..\..\..\src\polyconvert\PCVisum.h
 # Begin Source File
 
 SOURCE=..\..\..\src\polyconvert\PCVisumPoints.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\polyconvert\PCXMLPoints.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"

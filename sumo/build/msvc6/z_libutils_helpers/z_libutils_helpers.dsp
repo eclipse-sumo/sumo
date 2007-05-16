@@ -95,14 +95,6 @@ SOURCE=..\..\..\src\utils\helpers\Command.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\helpers\Counter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\helpers\Dictionary.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\helpers\DiscreteCommand.h
 # End Source File
 # Begin Source File
@@ -152,10 +144,6 @@ SOURCE=..\..\..\src\utils\helpers\OneArgumentCommand.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\helpers\RandomDistributor.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\helpers\SimpleCommand.h
 # End Source File
 # Begin Source File
 
