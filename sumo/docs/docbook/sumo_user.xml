@@ -383,35 +383,23 @@
     <sect1 id="user_chp02-running_examples">
       <title>Running the Examples</title>
 
-      <para>!!!rework!!! All examples are located within the
-      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data</filename> -
-      folder and its subfolders. All examples come with a configuration-file
-      for network building and for running the simulation. Some of the
-      examples also contain a configuration-file for building the routes. Read
-      chapter "<ulink
+      <para>You may find some examples within the folder
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data</filename>
+      and its subfolders. Please remark that almost all applications are
+      command line tools, what means that no window pops up if you start it,
+      you have to open a shell window first. </para>
+
+      <para>Most of the examples come with a configuration-file so that may be
+      directly run from the command line. Read chapter "<ulink
       url="http://sumo.sourceforge.net/docs/gen/user_chp08.shtml#user_chp08-configs">Using
       Configuration Files</ulink>" for further information on how to use
-      configuration files. !!!Some of the examples also contain .bat-files
-      which contain the call to the applications so you may take a look into
-      these files to see how the applications are run!!!. Please remark that
-      almost all applications are command line tools, what means that no
-      window pops up if you start it, you have to open a shell window
-      first.</para>
+      configuration files. </para>
 
-      <para>You may also run the examples in batch mode. For this, change into
-      the folder you have extracted the package into
-      (<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable></filename>),
-      build the project if necessary (not needed if you have downloaded the
-      binaries) and go further to the "<filename>tools</filename>"-folder. You
-      will find the scripts "<filename>buildAllNets.py</filename>",
-      "<filename>buildAllDUARoutes.py</filename>", and
-      "<filename>buildAllJTRRoutes.py</filename>" in here which will run all
-      configuration files located in the examples-section for
-      <application>NETCONVERT</application>,
-      <application>DUAROUTER</application> and
-      <application>JTRROUTER</application>, respectively. The script
-      "<filename>buildExamples.py</filename>" runs all these three scripts in
-      the order as given above.</para>
+      <para>We apologize that a documentation on the examples does not exist
+      (yet). Nonetheless please feel invited to take a look at the <ulink
+      url="http://sumo.sourceforge.net/wiki/index.php/Tutorial">tutorial</ulink>(s)
+      available at our <ulink
+      url="http://sumo.sourceforge.net/wiki/index.php/Main_Page">wiki</ulink>.</para>
     </sect1>
   </chapter>
 
@@ -421,14 +409,15 @@
     <sect1 id="user_chp03-simulation_theory">
       <title>A short Introduction to Traffic Simulation Theory</title>
 
-      <sect2 id="user_chp03-simulation_theory-simulation_types">
+      <sect2 id="user_chp03-simulation_theory-simulation_types"
+             revision="0.9.6">
         <title>Simulation types</title>
 
         <para>SUMO is a microscopic, space continuous and time discrete
         traffic simulation.</para>
 
-        <para>In traffic research four classes of models are distinguished
-        according to the level of detail of the simulation. In
+        <para>In traffic research four classes of traffic flow models are
+        distinguished according to the level of detail of the simulation. In
         <emphasis>macroscopic</emphasis> models traffic flow is the basic
         entity. <emphasis>Microscopic</emphasis> models simulate the movement
         of every single vehicle on the street, mostly assuming that the
@@ -440,10 +429,10 @@
         url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_1">[Krauss1998_1]</ulink>,
         <ulink
         url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_2">[Krauss1998_2]</ulink>),
-        extended by some further methods (see !!!).
+        extended by some further assumptions (see !!!).
         <emphasis>Mesoscopic</emphasis> simulations are located at the
-        boundary between microscopic and macroscopic ones. Herein, vehicle
-        movement is mostly simulated using queue approaches and single
+        boundary between microscopic and macroscopic simulations. Herein,
+        vehicle movement is mostly simulated using queue approaches and single
         vehicles are moved between such queues.
         <emphasis>Sub-microscopic</emphasis> models regard single vehicles
         like microscopic but extend them by dividing them into further
@@ -451,7 +440,7 @@
         to the vehicle's speed or the driver's preferred gear switching
         actions, for instance. This allows more detailed computations compared
         to simple microscopic simulations. However, sub-microscopic models
-        require large computation times. This restrains the size of the
+        require longer computation times. This restrains the size of the
         networks to be simulated.</para>
 
         <figure id="img_simulation_granularities">
@@ -470,8 +459,8 @@
         <para>Within a space-continuous simulation each vehicle has a certain
         position described by a floating-point number. In contrast,
         space-discrete simulations are a special kind of cellular automata.
-        They use cells and vehicles driving on the simulated streets "jump"
-        from one cell to another.</para>
+        They use to divide streets into cells and vehicles driving on the
+        simulated streets "jump" from one cell to another.</para>
 
         <figure id="img_discrete-continuous">
           <title>The difference between a space-continuous (top) and a
@@ -489,19 +478,20 @@
         movement. Almost all models are so-called
         "<emphasis>car-following-models</emphasis>": the behaviour of the
         driver is herein meant to be dependent on his distance to the vehicle
-        in front of him and of this vehicle's speed. Although SUMO is meant to
-        be a test bed for such vehicle models, only one is implemented by now,
-        an extension to the one developed by Stefan Krauß (see !!! for furhter
-        details). Other obstacles such as traffic lights are of course
-        considered herein, too.</para>
+        in front of him and of this leading vehicle's speed. Although SUMO is
+        meant to be a test bed for such vehicle models, only one is
+        implemented by now, an extension to the one developed by Stefan Krauß
+        (see !!! for furhter details). Other obstacles, such as traffic
+        lights, are of course considered herein, too.</para>
 
         <para>It seems obvious, that each driver is trying to use to shortest
         path through the network. But when all are trying to do this, some of
-        the roads - mainly the arterial roads - would get congested and their
-        benefit would sink. Solutions for this problem are known to traffic
-        research as <emphasis>dynamic user assignment</emphasis>. For solving
-        this, several approaches are available and SUMO uses the dynamic user
-        assignment approach developed by Christian Gawron (see <ulink
+        the roads - mainly the arterial roads - would get congested reducing
+        the benefit of using them. Solutions for this problem are known to
+        traffic research as <emphasis>dynamic user assignment</emphasis>. For
+        solving this, several approaches are available and SUMO uses the
+        dynamic user assignment approach developed by Christian Gawron (see
+        <ulink
         url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1">[Gawron1998_1]</ulink>).</para>
       </sect2>
 
