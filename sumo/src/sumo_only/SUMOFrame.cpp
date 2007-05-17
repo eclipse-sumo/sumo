@@ -78,7 +78,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 #endif
     oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
     oc.addCallExample("-c munich_config.cfg");
-    oc.addCallExample("--spider-net [spider-network opts] -o <OUTPUTFILE>");
     oc.addCallExample("--help");
 
     // insert options sub-topics
