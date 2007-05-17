@@ -4,13 +4,13 @@ SUMO sumo
  
 A microscopic road traffic simulation.
 
-Usage: sumo.exe [OPTION]*
+Usage: sumo [OPTION]*
  
  Examples:
-  sumo.exe -b 0 -e 1000 -n net.xml -r routes.xml
-  sumo.exe -c munich_config.cfg
-  sumo.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
-  sumo.exe --help
+  sumo -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo -c munich_config.cfg
+  sumo --spider-net [spider-network opts] -o <OUTPUTFILE>
+  sumo --help
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -123,6 +123,7 @@ Usage: sumo.exe [OPTION]*
   --cell-dynamic-callduration-scale-factor FLOAT  
   --device.cell-phone.amount.min FLOAT  
   --device.cell-phone.amount.max FLOAT  
+  --device.cell-phone.sql-date STR     Sets the date to use in sql-dumps
 
  Report Options:
   -v, --verbose                        Switches to verbose output

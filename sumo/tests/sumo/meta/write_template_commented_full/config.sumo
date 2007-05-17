@@ -232,6 +232,9 @@
       <!--  -->
       <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
 
+      <!-- Sets the date to use in sql-dumps -->
+      <device.cell-phone.sql-date>1970-01-01</device.cell-phone.sql-date>
+
    </cellular>
 
    <report>
