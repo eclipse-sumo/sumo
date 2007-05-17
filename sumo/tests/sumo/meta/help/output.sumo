@@ -9,7 +9,6 @@ Usage: sumo [OPTION]*
  Examples:
   sumo -b 0 -e 1000 -n net.xml -r routes.xml
   sumo -c munich_config.cfg
-  sumo --spider-net [spider-network opts] -o <OUTPUTFILE>
   sumo --help
  
  Configuration Options:
