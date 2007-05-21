@@ -189,9 +189,9 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
     // gets the actual position from the myToLogic
     size_t actPosTo = LogicTo->getPosition(simStep);
     size_t deltaToStretch= 0;
-	if (gspTo == cycleTimeTo){
-		gspTo=0;
-	}
+    if (gspTo == cycleTimeTo) {
+        gspTo=0;
+    }
     size_t diff = getDiffToStartOfPhase(LogicTo, (size_t) gspTo);
     if (gspTo >= actPosTo) {
         deltaToStretch = (size_t)(gspTo - actPosTo);
@@ -606,9 +606,9 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
         // maybe this switch shall move the tls to an off-state
         //  in this case, we mybe have to build the program
         //  (this is done internally)
-            // otherwise we'll inform the user about the missing tls program
-            MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
-            throw ProcessError();
+        // otherwise we'll inform the user about the missing tls program
+        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
+        throw ProcessError();
     }
     // try to get the program to switch to
     MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
@@ -664,11 +664,11 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     if (myWAUTs[wautid]->switches.size()==1) {
         SUMOTime begin = when;
         // check reference time
-        if(myWAUTs[wautid]->refTime<=begin) {
+        if (myWAUTs[wautid]->refTime<=begin) {
             // add the reference time if it's within the same day
             begin += myWAUTs[wautid]->refTime;
         }
-        if(myWAUTs[wautid]->refTime>begin) {
+        if (myWAUTs[wautid]->refTime>begin) {
             // make a day period
             begin = begin - (86400-myWAUTs[wautid]->refTime);
         }
@@ -721,7 +721,7 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         // get the current program and the one to instantiate
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
-        if(vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
+        if (vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
             MsgHandler::getErrorInstance()->inform("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
             throw ProcessError();
         }

@@ -92,11 +92,11 @@ MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
         }
     } else {
 #endif
-    const MSEdge::LaneCont * const lanes = edge.getLanes();
-    MSEdge::LaneCont::const_iterator lane;
-    for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
-        MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
-        meanData.reset();
+        const MSEdge::LaneCont * const lanes = edge.getLanes();
+        MSEdge::LaneCont::const_iterator lane;
+        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+            MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
+            meanData.reset();
         }
 #ifdef HAVE_MESOSIM
     }
@@ -212,49 +212,49 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                                         "\"/>\n");
     } else {
 #endif
-    const MSEdge::LaneCont * const lanes = edge.getLanes();
-    MSEdge::LaneCont::const_iterator lane;
-    if (!myAmEdgeBased) {
-        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString("\">\n");
-        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
-            writeLane(dev, *(*lane), startTime, stopTime);
+        const MSEdge::LaneCont * const lanes = edge.getLanes();
+        MSEdge::LaneCont::const_iterator lane;
+        if (!myAmEdgeBased) {
+            dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString("\">\n");
+            for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+                writeLane(dev, *(*lane), startTime, stopTime);
+            }
+            dev.writeString("      </edge>\n");
+        } else {
+            SUMOReal traveltimeS = 0;
+            SUMOReal meanSpeedS = 0;
+            SUMOReal meanDensityS = 0;
+            SUMOReal noStopsS = 0;
+            SUMOReal nVehS = 0;
+            SUMOReal meanOccupancyS = 0;
+            for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+                MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
+                // calculate mean data
+                SUMOReal traveltime = -42;
+                SUMOReal meanSpeed = -43;
+                SUMOReal meanDensity = -45;
+                SUMOReal meanOccupancy = -46;
+                conv(meanData, (stopTime-startTime+1),
+                     (*lane)->myLength, (*lane)->myMaxSpeed,
+                     traveltime, meanSpeed, meanDensity, meanOccupancy);
+                traveltimeS += traveltime;
+                meanSpeedS += meanSpeed;
+                meanDensityS += meanDensity;
+                meanOccupancyS += meanOccupancy;
+                noStopsS += meanData.haltSum;
+                nVehS += meanData.nSamples;
+                meanData.reset();
+            }
+            assert(lanes->size()!=0);
+            dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
+                "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
+                    "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
+                        "\" density=\"").writeString(toString(meanDensityS)).writeString(
+                            "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
+                                "\" noStops=\"").writeString(toString(noStopsS)).writeString(
+                                    "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
+                                        "\"/>\n");
         }
-        dev.writeString("      </edge>\n");
-    } else {
-        SUMOReal traveltimeS = 0;
-        SUMOReal meanSpeedS = 0;
-        SUMOReal meanDensityS = 0;
-        SUMOReal noStopsS = 0;
-        SUMOReal nVehS = 0;
-        SUMOReal meanOccupancyS = 0;
-        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
-            MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
-            // calculate mean data
-            SUMOReal traveltime = -42;
-            SUMOReal meanSpeed = -43;
-            SUMOReal meanDensity = -45;
-            SUMOReal meanOccupancy = -46;
-            conv(meanData, (stopTime-startTime+1),
-                 (*lane)->myLength, (*lane)->myMaxSpeed,
-                 traveltime, meanSpeed, meanDensity, meanOccupancy);
-            traveltimeS += traveltime;
-            meanSpeedS += meanSpeed;
-            meanDensityS += meanDensity;
-            meanOccupancyS += meanOccupancy;
-            noStopsS += meanData.haltSum;
-            nVehS += meanData.nSamples;
-            meanData.reset();
-        }
-        assert(lanes->size()!=0);
-        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
-            "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
-                "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
-                    "\" density=\"").writeString(toString(meanDensityS)).writeString(
-                        "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
-                            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-                                "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
-                                    "\"/>\n");
-    }
 #ifdef HAVE_MESOSIM
     }
 #endif

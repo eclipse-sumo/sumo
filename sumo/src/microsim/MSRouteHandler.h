@@ -59,7 +59,7 @@ class RGBColor;
 /**
  * @class MSRouteHandler
  * @brief Parser and container for routes during their loading
- * 
+ *
  * MSRouteHandler is the container for routes while they are build until
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances

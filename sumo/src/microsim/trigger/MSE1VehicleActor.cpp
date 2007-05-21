@@ -75,7 +75,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 {
     assert(posM >= 0 && posM <= laneM->length());
     //eintragen in MSPhoneNet
-    
+
     OptionsCont &oc = OptionsSubSys::getOptions();
     percentOfActivity = oc.getBool("device.cell-phone.percent-of-activity");
 
@@ -105,11 +105,11 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         return true;
     }
     myPassedVehicleNo++;
-    if(_ActorType == 1) {
+    if (_ActorType == 1) {
         SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-        if(LastCells.find(&veh)!=LastCells.end()) {
+        if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
-            if(cell!=0) {
+            if (cell!=0) {
                 cell->removeVehicle(veh, time);
             }
         }
@@ -176,28 +176,28 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             if (oldCell != 0) {
                 oldCell->remCPhone(cp->getID());
             } /*else {
-                // check whether a call shall be started
-                SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-                if(newCell->useAsIncomingDynamic(time)) {
-                    if(randSUMO()>.5) {
-                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
-                    } else {
-                        cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
-                    }
-                }
-            }*/
+                            // check whether a call shall be started
+                            SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+                            if(newCell->useAsIncomingDynamic(time)) {
+                                if(randSUMO()>.5) {
+                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
+                                } else {
+                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
+                                }
+                            }
+                        }*/
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
 
-			int callCount = cp->GetCallCellCount();
-			cp->IncCallCellCount();
+            int callCount = cp->GetCallCellCount();
+            cp->IncCallCellCount();
             switch (cp->GetState()) {
             case MSDevice_CPhone::STATE_OFF:
                 break;
             case MSDevice_CPhone::STATE_IDLE:
-                if ( percentOfActivity ){
+                if (percentOfActivity) {
                     SUMOReal r1 = randSUMO();
-                    if ( r1 < 0.5f ) {
+                    if (r1 < 0.5f) {
                         cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , 86400);
                     } else {
                         cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , 86400);
@@ -220,18 +220,18 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 if (oldCell != 0) {
                     oldCell->remCall(cp->getCallId());
                 }
-                newCell->addCall(cp->getCallId(), DYNOUT, callCount );
+                newCell->addCall(cp->getCallId(), DYNOUT, callCount);
                 myPassedConnectedCPhonesNo++;
                 break;
             }
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                if(od!=0) {
+                if (od!=0) {
                     od->getOStream()
-                        << MSNet::getInstance()->getCurrentTimeStep() << ';' 
-                        << cp->getCallId() << ';' 
-                        << _AreaId << ';' 
-                        << "1\n";
+                    << MSNet::getInstance()->getCurrentTimeStep() << ';'
+                    << cp->getCallId() << ';'
+                    << _AreaId << ';'
+                    << "1\n";
                 }
             }
         }
@@ -243,17 +243,17 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 myPassedConnectedCPhonesNo++;
                 {
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
-                    if(od!=0) {
+                    if (od!=0) {
                         std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
                         od->getOStream()
-                            << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
+                        << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                     }
                 }
                 {
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2_SQL);
-                    if(od!=0) {
+                    if (od!=0) {
                         if (od->getBoolMarker("hadFirstCall")) {
                             od->getOStream() << "," << endl;
                         } else {
@@ -262,11 +262,11 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         od->getOStream()
-                            << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
-                            << ", " << 0 << ")"; // !!! recheck quality indicator
+                        << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
+                        << ", " << 0 << ")"; // !!! recheck quality indicator
                     }
                 }
-             }
+            }
         }
     }
     return false;

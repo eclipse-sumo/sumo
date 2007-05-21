@@ -391,7 +391,7 @@ struct leaveTimeLesser :
     SUMOTime deleteOldData(SUMOTime currentTime);
 
     typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
-                                                            * vehicleDataContM. */
+                                                                * vehicleDataContM. */
 
     /**
      * Get the iterator to vehicleDataContM that corresponds to the
@@ -414,13 +414,13 @@ struct leaveTimeLesser :
     SUMOTime deleteDataAfterStepsM; /**< Deletion interval. */
 
     SUMOReal lastLeaveTimestepM;  /**< Leave-timestep of the last
-                                     * vehicle detected. */
+                                         * vehicle detected. */
 
     typedef std::map< MSVehicle*, SUMOReal > VehicleMap; /**< Type of
-                                                            * vehiclesOnDetM. */
+                                                                * vehiclesOnDetM. */
 
     VehicleMap vehiclesOnDetM;  /**< Map that holds the vehicles that
-                                     * are currently on the detector. */
+                                         * are currently on the detector. */
 
     DismissedCont dismissedContM;
 
@@ -432,7 +432,7 @@ struct leaveTimeLesser :
     VehicleDataCont vehicleDataContM;
 
     static std::string xmlHeaderM; /**< Contains a XML-comment that
-                                        * explain the printed data. */
+                                            * explain the printed data. */
 
     static std::string xmlDetectorInfoEndM; /**< Closing tag for detector. */
 

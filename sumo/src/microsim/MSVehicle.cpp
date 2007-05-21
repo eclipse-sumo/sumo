@@ -162,8 +162,8 @@ MSVehicle::~MSVehicle()
     // prior routes
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
-        for(ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            delete (*i).route;
+        for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
+            delete(*i).route;
         }
         delete v;
     }
@@ -172,12 +172,12 @@ MSVehicle::~MSVehicle()
         // cell phones
         if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
             vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
-            for(vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
-                delete (*i);
+            for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+                delete(*i);
             }
             delete v;
         }
-        if(MSNet::getInstance()->getMSPhoneNet()!=0) {
+        if (MSNet::getInstance()->getMSPhoneNet()!=0) {
             MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*this, MSNet::getInstance()->getCurrentTimeStep());
         }
     }
@@ -202,7 +202,7 @@ MSVehicle::~MSVehicle()
         infoCont.clear();
     }
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete (RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
     }
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
@@ -271,20 +271,18 @@ MSVehicle::initDevices(int vehicleIndex)
     OptionsCont &oc = OptionsSubSys::getOptions();
 
     // cell phones
-    if ( oc.getBool("device.cell-phone.percent-of-activity") )
-    {
+    if (oc.getBool("device.cell-phone.percent-of-activity")) {
         /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
         string phoneid = getID() + "_cphone#0";
         MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
         myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;*/
-        if ( randSUMO()<=oc.getFloat("device.cell-phone.probability")){
+        if (randSUMO()<=oc.getFloat("device.cell-phone.probability")) {
             vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             string phoneid = getID() + "_cphone#0";
             v->push_back(new MSDevice_CPhone(*this, phoneid));
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) 
-    {
+    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
         bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
         bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
         if (t1||t2) {
@@ -298,33 +296,31 @@ MSVehicle::initDevices(int vehicleIndex)
             }
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    }
-    else if ( false )
-    {
+    } else if (false) {
         int noCellPhones = 1;
-            if ( myType->getID().compare( "pkw" )== 0 )
-                noCellPhones = 1;
-            else if ( myType->getID().compare( "bus" )== 0 )
-                noCellPhones = 2;
-            else if ( myType->getID().compare( "sbahn" )== 0 )
-                noCellPhones = 3;
-            else if ( myType->getID().compare( "zug" )== 0 )
-                noCellPhones = 4;
-            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-            for (int np=0; np<noCellPhones; np++) {
-                string phoneid = getID() + "_cphone#" + toString(np);
-                v->push_back(new MSDevice_CPhone(*this, phoneid));
-            }
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+        if (myType->getID().compare("pkw")== 0)
+            noCellPhones = 1;
+        else if (myType->getID().compare("bus")== 0)
+            noCellPhones = 2;
+        else if (myType->getID().compare("sbahn")== 0)
+            noCellPhones = 3;
+        else if (myType->getID().compare("zug")== 0)
+            noCellPhones = 4;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
     }
 
     // c2c communication
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
-        if(!oc.getBool("device.c2x.deterministic")) {
+        if (!oc.getBool("device.c2x.deterministic")) {
             t1 = randSUMO()<=oc.getFloat("device.c2x.probability");
         } else {
-            t1 = !((vehicleIndex%1000)>=(int) (oc.getFloat("device.c2x.probability")*1000.));
+            t1 = !((vehicleIndex%1000)>=(int)(oc.getFloat("device.c2x.probability")*1000.));
         }
         bool t2 = oc.isSet("device.c2x.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.c2x.knownveh", myID);
         if (t1||t2) {
@@ -1517,7 +1513,7 @@ MSVehicle::onDepart()
         // cell phones
         if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
             vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
-            for(vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
+            for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
                 (*i)->onDepart();
             }
         }
@@ -1586,7 +1582,7 @@ MSVehicle::getRoute(int index) const
     }
     std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
     assert(i!=myPointerCORNMap.end());
-    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const) (*i).second;
+    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const)(*i).second;
     assert((int) v->size()>index);
     return *((*v)[index].route);
 }
@@ -1626,7 +1622,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
         // ... maybe the route information shall be saved for output?
         if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
             RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
-            if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
+            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
                 myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
             }
             ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
@@ -1685,7 +1681,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
-        if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
+        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
             myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
         }
         ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
@@ -1935,7 +1931,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     if (index>=0) {
         std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
         assert(i!=myPointerCORNMap.end());
-        const ReplacedRoutesVector *v = (const ReplacedRoutesVector *) (*i).second;
+        const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)(*i).second;
         assert((int) v->size()>index);
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
@@ -1955,7 +1951,7 @@ void
 MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 {
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete (RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
     }
     myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
@@ -2047,12 +2043,12 @@ MSVehicle::cleanUpConnections(SUMOTime time)
             // the other vehicle must no longer inform us about being removed from the network
             neigh->quitRemindedLeft(this);
         }/* !!! else {
-                    // the vehicle is still in range
-                    ((*i).second->timeSinceSeen)++;
-                    if(((*i).second->state!=dialing) && ((*i).second->state!=disconnected)){
-        	            ((*i).second->timeSinceConnect)++;
-                    }
-                }*/
+                            // the vehicle is still in range
+                            ((*i).second->timeSinceSeen)++;
+                            if(((*i).second->state!=dialing) && ((*i).second->state!=disconnected)){
+                	            ((*i).second->timeSinceConnect)++;
+                            }
+                        }*/
     }
 
     // go through the list of invalid connections, erase them

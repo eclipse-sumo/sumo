@@ -196,7 +196,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
         myVehicleStops.push_back(stop);
     }
 
-    if(element==SUMO_TAG_NOTHING) {
+    if (element==SUMO_TAG_NOTHING) {
         addUnknownSnippet(name, attrs);
     }
 }
@@ -374,7 +374,7 @@ MSRouteHandler::closeVehicle()
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle's type
     MSVehicleType *vtype = 0;
-    if(myCurrentVType!="") {
+    if (myCurrentVType!="") {
         vtype = MSNet::getInstance()->getVehicleControl().getVType(myCurrentVType);
         if (vtype==0) {
             MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");

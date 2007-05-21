@@ -114,14 +114,11 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     mycurrentLAId = -1;
     myCallId = -1;
     m_State = STATE_IDLE;
-	myCallCellCount = 0;
-    if ( myVehicle.getVehicleType().getID().compare("zug") == 0 )
-    {
-        notTriggeredByCell = true;    
+    myCallCellCount = 0;
+    if (myVehicle.getVehicleType().getID().compare("zug") == 0) {
+        notTriggeredByCell = true;
 
-    }
-    else
-    {
+    } else {
         notTriggeredByCell = false;
     }
 }
@@ -138,23 +135,23 @@ MSDevice_CPhone::~MSDevice_CPhone()
             if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
                 cell->remCall(myCallId);
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                if(od!=0) {
+                if (od!=0) {
                     od->getOStream()
-                        << MSNet::getInstance()->getCurrentTimeStep() << ';' 
-                        << myCallId << ';' << mycurrentCellId << ';' 
-                        << 2 << "\n";
+                    << MSNet::getInstance()->getCurrentTimeStep() << ';'
+                    << myCallId << ';' << mycurrentCellId << ';'
+                    << 2 << "\n";
                 }
             }
             cell->remCPhone(myId);
         } /*else {
-                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                }*/
+                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                        }*/
         MSPhoneLA * la = pPhone->getCurrentVehicleLA(myId);
         if (la != 0) {
             la->remCall(myId);
         }/* else {
-                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                }*/
+                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                        }*/
     }
     if (myCommand!=0) {
         myCommand->setInactivated();
@@ -211,14 +208,14 @@ MSDevice_CPhone::SetState(int ActualState)
 int
 MSDevice_CPhone::SetState(State s, int dur)
 {
-    if(dur<1) dur = 1;
+    if (dur<1) dur = 1;
     assert(mycurrentCellId != -1);
     /*wenn s == dynin oder dynout starte ein neues gespraech.*/
     /*setze den gewuenschten status*/
     m_State = s;
 
-	/*wird fuer das neue gespraech zurueck gesetzt*/
-	myCallCellCount = 0;
+    /*wird fuer das neue gespraech zurueck gesetzt*/
+    myCallCellCount = 0;
 
     /*pruefe, dass das cphone wirklich eine aktuelle zelle hat.*/
     /*gib den cphone eine eindeutige verbindungsnummer*/
@@ -226,7 +223,7 @@ MSDevice_CPhone::SetState(State s, int dur)
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
     MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
     if (m_State == STATE_CONNECTED_IN)
-		cell->addCall(myCallId, DYNIN, myCallCellCount);
+        cell->addCall(myCallId, DYNIN, myCallCellCount);
     else
         cell->addCall(myCallId, DYNOUT, myCallCellCount);
 
@@ -235,11 +232,11 @@ MSDevice_CPhone::SetState(State s, int dur)
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-    if(od!=0) {
+    if (od!=0) {
         od->getOStream()
-            << MSNet::getInstance()->getCurrentTimeStep() << ';' 
-            << myCallId << ';' << mycurrentCellId << ';' 
-            << 0 << "\n";
+        << MSNet::getInstance()->getCurrentTimeStep() << ';'
+        << myCallId << ';' << mycurrentCellId << ';'
+        << 0 << "\n";
     }
     return dur;
 }
@@ -253,11 +250,11 @@ MSDevice_CPhone::changeState()
     assert(mycurrentCellId != -1);
 
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-    if(od!=0) {
+    if (od!=0) {
         od->getOStream()
-            << MSNet::getInstance()->getCurrentTimeStep() << ';' 
-            << myCallId << ';' << mycurrentCellId << ';' 
-            << 2 << "\n";
+        << MSNet::getInstance()->getCurrentTimeStep() << ';'
+        << myCallId << ';' << mycurrentCellId << ';'
+        << 2 << "\n";
     }
 
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();

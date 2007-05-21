@@ -61,7 +61,7 @@ class Command_SaveTLSSwitchStates : public Command
 public:
     /// Constructor
     Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
-                         OutputDevice *od);
+                                OutputDevice *od);
 
     /// Destructor
     ~Command_SaveTLSSwitchStates();

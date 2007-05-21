@@ -291,10 +291,10 @@ MSBuildCells::writeNearEdges(OutputDevice *od)
     for (index=0; index<sizeOfCont; index++) {
         MSEdge *e = myNet.getEdgeControl().getSingleLaneEdges()[index];
         const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
-        od->getOStream() << "   <edge id=\"" << e->getID() 
-            << "\" neighborNo=\"" << neighbors.size() << "\">";
-        for(std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
-            if(j!=neighbors.begin()) {
+        od->getOStream() << "   <edge id=\"" << e->getID()
+        << "\" neighborNo=\"" << neighbors.size() << "\">";
+        for (std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
+            if (j!=neighbors.begin()) {
                 od->getOStream() << ' ';
             }
             od->getOStream() << (*j)->getID();
@@ -305,10 +305,10 @@ MSBuildCells::writeNearEdges(OutputDevice *od)
     for (index=0; index<sizeOfCont; index++) {
         MSEdge *e = myNet.getEdgeControl().getMultiLaneEdges()[index];
         const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
-        od->getOStream() << "   <edge id=\"" << e->getID() 
-            << "\" neighborNo=\"" << neighbors.size() << "\">";
-        for(std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
-            if(j!=neighbors.begin()) {
+        od->getOStream() << "   <edge id=\"" << e->getID()
+        << "\" neighborNo=\"" << neighbors.size() << "\">";
+        for (std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
+            if (j!=neighbors.begin()) {
                 od->getOStream() << ' ';
             }
             od->getOStream() << (*j)->getID();

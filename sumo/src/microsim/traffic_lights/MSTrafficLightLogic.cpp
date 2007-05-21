@@ -120,10 +120,10 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic)
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(
-        MSTLLogicControl &tlcontrol,
-        const std::string &id,
-        const std::string &subid,
-        size_t delay)
+    MSTLLogicControl &tlcontrol,
+    const std::string &id,
+    const std::string &subid,
+    size_t delay)
         : myID(id), mySubID(subid), myCurrentDurationIncrement(-1)
 {
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
@@ -318,7 +318,7 @@ MSTrafficLightLogic::onSwitch()
             i++;
         }
     }
-#ifdef RAKNET_DEMO 
+#ifdef RAKNET_DEMO
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = allowed();
     const std::bitset<64> &yellowLinks = yellowMask();

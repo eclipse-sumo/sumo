@@ -4,7 +4,7 @@
 /// @date    Mon Jun  2 17:21:27 2003
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -253,13 +253,13 @@ private:
     IntervalFileMap intervalsAndFilesM; /**< Map of interval-file pairs. */
 
     EdgeLaneCostCont edgeLaneCostsM; /**< Container of MSEdge-laneCostCont
-                                          * pairs. */
+                                              * pairs. */
 
     static MSTravelcostDetector* instanceM; /**< The sole instance of this
-                                                 * class. */
+                                                     * class. */
 
     SUMOTime maxIntervalInStepsM; /**< Maximum interval length to be added
-                                          * by addSampleInterval().*/
+                                              * by addSampleInterval().*/
 };
 
 

@@ -865,7 +865,7 @@ void
 MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap)
 {
     // Add to mean data (edge/lane state dump)
-    if(myMeanData.size()!=0) {
+    if (myMeanData.size()!=0) {
         SUMOReal l = veh.getLength();
         for (size_t i=0; i<myMeanData.size(); i++) {
             myMeanData[i].nSamples++;
@@ -878,13 +878,13 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
     }
     // Add to phys state
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_PHYSSTATES);
-    if(od!=0) {
-        od->getOStream() << "   <vphys id=\"" << veh.getID() 
-            << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()  
-            << "\" v=\"" << newV  
-            << "\" a=\"" << (newV-oldV)  
-            << "\" g=\"" << gap 
-            << "\"/>" << endl;
+    if (od!=0) {
+        od->getOStream() << "   <vphys id=\"" << veh.getID()
+        << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\" v=\"" << newV
+        << "\" a=\"" << (newV-oldV)
+        << "\" g=\"" << gap
+        << "\"/>" << endl;
     }
 }
 

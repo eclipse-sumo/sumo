@@ -400,19 +400,19 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         }
     } else {
 #endif
-    if (myDestLane->isEmissionSuccess(veh, state)) {
-        veh->enterLaneAtEmit(myDestLane, state);
-        veh->onDepart();
-        myNet.getVehicleControl().vehiclesEmitted(1);
-        // insert vehicle into the dictionary
-        if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
-            // !!!
-            throw 1;
+        if (myDestLane->isEmissionSuccess(veh, state)) {
+            veh->enterLaneAtEmit(myDestLane, state);
+            veh->onDepart();
+            myNet.getVehicleControl().vehiclesEmitted(1);
+            // insert vehicle into the dictionary
+            if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
+                // !!!
+                throw 1;
+            }
+            // erase the child information
+            myToEmit.erase(myToEmit.find(child));
+            return true;
         }
-        // erase the child information
-        myToEmit.erase(myToEmit.find(child));
-        return true;
-    }
 #ifdef HAVE_MESOSIM
     }
 #endif

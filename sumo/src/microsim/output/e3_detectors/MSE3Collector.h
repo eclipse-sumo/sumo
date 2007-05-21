@@ -57,13 +57,13 @@
 /**
  * @class MSE3Collector
  * @brief A detector of vehicles passing an area between entry/exit points
- * 
- * E3-detectors are defined by a set of in-cross-sections and out-cross-sections. 
+ *
+ * E3-detectors are defined by a set of in-cross-sections and out-cross-sections.
  * Vehicles, that pass an in- and out-cross-section are detected when they pass the
- * out-cross-section. Vehicles passing the out-cross-section without having 
- * passed the in-cross-section are not detected. You can add detectors via 
- * addDetector() out of E3::DetType to work on the detection area. 
- * You get a sampled value via getAggregate(). As MSE3Collector inherits from 
+ * out-cross-section. Vehicles passing the out-cross-section without having
+ * passed the in-cross-section are not detected. You can add detectors via
+ * addDetector() out of E3::DetType to work on the detection area.
+ * You get a sampled value via getAggregate(). As MSE3Collector inherits from
  * MSDetectorFileOutput there is the possibility to get file output by calling
  * MSDetector2File::addDetectorAndInterval().
  */
@@ -76,7 +76,7 @@ public:
      * @class MSE3EntryReminder
      * @brief A place on the road net where the E3-area begins
      */
-    class MSE3EntryReminder : public MSMoveReminder
+class MSE3EntryReminder : public MSMoveReminder
     {
     public:
         /// Constructor
@@ -105,7 +105,7 @@ public:
      * @class MSE3LeaveReminder
      * @brief A place on the road net where the E3-area ends
      */
-    class MSE3LeaveReminder : public MSMoveReminder
+class MSE3LeaveReminder : public MSMoveReminder
     {
     public:
         /// Constructor
@@ -166,12 +166,12 @@ public:
     /// Dtor. Deletes the created detectors.
     virtual ~MSE3Collector(void);
 
-    /** @brief Call if a vehicle touches an entry-cross-section. 
+    /** @brief Call if a vehicle touches an entry-cross-section.
      *
      * Inserts vehicle into internal containers.*/
     void enter(MSVehicle& veh, SUMOReal entryTimestep);
 
-    /** @brief Call if a vehicle passes a leave-cross-section. 
+    /** @brief Call if a vehicle passes a leave-cross-section.
      *
      * Removes vehicle from internal containers. */
     void leave(MSVehicle& veh, SUMOReal leaveTimestep);
@@ -203,9 +203,9 @@ public:
     /// @}
 
 
-        bool updateEachTimestep(void);
+    bool updateEachTimestep(void);
 
-        SUMOReal getValue(Value which) const;
+    SUMOReal getValue(Value which) const;
 
 protected:
     std::string idM;            ///< The detector's unique id.
@@ -217,7 +217,7 @@ protected:
     LeaveReminders leaveRemindersM; ///< Container of leaveReminders.
 
     // Time-theshold to determine if a vehicle is halting.
-    //MSUnit::Steps haltingTimeThresholdM; 
+    //MSUnit::Steps haltingTimeThresholdM;
     // !dk! kept for later use
 
     /// Speed-theshold to determine if a vehicle is halting.
@@ -227,7 +227,8 @@ protected:
 
     static std::string infoEndM; ///< Closing detector tag.
 
-    struct E3Values {
+    struct E3Values
+    {
         SUMOReal entryTime;
         SUMOReal leaveTime;
         SUMOReal speedSum;

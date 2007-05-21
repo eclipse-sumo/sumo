@@ -64,7 +64,7 @@ MSPhoneCell::MSPhoneCell(int id)
         myVehiclesEntered(0), myVehicleTimes(0)
 {
     OptionsCont &oc = OptionsSubSys::getOptions();
-    myStaticCallCountScaleFactor =  (int)oc.getFloat("cell-static-callcount-scale-factor");
+    myStaticCallCountScaleFactor = (int)oc.getFloat("cell-static-callcount-scale-factor");
     myDynamicCallCountScaleFactor = (int)oc.getFloat("cell-dynamic-callcount-scale-factor");
     myDynamicCallDeviationScaleFactor = oc.getFloat("cell-dynamic-calldeviation-scale-factor");
     myDynamicCallDurationScaleFactor = oc.getFloat("cell-dynamic-callduration-scale-factor");
@@ -78,46 +78,41 @@ MSPhoneCell::~MSPhoneCell()
 void
 MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
 {
-	myCalls[callid] = ct; 
-	if ( cellCount < 1 )
-	{
-		switch( ct )
-		{
-		case STATICIN:
-		case DYNIN:
-			//++myStaticCallsIn;
-			break;
-		case STATICOUT:
-		case DYNOUT:
-			//++myStaticCallsOut;
-			break;
-		}
-	}
-	else
-	{
-		switch (ct) 
-		{
-		case STATICIN:
-			//++myStaticCallsIn;
-			break;
-		case STATICOUT:
-			//++myStaticCallsOut;
-			break;
-		case DYNIN:
-			++myDynCallsIn;
-			//++myDynOwnStarted;
+    myCalls[callid] = ct;
+    if (cellCount < 1) {
+        switch (ct) {
+        case STATICIN:
+        case DYNIN:
+            //++myStaticCallsIn;
+            break;
+        case STATICOUT:
+        case DYNOUT:
+            //++myStaticCallsOut;
+            break;
+        }
+    } else {
+        switch (ct) {
+        case STATICIN:
+            //++myStaticCallsIn;
+            break;
+        case STATICOUT:
+            //++myStaticCallsOut;
+            break;
+        case DYNIN:
+            ++myDynCallsIn;
+            //++myDynOwnStarted;
             ++mySumCalls;
-			break;
-		case DYNOUT:
-			++myDynCallsOut;
+            break;
+        case DYNOUT:
+            ++myDynCallsOut;
             ++mySumCalls;
-			//++myDynOwnStarted;
-			break;
-		}
-	}
-	if( cellCount == 0 && ( ct == DYNIN || ct == DYNOUT ) )
-		++myDynOwnStarted;
-	//++mySumCalls;
+            //++myDynOwnStarted;
+            break;
+        }
+    }
+    if (cellCount == 0 && (ct == DYNIN || ct == DYNOUT))
+        ++myDynOwnStarted;
+    //++mySumCalls;
 }
 
 
@@ -125,7 +120,7 @@ void
 MSPhoneCell::remCall(int callid)
 {
     myitCalls = myCalls.find(callid);
-    if(myitCalls!=myCalls.end()) {
+    if (myitCalls!=myCalls.end()) {
         myCalls.erase(myitCalls);
     }
     /*switch ( myitCalls->second )
@@ -156,17 +151,17 @@ void
 MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer)
 {
     myRegisteredDevices[device_id] = device_pointer;
-    if(device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_IN||device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_OUT) {
+    if (device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_IN||device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_OUT) {
         myDynIncomingStarted++;
     } else {
-                SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-                if(useAsIncomingDynamic(time)) {
-                    if(randSUMO()>.5) {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int) getCallDuration() / 2.5);
-                    } else {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int) getCallDuration() / 2.5);
-                    }
-                }
+        SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+        if (useAsIncomingDynamic(time)) {
+            if (randSUMO()>.5) {
+                device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int) getCallDuration() / 2.5);
+            } else {
+                device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int) getCallDuration() / 2.5);
+            }
+        }
     }
 }
 
@@ -180,7 +175,7 @@ void
 MSPhoneCell::remCPhone(const std::string &device_id)
 {
     std::map<std::string, MSDevice_CPhone*>::iterator idevice = myRegisteredDevices.find(device_id);
-    if(idevice != myRegisteredDevices.end()) {
+    if (idevice != myRegisteredDevices.end()) {
         myRegisteredDevices.erase(idevice);
     }
 }
@@ -188,11 +183,11 @@ MSPhoneCell::remCPhone(const std::string &device_id)
 void
 MSPhoneCell::setStatParams(int interval, int statcallcount)
 {
-    if(interval<300) {
+    if (interval<300) {
         return;
     }
     interval -= 300;
-    if(myExpectedStaticCalls.size()==0) {
+    if (myExpectedStaticCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SetStatParamsCommand(*this),
             interval, MSEventControl::NO_CHANGE);
@@ -221,7 +216,7 @@ void
 MSPhoneCell::setDynParams(int interval, int count, float duration, float deviation,
                           int entering)
 {
-    if(interval<3600) {
+    if (interval<3600) {
         return;
     }
     interval -= 3600;
@@ -230,7 +225,7 @@ MSPhoneCell::setDynParams(int interval, int count, float duration, float deviati
     p.deviation = deviation*myDynamicCallDeviationScaleFactor;
     p.duration = duration*myDynamicCallDurationScaleFactor;
     p.entering = entering*myDynamicCallCountScaleFactor;
-    if(myExpectedDynamicCalls.size()==0) {
+    if (myExpectedDynamicCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SetDynParamsCommand(*this),
             interval, MSEventControl::NO_CHANGE);
@@ -251,16 +246,16 @@ MSPhoneCell::setDynParams(int interval, int count, float duration, float deviati
 }
 
 
-SUMOTime 
+SUMOTime
 MSPhoneCell::nextStatPeriod(SUMOTime time)
 {
-    if(myExpectedStaticCalls.size()==0) {
+    if (myExpectedStaticCalls.size()==0) {
         myStaticCallsIn = 0;
         myStaticCallsOut = 0;
         return 0;
     }
     std::pair<int, int> next = *myExpectedStaticCalls.begin();
-    if(next.first!=time) {
+    if (next.first!=time) {
         myStaticCallsIn = 0;
         myStaticCallsOut = 0;
         return 300;
@@ -268,7 +263,7 @@ MSPhoneCell::nextStatPeriod(SUMOTime time)
     myIntervalBegin = next.first;
     int counts = next.second;
     if (counts < 2) {
-        if(randSUMO()>.5) {
+        if (randSUMO()>.5) {
             myStaticCallsIn = counts;
             myStaticCallsOut = 0;
         } else {
@@ -284,10 +279,10 @@ MSPhoneCell::nextStatPeriod(SUMOTime time)
 }
 
 
-SUMOTime 
+SUMOTime
 MSPhoneCell::nextDynPeriod(SUMOTime time)
 {
-    if(myExpectedDynamicCalls.size()==0) {
+    if (myExpectedDynamicCalls.size()==0) {
         myCurrentExpectedCallCount  = 0;
         myCallDuration              = 300;
         myCallDeviation             = 0;
@@ -298,7 +293,7 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
     }
     myDynIntervalBegin = time;
     std::pair<int, DynParam> next = *myExpectedDynamicCalls.begin();
-    if(next.first!=time) {
+    if (next.first!=time) {
         myCurrentExpectedCallCount  = 0;
         myCallDuration              = 300;
         myCallDeviation             = 0;
@@ -315,7 +310,7 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
     myDynIncomingStarted = 0;
     myExpectedDynamicCalls.erase(myExpectedDynamicCalls.begin());
     SUMOTime offset = 3600;
-    if(myExpectedDynamicCalls.size()!=0) {
+    if (myExpectedDynamicCalls.size()!=0) {
         offset = myExpectedDynamicCalls.begin()->first - time;
     }
     myDynIntervalDuration = offset;
@@ -324,16 +319,16 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
 }
 
 
-bool 
+bool
 MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
 {
-    if(myDynIntervalDuration==0) {
+    if (myDynIntervalDuration==0) {
         return false;
     }
     SUMOReal absPerEachStep = (SUMOReal) myCurrentExpectedEntering / (SUMOReal) myDynIntervalDuration;
-    SUMOReal should = (SUMOReal) (absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin));
+    SUMOReal should = (SUMOReal)(absPerEachStep/2. + absPerEachStep * (SUMOReal)(time-myDynIntervalBegin));
     SUMOReal toStart = should - myDynIncomingStarted;
-    if(toStart<=(SUMOReal) 0) {
+    if (toStart<=(SUMOReal) 0) {
         return false;
     }
     myDynIncomingStarted++;
@@ -341,20 +336,20 @@ MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
 }
 
 
-void 
+void
 MSPhoneCell::setDynamicCalls(SUMOTime time)
 {
-    if(myDynIntervalDuration==0) {
+    if (myDynIntervalDuration==0) {
         return;
     }
     SUMOReal absPerEachStep = (SUMOReal) myCurrentExpectedCallCount / (SUMOReal) myDynIntervalDuration;
-    SUMOReal should = (SUMOReal) (absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin));
+    SUMOReal should = (SUMOReal)(absPerEachStep/2. + absPerEachStep * (SUMOReal)(time-myDynIntervalBegin));
     SUMOReal toStart = should - myDynOwnStarted;
-    if(toStart<=(SUMOReal) 0) {
+    if (toStart<=(SUMOReal) 0) {
         return;
     }
-    if(toStart-(int)toStart!=0) {
-        if(randSUMO()<toStart-(int)toStart) {
+    if (toStart-(int)toStart!=0) {
+        if (randSUMO()<toStart-(int)toStart) {
             toStart++;
         }
     }
@@ -362,7 +357,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
     int itoStart = (int) toStart;
     std::map<std::string, MSDevice_CPhone*>::iterator itdev = myRegisteredDevices.end();
     for (itdev = myRegisteredDevices.begin(); itoStart>0&&itdev != myRegisteredDevices.end(); itdev++) {
-        if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE && !itdev->second->getNotTriggeredByCell() ) {
+        if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE && !itdev->second->getNotTriggeredByCell()) {
             if (myConnectionTypSelector) {
                 itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int)myCallDuration);
             } else {
@@ -381,34 +376,34 @@ MSPhoneCell::writeOutput(SUMOTime t)
 {
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
-        if(od!=0) {
+        if (od!=0) {
             std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             long t1 = myVehicleTimes;
             std::map<MSVehicle *, SUMOTime>::iterator i;
-            for(i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+            for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
                 t1 = t1 + (t - (*i).second);
             }
             od->getOStream()
-            << "02;" << timestr << ';' 
-            << myCellId << ';' 
-            << myStaticCallsIn << ';' << myStaticCallsOut << ';' 
-            << myDynCallsIn << ';' << myDynCallsOut << ';' 
-            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ';' 
+            << "02;" << timestr << ';'
+            << myCellId << ';'
+            << myStaticCallsIn << ';' << myStaticCallsOut << ';'
+            << myDynCallsIn << ';' << myDynCallsOut << ';'
+            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ';'
             << t << ';'
             << myLaterDynamicStarted << ';'
             << myVehiclesEntered << ';'
             << t1 << endl;
             myVehiclesEntered = 0;
             myVehicleTimes = 0;
-            for(i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+            for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
                 (*i).second = t;
             }
         }
     }
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
-        if(od!=0) {
+        if (od!=0) {
             std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od->getBoolMarker("hadFirstCall")) {
@@ -417,11 +412,11 @@ MSPhoneCell::writeOutput(SUMOTime t)
                 od->setBoolMarker("hadFirstCall", true);
             }
             od->getOStream()
-            << "(NULL, \' \', '" << timestr << "'," 
-            << myCellId << ',' 
+            << "(NULL, \' \', '" << timestr << "',"
+            << myCellId << ','
             << myStaticCallsIn << ',' << myStaticCallsOut << ','
-            << myDynCallsIn << ',' << myDynCallsOut << ',' 
-            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ',' 
+            << myDynCallsIn << ',' << myDynCallsOut << ','
+            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ','
             << t << ")";
         }
     }

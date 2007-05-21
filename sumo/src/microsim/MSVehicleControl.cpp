@@ -112,17 +112,17 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
         od->getOStream()
-            << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
-            << "start=\"" << realDepart << "\" "
-            << "wished=\"" << v->desiredDepart() << "\" "
-            << "end=\"" << time << "\" "
-            << "duration=\"" << time-realDepart << "\" "
-            << "waited=\"" << realDepart-v->desiredDepart() << "\" "
-            // write reroutes
-            << "reroutes=\"";
+        << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
+        << "start=\"" << realDepart << "\" "
+        << "wished=\"" << v->desiredDepart() << "\" "
+        << "end=\"" << time << "\" "
+        << "duration=\"" << time-realDepart << "\" "
+        << "waited=\"" << realDepart-v->desiredDepart() << "\" "
+        // write reroutes
+        << "reroutes=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od->getOStream()
-                << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+            << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
         } else {
             od->getOStream() << '0';
         }
@@ -132,7 +132,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         bool addSem = false;
         if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
             vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
-            if(phones->size()!=0) {
+            if (phones->size()!=0) {
                 od->getOStream() << "cphones=" << phones->size();
                 addSem = true;
             }
@@ -154,11 +154,11 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         OutputDevice *od = net->getOutputDevice(MSNet::OS_VEHROUTE);
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
-        od->getOStream() 
-            << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
-            << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
-            << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
-            << "\">" << endl;
+        od->getOStream()
+        << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
+        << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
+        << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\">" << endl;
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             for (int i=0; i<noReroutes; i++) {
@@ -177,14 +177,14 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         int noReroutes = v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
                          ? v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
         d->getOStream()
-            << "	<vehicle id=\"" << v->getID()
-            << "\" timestep=\"" << net->getCurrentTimeStep()
-            << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
-            << "\" numberRelevant=\"" << v->getNoGotRelevant()
-            << "\" got=\"" << v->getNoGot()
-            << "\" sent=\"" << v->getNoSent()
-            << "\" reroutes=\"" << noReroutes
-            << "\"/>"<<endl;
+        << "	<vehicle id=\"" << v->getID()
+        << "\" timestep=\"" << net->getCurrentTimeStep()
+        << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
+        << "\" numberRelevant=\"" << v->getNoGotRelevant()
+        << "\" got=\"" << v->getNoGot()
+        << "\" sent=\"" << v->getNoSent()
+        << "\" reroutes=\"" << noReroutes
+        << "\"/>"<<endl;
     }
 
     // check whether to save information about the vehicle's trip
@@ -522,7 +522,7 @@ MSVehicleControl::getRandomVType() const
 bool
 MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob)
 {
-    if(myHaveDefaultVTypeOnly) {
+    if (myHaveDefaultVTypeOnly) {
         myVehicleTypeDistribution.clear();
         // hmmm - delete the default or not?
     }

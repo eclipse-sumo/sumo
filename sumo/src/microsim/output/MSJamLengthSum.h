@@ -103,7 +103,7 @@ protected:
     MSJamLengthSumInMeters( //const MSDetectorOccupancyCorrection& occupancyCorrection ,
         SUMOReal, const Container& container)
             : containerM(container/*.containerM */)/*,
-                    myOccupancyCorrection(occupancyCorrection)*/
+                                myOccupancyCorrection(occupancyCorrection)*/
     {}
 
     virtual ~MSJamLengthSumInMeters(void)

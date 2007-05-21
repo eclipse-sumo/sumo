@@ -735,14 +735,17 @@ private:
      *  the route was replaced at by a new one, the time this was done, and
      *  the previous route.
      */
-    class RouteReplaceInfo {
+    class RouteReplaceInfo
+    {
     public:
         /// Constructor
         RouteReplaceInfo(const MSEdge * const edge_, SUMOTime time_, MSRoute *route_)
-            : edge(edge_), time(time_), route(route_) {}
+                : edge(edge_), time(time_), route(route_)
+        {}
 
         /// Destructor
-        ~RouteReplaceInfo() { }
+        ~RouteReplaceInfo()
+        { }
 
         /// The edge the vehicle was on when the route was replaced
         const MSEdge *edge;

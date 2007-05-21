@@ -106,7 +106,7 @@ public:
             return myRouteDist.getVals();
         }
 
-        /// Returns a random type 
+        /// Returns a random type
         MSVehicleType *getRndVType() const
         {
             return myVTypeDist.get();
@@ -140,7 +140,7 @@ public:
             return ret;
         }
 
-        /// Returns the routes probability 
+        /// Returns the routes probability
         RandomDistributor<MSRoute*> &getRouteDist()
         {
             return myRouteDist;

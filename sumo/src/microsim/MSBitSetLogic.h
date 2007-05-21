@@ -74,8 +74,7 @@ public:
                   std::bitset<64> conts)
             : MSJunctionLogic(nLinks, nInLanes), myLogic(logic),
             myInternalLinksFoes(foes), myConts(conts)
-    {
-    }
+    {}
 
 
     /// Destructor.

@@ -80,8 +80,14 @@ public:
     int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
     int SetState(State s, int Duration);
-	int GetCallCellCount(){return myCallCellCount;}
-	void IncCallCellCount(){++myCallCellCount;}
+    int GetCallCellCount()
+    {
+        return myCallCellCount;
+    }
+    void IncCallCellCount()
+    {
+        ++myCallCellCount;
+    }
     SUMOTime changeState();
     void setCurrentCellId(unsigned int id)
     {
@@ -108,14 +114,14 @@ public:
     {
         return myId;
     };
-   
+
     void invalidateCommand();
 
     void setNotTriggeredByCell()
     {
         notTriggeredByCell = true;
     };
-    
+
     bool getNotTriggeredByCell()
     {
         return notTriggeredByCell;
@@ -165,8 +171,8 @@ private:
     int mycurrentCellId;
     int mycurrentLAId;
 
-	/*if the device is calling,it counts the passed cells*/
-	int myCallCellCount;
+    /*if the device is calling,it counts the passed cells*/
+    int myCallCellCount;
 
     /*if this */
     bool notTriggeredByCell;

@@ -77,9 +77,9 @@ SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime)
 {
     myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
-        << "\" id=\"" << myLogics.defaultTL->getID()
-        << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
-        << myLogics.defaultTL->buildStateList() << "</tlsstate>" << endl;
+    << "\" id=\"" << myLogics.defaultTL->getID()
+    << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
+    << myLogics.defaultTL->buildStateList() << "</tlsstate>" << endl;
     return 1;
 }
 

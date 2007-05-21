@@ -115,12 +115,12 @@ public:
 
     //car2car
     static void saveClusterInfoData(SUMOTime step, int id,
-                                    const std::string &headID, 
+                                    const std::string &headID,
                                     const std::string &vehs, int quantity);
     static void checkCloseClusterInfoData();
 
     static void saveSavedInformationData(SUMOTime step, const std::string &veh,
-                                         const std::string &edge, const std::string &type, 
+                                         const std::string &edge, const std::string &type,
                                          int time, SUMOReal nt);
     static void checkCloseSavedInformationData();
 
@@ -129,8 +129,8 @@ public:
     static void checkCloseTransmittedInformationData();
 
     static void saveVehicleInRangeData(SUMOTime step, const std::string &veh1,
-                                       const std::string &veh2, 
-                                       SUMOReal x1, SUMOReal y1, 
+                                       const std::string &veh2,
+                                       SUMOReal x1, SUMOReal y1,
                                        SUMOReal x2 , SUMOReal y2);
     static void checkCloseVehicleInRangeData();
 

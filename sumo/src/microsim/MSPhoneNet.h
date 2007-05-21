@@ -111,10 +111,11 @@ public:
 
     void addLAChange(const std::string &pos_id);
 
-    void removeVehicle(MSVehicle &veh, SUMOTime t) {
-        if(LastCells.find(&veh)!=LastCells.end()) {
+    void removeVehicle(MSVehicle &veh, SUMOTime t)
+    {
+        if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
-            if(cell!=0) {
+            if (cell!=0) {
                 cell->removeVehicle(veh, t);
             }
         }
@@ -133,7 +134,7 @@ private:
     std::map< int, int > _mCell2LA;
 
     std::map< std::string, int > myLAChanges;
-	int lastTime;
+    int lastTime;
     bool percentModus;
 
 

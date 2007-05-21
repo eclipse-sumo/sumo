@@ -200,23 +200,23 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // intialise outputs
     myOutputStreams = streams;
     myMeanData = meanData;
-        // c2c
+    // c2c
     MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
     MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
     MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
     MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
-        // tol
-    if(getOutputDevice(OS_CELL_TO_SS2)!=0||getOutputDevice(OS_CELL_TO_SS2_SQL)!=0) {
+    // tol
+    if (getOutputDevice(OS_CELL_TO_SS2)!=0||getOutputDevice(OS_CELL_TO_SS2_SQL)!=0) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
-            myMSPhoneNet, &MSPhoneNet::writeCellOutput);
+                                 myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
-    if(getOutputDevice(OS_LA_TO_SS2)!=0||getOutputDevice(OS_LA_TO_SS2_SQL)!=0) {
+    if (getOutputDevice(OS_LA_TO_SS2)!=0||getOutputDevice(OS_LA_TO_SS2_SQL)!=0) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
-            myMSPhoneNet, &MSPhoneNet::writeLAOutput);
+                                 myMSPhoneNet, &MSPhoneNet::writeLAOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
@@ -231,7 +231,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
             myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
             myCellsBuilder->build();
             // print some debug stuff if wished
-            if(streams[OS_EDGE_NEAR]!=0) {
+            if (streams[OS_EDGE_NEAR]!=0) {
                 myCellsBuilder->writeNearEdges(streams[OS_EDGE_NEAR]);
             }
         }
@@ -354,7 +354,7 @@ MSNet::initialiseSimulation()
         << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
         << "<physical-states>" << endl;
     }
-    
+
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
         myOutputStreams[OS_CLUSTER_INFO]->getOStream()
@@ -439,9 +439,9 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
         ostringstream msg;
         msg << "Performance: " << endl
-            << " Duration: " << mySimDuration << "ms" << endl
-            << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
-            << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
+        << " Duration: " << mySimDuration << "ms" << endl
+        << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
+        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
         WRITE_MESSAGE(msg.str());
     }
 }
@@ -468,7 +468,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
 
-    if(myMSPhoneNet!=0) {
+    if (myMSPhoneNet!=0) {
         myMSPhoneNet->setDynamicCalls(myStep);
     }
 
@@ -480,43 +480,43 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         MSGlobals::gMesoNet->simulate(step);
     } else {
 #endif
-    myJunctions->resetRequests();
+        myJunctions->resetRequests();
 
-    // move Vehicles
-    // move vehicles which do not interact with the lane end
-    myEdges->moveNonCritical();
-    // precompute possible positions for vehicles that do interact with
-    // their lane's end
-    myEdges->moveCritical();
+        // move Vehicles
+        // move vehicles which do not interact with the lane end
+        myEdges->moveNonCritical();
+        // precompute possible positions for vehicles that do interact with
+        // their lane's end
+        myEdges->moveCritical();
 
-    // set information about which vehicles may drive at all
-    myLogics->maskRedLinks();
-    // check the right-of-way for all junctions
-    myJunctions->setAllowed();
-    // set information which vehicles should decelerate
-    myLogics->maskYellowLinks();
+        // set information about which vehicles may drive at all
+        myLogics->maskRedLinks();
+        // check the right-of-way for all junctions
+        myJunctions->setAllowed();
+        // set information which vehicles should decelerate
+        myLogics->maskYellowLinks();
 
-    // move vehicles which do interact with their lane's end
-    //  (it is now known whether they may drive
-    myEdges->moveFirst();
-    if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(step);
-    }
+        // move vehicles which do interact with their lane's end
+        //  (it is now known whether they may drive
+        myEdges->moveFirst();
+        if (MSGlobals::gCheck4Accidents) {
+            myEdges->detectCollisions(step);
+        }
 
-    MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
+        MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
+        MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->updateAll();
+        MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance()->updateAll();
+        MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
 
-    // Vehicles change Lanes (maybe)
-    myEdges->changeLanes();
+        // Vehicles change Lanes (maybe)
+        myEdges->changeLanes();
 
-    // check whether the tls shall be switched
-    myLogics->check2Switch(myStep);
+        // check whether the tls shall be switched
+        myLogics->check2Switch(myStep);
 
-    if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(step);
-    }
+        if (MSGlobals::gCheck4Accidents) {
+            myEdges->detectCollisions(step);
+        }
 #ifdef HAVE_MESOSIM
     }
 #endif

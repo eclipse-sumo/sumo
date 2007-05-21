@@ -4,7 +4,7 @@
 /// @date    unknown_date
 /// @version $Id$
 ///
-// 
+//
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

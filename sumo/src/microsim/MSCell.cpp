@@ -57,8 +57,7 @@ using namespace std;
 // ===========================================================================
 MSCell::MSCell(SUMOReal xcellsize, SUMOReal ycellsize)
         : _xcellsize(xcellsize), _ycellsize(ycellsize)
-{
-}
+{}
 
 
 MSCell::~MSCell()

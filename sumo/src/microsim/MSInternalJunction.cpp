@@ -133,7 +133,7 @@ MSInternalJunction::setAllowed()
     }
 
     // do nothing if there is no vehicle
-    if(!myRequest.test(0)) {
+    if (!myRequest.test(0)) {
         return true;
     }
 
@@ -177,7 +177,7 @@ MSInternalJunction::setAllowed()
     const MSLinkCont &lc2 = l->getLinkCont();
     link = lc2[0];
     MSLane *dest = link->getLane();
-    if(dest==0) {
+    if (dest==0) {
         return true;
     }
     const MSVehicle * const lastOnDest = dest->getLastVehicle();

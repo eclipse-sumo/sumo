@@ -42,7 +42,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class MSInterface_NetRun 
+class MSInterface_NetRun
 {
 public:
     MSInterface_NetRun()

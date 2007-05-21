@@ -86,14 +86,17 @@ public:
 
     /// Sets the parameter of dynamic calls for the given period
     void setDynParams(int interval, int count, float duration, float deviation,
-        int entering);
+                      int entering);
 
     /// !!!?
     void writeOutput(SUMOTime time);
     void setDynamicCalls(SUMOTime time);
     bool useAsIncomingDynamic(SUMOTime time);
 
-    SUMOTime getCallDuration() const { return myCallDuration; }
+    SUMOTime getCallDuration() const
+    {
+        return myCallDuration;
+    }
 
     /// !!!?
     //int getExpectDynCallCount() { return dyncallcount; }
@@ -111,12 +114,14 @@ public:
     bool hasCPhone(const std::string &device_id);
     void remCPhone(const std::string &device_id);
 
-    void incVehiclesEntered(MSVehicle& veh, SUMOTime t) { 
+    void incVehiclesEntered(MSVehicle& veh, SUMOTime t)
+    {
         myVehiclesEntered++;
         myVehicles[&veh] = t;
     }
 
-    void removeVehicle(MSVehicle& veh, SUMOTime t) {
+    void removeVehicle(MSVehicle& veh, SUMOTime t)
+    {
         SUMOTime prev = myVehicles[&veh];
         myVehicleTimes = myVehicleTimes + (t-prev);
         myVehicles.erase(myVehicles.find(&veh));

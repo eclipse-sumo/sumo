@@ -69,7 +69,7 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         return true;
     }
     SUMOReal dist = SPEED2DIST(newSpeed);
-    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal) (1 - (posM - oldPos) / dist);
+    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal)(1 - (posM - oldPos) / dist);
     collectorM.enter(veh, entryTimestep);
     return false;
 }
@@ -111,7 +111,7 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (newPos - veh.getLength() > posM) {
         // crossSection completely left
         SUMOReal dist = SPEED2DIST(newSpeed);
-        SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal) (1 - (posM - oldPos) / dist);
+        SUMOReal leaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep() - (SUMOReal)(1 - (posM - oldPos) / dist);
         collectorM.leave(veh, leaveTimestep);
         return false;
     }
@@ -175,7 +175,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep)
     v.leaveTime = 0;
     v.speedSum = 0;
     v.haltings = 0;
-    if(myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
+    if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
     }
     myEnteredContainer[&veh] = v;
@@ -185,7 +185,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep)
 void
 MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep)
 {
-    if(myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
+    if (myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
         E3Values v = myEnteredContainer[&veh];
@@ -207,7 +207,7 @@ MSE3Collector::getID() const
 void
 MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 {
-    if(myEnteredContainer.find(veh)==myEnteredContainer.end()) {
+    if (myEnteredContainer.find(veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh->getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
         myEnteredContainer.erase(veh);
@@ -237,12 +237,12 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     SUMOReal meanTravelTime = 0.;
     SUMOReal meanSpeed = 0.;
     SUMOReal meanHaltsPerVehicle = 0.;
-        //
-    for(std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
-        meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
-        SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
+    //
+    for (std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+        meanHaltsPerVehicle += (SUMOReal)(*i).second.haltings;
+        SUMOReal steps = (SUMOReal)((*i).second.leaveTime-(*i).second.entryTime);
         meanTravelTime += steps;
-        meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
+        meanSpeed += (SUMOReal)((*i).second.speedSum / steps);
     }
     meanTravelTime /= vehicleSum;
     meanSpeed /= vehicleSum;
@@ -250,8 +250,8 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     // write values
     dev.writeString("meanTravelTime=\"").writeString(toString(meanTravelTime)).writeString(
         "\" meanSpeed=\"").writeString(toString(meanSpeed)).writeString(
-        "\" meanHaltsPerVehicle=\"").writeString(toString(meanHaltsPerVehicle)).writeString(
-        "\" vehicleSum=\"").writeString(toString(vehicleSum)).writeString("\"/>");
+            "\" meanHaltsPerVehicle=\"").writeString(toString(meanHaltsPerVehicle)).writeString(
+                "\" vehicleSum=\"").writeString(toString(vehicleSum)).writeString("\"/>");
     // clear container
     myLeftContainer.clear();
 }
@@ -261,55 +261,51 @@ SUMOReal
 MSE3Collector::getValue(MSE3Collector::Value which) const
 {
     SUMOTime ctime = MSNet::getInstance()->getCurrentTimeStep();
-    switch(which) {
-    case MEAN_TRAVELTIME:
-        {
-            SUMOReal meanTravelTime = 0.;
-            size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
-                if((*i).second.leaveTime==ctime) {
-                    SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
-                    meanTravelTime += steps;
-                    noFound++;
-                }
+    switch (which) {
+    case MEAN_TRAVELTIME: {
+        SUMOReal meanTravelTime = 0.;
+        size_t noFound = 0;
+        for (std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            if ((*i).second.leaveTime==ctime) {
+                SUMOReal steps = (SUMOReal)((*i).second.leaveTime-(*i).second.entryTime);
+                meanTravelTime += steps;
+                noFound++;
             }
-            return noFound!=0 ? meanTravelTime / (SUMOReal) myLeftContainer.size() : 0;
         }
-    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE:
-        {
-            SUMOReal meanHaltsPerVehicle = 0.;
-            size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
-                if((*i).second.leaveTime==ctime) {
-                    meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
-                    noFound++;
-                }
+        return noFound!=0 ? meanTravelTime / (SUMOReal) myLeftContainer.size() : 0;
+    }
+    case MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: {
+        SUMOReal meanHaltsPerVehicle = 0.;
+        size_t noFound = 0;
+        for (std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            if ((*i).second.leaveTime==ctime) {
+                meanHaltsPerVehicle += (SUMOReal)(*i).second.haltings;
+                noFound++;
             }
-            return noFound!=0 ? meanHaltsPerVehicle / (SUMOReal) myLeftContainer.size() : 0;
         }
-    case NUMBER_OF_VEHICLES:
-        {
-            SUMOReal vehicleNumber = 0.;
-            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
-                if((*i).second.leaveTime==ctime) {
-                    vehicleNumber += 1.;
-                }
+        return noFound!=0 ? meanHaltsPerVehicle / (SUMOReal) myLeftContainer.size() : 0;
+    }
+    case NUMBER_OF_VEHICLES: {
+        SUMOReal vehicleNumber = 0.;
+        for (std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            if ((*i).second.leaveTime==ctime) {
+                vehicleNumber += 1.;
             }
-            return vehicleNumber;
         }
-    case MEAN_SPEED:
-        {
-            SUMOReal meanSpeed = 0.;
-            size_t noFound = 0;
-            for(std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
-                if((*i).second.leaveTime==ctime) {
-                    SUMOReal steps = (SUMOReal) ((*i).second.leaveTime-(*i).second.entryTime);
-                    meanSpeed += (SUMOReal) ((*i).second.speedSum / steps);
-                    noFound++;
-                }
+        return vehicleNumber;
+    }
+    case MEAN_SPEED: {
+        SUMOReal meanSpeed = 0.;
+        size_t noFound = 0;
+        for (std::map<MSVehicle*, E3Values>::const_iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
+            if ((*i).second.leaveTime==ctime) {
+                SUMOReal steps = (SUMOReal)((*i).second.leaveTime-(*i).second.entryTime);
+                meanSpeed += (SUMOReal)((*i).second.speedSum / steps);
+                noFound++;
             }
-            return noFound!=0 ? meanSpeed / (SUMOReal) myLeftContainer.size() : 0;
         }
+        return noFound!=0 ? meanSpeed / (SUMOReal) myLeftContainer.size() : 0;
+    }
     default:
         return 0;
     }
@@ -343,7 +339,7 @@ MSE3Collector::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 }
 
 
-bool 
+bool
 MSE3Collector::updateEachTimestep(void)
 {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
@@ -352,7 +348,7 @@ MSE3Collector::updateEachTimestep(void)
         values.speedSum += veh->getSpeed();
         if (veh->getSpeed() < haltingSpeedThresholdM) {
             values.haltings++;
-        } 
+        }
         /*
         halting.posM += veh->getMovedDistance();
         if (veh->getSpeed() >= speedThresholdM) {
