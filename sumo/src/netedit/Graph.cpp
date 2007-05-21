@@ -348,8 +348,7 @@ Graph::Reduce_plus(ConfigDialog* my)
                 quotient=(distanz_b/distanz_a);
                 delta_x1=(int)(delta_x1*quotient);
                 delta_y1=(int)(delta_y1*quotient);
-            }
-            else {
+            } else {
                 quotient=(distanz_a/distanz_b);
                 delta_x2=(int)(delta_x2*quotient);
                 delta_y2=(int)(delta_y2*quotient);

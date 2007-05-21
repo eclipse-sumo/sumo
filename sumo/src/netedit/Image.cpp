@@ -1060,8 +1060,7 @@ Image::DrawLine(Point p1,Point p2)
         delta_x=k-i;
         min_x=i;
         deltadelta=-1;
-    }
-    else {
+    } else {
         delta_x=i-k;
         min_x=k;
         deltadelta=1;
@@ -1072,8 +1071,7 @@ Image::DrawLine(Point p1,Point p2)
         delta_y=l-j;
         min_y=j;
         deltadelta*=-1;
-    }
-    else {
+    } else {
         delta_y=j-l;
         min_y=l;
         deltadelta*=1;
@@ -1193,8 +1191,7 @@ Image::DrawLine(FXint i,FXint j,FXint k,FXint l)
         delta_x=k-i;
         min_x=i;
         deltadelta=-1;
-    }
-    else {
+    } else {
         delta_x=i-k;
         min_x=k;
         deltadelta=1;
@@ -1204,8 +1201,7 @@ Image::DrawLine(FXint i,FXint j,FXint k,FXint l)
         delta_y=l-j;
         min_y=j;
         deltadelta*=-1;
-    }
-    else {
+    } else {
         delta_y=j-l;
         min_y=l;
         deltadelta*=1;

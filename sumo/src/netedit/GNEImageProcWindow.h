@@ -80,7 +80,7 @@ public:
     {
         return false;
     }
-*/
+    */
     /// Extracts the bitmaps´ pixels which are determined as road area
     long onCmdExtractStreets(FXObject*,FXSelector,void*);
 

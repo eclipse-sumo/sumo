@@ -871,8 +871,8 @@ GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
 
     // prune the postfix
     if (filestr.rfind(".nod.xml")==filestr.length()-8
-        ||
-        filestr.rfind(".edg.xml")==filestr.length()-8) {
+            ||
+            filestr.rfind(".edg.xml")==filestr.length()-8) {
 
         filestr = filestr.substr(0, filestr.length()-8);
         file = filestr.c_str();
@@ -1342,7 +1342,7 @@ GNEApplicationWindow::load(const std::string &file)
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    if(FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
+    if (FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
         myLoadThread->load(file, true);
     } else {
         myLoadThread->load(file, false);
