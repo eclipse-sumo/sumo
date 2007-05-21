@@ -89,11 +89,11 @@ PCXMLPoints::load(OptionsCont &oc)
 }
 
 
-void 
+void
 PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
                             const Attributes &attrs)
 {
-    if(name!="poi") {
+    if (name!="poi") {
         return;
     }
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
@@ -136,17 +136,15 @@ PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
 }
 
 
-void 
+void
 PCXMLPoints::myCharacters(SumoXMLTag , const std::string &,
                           const std::string &)
-{
-}
+{}
 
 
-void 
+void
 PCXMLPoints::myEndElement(SumoXMLTag , const std::string &)
-{
-}
+{}
 
 
 
