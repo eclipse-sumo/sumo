@@ -189,30 +189,29 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
 
         // set information about later beginning lanes
         size_t priorLaneNo = edge->getNoLanes();
-        if(hasAttribute(attrs, SUMO_ATTR_FORCE_LENGTH)) {
+        if (hasAttribute(attrs, SUMO_ATTR_FORCE_LENGTH)) {
             try {
                 int forcedLength = getInt(attrs, SUMO_ATTR_FORCE_LENGTH); // !!! describe
                 int nameid = forcedLength;
-                forcedLength = (int) (edge->getGeometry().length() - forcedLength);
+                forcedLength = (int)(edge->getGeometry().length() - forcedLength);
                 std::vector<Expansion>::iterator i;
                 i = find_if(myExpansions.begin(), myExpansions.end(), expansion_by_pos_finder((SUMOReal) forcedLength));
-                if(i==myExpansions.end()) {
+                if (i==myExpansions.end()) {
                     Expansion e;
                     e.pos = (SUMOReal) forcedLength;
                     e.nameid = nameid;
-                    for(size_t j=0; j<edge->getNoLanes(); j++) {
+                    for (size_t j=0; j<edge->getNoLanes(); j++) {
                         e.lanes.push_back(j);
                     }
                     myExpansions.push_back(e);
                 }
                 i = find_if(myExpansions.begin(), myExpansions.end(), expansion_by_pos_finder((SUMOReal) forcedLength));
                 std::vector<int>::iterator k = find((*i).lanes.begin(), (*i).lanes.end(), lane);
-                if(k!=(*i).lanes.end()) {
+                if (k!=(*i).lanes.end()) {
                     (*i).lanes.erase(k);
                 }
-            } catch (NumberFormatException &) {
-            } catch (EmptyData &) {
-            }
+            } catch (NumberFormatException &) {}
+            catch (EmptyData &) {}
         }
         /*
         // to split?
@@ -336,13 +335,13 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
                 }
                 return;
             }
-            if(e.pos<0) {
+            if (e.pos<0) {
                 e.pos = edge->getGeometry().length() + e.pos;
             }
             myExpansions.push_back(e);
-        } catch(EmptyData&) {
+        } catch (EmptyData&) {
             MsgHandler::getErrorInstance()->inform("The position of an expansion is missing (edge '" + myCurrentID + "').");
-        } catch(NumberFormatException&) {
+        } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("The position of an expansion is not numeric (edge '" + myCurrentID + "').");
         }
     }
@@ -364,7 +363,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setName(const Attributes &attrs)
 {
-    if(hasAttribute(attrs, SUMO_ATTR_NAME)) {
+    if (hasAttribute(attrs, SUMO_ATTR_NAME)) {
         myCurrentName = getString(attrs, SUMO_ATTR_NAME);
     } else {
         myCurrentName = myCurrentID;
@@ -378,7 +377,7 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
     // try to get the type and maybe to overwrite default values for speed, priority and th enumber of lanes
     myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
     myCurrentType = "";
-    if(hasAttribute(attrs, SUMO_ATTR_TYPE)) {
+    if (hasAttribute(attrs, SUMO_ATTR_TYPE)) {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
         myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
         myCurrentPriority = myTypeCont.getPriority(myCurrentType);
@@ -594,7 +593,7 @@ void
 NIXMLEdgesHandler::setLength(const Attributes &attrs)
 {
     // get the length or compute it
-    if(hasAttribute(attrs, SUMO_ATTR_LENGTH)) {
+    if (hasAttribute(attrs, SUMO_ATTR_LENGTH)) {
         try {
             myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
         } catch (NumberFormatException) {
@@ -665,16 +664,16 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &name,
                                 const std::string &chars)
 {
     if (name=="expansion") {
-        if(myExpansions.size()!=0) {
+        if (myExpansions.size()!=0) {
             Expansion &e = myExpansions.back();
             StringTokenizer st(chars, ";");
-            while(st.hasNext()) {
+            while (st.hasNext()) {
                 try {
                     int lane = TplConvert<char>::_2int(st.next().c_str());
                     e.lanes.push_back(lane);
-                } catch(NumberFormatException &) {
+                } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
-                } catch(EmptyData &) {
+                } catch (EmptyData &) {
                     MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
                 }
             }
@@ -689,29 +688,29 @@ void
 NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     if (element==SUMO_TAG_EDGE) {
-        if(myExpansions.size()!=0) {
+        if (myExpansions.size()!=0) {
             std::vector<Expansion>::iterator i, i2;
             sort(myExpansions.begin(), myExpansions.end(), expansions_sorter());
             NBEdge *e = myEdgeCont.retrieve(myCurrentID);
             // compute the node positions and sort the lanes
             SUMOReal prev = 0;
-            for(i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
+            for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
             }
             // patch lane information
             //  !!! hack: normally, all lanes to remove should always be supplied
-            for(i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
+            for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 vector<int>::iterator k;
                 vector<int> lanes;
-                for(size_t l=0; l<e->getNoLanes(); ++l) {
-                    if(find((*i).lanes.begin(), (*i).lanes.end(), l)==(*i).lanes.end()) {
+                for (size_t l=0; l<e->getNoLanes(); ++l) {
+                    if (find((*i).lanes.begin(), (*i).lanes.end(), l)==(*i).lanes.end()) {
                         lanes.push_back(l);
                     }
                 }
-                for(i2=i+1; i2!=myExpansions.end(); ++i2) {
-                    for(vector<int>::iterator k=lanes.begin(); k!=lanes.end(); ++k) {
-                        if(find((*i2).lanes.begin(), (*i2).lanes.end(), *k)!=(*i2).lanes.end()) {
+                for (i2=i+1; i2!=myExpansions.end(); ++i2) {
+                    for (vector<int>::iterator k=lanes.begin(); k!=lanes.end(); ++k) {
+                        if (find((*i2).lanes.begin(), (*i2).lanes.end(), *k)!=(*i2).lanes.end()) {
                             (*i2).lanes.erase(find((*i2).lanes.begin(), (*i2).lanes.end(), *k));
                         }
                     }
@@ -720,7 +719,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
             SUMOReal seen = 0;
             // split the edge
             size_t lastRightLane = 0;
-            for(i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
+            for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 const Expansion &exp = *i;
                 assert(exp.lanes.size()!=0);
                 if (exp.pos>0 && e->getGeometry().length()-exp.pos>0) {
@@ -736,16 +735,16 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
                         NBEdge *ne = myEdgeCont.retrieve(nid);
                         pe->decLaneNo(ne->getNoLanes()-exp.lanes.size());
                         // reconnect lanes
-                            // how many lanes on the right are missing?
+                        // how many lanes on the right are missing?
                         int off = exp.lanes[0] - lastRightLane;
                         lastRightLane = exp.lanes[0];
                         pe->addLane2LaneConnections(0, ne, off, pe->getNoLanes(), false, true);
-                            // add to the right?
-                        if(off>0) {
+                        // add to the right?
+                        if (off>0) {
                             pe->addLane2LaneConnection(0, ne, off-1, false, false);
                         }
-                            // add to the left?
-                        if(off+exp.lanes.size()<ne->getNoLanes()) {
+                        // add to the left?
+                        if (off+exp.lanes.size()<ne->getNoLanes()) {
                             pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, off+exp.lanes.size(), false, false);
                         }
                         // move to next

@@ -130,13 +130,11 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
 
 void NISUMOHandlerEdges::myCharacters(SumoXMLTag , const std::string &,
                                       const std::string &)
-{
-}
+{}
 
 
 void NISUMOHandlerEdges::myEndElement(SumoXMLTag , const std::string &)
-{
-}
+{}
 
 
 

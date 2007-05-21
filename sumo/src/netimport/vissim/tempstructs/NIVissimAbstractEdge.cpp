@@ -56,7 +56,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     // convert/publicate geometry
     std::deque<Position2D>::const_iterator i;
     const std::deque<Position2D> &geomC = geom.getCont();
-    for(i=geomC.begin(); i!=geomC.end(); ++i) {
+    for (i=geomC.begin(); i!=geomC.end(); ++i) {
         Position2D p = *i;
         GeoConvHelper::x2cartesian(p);
         myGeom.push_back_noDoublePos(p);

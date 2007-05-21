@@ -227,7 +227,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                                         NBEdge *from,
                                         NBEdge *to)
 {
-    if(to==0) {
+    if (to==0) {
         // do nothing if it's a dead end
         return;
     }
@@ -276,7 +276,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         }
         //
         bool keepUncontrolled = getBoolSecure(attrs, SUMO_ATTR_UNCONTROLLED, false);
-        if(keepUncontrolled) {
+        if (keepUncontrolled) {
             from->disableConnection4TLS(fromLane, to, toLane);
         }
     }

@@ -176,7 +176,8 @@ private:
 
     NBDistrictCont &myDistrictCont;
 
-    struct Expansion {
+    struct Expansion
+    {
         std::vector<int> lanes;
         SUMOReal pos;
         int nameid;
@@ -188,7 +189,8 @@ private:
     class expansions_sorter
     {
     public:
-        explicit expansions_sorter() { }
+        explicit expansions_sorter()
+        { }
 
         /// comparing operator
         int operator()(const Expansion &e1, const Expansion &e2) const

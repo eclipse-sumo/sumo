@@ -71,12 +71,12 @@ TNGNet::TNGNet(NBNetBuilder &nb)
 TNGNet::~TNGNet()
 {
     {
-        for(TLinkList::iterator ni=myLinkList.begin(); ni!=myLinkList.end(); ++ni) {
+        for (TLinkList::iterator ni=myLinkList.begin(); ni!=myLinkList.end(); ++ni) {
             delete *ni;
         }
     }
     {
-        for(TNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
+        for (TNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
             delete *ni;
         }
     }
@@ -212,21 +212,21 @@ TNGNet::toNB() const
 }
 
 
-void 
+void
 TNGNet::add(TNode *node)
 {
     myNodeList.push_back(node);
 }
 
 
-void 
+void
 TNGNet::add(TLink *edge)
 {
     myLinkList.push_back(edge);
 }
 
 
-size_t 
+size_t
 TNGNet::nodeNo() const
 {
     return myNodeList.size();

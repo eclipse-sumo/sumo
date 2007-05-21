@@ -54,7 +54,7 @@ class TNeighbourDistribution
 public:
     TNeighbourList Neighbours;
 
-    /** 
+    /**
      * @brief adds a NeighbourItem to list - if NumNeighbours is already existing,
      *
      * the old ratio is overwritten */

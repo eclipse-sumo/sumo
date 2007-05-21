@@ -163,7 +163,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
     string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
-    if(tlID!="") {
+    if (tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
         if (tlDef==0) {
@@ -192,7 +192,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
 
     // process inner edges which shall be controlled
     string controlledInner = getStringSecure(attrs, SUMO_ATTR_CONTROLLED_INNER, "");
-    if(controlledInner!="") {
+    if (controlledInner!="") {
         StringTokenizer st(controlledInner, ";");
         tlDef->addControlledInnerEdges(st.getVector());
     }
@@ -202,14 +202,12 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
 void
 NIXMLNodesHandler::myCharacters(SumoXMLTag , const std::string &,
                                 const std::string &)
-{
-}
+{}
 
 
 void
 NIXMLNodesHandler::myEndElement(SumoXMLTag , const std::string &)
-{
-}
+{}
 
 
 

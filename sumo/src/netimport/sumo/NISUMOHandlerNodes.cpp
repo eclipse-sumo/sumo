@@ -147,13 +147,11 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
 void
 NISUMOHandlerNodes::myCharacters(SumoXMLTag , const std::string &,
                                  const std::string &)
-{
-}
+{}
 
 void
 NISUMOHandlerNodes::myEndElement(SumoXMLTag , const std::string &)
-{
-}
+{}
 
 
 

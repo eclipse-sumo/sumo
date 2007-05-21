@@ -67,8 +67,7 @@ NIVisumTL::TimePeriod::TimePeriod(SUMOTime StartTime, SUMOTime EndTime)
 }
 
 NIVisumTL::TimePeriod::~TimePeriod()
-{
-}
+{}
 
 SUMOTime
 NIVisumTL::TimePeriod::GetEndTime()
@@ -107,8 +106,7 @@ NIVisumTL::Phase::Phase(SUMOTime StartTime, SUMOTime EndTime)
 {}
 
 NIVisumTL::Phase::~Phase()
-{
-}
+{}
 
 /* -------------------------------------------------------------------------
  * methods from NIVisumTL::SignalGroup
