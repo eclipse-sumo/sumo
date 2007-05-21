@@ -52,7 +52,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 DFRORouteCont::DFRORouteCont(const DFRONet &net)
-    : myNet(net)
+        : myNet(net)
 {}
 
 /*

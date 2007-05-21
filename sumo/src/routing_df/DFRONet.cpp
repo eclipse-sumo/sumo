@@ -881,7 +881,7 @@ DFRONet::getDetectorEdge(const DFDetector &det) const
     string edgeName = det.getLaneID();
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
     ROEdge *ret = ro->getEdge(edgeName);
-    if(ret==0) {
+    if (ret==0) {
         MsgHandler::getErrorInstance()->inform("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
         throw ProcessError();
     }
@@ -959,7 +959,7 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge,
                   const DFDetectorCon &detectors,
                   bool strict) const
 {
-    if(seen.size()==1000) { // !!!
+    if (seen.size()==1000) { // !!!
         MsgHandler::getWarningInstance()->inform("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
@@ -1061,7 +1061,7 @@ bool
 DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
-    if(seen.size()==1000) { // !!!
+    if (seen.size()==1000) { // !!!
         MsgHandler::getWarningInstance()->inform("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
@@ -1139,7 +1139,7 @@ bool
 DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
-    if(seen.size()==1000) { // !!!
+    if (seen.size()==1000) { // !!!
         MsgHandler::getWarningInstance()->inform("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
         return false;
     }
@@ -1314,7 +1314,7 @@ DFRONet::computeID4Route(DFRORouteDesc &desc) const
     ROEdge *last = *(desc.edges2Pass.end()-1);
     pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
     desc.routename = first->getID() + "_to_" + last->getID();
-    if(myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
+    if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
         myConnectionOccurences[c] = 0;
     } else {
         myConnectionOccurences[c] = myConnectionOccurences[c] + 1;

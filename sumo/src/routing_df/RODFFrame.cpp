@@ -194,7 +194,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Processing", "Joins detectors lying on same height");
 
-    // 
+    //
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale factor for flows");
 

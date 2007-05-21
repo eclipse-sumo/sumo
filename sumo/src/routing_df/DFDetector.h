@@ -135,9 +135,9 @@ protected:
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
     SUMOReal getUsage(ROEdge *e,
-        std::vector<ROEdge*>::const_iterator q,
-        const DFDetectorCon &detectors, 
-        const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net) const;
+                      std::vector<ROEdge*>::const_iterator q,
+                      const DFDetectorCon &detectors,
+                      const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net) const;
 
 protected:
     std::string myID;

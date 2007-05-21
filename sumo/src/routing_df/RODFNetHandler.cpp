@@ -78,7 +78,7 @@ RODFNetHandler::myCharacters(SumoXMLTag element, const std::string&name,
     switch (element) {
     case SUMO_TAG_LANE:
         // may be an unparsed internal lane
-        if(_currentEdge!=0) {
+        if (_currentEdge!=0) {
             Position2DVector p = GeomConvHelper::parseShape(chars);
             static_cast<RODFEdge*>(_currentEdge)->setFromPosition(p[0]);
             static_cast<RODFEdge*>(_currentEdge)->setToPosition(p[-1]);
