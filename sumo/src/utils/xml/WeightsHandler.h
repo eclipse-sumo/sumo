@@ -63,17 +63,20 @@ public:
      * @class EdgeFloatTimeLineRetriever
      * @brief Interface for a class which obtains read weights for named edges
      */
-    class EdgeFloatTimeLineRetriever {
+    class EdgeFloatTimeLineRetriever
+    {
     public:
         /// Constructor
-        EdgeFloatTimeLineRetriever() { }
+        EdgeFloatTimeLineRetriever()
+        { }
 
         /// Destructor
-        virtual ~EdgeFloatTimeLineRetriever() { }
+        virtual ~EdgeFloatTimeLineRetriever()
+        { }
 
         /// Adds a weight for a givenedge and time period
         virtual void addEdgeWeight(const std::string &id,
-            SUMOReal val, SUMOTime beg, SUMOTime end) = 0;
+                                   SUMOReal val, SUMOTime beg, SUMOTime end) = 0;
 
     };
 
@@ -81,12 +84,13 @@ public:
      * @class ToRetrieveDefinition
      * @brief Complete definition about what shall be retrieved and where to store it
      */
-    class ToRetrieveDefinition {
+    class ToRetrieveDefinition
+    {
     public:
-        /// Constructor 
+        /// Constructor
         ToRetrieveDefinition(const std::string &elementName,
-            const std::string &attributeName, bool edgeBased,
-            EdgeFloatTimeLineRetriever &destination);
+                             const std::string &attributeName, bool edgeBased,
+                             EdgeFloatTimeLineRetriever &destination);
 
         /// Destructor
         ~ToRetrieveDefinition();
@@ -120,11 +124,11 @@ public:
 
     /// Constructor
     WeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
-        const std::string &file);
+                   const std::string &file);
 
     /// Constructor
     WeightsHandler(ToRetrieveDefinition *def,
-        const std::string &file);
+                   const std::string &file);
 
     /// Destructor
     ~WeightsHandler();

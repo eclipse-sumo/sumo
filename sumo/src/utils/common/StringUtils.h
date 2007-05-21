@@ -69,7 +69,7 @@ public:
     /// Converts the given string to upper characters
     static void upper(std::string &str);
 
-    /// Builds a time string (hh:mm:ss) from the given seconds 
+    /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
 
     /// An empty string

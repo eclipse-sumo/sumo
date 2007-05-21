@@ -47,7 +47,7 @@
  * @class OutputDevice
  * An abstract output device
  */
-class OutputDevice 
+class OutputDevice
 {
 public:
     /// Constructor
@@ -120,8 +120,9 @@ public:
      *
      * If the boolean marker was not set before, false is returned
      */
-    bool getBoolMarker(const std::string &name) const {
-        if(myBoolMarkers.find(name)==myBoolMarkers.end()) {
+    bool getBoolMarker(const std::string &name) const
+    {
+        if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
             return false;
         }
         return myBoolMarkers.find(name)->second;
@@ -131,7 +132,8 @@ public:
      *
      * The previous value will be overwritten
      */
-    void setBoolMarker(const std::string &name, bool value) {
+    void setBoolMarker(const std::string &name, bool value)
+    {
         myBoolMarkers[name] = value;
     }
     ///}

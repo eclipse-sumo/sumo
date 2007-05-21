@@ -65,7 +65,7 @@ GUICompleteSchemeStorage::~GUICompleteSchemeStorage()
 
 
 
-void 
+void
 GUICompleteSchemeStorage::add(GUISUMOAbstractView::VisualizationSettings &scheme)
 {
     std::string name = scheme.name;
@@ -83,17 +83,17 @@ GUICompleteSchemeStorage::get(const std::string &name)
 }
 
 
-bool 
+bool
 GUICompleteSchemeStorage::contains(const std::string &name) const
 {
     return mySettings.find(name)!=mySettings.end();
 }
 
 
-void 
+void
 GUICompleteSchemeStorage::remove(const std::string &name)
 {
-    if(!contains(name)) {
+    if (!contains(name)) {
         return;
     }
     mySortedSchemeNames.erase(find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name));
@@ -322,10 +322,10 @@ GUICompleteSchemeStorage::init(FXApp *app,
     int noSaved = app->reg().readIntEntry("VisualizationSettings","settingNo", 0);
     string setting1 = app->reg().readStringEntry("VisualizationSettings","visset#0", "");
 
-    for(int i=0; i<noSaved; ++i) {
+    for (int i=0; i<noSaved; ++i) {
         string name = "visset#" + toString(i);
         string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
-        if(setting!="") {
+        if (setting!="") {
             size_t j, k;
             GUISUMOAbstractView::VisualizationSettings vs;
 
@@ -342,11 +342,11 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
             vs.laneEdgeMode = app->reg().readIntEntry(name.c_str(), "laneEdgeMode", 0);
             size_t nlc = app->reg().readIntEntry(name.c_str(), "noLaneCols", 0);
-            for(j=0; j<nlc; ++j) {
+            for (j=0; j<nlc; ++j) {
                 size_t nlc1 = (size_t) app->reg().readIntEntry(name.c_str(), ("nlcN" + toString(j)).c_str(), 0);
                 size_t nlc2 = (size_t) app->reg().readIntEntry(name.c_str(), ("nlcS" + toString(j)).c_str(), 0);
                 std::vector<RGBColor> cols;
-                for(k=0; k<nlc2; ++k) {
+                for (k=0; k<nlc2; ++k) {
                     cols.push_back(convert(app->reg().readIntEntry(name.c_str(), ("nlcC" + toString(j) + "_" + toString(k)).c_str(), FXRGB(255, 255, 255))));
                 }
                 vs.laneColorings[nlc1] = cols;
@@ -363,11 +363,11 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
             vs.vehicleMode = app->reg().readIntEntry(name.c_str(), "vehicleMode", 0);
             size_t nvc = app->reg().readIntEntry(name.c_str(), "noVehCols", 0);
-            for(j=0; j<nvc; ++j) {
+            for (j=0; j<nvc; ++j) {
                 size_t nvc1 = (size_t) app->reg().readIntEntry(name.c_str(), ("nvcN" + toString(j)).c_str(), 0);
                 size_t nvc2 = (size_t) app->reg().readIntEntry(name.c_str(), ("nvcS" + toString(j)).c_str(), 0);
                 std::vector<RGBColor> cols;
-                for(k=0; k<nvc2; ++k) {
+                for (k=0; k<nvc2; ++k) {
                     cols.push_back(convert(app->reg().readIntEntry(name.c_str(), ("nvcC" + toString(j) + "_" + toString(k)).c_str(), FXRGB(255, 255, 255))));
                 }
                 vs.vehicleColorings[nvc1] = cols;
@@ -395,7 +395,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
             vs.addExaggeration = (SUMOReal) app->reg().readRealEntry(name.c_str(), "addExaggeration", 1);
             vs.drawAddName = app->reg().readIntEntry(name.c_str(), "drawAddName", 0)!=0 ? 1 : 0;
             vs.addNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "addNameSize", 50);
-                //vs.addNameColor = RGBColor(0, .5, 1);
+            //vs.addNameColor = RGBColor(0, .5, 1);
 
             vs.poiExaggeration = (SUMOReal) app->reg().readRealEntry(name.c_str(), "poiExaggeration", 1);
             vs.minPOISize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minPOISize", 1);

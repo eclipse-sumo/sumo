@@ -106,7 +106,7 @@ enum SUMOVehicleClass {
     SVC_BICYCLE = 524288,
     /// is a pedestrian
     SVC_PEDESTRIAN = 1048576
-    // }
+                     // }
 
 };
 

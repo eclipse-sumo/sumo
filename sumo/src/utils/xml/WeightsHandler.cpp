@@ -62,7 +62,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // !!!
 XMLCh*
-tconvert(const std::string &name) 
+tconvert(const std::string &name)
 {
     size_t len = name.length();
     XMLCh *ret = new XMLCh[len+1];
@@ -77,11 +77,11 @@ tconvert(const std::string &name)
 
 
 WeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &elementName,
-                                                           const std::string &attributeName, 
-                                                           bool edgeBased,
-                                                           EdgeFloatTimeLineRetriever &destination)
-    : myDestination(destination), myAmEdgeBased(edgeBased),
-    myMMLAttributeName(attributeName)
+        const std::string &attributeName,
+        bool edgeBased,
+        EdgeFloatTimeLineRetriever &destination)
+        : myDestination(destination), myAmEdgeBased(edgeBased),
+        myMMLAttributeName(attributeName)
 {
     myElementName = tconvert(elementName);
     myAttributeName = tconvert(attributeName);
@@ -100,16 +100,15 @@ WeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 // ---------------------------------------------------------------------------
 WeightsHandler::WeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
                                const std::string &file)
-        : SUMOSAXHandler("sumo-netweights", file), 
-        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1), 
+        : SUMOSAXHandler("sumo-netweights", file),
+        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
         myDefinitions(defs)
-{
-}
+{}
 
 
 WeightsHandler::WeightsHandler(ToRetrieveDefinition *def,
                                const std::string &file)
-        : SUMOSAXHandler("sumo-netweights", file), 
+        : SUMOSAXHandler("sumo-netweights", file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1)
 {
     myDefinitions.push_back(def);
@@ -119,14 +118,14 @@ WeightsHandler::WeightsHandler(ToRetrieveDefinition *def,
 WeightsHandler::~WeightsHandler()
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
-    for(i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+    for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
         delete *i;
     }
 }
 
 
 void WeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
-                                      const Attributes &attrs)
+                                    const Attributes &attrs)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -154,11 +153,11 @@ void
 WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
-    if(isEdge) {
+    if (isEdge) {
         // process all that want values directly from the edge
-        for(i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
             if ((*i)->myAmEdgeBased) {
-                if(hasAttribute(attrs, (*i)->myAttributeName)) {
+                if (hasAttribute(attrs, (*i)->myAttributeName)) {
                     try {
                         (*i)->myAggValue = getFloat(attrs, (*i)->myAttributeName);
                         (*i)->myNoLanes = 1;
@@ -178,7 +177,7 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
         }
     } else {
         // process the current lane values
-        for(i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
             if (!(*i)->myAmEdgeBased) {
                 try {
                     (*i)->myAggValue += getFloat(attrs, (*i)->myAttributeName);
@@ -195,22 +194,22 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 }
 
 
-void 
+void
 WeightsHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
-                                    const std::string &/*chars*/)
+                             const std::string &/*chars*/)
 {}
 
 
-void 
+void
 WeightsHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
     if (element==SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;
-        for(i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
-            if((*i)->myHadAttribute) {
+        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+            if ((*i)->myHadAttribute) {
                 (*i)->myDestination.addEdgeWeight(myCurrentEdgeID,
-                    (*i)->myAggValue/(SUMOReal)(*i)->myNoLanes,
-                    myCurrentTimeBeg, myCurrentTimeEnd);
+                                                  (*i)->myAggValue/(SUMOReal)(*i)->myNoLanes,
+                                                  myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
     }

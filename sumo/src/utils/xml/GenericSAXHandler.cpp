@@ -54,10 +54,10 @@ GenericSAXHandler::GenericSAXHandler()
 
 
 GenericSAXHandler::GenericSAXHandler(
-        GenericSAXHandler::Tag *tags, 
-        GenericSAXHandler::Attr *attrs)
+    GenericSAXHandler::Tag *tags,
+    GenericSAXHandler::Attr *attrs)
         : _errorOccured(false), _unknownOccured(false)
-{ 
+{
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
         _tagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
@@ -73,9 +73,9 @@ GenericSAXHandler::GenericSAXHandler(
 
 
 GenericSAXHandler::~GenericSAXHandler()
-{ 
+{
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
-        delete[] (*i1).second;
+        delete[](*i1).second;
     }
 }
 
@@ -211,9 +211,9 @@ GenericSAXHandler::unknownOccured() const
 
 void
 GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
-                                 const XMLCh* const /*localname*/,
-                                 const XMLCh* const qname,
-                                 const Attributes& attrs)
+                                const XMLCh* const /*localname*/,
+                                const XMLCh* const qname,
+                                const Attributes& attrs)
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
@@ -229,8 +229,8 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
 
 void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
-                               const XMLCh* const /*localname*/,
-                               const XMLCh* const qname)
+                              const XMLCh* const /*localname*/,
+                              const XMLCh* const qname)
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
@@ -267,7 +267,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
-                               const unsigned int length)
+                              const unsigned int length)
 {
     myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
 }

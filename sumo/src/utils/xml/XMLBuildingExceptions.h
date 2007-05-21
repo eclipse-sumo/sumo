@@ -60,7 +60,7 @@ class XMLBuildingException : public runtime_error
 public:
     /** constructor */
     XMLBuildingException(const string &message)
-        : runtime_error(message)
+            : runtime_error(message)
     {}
 
 };
@@ -76,8 +76,8 @@ class XMLIdNotKnownException : public XMLBuildingException
 public:
     /** constructor */
     XMLIdNotKnownException(const string &object, const string &id)
-        : XMLBuildingException("The object " + object + " with the id " + id
-                        + " is not known")
+            : XMLBuildingException("The object " + object + " with the id " + id
+                                   + " is not known")
     {}
 
 };
@@ -92,7 +92,7 @@ class XMLIdAlreadyUsedException : public XMLBuildingException
 public:
     /** constructor */
     XMLIdAlreadyUsedException(const string &object, const string &id)
-        : XMLBuildingException("Another " + object + " with the id " + id + " exists")
+            : XMLBuildingException("Another " + object + " with the id " + id + " exists")
     {}
 
 };
@@ -107,8 +107,8 @@ class XMLDepartLaneDuplicationException : public XMLBuildingException
 public:
     /** constructor */
     XMLDepartLaneDuplicationException(const string &id)
-        : XMLBuildingException("The lane with the id " + id
-                        + " was tried to be added as a depart lane to an edge which already has a depart lane")
+            : XMLBuildingException("The lane with the id " + id
+                                   + " was tried to be added as a depart lane to an edge which already has a depart lane")
     {}
 
 };
@@ -124,8 +124,8 @@ class XMLInvalidChildException : public XMLBuildingException
 public:
     /** constructor */
     XMLInvalidChildException(const string &object, const string &id)
-        : XMLBuildingException("The object " + object + " with the id " + id
-                        + " is not nested properly")
+            : XMLBuildingException("The object " + object + " with the id " + id
+                                   + " is not nested properly")
     {}
 
 };
@@ -140,8 +140,8 @@ class XMLListEmptyException : public XMLBuildingException
 public:
     /** constructor */
     XMLListEmptyException(const string &object, const string &id)
-        : XMLBuildingException("The list belonging to the '" + object + "' with the id '"
-                        + id + "' is empty")
+            : XMLBuildingException("The list belonging to the '" + object + "' with the id '"
+                                   + id + "' is empty")
     {}
 
 };

@@ -59,7 +59,7 @@ class InvalidArgument : public runtime_error
 public:
     /** constructor */
     InvalidArgument(const string &message)
-        : runtime_error(message)
+            : runtime_error(message)
     {}
 
 };
@@ -76,7 +76,7 @@ class ProcessError : runtime_error
 public:
     /** constructor */
     ProcessError()
-        : runtime_error("Process Error")
+            : runtime_error("Process Error")
     {}
 
 };
@@ -91,7 +91,7 @@ class EmptyData : public runtime_error
 public:
     /** constructor */
     EmptyData()
-        : runtime_error("Empty Data")
+            : runtime_error("Empty Data")
     {}
 
 };
@@ -108,7 +108,7 @@ class NumberFormatException : runtime_error
 public:
     /** constructor */
     NumberFormatException()
-        : runtime_error("Number Format")
+            : runtime_error("Number Format")
     {}
 
 };
@@ -124,7 +124,7 @@ class OutOfBoundsException : runtime_error
 public:
     /** constructor */
     OutOfBoundsException()
-        : runtime_error("Out Of Bounds")
+            : runtime_error("Out Of Bounds")
     {}
 
 };
@@ -140,7 +140,7 @@ class UnknownElement : runtime_error
 public:
     /** constructor */
     UnknownElement()
-        : runtime_error("Unknown Element")
+            : runtime_error("Unknown Element")
     {}
 
 };
@@ -151,7 +151,7 @@ class FileBuildError : public runtime_error
 public:
     /** constructor */
     FileBuildError(const string &message)
-        : runtime_error(message)
+            : runtime_error(message)
     {}
 
 };
@@ -162,7 +162,7 @@ class NetworkError : public runtime_error
 public:
     // constructor
     NetworkError(const string &message)
-        : runtime_error(message)
+            : runtime_error(message)
     {}
 
 };

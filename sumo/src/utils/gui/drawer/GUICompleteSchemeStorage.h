@@ -76,7 +76,7 @@ public:
 
     /// initialises the storage with some default settings
     void init(FXApp *app,
-        const std::map<int, std::vector<RGBColor> > &vehColMap,
+              const std::map<int, std::vector<RGBColor> > &vehColMap,
               const std::map<int, std::vector<RGBColor> > &laneColMap);
 
     /// Returns all settings

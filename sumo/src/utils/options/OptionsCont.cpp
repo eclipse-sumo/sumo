@@ -613,7 +613,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
             }
             // write the option and the value (if given)
             os << "      <" << *j << ">";
-            if(o->isSet()) {
+            if (o->isSet()) {
                 os << o->getValue();
             }
             os << "</" << *j << ">" << endl;

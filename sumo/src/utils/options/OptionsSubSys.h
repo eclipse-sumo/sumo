@@ -84,7 +84,7 @@ public:
      *
      * The name will be inserted as the name of the configuration to load. */
     static bool guiInit(fill_options *fill_f,
-        const std::string &optionName, const std::string &optionValue);
+                        const std::string &optionName, const std::string &optionValue);
 
     /** @brief Retrieves the options
      * 

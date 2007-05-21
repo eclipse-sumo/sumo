@@ -63,24 +63,28 @@ public:
     static void initRandGlobal(const OptionsCont &options);
 
     /// Returns a random integer between [0, len-1]
-    static inline size_t getRandomIndex(size_t len) {
+    static inline size_t getRandomIndex(size_t len)
+    {
         return (size_t) floor((double) len * RandHelper::myRandomNumberGenerator.randExc());
     }
 
     /// Returns a random integer between [0, 1)
-    static inline SUMOReal rand() {
+    static inline SUMOReal rand()
+    {
         return (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
     /// Returns a random integer between [0, maxV)
-    static inline SUMOReal rand(SUMOReal maxV) {
-        return maxV * (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
+    static inline SUMOReal rand(SUMOReal maxV)
+    {
+        return maxV *(SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
     /// Returns a random integer between [minV, maxV)
-    static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV) {
+    static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV)
+    {
         SUMOReal range = maxV - minV;
-        return minV + (range * (SUMOReal) RandHelper::myRandomNumberGenerator.randExc());
+        return minV + (range *(SUMOReal) RandHelper::myRandomNumberGenerator.randExc());
     }
 
 protected:

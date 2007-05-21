@@ -166,28 +166,28 @@ GeoConvHelper::x2cartesian(Position2D &from)
 }
 
 
-void 
+void
 GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y)
 {
     myOrigBoundary.add(x, y);
 }
 
 
-void 
+void
 GeoConvHelper::includeInOriginal(const Position2D &p)
 {
     myOrigBoundary.add(p);
 }
 
 
-void 
+void
 GeoConvHelper::includeInOriginal(const Boundary &b)
 {
     myOrigBoundary.add(b);
 }
 
 
-void 
+void
 GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y)
 {
     myOffset.add(x, y);

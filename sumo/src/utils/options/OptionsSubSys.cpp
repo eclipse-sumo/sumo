@@ -85,7 +85,7 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
 
 bool
 OptionsSubSys::guiInit(fill_options *fill_f,
-                       const std::string &optionName, 
+                       const std::string &optionName,
                        const std::string &optionValue)
 {
     (*fill_f)(myOptions);

@@ -77,8 +77,7 @@ public:
         }
     }
 
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_SET;
     }
 

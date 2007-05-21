@@ -83,7 +83,7 @@ Boundary::reset()
 void
 Boundary::add(SUMOReal x, SUMOReal y)
 {
-    if(!myWasInitialised) {
+    if (!myWasInitialised) {
         _ymin = y;
         _ymax = y;
         _xmin = x;

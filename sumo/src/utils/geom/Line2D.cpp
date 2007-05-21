@@ -225,7 +225,7 @@ Line2D::distanceTo(const Position2D &p) const
 
     U = (((p.x() - myP1.x()) * (myP2.x() - myP1.x())) +
          ((p.y() - myP1.y()) * (myP2.y() - myP1.y())) /*+
-                 ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+                          ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
         )
         /
         (LineMag * LineMag);

@@ -47,9 +47,9 @@
 // ===========================================================================
 /**
  * @class SUMOSAXHandler
- * @brief Base class for XML-loading. 
+ * @brief Base class for XML-loading.
  *
- * This class knows all tags SUMO uses, so all SUMO-XML - loading classes 
+ * This class knows all tags SUMO uses, so all SUMO-XML - loading classes
  *  should be derived from it.
  */
 class SUMOSAXHandler : public FileErrorReporter,

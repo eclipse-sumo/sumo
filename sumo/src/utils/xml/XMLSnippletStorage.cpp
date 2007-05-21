@@ -60,22 +60,21 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-XMLSnippletStorage::XMLSnippletStorage(XMLSnippletStorage *parent, 
+XMLSnippletStorage::XMLSnippletStorage(XMLSnippletStorage *parent,
                                        const std::string &name)
-    : myParent(parent), myName(name)
-{
-}
+        : myParent(parent), myName(name)
+{}
 
 
 XMLSnippletStorage::~XMLSnippletStorage()
 {
-    for(std::vector<XMLSnippletStorage*>::iterator i=myChildren.begin(); i!=myChildren.end(); ++i) {
-        delete (*i);
+    for (std::vector<XMLSnippletStorage*>::iterator i=myChildren.begin(); i!=myChildren.end(); ++i) {
+        delete(*i);
     }
 }
 
 
-void 
+void
 XMLSnippletStorage::addAttribute(const std::string &name, const std::string &val)
 {
     Attribute attr(name, val);
@@ -83,7 +82,7 @@ XMLSnippletStorage::addAttribute(const std::string &name, const std::string &val
 }
 
 
-void 
+void
 XMLSnippletStorage::addCharacters(const std::string &chars)
 {
     myCharacters = chars;
@@ -106,22 +105,22 @@ XMLSnippletStorage::getParent()
 }
 
 
-void 
+void
 XMLSnippletStorage::flush(std::ostream &strm, size_t level)
 {
     size_t i;
-    for(i=0; i<level; i++) {
+    for (i=0; i<level; i++) {
         strm << "   ";
     }
     strm << "<" << myName;
-    for(std::vector<Attribute>::iterator j=myAttributes.begin(); j!=myAttributes.end(); ++j) {
+    for (std::vector<Attribute>::iterator j=myAttributes.begin(); j!=myAttributes.end(); ++j) {
         strm << " " << (*j).first << "=\"" << (*j).second << "\"";
     }
     strm << ">" << endl;
-    for(std::vector<XMLSnippletStorage*>::iterator k=myChildren.begin(); k!=myChildren.end(); ++k) {
+    for (std::vector<XMLSnippletStorage*>::iterator k=myChildren.begin(); k!=myChildren.end(); ++k) {
         (*k)->flush(strm, level+1);
     }
-    for(i=0; i<level; i++) {
+    for (i=0; i<level; i++) {
         strm << "   ";
     }
     strm << "</" << myName << ">" << endl;
@@ -133,7 +132,7 @@ XMLSnippletStorage::duplicate(XMLSnippletStorage *parent)
 {
     XMLSnippletStorage *ret = new XMLSnippletStorage(parent, myName);
     ret->addCharacters(myCharacters);
-    for(std::vector<XMLSnippletStorage*>::iterator i=myChildren.begin(); i!=myChildren.end(); ++i) {
+    for (std::vector<XMLSnippletStorage*>::iterator i=myChildren.begin(); i!=myChildren.end(); ++i) {
         ret->myChildren.push_back((*i)->duplicate(this));
     }
     return ret;

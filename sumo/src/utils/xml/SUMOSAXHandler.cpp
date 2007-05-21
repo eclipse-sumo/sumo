@@ -104,15 +104,15 @@ SUMOSAXHandler::fatalError(const SAXParseException& exception)
 }
 
 
-void 
+void
 SUMOSAXHandler::addUnknownSnippet(const std::string &name, const Attributes &attrs)
 {
-    if(myCurrentSnippet==0) {
+    if (myCurrentSnippet==0) {
         myCurrentSnippet = new XMLSnippletStorage(0, name);
     } else {
         myCurrentSnippet = myCurrentSnippet->addChild(name);
     }
-    for(size_t i=0; i<attrs.getLength(); ++i) {
+    for (size_t i=0; i<attrs.getLength(); ++i) {
         string aName = TplConvert<XMLCh>::_2str(attrs.getQName(i));
         string aValue = TplConvert<XMLCh>::_2str(attrs.getValue(i));
         myCurrentSnippet->addAttribute(aName, aValue);
@@ -120,32 +120,32 @@ SUMOSAXHandler::addUnknownSnippet(const std::string &name, const Attributes &att
 }
 
 
-void 
+void
 SUMOSAXHandler::addSnippetCharacters(const std::string &chars)
 {
-    if(myCurrentSnippet!=0) {
+    if (myCurrentSnippet!=0) {
         myCurrentSnippet->addCharacters(chars);
     }
 }
 
 
-void 
+void
 SUMOSAXHandler::closeSnippet()
 {
-    if(myCurrentSnippet!=0&&myCurrentSnippet->getParent()!=0) {
+    if (myCurrentSnippet!=0&&myCurrentSnippet->getParent()!=0) {
         myCurrentSnippet = myCurrentSnippet->getParent();
     }
 }
 
 
-void 
+void
 SUMOSAXHandler::flushSnippet(std::ostream &strm, int level)
 {
     myCurrentSnippet->flush(strm, level);
 }
 
 
-void 
+void
 SUMOSAXHandler::deleteSnippet()
 {
     delete myCurrentSnippet;
@@ -157,7 +157,7 @@ XMLSnippletStorage *
 SUMOSAXHandler::extractSnippet()
 {
     XMLSnippletStorage *ret = myCurrentSnippet;
-    while(ret!=0&&ret->getParent()!=0) {
+    while (ret!=0&&ret->getParent()!=0) {
         ret = ret->getParent();
     }
     myCurrentSnippet = 0;

@@ -114,7 +114,7 @@ SharedOutputDevices::getOutputDevice(const std::string &name)
     // build the device
     OutputDevice *dev = 0;
     // check whether the device shall print to stdout
-    if(name=="stdout") {
+    if (name=="stdout") {
         dev = new OutputDevice_COUT();
     } else {
         std::ofstream *strm = new std::ofstream(name.c_str());

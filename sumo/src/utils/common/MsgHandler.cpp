@@ -287,7 +287,7 @@ MsgHandler::report2cout(bool value)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
-    cout.setf(ios::fixed,ios::floatfield);
+    cout.setf(ios::fixed ,ios::floatfield);
 }
 
 
@@ -302,7 +302,7 @@ MsgHandler::report2cerr(bool value)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
-    cerr.setf(ios::fixed,ios::floatfield);
+    cerr.setf(ios::fixed ,ios::floatfield);
 }
 
 
@@ -326,8 +326,7 @@ MsgHandler::MsgHandler(MsgType type)
 
 
 MsgHandler::~MsgHandler()
-{
-}
+{}
 
 
 bool
