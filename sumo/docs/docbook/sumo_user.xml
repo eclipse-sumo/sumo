@@ -387,13 +387,13 @@
       <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data</filename>
       and its subfolders. Please remark that almost all applications are
       command line tools, what means that no window pops up if you start it,
-      you have to open a shell window first. </para>
+      you have to open a shell window first.</para>
 
       <para>Most of the examples come with a configuration-file so that may be
       directly run from the command line. Read chapter "<ulink
       url="http://sumo.sourceforge.net/docs/gen/user_chp08.shtml#user_chp08-configs">Using
       Configuration Files</ulink>" for further information on how to use
-      configuration files. </para>
+      configuration files.</para>
 
       <para>We apologize that a documentation on the examples does not exist
       (yet). Nonetheless please feel invited to take a look at the <ulink
@@ -5014,7 +5014,7 @@
               </listitem>
             </itemizedlist></para>
 
-          <para> The first three conditions can be checked using
+          <para>The first three conditions can be checked using
           <replaceable>&lt;SUMO_DIST&gt;</replaceable><filename>/tools/routecheck.py</filename>.</para>
         </sect3>
 
@@ -6769,6 +6769,7 @@ myDet1;0;10;2;100;80
             </listitem>
           </varlistentry>
         </variablelist>
+
         <para>Recent changes</para>
 
         <itemizedlist>
@@ -9897,47 +9898,6 @@ myDet1;0;10;2;100;80
               disallowed vehicle classes on for this lane</para>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
-
-      <sect2 id="user_chp06-management-c2c" revision="0.9.5">
-        <title>Car2Car-Simulation!!!</title>
-
-        <para>!!!!</para>
-
-        <caution>
-          <para>Please keep in mind that this feature is quite new and that du
-          to this some things may not work as suspected and may get changed in
-          the near future.</para>
-
-          <para>We want to ask you to supply us any comments on this topic -
-          it is not completely designed, yet.</para>
-        </caution>
-
-        <para>Examples: !!!</para>
-
-        <para>Recent changes:</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>A first support for vehicle classes was added in version
-            0.9.5</para>
-          </listitem>
-        </itemizedlist>
-
-        <sect3 id="user_chp06-management-c2c-cluster_info">
-          <title>---c2x.cluster-info</title>
-
-          <para>!!!:</para>
-
-          <programlisting>   <sgmltag>&lt;timeStep time="<replaceable>&lt;SIM_STEP&gt;</replaceable>"&gt;</sgmltag>
-      <sgmltag>&lt;cluster id="<replaceable>&lt;CLUSTER_ID&gt;</replaceable>" headID="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" \
-         vehNo="<replaceable>&lt;CLUSTER_SIZE&gt;</replaceable>"&gt;<replaceable>&lt;VEHICLES_IN_CLUSTER&gt;</replaceable>&lt;/cluster&gt;</sgmltag>
-      ... further clusters ...
-   <sgmltag>&lt;/timeStep&gt;</sgmltag>
-   ... further time steps ...</programlisting>
-
-          <para>!!!.</para>
         </sect3>
       </sect2>
     </sect1>
