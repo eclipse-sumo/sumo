@@ -1587,7 +1587,7 @@ MSVehicle::getRoute(int index) const
     std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
     assert(i!=myPointerCORNMap.end());
     const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const) (*i).second;
-    assert(v->size()>index);
+    assert((int) v->size()>index);
     return *((*v)[index].route);
 }
 
@@ -1936,7 +1936,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
         std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
         assert(i!=myPointerCORNMap.end());
         const ReplacedRoutesVector *v = (const ReplacedRoutesVector *) (*i).second;
-        assert(v->size()>index);
+        assert((int) v->size()>index);
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
         // write the time at which the route was replaced

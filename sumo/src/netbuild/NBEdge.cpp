@@ -2458,7 +2458,7 @@ NBEdge::getMinConnectedLane(NBEdge *of) const
         const EdgeLaneVector &elv = (*i);
         for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
             if((*j).edge==of) {
-                if(ret==-1 || (*j).lane<ret) {
+                if(ret==-1 || (int) (*j).lane<ret) {
                     ret = (*j).lane;
                 }
             }
@@ -2476,7 +2476,7 @@ NBEdge::getMaxConnectedLane(NBEdge *of) const
         const EdgeLaneVector &elv = (*i);
         for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
             if((*j).edge==of) {
-                if(ret==-1 || (*j).lane>ret) {
+                if(ret==-1 || (int) (*j).lane>ret) {
                     ret = (*j).lane;
                 }
             }

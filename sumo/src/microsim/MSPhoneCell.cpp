@@ -162,9 +162,9 @@ MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_poi
                 SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
                 if(useAsIncomingDynamic(time)) {
                     if(randSUMO()>.5) {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , getCallDuration() / 2.5);
+                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int) getCallDuration() / 2.5);
                     } else {
-                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , getCallDuration() / 2.5);
+                        device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int) getCallDuration() / 2.5);
                     }
                 }
     }
@@ -308,7 +308,7 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
         return 3600;
     }
     myCurrentExpectedCallCount  = next.second.count;
-    myCallDuration              = next.second.duration;
+    myCallDuration              = (SUMOTime) next.second.duration;
     myCallDeviation             = next.second.deviation;
     myCurrentExpectedEntering   = next.second.entering;
     myDynOwnStarted = 0;
@@ -331,7 +331,7 @@ MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
         return false;
     }
     SUMOReal absPerEachStep = (SUMOReal) myCurrentExpectedEntering / (SUMOReal) myDynIntervalDuration;
-    SUMOReal should = absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin);
+    SUMOReal should = (SUMOReal) (absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin));
     SUMOReal toStart = should - myDynIncomingStarted;
     if(toStart<=(SUMOReal) 0) {
         return false;
@@ -348,7 +348,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
         return;
     }
     SUMOReal absPerEachStep = (SUMOReal) myCurrentExpectedCallCount / (SUMOReal) myDynIntervalDuration;
-    SUMOReal should = absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin);
+    SUMOReal should = (SUMOReal) (absPerEachStep/2. + absPerEachStep * (SUMOReal) (time-myDynIntervalBegin));
     SUMOReal toStart = should - myDynOwnStarted;
     if(toStart<=(SUMOReal) 0) {
         return;

@@ -181,13 +181,13 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Typ
     }
     switch(type) {
     case ABSOLUTE:
-        myWeights[e].absolute->add(val, beg, end);
+        myWeights[e].absolute->add(beg, end, val);
         break;
     case ADD:
-        myWeights[e].add->add(val, beg, end);
+        myWeights[e].add->add(beg, end, val);
         break;
     case MULT:
-        myWeights[e].mult->add(val, beg, end);
+        myWeights[e].mult->add(beg, end, val);
         break;
     default:
         break;

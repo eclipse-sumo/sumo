@@ -114,7 +114,7 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator q,
             return (SUMOReal) detectors.getAggFlowFor(e, time, 30*60, flows);
         }
         if(e->getNoFollowing()>1) {
-            map<ROEdge*, double> probs;
+            map<ROEdge*, SUMOReal> probs;
             SUMOReal allProbs = 0;
             for(size_t i=0; i<e->getNoFollowing(); ++i) {
                 ROEdge *ne = e->getFollower(i);
@@ -570,7 +570,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
             // get flows at end
             RandomDistributor<size_t> *destDist = dists[time];
             // go through the cars
-            size_t carNo = (size_t) (srcFD.qPKW + srcFD.qLKW) * scale;
+            size_t carNo = (size_t) ((srcFD.qPKW + srcFD.qLKW) * scale);
 //            cout << "b1 " << carNo <<  endl;
             for (size_t car=0; car<carNo; ++car) {
                 // get the vehicle parameter
@@ -1038,7 +1038,7 @@ DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
                 agg += srcFD.qPKW;
             }
     }
-    return agg;
+    return (int) agg;
     /* !!! make this time variable
     if (flows.size()!=0) {
         SUMOReal agg = 0;
