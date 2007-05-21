@@ -89,24 +89,22 @@ using namespace std;
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
     RONet *net)
-    : myNet(net)
-{
-}
+        : myNet(net)
+{}
 
 
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight()
-{
-}
+{}
 
 
-void 
+void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
-                                                                SUMOReal val, 
-                                                                SUMOTime beg, 
-                                                                SUMOTime end)
+        SUMOReal val,
+        SUMOTime beg,
+        SUMOTime end)
 {
     ROEdge *e = myNet->getEdge(id);
-    if(e!=0) {
+    if (e!=0) {
         e->addWeight(val, beg, end);
     } else {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
@@ -120,19 +118,17 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::SingleWeightRetriever(
     Type type, EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *parent)
-    : myType(type), myParent(parent)
-{
-}
+        : myType(type), myParent(parent)
+{}
 
 
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::~SingleWeightRetriever()
-{
-}
+{}
 
 
 void
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::addEdgeWeight(
-        const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
+    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
 {
     myParent->addTypedWeight(myType, id, val, beg, end);
 }
@@ -143,7 +139,7 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetrie
 // ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight - methods
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight(RONet *net)
-    : myNet(net)
+        : myNet(net)
 {
     myAbsoluteRetriever = new SingleWeightRetriever(ABSOLUTE, this);
     myAddRetriever = new SingleWeightRetriever(ADD, this);
@@ -154,7 +150,7 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::EdgeFloatTimeLineR
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight()
 {
     std::map<ROEdge*, SuppWeights>::iterator i;
-    for(i=myWeights.begin(); i!=myWeights.end(); ++i) {
+    for (i=myWeights.begin(); i!=myWeights.end(); ++i) {
         (*i).first->setSupplementaryWeights(
             (*i).second.absolute, (*i).second.add, (*i).second.mult);
     }
@@ -164,22 +160,22 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLine
 }
 
 
-void 
+void
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Type type, const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end)
+        SUMOReal val, SUMOTime beg, SUMOTime end)
 {
     ROEdge *e = myNet->getEdge(id);
-    if(e==0) {
+    if (e==0) {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
         return;
     }
-    if(myWeights.find(e)==myWeights.end()) {
+    if (myWeights.find(e)==myWeights.end()) {
         SuppWeights weights;
         weights.absolute = new FloatValueTimeLine();
         weights.add = new FloatValueTimeLine();
         weights.mult = new FloatValueTimeLine();
     }
-    switch(type) {
+    switch (type) {
     case ABSOLUTE:
         myWeights[e].absolute->add(beg, end, val);
         break;

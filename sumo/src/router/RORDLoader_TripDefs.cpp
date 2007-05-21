@@ -85,7 +85,7 @@ void
 RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
                                     const Attributes &attrs)
 {
-    if(element==SUMO_TAG_NOTHING) {
+    if (element==SUMO_TAG_NOTHING) {
         // save unknown elements
         addUnknownSnippet(name, attrs);
         return;
@@ -312,7 +312,7 @@ void
 RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                   const std::string &chars)
 {
-    if(element==-1) {
+    if (element==-1) {
         // save unknown elements
         addSnippetCharacters(chars);
         return;
@@ -336,7 +336,7 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*
 void
 RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
-    if(element==-1) {
+    if (element==-1) {
         // save unknown elements
         closeSnippet();
         return;
@@ -366,19 +366,19 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*
         ROVehicle *veh = 0;
         if (myPos>=0||mySpeed>=0) {
             veh = myVehicleBuilder.buildRunningVehicle(
-                                myID, route, myDepartureTime,
-                                type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, myPeriodTime,
-                                myNumberOfRepetitions);
+                      myID, route, myDepartureTime,
+                      type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, myPeriodTime,
+                      myNumberOfRepetitions);
         } else {
             veh = myVehicleBuilder.buildVehicle(
-                                myID, route, myDepartureTime,
-                                type, myColor, myPeriodTime, myNumberOfRepetitions);
+                      myID, route, myDepartureTime,
+                      type, myColor, myPeriodTime, myNumberOfRepetitions);
         }
         _net.addVehicle(myID, veh);
         veh->addEmbedded(extractSnippet());
     }
-    if(element==SUMO_TAG_VTYPE) {
-        if(myCurrentVehicleType!=0) {
+    if (element==SUMO_TAG_VTYPE) {
+        if (myCurrentVehicleType!=0) {
             myCurrentVehicleType->addEmbedded(extractSnippet());
         }
     }

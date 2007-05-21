@@ -96,7 +96,7 @@ void
 RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                     const std::string &chars)
 {
-    if(element==-1) {
+    if (element==-1) {
         // save unknown elements
         addSnippetCharacters(chars);
         return;

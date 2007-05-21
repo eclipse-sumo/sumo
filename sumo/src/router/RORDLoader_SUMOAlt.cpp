@@ -147,7 +147,7 @@ void
 RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
                                  const std::string &chars)
 {
-    if(element==-1) {
+    if (element==-1) {
         // save unknown elements
         addSnippetCharacters(chars);
         return;
@@ -186,7 +186,7 @@ RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
 void
 RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element, const std::string &name)
 {
-    if(element==-1) {
+    if (element==-1) {
         // save unknown elements
         closeSnippet();
         return;

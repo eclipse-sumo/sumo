@@ -78,7 +78,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
                                     const std::string &name,
                                     const Attributes &attrs)
 {
-    if(element==SUMO_TAG_NOTHING) {
+    if (element==SUMO_TAG_NOTHING) {
         // save unknown elements
         addUnknownSnippet(name, attrs);
         return;
@@ -113,7 +113,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element, const std::string &/*name*
         closeVehicle();
         break;
     case SUMO_TAG_VTYPE:
-        if(myCurrentVehicleType!=0) {
+        if (myCurrentVehicleType!=0) {
             myCurrentVehicleType->addEmbedded(extractSnippet());
         }
         break;
@@ -154,8 +154,8 @@ RORDLoader_SUMOBase::closeVehicle()
             return;
         }
         ROVehicle *veh = myVehicleBuilder.buildVehicle(
-                            myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
-                            myRepOffset, myRepNumber);
+                             myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
+                             myRepOffset, myRepNumber);
         _net.addVehicle(myActiveVehicleID, veh);
         veh->addEmbedded(extractSnippet());
     }
@@ -196,7 +196,7 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         //  by now, only vehicles using the krauss model are supported
         if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
             myCurrentVehicleType = new ROVehicleType_Krauss(
-                    id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
+                                       id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
             _net.addVehicleType(myCurrentVehicleType);
         }
     } catch (NumberFormatException &) {

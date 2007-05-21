@@ -59,8 +59,7 @@ ROVehTypeCont::ROVehTypeCont()
 
 
 ROVehTypeCont::~ROVehTypeCont()
-{
-}
+{}
 
 
 

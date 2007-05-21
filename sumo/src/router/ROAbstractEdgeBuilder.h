@@ -50,9 +50,9 @@ class ROEdge;
 // ===========================================================================
 /**
  * @class ROAbstractEdgeBuilder
- * @brief This interface is used to build instances of router-edges. 
+ * @brief This interface is used to build instances of router-edges.
  *
- * As the different routing algorithms may need certain types of edges, 
+ * As the different routing algorithms may need certain types of edges,
  *  edges are build via a factory object derived from this class.
  */
 class ROAbstractEdgeBuilder

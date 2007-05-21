@@ -71,20 +71,20 @@ std::ostream &
 ROVehicleType_Krauss::xmlOut(std::ostream &os) const
 {
     os << "   <vtype model=\"SUMO_KRAUSS\""
-        << " id=\"" << myID << "\""
-        << " accel=\"" << myA << "\""
-        << " decel=\"" << myB << "\""
-        << " sigma=\"" << myEps << "\""
-        << " length=\"" << myLength << "\""
-        << " maxspeed=\"" << myMaxSpeed << "\""
-        << " tau=\"" << myTau << "\"";
+    << " id=\"" << myID << "\""
+    << " accel=\"" << myA << "\""
+    << " decel=\"" << myB << "\""
+    << " sigma=\"" << myEps << "\""
+    << " length=\"" << myLength << "\""
+    << " maxspeed=\"" << myMaxSpeed << "\""
+    << " tau=\"" << myTau << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
         os << " color=\"" << myColor << "\"";
     }
     if (myClass!=SVC_UNKNOWN) {
         os << " class=\"" << getVehicleClassName(myClass) << "\"";
     }
-    if(myEmbeddedParams!=0) {
+    if (myEmbeddedParams!=0) {
         os << ">" << endl;
         myEmbeddedParams->flush(os, 2);
         os << "   </vtype>" << endl;

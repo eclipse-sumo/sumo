@@ -69,9 +69,9 @@ class GUIRouterRunThread;
 // ===========================================================================
 /**
  * @class ROLoader
- * @brief The data loader. 
+ * @brief The data loader.
  *
- * Loads the network and route descriptions using further classes. 
+ * Loads the network and route descriptions using further classes.
  * Is capable to either load all routes in one step or go through them step wise.
  */
 class ROLoader
@@ -135,7 +135,8 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-    class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever {
+class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever
+    {
     public:
         /// Constructor
         EdgeFloatTimeLineRetriever_EdgeWeight(RONet *net);
@@ -145,7 +146,7 @@ protected:
 
         /// Sets the given value as the edge weight for the given period
         void addEdgeWeight(const std::string &id,
-            SUMOReal val, SUMOTime beg, SUMOTime end);
+                           SUMOReal val, SUMOTime beg, SUMOTime end);
 
     private:
         /// The network edges shall be obtained from
@@ -157,7 +158,8 @@ protected:
      * @class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight
      * @brief Obtains supplementary edge weights from a weights handler and stores them within the edges
      */
-    class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight {
+    class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight
+    {
     public:
         /**
          * enum Type
@@ -176,7 +178,8 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-        class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever {
+    class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever
+        {
         public:
             /// Constructor
             SingleWeightRetriever(Type type, EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *parent);
@@ -186,10 +189,10 @@ protected:
 
             /// Informs the parent about having obtained the given value
             void addEdgeWeight(const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end);
+                               SUMOReal val, SUMOTime beg, SUMOTime end);
 
         private:
-            /// The parent 
+            /// The parent
             EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *myParent;
 
             /// The type of the supp weight this retriever gets
@@ -203,7 +206,7 @@ protected:
         /// Destructor
         ~EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight();
         void addTypedWeight(Type type, const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end);
+                            SUMOReal val, SUMOTime beg, SUMOTime end);
 
         /// Returns the retriever for absolute values
         SingleWeightRetriever &getAbsoluteRetriever();
@@ -219,7 +222,8 @@ protected:
          * struct SuppWeights
          * @brief A set of all three possible supplementary values of an edge
          */
-        struct SuppWeights {
+        struct SuppWeights
+        {
             /// The absolute time line
             FloatValueTimeLine *absolute;
             /// The additive time line
@@ -236,7 +240,7 @@ protected:
 
         /// The retrievers (one for each type of supplementary weights)
         SingleWeightRetriever *myAbsoluteRetriever, *myAddRetriever,
-            *myMultRetriever;
+        *myMultRetriever;
 
     };
 

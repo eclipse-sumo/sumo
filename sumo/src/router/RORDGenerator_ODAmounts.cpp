@@ -152,7 +152,7 @@ RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
     net.addRouteDef(rd);
     ROVehicle *veh = myVehicle->copy(vb, id, t, rd);
     net.addVehicle(id, veh);
-    if(myEmbedded!=0) {
+    if (myEmbedded!=0) {
         veh->addEmbedded(myEmbedded->duplicate());
     }
     myEmitted++;

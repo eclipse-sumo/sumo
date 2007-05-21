@@ -50,10 +50,10 @@ class RORouteDef;
 // ===========================================================================
 /**
  * @class CellDriverInfoParser
- * @brief A parser for cell driver entries. 
+ * @brief A parser for cell driver entries.
  *
- * As cell files may differ in dependence to the origination system (Intel/Sparc), 
- *  they are read using helper functions and the information whether to switch 
+ * As cell files may differ in dependence to the origination system (Intel/Sparc),
+ *  they are read using helper functions and the information whether to switch
  *  the byte order (SUMO may currently run on one of both systems, too) must be given.
  * Also, it is supported to choose between using the last route or the best
  *  route in the list.

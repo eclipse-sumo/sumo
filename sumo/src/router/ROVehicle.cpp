@@ -109,7 +109,7 @@ void
 ROVehicle::saveXMLVehicle(std::ostream * const os) const
 {
     (*os) << "<vehicle id=\"" << myID << "\"";
-    if(myType!=0) {
+    if (myType!=0) {
         (*os) << " type=\"" << myType->getID() << "\"";
     }
     (*os) << " depart=\"" << myDepartTime << "\"";
@@ -184,8 +184,8 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
             (*altos) << "      </routealt>" << endl;
         }
     }
-    
-    if(myEmbeddedParams!=0) {
+
+    if (myEmbeddedParams!=0) {
         myEmbeddedParams->flush(*os, 2);
         if (altos!=0) {
             myEmbeddedParams->flush(*altos, 2);
@@ -204,15 +204,15 @@ ROVehicle::copy(ROVehicleBuilder &vb,
                 RORouteDef *newRoute)
 {
     ROVehicle *ret = new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
-                         myRepetitionPeriod, myRepetitionNumber);
-    if(myEmbeddedParams!=0) {
+                                   myRepetitionPeriod, myRepetitionNumber);
+    if (myEmbeddedParams!=0) {
         ret->addEmbedded(myEmbeddedParams->duplicate());
     }
     return ret;
 }
 
 
-void 
+void
 ROVehicle::addEmbedded(XMLSnippletStorage *embedded)
 {
     myEmbeddedParams = embedded;

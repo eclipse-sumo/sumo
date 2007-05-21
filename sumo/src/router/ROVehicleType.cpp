@@ -79,7 +79,7 @@ ROVehicleType::getClass() const
     return myClass;
 }
 
-void 
+void
 ROVehicleType::addEmbedded(XMLSnippletStorage *embedded)
 {
     myEmbeddedParams = embedded;

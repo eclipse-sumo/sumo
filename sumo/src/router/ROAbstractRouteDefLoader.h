@@ -54,9 +54,9 @@ class ROVehicleBuilder;
 // ===========================================================================
 /**
  * @class ROAbstractRouteDefLoader
- * @brief Base class for loaders of route which do have a certain format. 
+ * @brief Base class for loaders of route which do have a certain format.
  *
- * XML-reading loaders are not derived directly, but use the derived 
+ * XML-reading loaders are not derived directly, but use the derived
  *  ROTypedXMLRoutesLoader class as their upper class.
  */
 class ROAbstractRouteDefLoader

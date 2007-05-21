@@ -65,7 +65,7 @@ class MsgHandler;
 /**
  * @class RORDLoader_SUMOBase
  * @brief The base class for SUMO-native route handlers
- * 
+ *
  * As both the SUMO-routes and the SUMO-route alternatives handlers share
  *  a set of processing functions, we've joined these functions within a
  *  single class (this one).
