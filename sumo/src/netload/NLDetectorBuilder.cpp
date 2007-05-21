@@ -338,7 +338,7 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
-                     haltingSpeedThreshold, haltingSpeedThreshold, 
+                     haltingSpeedThreshold, haltingSpeedThreshold,
                      toAdd, splInterval);
 }
 

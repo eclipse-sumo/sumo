@@ -110,7 +110,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
             if (pPhone->getMSPhoneCell(cell_id) != 0)
-                pPhone->getMSPhoneCell(cell_id)->setStatParams(interval, statcount);    
+                pPhone->getMSPhoneCell(cell_id)->setStatParams(interval, statcount);
         } else if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 4) {
             /*this is the trigger for the duration for an interval for an hour*/
             unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
@@ -122,7 +122,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
             if (pPhone->getMSPhoneCell(cell_id) != 0)
-                pPhone->getMSPhoneCell(cell_id)->setDynParams( interval, count, duration, deviation, entering );
+                pPhone->getMSPhoneCell(cell_id)->setDynParams(interval, count, duration, deviation, entering);
         } else {
             /*check that the depending lane realy exist. if not just forget this VehicleActor. */
             MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));

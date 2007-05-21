@@ -65,7 +65,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * This class is responsible for building event-handling actions which
  *  the simulation shall execute.
  */
-class NLDiscreteEventBuilder 
+class NLDiscreteEventBuilder
 {
 public:
     /// Known action types
@@ -86,20 +86,20 @@ public:
 
     /// Builds an action and saves it for further use
     void addAction(GenericSAXHandler &parser,
-        const Attributes &attrs, const std::string &basePath);
+                   const Attributes &attrs, const std::string &basePath);
 
 private:
     /// Builds an action which saves the state of a certain tls into a file
     Command *buildSaveTLStateCommand(GenericSAXHandler &parser,
-        const Attributes &attrs, const std::string &basePath);
+                                     const Attributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times of links into a file
     Command *buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
-        const Attributes &attrs, const std::string &basePath);
+                                        const Attributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times and states of tls into a file
     Command *buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
-        const Attributes &attrs, const std::string &basePath);
+                                            const Attributes &attrs, const std::string &basePath);
 
 protected:
     /// Definitions of a storage for build actions

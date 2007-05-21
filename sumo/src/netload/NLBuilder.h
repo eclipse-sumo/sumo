@@ -126,7 +126,8 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-    class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever {
+class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever
+    {
     public:
         /// Constructor
         EdgeFloatTimeLineRetriever_EdgeWeight(MSNet *net);
@@ -136,7 +137,7 @@ protected:
 
         /// Sets the given value as the edge weight for the given period
         void addEdgeWeight(const std::string &id,
-            SUMOReal val, SUMOTime beg, SUMOTime end);
+                           SUMOReal val, SUMOTime beg, SUMOTime end);
 
     private:
         /// The network edges shall be obtained from

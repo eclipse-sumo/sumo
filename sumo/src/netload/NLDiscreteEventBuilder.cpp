@@ -113,7 +113,7 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
-                                                const Attributes &attrs,
+        const Attributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
@@ -139,7 +139,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
-                                                   const Attributes &attrs,
+        const Attributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
@@ -165,7 +165,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
-                                                   const Attributes &attrs,
+        const Attributes &attrs,
         const std::string &basePath)
 {
     // get the parameter

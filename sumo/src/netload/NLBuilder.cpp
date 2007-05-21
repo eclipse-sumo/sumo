@@ -87,24 +87,22 @@ using namespace std;
 // ---------------------------------------------------------------------------
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
     MSNet *net)
-    : myNet(net)
-{
-}
+        : myNet(net)
+{}
 
 
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight()
-{
-}
+{}
 
 
-void 
+void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
-                                                                SUMOReal val, 
-                                                                SUMOTime beg, 
-                                                                SUMOTime end)
+        SUMOReal val,
+        SUMOTime beg,
+        SUMOTime end)
 {
     MSEdge *e = MSEdge::dictionary(id);
-    if(e!=0) {
+    if (e!=0) {
         e->addWeight(val, beg, end);
     } else {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");

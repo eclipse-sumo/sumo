@@ -177,7 +177,7 @@ NLJunctionControlBuilder::closeJunction()
         break;
     case TYPE_INTERNAL:
 #ifdef HAVE_INTERNAL_LANES
-        if(MSGlobals::gUsingInternalLanes) {
+        if (MSGlobals::gUsingInternalLanes) {
             junction = buildInternalJunction();
         }
 #endif
