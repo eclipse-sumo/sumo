@@ -40,7 +40,7 @@
 			<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
 
 			<a href="documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-            <a href="userdocs.shtml" class="SUMOSubLink">User Docs</a><br>
+            <a href="gen/user_index.shtml" class="SUMOSubLink">User Docs</a><br>
             <a href="moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
 			<a href="bibliography.shtml" class="SUMOSubLink">Bibliography</a><br>
 			<a href="gen/faq.shtml" class="SUMOSubLink">FAQ</a><br>
@@ -86,7 +86,11 @@
 <p>The following documentation is available:
 <ul>
 	<li><a class="SUMOInLineLink" href="userdocs.shtml">User Documentation</a><br>
-		A complete documentation of how to use SUMO and its applications.<br><br>
+		A "complete" documentation of how to use SUMO and its applications. Available as:<br>
+		<a href="gen/user_index.shtml" class="SUMOInLineLink">On-Line Manual (HTML), split by chapters</a><br>
+		<a href="gen/sumo_user.shtml" class="SUMOInLineLink">On-Line Manual (HTML), one file</a><br>
+		<a href="gen/sumo_user.pdf" class="SUMOInLineLink">Manual (PDF)</a><br>
+		<br/>
 
 	<li><a class="SUMOInLineLink" href="moredocs.shtml">More On...</a><br>
 		Some additional information on special subjects (traffic lights, ...).<br><br>
@@ -100,8 +104,9 @@
 	<li><a class="SUMOInLineLink" href="gen/faq.shtml">Frequently Questions and Answers (FAQ)</a><br>
 		Some other things that have not found their way into the documentation.<br>
 		You may also take also a look into our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki">Wiki</a> and into our <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">Mailing Lists</a>.<br><br>
-
+<!--
 	<li><a class="SUMOInLineLink" href="manpages.shtml">Man pages for the command line applications</a>
+-->
 
 </ul>
 

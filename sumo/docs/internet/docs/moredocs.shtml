@@ -40,7 +40,7 @@
 			<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
 
 			<a href="documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-            <a href="userdocs.shtml" class="SUMOSubLink">User Docs</a><br>
+            <a href="gen/user_index.shtml" class="SUMOSubLink">User Docs</a><br>
             <a href="moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
 			<a href="bibliography.shtml" class="SUMOSubLink">Bibliography</a><br>
 			<a href="gen/faq.shtml" class="SUMOSubLink">FAQ</a><br>
