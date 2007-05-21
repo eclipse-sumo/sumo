@@ -235,23 +235,23 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-        if(_junction->getID()=="15620399") {
-            int bla = 0;
-        }
-        if(_junction->getID()=="15620399") {
-            int bla = 0;
-        }
-        string from1ID = "1si";
-        string to1ID = "4o";
-        string from2ID = "2si";
-        string to2ID = "4o";
-        if(from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
-            int bla = 0;
-        }
+    if (_junction->getID()=="15620399") {
+        int bla = 0;
+    }
+    if (_junction->getID()=="15620399") {
+        int bla = 0;
+    }
+    string from1ID = "1si";
+    string to1ID = "4o";
+    string from2ID = "2si";
+    string to2ID = "4o";
+    if (from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
+        int bla = 0;
+    }
 
-        if(from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
-            int bla = 0;
-        }
+    if (from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
+        int bla = 0;
+    }
 
     // check whether one of the links has a dead end
     if (to1==0||to2==0) {
@@ -536,10 +536,10 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
-    if(from->getID()=="1si"&&fromLane==2) {
+    if (from->getID()=="1si"&&fromLane==2) {
         int bla = 0;
     }
-    if(from->getID()=="2si"&&fromLane==0) {
+    if (from->getID()=="2si"&&fromLane==0) {
         int bla = 0;
     }
     const EdgeLaneVector &connected = from->getEdgeLanesFromLane(fromLane);
@@ -577,7 +577,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
     for (EdgeVector::const_reverse_iterator i=_incoming->rbegin();
             i!=_incoming->rend(); i++) {
 
-                NBEdge *bla = *i;
+        NBEdge *bla = *i;
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
             const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);

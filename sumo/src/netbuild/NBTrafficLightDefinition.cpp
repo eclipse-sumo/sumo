@@ -161,12 +161,12 @@ NBTrafficLightDefinition::collectEdges()
     //  remove these edges from the list of incoming edges
     //  add them to the list of edges lying within the node
     size_t pos = 0;
-    for(EdgeVector::iterator j=myIncomingEdges.begin(); j!=myIncomingEdges.end(); ) {
+    for (EdgeVector::iterator j=myIncomingEdges.begin(); j!=myIncomingEdges.end();) {
         NBEdge *edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k!=myOutgoing.end()) {
-            if(find(myControlledInnerEdges.begin(), myControlledInnerEdges.end(), edge->getID())==myControlledInnerEdges.end()) {
+            if (find(myControlledInnerEdges.begin(), myControlledInnerEdges.end(), edge->getID())==myControlledInnerEdges.end()) {
                 myEdgesWithin.push_back(edge);
                 myIncomingEdges.erase(j);
                 continue;
@@ -201,9 +201,9 @@ NBTrafficLightDefinition::collectLinks()
     for (NBConnectionVector::iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
-        if(edge->setControllingTLInformation(
-            conn.getFromLane(), conn.getTo(), conn.getToLane(),
-            getID(), pos)) {
+        if (edge->setControllingTLInformation(
+                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
+                    getID(), pos)) {
             pos++;
         }
     }
@@ -419,7 +419,7 @@ NBTrafficLightDefinition::addNode(NBNode *node)
 }
 
 
-void 
+void
 NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges)
 {
     copy(edges.begin(), edges.end(), back_inserter(myControlledInnerEdges));

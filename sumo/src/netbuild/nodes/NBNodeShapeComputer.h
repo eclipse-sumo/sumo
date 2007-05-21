@@ -84,13 +84,13 @@ private:
 
 
     void replaceLastChecking(Position2DVector &g, bool decenter,
-        Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
-        int laneDiff);
+                             Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+                             int laneDiff);
 
 
     void replaceFirstChecking(Position2DVector &g, bool decenter,
-        Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
-        int laneDiff);
+                              Position2DVector counter, size_t counterLanes, SUMOReal counterDist,
+                              int laneDiff);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -102,8 +102,8 @@ private:
      *  less than 1° from the key-edge's direction.
      */
     void joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
-        std::map<NBEdge*, Position2DVector> &geomsCCW, 
-        std::map<NBEdge*, Position2DVector> &geomsCW);
+                                std::map<NBEdge*, Position2DVector> &geomsCCW,
+                                std::map<NBEdge*, Position2DVector> &geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -114,7 +114,7 @@ private:
      */
     std::vector<NBEdge*> computeUniqueDirectionList(
         const std::map<NBEdge*, std::vector<NBEdge*> > &same,
-        std::map<NBEdge*, Position2DVector> &geomsCCW, 
+        std::map<NBEdge*, Position2DVector> &geomsCCW,
         std::map<NBEdge*, Position2DVector> &geomsCW,
         std::map<NBEdge*, NBEdge*> &ccwBoundary,
         std::map<NBEdge*, NBEdge*> &cwBoundary);

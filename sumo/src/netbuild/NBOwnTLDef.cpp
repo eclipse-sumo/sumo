@@ -246,9 +246,9 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const
     for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
-        if(edge->setControllingTLInformation(
-            conn.getFromLane(), conn.getTo(), conn.getToLane(),
-            getID(), pos)) {
+        if (edge->setControllingTLInformation(
+                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
+                    getID(), pos)) {
             pos++;
         }
     }

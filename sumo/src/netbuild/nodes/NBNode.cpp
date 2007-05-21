@@ -461,7 +461,7 @@ NBNode::isDistrictCenter() const
 bool
 samePriority(NBEdge *e1, NBEdge *e2)
 {
-    if(e1==e2) {
+    if (e1==e2) {
         return true;
     }
     if (e1->getPriority()!=e2->getPriority()) {
@@ -903,7 +903,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
                 }
             }
         }
-        if(dir==MMLDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
+        if (dir==MMLDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
             // let turnarounds wait at the begin if no other crossing point was found
             ret.first = (SUMOReal) POSITION_EPS;
         }

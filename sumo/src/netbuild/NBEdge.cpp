@@ -130,7 +130,7 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
     // check whether the left turn has a higher priority
     if (outgoing[outgoing.size()-1]->getJunctionPriority(to)==1) {
         // ok, the left turn belongs to the higher priorised edges on the junction
-        //  let's check, whether it has also a higher priority (lane number/speed) 
+        //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
         vector<NBEdge*> tmp(outgoing);
         sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
@@ -1238,7 +1238,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     EdgeLane el;
     el.edge = dest_edge;
     el.lane = dest_lane;
-    if(!mayUseSameDestination) {
+    if (!mayUseSameDestination) {
         for (size_t j=0; dest_edge!=0&&j<_reachable.size(); j++) {
             // for any other lane: check whether a connection to the same
             //  lane as the one to be added exists
@@ -1499,7 +1499,7 @@ void
 NBEdge::removeFromConnections(NBEdge *which, int lane)
 {
     // remove from "_connectedEdges"
-    if(lane<0) {
+    if (lane<0) {
         for (int i=0; i<(int) _connectedEdges.size(); i++) {
             if (_connectedEdges[i]==which) {
                 _connectedEdges.erase(_connectedEdges.begin()+i);
@@ -1515,11 +1515,11 @@ NBEdge::removeFromConnections(NBEdge *which, int lane)
     {
         std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges.find(which);
         if (j!=_ToEdges.end()) {
-            if(lane<0) {
+            if (lane<0) {
                 _ToEdges.erase(which);
             } else {
                 std::vector<size_t> &lanes = (*j).second;
-                if(find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+                if (find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
                     lanes.erase(find(lanes.begin(), lanes.end(), lane));
                 }
             }
@@ -1527,7 +1527,7 @@ NBEdge::removeFromConnections(NBEdge *which, int lane)
     }
     // remove in _reachable
     {
-        if(lane<0) {
+        if (lane<0) {
             for (ReachableFromLaneVector::iterator k=_reachable.begin(); k!=_reachable.end(); k++) {
                 EdgeLaneVector::iterator l=(*k).begin();
                 while (l!=(*k).end()) {
@@ -1545,11 +1545,11 @@ NBEdge::removeFromConnections(NBEdge *which, int lane)
     {
         LanesThatSucceedEdgeCont::iterator l=_succeedinglanes.find(which);
         if (l!=_succeedinglanes.end()) {
-            if(lane<0) {
+            if (lane<0) {
                 _succeedinglanes.erase(l);
             } else {
                 LaneVector &lanes = (*l).second;
-                if(find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+                if (find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
                     lanes.erase(find(lanes.begin(), lanes.end(), lane));
                 }
             }
@@ -1713,7 +1713,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         std::vector<TLSDisabledConnection>::iterator i;
         i = find_if(myTLSDisabledConnections.begin(), myTLSDisabledConnections.end(),
                     tls_disable_finder(tpl));
-        if(i!=myTLSDisabledConnections.end()) {
+        if (i!=myTLSDisabledConnections.end()) {
             return false;
         }
     }
@@ -1773,7 +1773,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 }
 
 
-void 
+void
 NBEdge::disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane)
 {
     TLSDisabledConnection c;
@@ -2080,7 +2080,7 @@ NBEdge::computeEdgeShape()
         } else {
             Line2D lc(myLaneGeoms[i][0], myLaneGeoms[i][-1]);
             Line2D lo(old[0], old[-1]);
-            if(135<MIN2(GeomHelper::getCCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()), GeomHelper::getCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()))) {
+            if (135<MIN2(GeomHelper::getCCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()), GeomHelper::getCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()))) {
                 myLaneGeoms[i] = myLaneGeoms[i].reverse();
             }
         }
@@ -2199,11 +2199,11 @@ void
 NBEdge::decLaneNo(int by, int dir)
 {
     _nolanes -= by;
-    if(dir==0) {
+    if (dir==0) {
         _reachable.clear();
         _reachable.resize(_nolanes, EdgeLaneVector());
     } else {
-        if(dir<0) {
+        if (dir<0) {
             _reachable.erase(_reachable.begin());
         } else {
             _reachable.pop_back();
@@ -2219,13 +2219,13 @@ NBEdge::decLaneNo(int by, int dir)
     for (EdgeVector::const_iterator i=incs.begin(); i!=incs.end(); ++i) {
         (*i)->invalidateConnections(true);
     }
-    if(dir==0) {
+    if (dir==0) {
         invalidateConnections(true);
     } else {
         const EdgeVector &outs = _to->getOutgoingEdges();
         assert(outs.size()==1);
         NBEdge *out = outs[0];
-        if(dir<0) {
+        if (dir<0) {
             removeFromConnections(out, 0);
         } else {
             removeFromConnections(out, _nolanes);
@@ -2375,7 +2375,7 @@ NBEdge::recheckEdgeGeomForDoublePositions()
 void
 NBEdge::addAdditionalConnections()
 {
-    if(_step==LANES2LANES) {
+    if (_step==LANES2LANES) {
         return;
     }
     // go through the lanes
@@ -2450,15 +2450,15 @@ NBEdge::getNotAllowedVehicleClasses() const
 }
 
 
-int 
+int
 NBEdge::getMinConnectedLane(NBEdge *of) const
 {
     int ret = -1;
-    for(ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
+    for (ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
         const EdgeLaneVector &elv = (*i);
-        for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
-            if((*j).edge==of) {
-                if(ret==-1 || (int) (*j).lane<ret) {
+        for (EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
+            if ((*j).edge==of) {
+                if (ret==-1 || (int)(*j).lane<ret) {
                     ret = (*j).lane;
                 }
             }
@@ -2468,15 +2468,15 @@ NBEdge::getMinConnectedLane(NBEdge *of) const
 }
 
 
-int 
+int
 NBEdge::getMaxConnectedLane(NBEdge *of) const
 {
     int ret = -1;
-    for(ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
+    for (ReachableFromLaneVector::const_iterator i=_reachable.begin(); i!=_reachable.end(); ++i) {
         const EdgeLaneVector &elv = (*i);
-        for(EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
-            if((*j).edge==of) {
-                if(ret==-1 || (int) (*j).lane>ret) {
+        for (EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); ++j) {
+            if ((*j).edge==of) {
+                if (ret==-1 || (int)(*j).lane>ret) {
                     ret = (*j).lane;
                 }
             }

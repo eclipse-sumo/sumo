@@ -143,7 +143,7 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
     } else {
         angle = e->getNormedAngle(*_node);
     }
-    if(angle<0.1||angle>359.9) {
+    if (angle<0.1||angle>359.9) {
         angle = (SUMOReal) 0.;
     }
     assert(angle>=(SUMOReal)0 && angle<(SUMOReal)360);

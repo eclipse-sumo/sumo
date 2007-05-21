@@ -148,15 +148,15 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const
                 }
                 ret.push_back((SUMOReal) time);
             } /*else {
-                            // verify whether the green phases are long enough
-                            if((*i).myTime-myTYellow<5) {
-                                WRITE_WARNING(
-                                    string("The signal group '") + getID()\
-                                    + string("' holds a green phase with a duration below 5s (")\
-                                    + toString<int>((*i).myTime-myTYellow)\
-                                    + string(")."));
-                            }
-                        }*/
+                                        // verify whether the green phases are long enough
+                                        if((*i).myTime-myTYellow<5) {
+                                            WRITE_WARNING(
+                                                string("The signal group '") + getID()\
+                                                + string("' holds a green phase with a duration below 5s (")\
+                                                + toString<int>((*i).myTime-myTYellow)\
+                                                + string(")."));
+                                        }
+                                    }*/
         }
     }
     return ret;
@@ -460,9 +460,9 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
             NBConnection tst(conn);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
-                if(edge->setControllingTLInformation(
-                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos)) {
+                if (edge->setControllingTLInformation(
+                            conn.getFromLane(), conn.getTo(), conn.getToLane(),
+                            getID(), pos)) {
                     pos++;
                 }
             } else {

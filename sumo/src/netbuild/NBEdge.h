@@ -519,12 +519,13 @@ private:
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;
 
-    struct TLSDisabledConnection {
+    struct TLSDisabledConnection
+    {
         int fromLane;
         NBEdge *to;
         int toLane;
     };
-    
+
     std::vector<TLSDisabledConnection> myTLSDisabledConnections;
 
     /**
@@ -534,16 +535,18 @@ private:
     {
     public:
         /// constructor
-        tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl) { }
+        tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl)
+        { }
 
-        bool operator()(const TLSDisabledConnection &e) const {
-            if(e.to!=myDefinition.to) {
+        bool operator()(const TLSDisabledConnection &e) const
+        {
+            if (e.to!=myDefinition.to) {
                 return false;
             }
-            if(e.fromLane!=myDefinition.fromLane) {
+            if (e.fromLane!=myDefinition.fromLane) {
                 return false;
             }
-            if(e.toLane!=myDefinition.toLane) {
+            if (e.toLane!=myDefinition.toLane) {
                 return false;
             }
             return true;
