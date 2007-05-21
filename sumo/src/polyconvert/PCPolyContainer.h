@@ -56,7 +56,7 @@ class PCPolyContainer
 public:
     /// Constructor
     PCPolyContainer(bool prune, const Boundary &prunningBoundary,
-        const std::vector<std::string> &removeByNames);
+                    const std::vector<std::string> &removeByNames);
 
     /// Destructor
     ~PCPolyContainer();

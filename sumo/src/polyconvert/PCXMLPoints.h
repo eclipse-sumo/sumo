@@ -70,7 +70,7 @@ class PCXMLPoints : public SUMOSAXHandler
 public:
     /// Constructor
     PCXMLPoints(PCPolyContainer &toFill,
-                  PCTypeMap &tm, OptionsCont &oc);
+                PCTypeMap &tm, OptionsCont &oc);
 
     /// Destructor
     ~PCXMLPoints();

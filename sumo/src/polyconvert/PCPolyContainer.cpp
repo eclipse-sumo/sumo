@@ -59,7 +59,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCPolyContainer::PCPolyContainer(bool prune, 
+PCPolyContainer::PCPolyContainer(bool prune,
                                  const Boundary &prunningBoundary,
                                  const std::vector<std::string> &removeByNames)
         : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
@@ -87,7 +87,7 @@ PCPolyContainer::insert(std::string key, Polygon2D *poly,
         }
     }
     // check whether the polygon was named to be a removed one
-    if(find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
         delete poly;
         return true;
     }
@@ -115,7 +115,7 @@ PCPolyContainer::insert(std::string key, PointOfInterest *poi,
         }
     }
     // check whether the polygon was named to be a removed one
-    if(find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), key)!=myRemoveByNames.end()) {
         delete poi;
         return true;
     }

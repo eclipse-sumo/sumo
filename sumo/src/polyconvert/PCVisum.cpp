@@ -100,8 +100,8 @@ PCVisum::load(OptionsCont &oc)
         if (buff.find("$GEBIETPOLY")!=string::npos) {
             type = "area";
         }
-        
-        if(type!="") {
+
+        if (type!="") {
             while (buff.find("*")==string::npos) {
                 l++;
                 getline(out,buff);
