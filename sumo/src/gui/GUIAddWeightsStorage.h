@@ -45,7 +45,7 @@
 // ===========================================================================
 // structure definitions
 // ===========================================================================
-/** 
+/**
  * @struct GUIAddWeight
  * @brief A single additional edge weight definition
  */

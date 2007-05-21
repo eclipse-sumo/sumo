@@ -61,8 +61,8 @@ class GUIApplicationWindow;
  * @class GUISUMOViewParent
  * @brief A single child window which contains a view of the simulation area
  *
- * It is made of a tool-bar containing a field to change the type of display, 
- *  buttons that allow to choose an artifact and some other view controlling 
+ * It is made of a tool-bar containing a field to change the type of display,
+ *  buttons that allow to choose an artifact and some other view controlling
  *  options.
  * The rest of the window is a canvas that contains the display itself
  */
@@ -141,7 +141,7 @@ protected:
 
 private:
     /// information whether the canvas may be rotated
-  //  bool _allowRotation;
+    //  bool _allowRotation;
 
     FXGroupBox  *groupBox;
     FXTextField *JunctionNameTextField;

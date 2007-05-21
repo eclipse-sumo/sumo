@@ -234,18 +234,17 @@ GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*)
 long
 GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr)
 {
-    FXEvent* event=(FXEvent*)ptr; 
-    switch(event->code){ 
-    case KEY_Return:
-        {
-            int current = myList->getCurrentItem();
-            if (current>=0&&myList->isItemSelected(current)) {
-                mySelected = static_cast<GUIGlObject*>(myList->getItemData(current));
-                myParent->setView(mySelected);
-            }
+    FXEvent* event=(FXEvent*)ptr;
+    switch (event->code) {
+    case KEY_Return: {
+        int current = myList->getCurrentItem();
+        if (current>=0&&myList->isItemSelected(current)) {
+            mySelected = static_cast<GUIGlObject*>(myList->getItemData(current));
+            myParent->setView(mySelected);
         }
-    } 
-    return 1; 
+    }
+    }
+    return 1;
 }
 
 

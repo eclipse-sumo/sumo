@@ -518,7 +518,7 @@ GUIApplicationWindow::buildToolBars()
         new FXLabel(myToolBar4, "Delay (ms):", 0, LAYOUT_CENTER_Y);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 7, 0, MID_SIMDELAY,
-            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_Y);
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_Y);
         mySimDelayTarget->setNumberFormat(0);
         mySimDelayTarget->setIncrements(1,10,10);
         mySimDelayTarget->setRange(0,1000);
@@ -1076,7 +1076,7 @@ GUIApplicationWindow::load(const std::string &file)
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    if(FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
+    if (FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
         myLoadThread->load(file, true);
     } else {
         myLoadThread->load(file, false);

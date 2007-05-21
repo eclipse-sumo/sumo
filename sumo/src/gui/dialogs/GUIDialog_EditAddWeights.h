@@ -96,7 +96,8 @@ protected:
      * @class Retriever_AddWeights
      * @brief Obtains supplementary edge weights from a weights handler and stores them within the edges
      */
-    class Retriever_AddWeights {
+    class Retriever_AddWeights
+    {
     public:
         /**
          * enum WeightType
@@ -115,7 +116,8 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-        class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever {
+    class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever
+        {
         public:
             /// Constructor
             SingleWeightRetriever(WeightType type, Retriever_AddWeights *parent);
@@ -125,10 +127,10 @@ protected:
 
             /// Informs the parent about having obtained the given value
             void addEdgeWeight(const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end);
+                               SUMOReal val, SUMOTime beg, SUMOTime end);
 
         private:
-            /// The parent 
+            /// The parent
             Retriever_AddWeights *myParent;
 
             /// The type of the supp weight this retriever gets
@@ -143,7 +145,7 @@ protected:
         ~Retriever_AddWeights();
 
         void addTypedWeight(WeightType type, const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end);
+                            SUMOReal val, SUMOTime beg, SUMOTime end);
 
         /// Returns the retriever for absolute values
         SingleWeightRetriever &getAbsoluteRetriever();
@@ -159,7 +161,8 @@ protected:
          * struct SuppWeights
          * @brief A set of all three possible supplementary values of an edge
          */
-        struct SuppWeights {
+        struct SuppWeights
+        {
             /// The absolute time line
             FloatValueTimeLine *absolute;
             /// The additive time line
@@ -173,11 +176,11 @@ protected:
 
         /// The retrievers (one for each type of supplementary weights)
         SingleWeightRetriever *myAbsoluteRetriever, *myAddRetriever,
-            *myMultRetriever;
+        *myMultRetriever;
 
     };
-    
-    
+
+
 private:
     /// Rebuilds the entry list
     void rebuildList();

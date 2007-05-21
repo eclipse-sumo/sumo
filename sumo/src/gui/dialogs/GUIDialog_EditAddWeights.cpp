@@ -102,19 +102,17 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
 // ---------------------------------------------------------------------------
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::SingleWeightRetriever(
     WeightType type, Retriever_AddWeights *parent)
-    : myType(type), myParent(parent)
-{
-}
+        : myType(type), myParent(parent)
+{}
 
 
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::~SingleWeightRetriever()
-{
-}
+{}
 
 
 void
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::addEdgeWeight(
-        const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
+    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
 {
     myParent->addTypedWeight(myType, id, val, beg, end);
 }
@@ -140,9 +138,9 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::~Retriever_AddWeights()
 }
 
 
-void 
+void
 GUIDialog_EditAddWeights::Retriever_AddWeights::addTypedWeight(WeightType type, const std::string &id,
-                SUMOReal val, SUMOTime beg, SUMOTime end)
+        SUMOReal val, SUMOTime beg, SUMOTime end)
 {
     GUIAddWeight aw;
     aw.edgeID = id;
@@ -151,7 +149,7 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::addTypedWeight(WeightType type, 
     aw.absolute = (SUMOReal) -1.;
     aw.summand = (SUMOReal) -1.;
     aw.factor = (SUMOReal) -1.;
-    switch(type) {
+    switch (type) {
     case ABSOLUTE_WEIGHT:
         aw.absolute = val;
         break;
