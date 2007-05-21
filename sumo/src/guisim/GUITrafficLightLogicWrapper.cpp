@@ -231,9 +231,9 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const
 {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector &lanes = myTLLogic.getLanes();
-    for(MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+    for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         const MSTrafficLightLogic::LaneVector &lanes2 = (*i);
-        for(MSTrafficLightLogic::LaneVector::const_iterator j=lanes2.begin(); j!=lanes2.end(); ++j) {
+        for (MSTrafficLightLogic::LaneVector::const_iterator j=lanes2.begin(); j!=lanes2.end(); ++j) {
             ret.add((*j)->getShape()[-1]);
         }
     }

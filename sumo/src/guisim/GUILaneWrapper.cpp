@@ -104,8 +104,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 
 
 GUILaneWrapper::~GUILaneWrapper()
-{
-}
+{}
 
 
 SUMOReal

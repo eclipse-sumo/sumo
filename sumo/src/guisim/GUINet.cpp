@@ -311,7 +311,7 @@ GUINet::getTLSIDs() const
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
         size_t nid = (*i).second->getGlID();
         string sid = (*i).second->microsimID();
-        if(find(ids.begin(), ids.end(), sid)==ids.end()) {
+        if (find(ids.begin(), ids.end(), sid)==ids.end()) {
             ret.push_back(nid);
             ids.push_back(sid);
         }
@@ -324,19 +324,19 @@ std::vector<size_t>
 GUINet::getShapeIDs() const
 {
     std::vector<size_t> ret;
-    if(myShapeContainer!=0) {
+    if (myShapeContainer!=0) {
         int minLayer = myShapeContainer->getMinLayer();
         int maxLayer = myShapeContainer->getMaxLayer();
-        for(int j=minLayer; j<=maxLayer; ++j) {
+        for (int j=minLayer; j<=maxLayer; ++j) {
             {
                 const vector<Polygon2D*> &pol = myShapeContainer->getPolygonCont(j).buildAndGetStaticVector();
-                for(vector<Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+                for (vector<Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
                     ret.push_back(static_cast<GUIPolygon2D*>(*i)->getGlID());
                 }
             }
             {
                 const vector<PointOfInterest*> &pol = myShapeContainer->getPOICont(j).buildAndGetStaticVector();
-                for(vector<PointOfInterest*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+                for (vector<PointOfInterest*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
                     ret.push_back(static_cast<GUIPointOfInterest*>(*i)->getGlID());
                 }
             }
