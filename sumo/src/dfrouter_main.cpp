@@ -266,7 +266,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
        }
     */
     DFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
-    if(flows!=0&&oc.getBool("print-absolute-flows")) {
+    if (flows!=0&&oc.getBool("print-absolute-flows")) {
         flows->printAbsolute();
     }
 
@@ -339,7 +339,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         if (oc.isSet("emitters-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
             detectors->writeEmitters(oc.getString("emitters-output"), *flows,
-                                     oc.getInt("begin"), oc.getInt("end"), 60, 
+                                     oc.getInt("begin"), oc.getInt("end"), 60,
                                      *optNet,
                                      oc.getBool("write-calibrators"),
                                      oc.getBool("include-unused-routes"),
