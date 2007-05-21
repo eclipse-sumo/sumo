@@ -2,34 +2,34 @@
 
    <net-offset>250.000000,250.000000</net-offset>
    <conv-boundary>0.000000,0.000000,500.000000,500.000000</conv-boundary>
-   <orig-boundary>-0.002500,-0.002500,0.002500,0.002500</orig-boundary>
+   <orig-boundary>-250.000000,-250.000000,250.000000,250.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="8">:0_0 :1_0 :2_0 :3_0 0 1 2 3</edges>
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="36.00" length="2.5804" >3.25,1.65 2.55,1.75 2.05,2.05 1.75,2.55 1.65,3.25</lane>
+         <lane id=":0_0_0" depart="0" maxspeed="36.00" length="2.58" >3.25,1.65 2.55,1.75 2.05,2.05 1.75,2.55 1.65,3.25</lane>
       </lanes>
       <cedge id="0">:0_0_0</cedge>
    </edge>
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="36.00" length="2.5804" >1.65,496.75 1.75,497.45 2.05,497.95 2.55,498.25 3.25,498.35</lane>
+         <lane id=":1_0_0" depart="0" maxspeed="36.00" length="2.58" >1.65,496.75 1.75,497.45 2.05,497.95 2.55,498.25 3.25,498.35</lane>
       </lanes>
       <cedge id="1">:1_0_0</cedge>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="36.00" length="2.58041" >496.75,498.35 497.45,498.25 497.95,497.95 498.25,497.45 498.35,496.75</lane>
+         <lane id=":2_0_0" depart="0" maxspeed="36.00" length="2.58" >496.75,498.35 497.45,498.25 497.95,497.95 498.25,497.45 498.35,496.75</lane>
       </lanes>
       <cedge id="2">:2_0_0</cedge>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="36.00" length="2.58041" >498.35,3.25 498.25,2.55 497.95,2.05 497.45,1.75 496.75,1.65</lane>
+         <lane id=":3_0_0" depart="0" maxspeed="36.00" length="2.58" >498.35,3.25 498.25,2.55 497.95,2.05 497.45,1.75 496.75,1.65</lane>
       </lanes>
       <cedge id="3">:3_0_0</cedge>
    </edge>
@@ -38,28 +38,28 @@
    <node_count>4</node_count>
 
 
-   <edge id="0" Length="493.50" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="500.00" from="0" to="1" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="0" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="0_0" depart="1" vclasses="" maxspeed="36.00" length="493.50">1.65,3.25 1.65,496.75</lane>
       </lanes>
       <cedge id="1">0_0</cedge>
    </edge>
 
-   <edge id="1" Length="493.50" Speed="36.00" Name="1" NoLanes="1" XFrom="0.00" YFrom="500.00" XTo="500.00" YTo="500.00" from="1" to="2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="1_0" depart="1" vclasses="" maxspeed="36.00" length="493.50">3.25,498.35 496.75,498.35</lane>
       </lanes>
       <cedge id="2">1_0</cedge>
    </edge>
 
-   <edge id="2" Length="493.50" Speed="36.00" Name="2" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" from="2" to="3" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="2" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2_0" depart="1" vclasses="" maxspeed="36.00" length="493.50">498.35,496.75 498.35,3.25</lane>
       </lanes>
       <cedge id="3">2_0</cedge>
    </edge>
 
-   <edge id="3" Length="493.50" Speed="36.00" Name="3" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="0.00" YTo="0.00" from="3" to="0" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="3" from="3" to="0" priority="-1" type="" function="normal">
       <lanes>
          <lane id="3_0" depart="1" vclasses="" maxspeed="36.00" length="493.50">496.75,1.65 3.25,1.65</lane>
       </lanes>
@@ -108,7 +108,7 @@
    <junction id="0" type="priority" x="0.00" y="0.00">
       <inclanes>3_0</inclanes>
       <intlanes>:0_0_0</intlanes>
-      <shape>3.25,3.25 3.25,0.05 0.05,3.25 3.25,3.25</shape>
+      <shape>0.05,3.25 3.25,3.25 3.25,0.05</shape>
    </junction>
 
    <junction id="1" type="priority" x="0.00" y="500.00">
