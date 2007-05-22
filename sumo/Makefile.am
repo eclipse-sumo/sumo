@@ -1,6 +1,9 @@
-SUBDIRS = src
+SUBDIRS = src docs
 
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
+
+doc:
+	$(MAKE) -C docs $@
 
 dist-hook:
 	cd $(srcdir)
@@ -11,5 +14,4 @@ dist-hook:
 	cp --parents `find data tests -name .svn -prune -o -regex ".*/\(errors\|output\|options\|testsuite\)\..*" -print` $(distdir)
 	cp --parents `find tools -regex ".*\.\(pl\|py\|java\|jar\)"` $(distdir)
 	cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $(distdir)/tools/traceExporter
-	cp --parents `find docs -name .svn -prune -or -type f -print` $(distdir)
 

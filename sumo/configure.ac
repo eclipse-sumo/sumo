@@ -376,7 +376,14 @@ src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/xml/Makefile
 src/itm-remoteserver/Makefile
-tools/traceExporter/Makefile
+docs/Makefile
+docs/docbook/Makefile
+docs/docbook/xslt/Makefile
+docs/docbook/xslt/sumo_html/Makefile
+docs/docbook/gfx/Makefile
+docs/docbook/gfx/dev/Makefile
+docs/docbook/gfx/more/Makefile
+docs/docbook/gfx/user/Makefile
 Makefile)
 
 dnl ---------------------------------------------
