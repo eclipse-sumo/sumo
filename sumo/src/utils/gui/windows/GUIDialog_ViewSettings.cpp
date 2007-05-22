@@ -731,7 +731,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
         case CST_SINGLE:
             if(sender==mySingleLaneColor) {
-                cout << (int) FXREDVAL((FXColor) val) << " " << (int) FXGREENVAL((FXColor) val) << " " << (int) FXBLUEVAL((FXColor) val) << endl;
+                //cout << (int) FXREDVAL((FXColor) val) << " " << (int) FXGREENVAL((FXColor) val) << " " << (int) FXBLUEVAL((FXColor) val) << endl;
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
                 myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
                     tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0]);
