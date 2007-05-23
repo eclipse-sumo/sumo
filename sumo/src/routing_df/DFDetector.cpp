@@ -2,7 +2,7 @@
 /// @file    DFDetector.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id: $
+/// @version $Id$
 ///
 // Class representing a detector within the DFROUTER
 /****************************************************************************/
@@ -110,10 +110,10 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
                      SUMOTime time,
                      const DFRONet &net) const
 {
-    if(q==end) {
-        return 0;
-    }
     while (e!=0) {
+        if(q==end) {
+            return 0;
+        }
         if (net.hasDetector(e)) {
             return (SUMOReal) detectors.getAggFlowFor(e, time, 30*60, flows);
         }
