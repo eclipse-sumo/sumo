@@ -183,7 +183,7 @@ protected:
 
 private:
     /** starts to load a simulation */
-    void load(const std::string &file);
+    void load(const std::string &file, bool isNet, bool isReload=false);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -264,8 +264,11 @@ protected:
     /// io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// List of recent files
-    FXRecentFiles myRecentFiles;
+    /// List of recent config files
+    FXRecentFiles myRecentConfigs;
+
+    /// List of recent nets
+    FXRecentFiles myRecentNets;
 
     /// Input file pattern
     std::string myConfigPattern;

@@ -159,7 +159,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         : GUIMainWindow(a, glWidth, glHeight),
         myLoadThread(0), myRunThread(0),
         myAmLoading(false),
-        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false)
+        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets("nets")
 {
     GUIIconSubSys::init(a);
 }
@@ -330,7 +330,7 @@ GUIApplicationWindow::fillMenuBar()
                       "&Open Simulation...\tCtl-O\tOpen a simulation (Configuration file).",
                       GUIIconSubSys::getIcon(ICON_OPEN_CONFIG),this,MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
-                      "&Open Network...\tCtl-O\tOpen a network.",
+                      "Open &Network...\tCtl-N\tOpen a network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET),this,MID_OPEN_NETWORK);
     new FXMenuCommand(myFileMenu,
                       "&Reload\tCtl-R\tReloads the simulation / the network.",
@@ -341,21 +341,37 @@ GUIApplicationWindow::fillMenuBar()
                       GUIIconSubSys::getIcon(ICON_CLOSE),this,MID_CLOSE);
     // Recent files
     FXMenuSeparator* sep1=new FXMenuSeparator(myFileMenu);
-    sep1->setTarget(&myRecentFiles);
+    sep1->setTarget(&myRecentConfigs);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentFiles,FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(myFileMenu,"&Clear Recent Files",NULL,&myRecentFiles,FXRecentFiles::ID_CLEAR);
-    myRecentFiles.setTarget(this);
-    myRecentFiles.setSelector(MID_RECENTFILE);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu,"C&lear Recent Configurations",NULL,&myRecentConfigs,FXRecentFiles::ID_CLEAR);
+    myRecentConfigs.setTarget(this);
+    myRecentConfigs.setSelector(MID_RECENTFILE);
+    FXMenuSeparator* sep2=new FXMenuSeparator(myFileMenu);
+    sep2->setTarget(&myRecentNets);
+    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu,"Cl&ear Recent Networks",NULL,&myRecentNets,FXRecentFiles::ID_CLEAR);
+    myRecentNets.setTarget(this);
+    myRecentNets.setSelector(MID_RECENTFILE);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "&Quit\tCtl-Q\tQuit the Application.",
@@ -609,8 +625,8 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
-        load(file);
-        myRecentFiles.appendFile(file.c_str());
+        load(file, false);
+        myRecentConfigs.appendFile(file.c_str());
     }
     return 1;
 }
@@ -620,17 +636,17 @@ long
 GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
 {
     // get the new file name
-    FXFileDialog opendialog(this,"Open Simulation Configuration");
+    FXFileDialog opendialog(this,"Open Network");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.net.xml");
+    opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
-        load(file);
-        myRecentFiles.appendFile(file.c_str());
+        load(file, true);
+        myRecentNets.appendFile(file.c_str());
     }
     return 1;
 }
@@ -639,20 +655,20 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
 long
 GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*)
 {
-    load(myLoadThread->getFileName());
+    load("", false, true);
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onCmdOpenRecent(FXObject*,FXSelector,void *data)
+GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data)
 {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
     string file = string((const char*)data);
-    load(file);
+    load(file, sender == &myRecentNets);
     return 1;
 }
 
@@ -1071,17 +1087,19 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
 
 
 void
-GUIApplicationWindow::load(const std::string &file)
+GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload)
 {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    if (FXFile::match("*.net.xml", FXFile::name(file.c_str()))) {
-        myLoadThread->load(file, true);
+    string text;
+    if (isReload) {
+        myLoadThread->start();
+        text = "Reloading.";
     } else {
-        myLoadThread->load(file, false);
+        myLoadThread->load(file, isNet);
+        text = "Loading '" + file + "'.";
     }
-    string text = "Loading '" + file + "'.";
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
     update();
@@ -1198,7 +1216,7 @@ void
 GUIApplicationWindow::loadOnStartup(const std::string &config, bool run)
 {
     myRunAtBegin = run;
-    load(config);
+    load(config, false);
 }
 /*
 long
