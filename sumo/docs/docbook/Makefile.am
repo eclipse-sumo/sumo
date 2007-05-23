@@ -1,6 +1,6 @@
 SUBDIRS = xslt gfx
 
-EXTRA_DIST = sumo_user.xml sumo_moreon_arcview.xml sumo_moreon_tls.xml sumo_moreon_dua.xml sumo_moreon_testing.xml sumo_howto_global_output_file.xml sumo_howto_building.xml
+EXTRA_DIST = sumo_user.xml sumo_moreon_arcview.xml sumo_moreon_tls.xml sumo_moreon_dua.xml sumo_moreon_testing.xml sumo_howto_global_output_file.xml
 
 xsltproc = /usr/bin/xsltproc
 xsltparams = --path xslt/sumo_html --param html.stylesheet '"../../css/sumo_db.css"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1
@@ -16,7 +16,6 @@ doc: $(xsltproc)
 	$(xsltproc) $(xsltparams) -o sumo_moreon_dua.html more_docbook.xsl sumo_moreon_dua.xml
 	$(xsltproc) $(xsltparams) -o sumo_moreon_testing.html more_docbook.xsl sumo_moreon_testing.xml
 	$(xsltproc) $(xsltparams) -o sumo_howto_global_output_file.html more_docbook.xsl sumo_howto_global_output_file.xml
-	$(xsltproc) $(xsltparams) -o sumo_howto_building.html more_docbook.xsl sumo_howto_building.xml
 # fo + pdf
 	$(xsltproc) $(xsltfoparams) -o sumo_user.fo $(fostyle) sumo_user.xml
 	$(fop) sumo_user.fo sumo_user.pdf
@@ -30,6 +29,4 @@ doc: $(xsltproc)
 	$(fop) sumo_moreon_testing.fo sumo_moreon_testing.pdf
 	$(xsltproc) $(xsltfoparams) -o sumo_howto_global_output_file.fo $(fostyle) sumo_howto_global_output_file.xml
 	$(fop) sumo_howto_global_output_file.fo sumo_howto_global_output_file.pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_howto_building.fo $(fostyle) sumo_howto_building.xml
-	$(fop) sumo_howto_building.fo sumo_howto_building.pdf
 	rm sumo_*.fo
