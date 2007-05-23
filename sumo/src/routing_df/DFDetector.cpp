@@ -103,12 +103,16 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 #include "DFRONet.h"
 
 SUMOReal
-DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator q,
+DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
+                     vector<ROEdge*>::const_iterator q,
                      const DFDetectorCon &detectors,
                      const DFDetectorFlows &flows,
                      SUMOTime time,
                      const DFRONet &net) const
 {
+    if(q==end) {
+        return 0;
+    }
     while (e!=0) {
         if (net.hasDetector(e)) {
             return (SUMOReal) detectors.getAggFlowFor(e, time, 30*60, flows);
@@ -118,7 +122,7 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator q,
             SUMOReal allProbs = 0;
             for (size_t i=0; i<e->getNoFollowing(); ++i) {
                 ROEdge *ne = e->getFollower(i);
-                SUMOReal prob = getUsage(ne, q, detectors, flows, time, net);
+                SUMOReal prob = getUsage(ne, end, q, detectors, flows, time, net);
                 probs[ne] = prob;
                 allProbs += prob;
             }
@@ -181,7 +185,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                     }
                     for (size_t i=0; i<(*q)->getNoFollowing(); ++i) {
                         ROEdge *ne = (*q)->getFollower(i);
-                        SUMOReal prob = getUsage(ne, q, detectors, flows, time, net);
+                        SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net);
                         probs[ne] = prob;
                         allProbs += prob;
                     }
