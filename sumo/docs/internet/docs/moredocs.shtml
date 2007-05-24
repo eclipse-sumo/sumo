@@ -42,11 +42,13 @@
 			<a href="documentation.shtml" class="SUMOMainLink">Documentation</a><br>
             <a href="gen/user_index.shtml" class="SUMOSubLink">User Docs</a><br>
             <a href="moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
-			<a href="bibliography.shtml" class="SUMOSubLink">Bibliography</a><br>
-			<a href="gen/faq.shtml" class="SUMOSubLink">FAQ</a><br>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/Publications" class="SUMOSubLink">Bibliography</a><br>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/FAQ" class="SUMOSubLink">FAQ</a><br>
+			<!--
 			<a href="manpages.shtml" class="SUMOSubLink">ManPages</a><br>
-						<!-- <a href="docs/examples.html" class="SUMOSubLink">Examples</a><br> -->
-<!--			<a href="classdocs/index.html" class="SUMOSubLink">Class Docs</a><br>-->
+			<a href="docs/examples.html" class="SUMOSubLink">Examples</a><br>
+			<a href="classdocs/index.html" class="SUMOSubLink">Class Docs</a><br>
+			-->
 
 
 
@@ -95,22 +97,26 @@ The <b>"HowTos"</b> are brief descriptions how to handle a certain problem while
 		<th valign="top">Audience</th>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_dua.shtml" class="SUMOInLineLink">More On... Dynamic User Assignment</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_dua.shtml" class="SUMOInLineLink">More On... Dynamic User Assignment</a></pre><br/>
+		Also available as: <a href="./gen/sumo_moreon_dua.pdf" class="SUMOInLineLink">[.pdf]</a></td>
 		<td valign="top">Examples of using and evaluating the dynamic user assignment SUMO uses</td>
 		<td valign="top"><i>User</i></td>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_arcview.shtml" class="SUMOInLineLink">More On... Parsing ArcView Files</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_arcview.shtml" class="SUMOInLineLink">More On... Parsing ArcView Files</a></pre><br/>
+		Also available as: <a href="./gen/sumo_moreon_arcview.pdf" class="SUMOInLineLink">[.pdf]</a></td>
 		<td valign="top">Shows how to import networks coded as ArcView-files by example.</td>
 		<td valign="top"><i>User</i></td>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a></pre><br/>
+		Also available as: <a href="./gen/sumo_moreon_tls.pdf" class="SUMOInLineLink">[.pdf]</a></td>
 		<td valign="top">Information about how Traffic Lights are implemented in SUMO and how to extend them or build own algorithms</td>
 		<td valign="top"><i>Developer</i></td>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_testing.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_testing.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre><br/>
+		Also available as: <a href="./gen/sumo_moreon_testing.pdf" class="SUMOInLineLink">[.pdf]</a></td>
 		<td valign="top">Introduction to the test suite we use and a list of what the tests cover</td>
 		<td valign="top"><i>Developer</i></td>
 	</tr>
@@ -125,12 +131,8 @@ The <b>"HowTos"</b> are brief descriptions how to handle a certain problem while
 		<th valign="top">Audience</th>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_howto_building.shtml" class="SUMOInLineLink">HowTo... Build</a></pre></td>
-		<td valign="top">Describes how to obtain SUMO-sources and how to build them</td>
-		<td valign="top"><i>Developer</i></td>
-	</tr>
-	<tr>
-		<td valign="top"><pre><a href="gen/sumo_howto_global_output_file.shtml" class="SUMOInLineLink">HowTo... Add a global output File</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_howto_global_output_file.shtml" class="SUMOInLineLink">HowTo... Add a global output File</a></pre><br/>
+		Also available as: <a href="./gen/sumo_howto_global_output_file.pdf" class="SUMOInLineLink">[.pdf]</a></td>
 		<td valign="top">Description how an optional output file can be added to the simulation</td>
 		<td valign="top"><i>Developer</i></td>
 	</tr>
