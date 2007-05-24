@@ -126,7 +126,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
         openVehicle(*this, attrs, myWantVehicleColor);
         break;
     case SUMO_TAG_VTYPE:
-        deleteSnippet();
         addVehicleType(attrs);
         break;
     case SUMO_TAG_ROUTE:
@@ -194,10 +193,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
         }
         stop.reached = false;
         myVehicleStops.push_back(stop);
-    }
-
-    if (element==SUMO_TAG_NOTHING) {
-        addUnknownSnippet(name, attrs);
     }
 }
 
