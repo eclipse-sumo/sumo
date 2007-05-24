@@ -193,10 +193,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\XMLSnippletStorage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\xml\XMLSubSys.cpp"
 				>
 				<FileConfiguration
@@ -248,10 +244,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\XMLBuildingExceptions.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\xml\XMLSnippletStorage.h"
 				>
 			</File>
 			<File
