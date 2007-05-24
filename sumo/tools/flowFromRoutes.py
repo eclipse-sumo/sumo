@@ -93,7 +93,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 headerSeen = True
             else:
                 if flowDef[0] in self._detData:
-                    self._detData[flowDef[0]].addDetFlow(flowDef[0], int(flowDef[2]))
+                    self._detData[flowDef[0]].addDetFlow(flowDef[0], float(flowDef[2]))
 
     def calcStatistics(self):
         rSum = 0

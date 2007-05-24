@@ -192,7 +192,7 @@ class Net:
         self.trimNet()
         for edge in self._edges.itervalues():
             if len(edge.detFlow) > 0:
-                edge.capacity = max(edge.detFlow)
+                edge.capacity = int(max(edge.detFlow))
             if not options.respectzero and edge.capacity == 0:
                 edge.capacity = sys.maxint
             edge.startCapacity = edge.capacity
@@ -481,7 +481,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             if not 'type' in attrs:
                 if not options.sourcesink:
                     warn("Warning! No type for detector " + attrs['id'])
-            else:
+            elif not options.ignoredettype:
                 if attrs['type'] == 'source':
                     self._net.addSourceEdge(edgeObj)
                 if attrs['type'] == 'sink':
@@ -509,7 +509,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
             if not flowDef[0] in self._det2edge:
                 warn("Warning! Unknown detector " + flowDef[0])
             else:
-                self._det2edge[flowDef[0]].addFlow(flowDef[0], int(flowDef[2]))
+                self._det2edge[flowDef[0]].addFlow(flowDef[0], float(flowDef[2]))
 
 
 def warn(msg):
@@ -547,8 +547,10 @@ optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                      default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s), together with their predecessors and successors")
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
+optParser.add_option("-i", "--ignore-detector-types", action="store_true", dest="ignoredettype",
+                     default=False, help="ignores source and sink types in the detector file (implies -s)")
 optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
-                     default=False, help="detect sources and sinks")
+                     default=False, help="detect (additional) sources and sinks")
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
@@ -562,6 +564,8 @@ if not options.netfile or not options.detfile or not options.flowfiles:
 if options.emitfile and not options.routefile:
     optParser.print_help()
     sys.exit()
+if options.ignoredettype:
+    options.sourcesink = True
 parser = make_parser()
 if options.verbose:
     print "Reading net"
