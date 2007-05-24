@@ -141,10 +141,6 @@ private:
     // complies with the restrictions above
     bool CheckAngles(TNode* Node);
     bool CanConnect(TNode* BaseNode, TNode* NewNode);
-    // get random values
-    SUMOReal GetAngle(); // returns random angle [0; 2PI]
-    SUMOReal GetDistance(); // returns random distance [myMinDistance; myMaxDistance]
-    bool UseOuterNode(); // uses myConnectivity; returns true, if an outer node shall be used
     bool CreateNewNode(TNode *BaseNode); // creates new random node and returns true, if creation was successfull
     // finds possible connections between Node and OuterNodes
     // complying with restrictions

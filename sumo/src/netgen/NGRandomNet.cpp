@@ -220,51 +220,19 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 }
 
 
-SUMOReal
-TNGRandomNet::GetAngle()
-{
-    return randSUMO((SUMOReal) 2*(SUMOReal) PI);
-}
-
-
-SUMOReal
-TNGRandomNet::GetDistance()
-{
-    return (myMaxDistance - myMinDistance)*
-           static_cast<SUMOReal>(rand()) / static_cast<SUMOReal>(RAND_MAX)
-           + myMinDistance;
-}
-
-
-bool
-TNGRandomNet::UseOuterNode()
-{
-    SUMOReal value = randSUMO();
-    if ((value) < myConnectivity) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 bool
 TNGRandomNet::CreateNewNode(TNode *BaseNode)
 {
-    TNode *NewNode;
-    TLink *NewLink;
-
     // calculate position of new node based on BaseNode
-    SUMOReal x, y, dist, angle;
-    dist = GetDistance();
-    angle = GetAngle();
-    x = BaseNode->getPosition().x() + dist * cos(angle);
-    y = BaseNode->getPosition().y() + dist * sin(angle);
-    NewNode = new TNode(myNet->GetID());
+    SUMOReal dist = randSUMO(myMinDistance, myMaxDistance);
+    SUMOReal angle = randSUMO((SUMOReal)(2*PI));
+    SUMOReal x = BaseNode->getPosition().x() + dist * cos(angle);
+    SUMOReal y = BaseNode->getPosition().y() + dist * sin(angle);
+    TNode *NewNode = new TNode(myNet->GetID());
     NewNode->SetX(x);
     NewNode->SetY(y);
     NewNode->SetMaxNeighbours((SUMOReal) NeighbourDistribution.Num());
-    NewLink = new TLink(myNet->GetID(), BaseNode, NewNode);
+    TLink *NewLink = new TLink(myNet->GetID(), BaseNode, NewNode);
     if (CanConnect(BaseNode, NewNode)) {
         // add node
         myNet->add(NewNode);
@@ -308,7 +276,7 @@ TNGRandomNet::CreateNet(int NumNodes)
         OuterNode = OuterNodes.back();
         FindPossibleOuterNodes(OuterNode);
         created = false;
-        if ((ConNodes.size() > 0) && UseOuterNode()) {
+        if ((ConNodes.size() > 0) && (randSUMO() < myConnectivity)) {
             TLink *NewLink;
             // create link
             NewLink = new TLink(myNet->GetID(), OuterNode, ConNodes.back());
