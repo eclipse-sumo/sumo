@@ -1,5 +1,5 @@
    0 types loaded.
-   294 edges loaded.
+   280 edges loaded.
    200 nodes loaded.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
@@ -25,8 +25,8 @@ Summary:
   Priority junctions          : 199
   Right-before-left junctions : 1
  Network boundaries:
-  Original boundary  : -841.85,-1749.32,2064.13,1132.77
-  Applied offset     : 841.85,1749.32
-  Converted boundary : 0.00,0.00,2905.98,2882.09
+  Original boundary  : -1263.68,-1880.98,1199.60,1596.45
+  Applied offset     : 1263.68,1880.98
+  Converted boundary : 0.00,0.00,2463.28,3477.43
 -----------------------------------------------------
 Success.
