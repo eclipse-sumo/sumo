@@ -147,11 +147,6 @@ void
 RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
                                  const std::string &chars)
 {
-    if (element==-1) {
-        // save unknown elements
-        addSnippetCharacters(chars);
-        return;
-    }
     // process routes only, all other elements do
     //  not have embedded characters
     if (element!=SUMO_TAG_ROUTE) {
@@ -186,11 +181,6 @@ RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
 void
 RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element, const std::string &name)
 {
-    if (element==-1) {
-        // save unknown elements
-        closeSnippet();
-        return;
-    }
     RORDLoader_SUMOBase::myEndElement(element, name);
     switch (element) {
     case SUMO_TAG_ROUTEALT:

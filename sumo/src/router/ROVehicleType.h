@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class XMLSnippletStorage;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -78,9 +72,6 @@ public:
     /// Returns the class of the vehicle
     SUMOVehicleClass getClass() const;
 
-    /// Adds embedded parameter
-    void addEmbedded(XMLSnippletStorage *embedded);
-
 
 protected:
     /// The name of the type
@@ -94,9 +85,6 @@ protected:
 
     /// The class of the vehicle
     SUMOVehicleClass myClass;
-
-    /// Embedded (free) parameter
-    XMLSnippletStorage *myEmbeddedParams;
 
 };
 

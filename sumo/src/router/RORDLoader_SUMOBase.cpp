@@ -78,24 +78,17 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
                                     const std::string &name,
                                     const Attributes &attrs)
 {
-    if (element==SUMO_TAG_NOTHING) {
-        // save unknown elements
-        addUnknownSnippet(name, attrs);
-        return;
-    }
     switch (element) {
     case SUMO_TAG_ROUTE:
         startRoute(attrs);
         break;
     case SUMO_TAG_VEHICLE:
-        deleteSnippet();
         // try to parse the vehicle definition
         if (!SUMOBaseRouteHandler::openVehicle(*this, attrs, true)) {
             mySkipCurrent = true;
         }
         break;
     case SUMO_TAG_VTYPE:
-        deleteSnippet();
         myCurrentVehicleType = 0;
         startVehType(attrs);
         break;
@@ -112,11 +105,6 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element, const std::string &/*name*
     case SUMO_TAG_VEHICLE:
         closeVehicle();
         break;
-    case SUMO_TAG_VTYPE:
-        if (myCurrentVehicleType!=0) {
-            myCurrentVehicleType->addEmbedded(extractSnippet());
-        }
-        break;
     }
 }
 
@@ -127,7 +115,6 @@ RORDLoader_SUMOBase::closeVehicle()
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle id
     if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
-        deleteSnippet();
         mySkipCurrent = true;
         return;
     }
@@ -140,7 +127,6 @@ RORDLoader_SUMOBase::closeVehicle()
     }
     if (route==0) {
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
-        deleteSnippet();
         return;
     }
     // get the vehicle color
@@ -150,14 +136,12 @@ RORDLoader_SUMOBase::closeVehicle()
         if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
             _net.removeRouteSecure(route);
             // !!! was ist mit type?
-            deleteSnippet();
             return;
         }
         ROVehicle *veh = myVehicleBuilder.buildVehicle(
                              myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
                              myRepOffset, myRepNumber);
         _net.addVehicle(myActiveVehicleID, veh);
-        veh->addEmbedded(extractSnippet());
     }
 }
 

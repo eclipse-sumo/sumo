@@ -38,7 +38,6 @@
 
 #include <string>
 #include <utils/xml/GenericSAXHandler.h>
-#include <utils/xml/XMLSnippletStorage.h>
 #include <utils/common/FileErrorReporter.h>
 
 
@@ -77,27 +76,6 @@ public:
 protected:
     /// build an error description
     std::string buildErrorMessage(const SAXParseException& exception);
-
-    /// Begins processing of an unknown snippet
-    void addUnknownSnippet(const std::string &name, const Attributes &attrs);
-
-    /// Adds characters
-    void addSnippetCharacters(const std::string &chars);
-
-    /// Moves one level down
-    void closeSnippet();
-
-    /// Writes the snippet to the given stream
-    void flushSnippet(std::ostream &strm, int level);
-
-    /// Deletes the loaded snippets
-    void deleteSnippet();
-
-    /// Returns loaded snippet, detaching it from the parent
-    XMLSnippletStorage *extractSnippet();
-
-protected:
-    XMLSnippletStorage *myCurrentSnippet;
 
 private:
     /// invalidated copy constructo

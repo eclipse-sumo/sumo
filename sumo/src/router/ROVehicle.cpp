@@ -37,7 +37,6 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLSnippletStorage.h>
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
@@ -67,14 +66,12 @@ ROVehicle::ROVehicle(ROVehicleBuilder &,
                      int period, int repNo)
         : myID(id), myColor(color), myType(type), myRoute(route),
         myDepartTime(depart),
-        myRepetitionPeriod(period), myRepetitionNumber(repNo),
-        myEmbeddedParams(0)
+        myRepetitionPeriod(period), myRepetitionNumber(repNo)
 {}
 
 
 ROVehicle::~ROVehicle()
 {
-    delete myEmbeddedParams;
 }
 
 
@@ -185,12 +182,6 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
         }
     }
 
-    if (myEmbeddedParams!=0) {
-        myEmbeddedParams->flush(*os, 2);
-        if (altos!=0) {
-            myEmbeddedParams->flush(*altos, 2);
-        }
-    }
     (*os) << "   </vehicle>" << endl;
     if (altos!=0) {
         (*altos) << "   </vehicle>" << endl;
@@ -203,19 +194,8 @@ ROVehicle::copy(ROVehicleBuilder &vb,
                 const std::string &id, unsigned int depTime,
                 RORouteDef *newRoute)
 {
-    ROVehicle *ret = new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
+    return new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
                                    myRepetitionPeriod, myRepetitionNumber);
-    if (myEmbeddedParams!=0) {
-        ret->addEmbedded(myEmbeddedParams->duplicate());
-    }
-    return ret;
-}
-
-
-void
-ROVehicle::addEmbedded(XMLSnippletStorage *embedded)
-{
-    myEmbeddedParams = embedded;
 }
 
 

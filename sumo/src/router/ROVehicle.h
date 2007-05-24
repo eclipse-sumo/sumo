@@ -47,7 +47,6 @@
 // ===========================================================================
 class ROVehicleType;
 class RORouteDef;
-class XMLSnippletStorage;
 
 
 // ===========================================================================
@@ -94,9 +93,6 @@ public:
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
                             const std::string &id, unsigned int depTime, RORouteDef *newRoute);
 
-    /// Adds embedded parameter
-    void addEmbedded(XMLSnippletStorage *embedded);
-
 
 protected:
     /// Saves the vehicle definition only into the given stream
@@ -123,9 +119,6 @@ protected:
 
     /// The number of times such vehicles shall be emitted
     int myRepetitionNumber;
-
-    /// Embedded (free) parameter
-    XMLSnippletStorage *myEmbeddedParams;
 
 };
 

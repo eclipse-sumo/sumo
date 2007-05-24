@@ -78,12 +78,10 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         SUMOTime intBegin,
         SUMOTime intEnd,
         unsigned int vehicles2Emit,
-        bool randomize,
-        XMLSnippletStorage *embedded)
+        bool randomize)
         : myVehicle(vehicle), myVehicleType(type), myRoute(route),
         myIntervalBegin(intBegin), myIntervalEnd(intEnd),
-        myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize),
-        myEmbedded(embedded)
+        myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize)
 {
     assert(myIntervalBegin<myIntervalEnd);
     if (myRandom) {
@@ -102,7 +100,6 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
 RORDGenerator_ODAmounts::FlowDef::~FlowDef()
 {
     delete myVehicle;
-    delete myEmbedded;
 }
 
 
@@ -152,9 +149,6 @@ RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
     net.addRouteDef(rd);
     ROVehicle *veh = myVehicle->copy(vb, id, t, rd);
     net.addVehicle(id, veh);
-    if (myEmbedded!=0) {
-        veh->addEmbedded(myEmbedded->duplicate());
-    }
     myEmitted++;
 }
 
@@ -243,7 +237,6 @@ RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
     RORDLoader_TripDefs::myStartElement(element, name, attrs);
     switch (element) {
     case SUMO_TAG_FLOW:
-        deleteSnippet();
         parseFlowAmountDef(attrs);
         break;
     case SUMO_TAG_INTERVAL:
@@ -349,7 +342,6 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
 
         if (myIntervalEnd<myBegin) {
-            deleteSnippet();
             return;
         }
         // add the vehicle type, the vehicle and the route to the net
@@ -374,7 +366,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         // add to the container
         FlowDef *fd =
             new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,
-                        myVehicle2EmitNumber, myRandom, extractSnippet());
+                        myVehicle2EmitNumber, myRandom);
         myFlows.push_back(fd);
     }
 }

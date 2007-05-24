@@ -85,14 +85,8 @@ void
 RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
                                     const Attributes &attrs)
 {
-    if (element==SUMO_TAG_NOTHING) {
-        // save unknown elements
-        addUnknownSnippet(name, attrs);
-        return;
-    }
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
-        deleteSnippet();
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         myID = getVehicleID(attrs);
@@ -116,7 +110,6 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
     }
     // check whether a vehicle type shall be parsed
     if (element==SUMO_TAG_VTYPE) {
-        deleteSnippet();
         // get and check the vtype-id
         string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
         if (id=="") {
@@ -312,11 +305,6 @@ void
 RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*/,
                                   const std::string &chars)
 {
-    if (element==-1) {
-        // save unknown elements
-        addSnippetCharacters(chars);
-        return;
-    }
     if (element==SUMO_TAG_TRIPDEF) {
         StringTokenizer st(chars);
         myEdges.clear();
@@ -336,11 +324,6 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*
 void
 RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*/)
 {
-    if (element==-1) {
-        // save unknown elements
-        closeSnippet();
-        return;
-    }
     if (element==SUMO_TAG_TRIPDEF &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
@@ -375,12 +358,6 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*
                       type, myColor, myPeriodTime, myNumberOfRepetitions);
         }
         _net.addVehicle(myID, veh);
-        veh->addEmbedded(extractSnippet());
-    }
-    if (element==SUMO_TAG_VTYPE) {
-        if (myCurrentVehicleType!=0) {
-            myCurrentVehicleType->addEmbedded(extractSnippet());
-        }
     }
 }
 
