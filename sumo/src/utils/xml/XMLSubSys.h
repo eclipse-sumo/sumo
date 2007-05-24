@@ -4,7 +4,7 @@
 /// @date    Mon, 1 Jul 2002
 /// @version $Id$
 ///
-// Utility for initialisation and closing of the XML-subsystem
+// Utility for initialising and closing the XML-subsystem
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,9 +42,11 @@
 // ===========================================================================
 /**
  * @class XMLSubSys
- * some static methods for initialisation and closing of the xml-subsystem.
- * The Xerces-Parses needs such an initialisation and should also be closed.
- * As we use this system for both the input files and the configuration we
+ * @brief Utility for initialising and closing the XML-subsystem
+ * 
+ * The Xerces-Parses needs an initialisation and should also be closed.
+ *
+ * As we use xerces for both the input files and the configuration we
  * would have to check whether the system was initialised before. Instead,
  * we call XMLSubSys::init() once at the beginning of our application and
  * XMLSubSys::close() at the end.
@@ -52,10 +54,18 @@
 class XMLSubSys
 {
 public:
-    /// initialises the xml-subsystem
+    /** @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
+     *
+     * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
+     *  caught and their content is reported to cerr. In this case the function
+     *  returns false. If no problem occured, true is returned.
+     */
     static bool init();
 
-    /// closes the xml-subsystem
+    /** @brief Closes the xml-subsystem
+     *
+     * Calls XMLPlatformUtils::Terminate();
+     */
     static void close();
 
 };

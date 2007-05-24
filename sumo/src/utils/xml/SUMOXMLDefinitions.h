@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id: SUMOXMLDefinitions.h 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
 ///
-// Definitions of SUMO-tags
+// Definitions of elements and attributes known by SUMO
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -41,7 +41,8 @@
 // definitions
 // ===========================================================================
 /**
- * Numbers representing SUMO-XML - tags (element names)
+ * @enum SumoXMLTag
+ * @brief Numbers representing SUMO-XML - element names
  */
 enum SumoXMLTag
 {
@@ -155,7 +156,8 @@ enum SumoXMLTag
 
 
 /**
- * Numbers representing SUMO-XML - attributes
+ * @enum SumoXMLAttr
+ * @brief Numbers representing SUMO-XML - attributes
  */
 enum SumoXMLAttr
 {

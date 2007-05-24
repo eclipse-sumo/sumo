@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id: SUMOXMLDefinitions.cpp 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
 ///
-// Definitions of SUMO-tags
+// Definitions of elements and attributes known by SUMO
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
