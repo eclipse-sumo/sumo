@@ -71,14 +71,15 @@
             <a href="sumo_moreon_dua.shtml" class="SUMOSubSubLink">DUA</a><br/>
             <a href="sumo_moreon_arcview.shtml" class="SUMOSubSubLink">Parsing ArcView</a><br/>
             <a href="sumo_moreon_tls.shtml" class="SUMOSubSubLink">Traffic Lights</a><br/>
-            <a href="sumo_howto_building.shtml" class="SUMOSubSubLink">Building</a><br/>
             <a href="sumo_howto_global_output_file.shtml" class="SUMOSubSubLink">Global Output</a><br/>
 
-            <a href="../bibliography.shtml" class="SUMOSubLink">Bibliography</a><br/>
-
-            <a href="faq.shtml" class="SUMOSubLink">FAQ</a><br/>
-
-            <a href="../manpages.shtml" class="SUMOSubLink">ManPages</a><br/>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/Publications" class="SUMOSubLink">Bibliography</a><br>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/FAQ" class="SUMOSubLink">FAQ</a><br>
+			<!--
+			<a href="manpages.shtml" class="SUMOSubLink">ManPages</a><br>
+			<a href="docs/examples.html" class="SUMOSubLink">Examples</a><br>
+			<a href="classdocs/index.html" class="SUMOSubLink">Class Docs</a><br>
+			-->
 
             <a href="../../screens/screenshots.shtml" class="SUMOMainLink">Screenshots</a><br/>
             <a href="../../downloads/downloads.shtml" class="SUMOMainLink">Downloads</a><br/>
