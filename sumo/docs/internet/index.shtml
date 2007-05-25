@@ -92,11 +92,11 @@ New to SUMO?<br/>
 <hr class="thin"/>
 
 <p><b>News</b><br>
-<!-- 0 --> 24.01.2007: reinserted sumo-src-0.9.5.zip into the download area; the previous file seems to be broken</a><br/>
-<!-- 1 --> 16.01.2007: moved to SVN, see <a class="SUMOInLineLink" href="http://sourceforge.net/svn/?group_id=45607">http://sourceforge.net/svn/?group_id=45607</a><br/>
-<!-- 2 --> 17.11.2006: "developer" version 0.9.5 released<br/>
-<!-- 3 --> 16.05.2006: <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a> supplies a daily rebuild <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen class documentation</a><br/>
-<!-- 4 --> 18.04.2006: moved all downloads to sourceforge's download center<br/>
+<!-- 0 --> 23.05.2007: version 0.9.6 released<br/>
+<!-- 1 --> 24.01.2007: reinserted sumo-src-0.9.5.zip into the download area; the previous file seems to be broken</a><br/>
+<!-- 2 --> 16.01.2007: moved to SVN, see <a class="SUMOInLineLink" href="http://sourceforge.net/svn/?group_id=45607">http://sourceforge.net/svn/?group_id=45607</a><br/>
+<!-- 3 --> 17.11.2006: "developer" version 0.9.5 released<br/>
+<!-- 4 --> 16.05.2006: <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a> supplies a daily rebuild <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen class documentation</a><br/>
 </p>
 
 <hr class="thin"/>
