@@ -82,8 +82,8 @@
 
             <a href="../moredocs.shtml" class="SUMOSubLink">More On...</a><br/>
 
-			<a href="http://sumo.sourceforge.net/wiki/index.php/Publications" class="SUMOSubLink">Bibliography</a><br>
-			<a href="http://sumo.sourceforge.net/wiki/index.php/FAQ" class="SUMOSubLink">FAQ</a><br>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/Publications" class="SUMOSubLink">Bibliography</a><br/>
+			<a href="http://sumo.sourceforge.net/wiki/index.php/FAQ" class="SUMOSubLink">FAQ</a><br/>
 			<!--
 			<a href="manpages.shtml" class="SUMOSubLink">ManPages</a><br>
 			<a href="docs/examples.html" class="SUMOSubLink">Examples</a><br>
