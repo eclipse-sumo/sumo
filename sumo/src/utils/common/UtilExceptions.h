@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -54,12 +48,12 @@ using namespace std;
  * Thrown when an argument was not proper in the current context
  * A message will be supplied
  */
-class InvalidArgument : public runtime_error
+class InvalidArgument : public std::runtime_error
 {
 public:
     /** constructor */
-    InvalidArgument(const string &message)
-            : runtime_error(message)
+    InvalidArgument(const std::string &message)
+            : std::runtime_error(message)
     {}
 
 };
@@ -71,12 +65,17 @@ public:
  * longer able to proceed due to any reason. The reason itself is mostly
  * reported before throwing the exception
  */
-class ProcessError : runtime_error
+class ProcessError : public std::runtime_error
 {
 public:
     /** constructor */
     ProcessError()
-            : runtime_error("Process Error")
+            : std::runtime_error("Process Error")
+    {}
+
+    /** constructor */
+    ProcessError(const std::string &msg)
+            : std::runtime_error(msg)
     {}
 
 };
@@ -86,12 +85,12 @@ public:
  * EmptyData
  * Thrown when data required by a method is missing
  */
-class EmptyData : public runtime_error
+class EmptyData : public std::runtime_error
 {
 public:
     /** constructor */
     EmptyData()
-            : runtime_error("Empty Data")
+            : std::runtime_error("Empty Data")
     {}
 
 };
@@ -103,12 +102,12 @@ public:
  * numerical representation has any other chracters then
  * digits and a dot
  */
-class NumberFormatException : runtime_error
+class NumberFormatException : public std::runtime_error
 {
 public:
     /** constructor */
     NumberFormatException()
-            : runtime_error("Number Format")
+            : std::runtime_error("Number Format")
     {}
 
 };
@@ -119,12 +118,12 @@ public:
  * Thrown when an array element out of the array's
  * bounderies is accessed
  */
-class OutOfBoundsException : runtime_error
+class OutOfBoundsException : public std::runtime_error
 {
 public:
     /** constructor */
     OutOfBoundsException()
-            : runtime_error("Out Of Bounds")
+            : std::runtime_error("Out Of Bounds")
     {}
 
 };
@@ -135,34 +134,34 @@ public:
  * Thrown when a named element is tried to be accesed
  * which is not known to the container
  */
-class UnknownElement : runtime_error
+class UnknownElement : public std::runtime_error
 {
 public:
     /** constructor */
     UnknownElement()
-            : runtime_error("Unknown Element")
+            : std::runtime_error("Unknown Element")
     {}
 
 };
 
 
-class FileBuildError : public runtime_error
+class FileBuildError : public std::runtime_error
 {
 public:
     /** constructor */
-    FileBuildError(const string &message)
-            : runtime_error(message)
+    FileBuildError(const std::string &message)
+            : std::runtime_error(message)
     {}
 
 };
 
 
-class NetworkError : public runtime_error
+class NetworkError : public std::runtime_error
 {
 public:
     // constructor
-    NetworkError(const string &message)
-            : runtime_error(message)
+    NetworkError(const std::string &message)
+            : std::runtime_error(message)
     {}
 
 };
