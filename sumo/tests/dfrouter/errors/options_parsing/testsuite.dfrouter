@@ -1,0 +1,30 @@
+# Tests what happens if someone uses a space in a file name (false item at begin)
+false_space
+
+# Tests what happens if someone uses a space in a file name (false item at end)
+false_space2
+
+# Tests what happens if someone uses a space in a file name (no '=')
+false_space3
+
+# Tests what happens if someone sets three "-" in front of an option (false item at begin)
+triple_minus
+
+# Tests what happens if someone sets three "-" in front of an option (false item at end)
+triple_minus2
+
+# Tests what happens if someone sets three "-" in front of an option (no '=')
+triple_minus3
+
+# Tests what happens if someone sets four "-" in front of an option (false item at begin)
+quad_minus
+
+# Tests what happens if someone sets four "-" in front of an option (false item at end)
+quad_minus2
+
+# Tests what happens if someone sets four "-" in front of an option (no '=')
+quad_minus3
+
+
+
+
