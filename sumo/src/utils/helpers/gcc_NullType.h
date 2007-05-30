@@ -26,7 +26,8 @@ namespace Loki
 // Useful as an end marker in typelists
 ////////////////////////////////////////////////////////////////////////////////
 
-    class NullType {};
+class NullType
+    {};
 
 }   // namespace Loki
 

@@ -2,7 +2,7 @@
 /// @file    guisim_main.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: $
+/// @version $Id$
 ///
 // Revision 1.23  2007/01/10 08:33:04  dkrajzew
 /****************************************************************************/

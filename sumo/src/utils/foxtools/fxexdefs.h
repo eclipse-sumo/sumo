@@ -62,7 +62,8 @@ using namespace FX;
  * FX_NO_GLOBAL_NAMESPACE, the FXEX namespace automatically imported when you #include
  * <fxex/fxex.h>.
  */
-namespace FXEX {
+namespace FXEX
+{
 
 // provide an extern mechanism
 #ifdef WIN32
@@ -106,7 +107,7 @@ namespace FXEX {
 // make a short from two chars
 #define MKUSHORT(l,h)  ((((FX::FXuchar)(l))&0xff) | (((FX::FXuchar)(h))<<8))
 
-    /* !!!!
+/* !!!!
 // Make a long from two ints - provided longs are twice the size of an int
 #ifdef FX_LONG
 #  define MKULONG(l,h) ((((FX::FXuint)(l))&0xffffffff) | (((FX::FXuint)(h))<<32))
@@ -166,38 +167,38 @@ namespace FXEX {
 
 // New selector types
 enum {
-  SEL_DATA=FX::SEL_LAST,      // form of data as an event
-  SEL_THREAD,                 // thread/runnable events
-  SEL_WAITABLE_WAIT,          // waitable event such as a Condition variable, semaphore, etc
-  SEL_WAITABLE_ACTIVATE,      // waitable event such as a Condition variable, semaphore, etc
-  SEL_INTERLOCK,              // interlocked event; object went into lock
-  SEL_BARRIER_LOCK,           // barrier event; thread waiting in barrier lock
-  SEL_BARRIER_UNLOCK,         // barrier event; barrier object reset, threads released
-  SEL_INPUT,                  // some type of input event
-  SEL_OUTPUT,                 // some type of output event
-  SEL_ERROR,                  // some type of error event
-  SEL_IO,                     // Some form of IO
-  SEL_IO_CONNECT,             // Connection event
-  SEL_EVENT,                  // a generic event
-  SEL_BEGIN,                  // en event defining some begining
-  SEL_END,                    // an event defining some ending
-  SEL_TAG,                    // tag event
-  SEL_CONTENT,                // content event
-  SEL_REGISTRY,               // a registry event (TODO I have a plan for this...)
-  SEL_LASTEX,// Last message
-  SEL_THREAD_EVENT
-  };
+    SEL_DATA=FX::SEL_LAST,      // form of data as an event
+    SEL_THREAD,                 // thread/runnable events
+    SEL_WAITABLE_WAIT,          // waitable event such as a Condition variable, semaphore, etc
+    SEL_WAITABLE_ACTIVATE,      // waitable event such as a Condition variable, semaphore, etc
+    SEL_INTERLOCK,              // interlocked event; object went into lock
+    SEL_BARRIER_LOCK,           // barrier event; thread waiting in barrier lock
+    SEL_BARRIER_UNLOCK,         // barrier event; barrier object reset, threads released
+    SEL_INPUT,                  // some type of input event
+    SEL_OUTPUT,                 // some type of output event
+    SEL_ERROR,                  // some type of error event
+    SEL_IO,                     // Some form of IO
+    SEL_IO_CONNECT,             // Connection event
+    SEL_EVENT,                  // a generic event
+    SEL_BEGIN,                  // en event defining some begining
+    SEL_END,                    // an event defining some ending
+    SEL_TAG,                    // tag event
+    SEL_CONTENT,                // content event
+    SEL_REGISTRY,               // a registry event (TODO I have a plan for this...)
+    SEL_LASTEX,// Last message
+    SEL_THREAD_EVENT
+};
 
 
 /// IO status definitions
 typedef FXint FXIOStatus;
 enum {
-  FXIOStatusUnknown=-2,
-  FXIOStatusError=-1,
-  FXIOStatusOk=0,
-  FXIOStatusOK=0,
-  FXIOStatusLast
-  };
+    FXIOStatusUnknown=-2,
+    FXIOStatusError=-1,
+    FXIOStatusOk=0,
+    FXIOStatusOK=0,
+    FXIOStatusLast
+};
 #ifndef INVALID_HANDLE
 #  ifdef WIN32
 #    define INVALID_HANDLE INVALID_HANDLE_VALUE
@@ -214,18 +215,18 @@ enum {
 /// IO state definitions
 typedef FXint FXIOState;
 enum {
-  FXIOStateUnknown=-1,
-  FXIOStateNone=-1,
-  FXIOStateOk=0,
-  FXIOStateOK=0,
-  FXIOStateUnconnected,
-  FXIOStateConnected,
-  FXIOStateOpen=FXIOStateConnected,
-  FXIOStateListener,
-  FXIOStateAccepted,
-  FXIOStateDuplicated,
-  FXIOStateLast
-  };
+    FXIOStateUnknown=-1,
+    FXIOStateNone=-1,
+    FXIOStateOk=0,
+    FXIOStateOK=0,
+    FXIOStateUnconnected,
+    FXIOStateConnected,
+    FXIOStateOpen=FXIOStateConnected,
+    FXIOStateListener,
+    FXIOStateAccepted,
+    FXIOStateDuplicated,
+    FXIOStateLast
+};
 
 
 /**
@@ -233,23 +234,23 @@ enum {
  */
 /// Socket types
 enum FXSocketType {
-  FXSocketTypeNone=0,                    // unknown socket type
-  FXSocketTypeStream,                    // TCP socket
-  FXSocketTypeTCP=FXSocketTypeStream,    // TCP socket
-  FXSocketTypeDatagram,                  // UDP socket
-  FXSocketTypeUDP=FXSocketTypeDatagram   // UDP socket
-  };
+    FXSocketTypeNone=0,                    // unknown socket type
+    FXSocketTypeStream,                    // TCP socket
+    FXSocketTypeTCP=FXSocketTypeStream,    // TCP socket
+    FXSocketTypeDatagram,                  // UDP socket
+    FXSocketTypeUDP=FXSocketTypeDatagram   // UDP socket
+};
 
 /// Socket families
 enum FXSocketFamily {
-  FXSocketFamilyNone=0,    // unknown socket family
-  FXSocketFamilyLocal,     // Local domain socket (on nearly every system, same as Unix domain)
-  FXSocketFamilyInet,      // Internet domain socket, version 4 (ie the default internet family)
-  FXSocketFamilyInet6,     // Internet domain socket, version 6
-  FXSocketFamilyAutomatic, // automatically choose UNIX domain (local) socket, when connecting
-                           // to localhost, internet domain for internet sockets
-  FXSocketFamilyUnix=FXSocketFamilyLocal
-  };
+    FXSocketFamilyNone=0,    // unknown socket family
+    FXSocketFamilyLocal,     // Local domain socket (on nearly every system, same as Unix domain)
+    FXSocketFamilyInet,      // Internet domain socket, version 4 (ie the default internet family)
+    FXSocketFamilyInet6,     // Internet domain socket, version 6
+    FXSocketFamilyAutomatic, // automatically choose UNIX domain (local) socket, when connecting
+    // to localhost, internet domain for internet sockets
+    FXSocketFamilyUnix=FXSocketFamilyLocal
+};
 
 
 /**
@@ -272,27 +273,27 @@ enum FXSocketFamily {
  *
  */
 enum FXFilePermission {
-  FILEPERM_NONE         = 0,            // file has no permissions
-  FILEPERM_USER_READ    = 0x00000001,   // user can read from file
-  FILEPERM_USER_WRITE   = 0x00000002,   // user can write to file
-  FILEPERM_USER_EXEC    = 0X00000004,   // user can execute file
-  FILEPERM_GROUP_READ   = 0x00000010,   // group can read from file
-  FILEPERM_GROUP_WRITE  = 0x00000020,   // group can write to file
-  FILEPERM_GROUP_EXEC   = 0x00000040,   // group can execute the file
-  FILEPERM_OTHER_READ   = 0x00000100,   // everybody can read from file
-  FILEPERM_OTHER_WRITE  = 0x00000200,   // everybody can write to file
-  FILEPERM_OTHER_EXEC   = 0x00000400,   // everybody can execute the file
-  FILEPERM_READ         = 0x00000111,   // file read mask; set all read permissions
-  FILEPERM_WRITE        = 0x00000222,   // file write mask; set all write permissions
-  FILEPERM_EXEC         = 0x00000444,   // file execute mask; set all execute permissions
-  FILEPERM_ALL          = 0x00000777,   // permissions mask; set all permissions
-  FILEPERM_SET_UID      = 0x00001000,   // set the UID permission
-  FILEPERM_SET_GID      = 0x00002000,   // set the GID permisssion
-  FILEPERM_STICKY       = 0x00004000,   // set the STICKY permission
-  FILEPERM_SECURE_IO    = FILEPERM_USER_READ|FILEPERM_USER_WRITE, // permissions suitable for single user IO access
-  FILEPERM_DEFAULT_IO   = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE,  // permissions suitable for group IO access
-  FILEPERM_DEFAULT_EXEC = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE|FILEPERM_EXEC  // permissions suitable for all users to execute a file
-  };
+    FILEPERM_NONE         = 0,            // file has no permissions
+    FILEPERM_USER_READ    = 0x00000001,   // user can read from file
+    FILEPERM_USER_WRITE   = 0x00000002,   // user can write to file
+    FILEPERM_USER_EXEC    = 0X00000004,   // user can execute file
+    FILEPERM_GROUP_READ   = 0x00000010,   // group can read from file
+    FILEPERM_GROUP_WRITE  = 0x00000020,   // group can write to file
+    FILEPERM_GROUP_EXEC   = 0x00000040,   // group can execute the file
+    FILEPERM_OTHER_READ   = 0x00000100,   // everybody can read from file
+    FILEPERM_OTHER_WRITE  = 0x00000200,   // everybody can write to file
+    FILEPERM_OTHER_EXEC   = 0x00000400,   // everybody can execute the file
+    FILEPERM_READ         = 0x00000111,   // file read mask; set all read permissions
+    FILEPERM_WRITE        = 0x00000222,   // file write mask; set all write permissions
+    FILEPERM_EXEC         = 0x00000444,   // file execute mask; set all execute permissions
+    FILEPERM_ALL          = 0x00000777,   // permissions mask; set all permissions
+    FILEPERM_SET_UID      = 0x00001000,   // set the UID permission
+    FILEPERM_SET_GID      = 0x00002000,   // set the GID permisssion
+    FILEPERM_STICKY       = 0x00004000,   // set the STICKY permission
+    FILEPERM_SECURE_IO    = FILEPERM_USER_READ|FILEPERM_USER_WRITE, // permissions suitable for single user IO access
+    FILEPERM_DEFAULT_IO   = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE,  // permissions suitable for group IO access
+    FILEPERM_DEFAULT_EXEC = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE|FILEPERM_EXEC  // permissions suitable for all users to execute a file
+};
 
 
 // thread stuff
@@ -324,7 +325,8 @@ typedef HMODULE			FXDLLHandle;  // handle to a dynamically loaded file
 //typedef void*                   FXDatabaseHandle;   // handle to a database connection
 
 
-namespace FXUtils {
+namespace FXUtils
+{
 
 ////////////// global variables ////////////////////
 

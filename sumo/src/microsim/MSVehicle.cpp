@@ -2043,12 +2043,12 @@ MSVehicle::cleanUpConnections(SUMOTime time)
             // the other vehicle must no longer inform us about being removed from the network
             neigh->quitRemindedLeft(this);
         }/* !!! else {
-                            // the vehicle is still in range
-                            ((*i).second->timeSinceSeen)++;
-                            if(((*i).second->state!=dialing) && ((*i).second->state!=disconnected)){
-                	            ((*i).second->timeSinceConnect)++;
-                            }
-                        }*/
+                                    // the vehicle is still in range
+                                    ((*i).second->timeSinceSeen)++;
+                                    if(((*i).second->state!=dialing) && ((*i).second->state!=disconnected)){
+                        	            ((*i).second->timeSinceConnect)++;
+                                    }
+                                }*/
     }
 
     // go through the list of invalid connections, erase them

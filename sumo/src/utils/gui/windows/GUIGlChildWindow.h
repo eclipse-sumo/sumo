@@ -72,7 +72,7 @@ public:
     virtual void buildNavigationToolBar();
     virtual void buildColoringToolBar();
     virtual void buildScreenshotToolBar();
-    
+
 
     FXToolBar &getNavigationToolBar(GUISUMOAbstractView &v);
     FXPopup *getLocatorPopup();

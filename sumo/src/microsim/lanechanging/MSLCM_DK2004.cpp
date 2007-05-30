@@ -193,8 +193,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
     SUMOReal rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-                ? neighLead.first->speed()+20.0
-                :*/
+                        ? neighLead.first->speed()+20.0
+                        :*/
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
@@ -425,8 +425,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
     SUMOReal lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-                ? neighLead.first->speed()+20.0
-                : */
+                        ? neighLead.first->speed()+20.0
+                        : */
         //myVehicle.getLane().maxSpeed() * 5;
         myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
         ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR

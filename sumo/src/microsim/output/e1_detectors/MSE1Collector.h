@@ -327,41 +327,41 @@ protected:
         using namespace Detector;
         switch (type) {
         case E1::MEAN_SPEED: {
-                detectorsM[ E1::MEAN_SPEED ] =
-                    new E1MeanSpeed(
-                        E1MeanSpeed::getDetectorName() + detId,
-                        (MSUnit::Seconds) deleteDataAfterSecondsM,
-                        vehOnDetectorM);
-                break;
-            }
+            detectorsM[ E1::MEAN_SPEED ] =
+                new E1MeanSpeed(
+                    E1MeanSpeed::getDetectorName() + detId,
+                    (MSUnit::Seconds) deleteDataAfterSecondsM,
+                    vehOnDetectorM);
+            break;
+        }
         case E1::NUMBER_OF_VEHICLES: {
 //                     detectorsM[ E1::NUMBER_OF_VEHICLES ] =
 //                         new E1NVehicles(
 //                             E1NVehicles::getDetectorName() + detId,
 //                             deleteDataAfterSecondsM );
-                break;
-            }
+            break;
+        }
         case E1::FLOW: {
 //                     detectorsM[ E1::FLOW ] =
 //                         new E1Flow(
 //                             E1Flow::getDetectorName() + detId,
 //                             deleteDataAfterSecondsM );
-                break;
-            }
+            break;
+        }
         case E1::MEAN_OCCUPANCY: {
 //                     detectorsM[ E1::MEAN_OCCUPANCY ] =
 //                         new E1MeanOccupancy(
 //                             E1MeanOccupancy::getDetectorName() + detId,
 //                             deleteDataAfterSecondsM );
-                break;
-            }
+            break;
+        }
         case E1::MEAN_VEHICLE_LENGTH: {
 //                     detectorsM[ E1::MEAN_VEHICLE_LENGTH ] =
 //                         new E1MeanVehicleLength(
 //                             E1MeanVehicleLength::getDetectorName() + detId,
 //                             deleteDataAfterSecondsM );
-                break;
-            }
+            break;
+        }
         default: {
             assert(0);
         }

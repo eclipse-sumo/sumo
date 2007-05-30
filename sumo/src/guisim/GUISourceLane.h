@@ -79,14 +79,14 @@ public:
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveNonCritical(/*
-                        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+                                const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                                const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     void moveCritical(/*
-                        const MSEdge::LaneCont::const_iterator &firstNeighLane,
-                        const MSEdge::LaneCont::const_iterator &lastNeighLane */);
+                                const MSEdge::LaneCont::const_iterator &firstNeighLane,
+                                const MSEdge::LaneCont::const_iterator &lastNeighLane */);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

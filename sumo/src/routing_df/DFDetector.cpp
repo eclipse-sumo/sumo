@@ -111,7 +111,7 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
                      const DFRONet &net) const
 {
     while (e!=0) {
-        if(q==end) {
+        if (q==end) {
             return 0;
         }
         if (net.hasDetector(e)) {

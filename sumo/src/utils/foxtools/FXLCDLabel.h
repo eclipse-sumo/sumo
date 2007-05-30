@@ -44,13 +44,14 @@
 #include <FXHorizontalFrame.h>
 using namespace FX;
 #endif
-namespace FXEX {
+namespace FXEX
+{
 
 /// LCD Label styles
 enum {
-  LCDLABEL_NORMAL        = FRAME_SUNKEN|FRAME_THICK,
-  LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
-  };
+    LCDLABEL_NORMAL        = FRAME_SUNKEN|FRAME_THICK,
+    LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
+};
 
 /**
  * A widget which has the seven-segment display used as the drawing object for each letter
@@ -58,11 +59,13 @@ enum {
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-        FXLCDLabel : public FXHorizontalFrame{
-  FXDECLARE(FXLCDLabel)
+            FXLCDLabel : public FXHorizontalFrame
+{
+    FXDECLARE(FXLCDLabel)
 
-  protected:
-    FXLCDLabel () {}
+protected:
+    FXLCDLabel()
+    {}
 
     FXString label;      /// The currently shown label
     FXint   nfigures;    /// The number of shown figuresi, greater than zero
@@ -70,14 +73,15 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
     // Draw a string
     virtual void drawString(const FXString& lbl);
 
-  public:
-    enum {
-    ID_SEVENSEGMENT=FXHorizontalFrame::ID_LAST,
-    ID_LAST
+public:
+    enum
+    {
+        ID_SEVENSEGMENT=FXHorizontalFrame::ID_LAST,
+        ID_LAST
     };
 
-  public:
-    long onPaint (FXObject*, FXSelector, void*);
+public:
+    long onPaint(FXObject*, FXSelector, void*);
     long onCmdSetValue(FXObject*,FXSelector,void* ptr);
     long onCmdSetIntValue(FXObject*,FXSelector,void* ptr);
     long onCmdSetRealValue(FXObject*,FXSelector,void* ptr);
@@ -89,9 +93,9 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
     long onQueryTip(FXObject*,FXSelector,void* ptr);
     long onQueryHelp(FXObject*,FXSelector,void* ptr);
 
-  public:
+public:
     /// make me a label
-    FXLCDLabel (FXComposite* p,FXuint nfig=1,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=LCDLABEL_NORMAL,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD,FXint hs=DEFAULT_PAD);
+    FXLCDLabel(FXComposite* p,FXuint nfig=1,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=LCDLABEL_NORMAL,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD,FXint hs=DEFAULT_PAD);
 
     /// create resrouces
     virtual void create();
@@ -104,7 +108,10 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
 
     /// manipulate text in LCD label
     void setText(FXString lbl);
-    FXString getText() const { return label; }
+    FXString getText() const
+    {
+        return label;
+    }
 
     /// set/get forground color
     void setFgColor(FXColor clr);
@@ -144,7 +151,7 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
 
     /// dtor
     virtual ~FXLCDLabel();
-  };
+};
 
 } // namespace FXEX
 #endif // FXLCDLabel

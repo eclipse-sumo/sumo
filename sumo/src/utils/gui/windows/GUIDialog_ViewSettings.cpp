@@ -96,12 +96,12 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(
-        GUISUMOAbstractView *parent,
-        GUISUMOAbstractView::VisualizationSettings *settings,
-        BaseSchemeInfoSource *laneEdgeModeSource,
-        BaseSchemeInfoSource *vehicleModeSource,
-        std::vector<GUISUMOAbstractView::Decal> *decals,
-        MFXMutex *decalsLock)
+    GUISUMOAbstractView *parent,
+    GUISUMOAbstractView::VisualizationSettings *settings,
+    BaseSchemeInfoSource *laneEdgeModeSource,
+    BaseSchemeInfoSource *vehicleModeSource,
+    std::vector<GUISUMOAbstractView::Decal> *decals,
+    MFXMutex *decalsLock)
         : FXDialogBox(parent, "View Settings"),
         myParent(parent), mySettings(settings),
         myLaneColoringInfoSource(laneEdgeModeSource),
@@ -168,7 +168,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         FXMatrix *m12 =
             new FXMatrix(frame1,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
-        myShowGrid = 
+        myShowGrid =
             new FXCheckButton(m12, "Show grid", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowGrid->setCheck(mySettings->showGrid);
         new FXLabel(m12, "");
@@ -240,9 +240,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m222, "Color", 0, LAYOUT_CENTER_Y);
         myEdgeNameColor = new FXColorWell(m222, convert(settings->edgeNameColor),
-                                            this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                            0, 0, 100, 0,   0, 0, 0, 0);
+                                          this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                          0, 0, 100, 0,   0, 0, 0, 0);
     }
     {
         if (myVehicleColoringInfoSource!=0) {
@@ -306,9 +306,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                              0,0,0,0, 10,10,0,0, 5,5);
             new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
             myVehicleNameColor = new FXColorWell(m332, convert(settings->vehicleNameColor),
-                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                0, 0, 100, 0,   0, 0, 0, 0);
+                                                 this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                 0, 0, 100, 0,   0, 0, 0, 0);
             /*
             FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
             tmpc->disable();
@@ -375,9 +375,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
         myJunctionNameColor = new FXColorWell(m332, convert(settings->junctionNameColor),
-                            this, MID_SIMPLE_VIEW_COLORCHANGE,
-                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                            0, 0, 100, 0,   0, 0, 0, 0);
+                                              this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                              LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                              0, 0, 100, 0,   0, 0, 0, 0);
     }
     {
         FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
@@ -428,7 +428,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myDetectorUpscaleDialer->setRange(1, 100);
         myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
 
-        
+
         /*
         new FXLabel(m522, "Color", 0, LAYOUT_CENTER_Y);
         myDetectorNameColor = new FXColorWell(m522, convert(settings->addNameColor),
@@ -462,12 +462,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m612, "Color", 0, LAYOUT_CENTER_Y);
         myPOINameColor = new FXColorWell(m612, convert(settings->poiNameColor),
-                            this, MID_SIMPLE_VIEW_COLORCHANGE,
-                            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                            0, 0, 100, 0,   0, 0, 0, 0);
+                                         this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                         LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                         0, 0, 100, 0,   0, 0, 0, 0);
 
         new FXHorizontalSeparator(frame6 ,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-    
+
         FXMatrix *m62 =
             new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
@@ -488,8 +488,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myPOIUpscaleDialer->setRange(1, 100);
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
-    
-    
+
+
     }
     {
         FXTabItem *tab7 = new FXTabItem(tabbook,"Legend",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
@@ -730,7 +730,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
     if (tmpSettings.laneEdgeMode==prevLaneMode) {
         switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
         case CST_SINGLE:
-            if(sender==mySingleLaneColor) {
+            if (sender==mySingleLaneColor) {
                 //cout << (int) FXREDVAL((FXColor) val) << " " << (int) FXGREENVAL((FXColor) val) << " " << (int) FXBLUEVAL((FXColor) val) << endl;
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
                 myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
@@ -738,10 +738,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
             }
             break;
         case CST_MINMAX:
-            if(sender==myMinLaneColor) {
+            if (sender==myMinLaneColor) {
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
             }
-            if(sender==myMaxLaneColor) {
+            if (sender==myMaxLaneColor) {
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1] = convert((FXColor) val);
             }
             myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
@@ -756,17 +756,17 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
     if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode!=prevVehicleMode) {
         switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
         case CST_SINGLE:
-            if(sender==mySingleVehicleColor) {
+            if (sender==mySingleVehicleColor) {
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
             }
             myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0]);
             break;
         case CST_MINMAX:
-            if(sender==myMinVehicleColor) {
+            if (sender==myMinVehicleColor) {
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
             }
-            if(sender==myMaxVehicleColor) {
+            if (sender==myMaxVehicleColor) {
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1] = convert((FXColor) val);
             }
             myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
@@ -778,15 +778,15 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         }
     }
 
-    if(tmpSettings==*mySettings) {
+    if (tmpSettings==*mySettings) {
         return 1;
     }
 
-    if(tmpSettings.name[0]!='*') {
+    if (tmpSettings.name[0]!='*') {
         tmpSettings.name = '*' + tmpSettings.name;
     }
     int index = mySchemeName->getCurrentItem();
-    if(index<3) { // !!!!
+    if (index<3) { // !!!!
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         gSchemeStorage.add(tmpSettings);
         mySchemeName->setCurrentItem(index);
@@ -804,7 +804,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
     if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
         rebuildColorMatrices(true);
     }
-    
+
     getApp()->forceRefresh();
     return 1;
 }
@@ -817,7 +817,7 @@ GUIDialog_ViewSettings::writeSettings()
     const std::vector<std::string> &names = gSchemeStorage.getNames();
     getApp()->reg().writeIntEntry("VisualizationSettings","settingNo",names.size()-3);//!!!
     size_t gidx = 0;
-    for(std::vector<std::string>::const_iterator i=names.begin()+3; i!=names.end(); ++i, ++gidx) {
+    for (std::vector<std::string>::const_iterator i=names.begin()+3; i!=names.end(); ++i, ++gidx) {
         size_t k, index;
         std::map<int, std::vector<RGBColor> >::const_iterator j;
 
@@ -827,7 +827,7 @@ GUIDialog_ViewSettings::writeSettings()
         string sname = "visset#" + toString(gidx);
 
         getApp()->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());//def.c_str());
-        
+
         getApp()->reg().writeIntEntry(sname.c_str(), "antialiase", item.antialiase ? 1 : 0);
         getApp()->reg().writeIntEntry(sname.c_str(), "dither", item.dither ? 1 : 0);
 
@@ -846,10 +846,10 @@ GUIDialog_ViewSettings::writeSettings()
         getApp()->reg().writeRealEntry(sname.c_str(), "edgeNameSize", item.edgeNameSize);
         getApp()->reg().writeIntEntry(sname.c_str(), "edgeNameColor", convert(item.edgeNameColor));
         getApp()->reg().writeIntEntry(sname.c_str(), "noLaneCols", (int) item.laneColorings.size());
-        for(j=item.laneColorings.begin(), index=0; j!=item.laneColorings.end(); ++j, ++index) {
+        for (j=item.laneColorings.begin(), index=0; j!=item.laneColorings.end(); ++j, ++index) {
             getApp()->reg().writeIntEntry(sname.c_str(), ("nlcN" + toString(index)).c_str(), (int) index);
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nlcS" + toString(index)).c_str(), (int) (*j).second.size());
-            for(k=0; k<(*j).second.size(); ++k) {
+            getApp()->reg().writeIntEntry(sname.c_str(), ("nlcS" + toString(index)).c_str(), (int)(*j).second.size());
+            for (k=0; k<(*j).second.size(); ++k) {
                 getApp()->reg().writeIntEntry(sname.c_str(), ("nlcC" + toString(index) + "_" + toString(k)).c_str(), convert((*j).second[k]));
             }
         }
@@ -864,10 +864,10 @@ GUIDialog_ViewSettings::writeSettings()
         getApp()->reg().writeRealEntry(sname.c_str(), "vehicleNameSize", item.vehicleNameSize);
         getApp()->reg().writeIntEntry(sname.c_str(), "vehicleNameColor", convert(item.vehicleNameColor));
         getApp()->reg().writeIntEntry(sname.c_str(), "noVehCols", (int) item.vehicleColorings.size());
-        for(j=item.vehicleColorings.begin(), index=0; j!=item.vehicleColorings.end(); ++j, ++index) {
+        for (j=item.vehicleColorings.begin(), index=0; j!=item.vehicleColorings.end(); ++j, ++index) {
             getApp()->reg().writeIntEntry(sname.c_str(), ("nvcN" + toString(index)).c_str(), (int) index);
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nvcS" + toString(index)).c_str(), (int) (*j).second.size());
-            for(k=0; k<(*j).second.size(); ++k) {
+            getApp()->reg().writeIntEntry(sname.c_str(), ("nvcS" + toString(index)).c_str(), (int)(*j).second.size());
+            for (k=0; k<(*j).second.size(); ++k) {
                 getApp()->reg().writeIntEntry(sname.c_str(), ("nvcC" + toString(index) + "_" + toString(k)).c_str(), convert((*j).second[k]));
             }
         }
@@ -898,14 +898,14 @@ GUIDialog_ViewSettings::writeSettings()
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::saveSettings(const std::string &file)
 {
     size_t index, k;
     std::map<int, std::vector<RGBColor> >::const_iterator j;
     ofstream strm(file.c_str());
     strm << "name " << mySettings->name << endl;
-        
+
     strm << "antialiase " << mySettings->antialiase << endl;
     strm << "dither " << mySettings->dither << endl;
 
@@ -923,8 +923,8 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file)
     strm << "showRails " << mySettings->showRails << endl;
     strm << "edgeNameSize " << mySettings->edgeNameSize << endl;
     strm << "edgeNameColor " << mySettings->edgeNameColor << endl;
-    for(j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
-        for(k=0; k<(*j).second.size(); ++k) {
+    for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
+        for (k=0; k<(*j).second.size(); ++k) {
             strm << "nlcC " << toString(index) << " " << (*j).second[k] << endl;
         }
     }
@@ -938,8 +938,8 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file)
     strm << "drawVehicleName " << mySettings->drawVehicleName << endl;
     strm << "vehicleNameSize " << mySettings->vehicleNameSize << endl;
     strm << "vehicleNameColor " << mySettings->vehicleNameColor << endl;
-    for(j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
-        for(k=0; k<(*j).second.size(); ++k) {
+    for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
+        for (k=0; k<(*j).second.size(); ++k) {
             strm << "nvcC " << toString(index) << " " << (*j).second[k] << endl;
         }
     }
@@ -969,86 +969,86 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file)
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::loadSettings(const std::string &file)
 {
     GUISUMOAbstractView::VisualizationSettings setting = gSchemeStorage.getItems().begin()->second;
     LineReader lr(file);
-    while(lr.hasMore()) {
+    while (lr.hasMore()) {
         string line = lr.readLine();
         string name = line.substr(0, line.find(' '));
         string val = StringUtils::prune(line.substr(line.find(' ')));
-        if(name=="name") setting.name = val;
-        
-        if(name=="antialiase") setting.antialiase = TplConvert<char>::_2bool(val.c_str());
-        if(name=="dither") setting.dither = TplConvert<char>::_2bool(val.c_str());
+        if (name=="name") setting.name = val;
 
-        if(name=="backgroundColor") setting.backgroundColor = GfxConvHelper::parseColor(val);
-        if(name=="showGrid") setting.showGrid = TplConvert<char>::_2bool(val.c_str());
-        if(name=="gridXSize") setting.gridXSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="gridYSize") setting.gridYSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="antialiase") setting.antialiase = TplConvert<char>::_2bool(val.c_str());
+        if (name=="dither") setting.dither = TplConvert<char>::_2bool(val.c_str());
 
-        if(name=="laneEdgeMode") setting.laneEdgeMode = TplConvert<char>::_2int(val.c_str());
-        if(name=="laneShowBorders") setting.laneShowBorders = TplConvert<char>::_2bool(val.c_str());
-        if(name=="showLinkDecals") setting.showLinkDecals = TplConvert<char>::_2bool(val.c_str());
-        if(name=="laneEdgeExaggMode") setting.laneEdgeExaggMode = TplConvert<char>::_2int(val.c_str());
-        if(name=="minExagg") setting.minExagg = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="maxExagg") setting.maxExagg = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="showRails") setting.name = TplConvert<char>::_2bool(val.c_str());
-        if(name=="edgeNameSize") setting.edgeNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="edgeNameColor") setting.edgeNameColor = GfxConvHelper::parseColor(val);
-        if(name=="nlcC") {
+        if (name=="backgroundColor") setting.backgroundColor = GfxConvHelper::parseColor(val);
+        if (name=="showGrid") setting.showGrid = TplConvert<char>::_2bool(val.c_str());
+        if (name=="gridXSize") setting.gridXSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="gridYSize") setting.gridYSize = TplConvert<char>::_2SUMOReal(val.c_str());
+
+        if (name=="laneEdgeMode") setting.laneEdgeMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="laneShowBorders") setting.laneShowBorders = TplConvert<char>::_2bool(val.c_str());
+        if (name=="showLinkDecals") setting.showLinkDecals = TplConvert<char>::_2bool(val.c_str());
+        if (name=="laneEdgeExaggMode") setting.laneEdgeExaggMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minExagg") setting.minExagg = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="maxExagg") setting.maxExagg = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="showRails") setting.name = TplConvert<char>::_2bool(val.c_str());
+        if (name=="edgeNameSize") setting.edgeNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="edgeNameColor") setting.edgeNameColor = GfxConvHelper::parseColor(val);
+        if (name=="nlcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
             size_t index = TplConvert<char>::_2int(iS.c_str());
-            if(setting.laneColorings.find(index)==setting.laneColorings.end()) {
+            if (setting.laneColorings.find(index)==setting.laneColorings.end()) {
                 setting.laneColorings[index] = vector<RGBColor>();
             }
             setting.laneColorings[index].push_back(GfxConvHelper::parseColor(vS));
         }
 
-        if(name=="vehicleMode") setting.vehicleMode = TplConvert<char>::_2int(val.c_str());
-        if(name=="minVehicleSize") setting.minVehicleSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="vehicleExaggeration") setting.vehicleExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="showBlinker") setting.showBlinker = TplConvert<char>::_2bool(val.c_str());
-        if(name=="drawcC2CRadius") setting.drawcC2CRadius = TplConvert<char>::_2bool(val.c_str());
-        if(name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::_2bool(val.c_str());
-        if(name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::_2bool(val.c_str());
-        if(name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="vehicleNameColor") setting.vehicleNameColor = GfxConvHelper::parseColor(val);
-        if(name=="nvcC") {
+        if (name=="vehicleMode") setting.vehicleMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minVehicleSize") setting.minVehicleSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="vehicleExaggeration") setting.vehicleExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="showBlinker") setting.showBlinker = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawcC2CRadius") setting.drawcC2CRadius = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="vehicleNameColor") setting.vehicleNameColor = GfxConvHelper::parseColor(val);
+        if (name=="nvcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
             size_t index = TplConvert<char>::_2int(iS.c_str());
-            if(setting.vehicleColorings.find(index)==setting.vehicleColorings.end()) {
+            if (setting.vehicleColorings.find(index)==setting.vehicleColorings.end()) {
                 setting.vehicleColorings[index] = vector<RGBColor>();
             }
             setting.vehicleColorings[index].push_back(GfxConvHelper::parseColor(vS));
         }
 
-        if(name=="junctionMode") setting.junctionMode = TplConvert<char>::_2int(val.c_str());
-        if(name=="drawLinkTLIndex") setting.drawLinkTLIndex = TplConvert<char>::_2bool(val.c_str());
-        if(name=="drawLinkJunctionIndex") setting.drawLinkJunctionIndex = TplConvert<char>::_2bool(val.c_str());
-        if(name=="drawJunctionName") setting.drawJunctionName = TplConvert<char>::_2bool(val.c_str());
-        if(name=="junctionNameSize") setting.junctionNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="junctionNameColor") setting.junctionNameColor = GfxConvHelper::parseColor(val);
+        if (name=="junctionMode") setting.junctionMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="drawLinkTLIndex") setting.drawLinkTLIndex = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawLinkJunctionIndex") setting.drawLinkJunctionIndex = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawJunctionName") setting.drawJunctionName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="junctionNameSize") setting.junctionNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="junctionNameColor") setting.junctionNameColor = GfxConvHelper::parseColor(val);
 
-        if(name=="showLane2Lane") setting.showLane2Lane = TplConvert<char>::_2bool(val.c_str());
+        if (name=="showLane2Lane") setting.showLane2Lane = TplConvert<char>::_2bool(val.c_str());
 
-        if(name=="addMode") setting.addMode = TplConvert<char>::_2int(val.c_str());
-        if(name=="minAddSize") setting.minAddSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="addExaggeration") setting.addExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="drawAddName") setting.drawAddName = TplConvert<char>::_2bool(val.c_str());
-        if(name=="addNameSize") setting.addNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="addMode") setting.addMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minAddSize") setting.minAddSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="addExaggeration") setting.addExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="drawAddName") setting.drawAddName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="addNameSize") setting.addNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
 
-        if(name=="poiExaggeration") setting.poiExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="minPOISize") setting.minPOISize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="drawPOIName") setting.drawPOIName = TplConvert<char>::_2bool(val.c_str());
-        if(name=="poiNameSize") setting.poiNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if(name=="poiNameColor") setting.poiNameColor = GfxConvHelper::parseColor(val);
-    
-        if(name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::_2bool(val.c_str());
-    
+        if (name=="poiExaggeration") setting.poiExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="minPOISize") setting.minPOISize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="drawPOIName") setting.drawPOIName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="poiNameSize") setting.poiNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="poiNameColor") setting.poiNameColor = GfxConvHelper::parseColor(val);
+
+        if (name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::_2bool(val.c_str());
+
     }
     size_t index = mySchemeName->appendItem(setting.name.c_str());
     gSchemeStorage.add(setting);
@@ -1060,15 +1060,15 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
 {
     int index = mySchemeName->getCurrentItem();
-    if(index<3) {
+    if (index<3) {
         return 1;
     }
     // get the name
-    while(true) {
+    while (true) {
         FXDialogBox dialog(this,"Enter a name",DECOR_TITLE|DECOR_BORDER);
         FXVerticalFrame* content=new FXVerticalFrame(&dialog,LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,10,10,10,10,10,10);
         new FXLabel(content,"Please enter an alphanumeric name: ",NULL,LAYOUT_FILL_X|JUSTIFY_LEFT);
@@ -1079,17 +1079,17 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
         new FXButton(buttons,"&Cancel",NULL,&dialog,FXDialogBox::ID_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_RIGHT,0,0,0,0,20,20);
         dialog.create();
         text->setFocus();
-        if(dialog.execute()){
+        if (dialog.execute()) {
             string name = text->getText().text();
             bool isAlphaNum = true;
-            for(size_t i=0; i<name.length(); ++i) {
-                if( name[i]=='_' || (name[i]>='a'&&name[i]<='z') || (name[i]>='A'&&name[i]<='Z') || (name[i]>='0'&&name[i]<='9') ) {
+            for (size_t i=0; i<name.length(); ++i) {
+                if (name[i]=='_' || (name[i]>='a'&&name[i]<='z') || (name[i]>='A'&&name[i]<='Z') || (name[i]>='0'&&name[i]<='9')) {
                     continue;
                 }
                 isAlphaNum = false;
             }
             isAlphaNum = isAlphaNum & (name.length()>0);
-            if(isAlphaNum) {
+            if (isAlphaNum) {
                 GUISUMOAbstractView::VisualizationSettings tmpSettings = *mySettings;
                 gSchemeStorage.remove(mySettings->name);
                 tmpSettings.name = name;
@@ -1111,7 +1111,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -1122,11 +1122,11 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data)
 {
     int index = mySchemeName->getCurrentItem();
-    if(index<3) {
+    if (index<3) {
         return 1;
     }
     string name = mySchemeName->getItem(index).text();
@@ -1138,7 +1138,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -1149,7 +1149,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Export view settings");
@@ -1166,7 +1166,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -1177,7 +1177,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Import view settings");
@@ -1194,7 +1194,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onUpdImportSetting(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this, FXSEL(SEL_COMMAND,ID_ENABLE), ptr);
@@ -1513,14 +1513,14 @@ GUIDialog_ViewSettings::getCurrentScheme() const
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::setCurrentScheme(const std::string &name)
 {
     if (name.c_str()==mySchemeName->getItemText(mySchemeName->getCurrentItem())) {
         return;
     }
-    for(int i=0; i<mySchemeName->getNumItems(); ++i) {
-        if(name.c_str()==mySchemeName->getItemText(i)) {
+    for (int i=0; i<mySchemeName->getNumItems(); ++i) {
+        if (name.c_str()==mySchemeName->getItemText(i)) {
             mySchemeName->setCurrentItem(i);
             onCmdNameChange(0,0,(void*)name.c_str());
             return;

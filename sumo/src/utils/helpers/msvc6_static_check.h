@@ -24,16 +24,19 @@ namespace Loki
 // Helper structure for the STATIC_CHECK macro
 ////////////////////////////////////////////////////////////////////////////////
 
-    template<int> struct CompileTimeError;
-    template<> struct CompileTimeError<true> {};
+template<int> struct CompileTimeError;
+template<> struct CompileTimeError<true>
+    {};
 
-	namespace Private
-	{
-		template<int x> struct static_assert_test{};
-		template <bool x> struct SizeError;
+namespace Private
+{
+template<int x> struct static_assert_test
+    {};
+template <bool x> struct SizeError;
 
-		template <> struct SizeError<true>{};
-	}
+template <> struct SizeError<true>
+    {};
+}
 }
 
 #define STATIC_SIZE_ASSERT(Type, ExpSize)	\

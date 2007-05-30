@@ -176,16 +176,16 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             if (oldCell != 0) {
                 oldCell->remCPhone(cp->getID());
             } /*else {
-                            // check whether a call shall be started
-                            SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-                            if(newCell->useAsIncomingDynamic(time)) {
-                                if(randSUMO()>.5) {
-                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
-                                } else {
-                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
-                                }
-                            }
-                        }*/
+                                        // check whether a call shall be started
+                                        SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+                                        if(newCell->useAsIncomingDynamic(time)) {
+                                            if(randSUMO()>.5) {
+                                                cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
+                                            } else {
+                                                cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
+                                            }
+                                        }
+                                    }*/
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
 

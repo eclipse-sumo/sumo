@@ -208,8 +208,8 @@ void
 GUIViewTraffic::setColorScheme(char* data)
 {
     string name = (char*) data;
-    if(myVisualizationChanger!=0) {
-        if(myVisualizationChanger->getCurrentScheme()!=name) {
+    if (myVisualizationChanger!=0) {
+        if (myVisualizationChanger->getCurrentScheme()!=name) {
             myVisualizationChanger->setCurrentScheme(name);
         }
     }

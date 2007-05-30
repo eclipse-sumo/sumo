@@ -41,50 +41,51 @@
 #include "polyfonttypes.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-  int     pfSetFont(pffont *f);
-  pffont *pfLoadFont(char *fileName);
-  void    pfUnloadFont(pffont *f);
-  char   *pfGetFontName();
-  pffont *pfGetCurrentFont();
-  int     pfGetFontBBox(SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
-  SUMOReal   pfGetFontHeight();
-  SUMOReal   pfGetFontWidth();
-  SUMOReal   pfGetFontAscent();
-  SUMOReal   pfGetFontDescent();
+    int     pfSetFont(pffont *f);
+    pffont *pfLoadFont(char *fileName);
+    void    pfUnloadFont(pffont *f);
+    char   *pfGetFontName();
+    pffont *pfGetCurrentFont();
+    int     pfGetFontBBox(SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
+    SUMOReal   pfGetFontHeight();
+    SUMOReal   pfGetFontWidth();
+    SUMOReal   pfGetFontAscent();
+    SUMOReal   pfGetFontDescent();
 
-  int     pfGetFontNumGlyphs();
-  wchar_t pfGetChar(int glyph);
+    int     pfGetFontNumGlyphs();
+    wchar_t pfGetChar(int glyph);
 
-  void    pfSetScale(SUMOReal s);
-  void    pfSetScaleXY(SUMOReal sx, SUMOReal sy);
-  int     pfSetScaleBox(char *c, SUMOReal w, SUMOReal h);
-  int     pfSetScaleBoxW(wchar_t *c, SUMOReal w, SUMOReal h);
+    void    pfSetScale(SUMOReal s);
+    void    pfSetScaleXY(SUMOReal sx, SUMOReal sy);
+    int     pfSetScaleBox(char *c, SUMOReal w, SUMOReal h);
+    int     pfSetScaleBoxW(wchar_t *c, SUMOReal w, SUMOReal h);
 
-  void    pfSetPosition(SUMOReal x, SUMOReal y);
-  void    pfGetPosition(SUMOReal *x, SUMOReal *y);
+    void    pfSetPosition(SUMOReal x, SUMOReal y);
+    void    pfGetPosition(SUMOReal *x, SUMOReal *y);
 
-  void    pfSetSkew(SUMOReal s);
-  void    pfSetWeight(int w);
-  void    pfSetAngleR(SUMOReal a);
-  void    pfSetAngleD(SUMOReal a);
-  void    pfSetCenter(int onOff);
+    void    pfSetSkew(SUMOReal s);
+    void    pfSetWeight(int w);
+    void    pfSetAngleR(SUMOReal a);
+    void    pfSetAngleD(SUMOReal a);
+    void    pfSetCenter(int onOff);
 
-  int     pfGetCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
-  SUMOReal   pfGetCharAdvance(wchar_t c);
-  SUMOReal   pfGetCharHeight(wchar_t c);
-  SUMOReal   pfGetCharWidth(wchar_t c);
-  SUMOReal   pfGetCharAscent(wchar_t c);
-  SUMOReal   pfGetCharDescent(wchar_t c);
+    int     pfGetCharBBox(wchar_t c, SUMOReal *minx, SUMOReal *miny, SUMOReal *maxx, SUMOReal *maxy);
+    SUMOReal   pfGetCharAdvance(wchar_t c);
+    SUMOReal   pfGetCharHeight(wchar_t c);
+    SUMOReal   pfGetCharWidth(wchar_t c);
+    SUMOReal   pfGetCharAscent(wchar_t c);
+    SUMOReal   pfGetCharDescent(wchar_t c);
 
-  SUMOReal pfdkGetStringWidth(const char *c);
+    SUMOReal pfdkGetStringWidth(const char *c);
 
-  int     pfDrawChar(/*SDL_Surface *s,*/ wchar_t c);
+    int     pfDrawChar(/*SDL_Surface *s,*/ wchar_t c);
 
-  int     pfDrawString(/*SDL_Surface *s,*/ const char *c);
-  int     pfDrawStringW(/*SDL_Surface *s,*/ wchar_t *c);
+    int     pfDrawString(/*SDL_Surface *s,*/ const char *c);
+    int     pfDrawStringW(/*SDL_Surface *s,*/ wchar_t *c);
 
 #ifdef __cplusplus
 }

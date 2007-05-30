@@ -185,7 +185,8 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual void setColorScheme(char* data) { }
+    virtual void setColorScheme(char* data)
+    { }
 
     void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 

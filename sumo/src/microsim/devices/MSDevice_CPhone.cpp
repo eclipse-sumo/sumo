@@ -144,14 +144,14 @@ MSDevice_CPhone::~MSDevice_CPhone()
             }
             cell->remCPhone(myId);
         } /*else {
-                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                        }*/
+                                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                                }*/
         MSPhoneLA * la = pPhone->getCurrentVehicleLA(myId);
         if (la != 0) {
             la->remCall(myId);
         }/* else {
-                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                        }*/
+                                    assert(m_State==STATE_IDLE||m_State==STATE_OFF);
+                                }*/
     }
     if (myCommand!=0) {
         myCommand->setInactivated();

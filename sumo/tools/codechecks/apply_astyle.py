@@ -1,25 +1,9 @@
+#!/usr/bin/python
 import os
-import sys
-
-# get all files from the given folder recursively
-def getStructure(dir):
-	if(dir[-1:]!='/' and dir[-1:]!='\\'):
-		dir = dir + '\\'
-	files = os.listdir(dir)
-	newFiles = []
-	for file in files:
-		if os.path.isdir(dir + file)==1:
-			myNewFiles = getStructure(dir + file + "\\")
-			for tmp in myNewFiles:
-				newFiles.append(tmp)
-		else:
-			newFiles.append( dir + file )
-	return newFiles
-
-files = getStructure("../../src/")
-for file in files:
-	if(file.endswith(".h") or file.endswith(".cpp")):
-		file = file.replace("/", "\\")
-		os.system("AStyle.exe --style=kr -U -l " + file)
-		
-
+for root, dirs, files in os.walk("../../src/"):
+    for name in files:
+        if name.endswith(".h") or name.endswith(".cpp"):
+            os.system("astyle --style=kr -U -l -n " + os.path.join(root, name))
+        for ignoreDir in ['.svn', 'foreign', 'itm-remoteserver']:
+            if ignoreDir in dirs:
+                dirs.remove(ignoreDir)

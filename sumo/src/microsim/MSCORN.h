@@ -2,7 +2,7 @@
 /// @file    MSCORN.h
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: $
+/// @version $Id$
 ///
 // A storage for optional things to compute
 /****************************************************************************/

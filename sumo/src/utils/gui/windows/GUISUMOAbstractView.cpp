@@ -327,7 +327,7 @@ GUISUMOAbstractView::updatePositionInformation() const
         text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
         myApp->getCartesianLabel().setText(text.c_str());
         GeoConvHelper::cartesian2geo(pos);
-        if(GeoConvHelper::usingGeoProjection()) {
+        if (GeoConvHelper::usingGeoProjection()) {
             text = "lat:" + toString(pos.y(), 5) + ", lon:" + toString(pos.x(), 5);
         } else {
             text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
@@ -546,12 +546,12 @@ GUISUMOAbstractView::paintGLGrid()
         }
         glEnd();
     }
-*/
+    */
     // draw horizontal lines
     glColor3f(0.5, 0.5, 0.5);
     {
         glBegin(GL_LINES);
-        for (; ypos<yend; ) {
+        for (; ypos<yend;) {
             glVertex2d(xmin, ypos);
             glVertex2d(xend, ypos);
             ypos += myVisualizationSettings->gridYSize;
@@ -1212,7 +1212,7 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 }
 
 
-void 
+void
 GUISUMOAbstractView::showToolTips(bool val)
 {
     _useToolTips = val;
@@ -1297,62 +1297,62 @@ GUISUMOAbstractView::getColoringSchemesCombo()
 }
 
 
-bool 
+bool
 GUISUMOAbstractView::VisualizationSettings::operator==(const GUISUMOAbstractView::VisualizationSettings &v2)
 {
-    if(antialiase!=v2.antialiase) return false;
-    if(dither!=v2.dither) return false;
-    if(backgroundColor!=v2.backgroundColor) return false;
-    if(showBackgroundDecals!=v2.showBackgroundDecals) return false;
-    if(showGrid!=v2.showGrid) return false;
-    if(gridXSize!=v2.gridXSize) return false;
-    if(gridYSize!=v2.gridYSize) return false;
+    if (antialiase!=v2.antialiase) return false;
+    if (dither!=v2.dither) return false;
+    if (backgroundColor!=v2.backgroundColor) return false;
+    if (showBackgroundDecals!=v2.showBackgroundDecals) return false;
+    if (showGrid!=v2.showGrid) return false;
+    if (gridXSize!=v2.gridXSize) return false;
+    if (gridYSize!=v2.gridYSize) return false;
 
-    if(laneEdgeMode!=v2.laneEdgeMode) return false;
-    if(laneColorings!=v2.laneColorings) return false;
-    if(laneShowBorders!=v2.laneShowBorders) return false;
-    if(showLinkDecals!=v2.showLinkDecals) return false;
-    if(laneEdgeExaggMode!=v2.laneEdgeExaggMode) return false;
-    if(minExagg!=v2.minExagg) return false;
-    if(maxExagg!=v2.maxExagg) return false;
-    if(showRails!=v2.showRails) return false;
-    if(drawEdgeName!=v2.drawEdgeName) return false;
-    if(edgeNameSize!=v2.edgeNameSize) return false;
-    if(edgeNameColor!=v2.edgeNameColor) return false;
+    if (laneEdgeMode!=v2.laneEdgeMode) return false;
+    if (laneColorings!=v2.laneColorings) return false;
+    if (laneShowBorders!=v2.laneShowBorders) return false;
+    if (showLinkDecals!=v2.showLinkDecals) return false;
+    if (laneEdgeExaggMode!=v2.laneEdgeExaggMode) return false;
+    if (minExagg!=v2.minExagg) return false;
+    if (maxExagg!=v2.maxExagg) return false;
+    if (showRails!=v2.showRails) return false;
+    if (drawEdgeName!=v2.drawEdgeName) return false;
+    if (edgeNameSize!=v2.edgeNameSize) return false;
+    if (edgeNameColor!=v2.edgeNameColor) return false;
 
-    if(vehicleMode!=v2.vehicleMode) return false;
-    if(minVehicleSize!=v2.minVehicleSize) return false;
-    if(vehicleExaggeration!=v2.vehicleExaggeration) return false;
-    if(vehicleColorings!=v2.vehicleColorings) return false;
-    if(showBlinker!=v2.showBlinker) return false;
-    if(drawcC2CRadius!=v2.drawcC2CRadius) return false;
-    if(drawLaneChangePreference!=v2.drawLaneChangePreference) return false;
-    if(drawVehicleName!=v2.drawVehicleName) return false;
-    if(vehicleNameSize!=v2.vehicleNameSize) return false;
-    if(vehicleNameColor!=v2.vehicleNameColor) return false;
+    if (vehicleMode!=v2.vehicleMode) return false;
+    if (minVehicleSize!=v2.minVehicleSize) return false;
+    if (vehicleExaggeration!=v2.vehicleExaggeration) return false;
+    if (vehicleColorings!=v2.vehicleColorings) return false;
+    if (showBlinker!=v2.showBlinker) return false;
+    if (drawcC2CRadius!=v2.drawcC2CRadius) return false;
+    if (drawLaneChangePreference!=v2.drawLaneChangePreference) return false;
+    if (drawVehicleName!=v2.drawVehicleName) return false;
+    if (vehicleNameSize!=v2.vehicleNameSize) return false;
+    if (vehicleNameColor!=v2.vehicleNameColor) return false;
 
-    if(junctionMode!=v2.junctionMode) return false;
-    if(drawLinkTLIndex!=v2.drawLinkTLIndex) return false;
-    if(drawLinkJunctionIndex!=v2.drawLinkJunctionIndex) return false;
-    if(drawJunctionName!=v2.drawJunctionName) return false;
-    if(junctionNameSize!=v2.junctionNameSize) return false;
-    if(junctionNameColor!=v2.junctionNameColor) return false;
+    if (junctionMode!=v2.junctionMode) return false;
+    if (drawLinkTLIndex!=v2.drawLinkTLIndex) return false;
+    if (drawLinkJunctionIndex!=v2.drawLinkJunctionIndex) return false;
+    if (drawJunctionName!=v2.drawJunctionName) return false;
+    if (junctionNameSize!=v2.junctionNameSize) return false;
+    if (junctionNameColor!=v2.junctionNameColor) return false;
 
-    if(showLane2Lane!=v2.showLane2Lane) return false;
+    if (showLane2Lane!=v2.showLane2Lane) return false;
 
-    if(addMode!=v2.addMode) return false;
-    if(minAddSize!=v2.minAddSize) return false;
-    if(addExaggeration!=v2.addExaggeration) return false;
-    if(drawAddName!=v2.drawAddName) return false;
-    if(addNameSize!=v2.addNameSize) return false;
+    if (addMode!=v2.addMode) return false;
+    if (minAddSize!=v2.minAddSize) return false;
+    if (addExaggeration!=v2.addExaggeration) return false;
+    if (drawAddName!=v2.drawAddName) return false;
+    if (addNameSize!=v2.addNameSize) return false;
 
-    if(minPOISize!=v2.minPOISize) return false;
-    if(poiExaggeration!=v2.poiExaggeration) return false;
-    if(drawPOIName!=v2.drawPOIName) return false;
-    if(poiNameSize!=v2.poiNameSize) return false;
-    if(poiNameColor!=v2.poiNameColor) return false;
+    if (minPOISize!=v2.minPOISize) return false;
+    if (poiExaggeration!=v2.poiExaggeration) return false;
+    if (drawPOIName!=v2.drawPOIName) return false;
+    if (poiNameSize!=v2.poiNameSize) return false;
+    if (poiNameColor!=v2.poiNameColor) return false;
 
-    if(showSizeLegend!=v2.showSizeLegend) return false;
+    if (showSizeLegend!=v2.showSizeLegend) return false;
 
     return true;
 }

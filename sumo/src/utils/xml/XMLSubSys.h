@@ -43,7 +43,7 @@
 /**
  * @class XMLSubSys
  * @brief Utility for initialising and closing the XML-subsystem
- * 
+ *
  * The Xerces-Parses needs an initialisation and should also be closed.
  *
  * As we use xerces for both the input files and the configuration we

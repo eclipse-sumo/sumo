@@ -521,8 +521,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
             throw 1;
         }
     } /* !_! else if(fromNode->getPosition()!=myGeom.at(0)) {
-                myGeom.push_front(fromNode->getPosition());
-            }*/
+                    myGeom.push_front(fromNode->getPosition());
+                }*/
     if (toNode==0) {
         toInf.first = 0;
         Position2D pos = myGeom[-1];
@@ -532,8 +532,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
             throw 1;
         }
     } /* !_! else if(toNode->getPosition()!=myGeom.getEnd()) {
-                myGeom.push_back(toNode->getPosition());
-            }*/
+                    myGeom.push_back(toNode->getPosition());
+                }*/
 
     // extend the edge's shape
     /*    if(toInf.first!=0) {

@@ -23,45 +23,51 @@
 
 class MFXInterThreadEventClient;
 
-class FXSingleEventThread : public FXObject, public FXThread {
-  FXDECLARE(FXSingleEventThread)
+class FXSingleEventThread : public FXObject, public FXThread
+{
+    FXDECLARE(FXSingleEventThread)
 
 private:
-  FXEX::FXThreadEventHandle event;
+    FXEX::FXThreadEventHandle event;
 
 private:
-  FXSingleEventThread(const FXSingleEventThread&);
-  FXSingleEventThread& operator=(const FXSingleEventThread&);
+    FXSingleEventThread(const FXSingleEventThread&);
+    FXSingleEventThread& operator=(const FXSingleEventThread&);
 
 public:
-  enum {
-    ID_THREAD_EVENT
+    enum
+    {
+        ID_THREAD_EVENT
     };
 
 public:
-  long onThreadSignal(FXObject*,FXSelector,void*);
-  long onThreadEvent(FXObject*,FXSelector,void*);
+    long onThreadSignal(FXObject*,FXSelector,void*);
+    long onThreadEvent(FXObject*,FXSelector,void*);
 
 public:
-  FXSingleEventThread(FXApp *a,MFXInterThreadEventClient *client);
+    FXSingleEventThread(FXApp *a,MFXInterThreadEventClient *client);
 
-  void signal();
+    void signal();
 
-  void signal(FXuint seltype);
+    void signal(FXuint seltype);
 
-  virtual FXint run() { return 0; }
+    virtual FXint run()
+    {
+        return 0;
+    }
 
-  virtual ~FXSingleEventThread();
+    virtual ~FXSingleEventThread();
 
-  static void sleep(long ms);
+    static void sleep(long ms);
 
 private:
-  FXApp *myApp;
-  MFXInterThreadEventClient *myClient;
+    FXApp *myApp;
+    MFXInterThreadEventClient *myClient;
 
 protected:
-    FXSingleEventThread() { }
-  };
+    FXSingleEventThread()
+    { }
+};
 
 
 #endif

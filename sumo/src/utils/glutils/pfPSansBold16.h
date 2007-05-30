@@ -26,10 +26,11 @@ before using this file.
 #include "polyfonttypes.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-  extern pffont pfPSansBold16;
+    extern pffont pfPSansBold16;
 
 #ifdef __cplusplus
 }

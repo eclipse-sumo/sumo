@@ -28,11 +28,14 @@
 
 namespace Loki
 {
-	namespace Private
-	{
-		typedef char YES;
-		struct NO {char dummy[3];};
-	}
+namespace Private
+{
+typedef char YES;
+struct NO
+{
+    char dummy[3];
+};
+}
 ////////////////////////////////////////////////////////////////////////////////
 // class template Int2Type
 // Converts each integral constant into a unique type
@@ -40,12 +43,13 @@ namespace Loki
 // Defines 'value', an enum that evaluates to v
 ////////////////////////////////////////////////////////////////////////////////
 
-    template <int v>
-    struct Int2Type
-    {
-        Int2Type() {}
-		enum { value = v };
-    };
+template <int v>
+struct Int2Type
+{
+    Int2Type()
+    {}
+    enum { value = v };
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template Type2Type
@@ -54,12 +58,13 @@ namespace Loki
 // Defines the type OriginalType which maps back to T
 ////////////////////////////////////////////////////////////////////////////////
 
-    template <typename T>
-    struct Type2Type
-    {
-        typedef T OriginalType;
-        Type2Type() {};
-    };
+template <typename T>
+struct Type2Type
+{
+    typedef T OriginalType;
+    Type2Type()
+    {};
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template Select
@@ -73,32 +78,32 @@ namespace Loki
 // VC6 compatible version
 namespace Private
 {
-	template <bool>
-	struct SelectImpl
-	{
-		template <class T, class U>
-		struct In
-		{
-			typedef T Result;
-		};
-	};
+template <bool>
+struct SelectImpl
+{
+    template <class T, class U>
+    struct In
+    {
+        typedef T Result;
+    };
+};
 
-	template <>
-	struct SelectImpl<false>
-	{
-		template <class T, class U>
-		struct In
-		{
-			typedef U Result;
-		};
-	};
+template <>
+struct SelectImpl<false>
+{
+    template <class T, class U>
+    struct In
+    {
+        typedef U Result;
+    };
+};
 
 }	// end of namespace private
-    template <bool flag, typename T, typename U>
-    struct Select
-    {
-		typedef typename Private::SelectImpl<flag>::template In<T, U>::Result Result;
-	};
+template <bool flag, typename T, typename U>
+struct Select
+{
+    typedef typename Private::SelectImpl<flag>::template In<T, U>::Result Result;
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,66 +115,76 @@ namespace Private
 // Result evaluates to true if U == T (types equal)
 ////////////////////////////////////////////////////////////////////////////////
 //	This template is not in the original Loki-Library
-	template <class T, class U>
-	struct IsEqualType
-	{
-		private:
-			static Private::YES check(Type2Type<T>);
-			static Private::NO check(...);
-		public:
-			enum {value = sizeof(check(Type2Type<U>())) == sizeof(Private::YES)};
-	};
+template <class T, class U>
+struct IsEqualType
+{
+private:
+    static Private::YES check(Type2Type<T>);
+    static Private::NO check(...);
+public:
+    enum
+    {
+        value = sizeof(check(Type2Type<U>())) == sizeof(Private::YES)
+    };
+};
 ////////////////////////////////////////////////////////////////////////////////
 // Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big)
 ////////////////////////////////////////////////////////////////////////////////
-    namespace Private
-    {
-        typedef char Small;
-        class Big { char dummy[2]; };
+namespace Private
+{
+typedef char Small;
+class Big
+{
+    char dummy[2];
+};
 
 // IsVoid from Rani Sharoni's VC 7 port
-        template<typename T>
-        struct IsVoid
-        {
-            enum { value =
-                IsEqualType<T, void>::value          ||
-                IsEqualType<T, const void>::value    ||
-                IsEqualType<T, volatile void>::value ||
-                IsEqualType<T, const volatile void>::value
-            };
-        };
-    }
+template<typename T>
+struct IsVoid
+{
+    enum { value =
+               IsEqualType<T, void>::value          ||
+           IsEqualType<T, const void>::value    ||
+           IsEqualType<T, volatile void>::value ||
+           IsEqualType<T, const volatile void>::value
+         };
+};
+}
 
 //
 // is one type convertable to another?
 //
 // is_convertible from Rani Sharoni's VC 7 port.
-    template <class T, class U>
-    class is_convertible
+template <class T, class U>
+class is_convertible
+{
+    struct VoidReplace
+        {};
+
+    typedef typename Select
+    <
+    Private::IsVoid<T>::value,
+    VoidReplace, T
+    >
+    ::Result T1;
+
+    typedef typename Select
+    <
+    Private::IsVoid<U>::value,
+    VoidReplace, U
+    >
+    ::Result U1;
+
+    static Private::Big   Test(...);
+    static Private::Small Test(U1);
+    static T1 MakeT();
+
+public:
+    enum
     {
-        struct VoidReplace {};
-
-        typedef typename Select
-        <
-            Private::IsVoid<T>::value,
-            VoidReplace, T
-        >
-        ::Result T1;
-
-        typedef typename Select
-        <
-            Private::IsVoid<U>::value,
-            VoidReplace, U
-        >
-        ::Result U1;
-
-        static Private::Big   Test(...);
-        static Private::Small Test(U1);
-        static T1 MakeT();
-
-    public:
-        enum { exists = sizeof(Test(MakeT())) == sizeof(Private::Small) };
+        exists = sizeof(Test(MakeT())) == sizeof(Private::Small)
     };
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template Conversion
@@ -187,13 +202,13 @@ namespace Private
 // Caveat: might not work if T and U are in a private inheritance hierarchy.
 ////////////////////////////////////////////////////////////////////////////////
 //	Conversion-Template from Rani Sharoni's VC 7 port.
-    template <class T, class U>
-    struct Conversion
-    {
-        enum { exists = (is_convertible<T,U>::exists) };
-        enum { exists2Way = (exists && is_convertible<U, T>::exists) };
-        enum { sameType = (IsEqualType<T, U>::value) };
-    };
+template <class T, class U>
+struct Conversion
+{
+    enum { exists = (is_convertible<T,U>::exists) };
+    enum { exists2Way = (exists && is_convertible<U, T>::exists) };
+    enum { sameType = (IsEqualType<T, U>::value) };
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template SuperSubclass
@@ -207,8 +222,8 @@ namespace Private
 template <class T, class U>
 struct SuperSubclass
 {
-  enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
-                  !::Loki::Conversion<const volatile T*, const volatile void*>::sameType) };
+    enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
+                    !::Loki::Conversion<const volatile T*, const volatile void*>::sameType) };
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -222,9 +237,9 @@ struct SuperSubclass
 template<class T,class U>
 struct SuperSubclassStrict
 {
-  enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
-                 !::Loki::Conversion<const volatile T*, const volatile void*>::sameType &&
-                 !::Loki::Conversion<const volatile T*, const volatile U*>::sameType) };
+    enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
+                    !::Loki::Conversion<const volatile T*, const volatile void*>::sameType &&
+                    !::Loki::Conversion<const volatile T*, const volatile U*>::sameType) };
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -257,9 +272,12 @@ struct SuperSubclassStrict
 template <unsigned i>
 struct TypeTag
 {
-	struct Inner {char c[i];};
-	typedef Inner X;
-	STATIC_SIZE_ASSERT(X, i);
+    struct Inner
+    {
+        char c[i];
+    };
+    typedef Inner X;
+    STATIC_SIZE_ASSERT(X, i);
 };
 
 } // namespace Loki

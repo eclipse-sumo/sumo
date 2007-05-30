@@ -50,32 +50,36 @@ typedef HANDLE	 	FXThreadMutex;        // handle to a mutex
  * Recursive mutual exclusion object.
  * Unlocks on destruction
  */
-class MFXMutex {
+class MFXMutex
+{
 public:
-  /// create me a mutex :-)
-  MFXMutex();
+    /// create me a mutex :-)
+    MFXMutex();
 
-  /// lock mutex
-  void lock();
+    /// lock mutex
+    void lock ();
 
-  /// release mutex lock
-  void unlock();
+    /// release mutex lock
+    void unlock();
 
-  /// dtor
-  virtual ~MFXMutex();
+    /// dtor
+    virtual ~MFXMutex();
 
-  inline FXbool locked() { return lock_?TRUE:FALSE; }
+    inline FXbool locked()
+    {
+        return lock_?TRUE:FALSE;
+    }
 
 protected:
-  FXuint lock_;          // lock count
+    FXuint lock_;          // lock count
 
 private:
-  FXThreadMutex mutexHandle;
+    FXThreadMutex mutexHandle;
 
 private:
-  // dummy copy constructor and operator= to prevent copying
-  MFXMutex(const MFXMutex&);
-  MFXMutex& operator=(const MFXMutex&);
+    // dummy copy constructor and operator= to prevent copying
+    MFXMutex(const MFXMutex&);
+    MFXMutex& operator=(const MFXMutex&);
 
 };
 

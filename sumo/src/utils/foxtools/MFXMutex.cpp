@@ -44,55 +44,59 @@ using namespace FX;
 #endif // CHECK_MEMORY_LEAKS
 
 // MFXMutex constructor
-MFXMutex::MFXMutex() : lock_(0) {
+MFXMutex::MFXMutex() : lock_(0)
+{
 #ifndef WIN32
-  FXint status=0;
-  pthread_mutexattr_t attr;
-  pthread_mutexattr_init(&attr);
-  status=pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_RECURSIVE);
-  FXASSERT(status==0);
-  FXMALLOC(&mutexHandle,pthread_mutex_t,1);
-  status=pthread_mutex_init((pthread_mutex_t*)mutexHandle,&attr);
-  FXASSERT(status==0);
-  pthread_mutexattr_destroy(&attr);
+    FXint status=0;
+    pthread_mutexattr_t attr;
+    pthread_mutexattr_init(&attr);
+    status=pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_RECURSIVE);
+    FXASSERT(status==0);
+    FXMALLOC(&mutexHandle,pthread_mutex_t,1);
+    status=pthread_mutex_init((pthread_mutex_t*)mutexHandle,&attr);
+    FXASSERT(status==0);
+    pthread_mutexattr_destroy(&attr);
 #else
-  mutexHandle=CreateMutex(NULL,FALSE,NULL);
-  FXASSERT(mutexHandle!=NULL);
+    mutexHandle=CreateMutex(NULL,FALSE,NULL);
+    FXASSERT(mutexHandle!=NULL);
 #endif
-  }
+}
 
 // Note: lock_ is not safe here because it is not protected, but
 //       if you are causing the destructor to be executed while
 //       some other thread is accessing the mutexHandle, then you have
 //       a design flaw in your program, and so it should crash!
-MFXMutex::~MFXMutex() {
-  if (lock_) fxerror("MFXMutex: mutex still locked\n");
+MFXMutex::~MFXMutex()
+{
+    if (lock_) fxerror("MFXMutex: mutex still locked\n");
 #if !defined(WIN32)
-  pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
-  FXFREE(&mutexHandle);
+    pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
+    FXFREE(&mutexHandle);
 #else
-  CloseHandle(mutexHandle);
+    CloseHandle(mutexHandle);
 #endif
-  }
+}
 
 // lock_ is safe because we dont increment it until we
 // have entered the locked state - cha-ching, correct
-void MFXMutex::lock() {
+void MFXMutex::lock ()
+{
 #if !defined(WIN32)
-  pthread_mutex_lock((pthread_mutex_t*)mutexHandle);
+    pthread_mutex_lock((pthread_mutex_t*)mutexHandle);
 #else
-  WaitForSingleObject(mutexHandle,INFINITE);
+    WaitForSingleObject(mutexHandle,INFINITE);
 #endif
-  lock_++;
-  }
+    lock_++;
+}
 
 // lock_ is safe because we decrement it, before leaving the locked state
-void MFXMutex::unlock() {
-  lock_--;
+void MFXMutex::unlock()
+{
+    lock_--;
 #if !defined(WIN32)
-  pthread_mutex_unlock((pthread_mutex_t*)mutexHandle);
+    pthread_mutex_unlock((pthread_mutex_t*)mutexHandle);
 #else
-  ReleaseMutex(mutexHandle);
+    ReleaseMutex(mutexHandle);
 #endif
-  }
+}
 

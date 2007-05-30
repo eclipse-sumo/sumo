@@ -71,8 +71,7 @@ ROVehicle::ROVehicle(ROVehicleBuilder &,
 
 
 ROVehicle::~ROVehicle()
-{
-}
+{}
 
 
 RORouteDef * const
@@ -195,7 +194,7 @@ ROVehicle::copy(ROVehicleBuilder &vb,
                 RORouteDef *newRoute)
 {
     return new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
-                                   myRepetitionPeriod, myRepetitionNumber);
+                         myRepetitionPeriod, myRepetitionNumber);
 }
 
 

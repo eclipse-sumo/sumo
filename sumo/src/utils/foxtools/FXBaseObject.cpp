@@ -56,100 +56,117 @@ using namespace FX;
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 using namespace FXEX;
-namespace FXEX {
+namespace FXEX
+{
 
 FXDEFMAP(FXBaseObject) FXBaseObjectMap[]={
-  FXMAPFUNC(SEL_COMMAND,FXWindow::ID_ENABLE,FXBaseObject::onCmdEnable),
-  FXMAPFUNC(SEL_COMMAND,FXWindow::ID_DISABLE,FXBaseObject::onCmdDisable),
-  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_DISABLE,FXBaseObject::onUpdate),
-  };
+            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_ENABLE,FXBaseObject::onCmdEnable),
+            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_DISABLE,FXBaseObject::onCmdDisable),
+            FXMAPFUNC(SEL_UPDATE,FXWindow::ID_DISABLE,FXBaseObject::onUpdate),
+        };
 FXIMPLEMENT(FXBaseObject,FXObject,FXBaseObjectMap,ARRAYNUMBER(FXBaseObjectMap))
 
 // ctor
-FXBaseObject::FXBaseObject(FXObject *tgt,FXSelector sel) : FXObject(){
-  data=NULL;
-  target=tgt;
-  message=sel;
-  flags=0;
-  app=FXApp::instance();
-  if (app==NULL) { fxerror("%s: Cannot create object without FXApp object\n",getClassName()); }
-  }
+FXBaseObject::FXBaseObject(FXObject *tgt,FXSelector sel) : FXObject()
+{
+    data=NULL;
+    target=tgt;
+    message=sel;
+    flags=0;
+    app=FXApp::instance();
+    if (app==NULL) {
+        fxerror("%s: Cannot create object without FXApp object\n",getClassName());
+    }
+}
 
 // ctor
-FXBaseObject::FXBaseObject(FXApp *a,FXObject *tgt,FXSelector sel) : FXObject(){
-  data=NULL;
-  target=tgt;
-  message=sel;
-  flags=0;
-  app=a;
-  if (app==NULL) { app=FXApp::instance(); }
-  if (app==NULL) { fxerror("%s: Cannot create object without FXApp object\n",getClassName()); }
-  }
+FXBaseObject::FXBaseObject(FXApp *a,FXObject *tgt,FXSelector sel) : FXObject()
+{
+    data=NULL;
+    target=tgt;
+    message=sel;
+    flags=0;
+    app=a;
+    if (app==NULL) {
+        app=FXApp::instance();
+    }
+    if (app==NULL) {
+        fxerror("%s: Cannot create object without FXApp object\n",getClassName());
+    }
+}
 
 // free up all resources
-FXBaseObject::~FXBaseObject(){
-  if (data != NULL && data != (void*)-1 )
-    fxerror("%s::~%s - user data is not NULL prior to destruction\n",getClassName(),getClassName());
-  app=(FXApp*)-1;
-  target=(FXObject*)-1;
-  }
+FXBaseObject::~FXBaseObject()
+{
+    if (data != NULL && data != (void*)-1)
+        fxerror("%s::~%s - user data is not NULL prior to destruction\n",getClassName(),getClassName());
+    app=(FXApp*)-1;
+    target=(FXObject*)-1;
+}
 
 // save object to stream
-void FXBaseObject::save(FXStream& store) const {
-  FXObject::save(store);
-  store << app;
-  store << target;
-  store << message;
-  store << flags;
-  store << options;
-  store << datalen;
-  store.save((FXuchar*)data,(unsigned long)datalen);
-  }
+void FXBaseObject::save(FXStream& store) const
+{
+    FXObject::save(store);
+    store << app;
+    store << target;
+    store << message;
+    store << flags;
+    store << options;
+    store << datalen;
+    store.save((FXuchar*)data,(unsigned long)datalen);
+}
 
 // load object from stream
-void FXBaseObject::load(FXStream& store){
-  FXObject::load(store);
-  store >> app;
-  store >> target;
-  store >> message;
-  store >> flags;
-  store >> options;
-  store >> datalen;
-  store.load((FXuchar*)data,(unsigned long)datalen);
-  }
+void FXBaseObject::load(FXStream& store)
+{
+    FXObject::load(store);
+    store >> app;
+    store >> target;
+    store >> message;
+    store >> flags;
+    store >> options;
+    store >> datalen;
+    store.load((FXuchar*)data,(unsigned long)datalen);
+}
 
 // this allows FXBaseObject derived classes to be singletons
-FXApp* FXBaseObject::getApp(){
-  if (app) return app;
-  return FXApp::instance();
-  }
+FXApp* FXBaseObject::getApp()
+{
+    if (app) return app;
+    return FXApp::instance();
+}
 
 // set the readonly flag
-void FXBaseObject::setReadonly(FXbool mode){
-  if (mode) flags|=FLAG_READONLY;
-  else flags&=~FLAG_READONLY;
-  }
+void FXBaseObject::setReadonly(FXbool mode)
+{
+    if (mode) flags|=FLAG_READONLY;
+    else flags&=~FLAG_READONLY;
+}
 
 // handle enable event
-long FXBaseObject::onCmdEnable(FXObject*,FXSelector,void*){
-  enable();
-  return 1;
-  }
+long FXBaseObject::onCmdEnable(FXObject*,FXSelector,void*)
+{
+    enable();
+    return 1;
+}
 
 // handle disable event
-long FXBaseObject::onCmdDisable(FXObject*,FXSelector,void*){
-  disable();
-  return 1;
-  }
+long FXBaseObject::onCmdDisable(FXObject*,FXSelector,void*)
+{
+    disable();
+    return 1;
+}
 
 // handle update event
-long FXBaseObject::onUpdate(FXObject *sender,FXSelector,void*){
-  if (flags&FLAG_ENABLED)
-    sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_ENABLE),NULL);
-  else
-    sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_DISABLE),NULL);
-  return 1;
-  }
+long FXBaseObject::onUpdate(FXObject *sender,FXSelector,void*)
+{
+    if (flags&FLAG_ENABLED)
+        sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_ENABLE),NULL);
+    else
+        sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_DISABLE),NULL);
+    return 1;
+}
 
 }
 

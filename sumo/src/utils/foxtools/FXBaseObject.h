@@ -44,7 +44,8 @@ using namespace FX;
 #include <FXObject.h>
 using namespace FX;
 #endif
-namespace FXEX {
+namespace FXEX
+{
 
 /**
  * Define so that all types and all id's can go to a specific function.
@@ -65,28 +66,29 @@ namespace FXEX {
  * This is a base class for ojects which can send messages to the application
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-     FXBaseObject : public FXObject {
-  FXDECLARE (FXBaseObject)
+            FXBaseObject : public FXObject
+{
+    FXDECLARE(FXBaseObject)
 
-  protected:
+protected:
     /// flags defined are the same as those defined in FXWindow, etc.
     enum {
-      FLAG_ENABLED  = 0x00000002,   // enabled
-      FLAG_UPDATE   = 0x00000004,   // needs update
-      FLAG_FOCUSED  = 0x00000010,   // has focus
-      FLAG_DIRTY    = 0x00000020,   // dirty
-      FLAG_RECALC   = 0x00000040,   // needs recalculation
-      FLAG_DEFAULT  = 0x00000200,   // set to default
-      FLAG_INITIAL  = 0x00000400,   // set to initial value
-      FLAG_ACTIVE   = 0x00001000,   // active
-      FLAG_CHANGED  = 0x00010000,   // changed
-      FLAG_READONLY = 0x10000000    // read only
-      };
+        FLAG_ENABLED  = 0x00000002,   // enabled
+        FLAG_UPDATE   = 0x00000004,   // needs update
+        FLAG_FOCUSED  = 0x00000010,   // has focus
+        FLAG_DIRTY    = 0x00000020,   // dirty
+        FLAG_RECALC   = 0x00000040,   // needs recalculation
+        FLAG_DEFAULT  = 0x00000200,   // set to default
+        FLAG_INITIAL  = 0x00000400,   // set to initial value
+        FLAG_ACTIVE   = 0x00001000,   // active
+        FLAG_CHANGED  = 0x00010000,   // changed
+        FLAG_READONLY = 0x10000000    // read only
+    };
 
-  private:
+private:
     FXApp        *app;             // application pointer
 
-  protected:
+protected:
     FXObject     *target;          // application target
     FXSelector    message;         // application message
     void         *data;            // user data
@@ -94,36 +96,36 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
     FXuint        flags;           // state flags
     FXuint        options;         // option flags
 
-  public:
+public:
     enum {
-      ID_NONE=0,
-      ID_DELETE=6,
-      ID_DISABLE,
-      ID_ENABLE,
-      ID_SETVALUE=17,
-      ID_SETINTVALUE,
-      ID_SETREALVALUE,
-      ID_SETSTRINGVALUE,
-      ID_SETINTRANGE,
-      ID_SETREALRANGE,
-      ID_GETINTVALUE,
-      ID_GETREALVALUE,
-      ID_GETSTRINGVALUE,
-      ID_XML,
-      ID_META,
-      ID_COMMENT,
-      ID_DOCUMENT,
-      ID_TAG,
-      ID_CONTENT,
-      ID_LAST
-      };
+        ID_NONE=0,
+        ID_DELETE=6,
+        ID_DISABLE,
+        ID_ENABLE,
+        ID_SETVALUE=17,
+        ID_SETINTVALUE,
+        ID_SETREALVALUE,
+        ID_SETSTRINGVALUE,
+        ID_SETINTRANGE,
+        ID_SETREALRANGE,
+        ID_GETINTVALUE,
+        ID_GETREALVALUE,
+        ID_GETSTRINGVALUE,
+        ID_XML,
+        ID_META,
+        ID_COMMENT,
+        ID_DOCUMENT,
+        ID_TAG,
+        ID_CONTENT,
+        ID_LAST
+    };
 
-  public:
+public:
     long onCmdEnable(FXObject*,FXSelector,void*);
     long onCmdDisable(FXObject*,FXSelector,void*);
     long onUpdate(FXObject*,FXSelector,void*);
 
-  public:
+public:
     /// Just supply the target and selector (de-serialisation too)
     FXBaseObject(FXObject *tgt=NULL,FXSelector sel=0);
 
@@ -134,52 +136,91 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
     FXApp* getApp();
 
     /// get the target
-    FXObject* getTarget() { return target; }
+    FXObject* getTarget()
+    {
+        return target;
+    }
 
     /// set the target
-    void setTarget(FXObject* tgt) { target=tgt; }
+    void setTarget(FXObject* tgt)
+    {
+        target=tgt;
+    }
 
     /// get the message
-    FXSelector getSelector() { return message; }
+    FXSelector getSelector()
+    {
+        return message;
+    }
 
     /// set the selector
-    void setSelector(FXSelector sel) { message=sel; }
+    void setSelector(FXSelector sel)
+    {
+        message=sel;
+    }
 
     /// get user data
-    void* getUserData() { return data; }
+    void* getUserData()
+    {
+        return data;
+    }
 
     /// set user data
-    void setUserData(void *d) { data=d; }
+    void setUserData(void *d)
+    {
+        data=d;
+    }
 
     /// get user daat length
-    FXuint getUserDataLen() { return datalen; }
+    FXuint getUserDataLen()
+    {
+        return datalen;
+    }
 
     /// set the user data length
-    void setUserDataLen(FXuint len) { datalen=len; }
+    void setUserDataLen(FXuint len)
+    {
+        datalen=len;
+    }
 
     /// are we enabled?
-    FXbool isEnabled() { return (flags&FLAG_ENABLED)!=0; }
+    FXbool isEnabled()
+    {
+        return (flags&FLAG_ENABLED)!=0;
+    }
 
     /// enable us
-    virtual void enable() { flags|=FLAG_ENABLED; }
+    virtual void enable()
+    {
+        flags|=FLAG_ENABLED;
+    }
 
     /// disable us
-    virtual void disable() { flags&=~FLAG_ENABLED; }
+    virtual void disable()
+    {
+        flags&=~FLAG_ENABLED;
+    }
 
     /// are we modifiable
-    virtual FXbool isReadonly() { return (flags&FLAG_READONLY)!=0; }
+    virtual FXbool isReadonly()
+    {
+        return (flags&FLAG_READONLY)!=0;
+    }
 
     /// set modifiable mode
     virtual void setReadonly(FXbool mode=TRUE);
 
     /// create resource
-    virtual void create(){}
+    virtual void create()
+    {}
 
     /// detach resource
-    virtual void detach(){}
+    virtual void detach()
+    {}
 
     /// destroy resource
-    virtual void destroy(){}
+    virtual void destroy()
+    {}
 
     /// save object to stream
     virtual void save(FXStream& store) const;
@@ -189,7 +230,7 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
 
     /// dtor
     virtual ~FXBaseObject();
-  };
+};
 
 } // namespace FXEX
 #endif // FXBASEOBJECT_H

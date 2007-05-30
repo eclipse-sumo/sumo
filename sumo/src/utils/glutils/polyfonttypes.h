@@ -49,27 +49,29 @@ typedef signed short int pfint16;
 
 typedef struct
 {
-  SUMOReal minx;
-  SUMOReal miny;
-  SUMOReal maxx;
-  SUMOReal maxy;
-  SUMOReal advance;
-  pfuint16 glyph;
-  pfuint16 numsegments;
-  pfint16 *segments;
-} pfglyph;
+    SUMOReal minx;
+    SUMOReal miny;
+    SUMOReal maxx;
+    SUMOReal maxy;
+    SUMOReal advance;
+    pfuint16 glyph;
+    pfuint16 numsegments;
+    pfint16 *segments;
+}
+pfglyph;
 
 typedef struct
 {
-  char *name;
-  int loaded;
-  SUMOReal minx;
-  SUMOReal miny;
-  SUMOReal maxx;
-  SUMOReal maxy;
-  int numglyphs;
-  pfglyph *glyphs;
-} pffont;
+    char *name;
+    int loaded;
+    SUMOReal minx;
+    SUMOReal miny;
+    SUMOReal maxx;
+    SUMOReal maxy;
+    int numglyphs;
+    pfglyph *glyphs;
+}
+pffont;
 /*
 typedef struct
 {
