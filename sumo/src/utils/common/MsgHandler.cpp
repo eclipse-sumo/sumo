@@ -184,19 +184,21 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType)
     if (myReport2COUT) {
         cout << msg << ' ';
         cout.flush();
+        myAmProcessingProcess = true;
     }
     // report to cerr if wished
     if (myReport2CERR) {
         cerr << msg << ' ';
         cerr.flush();
+        myAmProcessingProcess = true;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
         (*i)->inform(msg + " ");
+        myAmProcessingProcess = true;
     }
     // set the information that something occured
     myWasInformed = true;
-    myAmProcessingProcess = true;
     if (myLock!=0) {
         myLock->unlock();
     }
@@ -212,18 +214,20 @@ MsgHandler::endProcessMsg(std::string msg)
     // report to cout if wished
     if (myReport2COUT) {
         cout << msg << endl;
+        myAmProcessingProcess = false;
     }
     // report to cerr if wished
     if (myReport2CERR) {
         cerr << msg << endl;
+        myAmProcessingProcess = false;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
         (*i)->inform(msg);
+        myAmProcessingProcess = false;
     }
     // set the information that something occured
     myWasInformed = true;
-    myAmProcessingProcess = false;
     if (myLock!=0) {
         myLock->unlock();
     }
