@@ -882,8 +882,7 @@ DFRONet::getDetectorEdge(const DFDetector &det) const
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
     ROEdge *ret = ro->getEdge(edgeName);
     if (ret==0) {
-        MsgHandler::getErrorInstance()->inform("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
-        throw ProcessError();
+        throw ProcessError("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
     }
     return ret;
 }

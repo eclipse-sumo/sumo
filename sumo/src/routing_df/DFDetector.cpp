@@ -494,14 +494,10 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                                    bool includeUnusedRoutes,
                                    SUMOReal scale) const
 {
-    if (getID()=="MQ257_0") {
-        int bla = 0;
-    }
     // write the definition
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open definition file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
     }
 //    cout << "a1" << endl;
     // begin
@@ -672,8 +668,7 @@ DFDetector::writeSingleSpeedTrigger(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write speed trigger values to file '" + file + "'.");
     }
     strm << "<vss>" << endl;
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -759,8 +754,7 @@ DFDetectorCon::save(const std::string &file) const
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("The detector output file '" + file + "' could not be opened.");
-        throw ProcessError();
+        throw ProcessError("Can not write detectors to file '" + file + "'.");
     }
     strm << "<detectors>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -830,8 +824,7 @@ DFDetectorCon::saveRoutes(const std::string &file) const
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("The detector output file '" + file + "' could not be opened.");
-        throw ProcessError();
+        throw ProcessError("Can not write routes to file '" + file + "'.");
     }
     std::vector<std::string> saved;
     strm << "<routes>" << endl;
@@ -880,8 +873,7 @@ DFDetectorCon::writeEmitters(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -954,8 +946,7 @@ DFDetectorCon::writeEmitterPOIs(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write emitter pois to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1071,8 +1062,7 @@ DFDetectorCon::writeSpeedTrigger(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write speed trigger definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1098,8 +1088,7 @@ DFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write end rerouter definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1123,8 +1112,7 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not write validation detectors to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
     for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {

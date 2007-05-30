@@ -57,8 +57,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con)
-        : SUMOSAXHandler("Detector-Defintion"),
+DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
+                                     const std::string &file)
+        : SUMOSAXHandler("detector definition", file),
         myOptions(oc),  myContainer(con)
 {}
 
@@ -76,25 +77,21 @@ DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
         try {
             id = getString(attrs, SUMO_ATTR_ID);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("A detector without an id occured within '" + _file + ".");
-            return;
+            throw ProcessError("A detector without an id occured within '" + _file + ".");
         }
         string lane;
         try {
             lane = getString(attrs, SUMO_ATTR_LANE);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
-            return;
+            throw ProcessError("A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
         }
         SUMOReal pos;
         try {
             pos = getFloat(attrs, SUMO_ATTR_POS);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
-            return;
+            throw ProcessError("A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
         } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform("Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
-            return;
+            throw ProcessError("Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
         }
         string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         dfdetector_type type = TYPE_NOT_DEFINED;
@@ -109,8 +106,8 @@ DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
         }
         DFDetector *detector = new DFDetector(id, lane, pos, type);
         if (!myContainer.addDetector(detector)) {
-            MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
             delete detector;
+            throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
         }
     }
 }

@@ -53,7 +53,8 @@ class DFDetectorHandler : public SUMOSAXHandler
 {
 public:
     /// Constructor
-    DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con);
+    DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
+        const std::string &file);
 
     /// Destrcutor
     virtual ~DFDetectorHandler();

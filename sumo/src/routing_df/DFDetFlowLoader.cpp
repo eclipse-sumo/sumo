@@ -131,37 +131,50 @@ DFDetFlowLoader::report(const std::string &result)
 {
     // parse the flows
     if (myFirstLine) {
-        myLineHandler.reinit(result, ";", ";", true, false); // !!!
+        myLineHandler.reinit(result, ";", ";", true, true);
         myFirstLine = false;
+        return true;
     } else {
         myLineHandler.parseLine(result);
-        string detName = myLineHandler.get("Detector");
-        int time = TplConvert<char>::_2int((myLineHandler.get("Time").c_str()));
-        time -= myTimeOffset;
-        if (time<myStartTime||time>myEndTime) {
-            return true;
-        }
-        FlowDef fd;
-//		fd.det = myLineHandler.get("Detector");
-        fd.isLKW = 0;
-        fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qPKW").c_str());
-        fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vPKW").c_str());
-        fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qLKW").c_str());
-        fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vLKW").c_str());
-        if (fd.qLKW<0) {
+        try {
+            string detName = myLineHandler.get("detector");
+            int time = TplConvert<char>::_2int((myLineHandler.get("time").c_str()));
+            time -= myTimeOffset;
+            if (time<myStartTime||time>myEndTime) {
+                return true;
+            }
+            FlowDef fd;
+            fd.isLKW = 0;
+            fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qpkw").c_str());
+            fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vpkw").c_str());
             fd.qLKW = 0;
+            if(myLineHandler.know("qLKW")) {
+                fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qlkw").c_str());
+            }
+            fd.vLKW = 0;
+            if(myLineHandler.know("vLKW")) {
+                fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vlkw").c_str());
+            }
+            if (fd.qLKW<0) {
+                fd.qLKW = 0;
+            }
+            if (fd.qPKW<0) {
+                fd.qPKW = 0;
+            }
+            if (false) { // !!!!
+                assert(fd.qPKW>=fd.qLKW);
+                fd.qPKW -= fd.qLKW;
+            }
+            myStorage.addFlow(detName, time, fd);
+            return true;
+        } catch (UnknownElement &) {
+        } catch (OutOfBoundsException &) {
         }
-        if (fd.qPKW<0) {
-            fd.qPKW = 0;
-        }
-        if (false) { // !!!!
-            assert(fd.qPKW>=fd.qLKW);
-            fd.qPKW -= fd.qLKW;
-        }
-        myStorage.addFlow(detName, time, fd);
+        throw ProcessError("The detector-flow-file '" + myReader.getFileName() + "' is corrupt;\n"
+            + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
+            + " The according column names must be given in the first line of the file.");
+        return false;
     }
-
-    return true;
 }
 
 

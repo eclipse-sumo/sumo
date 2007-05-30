@@ -1,2 +1,2 @@
-Error: Can not write to file 'invalid/emitters.add.xml'.
+Error: Can not write emitter definitions to file 'invalid/emitters.add.xml'.
 Quitting (on error).

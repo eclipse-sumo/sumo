@@ -37,6 +37,7 @@
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
+#include <utils/xml/XMLBuildingExceptions.h>
 #include <iostream>
 #include <string>
 #include <limits.h>
@@ -115,8 +116,7 @@ DFDetectorCon *
 readDetectors(OptionsCont &oc, DFRONet *optNet)
 {
     if (!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
-        MsgHandler::getErrorInstance()->inform("No detector file given (use --detector-files <FILE>).");
-        throw ProcessError();
+        throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
     DFDetectorCon *cont = new DFDetectorCon();
     // read definitions stored in XML-format
@@ -126,24 +126,27 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
         while (st.hasNext()) {
             string file = st.next();
             if (!FileHelpers::exists(file)) {
-                MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
                 delete cont;
-                throw ProcessError();
+                throw ProcessError("Could not open detector file '" + file + "'");
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
-            DFDetectorHandler handler(oc, *cont);
+            DFDetectorHandler handler(oc, *cont, file);
             SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
             try {
                 parser->parse(file.c_str());
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
             } catch (SAXException &e) {
                 delete cont;
-                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-                throw ProcessError();
+                throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
             } catch (XMLException &e) {
                 delete cont;
-                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-                throw ProcessError();
+                throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
+            } catch (XMLBuildingException &e) {
+                delete cont;
+                throw ProcessError(e.what());
+            } catch (ProcessError &) {
+                delete cont;
+                throw;
             }
         }
     }
@@ -152,16 +155,14 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
         string files = oc.getString("elmar-detector-files");
         StringTokenizer st(files, ";");
         if (optNet==0) {
-            MsgHandler::getErrorInstance()->inform("You need a network in order to read elmar definitions.");
             delete cont;
-            throw ProcessError();
+            throw ProcessError("You need a network in order to read elmar definitions.");
         }
         while (st.hasNext()) {
             string file = st.next();
             if (!FileHelpers::exists(file)) {
-                MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
                 delete cont;
-                throw ProcessError();
+                throw ProcessError("Could not open elmar detector file '" + file + "'");
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
             LineReader lr(file);
@@ -184,18 +185,16 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
                 }
                 // check
                 if (values.size()<6) {
-                    MsgHandler::getErrorInstance()->inform("Something is false with the following detector definition:\n " + line);
                     delete cont;
-                    throw ProcessError();
+                    throw ProcessError("Something is false with the following detector definition:\n " + line);
                 }
                 // parse
                 string edge = values[5];
                 string defs = values[2];
                 StringTokenizer st2(defs, ";");
                 if (st2.size()<3) {
-                    MsgHandler::getErrorInstance()->inform("Something is false with the following detector definition:\n " + line);
                     delete cont;
-                    throw ProcessError();
+                    throw ProcessError("Something is false with the following detector definition:\n " + line);
                 }
                 vector<string> values2 = st2.getVector();
                 string id = values2[0];
@@ -239,8 +238,7 @@ readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
     while (st.hasNext()) {
         string file = st.next();
         if (!FileHelpers::exists(file)) {
-            MsgHandler::getErrorInstance()->inform("The detector-flow-file '" + file + "' can not be opened.");
-            throw ProcessError();
+            throw ProcessError("The detector-flow-file '" + file + "' can not be opened.");
         }
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + file + "'... ");
@@ -299,13 +297,11 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     // check
     // whether the detectors are valid
     if (!detectors->detectorsHaveCompleteTypes()) {
-        MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
-        throw ProcessError();
+        throw ProcessError("The detector types are not defined; use in combination with a network");
     }
     // whether the detectors have routes
     if (!detectors->detectorsHaveRoutes()) {
-        MsgHandler::getErrorInstance()->inform("The emitters have no routes; use in combination with a network");
-        throw ProcessError();
+        throw ProcessError("The emitters have no routes; use in combination with a network");
     }
 
     // save the detectors if wished
@@ -394,9 +390,7 @@ main(int argc, char **argv)
 {
     int ret = 0;
     DFRONet *net = 0;
-#ifndef _DEBUG
     try {
-#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv, RODFFrame::fillOptions);
         if (init_ret<0) {
@@ -422,12 +416,18 @@ main(int argc, char **argv)
         net = loadNet(oc);
         // build routes
         startComputation(net, oc);
-#ifndef _DEBUG
-    } catch (...) {
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    }
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
+    }
     delete net;
     SystemFrame::close();
     if (ret==0) {
