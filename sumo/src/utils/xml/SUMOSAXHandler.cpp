@@ -75,9 +75,9 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
 {
     ostringstream buf;
     buf << TplConvert<XMLCh>::_2str(exception.getMessage()) << endl;
-    buf << " In file: " << getFileName() << endl;
-    buf << " (At line/column " << exception.getLineNumber()+1
-    << '/' << exception.getColumnNumber() << ")." << endl;
+    buf << " In file ' " << getFileName() << "'" << endl;
+    buf << " At line/column " << exception.getLineNumber()+1
+    << '/' << exception.getColumnNumber() << "." << endl;
     return buf.str();
 }
 
