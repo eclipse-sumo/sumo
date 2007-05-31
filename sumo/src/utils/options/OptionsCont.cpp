@@ -646,7 +646,6 @@ OptionsCont::getStringVector(const std::string &name) const
         // skip ';'
         while(beg<def.length() && (def[beg]==';' || def[beg]==',')) ++beg;
         end = beg + 1;
-        if(beg<def.length() && (def[end]==';' || def[beg]==',')) continue;
         while(end<def.length() && (def[end]!=';' && def[end]!=',')) ++end;
         string s = def.substr(beg, end-beg);
         ret.push_back(s);
