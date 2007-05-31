@@ -89,13 +89,13 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
                 // retrieve the name of the node
                 try {
                     name = getString(attrs, SUMO_ATTR_NAME);
-                } catch (EmptyData) {
+                } catch (EmptyData &) {
                 }*/
         string typestr;
         // get the type of the node
         try {
             typestr = getString(attrs, SUMO_ATTR_TYPE);
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             addError("The type of the junction '" + id + "' is not given.");
             return;
         }
@@ -132,13 +132,13 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         string key;
         try {
             key = getString(attrs, SUMO_ATTR_KEY);
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             addError("The key is missing for junction '" + id + "'.");
         }
         // build the node
         throw 1; // !!! deprecated
         myNodeCont.insert(new NBNode(id, Position2D(x, y), type));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         addError("A junction without an id occured.");
     }
 }

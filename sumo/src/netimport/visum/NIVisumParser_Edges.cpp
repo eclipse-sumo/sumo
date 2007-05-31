@@ -130,11 +130,11 @@ NIVisumParser_Edges::myDependentReport()
             insertEdge(id, to, from, type, speed, nolanes, length, prio, false);
         }
         myTouchedEdges.push_back(id);
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("STRECKE", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("STRECKE", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("STRECKE", id, "UnknownElement");
     }
 }

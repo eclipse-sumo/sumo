@@ -95,7 +95,7 @@ StringUtils::version1(std::string str)
         try {
             int no = TplConvert<char>::_2int(str.substr(idx+1).c_str());
             str = str.substr(0, idx+1) + toString<int>(no+1);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             str = str + "_0";
         }
     } else {

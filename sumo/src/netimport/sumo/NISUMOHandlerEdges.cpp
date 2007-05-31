@@ -85,12 +85,12 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
         string name;
         try {
             name = getString(attrs, SUMO_ATTR_NAME);
-        } catch (EmptyData) {}
+        } catch (EmptyData &) {}
         // get the type
         string type;
         try {
             type = getString(attrs, SUMO_ATTR_TYPE);
-        } catch (EmptyData) {}
+        } catch (EmptyData &) {}
         // get the origin and the destination node
         NBNode *from = getNode(attrs, SUMO_ATTR_FROMNODE, "from", id);
         NBNode *to = getNode(attrs, SUMO_ATTR_TONODE, "to", id);
@@ -106,7 +106,7 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
             myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
                                          nolanes, length, priority));
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         addError("An edge with an unknown id occured.");
     }
 }
@@ -122,7 +122,7 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
             addError("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");
         }
         return node;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         addError("Missing " + dir + "-node name for edge with id '" + name + "'");
     }
     return 0;

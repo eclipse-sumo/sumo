@@ -81,7 +81,7 @@ NICellNodesHandler::report(const std::string &result)
                 if (!myNodeCont.insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform("Could not build node '" + id + "'.");
                 }
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException &) {
                 addError("The following cell-nodes - entry contains a non-digit position information:\n" + result);
                 throw ProcessError();
             }

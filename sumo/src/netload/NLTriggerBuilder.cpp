@@ -293,7 +293,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
     SUMOReal scale;
     try {
         scale = helper.getFloatSecure(attrs, SUMO_ATTR_WEIGHT, (SUMOReal)1);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid scale in definition of METriggeredScaler '" + id + "'.");
         throw ProcessError();
     }
@@ -342,7 +342,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     SUMOReal prob;
     try {
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
         throw ProcessError();
     }

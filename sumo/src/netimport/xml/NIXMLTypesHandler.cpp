@@ -88,21 +88,21 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
             try {
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
                                         myTypeCont.getDefaultPriority());
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException &) {
                 addError("Not numeric value for Priority (at tag ID='" + id + "').");
             }
             // get the number of lanes
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
                                        myTypeCont.getDefaultNoLanes());
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException &) {
                 addError("Not numeric value for NoLanes (at tag ID='" + id + "').");
             }
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
                                        (SUMOReal) myTypeCont.getDefaultSpeed());
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException &) {
                 addError("Not numeric value for Speed (at tag ID='" + id + "').");
             }
             // get the function
@@ -123,7 +123,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
                     delete type;
                 }
             }
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             WRITE_WARNING("No id given... Skipping.");
         }
     }

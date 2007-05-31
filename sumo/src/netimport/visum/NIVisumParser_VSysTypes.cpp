@@ -77,11 +77,11 @@ NIVisumParser_VSysTypes::myDependentReport()
             ? myLineParser.get("VSysMode").c_str()
             : myLineParser.get("Typ").c_str();
         usedVSysTypes[name] = type;
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("VSYS", "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("VSYS", "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("VSYS", "", "UnknownElement");
     }
 }

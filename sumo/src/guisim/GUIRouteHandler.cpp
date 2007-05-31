@@ -107,12 +107,12 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vehicle-object.");
     }
 }

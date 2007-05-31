@@ -92,7 +92,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &tag
     try {
         // retrieve the id of the node
         myID = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }
@@ -138,10 +138,10 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
         myPosition.set(x, y);
         GeoConvHelper::x2cartesian(myPosition);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Not numeric value for position (at node ID='" + myID + "').");
         return false;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         addError("Node position (at node ID='" + myID + "') is not given.");
         return false;
     }

@@ -162,7 +162,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + ").");
             return;
         }
@@ -174,7 +174,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         string id;
         try {
             id = getString(attrs, SUMO_ATTR_ID);
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vtype-object.");
             return;
         }
@@ -191,7 +191,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         SUMOReal no = -1;
         try {
             no = getFloatSecure(attrs, SUMO_ATTR_NO, -1);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Non-numeric flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
             return;
         }
@@ -203,7 +203,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         SUMOTime end = -1;
         try {
             end = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_END, -1);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Non-numeric flow end in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
             return;
         }

@@ -77,11 +77,11 @@ NIVisumParser_NodesToTrafficLights::myDependentReport()
         TrafficLight = myLineParser.get("LsaNr").c_str();
         // add to the list
         myNIVisumTLs[TrafficLight]->GetNodes()->push_back(myNodeCont.retrieve(Node));
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("KNOTENZULSA", "TrafficLight:" + TrafficLight + " Node:" + Node , "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("KNOTENZULSA", "TrafficLight:" + TrafficLight + " Node:" + Node , "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("KNOTENZULSA", "TrafficLight:" + TrafficLight + " Node:" + Node , "UnknownElement");
     }
 }

@@ -138,11 +138,11 @@ NIVisumParser_Connectors::myDependentReport()
                 myDistrictCont.addSink(bez, edge, proz);
             }
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("ANBINDUNG", "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("ANBINDUNG", "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("ANBINDUNG", "", "UnknownElement");
     }
 }

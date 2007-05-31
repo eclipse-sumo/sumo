@@ -81,11 +81,11 @@ NIVisumParser_SignalGroups::myDependentReport()
         SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
         // add to the list
         (*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(id, (SUMOTime) StartTime, (SUMOTime) EndTime);
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("SignalGroups", "LSA:" + LSAid + " SignalGroup:" + id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("SignalGroups", "LSA:" + LSAid + " SignalGroup:" + id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("SignalGroups", "LSA:" + LSAid + " SignalGroup:" + id, "UnknownElement");
     }
 }

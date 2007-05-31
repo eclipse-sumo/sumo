@@ -165,7 +165,7 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {}
+    } catch (EmptyData &) {}
     // get a valid vehicle id
     while (id.length()==0) {
         string tmp = _idSupplier.getNext();
@@ -193,7 +193,7 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
         if (e!=0) {
             return e;
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         if (!emptyAllowed) {
             MsgHandler::getErrorInstance()->inform("Missing " + purpose + " edge in description of a route.");
         }
@@ -218,8 +218,8 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
     }
     try {
         return getFloat(attrs, SUMO_ATTR_POS);
-    } catch (EmptyData) {}
-    catch (NumberFormatException) {
+    } catch (EmptyData &) {}
+    catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if (place.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + place + "')");
@@ -235,11 +235,11 @@ RORDLoader_TripDefs::getTime(const Attributes &attrs, SumoXMLAttr which,
     // get the departure time
     try {
         return getInt(attrs, which);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing time in description of a route.");
         if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Vehicle id='" + id + "'.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of the departure time should be numeric but is not.");
         if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
@@ -258,9 +258,9 @@ RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
     // get the repetition period
     try {
         return getInt(attrs, SUMO_ATTR_PERIOD);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         return -1;
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of the period should be numeric but is not.");
         if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
@@ -279,9 +279,9 @@ RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
     // get the repetition period
     try {
         return getInt(attrs, SUMO_ATTR_REPNUMBER);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         return -1;
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The number of cars that shall be emitted with the same parameter must be numeric.");
         if (id.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
@@ -295,7 +295,7 @@ RORDLoader_TripDefs::getLane(const Attributes &attrs)
 {
     try {
         return getString(attrs, SUMO_ATTR_LANE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         return "";
     }
 }
@@ -375,8 +375,8 @@ RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
 {
     try {
         return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
-    } catch (EmptyData) {}
-    catch (NumberFormatException) {
+    } catch (EmptyData &) {}
+    catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Color in vehicle '" + id + "' is not numeric.");
     }
     return RGBColor(-1, -1, -1);

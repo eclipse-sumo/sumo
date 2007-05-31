@@ -226,13 +226,13 @@ NLHandler::addParam(const Attributes &attrs)
     string key, val;
     try {
         key = getString(attrs, SUMO_ATTR_KEY);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing key for a parameter.");
         return;
     }
     try {
         val = getString(attrs, SUMO_ATTR_VALUE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing value for a parameter.");
         return;
     }
@@ -324,9 +324,9 @@ NLHandler::setEdgeNumber(const Attributes &attrs)
 {
     try {
         myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing number of edges.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of edges.");
     }
 }
@@ -345,7 +345,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
             return;
         }
         myCurrentIsInternalToSkip = false;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -354,7 +354,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     string func;
     try {
         func = getString(attrs, SUMO_ATTR_FUNC);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing function of an edge-object.");
     }
 
@@ -409,12 +409,12 @@ NLHandler::addLane(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (XMLDepartLaneDuplicationException &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     }
 }
@@ -490,7 +490,7 @@ NLHandler::openAllowedEdge(const Attributes &attrs)
         myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an cedge-object.");
     }
 }
@@ -503,23 +503,23 @@ NLHandler::addLogicItem(const Attributes &attrs)
     int request = -1;
     try {
         request = getInt(attrs, SUMO_ATTR_REQUEST);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing request key...");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error in description: one of the request keys is not numeric.");
     }
     // parse the response
     string response;
     try {
         response = getString(attrs, SUMO_ATTR_RESPONSE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing respond for a request");
     }
     // parse the internal links information (when wished)
     string foes;
     try {
         foes = getString(attrs, SUMO_ATTR_FOES);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing foes for a request");
     }
     bool cont = false;
@@ -555,7 +555,7 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
         }
         myJunctionControlBuilder.initTrafficLightLogic(type,
                 absDuration, requestSize, detectorOffset);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
     myAmInTLLogicMode = true;
@@ -569,7 +569,7 @@ NLHandler::addPhase(const Attributes &attrs)
     string phase;
     try {
         phase = getString(attrs, SUMO_ATTR_PHASE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing phase definition.");
         return;
     }
@@ -577,7 +577,7 @@ NLHandler::addPhase(const Attributes &attrs)
     string brakeMask;
     try {
         brakeMask = getString(attrs, SUMO_ATTR_BRAKE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing break definition.");
         return;
     }
@@ -585,7 +585,7 @@ NLHandler::addPhase(const Attributes &attrs)
     string yellowMask;
     try {
         yellowMask = getString(attrs, SUMO_ATTR_YELLOW);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
         return;
     }
@@ -593,10 +593,10 @@ NLHandler::addPhase(const Attributes &attrs)
     size_t duration;
     try {
         duration = getInt(attrs, SUMO_ATTR_DURATION);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing phase duration...");
         return;
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
         return;
     }
@@ -610,13 +610,13 @@ NLHandler::addPhase(const Attributes &attrs)
     int max = duration;
     try {
         min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase minimum duration is not numeric.");
         return;
     }
     try {
         max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
     }
@@ -640,10 +640,10 @@ NLHandler::openJunction(const Attributes &attrs)
                                                   getString(attrs, SUMO_ATTR_TYPE),
                                                   getFloat(attrs, SUMO_ATTR_X),
                                                   getFloat(attrs, SUMO_ATTR_Y));
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a junction-object.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a junction-object.");
     }
@@ -658,7 +658,7 @@ NLHandler::addDetector(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
@@ -693,7 +693,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
@@ -702,7 +702,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
     bool isfd= true;
     try {
         getString(attrs, SUMO_ATTR_FILE);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         isfd= false;
     }
 
@@ -744,7 +744,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -761,7 +761,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
@@ -775,7 +775,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("The detector '" + id + "' refers to the unknown lsa '" + lsaid + "'.");
             return;
         }
-    } catch (EmptyData) {}
+    } catch (EmptyData &) {}
     // check whether this is a detector connected to a link
     std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
     //
@@ -838,7 +838,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -854,7 +854,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         m_Key = id;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
@@ -870,7 +870,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -887,7 +887,7 @@ NLHandler::addE3Entry(const Attributes &attrs)
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     }
 }
@@ -902,7 +902,7 @@ NLHandler::addE3Exit(const Attributes &attrs)
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -927,10 +927,10 @@ NLHandler::addSource(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -951,12 +951,12 @@ NLHandler::addTrigger(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData) {
+        } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
         } catch (FileBuildError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a trigger-object.");
     }
 }
@@ -973,7 +973,7 @@ NLHandler::openSucc(const Attributes &attrs)
         }
         myCurrentIsInternalToSkip = false;
         m_pSLB.openSuccLane(id);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of a succ-object.");
     }
 }
@@ -1011,12 +1011,12 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("While building lane '" + m_pSLB.getSuccingLaneName() + "'");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
 }
@@ -1179,9 +1179,9 @@ NLHandler::setNodeNumber(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing number of nodes.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of nodes.");
     }
 }
@@ -1217,9 +1217,9 @@ NLHandler::setRequestSize(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
@@ -1230,9 +1230,9 @@ NLHandler::setLaneNumber(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing lane number.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
@@ -1267,7 +1267,7 @@ NLHandler::setOffset(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid offset for a junction.");
         return;
     }
@@ -1280,7 +1280,7 @@ NLHandler::setNetOffset(const std::string &chars)
     try {
         Position2DVector s = GeomConvHelper::parseShape(chars);
         myNetworkOffset = s[0];
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid network offset.");
         return;
     }
@@ -1292,7 +1292,7 @@ NLHandler::setNetConv(const std::string &chars)
 {
     try {
         myConvBoundary = GeomConvHelper::parseBoundary(chars);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid converted network boundary.");
         return;
     }
@@ -1304,7 +1304,7 @@ NLHandler::setNetOrig(const std::string &chars)
 {
     try {
         myOrigBoundary = GeomConvHelper::parseBoundary(chars);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid original network boundary.");
         return;
     }

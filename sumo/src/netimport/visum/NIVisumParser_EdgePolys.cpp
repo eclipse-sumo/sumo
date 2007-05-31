@@ -121,11 +121,11 @@ NIVisumParser_EdgePolys::myDependentReport()
                 MsgHandler::getErrorInstance()->inform("There is no edge from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             }
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("STRECKE", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("STRECKE", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("STRECKE", id, "UnknownElement");
     }
 }

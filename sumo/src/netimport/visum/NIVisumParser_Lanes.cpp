@@ -88,7 +88,7 @@ NIVisumParser_Lanes::myDependentReport()
         int lane = -1;
         try {
             lane = TplConvert<char>::_2int(laneS.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             addError("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
             return;
         }
@@ -110,7 +110,7 @@ NIVisumParser_Lanes::myDependentReport()
         SUMOReal length = -1;
         try {
             length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             addError("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
             return;
         }
@@ -205,11 +205,11 @@ NIVisumParser_Lanes::myDependentReport()
             }
 
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("FAHRSTREIFEN", "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("FAHRSTREIFEN", "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("FAHRSTREIFEN", "", "UnknownElement");
     }
 }

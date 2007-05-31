@@ -271,7 +271,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                     from = nFrom;
                 }
             }
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             addError("At least one of the defined lanes was not numeric");
         }
         //

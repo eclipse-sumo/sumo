@@ -82,11 +82,11 @@ NIVisumParser_Turns::myDependentReport()
             // try to set the turning definition
             via->setTurningDefinition(from, to);
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("ABBIEGEBEZIEHUNG", "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("ABBIEGEBEZIEHUNG", "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("ABBIEGEBEZIEHUNG", "", "UnknownElement");
     }
 }

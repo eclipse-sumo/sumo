@@ -229,11 +229,11 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedNode(NBNodeCont &nc,
             addError("The node '" + nodeS + "' is not known.");
         }
         return node;
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2(dataName, "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2(dataName, "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2(dataName, "", "UnknownElement");
     }
     return 0;
@@ -266,11 +266,11 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdge(NBEdgeCont &nc,
             addError("The edge '" + edgeS + "' is not known.");
         }
         return edge;
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2(dataName, "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2(dataName, "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2(dataName, "", "UnknownElement");
     }
     return 0;
@@ -389,11 +389,11 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdgeContinuating(
             addError("The edge '" + edgeS + "' is not known.");
         }
         return getNamedEdgeContinuating(edge, node);
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2(dataName, "", "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2(dataName, "", "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2(dataName, "", "UnknownElement");
     }
     return 0;

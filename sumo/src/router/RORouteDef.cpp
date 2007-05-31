@@ -82,7 +82,7 @@ RORouteDef::patchID()
         try {
             int no = TplConvert<char>::_2int(_id.substr(idx+1).c_str());
             _id = _id.substr(0, idx+1) + toString<int>(no+1);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             _id = _id + "_0";
         }
     } else {

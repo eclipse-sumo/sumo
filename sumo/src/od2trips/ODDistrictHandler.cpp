@@ -108,7 +108,7 @@ ODDistrictHandler::openDistrict(const Attributes &attrs)
     myCurrentDistrict = 0;
     try {
         myCurrentDistrict = new ODDistrict(getString(attrs, SUMO_ATTR_ID));
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A district without an id occured.");
     }
 }
@@ -146,7 +146,7 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + myCurrentDistrict->getID() + "'.");
         return std::pair<std::string, SUMOReal>("", -1);
     }

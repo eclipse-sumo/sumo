@@ -84,7 +84,7 @@ RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
             myCurrentRouteName = getString(attrs, SUMO_ATTR_ID);
         }
         myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         myCurrentRouteName = "";
         getErrorHandlerMarkInvalid()->inform("Missing id in route.");
     }

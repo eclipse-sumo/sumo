@@ -81,11 +81,11 @@ NIVisumParser_Phases::myDependentReport()
         SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
         // add to the list
         (*myNIVisumTLs.find(LSAid)).second->AddPhase(Phaseid, (SUMOTime) StartTime, (SUMOTime) EndTime);
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("Phases", "LSA:" + LSAid + " Phase:" + Phaseid, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("Phases", "LSA:" + LSAid + " Phase:" + Phaseid, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("Phases", "LSA:" + LSAid + " Phase:" + Phaseid, "UnknownElement");
     }
 }

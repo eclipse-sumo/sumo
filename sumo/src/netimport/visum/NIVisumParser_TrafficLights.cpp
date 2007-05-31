@@ -84,11 +84,11 @@ NIVisumParser_TrafficLights::myDependentReport()
             : false;
         // add to the list
         myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("LSA", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("LSA", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("LSA", id, "UnknownElement");
     }
 }

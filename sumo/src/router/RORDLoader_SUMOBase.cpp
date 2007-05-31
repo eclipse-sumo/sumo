@@ -162,7 +162,7 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing id in vtype.");
         return;
     }

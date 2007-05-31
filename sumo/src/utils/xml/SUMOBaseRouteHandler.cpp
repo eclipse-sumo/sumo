@@ -67,9 +67,9 @@ SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
     SUMOTime ret = -1;
     try {
         ret = helper.getInt(attrs, SUMO_ATTR_DEPART); // !!! getSUMOTime
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing departure time in vehicle '" + id + "'.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Non-numerical departure time in vehicle '" + id + "'.");
     }
     return ret;
@@ -120,7 +120,7 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
     myAmInEmbeddedMode = true;
     try {
         myActiveVehicleID = helper.getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
         return false;
     }
@@ -141,7 +141,7 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
     try {
         myCurrentVType = helper.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         // now try to build the rest of the vehicle
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing vehicle type for vehicle '" + myActiveVehicleID + "'");
         return false;
     }

@@ -117,7 +117,7 @@ NICellEdgesHandler::report(const std::string &result)
     // get the length
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Non-numeric length entry in the following line:\n" + result);
     }
     // get the other parameter
@@ -139,7 +139,7 @@ NICellEdgesHandler::report(const std::string &result)
             if (name=="-v") {
                 try {
                     speed = TplConvert<char>::_2SUMOReal(value.c_str());
-                } catch (NumberFormatException) {
+                } catch (NumberFormatException &) {
                     addError("Non-numeric speed value:\n" + result);
                 }
             }
@@ -148,7 +148,7 @@ NICellEdgesHandler::report(const std::string &result)
                 try {
                     nolanes = TplConvert<char>::_2int(value.c_str());
                     hadExpliciteLaneNo = true;
-                } catch (NumberFormatException) {
+                } catch (NumberFormatException &) {
                     addError("Non-numeric lane number value:\n" + result);
                 }
             }

@@ -354,7 +354,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
     myCurrentID = "";
     try {
         myCurrentID = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         WRITE_WARNING("No id given... Skipping.");
     }
 }
@@ -398,7 +398,7 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
         if (_options.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Not numeric value for speed (at tag ID='" + myCurrentID + "').");
     }
 }
@@ -411,7 +411,7 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
     try {
         myCurrentLaneNo =
             getIntSecure(attrs, SUMO_ATTR_NOLANES, myCurrentLaneNo);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Not numeric value for nolanes (at tag ID='" + myCurrentID + "').");
     }
 }
@@ -424,7 +424,7 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
     try {
         myCurrentPriority =
             getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
     }
 }
@@ -496,7 +496,7 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
 {
     try {
         return getFloatSecure(attrs, attrID, -1);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
         return -1.0;
     }
@@ -596,7 +596,7 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
     if (hasAttribute(attrs, SUMO_ATTR_LENGTH)) {
         try {
             myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             addError("Not numeric value for length (at tag ID='" + myCurrentID + "').");
         }
     } else {
@@ -640,9 +640,9 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
             addError("The shape of edge '" + myCurrentID + "' has only one entry.");
         }
         return shape;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         addError("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
     }
     return Position2DVector();

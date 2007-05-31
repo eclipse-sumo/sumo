@@ -523,7 +523,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
                                         "Period begin must be lower than period end");
                 }
             }
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -540,7 +540,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
                                         "Period begin must be lower than period end");
                 }
             }
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -548,7 +548,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 3:
         try {
             aw.absolute = TplConvert<char>::_2SUMOReal(value.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -556,7 +556,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 4:
         try {
             aw.summand = TplConvert<char>::_2SUMOReal(value.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -564,7 +564,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 5:
         try {
             aw.factor = TplConvert<char>::_2SUMOReal(value.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }

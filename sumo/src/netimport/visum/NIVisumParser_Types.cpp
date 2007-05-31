@@ -89,11 +89,11 @@ NIVisumParser_Types::myDependentReport()
             addError(" Duplicate type occured ('" + id + "').");
             delete type;
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("STRECKENTYP", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("STRECKENTYP", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("STRECKENTYP", id, "UnknownElement");
     }
 }

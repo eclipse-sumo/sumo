@@ -91,11 +91,11 @@ NIVisumParser_Districts::myDependentReport()
             addError(" Duplicate district occured ('" + id + "').");
             delete district;
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("BEZIRK", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("BEZIRK", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("BEZIRK", id, "UnknownElement");
     }
 }

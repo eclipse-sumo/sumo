@@ -334,7 +334,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 0:
         try {
             gBreakpoints[row] = TplConvert<char>::_2int(value.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }

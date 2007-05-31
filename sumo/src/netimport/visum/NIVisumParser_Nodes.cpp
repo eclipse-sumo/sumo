@@ -82,11 +82,11 @@ NIVisumParser_Nodes::myDependentReport()
         if (!myNodeCont.insert(id, pos)) {
             addError(" Duplicate node occured ('" + id + "').");
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("KNOTEN", id, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("KNOTEN", id, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("KNOTEN", id, "UnknownElement");
     }
 }

@@ -133,11 +133,11 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
 
             SG->GetConnections()->push_back(NBConnection(edg1, edg2));
         }
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("TurnsToSignalGroups", "LSA:" + LSAid + " SignalGroup:" + SGid, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("TurnsToSignalGroups", "LSA:" + LSAid + " SignalGroup:" + SGid, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("TurnsToSignalGroups", "LSA:" + LSAid + " SignalGroup:" + SGid, "UnknownElement");
     }
 }

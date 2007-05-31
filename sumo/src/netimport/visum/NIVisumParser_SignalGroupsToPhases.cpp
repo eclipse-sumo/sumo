@@ -85,11 +85,11 @@ NIVisumParser_SignalGroupsToPhases::myDependentReport()
         SG = LSA->GetSignalGroup(SGid);
         PH = (*LSA->GetPhases()->find(Phaseid)).second;
         (*SG->GetPhases())[Phaseid] = PH;
-    } catch (OutOfBoundsException) {
+    } catch (OutOfBoundsException &) {
         addError2("SignalGroupsToPhases", "LSA:" + LSAid + " Phase:" + Phaseid, "OutOfBounds");
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         addError2("SignalGroupsToPhases", "LSA:" + LSAid + " Phase:" + Phaseid, "NumberFormat");
-    } catch (UnknownElement) {
+    } catch (UnknownElement &) {
         addError2("SignalGroupsToPhases", "LSA:" + LSAid + " Phase:" + Phaseid, "UnknownElement");
     }
 }

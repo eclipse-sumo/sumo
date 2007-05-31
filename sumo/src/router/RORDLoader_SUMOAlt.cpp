@@ -108,12 +108,12 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
     // try to get the costs
     try {
         myCost = getFloat(attrs, SUMO_ATTR_COST);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         getErrorHandlerMarkInvalid()->inform(
             "Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + getString(attrs, SUMO_ATTR_COST) + ").");
         mySkipCurrent = true;
         return;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing cost in alternative for route '" + myCurrentAlternatives->getID() + "'.");
         mySkipCurrent = true;
         return;
@@ -126,11 +126,11 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
     // try to get the probability
     try {
         myProbability = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
         mySkipCurrent = true;
         return;
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing probability in alternative for route '" + myCurrentAlternatives->getID() + "'.");
         mySkipCurrent = true;
         return;
@@ -213,7 +213,7 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
         } else {
             id = getString(attrs, SUMO_ATTR_ID);
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing route alternative name.");
         return;
     }
