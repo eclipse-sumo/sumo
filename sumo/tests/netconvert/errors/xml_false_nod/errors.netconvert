@@ -8,4 +8,4 @@ Error: On parsing edge '3':
 Error: On parsing edge '4':
  Either the name or the position of a node is not given.
 Error: No nodes loaded.
-Quitting (conversion failed).
+Quitting (on error).
