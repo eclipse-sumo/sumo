@@ -1,8 +1,0 @@
-<routes>
-   <vehicle id="0_0" depart="1">
-      <route>0 1 2 3</route>
-   </vehicle>
-   <vehicle id="0_1" depart="501">
-      <route>0 1 2 3</route>
-   </vehicle>
-</routes>

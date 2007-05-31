@@ -8,9 +8,6 @@ output
 # tests for additional structures
 extended
 
-# traffic online checks
-traffic_online
-
 # testing meta processing
 meta
 
