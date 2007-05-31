@@ -119,9 +119,13 @@ public:
         (only for Option_Bool) */
     bool getBool(const std::string &name) const;
 
-    /** returns the list of longs-value of the name option
-        (only for Option_LongList) */
+    /** returns the list of integer-value of the named option
+        (only for Option_IntVector) */
     const IntVector &getIntVector(const std::string &name) const;
+
+    /** returns the list of string-value of the named option
+        (only for Option_String) */
+    std::vector<std::string> getStringVector(const std::string &name) const;
 
     /** returns the information whether the option is a boolean option */
     bool isBool(const std::string &name) const;

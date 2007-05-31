@@ -631,6 +631,30 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 }
 
 
+std::vector<std::string> 
+OptionsCont::getStringVector(const std::string &name) const
+{
+    vector<string> ret;
+    Option *o = getSecure(name);
+    string def = o->getString();
+    if(def.find(';')!=string::npos) {
+        MsgHandler::getWarningInstance()->inform("Please remark that using ';' as a file divider is deprecated since version 0.9.7\n In near future, only ',' will be accepted as file divider.");
+    }
+    size_t beg = 0;
+    size_t end = 0;
+    while(beg<def.length()) {
+        // skip ';'
+        while(beg<def.length() && (def[beg]==';' || def[beg]==',')) ++beg;
+        end = beg + 1;
+        if(beg<def.length() && (def[end]==';' || def[beg]==',')) continue;
+        while(end<def.length() && (def[end]!=';' && def[end]!=',')) ++end;
+        string s = def.substr(beg, end-beg);
+        ret.push_back(s);
+        beg = end;
+    }
+    return ret;
+}
+
 
 /****************************************************************************/
 

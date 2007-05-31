@@ -121,19 +121,17 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
     DFDetectorCon *cont = new DFDetectorCon();
     // read definitions stored in XML-format
     {
-        string files = oc.getString("detector-files");
-        StringTokenizer st(files, ";");
-        while (st.hasNext()) {
-            string file = st.next();
-            if (!FileHelpers::exists(file)) {
+        vector<string> files = oc.getStringVector("detector-files");
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+            if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
-                throw ProcessError("Could not open detector file '" + file + "'");
+                throw ProcessError("Could not open detector file '" + *fileIt + "'");
             }
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
-            DFDetectorHandler handler(oc, *cont, file);
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
+            DFDetectorHandler handler(oc, *cont, *fileIt);
             SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
             try {
-                parser->parse(file.c_str());
+                parser->parse((*fileIt).c_str());
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
             } catch (SAXException &e) {
                 delete cont;
@@ -152,20 +150,18 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
     }
     // read definitions from Elmar-format
     {
-        string files = oc.getString("elmar-detector-files");
-        StringTokenizer st(files, ";");
-        if (optNet==0) {
+        vector<string> files = oc.getStringVector("elmar-detector-files");
+        if (files.size()!=0 && optNet==0) {
             delete cont;
             throw ProcessError("You need a network in order to read elmar definitions.");
         }
-        while (st.hasNext()) {
-            string file = st.next();
-            if (!FileHelpers::exists(file)) {
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+            if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
-                throw ProcessError("Could not open elmar detector file '" + file + "'");
+                throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
             }
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
-            LineReader lr(file);
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
+            LineReader lr(*fileIt);
             while (lr.hasMore()) {
                 string line = lr.readLine();
                 // skip comments and empty lines
@@ -233,17 +229,15 @@ readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
         return ret;
     }
     // check whether the file exists
-    string files = oc.getString("detector-flow-files");
-    StringTokenizer st(files, ";");
-    while (st.hasNext()) {
-        string file = st.next();
-        if (!FileHelpers::exists(file)) {
-            throw ProcessError("The detector-flow-file '" + file + "' can not be opened.");
+    vector<string> files = oc.getStringVector("detector-flow-files");
+    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        if (!FileHelpers::exists(*fileIt)) {
+            throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
         }
         // parse
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + file + "'... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'... ");
         DFDetFlowLoader dfl(dc, *ret, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
-        dfl.read(file, oc.getBool("fast-flows"));
+        dfl.read(*fileIt, oc.getBool("fast-flows"));
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     return ret;
