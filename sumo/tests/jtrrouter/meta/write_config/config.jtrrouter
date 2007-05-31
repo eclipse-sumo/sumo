@@ -10,7 +10,7 @@
 
    <processing>
       <continue-on-unbuild>true</continue-on-unbuild>
-      <turn-defaults>50;50;0;0</turn-defaults>
+      <turn-defaults>50,50,0,0</turn-defaults>
    </processing>
 
 </configuration>

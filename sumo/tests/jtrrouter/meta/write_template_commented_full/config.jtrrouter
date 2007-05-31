@@ -50,7 +50,7 @@
       <max-edges-factor>2</max-edges-factor>
 
       <!-- Use STR as default turn definition -->
-      <turn-defaults>30;50;20</turn-defaults>
+      <turn-defaults>30,50,20</turn-defaults>
 
       <!-- Use STR as sink list -->
       <sinks></sinks>

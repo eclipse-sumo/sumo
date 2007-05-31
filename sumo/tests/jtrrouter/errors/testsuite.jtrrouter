@@ -19,6 +19,7 @@ no_input
 # Tests what happens if an unknown option is passed
 unknown_option
 
-
+# Same as ../plain/straight_only but with a deprecated divider
+straight_only_deprecated
 
 
