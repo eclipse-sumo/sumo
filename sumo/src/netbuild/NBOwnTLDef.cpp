@@ -216,8 +216,8 @@ NBOwnTLDef::collectLinks()
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {
                     if (el.lane>=el.edge->getNoLanes()) {
-                        MsgHandler::getErrorInstance()->inform("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
-                        throw ProcessError();
+                        throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
+
                     }
                     myControlledLinks.push_back(NBConnection(incoming, j, el.edge, el.lane));
                 }
@@ -269,4 +269,3 @@ NBOwnTLDef::replaceRemoved(NBEdge * /*removed*/, int /*removedLane*/,
 
 
 /****************************************************************************/
-

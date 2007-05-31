@@ -304,16 +304,15 @@ MSRouteHandler::addRouteElements(const std::string &name,
         edge = MSEdge::dictionary(set);
         // check whether the edge exists
         if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
+            throw ProcessError("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
                                                        + "\n The route can not be build.");
-            throw ProcessError();
         }
         myActiveRoute.push_back(edge);
     }
     // check whether the route is long enough
     if (myActiveRoute.size()<2) {
-        MsgHandler::getErrorInstance()->inform("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
-        throw ProcessError();
+        throw ProcessError("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
+
     }
 }
 
@@ -372,8 +371,8 @@ MSRouteHandler::closeVehicle()
     if (myCurrentVType!="") {
         vtype = MSNet::getInstance()->getVehicleControl().getVType(myCurrentVType);
         if (vtype==0) {
-            MsgHandler::getErrorInstance()->inform("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
-            throw ProcessError();
+            throw ProcessError("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+
         }
     } else {
         // there should be one (at least the default one)
@@ -388,16 +387,15 @@ MSRouteHandler::closeVehicle()
     }
     if (route==0) {
         // nothing found? -> error
-        MsgHandler::getErrorInstance()->inform("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
-        throw ProcessError();
+        throw ProcessError("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
     }
 
     // check whether the first edge is long enough for the vehicle
     const MSEdge *firstEdge = (*route)[0];
     if ((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
         // the vehicle is too long -> report an error
-        MsgHandler::getErrorInstance()->inform("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
-        throw ProcessError();
+        throw ProcessError("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
+
     }
 
     // try to build the vehicle
@@ -453,4 +451,3 @@ MSRouteHandler::closeVehicle()
 
 
 /****************************************************************************/
-

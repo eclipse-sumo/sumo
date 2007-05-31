@@ -407,16 +407,16 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     if (noLanesFirstEdge==noLanesSecondEdge-1) {
         for (i=0; i<one->getNoLanes(); i++) {
             if (!one->addLane2LaneConnection(i, two, i+1, false)) {// !!! Bresenham, here!!!
-                MsgHandler::getErrorInstance()->inform("Could not set connection!");
-                throw ProcessError();
+                throw ProcessError("Could not set connection!");
+
             }
         }
         one->addLane2LaneConnection(0, two, 0, false);
     } else {
         for (i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
             if (!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
-                MsgHandler::getErrorInstance()->inform("Could not set connection!");
-                throw ProcessError();
+                throw ProcessError("Could not set connection!");
+
             }
         }
     }
@@ -844,4 +844,3 @@ NBEdgeCont::recheckEdgeGeomsForDoublePositions()
 
 
 /****************************************************************************/
-

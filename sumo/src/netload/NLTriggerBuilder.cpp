@@ -162,14 +162,14 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
     while (st.hasNext()) {
         MSLane *lane = MSLane::dictionary(st.next());
         if (lane==0) {
-            MsgHandler::getErrorInstance()->inform("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
-            throw ProcessError();
+            throw ProcessError("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
+
         }
         lanes.push_back(lane);
     }
     if (lanes.size()==0) {
-        MsgHandler::getErrorInstance()->inform("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
+
     }
     return buildLaneSpeedTrigger(net, id, lanes, file);
 }
@@ -206,11 +206,11 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
         frompos = helper.getFloat(attrs, SUMO_ATTR_FROM);
         topos = helper.getFloat(attrs, SUMO_ATTR_TO);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Either the begin or the end position of busstop '" + id + "' is not given.");
-        throw ProcessError();
+        throw ProcessError("Either the begin or the end position of busstop '" + id + "' is not given.");
+
     } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("Either the begin or the end position of busstop '" + id + "' is not numeric.");
-        throw ProcessError();
+        throw ProcessError("Either the begin or the end position of busstop '" + id + "' is not numeric.");
+
     }
     if (frompos<0) {
         frompos = lane->length() + frompos;
@@ -294,8 +294,8 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
     try {
         scale = helper.getFloatSecure(attrs, SUMO_ATTR_WEIGHT, (SUMOReal)1);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid scale in definition of METriggeredScaler '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Invalid scale in definition of METriggeredScaler '" + id + "'.");
+
     }
 
     MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
@@ -329,22 +329,22 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     while (st.hasNext()) {
         MSEdge *edge = MSEdge::dictionary(st.next());
         if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
-            throw ProcessError();
+            throw ProcessError("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
+
         }
         edges.push_back(edge);
     }
     if (edges.size()==0) {
-        MsgHandler::getErrorInstance()->inform("No edges found for MSTriggeredRerouter '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("No edges found for MSTriggeredRerouter '" + id + "'.");
+
     }
 
     SUMOReal prob;
     try {
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
+
     }
     MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
     if (helper.getBoolSecure(attrs, SUMO_ATTR_OFF, false)) {
@@ -456,8 +456,8 @@ NLTriggerBuilder::getLane(const Attributes &attrs,
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     MSLane *lane = MSLane::dictionary(objectid);
     if (lane==0) {
-        MsgHandler::getErrorInstance()->inform("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
-        throw ProcessError();
+        throw ProcessError("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
+
     }
     return lane;
 }
@@ -487,4 +487,3 @@ NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
 
 
 /****************************************************************************/
-

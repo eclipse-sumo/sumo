@@ -99,8 +99,8 @@ NBNetBuilder::buildLoaded()
         }
     } else {}
     if (!ok) {
-        MsgHandler::getErrorInstance()->inform("Could not save net to '" + oc.getString("o") + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not save net to '" + oc.getString("o") + "'.");
+
     }
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
@@ -717,8 +717,8 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
     if (oc.isSet("keep-edges.input-file")) {
         ifstream strm(oc.getString("keep-edges.input-file").c_str());
         if (!strm.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
+
         }
         std::ostringstream oss;
         bool first = true;
@@ -735,8 +735,8 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
     }
     // check whether at least one output file is given
     if (!oc.isSet("o")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
-        MsgHandler::getErrorInstance()->inform("No output defined.");
-        throw ProcessError();
+        throw ProcessError("No output defined.");
+
     }
 }
 
@@ -792,4 +792,3 @@ NBNetBuilder::getDistrictCont()
 
 
 /****************************************************************************/
-

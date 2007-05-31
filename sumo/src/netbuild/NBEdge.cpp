@@ -544,8 +544,8 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     if (myLaneSpeeds[lane]==0) {
         WRITE_WARNING("Lane #" + toString<size_t>(lane) + " of edge '" + _id + "' has a maximum velocity of 0.");
     } else if (myLaneSpeeds[lane]<0) {
-        MsgHandler::getErrorInstance()->inform("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString(lane) + ".");
-        throw ProcessError();
+        throw ProcessError("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString(lane) + ".");
+
     }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
     "\">";
@@ -2287,8 +2287,8 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
         if (i!=myGeom.size()-2) {
             string nodename = _id + "_in_between#" + toString(i);
             if (!nc.insert(nodename, myGeom[i])) {
-                MsgHandler::getErrorInstance()->inform("Error on adding in-between node '" + nodename + "'.");
-                throw ProcessError();
+                throw ProcessError("Error on adding in-between node '" + nodename + "'.");
+
             }
             newTo = nc.retrieve(nodename);
         } else {
@@ -2303,8 +2303,8 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
             currentEdge = new NBEdge(edgename, edgename, newFrom, newTo, _type, _speed, _nolanes,
                                      -1, _priority, myLaneSpreadFunction, _basicType);
             if (!ec.insert(currentEdge)) {
-                MsgHandler::getErrorInstance()->inform("Error on adding splitted edge '" + edgename + "'.");
-                throw ProcessError();
+                throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
+
             }
         }
         newFrom = newTo;
@@ -2487,4 +2487,3 @@ NBEdge::getMaxConnectedLane(NBEdge *of) const
 
 
 /****************************************************************************/
-

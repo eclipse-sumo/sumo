@@ -923,8 +923,8 @@ DFDetectorCon::writeVehicles(const std::string &file,
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open file '" + file + "'.");
+
     }
     strm << "<routes>" << endl;
     for(SUMOTime t=startTime; t<endTime; t++) {
@@ -1230,4 +1230,3 @@ DFDetectorCon::mesoJoin(const std::string &nid,
 
 
 /****************************************************************************/
-

@@ -54,4 +54,3 @@ typedef std::vector<std::bitset<64> > NBLinkPossibilityMatrix;
 #endif
 
 /****************************************************************************/
-

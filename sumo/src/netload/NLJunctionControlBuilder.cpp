@@ -137,8 +137,8 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         myType = TYPE_INTERNAL;
     }
     if (myType<0) {
-        MsgHandler::getErrorInstance()->inform("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
+
     }
     myPosition.set(x, y);
 }
@@ -183,8 +183,8 @@ NLJunctionControlBuilder::closeJunction()
 #endif
         break;
     default:
-        MsgHandler::getErrorInstance()->inform("False junction type.");
-        throw ProcessError();
+        throw ProcessError("False junction type.");
+
     }
     if (junction!=0) {
         myJunctions->push_back(junction);
@@ -567,4 +567,3 @@ NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
 
 
 /****************************************************************************/
-

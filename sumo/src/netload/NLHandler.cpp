@@ -253,20 +253,20 @@ NLHandler::openWAUT(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
-        throw ProcessError();
+        throw ProcessError("Missing id for a WAUT (attribute 'id').");
+
     }
     try {
         t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
     } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
-        throw ProcessError();
+        throw ProcessError("The reference time for WAUT '" + id + "' is not numeric.");
+
     }
     try {
         pro = getString(attrs, SUMO_ATTR_START_PROG);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Missing start program for WAUT '" + id + "'.");
+
     }
     myCurrentWAUTID = id;
     myJunctionControlBuilder.addWAUT(t, id, pro);
@@ -281,17 +281,17 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
     try {
         t = getInt(attrs, SUMO_ATTR_TIME);
     } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
-        throw ProcessError();
+        throw ProcessError("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
+
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
-        throw ProcessError();
+        throw ProcessError("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
+
     }
     try {
         to = getString(attrs, SUMO_ATTR_TO);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
-        throw ProcessError();
+        throw ProcessError("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
+
     }
     myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
 }
@@ -304,14 +304,14 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
     try {
         wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
-        throw ProcessError();
+        throw ProcessError("Missing WAUT id in wautJunction.");
+
     }
     try {
         junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
-        throw ProcessError();
+        throw ProcessError("Missing junction id in wautJunction.");
+
     }
     procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
     bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
@@ -1568,4 +1568,3 @@ NLHandler::getContinuations() const
 
 
 /****************************************************************************/
-

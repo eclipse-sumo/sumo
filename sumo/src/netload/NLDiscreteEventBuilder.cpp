@@ -126,8 +126,8 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
-        throw ProcessError();
+        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
@@ -152,8 +152,8 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
-        throw ProcessError();
+        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
@@ -178,8 +178,8 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
-        throw ProcessError();
+        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
@@ -191,4 +191,3 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
 
 
 /****************************************************************************/
-

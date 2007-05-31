@@ -109,8 +109,8 @@ NILoader::load(OptionsCont &oc)
         GeoConvHelper::init("-", Position2D());
     } else {
         if (!GeoConvHelper::init(oc.getString("proj"), Position2D())) {
-            MsgHandler::getErrorInstance()->inform("Could not build projection!");
-            throw ProcessError();
+            throw ProcessError("Could not build projection!");
+
         }
     }
     // load types first
@@ -132,12 +132,12 @@ NILoader::load(OptionsCont &oc)
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
-        MsgHandler::getErrorInstance()->inform("No nodes loaded.");
-        throw ProcessError();
+        throw ProcessError("No nodes loaded.");
+
     }
     if (myNetBuilder.getEdgeCont().size()==0) {
-        MsgHandler::getErrorInstance()->inform("No edges loaded.");
-        throw ProcessError();
+        throw ProcessError("No edges loaded.");
+
     }
 }
 
@@ -438,4 +438,3 @@ NILoader::loadTiger(OptionsCont &oc)
 
 
 /****************************************************************************/
-
