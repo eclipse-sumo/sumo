@@ -108,31 +108,20 @@ loadNet(ROLoader &loader, OptionsCont &oc,
     return net;
 }
 
-SUMOReal
-parseFloat_ReportError(const std::string &toParse, const std::string &output)
-{
-    try {
-        return TplConvert<char>::_2SUMOReal(toParse.c_str());
-    } catch (EmptyData &) {}
-    catch (NumberFormatException&) {}
-    //
-    MsgHandler::getErrorInstance()->inform(output);
-    throw NumberFormatException();
-}
-
-
 std::vector<SUMOReal>
 getTurningDefaults(OptionsCont &oc)
 {
     std::vector<SUMOReal> ret;
-    if (oc.isSet("turn-defaults")) {
-        string def = oc.getString("turn-defaults");
-        StringTokenizer st(def, ";");
-        if (st.size()<2) {
-            throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ';'");
-        }
-        while (st.hasNext()) {
-            ret.push_back(parseFloat_ReportError(st.next(), "A number in turn defaults is not numeric."));
+    vector<string> defs = oc.getStringVector("turn-defaults");
+    if (defs.size()<2) {
+        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ';'.");
+    }
+    for(vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
+        try {
+            SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
+            ret.push_back(val);
+        } catch (NumberFormatException&) {
+            throw ProcessError("A turn default is not numeric.");
         }
     }
     return ret;
