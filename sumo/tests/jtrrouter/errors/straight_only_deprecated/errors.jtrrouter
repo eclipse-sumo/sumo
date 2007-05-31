@@ -1,5 +1,5 @@
-Warning: Please remark that using ';' as a file divider is deprecated since version 0.9.7
- In near future, only ',' will be accepted as file divider.
+Warning: Please note that using ';' as list separator is deprecated.
+ From 1.0 onwards, only ',' will be accepted.
 Warning: The route starting at edge 'beg' could not be closed.
 Warning: The route starting at edge 'beg' could not be closed.
 Warning: The route starting at edge 'beg' could not be closed.

@@ -1,4 +1,4 @@
-Warning: Please note that using ';' as list separator is deprecated since version 0.9.7.
-From 1.0 onwards, only ',' will be accepted.
+Warning: Please note that using ';' as list separator is deprecated.
+ From 1.0 onwards, only ',' will be accepted.
 Error: The detector-flow-file 'xxx.txt' can not be opened.
 Quitting (on error).

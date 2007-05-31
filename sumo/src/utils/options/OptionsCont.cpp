@@ -638,7 +638,7 @@ OptionsCont::getStringVector(const std::string &name) const
     Option *o = getSecure(name);
     string def = o->getString();
     if(def.find(';')!=string::npos) {
-        MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated since version 0.9.7.\nFrom 1.0 onwards, only ',' will be accepted.");
+        MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
     }
     size_t beg = 0;
     size_t end = 0;
