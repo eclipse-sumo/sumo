@@ -61,3 +61,9 @@ false_detectors_file2
 # Tests what happens if two of the given detector files does not exist
 false_detectors_file3
 
+# Same as false_detectors_file2 but with a deprecated divider (";")
+false_detectors_file2_deprecated
+
+# Same as false_detectors_file3 but with a deprecated divider (";")
+false_detectors_file3_deprecated
+

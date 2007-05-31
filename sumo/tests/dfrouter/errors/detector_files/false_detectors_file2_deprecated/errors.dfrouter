@@ -1,0 +1,4 @@
+Warning: Please remark that using ';' as a file divider is deprecated since version 0.9.7
+ In near future, only ',' will be accepted as file divider.
+Error: Could not open detector file 'xxx.det.xml'
+Quitting (on error).

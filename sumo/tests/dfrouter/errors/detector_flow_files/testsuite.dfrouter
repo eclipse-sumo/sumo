@@ -31,3 +31,9 @@ false_detectors_flows_file2
 # Tests what happens if two of the given detector flow files do not exist
 false_detectors_flows_file3
 
+# Same as false_detectors_flows_file2 but with a deprecated divider (";")
+false_detectors_flows_file2_deprecated
+
+# Same as false_detectors_flows_file3 but with a deprecated divider (";")
+false_detectors_flows_file3_deprecated
+
