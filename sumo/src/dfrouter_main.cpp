@@ -102,7 +102,7 @@ loadNet(OptionsCont &oc)
     RODFEdgeBuilder builder;
     RONet *ronet =  loader.loadNet(builder);
     if (ronet==0) {
-        throw ProcessError();
+         throw ProcessError();
     }
 
     DFRONet *net = new DFRONet(ronet, oc.getBool("highway-mode"));
