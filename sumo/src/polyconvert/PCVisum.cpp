@@ -76,8 +76,7 @@ PCVisum::load(OptionsCont &oc)
     std::string file = oc.getString("visum-file");
     ifstream out(file.c_str());
     if (!out) {
-        MsgHandler::getErrorInstance()->inform("Can not open visum-file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not open visum-file '" + file + "'.");
     }
     RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
     // Polygon's Attributes

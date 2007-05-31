@@ -81,8 +81,7 @@ void
 ROAbstractRouteDefLoader::readRoutesAtLeastUntil(SUMOTime time)
 {
     if (!myReadRoutesAtLeastUntil(time)) {
-        MsgHandler::getErrorInstance()->inform("Problems on parsing " + getDataName() + " file.");
-        throw ProcessError();
+        throw ProcessError("Problems on parsing " + getDataName() + " file.");
     }
 }
 

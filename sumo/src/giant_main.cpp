@@ -152,8 +152,7 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         int minor, major;
         if (!FXGLVisual::supported(&application, major, minor)) {
-            MsgHandler::getErrorInstance()->inform("This system has no OpenGL support. Exiting.");
-            throw ProcessError();
+            throw ProcessError("This system has no OpenGL support. Exiting.");
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");

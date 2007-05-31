@@ -178,8 +178,7 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
     Position2DVector points;
     StringTokenizer st(def, ";");
     if (timelineDayInHours&&st.size()!=24) {
-        MsgHandler::getErrorInstance()->inform("Assuming 24 entries for a day timeline, but got " + toString(st.size()) + ".");
-        throw ProcessError();
+        throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(st.size()) + ".");
     }
     int chour = 0;
     SUMOReal prob;
@@ -190,15 +189,13 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
         // parse time if the time line is assumed to contain this
         if (!timelineDayInHours) {
             if (st2.size()!=2) {
-                MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
-                throw ProcessError();
+                throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
             }
             time = TplConvert<char>::_2int(st2.next().c_str());
         }
         // check otherwise
         if (timelineDayInHours&&st2.size()!=1) {
-            MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
-            throw ProcessError();
+            throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
         }
         // get the distribution value
         prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
@@ -268,8 +265,7 @@ getVissimDynUMLMatrices(const std::string file)
     std::vector<std::string> ret;
     LineReader lr(file);
     if (!lr.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open vissim-file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open vissim-file '" + file + "'.");
     }
     bool haveAll = false;
     while (!haveAll&&lr.hasMore()) {
@@ -433,15 +429,13 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
     // ok, we now should have a list of files to parse
     //  check
     if (files.size()==0) {
-        MsgHandler::getErrorInstance()->inform("No files to parse are given.");
-        throw ProcessError();
+        throw ProcessError("No files to parse are given.");
     }
     //  parse
     for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
         LineReader lr(*i);
         if (!lr.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not open '" + (*i) + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not open '" + (*i) + "'.");
         }
         string type = lr.readLine();
         // get the type only
@@ -452,20 +446,17 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
         if (type.length()>1 && type[1]=='V') {
             // process ptv's 'V'-matrices
             if (type.find('N')!=string::npos) {
-                MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
-                throw ProcessError();
+                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
             readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
         } else if (type.length()>1 && type[1]=='O') {
             // process ptv's 'O'-matrices
             if (type.find('N')!=string::npos) {
-                MsgHandler::getErrorInstance()->inform("'" + *i + "' does not contain the needed information about the time described.");
-                throw ProcessError();
+                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
             readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
         } else {
-            MsgHandler::getErrorInstance()->inform("'" + *i + "' uses an unknown matrix type '" + type + "'.");
-            throw ProcessError();
+            throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
         }
     }
 }
@@ -478,9 +469,7 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-#ifndef _DEBUG
     try {
-#endif
         // initialise subsystems
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if (init_ret<0) {
@@ -506,8 +495,7 @@ main(int argc, char **argv)
         // load the districts
         ODDistrictCont *districts = loadDistricts(oc);
         if (districts==0) {
-            MsgHandler::getErrorInstance()->inform("No districts loaded...");
-            throw ProcessError();
+            throw ProcessError("No districts loaded...");
         }
         // load the matrix
         ODMatrix matrix;
@@ -520,20 +508,25 @@ main(int argc, char **argv)
         // write
         ofstream ostrm(oc.getString("output").c_str());
         if (!ostrm.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not open output file '" + oc.getString("output") + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not open output file '" + oc.getString("output") + "'.");
         }
         ostrm << "<tripdefs>" << endl;
         matrix.write(oc.getInt("begin"), oc.getInt("end"),
                      ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
-#ifndef _DEBUG
-    } catch (...) {
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    }
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
+    }
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;

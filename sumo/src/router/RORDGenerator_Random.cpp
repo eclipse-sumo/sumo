@@ -163,8 +163,7 @@ RORDGenerator_Random::init(OptionsCont &options)
     myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / (SUMOReal) 2.0;
     if (myWishedPerSecond<0) {
-        MsgHandler::getErrorInstance()->inform("We cannot less than no vehicle!");
-        throw ProcessError();
+        throw ProcessError("We cannot less than no vehicle!");
     }
     return true;
 }

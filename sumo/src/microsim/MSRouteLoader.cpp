@@ -76,8 +76,7 @@ MSRouteLoader::init()
 {
     _moreAvailable = true;
     if (!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
-        MsgHandler::getErrorInstance()->inform("Can not read XML-file '" + myHandler->getFileName() + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");
     }
 }
 

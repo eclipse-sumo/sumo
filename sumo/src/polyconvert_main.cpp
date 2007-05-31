@@ -203,8 +203,7 @@ getNamedNetworkBoundary(const std::string &file, const std::string &name)
 {
     LineReader lr(file);
     if (!lr.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open net '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open net '" + file + "'.");
     }
     while (lr.hasMore()) {
         string line = lr.readLine();
@@ -225,8 +224,7 @@ getNetworkOrigBoundary(const std::string &file)
     try {
         return getNamedNetworkBoundary(file, "orig-boundary");
     } catch (ProcessError &) {}
-    MsgHandler::getErrorInstance()->inform("Could not find the original boundary in net.");
-    throw ProcessError();
+    throw ProcessError("Could not find the original boundary in net.");
 }
 
 
@@ -236,8 +234,7 @@ getNetworkConvBoundary(const std::string &file)
     try {
         return getNamedNetworkBoundary(file, "conv-boundary");
     } catch (ProcessError &) {}
-    MsgHandler::getErrorInstance()->inform("Could not find the converted boundary in net.");
-    throw ProcessError();
+    throw ProcessError("Could not find the converted boundary in net.");
 }
 
 
@@ -246,8 +243,7 @@ getNetworkOffset(const std::string &file)
 {
     LineReader lr(file);
     if (!lr.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open net '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open net '" + file + "'.");
     }
     while (lr.hasMore()) {
         string line = lr.readLine();
@@ -258,8 +254,7 @@ getNetworkOffset(const std::string &file)
             return GeomConvHelper::parseShape(my)[0];
         }
     }
-    MsgHandler::getErrorInstance()->inform("Could not find projection description in net.");
-    throw ProcessError();
+    throw ProcessError("Could not find projection description in net.");
 }
 
 
@@ -268,8 +263,7 @@ getOrigProj(const std::string &file)
 {
     LineReader lr(file);
     if (!lr.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open net '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open net '" + file + "'.");
     }
     while (lr.hasMore()) {
         string line = lr.readLine();
@@ -279,8 +273,7 @@ getOrigProj(const std::string &file)
             return line.substr(beg+1, end-beg-1);
         }
     }
-    MsgHandler::getErrorInstance()->inform("Could not find projection description in net.");
-    throw ProcessError();
+    throw ProcessError("Could not find projection description in net.");
 }
 
 
@@ -288,9 +281,7 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-#ifndef _DEBUG
     try {
-#endif
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions, 0);
         if (init_ret<0) {
             cout << "SUMO polyconvert" << endl;
@@ -331,8 +322,7 @@ main(int argc, char **argv)
                 proj = oc.getString("proj");
             }
             if (!GeoConvHelper::init(proj, netOffset)) {
-                MsgHandler::getErrorInstance()->inform("Could not build projection!");
-                throw ProcessError();
+                throw ProcessError("Could not build projection!");
             }
         }
 
@@ -341,8 +331,7 @@ main(int argc, char **argv)
         Boundary prunningBoundary;
         if (oc.getBool("prune.on-net")) {
             if (!oc.isSet("net")) {
-                MsgHandler::getErrorInstance()->inform("In order to prune the input on the net, you have to supply a network.");
-                throw ProcessError();
+                throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
             prunningBoundary = getNetworkConvBoundary(oc.getString("net"));
             Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
@@ -402,12 +391,18 @@ main(int argc, char **argv)
         } else {
             throw ProcessError();
         }
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).", false);
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-    }
 #endif
+    }
     SystemFrame::close();
     // report about ending
     if (ret==0) {

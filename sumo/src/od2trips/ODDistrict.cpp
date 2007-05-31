@@ -81,8 +81,7 @@ std::string
 ODDistrict::getRandomSource() const
 {
     if (mySources.getOverallProb()==0) {
-        MsgHandler::getErrorInstance()->inform("There is no source for district '" + getID() + "'.");
-        throw ProcessError();
+        throw ProcessError("There is no source for district '" + getID() + "'.");
     }
     return mySources.get();
 }
@@ -92,8 +91,7 @@ std::string
 ODDistrict::getRandomSink() const
 {
     if (mySinks.getOverallProb()==0) {
-        MsgHandler::getErrorInstance()->inform("There is no sink for district '" + getID() + "'.");
-        throw ProcessError();
+        throw ProcessError("There is no sink for district '" + getID() + "'.");
     }
     return mySinks.get();
 }

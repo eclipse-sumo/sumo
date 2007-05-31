@@ -70,8 +70,7 @@ GeomConvHelper::parseBoundary(const std::string &def)
 {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
-        MsgHandler::getErrorInstance()->inform("Could not parse '" + def + "' as boundary.");
-        throw ProcessError();
+        throw ProcessError("Could not parse '" + def + "' as boundary.");
     }
     SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
     SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());

@@ -124,8 +124,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     size_t noLoaders =
         loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
     if (noLoaders==0) {
-        MsgHandler::getErrorInstance()->inform("No route input specified.");
-        throw ProcessError();
+        throw ProcessError("No route input specified.");
     }
     // prepare the output
     net.openOutput(oc.getString("output"), true);
@@ -153,9 +152,7 @@ main(int argc, char **argv)
     int ret = 0;
     RONet *net = 0;
     ROLoader *loader = 0;
-#ifndef _DEBUG
     try {
-#endif
         // initialise the application system (messaging, xml, options)
         int init_ret =
             SystemFrame::init(false, argc, argv, RODUAFrame::fillOptions);
@@ -201,12 +198,18 @@ main(int argc, char **argv)
         } else {
             ret = 1;
         }
-#ifndef _DEBUG
-    } catch (...) {
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    }
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
+    }
     delete net;
     delete loader;
     SystemFrame::close();

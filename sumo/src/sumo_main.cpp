@@ -127,9 +127,7 @@ main(int argc, char **argv)
 {
     size_t rand_init = 10551;
     int ret = 0;
-#ifndef _DEBUG
     try {
-#endif
         int init_ret = SystemFrame::init(false, argc, argv, SUMOFrame::fillOptions);
         if (init_ret<0) {
             cout << "SUMO sumo" << endl;
@@ -175,16 +173,20 @@ main(int argc, char **argv)
             delete net;
             delete SharedOutputDevices::getInstance();
         }
-
-
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
 #ifndef _DEBUG
     } catch (...) {
         MSNet::clearAll();
         delete SharedOutputDevices::getInstance();
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-    }
 #endif
+    }
     SystemFrame::close();
     return ret;
 }

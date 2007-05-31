@@ -426,8 +426,7 @@ RONet::buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
     if (!ret->good()) {
-        MsgHandler::getErrorInstance()->inform("The file '" + name + "' could not be opened for writing.");
-        throw ProcessError();
+        throw ProcessError("The file '" + name + "' could not be opened for writing.");
     }
     return ret;
 }

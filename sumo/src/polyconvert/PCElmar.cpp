@@ -87,8 +87,7 @@ PCElmar::load(OptionsCont &oc)
     // load the polygons
     ifstream out(file.c_str());
     if (!out) {
-        MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not open elmar-file '" + file + "'.");
     }
 
     // Attributes of the polygon

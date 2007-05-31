@@ -117,14 +117,12 @@ RONetHandler::parseEdge(const Attributes &attrs)
             _currentEdge = 0;
             return;
         }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
-        throw ProcessError();
+    } catch (EmptyData &) {
+        throw ProcessError("An edge without an id occured within '" + _file + ".");
     }
     _currentEdge = _net.getEdge(_currentName);
     if (_currentEdge==0) {
-        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + _file + ".");
-        throw ProcessError();
+        throw ProcessError("An unknown edge occured within '" + _file + ".");
     }
 
     // get the type of the edge
@@ -140,12 +138,10 @@ RONetHandler::parseEdge(const Attributes &attrs)
         } else if (type=="internal") {
             _process = false;
         } else {
-            MsgHandler::getErrorInstance()->inform("Edge '" + _currentName + "' has an unknown type.");
-            throw ProcessError();
+            throw ProcessError("Edge '" + _currentName + "' has an unknown type.");
         }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + _currentName + "'.");
-        throw ProcessError();
+    } catch (EmptyData &) {
+        throw ProcessError("Missing type in edge '" + _currentName + "'.");
     }
     // get the from-junction
     RONode *fromNode = 0;
@@ -156,9 +152,8 @@ RONetHandler::parseEdge(const Attributes &attrs)
             fromNode = new RONode(from);
             _net.addNode(fromNode);
         }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + _currentName + "' (try rebuilding the net - changed in 0.9.5).");
-        throw ProcessError();
+    } catch (EmptyData &) {
+        throw ProcessError("Missing from-node in edge '" + _currentName + "'.");
     }
     // get the to-junction
     RONode *toNode = 0;
@@ -169,9 +164,8 @@ RONetHandler::parseEdge(const Attributes &attrs)
             toNode = new RONode(to);
             _net.addNode(toNode);
         }
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + _currentName + "' (try rebuilding the net - changed in 0.9.5).");
-        throw ProcessError();
+    } catch (EmptyData &) {
+        throw ProcessError("Missing to-node in edge '" + _currentName + "'.");
     }
     // add the edge
     _currentEdge->setNodes(fromNode, toNode);
@@ -241,7 +235,7 @@ RONetHandler::parseJunction(const Attributes &attrs)
 {
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A junction without an id occured within '" + _file + "'.");
     }
 }
@@ -264,7 +258,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
         } else {
             MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': the succeding edge '" + succID + "' does not exist.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': a succeding edge has no id.");
     }
 }

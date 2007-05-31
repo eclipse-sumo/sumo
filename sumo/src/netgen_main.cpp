@@ -312,9 +312,7 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-#ifndef _DEBUG
     try {
-#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if (init_ret<0) {
@@ -350,12 +348,18 @@ main(int argc, char **argv)
         delete net;
         nb.buildLoaded();
         GeoConvHelper::close();
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (building failed).", false);
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-    }
 #endif
+    }
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;

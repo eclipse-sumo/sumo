@@ -69,8 +69,7 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if (district==0) {
-        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
-        throw ProcessError();
+        throw ProcessError("There is no district '" + name + "'.");
     }
     return district->getRandomSource();
 }
@@ -81,8 +80,7 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if (district==0) {
-        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
-        throw ProcessError();
+        throw ProcessError("There is no district '" + name + "'.");
     }
     return district->getRandomSink();
 }
@@ -103,8 +101,7 @@ ODDistrictCont::getDistrictColor(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if (district==0) {
-        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
-        throw ProcessError();
+        throw ProcessError("There is no district '" + name + "'.");
     }
     return district->getColor();
 }

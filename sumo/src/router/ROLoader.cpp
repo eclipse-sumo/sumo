@@ -434,8 +434,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
             buildNamedHandler(optionName, file, net);
         if (!instance->init(_options)) {
             delete instance;
-            MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + file + "' could not be initialised.");
-            throw ProcessError();
+            throw ProcessError("The loader for " + optionName + " from file '" + file + "' could not be initialised.");
         }
         _handler.push_back(instance);
     }
@@ -503,8 +502,7 @@ ROLoader::checkFile(const std::string &optionName,
     if (optionName=="flows"&&FileHelpers::exists(file)) {
         return;
     }
-    MsgHandler::getErrorInstance()->inform("File '" + file + "' used as " + optionName + " not found.");
-    throw ProcessError();
+    throw ProcessError("File '" + file + "' used as " + optionName + " not found.");
 }
 
 
@@ -540,8 +538,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
 {
     string filename = _options.getString("supplementary-weights");
     if (! FileHelpers::exists(filename)) {
-        MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!");
-        throw ProcessError();
+        throw ProcessError("Could not open the supplementary-weights file '" + filename + "'.");
     }
     EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight retriever(&net);
     std::vector<WeightsHandler::ToRetrieveDefinition*> defs;

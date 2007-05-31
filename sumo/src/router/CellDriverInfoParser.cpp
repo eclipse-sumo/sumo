@@ -40,6 +40,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include "RORouteDef.h"
 #include "CellDriverInfoParser.h"
 
@@ -96,12 +97,7 @@ CellDriverInfoParser::computeRouteNo()
 {
     if (_useLast) {
         if (_driver.lastroute<0||_driver.lastroute>3) {
-            stringstream buf;
-            buf << "An invalid route index occured in a .driver file ("
-            << _driver.lastroute << " at " << _routeNo << ").";
-            MsgHandler::getErrorInstance()->inform(buf.str());
-            MsgHandler::getErrorInstance()->inform(" Retry with a combination of '--intel-cell' and '--no-last-cell'");
-            throw ProcessError();
+            throw ProcessError("An invalid route index occured in a .driver file (" + toString(_driver.lastroute) + " at " + toString(_routeNo) + "\n Retry with a combination of '--intel-cell' and '--no-last-cell'.");
         }
         _routeNo = _driver.route[_driver.lastroute];
     } else {
@@ -118,12 +114,7 @@ CellDriverInfoParser::computeRouteNo()
         }
     }
     if (_routeNo<0) {
-        stringstream buf;
-        buf << "A negative route index occured in a .driver file ("
-        << _routeNo << ").";
-        MsgHandler::getErrorInstance()->inform(buf.str());
-        MsgHandler::getErrorInstance()->inform(" Retry with '--intel-cell'.");
-        throw ProcessError();
+        throw ProcessError("A negative route index occured in a .driver file (" + toString(_routeNo) + "\n Retry with '--intel-cell'.");
     }
     return _routeNo;
 }

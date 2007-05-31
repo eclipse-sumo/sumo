@@ -65,8 +65,7 @@ ROJTRHelpers::parseROJTREdges(RONet &net, std::set<ROJTREdge*> &into,
         string name = st.next();
         ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(name));
         if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("The edge '" + name + " declared as a sink was not found in the network.");
-            throw ProcessError();
+            throw ProcessError("The edge '" + name + " declared as a sink was not found in the network.");
         }
         into.insert(edge);
     }

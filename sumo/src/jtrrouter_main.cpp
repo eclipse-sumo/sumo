@@ -129,8 +129,7 @@ getTurningDefaults(OptionsCont &oc)
         string def = oc.getString("turn-defaults");
         StringTokenizer st(def, ";");
         if (st.size()<2) {
-            MsgHandler::getErrorInstance()->inform("The defaults for turnings must be a tuple of at least two numbers divided by ';'");
-            throw ProcessError();
+            throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ';'");
         }
         while (st.hasNext()) {
             ret.push_back(parseFloat_ReportError(st.next(), "A number in turn defaults is not numeric."));
@@ -172,8 +171,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     // initialise the loader
     size_t noLoaders = loader.openRoutes(net, 1, 1);
     if (noLoaders==0) {
-        MsgHandler::getErrorInstance()->inform("No route input specified.");
-        throw ProcessError();
+        throw ProcessError("No route input specified.");
     }
     // prepare the output
     net.openOutput(oc.getString("output"), false);
@@ -199,9 +197,7 @@ main(int argc, char **argv)
 {
     int ret = 0;
     RONet *net = 0;
-#ifndef _DEBUG
     try {
-#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv, ROJTRFrame::fillOptions);
         if (init_ret<0) {
@@ -249,12 +245,18 @@ main(int argc, char **argv)
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-#ifndef _DEBUG
-    } catch (...) {
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    }
+#ifndef _DEBUG
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
+    }
     delete net;
     SystemFrame::close();
     if (ret==0) {

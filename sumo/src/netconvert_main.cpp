@@ -70,9 +70,7 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-#ifndef _DEBUG
     try {
-#endif
         int init_ret = SystemFrame::init(false, argc, argv, NIOptionsIO::fillOptions);
         if (init_ret<0) {
             cout << "SUMO netconvert" << endl;
@@ -109,12 +107,18 @@ main(int argc, char **argv)
             throw ProcessError();
         }
         nb.buildLoaded();
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).", false);
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-    }
 #endif
+    }
     NBDistribution::clear();
     SystemFrame::close();
     // report about ending

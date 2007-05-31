@@ -87,8 +87,7 @@ PCElmarPoints::load(OptionsCont &oc)
     // load the pois
     ifstream out(file.c_str());
     if (!out) {
-        MsgHandler::getErrorInstance()->inform("Can not open elmar-file '" + file + "'.");
-        throw ProcessError();
+        throw ProcessError("Can not open elmar-file '" + file + "'.");
     }
     RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
 

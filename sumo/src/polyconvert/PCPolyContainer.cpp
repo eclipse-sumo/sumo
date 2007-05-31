@@ -182,8 +182,7 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
 {
     ofstream out(file.c_str());
     if (!out.good()) {
-        MsgHandler::getErrorInstance()->inform("Output file '" + file + "' could not be build.");
-        throw ProcessError();
+        throw ProcessError("Can not write to file '" + file + "'.");
     }
     out << "<shapes>" << endl;
     // write polygons

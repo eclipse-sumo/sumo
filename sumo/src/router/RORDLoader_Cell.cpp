@@ -256,10 +256,9 @@ RORDLoader_Cell::report(const std::string &result)
     if (_hasIndexFile) {
         try {
             _routes.push_back(TplConvert<char>::_2int(result.c_str())); // !!!
-        } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform("Your '" + _routeIdxFile + "' contains non-digits.");
-            throw ProcessError();
-        } catch (EmptyData) {}
+        } catch (NumberFormatException &) {
+            throw ProcessError("Your '" + _routeIdxFile + "' contains non-digits.");
+        } catch (EmptyData &) {}
     }
     else {
         _routes.push_back(_lineReader.getPosition());

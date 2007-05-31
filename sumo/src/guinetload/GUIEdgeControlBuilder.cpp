@@ -131,8 +131,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                                     myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
-        MsgHandler::getErrorInstance()->inform("A lane with an unknown type occured (" + toString(m_Function) + ")");
-        throw ProcessError();
+        throw ProcessError("A lane with an unknown type occured (" + toString(m_Function) + ")");
     }
 #ifdef RAKNET_DEMO
     float *xPos = new float[shape.size()];

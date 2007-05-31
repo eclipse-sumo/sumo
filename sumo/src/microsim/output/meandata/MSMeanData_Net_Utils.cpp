@@ -73,14 +73,12 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
 {
     // check constraints
     if (dumpBegins.size()!=dumpEnds.size()) {
-        MsgHandler::getErrorInstance()->inform("The number of entries in dump-begins must be the same as in dump-ends.");
-        throw ProcessError();
+        throw ProcessError("The number of entries in dump-begins must be the same as in dump-ends.");
     }
     size_t noConstraints = dumpBegins.size();
     for (size_t i=0; i<noConstraints; i++) {
         if (dumpBegins[i]>=dumpEnds[i]) {
-            MsgHandler::getErrorInstance()->inform("The dump-begin at position " + toString(i+1) + " is not smaller than the according dump-end.");
-            throw ProcessError();
+            throw ProcessError("The dump-begin at position " + toString(i+1) + " is not smaller than the according dump-end.");
         }
     }
     // build mean data
@@ -127,8 +125,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
             OutputDevice* dev =
                 SharedOutputDevices::getInstance()->getOutputDevice(fileName);
             if (dev==0) {
-                MsgHandler::getErrorInstance()->inform("The following file containing aggregated values could not been build:\n" + fileName);
-                throw ProcessError();
+                throw ProcessError("The following file containing aggregated values could not been build:\n" + fileName);
             }
             // Write xml-comment
             /*
