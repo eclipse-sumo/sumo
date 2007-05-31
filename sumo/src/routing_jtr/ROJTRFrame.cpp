@@ -104,7 +104,7 @@ ROJTRFrame::addJTROptions(OptionsCont &oc)
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
     oc.addDescription("max-edges-factor", "Processing", "");
 
-    oc.doRegister("turn-defaults", 'T', new Option_String("30;50;20"));
+    oc.doRegister("turn-defaults", 'T', new Option_String("30,50,20"));
     oc.addDescription("turn-defaults", "Processing", "Use STR as default turn definition");
 
     oc.doRegister("sinks", 's', new Option_String());

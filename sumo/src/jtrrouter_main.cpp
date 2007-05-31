@@ -114,7 +114,7 @@ getTurningDefaults(OptionsCont &oc)
     std::vector<SUMOReal> ret;
     vector<string> defs = oc.getStringVector("turn-defaults");
     if (defs.size()<2) {
-        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ';'.");
+        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
     }
     for(vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
         try {
@@ -126,7 +126,6 @@ getTurningDefaults(OptionsCont &oc)
     }
     return ret;
 }
-
 
 void
 loadJPDefinitions(RONet &net, OptionsCont &oc)
