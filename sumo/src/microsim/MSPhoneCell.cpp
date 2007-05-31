@@ -64,8 +64,8 @@ MSPhoneCell::MSPhoneCell(int id)
         myVehiclesEntered(0), myVehicleTimes(0)
 {
     OptionsCont &oc = OptionsSubSys::getOptions();
-    myStaticCallCountScaleFactor = (int)oc.getFloat("cell-static-callcount-scale-factor");
-    myDynamicCallCountScaleFactor = (int)oc.getFloat("cell-dynamic-callcount-scale-factor");
+    myStaticCallCountScaleFactor = oc.getFloat("cell-static-callcount-scale-factor");
+    myDynamicCallCountScaleFactor = oc.getFloat("cell-dynamic-callcount-scale-factor");
     myDynamicCallDeviationScaleFactor = oc.getFloat("cell-dynamic-calldeviation-scale-factor");
     myDynamicCallDurationScaleFactor = oc.getFloat("cell-dynamic-callduration-scale-factor");
 }
@@ -183,22 +183,18 @@ MSPhoneCell::remCPhone(const std::string &device_id)
 void
 MSPhoneCell::setStatParams(int interval, int statcallcount)
 {
-    if (interval<300) {
-        return;
-    }
-    interval -= 300;
     if (myExpectedStaticCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SetStatParamsCommand(*this),
             interval, MSEventControl::NO_CHANGE);
-        myExpectedStaticCalls.push_back(make_pair(interval, (statcallcount*myStaticCallCountScaleFactor)));
+        myExpectedStaticCalls.push_back(make_pair(interval, (int) ((SUMOReal) statcallcount*myStaticCallCountScaleFactor)));
     } else {
         /*
         while((*(myExpectedStaticCalls.end()-1)).first + 300!=interval) {
             myExpectedStaticCalls.push_back(make_pair((*(myExpectedStaticCalls.end()-1)).first + 300, 0));
         }
         */
-        myExpectedStaticCalls.push_back(make_pair(interval, (statcallcount*myStaticCallCountScaleFactor)));
+        myExpectedStaticCalls.push_back(make_pair(interval, (int) ((SUMOReal) statcallcount*myStaticCallCountScaleFactor)));
     }
     /*
     if(myCellId==2503) {
@@ -213,18 +209,14 @@ MSPhoneCell::setStatParams(int interval, int statcallcount)
 
 
 void
-MSPhoneCell::setDynParams(int interval, int count, float duration, float deviation,
+MSPhoneCell::setDynParams(int interval, int count, SUMOReal duration, SUMOReal deviation,
                           int entering)
 {
-    if (interval<3600) {
-        return;
-    }
-    interval -= 3600;
     DynParam p;
-    p.count = count*myDynamicCallCountScaleFactor;
-    p.deviation = deviation*myDynamicCallDeviationScaleFactor;
-    p.duration = duration*myDynamicCallDurationScaleFactor;
-    p.entering = entering*myDynamicCallCountScaleFactor;
+    p.count = (int) ((SUMOReal) count * myDynamicCallCountScaleFactor);
+    p.deviation = deviation * myDynamicCallDeviationScaleFactor;
+    p.duration = duration * myDynamicCallDurationScaleFactor;
+    p.entering = (int) ((SUMOReal) entering*myDynamicCallCountScaleFactor);
     if (myExpectedDynamicCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SetDynParamsCommand(*this),
@@ -310,9 +302,11 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
     myDynIncomingStarted = 0;
     myExpectedDynamicCalls.erase(myExpectedDynamicCalls.begin());
     SUMOTime offset = 3600;
+    /*
     if (myExpectedDynamicCalls.size()!=0) {
         offset = myExpectedDynamicCalls.begin()->first - time;
     }
+    */
     myDynIntervalDuration = offset;
     myCallProbability = (SUMOReal) myCurrentExpectedCallCount / (SUMOReal) offset;
     return 3600;//offset;
@@ -359,9 +353,9 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
     for (itdev = myRegisteredDevices.begin(); itoStart>0&&itdev != myRegisteredDevices.end(); itdev++) {
         if (itdev->second->GetState() == MSDevice_CPhone::STATE_IDLE && !itdev->second->getNotTriggeredByCell()) {
             if (myConnectionTypSelector) {
-                itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int)myCallDuration);
+                itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int) myCallDuration);
             } else {
-                itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int)myCallDuration);
+                itdev->second->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int) myCallDuration);
             }
             myConnectionTypSelector = !myConnectionTypSelector;
             myLaterDynamicStarted++;
@@ -431,6 +425,28 @@ MSPhoneCell::writeOutput(SUMOTime t)
     }
     mySumCalls = myDynCallsOut + myDynCallsIn;
 }
+
+#include <microsim/MSVehicle.h>
+    void MSPhoneCell::incVehiclesEntered(MSVehicle& veh, SUMOTime t)
+    {
+        myVehiclesEntered++;
+        assert(myVehicles.find(&veh)==myVehicles.end());
+        myVehicles[&veh] = t;
+    }
+
+    void MSPhoneCell::removeVehicle(MSVehicle& veh, SUMOTime t)
+    {
+        if(LastCells.find(&veh)!=LastCells.end()) {
+            LastCells.erase(LastCells.find(&veh));
+        }
+        SUMOTime prev = myVehicles[&veh];
+        assert(t>=prev);
+        assert(prev>t-300);
+        myVehicleTimes = myVehicleTimes + (t-prev);
+        assert(myVehicles.find(&veh)!=myVehicles.end());
+        myVehicles.erase(myVehicles.find(&veh));
+    }
+
 
 
 

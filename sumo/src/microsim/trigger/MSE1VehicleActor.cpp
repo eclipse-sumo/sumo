@@ -109,6 +109,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
         if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
+            LastCells.erase(LastCells.find(&veh));
+            assert(cell!=0);
             if (cell!=0) {
                 cell->removeVehicle(veh, time);
             }
@@ -176,16 +178,16 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             if (oldCell != 0) {
                 oldCell->remCPhone(cp->getID());
             } /*else {
-                                        // check whether a call shall be started
-                                        SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-                                        if(newCell->useAsIncomingDynamic(time)) {
-                                            if(randSUMO()>.5) {
-                                                cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
-                                            } else {
-                                                cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
-                                            }
-                                        }
-                                    }*/
+                            // check whether a call shall be started
+                            SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
+                            if(newCell->useAsIncomingDynamic(time)) {
+                                if(randSUMO()>.5) {
+                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , newCell->getCallDuration() / 2.);
+                                } else {
+                                    cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , newCell->getCallDuration() / 2.);
+                                }
+                            }
+                        }*/
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
 

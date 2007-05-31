@@ -68,6 +68,10 @@ class MSPhoneCell
 public:
     /// Constructor
     MSPhoneCell(int ID);
+    size_t getDynEntriesNo() const {
+        return myExpectedDynamicCalls.size();
+    }
+
 
     /// Destructor
     ~MSPhoneCell();
@@ -85,7 +89,7 @@ public:
     void setStatParams(int interval, int statcallcount);
 
     /// Sets the parameter of dynamic calls for the given period
-    void setDynParams(int interval, int count, float duration, float deviation,
+    void setDynParams(int interval, int count, SUMOReal duration, SUMOReal deviation,
                       int entering);
 
     /// !!!?
@@ -114,18 +118,8 @@ public:
     bool hasCPhone(const std::string &device_id);
     void remCPhone(const std::string &device_id);
 
-    void incVehiclesEntered(MSVehicle& veh, SUMOTime t)
-    {
-        myVehiclesEntered++;
-        myVehicles[&veh] = t;
-    }
-
-    void removeVehicle(MSVehicle& veh, SUMOTime t)
-    {
-        SUMOTime prev = myVehicles[&veh];
-        myVehicleTimes = myVehicleTimes + (t-prev);
-        myVehicles.erase(myVehicles.find(&veh));
-    }
+    void incVehiclesEntered(MSVehicle& veh, SUMOTime t);
+    void removeVehicle(MSVehicle& veh, SUMOTime t);
 
 private:
 class SetStatParamsCommand : public Command
@@ -195,8 +189,8 @@ class SetDynParamsCommand : public Command
 private:
     int myCellId;                   /* the id of the gsm-cell */
     int myStaticCallsIn;            /* the number of stacic incoming calls for this interval */
-    int myStaticCallsOut;           /* the number of stativ outgoing calls for this interval */
-    int myDynCallsIn;               /* the number of dynamic incomming / outgoing calls for this... */
+    int myStaticCallsOut;           /* the number of static outgoing calls for this interval */
+    int myDynCallsIn;               /* the number of dynamic incoming / outgoing calls for this... */
     int myDynCallsOut;              /* ... interval which where singaled by a cphone.*/
     int mySumCalls;                 /* the total number of calls in this interval.*/
     int myDynOwnStarted;            /* the dynamic calls which where started in this cell during this interval*/
@@ -209,21 +203,21 @@ private:
     SUMOTime myDynIntervalBegin;
     SUMOTime myDynIntervalDuration;
     SUMOTime myCallDuration;
-    float myCallDeviation;
+    SUMOReal myCallDeviation;
     bool myConnectionTypSelector;
-    float myCallProbability;
-    int myStaticCallCountScaleFactor;
-    int myDynamicCallCountScaleFactor;
-    float myDynamicCallDurationScaleFactor;
-    float myDynamicCallDeviationScaleFactor;
+    SUMOReal myCallProbability;
+    SUMOReal myStaticCallCountScaleFactor;
+    SUMOReal myDynamicCallCountScaleFactor;
+    SUMOReal myDynamicCallDurationScaleFactor;
+    SUMOReal myDynamicCallDeviationScaleFactor;
 
     /*myConnectionTypSelector is for selecting if a connection is
       going in( == true ) or out ( == false ).*/
     struct DynParam
     {
         int count;
-        float duration;
-        float deviation;
+        SUMOReal duration;
+        SUMOReal deviation;
         int entering;
     };
 

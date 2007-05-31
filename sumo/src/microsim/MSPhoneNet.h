@@ -115,9 +115,13 @@ public:
     {
         if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
+            LastCells.erase(LastCells.find(&veh));
+            assert(cell!=0);
             if (cell!=0) {
                 cell->removeVehicle(veh, t);
             }
+        } else {
+            assert(false);
         }
     }
 
