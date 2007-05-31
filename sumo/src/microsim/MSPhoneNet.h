@@ -120,8 +120,6 @@ public:
             if (cell!=0) {
                 cell->removeVehicle(veh, t);
             }
-        } else {
-            assert(false);
         }
     }
 
