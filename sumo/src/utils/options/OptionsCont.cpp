@@ -48,6 +48,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <sstream>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -640,20 +641,12 @@ OptionsCont::getStringVector(const std::string &name) const
     if(def.find(';')!=string::npos) {
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
     }
-    size_t beg = 0;
-    size_t end = 0;
-    while(beg<def.length()) {
-        // skip ';'
-        while(beg<def.length() && (def[beg]==';' || def[beg]==',')) ++beg;
-        end = beg + 1;
-        while(end<def.length() && (def[end]!=';' && def[end]!=',')) ++end;
-        string s = def.substr(beg, end-beg);
-        ret.push_back(s);
-        beg = end;
+    StringTokenizer st(def, ";,", true);
+    while (st.hasNext()) {
+        ret.push_back(st.next());
     }
     return ret;
 }
 
 
 /****************************************************************************/
-

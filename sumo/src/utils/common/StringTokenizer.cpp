@@ -68,14 +68,10 @@ StringTokenizer::StringTokenizer(std::string tosplit)
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, std::string token)
+StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars)
         : _tosplit(tosplit), _pos(0)
 {
-    if (token.length()==1) {
-        prepare(tosplit, token[0]);
-    } else {
-        prepare(tosplit, token);
-    }
+    prepare(tosplit, token, splitAtAllChars);
 }
 
 
@@ -84,13 +80,17 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
 {
     switch (special) {
     case NEWLINE:
-        prepareNewline(tosplit);
+        prepare(tosplit, "\r\n", true);
         break;
     case WHITECHARS:
         prepareWhitechar(tosplit);
         break;
     default:
-        prepare(tosplit, (char) special);
+        char *buf = new char[2];
+        buf[0] = (char) special;
+        buf[1] = 0;
+        prepare(tosplit, buf, false);
+        delete[] buf;
         break;
     }
 }
@@ -153,51 +153,30 @@ size_t StringTokenizer::size() const
     return _starts.size();
 }
 
-void StringTokenizer::prepare(const string &tosplit, const string &token)
+void StringTokenizer::prepare(const string &tosplit, const string &token, bool splitAtAllChars)
 {
+    size_t beg = 0;
     size_t len = token.length();
-    size_t beg = 0;
-    while (beg!=string::npos&&beg<tosplit.length()) {
-        size_t end = tosplit.find(token, beg);
-        _starts.push_back(beg);
-        _lengths.push_back(end-beg);
-        beg = end;
-        if (end!=string::npos) {
-            beg += len;
-            if (beg==tosplit.length()) {
-                _starts.push_back(beg);
-                _lengths.push_back(0);
-            }
-        }
+    if (splitAtAllChars) {
+        len = 1;
     }
-}
-
-void StringTokenizer::prepare(const string &tosplit, char token)
-{
-    size_t beg = 0;
-    while (beg!=string::npos&&beg<tosplit.length()) {
-        size_t end = tosplit.find(token, beg);
-        _starts.push_back(beg);
-        _lengths.push_back(end-beg);
-        beg = end;
-        if (end!=string::npos) {
-            beg++;
-            if (beg==tosplit.length()) {
-                _starts.push_back(beg);
-                _lengths.push_back(0);
-            }
+    while (beg<tosplit.length()) {
+        size_t end;
+        if (splitAtAllChars) {
+            end = tosplit.find_first_of(token, beg);
+        } else {
+            end = tosplit.find(token, beg);
         }
-    }
-}
-
-void StringTokenizer::prepare(const string &tosplit, const string &token, int /*dummy*/)
-{
-    size_t beg = tosplit.find_first_not_of(token);
-    while (beg!=string::npos&&beg<tosplit.length()) {
-        size_t end = tosplit.find_first_of(token, beg);
+        if (end == string::npos) {
+            end = tosplit.length();
+        }
         _starts.push_back(beg);
         _lengths.push_back(end-beg);
-        beg = tosplit.find_first_not_of(token, beg);
+        beg = end + len;
+        if (beg==tosplit.length()) {
+            _starts.push_back(beg-1);
+            _lengths.push_back(0);
+        }
     }
 }
 
@@ -221,37 +200,6 @@ void StringTokenizer::prepareWhitechar(const string &tosplit)
         }
     }
 }
-
-void StringTokenizer::prepareNewline(const string &tosplit)
-{
-    size_t len = tosplit.length();
-    size_t beg = 0;
-    while (beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
-        _starts.push_back(beg);
-        _lengths.push_back(0);
-        beg++;
-    }
-    while (beg!=string::npos&&beg<len) {
-        size_t end = beg;
-        while (end<len&&(tosplit.at(end)!=13&&tosplit.at(end)!=10)) {
-            end++;
-        }
-        _starts.push_back(beg);
-        _lengths.push_back(end-beg);
-        beg = end;
-        if (beg==len-1&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
-            _starts.push_back(beg);
-            _lengths.push_back(0);
-        }
-        beg++;
-        while (beg<len&&(tosplit.at(beg)==13||tosplit.at(beg)==10)) {
-            _starts.push_back(beg);
-            _lengths.push_back(0);
-            beg++;
-        }
-    }
-}
-
 
 std::vector<std::string>
 StringTokenizer::getVector()

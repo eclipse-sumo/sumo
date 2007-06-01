@@ -127,9 +127,6 @@ public:
     /// returns the number of known nodes
     int size();
 
-    /** returns the number of known nodes */
-    int getNo();
-
     /** deletes all nodes */
     void clear();
 

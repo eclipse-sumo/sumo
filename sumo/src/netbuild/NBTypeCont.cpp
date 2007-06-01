@@ -156,7 +156,7 @@ NBTypeCont::getDefaultSpeed()
 
 
 size_t
-NBTypeCont::getNo()
+NBTypeCont::size()
 {
     return myTypes.size();
 }
@@ -182,7 +182,7 @@ NBTypeCont::clear()
 void
 NBTypeCont::report()
 {
-    WRITE_MESSAGE("   " + toString<int>(getNo()) + " types loaded.");
+    WRITE_MESSAGE("   " + toString<int>(size()) + " types loaded.");
 }
 
 

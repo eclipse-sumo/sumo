@@ -314,13 +314,6 @@ NBNodeCont::writeXML(ostream &into)
 int
 NBNodeCont::size()
 {
-    return(_nodes.size());
-}
-
-
-int
-NBNodeCont::getNo()
-{
     return _nodes.size();
 }
 
@@ -338,7 +331,7 @@ NBNodeCont::clear()
 void
 NBNodeCont::report()
 {
-    WRITE_MESSAGE("   " + toString<int>(getNo()) + " nodes loaded.");
+    WRITE_MESSAGE("   " + toString<int>(size()) + " nodes loaded.");
 }
 
 
@@ -451,7 +444,7 @@ NBNodeCont::searchEdgeInNode(const NBEdgeCont &ec,
 std::string
 NBNodeCont::getFreeID()
 {
-    return "SUMOGenerated" + toString<int>(getNo());
+    return "SUMOGenerated" + toString<int>(size());
 }
 
 

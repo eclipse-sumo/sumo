@@ -408,10 +408,6 @@ ROLoader::openTypedRoutes(const std::string &optionName,
     if (!_options.isSet(optionName)) {
         return;
     }
-    // check the given files
-    if (!FileHelpers::checkFileList(optionName, _options.getString(optionName))) {
-        throw ProcessError();
-    }
     // allocate a reader and add it to the list
     addToHandlerList(optionName, net);
 }
@@ -421,20 +417,17 @@ void
 ROLoader::addToHandlerList(const std::string &optionName,
                            RONet &net)
 {
-    string fileList = _options.getString(optionName);
-    StringTokenizer st(fileList, ";");
-    while (st.hasNext()) {
-        // get the file name
-        string file = st.next();
+    vector<string> files = _options.getStringVector(optionName);
+    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         // check whether the file can be used
         //  necessary due to the extensions within cell-import
-        checkFile(optionName, file);
+        checkFile(optionName, *fileIt);
         // build the instance when everything's all right
         ROAbstractRouteDefLoader *instance =
-            buildNamedHandler(optionName, file, net);
+            buildNamedHandler(optionName, *fileIt, net);
         if (!instance->init(_options)) {
             delete instance;
-            throw ProcessError("The loader for " + optionName + " from file '" + file + "' could not be initialised.");
+            throw ProcessError("The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised.");
         }
         _handler.push_back(instance);
     }

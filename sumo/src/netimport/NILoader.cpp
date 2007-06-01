@@ -114,10 +114,10 @@ NILoader::load(OptionsCont &oc)
         }
     }
     // load types first
-    if (oc.isUsableFileList("xml-type-files")) {
-        NIXMLTypesHandler *handler =
+    NIXMLTypesHandler *handler =
             new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-        loadXMLType(handler, oc.getString("xml-type-files"), "types");
+    loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
+    if (myNetBuilder.getTypeCont().size()>0) {
         myNetBuilder.getTypeCont().report();
     }
     // try to load using different methods
@@ -180,65 +180,51 @@ void
 NILoader::loadXML(OptionsCont &oc)
 {
     // load nodes
-    if (oc.isUsableFileList("xml-node-files")) {
-        NIXMLNodesHandler *handler =
-            new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
-                                  myNetBuilder.getTLLogicCont(), oc);
-        loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
-        myNetBuilder.getNodeCont().report();
-    }
+    loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
+                                      myNetBuilder.getTLLogicCont(), oc),
+                oc.getStringVector("xml-node-files"), "nodes");
+    myNetBuilder.getNodeCont().report();
 
     // load the edges
-    if (oc.isUsableFileList("xml-edge-files")) {
-        NIXMLEdgesHandler *handler =
-            new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-                                  myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
-                                  myNetBuilder.getDistrictCont(), oc);
-        loadXMLType(handler, oc.getString("xml-edge-files"), "edges");
-        myNetBuilder.getEdgeCont().report();
-    }
+    loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+                                      myNetBuilder.getEdgeCont(),
+                                      myNetBuilder.getTypeCont(),
+                                      myNetBuilder.getDistrictCont(), oc),
+                oc.getStringVector("xml-edge-files"), "edges");
+    myNetBuilder.getEdgeCont().report();
 
     // load the connections
-    if (oc.isUsableFileList("xml-connection-files")) {
-        NIXMLConnectionsHandler *handler =
-            new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont());
-        loadXMLType(handler, oc.getString("xml-connection-files"), "connections");
-    }
+    loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),
+                oc.getStringVector("xml-connection-files"), "connections");
 }
 
 
 /** loads a single user-specified file */
 void
-NILoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
+NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
                       const string &type)
 {
     // build parser
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(*handler);
+    string exceptMsg = "";
     // start the parsing
     try {
-        StringTokenizer st(files, ";");
-        while (st.hasNext()) {
-            string file = st.next();
-            handler->setFileName(file);
-            loadXMLFile(*parser, file, type);
+        for(vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+            handler->setFileName(*file);
+            WRITE_MESSAGE("Parsing " + type + " from '" + *file + "'...");
+            parser->parse(file->c_str());
         }
     } catch (const XMLException& toCatch) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(toCatch.getMessage())
-                                               + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.");
-        delete handler;
-        throw ProcessError();
+        exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
+                    + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
+    } catch (...) {
+        exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }
     delete parser;
     delete handler;
-}
-
-
-void
-NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
-                      const string &type)
-{
-    WRITE_MESSAGE("Parsing " + type + " from '" + file + "'...");
-    parser.parse(file.c_str());
+    if (exceptMsg != "") {
+        throw ProcessError(exceptMsg);
+    }
 }
 
 

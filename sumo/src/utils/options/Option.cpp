@@ -662,7 +662,10 @@ Option_IntVector::set(std::string v, bool isDefault)
 {
     myValue.clear();
     try {
-        StringTokenizer st(v, ';');
+        if(v.find(';')!=string::npos) {
+            MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
+        }
+        StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
             myValue.push_back(TplConvert<char>::_2int(st.next().c_str()));
         }
@@ -670,7 +673,7 @@ Option_IntVector::set(std::string v, bool isDefault)
     } catch (EmptyData &) {
         throw InvalidArgument("Empty element occured in " + v);
     } catch (...) {
-        throw InvalidArgument("'" + v + "' is not a valid integer vector (should be).");
+        throw InvalidArgument("'" + v + "' is not a valid integer vector.");
     }
     return false;
 }

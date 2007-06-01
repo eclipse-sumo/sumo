@@ -1,1 +1,1 @@
---no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --lanedump-basename=aggregated --lanedump-intervals="300;900" -b 0 -e 1000
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --lanedump-basename=aggregated --lanedump-intervals="300,900" -b 0 -e 1000

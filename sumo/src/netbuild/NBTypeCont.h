@@ -85,7 +85,7 @@ public:
     int getDefaultPriority();
 
     /** returns the number of known types */
-    size_t getNo();
+    size_t size();
 
     /** returns the type of the junction between two edges of the given types */
     NBNode::BasicNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const;

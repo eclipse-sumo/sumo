@@ -88,21 +88,24 @@ public:
 
     /** @brief constructor
         same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
-        tosplit is the string to split into substrings */
+        tosplit is the string to split into substrings. If the string between two split
+        positions is empty, it will not be returned.  */
     StringTokenizer(std::string tosplit);
 
     /** @brief constructor
-        the first string will be split at the second string's occurences */
-    StringTokenizer(std::string tosplit, std::string token);
+        the first string will be split at the second string's occurences.
+        If the optional third parameter is true, the string will be split whenever
+        a char from the second string occurs. If the string between two split
+        positions is empty, it will nevertheless be returned. */
+    StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars=false);
 
     /** @brief constructor
-        The second parameter may be a character - the strig will then be
-        split at all occurences of this character.
         When StringTokenizer.NEWLINE is used as second parameter, the string
         will be split at all occurences of a newline character (0x0d / 0x0a)
         When StringTokenizer.WHITECHARS is used as second parameter, the
         string will be split at all characters below 0x20
-        The behaviour is undefined for other parameter */
+        All other ints specified as second parameter are casted int o a char
+        at which the string will be splitted. */
     StringTokenizer(std::string tosplit, int special);
 
     /** destructor */
@@ -130,21 +133,13 @@ public:
     std::vector<std::string> getVector();
 
 private:
-    /** splits the first string at all occurences of the second */
-    void prepare(const std::string &tosplit, const std::string &token);
-
-    /** splits the first string at all occurences of the given char */
-    void prepare(const std::string &tosplit, char token);
-
-    /** unsused */
+    /** splits the first string at all occurences of the second. If the third parameter is true
+        split at all chars given in the second */
     void prepare(const std::string &tosplit, const std::string &token,
-                 int dummy);
+                 bool splitAtAllChars);
 
     /** splits the first string at all occurences of whitechars */
     void prepareWhitechar(const std::string &tosplit);
-
-    /** splits the first string at all occurences of newlines */
-    void prepareNewline(const std::string &tosplit);
 
 private:
     /** a list of positions/lengths */
