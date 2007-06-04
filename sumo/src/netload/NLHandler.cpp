@@ -67,7 +67,7 @@
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
 

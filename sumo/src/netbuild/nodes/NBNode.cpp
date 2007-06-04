@@ -53,7 +53,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <iomanip>
 #include "NBNode.h"
 #include "NBNodeCont.h"

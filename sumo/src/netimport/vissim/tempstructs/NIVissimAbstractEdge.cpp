@@ -39,7 +39,7 @@
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line2D.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "NIVissimAbstractEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS

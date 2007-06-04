@@ -40,7 +40,7 @@
 #include <netbuild/NBDistrictCont.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Districts.h"
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

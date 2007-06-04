@@ -46,7 +46,7 @@
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "NITigerLoader.h"
 
 #ifdef CHECK_MEMORY_LEAKS

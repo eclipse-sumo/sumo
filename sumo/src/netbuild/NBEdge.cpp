@@ -56,7 +56,7 @@
 #include "NBEdge.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

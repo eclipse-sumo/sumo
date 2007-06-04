@@ -55,7 +55,7 @@
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/RandHelper.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

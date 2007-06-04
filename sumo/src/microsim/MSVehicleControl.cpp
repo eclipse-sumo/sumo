@@ -40,7 +40,7 @@
 #include "MSSaveState.h"
 #include "MSGlobals.h"
 #include <utils/common/FileHelpers.h>
-#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "devices/MSDevice_CPhone.h"
 

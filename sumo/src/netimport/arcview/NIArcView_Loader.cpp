@@ -52,7 +52,7 @@
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include <ogrsf_frmts.h>
 

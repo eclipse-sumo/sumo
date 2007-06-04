@@ -65,7 +65,7 @@
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <sumo_only/SUMOFrame.h>
-#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #include "NLGeomShapeBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS

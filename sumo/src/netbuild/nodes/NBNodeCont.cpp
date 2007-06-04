@@ -54,7 +54,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <iomanip>
 #include <cmath>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include "NBNodeCont.h"
 

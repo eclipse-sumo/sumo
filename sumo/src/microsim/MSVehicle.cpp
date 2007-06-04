@@ -60,7 +60,7 @@
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
 #include <utils/helpers/SUMODijkstraRouter.h>
 #include "MSPerson.h"

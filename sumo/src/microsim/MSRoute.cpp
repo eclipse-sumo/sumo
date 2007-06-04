@@ -39,7 +39,7 @@
 #include "MSRoute.h"
 #include "MSEdge.h"
 #include <utils/common/FileHelpers.h>
-#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 
 #ifdef ABS_DEBUG
 #include "MSNet.h"

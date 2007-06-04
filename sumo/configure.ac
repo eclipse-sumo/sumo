@@ -352,11 +352,9 @@ src/routing_jtr/Makefile
 src/sumo_only/Makefile
 src/tools/Makefile
 src/utils/Makefile
-src/utils/bindevice/Makefile
 src/utils/common/Makefile
 src/utils/distribution/Makefile
 src/utils/foxtools/Makefile
-src/utils/geoconv/Makefile
 src/utils/geom/Makefile
 src/utils/gfx/Makefile
 src/utils/glutils/Makefile

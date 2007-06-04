@@ -37,7 +37,7 @@
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <cassert>
-#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
 

@@ -44,7 +44,7 @@
 #include <utils/options/Option.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisum.h"
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gfx/GfxConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS

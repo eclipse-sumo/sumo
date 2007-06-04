@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -68,7 +68,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib"
 				OutputFile=".\Debug\z_libutils_common.lib"
 				SuppressStartupBanner="true"
 				IgnoreAllDefaultLibraries="true"
@@ -118,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -145,7 +144,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib"
 				OutputFile=".\Release\z_libutils_common.lib"
 				SuppressStartupBanner="true"
 			/>
@@ -173,14 +171,6 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryInputDevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryOutputDevice.cpp"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\DoubleVector.cpp"
 				>
@@ -255,10 +245,6 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.cpp"
-				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\IntVector.cpp"
@@ -457,14 +443,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryInputDevice.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryOutputDevice.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\BoolVector.h"
 				>
 			</File>
@@ -478,10 +456,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.h"
 				>
 			</File>
 			<File

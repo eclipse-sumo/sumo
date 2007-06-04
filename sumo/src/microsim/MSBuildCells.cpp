@@ -46,7 +46,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "MSCell.h"
 #include <utils/iodevices/OutputDevice.h>
 

@@ -82,7 +82,7 @@
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
 #include "MSBuildCells.h"
-#include <utils/geoconv/GeoConvHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <ctime>
 #include "MSPerson.h"
 
