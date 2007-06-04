@@ -530,8 +530,7 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
     if (myNetWasLoaded) {
         // this one has not yet its links set
         if (tlmap.defaultTL==0) {
-            MsgHandler::getErrorInstance()->inform("No initial signal plan loaded for tls '" + id + "'.");
-            throw ProcessError();
+            throw ProcessError("No initial signal plan loaded for tls '" + id + "'.");
         }
         logic->adaptLinkInformationFrom(*(tlmap.defaultTL));
     }
@@ -599,16 +598,14 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
     std::map<std::string, TLSLogicVariants>::iterator i = myLogics.find(id);
     // handle problems
     if (i==myLogics.end()) {
-        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
-        throw ProcessError();
+        throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
     if ((*i).second.ltVariants.find(subid)==(*i).second.ltVariants.end()) {
         // maybe this switch shall move the tls to an off-state
         //  in this case, we mybe have to build the program
         //  (this is done internally)
         // otherwise we'll inform the user about the missing tls program
-        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
-        throw ProcessError();
+        throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
     }
     // try to get the program to switch to
     MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
@@ -617,8 +614,7 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
         find(myActiveLogics.begin(), myActiveLogics.end(), (*i).second.defaultTL);
     // handle problems
     if (j==myActiveLogics.end()) {
-        MsgHandler::getErrorInstance()->inform("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
-        throw ProcessError();
+        throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
     // switch to the wished program
     *j = touse;
