@@ -513,10 +513,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
 				>
 			</File>
@@ -550,6 +546,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\SysUtils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\TplConvertSec.h"
 				>
 			</File>
 			<File

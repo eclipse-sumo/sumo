@@ -64,6 +64,10 @@
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesogui/GUIViewMesoEdges.h>
+#endif
+
 #include <gui/GUIColorer_LaneByPurpose.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <gui/GUIColorer_LaneByVehKnowledge.h>
@@ -107,9 +111,6 @@ using namespace std;
 // ===========================================================================
 // methods
 // ===========================================================================
-int myShowingBlaTime;
-
-
 /* -------------------------------------------------------------------------
  * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
@@ -308,12 +309,80 @@ initLaneColoringSchemes()
     return laneColMap;
 }
 
+#ifdef HAVE_MESOSIM
+map<int, vector<RGBColor> >
+initEdgeColoringSchemes()
+{
+    map<int, vector<RGBColor> > edgeColMap;
+    // insert possible lane coloring schemes
+    GUIColoringSchemesMap<GUIEdge> &sm = GUIViewMesoEdges::getLaneSchemesMap();
+    // insert possible lane coloring schemes
+    //
+    sm.add("uniform",
+           new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
+    sm.add("by selection (lanewise)",
+           new GUIColorer_LaneBySelection<GUIEdge>());
+    sm.add("by purpose (lanewise)",
+           new GUIColorer_LaneByPurpose<GUIEdge>());
+    // from a lane's standard values
+    sm.add("by allowed speed (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUIEdge>(
+               0, (SUMOReal)(150.0/3.6),
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
+    sm.add("by current density (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUIEdge>(
+               0, (SUMOReal) .95,
+               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
+    /*
+    sm.add("by loaded weights (streetwise)",
+           new GUIColorer_ShadeByParametrisedFunctionValue<GUILaneWrapper>(
+               0, (SUMOReal) 5,
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUILaneWrapper::*)(SUMOTime) const) &GUILaneWrapper::getEdgeEffort));
+               */
+    // using C2C extensions
+    /*
+    sm.add("C2C: by vehicle knowledge",
+    new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
+    sm.add("C2C: by edge neighborhood",
+    new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
+        */
+    // build the colors map
+    {
+        for (size_t i=0; i<sm.size(); i++) {
+            edgeColMap[i] = vector<RGBColor>();
+            switch (sm.getColorSetType(i)) {
+            case CST_SINGLE:
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+                break;
+            case CST_MINMAX:
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                break;
+            case CST_MINMAX_OPT:
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                edgeColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+                break;
+            default:
+                break;
+            }
+        }
+    }
+    return edgeColMap;
+}
+#endif
 
 void
 initColoringSchemes(FXApp *a)
 {
     map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
     map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
+#ifdef HAVE_MESOSIM
+    map<int, vector<RGBColor> > edgeColMap = initEdgeColoringSchemes();
+#endif
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes

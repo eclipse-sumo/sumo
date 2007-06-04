@@ -63,7 +63,9 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 
+#ifdef ITM
 #include <itm-remoteserver/remoteserver.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

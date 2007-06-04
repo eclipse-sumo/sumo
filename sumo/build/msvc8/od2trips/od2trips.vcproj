@@ -324,14 +324,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\common\Named.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\od2trips\ODCell.h"
 				>
 			</File>
@@ -349,10 +341,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\od2trips\ODmatrix.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
 				>
 			</File>
 		</Filter>
