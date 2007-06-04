@@ -248,7 +248,6 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
         : myVehicle(vehicle), myId(id), myCommand(0)
 {
     OptionsCont &oc = OptionsSubSys::getOptions();
-    callProbabilityAutonomVeh = oc.getFloat("device.cell-phone.autonom-veh.probability");
     mycurrentCellId = -1;
     mycurrentLAId = -1;
     myCallId = -1;

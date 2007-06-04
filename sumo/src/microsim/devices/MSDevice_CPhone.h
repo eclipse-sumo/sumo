@@ -213,7 +213,6 @@ private:
     //const static SUMOTime callDurationStdev=6000;
     //const static SUMOTime callDurationMean=60;
     
-    SUMOReal callProbabilityAutonomVeh;
 };
 
 
