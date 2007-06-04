@@ -66,7 +66,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 OptionsCont::OptionsCont()
-        : myAddresses(), myValues()
+        : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false)
 {}
 
 
@@ -638,8 +638,9 @@ OptionsCont::getStringVector(const std::string &name) const
     vector<string> ret;
     Option *o = getSecure(name);
     string def = o->getString();
-    if(def.find(';')!=string::npos) {
+    if(def.find(';')!=string::npos&&!myHaveInformedAboutDeprecatedDivider) {
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
+        myHaveInformedAboutDeprecatedDivider = true;
     }
     StringTokenizer st(def, ";,", true);
     while (st.hasNext()) {

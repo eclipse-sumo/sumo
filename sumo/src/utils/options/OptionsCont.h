@@ -223,6 +223,9 @@ private:
     /// A map from subtopic to option
     std::map<std::string, std::vector<std::string> > mySubTopicEntries;
 
+    /// Information whether a warning a deprecated divider
+    mutable bool myHaveInformedAboutDeprecatedDivider;
+
 private:
     /**
      * @class abbreviation_finder

@@ -36,6 +36,7 @@
 
 #include <cassert>
 #include <fstream>
+#include <algorithm>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/StringTokenizer.h>
@@ -119,12 +120,8 @@ OptionsSubSys::helper_CSVOptionMatches(const std::string &optionName,
                                        const std::string &itemName)
 {
     if (myOptions.isSet(optionName)) {
-        StringTokenizer st(myOptions.getString(optionName), ";");
-        while (st.hasNext()) {
-            if (st.next()==itemName) {
-                return true;
-            }
-        }
+        vector<string> values = myOptions.getStringVector(optionName);
+        return find(values.begin(), values.end(), itemName)!=values.end();
     }
     return false;
 }
