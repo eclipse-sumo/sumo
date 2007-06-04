@@ -190,13 +190,13 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         }*/
             assert(newCell != 0);
             newCell->addCPhone(cp->getID(), cp);
-
             int callCount = cp->GetCallCellCount();
             cp->IncCallCellCount();
             switch (cp->GetState()) {
             case MSDevice_CPhone::STATE_OFF:
                 break;
             case MSDevice_CPhone::STATE_IDLE:
+                /*!!! 31.05.2007 - reinsertion
                 if (percentOfActivity) {
                     SUMOReal r1 = randSUMO();
                     if (r1 < 0.5f) {
@@ -205,6 +205,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         cp->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , 86400);
                     }
                 }
+                */
                 break;
             case MSDevice_CPhone::STATE_CONNECTED_IN:
                 assert(cp->getCallId() != -1);
@@ -233,7 +234,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << cp->getCallId() << ';'
                     << _AreaId << ';'
-                    << "1\n";
+                    << "1;" << cp->getID() << std::endl;;
                 }
             }
         }

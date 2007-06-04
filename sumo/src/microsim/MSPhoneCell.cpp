@@ -79,6 +79,7 @@ void
 MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
 {
     myCalls[callid] = ct;
+    /*
     if (cellCount < 1) {
         switch (ct) {
         case STATICIN:
@@ -91,6 +92,7 @@ MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
             break;
         }
     } else {
+    */
         switch (ct) {
         case STATICIN:
             //++myStaticCallsIn;
@@ -109,8 +111,8 @@ MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
             //++myDynOwnStarted;
             break;
         }
-    }
-    if (cellCount == 0 && (ct == DYNIN || ct == DYNOUT))
+    //}
+    //if (cellCount == 0 && (ct == DYNIN || ct == DYNOUT))
         ++myDynOwnStarted;
     //++mySumCalls;
 }
@@ -316,6 +318,7 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
 bool
 MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
 {
+        return false;
     if (myDynIntervalDuration==0) {
         return false;
     }
@@ -333,6 +336,7 @@ MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
 void
 MSPhoneCell::setDynamicCalls(SUMOTime time)
 {
+    return;
     if (myDynIntervalDuration==0) {
         return;
     }

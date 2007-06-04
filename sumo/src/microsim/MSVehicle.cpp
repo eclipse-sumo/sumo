@@ -271,7 +271,35 @@ MSVehicle::initDevices(int vehicleIndex)
     OptionsCont &oc = OptionsSubSys::getOptions();
 
     // cell phones
-    if (oc.getBool("device.cell-phone.percent-of-activity")) {
+    if (myType->getID().compare("zug")== 0)
+    {
+        int noCellPhones = 1;
+        if ( (28800 <= myDesiredDepart && 32400 >= myDesiredDepart ) || ( 61200 <= myDesiredDepart && 64800 >= myDesiredDepart ) )/*40% 8 -9;17-18*/
+            noCellPhones = 154;
+        else if ( (46800 <= myDesiredDepart && 61200 >= myDesiredDepart ) || ( 64800 <= myDesiredDepart && 68400 >= myDesiredDepart ) ) /*35% 13-17;18-19*/
+            noCellPhones = 134;
+        else if ( (21600 <= myDesiredDepart && 28800 >= myDesiredDepart ) || ( 32400 <= myDesiredDepart && 46800 >= myDesiredDepart ) /*25% 6-8;9-13;19-24*/
+            || ( 68400 <= myDesiredDepart && 86400 >= myDesiredDepart ))
+            noCellPhones = 96;
+        else if ( (0 <= myDesiredDepart && 5400 >= myDesiredDepart ) || ( 14400 <= myDesiredDepart && 21600 >= myDesiredDepart ) ) /*10% 0-1:30;4-6*/
+            noCellPhones = 38;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    } else if(myType->getID().substr(0, 3)=="PKW") {
+        int noCellPhones = 1;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    }
+
+    else if (oc.getBool("device.cell-phone.percent-of-activity")) {
         /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
         string phoneid = getID() + "_cphone#0";
         MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
@@ -296,7 +324,7 @@ MSVehicle::initDevices(int vehicleIndex)
             }
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    } else if (false) {
+    }if (false) {
         int noCellPhones = 1;
         if (myType->getID().compare("pkw")== 0)
             noCellPhones = 1;

@@ -38,6 +38,7 @@
 
 #include <vector>
 #include <string>
+#include <math.h>
 #include <utils/helpers/Command.h>
 
 
@@ -146,12 +147,44 @@ class MyCommand : public Command
     private:
         /// The parent reader
         MSDevice_CPhone &myParent;
-
+       
         bool myAmActive;
 
     };
 
 private:
+    /*
+        inline int getTrainDuration(void) 
+    {
+        int duration=0;
+        double randvalue1=0, randvalue2=0;randvalue2=0;
+        while(randvalue2==0) 
+        {
+            randvalue2=double(rand())/double(RAND_MAX);
+        }
+        //Bei 16 % der mobilen Werte gleichverteilte Werte zwischen 30 (minimal)
+        //und 60 (maximale Häufigkeit => ab hier greift die Funktion) Sekunden
+        if(randvalue2 < 0.16) 
+            duration=30+300*randvalue2;
+        else 
+        {
+            duration=0;
+            //nur Werte über 60 Sekunden simulieren, da die anderen oben abgedeckt sind
+            while (duration < 60) {
+                randvalue1=0;
+                while (randvalue1==0) 
+                {
+                    randvalue1=double(rand())/double(RAND_MAX);
+                }
+                duration= (-1)*(235.583)*log(randvalue1)+9.2057;
+            }
+        }
+//        duration = 1000* duration;
+        return duration;
+    }
+    */
+
+    std::string myparentid;
     std::string myId;
     //the State the cellphone (if available) is in
     //0: no cellphone; 1: turned off; 2: idle ; 3: connected
@@ -176,6 +209,11 @@ private:
 
     /*if this */
     bool notTriggeredByCell;
+
+    //const static SUMOTime callDurationStdev=6000;
+    //const static SUMOTime callDurationMean=60;
+    
+    SUMOReal callProbabilityAutonomVeh;
 };
 
 
