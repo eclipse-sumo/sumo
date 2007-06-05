@@ -224,7 +224,7 @@ MSDevice_CPhone::MyCommand::setInactivated()
         //Bei 16 % der mobilen Werte gleichverteilte Werte zwischen 30 (minimal)
         //und 60 (maximale Häufigkeit => ab hier greift die Funktion) Sekunden
         if(randvalue2 < 0.16) 
-            duration=30+300*randvalue2;
+            duration=(int)(30+300*randvalue2);
         else 
         {
             duration=0;
@@ -235,7 +235,7 @@ MSDevice_CPhone::MyCommand::setInactivated()
                 {
                     randvalue1=double(rand())/double(RAND_MAX);
                 }
-                duration= (-1)*(235.583)*log(randvalue1)+9.2057;
+                duration= (int)(-235.583*log(randvalue1)+9.2057);
             }
         }
 //        duration = 1000* duration;
