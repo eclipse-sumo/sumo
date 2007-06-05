@@ -22,4 +22,7 @@ unknown_option
 # Same as ../plain/straight_only but with a deprecated divider
 straight_only_deprecated
 
+# Tests for checking false sink definitions
+sinks
+
 
