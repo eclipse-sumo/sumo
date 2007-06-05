@@ -1,0 +1,33 @@
+# Tests what happens if the user uses a route containing only one edge
+one_edge_route
+
+# Tests what happens if a vehicle is longer that the route it shall start at
+too_long_vehicle
+
+
+# within emitters: a valid definition
+ok_emitteremission
+
+# within emitters: empty route
+emptyroute_emitteremission
+
+
+# plain emission, new style: a valid definition
+ok_newstyle_plainemission
+
+# plain emission, new style: empty route
+emptyroute_newstyle_plainemission
+
+
+# plain emission, old style: a valid definition
+ok_oldstyle_plainemission
+
+# plain emission, old style: empty route
+emptyroute_oldstyle_plainemission
+
+
+
+# An empty route
+
+
+

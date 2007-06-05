@@ -1,0 +1,4 @@
+<routes>
+   <route id="0">beg middle end rend</route>
+   <vehicle id="0" route="0" depart="0"/>
+</routes>
