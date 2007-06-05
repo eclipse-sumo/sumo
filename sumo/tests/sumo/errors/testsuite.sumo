@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Tests what happens if an unknown option is passed
 unknown_option
 
@@ -28,11 +25,8 @@ meandata_edges_missing_end_divider
 # Tests what happens if the order is false (begin>=end)
 meandata_edges_false_order
 
-# Tests what happens if the user uses a route containing only one edge
-one_edge_route
-
-# Tests what happens if a vehicle is longer that the route it shall start at
-too_long_vehicle
+# Tests for broken routes
+routes
 
 
 
