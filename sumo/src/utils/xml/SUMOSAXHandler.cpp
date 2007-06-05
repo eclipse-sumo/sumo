@@ -76,7 +76,7 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
     ostringstream buf;
     char *pMsg = XMLString::transcode (exception.getMessage());
     buf << pMsg << endl;
-    buf << " In file ' " << getFileName() << "'" << endl;
+    buf << " In file '" << getFileName() << "'" << endl;
     buf << " At line/column " << exception.getLineNumber()+1
     << '/' << exception.getColumnNumber() << "." << endl;
     delete[]pMsg;
@@ -87,21 +87,21 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    throw XMLBuildingException("Warning: " + buildErrorMessage(exception));
+    throw ProcessError("Warning: " + buildErrorMessage(exception));
 }
 
 
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    throw XMLBuildingException(buildErrorMessage(exception));
+    throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    throw XMLBuildingException(buildErrorMessage(exception));
+    throw ProcessError(buildErrorMessage(exception));
 }
 
 

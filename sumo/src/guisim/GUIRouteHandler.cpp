@@ -157,7 +157,9 @@ GUIRouteHandler::closeRoute()
             if(myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                    throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                }
             }
         } else {
             route = static_cast<GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
