@@ -4,26 +4,8 @@ unknown_option
 # Tests what happens the first parameter is missing
 missing_first_param
 
-# Tests what happens if mean data constrains are incomplete (first begin is missing)
-meandata_edges_missing_begin1
-
-# Tests what happens if mean data constrains are incomplete (second  begin is missing)
-meandata_edges_missing_begin2
-
-# Tests what happens if mean data constrains are incomplete (second begin is missing, divider is there)
-meandata_edges_missing_begin_divider
-
-# Tests what happens if mean data constrains are incomplete (first end is missing)
-meandata_edges_missing_end1
-
-# Tests what happens if mean data constrains are incomplete (second  end is missing)
-meandata_edges_missing_end2
-
-# Tests what happens if mean data constrains are incomplete (second end is missing, divider is there)
-meandata_edges_missing_end_divider
-
-# Tests what happens if the order is false (begin>=end)
-meandata_edges_false_order
+# Tests for false meandata usage
+meandata
 
 # Tests for broken routes
 routes
