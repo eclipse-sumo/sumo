@@ -60,7 +60,6 @@
 #include <routing_jtr/ROJTRRouter.h>
 #include <routing_jtr/ROJTREdge.h>
 #include <routing_jtr/ROJTRTurnDefLoader.h>
-#include <routing_jtr/ROJTRHelpers.h>
 #include <routing_jtr/ROJTRFrame.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -127,23 +126,26 @@ getTurningDefaults(OptionsCont &oc)
     return ret;
 }
 
+
 void
-loadJPDefinitions(RONet &net, OptionsCont &oc)
+loadJTRDefinitions(RONet &net, OptionsCont &oc)
 {
-    std::set<ROJTREdge*> ret;
     // load the turning definitions (and possible sink definition)
     if (oc.isSet("turn-definition")) {
         ROJTRTurnDefLoader loader(net);
-        ret = loader.load(oc.getString("turn-definition"));
+        loader.load(oc.getString("turn-definition"));
     }
-    // add edges specified at the input/within the configuration
+    // parse sink edges specified at the input/within the configuration
     if (oc.isSet("sinks")) {
-        ROJTRHelpers::parseROJTREdges(net, ret, oc.getString("sinks"));
-    }
-    // set the sink information into the edges
-    for (std::set<ROJTREdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
-            (*i)->setType(ROEdge::ET_SINK);
+        vector<string> edges = oc.getStringVector("sinks");
+        for(vector<string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
+            if (edge==0) {
+                throw ProcessError("The edge '" + *i + " declared as a sink was not found in the network.");
+            }
+            edge->setType(ROEdge::ET_SINK);
         }
+    }
 }
 
 
@@ -218,7 +220,7 @@ main(int argc, char **argv)
 
             // build routes
             try {
-                loadJPDefinitions(*net, oc);
+                loadJTRDefinitions(*net, oc);
                 startComputation(*net, loader, oc);
             } catch (SAXParseException &e) {
                 MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));

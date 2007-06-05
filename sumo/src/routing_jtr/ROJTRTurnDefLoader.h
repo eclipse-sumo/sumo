@@ -70,7 +70,7 @@ public:
     /** @brief Loads the turning definitions and additionally the sinks
         While the sinks are returned on return, the turn definitions are stored
         into the network directly */
-    std::set<ROJTREdge*> load(const std::string &file);
+    void load(const std::string &file);
 
     /** @brief used when csv instead of xml-descriptions are used */
     bool report(const std::string &line);

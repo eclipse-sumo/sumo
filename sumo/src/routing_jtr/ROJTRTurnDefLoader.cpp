@@ -45,7 +45,6 @@
 #include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
-#include "ROJTRHelpers.h"
 #include "ROJTREdge.h"
 #include "ROJTRTurnDefLoader.h"
 
@@ -73,18 +72,18 @@ ROJTRTurnDefLoader::~ROJTRTurnDefLoader()
 {}
 
 
-std::set<ROJTREdge*>
-    ROJTRTurnDefLoader::load(const std::string &file)
+void
+ROJTRTurnDefLoader::load(const std::string &file)
 {
     _file = file;
     FileHelpers::FileType type = FileHelpers::checkFileType(file);
     switch (type) {
     case FileHelpers::XML:
         XMLHelpers::runParser(*this, file);
-        return mySinks;
+        break;
     case FileHelpers::CSV:
         CSVHelpers::runParser(*this, file);
-        return mySinks;
+        break;
     default:
         throw 1;
     }
@@ -115,7 +114,22 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element, const std::string &/*name*/
 {
     switch (element) {
     case SUMO_TAG_SINK:
-        addSink(chars);
+        {
+            ROEdge *edge = myNet.getEdge(chars);
+            if(edge==0) {
+                throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
+            }
+            edge->setType(ROEdge::ET_SINK);
+        }
+        break;
+    case SUMO_TAG_SOURCE:
+        {
+            ROEdge *edge = myNet.getEdge(chars);
+            if(edge==0) {
+                throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
+            }
+            edge->setType(ROEdge::ET_SOURCE);
+        }
         break;
     }
 }
@@ -272,15 +286,6 @@ ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The 'probability'-attribute is not given.");
         return;
     }
-}
-
-
-void
-ROJTRTurnDefLoader::addSink(const std::string &chars)
-{
-    try {
-        ROJTRHelpers::parseROJTREdges(myNet, mySinks, chars);
-    } catch (ProcessError &) {}
 }
 
 
