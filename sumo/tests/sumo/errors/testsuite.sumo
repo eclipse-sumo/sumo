@@ -10,6 +10,9 @@ meandata
 # Tests for broken routes
 routes
 
+# Tests for duplicate structures (replacing XMLIdAlreadyUsedException)
+duplicates
+
 
 
 

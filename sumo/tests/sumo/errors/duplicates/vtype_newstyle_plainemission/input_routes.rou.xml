@@ -1,0 +1,7 @@
+<routes>
+	<vtype id="1"/>
+	<vtype id="1"/>
+   <vehicle id="0" depart="0">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>
