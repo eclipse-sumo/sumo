@@ -87,6 +87,14 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\iodevices\BinaryInputDevice.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\iodevices\BinaryOutputDevice.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\iodevices\OutputDevice_COUT.cpp
 # End Source File
 # Begin Source File
@@ -101,6 +109,14 @@ SOURCE=..\..\..\src\utils\iodevices\SharedOutputDevices.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\iodevices\BinaryInputDevice.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\iodevices\BinaryOutputDevice.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\iodevices\OutputDevice.h

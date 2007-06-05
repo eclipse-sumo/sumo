@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(PROJ_GDAL)\include" /I "$(XERCES)\include" /I "..\..\..\src" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "..\..\..\src" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(PROJ_GDAL)\include" /I "$(XERCES)\include" /I "..\..\..\src" /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "..\..\..\src" /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -87,14 +87,6 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\bindevice\BinaryInputDevice.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\bindevice\BinaryOutputDevice.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\common\DoubleVector.cpp
 # End Source File
 # Begin Source File
@@ -104,10 +96,6 @@ SOURCE=..\..\..\src\utils\common\FileErrorReporter.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\FileHelpers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\geoconv\GeoConvHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -159,14 +147,6 @@ SOURCE=..\..\..\src\utils\common\AbstractMutex.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\bindevice\BinaryInputDevice.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\bindevice\BinaryOutputDevice.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\common\BoolVector.h
 # End Source File
 # Begin Source File
@@ -180,10 +160,6 @@ SOURCE=..\..\..\src\utils\common\FileErrorReporter.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\FileHelpers.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\geoconv\GeoConvHelper.h
 # End Source File
 # Begin Source File
 

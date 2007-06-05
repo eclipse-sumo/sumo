@@ -159,6 +159,8 @@ GUIRouteHandler::closeRoute()
             } else {
                 if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                } else {
+                    throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
                 }
             }
         } else {
