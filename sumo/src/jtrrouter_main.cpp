@@ -141,7 +141,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
         for(vector<string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge==0) {
-                throw ProcessError("The edge '" + *i + " declared as a sink was not found in the network.");
+                throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
             }
             edge->setType(ROEdge::ET_SINK);
         }
