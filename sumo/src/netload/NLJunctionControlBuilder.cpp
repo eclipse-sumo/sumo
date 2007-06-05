@@ -189,7 +189,7 @@ NLJunctionControlBuilder::closeJunction()
     if (junction!=0) {
         myJunctions->push_back(junction);
         if (!MSJunction::dictionary(myActiveID, junction)) {
-            throw XMLIdAlreadyUsedException("junction", myActiveID);
+            throw ProcessError("Another junction with the id '" + myActiveID + "' exists.");
         }
     }
 }

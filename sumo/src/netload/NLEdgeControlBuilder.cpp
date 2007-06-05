@@ -45,6 +45,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
@@ -96,7 +97,7 @@ NLEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
     if (!MSEdge::dictionary(id, edge)) {
-        throw XMLIdAlreadyUsedException("Edge", id);
+        throw ProcessError("Another edge with the id '" + id + "' exists.");
     }
     m_pEdges->push_back(edge);
     return edge;
@@ -125,7 +126,7 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw XMLDepartLaneDuplicationException(id);
+        throw ProcessError("Lane's '" + id + "' edge already has a depart lane.");
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);
@@ -203,7 +204,7 @@ NLEdgeControlBuilder::addAllowed(MSLane *lane)
     // checks if the lane is inside the edge
     MSEdge::LaneCont::iterator i1 = find(m_pLanes->begin(), m_pLanes->end(), lane);
     if (i1==m_pLanes->end()) {
-        throw XMLInvalidChildException("lane", lane->getID());
+        throw ProcessError("Broken net: lane '" + lane->getID() + "' is not within the current edge.");
     }
     m_pLaneStorage->push_back(lane);
 }

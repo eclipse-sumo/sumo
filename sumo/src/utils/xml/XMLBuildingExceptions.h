@@ -77,52 +77,7 @@ public:
 };
 
 
-/**
- * @class XMLIdAlreadyUsedException
- * thrown when a duplicate key for the same object type is given
- */
-class XMLIdAlreadyUsedException : public XMLBuildingException
-{
-public:
-    /** constructor */
-    XMLIdAlreadyUsedException(const std::string &object, const std::string &id)
-            : XMLBuildingException("Another " + object + " with the id " + id + " exists")
-    {}
 
-};
-
-
-/**
- * @class XMLDepartLaneDuplicationException
- * thrown when an edge has two or more defined depart lanes
- */
-class XMLDepartLaneDuplicationException : public XMLBuildingException
-{
-public:
-    /** constructor */
-    XMLDepartLaneDuplicationException(const std::string &id)
-            : XMLBuildingException("The lane with the id " + id
-                                   + " was tried to be added as a depart lane to an edge which already has a depart lane")
-    {}
-
-};
-
-
-/**
- * @class XMLInvalidChildException
- * thrown when a child to add to a larger structure is invalid
- * (f.i. was not formerly known)
- */
-class XMLInvalidChildException : public XMLBuildingException
-{
-public:
-    /** constructor */
-    XMLInvalidChildException(const std::string &object, const std::string &id)
-            : XMLBuildingException("The object " + object + " with the id " + id
-                                   + " is not nested properly")
-    {}
-
-};
 
 
 

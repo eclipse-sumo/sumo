@@ -142,7 +142,7 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
         myCurrentVType = helper.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         // now try to build the rest of the vehicle
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing vehicle type for vehicle '" + myActiveVehicleID + "'");
+        MsgHandler::getErrorInstance()->inform("Missing vehicle type name for vehicle '" + myActiveVehicleID + "'");
         return false;
     }
     // try to get the departure time

@@ -71,7 +71,7 @@ public:
     ~GUIEdgeControlBuilder();
 
     /** adds an edge with the given id to the list of edges; this method
-        throws an XMLIdAlreadyUsedException when the id was already used for
+        throws an ProcessError when the id was already used for
         another edge */
     MSEdge *addEdge(const std::string &id);
 

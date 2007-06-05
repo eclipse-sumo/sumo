@@ -405,10 +405,6 @@ NLHandler::addLane(const Attributes &attrs)
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
             myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (XMLDepartLaneDuplicationException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
         } catch (NumberFormatException &) {
@@ -434,8 +430,6 @@ NLHandler::addPOI(const Attributes &attrs)
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
                                     getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of POI '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -458,8 +452,6 @@ NLHandler::addPoly(const Attributes &attrs)
                                         getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                                         getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -1205,8 +1197,6 @@ NLHandler::addAllowedEdges(const std::string &chars)
             myEdgeControlBuilder.addAllowed(lane);
         } catch (XMLIdNotKnownException &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (XMLInvalidChildException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
 }
@@ -1454,7 +1444,7 @@ NLHandler::closeLane()
             myEdgeControlBuilder.addLane(myID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
         // insert the lane into the lane-dictionary, checking
         if (!MSLane::dictionary(myID, lane)) {
-            throw XMLIdAlreadyUsedException("Lanes", myID);
+            throw ProcessError("Another lane with the id '" + myID + "' exists.");
         }
     }
 }
@@ -1482,8 +1472,6 @@ NLHandler::closeJunction()
 {
     try {
         myJunctionControlBuilder.closeJunction();
-    } catch (XMLIdAlreadyUsedException &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }

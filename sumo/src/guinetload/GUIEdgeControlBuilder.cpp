@@ -87,7 +87,7 @@ GUIEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
     if (!MSEdge::dictionary(id, edge)) {
-        throw XMLIdAlreadyUsedException("Edge", id);
+        throw ProcessError("Another edge with the id '" + id + "' exists.");
     }
     m_pEdges->push_back(edge);
     return edge;
@@ -111,7 +111,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw XMLDepartLaneDuplicationException(id);
+        throw ProcessError("Lane's '" + id + "' edge already has a depart lane.");
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);

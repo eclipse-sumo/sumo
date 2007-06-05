@@ -213,8 +213,6 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -238,7 +236,7 @@ MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
         delete myCurrentVehicleType;
         myCurrentVehicleType = 0;
         if (!MSGlobals::gStateLoaded) {
-            throw XMLIdAlreadyUsedException("VehicleType", id);
+            throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
         }
     }
 }
@@ -327,11 +325,7 @@ MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        try {
-            closeRoute();
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
+        closeRoute();
         break;
     case SUMO_TAG_VEHICLE:
         closeVehicle();
@@ -356,7 +350,11 @@ MSRouteHandler::closeRoute()
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+            if(myActiveRouteID[0]!='!') {
+                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
+            } else {
+                throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+            }
         } else {
             route = MSRoute::dictionary(myActiveRouteID);
         }
@@ -392,7 +390,11 @@ MSRouteHandler::closeVehicle()
     }
     if (route==0) {
         // nothing found? -> error
-        throw ProcessError("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        if(myCurrentRouteName!="") {
+            throw ProcessError("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        } else {
+            throw ProcessError("Vehicle '" + myActiveVehicleID + "' has no route.");
+        }
     }
 
     // check whether the first edge is long enough for the vehicle
@@ -431,7 +433,7 @@ MSRouteHandler::closeVehicle()
         if (!MSGlobals::gStateLoaded) {
             // and was not loaded while loading a simulation state
             // -> error
-            throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
+            throw ProcessError("Another vehicle with the id '" + myActiveVehicleID + "' exists.");
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;

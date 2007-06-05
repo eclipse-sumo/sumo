@@ -98,7 +98,7 @@ public:
 #endif
 
     /** @brief Closes (ends) the processing of the current junction;
-        This method may throw a XMLIdAlreadyUsedException when a junction
+        This method may throw a ProcessError when a junction
         with the same id as the current was already added */
     void closeJunction();
 

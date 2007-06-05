@@ -146,8 +146,6 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
-        } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -173,7 +171,7 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
         delete myCurrentVehicleType;
         myCurrentVehicleType = 0;
         if (!MSGlobals::gStateLoaded) {
-            throw XMLIdAlreadyUsedException("VehicleType", id);
+            throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
         }
     }
 }
@@ -206,7 +204,11 @@ GUIHandler::closeRoute()
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+            if(myActiveRouteID[0]!='!') {
+                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
+            } else {
+                throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+            }
         }
     }
     if (myAmInEmbeddedMode) {

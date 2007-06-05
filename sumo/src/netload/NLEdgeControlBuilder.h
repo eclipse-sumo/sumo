@@ -86,7 +86,7 @@ public:
     void prepare(unsigned int no);
 
     /** @brief Adds an edge with the given id to the list of edges;
-        This method throws an XMLIdAlreadyUsedException when the id was
+        This method throws an ProcessError when the id was
         already used for another edge */
     virtual MSEdge *addEdge(const std::string &id);
 
@@ -95,7 +95,7 @@ public:
                     MSEdge::EdgeBasicFunction function);
 
     /** @brief Adds a lane to the current edge;
-        This method throws an XMLDepartLaneDuplicationException when the
+        This method throws an ProcessError when the
         lane is marked to be the depart lane and another so marked lane
         was added before */
     virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
@@ -110,7 +110,7 @@ public:
     void openAllowedEdge(MSEdge *edge);
 
     /** @brief Adds a lane that may be used to reach the edge previously specified by "openAllowedEdge"
-        This method throws an XMLInvalidChildException when the lane is
+        This method throws a ProcessError when the lane is
         not belonging to the current edge */
     void addAllowed(MSLane *lane);
 
