@@ -38,14 +38,12 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./sumo_only/libsumoonly.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
-./utils/bindevice/libbindevice.a \
 ./utils/common/libcommon.a \
 ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
-./utils/geoconv/libgeoconv.a \
 $(MEM_LIBS) \
 $(ITM_LIBS) \
 $(TCPIP_LIBS) \
@@ -58,7 +56,6 @@ sumo_netconvert_SOURCES = netconvert_main.cpp
 sumo_netconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
-./utils/geoconv/libgeoconv.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -91,7 +88,6 @@ sumo_netgen_SOURCES = netgen_main.cpp
 sumo_netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
-./utils/geoconv/libgeoconv.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
 ./utils/geom/libgeom.a \
@@ -176,8 +172,7 @@ sumo_polyconvert_SOURCES = polyconvert_main.cpp
 
 sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
-sumo_polyconvert_LDADD   = ./utils/geoconv/libgeoconv.a \
-./polyconvert/libpolyconvert.a \
+sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
 ./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
 ./utils/xml/libxml.a \
@@ -222,7 +217,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./utils/options/liboptions.a \
 ./sumo_only/libsumoonly.a \
-./utils/bindevice/libbindevice.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 ./utils/common/libcommon.a \
@@ -233,7 +227,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/iodevices/libiodevices.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
-./utils/geoconv/libgeoconv.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
@@ -252,3 +245,7 @@ netedit_main.cpp \
 tagreader.cpp \
 windows_config.h
 
+#version.h: .svn/entries
+#	../tools/build/version.py
+
+#od2trips_main.o: version.h
