@@ -5395,16 +5395,6 @@
         <screen>jtrrouter --flow-defs=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --turns=<replaceable>&lt;TURN_DEFINITIONS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
 
-        <para>The definitions of the flow look like the ones for the
-        <application>DUAROUTER</application> with just a single difference: as
-        it is not known where the vehicle will leave the network as the route
-        it uses is randomly computed, the destination parameter has no meaning
-        for jtr-routing and so may be left off. A vehicle leaves the network
-        as soon as it comes to a sink edge. As not all networks have sink
-        edges set, one can support a list of edges to be declared as sinks
-        using <option>--sinks
-        <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]*</replaceable></option>.</para>
-
         <para>To describe the turn definitions, one has to build a further
         file. Within this file, for each interval and each edge the list of
         percentages to use a certain follower is to be given. An
@@ -5462,6 +5452,26 @@
         <option>--turn-defaults=20;70;10</option> a vehicle using an edge that
         has two followers would use the follower to the right with 55%
         probability, the one to the left with 45%.</para>
+
+        <para>The definitions of the flow look like the ones for the
+        <application>DUAROUTER</application> with just a single difference: as
+        it is not known where the vehicle will leave the network as the route
+        it uses is randomly computed, the destination parameter has no meaning
+        for jtr-routing and so may be left off. A vehicle leaves the network
+        as soon as it comes to a sink edge. As not all networks have sink
+        edges set, one can support a list of edges to be declared as sinks
+        using <option>--sinks
+        <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]*</replaceable></option>.
+        You may also add your sink definitions to a turn-file (XML
+        only):</para>
+
+        <programlisting><sgmltag>&lt;turn-defs&gt;</sgmltag>
+   ... some further turning definitions as above ...
+ 
+   <sgmltag>&lt;sink&gt;<replaceable>&lt;EDGE_ID&gt;</replaceable>&lt;/sink&gt;</sgmltag>
+   ... further sink definitions ...
+
+<sgmltag>&lt;/turn-defs&gt;</sgmltag></programlisting>
 
         <para>As theoretically a route may get infinitely long when a vehicle
         is forced to take always the same direction, it is possible to limit
@@ -5544,6 +5554,11 @@
             "<sgmltag>probability</sgmltag>" is more common throughout the
             package and the values had to be in the range between 0 and 1,
             what is no percentage information at all.</para>
+          </listitem>
+
+          <listitem>
+            <para>The possibility to define sinks in XML-turn-definitions was
+            firstly described in version 0.9.7</para>
           </listitem>
         </itemizedlist>
 
