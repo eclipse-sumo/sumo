@@ -117,10 +117,6 @@ SOURCE=..\..\..\src\routing_jtr\ROJTRFrame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_jtr\ROJTRHelpers.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\routing_jtr\ROJTRRouter.cpp
 # End Source File
 # Begin Source File
@@ -154,10 +150,6 @@ SOURCE=..\..\..\src\routing_jtr\ROJTREdgeBuilder.h
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_jtr\ROJTRFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJTRHelpers.h
 # End Source File
 # Begin Source File
 
