@@ -271,7 +271,7 @@ MSVehicle::initDevices(int vehicleIndex)
     OptionsCont &oc = OptionsSubSys::getOptions();
 
     // cell phones
-    if (myType->getID().compare("zug")== 0)
+    if (myType->getID().compare("SBahn")== 0)
     {
         int noCellPhones = 1;
         if ( (28800 <= myDesiredDepart && 32400 >= myDesiredDepart ) || ( 61200 <= myDesiredDepart && 64800 >= myDesiredDepart ) )/*40% 8 -9;17-18*/
@@ -332,7 +332,7 @@ MSVehicle::initDevices(int vehicleIndex)
             noCellPhones = 2;
         else if (myType->getID().compare("sbahn")== 0)
             noCellPhones = 3;
-        else if (myType->getID().compare("zug")== 0)
+        else if (myType->getID().compare("SBahn")== 0)
             noCellPhones = 4;
         vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
         for (int np=0; np<noCellPhones; np++) {
