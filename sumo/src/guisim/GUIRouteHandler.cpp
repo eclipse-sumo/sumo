@@ -143,7 +143,11 @@ GUIRouteHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        throw XMLListEmptyException("route", myActiveRouteID);
+        if(myActiveRouteID[0]!='!') {
+            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        } else {
+            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
+        }
     }
     GUIRoute *route =
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);

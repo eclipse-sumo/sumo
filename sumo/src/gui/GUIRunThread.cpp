@@ -169,9 +169,7 @@ GUIRunThread::makeStep()
     // simulation is being perfomed
     _simulationInProgress = true;
     // execute a single step
-#ifndef _DEBUG
     try {
-#endif
         mySimulationLock.lock();
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
@@ -206,6 +204,19 @@ GUIRunThread::makeStep()
             myEventQue.add(e);
             myEventThrow.signal();
         }
+    } catch (ProcessError &e2) {
+        if(string(e2.what())!=string("Process Error") && string(e2.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e2.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        mySimulationLock.unlock();
+        _simulationInProgress = false;
+        e = new GUIEvent_SimulationEnded(
+                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
+        myEventQue.add(e);
+        myEventThrow.signal();
+        _halting = true;
+        _ok = false;
 #ifndef _DEBUG
     } catch (...) {
         mySimulationLock.unlock();
@@ -216,8 +227,8 @@ GUIRunThread::makeStep()
         myEventThrow.signal();
         _halting = true;
         _ok = false;
-    }
 #endif
+    }
     // check whether the simulation got too slow, halt then
     if (_net->logSimulationDuration() && _net->getTooSlowRTF()>0) {
         SUMOReal rtf =

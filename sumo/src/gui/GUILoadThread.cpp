@@ -134,9 +134,7 @@ GUILoadThread::run()
     GUITriggerBuilder tb;
     GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
-#ifndef _DEBUG
     try {
-#endif
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
@@ -151,14 +149,22 @@ GUILoadThread::run()
             closeNetLoadingDependent(oc, *net);
             RandHelper::initRandGlobal(oc);
         }
+    } catch (ProcessError &e) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        delete net;
+        MSNet::clearAll();
+        net = 0;
 #ifndef _DEBUG
     } catch (exception &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         delete net;
         MSNet::clearAll();
         net = 0;
-    }
 #endif
+    }
     if (net==0) {
         MSNet::clearAll();
     }

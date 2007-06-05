@@ -125,21 +125,6 @@ public:
 };
 
 
-/**
- * @class XMLListEmptyException
- * thrown when an empty list which should have values is used
- */
-class XMLListEmptyException : public XMLBuildingException
-{
-public:
-    /** constructor */
-    XMLListEmptyException(const std::string &object, const std::string &id)
-            : XMLBuildingException("The list belonging to the '" + object + "' with the id '"
-                                   + id + "' is empty")
-    {}
-
-};
-
 
 #endif
 

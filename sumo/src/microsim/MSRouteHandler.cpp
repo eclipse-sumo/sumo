@@ -295,8 +295,11 @@ MSRouteHandler::addRouteElements(const std::string &name,
 {
     StringTokenizer st(chars);
     if (st.size()==0) {
-        MsgHandler::getErrorInstance()->inform("Empty route (" + myActiveRouteID + ")");
-        return;
+        if(myActiveRouteID[0]!='!') {
+            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        } else {
+            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
+        }
     }
     MSEdge *edge = 0;
     while (st.hasNext()) {
@@ -326,8 +329,6 @@ MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &)
     case SUMO_TAG_ROUTE:
         try {
             closeRoute();
-        } catch (XMLListEmptyException &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
@@ -344,7 +345,11 @@ MSRouteHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        throw XMLListEmptyException("route", myActiveRouteID);
+        if(myActiveRouteID[0]!='!') {
+            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        } else {
+            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
+        }
     }
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
     myActiveRoute.clear();
