@@ -89,9 +89,9 @@ MSPerson::MSPersonStage_Walking::getWalkingTime()
 
 
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet *net,
-        MSPerson *person, SUMOTime now,
-        MSEdge *previousEdge)
+MSPerson::MSPersonStage_Walking::proceed(MSNet* /*net*/,
+        MSPerson* /*person*/, SUMOTime /*now*/,
+        MSEdge* /*previousEdge*/)
 {
 //!!!    myWalking.add(now + m_uiWalkingTime, person);
 }
@@ -118,8 +118,9 @@ MSPerson::MSPersonStage_PublicVehicle::getLineId() const
 }
 
 void
-MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet *net, MSPerson *person,
-        SUMOTime now, MSEdge *previousEdge)
+MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet* /*net*/,
+        MSPerson* /*person*/, SUMOTime /*now*/,
+        MSEdge* /*previousEdge*/)
 {
 //!!!!    previousEdge->addWaitingForPublicVehicle(person, m_LineId);
 }
@@ -164,8 +165,9 @@ MSPerson::MSPersonStage_PrivateVehicle::getVehicleType() const
 
 
 void
-MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet *net, MSPerson *person,
-        SUMOTime now, MSEdge *previousEdge)
+MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet* /*net*/,
+        MSPerson* /*person*/, SUMOTime /*now*/,
+        MSEdge* /*previousEdge*/)
 {
     /*!!!
     MSVehicle *vehicle = new MSVehicle(m_VehicleId,  (MSNet::Route*) MSNet::routeDict(m_RouteId), now, MSVehicleType::dictionary(m_VehicleType));
@@ -196,8 +198,9 @@ MSPerson::MSPersonStage_Waiting::getWaitingTime() const
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet *net, MSPerson *person,
-        SUMOTime now, MSEdge *previousEdge)
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* /*net*/,
+        MSPerson* /*person*/, SUMOTime /*now*/,
+        MSEdge* /*previousEdge*/)
 {
 //!!!!    net->myPersons->add(now + m_uiWaitingTime, person);
 }
@@ -235,7 +238,7 @@ MSPerson::getCurrentStage() const
 
 
 void
-MSPerson::proceed(MSNet *net, SUMOTime time)
+MSPerson::proceed(MSNet* /*net*/, SUMOTime /*time*/)
 {
     /*!!!
     MSEdge *arrivedAt = m_pStep->getDestination();

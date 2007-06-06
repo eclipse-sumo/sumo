@@ -24,19 +24,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef WIN32
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
 
+#ifdef _MSC_VER
 #include <utils/helpers/msvc6_TypeTraits.h>
-#endif
-#ifndef WIN32
+#else
 #include <utils/helpers/gcc_TypeTraits.h>
 #endif
-
 
 // ===========================================================================
 // class definitions

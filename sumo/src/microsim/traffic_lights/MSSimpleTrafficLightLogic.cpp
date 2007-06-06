@@ -44,7 +44,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet& /*net*/,
         MSTLLogicControl &tlcontrol,
         const std::string &id,
         const std::string &subid,

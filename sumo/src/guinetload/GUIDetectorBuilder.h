@@ -82,7 +82,7 @@ protected:
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
-                                            SUMOTime haltingTimeThreshold,
+                                            MSUnit::Seconds haltingTimeThreshold,
                                             MSUnit::MetersPerSecond haltingSpeedThreshold);
 
 

@@ -83,6 +83,13 @@ fi
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
+case "$host" in
+     *-cygwin*)
+     AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
+     AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined when using cygwin])
+     ;;
+esac
+
 AC_ARG_ENABLE([itm],[AS_HELP_STRING([--enable-itm],[enable itm remoteserver code [default=no].])],
               [AC_DEFINE(ITM, 1, [Define to 1 in order to enable itm remote server code.])])
 AM_CONDITIONAL(ITM, test x$enable_itm = xyes)	      

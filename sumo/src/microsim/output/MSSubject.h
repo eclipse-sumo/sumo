@@ -35,10 +35,9 @@
 #include <functional>
 #include <vector>
 #include <cassert>
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <utils/helpers/msvc6_TypeTraits.h>
-#endif
-#ifndef WIN32
+#else
 #include <utils/helpers/gcc_TypeTraits.h>
 #endif
 

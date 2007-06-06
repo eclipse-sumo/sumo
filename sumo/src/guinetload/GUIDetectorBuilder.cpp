@@ -108,7 +108,7 @@ MSE3Collector *
 GUIDetectorBuilder::createE3Detector(const std::string &id,
                                      const CrossSectionVector &entries,
                                      const CrossSectionVector &exits,
-                                     SUMOTime haltingTimeThreshold,
+                                     MSUnit::Seconds haltingTimeThreshold,
                                      MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
     return new GUIE3Collector(id, entries, exits,
