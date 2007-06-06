@@ -2,7 +2,7 @@
 /// @file    SUMOSAXHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: SUMOSAXHandler.cpp 3736 2007-03-30 12:47:23 +0200 (Fr, 30 Mrz 2007) dkrajzew $
+/// @version $Id$
 ///
 // The basic SAX-handler for SUMO-files
 /****************************************************************************/

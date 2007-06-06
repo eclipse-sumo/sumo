@@ -2,7 +2,7 @@
 /// @file    remoteserver.h
 /// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
 /// @date    2007/03/13
-/// @version $Id: $
+/// @version $Id$
 ///
 /// socket server used to control sumo by remote client
 /****************************************************************************/

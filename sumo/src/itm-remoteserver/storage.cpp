@@ -2,7 +2,7 @@
 /// @file    storage.cpp
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
 /// @date    2006/09/07
-/// @version $Id: $
+/// @version $Id$
 ///
 /// methods for sending and receiving data over socket connections
 /****************************************************************************/

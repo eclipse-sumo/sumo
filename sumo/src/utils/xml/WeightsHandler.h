@@ -2,7 +2,7 @@
 /// @file    WeightsHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 30 Mar 2007
-/// @version $Id: WeightsHandler.h 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
+/// @version $Id$
 ///
 // An XML-handler for network weights
 /****************************************************************************/

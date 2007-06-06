@@ -2,7 +2,7 @@
 /// @file    Intersection.h
 /// @author  unknown_author
 /// @date    Jun 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

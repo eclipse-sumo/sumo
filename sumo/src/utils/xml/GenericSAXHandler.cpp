@@ -2,7 +2,7 @@
 /// @file    GenericSAXHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: GenericSAXHandler.h 3712 2007-03-28 14:23:50 +0200 (Mi, 28 Mrz 2007) dkrajzew $
+/// @version $Id$
 ///
 // A combination between a GenericSAXHandler and an GenericSAXHandler
 /****************************************************************************/

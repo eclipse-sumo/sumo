@@ -2,7 +2,7 @@
 /// @file    socket.h
 /// @author  Dennis Pfisterer <pfisterer@itm.uni-luebeck.de>
 /// @date    <FILE CREATION DATE>
-/// @version $Id: $
+/// @version $Id$
 ///
 /// socket access (client and server)
 /****************************************************************************/

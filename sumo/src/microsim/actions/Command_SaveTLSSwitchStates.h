@@ -2,7 +2,7 @@
 /// @file    Command_SaveTLSSwitchStates.h
 /// @author  Daniel Krajzewicz
 /// @date    08.05.2007
-/// @version $Id: Command_SaveTLSSwitchStates.h 3829 2007-04-19 09:28:31 +0200 (Do, 19 Apr 2007) dkrajzew $
+/// @version $Id$
 ///
 // Writes the state of the tls to a file when it switches
 /****************************************************************************/

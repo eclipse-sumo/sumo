@@ -2,7 +2,7 @@
 /// @file    SUMOXMLDefinitions.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: SUMOXMLDefinitions.h 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
+/// @version $Id$
 ///
 // Definitions of elements and attributes known by SUMO
 /****************************************************************************/

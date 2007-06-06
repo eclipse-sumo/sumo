@@ -2,7 +2,7 @@
 /// @file    Intersection.cpp
 /// @author  unknown_author
 /// @date    Jun 2005
-/// @version $Id: $
+/// @version $Id$
 ///
 // }
 /****************************************************************************/

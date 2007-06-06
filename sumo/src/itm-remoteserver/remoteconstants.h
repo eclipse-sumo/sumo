@@ -2,7 +2,7 @@
 /// @file    remoteconstants.h
 /// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
 /// @date    2007/03/13
-/// @version $Id: $
+/// @version $Id$
 ///
 /// holds codes used for transmission protocol
 /****************************************************************************/

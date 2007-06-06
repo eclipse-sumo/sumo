@@ -2,7 +2,7 @@
 /// @file    PCXMLPoints.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: PCXMLPoints.cpp 3547 2007-02-21 14:38:24 +0100 (Mi, 21 Feb 2007) dkrajzew $
+/// @version $Id$
 ///
 // A reader of pois stored in XML-format
 /****************************************************************************/

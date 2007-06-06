@@ -2,7 +2,7 @@
 /// @file    SUMOBaseRouteHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 12.12.2005
-/// @version $Id: SUMOBaseRouteHandler.cpp 3793 2007-04-12 15:10:18 +0200 (Do, 12 Apr 2007) dkrajzew $
+/// @version $Id$
 ///
 // A base class for parsing vehicles
 /****************************************************************************/
