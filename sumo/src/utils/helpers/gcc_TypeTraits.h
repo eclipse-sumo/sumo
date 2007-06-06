@@ -1,7 +1,7 @@
 #ifndef TYPETRAITS_INC_
 #define TYPETRAITS_INC_
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

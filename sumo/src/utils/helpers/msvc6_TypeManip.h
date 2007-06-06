@@ -15,7 +15,7 @@
 
 // Last update: Oct 17, 2002
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

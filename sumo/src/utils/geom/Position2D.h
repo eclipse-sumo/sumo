@@ -19,12 +19,6 @@
 /****************************************************************************/
 #ifndef Position2D_h
 #define Position2D_h
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#endif
 
 
 // ===========================================================================
@@ -33,7 +27,7 @@
 #include <iostream>
 #include <cmath>
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

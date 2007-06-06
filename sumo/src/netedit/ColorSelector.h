@@ -19,12 +19,6 @@
 /****************************************************************************/
 #ifndef ColorSelector_h
 #define ColorSelector_h
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#endif
 
 
 // ===========================================================================
@@ -34,7 +28,7 @@
 #include "FXPacker.h"
 #endif
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

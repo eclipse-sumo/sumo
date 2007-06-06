@@ -24,7 +24,7 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

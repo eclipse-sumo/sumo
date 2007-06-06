@@ -42,7 +42,7 @@
 // Ignore forcing value to bool 'true' or 'false' (performance warning)
 //
 #ifdef _MSC_VER
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

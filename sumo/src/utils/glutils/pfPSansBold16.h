@@ -17,7 +17,7 @@ before using this file.
 #ifndef _pfPSansBold16_
 #define _pfPSansBold16_
 
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>

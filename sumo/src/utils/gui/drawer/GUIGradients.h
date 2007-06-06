@@ -20,18 +20,12 @@
 #ifndef GUIGradients_h
 #define GUIGradients_h
 
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#endif
 
 
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
