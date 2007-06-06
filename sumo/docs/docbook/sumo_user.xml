@@ -5397,7 +5397,7 @@
 
         <para>To describe the turn definitions, one has to build a further
         file. Within this file, for each interval and each edge the list of
-        percentages to use a certain follower is to be given. An
+        percentages to use a certain follower has to be given. An
         example:</para>
 
         <programlisting><sgmltag>&lt;turn-defs&gt;</sgmltag>
@@ -5442,24 +5442,24 @@
         be used to describe the default ratios that will be used for all
         junctions for all time steps.
         <option><replaceable>&lt;TURN_DEFAULTS&gt;</replaceable></option> is a
-        list of doubles, separated by a ';'. To achieve the same behaviour as
-        in the example above, use <option>--turn-defaults=20;70;10</option>.
+        list of doubles, separated by a ','. To achieve the same behaviour as
+        in the example above, use <option>--turn-defaults=20,70,10</option>.
         The values will be applied to an edge's following edges beginning at
         the right edge (20%) and ending at the leftmost edge (10%). As the
         number of possible followers changes for different edges, the values
         are resampled for edges which number of following edges differs from
         the number of given turning probability defaults. Given
-        <option>--turn-defaults=20;70;10</option> a vehicle using an edge that
+        <option>--turn-defaults=20,70,10</option> a vehicle using an edge that
         has two followers would use the follower to the right with 55%
         probability, the one to the left with 45%.</para>
 
-        <para>The definitions of the flow look like the ones for the
+        <para>The definitions of the flow is the same as for the
         <application>DUAROUTER</application> with just a single difference: as
         it is not known where the vehicle will leave the network as the route
         it uses is randomly computed, the destination parameter has no meaning
         for jtr-routing and so may be left off. A vehicle leaves the network
         as soon as it comes to a sink edge. As not all networks have sink
-        edges set, one can support a list of edges to be declared as sinks
+        edges defined, one can support a list of edges to be declared as sinks
         using <option>--sinks
         <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]*</replaceable></option>.
         You may also add your sink definitions to a turn-file (XML
@@ -5559,6 +5559,11 @@
           <listitem>
             <para>The possibility to define sinks in XML-turn-definitions was
             firstly described in version 0.9.7</para>
+          </listitem>
+
+          <listitem>
+            <para>Default turn-percentages have to be divided using ',' since
+            version 0.9.7 (prior versions used ';')</para>
           </listitem>
         </itemizedlist>
 
