@@ -19,7 +19,6 @@ move /Y %MAKELOG% %REMOTE_DIR%
 move /Y %MAKEALLLOG% %REMOTE_DIR%
 
 REM run tests
-SET PATH=D:\Programme\TextTest3.8\;%PATH%
 cd tests
 SET TEXTTEST_TMP=%CD%\texttesttmp
 call testEnv.bat
@@ -28,6 +27,6 @@ texttest.py -b %SUMO_REPORT% -coll
 mkdir %REMOTE_DIR%\%SUMO_REPORT%
 xcopy %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT% /Y /E
 cd ..\tools\build
-status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% > %REMOTE_DIR%\%STATUSLOG%
+status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% ..\..\tests\config_all > %REMOTE_DIR%\%STATUSLOG%
 
 WinSCP3.com behrisch@shell.sf.net /privatekey=%REMOTE_DIR%\..\key.ppk /command "option batch on" "option confirm off" "cd sumo-www" "cd daily" "put %REMOTE_DIR%\*.*" "exit"
