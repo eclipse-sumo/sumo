@@ -160,9 +160,6 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, false);
     new FXMenuCommand(ret, "Add Successors To Selected", GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
-
-    SUMOReal pos = myShape.nearest_position_on_line_to_point(parent.getPositionInformation());
-    new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret, false);
