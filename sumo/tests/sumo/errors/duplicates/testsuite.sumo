@@ -28,4 +28,17 @@ vtype_oldstyle_plainemission
 vehicleid_oldstyle_plainemission
 
 
+# net: duplicate edge
+net_edge
+
+# net: junction
+net_junction
+
+# net: lane
+net_lane
+
+# net: depart_lane
+net_depart_lane
+
+
 
