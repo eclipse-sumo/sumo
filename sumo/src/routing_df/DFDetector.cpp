@@ -154,9 +154,6 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
     }
     std::vector<DFRORouteDesc*>::const_iterator ri;
     const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
-    if (getID()=="MQ257_0") {
-        int bla = 0;
-    }
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
@@ -172,11 +169,8 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
             for (vector<ROEdge*>::const_iterator q=rd->edges2Pass.begin(); lastProb!=0&&q!=rd->edges2Pass.end(); ++q) {
                 if ((*q)->getNoFollowing()>1&&q!=rd->edges2Pass.end()-1) {
                     // ok, we have a split; check probability for each of the successors
-                    map<ROEdge*, double> probs;
+                    map<ROEdge*, SUMOReal> probs;
                     SUMOReal allProbs = 0;
-                    if (getID()=="MQ257_0"&&(*q)->getID()=="572684192-AddedOffRampEdge") {
-                        int bla = 0;
-                    }
                     for (size_t i=0; i<(*q)->getNoFollowing(); ++i) {
                         ROEdge *ne = (*q)->getFollower(i);
                         SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net);

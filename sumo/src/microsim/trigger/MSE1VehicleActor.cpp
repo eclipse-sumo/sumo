@@ -132,7 +132,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         MSDevice_CPhone *cp = (*i);
         assert(cp != 0);
         if(veh.getVehicleType().getID()=="SBahn") {
-            SUMOReal phoneVehPos = (veh.getVehicleType().getLength()-2.) / (SUMOReal) v->size() * (SUMOReal) currNo;
+            SUMOReal phoneVehPos = (SUMOReal)(veh.getVehicleType().getLength()-2.) / (SUMOReal) v->size() * (SUMOReal) currNo;
             if(oldPos + phoneVehPos<posM) {
                 // ok, was already processed
                 continue;

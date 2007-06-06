@@ -32,6 +32,7 @@
 
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSUnit.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/DoubleVector.h>
@@ -161,7 +162,7 @@ class MyWrapper : public GUIDetectorWrapper
         public:
             /// Constructor
             MyValueRetriever(GUI_E2_ZS_Collector &det,
-                             E2::DetType type, size_t nSec)
+                             E2::DetType type, MSUnit::Seconds nSec)
                     : myDetector(det), myType(type), myNSec(nSec)
             { }
 
@@ -189,7 +190,7 @@ class MyWrapper : public GUIDetectorWrapper
             E2::DetType myType;
 
             /// The aggregation interval
-            size_t myNSec;
+			MSUnit::Seconds myNSec;
         };
 
     };
