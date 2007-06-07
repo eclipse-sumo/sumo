@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic SAX-handler for SUMO-files
+// SAX-handler base for SUMO-files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,39 +40,82 @@
 // ===========================================================================
 /**
  * @class SUMOSAXHandler
- * @brief Base class for XML-loading.
+ * @brief SAX-handler base for SUMO-files
  *
- * This class knows all tags SUMO uses, so all SUMO-XML - loading classes
- *  should be derived from it.
+ * This class is a GenericSAXHandler which knows all tags SUMO uses, so all 
+ *  SUMO-XML - loading classes should be derived from it.
+ *
+ * Besides the functionality of GenericSAXHandler it offers interfaces for
+ *  setting and reading the name of the currently processed file. Additionally,
+ *  this class also implements methods for dealing with SAX-parser errors.
  */
-class SUMOSAXHandler : public FileErrorReporter,
-            public GenericSAXHandler
+class SUMOSAXHandler : public GenericSAXHandler
 {
 public:
     /// Constructor
     SUMOSAXHandler(const std::string &filetype,
-                   const std::string &file="");
+                   const std::string &file="") throw();
+
 
     /// Destructor
-    virtual ~SUMOSAXHandler();
+    virtual ~SUMOSAXHandler() throw();
 
-    ///{  Handlers for the SAX ErrorHandler interface
-    /// called on a XML-warning; the error is reported to the SErrorHandler
-    void warning(const SAXParseException& exception);
 
-    /// called on a XML-error; the error is reported to the SErrorHandler
-    void error(const SAXParseException& exception);
+    ///{ Handlers for the SAX ErrorHandler interface
+    /**
+     * @brief Handler for XML-warnings
+     *
+     * The message is built using buildErrorMessage and reported
+     *  to the warning-instance of the MsgHandler.
+     */
+    void warning(const SAXParseException& exception) throw();
 
-    /// called on a XML-fatal error; the error is reported to the SErrorHandler
-    void fatalError(const SAXParseException& exception);
+    /**
+     * @brief Handler for XML-errors
+     *
+     * The message is built using buildErrorMessage and thrown within a ProcessError.
+     */
+    void error(const SAXParseException& exception) throw(ProcessError);
+
+    /**
+     * @brief Handler for XML-errors
+     *
+     * The message is built using buildErrorMessage and thrown within a ProcessError.
+     */
+    void fatalError(const SAXParseException& exception) throw(ProcessError);
     ///}
 
+
+    /** 
+     * @brief Sets the current file name
+     * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
+     */
+    void setFileName(const std::string &name) throw();
+
+
+    /** 
+     * @brief returns the current file name
+     */
+    const std::string &getFileName() const throw();
+
+
 protected:
-    /// build an error description
-    std::string buildErrorMessage(const SAXParseException& exception);
+    /** 
+     * @brief Builds an error message
+     * 
+     * The error message includes the file name and the line/column information
+     *  as supported by the given SAXParseException
+     */
+    std::string buildErrorMessage(const SAXParseException& exception) throw();
+
 
 private:
-    /// invalidated copy constructo
+    /// The name of the currently parsed file
+    std::string myFileName;
+
+
+private:
+    /// invalidated copy constructor
     SUMOSAXHandler(const SUMOSAXHandler &s);
 
     /// invalidated assignment operator

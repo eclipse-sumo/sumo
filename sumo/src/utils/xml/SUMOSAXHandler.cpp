@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic SAX-handler for SUMO-files
+// SAX-handler base for SUMO-files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -31,7 +31,6 @@
 #include <string>
 #include <iostream>
 #include <utils/xml/GenericSAXHandler.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
@@ -54,18 +53,31 @@ using namespace std;
 // method definitions
 // ===========================================================================
 SUMOSAXHandler::SUMOSAXHandler(const std::string &filetype,
-                               const std::string &file)
-        : FileErrorReporter(filetype, file),
-        GenericSAXHandler(sumotags, sumoattrs)
+                               const std::string &file) throw()
+        : GenericSAXHandler(sumotags, sumoattrs), myFileName(file)
 {}
 
 
-SUMOSAXHandler::~SUMOSAXHandler()
+SUMOSAXHandler::~SUMOSAXHandler() throw()
 {}
+
+
+void 
+SUMOSAXHandler::setFileName(const std::string &name) throw()
+{
+    myFileName = name;
+}
+
+
+const std::string &
+SUMOSAXHandler::getFileName() const throw()
+{
+    return myFileName;
+}
 
 
 string
-SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
+SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
 {
     ostringstream buf;
     char *pMsg = XMLString::transcode (exception.getMessage());
@@ -79,21 +91,21 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception)
 
 
 void
-SUMOSAXHandler::warning(const SAXParseException& exception)
+SUMOSAXHandler::warning(const SAXParseException& exception) throw()
 {
-    throw ProcessError("Warning: " + buildErrorMessage(exception));
+    MsgHandler::getWarningInstance()->inform(buildErrorMessage(exception));
 }
 
 
 void
-SUMOSAXHandler::error(const SAXParseException& exception)
+SUMOSAXHandler::error(const SAXParseException& exception) throw(ProcessError)
 {
     throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
-SUMOSAXHandler::fatalError(const SAXParseException& exception)
+SUMOSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError)
 {
     throw ProcessError(buildErrorMessage(exception));
 }
