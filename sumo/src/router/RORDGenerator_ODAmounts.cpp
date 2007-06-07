@@ -377,7 +377,7 @@ bool
 RORDGenerator_ODAmounts::init(OptionsCont &)
 {
     // read in the file on initialisation
-    _parser->parse(_file.c_str());
+    _parser->parse(getFileName().c_str());
     myDepartureTime = myBegin;
     return true;
 }

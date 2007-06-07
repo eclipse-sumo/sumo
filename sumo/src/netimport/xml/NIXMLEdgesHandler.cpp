@@ -136,11 +136,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
             }
             // insert the edge
             if (!myEdgeCont.insert(edge)) {
-                addError("Duplicate edge occured. ID='" + myCurrentID + "'");
+                MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
                 delete edge;
             }
         } catch (...) {
-            addError(
+            MsgHandler::getErrorInstance()->inform(
                 "Important information (probably the source or the destination node) missing in edge '"
                 + myCurrentID + "'.");
         }
@@ -149,13 +149,13 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
         NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
         if (edge==0) {
             if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
-                addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
         }
         int lane = getIntSecure(attrs, SUMO_ATTR_ID, -1);
         if (lane<0) {
-            addError("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
+            MsgHandler::getErrorInstance()->inform("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
             return;
         }
         // check whether this lane exists
@@ -324,7 +324,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
             NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
             if (edge==0) {
                 if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
-                    addError("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                    MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;
             }
@@ -392,7 +392,7 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException &) {
-        addError("Not numeric value for speed (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for speed (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -405,7 +405,7 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
         myCurrentLaneNo =
             getIntSecure(attrs, SUMO_ATTR_NOLANES, myCurrentLaneNo);
     } catch (NumberFormatException &) {
-        addError("Not numeric value for nolanes (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for nolanes (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -418,7 +418,7 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
         myCurrentPriority =
             getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
     } catch (NumberFormatException &) {
-        addError("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -436,7 +436,7 @@ NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
     } else if (func=="sink") {
         myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_SINK;
     } else if (func!="normal") {
-        addError("Unknown edge function '" + func + "' in edge '" + myCurrentID + "'.");
+        MsgHandler::getErrorInstance()->inform("Unknown edge function '" + func + "' in edge '" + myCurrentID + "'.");
     }
 }
 
@@ -490,7 +490,7 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
     try {
         return getFloatSecure(attrs, attrID, -1);
     } catch (NumberFormatException &) {
-        addError("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
         return -1.0;
     }
 }
@@ -590,7 +590,7 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
         try {
             myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
         } catch (NumberFormatException &) {
-            addError("Not numeric value for length (at tag ID='" + myCurrentID + "').");
+            MsgHandler::getErrorInstance()->inform("Not numeric value for length (at tag ID='" + myCurrentID + "').");
         }
     } else {
         if (myBegNodeXPos!=-1.0 &&
@@ -630,13 +630,13 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
         }
 
         if (shape.size()==1) {
-            addError("The shape of edge '" + myCurrentID + "' has only one entry.");
+            MsgHandler::getErrorInstance()->inform("The shape of edge '" + myCurrentID + "' has only one entry.");
         }
         return shape;
     } catch (EmptyData &) {
-        addError("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
+        MsgHandler::getErrorInstance()->inform("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
     } catch (NumberFormatException &) {
-        addError("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
+        MsgHandler::getErrorInstance()->inform("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
     }
     return Position2DVector();
 }

@@ -111,7 +111,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &tag
     // insert the node
     if (!myNodeCont.insert(node)) {
         if (myNodeCont.retrieve(myPosition)!=0) {
-            addError("Duplicate node occured. ID='" + myID + "'");
+            MsgHandler::getErrorInstance()->inform("Duplicate node occured. ID='" + myID + "'");
         }
     }
     // process traffic light definition
@@ -132,10 +132,10 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
         myPosition.set(x, y);
         GeoConvHelper::x2cartesian(myPosition);
     } catch (NumberFormatException &) {
-        addError("Not numeric value for position (at node ID='" + myID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for position (at node ID='" + myID + "').");
         return false;
     } catch (EmptyData &) {
-        addError("Node position (at node ID='" + myID + "') is not given.");
+        MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
         return false;
     }
     // check whether the y-axis shall be flipped

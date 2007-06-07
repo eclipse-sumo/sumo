@@ -30,6 +30,7 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
 #include <netbuild/NLLoadFilter.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -101,7 +102,7 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
                                          nolanes, length, priority));
         }
     } catch (EmptyData &) {
-        addError("An edge with an unknown id occured.");
+        MsgHandler::getErrorInstance()->inform("An edge with an unknown id occured.");
     }
 }
 
@@ -113,11 +114,11 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
         string nodename = getString(attrs, id);
         NBNode *node = myNodeCont.retrieve(nodename);
         if (node==0) {
-            addError("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");
+            MsgHandler::getErrorInstance()->inform("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");
         }
         return node;
     } catch (EmptyData &) {
-        addError("Missing " + dir + "-node name for edge with id '" + name + "'");
+        MsgHandler::getErrorInstance()->inform("Missing " + dir + "-node name for edge with id '" + name + "'");
     }
     return 0;
 }

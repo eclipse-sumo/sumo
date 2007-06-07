@@ -73,7 +73,7 @@ PCTypeDefHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name
         try {
             id = getString(attrs, SUMO_ATTR_ID);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("A polygon type without an id occured within '" + _file + ".");
+            MsgHandler::getErrorInstance()->inform("A polygon type without an id occured within '" + getFileName() + ".");
             return;
         }
         string type = getStringSecure(attrs, SUMO_ATTR_NAME, myOptions.getString("type"));

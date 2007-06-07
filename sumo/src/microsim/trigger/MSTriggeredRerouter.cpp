@@ -158,21 +158,21 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
         string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *to = MSEdge::dictionary(dest);
         if (to==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find edge '" + dest + "' to reroute in '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not find edge '" + dest + "' to reroute in '" + getFileName() + "'.");
             return;
         }
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing probability in '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Missing probability in '" + getFileName() + "'.");
             return;
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
             return;
         }
         if (prob<0) {
-            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
             return;
         }
         myCurrentEdgeProb.add(prob, to);
@@ -182,7 +182,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
         string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *closed = MSEdge::dictionary(closed_id);
         if (closed==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find edge '" + closed_id + "' to reroute in '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not find edge '" + closed_id + "' to reroute in '" + getFileName() + "'.");
             return;
         }
         myCurrentClosed.push_back(closed);
@@ -196,21 +196,21 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
         string routeID = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSRoute *route = MSRoute::dictionary(routeID);
         if (route==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find route '" + routeID + "' to reroute in '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not find route '" + routeID + "' to reroute in '" + getFileName() + "'.");
             return;
         }
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing probability in '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Missing probability in '" + getFileName() + "'.");
             return;
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
             return;
         }
         if (prob<0) {
-            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
             return;
         }
         myCurrentRouteProb.add(prob, route);

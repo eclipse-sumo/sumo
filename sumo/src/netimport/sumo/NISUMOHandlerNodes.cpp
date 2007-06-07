@@ -35,6 +35,7 @@
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerNodes.h"
+#include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -90,7 +91,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         try {
             typestr = getString(attrs, SUMO_ATTR_TYPE);
         } catch (EmptyData &) {
-            addError("The type of the junction '" + id + "' is not given.");
+            MsgHandler::getErrorInstance()->inform("The type of the junction '" + id + "' is not empty.");
             return;
         }
         // check whether the type string is valid by converting it to the known
@@ -106,7 +107,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
             type = NBNode::NODETYPE_DEAD_END;
         }
         if (type<0) {
-            addError("The type '" + typestr + "' of junction '" + id + "is not known.");
+            MsgHandler::getErrorInstance()->inform("The type '" + typestr + "' of junction '" + id + "is not known.");
             return;
         }
         // get the position of the node
@@ -115,10 +116,10 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
         if (x<0||y<0) {
             if (x<0) {
-                addError("The x-position of the junction '" + id + "' is not valid.");
+                MsgHandler::getErrorInstance()->inform("The x-position of the junction '" + id + "' is not valid.");
             }
             if (y<0) {
-                addError("The y-position of the junction '" + id + "' is not valid.");
+                MsgHandler::getErrorInstance()->inform("The y-position of the junction '" + id + "' is not valid.");
             }
             return;
         }
@@ -127,13 +128,13 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         try {
             key = getString(attrs, SUMO_ATTR_KEY);
         } catch (EmptyData &) {
-            addError("The key is missing for junction '" + id + "'.");
+            MsgHandler::getErrorInstance()->inform("The key is missing for junction '" + id + "'.");
         }
         // build the node
         throw 1; // !!! deprecated
         myNodeCont.insert(new NBNode(id, Position2D(x, y), type));
     } catch (EmptyData &) {
-        addError("A junction without an id occured.");
+        MsgHandler::getErrorInstance()->inform("A junction without an id occured.");
     }
 }
 

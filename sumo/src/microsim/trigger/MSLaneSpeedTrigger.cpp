@@ -129,11 +129,11 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element, const std::string &,
         SUMOReal speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
         // check the values
         if (next<0) {
-            MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
             return;
         }
         if (speed<0) {
-            MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
             return;
         }
         // set the values for the next step as they are valid

@@ -82,21 +82,21 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
                                         myTypeCont.getDefaultPriority());
             } catch (NumberFormatException &) {
-                addError("Not numeric value for Priority (at tag ID='" + id + "').");
+                MsgHandler::getErrorInstance()->inform("Not numeric value for Priority (at tag ID='" + id + "').");
             }
             // get the number of lanes
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
                                        myTypeCont.getDefaultNoLanes());
             } catch (NumberFormatException &) {
-                addError("Not numeric value for NoLanes (at tag ID='" + id + "').");
+                MsgHandler::getErrorInstance()->inform("Not numeric value for NoLanes (at tag ID='" + id + "').");
             }
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
                                        (SUMOReal) myTypeCont.getDefaultSpeed());
             } catch (NumberFormatException &) {
-                addError("Not numeric value for Speed (at tag ID='" + id + "').");
+                MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
             }
             // get the function
             NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
@@ -106,13 +106,13 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
             } else if (functionS=="sink") {
                 function = NBEdge::EDGEFUNCTION_SINK;
             } else if (functionS!="normal"&&functionS!="") {
-                addError("Unknown function '" + functionS + "' occured.");
+                MsgHandler::getErrorInstance()->inform("Unknown function '" + functionS + "' occured.");
             }
             // build the type
             if (!MsgHandler::getErrorInstance()->wasInformed()) {
                 NBType *type = new NBType(id, noLanes, speed, priority, function);
                 if (!myTypeCont.insert(type)) {
-                    addError("Duplicate type occured. ID='" + id + "'");
+                    MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
                     delete type;
                 }
             }
