@@ -39,9 +39,9 @@
 #include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include "NLJunctionControlBuilder.h"
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/UtilExceptions.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -102,14 +102,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // get the lane the link belongs to
     MSLane *lane = MSLane::dictionary(laneId);
     if (lane==0) {
-        throw XMLIdNotKnownException("lane", laneId);
+        throw ProcessError("An unknown lane ('" + laneId + "') should be set as a follower.");
     }
 #ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
     if (viaID!="" && OptionsSubSys::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
         if (via==0) {
-            throw XMLIdNotKnownException("lane", viaID);
+            throw ProcessError("An unknown lane ('" + viaID + "') should be set as a via-lane.");
         }
     }
     if (pass>=0) {
@@ -121,7 +121,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (tlid!="") {
         logics = myJunctionControlBuilder.getTLLogic(tlid);
         if (logics.ltVariants.size()==0) {
-            throw XMLIdNotKnownException("tl-logic", tlid);
+            throw ProcessError("A link wanted to use an unknown tl-logic ('" + tlid + "').");
         }
     }
     // build the link
@@ -141,7 +141,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (logics.ltVariants.size()!=0) {
         MSLane *current = MSLane::dictionary(m_CurrentLane);
         if (current==0) {
-            throw XMLIdNotKnownException("lane", m_CurrentLane);
+            throw ProcessError("An unknown lane ('" + m_CurrentLane + "') should be assigned t a tl-logic.");
         }
         std::map<std::string, MSTrafficLightLogic *>::iterator i;
         for (i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {
@@ -158,7 +158,7 @@ NLSucceedingLaneBuilder::closeSuccLane()
 {
     MSLane *current = MSLane::dictionary(m_CurrentLane);
     if (current==0) {
-        throw XMLIdNotKnownException("lane", m_CurrentLane);
+        throw ProcessError("An unknown lane ('" + m_CurrentLane + "') should be closed.");
     }
     MSLinkCont *cont = new MSLinkCont();
     cont->reserve(m_SuccLanes->size());

@@ -40,7 +40,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
 
@@ -104,7 +103,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
 {
     m_pActiveEdge = MSEdge::dictionary(id);
     if (m_pActiveEdge==0) {
-        throw XMLIdNotKnownException("edge", id);
+        throw ProcessError("Trying to define a not declared edge (network error).");
     }
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();

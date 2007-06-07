@@ -43,7 +43,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <utils/geom/GeoConvHelper.h>

@@ -44,7 +44,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 

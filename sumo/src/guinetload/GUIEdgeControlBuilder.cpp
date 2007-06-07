@@ -38,7 +38,6 @@
 #include <guisim/GUISourceLane.h>
 #include <guisim/GUIInternalLane.h>
 #include <microsim/MSJunction.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <netload/NLBuilder.h>
 #include "GUIEdgeControlBuilder.h"
 #include <gui/GUIGlobals.h>

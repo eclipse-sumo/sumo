@@ -48,7 +48,6 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS

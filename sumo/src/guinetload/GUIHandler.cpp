@@ -42,7 +42,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
@@ -140,6 +139,8 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -203,6 +204,8 @@ GUIHandler::closeRoute()
             } else {
                 if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                } else {
+                    throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
                 }
             }
         }

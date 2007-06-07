@@ -40,7 +40,6 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

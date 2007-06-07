@@ -40,7 +40,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
@@ -207,6 +206,8 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -319,7 +320,11 @@ MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        closeRoute();
+        try {
+            closeRoute();
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         break;
     case SUMO_TAG_VEHICLE:
         closeVehicle();

@@ -65,7 +65,6 @@
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/XMLHelpers.h>
 #include <xercesc/framework/MemBufInputSource.hpp>
 

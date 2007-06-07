@@ -40,7 +40,6 @@
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
 #include "GUIRouteHandler.h"
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
@@ -99,6 +98,8 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {

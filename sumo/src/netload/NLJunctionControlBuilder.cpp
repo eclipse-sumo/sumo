@@ -44,7 +44,6 @@
 #include <microsim/MSGlobals.h>
 #include "NLBuilder.h"
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include "NLJunctionControlBuilder.h"
@@ -239,7 +238,7 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
     // get and check the junction logic
     MSJunctionLogic *jtype = MSJunctionLogic::dictionary(myActiveID);
     if (jtype==0) {
-        throw XMLIdNotKnownException("junctiontype (key)", myActiveID);
+        throw ProcessError("Missing junction logic '" + myActiveID + "'.");
     }
     return jtype;
 }
