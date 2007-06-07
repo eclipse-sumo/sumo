@@ -29,8 +29,12 @@
 #endif
 
 #include <iostream>
+#include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/TplConvert.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/TplConvert.h>
+#include "SUMOSAXHandler.h"
 #include "XMLSubSys.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -56,7 +60,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-XMLSubSys::init()
+XMLSubSys::init() throw()
 {
     try {
         XMLPlatformUtils::Initialize();
@@ -70,10 +74,68 @@ XMLSubSys::init()
 
 
 void
-XMLSubSys::close()
+XMLSubSys::close() throw()
 {
     XMLPlatformUtils::Terminate();
 }
+
+
+SAX2XMLReader *
+XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
+{
+    SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
+    if (reader==0) {
+        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
+        return 0;
+    }
+    setFeature(*reader,
+               "http://xml.org/sax/features/namespaces", false);
+    setFeature(*reader,
+               "http://apache.org/xml/features/validation/schema", false);
+    setFeature(*reader,
+               "http://apache.org/xml/features/validation/schema-full-checking", false);
+    setFeature(*reader,
+               "http://xml.org/sax/features/validation", false);
+    setFeature(*reader,
+               "http://apache.org/xml/features/validation/dynamic" , false);
+    reader->setContentHandler(&handler);
+    reader->setErrorHandler(&handler);
+    return reader;
+}
+
+
+bool
+XMLSubSys::runParser(SUMOSAXHandler &handler,
+                      const std::string &file) throw()
+{
+    SAX2XMLReader *reader = getSAXReader(handler);
+    if(reader==0) {
+        MsgHandler::getErrorInstance()->inform("Could not build reader to parse '" + file + "'.");
+        return false;
+    }
+    try {
+        reader->parse(file.c_str());
+    } catch(ProcessError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+        return false;
+    } catch(...) {
+        MsgHandler::getErrorInstance()->inform("An error occured.");
+        return false;
+    }
+    delete reader;
+    return !MsgHandler::getErrorInstance()->wasInformed();
+}
+
+
+void
+XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
+                       const std::string &feature, bool value) throw()
+{
+    XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
+    reader.setFeature(xmlFeature, false);
+    XMLString::release(&xmlFeature);
+}
+
 
 
 
