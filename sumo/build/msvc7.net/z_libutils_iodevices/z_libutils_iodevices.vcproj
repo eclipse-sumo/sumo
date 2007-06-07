@@ -125,6 +125,12 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\..\src\utils\iodevices\BinaryInputDevice.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\BinaryOutputDevice.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_COUT.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -191,6 +197,12 @@
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\BinaryInputDevice.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\BinaryOutputDevice.h">
+			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice.h">
 			</File>

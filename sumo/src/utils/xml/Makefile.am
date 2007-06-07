@@ -5,5 +5,4 @@ SUMOBaseRouteHandler.cpp SUMOBaseRouteHandler.h \
 SUMOSAXHandler.cpp SUMOSAXHandler.h \
 SUMOXMLDefinitions.cpp SUMOXMLDefinitions.h \
 WeightsHandler.cpp WeightsHandler.h \
-XMLBuildingExceptions.h \
 XMLSubSys.cpp XMLSubSys.h

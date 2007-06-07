@@ -14,5 +14,4 @@ SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-ToString.h TplConvert.h TplConvertSec.h \
-XMLHelpers.cpp XMLHelpers.h
+ToString.h TplConvert.h TplConvertSec.h

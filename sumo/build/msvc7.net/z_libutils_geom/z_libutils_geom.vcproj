@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -74,7 +74,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\src"
+				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -163,6 +163,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\geom\GeoConvHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\GeomConvHelper.cpp">
@@ -268,6 +271,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Bresenham.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\geom\GeoConvHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\GeomConvHelper.h">
