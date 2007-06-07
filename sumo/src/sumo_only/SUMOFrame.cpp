@@ -86,7 +86,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addOptionSubTopic("Report");
 #ifdef ITM
     oc.addOptionSubTopic("Remote");
-#endif ITM
+#endif // ITM
 
 
     // register configuration options
