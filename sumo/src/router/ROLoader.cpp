@@ -503,7 +503,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     }
     // build and prepare the weights handler
     EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
-    WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("edge", "traveltime", !useLanes, retriever);
+    WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, retriever);
     WeightsHandler handler(def, file);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
@@ -526,9 +526,9 @@ ROLoader::loadSupplementaryWeights(RONet& net)
     }
     EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight retriever(&net);
     std::vector<WeightsHandler::ToRetrieveDefinition*> defs;
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "absolute", true, retriever.getAbsoluteRetriever()));
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "summand", true, retriever.getAddRetriever()));
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "factor", true, retriever.getMultRetriever()));
+    defs.push_back(new WeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
+    defs.push_back(new WeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
+    defs.push_back(new WeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
     WeightsHandler handler(defs, filename);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
     if(XMLSubSys::runParser(handler, filename)) {

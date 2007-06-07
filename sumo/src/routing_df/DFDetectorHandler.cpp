@@ -71,21 +71,21 @@ DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
         try {
             id = getString(attrs, SUMO_ATTR_ID);
         } catch (EmptyData&) {
-            throw ProcessError("A detector without an id occured within '" + _file + ".");
+            throw ProcessError("A detector without an id occured within '" + getFileName() + ".");
         }
         string lane;
         try {
             lane = getString(attrs, SUMO_ATTR_LANE);
         } catch (EmptyData&) {
-            throw ProcessError("A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
+            throw ProcessError("A detector without a lane information occured within '" + getFileName() + "' (detector id='" + id + ").");
         }
         SUMOReal pos;
         try {
             pos = getFloat(attrs, SUMO_ATTR_POS);
         } catch (EmptyData&) {
-            throw ProcessError("A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
+            throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + ").");
         } catch (NumberFormatException&) {
-            throw ProcessError("Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
+            throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
         }
         string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         dfdetector_type type = TYPE_NOT_DEFINED;

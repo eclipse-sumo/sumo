@@ -354,6 +354,7 @@ protected:
     /// The network's boundaries
     Boundary myOrigBoundary, myConvBoundary;
 
+    bool myCurrentWAUTIsBroken;
 
 private:
     /** invalid copy constructor */

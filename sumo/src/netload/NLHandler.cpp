@@ -51,7 +51,6 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
@@ -103,7 +102,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder),
-        myAmInTLLogicMode(false)
+        myAmInTLLogicMode(false), myCurrentWAUTIsBroken(false)
 {}
 
 
@@ -207,7 +206,7 @@ NLHandler::myStartElement(SumoXMLTag element, const std::string &name,
             addTrigger(attrs);
             break;
         case SUMO_TAG_TIMEDEVENT:
-            myActionBuilder.addAction(*this, attrs, _file);
+            myActionBuilder.addAction(*this, attrs, getFileName());
             break;
         }
     }
@@ -248,28 +247,31 @@ NLHandler::addParam(const Attributes &attrs)
 void
 NLHandler::openWAUT(const Attributes &attrs)
 {
+    myCurrentWAUTIsBroken = false;
     SUMOTime t;
     std::string id, pro;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData&) {
-        throw ProcessError("Missing id for a WAUT (attribute 'id').");
-
+        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
+        myCurrentWAUTIsBroken = true;
     }
     try {
         t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
     } catch (NumberFormatException&) {
-        throw ProcessError("The reference time for WAUT '" + id + "' is not numeric.");
-
+        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
+        myCurrentWAUTIsBroken = true;
     }
     try {
         pro = getString(attrs, SUMO_ATTR_START_PROG);
     } catch (EmptyData&) {
-        throw ProcessError("Missing start program for WAUT '" + id + "'.");
-
+        MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
+        myCurrentWAUTIsBroken = true;
     }
-    myCurrentWAUTID = id;
-    myJunctionControlBuilder.addWAUT(t, id, pro);
+    if(!myCurrentWAUTIsBroken) {
+        myCurrentWAUTID = id;
+        myJunctionControlBuilder.addWAUT(t, id, pro);
+    }
 }
 
 
@@ -281,19 +283,21 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
     try {
         t = getInt(attrs, SUMO_ATTR_TIME);
     } catch (NumberFormatException&) {
-        throw ProcessError("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
-
+        MsgHandler::getErrorInstance()->inform("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
+        myCurrentWAUTIsBroken = true;
     } catch (EmptyData&) {
-        throw ProcessError("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
-
+        MsgHandler::getErrorInstance()->inform("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
+        myCurrentWAUTIsBroken = true;
     }
     try {
         to = getString(attrs, SUMO_ATTR_TO);
     } catch (EmptyData&) {
-        throw ProcessError("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
-
+        MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
+        myCurrentWAUTIsBroken = true;
     }
-    myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+    if(!myCurrentWAUTIsBroken) {
+        myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+    }
 }
 
 
@@ -304,18 +308,20 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
     try {
         wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
     } catch (EmptyData&) {
-        throw ProcessError("Missing WAUT id in wautJunction.");
-
+        MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
+        myCurrentWAUTIsBroken = true;
     }
     try {
         junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
     } catch (EmptyData&) {
-        throw ProcessError("Missing junction id in wautJunction.");
-
+        MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
+        myCurrentWAUTIsBroken = true;
     }
     procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
     bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
-    myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
+    if(!myCurrentWAUTIsBroken) {
+        myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
+    }
 }
 
 
@@ -347,8 +353,10 @@ NLHandler::chooseEdge(const Attributes &attrs)
         myCurrentIsInternalToSkip = false;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
-    } catch (XMLIdNotKnownException &e) {
+        return;
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
+        return;
     }
     // get the function
     string func;
@@ -356,6 +364,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
         func = getString(attrs, SUMO_ATTR_FUNC);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing function of an edge-object.");
+        return;
     }
 
     // get the type
@@ -373,7 +382,8 @@ NLHandler::chooseEdge(const Attributes &attrs)
         funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
     }
     if (funcEnum<0) {
-        throw XMLIdNotKnownException("purpose", func);
+        MsgHandler::getErrorInstance()->inform("Edge '" + id + "' has an invalid type ('" + func + "').");
+        return;
     }
     //
     myEdgeControlBuilder.chooseEdge(id, funcEnum);
@@ -405,6 +415,8 @@ NLHandler::addLane(const Attributes &attrs)
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
             myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
         } catch (NumberFormatException &) {
@@ -430,6 +442,8 @@ NLHandler::addPOI(const Attributes &attrs)
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
                                     getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of POI '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -452,6 +466,8 @@ NLHandler::addPoly(const Attributes &attrs)
                                         getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                                         getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
+        } catch (ProcessError &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
         } catch (EmptyData &) {
@@ -475,13 +491,12 @@ NLHandler::openAllowedEdge(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
         MSEdge *edge = MSEdge::dictionary(id);
         if (edge==0) {
-            throw XMLIdNotKnownException("edge", id);
+            MsgHandler::getErrorInstance()->inform("Trying to reference to an unknown edge ('" + id + "').");
+            return;
         }
         myEdgeControlBuilder.openAllowedEdge(edge);
         // continuation
         myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
-    } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an cedge-object.");
     }
@@ -496,9 +511,11 @@ NLHandler::addLogicItem(const Attributes &attrs)
     try {
         request = getInt(attrs, SUMO_ATTR_REQUEST);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing request key...");
+        MsgHandler::getErrorInstance()->inform("Missing request key.");
+        return;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: one of the request keys is not numeric.");
+        MsgHandler::getErrorInstance()->inform("One of the request keys is not numeric.");
+        return;
     }
     // parse the response
     string response;
@@ -506,6 +523,7 @@ NLHandler::addLogicItem(const Attributes &attrs)
         response = getString(attrs, SUMO_ATTR_RESPONSE);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing respond for a request");
+        return;
     }
     // parse the internal links information (when wished)
     string foes;
@@ -513,6 +531,7 @@ NLHandler::addLogicItem(const Attributes &attrs)
         foes = getString(attrs, SUMO_ATTR_FOES);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing foes for a request");
+        return;
     }
     bool cont = false;
 #ifdef HAVE_INTERNAL_LANES
@@ -543,12 +562,14 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(
                     "A detector offset of a traffic light logic is not numeric!");
+                return;
             }
         }
         myJunctionControlBuilder.initTrafficLightLogic(type,
                 absDuration, requestSize, detectorOffset);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
+        return;
     }
     myAmInTLLogicMode = true;
 }
@@ -633,11 +654,10 @@ NLHandler::openJunction(const Attributes &attrs)
                                                   getFloat(attrs, SUMO_ATTR_X),
                                                   getFloat(attrs, SUMO_ATTR_Y));
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a junction-object.");
+            MsgHandler::getErrorInstance()->inform("Missing attribute in a junction-object.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a junction-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a junction-object.");
     }
 }
 
@@ -707,7 +727,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                               getFloat(attrs, SUMO_ATTR_POSITION),
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                               SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                                  _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                  getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                               getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
         } else {
@@ -728,11 +748,11 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                           getFloat(attrs, SUMO_ATTR_POSITION),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                              _file, getString(attrs, SUMO_ATTR_FILE)),
+                                              getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                           getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
-    } catch (XMLBuildingException &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -783,7 +803,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   tll,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                                      _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                      getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -800,7 +820,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   tll, toLane,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                                      _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                      getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -818,7 +838,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                               SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                                  _file, getString(attrs, SUMO_ATTR_FILE)),
+                                                  getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                               getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -826,7 +846,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                                              );
         }
-    } catch (XMLBuildingException &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -853,12 +873,12 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           SharedOutputDevices::getInstance()->getOutputDeviceChecking(
-                                              _file, getString(attrs, SUMO_ATTR_FILE)),
+                                              getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
-    } catch (XMLBuildingException &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -913,9 +933,9 @@ NLHandler::addSource(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
         try {
             myTriggerBuilder.buildTrigger(
-                myNet, attrs, _file, *this);
+                myNet, attrs, getFileName(), *this);
             return;
-        } catch (XMLBuildingException &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
@@ -937,9 +957,9 @@ NLHandler::addTrigger(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            myTriggerBuilder.buildTrigger(myNet, attrs, _file, *this);
+            myTriggerBuilder.buildTrigger(myNet, attrs, getFileName(), *this);
             return;
-        } catch (XMLBuildingException &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
@@ -1005,9 +1025,8 @@ NLHandler::addSuccLane(const Attributes &attrs)
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
-    } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-        MsgHandler::getErrorInstance()->inform("While building lane '" + m_pSLB.getSuccingLaneName() + "'");
+    } catch (ProcessError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what() + string("\n While building lane '" + m_pSLB.getSuccingLaneName() + "'"));
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
@@ -1192,10 +1211,11 @@ NLHandler::addAllowedEdges(const std::string &chars)
         try {
             MSLane *lane = MSLane::dictionary(set);
             if (lane==0) {
-                throw XMLIdNotKnownException("lane", set);
+                MsgHandler::getErrorInstance()->inform("Trying to add an unknown lane ('" + set + "') as continuation.");
+                return;
             }
             myEdgeControlBuilder.addAllowed(lane);
-        } catch (XMLIdNotKnownException &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
@@ -1314,10 +1334,11 @@ NLHandler::addIncomingLanes(const std::string &chars)
                 continue;
             }
             if (lane==0) {
-                throw XMLIdNotKnownException("lane", set);
+                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming.");
+                return;
             }
             myJunctionControlBuilder.addIncomingLane(lane);
-        } catch (XMLIdNotKnownException &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
@@ -1347,10 +1368,11 @@ NLHandler::addInternalLanes(const std::string &chars)
         try {
             MSLane *lane = MSLane::dictionary(set);
             if (lane==0) {
-                throw XMLIdNotKnownException("lane", set);
+                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
+                return;
             }
             myJunctionControlBuilder.addInternalLane(lane);
-        } catch (XMLIdNotKnownException &e) {
+        } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
@@ -1472,7 +1494,7 @@ NLHandler::closeJunction()
 {
     try {
         myJunctionControlBuilder.closeJunction();
-    } catch (XMLIdNotKnownException &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1488,7 +1510,7 @@ NLHandler::closeSuccLane()
     }
     try {
         m_pSLB.closeSuccLane();
-    } catch (XMLIdNotKnownException &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1511,7 +1533,9 @@ NLHandler::endE3Detector()
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (ProcessError) {}
+    } catch (ProcessError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
 }
 
 

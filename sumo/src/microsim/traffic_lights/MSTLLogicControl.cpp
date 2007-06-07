@@ -631,7 +631,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
     if (myWAUTs.find(id)!=myWAUTs.end()) {
         // report an error if so
         MsgHandler::getErrorInstance()->inform("Waut '" + id + "' was already defined.");
-        throw ProcessError();
+        return;
     }
     WAUT *w = new WAUT;
     w->id = id;
@@ -649,7 +649,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
         // report an error if the waut is not known
         MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
-        throw ProcessError();
+        return;
     }
     // build and save the waut switch definition
     WAUTSwitch s;
@@ -687,13 +687,13 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
         // report an error if the waut is not known
         MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
-        throw ProcessError();
+        return;
     }
     // try to get the tls to switch
     if (myLogics.find(junc)==myLogics.end()) {
         // report an error if the tls is not known
         MsgHandler::getErrorInstance()->inform("TLS '" + junc + "' to switch in WAUT '" + wautid + "' was not yet defined.");
-        throw ProcessError();
+        return;
     }
     WAUTJunction j;
     j.junction = junc;
