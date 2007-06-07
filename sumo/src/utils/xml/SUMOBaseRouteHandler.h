@@ -4,7 +4,7 @@
 /// @date    Mon, 12.12.2005
 /// @version $Id$
 ///
-// A base class for parsing vehicles
+// Base class for parsing vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,38 +43,92 @@
 // ===========================================================================
 /**
  * @class SUMOBaseRouteHandler
- * Base class for vehicle parsing.
+ * @brief Base class for vehicle parsing.
+ *
+ * Because vehicles have to be parsed by several applications (SUMO, GUISIM, 
+ *  routers) the same way, some of the methods are shared within this class which
+ *  is meant to be a common base for vehicle parsers.
+ *
+ * This class supports helper methods for parsing a vehicle's color, class and 
+ *  other. Still, the main usage is to call "openVehicle" on an opening vehicle-tag
+ *  what parses the information about the vehicle stored in the attributes. Then, when 
+ *  the vehicle-tag is closed, "closeVehicle" should be called and the vehicle may
+ *  be instantiated using the read values.
  */
 class SUMOBaseRouteHandler
 {
 public:
     /// Constructor
-    SUMOBaseRouteHandler();
+    SUMOBaseRouteHandler() throw();
+
 
     /// Destructor
-    virtual ~SUMOBaseRouteHandler();
+    virtual ~SUMOBaseRouteHandler() throw();
+
 
 protected:
     //{ parse helper (reporting errors)
-    /// Retrieves a color definition
+    /**
+     * @brief Parses the color definition (if given)
+     *
+     * When given, the color definition is parsed using GfxConvHelper::parseColor.
+     *  Exceptions occuring within this process are catched and reported.
+     *
+     * If no color definition is available in the attributes, the invalid color (-1,-1,-1)
+     *  is returned.
+     */
     RGBColor parseColor(SUMOSAXHandler &helper, const Attributes &attrs,
-                        const std::string &type, const std::string &id);
+                        const std::string &type, const std::string &id) throw();
 
-    /// Retrieves the class
+
+    /**
+     * @brief Parses the vehicle class
+     *
+     * When given, the vehicle class is parsed using getVehicleClassID.
+     *  Exceptions occuring within this process are catched and reported.
+     *
+     * If no vehicle class is available in the attributes, the default class (SVC_UNKNOWN)
+     *  is returned.
+     */
     SUMOVehicleClass parseVehicleClass(SUMOSAXHandler &helper,
                                        const Attributes &attrs, const std::string &type,
-                                       const std::string &id);
+                                       const std::string &id) throw();
 
-    /// Parses and returns the departure time of the current vehicle
+
+    /**
+     * @brief Parses the vehicle departure time
+     *
+     * Tries to parse the vehicle's departure time. If it is not within the attributes,
+     *  is empty or not a SUMOTime, a -1 will be returned.
+     */
     SUMOTime getVehicleDepartureTime(SUMOSAXHandler &helper,
-                                     const Attributes &attrs, const std::string &id);
+                                     const Attributes &attrs, const std::string &id) throw();
 
-    /// Parses information from the vehicle-tag
+
+    /**
+     * @brief Parses the information from the vehicle-element; Returns whether it succeeded
+     *
+     * Tries to parse: the vehicle id, the repetition number oand offset, the route
+     *  name, optionally the color (if wantsVehicleColor==true), the name of the vehicle
+     *  type and the departure time.
+     *
+     * Error messages are generated if something fails. The method returns false if one
+     *  of the mandatory values is missing: the vehicle id, the pearture time and if
+     *  the vehicle type is given but empty.
+     *
+     * The method also sets myAmInEmbeddedMode to true which allows starting to process 
+     *  additional, embedded values.
+     */
     bool openVehicle(SUMOSAXHandler &helper, const Attributes &attrs,
-                     bool wantsVehicleColor);
+                     bool wantsVehicleColor) throw();
 
-    /// Closes the processing of a vehicle
-    virtual void closeVehicle();
+
+    /** @brief Closes the processing of a vehicle
+     *
+     * The method sets myAmInEmbeddedMode to false ending processing additional, 
+     *  embedded values.
+     */
+    virtual void closeVehicle() throw();
     //}
 
 

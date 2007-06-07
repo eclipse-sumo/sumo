@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A combination between a GenericSAXHandler and an GenericSAXHandler
+// A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,12 +49,12 @@ GenericSAXHandler::GenericSAXHandler()
 
 GenericSAXHandler::GenericSAXHandler(
     GenericSAXHandler::Tag *tags,
-    GenericSAXHandler::Attr *attrs)
-        : _errorOccured(false), _unknownOccured(false)
+    GenericSAXHandler::Attr *attrs) throw()
+        : myErrorOccured(false), myUnknownOccured(false)
 {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
-        _tagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
+        myTagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
         i++;
     }
     i = 0;
@@ -66,7 +66,7 @@ GenericSAXHandler::GenericSAXHandler(
 }
 
 
-GenericSAXHandler::~GenericSAXHandler()
+GenericSAXHandler::~GenericSAXHandler() throw()
 {
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[](*i1).second;
@@ -75,7 +75,7 @@ GenericSAXHandler::~GenericSAXHandler()
 
 
 bool
-GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id)
+GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw()
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     if (i==myPredefinedTags.end()) {
@@ -87,21 +87,21 @@ GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id)
 
 bool
 GenericSAXHandler::hasAttribute(const Attributes &attrs,
-                                const XMLCh * const id)
+                                const XMLCh * const id) throw()
 {
     return attrs.getIndex(id)>=0;
 }
 
 
 bool
-GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const
+GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
 {
     return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
 }
 
 
 bool
-GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const
+GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData)
 {
     return TplConvertSec<XMLCh>::_2boolSec(
                getAttributeValueSecure(attrs, id), val);
@@ -109,7 +109,7 @@ GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool v
 
 
 int
-GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const
+GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
 {
     return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
 }
@@ -117,7 +117,7 @@ GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const
 
 int
 GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
-                                int def) const
+                                int def) const throw(EmptyData, NumberFormatException)
 {
     return TplConvertSec<XMLCh>::_2intSec(
                getAttributeValueSecure(attrs, id), def);
@@ -125,7 +125,7 @@ GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
 
 
 std::string
-GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const
+GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
 {
     return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
 }
@@ -133,7 +133,7 @@ GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const
 
 std::string
 GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
-                                   const std::string &str) const
+                                   const std::string &str) const throw(EmptyData)
 {
     return TplConvertSec<XMLCh>::_2strSec(
                getAttributeValueSecure(attrs, id), str);
@@ -141,7 +141,7 @@ GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
 
 
 SUMOReal
-GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const
+GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
 {
     return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
 }
@@ -149,7 +149,7 @@ GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const
 
 SUMOReal
 GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
-                                  SUMOReal def) const
+                                  SUMOReal def) const throw(EmptyData, NumberFormatException)
 {
     return TplConvertSec<XMLCh>::_2SUMORealSec(
                getAttributeValueSecure(attrs, id), def);
@@ -158,7 +158,7 @@ GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
 
 SUMOReal
 GenericSAXHandler::getFloat(const Attributes &attrs,
-                            const XMLCh * const id) const
+                            const XMLCh * const id) const throw(EmptyData, NumberFormatException)
 {
     return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
 }
@@ -166,7 +166,7 @@ GenericSAXHandler::getFloat(const Attributes &attrs,
 
 const XMLCh *
 GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
-        SumoXMLAttr id) const
+        SumoXMLAttr id) const throw()
 {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     assert(i!=myPredefinedTags.end());
@@ -175,7 +175,7 @@ GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
 
 
 XMLCh*
-GenericSAXHandler::convert(const std::string &name) const
+GenericSAXHandler::convert(const std::string &name) const throw()
 {
     size_t len = name.length();
     XMLCh *ret = new XMLCh[len+1];
@@ -188,18 +188,17 @@ GenericSAXHandler::convert(const std::string &name) const
 }
 
 
-
 bool
-GenericSAXHandler::errorOccured() const
+GenericSAXHandler::errorOccured() const throw()
 {
-    return _errorOccured;
+    return myErrorOccured;
 }
 
 
 bool
-GenericSAXHandler::unknownOccured() const
+GenericSAXHandler::unknownOccured() const throw()
 {
-    return _unknownOccured;
+    return myUnknownOccured;
 }
 
 
@@ -207,15 +206,15 @@ void
 GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
-                                const Attributes& attrs)
+                                const Attributes& attrs) throw()
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
-    _tagTree.push(element);
+    myTagTree.push(element);
     //_characters = "";
     myCharactersVector.clear();
     if (element<0) {
-        _unknownOccured = true;
+        myUnknownOccured = true;
     }
     myStartElement(element, name, attrs);
 }
@@ -224,12 +223,12 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
 void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
-                              const XMLCh* const qname)
+                              const XMLCh* const qname) throw()
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     if (element == SUMO_TAG_NOTHING) {
-        _unknownOccured = true;
+        myUnknownOccured = true;
     }
     // call user handler
     // collect characters
@@ -251,27 +250,27 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     delete[] buf;
     myEndElement(element, name);
     // update the tag tree
-    if (_tagTree.size()==0) {
-        _errorOccured = true;
+    if (myTagTree.size()==0) {
+        myErrorOccured = true;
     } else {
-        _tagTree.pop();
+        myTagTree.pop();
     }
 }
 
 
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
-                              const unsigned int length)
+                              const unsigned int length) throw()
 {
     myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
 }
 
 
 SumoXMLTag
-GenericSAXHandler::convertTag(const std::string &tag) const
+GenericSAXHandler::convertTag(const std::string &tag) const throw()
 {
-    TagMap::const_iterator i=_tagMap.find(tag);
-    if (i==_tagMap.end()) {
+    TagMap::const_iterator i=myTagMap.find(tag);
+    if (i==myTagMap.end()) {
         return SUMO_TAG_NOTHING;
     }
     return (*i).second;

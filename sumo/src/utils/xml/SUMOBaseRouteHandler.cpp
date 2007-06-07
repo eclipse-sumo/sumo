@@ -4,7 +4,7 @@
 /// @date    Mon, 12.12.2005
 /// @version $Id$
 ///
-// A base class for parsing vehicles
+// Base class for parsing vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -32,7 +32,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include "SUMOBaseRouteHandler.h"
-#include <utils/xml/XMLBuildingExceptions.h>
 
 
 // ===========================================================================
@@ -44,19 +43,19 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOBaseRouteHandler::SUMOBaseRouteHandler()
+SUMOBaseRouteHandler::SUMOBaseRouteHandler() throw()
         : myCurrentDepart(0), myAmInEmbeddedMode(false)
 {}
 
 
-SUMOBaseRouteHandler::~SUMOBaseRouteHandler()
+SUMOBaseRouteHandler::~SUMOBaseRouteHandler() throw()
 {}
 
 
 SUMOTime
 SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
         const Attributes &attrs,
-        const std::string &id)
+        const std::string &id) throw()
 {
     SUMOTime ret = -1;
     try {
@@ -74,11 +73,13 @@ RGBColor
 SUMOBaseRouteHandler::parseColor(SUMOSAXHandler &helper,
                                  const Attributes &attrs,
                                  const std::string &type,
-                                 const std::string &id)
+                                 const std::string &id) throw()
 {
     RGBColor col;
     try {
         col = GfxConvHelper::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
     }
@@ -90,7 +91,7 @@ SUMOVehicleClass
 SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
                                         const Attributes &attrs,
                                         const std::string &type,
-                                        const std::string &id)
+                                        const std::string &id) throw()
 {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
@@ -109,7 +110,7 @@ SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
 bool
 SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
                                   const Attributes &attrs,
-                                  bool wantsVehicleColor)
+                                  bool wantsVehicleColor) throw()
 {
     myAmInEmbeddedMode = true;
     try {
@@ -150,7 +151,7 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
 
 
 void
-SUMOBaseRouteHandler::closeVehicle()
+SUMOBaseRouteHandler::closeVehicle() throw()
 {
     myAmInEmbeddedMode = false;
 }

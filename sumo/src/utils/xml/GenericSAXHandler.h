@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A combination between a GenericSAXHandler and an AttributesHandler
+// A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,6 +37,7 @@
 #include <vector>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
+#include <utils/common/UtilExceptions.h>
 #include "SUMOXMLDefinitions.h"
 
 // ===========================================================================
@@ -52,18 +53,38 @@ using namespace XERCES_CPP_NAMESPACE;
 // ===========================================================================
 /**
  * @class GenericSAXHandler
+ * @brief A handler which converts occuring elements and attributes into enums
  *
- * This class is a combination of an AttributesHandler and a
- *  GenericSAX2Handler allowing direct access to and handling of XML-tags
- *  (elements) and attributes.
- * By now, almost every class that handles XML-data is derived from this
- *  class.
+ * Normally, when using a standard SAX-handler we would have to compare
+ *  the incoming XMLCh*-element names with the ones we can parse. The same
+ *  applies to parsing the attributes. This was assumed to be very time consuming,
+ *  that's why we derive our handlers from this class. 
+ * 
+ * The idea behind this second handler layer was avoid repeated conversion
+ *  from strings/whatever to XMLCh* and back again. The usage is quite straight
+ *  forward, the only overhead is the need to define the enums - both emelents
+ *  and attributes within "SUMOXMLDefinition". Still, it maybe helps to avoid typos.
+ *
+ * This class implements the SAX-callback and offers a new set of callbacks 
+ *  which must be implemented by derived classes. Instead of XMLCh*-values,
+ *  element names are supplied to the derived classes as enums (SumoXMLTag).
+ *
+ * Also, this class allows to retrieve attributes using enums (SumoXMLAttr) within
+ *  the implemented "myStartElement" method.
+ *
+ * Basically, GenericSAXHandler is not derived within SUMO directly, but via SUMOSAXHandler
+ *  which knows all tags/attributes used by SUMO. It is still kept separate for
+ *  an easier maintainability and later extensions.
+ *
+ * @todo recheck whether usage of myTagTree is needed at all (errorOccured would get unneeded, too)
  */
 class GenericSAXHandler : public DefaultHandler
 {
 public:
-    /** the structure that describes the relationship between an attribute
-        name and its numerical representation */
+    /** 
+     * @struct Attr
+     * @brief An attribute name and its numerical representation 
+     */
     struct Attr
     {
         /// The xml-attribute-name (ascii)
@@ -72,129 +93,331 @@ public:
         SumoXMLAttr key;
     };
 
-    /** a tag name with its numerical representation */
+    /** 
+     * @struct Tag
+     * @brief A tag (element) name with its numerical representation
+     */
     struct Tag
     {
         /// The xml-element-name (ascii)
         const char *name;
-        /// The numerical representation of the attribute
+        /// The numerical representation of the element
         SumoXMLTag key;
     };
 
 
 public:
     /** constructor */
-    GenericSAXHandler();
+    GenericSAXHandler() throw();
 
-    /** parametrised constructor */
-    GenericSAXHandler(
-        Tag *tags, Attr *attrs);
+
+    /** 
+     * @brief parametrised constructor 
+     *
+     * This constructor gets the lists of known tag and attribute names with 
+     *  their enums (sumotags and sumoattrs in most cases). The list is closed
+     *  by a tag/attribute with the enum-value SUMO_TAG_NOTHING/SUMO_ATTR_NOTHING,
+     *  respectively. 
+     *
+     * The attribute names are converted into XMLCh* and stored within an 
+     *  internal container. This container is cleared within the destructor.
+     */
+    GenericSAXHandler(Tag *tags, Attr *attrs) throw();
+
 
     /** destructor */
-    virtual ~GenericSAXHandler();
+    virtual ~GenericSAXHandler() throw();
 
 
-    /** returns the information whether an error occured during the parsing */
-    bool errorOccured() const;
+    /** 
+     * @brief Returns the information whether an error occured during the parsing 
+     *
+     * Returns the value of myErrorOccured.
+     * 
+     * @todo: recheck this!
+     */
+    bool errorOccured() const throw();
 
-    /** returns the information whether an unknown tag occured */
-    bool unknownOccured() const;
 
-    /** @brief The inherited method called when a new tag opens
-        This method calls the user-implemented methof myStartElement */
+    /** 
+     * @brief returns the information whether an unknown tag occured 
+     * 
+     * Returns the value of myUnknownOccured
+     */
+    bool unknownOccured() const throw();
+
+
+    /**
+     * @brief The inherited method called when a new tag opens
+     *
+     * The method parses the supplied XMLCh*-qname using the internal name/enum-map
+     *  to obtain the enum representation of the attribute name.
+     * 
+     * Then, "myStartElement" is called supplying the enumeration value, the 
+     *  string-representation of the name and the attributes.
+     *
+     * @todo recheck/describe encoding of the string-representation
+     * @todo do not generate and report the string-representation
+     */
     void startElement(const XMLCh* const uri, const XMLCh* const localname,
-                      const XMLCh* const qname, const Attributes& attrs);
+                      const XMLCh* const qname, const Attributes& attrs) throw();
 
-    /** @brief The inherited method called when characters occured
-        The characters are appended into a private buffer and given to
-        myCharacters when the according tag is being closed */
-    void characters(const XMLCh* const chars, const unsigned int length);
 
-    /** @brief The inherited method called when a tag is being closed
-        This method calls the user-implemented methods myCharacters and
-        and myEndElement */
+    /** 
+     * @brief The inherited method called when characters occured
+     *
+     * The retrieved characters are converted into a string and appended into a 
+     *  private buffer. They are reported as soon as the element ends.
+     *
+     * @todo recheck/describe what happens with characters when a new element is opened
+     * @todo describe characters processing in the class' head
+     */
+    void characters(const XMLCh* const chars, const unsigned int length) throw();
+
+
+    /** 
+     * @brief The inherited method called when a tag is being closed
+     *
+     * This method calls the user-implemented methods myCharacters with the previously
+     *  collected and converted characters.
+     * 
+     * Then, myEndElement is called, supplying it the qname converted to its enum-
+     *  and string-representations.
+     *
+     * @todo recheck/describe encoding of the string-representation
+     * @todo do not generate and report the string-representation
+     */
     void endElement(const XMLCh* const uri, const XMLCh* const localname,
-                    const XMLCh* const qname);
+                    const XMLCh* const qname) throw();
 
 
-    // methods for retrieving attribute values
-    bool hasAttribute(const Attributes &attrs, SumoXMLAttr id);
-    bool hasAttribute(const Attributes &attrs, const XMLCh * const id);
 
-    /** returns the named (by id) attribute as a bool */
-    bool getBool(const Attributes &attrs, SumoXMLAttr id) const;
-    bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const;
+    //{ methods for retrieving attribute values
+    /** 
+     * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
+     */
+    bool hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw();
 
-    /** returns the named (by id) attribute as an int */
-    int getInt(const Attributes &attrs, SumoXMLAttr id) const;
-    int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const;
+    /** 
+     * @brief Returns the information whether the named attribute is within the current list
+     */
+    bool hasAttribute(const Attributes &attrs, const XMLCh * const id) throw();
 
-    /** returns the named (by id) attribute as a string */
-    std::string getString(const Attributes &attrs, SumoXMLAttr id) const;
+
+    /** 
+     * @brief Returns the bool-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an 
+     *  EmptyData-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     */
+    bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
+
+    /** 
+     * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2boolSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2boolSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
+     *  returns the default value.
+     *
+     * @exception EmptyData If the attribute value is an empty string
+     */
+    bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData);
+
+
+    /** 
+     * @brief Returns the int-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2int. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2int throws an 
+     *  EmptyData-exception which is passed.
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2int throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an int
+     */
+    int getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
+
+    /** 
+     * @brief Returns the int-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2intSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2intSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2intSec
+     *  returns the default value.
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @exception EmptyData If the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an int
+     */
+    int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
+
+
+    /** 
+     * @brief Returns the string-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2str. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an 
+     *  EmptyData-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     */
+    std::string getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
+
+    /** 
+     * @brief Returns the string-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     */
     std::string getStringSecure(const Attributes &attrs, SumoXMLAttr id,
-                                const std::string &str) const;
-
-    /** returns the named (by id) attribute as a SUMOReal */
-    SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const;
-    SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const;
-    SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const;
-
-protected:
-    /** @brief handler method for an opening tag to implement by derived classes
-        This method is only called when the tag name was supplied by the user */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
-                                const Attributes &attrs) = 0;
-
-    /** @brief handler method for characters to implement by derived classes
-        This method is only called when tha tag name was supplied by the user */
-    virtual void myCharacters(SumoXMLTag element, const std::string &name,
-                              const std::string &chars) = 0;
-
-    /** @brief handler method for a closing tag to implement by derived classes
-        This tag is only called when tha tag name was supplied by the user */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name) = 0;
+                                const std::string &str) const throw(EmptyData);
 
 
-private:
-    /** converts from c++-string into unicode */
-    XMLCh *convert(const std::string &name) const;
+    /** 
+     * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
+     *  EmptyData-exception which is passed.
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
+     */
+    SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /** converts a tag from its string into its numerical representation */
-    SumoXMLTag convertTag(const std::string &tag) const;
+    /** 
+     * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMORealSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2SUMORealSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2SUMORealSec
+     *  returns the default value.
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
+     */
+    SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
-private:
-    //{ methods for dealing with attributes
-    /** returns the xml-name of an attribute in a way that no NULL-pointer
-        exceptions may occure */
-    const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-                                         SumoXMLAttr id) const;
+    /** 
+     * @brief Returns the SUMOReal-value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
+     *  EmptyData-exception which is passed.
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
+     */
+    SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const throw(EmptyData, NumberFormatException);
     //}
 
+protected:
+    /** 
+     * @brief Callback method for an opening tag to implement by derived classes
+     *
+     * Called by "startElement" (see there).
+     */
+    virtual void myStartElement(SumoXMLTag element, const std::string &name,
+                                const Attributes &attrs) throw() = 0;
+
+
+    /** 
+     * @brief Callback method for characters to implement by derived classes 
+     *
+     * Called by "endElement" (see there).
+     */
+    virtual void myCharacters(SumoXMLTag element, const std::string &name,
+                              const std::string &chars) throw() = 0;
+
+
+    /** @brief Callback method for a closing tag to implement by derived classes
+     *
+     * Called by "endElement" (see there).
+     */
+    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw() = 0;
+
+
 private:
-    //{ Variables for attributes parsing
-    /** the type of the map from ids to their unicode-string representation */
+    /** 
+     * @brief converts from c++-string into unicode 
+     * 
+     * @todo recheck encoding
+     */
+    XMLCh *convert(const std::string &name) const throw();
+
+
+    /** 
+     * @brief Converts a tag from its string into its numerical representation 
+     *
+     * Returns the enum-representation stored for the given tag. If the tag is not
+     *  known, SUMO_TAG_NOTHING is returned.
+     */
+    SumoXMLTag convertTag(const std::string &tag) const throw();
+
+
+private:
+    /** 
+     * @brief returns the xml-value of an attribute-enum value 
+     *
+     * It is assumed, that each SumoXMLAttr has a string-representation.
+     */
+    const XMLCh *getAttributeValueSecure(const Attributes &attrs,
+                                         SumoXMLAttr id) const throw();
+
+
+
+private:
+    //{ Attributes parsing
+    // the type of the map from ids to their unicode-string representation
     typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
-    /** the map from ids to their unicode-string representation */
+    // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
     //}
 
-    /** the type of the map the maps tag names to ints */
+
+    //{ Elements parsing
+    // the type of the map that maps tag names to ints 
     typedef std::map<std::string, SumoXMLTag> TagMap;
 
+    // the map of tag names to their internal numerical representation
+    TagMap myTagMap;
+    //}
+
+
     /** the information whether an error occured during the parsing */
-    bool _errorOccured;
+    bool myErrorOccured;
 
     /** the information whether an unknown tag occured */
-    bool _unknownOccured;
-
-    /** the map of tag names to their internal numerical representation */
-    TagMap _tagMap;
+    bool myUnknownOccured;
 
     /** the current position in the xml-tree as a stack */
-    std::stack<int> _tagTree;
+    std::stack<int> myTagTree;
 
-    /// A list of characters string obtained so far to build the complete characters string at the end
+    /// A list of character strings obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
 
 
