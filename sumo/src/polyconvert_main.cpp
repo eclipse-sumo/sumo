@@ -47,7 +47,7 @@
 #include <polyconvert/PCXMLPoints.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -348,7 +348,10 @@ main(int argc, char **argv)
         PCTypeMap tm;
         if (oc.isSet("typemap")) {
             PCTypeDefHandler handler(oc, tm);
-            XMLHelpers::runParser(handler, oc.getString("typemap"));
+            if(!XMLSubSys::runParser(handler, oc.getString("typemap"))) {
+                // something failed
+                throw ProcessError();
+            }
         }
 
         // read in the data

@@ -45,7 +45,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
@@ -239,10 +239,8 @@ loadDistricts(OptionsCont &oc)
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
     ODDistrictHandler handler(*ret);
-    handler.setFileName(file);
-    XMLHelpers::runParser(handler, file);
-    // check whether the loading was ok
-    if (ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
+    handler.setFileName(file); // !!! can do this in the constructor
+    if(!XMLSubSys::runParser(handler, file)||ret->size()==0) {
         delete ret;
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return 0;

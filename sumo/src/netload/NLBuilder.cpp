@@ -55,7 +55,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <sumo_only/SUMOFrame.h>
@@ -130,7 +130,7 @@ NLBuilder::~NLBuilder()
 bool
 NLBuilder::build()
 {
-    SAX2XMLReader* parser = XMLHelpers::getSAXReader(myXMLHandler);
+    SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser);
     // try to build the net
     if (ok) {

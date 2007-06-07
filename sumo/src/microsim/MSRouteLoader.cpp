@@ -31,7 +31,7 @@
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include "MSNet.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
@@ -54,7 +54,7 @@ MSRouteLoader::MSRouteLoader(MSNet &,
                              MSRouteHandler *handler)
         : myParser(0), _moreAvailable(true), myHandler(handler)
 {
-    myParser = XMLHelpers::getSAXReader(*myHandler);
+    myParser = XMLSubSys::getSAXReader(*myHandler);
 }
 
 

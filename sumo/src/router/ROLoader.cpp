@@ -41,7 +41,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/xml/WeightsHandler.h>
 #include <utils/importio/LineReader.h>
 #include "RONet.h"
@@ -241,8 +241,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     RONet *net = new RONet(_options.isSet("sumo-input"));
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
-    XMLHelpers::runParser(handler, file);
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
+    if(!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;
@@ -508,15 +507,13 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     WeightsHandler handler(def, file);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
-    XMLHelpers::runParser(handler, file);
-    bool ok = !MsgHandler::getErrorInstance()->wasInformed();
-    // report whe wished
-    if (ok) {
+    if(XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        return true;
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        return false;
     }
-    return ok;
 }
 
 
@@ -534,8 +531,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
     defs.push_back(new WeightsHandler::ToRetrieveDefinition("edge", "factor", true, retriever.getMultRetriever()));
     WeightsHandler handler(defs, filename);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
-    XMLHelpers::runParser(handler, filename);
-    if (! MsgHandler::getErrorInstance()->wasInformed()) {
+    if(XMLSubSys::runParser(handler, filename)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");

@@ -49,7 +49,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -79,7 +79,9 @@ PCXMLPoints::~PCXMLPoints()
 void
 PCXMLPoints::load(OptionsCont &oc)
 {
-    XMLHelpers::runParser(*this, oc.getString("xml-points"));
+    if(!XMLSubSys::runParser(*this, oc.getString("xml-points"))) {
+        throw ProcessError();
+    }
 }
 
 

@@ -318,22 +318,6 @@ MSVehicle::initDevices(int vehicleIndex)
             }
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    }if (false) {
-        int noCellPhones = 1;
-        if (myType->getID().compare("pkw")== 0)
-            noCellPhones = 1;
-        else if (myType->getID().compare("bus")== 0)
-            noCellPhones = 2;
-        else if (myType->getID().compare("sbahn")== 0)
-            noCellPhones = 3;
-        else if (myType->getID().compare("SBahn")== 0)
-            noCellPhones = 4;
-        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-        for (int np=0; np<noCellPhones; np++) {
-            string phoneid = getID() + "_cphone#" + toString(np);
-            v->push_back(new MSDevice_CPhone(*this, phoneid));
-        }
-        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
     }
 
     // c2c communication

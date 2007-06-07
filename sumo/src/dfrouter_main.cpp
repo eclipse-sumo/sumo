@@ -31,7 +31,6 @@
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <iostream>
 #include <string>
 #include <limits.h>
@@ -58,7 +57,7 @@
 #include <routing_df/DFRORouteCont.h>
 #include <routing_df/DFDetectorFlow.h>
 #include <routing_df/DFDetFlowLoader.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -123,22 +122,12 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
             DFDetectorHandler handler(oc, *cont, *fileIt);
-            SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
-            try {
-                parser->parse((*fileIt).c_str());
+            if(XMLSubSys::runParser(handler, *fileIt)) {
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
-            } catch (SAXException &e) {
+            } else {
+                MsgHandler::getMessageInstance()->endProcessMsg("failed.");
                 delete cont;
-                throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
-            } catch (XMLException &e) {
-                delete cont;
-                throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
-            } catch (XMLBuildingException &e) {
-                delete cont;
-                throw ProcessError(e.what());
-            } catch (ProcessError &) {
-                delete cont;
-                throw;
+                throw ProcessError();
             }
         }
     }

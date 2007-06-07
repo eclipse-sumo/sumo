@@ -64,7 +64,7 @@
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
 #include <netimport/tiger/NITigerLoader.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
 #include <utils/common/TplConvert.h>
@@ -199,11 +199,16 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
                       const string &type)
 {
     // build parser
-    SAX2XMLReader* parser = XMLHelpers::getSAXReader(*handler);
+    SAX2XMLReader* parser = XMLSubSys::getSAXReader(*handler);
     string exceptMsg = "";
     // start the parsing
     try {
         for(vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+            if(!FileHelpers::exists(*file)) {
+                MsgHandler::getErrorInstance()->inform("Could not open " + type + "-file '" + *file + "'.");
+                exceptMsg = "Process Error";
+                continue;
+            }
             handler->setFileName(*file);
             WRITE_MESSAGE("Parsing " + type + " from '" + *file + "'...");
             parser->parse(file->c_str());

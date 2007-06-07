@@ -65,7 +65,7 @@
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <xercesc/framework/MemBufInputSource.hpp>
 
 #include <fstream>
@@ -449,7 +449,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
                 handler.setWanted(LOADFILTER_NET);
                 // ... and the parser
-                SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+                SAX2XMLReader* parser = XMLSubSys::getSAXReader(handler);
                 MemBufInputSource* memBufIS =
                     new MemBufInputSource((const XMLByte*) description.c_str(),
                                           description.length(), gMemBufId, false);
@@ -468,18 +468,6 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                         net, 0, 86400, "hallo"/*!!!*/);
                 myParent->handleEvent_SimulationLoaded(e);
             } catch (RandHelper &) {}
-            /*                string error = e.what();
-                            MsgHandler::getErrorInstance()->inform(error);
-                            delete net;
-                            MSNet::clearAll();
-                            net = 0;*/
-            /*            } catch (XMLBuildingException &e) {
-                            string error = e.getMessage("", "");
-                            MsgHandler::getErrorInstance()->inform(error);
-                            delete net;
-                            MSNet::clearAll();
-                            net = 0;
-                        }*/
         }
     }
     else {

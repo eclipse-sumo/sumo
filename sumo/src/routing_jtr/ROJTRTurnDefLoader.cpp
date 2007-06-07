@@ -31,7 +31,7 @@
 #include <set>
 #include <string>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/importio/CSVHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -69,11 +69,13 @@ ROJTRTurnDefLoader::~ROJTRTurnDefLoader()
 void
 ROJTRTurnDefLoader::load(const std::string &file)
 {
-    _file = file;
+    setFileName(file);
     FileHelpers::FileType type = FileHelpers::checkFileType(file);
     switch (type) {
     case FileHelpers::XML:
-        XMLHelpers::runParser(*this, file);
+        if(!XMLSubSys::runParser(*this, file)) {
+            throw ProcessError();
+        }
         break;
     case FileHelpers::CSV:
         CSVHelpers::runParser(*this, file);

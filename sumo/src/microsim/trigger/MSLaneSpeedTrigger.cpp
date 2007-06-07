@@ -35,7 +35,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSLaneSpeedTrigger.h"
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <microsim/MSEventControl.h>
 
@@ -64,15 +64,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     // read in the trigger description
-    SAX2XMLReader* triggerParser = 0;
-    try {
-        triggerParser = XMLHelpers::getSAXReader(*this);
-        triggerParser->parse(aXMLFilename.c_str());
-    } catch (SAXException &e) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-        throw ProcessError();
-    } catch (XMLException &e) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+    if(!XMLSubSys::runParser(*this, aXMLFilename)) {
         throw ProcessError();
     }
     // set it to the right value
@@ -91,7 +83,6 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         new WrappingCommand<MSLaneSpeedTrigger>(this, &MSLaneSpeedTrigger::execute),
         (*myCurrentEntry).first, MSEventControl::NO_CHANGE);
-    delete triggerParser;
 }
 
 

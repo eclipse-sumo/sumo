@@ -35,7 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <microsim/MSEventControl.h>
 #include "MSTriggeredReader.h"
 #include "MSTriggeredXMLReader.h"
@@ -89,9 +89,9 @@ void
 MSTriggeredXMLReader::myInit()
 {
     try {
-        myParser = XMLHelpers::getSAXReader(*this);
-        if (!myParser->parseFirst(_file.c_str(), myToken)) {
-            MsgHandler::getErrorInstance()->inform("Can not read XML-file '" + _file + "'.");
+        myParser = XMLSubSys::getSAXReader(*this);
+        if (!myParser->parseFirst(getFileName().c_str(), myToken)) {
+            MsgHandler::getErrorInstance()->inform("Can not read XML-file '" + getFileName() + "'.");
             throw ProcessError();
         }
     } catch (SAXException &e) {

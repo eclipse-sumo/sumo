@@ -46,7 +46,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -357,7 +357,7 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
         defs.push_back(new WeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
         defs.push_back(new WeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
         WeightsHandler handler(defs, file);
-        XMLHelpers::runParser(handler, file);
+        XMLSubSys::runParser(handler, file); // !!! handle errors
         rebuildList();
     }
     return 1;

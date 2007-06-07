@@ -38,7 +38,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSTriggeredRerouter.h"
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
@@ -108,18 +108,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
     // read in the trigger description
-    SAX2XMLReader* triggerParser = 0;
-    try {
-        triggerParser = XMLHelpers::getSAXReader(*this);
-        triggerParser->parse(aXMLFilename.c_str());
-    } catch (SAXException &e) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-        throw ProcessError();
-    } catch (XMLException &e) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+    if(!XMLSubSys::runParser(*this, aXMLFilename)) {
         throw ProcessError();
     }
-    delete triggerParser;
     // build actors
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {

@@ -42,7 +42,7 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 #include "ROAbstractRouteDefLoader.h"
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
@@ -68,7 +68,7 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
         const std::string &file)
         : ROAbstractRouteDefLoader(vb, net, begin, end),
         SUMOSAXHandler("xml-route definitions", file),
-        _parser(XMLHelpers::getSAXReader(*this)), _token(), _ended(false)
+        _parser(XMLSubSys::getSAXReader(*this)), _token(), _ended(false)
 {}
 
 
@@ -105,7 +105,7 @@ ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
 bool
 ROTypedXMLRoutesLoader::init(OptionsCont &)
 {
-    return _parser->parseFirst(_file.c_str(), _token);
+    return _parser->parseFirst(getFileName().c_str(), _token);
 }
 
 
