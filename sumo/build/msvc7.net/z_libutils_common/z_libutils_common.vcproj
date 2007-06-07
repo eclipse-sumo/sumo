@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -75,7 +75,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="WIN32;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -122,12 +122,6 @@
 		<Filter
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryInputDevice.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryOutputDevice.cpp">
-			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\DoubleVector.cpp">
 				<FileConfiguration
@@ -187,9 +181,6 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\IntVector.cpp">
@@ -320,38 +311,12 @@
 			<File
 				RelativePath="..\..\..\src\utils\common\SysUtils.cpp">
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\XMLHelpers.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath="..\..\..\src\utils\common\AbstractMutex.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryInputDevice.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\bindevice\BinaryOutputDevice.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\BoolVector.h">
@@ -364,9 +329,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\geoconv\GeoConvHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\InstancePool.h">
@@ -421,9 +383,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\UtilExceptions.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\XMLHelpers.h">
 			</File>
 		</Filter>
 	</Files>

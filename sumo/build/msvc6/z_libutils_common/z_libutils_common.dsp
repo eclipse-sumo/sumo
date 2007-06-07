@@ -133,10 +133,6 @@ SOURCE=..\..\..\src\utils\common\SystemFrame.cpp
 
 SOURCE=..\..\..\src\utils\common\SysUtils.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\common\XMLHelpers.cpp
-# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
@@ -224,10 +220,6 @@ SOURCE=..\..\..\src\utils\common\SysUtils.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\UtilExceptions.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\common\XMLHelpers.h
 # End Source File
 # End Group
 # End Target
