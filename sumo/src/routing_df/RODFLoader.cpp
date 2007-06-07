@@ -40,7 +40,7 @@
 #include <iostream>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/XMLHelpers.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -77,8 +77,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
     RODFNetHandler handler(_options, *net, eb);
     handler.setFileName(file);
-    XMLHelpers::runParser(handler, file);
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
+    if(!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;

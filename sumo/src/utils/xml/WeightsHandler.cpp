@@ -54,37 +54,18 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // WeightsHandler::ToRetrieveDefinition methods
 // ---------------------------------------------------------------------------
-// !!!
-XMLCh*
-tconvert(const std::string &name)
-{
-    size_t len = name.length();
-    XMLCh *ret = new XMLCh[len+1];
-    size_t i=0;
-    for (; i<len; i++) {
-        ret[i] = (XMLCh) name.at(i);
-    }
-    ret[i] = 0;
-    return ret;
-}
-
-
-
-WeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &elementName,
-        const std::string &attributeName,
+WeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
         bool edgeBased,
         EdgeFloatTimeLineRetriever &destination)
         : myDestination(destination), myAmEdgeBased(edgeBased),
         myMMLAttributeName(attributeName)
 {
-    myElementName = tconvert(elementName);
-    myAttributeName = tconvert(attributeName);
+    myAttributeName = XMLString::transcode(attributeName.c_str());
 }
 
 
 WeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 {
-    delete[] myElementName;
     delete[] myAttributeName;
 }
 

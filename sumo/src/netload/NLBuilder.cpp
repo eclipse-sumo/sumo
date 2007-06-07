@@ -133,15 +133,12 @@ NLBuilder::build()
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser);
     // try to build the net
-    if (ok) {
-        ok = buildNet();
-    }
+    ok = buildNet();
     // load the previous state if wished
     if (ok&&m_pOptions.isSet("load-state")) {
         BinaryInputDevice strm(m_pOptions.getString("load-state"));
         if (!strm.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
-            ok = false;
+            throw ProcessError("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
             myNet.loadState(strm, (long) 0xfffffff);
@@ -151,7 +148,7 @@ NLBuilder::build()
     // load weights if wished
     if (ok&&m_pOptions.isSet("weight-files")) {
         if (!FileHelpers::checkFileList("weights", m_pOptions.getString("weight-files"))) {
-            ok = false;
+            throw ProcessError();
         }
         // start parsing; for each file in the list
         StringTokenizer st(m_pOptions.getString("weight-files"), ';');
@@ -162,14 +159,15 @@ NLBuilder::build()
             // check whether the file exists
             if (!FileHelpers::exists(tmp)) {
                 // report error if not
-                MsgHandler::getErrorInstance()->inform("The weights file '" + tmp + "' does not exist!");
-                ok = false;
+                throw ProcessError("The weights file '" + tmp + "' does not exist!");
             } else {
                 EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
-                WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("edge", "traveltime", true, retriever);
+                WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
                 WeightsHandler wh(def, tmp);
                 // parse the file
-                XMLHelpers::runParser(wh, tmp);
+                if(!XMLSubSys::runParser(wh, tmp)) {
+                    throw ProcessError();
+                }
                 ok = !(MsgHandler::getErrorInstance()->wasInformed());
             }
         }
@@ -242,6 +240,9 @@ NLBuilder::load(const std::string &mmlWhat,
     subreport(
         "Loading of " + mmlWhat + " done.",
         "Loading of " + mmlWhat + " failed.");
+    if(MsgHandler::getErrorInstance()->wasInformed()) {
+        throw ProcessError();
+    }
     return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
