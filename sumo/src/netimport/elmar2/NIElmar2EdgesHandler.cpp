@@ -102,8 +102,8 @@ NIElmar2EdgesHandler::report(const std::string &result)
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's length occured (edge '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
+        
     }
     // vehicle_type
     string veh_type = st.next();
@@ -136,12 +136,12 @@ NIElmar2EdgesHandler::report(const std::string &result)
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);
     if (from==0) {
-        MsgHandler::getErrorInstance()->inform("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
-        throw ProcessError();
+        throw ProcessError("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
+        
     }
     if (to==0) {
-        MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
-        throw ProcessError();
+        throw ProcessError("The to-node '" + toID + "' of edge '" + id + "' could not be found");
+        
     }
     // build the edge
     NBEdge *e = 0;
@@ -168,8 +168,8 @@ NIElmar2EdgesHandler::report(const std::string &result)
     // insert the edge to the network
     if (!myEdgeCont.insert(e)) {
         delete e;
-        MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not add edge '" + id + "'.");
+        
     }
     return true;
 }

@@ -183,8 +183,8 @@ NIVisumParser_Lanes::myDependentReport()
             }
             NBNode *rn = new NBNode(edgeID + "_" +  toString((size_t) length) + "_" + node->getID(), p);
             if (!myNodeCont.insert(rn)) {
-                MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
-                throw ProcessError();
+                throw ProcessError("Ups - could not insert node!");
+                
             }
             string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
             myEdgeCont.splitAt(myDistrictCont, edge, useLength/*edge->getLength()-length*/, rn,

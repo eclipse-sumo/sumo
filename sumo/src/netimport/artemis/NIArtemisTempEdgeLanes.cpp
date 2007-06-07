@@ -220,8 +220,8 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
                 // if both lanes exist, connect
                 if (setLanes[k-1].test(l)&&setLanes[k].test(l)) {
                     if (!edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2, false)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!");
-                        throw ProcessError();
+                        throw ProcessError("Could not set connection!");
+                        
                     }
                 }
                 // if a new lane starts, connect checking the direction
@@ -229,15 +229,15 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
                     // lane is a new rightmost lane
                     if (l>0&&setLanes[k-1].test(l-1)) {
                         if (!edge1->addLane2LaneConnection(0, edge2, runLaneNo2, false)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!");
-                            throw ProcessError();
+                            throw ProcessError("Could not set connection!");
+                            
                         }
                     }
                     // lane is a new leftmost lane
                     if (setLanes[k-1].test(l+1)) {
                         if (!edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2, false)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!");
-                            throw ProcessError();
+                            throw ProcessError("Could not set connection!");
+                            
                         }
                     }
                 }

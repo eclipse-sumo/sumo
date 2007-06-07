@@ -78,22 +78,22 @@ NIElmarNodesHandler::report(const std::string &result)
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if (st.size()<3) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line\n" + result);
-        throw ProcessError();
+        throw ProcessError("Something is wrong with the following data line\n" + result);
+        
     }
     // parse
     id = st.next();
     try {
         x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for node-x-position occured.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for node-x-position occured.");
+        
     }
     try {
         y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for node-y-position occured.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for node-y-position occured.");
+        
     }
     // geo->metric
     Position2D pos(x, y);
@@ -101,8 +101,8 @@ NIElmarNodesHandler::report(const std::string &result)
     NBNode *n = new NBNode(id, pos);
     if (!myNodeCont.insert(n)) {
         delete n;
-        MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not add node '" + id + "'.");
+        
     }
     return true;
 }

@@ -63,13 +63,13 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
         case 8:
             return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
         default:
-            MsgHandler::getErrorInstance()->inform("Invalid speed code (edge '" + id + "'.");
-            throw ProcessError();
+            throw ProcessError("Invalid speed code (edge '" + id + "'.");
+            
         }
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
+        throw ProcessError(
             "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
-        throw ProcessError();
+        
     }
     throw ProcessError();
 }
@@ -98,13 +98,13 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
             case 3:
                 return 4;
             default:
-                MsgHandler::getErrorInstance()->inform("Invalid lane number (edge '" + id + "').");
-                throw ProcessError();
+                throw ProcessError("Invalid lane number (edge '" + id + "').");
+                
             }
         }
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
+        
     }
     throw ProcessError();
 }

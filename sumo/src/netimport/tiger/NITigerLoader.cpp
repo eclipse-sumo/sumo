@@ -74,8 +74,8 @@ NITigerLoader::load(OptionsCont &)
     LineReader tgr1r((_file + ".rt1").c_str());
     LineReader tgr2r((_file + ".rt2").c_str());
     if (!tgr1r.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open '" + _file + ".rt1" + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not open '" + _file + ".rt1" + "'.");
+        
     }
     string line1, line2, tmp;
     std::vector<std::string> values2;
@@ -109,12 +109,12 @@ NITigerLoader::load(OptionsCont &)
         NBNode *to = getNode(cposes[-1]);
         if (from==0||to==0) {
             if (from==0) {
-                MsgHandler::getErrorInstance()->inform("Could not find start node of edge '" + eid + "'.");
-                throw ProcessError();
+                throw ProcessError("Could not find start node of edge '" + eid + "'.");
+                
             }
             if (to==0) {
-                MsgHandler::getErrorInstance()->inform("Could not find end node of edge '" + eid + "'.");
-                throw ProcessError();
+                throw ProcessError("Could not find end node of edge '" + eid + "'.");
+                
             }
         }
         // !!!
@@ -129,8 +129,8 @@ NITigerLoader::load(OptionsCont &)
                            cposes.length(), priority, cposes);
             if (!myEdgeCont.insert(e)) {
                 delete e;
-                MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
-                throw ProcessError();
+                throw ProcessError("Could not insert edge '" + eid + "'.");
+                
             }
             eid = "-" + eid;
             e =
@@ -138,8 +138,8 @@ NITigerLoader::load(OptionsCont &)
                            cposes.length(), priority, cposes.reverse());
             if (!myEdgeCont.insert(e)) {
                 delete e;
-                MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
-                throw ProcessError();
+                throw ProcessError("Could not insert edge '" + eid + "'.");
+                
             }
         }
     }
@@ -173,8 +173,8 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             GeoConvHelper::x2cartesian(pos);
             ret.push_back(pos);
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Could not convert position '" + p1 + "/" + p2 + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not convert position '" + p1 + "/" + p2 + "'.");
+            
         }
     }
     return ret;
@@ -189,8 +189,8 @@ NITigerLoader::getNode(const Position2D &p)
     if (n==0) {
         n = new NBNode(toString<int>(bla++), p);
         if (!myNodeCont.insert(n)) {
-            MsgHandler::getErrorInstance()->inform("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
-            throw ProcessError();
+            throw ProcessError("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
+            
         }
     }
     return n;
@@ -218,8 +218,8 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
         // ok, its the type (let's hope)
         return tc;
     }
-    MsgHandler::getErrorInstance()->inform("Could not determine type for an edge..."); // !!! be more verbose
-    throw ProcessError();
+    throw ProcessError("Could not determine type for an edge..."); // !!! be more verbose
+    
 }
 
 

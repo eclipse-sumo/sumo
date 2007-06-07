@@ -165,8 +165,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
             if (!myTLLogicCont.insert(tlID, tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
-                MsgHandler::getErrorInstance()->inform("Could not allocate tls '" + tlID + "'.");
-                throw ProcessError();
+                throw ProcessError("Could not allocate tls '" + tlID + "'.");
+                
             }
         } else {
             tlDef->addNode(currentNode);
@@ -178,8 +178,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         if (!myTLLogicCont.insert(myID, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
-            MsgHandler::getErrorInstance()->inform("Could not allocate tls '" + tlID + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not allocate tls '" + tlID + "'.");
+            
         }
     }
 

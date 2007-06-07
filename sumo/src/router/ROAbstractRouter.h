@@ -50,6 +50,9 @@ class ROVehicle;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class ROAbstractRouter
+ */
 typedef SUMOAbstractRouter<ROEdge,ROVehicle> ROAbstractRouter;
 
 

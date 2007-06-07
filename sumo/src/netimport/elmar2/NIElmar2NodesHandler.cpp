@@ -78,8 +78,8 @@ NIElmar2NodesHandler::report(const std::string &result)
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if (st.size()<5) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line\n" + result);
-        throw ProcessError();
+        throw ProcessError("Something is wrong with the following data line\n" + result);
+        
     }
     // parse
     // id
@@ -88,15 +88,15 @@ NIElmar2NodesHandler::report(const std::string &result)
     try {
         intermediate = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for internmediate y/n occured.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for internmediate y/n occured.");
+        
     }
     // number of geometrical information
     try {
         no_geoms = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Non-numerical value for number of nodes occured.");
-        throw ProcessError();
+        throw ProcessError("Non-numerical value for number of nodes occured.");
+        
     }
     // geometrical information
     Position2DVector geoms;
@@ -104,14 +104,14 @@ NIElmar2NodesHandler::report(const std::string &result)
         try {
             x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numerical value for node-x-position occured.");
-            throw ProcessError();
+            throw ProcessError("Non-numerical value for node-x-position occured.");
+            
         }
         try {
             y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numerical value for node-y-position occured.");
-            throw ProcessError();
+            throw ProcessError("Non-numerical value for node-y-position occured.");
+            
         }
 
         Position2D pos(x, y);
@@ -123,8 +123,8 @@ NIElmar2NodesHandler::report(const std::string &result)
         NBNode *n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
-            MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");
-            throw ProcessError();
+            throw ProcessError("Could not add node '" + id + "'.");
+            
         }
     } else {
         myGeoms[id] = geoms;
