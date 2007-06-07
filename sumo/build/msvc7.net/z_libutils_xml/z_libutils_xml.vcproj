@@ -190,9 +190,6 @@
 				RelativePath="..\..\..\src\utils\xml\WeightsHandler.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\XMLBuildingExceptions.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\xml\XMLSubSys.h">
 			</File>
 		</Filter>

@@ -135,10 +135,6 @@ SOURCE=..\..\..\src\utils\xml\WeightsHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\XMLBuildingExceptions.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\xml\XMLSubSys.h
 # End Source File
 # End Group
