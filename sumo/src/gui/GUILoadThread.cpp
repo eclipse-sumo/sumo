@@ -40,7 +40,6 @@
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
