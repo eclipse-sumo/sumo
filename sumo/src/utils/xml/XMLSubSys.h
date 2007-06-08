@@ -4,7 +4,7 @@
 /// @date    Mon, 1 Jul 2002
 /// @version $Id$
 ///
-// Utility for initialising and closing the XML-subsystem
+// Utility methods for initialising, closing and using the XML-subsystem
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,9 +46,9 @@ class SUMOSAXHandler;
 // ===========================================================================
 /**
  * @class XMLSubSys
- * @brief Utility for initialising and closing the XML-subsystem
+ * @brief Utility methods for initialising, closing and using the XML-subsystem
  *
- * The Xerces-Parses needs an initialisation and should also be closed.
+ * The Xerces-parsers need an initialisation and should also be closed.
  *
  * As we use xerces for both the input files and the configuration we
  *  would have to check whether the system was initialised before. Instead,
@@ -61,8 +61,9 @@ class SUMOSAXHandler;
  *  within the microsim-module.
  *
  *
- * Additionally, this module allows build SAXReaders and/or running a given
- *  handler on a given file without dealing with the reader at all.
+ * In addition to initialisation and shutdown, this module allows to build 
+ *  SAXReaders and/or running a given handler on a given file without 
+ *  dealing with the reader at all.
  *
  * @todo make schema checking optional
  */
@@ -101,7 +102,7 @@ public:
 
 
     /** 
-     * @brief Runs the handler on the given file
+     * @brief Runs the given handler on the given file; returns if everything's ok
      * 
      * Builds a reader using getSAXReader. Then, it parses the given file and
      *  deletes the reader.
@@ -119,7 +120,7 @@ public:
 
 protected:
     /** 
-     * @brief Sets a feature of the given reader
+     * @brief Sets the named feature of the given reader to the given value
      */
     static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &,
                            const std::string &feature, bool value) throw();

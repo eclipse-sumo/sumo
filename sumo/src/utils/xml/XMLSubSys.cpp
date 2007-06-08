@@ -4,7 +4,7 @@
 /// @date    Mon, 1 Jul 2002
 /// @version $Id$
 ///
-// Utility for initialising and closing the XML-subsystem
+// Utility methods for initialising, closing and using the XML-subsystem
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
