@@ -37,7 +37,7 @@
 #include <xercesc/framework/XMLFormatter.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <utils/xml/WeightsHandler.h>
+#include <utils/xml/SAXWeightsHandler.h>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
@@ -120,7 +120,7 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever
+class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
     {
     public:
         /// Constructor

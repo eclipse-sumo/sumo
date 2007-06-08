@@ -35,7 +35,7 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
 #include "ROAbstractRouter.h"
-#include <utils/xml/WeightsHandler.h>
+#include <utils/xml/SAXWeightsHandler.h>
 
 
 // ===========================================================================
@@ -129,7 +129,7 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTimeLineRetriever
+class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
     {
     public:
         /// Constructor
@@ -172,7 +172,7 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public WeightsHandler::EdgeFloatTi
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-    class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever
+    class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
         {
         public:
             /// Constructor

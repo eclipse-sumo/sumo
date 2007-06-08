@@ -352,11 +352,11 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
         gCurrentFolder = opendialog.getDirectory().text();
         string file = opendialog.getFilename().text();
         Retriever_AddWeights retriever;
-        std::vector<WeightsHandler::ToRetrieveDefinition*> defs;
-        defs.push_back(new WeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
-        defs.push_back(new WeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
-        defs.push_back(new WeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
-        WeightsHandler handler(defs, file);
+        std::vector<SAXWeightsHandler::ToRetrieveDefinition*> defs;
+        defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
+        defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
+        defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
+        SAXWeightsHandler handler(defs, file);
         XMLSubSys::runParser(handler, file); // !!! handle errors
         rebuildList();
     }

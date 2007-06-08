@@ -34,7 +34,7 @@
 #include <vector>
 #include <fx.h>
 #include <gui/GUIAddWeightsStorage.h>
-#include <utils/xml/WeightsHandler.h>
+#include <utils/xml/SAXWeightsHandler.h>
 
 
 // ===========================================================================
@@ -110,7 +110,7 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-    class SingleWeightRetriever : public WeightsHandler::EdgeFloatTimeLineRetriever
+    class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
         {
         public:
             /// Constructor

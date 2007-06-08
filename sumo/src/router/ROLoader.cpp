@@ -42,7 +42,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/xml/WeightsHandler.h>
+#include <utils/xml/SAXWeightsHandler.h>
 #include <utils/importio/LineReader.h>
 #include "RONet.h"
 #include "RONetHandler.h"
@@ -503,8 +503,8 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     }
     // build and prepare the weights handler
     EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
-    WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, retriever);
-    WeightsHandler handler(def, file);
+    SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, retriever);
+    SAXWeightsHandler handler(def, file);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
     if(XMLSubSys::runParser(handler, file)) {
@@ -525,11 +525,11 @@ ROLoader::loadSupplementaryWeights(RONet& net)
         throw ProcessError("Could not open the supplementary-weights file '" + filename + "'.");
     }
     EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight retriever(&net);
-    std::vector<WeightsHandler::ToRetrieveDefinition*> defs;
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
-    defs.push_back(new WeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
-    WeightsHandler handler(defs, filename);
+    std::vector<SAXWeightsHandler::ToRetrieveDefinition*> defs;
+    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
+    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
+    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
+    SAXWeightsHandler handler(defs, filename);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
     if(XMLSubSys::runParser(handler, filename)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");

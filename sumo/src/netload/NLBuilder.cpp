@@ -162,8 +162,8 @@ NLBuilder::build()
                 throw ProcessError("The weights file '" + tmp + "' does not exist!");
             } else {
                 EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
-                WeightsHandler::ToRetrieveDefinition *def = new WeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
-                WeightsHandler wh(def, tmp);
+                SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
+                SAXWeightsHandler wh(def, tmp);
                 // parse the file
                 if(!XMLSubSys::runParser(wh, tmp)) {
                     throw ProcessError();

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    WeightsHandler.cpp
+/// @file    SAXWeightsHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 30 Mar 2007
 /// @version $Id$
@@ -35,7 +35,7 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include "WeightsHandler.h"
+#include "SAXWeightsHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,9 +52,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// WeightsHandler::ToRetrieveDefinition methods
+// SAXWeightsHandler::ToRetrieveDefinition methods
 // ---------------------------------------------------------------------------
-WeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
+SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
         bool edgeBased,
         EdgeFloatTimeLineRetriever &destination)
         : myDestination(destination), myAmEdgeBased(edgeBased),
@@ -64,16 +64,16 @@ WeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &at
 }
 
 
-WeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
+SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 {
     delete[] myAttributeName;
 }
 
 
 // ---------------------------------------------------------------------------
-// WeightsHandler methods
+// SAXWeightsHandler methods
 // ---------------------------------------------------------------------------
-WeightsHandler::WeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
+SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
                                const std::string &file)
         : SUMOSAXHandler("sumo-netweights", file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
@@ -81,7 +81,7 @@ WeightsHandler::WeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
 {}
 
 
-WeightsHandler::WeightsHandler(ToRetrieveDefinition *def,
+SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
                                const std::string &file)
         : SUMOSAXHandler("sumo-netweights", file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1)
@@ -90,7 +90,7 @@ WeightsHandler::WeightsHandler(ToRetrieveDefinition *def,
 }
 
 
-WeightsHandler::~WeightsHandler()
+SAXWeightsHandler::~SAXWeightsHandler()
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
     for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
@@ -99,7 +99,7 @@ WeightsHandler::~WeightsHandler()
 }
 
 
-void WeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
+void SAXWeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
                                     const Attributes &attrs) throw()
 {
     switch (element) {
@@ -125,7 +125,7 @@ void WeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*nam
 
 
 void
-WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
+SAXWeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
@@ -170,13 +170,13 @@ WeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 
 
 void
-WeightsHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
+SAXWeightsHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
                              const std::string &/*chars*/) throw()
 {}
 
 
 void
-WeightsHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+SAXWeightsHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
 {
     if (element==SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;

@@ -4,5 +4,5 @@ libxml_a_SOURCES = GenericSAXHandler.h GenericSAXHandler.cpp \
 SUMOBaseRouteHandler.cpp SUMOBaseRouteHandler.h \
 SUMOSAXHandler.cpp SUMOSAXHandler.h \
 SUMOXMLDefinitions.cpp SUMOXMLDefinitions.h \
-WeightsHandler.cpp WeightsHandler.h \
+SAXWeightsHandler.cpp SAXWeightsHandler.h \
 XMLSubSys.cpp XMLSubSys.h
