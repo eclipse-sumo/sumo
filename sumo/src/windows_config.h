@@ -7,6 +7,7 @@
 
 /* Disable "identifier truncated in debug info" warnings. */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4290)
 
 /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
 #if _MSC_VER >= 1400
