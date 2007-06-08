@@ -77,8 +77,8 @@ public:
                             const std::string &base, const NLHandler &helper);
 
 protected:
-    //{ @brief Parsing methods // !!! check this in doxygen
-    ///
+    /// @name parsing methods
+    //@{ 
     /// These methods parse the attributes for each of the described trigger
     ///  and call the according methods to build the trigger
 
@@ -118,11 +118,11 @@ protected:
                                            const Attributes &attrs, const std::string &base,
                                            const NLHandler &helper);
 #endif
-    //}
+    //@}
 
 protected:
-    //{ @brief Building methods // !!! check this in doxygen
-    ///
+    /// @name building methods
+    //@{ 
     /// Called with parsed values, these methods build the trigger.
     /// These methods should be overriden for the gui loader in order
     ///  to build visualizable versions of the triggers
@@ -165,7 +165,7 @@ protected:
     virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
             const std::string &id, MSLane *lane, SUMOReal pos,
             unsigned int la, unsigned int cell, unsigned int type);
-    //}
+    //@}
 
 protected:
     /// Helper method to obtain the filename

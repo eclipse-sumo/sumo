@@ -90,7 +90,8 @@ public:
     long onCmdMakeSnapshot(FXObject*sender,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
-    //{ locator-callbacks
+    /// @name locator-callbacks
+    //@{ 
     /// opens a locator for junctions
     long onCmdLocateJunction(FXObject*,FXSelector,void*);
     /// opens a locator for edges
@@ -103,7 +104,7 @@ public:
     long onCmdLocateAdd(FXObject *sender,FXSelector,void*);
     /// opens a locator for shapes
     long onCmdLocateShape(FXObject*,FXSelector,void*);
-    //}
+    //@}
 
     /// centers the view onto the given artifact
     void setView(GUIGlObject *o);

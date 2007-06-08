@@ -59,7 +59,8 @@ public:
     { }
 
 
-    ///{ from GUIBaseColorer
+    /// @name inherited from GUIBaseColorer
+    //@{ 
     /// Sets the color using a value from the given instance of _T
     void setGlColor(const _T&) const
     {
@@ -77,10 +78,11 @@ public:
     {
         return CST_SINGLE;
     }
-    ///}
+    //@}
 
 
-    ///{ from GUIBaseColorerInterface
+    /// @name inherited from from GUIBaseColorerInterface
+    //@{ 
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &c)
     {
@@ -92,7 +94,7 @@ public:
     {
         return myColor;
     }
-    ///}
+    //@}
 
 private:
     /// The color to use

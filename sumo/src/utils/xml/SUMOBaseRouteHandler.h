@@ -67,7 +67,8 @@ public:
 
 
 protected:
-    //{ parse helper (reporting errors)
+    /// @name parse helper (reporting errors)
+    //@{ 
     /**
      * @brief Parses the color definition (if given)
      *
@@ -129,11 +130,12 @@ protected:
      *  embedded values.
      */
     virtual void closeVehicle() throw();
-    //}
+    //@}
 
 
 protected:
-    //{ variables used during parsing of vehicles
+    /// @name variables used during parsing of vehicles
+    //@{ 
     /// the id of the current vehicle
     std::string myActiveVehicleID;
 
@@ -157,7 +159,7 @@ protected:
 
     /// The vehicle's color
     RGBColor myCurrentVehicleColor;
-    //}
+    //@}
 
     /// information whether an error occured
     bool myHadErrors;

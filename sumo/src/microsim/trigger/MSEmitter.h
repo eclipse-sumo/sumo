@@ -198,6 +198,8 @@ protected:
         SUMOReal getLoadedFlow() const;
 
     protected:
+        /// @name inherited from GenericSAXHandler
+        //@{ 
         /** the implementation of the SAX-handler interface for reading
             element begins */
         virtual void myStartElement(SumoXMLTag element, const std::string &name,
@@ -211,6 +213,7 @@ protected:
         /** the implementation of the SAX-handler interface for reading
             element ends */
         void myEndElement(SumoXMLTag element, const std::string &name) throw();
+        //@}
 
         /// Informs the child that the end of the processed file has been reached
         void inputEndReached();

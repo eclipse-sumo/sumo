@@ -130,7 +130,8 @@ public:
     virtual ~MSVehicle();
 
 
-    //@{ needed during the emission
+    /// @name needed during the emission
+    //@{ 
     /// returns the edge the vehicle starts from
     const MSEdge &departEdge();
 
@@ -177,7 +178,8 @@ public:
     void removeOnTripEnd(MSVehicle *veh);
 
 
-    //@{ interaction with the route
+    /// @name interaction with the route
+    //@{ 
     /** Returns the nSuccs'th successor of the vehicles current
         route-edge or 0 if there is no nSucc'th edge. */
     const MSEdge* succEdge(unsigned int nSuccs) const;
@@ -243,7 +245,8 @@ public:
 
 
 
-    //@{ Retrieval and setting of CORN values
+    /// @name retrieval and setting of CORN values
+    //@{ 
     /// Gets the named CORN double value
     int getCORNIntValue(MSCORN::Function f) const;
 
@@ -270,7 +273,8 @@ public:
     void moveRegardingCritical(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh);
 
 
-    //@{ State setter/getter
+    /// @name state setter/getter
+    //@{ 
     /// Returns the vehicle state
     const State &getState() const
     {
@@ -381,7 +385,8 @@ public:
     Position2D getPosition() const;
 
 
-    //@{ State IO
+    /// @name state io
+    //@{ 
     /// Saves the states of a vehicle
     void saveState(std::ostream &os, long what);
     //@}
@@ -422,7 +427,8 @@ public:
     const MSLane &getLane() const;
 
 
-    //@{ Usage of multiple vehicle emissions
+    /// @name usage of multiple vehicle emissions
+    //@{ 
     /// Returns the information whether further vehicles of this type shall be emitted periodically
     bool periodical() const;
 

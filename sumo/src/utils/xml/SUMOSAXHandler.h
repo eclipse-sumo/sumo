@@ -61,7 +61,8 @@ public:
     virtual ~SUMOSAXHandler() throw();
 
 
-    ///{ Handlers for the SAX ErrorHandler interface
+    /// @name SAX ErrorHandler callbacks
+    //@{ 
     /**
      * @brief Handler for XML-warnings
      *
@@ -83,7 +84,7 @@ public:
      * The message is built using buildErrorMessage and thrown within a ProcessError.
      */
     void fatalError(const SAXParseException& exception) throw(ProcessError);
-    ///}
+    //@}
 
 
     /** 

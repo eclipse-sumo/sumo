@@ -71,7 +71,8 @@ public:
     /** destructor */
     ~GUIBusStop();
 
-    //@{ From GUIGlObject
+    /// @name inherited from GUIGlObject
+    //@{ 
     /// Returns an own popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);
@@ -87,7 +88,9 @@ public:
     bool active() const;
     //@}
 
-    //@{ From GUIAbstractAddGlObject
+
+    /// @name inherited from GUIAbstractAddGlObject
+    //@{ 
     /// Draws the detector in full-geometry mode
     void drawGL(SUMOReal scale, SUMOReal upscale);
 

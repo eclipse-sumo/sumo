@@ -100,6 +100,8 @@ public:
     const MSEdgeContinuations &getContinuations() const;
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** called on the occurence of the beginning of a tag;
         this method */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
@@ -112,6 +114,7 @@ protected:
     /** called on the end of an element;
         this method */
     virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
     void addParam(const Attributes &attrs);
 

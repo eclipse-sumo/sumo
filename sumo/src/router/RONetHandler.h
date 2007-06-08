@@ -62,6 +62,8 @@ public:
     virtual ~RONetHandler();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** the user-impemlented handler method for an opening tag */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs) throw();
@@ -72,6 +74,7 @@ protected:
 
     /** the user-implemented handler method for a closing tag */
     virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 protected:
     /// Parses an edge

@@ -59,6 +59,8 @@ public:
     ~ODDistrictHandler();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /// Called when an opening-tag occures
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -69,6 +71,7 @@ protected:
     /// Called on characters
     void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars) throw();
+    //@}
 
 private:
     /// Begins the parsing of a district

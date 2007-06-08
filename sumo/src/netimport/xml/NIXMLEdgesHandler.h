@@ -64,6 +64,8 @@ public:
     ~NIXMLEdgesHandler();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /// The method called by the SAX-handler to parse start tags
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -74,6 +76,7 @@ protected:
 
     /// The method called by the SAX-handler to parse end tags
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 private:
     /// Parses the id from the given attributes

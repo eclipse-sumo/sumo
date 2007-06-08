@@ -70,7 +70,8 @@ public:
     { }
 
 
-    ///{ from GUIBaseColorer
+    /// @name inherited from GUIBaseColorer
+    //@{ 
     /// Sets the color using a value from the given instance of _T
     void setGlColor(const _T& i) const
     {
@@ -111,10 +112,11 @@ public:
     {
         return CST_MINMAX;
     }
-    ///}
+    //@}
 
 
-    ///{ from GUIBaseColorerInterface
+    /// @name inherited from from GUIBaseColorerInterface
+    //@{ 
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &min, const RGBColor &max)
     {
@@ -133,7 +135,7 @@ public:
     {
         return myMaxColor;
     }
-    ///}
+    //@}
 
 protected:
     /// The ranges and the resulting scale

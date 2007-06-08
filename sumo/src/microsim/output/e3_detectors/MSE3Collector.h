@@ -77,13 +77,14 @@ class MSE3EntryReminder : public MSMoveReminder
         MSE3EntryReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
-        //{ methods from MSMoveReminder
+        /// @name methods from MSMoveReminder
+        //@{ 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
         void dismissByLaneChange(MSVehicle& veh);
 
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
-        //}
+        //@}
 
     private:
         /// The parent collector
@@ -106,13 +107,14 @@ class MSE3LeaveReminder : public MSMoveReminder
         MSE3LeaveReminder(
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
-        //{ methods from MSMoveReminder
+        /// @name methods from MSMoveReminder
+        //@{ 
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
         void dismissByLaneChange(MSVehicle& veh);
 
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
-        //}
+        //@}
 
     private:
         /// The parent collector

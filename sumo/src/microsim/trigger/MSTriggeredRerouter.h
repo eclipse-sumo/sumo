@@ -148,6 +148,8 @@ class Setter : public MSMoveReminder
     SUMOReal getUserProbability() const;
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** the implementation of the SAX-handler interface for reading
         element begins */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
@@ -161,6 +163,7 @@ protected:
     /** the implementation of the SAX-handler interface for reading
         element ends */
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 protected:
     /// List of lane-based vehicle informing children
@@ -175,7 +178,8 @@ protected:
     /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;
 
-    //{ members used during loading
+    /// @name members used during loading
+    //@{ 
     /// The first and the last time steps of the interval
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges
@@ -184,7 +188,7 @@ protected:
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
     RandomDistributor<MSRoute*> myCurrentRouteProb;
-    //}
+    //@}
 
 };
 

@@ -61,7 +61,8 @@ public:
     ~RORDLoader_SUMOAlt();
 
 protected:
-    //{ XML-handling methods
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -72,7 +73,7 @@ protected:
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
-    //}
+    //@}
 
 protected:
     /// Begins the parsing of the next route alternative in the file

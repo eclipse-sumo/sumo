@@ -61,7 +61,8 @@ public:
     /// Destructor
     ~GUITrafficLightLogicWrapper();
 
-    //@{ From GUIGlObject
+    /// @name inherited from GUIGlObject
+    //@{ 
     /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);

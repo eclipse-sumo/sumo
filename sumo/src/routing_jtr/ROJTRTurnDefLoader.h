@@ -70,6 +70,8 @@ public:
     bool report(const std::string &line);
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /// SAX-callback for tag start
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -80,6 +82,7 @@ protected:
 
     /// SAX-callback for tag end
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 private:
     /// Begins the processing of an interval

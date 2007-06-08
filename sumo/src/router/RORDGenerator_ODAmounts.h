@@ -82,6 +82,8 @@ protected:
         for the modalities! */
     bool myReadRoutesAtLeastUntil(SUMOTime until);
 
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -92,6 +94,7 @@ protected:
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 protected:
     /// Parses the interval information

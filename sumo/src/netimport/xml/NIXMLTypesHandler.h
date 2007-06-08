@@ -52,6 +52,8 @@ public:
     ~NIXMLTypesHandler();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /// called on the opening of a tag; inherited
     void myStartElement(SumoXMLTag element, const std::string &name,
                         const Attributes &attrs) throw();
@@ -62,6 +64,7 @@ protected:
 
     /// called on the closing of a tag; inherited
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 private:
     /// The type container to fill

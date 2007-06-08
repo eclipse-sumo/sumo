@@ -72,7 +72,8 @@ public:
     friend class GUIGlObjectStorage;
 
 
-    //@{ The following methods needs to be implemented by derived classes
+    /// @name interfaces to be implemented by derived classes
+    //@{ 
     /// Returns the popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(
         GUIMainWindow &app, GUISUMOAbstractView &parent) = 0;
@@ -95,7 +96,8 @@ public:
     //@}
 
 protected:
-    //@{ Helper methods for building popup-menus
+    /// @name helper methods for building popup-menus
+    //@{ 
     /// Builds the header
     void buildPopupHeader(GUIGLObjectPopupMenu *ret,
                           GUIMainWindow &app, bool addSeparator=true);

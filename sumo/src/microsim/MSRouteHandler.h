@@ -89,6 +89,8 @@ public:
     MSVehicle *retrieveLastReadVehicle();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** implementation of the GenericSAXHandler-myStartElement - interface */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
                                 const Attributes &attrs) throw();
@@ -99,6 +101,7 @@ protected:
 
     /** implementation of the GenericSAXHandler-myEndElement - interface */
     virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    //@}
 
 
     /** parses an occured vehicle type definition */

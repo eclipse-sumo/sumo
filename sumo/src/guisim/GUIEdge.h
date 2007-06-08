@@ -96,7 +96,8 @@ public:
     static void fill(std::vector<GUIEdge*> &netsWrappers);
 
 
-    //@{ From GUIGlObject
+    /// @name inherited from GUIGlObject
+    //@{ 
     /// Returns a popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
             GUISUMOAbstractView &parent);

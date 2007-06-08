@@ -67,6 +67,8 @@ public:
     ~GUIHandler();
 
 protected:
+    /// @name inherited from GenericSAXHandler
+    //@{ 
     /** called on the occurence of the beginning of a tag;
         this method */
     void myStartElement(SumoXMLTag element, const std::string &name,
@@ -75,6 +77,7 @@ protected:
     /** called when simple characters occure; this method */
     void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars) throw();
+    //@}
 
     /** parses an occured vehicle type definition */
     virtual void addVehicleType(const Attributes &attrs);

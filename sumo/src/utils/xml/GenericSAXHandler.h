@@ -55,7 +55,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * @class GenericSAXHandler
  * @brief A handler which converts occuring elements and attributes into enums
  *
- * Normally, when using a standard SAX-handler we would have to compare
+ * Normally, when using a standard SAX-handler, we would have to compare
  *  the incoming XMLCh*-element names with the ones we can parse. The same
  *  applies to parsing the attributes. This was assumed to be very time consuming,
  *  that's why we derive our handlers from this class. 
@@ -390,22 +390,24 @@ private:
 
 
 private:
-    //{ Attributes parsing
+    /// @name attributes parsing
+    //@{ 
     // the type of the map from ids to their unicode-string representation
     typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
     // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
-    //}
+    //@}
 
 
-    //{ Elements parsing
+    /// @name elements parsing
+    //@{ 
     // the type of the map that maps tag names to ints 
     typedef std::map<std::string, SumoXMLTag> TagMap;
 
     // the map of tag names to their internal numerical representation
     TagMap myTagMap;
-    //}
+    //@}
 
 
     /** the information whether an error occured during the parsing */

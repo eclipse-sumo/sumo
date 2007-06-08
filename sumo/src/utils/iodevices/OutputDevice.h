@@ -109,7 +109,8 @@ public:
         myNeedDetectorName = value;
     }
 
-    ///{ methods for saving/reading an abstract state
+    /// @name methods for saving/reading an abstract state
+    //@{ 
     /** @brief Returns the value of the named boolean marker
      *
      * If the boolean marker was not set before, false is returned
@@ -130,10 +131,7 @@ public:
     {
         myBoolMarkers[name] = value;
     }
-    ///}
-
-
-
+    //@}
 
 
 protected:

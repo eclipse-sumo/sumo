@@ -231,14 +231,15 @@ public:
         std::string myID;
         /// The device the detector shall use
         OutputDevice *myDevice;
-        //{ further detector descriptions
+        /// @name further detector descriptions
+        //@{ 
         SUMOReal myHaltingTimeThreshold;
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
         E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;
         CrossSectionVector myExits;
         int mySampleInterval;
-        //}
+        //@}
 
     };
 

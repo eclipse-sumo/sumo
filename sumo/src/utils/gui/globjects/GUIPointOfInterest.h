@@ -58,7 +58,8 @@ public:
     virtual ~GUIPointOfInterest();
 
 
-    //@{ From GUIGlObject
+    /// @name inherited from GUIGlObject
+    //@{ 
     /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);

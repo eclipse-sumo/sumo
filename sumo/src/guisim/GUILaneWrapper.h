@@ -76,7 +76,8 @@ public:
     /// destructor
     virtual ~GUILaneWrapper();
 
-    //@{ From GUIGlObject
+    /// @name inherited from GUIGlObject
+    //@{ 
     /// Returns a popup-menu for lanes
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);
@@ -101,15 +102,12 @@ public:
     /** returns the length of the lane */
     SUMOReal getLength() const;
 
-    //{
     /** returns the "visualisation length"; this length may differ to the
         real length */
     SUMOReal visLength() const;
 
     const Position2DVector &getShape() const;
     const DoubleVector &getShapeRotations() const;
-    const DoubleVector &getShapeLengths() const;
-    //}
 
     /** returns the purpose (source, sink, normal) of the parent edge */
     MSEdge::EdgeBasicFunction getPurpose() const;
@@ -132,7 +130,8 @@ public:
     void releaseVehicles();
 
 
-    //{ access to a lane's links
+    /// @name access to a lane's links
+    //@{ 
     /// Returns the number of links
     size_t getLinkNumber() const;
 
@@ -153,7 +152,7 @@ public:
 
     /// Returns the numbered link's tls index
     int getLinkTLIndex(const GUINet &net, size_t pos) const;
-    //}
+    //@}
 
 
     const MSEdge * const getMSEdge() const;

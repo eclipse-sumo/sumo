@@ -152,7 +152,8 @@ public:
     int getLinkTLIndex(MSLink *link) const;
 
 
-    //{ locator-methods
+    /// @name locator-methods
+    //@{ 
     /// Returns the gl-ids of all junctions within the net
     std::vector<size_t> getJunctionIDs() const;
 
@@ -164,7 +165,7 @@ public:
 
     /// Returns the gl-ids of all shapes within the net
     std::vector<size_t> getShapeIDs() const;
-    //}
+    //@}
 
 
     /// Initialises gui wrappers

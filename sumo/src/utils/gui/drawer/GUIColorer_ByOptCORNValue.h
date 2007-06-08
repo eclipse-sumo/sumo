@@ -72,7 +72,8 @@ public:
     virtual ~GUIColorer_ByOptCORNValue()
     { }
 
-    ///{ from GUIBaseColorer
+    /// @name inherited from GUIBaseColorer
+    //@{ 
     /// Sets the color using a value from the given instance of _T
     void setGlColor(const _T& i) const
     {
@@ -118,10 +119,11 @@ public:
     {
         return CST_MINMAX_OPT;
     }
-    ///}
+    //@}
 
 
-    ///{ from GUIBaseColorerInterface
+    /// @name inherited from from GUIBaseColorerInterface
+    //@{ 
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &minC,
                             const RGBColor &maxC, const RGBColor &fallBackC)
@@ -148,7 +150,7 @@ public:
     {
         return myNoColor;
     }
-    ///}
+    //@}
 
 protected:
     /// The function that returns the information whether a value can be determined

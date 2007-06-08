@@ -59,14 +59,15 @@ public:
     ~RORDLoader_SUMORoutes();
 
 protected:
-    //{ XML-handling methods
+    /// @name derived from GenericSAXHandler
+    //@{ 
     /** the user-implemented handler method for characters */
     void myCharacters(SumoXMLTag element, const std::string &name,
                       const std::string &chars) throw();
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(SumoXMLTag element, const std::string &name) throw();
-    //}
+    //@}
 
 protected:
     /// begins the processing of a route

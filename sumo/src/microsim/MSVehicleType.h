@@ -235,13 +235,11 @@ public:
     const std::string &getID() const;
 
 
-    //@{ static functions covering all loaded vehicle types
     /// Returns the minimum deceleration-ability of all vehicle-types.
     static SUMOReal getMinVehicleDecel()
     {
         return myMinDecel;
     }
-    //@}
 
 
     /// Saves the states of a vehicle
@@ -299,13 +297,11 @@ private:
     SUMOReal myTau;
     SUMOVehicleClass myVehicleClass;
 
-    //@{ static members covering all loaded vehicle types
     /// Minimum deceleration-ability of all vehicle-types.
     static SUMOReal myMinDecel;
 
     /// Maximum length of all vehicle-types.
     static SUMOReal myMaxLength;
-    //@}
 
     /// Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);

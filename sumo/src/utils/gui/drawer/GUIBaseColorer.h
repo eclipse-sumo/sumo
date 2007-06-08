@@ -92,7 +92,8 @@ public:
     virtual ~GUIBaseColorerInterface()
     { }
 
-    ///{ color setting functions
+    /// @name color setting functions
+    //@{ 
     /// Sets the given color as the color to use (valid for CST_SINGLE)
     virtual void resetColor(const RGBColor &) = 0;
 
@@ -104,10 +105,11 @@ public:
 
     /// Sets the given colors as the colors to use (valid for ?!!!)
     virtual void resetColor(const std::vector<RGBColor> &) = 0;
-    ///}
+    //@}
 
 
-    ///{ color retrieval functions
+    /// @name color retrieval functions
+    //@{ 
     /// Returns the single color used (valid for CST_SINGLE)
     virtual const RGBColor &getSingleColor() const = 0;
 
@@ -122,7 +124,7 @@ public:
 
     /// Returns the colors used (valid for ?!!!)
     virtual const std::vector<RGBColor> &getGradient() const = 0;
-    ///}
+    //@}
 
 };
 
@@ -169,7 +171,8 @@ public:
         return CST_SINGLE;
     }
 
-    ///{ from GUIBaseColorerInterface
+    /// @name inherited from from GUIBaseColorerInterface
+    //@{ 
     /// Sets the given color as the color to use (valid for CST_SINGLE)
     virtual void resetColor(const RGBColor &)
     { }
@@ -208,7 +211,7 @@ public:
     {
         throw 1;
     }
-    ///}
+    //@}
 
 };
 
