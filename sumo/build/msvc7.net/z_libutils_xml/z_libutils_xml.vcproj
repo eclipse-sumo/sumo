@@ -148,7 +148,7 @@
 				RelativePath="..\..\..\src\utils\xml\SUMOXMLDefinitions.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\WeightsHandler.cpp">
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\XMLSubSys.cpp">
@@ -187,7 +187,7 @@
 				RelativePath="..\..\..\src\utils\xml\SUMOXMLDefinitions.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\WeightsHandler.h">
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\XMLSubSys.h">

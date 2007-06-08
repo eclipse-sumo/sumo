@@ -189,7 +189,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\WeightsHandler.cpp"
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.cpp"
 				>
 			</File>
 			<File
@@ -239,7 +239,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\WeightsHandler.h"
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.h"
 				>
 			</File>
 			<File

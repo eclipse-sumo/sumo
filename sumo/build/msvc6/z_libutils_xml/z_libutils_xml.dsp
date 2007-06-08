@@ -103,7 +103,7 @@ SOURCE=..\..\..\src\utils\xml\SUMOXMLDefinitions.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\WeightsHandler.cpp
+SOURCE=..\..\..\src\utils\xml\SAXWeightsHandler.cpp
 # End Source File
 # Begin Source File
 
@@ -131,7 +131,7 @@ SOURCE=..\..\..\src\utils\xml\SUMOXMLDefinitions.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\xml\WeightsHandler.h
+SOURCE=..\..\..\src\utils\xml\SAXWeightsHandler.h
 # End Source File
 # Begin Source File
 
