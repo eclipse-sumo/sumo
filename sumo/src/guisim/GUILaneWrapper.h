@@ -108,6 +108,7 @@ public:
 
     const Position2DVector &getShape() const;
     const DoubleVector &getShapeRotations() const;
+    const DoubleVector &getShapeLengths() const;
 
     /** returns the purpose (source, sink, normal) of the parent edge */
     MSEdge::EdgeBasicFunction getPurpose() const;
