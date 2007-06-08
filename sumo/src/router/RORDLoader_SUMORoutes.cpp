@@ -88,7 +88,7 @@ RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 
 void
 RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*name*/,
-                                    const std::string &chars)
+                                    const std::string &chars) throw()
 {
     if (element==SUMO_TAG_ROUTE&&myCurrentRouteName.length()!=0) {
         // parse the list of edges
@@ -126,7 +126,7 @@ RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*nam
 
 
 void
-RORDLoader_SUMORoutes::myEndElement(SumoXMLTag element, const std::string &name)
+RORDLoader_SUMORoutes::myEndElement(SumoXMLTag element, const std::string &name) throw()
 {
     RORDLoader_SUMOBase::myEndElement(element, name);
     switch (element) {

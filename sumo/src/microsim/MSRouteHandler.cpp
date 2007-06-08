@@ -112,7 +112,7 @@ MSRouteHandler::retrieveLastReadVehicle()
 
 void
 MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
-                               const Attributes &attrs)
+                               const Attributes &attrs) throw()
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:
@@ -270,7 +270,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
 
 void
 MSRouteHandler::myCharacters(SumoXMLTag element, const std::string &name,
-                             const std::string &chars)
+                             const std::string &chars) throw()
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
@@ -316,7 +316,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
 // ----------------------------------
 
 void
-MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &)
+MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &) throw()
 {
     switch (element) {
     case SUMO_TAG_ROUTE:

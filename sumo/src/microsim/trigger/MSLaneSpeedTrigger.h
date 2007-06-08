@@ -83,16 +83,16 @@ protected:
     /** the implementation of the SAX-handler interface for reading
         element begins */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
-                                const Attributes &attrs);
+                                const Attributes &attrs) throw();
 
     /** the implementation of the SAX-handler interface for reading
         characters */
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
     /** the implementation of the SAX-handler interface for reading
         element ends */
-    void myEndElement(SumoXMLTag element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
 
 protected:

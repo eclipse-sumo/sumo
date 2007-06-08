@@ -66,7 +66,7 @@ RODFNetHandler::~RODFNetHandler()
 
 void
 RODFNetHandler::myCharacters(SumoXMLTag element, const std::string&name,
-                             const std::string &chars)
+                             const std::string &chars) throw()
 {
     RONetHandler::myCharacters(element, name, chars);
     switch (element) {

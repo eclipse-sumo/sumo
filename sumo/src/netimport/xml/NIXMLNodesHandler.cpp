@@ -77,7 +77,7 @@ NIXMLNodesHandler::~NIXMLNodesHandler()
 
 void
 NIXMLNodesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &tag,
-                                  const Attributes &attrs)
+                                  const Attributes &attrs) throw()
 {
     if (tag!="node") {
         return;
@@ -194,12 +194,12 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
 
 void
 NIXMLNodesHandler::myCharacters(SumoXMLTag , const std::string &,
-                                const std::string &)
+                                const std::string &) throw()
 {}
 
 
 void
-NIXMLNodesHandler::myEndElement(SumoXMLTag , const std::string &)
+NIXMLNodesHandler::myEndElement(SumoXMLTag , const std::string &) throw()
 {}
 
 

@@ -60,7 +60,7 @@ public:
 protected:
     /** the user-implemented handler method for characters */
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
 };
 

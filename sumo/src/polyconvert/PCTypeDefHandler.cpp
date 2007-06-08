@@ -66,7 +66,7 @@ PCTypeDefHandler::~PCTypeDefHandler()
 
 void
 PCTypeDefHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
-                                 const Attributes &attrs)
+                                 const Attributes &attrs) throw()
 {
     if (name=="polytype") {
         string id;
@@ -91,12 +91,12 @@ PCTypeDefHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name
 
 void
 PCTypeDefHandler::myCharacters(SumoXMLTag /*element*/, const std::string&,
-                               const std::string &)
+                               const std::string &) throw()
 {}
 
 
 void
-PCTypeDefHandler::myEndElement(SumoXMLTag, const std::string&)
+PCTypeDefHandler::myEndElement(SumoXMLTag, const std::string&) throw()
 {}
 
 

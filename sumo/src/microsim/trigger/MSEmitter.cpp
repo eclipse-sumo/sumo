@@ -128,7 +128,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         const std::string &name,
-        const Attributes &attrs)
+        const Attributes &attrs) throw()
 {
     if (name=="routedistelem") {
         // parse route distribution
@@ -285,13 +285,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myCharacters(
-    SumoXMLTag , const std::string &, const std::string &)
+    SumoXMLTag , const std::string &, const std::string &) throw()
 {}
 
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myEndElement(
-    SumoXMLTag , const std::string &)
+    SumoXMLTag , const std::string &) throw()
 {}
 
 

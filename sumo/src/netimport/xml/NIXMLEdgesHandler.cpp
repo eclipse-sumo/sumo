@@ -81,7 +81,7 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler()
 
 void
 NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
-                                  const Attributes &attrs)
+                                  const Attributes &attrs) throw()
 {
     if (element==SUMO_TAG_EDGE) {
         myExpansions.clear();
@@ -654,7 +654,7 @@ NIXMLEdgesHandler::getSpreadFunction(const Attributes &attrs)
 
 void
 NIXMLEdgesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &name,
-                                const std::string &chars)
+                                const std::string &chars) throw()
 {
     if (name=="expansion") {
         if (myExpansions.size()!=0) {
@@ -678,7 +678,7 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &name,
 
 
 void
-NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/)
+NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
 {
     if (element==SUMO_TAG_EDGE) {
         if (myExpansions.size()!=0) {

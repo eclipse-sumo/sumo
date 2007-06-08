@@ -59,7 +59,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes()
 
 void
 NISUMOHandlerNodes::myStartElement(SumoXMLTag element, const std::string &/*name*/,
-                                   const Attributes &attrs)
+                                   const Attributes &attrs) throw()
 {
     switch (element) {
     case SUMO_TAG_JUNCTION:
@@ -141,11 +141,11 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
 
 void
 NISUMOHandlerNodes::myCharacters(SumoXMLTag , const std::string &,
-                                 const std::string &)
+                                 const std::string &) throw()
 {}
 
 void
-NISUMOHandlerNodes::myEndElement(SumoXMLTag , const std::string &)
+NISUMOHandlerNodes::myEndElement(SumoXMLTag , const std::string &) throw()
 {}
 
 

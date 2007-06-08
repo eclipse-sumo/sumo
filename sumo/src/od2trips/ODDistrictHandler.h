@@ -61,14 +61,14 @@ public:
 protected:
     /// Called when an opening-tag occures
     void myStartElement(SumoXMLTag element, const std::string &name,
-                        const Attributes &attrs);
+                        const Attributes &attrs) throw();
 
     /// Called when a closing tag occures
-    void myEndElement(SumoXMLTag element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
     /// Called on characters
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
 private:
     /// Begins the parsing of a district

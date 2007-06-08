@@ -117,7 +117,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
 
 void
 MSLaneSpeedTrigger::myStartElement(SumoXMLTag element, const std::string &,
-                                   const Attributes &attrs)
+                                   const Attributes &attrs) throw()
 {
     // check whethe the correct tag is read
     if (element!=SUMO_TAG_STEP) {
@@ -201,12 +201,12 @@ MSLaneSpeedTrigger::getCurrentSpeed() const
 
 void
 MSLaneSpeedTrigger::myCharacters(SumoXMLTag , const std::string &,
-                                 const std::string &)
+                                 const std::string &) throw()
 {}
 
 
 void
-MSLaneSpeedTrigger::myEndElement(SumoXMLTag , const std::string &)
+MSLaneSpeedTrigger::myEndElement(SumoXMLTag , const std::string &) throw()
 {}
 
 

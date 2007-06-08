@@ -49,17 +49,17 @@ NISUMOHandlerDepth::~NISUMOHandlerDepth()
 
 void
 NISUMOHandlerDepth::myStartElement(SumoXMLTag /*element*/, const std::string &/*name*/,
-                                   const Attributes &/*attrs*/)
+                                   const Attributes &/*attrs*/) throw()
 {}
 
 
 void
 NISUMOHandlerDepth::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
-                                 const std::string &/*chars*/)
+                                 const std::string &/*chars*/) throw()
 {}
 
 void
-NISUMOHandlerDepth::myEndElement(SumoXMLTag /*element*/, const std::string &/*name*/)
+NISUMOHandlerDepth::myEndElement(SumoXMLTag /*element*/, const std::string &/*name*/) throw()
 {}
 
 

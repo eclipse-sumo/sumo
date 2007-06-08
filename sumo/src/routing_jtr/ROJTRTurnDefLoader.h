@@ -72,14 +72,14 @@ public:
 protected:
     /// SAX-callback for tag start
     void myStartElement(SumoXMLTag element, const std::string &name,
-                        const Attributes &attrs);
+                        const Attributes &attrs) throw();
 
     /// SAX-callback for characters section
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
     /// SAX-callback for tag end
-    void myEndElement(SumoXMLTag element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
 private:
     /// Begins the processing of an interval

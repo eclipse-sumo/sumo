@@ -103,15 +103,15 @@ protected:
     /** called on the occurence of the beginning of a tag;
         this method */
     virtual void myStartElement(SumoXMLTag element, const std::string &name,
-                                const Attributes &attrs);
+                                const Attributes &attrs) throw();
 
     /** called when simple characters occure; this method */
     virtual void myCharacters(SumoXMLTag element, const std::string &name,
-                              const std::string &chars);
+                              const std::string &chars) throw();
 
     /** called on the end of an element;
         this method */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name);
+    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
     void addParam(const Attributes &attrs);
 

@@ -69,14 +69,14 @@ public:
 protected:
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(SumoXMLTag element, const std::string &name,
-                        const Attributes &attrs);
+                        const Attributes &attrs) throw();
 
     /** the user-implemented handler method for characters */
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
     /** the user-implemented handler method for a closing tag */
-    void myEndElement(SumoXMLTag element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
 protected:
     /// Return the information whether a route was read

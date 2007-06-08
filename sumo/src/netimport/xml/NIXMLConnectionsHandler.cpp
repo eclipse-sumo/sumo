@@ -121,7 +121,7 @@ NIXMLConnectionsHandler::getNode(const string &def)
 
 void
 NIXMLConnectionsHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
-                                        const Attributes &attrs)
+                                        const Attributes &attrs) throw()
 {
     if (name=="reset") {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
@@ -279,13 +279,13 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
 void
 NIXMLConnectionsHandler::myCharacters(SumoXMLTag /*element*/,
                                       const std::string &/*name*/,
-                                      const std::string &/*chars*/)
+                                      const std::string &/*chars*/) throw()
 {}
 
 
 void
 NIXMLConnectionsHandler::myEndElement(SumoXMLTag /*element*/,
-                                      const std::string &/*name*/)
+                                      const std::string &/*name*/) throw()
 {}
 
 

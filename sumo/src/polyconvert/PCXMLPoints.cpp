@@ -87,7 +87,7 @@ PCXMLPoints::load(OptionsCont &oc)
 
 void
 PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
-                            const Attributes &attrs)
+                            const Attributes &attrs) throw()
 {
     if (name!="poi") {
         return;
@@ -134,12 +134,12 @@ PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
 
 void
 PCXMLPoints::myCharacters(SumoXMLTag , const std::string &,
-                          const std::string &)
+                          const std::string &) throw()
 {}
 
 
 void
-PCXMLPoints::myEndElement(SumoXMLTag , const std::string &)
+PCXMLPoints::myEndElement(SumoXMLTag , const std::string &) throw()
 {}
 
 

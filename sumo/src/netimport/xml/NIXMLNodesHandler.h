@@ -65,14 +65,14 @@ public:
 protected:
     /// The method called by the SAX-handler to parse start tags
     void myStartElement(SumoXMLTag element, const std::string &name,
-                        const Attributes &attrs);
+                        const Attributes &attrs) throw();
 
     /// The method called by the SAX-handler to parse characters
     void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars);
+                      const std::string &chars) throw();
 
     /// The method called by the SAX-handler to parse end tags
-    void myEndElement(SumoXMLTag element, const std::string &name);
+    void myEndElement(SumoXMLTag element, const std::string &name) throw();
 
 private:
     /** @brief Sets the position of the node

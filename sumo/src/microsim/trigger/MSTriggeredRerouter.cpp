@@ -147,7 +147,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter()
 void
 MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
                                     const std::string &name,
-                                    const Attributes &attrs)
+                                    const Attributes &attrs) throw()
 {
     if (name=="interval") {
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
@@ -220,12 +220,12 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
 
 void
 MSTriggeredRerouter::myCharacters(SumoXMLTag , const std::string &,
-                                  const std::string &)
+                                  const std::string &) throw()
 {}
 
 
 void
-MSTriggeredRerouter::myEndElement(SumoXMLTag , const std::string &name)
+MSTriggeredRerouter::myEndElement(SumoXMLTag , const std::string &name) throw()
 {
     if (name=="interval") {
         RerouteInterval ri;

@@ -88,7 +88,7 @@ GUIHandler::~GUIHandler()
 
 void
 GUIHandler::myStartElement(SumoXMLTag element, const std::string &name,
-                           const Attributes &attrs)
+                           const Attributes &attrs) throw()
 {
     NLHandler::myStartElement(element, name, attrs);
 }
@@ -96,7 +96,7 @@ GUIHandler::myStartElement(SumoXMLTag element, const std::string &name,
 
 void
 GUIHandler::myCharacters(SumoXMLTag element, const std::string &name,
-                         const std::string &chars)
+                         const std::string &chars) throw()
 {
     NLHandler::myCharacters(element, name, chars);
     if (wanted(LOADFILTER_NET)) {
