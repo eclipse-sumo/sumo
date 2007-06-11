@@ -66,7 +66,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
 }
 
 
-MSTriggeredXMLReader::~MSTriggeredXMLReader()
+MSTriggeredXMLReader::~MSTriggeredXMLReader() throw()
 {}
 
 

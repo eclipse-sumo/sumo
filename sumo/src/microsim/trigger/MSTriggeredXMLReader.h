@@ -54,7 +54,7 @@ class MSTriggeredXMLReader : public MSTriggeredReader,
 {
 public:
     /// Destructor
-    virtual ~MSTriggeredXMLReader();
+    virtual ~MSTriggeredXMLReader() throw();
 
 protected:
     /// Constructor (for derived classes)

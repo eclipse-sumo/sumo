@@ -123,7 +123,7 @@ protected:
                           const std::string &chars);
 
     /// Ends the processing of a vehicle
-    void closeVehicle();
+    void closeVehicle() throw();
 
 protected:
     /// The vehicle control to use for vehicle building
