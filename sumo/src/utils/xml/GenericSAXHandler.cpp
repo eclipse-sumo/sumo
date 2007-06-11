@@ -43,7 +43,7 @@ using namespace std;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-GenericSAXHandler::GenericSAXHandler()
+GenericSAXHandler::GenericSAXHandler() throw()
 { }
 
 
