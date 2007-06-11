@@ -106,7 +106,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
 {}
 
 
-NLHandler::~NLHandler()
+NLHandler::~NLHandler() throw()
 {}
 
 

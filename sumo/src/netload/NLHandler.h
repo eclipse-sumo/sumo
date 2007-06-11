@@ -88,7 +88,7 @@ public:
               bool wantsVehicleColor, int incDUABase, int incDUAStage);
 
     /// Destructor
-    virtual ~NLHandler();
+    virtual ~NLHandler() throw();
 
     /// returns a message about the processing
     std::string getMessage() const;
