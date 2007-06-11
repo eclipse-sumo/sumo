@@ -22,15 +22,15 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <string>
-#include <map>
-#include "PCTypeMap.h"
-
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
+
+#include <string>
+#include <map>
+#include "PCTypeMap.h"
 
 
 // ===========================================================================
