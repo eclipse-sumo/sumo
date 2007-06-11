@@ -62,7 +62,7 @@ ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net)
 {}
 
 
-ROJTRTurnDefLoader::~ROJTRTurnDefLoader()
+ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw()
 {}
 
 

@@ -51,7 +51,7 @@ public:
         const std::string &file);
 
     /// Destrcutor
-    virtual ~DFDetectorHandler();
+    virtual ~DFDetectorHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

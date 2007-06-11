@@ -70,7 +70,7 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
 {}
 
 
-NIXMLNodesHandler::~NIXMLNodesHandler()
+NIXMLNodesHandler::~NIXMLNodesHandler() throw()
 {}
 
 

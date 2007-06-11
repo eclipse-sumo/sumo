@@ -69,7 +69,7 @@ RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
 {}
 
 
-RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt()
+RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt() throw()
 {}
 
 

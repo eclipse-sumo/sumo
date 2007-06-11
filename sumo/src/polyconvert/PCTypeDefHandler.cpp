@@ -60,7 +60,7 @@ PCTypeDefHandler::PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con)
 {}
 
 
-PCTypeDefHandler::~PCTypeDefHandler()
+PCTypeDefHandler::~PCTypeDefHandler() throw()
 {}
 
 

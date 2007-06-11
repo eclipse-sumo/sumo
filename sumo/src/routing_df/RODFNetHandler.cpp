@@ -60,7 +60,7 @@ RODFNetHandler::RODFNetHandler(OptionsCont &oc, RONet &net,
 {}
 
 
-RODFNetHandler::~RODFNetHandler()
+RODFNetHandler::~RODFNetHandler() throw()
 {}
 
 

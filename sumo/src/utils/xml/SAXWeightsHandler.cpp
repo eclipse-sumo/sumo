@@ -90,7 +90,7 @@ SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
 }
 
 
-SAXWeightsHandler::~SAXWeightsHandler()
+SAXWeightsHandler::~SAXWeightsHandler() throw()
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
     for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {

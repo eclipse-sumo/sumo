@@ -63,7 +63,7 @@ RORDLoader_SUMORoutes::RORDLoader_SUMORoutes(ROVehicleBuilder &vb, RONet &net,
 {}
 
 
-RORDLoader_SUMORoutes::~RORDLoader_SUMORoutes()
+RORDLoader_SUMORoutes::~RORDLoader_SUMORoutes() throw()
 {}
 
 

@@ -56,7 +56,7 @@ public:
     PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con);
 
     /// Destructor
-    virtual ~PCTypeDefHandler();
+    virtual ~PCTypeDefHandler() throw();
 
 
 protected:

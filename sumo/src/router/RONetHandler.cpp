@@ -65,7 +65,7 @@ RONetHandler::RONetHandler(OptionsCont &oc, RONet &net,
 {}
 
 
-RONetHandler::~RONetHandler()
+RONetHandler::~RONetHandler() throw()
 {}
 
 

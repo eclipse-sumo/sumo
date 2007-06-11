@@ -58,7 +58,7 @@ DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
 {}
 
 
-DFDetectorHandler::~DFDetectorHandler()
+DFDetectorHandler::~DFDetectorHandler() throw()
 {}
 
 

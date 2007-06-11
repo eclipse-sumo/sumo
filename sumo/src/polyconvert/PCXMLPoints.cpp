@@ -72,7 +72,7 @@ PCXMLPoints::PCXMLPoints(PCPolyContainer &toFill,
 {}
 
 
-PCXMLPoints::~PCXMLPoints()
+PCXMLPoints::~PCXMLPoints() throw()
 {}
 
 

@@ -101,12 +101,12 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
         } catch (ProcessError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
+            MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: one of an vehtype's attributes must be numeric but is not.");
+            MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vehicle-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
     }
 }
 

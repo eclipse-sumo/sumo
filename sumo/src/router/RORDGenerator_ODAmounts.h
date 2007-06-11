@@ -59,7 +59,7 @@ public:
                             bool randomize, const std::string &file="");
 
     /// Destructor
-    ~RORDGenerator_ODAmounts();
+    ~RORDGenerator_ODAmounts() throw();
 
     /** @brief Returns the name of the data read.
         "XML-route definitions" is returned here */

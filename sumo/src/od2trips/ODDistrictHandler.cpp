@@ -59,7 +59,7 @@ ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont)
 {}
 
 
-ODDistrictHandler::~ODDistrictHandler()
+ODDistrictHandler::~ODDistrictHandler() throw()
 {}
 
 

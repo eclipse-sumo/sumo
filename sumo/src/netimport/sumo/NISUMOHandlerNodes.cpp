@@ -53,7 +53,7 @@ NISUMOHandlerNodes::NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what)
 {}
 
 
-NISUMOHandlerNodes::~NISUMOHandlerNodes()
+NISUMOHandlerNodes::~NISUMOHandlerNodes() throw()
 {}
 
 

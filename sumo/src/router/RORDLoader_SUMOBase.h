@@ -74,7 +74,7 @@ public:
                         const std::string &dataName, const std::string &file="");
 
     /// Destructor
-    ~RORDLoader_SUMOBase();
+    ~RORDLoader_SUMOBase() throw();
 
     /** @brief Returns the name of the data
         "precomputed sumo route alternatives" is returned here */

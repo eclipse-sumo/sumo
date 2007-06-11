@@ -43,7 +43,7 @@ NISUMOHandlerDepth::NISUMOHandlerDepth(LoadFilter what)
 {}
 
 
-NISUMOHandlerDepth::~NISUMOHandlerDepth()
+NISUMOHandlerDepth::~NISUMOHandlerDepth() throw()
 {}
 
 

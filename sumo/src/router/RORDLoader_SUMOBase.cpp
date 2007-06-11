@@ -63,7 +63,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
 {}
 
 
-RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
+RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
 {}
 
 

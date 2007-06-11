@@ -49,7 +49,7 @@ public:
     NIXMLTypesHandler(NBTypeCont &tc);
 
     /// destructor
-    ~NIXMLTypesHandler();
+    ~NIXMLTypesHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

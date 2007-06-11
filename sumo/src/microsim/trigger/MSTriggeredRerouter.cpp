@@ -133,7 +133,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 }
 
 
-MSTriggeredRerouter::~MSTriggeredRerouter()
+MSTriggeredRerouter::~MSTriggeredRerouter() throw()
 {
     {
         std::vector<Setter*>::iterator i;

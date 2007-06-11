@@ -61,7 +61,7 @@ public:
                       NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
 
     /// Destructor
-    ~NIXMLEdgesHandler();
+    ~NIXMLEdgesHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

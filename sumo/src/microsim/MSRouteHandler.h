@@ -67,7 +67,7 @@ public:
                    int incDUABase, int incDUAStage);
 
     /// standard destructor
-    virtual ~MSRouteHandler();
+    virtual ~MSRouteHandler() throw();
 
     /// opens a route for the addition of edges
     void openRoute(const std::string &id, bool multiReferenced);

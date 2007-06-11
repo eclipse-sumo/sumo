@@ -75,7 +75,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
 {}
 
 
-NIXMLEdgesHandler::~NIXMLEdgesHandler()
+NIXMLEdgesHandler::~NIXMLEdgesHandler() throw()
 {}
 
 

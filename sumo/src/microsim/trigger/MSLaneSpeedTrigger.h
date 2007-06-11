@@ -62,7 +62,7 @@ public:
                        const std::string &aXMLFilename);
 
     /** destructor */
-    virtual ~MSLaneSpeedTrigger();
+    virtual ~MSLaneSpeedTrigger() throw();
 
     SUMOTime execute(SUMOTime currentTime);
 

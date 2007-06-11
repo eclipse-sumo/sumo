@@ -47,7 +47,7 @@ private:
     LoadFilter _loading;
 public:
     NISUMOHandlerDepth(LoadFilter what);
-    ~NISUMOHandlerDepth();
+    ~NISUMOHandlerDepth() throw();
 protected:
     /// @name inherited from GenericSAXHandler
     //@{ 

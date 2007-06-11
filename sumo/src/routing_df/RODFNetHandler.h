@@ -55,7 +55,7 @@ public:
     RODFNetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
 
     /// Destrcutor
-    virtual ~RODFNetHandler();
+    virtual ~RODFNetHandler() throw();
 
 protected:
     /** the user-implemented handler method for characters */

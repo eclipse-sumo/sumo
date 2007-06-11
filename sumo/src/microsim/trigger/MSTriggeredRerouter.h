@@ -68,7 +68,7 @@ public:
                         SUMOReal prob, const std::string &aXMLFilename);
 
     /** destructor */
-    virtual ~MSTriggeredRerouter();
+    virtual ~MSTriggeredRerouter() throw();
 
     /**
      * @class Setter

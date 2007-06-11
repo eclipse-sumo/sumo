@@ -59,7 +59,7 @@ public:
     RONetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
 
     /// Destrcutor
-    virtual ~RONetHandler();
+    virtual ~RONetHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

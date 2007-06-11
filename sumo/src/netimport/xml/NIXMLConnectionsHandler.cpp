@@ -66,7 +66,7 @@ NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec)
 {}
 
 
-NIXMLConnectionsHandler::~NIXMLConnectionsHandler()
+NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw()
 {}
 
 

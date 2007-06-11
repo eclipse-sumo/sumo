@@ -57,7 +57,7 @@ public:
                         bool emptyDestinationsAllowed, const std::string &file="");
 
     /// Destructor
-    ~RORDLoader_TripDefs();
+    ~RORDLoader_TripDefs() throw();
 
     /** @brief Returns the name of the data read.
         "XML-route definitions" is returned here */

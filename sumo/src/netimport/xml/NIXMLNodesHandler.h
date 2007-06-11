@@ -60,7 +60,7 @@ public:
                       OptionsCont &options);
 
     /// Destructor
-    ~NIXMLNodesHandler();
+    ~NIXMLNodesHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -58,7 +58,7 @@ public:
                        const std::string &file="");
 
     /// Destructor
-    ~RORDLoader_SUMOAlt();
+    ~RORDLoader_SUMOAlt() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -82,7 +82,7 @@ GUIHandler::GUIHandler(const std::string &file,
 {}
 
 
-GUIHandler::~GUIHandler()
+GUIHandler::~GUIHandler() throw()
 {}
 
 

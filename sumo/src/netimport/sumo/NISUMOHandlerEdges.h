@@ -52,7 +52,7 @@ private:
     LoadFilter _loading;
 public:
     NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc, LoadFilter what);
-    ~NISUMOHandlerEdges();
+    ~NISUMOHandlerEdges() throw();
 protected:
     /// @name inherited from GenericSAXHandler
     //@{ 

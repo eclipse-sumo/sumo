@@ -56,7 +56,7 @@ public:
                           SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
-    ~RORDLoader_SUMORoutes();
+    ~RORDLoader_SUMORoutes() throw();
 
 protected:
     /// @name derived from GenericSAXHandler

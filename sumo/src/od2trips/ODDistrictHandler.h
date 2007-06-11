@@ -56,7 +56,7 @@ public:
     ODDistrictHandler(ODDistrictCont &cont);
 
     /// Destructor
-    ~ODDistrictHandler();
+    ~ODDistrictHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -61,7 +61,7 @@ NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
 {}
 
 
-NIXMLTypesHandler::~NIXMLTypesHandler()
+NIXMLTypesHandler::~NIXMLTypesHandler() throw()
 {}
 
 

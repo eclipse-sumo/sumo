@@ -169,7 +169,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
 {}
 
 
-RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts()
+RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw()
 {
     for (FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
         delete(*i);

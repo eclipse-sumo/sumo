@@ -71,7 +71,7 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
 {}
 
 
-RORDLoader_TripDefs::~RORDLoader_TripDefs()
+RORDLoader_TripDefs::~RORDLoader_TripDefs() throw()
 {}
 
 

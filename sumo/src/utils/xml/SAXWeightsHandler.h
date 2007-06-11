@@ -153,7 +153,7 @@ public:
 
 
     /// Destructor
-    ~SAXWeightsHandler();
+    ~SAXWeightsHandler() throw();
 
 
 protected:

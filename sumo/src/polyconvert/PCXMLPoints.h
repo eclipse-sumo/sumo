@@ -67,7 +67,7 @@ public:
                 PCTypeMap &tm, OptionsCont &oc);
 
     /// Destructor
-    ~PCXMLPoints();
+    ~PCXMLPoints() throw();
 
     /// loads Elmar's data parsed from GDF
     void load(OptionsCont &oc);

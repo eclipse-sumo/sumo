@@ -186,7 +186,7 @@ protected:
                                      const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
 
         /// Destructor
-        ~MSEmitter_FileTriggeredChild();
+        ~MSEmitter_FileTriggeredChild() throw();
 
         /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
         bool processNextEntryReaderTriggered();

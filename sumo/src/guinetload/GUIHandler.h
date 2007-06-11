@@ -64,7 +64,7 @@ public:
                NLGeomShapeBuilder &shapeBuilder, int incDUABase, int incDUAStage);
 
     /// standard destructor
-    ~GUIHandler();
+    ~GUIHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

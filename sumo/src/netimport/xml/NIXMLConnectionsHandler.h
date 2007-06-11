@@ -51,7 +51,7 @@ public:
     NIXMLConnectionsHandler(NBEdgeCont &ec);
 
     /// destructor
-    ~NIXMLConnectionsHandler();
+    ~NIXMLConnectionsHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -59,7 +59,7 @@ public:
     ROJTRTurnDefLoader(RONet &net);
 
     /// Destructor
-    ~ROJTRTurnDefLoader();
+    ~ROJTRTurnDefLoader() throw();
 
     /** @brief Loads the turning definitions and additionally the sinks
         While the sinks are returned on return, the turn definitions are stored

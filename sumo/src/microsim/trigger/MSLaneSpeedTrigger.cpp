@@ -86,7 +86,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
 }
 
 
-MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
+MSLaneSpeedTrigger::~MSLaneSpeedTrigger() throw()
 {}
 
 

@@ -48,7 +48,7 @@ private:
     LoadFilter _loading;
 public:
     NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what);
-    ~NISUMOHandlerNodes();
+    ~NISUMOHandlerNodes() throw();
 protected:
     /// @name inherited from GenericSAXHandler
     //@{ 

@@ -55,7 +55,7 @@ NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc,
 {}
 
 
-NISUMOHandlerEdges::~NISUMOHandlerEdges()
+NISUMOHandlerEdges::~NISUMOHandlerEdges() throw()
 {}
 
 

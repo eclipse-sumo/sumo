@@ -65,7 +65,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
 }
 
 
-MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild()
+MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild() throw()
 {}
 
 
@@ -169,12 +169,12 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         try {
             id = getString(attrs, SUMO_ATTR_ID);
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vtype-object.");
+            MsgHandler::getErrorInstance()->inform("Missing id of a vtype-object.");
             return;
         }
         MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (vtype==0) {
-            MsgHandler::getErrorInstance()->inform("Error in description: unknown vtype-object '" + id + "'.");
+            MsgHandler::getErrorInstance()->inform("Unknown vtype-object '" + id + "'.");
             return;
         }
         myVTypeDist.add(prob, vtype);
