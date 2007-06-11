@@ -72,7 +72,7 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
 {}
 
 
-ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader()
+ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() throw()
 {
     delete _parser;
 }

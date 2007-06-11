@@ -70,7 +70,7 @@ public:
                            SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
-    virtual ~ROTypedXMLRoutesLoader();
+    virtual ~ROTypedXMLRoutesLoader() throw();
 
     /// Closes the reading of routes
     virtual void closeReading();
