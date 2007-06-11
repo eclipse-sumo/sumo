@@ -108,7 +108,7 @@ protected:
     /// begins the processing of a route
     virtual void startRoute(const Attributes &attrs) = 0;
 
-    void closeVehicle();
+    void closeVehicle() throw();
 
 
 protected:

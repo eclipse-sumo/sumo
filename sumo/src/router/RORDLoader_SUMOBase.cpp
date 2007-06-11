@@ -104,7 +104,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element, const std::string &/*name*
 
 
 void
-RORDLoader_SUMOBase::closeVehicle()
+RORDLoader_SUMOBase::closeVehicle() throw()
 {
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle id
