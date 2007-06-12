@@ -75,7 +75,7 @@ NITigerLoader::load(OptionsCont &)
     LineReader tgr2r((_file + ".rt2").c_str());
     if (!tgr1r.good()) {
         throw ProcessError("Could not open '" + _file + ".rt1" + "'.");
-        
+
     }
     string line1, line2, tmp;
     std::vector<std::string> values2;
@@ -110,11 +110,11 @@ NITigerLoader::load(OptionsCont &)
         if (from==0||to==0) {
             if (from==0) {
                 throw ProcessError("Could not find start node of edge '" + eid + "'.");
-                
+
             }
             if (to==0) {
                 throw ProcessError("Could not find end node of edge '" + eid + "'.");
-                
+
             }
         }
         // !!!
@@ -130,7 +130,7 @@ NITigerLoader::load(OptionsCont &)
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
-                
+
             }
             eid = "-" + eid;
             e =
@@ -139,7 +139,7 @@ NITigerLoader::load(OptionsCont &)
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
-                
+
             }
         }
     }
@@ -174,7 +174,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ret.push_back(pos);
         } catch (NumberFormatException &) {
             throw ProcessError("Could not convert position '" + p1 + "/" + p2 + "'.");
-            
+
         }
     }
     return ret;
@@ -190,7 +190,7 @@ NITigerLoader::getNode(const Position2D &p)
         n = new NBNode(toString<int>(bla++), p);
         if (!myNodeCont.insert(n)) {
             throw ProcessError("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
-            
+
         }
     }
     return n;
@@ -219,7 +219,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
         return tc;
     }
     throw ProcessError("Could not determine type for an edge..."); // !!! be more verbose
-    
+
 }
 
 

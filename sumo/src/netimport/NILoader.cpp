@@ -109,7 +109,7 @@ NILoader::load(OptionsCont &oc)
     }
     // load types first
     NIXMLTypesHandler *handler =
-            new NIXMLTypesHandler(myNetBuilder.getTypeCont());
+        new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
     if (myNetBuilder.getTypeCont().size()>0) {
         myNetBuilder.getTypeCont().report();
@@ -203,8 +203,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
     string exceptMsg = "";
     // start the parsing
     try {
-        for(vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
-            if(!FileHelpers::exists(*file)) {
+        for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+            if (!FileHelpers::exists(*file)) {
                 MsgHandler::getErrorInstance()->inform("Could not open " + type + "-file '" + *file + "'.");
                 exceptMsg = "Process Error";
                 continue;
@@ -216,7 +216,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
     } catch (const XMLException& toCatch) {
         exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
-    } catch (...) {
+    }
+    catch (...) {
         exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }
     delete parser;

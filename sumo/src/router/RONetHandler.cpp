@@ -70,7 +70,7 @@ RONetHandler::~RONetHandler() throw()
 
 
 void
-RONetHandler::myStartElement(SumoXMLTag element, const std::string&,
+RONetHandler::myStartElement(SumoXMLTag element,
                              const Attributes &attrs) throw()
 {
     switch (element) {
@@ -259,7 +259,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
 
 
 void
-RONetHandler::myCharacters(SumoXMLTag element, const std::string&,
+RONetHandler::myCharacters(SumoXMLTag element,
                            const std::string &chars) throw()
 {
     if (element==SUMO_TAG_EDGES) {
@@ -282,11 +282,6 @@ RONetHandler::preallocateEdges(const std::string &chars)
         _net.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
     }
 }
-
-
-void
-RONetHandler::myEndElement(SumoXMLTag, const std::string&) throw()
-{}
 
 
 

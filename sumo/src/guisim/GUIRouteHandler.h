@@ -50,7 +50,7 @@ public:
                     bool addVehiclesDirectly, int incDUABase, int incDUAStage);
 
     /// standard destructor
-    virtual ~GUIRouteHandler();
+    virtual ~GUIRouteHandler() throw();
 
 protected:
     /** parses an occured vehicle type definition */

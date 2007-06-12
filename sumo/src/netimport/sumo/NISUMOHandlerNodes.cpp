@@ -58,7 +58,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes() throw()
 
 
 void
-NISUMOHandlerNodes::myStartElement(SumoXMLTag element, const std::string &/*name*/,
+NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw()
 {
     switch (element) {
@@ -137,16 +137,6 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("A junction without an id occured.");
     }
 }
-
-
-void
-NISUMOHandlerNodes::myCharacters(SumoXMLTag , const std::string &,
-                                 const std::string &) throw()
-{}
-
-void
-NISUMOHandlerNodes::myEndElement(SumoXMLTag , const std::string &) throw()
-{}
 
 
 

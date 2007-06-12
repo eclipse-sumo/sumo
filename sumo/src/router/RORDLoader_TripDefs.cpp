@@ -76,7 +76,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() throw()
 
 
 void
-RORDLoader_TripDefs::myStartElement(SumoXMLTag element, const std::string &name,
+RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
                                     const Attributes &attrs) throw()
 {
     // check whether a trip definition shall be parsed
@@ -296,7 +296,7 @@ RORDLoader_TripDefs::getLane(const Attributes &attrs)
 
 
 void
-RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*/,
+RORDLoader_TripDefs::myCharacters(SumoXMLTag element,
                                   const std::string &chars) throw()
 {
     if (element==SUMO_TAG_TRIPDEF) {
@@ -316,7 +316,7 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element, const std::string &/*name*
 
 
 void
-RORDLoader_TripDefs::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw()
 {
     if (element==SUMO_TAG_TRIPDEF &&
             !MsgHandler::getErrorInstance()->wasInformed()) {

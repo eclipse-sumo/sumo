@@ -310,9 +310,9 @@ MSLaneChanger::change()
 
             // check for position and speed
             if (/*prohibitor->speed()<0.1&&vehicle->speed()<0.1
-                                                                &&
-                                                                fabs(prohibitor->pos()-vehicle->pos())<0.1
-                                                                &&*/
+                                                                                &&
+                                                                                fabs(prohibitor->pos()-vehicle->pos())<0.1
+                                                                                &&*/
                 prohibitor->getLength()-vehicle->getLength()==0
             ) {
 

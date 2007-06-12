@@ -111,7 +111,7 @@ NLHandler::~NLHandler() throw()
 
 
 void
-NLHandler::myStartElement(SumoXMLTag element, const std::string &name,
+NLHandler::myStartElement(SumoXMLTag element,
                           const Attributes &attrs) throw()
 {
     // check static net information
@@ -168,13 +168,13 @@ NLHandler::myStartElement(SumoXMLTag element, const std::string &name,
     }
 //    }
     // !!!
-    if (name=="WAUT") {
+    if (element == SUMO_TAG_WAUT) {
         openWAUT(attrs);
     }
-    if (name=="wautSwitch") {
+    if (element==SUMO_TAG_WAUT_SWITCH) {
         addWAUTSwitch(attrs);
     }
-    if (name=="wautJunction") {
+    if (element==SUMO_TAG_WAUT_JUNCTION) {
         addWAUTJunction(attrs);
     }
     // !!!!
@@ -211,7 +211,7 @@ NLHandler::myStartElement(SumoXMLTag element, const std::string &name,
         }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myStartElement(element, name, attrs);
+        MSRouteHandler::myStartElement(element, attrs);
     }
     if (element==SUMO_TAG_PARAM) {
         addParam(attrs);
@@ -268,7 +268,7 @@ NLHandler::openWAUT(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
         myCurrentWAUTIsBroken = true;
     }
-    if(!myCurrentWAUTIsBroken) {
+    if (!myCurrentWAUTIsBroken) {
         myCurrentWAUTID = id;
         myJunctionControlBuilder.addWAUT(t, id, pro);
     }
@@ -295,7 +295,7 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
         myCurrentWAUTIsBroken = true;
     }
-    if(!myCurrentWAUTIsBroken) {
+    if (!myCurrentWAUTIsBroken) {
         myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
     }
 }
@@ -319,7 +319,7 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
     }
     procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
     bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
-    if(!myCurrentWAUTIsBroken) {
+    if (!myCurrentWAUTIsBroken) {
         myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
     }
 }
@@ -1082,7 +1082,7 @@ NLHandler::parseLinkState(char state)
 
 
 void
-NLHandler::myCharacters(SumoXMLTag element, const std::string &name,
+NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw()
 {
     // check static net information
@@ -1139,24 +1139,24 @@ NLHandler::myCharacters(SumoXMLTag element, const std::string &name,
         case SUMO_TAG_OFFSET:
             setOffset(chars);
             break;
+        case SUMO_TAG_NET_OFFSET:
+            setNetOffset(chars);
+            break;
+        case SUMO_TAG_CONV_BOUNDARY:
+            setNetConv(chars);
+            break;
+        case SUMO_TAG_ORIG_BOUNDARY:
+            setNetOrig(chars);
+            break;
+        case SUMO_TAG_ORIG_PROJ:
+            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
+            break;
         default:
             break;
         }
-        if (name=="net-offset") { // !!!!6 change to tag*
-            setNetOffset(chars);
-        }
-        if (name=="conv-boundary") { // !!!!6 change to tag*
-            setNetConv(chars);
-        }
-        if (name=="orig-boundary") { // !!!!6 change to tag*
-            setNetOrig(chars);
-        }
-        if (name=="orig-proj") { // !!!!6 change to tag*
-            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
-        }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myCharacters(element, name, chars);
+        MSRouteHandler::myCharacters(element, chars);
     }
 }
 
@@ -1382,7 +1382,7 @@ NLHandler::addInternalLanes(const std::string &chars)
 // ----------------------------------
 
 void
-NLHandler::myEndElement(SumoXMLTag element, const std::string &name) throw()
+NLHandler::myEndElement(SumoXMLTag element) throw()
 {
     if (wanted(LOADFILTER_NET)) {
         switch (element) {
@@ -1420,7 +1420,7 @@ NLHandler::myEndElement(SumoXMLTag element, const std::string &name) throw()
         }
     }
     // !!!
-    if (name=="WAUT") {
+    if (element==SUMO_TAG_WAUT) {
         closeWAUT();
     }
     // !!!!
@@ -1437,7 +1437,7 @@ NLHandler::myEndElement(SumoXMLTag element, const std::string &name) throw()
         }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myEndElement(element, name);
+        MSRouteHandler::myEndElement(element);
     }
 }
 

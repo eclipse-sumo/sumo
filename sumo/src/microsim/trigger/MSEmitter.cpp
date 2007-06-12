@@ -126,11 +126,10 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 
 void
-MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
-        const std::string &name,
+MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         const Attributes &attrs) throw()
 {
-    if (name=="routedistelem") {
+    if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution
         // check if route exists
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
@@ -152,7 +151,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         return;
     }
     // vehicle-type distributions
-    if (name=="vtypedistelem") {
+    if (element==SUMO_TAG_VTYPEDISTELEM) {
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
@@ -180,7 +179,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         myVTypeDist.add(prob, vtype);
     }
 
-    if (name=="flow") {
+    if (element==SUMO_TAG_FLOW) {
         // get the flow information
         SUMOReal no = -1;
         try {
@@ -217,7 +216,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
     }
 
     // check whethe the correct tag is read
-    if (name=="emit") {
+    if (element==SUMO_TAG_EMIT) {
         // check and assign emission time
         int aEmitTime = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
         if (aEmitTime<myBeginTime) {
@@ -276,23 +275,11 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag /*element*/,
         _offset = SUMOTime(aEmitTime);
     }
     // check whethe the correct tag is read
-    if (name=="reset") {
+    if (element==SUMO_TAG_RESET) {
         myVTypeDist.clear();
         myRouteDist.clear();
     }
 }
-
-
-void
-MSEmitter::MSEmitter_FileTriggeredChild::myCharacters(
-    SumoXMLTag , const std::string &, const std::string &) throw()
-{}
-
-
-void
-MSEmitter::MSEmitter_FileTriggeredChild::myEndElement(
-    SumoXMLTag , const std::string &) throw()
-{}
 
 
 bool

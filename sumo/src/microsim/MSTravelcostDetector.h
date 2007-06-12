@@ -247,13 +247,13 @@ private:
     IntervalFileMap intervalsAndFilesM; /**< Map of interval-file pairs. */
 
     EdgeLaneCostCont edgeLaneCostsM; /**< Container of MSEdge-laneCostCont
-                                                  * pairs. */
+                                                      * pairs. */
 
     static MSTravelcostDetector* instanceM; /**< The sole instance of this
-                                                         * class. */
+                                                             * class. */
 
     SUMOTime maxIntervalInStepsM; /**< Maximum interval length to be added
-                                                  * by addSampleInterval().*/
+                                                      * by addSampleInterval().*/
 };
 
 

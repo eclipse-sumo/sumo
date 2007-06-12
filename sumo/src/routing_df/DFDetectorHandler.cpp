@@ -63,10 +63,10 @@ DFDetectorHandler::~DFDetectorHandler() throw()
 
 
 void
-DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
+DFDetectorHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw()
 {
-    if (name=="detector_definition") {
+    if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         string id;
         try {
             id = getString(attrs, SUMO_ATTR_ID);
@@ -105,35 +105,6 @@ DFDetectorHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
         }
     }
 }
-
-
-
-
-
-void
-DFDetectorHandler::myCharacters(SumoXMLTag element, const std::string&,
-                                const std::string &/*chars*/) throw()
-{
-    if (element==SUMO_TAG_EDGES) {
-//        preallocateEdges(chars);
-    }
-}
-
-
-/*void
-DFDetectorHandler::preallocateEdges(const std::string &chars)
-{
-    StringTokenizer st(chars);
-    while(st.hasNext()) {
-        string id = st.next();
-        _net.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
-    }
-}*/
-
-
-void
-DFDetectorHandler::myEndElement(SumoXMLTag, const std::string&) throw()
-{}
 
 
 

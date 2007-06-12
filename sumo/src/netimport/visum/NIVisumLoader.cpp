@@ -573,7 +573,7 @@ void NIVisumLoader::load(OptionsCont &options)
     // open the file
     if (!myLineReader.setFileName(options.getString("visum"))) {
         throw ProcessError("Can not open visum-file '" + options.getString("visum") + "'.");
-        
+
     }
     // scan the file for data positions
     PositionSetter posSet(*this);

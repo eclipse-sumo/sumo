@@ -91,7 +91,7 @@ public:
     long onSimStep(FXObject*sender,FXSelector,void*);
 
     /// @name locator-callbacks
-    //@{ 
+    //@{
     /// opens a locator for junctions
     long onCmdLocateJunction(FXObject*,FXSelector,void*);
     /// opens a locator for edges

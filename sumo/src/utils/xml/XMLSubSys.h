@@ -55,14 +55,14 @@ class SUMOSAXHandler;
  *  we call XMLSubSys::init() once at the beginning of our application and
  *  XMLSubSys::close() at the end.
  *
- * Closing and initialising the XML subsystem is necessary. Still, we never 
+ * Closing and initialising the XML subsystem is necessary. Still, we never
  *  encountered any problems with it. Once, after some modifications, SUMO
- *  crashed when closing the XML sub system. The reason was a memory leak 
+ *  crashed when closing the XML sub system. The reason was a memory leak
  *  within the microsim-module.
  *
  *
- * In addition to initialisation and shutdown, this module allows to build 
- *  SAXReaders and/or running a given handler on a given file without 
+ * In addition to initialisation and shutdown, this module allows to build
+ *  SAXReaders and/or running a given handler on a given file without
  *  dealing with the reader at all.
  *
  * @todo make schema checking optional
@@ -70,7 +70,7 @@ class SUMOSAXHandler;
 class XMLSubSys
 {
 public:
-    /** 
+    /**
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
@@ -80,7 +80,7 @@ public:
     static bool init() throw();
 
 
-    /** 
+    /**
      * @brief Closes the xml-subsystem
      *
      * Calls XMLPlatformUtils::Terminate();
@@ -88,7 +88,7 @@ public:
     static void close() throw();
 
 
-    /** 
+    /**
      * @brief Builds a reader and assigns the handler to it
      *
      * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
@@ -101,7 +101,7 @@ public:
     getSAXReader(SUMOSAXHandler &handler) throw();
 
 
-    /** 
+    /**
      * @brief Runs the given handler on the given file; returns if everything's ok
      * 
      * Builds a reader using getSAXReader. Then, it parses the given file and
@@ -119,7 +119,7 @@ public:
 
 
 protected:
-    /** 
+    /**
      * @brief Sets the named feature of the given reader to the given value
      */
     static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &,

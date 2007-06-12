@@ -79,17 +79,17 @@ PCXMLPoints::~PCXMLPoints() throw()
 void
 PCXMLPoints::load(OptionsCont &oc)
 {
-    if(!XMLSubSys::runParser(*this, oc.getString("xml-points"))) {
+    if (!XMLSubSys::runParser(*this, oc.getString("xml-points"))) {
         throw ProcessError();
     }
 }
 
 
 void
-PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
+PCXMLPoints::myStartElement(SumoXMLTag element,
                             const Attributes &attrs) throw()
 {
-    if (name!="poi") {
+    if (element!=SUMO_TAG_POI) {
         return;
     }
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
@@ -130,17 +130,6 @@ PCXMLPoints::myStartElement(SumoXMLTag element, const std::string &name,
         myCont.insert(id, poi, layer, ignorePrunning);
     }
 }
-
-
-void
-PCXMLPoints::myCharacters(SumoXMLTag , const std::string &,
-                          const std::string &) throw()
-{}
-
-
-void
-PCXMLPoints::myEndElement(SumoXMLTag , const std::string &) throw()
-{}
 
 
 

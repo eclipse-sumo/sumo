@@ -109,7 +109,7 @@ getTurningDefaults(OptionsCont &oc)
     if (defs.size()<2) {
         throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
     }
-    for(vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
+    for (vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
         try {
             SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
             ret.push_back(val);
@@ -132,7 +132,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
     // parse sink edges specified at the input/within the configuration
     if (oc.isSet("sinks")) {
         vector<string> edges = oc.getStringVector("sinks");
-        for(vector<string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (vector<string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge==0) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
@@ -230,7 +230,7 @@ main(int argc, char **argv)
             throw ProcessError();
         }
     } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

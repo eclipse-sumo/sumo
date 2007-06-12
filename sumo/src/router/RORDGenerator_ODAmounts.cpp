@@ -225,10 +225,9 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time)
 
 void
 RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
-                                        const std::string &name,
                                         const Attributes &attrs) throw()
 {
-    RORDLoader_TripDefs::myStartElement(element, name, attrs);
+    RORDLoader_TripDefs::myStartElement(element, attrs);
     switch (element) {
     case SUMO_TAG_FLOW:
         parseFlowAmountDef(attrs);
@@ -300,17 +299,17 @@ RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
 
 
 void
-RORDGenerator_ODAmounts::myCharacters(SumoXMLTag element, const std::string &name,
+RORDGenerator_ODAmounts::myCharacters(SumoXMLTag element,
                                       const std::string &chars) throw()
 {
-    RORDLoader_TripDefs::myCharacters(element, name, chars);
+    RORDLoader_TripDefs::myCharacters(element, chars);
 }
 
 
 void
-RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element, const std::string &name) throw()
+RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw()
 {
-    RORDLoader_TripDefs::myEndElement(element, name);
+    RORDLoader_TripDefs::myEndElement(element);
     switch (element) {
     case SUMO_TAG_FLOW:
         myEndFlowAmountDef();

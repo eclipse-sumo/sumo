@@ -131,110 +131,111 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
     for (vector<MSDevice_CPhone*>::iterator i=v->begin(); !doBreak&&i!=v->end(); ++i, ++currNo) {
         MSDevice_CPhone *cp = (*i);
         assert(cp != 0);
-        if(veh.getVehicleType().getID()=="SBahn") {
+        if (veh.getVehicleType().getID()=="SBahn") {
             SUMOReal phoneVehPos = (SUMOReal)(veh.getVehicleType().getLength()-2.) / (SUMOReal) v->size() * (SUMOReal) currNo;
-            if(oldPos + phoneVehPos<posM) {
+            if (oldPos + phoneVehPos<posM) {
                 // ok, was already processed
                 continue;
             }
-            if(newPos + phoneVehPos<posM) {
+            if (newPos + phoneVehPos<posM) {
                 // ok, has not yet reached the detector
                 doBreak = true;
                 continue;
             }
         }
         ++passedNo;
-            if (_ActorType == 1) { /* 1 == cell/la */
-                /*now change each mobile for the old cell to the new one*/
-                /* first buffer the old la, if we might change it*/
-                int oldLAId = cp->getCurrentLAId();
-                /* set the current cell id an LA id*/
-                cp->setCurrentCellId(_AreaId);
-                cp->setCurrentLAId(_LAId);
-                /*get the state off the mobile*/
-                MSDevice_CPhone::State state = cp->GetState();
-                if (state!=MSDevice_CPhone::STATE_OFF) {
-                    // at first we have a look on the current la_id and the old one. if they are equal the is no reason
-                    // to do anything.
-                    if (oldLAId != _LAId && oldLAId != -1) {
-                        pPhone->addLAChange(toString(oldLAId) + toString(_LAId));
-                    }
+        if (_ActorType == 1) { /* 1 == cell/la */
+            /*now change each mobile for the old cell to the new one*/
+            /* first buffer the old la, if we might change it*/
+            int oldLAId = cp->getCurrentLAId();
+            /* set the current cell id an LA id*/
+            cp->setCurrentCellId(_AreaId);
+            cp->setCurrentLAId(_LAId);
+            /*get the state off the mobile*/
+            MSDevice_CPhone::State state = cp->GetState();
+            if (state!=MSDevice_CPhone::STATE_OFF) {
+                // at first we have a look on the current la_id and the old one. if they are equal the is no reason
+                // to do anything.
+                if (oldLAId != _LAId && oldLAId != -1) {
+                    pPhone->addLAChange(toString(oldLAId) + toString(_LAId));
                 }
-                MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
-                MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
+            }
+            MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
+            MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
+            if (oldCell != 0) {
+                oldCell->remCPhone(cp->getID());
+            }
+            assert(newCell != 0);
+            newCell->addCPhone(cp->getID(), cp);
+            int callCount = cp->GetCallCellCount();
+            cp->IncCallCellCount();
+            switch (cp->GetState()) {
+            case MSDevice_CPhone::STATE_OFF:
+                break;
+            case MSDevice_CPhone::STATE_IDLE:
+                break;
+            case MSDevice_CPhone::STATE_CONNECTED_IN:
+                assert(cp->getCallId() != -1);
+                // remove the call from the old cell
                 if (oldCell != 0) {
-                    oldCell->remCPhone(cp->getID());
-                } 
-                assert(newCell != 0);
-                newCell->addCPhone(cp->getID(), cp);
-                int callCount = cp->GetCallCellCount();
-                cp->IncCallCellCount();
-                switch (cp->GetState()) {
-                case MSDevice_CPhone::STATE_OFF:
-                    break;
-                case MSDevice_CPhone::STATE_IDLE:
-                    break;
-                case MSDevice_CPhone::STATE_CONNECTED_IN:
-                    assert(cp->getCallId() != -1);
-                    // remove the call from the old cell
-                    if (oldCell != 0) {
-                        oldCell->remCall(cp->getCallId());
-                    }
-                    // move to the new cell if the phone is connected
-                    newCell->addCall(cp->getCallId(), DYNIN, callCount);
-                    myPassedConnectedCPhonesNo++;
-                    break;
-                case MSDevice_CPhone::STATE_CONNECTED_OUT:
-                    assert(cp->getCallId() != -1);
-                    // move to the new cell if the phone is connected
-                    if (oldCell != 0) {
-                        oldCell->remCall(cp->getCallId());
-                    }
-                    newCell->addCall(cp->getCallId(), DYNOUT, callCount);
-                    myPassedConnectedCPhonesNo++;
-                    break;
+                    oldCell->remCall(cp->getCallId());
                 }
-                if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
-                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
+                // move to the new cell if the phone is connected
+                newCell->addCall(cp->getCallId(), DYNIN, callCount);
+                myPassedConnectedCPhonesNo++;
+                break;
+            case MSDevice_CPhone::STATE_CONNECTED_OUT:
+                assert(cp->getCallId() != -1);
+                // move to the new cell if the phone is connected
+                if (oldCell != 0) {
+                    oldCell->remCall(cp->getCallId());
+                }
+                newCell->addCall(cp->getCallId(), DYNOUT, callCount);
+                myPassedConnectedCPhonesNo++;
+                break;
+            }
+            if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
+                OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
+                if (od!=0) {
+                    od->getOStream()
+                    << MSNet::getInstance()->getCurrentTimeStep() << ';'
+                    << cp->getCallId() << ';'
+                    << _AreaId << ';'
+                    << "1;" << cp->getID() << std::endl;
+                    ;
+                }
+            }
+        } else { // TOL_SA
+            MSDevice_CPhone::State state = cp->GetState();
+            if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
+                myPassedConnectedCPhonesNo++;
+                {
+                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
                     if (od!=0) {
+                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        // !!! recheck quality indicator
                         od->getOStream()
-                        << MSNet::getInstance()->getCurrentTimeStep() << ';'
-                        << cp->getCallId() << ';'
-                        << _AreaId << ';'
-                        << "1;" << cp->getID() << std::endl;;
+                        << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                     }
                 }
-            } else { // TOL_SA
-                MSDevice_CPhone::State state = cp->GetState();
-                if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
-                    myPassedConnectedCPhonesNo++;
-                    {
-                        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
-                        if (od!=0) {
-                            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
-                            timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
-                            // !!! recheck quality indicator
-                            od->getOStream()
-                            << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
+                {
+                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2_SQL);
+                    if (od!=0) {
+                        if (od->getBoolMarker("hadFirstCall")) {
+                            od->getOStream() << "," << endl;
+                        } else {
+                            od->setBoolMarker("hadFirstCall", true);
                         }
-                    }
-                    {
-                        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2_SQL);
-                        if (od!=0) {
-                            if (od->getBoolMarker("hadFirstCall")) {
-                                od->getOStream() << "," << endl;
-                            } else {
-                                od->setBoolMarker("hadFirstCall", true);
-                            }
-                            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
-                            timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
-                            od->getOStream()
-                            << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
-                            << ", " << 0 << ")"; // !!! recheck quality indicator
-                        }
+                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
+                        od->getOStream()
+                        << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
+                        << ", " << 0 << ")"; // !!! recheck quality indicator
                     }
                 }
             }
+        }
     }
     myPassedCPhonesNo += passedNo;
     return !doBreak && passedNo!=v->size();

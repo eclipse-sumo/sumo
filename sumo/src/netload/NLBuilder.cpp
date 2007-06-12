@@ -165,7 +165,7 @@ NLBuilder::build()
                 SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
                 SAXWeightsHandler wh(def, tmp);
                 // parse the file
-                if(!XMLSubSys::runParser(wh, tmp)) {
+                if (!XMLSubSys::runParser(wh, tmp)) {
                     throw ProcessError();
                 }
                 ok = !(MsgHandler::getErrorInstance()->wasInformed());
@@ -240,7 +240,7 @@ NLBuilder::load(const std::string &mmlWhat,
     subreport(
         "Loading of " + mmlWhat + " done.",
         "Loading of " + mmlWhat + " failed.");
-    if(MsgHandler::getErrorInstance()->wasInformed()) {
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw ProcessError();
     }
     return !MsgHandler::getErrorInstance()->wasInformed();

@@ -74,7 +74,7 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 // SAXWeightsHandler methods
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
-                               const std::string &file)
+                                     const std::string &file)
         : SUMOSAXHandler("sumo-netweights", file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
         myDefinitions(defs)
@@ -82,7 +82,7 @@ SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &d
 
 
 SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
-                               const std::string &file)
+                                     const std::string &file)
         : SUMOSAXHandler("sumo-netweights", file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1)
 {
@@ -99,8 +99,8 @@ SAXWeightsHandler::~SAXWeightsHandler() throw()
 }
 
 
-void SAXWeightsHandler::myStartElement(SumoXMLTag element, const std::string &/*name*/,
-                                    const Attributes &attrs) throw()
+void SAXWeightsHandler::myStartElement(SumoXMLTag element,
+                                       const Attributes &attrs) throw()
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -170,13 +170,7 @@ SAXWeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
 
 
 void
-SAXWeightsHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
-                             const std::string &/*chars*/) throw()
-{}
-
-
-void
-SAXWeightsHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+SAXWeightsHandler::myEndElement(SumoXMLTag element) throw()
 {
     if (element==SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;

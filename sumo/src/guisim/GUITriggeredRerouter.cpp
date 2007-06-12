@@ -284,7 +284,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
 }
 
 
-GUITriggeredRerouter::~GUITriggeredRerouter()
+GUITriggeredRerouter::~GUITriggeredRerouter() throw()
 {}
 
 

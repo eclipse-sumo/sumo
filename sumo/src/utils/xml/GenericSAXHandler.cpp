@@ -216,7 +216,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     if (element<0) {
         myUnknownOccured = true;
     }
-    myStartElement(element, name, attrs);
+    myStartElement(element, attrs);
 }
 
 
@@ -246,9 +246,9 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     }
     buf[pos] = 0;
 
-    myCharacters(element, name, buf);
+    myCharacters(element, buf);
     delete[] buf;
-    myEndElement(element, name);
+    myEndElement(element);
     // update the tag tree
     if (myTagTree.size()==0) {
         myErrorOccured = true;
@@ -276,6 +276,20 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw()
     return (*i).second;
 }
 
+
+void
+GenericSAXHandler::myStartElement(SumoXMLTag, const Attributes &) throw()
+{}
+
+
+void
+GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) throw()
+{}
+
+
+void
+GenericSAXHandler::myEndElement(SumoXMLTag) throw()
+{}
 
 
 /****************************************************************************/

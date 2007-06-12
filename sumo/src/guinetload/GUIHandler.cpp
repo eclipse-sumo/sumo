@@ -87,18 +87,18 @@ GUIHandler::~GUIHandler() throw()
 
 
 void
-GUIHandler::myStartElement(SumoXMLTag element, const std::string &name,
+GUIHandler::myStartElement(SumoXMLTag element,
                            const Attributes &attrs) throw()
 {
-    NLHandler::myStartElement(element, name, attrs);
+    NLHandler::myStartElement(element, attrs);
 }
 
 
 void
-GUIHandler::myCharacters(SumoXMLTag element, const std::string &name,
+GUIHandler::myCharacters(SumoXMLTag element,
                          const std::string &chars) throw()
 {
-    NLHandler::myCharacters(element, name, chars);
+    NLHandler::myCharacters(element, chars);
     if (wanted(LOADFILTER_NET)) {
         switch (element) {
         case SUMO_TAG_SHAPE:
@@ -187,7 +187,7 @@ GUIHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        if(myActiveRouteID[0]!='!') {
+        if (myActiveRouteID[0]!='!') {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         } else {
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
@@ -199,10 +199,10 @@ GUIHandler::closeRoute()
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if(myActiveRouteID[0]!='!') {
+            if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");

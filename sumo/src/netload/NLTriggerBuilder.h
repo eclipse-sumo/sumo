@@ -78,7 +78,7 @@ public:
 
 protected:
     /// @name parsing methods
-    //@{ 
+    //@{
     /// These methods parse the attributes for each of the described trigger
     ///  and call the according methods to build the trigger
 
@@ -122,7 +122,7 @@ protected:
 
 protected:
     /// @name building methods
-    //@{ 
+    //@{
     /// Called with parsed values, these methods build the trigger.
     /// These methods should be overriden for the gui loader in order
     ///  to build visualizable versions of the triggers

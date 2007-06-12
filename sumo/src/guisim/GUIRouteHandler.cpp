@@ -74,7 +74,7 @@ GUIRouteHandler::GUIRouteHandler(const std::string &file,
 {}
 
 
-GUIRouteHandler::~GUIRouteHandler()
+GUIRouteHandler::~GUIRouteHandler() throw()
 {}
 
 
@@ -136,7 +136,7 @@ GUIRouteHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        if(myActiveRouteID[0]!='!') {
+        if (myActiveRouteID[0]!='!') {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         } else {
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
@@ -149,10 +149,10 @@ GUIRouteHandler::closeRoute()
 
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if(myActiveRouteID[0]!='!') {
+            if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");

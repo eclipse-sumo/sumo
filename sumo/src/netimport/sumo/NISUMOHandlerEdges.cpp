@@ -60,7 +60,7 @@ NISUMOHandlerEdges::~NISUMOHandlerEdges() throw()
 
 
 void
-NISUMOHandlerEdges::myStartElement(SumoXMLTag element, const std::string &/*name*/,
+NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw()
 {
     if (element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
@@ -122,14 +122,6 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
     }
     return 0;
 }
-
-void NISUMOHandlerEdges::myCharacters(SumoXMLTag , const std::string &,
-                                      const std::string &) throw()
-{}
-
-
-void NISUMOHandlerEdges::myEndElement(SumoXMLTag , const std::string &) throw()
-{}
 
 
 

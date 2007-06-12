@@ -50,7 +50,7 @@ class OGRFeature;
 // ===========================================================================
 class NIArcView_Loader :
             public FileErrorReporter/*,
-                            public LineHandler*/
+                                        public LineHandler*/
 {
 public:
     /// Contructor

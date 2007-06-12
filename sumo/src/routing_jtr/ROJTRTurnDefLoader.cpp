@@ -73,7 +73,7 @@ ROJTRTurnDefLoader::load(const std::string &file)
     FileHelpers::FileType type = FileHelpers::checkFileType(file);
     switch (type) {
     case FileHelpers::XML:
-        if(!XMLSubSys::runParser(*this, file)) {
+        if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
         }
         break;
@@ -87,7 +87,7 @@ ROJTRTurnDefLoader::load(const std::string &file)
 
 
 void
-ROJTRTurnDefLoader::myStartElement(SumoXMLTag element, const std::string &/*name*/,
+ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw()
 {
     switch (element) {
@@ -105,34 +105,32 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element, const std::string &/*name
 
 
 void
-ROJTRTurnDefLoader::myCharacters(SumoXMLTag element, const std::string &/*name*/,
+ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
                                  const std::string &chars) throw()
 {
     switch (element) {
-    case SUMO_TAG_SINK:
-        {
-            ROEdge *edge = myNet.getEdge(chars);
-            if(edge==0) {
-                throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
-            }
-            edge->setType(ROEdge::ET_SINK);
+    case SUMO_TAG_SINK: {
+        ROEdge *edge = myNet.getEdge(chars);
+        if (edge==0) {
+            throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
         }
-        break;
-    case SUMO_TAG_SOURCE:
-        {
-            ROEdge *edge = myNet.getEdge(chars);
-            if(edge==0) {
-                throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
-            }
-            edge->setType(ROEdge::ET_SOURCE);
+        edge->setType(ROEdge::ET_SINK);
+    }
+    break;
+    case SUMO_TAG_SOURCE: {
+        ROEdge *edge = myNet.getEdge(chars);
+        if (edge==0) {
+            throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
         }
-        break;
+        edge->setType(ROEdge::ET_SOURCE);
+    }
+    break;
     }
 }
 
 
 void
-ROJTRTurnDefLoader::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw()
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:

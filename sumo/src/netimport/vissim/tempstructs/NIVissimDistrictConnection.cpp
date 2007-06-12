@@ -209,7 +209,7 @@ void
 NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
         NBEdgeCont &ec,
         NBNodeCont &nc/*,
-                                                                        NBDistribution &distc*/)
+                                                                                NBDistribution &distc*/)
 {
     // add the sources and sinks
     //  their normalised probability is computed within NBDistrict

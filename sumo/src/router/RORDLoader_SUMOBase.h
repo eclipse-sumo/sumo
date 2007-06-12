@@ -85,13 +85,13 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** the user-impemlented handler method for an opening tag */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw();
 
     /** the user-implemented handler method for a closing tag */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    virtual void myEndElement(SumoXMLTag element) throw();
     //@}
 
     /// Return the information whether a route was read

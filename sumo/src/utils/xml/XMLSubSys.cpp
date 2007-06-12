@@ -106,19 +106,19 @@ XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
 
 bool
 XMLSubSys::runParser(SUMOSAXHandler &handler,
-                      const std::string &file) throw()
+                     const std::string &file) throw()
 {
     SAX2XMLReader *reader = getSAXReader(handler);
-    if(reader==0) {
+    if (reader==0) {
         MsgHandler::getErrorInstance()->inform("Could not build reader to parse '" + file + "'.");
         return false;
     }
     try {
         reader->parse(file.c_str());
-    } catch(ProcessError &e) {
+    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         return false;
-    } catch(...) {
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform("An error occured.");
         return false;
     }
@@ -129,7 +129,7 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
 
 void
 XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
-                       const std::string &feature, bool value) throw()
+                      const std::string &feature, bool value) throw()
 {
     XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
     reader.setFeature(xmlFeature, false);

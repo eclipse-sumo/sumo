@@ -56,10 +56,10 @@ class ROEdge;
  *  (ToRetrieveDefinition, defined as inner class) which also contains the information
  *  about the retriever (EdgeFloatTimeLineRetriever, defined as inner class).
  *
- * The ToRetrieveDefinition names the attribute which the SAXWeightsHandler shall 
+ * The ToRetrieveDefinition names the attribute which the SAXWeightsHandler shall
  *  parse and reporte. Within the parsed xml-file these attributes may be embedded
- *  in "lane" or "edge" elements, one for each edge or for each lane (see below). 
- *  These elements should be embedded in interval-tags which specify the time the 
+ *  in "lane" or "edge" elements, one for each edge or for each lane (see below).
+ *  These elements should be embedded in interval-tags which specify the time the
  *  weight is valid at.
  *  The boolean "edgeBased" tells SAXWeightsHandler whether the weights are supplied
  *  on edge- or on lane-basis (whether it shall parse the "edge" or the "lane" elements).
@@ -140,7 +140,7 @@ public:
      *  not deleted!
      */
     SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
-                   const std::string &file);
+                      const std::string &file);
 
 
     /**
@@ -149,7 +149,7 @@ public:
      * Gets a single definition. Please note that the retrievers are not deleted!
      */
     SAXWeightsHandler(ToRetrieveDefinition *def,
-                   const std::string &file);
+                      const std::string &file);
 
 
     /// Destructor
@@ -158,19 +158,14 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** the user-implemented handler method for an opening tag */
-    void myStartElement(SumoXMLTag element, const std::string &name,
+    void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw();
 
 
-    /** the user-implemented handler method for characters */
-    void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars) throw();
-
-
     /** the user-implemented handler method for a closing tag */
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    void myEndElement(SumoXMLTag elemente) throw();
     //@}
 
 

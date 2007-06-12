@@ -69,7 +69,6 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
 
 void
 RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
-                                    const std::string &name,
                                     const Attributes &attrs) throw()
 {
     switch (element) {
@@ -93,7 +92,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw()
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:

@@ -64,7 +64,7 @@ public:
                         SUMOReal scale,
                         const GUIColoringSchemesMap<GUIVehicle> &schemes,
                         GUISUMOAbstractView::VisualizationSettings &settings/*,
-                                                                                GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
+                                                                                                        GUIBaseColorer<GUIVehicle> &colorer, float upscale*/);
 
     void setGLID(bool val);
 

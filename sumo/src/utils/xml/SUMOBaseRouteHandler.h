@@ -45,13 +45,13 @@
  * @class SUMOBaseRouteHandler
  * @brief Base class for vehicle parsing.
  *
- * Because vehicles have to be parsed by several applications (SUMO, GUISIM, 
+ * Because vehicles have to be parsed by several applications (SUMO, GUISIM,
  *  routers) the same way, some of the methods are shared within this class which
  *  is meant to be a common base for vehicle parsers.
  *
- * This class supports helper methods for parsing a vehicle's color, class and 
+ * This class supports helper methods for parsing a vehicle's color, class and
  *  other. Still, the main usage is to call "openVehicle" on an opening vehicle-tag
- *  what parses the information about the vehicle stored in the attributes. Then, when 
+ *  what parses the information about the vehicle stored in the attributes. Then, when
  *  the vehicle-tag is closed, "closeVehicle" should be called and the vehicle may
  *  be instantiated using the read values.
  */
@@ -68,7 +68,7 @@ public:
 
 protected:
     /// @name parse helper (reporting errors)
-    //@{ 
+    //@{
     /**
      * @brief Parses the color definition (if given)
      *
@@ -135,7 +135,7 @@ protected:
 
 protected:
     /// @name variables used during parsing of vehicles
-    //@{ 
+    //@{
     /// the id of the current vehicle
     std::string myActiveVehicleID;
 

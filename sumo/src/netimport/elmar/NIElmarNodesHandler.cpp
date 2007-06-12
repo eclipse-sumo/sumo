@@ -79,7 +79,7 @@ NIElmarNodesHandler::report(const std::string &result)
     // check
     if (st.size()<3) {
         throw ProcessError("Something is wrong with the following data line\n" + result);
-        
+
     }
     // parse
     id = st.next();
@@ -87,13 +87,13 @@ NIElmarNodesHandler::report(const std::string &result)
         x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-x-position occured.");
-        
+
     }
     try {
         y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-y-position occured.");
-        
+
     }
     // geo->metric
     Position2D pos(x, y);
@@ -102,7 +102,7 @@ NIElmarNodesHandler::report(const std::string &result)
     if (!myNodeCont.insert(n)) {
         delete n;
         throw ProcessError("Could not add node '" + id + "'.");
-        
+
     }
     return true;
 }

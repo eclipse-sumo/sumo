@@ -77,7 +77,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
     RODFNetHandler handler(_options, *net, eb);
     handler.setFileName(file);
-    if(!XMLSubSys::runParser(handler, file)) {
+    if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;

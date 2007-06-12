@@ -75,10 +75,9 @@ RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt() throw()
 
 void
 RORDLoader_SUMOAlt::myStartElement(SumoXMLTag element,
-                                   const std::string &name,
                                    const Attributes &attrs) throw()
 {
-    RORDLoader_SUMOBase::myStartElement(element, name, attrs);
+    RORDLoader_SUMOBase::myStartElement(element, attrs);
     switch (element) {
     case SUMO_TAG_ROUTEALT:
         startAlternative(attrs);
@@ -138,7 +137,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
+RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element,
                                  const std::string &chars) throw()
 {
     // process routes only, all other elements do
@@ -173,9 +172,9 @@ RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element, const std::string &name,
 
 
 void
-RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element, const std::string &name) throw()
+RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element) throw()
 {
-    RORDLoader_SUMOBase::myEndElement(element, name);
+    RORDLoader_SUMOBase::myEndElement(element);
     switch (element) {
     case SUMO_TAG_ROUTEALT:
         if (mySkipCurrent) {

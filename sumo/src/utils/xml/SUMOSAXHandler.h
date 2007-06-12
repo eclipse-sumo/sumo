@@ -42,7 +42,7 @@
  * @class SUMOSAXHandler
  * @brief SAX-handler base for SUMO-files
  *
- * This class is a GenericSAXHandler which knows all tags SUMO uses, so all 
+ * This class is a GenericSAXHandler which knows all tags SUMO uses, so all
  *  SUMO-XML - loading classes should be derived from it.
  *
  * Besides the functionality of GenericSAXHandler it offers interfaces for
@@ -62,7 +62,7 @@ public:
 
 
     /// @name SAX ErrorHandler callbacks
-    //@{ 
+    //@{
     /**
      * @brief Handler for XML-warnings
      *
@@ -87,21 +87,21 @@ public:
     //@}
 
 
-    /** 
+    /**
      * @brief Sets the current file name
      * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
      */
     void setFileName(const std::string &name) throw();
 
 
-    /** 
+    /**
      * @brief returns the current file name
      */
     const std::string &getFileName() const throw();
 
 
 protected:
-    /** 
+    /**
      * @brief Builds an error message
      * 
      * The error message includes the file name and the line/column information

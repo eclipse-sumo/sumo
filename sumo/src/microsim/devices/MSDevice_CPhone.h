@@ -141,7 +141,7 @@ class MyCommand : public Command
     private:
         /// The parent reader
         MSDevice_CPhone &myParent;
-       
+
         bool myAmActive;
 
     };
@@ -173,7 +173,7 @@ private:
                 duration= (-1)*(235.583)*log(randvalue1)+9.2057;
             }
         }
-//        duration = 1000* duration;
+    //        duration = 1000* duration;
         return duration;
     }
     */
@@ -206,7 +206,7 @@ private:
 
     //const static SUMOTime callDurationStdev=6000;
     //const static SUMOTime callDurationMean=60;
-    
+
 };
 
 

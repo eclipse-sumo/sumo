@@ -69,7 +69,7 @@ public:
     virtual ~GUIJunctionWrapper();
 
     /// @name inherited from GUIGlObject
-    //@{ 
+    //@{
     /// Returns a popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);

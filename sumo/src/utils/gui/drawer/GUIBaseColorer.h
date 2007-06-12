@@ -93,7 +93,7 @@ public:
     { }
 
     /// @name color setting functions
-    //@{ 
+    //@{
     /// Sets the given color as the color to use (valid for CST_SINGLE)
     virtual void resetColor(const RGBColor &) = 0;
 
@@ -109,7 +109,7 @@ public:
 
 
     /// @name color retrieval functions
-    //@{ 
+    //@{
     /// Returns the single color used (valid for CST_SINGLE)
     virtual const RGBColor &getSingleColor() const = 0;
 
@@ -172,7 +172,7 @@ public:
     }
 
     /// @name inherited from from GUIBaseColorerInterface
-    //@{ 
+    //@{
     /// Sets the given color as the color to use (valid for CST_SINGLE)
     virtual void resetColor(const RGBColor &)
     { }

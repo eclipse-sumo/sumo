@@ -148,11 +148,11 @@ DFDetFlowLoader::report(const std::string &result)
             fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qpkw").c_str());
             fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vpkw").c_str());
             fd.qLKW = 0;
-            if(myLineHandler.know("qLKW")) {
+            if (myLineHandler.know("qLKW")) {
                 fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qlkw").c_str());
             }
             fd.vLKW = 0;
-            if(myLineHandler.know("vLKW")) {
+            if (myLineHandler.know("vLKW")) {
                 fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vlkw").c_str());
             }
             if (fd.qLKW<0) {
@@ -167,12 +167,11 @@ DFDetFlowLoader::report(const std::string &result)
             }
             myStorage.addFlow(detName, time, fd);
             return true;
-        } catch (UnknownElement &) {
-        } catch (OutOfBoundsException &) {
-        }
+        } catch (UnknownElement &) {}
+        catch (OutOfBoundsException &) {}
         throw ProcessError("The detector-flow-file '" + myReader.getFileName() + "' is corrupt;\n"
-            + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
-            + " The according column names must be given in the first line of the file.");
+                           + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
+                           + " The according column names must be given in the first line of the file.");
         return false;
     }
 }

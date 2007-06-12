@@ -85,7 +85,7 @@ public:
     }
 
     /// @name inherited from GUIGlObject
-    //@{ 
+    //@{
     /// returns the popup-menu for vehicles
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);

@@ -48,24 +48,17 @@ class DFDetectorHandler : public SUMOSAXHandler
 public:
     /// Constructor
     DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
-        const std::string &file);
+                      const std::string &file);
 
     /// Destrcutor
     virtual ~DFDetectorHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** the user-impemlented handler method for an opening tag */
-    void myStartElement(SumoXMLTag element, const std::string &name,
+    void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw();
-
-    /** the user-implemented handler method for characters */
-    void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars) throw();
-
-    /** the user-implemented handler method for a closing tag */
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
     //@}
 
 protected:

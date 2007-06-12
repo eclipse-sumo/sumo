@@ -76,10 +76,10 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw()
 
 
 void
-NIXMLNodesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &tag,
+NIXMLNodesHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw()
 {
-    if (tag!="node") {
+    if (element!=SUMO_TAG_NODE) {
         return;
     }
     try {
@@ -166,7 +166,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError("Could not allocate tls '" + tlID + "'.");
-                
+
             }
         } else {
             tlDef->addNode(currentNode);
@@ -179,7 +179,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError("Could not allocate tls '" + tlID + "'.");
-            
+
         }
     }
 
@@ -190,17 +190,6 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         tlDef->addControlledInnerEdges(st.getVector());
     }
 }
-
-
-void
-NIXMLNodesHandler::myCharacters(SumoXMLTag , const std::string &,
-                                const std::string &) throw()
-{}
-
-
-void
-NIXMLNodesHandler::myEndElement(SumoXMLTag , const std::string &) throw()
-{}
 
 
 

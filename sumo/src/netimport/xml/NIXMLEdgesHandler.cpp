@@ -80,7 +80,7 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler() throw()
 
 
 void
-NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
+NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw()
 {
     if (element==SUMO_TAG_EDGE) {
@@ -317,7 +317,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element, const std::string &name,
         }
         */
     }
-    if (name=="expansion") {
+    if (element==SUMO_TAG_EXPANSION) {
         try {
             Expansion e;
             e.pos = getFloat(attrs, SUMO_ATTR_POS);
@@ -653,10 +653,10 @@ NIXMLEdgesHandler::getSpreadFunction(const Attributes &attrs)
 
 
 void
-NIXMLEdgesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &name,
+NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
                                 const std::string &chars) throw()
 {
-    if (name=="expansion") {
+    if (element==SUMO_TAG_EXPANSION) {
         if (myExpansions.size()!=0) {
             Expansion &e = myExpansions.back();
             StringTokenizer st(chars, ";");
@@ -678,7 +678,7 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &name,
 
 
 void
-NIXMLEdgesHandler::myEndElement(SumoXMLTag element, const std::string &/*name*/) throw()
+NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw()
 {
     if (element==SUMO_TAG_EDGE) {
         if (myExpansions.size()!=0) {

@@ -64,12 +64,12 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
             return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
         default:
             throw ProcessError("Invalid speed code (edge '" + id + "'.");
-            
+
         }
     } catch (NumberFormatException &) {
         throw ProcessError(
             "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
-        
+
     }
     throw ProcessError();
 }
@@ -99,12 +99,12 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
                 return 4;
             default:
                 throw ProcessError("Invalid lane number (edge '" + id + "').");
-                
+
             }
         }
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
-        
+
     }
     throw ProcessError();
 }

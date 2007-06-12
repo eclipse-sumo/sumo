@@ -62,7 +62,8 @@ class MSPhoneCell
 public:
     /// Constructor
     MSPhoneCell(int ID);
-    size_t getDynEntriesNo() const {
+    size_t getDynEntriesNo() const
+    {
         return myExpectedDynamicCalls.size();
     }
 

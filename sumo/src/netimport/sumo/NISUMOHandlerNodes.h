@@ -51,12 +51,9 @@ public:
     ~NISUMOHandlerNodes() throw();
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
-    void myStartElement(SumoXMLTag element, const std::string &name,
+    //@{
+    void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw();
-    void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars) throw();
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
     //@}
 private:
     void addNode(const Attributes &attrs);

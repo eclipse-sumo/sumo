@@ -65,10 +65,10 @@ RODFNetHandler::~RODFNetHandler() throw()
 
 
 void
-RODFNetHandler::myCharacters(SumoXMLTag element, const std::string&name,
+RODFNetHandler::myCharacters(SumoXMLTag element,
                              const std::string &chars) throw()
 {
-    RONetHandler::myCharacters(element, name, chars);
+    RONetHandler::myCharacters(element, chars);
     switch (element) {
     case SUMO_TAG_LANE:
         // may be an unparsed internal lane

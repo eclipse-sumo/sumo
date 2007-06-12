@@ -111,7 +111,7 @@ MSRouteHandler::retrieveLastReadVehicle()
 
 
 void
-MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
+MSRouteHandler::myStartElement(SumoXMLTag element,
                                const Attributes &attrs) throw()
 {
     switch (element) {
@@ -128,7 +128,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element, const std::string &name,
         break;
     }
 
-    if (name=="stop") { // !!! make an int out of this
+    if (element==SUMO_TAG_STOP) {
         MSVehicle::Stop stop;
         stop.lane = 0;
         stop.busstop = 0;
@@ -269,12 +269,12 @@ MSRouteHandler::openRoute(const Attributes &attrs)
 
 
 void
-MSRouteHandler::myCharacters(SumoXMLTag element, const std::string &name,
+MSRouteHandler::myCharacters(SumoXMLTag element,
                              const std::string &chars) throw()
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        addRouteElements(name, chars);
+        addRouteElements(chars);
         break;
     default:
         break;
@@ -283,12 +283,11 @@ MSRouteHandler::myCharacters(SumoXMLTag element, const std::string &name,
 
 
 void
-MSRouteHandler::addRouteElements(const std::string &name,
-                                 const std::string &chars)
+MSRouteHandler::addRouteElements(const std::string &chars)
 {
     StringTokenizer st(chars);
     if (st.size()==0) {
-        if(myActiveRouteID[0]!='!') {
+        if (myActiveRouteID[0]!='!') {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         } else {
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
@@ -301,7 +300,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
         // check whether the edge exists
         if (edge==0) {
             throw ProcessError("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
-                                                       + "\n The route can not be build.");
+                                   + "\n The route can not be build.");
         }
         myActiveRoute.push_back(edge);
     }
@@ -316,7 +315,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
 // ----------------------------------
 
 void
-MSRouteHandler::myEndElement(SumoXMLTag element, const std::string &) throw()
+MSRouteHandler::myEndElement(SumoXMLTag element) throw()
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
@@ -338,7 +337,7 @@ MSRouteHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        if(myActiveRouteID[0]!='!') {
+        if (myActiveRouteID[0]!='!') {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         } else {
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
@@ -349,10 +348,10 @@ MSRouteHandler::closeRoute()
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if(myActiveRouteID[0]!='!') {
+            if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
@@ -393,7 +392,7 @@ MSRouteHandler::closeVehicle() throw()
     }
     if (route==0) {
         // nothing found? -> error
-        if(myCurrentRouteName!="") {
+        if (myCurrentRouteName!="") {
             throw ProcessError("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
         } else {
             throw ProcessError("Vehicle '" + myActiveVehicleID + "' has no route.");

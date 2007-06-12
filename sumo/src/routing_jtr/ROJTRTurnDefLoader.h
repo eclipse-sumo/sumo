@@ -71,17 +71,17 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /// SAX-callback for tag start
-    void myStartElement(SumoXMLTag element, const std::string &name,
+    void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw();
 
     /// SAX-callback for characters section
-    void myCharacters(SumoXMLTag element, const std::string &name,
+    void myCharacters(SumoXMLTag element,
                       const std::string &chars) throw();
 
     /// SAX-callback for tag end
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    void myEndElement(SumoXMLTag element) throw();
     //@}
 
 private:

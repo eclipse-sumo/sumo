@@ -62,7 +62,7 @@ SUMOSAXHandler::~SUMOSAXHandler() throw()
 {}
 
 
-void 
+void
 SUMOSAXHandler::setFileName(const std::string &name) throw()
 {
     myFileName = name;
@@ -80,7 +80,7 @@ string
 SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
 {
     ostringstream buf;
-    char *pMsg = XMLString::transcode (exception.getMessage());
+    char *pMsg = XMLString::transcode(exception.getMessage());
     buf << pMsg << endl;
     buf << " In file '" << getFileName() << "'" << endl;
     buf << " At line/column " << exception.getLineNumber()+1

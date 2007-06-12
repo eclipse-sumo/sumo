@@ -316,7 +316,7 @@ GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
 
     U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
          ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
-                                   ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
         )
         /
         (LineMag * LineMag);
@@ -351,7 +351,7 @@ GeomHelper::DistancePointLine(const Position2D &Point,
 
     U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
          ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
-                                   ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
         )
         /
         (LineMag * LineMag);

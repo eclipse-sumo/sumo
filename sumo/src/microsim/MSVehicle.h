@@ -131,7 +131,7 @@ public:
 
 
     /// @name needed during the emission
-    //@{ 
+    //@{
     /// returns the edge the vehicle starts from
     const MSEdge &departEdge();
 
@@ -179,7 +179,7 @@ public:
 
 
     /// @name interaction with the route
-    //@{ 
+    //@{
     /** Returns the nSuccs'th successor of the vehicles current
         route-edge or 0 if there is no nSucc'th edge. */
     const MSEdge* succEdge(unsigned int nSuccs) const;
@@ -246,7 +246,7 @@ public:
 
 
     /// @name retrieval and setting of CORN values
-    //@{ 
+    //@{
     /// Gets the named CORN double value
     int getCORNIntValue(MSCORN::Function f) const;
 
@@ -274,7 +274,7 @@ public:
 
 
     /// @name state setter/getter
-    //@{ 
+    //@{
     /// Returns the vehicle state
     const State &getState() const
     {
@@ -386,7 +386,7 @@ public:
 
 
     /// @name state io
-    //@{ 
+    //@{
     /// Saves the states of a vehicle
     void saveState(std::ostream &os, long what);
     //@}
@@ -428,7 +428,7 @@ public:
 
 
     /// @name usage of multiple vehicle emissions
-    //@{ 
+    //@{
     /// Returns the information whether further vehicles of this type shall be emitted periodically
     bool periodical() const;
 

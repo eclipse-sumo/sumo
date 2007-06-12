@@ -87,7 +87,7 @@ RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*name*/,
+RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element,
                                     const std::string &chars) throw()
 {
     if (element==SUMO_TAG_ROUTE&&myCurrentRouteName.length()!=0) {
@@ -126,9 +126,9 @@ RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element, const std::string &/*nam
 
 
 void
-RORDLoader_SUMORoutes::myEndElement(SumoXMLTag element, const std::string &name) throw()
+RORDLoader_SUMORoutes::myEndElement(SumoXMLTag element) throw()
 {
-    RORDLoader_SUMOBase::myEndElement(element, name);
+    RORDLoader_SUMOBase::myEndElement(element);
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (!myAmInEmbeddedMode) {

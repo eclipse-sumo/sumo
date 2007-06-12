@@ -150,7 +150,7 @@ struct detectorEquals :
 
 private:
     Intervals intervalsM;       /**< Map that hold DetectorFileVec for
-                                             * given intervals. */
+                                                 * given intervals. */
 
     //static MSDetector2File* instanceM; /**< The sole instance of this
     //                                  * class. */

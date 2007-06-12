@@ -85,7 +85,7 @@ private:
 
     /** loads data from the list of xml-files of certain type */
     void loadXMLType(SUMOSAXHandler *handler,
-        const std::vector<std::string> &files, const std::string &type);
+                     const std::vector<std::string> &files, const std::string &type);
 
     /** loads data from cell-input-files */
     void loadCell(OptionsCont &oc);

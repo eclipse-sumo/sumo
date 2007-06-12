@@ -110,7 +110,7 @@ public:
     }
 
     /// @name methods for saving/reading an abstract state
-    //@{ 
+    //@{
     /** @brief Returns the value of the named boolean marker
      *
      * If the boolean marker was not set before, false is returned

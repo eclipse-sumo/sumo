@@ -348,7 +348,7 @@ main(int argc, char **argv)
         PCTypeMap tm;
         if (oc.isSet("typemap")) {
             PCTypeDefHandler handler(oc, tm);
-            if(!XMLSubSys::runParser(handler, oc.getString("typemap"))) {
+            if (!XMLSubSys::runParser(handler, oc.getString("typemap"))) {
                 // something failed
                 throw ProcessError();
             }
@@ -389,7 +389,7 @@ main(int argc, char **argv)
             throw ProcessError();
         }
     } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

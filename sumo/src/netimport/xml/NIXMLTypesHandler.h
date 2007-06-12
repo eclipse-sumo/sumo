@@ -53,17 +53,10 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /// called on the opening of a tag; inherited
-    void myStartElement(SumoXMLTag element, const std::string &name,
+    void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw();
-
-    /// called after reading intermediate characters; inherited
-    void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars) throw();
-
-    /// called on the closing of a tag; inherited
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
     //@}
 
 private:

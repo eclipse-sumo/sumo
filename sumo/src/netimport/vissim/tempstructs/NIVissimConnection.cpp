@@ -397,7 +397,7 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
 
                 if (!fromEdge->addLane2LaneConnection((*j), toEdge, (*k), false)) {
                     throw ProcessError("Could not set connection!!!");
-                    
+
                 }
             }
         }

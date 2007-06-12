@@ -66,11 +66,11 @@ NIXMLTypesHandler::~NIXMLTypesHandler() throw()
 
 
 void
-NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
+NIXMLTypesHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw()
 {
     string id;
-    if (name=="type") {
+    if (element==SUMO_TAG_TYPE) {
         try {
             // parse the id
             id = getString(attrs, SUMO_ATTR_ID);
@@ -121,17 +121,6 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag /*element*/, const std::string &nam
         }
     }
 }
-
-
-void
-NIXMLTypesHandler::myCharacters(SumoXMLTag /*element*/, const std::string &/*name*/,
-                                const std::string &/*chars*/) throw()
-{}
-
-
-void
-NIXMLTypesHandler::myEndElement(SumoXMLTag /*element*/, const std::string &/*name*/) throw()
-{}
 
 
 

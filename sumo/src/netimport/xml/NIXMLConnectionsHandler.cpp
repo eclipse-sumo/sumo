@@ -120,10 +120,10 @@ NIXMLConnectionsHandler::getNode(const string &def)
 
 
 void
-NIXMLConnectionsHandler::myStartElement(SumoXMLTag /*element*/, const std::string &name,
+NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
                                         const Attributes &attrs) throw()
 {
-    if (name=="reset") {
+    if (element==SUMO_TAG_RESET) {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
         if (from.length()==0) {
@@ -147,7 +147,7 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag /*element*/, const std::strin
         fromEdge->removeFromConnections(toEdge);
     }
 
-    if (name=="connection") {
+    if (element==SUMO_TAG_CONNECTION) {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
         string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
         if (from.length()==0) {
@@ -177,7 +177,7 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag /*element*/, const std::strin
             MsgHandler::getErrorInstance()->inform("Unknown type of connection");
         }
     }
-    if (name=="prohibition") {
+    if (element==SUMO_TAG_PROHIBITION) {
         string prohibitor = getStringSecure(attrs, SUMO_ATTR_PROHIBITOR, "");
         string prohibited = getStringSecure(attrs, SUMO_ATTR_PROHIBITED, "");
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
@@ -274,19 +274,6 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         }
     }
 }
-
-
-void
-NIXMLConnectionsHandler::myCharacters(SumoXMLTag /*element*/,
-                                      const std::string &/*name*/,
-                                      const std::string &/*chars*/) throw()
-{}
-
-
-void
-NIXMLConnectionsHandler::myEndElement(SumoXMLTag /*element*/,
-                                      const std::string &/*name*/) throw()
-{}
 
 
 

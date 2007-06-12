@@ -656,7 +656,7 @@ Option_IntVector::set(std::string v, bool isDefault)
 {
     myValue.clear();
     try {
-        if(v.find(';')!=string::npos) {
+        if (v.find(';')!=string::npos) {
             MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         }
         StringTokenizer st(v, ";,", true);

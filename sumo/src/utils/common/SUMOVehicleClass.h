@@ -57,7 +57,7 @@ enum SUMOVehicleClass {
     SVC_UNKNOWN = 0,
 
     /// @name vehicle ownership
-    //@{ 
+    //@{
     /// private vehicles
     SVC_PRIVATE = 1,
     /// public transport vehicles
@@ -74,7 +74,7 @@ enum SUMOVehicleClass {
 
 
     /// @name vehicle size
-    //@{ 
+    //@{
     /// vehicle is a passenger car
     SVC_PASSENGER = 256,
     /// vehicle is a HOV

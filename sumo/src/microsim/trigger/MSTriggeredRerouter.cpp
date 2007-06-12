@@ -108,7 +108,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
     // read in the trigger description
-    if(!XMLSubSys::runParser(*this, aXMLFilename)) {
+    if (!XMLSubSys::runParser(*this, aXMLFilename)) {
         throw ProcessError();
     }
     // build actors
@@ -145,16 +145,15 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw()
 
 // ------------ loading begin
 void
-MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
-                                    const std::string &name,
+MSTriggeredRerouter::myStartElement(SumoXMLTag element,
                                     const Attributes &attrs) throw()
 {
-    if (name=="interval") {
+    if (element==SUMO_TAG_INTERVAL) {
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
         myCurrentIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
     }
     // maybe by giving probabilities of new destinations
-    if (name=="dest_prob_reroute") {
+    if (element==SUMO_TAG_DEST_PROB_REROUTE) {
         string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *to = MSEdge::dictionary(dest);
         if (to==0) {
@@ -178,7 +177,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
         myCurrentEdgeProb.add(prob, to);
     }
     // maybe by closing
-    if (name=="closing_reroute") {
+    if (element==SUMO_TAG_CLOSING_REROUTE) {
         string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *closed = MSEdge::dictionary(closed_id);
         if (closed==0) {
@@ -192,7 +191,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
         */
     }
     // maybe by giving probabilities of new routes
-    if (name=="route_prob_reroute") {
+    if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
         string routeID = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSRoute *route = MSRoute::dictionary(routeID);
         if (route==0) {
@@ -219,15 +218,9 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag /*element*/,
 
 
 void
-MSTriggeredRerouter::myCharacters(SumoXMLTag , const std::string &,
-                                  const std::string &) throw()
-{}
-
-
-void
-MSTriggeredRerouter::myEndElement(SumoXMLTag , const std::string &name) throw()
+MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw()
 {
-    if (name=="interval") {
+    if (element==SUMO_TAG_INTERVAL) {
         RerouteInterval ri;
         ri.begin = myCurrentIntervalBegin;
         ri.end = myCurrentIntervalEnd;

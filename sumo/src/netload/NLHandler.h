@@ -101,19 +101,19 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** called on the occurence of the beginning of a tag;
         this method */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw();
 
     /** called when simple characters occure; this method */
-    virtual void myCharacters(SumoXMLTag element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element,
                               const std::string &chars) throw();
 
     /** called on the end of an element;
         this method */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    virtual void myEndElement(SumoXMLTag element) throw();
     //@}
 
     void addParam(const Attributes &attrs);

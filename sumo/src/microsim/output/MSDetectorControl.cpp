@@ -104,7 +104,7 @@ MSDetectorControl::add(MSInductLoop *il,
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
         throw ProcessError("induct loop '" + il->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
     myDetector2File.addDetectorAndInterval(il, device, splInterval); // !!! test
     // !!!! a command may have been added
@@ -119,7 +119,7 @@ MSDetectorControl::add(MSE2Collector *e2,
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
     myDetector2File.addDetectorAndInterval(e2, device, splInterval); // !!! test
 }
@@ -133,7 +133,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
     myDetector2File.addDetectorAndInterval(e2ol, device, splInterval); // !!! test
 }
@@ -145,7 +145,7 @@ MSDetectorControl::add(MSE2Collector *e2)
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
 }
 
@@ -156,7 +156,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
 }
 
@@ -169,7 +169,7 @@ MSDetectorControl::add(MSE3Collector *e3,
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
         throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
     myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test
 }
@@ -184,7 +184,7 @@ MSDetectorControl::add(MEInductLoop *meil,
     // insert object into dictionary
     if (! myMesoLoops.add(meil->getID(), meil)) {
         throw ProcessError("meso-induct loop '" + meil->getID() + "' could not be build;"
-                                               + "\n (declared twice?)");
+                           + "\n (declared twice?)");
     }
     myDetector2File.addDetectorAndInterval(meil, device, splInterval); // !!! test
 }

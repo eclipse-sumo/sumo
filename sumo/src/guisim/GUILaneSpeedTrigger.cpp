@@ -331,7 +331,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
 }
 
 
-GUILaneSpeedTrigger::~GUILaneSpeedTrigger()
+GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw()
 {}
 
 

@@ -58,14 +58,14 @@ using namespace XERCES_CPP_NAMESPACE;
  * Normally, when using a standard SAX-handler, we would have to compare
  *  the incoming XMLCh*-element names with the ones we can parse. The same
  *  applies to parsing the attributes. This was assumed to be very time consuming,
- *  that's why we derive our handlers from this class. 
- * 
+ *  that's why we derive our handlers from this class.
+ *
  * The idea behind this second handler layer was avoid repeated conversion
  *  from strings/whatever to XMLCh* and back again. The usage is quite straight
  *  forward, the only overhead is the need to define the enums - both emelents
  *  and attributes within "SUMOXMLDefinition". Still, it maybe helps to avoid typos.
  *
- * This class implements the SAX-callback and offers a new set of callbacks 
+ * This class implements the SAX-callback and offers a new set of callbacks
  *  which must be implemented by derived classes. Instead of XMLCh*-values,
  *  element names are supplied to the derived classes as enums (SumoXMLTag).
  *
@@ -81,7 +81,7 @@ using namespace XERCES_CPP_NAMESPACE;
 class GenericSAXHandler : public DefaultHandler
 {
 public:
-    /** 
+    /**
      * @struct Attr
      * @brief An attribute name and its numerical representation 
      */
@@ -93,7 +93,7 @@ public:
         SumoXMLAttr key;
     };
 
-    /** 
+    /**
      * @struct Tag
      * @brief A tag (element) name with its numerical representation
      */
@@ -111,7 +111,7 @@ public:
     GenericSAXHandler() throw();
 
 
-    /** 
+    /**
      * @brief parametrised constructor 
      *
      * This constructor gets the lists of known tag and attribute names with 
@@ -129,7 +129,7 @@ public:
     virtual ~GenericSAXHandler() throw();
 
 
-    /** 
+    /**
      * @brief Returns the information whether an error occured during the parsing 
      *
      * Returns the value of myErrorOccured.
@@ -139,7 +139,7 @@ public:
     bool errorOccured() const throw();
 
 
-    /** 
+    /**
      * @brief returns the information whether an unknown tag occured 
      * 
      * Returns the value of myUnknownOccured
@@ -163,7 +163,7 @@ public:
                       const XMLCh* const qname, const Attributes& attrs) throw();
 
 
-    /** 
+    /**
      * @brief The inherited method called when characters occured
      *
      * The retrieved characters are converted into a string and appended into a 
@@ -175,7 +175,7 @@ public:
     void characters(const XMLCh* const chars, const unsigned int length) throw();
 
 
-    /** 
+    /**
      * @brief The inherited method called when a tag is being closed
      *
      * This method calls the user-implemented methods myCharacters with the previously
@@ -193,18 +193,18 @@ public:
 
 
     //{ methods for retrieving attribute values
-    /** 
+    /**
      * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      */
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw();
 
-    /** 
+    /**
      * @brief Returns the information whether the named attribute is within the current list
      */
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id) throw();
 
 
-    /** 
+    /**
      * @brief Returns the bool-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -216,7 +216,7 @@ public:
      */
     bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
-    /** 
+    /**
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -230,7 +230,7 @@ public:
     bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData);
 
 
-    /** 
+    /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -245,7 +245,7 @@ public:
      */
     int getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /** 
+    /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -262,7 +262,7 @@ public:
     int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
 
 
-    /** 
+    /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -274,7 +274,7 @@ public:
      */
     std::string getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
-    /** 
+    /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -287,7 +287,7 @@ public:
                                 const std::string &str) const throw(EmptyData);
 
 
-    /** 
+    /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -302,7 +302,7 @@ public:
      */
     SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /** 
+    /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -318,7 +318,7 @@ public:
      */
     SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
-    /** 
+    /**
      * @brief Returns the SUMOReal-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
@@ -335,33 +335,33 @@ public:
     //}
 
 protected:
-    /** 
+    /**
      * @brief Callback method for an opening tag to implement by derived classes
      *
      * Called by "startElement" (see there).
      */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
-                                const Attributes &attrs) throw() = 0;
+    virtual void myStartElement(SumoXMLTag element,
+                                const Attributes &attrs) throw();
 
 
-    /** 
+    /**
      * @brief Callback method for characters to implement by derived classes 
      *
      * Called by "endElement" (see there).
      */
-    virtual void myCharacters(SumoXMLTag element, const std::string &name,
-                              const std::string &chars) throw() = 0;
+    virtual void myCharacters(SumoXMLTag element,
+                              const std::string &chars) throw();
 
 
     /** @brief Callback method for a closing tag to implement by derived classes
      *
      * Called by "endElement" (see there).
      */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw() = 0;
+    virtual void myEndElement(SumoXMLTag element) throw();
 
 
 private:
-    /** 
+    /**
      * @brief converts from c++-string into unicode 
      * 
      * @todo recheck encoding
@@ -369,7 +369,7 @@ private:
     XMLCh *convert(const std::string &name) const throw();
 
 
-    /** 
+    /**
      * @brief Converts a tag from its string into its numerical representation 
      *
      * Returns the enum-representation stored for the given tag. If the tag is not
@@ -379,7 +379,7 @@ private:
 
 
 private:
-    /** 
+    /**
      * @brief returns the xml-value of an attribute-enum value 
      *
      * It is assumed, that each SumoXMLAttr has a string-representation.
@@ -391,7 +391,7 @@ private:
 
 private:
     /// @name attributes parsing
-    //@{ 
+    //@{
     // the type of the map from ids to their unicode-string representation
     typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
@@ -401,8 +401,8 @@ private:
 
 
     /// @name elements parsing
-    //@{ 
-    // the type of the map that maps tag names to ints 
+    //@{
+    // the type of the map that maps tag names to ints
     typedef std::map<std::string, SumoXMLTag> TagMap;
 
     // the map of tag names to their internal numerical representation

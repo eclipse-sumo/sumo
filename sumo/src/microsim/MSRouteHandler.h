@@ -90,17 +90,17 @@ public:
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** implementation of the GenericSAXHandler-myStartElement - interface */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw();
 
     /** implementation of the GenericSAXHandler-myCharacters - interface */
-    virtual void myCharacters(SumoXMLTag element, const std::string &name,
+    virtual void myCharacters(SumoXMLTag element,
                               const std::string &chars) throw();
 
     /** implementation of the GenericSAXHandler-myEndElement - interface */
-    virtual void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    virtual void myEndElement(SumoXMLTag element) throw();
     //@}
 
 
@@ -119,8 +119,7 @@ protected:
     virtual void openRoute(const Attributes &attrs);
 
     /** reads the route elements */
-    void addRouteElements(const std::string &name,
-                          const std::string &chars);
+    void addRouteElements(const std::string &chars);
 
     /// Ends the processing of a vehicle
     void closeVehicle() throw();

@@ -240,7 +240,7 @@ loadDistricts(OptionsCont &oc)
     // build the xml-parser and handler
     ODDistrictHandler handler(*ret);
     handler.setFileName(file); // !!! can do this in the constructor
-    if(!XMLSubSys::runParser(handler, file)||ret->size()==0) {
+    if (!XMLSubSys::runParser(handler, file)||ret->size()==0) {
         delete ret;
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return 0;
@@ -508,7 +508,7 @@ main(int argc, char **argv)
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

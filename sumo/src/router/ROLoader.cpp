@@ -241,7 +241,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     RONet *net = new RONet(_options.isSet("sumo-input"));
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
-    if(!XMLSubSys::runParser(handler, file)) {
+    if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getErrorInstance()->inform("failed.");
         delete net;
         return 0;
@@ -411,7 +411,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
                            RONet &net)
 {
     vector<string> files = _options.getStringVector(optionName);
-    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         // check whether the file can be used
         //  necessary due to the extensions within cell-import
         checkFile(optionName, *fileIt);
@@ -507,7 +507,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     SAXWeightsHandler handler(def, file);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
-    if(XMLSubSys::runParser(handler, file)) {
+    if (XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
         return true;
     } else {
@@ -531,7 +531,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
     defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
     SAXWeightsHandler handler(defs, filename);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
-    if(XMLSubSys::runParser(handler, filename)) {
+    if (XMLSubSys::runParser(handler, filename)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");

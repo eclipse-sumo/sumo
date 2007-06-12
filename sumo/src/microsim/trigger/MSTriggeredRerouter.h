@@ -149,20 +149,15 @@ class Setter : public MSMoveReminder
 
 protected:
     /// @name inherited from GenericSAXHandler
-    //@{ 
+    //@{
     /** the implementation of the SAX-handler interface for reading
         element begins */
-    virtual void myStartElement(SumoXMLTag element, const std::string &name,
+    virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw();
 
     /** the implementation of the SAX-handler interface for reading
-        characters */
-    void myCharacters(SumoXMLTag element, const std::string &name,
-                      const std::string &chars) throw();
-
-    /** the implementation of the SAX-handler interface for reading
         element ends */
-    void myEndElement(SumoXMLTag element, const std::string &name) throw();
+    void myEndElement(SumoXMLTag element) throw();
     //@}
 
 protected:
@@ -179,7 +174,7 @@ protected:
     bool myAmInUserMode;
 
     /// @name members used during loading
-    //@{ 
+    //@{
     /// The first and the last time steps of the interval
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges

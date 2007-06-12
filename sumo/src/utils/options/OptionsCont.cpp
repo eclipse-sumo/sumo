@@ -632,13 +632,13 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 OptionsCont::getStringVector(const std::string &name) const
 {
     vector<string> ret;
     Option *o = getSecure(name);
     string def = o->getString();
-    if(def.find(';')!=string::npos&&!myHaveInformedAboutDeprecatedDivider) {
+    if (def.find(';')!=string::npos&&!myHaveInformedAboutDeprecatedDivider) {
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         myHaveInformedAboutDeprecatedDivider = true;
     }

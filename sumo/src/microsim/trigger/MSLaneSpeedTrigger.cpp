@@ -64,7 +64,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     // read in the trigger description
-    if(!XMLSubSys::runParser(*this, aXMLFilename)) {
+    if (!XMLSubSys::runParser(*this, aXMLFilename)) {
         throw ProcessError();
     }
     // set it to the right value
@@ -116,7 +116,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
 
 
 void
-MSLaneSpeedTrigger::myStartElement(SumoXMLTag element, const std::string &,
+MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw()
 {
     // check whethe the correct tag is read
@@ -197,18 +197,6 @@ MSLaneSpeedTrigger::getCurrentSpeed() const
         }
     }
 }
-
-
-void
-MSLaneSpeedTrigger::myCharacters(SumoXMLTag , const std::string &,
-                                 const std::string &) throw()
-{}
-
-
-void
-MSLaneSpeedTrigger::myEndElement(SumoXMLTag , const std::string &) throw()
-{}
-
 
 
 /****************************************************************************/

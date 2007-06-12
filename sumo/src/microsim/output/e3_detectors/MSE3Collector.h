@@ -78,7 +78,7 @@ class MSE3EntryReminder : public MSMoveReminder
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
         /// @name methods from MSMoveReminder
-        //@{ 
+        //@{
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
         void dismissByLaneChange(MSVehicle& veh);
@@ -108,7 +108,7 @@ class MSE3LeaveReminder : public MSMoveReminder
             const MSCrossSection &crossSection, MSE3Collector& collector);
 
         /// @name methods from MSMoveReminder
-        //@{ 
+        //@{
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
         void dismissByLaneChange(MSVehicle& veh);
