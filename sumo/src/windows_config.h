@@ -37,4 +37,10 @@
 
 #define HAVE_INTERNAL_LANES 1
 
+/* defined if GDAL is available */
+#define HAVE_GDAL 1
+
+/* defined if PROJ is available */
+#define HAVE_PROJ 1
+
 #endif

@@ -196,6 +196,7 @@ else
 fi
 AM_CONDITIONAL([WITH_PROJ], [test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x])
 if test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x; then
+   AC_DEFINE([HAVE_PROJ], [1], [defined if PROJ is available])
    ac_enabled="$ac_enabled PROJ"
 else
    ac_disabled="$ac_disabled PROJ"
@@ -232,6 +233,7 @@ else
 fi
 AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
 if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
+   AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
    ac_enabled="$ac_enabled GDAL"
 else
    ac_disabled="$ac_disabled GDAL"

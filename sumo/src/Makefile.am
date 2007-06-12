@@ -219,7 +219,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
-$(sumo_LDADD)
+$(sumo_LDADD) \
 ./utils/glutils/libglutils.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
