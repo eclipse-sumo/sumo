@@ -1,3 +1,13 @@
+XERCES_LIBS = -l$(LIB_XERCES)
+
+if WITH_PROJ
+PROJ_LIBS = -l$(LIB_PROJ)
+endif
+
+if WITH_GDAL
+GDAL_LIBS = -l$(LIB_GDAL)
+endif
+
 if WITH_GUI
 GUI_APPS = sumo-guisim
 GUI_DIRS = gui guinetload guisim icons
@@ -47,7 +57,8 @@ sumo_LDADD   = ./netload/libnetload.a \
 $(MEM_LIBS) \
 $(ITM_LIBS) \
 $(TCPIP_LIBS) \
--l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
+$(XERCES_LIBS) \
+$(PROJ_LIBS)
 
 
 
@@ -79,7 +90,10 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_GDAL) -l$(LIB_XERCES) -l$(LIB_PROJ)
+$(TCPIP_LIBS) \
+$(XERCES_LIBS) \
+$(GDAL_LIBS) \
+$(PROJ_LIBS)
 
 
 
@@ -96,7 +110,8 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES) -l$(LIB_PROJ)
+$(XERCES_LIBS) \
+$(PROJ_LIBS)
 
 
 
@@ -113,7 +128,7 @@ sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+$(XERCES_LIBS)
 
 
 
@@ -131,7 +146,7 @@ sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+$(XERCES_LIBS)
 
 
 
@@ -148,7 +163,7 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+$(XERCES_LIBS)
 
 
 
@@ -165,7 +180,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/gfx/libgfx.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+$(XERCES_LIBS)
 
 
 sumo_polyconvert_SOURCES = polyconvert_main.cpp
@@ -182,7 +197,8 @@ sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
 ./utils/common/libcommon.a \
 ./utils/xml/XMLSubSys.o \
 $(MEM_LIBS) \
--l$(LIB_XERCES) -l$(LIB_PROJ)
+$(XERCES_LIBS) \
+$(PROJ_LIBS)
 
 
 if WITH_GUI
@@ -203,34 +219,11 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
-./netload/libnetload.a \
-./microsim/libmicrosim.a \
-./microsim/devices/libmicrosimdevs.a \
-./microsim/output/libmicrosimoutput.a \
-./microsim/trigger/libmicrosimtrigger.a \
-./microsim/output/e1_detectors/libmicrosimoutpute1.a \
-./microsim/output/e2_detectors/libmicrosimoutpute2.a \
-./microsim/output/e3_detectors/libmicrosimoutpute3.a \
-./microsim/output/meandata/libmicrosimoutputmeanoutput.a \
-./microsim/actions/libmsactions.a \
-./microsim/lanechanging/libmicrosimlanechange.a \
-./microsim/traffic_lights/libmicrosimtls.a \
-./utils/options/liboptions.a \
-./sumo_only/libsumoonly.a \
-./utils/geom/libgeom.a \
-./utils/shapes/libshapes.a \
-./utils/common/libcommon.a \
-./utils/importio/libimportio.a \
-./utils/xml/libxml.a \
-./utils/gfx/libgfx.a \
+$(sumo_LDADD)
 ./utils/glutils/libglutils.a \
-./utils/iodevices/libiodevices.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
-$(MEM_LIBS) \
--l$(LIB_XERCES) \
--l$(LIB_FOX) \
-$(LIB_X11) -l$(LIB_PROJ)
+-l$(LIB_FOX)
 endif
 
 

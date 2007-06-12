@@ -99,8 +99,8 @@ dnl - - - - - - - - - - - - - - - - - - - - - - -
 case "$host" in
      *-cygwin*)
      AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
-     AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined when using cygwin])
-     AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise when using cygwin])
+     AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
+     AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
      ;;
 esac
 
@@ -172,7 +172,7 @@ dnl   ... for libs
 LIB_PROJ="proj"
 AC_ARG_WITH([proj-libraries], [AS_HELP_STRING([--with-proj-libraries=DIR],[where the PROJ library is installed (overrides previous settings).])])
 if test x"$with_proj_libraries" = x; then
-   AC_CHECK_LIB([$LIB_PROJ], [main], [true], [AC_MSG_ERROR([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
+   AC_CHECK_LIB([$LIB_PROJ], [main], [true], [AC_MSG_WARN([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_proj_libraries"
@@ -186,13 +186,19 @@ AC_SUBST(LIB_PROJ)
 dnl   ... for includes
 AC_ARG_WITH([proj-includes], [AS_HELP_STRING([--with-proj-includes=DIR],[where the PROJ includes are (overrides previous settings).])])
 if test x"$with_proj_includes" = x; then
-   AC_CHECK_HEADER([proj_api.h], [], [AC_MSG_ERROR([proj-includes not found. Specify path with option --with-proj-includes=DIR.])])
+   AC_CHECK_HEADER([proj_api.h], [], [AC_MSG_WARN([proj-includes not found. Specify path with option --with-proj-includes=DIR.])])
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_proj_includes"
    export CPPFLAGS
    AC_CHECK_HEADER([proj_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
    CPPFLAGS=$save_cppflags
+fi
+AM_CONDITIONAL([WITH_PROJ], [test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x])
+if test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x; then
+   ac_enabled="$ac_enabled PROJ"
+else
+   ac_disabled="$ac_disabled PROJ"
 fi
 
 
@@ -202,7 +208,7 @@ dnl   ... for libs
 LIB_GDAL="gdal"
 AC_ARG_WITH([gdal-libraries], [AS_HELP_STRING([--with-gdal-libraries=DIR],[where the GDAL library is installed (overrides previous settings).])])
 if test x"$with_gdal_libraries" = x; then
-   AC_CHECK_LIB([$LIB_GDAL], [main], [true], [AC_MSG_ERROR([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
+   AC_CHECK_LIB([$LIB_GDAL], [main], [true], [AC_MSG_WARN([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_gdal_libraries"
@@ -216,13 +222,19 @@ AC_SUBST(LIB_GDAL)
 dnl   ... for includes
 AC_ARG_WITH([gdal-includes], [AS_HELP_STRING([--with-gdal-includes=DIR],[where the GDAL includes are (overrides previous settings).])])
 if test x"$with_gdal_includes" = x; then
-   AC_CHECK_HEADER([ogr_api.h], [], [AC_MSG_ERROR([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])])
+   AC_CHECK_HEADER([ogr_api.h], [], [AC_MSG_WARN([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])])
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_gdal_includes"
    export CPPFLAGS
    AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
    CPPFLAGS=$save_cppflags
+fi
+AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
+if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
+   ac_enabled="$ac_enabled GDAL"
+else
+   ac_disabled="$ac_disabled GDAL"
 fi
 
 
