@@ -48,7 +48,9 @@
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 
+#ifdef HAVE_GDAL
 #include <ogrsf_frmts.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -89,6 +91,7 @@ NIArcView_Loader::~NIArcView_Loader()
 bool
 NIArcView_Loader::load(OptionsCont &)
 {
+#ifdef HAVE_GDAL
     OGRRegisterAll();
     OGRDataSource       *poDS;
 
@@ -257,9 +260,13 @@ NIArcView_Loader::load(OptionsCont &)
         OGRFeature::DestroyFeature(poFeature);
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
+#else
+    MsgHandler::getErrorInstance()->inform("SUMO was compiled without GDAL support.");
+    return false;
+#endif
 }
 
-
+#ifdef HAVE_GDAL
 SUMOReal
 NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 {
@@ -339,6 +346,7 @@ NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid
     }
     return 0;
 }
+#endif
 
 
 

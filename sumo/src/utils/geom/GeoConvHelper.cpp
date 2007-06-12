@@ -29,15 +29,20 @@
 #endif
 
 #include <map>
-#include <proj_api.h>
 #include "GeoConvHelper.h"
 #include <utils/geom/GeomHelper.h>
+
+#ifdef HAVE_PROJ
+#include <proj_api.h>
+#endif
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
+#ifdef HAVE_PROJ
 projPJ GeoConvHelper::myProjection = 0;
+#endif
 Position2D GeoConvHelper::myOffset;
 bool GeoConvHelper::myDisableProjection = true;
 SUMOReal GeoConvHelper::myInitX;
@@ -53,10 +58,13 @@ bool
 GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset)
 {
+#ifdef HAVE_PROJ
     pj_free(myProjection);
+#endif
     myOffset = offset;
     myOrigBoundary.reset();
     myConvBoundary.reset();
+    myDisableProjection = false;
     if (proj.length()==0||proj[0]=='!') {
         // use no projection
         myDisableProjection = true;
@@ -64,15 +72,20 @@ GeoConvHelper::init(const std::string &proj,
     }
     if (proj[0]=='-') {
         // use a simple projection only
-        myDisableProjection = false;
         myInitX = -1;
         myInitY = -1;
         return true;
     }
+#ifdef HAVE_PROJ
     // use full projection
-    myDisableProjection = false;
     myProjection = pj_init_plus("+proj=utm +zone=33 +ellps=bessel +units=m");
     return myProjection!=0;
+#else
+    // use a simple projection only
+    myInitX = -1;
+    myInitY = -1;
+    return true;
+#endif
 }
 
 
@@ -82,31 +95,38 @@ GeoConvHelper::init(const std::string &proj,
                     const Boundary &orig,
                     const Boundary &conv)
 {
-    init(proj, offset);
+    bool ret = init(proj, offset);
     myOrigBoundary.add(orig);
     myConvBoundary.add(conv);
-    return myProjection!=0;
+    return ret;
 }
 
 
 void
 GeoConvHelper::close()
 {
+#ifdef HAVE_PROJ
     pj_free(myProjection);
     myProjection = 0;
+#endif
 }
 
 
 bool
 GeoConvHelper::usingGeoProjection()
 {
+#ifdef HAVE_PROJ
     return myProjection!=0;
+#else
+    return false;
+#endif
 }
 
 
 void
 GeoConvHelper::cartesian2geo(Position2D &cartesian)
 {
+#ifdef HAVE_PROJ
     if (myDisableProjection) {
         cartesian.sub(myOffset);
         return;
@@ -118,6 +138,9 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian)
     p.u *= RAD_TO_DEG;
     p.v *= RAD_TO_DEG;
     cartesian.set((SUMOReal) p.u, (SUMOReal) p.v);
+#else
+    cartesian.sub(myOffset);
+#endif
 }
 
 
@@ -130,13 +153,15 @@ GeoConvHelper::x2cartesian(Position2D &from)
         myConvBoundary.add(from);
         return;
     }
-    projUV p;
+#ifdef HAVE_PROJ
     if (myProjection!=0) {
+        projUV p;
         p.u = from.x() / 100000.0 * DEG_TO_RAD;
         p.v = from.y() / 100000.0 * DEG_TO_RAD;
         p = pj_fwd(p, myProjection);
         from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     } else {
+#endif
         SUMOReal x = (SUMOReal)(from.x() / 100000.0);
         SUMOReal y = (SUMOReal)(from.y() / 100000.0);
         SUMOReal ys = y;
@@ -146,16 +171,18 @@ GeoConvHelper::x2cartesian(Position2D &from)
         }
         x = (x-myInitX);
         y = (y-myInitY);
-        p.u = (SUMOReal)(x * 111.320*1000.);
-        p.v = (SUMOReal)(y * 111.136*1000.);
-        p.u *= (SUMOReal) cos(ys*PI/180.0);
+        SUMOReal u = (SUMOReal)(x * 111.320*1000.);
+        SUMOReal v = (SUMOReal)(y * 111.136*1000.);
+        u *= (SUMOReal) cos(ys*PI/180.0);
         /*!!! recheck whether the axes are mirrored
                 p.v = (SUMOReal) (x * 111.320*1000.);
                 SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
                 p.u *= (SUMOReal) cos(ys*PI/180.0); // !!!
                 */
-        from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
+        from.set(u + (SUMOReal) myOffset.x(), v + (SUMOReal) myOffset.y());
+#ifdef HAVE_PROJ
     }
+#endif
     myConvBoundary.add(from);
 }
 

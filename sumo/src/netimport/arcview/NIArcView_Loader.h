@@ -31,7 +31,6 @@
 #endif
 
 #include <string>
-#include <proj_api.h>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
@@ -44,13 +43,11 @@
 class OptionsCont;
 class OGRFeature;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
 class NIArcView_Loader :
-            public FileErrorReporter/*,
-                                        public LineHandler*/
+            public FileErrorReporter
 {
 public:
     /// Contructor
@@ -66,10 +63,7 @@ public:
     bool load(OptionsCont &options);
 
 private:
-    bool parseBin();
-    /// parses a non-first line (a data line)
-    bool parseLine(const std::string &line);
-
+#ifdef HAVE_GDAL
     /// parses the maximum speed allowed on the edge currently processed
     SUMOReal getSpeed(OGRFeature &f, const std::string &edgeid);
 
@@ -80,6 +74,7 @@ private:
 
     /// parses the priority of the edge currently processed
     int getPriority(OGRFeature &f, const std::string &edgeid);
+#endif
 
 private:
     OptionsCont &myOptions;

@@ -32,9 +32,12 @@
 
 #include <map>
 #include <string>
-#include <proj_api.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Boundary.h>
+
+#ifdef HAVE_PROJ
+#include <proj_api.h>
+#endif
 
 
 // ===========================================================================
@@ -91,8 +94,10 @@ public:
     static const Position2D &getOffset();
 
 private:
+#ifdef HAVE_PROJ
     /// The proj.4-projectsion to use
     static projPJ myProjection;
+#endif
 
     /// The offset to apply
     static Position2D myOffset;
