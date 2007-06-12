@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -21,7 +22,7 @@ public class NetReader {
 	 * @param net name of sumo net file
 	 * @param edges holds net after execution
 	 */
-	public static void read(String net, List<Edge> edges) {		
+	public static void read(String net, List<Edge> edges, Map<String, Junction> junctions) {		
         try {
             InputStream in = new FileInputStream(net);
             XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -33,60 +34,44 @@ public class NetReader {
                 	// edge element found
                     if (parser.getLocalName().equals("edge")) {
                         String id    = "";
-                        float length = 0;
-                        float speed  = 0;
-                        String name  = "";
-                        float xfrom  = 0;
-                        float yfrom  = 0;
-                        float xto    = 0;
-                        float yto    = 0;
+                        String from  = "";
+                        String to    = "";
                         // parse attributes of element
                         for (int attr=0; attr < parser.getAttributeCount(); attr++) {
                             String attrName = parser.getAttributeLocalName(attr);
                             String value = parser.getAttributeValue(attr);
                             if ("id".equals(attrName)) {
-								id =        value;
+								id = value;
 							}
-                            if ("Length".equals(attrName)) {
-								length =    Float.parseFloat(value);
+                            if ("from".equals(attrName)) {
+								from = value;
 							}
-                            if ("Speed".equals(attrName)) {
-								speed =     Float.parseFloat(value);
-							}
-                            if ("Name".equals(attrName)) {
-								name =      value;
-							}
-                            if ("XFrom".equals(attrName)) {
-								xfrom =     Float.parseFloat(value);
-							}
-                            if ("YFrom".equals(attrName)) {
-								yfrom =     Float.parseFloat(value);
-							}
-                            if ("XTo".equals(attrName)) {
-								xto =       Float.parseFloat(value);
-							}
-                            if ("YTo".equals(attrName)) {
-								yto =       Float.parseFloat(value);
+                            if ("to".equals(attrName)) {
+								to = value;
 							}
                             
                         }
                         // construct edge element
-                        edge = new Edge(id, length, speed, name, xfrom, yfrom, xto, yto);
+                        edge = new Edge(id, from, to);
                         // store edge
                         edges.add(edge);
                     }
                     if (parser.getLocalName().equals("lane")) {
-                    	String id = "";
-                    	float xfrom = 0;
-                    	float xto   = 0;
-                    	float yfrom = 0;
-                    	float yto   = 0;
+                    	String id      = "";
+                    	float xfrom    = 0;
+                    	float xto      = 0;
+                    	float yfrom    = 0;
+                    	float yto      = 0;
+                        float length   = 0;
                     	// parse attributes of element
                         for (int attr=0; attr < parser.getAttributeCount(); attr++) {
                             String attrName = parser.getAttributeLocalName(attr);
                             String value = parser.getAttributeValue(attr);
                             if ("id".equals(attrName)) {
     							id = value;
+    						}
+                            if ("length".equals(attrName)) {
+    							length =    Float.parseFloat(value);
     						}
                         }
                     	String text   = parser.getElementText();
@@ -95,8 +80,29 @@ public class NetReader {
                     	yfrom = Float.parseFloat(vals[1]);
                     	xto   = Float.parseFloat(vals[2]);
                     	yto   = Float.parseFloat(vals[3]);
-                		edge.lanes.put(id, new Lane(id, xfrom, xto, yfrom, yto));
-                    }                    
+                		edge.lanes.put(id, new Lane(id, xfrom, xto, yfrom, yto, length));
+                    }
+                    if (parser.getLocalName().equals("junction")) {
+                    	String id = "";
+                    	float x = 0;
+                    	float y = 0;
+                    	// parse attributes of element
+                        for (int attr=0; attr < parser.getAttributeCount(); attr++) {
+                            String attrName = parser.getAttributeLocalName(attr);
+                            String value = parser.getAttributeValue(attr);
+                            if ("id".equals(attrName)) {
+    							id = value;
+                            }
+                            if ("x".equals(attrName)) {
+    							x = Float.parseFloat(value);
+    						}
+                            if ("y".equals(attrName)) {
+    							y = Float.parseFloat(value);
+                            }
+                        }
+                        Junction junction = new Junction(id, x, y);
+                        junctions.put(id, junction);
+                    }
                 }
             }
             parser.close();

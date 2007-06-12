@@ -1,6 +1,7 @@
 package ns2;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * class for translating sumo net
@@ -14,25 +15,40 @@ public class NetTranslater {
 	 * needed for avoiding negative coordinates in ns2
 	 * @param edges contains sumo net
 	 */
-	public static void translate(List<Edge> edges) {
+	public static void translate(List<Edge> edges, Map<String, Junction> junctions) {
 		// scan coordinates
-        float xmin = edges.get(0).xfrom;
-        xmin = Math.min(xmin, edges.get(0).xto);
-        float ymin = edges.get(0).yfrom;
-        ymin = Math.min(ymin, edges.get(0).yto);
-		for (Edge edge: edges) {
-			xmin = Math.min(xmin, edge.xfrom);
-			xmin = Math.min(xmin, edge.xto);
-			ymin = Math.min(ymin, edge.yfrom);
-			ymin = Math.min(ymin, edge.yto);
+		float xmin = 0;
+		float ymin = 0;
+		boolean first = true;
+		for (Junction junction: junctions.values())
+		{
+			if (first)
+			{
+				first = false;
+				xmin  = junction.x;
+				ymin  = junction.y;
+			}
+			else
+			{
+				xmin = Math.min(xmin, junction.x);
+				ymin = Math.min(ymin, junction.y);
+			}
 		}
 		// translate if needed
 		if (xmin < 0 || ymin < 0) {
+			for (Junction junction: junctions.values())
+			{
+				junction.x -= xmin;
+				junction.y -= ymin;
+			}
 			for (Edge edge: edges) {
-				edge.xfrom -= xmin;
-				edge.xto   -= xmin;
-				edge.yfrom -= ymin;
-				edge.yto   -= ymin;
+				for (Lane lane: edge.lanes.values())
+				{
+					lane.xfrom -= xmin;
+					lane.xto   -= xmin;
+					lane.yfrom -= ymin;
+					lane.yto   -= ymin;
+				}
 			}			
 		}
 	}

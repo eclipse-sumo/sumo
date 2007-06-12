@@ -11,6 +11,7 @@ public class Lane {
 	public float xto;
 	public float yfrom;
 	public float yto;
+	public float length;
 
 	/**
 	 * constructor
@@ -19,12 +20,14 @@ public class Lane {
 	 * @param xto y-coordinate at which vehicles start on the edge
 	 * @param yfrom x-coordinate at which vehicles leave the edge
 	 * @param yto y-coordinate at which vehicles leave the edge
+	 * @param length length of lane
 	 */
-	public Lane(String id, float xfrom, float xto, float yfrom, float yto) {
-		this.id    = id;
-		this.xfrom = xfrom;
-		this.xto   = xto;
-		this.yfrom = yfrom;
-		this.yto   = yto;
+	public Lane(String id, float xfrom, float xto, float yfrom, float yto, float length) {
+		this.id       = id;
+		this.xfrom    = xfrom;
+		this.xto      = xto;
+		this.yfrom    = yfrom;
+		this.yto      = yto;
+		this.length   = length;
 	}
 }

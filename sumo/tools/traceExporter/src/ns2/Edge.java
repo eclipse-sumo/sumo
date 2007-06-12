@@ -18,36 +18,21 @@ import java.util.Map;
  */
 public class Edge {
 	public String id;
-	public float length;
-	public float speed;
-	public String name;
-	public float xfrom;
-	public float yfrom;
-	public float xto;
-	public float yto;
+	public String from;
+	public String to;
 	public Map<String, Lane> lanes;
 
 	/**
 	 * constructor
 	 * @param id unique id of edge
-	 * @param length length of edge in m
-	 * @param speed allowed speed of vehicles on edge in m/s 
-	 * @param name name of edge
-	 * @param xfrom x-coordinate at which vehicles start on the edge
-	 * @param yfrom y-coordinate at which vehicles start on the edge
-	 * @param xto x-coordinate at which vehicles leave the edge
-	 * @param yto y-coordinate at which vehicles leave the edge
+	 * @param from junction at which edge begins
+	 * @param to junction at which edge ends
 	 */
-	public Edge(String id, float length, float speed, String name, float xfrom,
-			float yfrom, float xto, float yto) {
+	public Edge(String id, String from, String to)
+	{
 		this.id     = id;
-		this.length = length;
-		this.speed  = speed;
-		this.name   = name;
-		this.xfrom  = xfrom;
-		this.yfrom  = yfrom;
-		this.xto    = xto;
-		this.yto    = yto;
+		this.from   = from;
+		this.to     = to;
 		this.lanes  = new HashMap<String, Lane>();
 	}
 }

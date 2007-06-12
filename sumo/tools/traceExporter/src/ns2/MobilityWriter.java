@@ -116,10 +116,10 @@ public class MobilityWriter {
 
 							// get lane of edge
 							Lane thislane = thisedge.lanes.get(laneid);
-
+							
 							// calculate positons of vehicle
-							x = thislane.xfrom + pos * (thislane.xto - thislane.xfrom) / thisedge.length;
-							y = thislane.yfrom + pos * (thislane.yto - thislane.yfrom) / thisedge.length;
+							x = thislane.xfrom + pos * (thislane.xto - thislane.xfrom) / thislane.length;
+							y = thislane.yfrom + pos * (thislane.yto - thislane.yfrom) / thislane.length;
 							
 							// add to inititial positions if not already inside
 							if (!initialX.containsKey(id)) {

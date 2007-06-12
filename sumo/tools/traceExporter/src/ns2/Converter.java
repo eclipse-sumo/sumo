@@ -3,6 +3,7 @@ package ns2;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * central class of ns2-converter
@@ -60,10 +61,11 @@ public class Converter {
 	private Converter(String net, String trace, String activity, String mobility, String config, double begin, double end, double penetration, long seed, boolean hasPenetration) {
 		// 1. get net
 		List<Edge> edges = new LinkedList<Edge>();
-		NetReader.read(net, edges);
+		Map<String, Junction> junctions = new HashMap<String, Junction>();
+		NetReader.read(net, edges, junctions);
 		
 		// 2. translate net
-		NetTranslater.translate(edges);
+		NetTranslater.translate(edges, junctions);
 		
 		// 3. get all vehicles (IDs, first occurence, last occurence)
 		List<String> vehicleId = new LinkedList<String>();
