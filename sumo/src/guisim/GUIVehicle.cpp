@@ -151,41 +151,11 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        int repNo, int repOffset, int vehicleIndex)
         : MSVehicle(id, route, departTime, type, repNo, repOffset, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+id)
-{
-    // compute both random colors
-    //  color1
-    long prod = 1;
-    for (size_t i=0; i<id.length(); i++) {
-        prod *= (int) id.at(i);
-        if (prod>(1<<24)) {
-            prod /= 128;
-        }
-    }
-    _randomColor1 = RGBColor(
-                        (SUMOReal)(256-(prod & 255)) / (SUMOReal) 255,
-                        (SUMOReal)(256-((prod>>8) & 255)) / (SUMOReal) 255,
-                        (SUMOReal)(256-((prod>>16) & 255)) / (SUMOReal) 255);
-    // color2
-    _randomColor2 = RGBColor(randSUMO(), randSUMO(), randSUMO());
-}
+{}
 
 
 GUIVehicle::~GUIVehicle()
 {}
-
-
-const RGBColor &
-GUIVehicle::getRandomColor1() const
-{
-    return _randomColor1;
-}
-
-
-const RGBColor &
-GUIVehicle::getRandomColor2() const
-{
-    return _randomColor2;
-}
 
 
 SUMOReal

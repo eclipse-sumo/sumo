@@ -108,14 +108,6 @@ public:
     //@}
 
 
-    /** returns a random color based on the vehicle's name
-        (should stay the same across simulations */
-    const RGBColor &getRandomColor1() const;
-
-    /** retunrs a random color
-        (this second random color is fully randomly computed) */
-    const RGBColor &getRandomColor2() const;
-
     /** returns a color that describes how long ago the vehicle has
         changed the lane (is white after a lane change and becomes darker
         with each timestep */
@@ -183,13 +175,6 @@ protected:
                std::string id, MSRoute* route, SUMOTime departTime,
                const MSVehicleType* type, int repNo, int repOffset,
                int vehicleIndex);
-
-private:
-    /// random color #1 (build from name)
-    RGBColor _randomColor1;
-
-    /// random color #2 (completely random)
-    RGBColor _randomColor2;
 
 };
 
