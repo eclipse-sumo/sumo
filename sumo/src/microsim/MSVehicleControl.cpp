@@ -78,6 +78,9 @@ MSVehicleControl::~MSVehicleControl()
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
         delete(*i).second;
     }
+    if(myHaveDefaultVTypeOnly) {
+        delete myVehicleTypeDistribution.get();
+    }
     myVehicleDict.clear();
 }
 
@@ -517,8 +520,8 @@ bool
 MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob)
 {
     if (myHaveDefaultVTypeOnly) {
+        delete myVehicleTypeDistribution.get();
         myVehicleTypeDistribution.clear();
-        // hmmm - delete the default or not?
     }
     myHaveDefaultVTypeOnly = false;
     const string &id = vehType->getID();
