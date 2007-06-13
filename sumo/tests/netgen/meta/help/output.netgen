@@ -42,6 +42,7 @@ Usage: netgen.exe [OPTION]*
   --spider-arm-number INT              The number of axes within the net
   --spider-circle-number INT           The number of circles of the net
   --spider-space-rad FLOAT             The distances between the circles
+  --spider-omit-center                 Omit the central node of the network
 
  Random Network Options:
   -r, --random-net                     Forces NETGEN to build a random network

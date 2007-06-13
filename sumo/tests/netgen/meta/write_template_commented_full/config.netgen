@@ -37,6 +37,9 @@
       <!-- The distances between the circles -->
       <spider-space-rad>100</spider-space-rad>
 
+      <!-- Omit the central node of the network -->
+      <spider-omit-center>false</spider-omit-center>
+
    </spider_network>
 
    <random_network>

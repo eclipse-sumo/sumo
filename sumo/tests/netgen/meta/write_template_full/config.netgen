@@ -15,6 +15,7 @@
       <spider-arm-number>13</spider-arm-number>
       <spider-circle-number>20</spider-circle-number>
       <spider-space-rad>100</spider-space-rad>
+      <spider-omit-center>false</spider-omit-center>
    </spider_network>
 
    <random_network>
