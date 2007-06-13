@@ -242,31 +242,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gfx\RGBColor.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.cpp"
 				>
 				<FileConfiguration
@@ -301,23 +276,15 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\common\Named.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ReferencedItem.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_dua\RODUAFrame.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\windows_config.h"
 				>
 			</File>
 		</Filter>

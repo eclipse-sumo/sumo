@@ -215,31 +215,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\router\IDSupplier.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\jtrrouter_main.cpp"
 				>
 				<FileConfiguration
@@ -368,40 +343,11 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\router\TextHelpers.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\router\IDSupplier.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTREdge.h"
 				>
@@ -423,7 +369,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\router\TextHelpers.h"
+				RelativePath="..\..\..\src\windows_config.h"
 				>
 			</File>
 		</Filter>

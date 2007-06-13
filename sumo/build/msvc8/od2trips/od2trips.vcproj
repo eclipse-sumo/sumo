@@ -343,6 +343,10 @@
 				RelativePath="..\..\..\src\od2trips\ODmatrix.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\windows_config.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"

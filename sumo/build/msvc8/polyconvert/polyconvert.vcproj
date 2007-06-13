@@ -423,6 +423,10 @@
 				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\windows_config.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"

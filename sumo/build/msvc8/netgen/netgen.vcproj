@@ -245,6 +245,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\windows_config.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"
