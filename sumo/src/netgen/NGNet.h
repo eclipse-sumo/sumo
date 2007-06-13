@@ -74,7 +74,7 @@ public:
     /** @brief creates NGNetwork in spiderweb pattern
         NumRadDiv >= 3
         NumCircles >= 1 */
-    void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad);
+    void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad, bool hasCenter);
 
     /// Transfer to netbuild-structures
     void toNB() const;

@@ -75,7 +75,17 @@ checkOptions(OptionsCont &oc)
     }
     // check whether exactly one type of a network to build was wished
     int no = 0;
-    if (oc.getBool("spider-net")) no++;
+    if (oc.getBool("spider-net")) {
+        no++;
+        if (oc.getInt("arms") < 3) {
+            MsgHandler::getErrorInstance()->inform("Spider networks need at least 3 arms.");
+            return false;
+        }
+        if (oc.getInt("circles") < 1) {
+            MsgHandler::getErrorInstance()->inform("Spider networks need at least one circle.");
+            return false;
+        }
+    }
     if (oc.getBool("grid-net")) no++;
     if (oc.getBool("random-net")) no++;
     if (no==0) {
@@ -181,6 +191,10 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("spider-space-rad", "radius");
     oc.addDescription("spider-space-rad", "Spider Network", "The distances between the circles");
 
+    oc.doRegister("spider-omit-center", new Option_Bool(false));
+    oc.addSynonyme("spider-omit-center", "nocenter");
+    oc.addDescription("spider-omit-center", "Spider Network", "Omit the central node of the network");
+
 
     // register random-net options
     oc.doRegister("random-net", 'r', new Option_Bool(false));
@@ -259,7 +273,8 @@ buildNetwork(NBNetBuilder &nb)
         net->CreateSpiderWeb(
             oc.getInt("arms"),
             oc.getInt("circles"),
-            oc.getFloat("radius"));
+            oc.getFloat("radius"),
+            !oc.getBool("nocenter"));
         return net;
     }
     // grid-net

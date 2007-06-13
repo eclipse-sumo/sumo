@@ -139,7 +139,7 @@ TNGNet::RadialToY(SUMOReal radius, SUMOReal phi)
 
 
 void
-TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad)
+TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad, bool hasCenter)
 {
     if (NumRadDiv < 3) NumRadDiv = 3;
     if (NumCircles < 1) NumCircles = 1;
@@ -167,15 +167,16 @@ TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad)
             }
         }
     }
-    // create center
-    // node
-    Node = new TNode(GetID(), 0, 0, true);
-    Node->SetX(0);
-    Node->SetY(0);
-    myNodeList.push_back(Node);
-    // links
-    for (ir=1; ir<NumRadDiv+1; ir++) {
-        connect(Node, FindNode(ir, 1));
+    if (hasCenter) {
+        // node
+        Node = new TNode(GetID(), 0, 0, true);
+        Node->SetX(0);
+        Node->SetY(0);
+        myNodeList.push_back(Node);
+        // links
+        for (ir=1; ir<NumRadDiv+1; ir++) {
+            connect(Node, FindNode(ir, 1));
+        }
     }
 }
 

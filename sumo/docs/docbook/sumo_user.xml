@@ -4283,11 +4283,11 @@
 
         <para>Spider-net networks are defined by the number of axes dividing
         them (parameter <option>--spider-arm-number</option> or
-        <option>--arms</option>), the number of the circles they are made of
-        (<option>--spider-circle-number</option> or
-        <option>--circles</option>) and the distance between the circles
-        (<option>--spider-space-rad</option> or
-        <option>--radius</option>).</para>
+        <option>--arms</option>, default is 13), the number of the circles
+        they are made of (<option>--spider-circle-number</option> or
+        <option>--circles</option>, default is 20) and the distance between
+        the circles (<option>--spider-space-rad</option> or
+        <option>--radius</option> in meters, default is 100). </para>
 
         <para><caution>
             <para>As the number of edges within the middle of the spider net
@@ -4295,6 +4295,14 @@
             light junction here. Due to this, this junction is always a
             right-of-way-junction.</para>
           </caution></para>
+
+        <para>Optionally you can omit the central junction of the network by
+        specifying <option>--spider-omit-center</option> or
+        <option>--nocenter</option>. This also gives an easy way of generating
+        a circle network. Using for instance <command>netgen --spider-net
+        --spider-omit-center --output-file=MySUMOFile.net.xml</command>will
+        create a circle consisting of 13 elements with a radius of
+        100m.</para>
 
         <para>Two examples of usage:</para>
 
