@@ -72,11 +72,11 @@ protected:
     /** called on the occurence of the beginning of a tag;
         this method */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
 
     /** called when simple characters occure; this method */
     void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw();
+                      const std::string &chars) throw(ProcessError);
     //@}
 
     /** parses an occured vehicle type definition */

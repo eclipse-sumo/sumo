@@ -53,7 +53,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
     //@}
 private:
     void addNode(const Attributes &attrs);

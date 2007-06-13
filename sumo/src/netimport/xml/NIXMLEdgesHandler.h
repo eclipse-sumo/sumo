@@ -68,14 +68,14 @@ protected:
     //@{
     /// The method called by the SAX-handler to parse start tags
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
 
     /// The method called by the SAX-handler to parse characters
     void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw();
+                      const std::string &chars) throw(ProcessError);
 
     /// The method called by the SAX-handler to parse end tags
-    void myEndElement(SumoXMLTag element) throw();
+    void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 private:

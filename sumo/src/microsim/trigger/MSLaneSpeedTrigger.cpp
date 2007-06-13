@@ -117,7 +117,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
 
 void
 MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw()
+                                   const Attributes &attrs) throw(ProcessError)
 {
     // check whethe the correct tag is read
     if (element!=SUMO_TAG_STEP) {

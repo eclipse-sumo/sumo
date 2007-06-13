@@ -121,7 +121,7 @@ NIXMLConnectionsHandler::getNode(const string &def)
 
 void
 NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
-                                        const Attributes &attrs) throw()
+                                        const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_RESET) {
         string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");

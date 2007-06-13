@@ -66,7 +66,7 @@ PCTypeDefHandler::~PCTypeDefHandler() throw()
 
 void
 PCTypeDefHandler::myStartElement(SumoXMLTag element,
-                                 const Attributes &attrs) throw()
+                                 const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_POLYTYPE) {
         string id;

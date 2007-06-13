@@ -77,7 +77,7 @@ protected:
     //@{
     /** implementation of the GenericSAXHandler-myStartElement - interface */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw();
+                                const Attributes &attrs) throw(ProcessError);
     //@}
 
 

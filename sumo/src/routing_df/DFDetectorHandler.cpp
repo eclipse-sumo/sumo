@@ -64,7 +64,7 @@ DFDetectorHandler::~DFDetectorHandler() throw()
 
 void
 DFDetectorHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw()
+                                  const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         string id;

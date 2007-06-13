@@ -64,7 +64,7 @@ protected:
     //@{
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
     //@}
 
 

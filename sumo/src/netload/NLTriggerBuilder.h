@@ -78,10 +78,10 @@ public:
 
 protected:
     /// @name parsing methods
-    //@{
+    ///
     /// These methods parse the attributes for each of the described trigger
     ///  and call the according methods to build the trigger
-
+    //@{ 
     /// builds a lane speed trigger
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
             const Attributes &attrs, const std::string &base,
@@ -122,13 +122,13 @@ protected:
 
 protected:
     /// @name building methods
-    //@{
+    ///
     /// Called with parsed values, these methods build the trigger.
     /// These methods should be overriden for the gui loader in order
     ///  to build visualizable versions of the triggers
     /// In most cases, these methods only call the constructor and
     ///  return the so build trigger
-
+    //@{ 
     /// builds a lane speed trigger
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,

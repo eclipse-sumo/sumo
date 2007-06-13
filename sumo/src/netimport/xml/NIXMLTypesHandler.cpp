@@ -67,7 +67,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler() throw()
 
 void
 NIXMLTypesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw()
+                                  const Attributes &attrs) throw(ProcessError)
 {
     string id;
     if (element==SUMO_TAG_TYPE) {

@@ -93,14 +93,14 @@ protected:
     //@{
     /** implementation of the GenericSAXHandler-myStartElement - interface */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw();
+                                const Attributes &attrs) throw(ProcessError);
 
     /** implementation of the GenericSAXHandler-myCharacters - interface */
     virtual void myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw();
+                              const std::string &chars) throw(ProcessError);
 
     /** implementation of the GenericSAXHandler-myEndElement - interface */
-    virtual void myEndElement(SumoXMLTag element) throw();
+    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 

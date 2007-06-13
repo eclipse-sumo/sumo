@@ -66,11 +66,11 @@ protected:
     //@{
     /** the user-impemlented handler method for an opening tag */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw();
+                                const Attributes &attrs) throw(ProcessError);
 
     /** the user-implemented handler method for characters */
     virtual void myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw();
+                              const std::string &chars) throw(ProcessError);
     //@}
 
 protected:

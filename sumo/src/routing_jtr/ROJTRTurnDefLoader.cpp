@@ -88,7 +88,7 @@ ROJTRTurnDefLoader::load(const std::string &file)
 
 void
 ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw()
+                                   const Attributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -106,7 +106,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
 
 void
 ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
-                                 const std::string &chars) throw()
+                                 const std::string &chars) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_SINK: {
@@ -130,7 +130,7 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
 
 
 void
-ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw()
+ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:

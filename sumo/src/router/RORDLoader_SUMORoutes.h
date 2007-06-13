@@ -63,10 +63,10 @@ protected:
     //@{
     /** the user-implemented handler method for characters */
     void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw();
+                      const std::string &chars) throw(ProcessError);
 
     /** the user-implemented handler method for a closing tag */
-    void myEndElement(SumoXMLTag element) throw();
+    void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 protected:

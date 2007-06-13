@@ -75,7 +75,7 @@ RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt() throw()
 
 void
 RORDLoader_SUMOAlt::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw()
+                                   const Attributes &attrs) throw(ProcessError)
 {
     RORDLoader_SUMOBase::myStartElement(element, attrs);
     switch (element) {
@@ -138,7 +138,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 
 void
 RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element,
-                                 const std::string &chars) throw()
+                                 const std::string &chars) throw(ProcessError)
 {
     // process routes only, all other elements do
     //  not have embedded characters
@@ -172,7 +172,7 @@ RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element) throw()
+RORDLoader_SUMOAlt::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     RORDLoader_SUMOBase::myEndElement(element);
     switch (element) {

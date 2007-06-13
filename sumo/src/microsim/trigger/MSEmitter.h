@@ -203,7 +203,7 @@ protected:
         /** the implementation of the SAX-handler interface for reading
             element begins */
         virtual void myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw();
+                                    const Attributes &attrs) throw(ProcessError);
         //@}
 
         /// Informs the child that the end of the processed file has been reached

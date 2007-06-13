@@ -63,10 +63,10 @@ protected:
     //@{
     /// Called when an opening-tag occures
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
 
     /// Called when a closing tag occures
-    void myEndElement(SumoXMLTag element) throw();
+    void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 private:

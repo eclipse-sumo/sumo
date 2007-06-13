@@ -74,14 +74,14 @@ protected:
     //@{
     /// SAX-callback for tag start
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
 
     /// SAX-callback for characters section
     void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw();
+                      const std::string &chars) throw(ProcessError);
 
     /// SAX-callback for tag end
-    void myEndElement(SumoXMLTag element) throw();
+    void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 private:

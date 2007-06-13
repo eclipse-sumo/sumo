@@ -77,7 +77,7 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw()
 
 void
 NIXMLNodesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw()
+                                  const Attributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_NODE) {
         return;

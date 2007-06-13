@@ -61,7 +61,7 @@ NISUMOHandlerEdges::~NISUMOHandlerEdges() throw()
 
 void
 NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw()
+                                   const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
         addEdge(attrs);

@@ -127,7 +127,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
-        const Attributes &attrs) throw()
+        const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution

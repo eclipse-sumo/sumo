@@ -160,7 +160,7 @@ public:
      * @todo do not generate and report the string-representation
      */
     void startElement(const XMLCh* const uri, const XMLCh* const localname,
-                      const XMLCh* const qname, const Attributes& attrs) throw();
+                      const XMLCh* const qname, const Attributes& attrs);
 
 
     /**
@@ -172,7 +172,7 @@ public:
      * @todo recheck/describe what happens with characters when a new element is opened
      * @todo describe characters processing in the class' head
      */
-    void characters(const XMLCh* const chars, const unsigned int length) throw();
+    void characters(const XMLCh* const chars, const unsigned int length);
 
 
     /**
@@ -188,7 +188,7 @@ public:
      * @todo do not generate and report the string-representation
      */
     void endElement(const XMLCh* const uri, const XMLCh* const localname,
-                    const XMLCh* const qname) throw();
+                    const XMLCh* const qname);
 
 
 
@@ -341,7 +341,7 @@ protected:
      * Called by "startElement" (see there).
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw();
+                                const Attributes &attrs) throw(ProcessError);
 
 
     /**
@@ -350,14 +350,14 @@ protected:
      * Called by "endElement" (see there).
      */
     virtual void myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw();
+                              const std::string &chars) throw(ProcessError);
 
 
     /** @brief Callback method for a closing tag to implement by derived classes
      *
      * Called by "endElement" (see there).
      */
-    virtual void myEndElement(SumoXMLTag element) throw();
+    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
 
 
 private:

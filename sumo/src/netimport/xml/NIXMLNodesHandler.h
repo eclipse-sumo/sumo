@@ -67,7 +67,7 @@ protected:
     //@{
     /// The method called by the SAX-handler to parse start tags
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
     //@}
 
 private:

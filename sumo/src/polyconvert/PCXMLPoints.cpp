@@ -87,7 +87,7 @@ PCXMLPoints::load(OptionsCont &oc)
 
 void
 PCXMLPoints::myStartElement(SumoXMLTag element,
-                            const Attributes &attrs) throw()
+                            const Attributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_POI) {
         return;

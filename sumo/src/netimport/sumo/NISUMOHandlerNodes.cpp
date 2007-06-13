@@ -59,7 +59,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes() throw()
 
 void
 NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw()
+                                   const Attributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_JUNCTION:

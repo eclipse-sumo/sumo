@@ -88,10 +88,10 @@ protected:
     //@{
     /** the user-impemlented handler method for an opening tag */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw();
+                                const Attributes &attrs) throw(ProcessError);
 
     /** the user-implemented handler method for a closing tag */
-    virtual void myEndElement(SumoXMLTag element) throw();
+    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
     /// Return the information whether a route was read

@@ -146,7 +146,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw()
 // ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw()
+                                    const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_INTERVAL) {
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
@@ -218,7 +218,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
 
 void
-MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw()
+MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     if (element==SUMO_TAG_INTERVAL) {
         RerouteInterval ri;

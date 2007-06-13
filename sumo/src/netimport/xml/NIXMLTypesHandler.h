@@ -56,7 +56,7 @@ protected:
     //@{
     /// called on the opening of a tag; inherited
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw();
+                        const Attributes &attrs) throw(ProcessError);
     //@}
 
 private:
