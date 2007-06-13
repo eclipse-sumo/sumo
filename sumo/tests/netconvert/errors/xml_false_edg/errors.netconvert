@@ -1,3 +1,2 @@
-Error: File 'hokkaido2.edg.xml' does not exist.
-Error: No edges loaded.
+Error: Could not open edges-file 'hokkaido2.edg.xml'.
 Quitting (on error).

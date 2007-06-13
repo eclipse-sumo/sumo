@@ -1,11 +1,2 @@
-Error: File 'hokkaido.nod.xml' does not exist.
-Error: On parsing edge '1':
- Either the name or the position of a node is not given.
-Error: On parsing edge '2':
- Either the name or the position of a node is not given.
-Error: On parsing edge '3':
- Either the name or the position of a node is not given.
-Error: On parsing edge '4':
- Either the name or the position of a node is not given.
-Error: No nodes loaded.
+Error: Could not open nodes-file 'hokkaido.nod.xml'.
 Quitting (on error).
