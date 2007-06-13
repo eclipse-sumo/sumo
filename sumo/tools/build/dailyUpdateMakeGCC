@@ -34,9 +34,7 @@ make -f Makefile.cvs clean &> /dev/null
 echo `basename $MAKELOG`.gz >> $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-./configure --with-gdal-libraries=$PREFIX/lib --with-gdal-includes=$PREFIX/include \
---with-proj-libraries=$PREFIX/lib --with-proj-includes=$PREFIX/include \
---prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+./configure --prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make doc >> $MAKELOG 2>&1 || (echo "make doc failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG)
