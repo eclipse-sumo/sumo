@@ -117,6 +117,11 @@ GenericSAXHandler::Tag sumotags[] =
         { "node",             SUMO_TAG_NODE },
         { "type",             SUMO_TAG_TYPE },
         { "detector_definition", SUMO_TAG_DETECTOR_DEFINITION },
+        { "route-interval",   SUMO_TAG_ROUTE_INTERVAL },
+        { "vtype-interval",   SUMO_TAG_VTYPE_INTERVAL },
+        { "state-interval",   SUMO_TAG_STATE_INTERVAL },
+        { "route-dist",       SUMO_TAG_ROUTE_DIST },
+        { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
         { "",                 SUMO_TAG_NOTHING }
     };
 
