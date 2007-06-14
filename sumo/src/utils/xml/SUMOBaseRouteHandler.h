@@ -129,7 +129,7 @@ protected:
      * The method sets myAmInEmbeddedMode to false ending processing additional, 
      *  embedded values.
      */
-    virtual void closeVehicle() throw();
+    virtual void closeVehicle() throw(ProcessError);
     //@}
 
 
