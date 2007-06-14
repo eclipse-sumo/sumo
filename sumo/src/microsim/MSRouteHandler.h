@@ -122,7 +122,7 @@ protected:
     void addRouteElements(const std::string &chars);
 
     /// Ends the processing of a vehicle
-    void closeVehicle() throw();
+    void closeVehicle() throw(ProcessError);
 
 protected:
     /// The vehicle control to use for vehicle building

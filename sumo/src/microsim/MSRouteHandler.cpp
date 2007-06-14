@@ -368,7 +368,7 @@ MSRouteHandler::closeRoute()
 
 
 void
-MSRouteHandler::closeVehicle() throw()
+MSRouteHandler::closeVehicle() throw(ProcessError)
 {
     SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle's type
