@@ -75,12 +75,23 @@ MSVehicleControl::MSVehicleControl()
 
 MSVehicleControl::~MSVehicleControl()
 {
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
-        delete(*i).second;
+    {
+        // delete vehicles
+        for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+            delete(*i).second;
+        }
     }
-    if(myHaveDefaultVTypeOnly) {
-        delete myVehicleTypeDistribution.get();
+    {
+        // delete the default type
+        if(myHaveDefaultVTypeOnly) {
+            delete myVehicleTypeDistribution.get();
+        } else {
+            for(vector<MSVehicleType*>::iterator i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
+                delete *i;
+            }
+        }
     }
+    // delete current types
     myVehicleDict.clear();
 }
 
@@ -519,10 +530,16 @@ MSVehicleControl::getRandomVType() const
 bool
 MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob)
 {
+    // if still the default type is used
     if (myHaveDefaultVTypeOnly) {
-        delete myVehicleTypeDistribution.get();
+        // mark it as to be deleted
+        if(myVehicleTypeDistribution.getOverallProb()>0) {
+            myObsoleteVehicleTypes.push_back(myVehicleTypeDistribution.get());
+        }
+        // clear the distribution
         myVehicleTypeDistribution.clear();
     }
+    // all next vehicle types are non-default
     myHaveDefaultVTypeOnly = false;
     const string &id = vehType->getID();
     VehTypeDictType::iterator it = myVTypeDict.find(id);

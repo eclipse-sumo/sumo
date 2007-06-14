@@ -167,6 +167,8 @@ protected:
 
     bool myHaveDefaultVTypeOnly;
 
+    std::vector<MSVehicleType*> myObsoleteVehicleTypes;
+
 };
 
 
