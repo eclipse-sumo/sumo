@@ -135,16 +135,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSRoute* route = MSRoute::dictionary(routeStr);
         if (route == 0) {
-            MsgHandler::getErrorInstance()->inform(
+            throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-            throw ProcessError();
+            
         }
         // check frequency
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if (freq<0) {
-            MsgHandler::getErrorInstance()->inform(
+            throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
-            throw ProcessError();
+            
         }
         // Attributes ok, add to routeDist
         myRouteDist.add(freq, route);

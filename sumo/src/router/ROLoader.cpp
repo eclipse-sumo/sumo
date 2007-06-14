@@ -534,8 +534,8 @@ ROLoader::loadSupplementaryWeights(RONet& net)
     if (XMLSubSys::runParser(handler, filename)) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        throw ProcessError();
+        throw ProcessError("failed.");
+        
     }
 }
 

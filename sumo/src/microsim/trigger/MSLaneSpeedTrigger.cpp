@@ -139,8 +139,8 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
         // set the values for the next step as they are valid
         myLoadedSpeeds.push_back(make_pair(next, speed));
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Could not initialise vss '" + getID() + "'.");
-        throw ProcessError();
+        throw ProcessError("Could not initialise vss '" + getID() + "'.");
+        
     }
 }
 

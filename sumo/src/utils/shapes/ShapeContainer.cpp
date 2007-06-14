@@ -116,9 +116,9 @@ ShapeContainer::save(const std::string &/*file*/)
     ofstream out(file.c_str());
 
     if (!out) {
-        MsgHandler::getErrorInstance()->inform(
+        throw ProcessError(
           "Cannot open file "+file+"." );
-        throw ProcessError();
+        
     return 0;
     }
 

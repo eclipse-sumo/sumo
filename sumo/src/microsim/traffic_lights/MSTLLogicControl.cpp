@@ -718,8 +718,8 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
         if (vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
-            MsgHandler::getErrorInstance()->inform("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
-            throw ProcessError();
+            throw ProcessError("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
+            
         }
         MSTrafficLightLogic *to = vars.ltVariants.find(s.to)->second;
 
