@@ -36,7 +36,7 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class GUITriggerWrapper
  */
 class GUITriggerWrapper
             : public HaveBoundary

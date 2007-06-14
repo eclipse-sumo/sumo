@@ -48,7 +48,7 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * MSLaneSpeedTrigger
+ * @class MSLaneSpeedTrigger
  * This trigger reads the next maximum velocity of the lane he is
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.

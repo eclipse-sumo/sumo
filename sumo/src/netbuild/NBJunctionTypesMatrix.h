@@ -40,7 +40,7 @@
 // class definitions
 // ===========================================================================
 /**
- * NBJunctionTypesMatrix
+ * @class NBJunctionTypesMatrix
  * A class that stores the relationship between incoming edges and the
  * junction type resulting from their types.
  */

@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,7 +37,7 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class FuncBinding_StringParam
  */
 template< class _T, typename _R  >
 class FuncBinding_StringParam : public ValueSource<_R>

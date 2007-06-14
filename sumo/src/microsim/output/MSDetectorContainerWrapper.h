@@ -4,7 +4,7 @@
 /// @date    Fri Sep 26 19:11:26 2003
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,6 +45,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class MSDetectorContainerWrapper
+ */
 template< class WrappedContainer >
 struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 {

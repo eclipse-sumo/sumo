@@ -49,6 +49,7 @@ class BinaryInputDevice;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSEdgeControl
  */
 class MSEdgeControl
 {

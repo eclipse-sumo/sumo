@@ -45,6 +45,9 @@ class GUINet;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GUIGlobals
+ */
 struct GUISimInfo
 {
     GUISimInfo(GUINet &netArg) : net(netArg)

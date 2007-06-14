@@ -49,6 +49,7 @@ class GUINet;
 // class definitions
 // ===========================================================================
 /**
+ * @class GUINetWrapper
  */
 class GUINetWrapper :
             public GUIGlObject,

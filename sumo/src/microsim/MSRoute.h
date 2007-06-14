@@ -51,7 +51,7 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSRoute
  */
 class MSRoute : public Named
 {

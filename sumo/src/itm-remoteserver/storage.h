@@ -48,6 +48,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class storage
+ */
 namespace itm {
 class Storage: public std::list<unsigned char> {
 private:

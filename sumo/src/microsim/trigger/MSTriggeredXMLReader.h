@@ -46,7 +46,7 @@ class MSNet;
 // class definitions
 // ===========================================================================
 /**
- * class MSTriggeredXMLReader
+ * @class MSTriggeredXMLReader
  * Base class for triggered file readers which work with XML-files
  */
 class MSTriggeredXMLReader : public MSTriggeredReader,

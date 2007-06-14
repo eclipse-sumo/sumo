@@ -4,7 +4,7 @@
 /// @date    Aug 2003
 /// @version $Id$
 ///
-// missing_desc
+// The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

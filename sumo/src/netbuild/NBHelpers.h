@@ -44,7 +44,7 @@ class Position2D;
 // class definitions
 // ===========================================================================
 /**
- * NBHelpers
+ * @class NBHelpers
  * Some mathmatical methods for the computation of angles
  */
 class NBHelpers

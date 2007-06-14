@@ -47,7 +47,7 @@ class MSTriggerControl;
 // class definitions
 // ===========================================================================
 /**
- * @class
+ * @class GUITriggerBuilder
  * This class builds trigger objects in their non-gui version
  */
 class GUITriggerBuilder : public NLTriggerBuilder

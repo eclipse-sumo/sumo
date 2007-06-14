@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,6 +40,9 @@ class NBNode;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NBOwnTLDef
+ */
 class NBOwnTLDef : public NBTrafficLightDefinition
 {
 public:

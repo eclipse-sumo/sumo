@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// missing_desc
+// 	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,10 +44,12 @@ class MSPerson;
 // class definitions
 // ===========================================================================
 /**
-  * The class is used to handle persons who are not using a transportation
-  *  system but are walking or waiting. Both is processed by waiting
-  *  for the arrival time / the time the waiting is over.
-  */
+ *
+ * @class MSPersonControl
+ * The class is used to handle persons who are not using a transportation
+ *  system but are walking or waiting. Both is processed by waiting
+ *  for the arrival time / the time the waiting is over.
+ */
 class MSPersonControl
 {
 public:

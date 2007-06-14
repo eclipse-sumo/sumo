@@ -53,6 +53,7 @@ class GUIGlObjectStorage;
 // class definitions
 // ===========================================================================
 /**
+ * @class GUIEdge
  * This is the gui-version of the MSEdge
  */
 class GUIEdge : public MSEdge, public GUIGlObject

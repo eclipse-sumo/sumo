@@ -39,7 +39,7 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class NBDistribution
  */
 class NBDistribution
 {

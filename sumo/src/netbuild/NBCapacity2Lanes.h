@@ -35,7 +35,7 @@
 // class definitions
 // ===========================================================================
 /**
- * NBCapacity2Lanes
+ * @class NBCapacity2Lanes
  * A helper class for the computation of the number of lanes an edge has
  * in dependence to this edge's capacity
  */

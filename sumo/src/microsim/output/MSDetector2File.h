@@ -4,7 +4,7 @@
 /// @date    Mon Jul  7 16:16:26 2003
 /// @version $Id$
 ///
-// * @author Christian Roessel <christian.roessel@dlr.de>
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,6 +47,8 @@ class OutputDevice;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSDetector2File
+ *
  * Singleton class, that controls file-output of instances of class
  * MSDetectorFileOutput. Just add a existing detector, a filename
  * (maybe this will change in future) and an interval and the

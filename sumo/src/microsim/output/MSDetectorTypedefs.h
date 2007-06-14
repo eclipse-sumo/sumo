@@ -4,7 +4,7 @@
 /// @date    Thu Oct 16 13:28:50 2003
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

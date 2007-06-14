@@ -58,7 +58,7 @@ class NBJunctionLogicCont;
 // class definitions
 // ===========================================================================
 /**
- * NBRequest
+ * @class NBRequest
  * Given a special node, this class builds the logic of this (junction)
  * regarding the relationships between the incoming and outgoing edges and
  * their priorities. The junction's logic is saved when it does not yet exist.

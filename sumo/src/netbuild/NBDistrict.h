@@ -50,7 +50,7 @@ class NBEdge;
 // class definitions
 // ===========================================================================
 /**
- * NBDistrict
+ * @class NBDistrict
  * A class that represents a district together with incoming and outgoing
  * connections.
  */

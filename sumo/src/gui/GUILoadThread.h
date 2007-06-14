@@ -50,6 +50,9 @@ class GUINet;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GUILoadThread
+ */
 class GUILoadThread : public GUIAbstractLoadThread
 {
 public:

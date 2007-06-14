@@ -40,7 +40,7 @@
 // class definitions
 // ===========================================================================
 /**
- * NBLinkCliqueContainer
+ * @class NBLinkCliqueContainer
  * This container stores linkcliques. A link clique is a set of links of a
  * junction that may be used parallel, that means, that none of the links
  * within such a clique is a foe to another one from the same clique.

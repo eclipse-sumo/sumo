@@ -47,6 +47,7 @@ class GUIGlObjectStorage;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSJunction
  */
 class MSJunction
 {

@@ -4,7 +4,7 @@
 /// @date    Wed Oct 15 16:37:58 2003
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,7 +39,7 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSSpaceMeanSpeed
  */
 class MSSpaceMeanSpeed
 {

@@ -52,6 +52,8 @@ class GUIGLObjectPopupMenu;
 // class definitions
 // ===========================================================================
 /**
+ * @class GUIVehicle
+ *
  * A visualisable MSVehicle. Extended by the possibility to retrieve names
  * of all available vehicles (static) and the possibility to retrieve the
  * color of the vehicle which is available in different forms allowing an

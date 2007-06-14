@@ -45,7 +45,7 @@ class NBNode;
 // class definitions
 // ===========================================================================
 /**
- * NBLogicKeyBuilder
+ * @class NBLogicKeyBuilder
  * Builds the key that fits into all instances of the logic
  * !!! deprecated?
  */

@@ -4,7 +4,7 @@
 /// @date    Wed Jun 9 16:40:56 CEST 2004
 /// @version $Id$
 ///
-// * @author  Christian Roessel <christian.roessel@dlr.de>
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -54,7 +54,7 @@ class MSVehicle;
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSE1MoveReminder
  */
 template< bool isEntryReminder >
 class MSE1MoveReminder : public MSMoveReminder

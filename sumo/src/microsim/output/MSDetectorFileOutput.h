@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,6 +40,8 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class MSDetectorFileOutput
+ *
  * Pure virtual base class for classes (e.g. MSLaneState and
  * MSInductLoop) that should produce XML-output via the
  * MSDetector2File or MSTravelcostDetector singletons.

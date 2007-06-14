@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,6 +55,8 @@ class GUILaneWrapper;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSInductLoop
+ *
  * An unextended detector that measures at a fixed position on a fixed
  * lane. Only vehicles that passed the entire detector are counted. We
  * ignore vehicles that are emitted onto the detector and vehicles

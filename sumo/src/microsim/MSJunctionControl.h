@@ -45,6 +45,7 @@ class MSJunction;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSJunctionControl
  */
 class MSJunctionControl
 {

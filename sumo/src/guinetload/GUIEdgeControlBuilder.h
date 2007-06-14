@@ -51,6 +51,8 @@ class Street;
 // class definitions
 // ===========================================================================
 /**
+ * @class GUIEdgeControlBuilder
+ *
  * This class is reponsible for building GUIEdge-objects
  */
 class GUIEdgeControlBuilder : public NLEdgeControlBuilder

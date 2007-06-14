@@ -38,7 +38,8 @@
 // class declarations
 // ===========================================================================
 /**
- * NBType
+ * @class NBType
+ *
  * This class holds all informations about a single type of the sections/edges
  */
 class NBType

@@ -41,6 +41,8 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class NBRequestEdgeLinkIterator
+ *
  * NBRequestEdgeLinkIterator
  * As iteration over all links of a junction isn't that trivial, it is
  * encapsulated within this class.

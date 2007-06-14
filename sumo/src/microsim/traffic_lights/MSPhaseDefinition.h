@@ -39,7 +39,10 @@
 // class definitions
 // ===========================================================================
 /**
- * The definition of a single phase */
+ * @class MSPhaseDefinition
+ *
+ * The definition of a single phase 
+ */
 class MSPhaseDefinition
 {
 public:

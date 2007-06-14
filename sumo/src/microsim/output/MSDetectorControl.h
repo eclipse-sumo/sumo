@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-// * @author Daniel Krajzewicz
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,7 +56,7 @@ class MSE3Collector;
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSDetectorControl
  */
 class MSDetectorControl
 {

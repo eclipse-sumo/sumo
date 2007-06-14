@@ -4,7 +4,7 @@
 /// @date    Wed, 12 Dez 2001
 /// @version $Id$
 ///
-// -------------------
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,7 +40,10 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** N is sum of the number of links of the junction's inLanes.
+/**
+ * @class MSBitSetLogic
+ * 
+ * N is sum of the number of links of the junction's inLanes.
  */
 template< size_t N >
 class MSBitSetLogic : public MSJunctionLogic

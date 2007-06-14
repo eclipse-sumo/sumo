@@ -45,6 +45,8 @@ class MSRouteLoader;
 // class definitions
 // ===========================================================================
 /**
+ * @class MSRouteLoaderControl
+ *
  * MSRouteLoaderControl
  * This controls is initialised with the list of route loaders and uses them
  * to load routes step wise.

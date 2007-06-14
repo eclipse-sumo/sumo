@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// missing_desc
+// »missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,6 +43,9 @@ class MSEdgeControl;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class MSMeanData_Net_Cont
+ */
 typedef std::vector< MSMeanData_Net* > MSMeanData_Net_Cont;
 
 

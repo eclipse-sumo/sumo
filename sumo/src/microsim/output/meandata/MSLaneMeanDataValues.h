@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// missing_desc
+// »missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -35,10 +35,12 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class MSLaneMeanDataValues
  * @struct MSLaneMeanDataValues
  * Structure holding values that describe the flow and other physical
  * properties aggregated over some seconds and normalised by the
- * aggregation period */
+ * aggregation period 
+ */
 struct MSLaneMeanDataValues
 {
     MSLaneMeanDataValues()

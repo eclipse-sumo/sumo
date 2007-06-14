@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// THe class for modelling person-movements
+// The class for modelling person-movements
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,6 +50,8 @@ class MSEdge;
 // class definitions
 // ===========================================================================
 /**
+  * @class MSPerson
+  *
   * The class holds a simulated person together with her movement stages
   */
 class MSPerson

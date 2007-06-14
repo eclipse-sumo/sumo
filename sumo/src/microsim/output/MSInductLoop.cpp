@@ -4,7 +4,7 @@
 /// @date    dev.writeString("<interval begin=\"").writeString(
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//  »missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

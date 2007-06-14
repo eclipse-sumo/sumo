@@ -45,6 +45,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+/**
+ * @class MSE1VehicleActor
+ */
 class MSLane;
 class GUIDetectorWrapper;
 class GUIGlObjectStorage;

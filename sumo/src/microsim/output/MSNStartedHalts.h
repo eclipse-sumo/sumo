@@ -4,7 +4,7 @@
 /// @date    Fri Nov 28 2003 17:27 CET
 /// @version $Id$
 ///
-// / @author  Christian Roessel <christian.roessel@dlr.de>
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,7 +36,7 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSNStartedHalts
  */
 // E2 ED Detector
 class MSNStartedHalts

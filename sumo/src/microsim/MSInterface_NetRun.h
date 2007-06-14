@@ -4,7 +4,7 @@
 /// @date    2004-07-02
 /// @version $Id$
 ///
-// missing_desc
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,6 +36,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class MSInterface_NetRun
+ */
 class MSInterface_NetRun
 {
 public:

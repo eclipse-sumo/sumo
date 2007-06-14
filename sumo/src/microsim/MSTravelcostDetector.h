@@ -4,7 +4,7 @@
 /// @date    Mon Jun  2 17:21:27 2003
 /// @version $Id$
 ///
-//
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

@@ -38,6 +38,7 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class MSJunctionLogic
  */
 class MSJunctionLogic
 {

@@ -44,7 +44,7 @@ class NBNode;
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class NBConnection
  */
 class NBConnection
 {

@@ -40,7 +40,11 @@ class NBEdge;
 // ===========================================================================
 // container definitions
 // ===========================================================================
-/** structure specifying a certain lane on a certain edge */
+/** 
+ * @class NBCont
+ *
+ * structure specifying a certain lane on a certain edge 
+ */
 class EdgeLane
 {
 public:

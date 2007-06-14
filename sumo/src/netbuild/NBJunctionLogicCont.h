@@ -39,7 +39,7 @@
 // class definitions
 // ===========================================================================
 /**
- * NBJunctionLogicCont
+ * @class NBJunctionLogicCont
  * This class tries to load the logic for a given logickey even when
  * key rotation must have been done
  * If this is not possible (no permutation of the logic has been build),

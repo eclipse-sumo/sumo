@@ -46,7 +46,8 @@ class GUINet;
 // class definitions
 // ===========================================================================
 /**
- * GUIEvent_SimulationLoaded
+ * @class  GUIEvent_SimulationLoaded
+ * 
  * Throw to GUIApplicationWindow from GUILoadThread after a simulation has
  * been loaded or the loading process failed
  */

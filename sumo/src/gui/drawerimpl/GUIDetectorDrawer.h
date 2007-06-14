@@ -41,6 +41,9 @@ class GUIGlObject_AbstractAdd;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/*
+ * @class GUIDetectorDrawer
+*/
 class GUIDetectorDrawer
 {
 public:

@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//
+//	The instance responsible for building networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,6 +45,9 @@ class OptionsCont;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NBNetBuilder
+ */
 class NBNetBuilder
 {
 public:

@@ -4,7 +4,7 @@
 /// @date    Tue Sep  9 22:27:23 2003
 /// @version $Id$
 ///
-// * @author Christian Roessel
+//	»missingDescription«
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,7 +47,7 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class MSDensity
  */
 class MSDensity
 {
