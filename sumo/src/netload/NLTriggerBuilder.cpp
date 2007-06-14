@@ -391,7 +391,7 @@ NLTriggerBuilder::buildScaler(MSNet &net,
                               MESegment *edge, SUMOReal pos,
                               SUMOReal scale)
 {
-    return new METriggeredScaler(id, net, edge, scale);
+    return new METriggeredScaler(id, edge, scale);
 }
 #endif
 
