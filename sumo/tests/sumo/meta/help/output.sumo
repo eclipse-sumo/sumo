@@ -4,12 +4,12 @@ SUMO sumo
  
 A microscopic road traffic simulation.
 
-Usage: sumo [OPTION]*
+Usage: sumo.exe [OPTION]*
  
  Examples:
-  sumo -b 0 -e 1000 -n net.xml -r routes.xml
-  sumo -c munich_config.cfg
-  sumo --help
+  sumo.exe -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo.exe -c munich_config.cfg
+  sumo.exe --help
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -75,7 +75,10 @@ Usage: sumo [OPTION]*
   --lc-teleport.veh-maxv FLOAT         
   --lc-teleport.lane-min-vmax FLOAT    
   --default-lanechange-model STR       
-  --no-duration-log                    
+  --no-duration-log                    Disable performance reports for
+                                         individual simulation steps
+  --no-step-log                        Disable console output of current
+                                         simulation step
 
  TLS Defaults Options:
   --agent-tl.detector-len FLOAT        

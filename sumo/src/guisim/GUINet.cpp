@@ -87,10 +87,9 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUINet::GUINet(SUMOTime startTimestep, SUMOTime stopTimestep,
-               MSVehicleControl *vc,
-               SUMOReal tooSlowRTF, bool logExecTime)
-        : MSNet(startTimestep, stopTimestep, vc, tooSlowRTF, logExecTime),
+GUINet::GUINet(SUMOTime startTimestep, MSVehicleControl *vc,
+               SUMOReal tooSlowRTF, bool logExecTime, bool logStep)
+        : MSNet(startTimestep, vc, tooSlowRTF, logExecTime, logStep),
         _grid(10, 10),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),

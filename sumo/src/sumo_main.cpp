@@ -98,8 +98,9 @@ load(OptionsCont &oc)
     SharedOutputDevices::setInstance(new SharedOutputDevices());
     SUMOFrame::setMSGlobals(oc);
     MSNet *net =
-        new MSNet(oc.getInt("begin"), oc.getInt("end"),
-                  oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"));
+        new MSNet(oc.getInt("begin"), new MSVehicleControl(),
+                  oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"),
+                  !oc.getBool("no-step-log"));
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);

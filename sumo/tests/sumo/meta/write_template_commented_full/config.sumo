@@ -109,8 +109,11 @@
       <!--  -->
       <default-lanechange-model>dk1</default-lanechange-model>
 
-      <!--  -->
+      <!-- Disable performance reports for individual simulation steps -->
       <no-duration-log>false</no-duration-log>
+
+      <!-- Disable console output of current simulation step -->
+      <no-step-log>false</no-step-log>
 
    </processing>
 

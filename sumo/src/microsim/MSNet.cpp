@@ -117,39 +117,10 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
-             SUMOReal tooSlowRTF, bool logExecTime)
-        : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
-{
-    MSCORN::init();
-    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
-    myStep = startTimeStep;
-    myVehicleControl = new MSVehicleControl();
-    myEmitter = new MSEmitControl(*myVehicleControl);
-    myDetectorControl = new MSDetectorControl();
-    myEdges = 0;
-    myJunctions = 0;
-    myRouteLoaders = 0;
-    myLogics = 0;
-    myCellsBuilder = 0;
-    myPersonControl = 0;
-    myMSPhoneNet = 0;
-    myTriggerControl = new MSTriggerControl();
-    myShapeContainer = new ShapeContainer();
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet = new MELoop();
-    }
-#endif
-    myInstance = this;
-}
-
-
-
-MSNet::MSNet(SUMOTime startTimeStep, SUMOTime /*stopTimeStep*/,
-             MSVehicleControl *vc,
-             SUMOReal tooSlowRTF, bool logExecTime)
-        : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
+MSNet::MSNet(SUMOTime startTimeStep, MSVehicleControl *vc,
+             SUMOReal tooSlowRTF, bool logExecTime, bool logStep)
+        : myLogExecutionTime(logExecTime), myLogStepNumber(logStep),
+          myTooSlowRTF(tooSlowRTF)
 {
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
@@ -284,9 +255,13 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
     myStep = start;
     try {
         do {
-            preSimStepOutput();
+            if (myLogStepNumber) {
+                preSimStepOutput();
+            }
             simulationStep(start, myStep);
-            postSimStepOutput();
+            if (myLogStepNumber) {
+                postSimStepOutput();
+            }
             myStep++;
             if (myLogExecutionTime && myTooSlowRTF>0) {
                 SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);

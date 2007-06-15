@@ -43,7 +43,6 @@
 #include <cmath>
 #include <iomanip>
 
-#include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
 #include "MSPersonControl.h"
@@ -91,7 +90,6 @@ class MSBuildCells;
  * MSNet.
  */
 class MSNet
-            : public MSInterface_NetRun
 {
 public:
     /**
@@ -148,10 +146,8 @@ public:
     /// List of times (intervals or similar)
     typedef std::vector< SUMOTime > TimeVector;
 
-    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep,
-          SUMOReal tooSlowRTF, bool logExecTime);
-    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc,
-          SUMOReal tooSlowRTF, bool logExecTime);
+    MSNet(SUMOTime startTimestep, MSVehicleControl *vc,
+          SUMOReal tooSlowRTF, bool logExecTime, bool logStep);
 
 
     /// Destructor.
@@ -390,6 +386,9 @@ protected:
     //{@ data needed for computing performance values
     /// Information whether the simulation duration shall be logged
     bool myLogExecutionTime;
+
+    /// Information whether the number of the simulation step shall be logged
+    bool myLogStepNumber;
 
     /// The last simulation step begin, end and duration
     long mySimStepBegin, mySimStepEnd, mySimStepDuration;

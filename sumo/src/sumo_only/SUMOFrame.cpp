@@ -198,8 +198,11 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
     oc.addDescription("default-lanechange-model", "Processing", "");
 
-    oc.doRegister("no-duration-log", new Option_Bool(false));//!!! check, describe
-    oc.addDescription("no-duration-log", "Processing", "");
+    oc.doRegister("no-duration-log", new Option_Bool(false));
+    oc.addDescription("no-duration-log", "Processing", "Disable performance reports for individual simulation steps");
+
+    oc.doRegister("no-step-log", new Option_Bool(false));
+    oc.addDescription("no-step-log", "Processing", "Disable console output of current simulation step");
 
 
     // devices

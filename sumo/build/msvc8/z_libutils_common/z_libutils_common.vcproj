@@ -462,6 +462,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\helpers\NamedObjectCont.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
 				>
 			</File>

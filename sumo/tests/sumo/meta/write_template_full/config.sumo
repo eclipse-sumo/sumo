@@ -44,6 +44,7 @@
       <lc-teleport.lane-min-vmax>22.2222</lc-teleport.lane-min-vmax>
       <default-lanechange-model>dk1</default-lanechange-model>
       <no-duration-log>false</no-duration-log>
+      <no-step-log>false</no-step-log>
    </processing>
 
    <tls_defaults>
