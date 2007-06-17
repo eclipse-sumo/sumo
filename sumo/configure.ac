@@ -92,16 +92,23 @@ else
    ac_disabled="$ac_disabled ITM"
 fi
 
+AM_CONDITIONAL([WITH_VERSION_H], test -f .svn/entries)	      
+if test -f .svn/entries; then
+   AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
+else
+   AC_DEFINE([VERSION_STRING], [$VERSION], [Defined if auto-generated version.h is unavailable.])
+fi
+
 dnl ---------------------------------------------
 dnl Platform specific stuff
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 
 case "$host" in
-     *-cygwin*)
-     AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
-     AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
-     AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
-     ;;
+   *-cygwin*)
+   AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])
+   AC_DEFINE([WIN32], [1], [Xerces and Fox expect this to be defined (cygwin)])
+   AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
+   ;;
 esac
 
 
@@ -272,20 +279,16 @@ dnl   ... for includes
 AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
 if test x"$with_fox_includes" = x; then
    save_cppflags=$CPPFLAGS
-dnl   CPPFLAGS="$CPPFLAGS -I/usr/local/include/$fox_include_prefix -I/usr/include/$fox_include_prefix"
    CPPFLAGS="$CPPFLAGS -I/usr/local/include -I/usr/include"
    export CPPFLAGS
    AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
    with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
-dnl   AC_CHECK_HEADER([$fox_include_prefix/fxver.h],[AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-dnl   with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
    CPPFLAGS=$save_cppflags
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_fox_includes"
    export CPPFLAGS
    AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
-dnl   AC_CHECK_HEADER([$fox_include_prefix/fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox includes not found in "$with_fox_includes".])])
    CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])

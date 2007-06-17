@@ -8,3 +8,5 @@ batch_recipients:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
 default:behrisch@informatik.hu-berlin.de
 gcc3report:gcc3test@fileserv
 msvc8report:msvc8test@TTSTest
+[run_dependent_text]
+output:Version

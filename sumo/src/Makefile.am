@@ -239,7 +239,19 @@ netedit_main.cpp \
 tagreader.cpp \
 windows_config.h
 
-#version.h: .svn/entries
-#	../tools/build/version.py
+if WITH_VERSION_H
+version.h: .svn/entries
+	../tools/build/version.py
 
-#od2trips_main.o: version.h
+sumo_main.o: version.h
+netconvert_main.o: version.h
+netgen_main.o: version.h
+duarouter_main.o: version.h
+dfrouter_main.o: version.h
+jtrrouter_main.o: version.h
+od2trips_main.o: version.h
+polyconvert_main.o: version.h
+if WITH_GUI
+guisim_main.o: version.h
+endif
+endif

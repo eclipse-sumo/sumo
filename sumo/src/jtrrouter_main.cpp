@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -187,7 +191,7 @@ main(int argc, char **argv)
         if (init_ret<0) {
             cout << "SUMO jtrrouter" << endl;
             cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION << endl;
+            cout << " Version " << VERSION_STRING << endl;
             switch (init_ret) {
             case -2:
                 OptionsSubSys::getOptions().printHelp(cout);

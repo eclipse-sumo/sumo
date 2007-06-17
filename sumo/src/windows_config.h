@@ -30,7 +30,7 @@
 #define OUTPUT_ACCURACY 2
 
 /* Version number of package */
-#define VERSION "0.9.6"
+#define VERSION_STRING "0.9.6"
 
 /* define to use DataReel sockets library */
 //#define USE_SOCKETS
