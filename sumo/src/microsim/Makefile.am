@@ -7,7 +7,7 @@ MSCORN.cpp MSCORN.h MSEdge.cpp MSEdge.h \
 MSEdgeContinuations.cpp MSEdgeContinuations.h \
 MSEdgeControl.cpp MSEdgeControl.h \
 MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \
-MSGlobals.cpp MSGlobals.h MSInterface_NetRun.h \
+MSGlobals.cpp MSGlobals.h \
 MSInternalJunction.cpp MSInternalJunction.h \
 MSInternalLane.cpp MSInternalLane.h MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \
