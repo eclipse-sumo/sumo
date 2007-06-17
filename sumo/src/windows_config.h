@@ -7,6 +7,7 @@
 
 /* Disable "identifier truncated in debug info" warnings. */
 #pragma warning(disable: 4786)
+/* Disable "C++ Exception Specification ignored" warnings */
 #pragma warning(disable: 4290)
 
 /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
@@ -29,8 +30,13 @@
 /* defines the number of digits after the comma in output */
 #define OUTPUT_ACCURACY 2
 
+/* Define if auto-generated version.h should be used. */
+//#define HAVE_VERSION_H 1
+
 /* Version number of package */
+#ifndef HAVE_VERSION_H
 #define VERSION_STRING "0.9.6"
+#endif
 
 /* define to use DataReel sockets library */
 //#define USE_SOCKETS
