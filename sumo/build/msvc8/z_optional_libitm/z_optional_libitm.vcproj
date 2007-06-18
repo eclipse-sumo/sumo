@@ -100,6 +100,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\..\..\src"
 				RuntimeLibrary="2"
 				WarningLevel="3"
