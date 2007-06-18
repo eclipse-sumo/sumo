@@ -9,3 +9,9 @@ The subfolders contain additional libraries used by SUMO:
  Used Version: 1.0
  Modifications: none
  Original Page: http://www-personal.engin.umich.edu/~wagnerr/MersenneTwister.html
+
+- tcpip
+ Simple TCP/IP Socket Class to communicate with other programs
+ Modifications: none
+ Original Page: http://shawn.sf.net
+ 
