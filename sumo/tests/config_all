@@ -10,3 +10,4 @@ gcc3report:gcc3test@fileserv
 msvc8report:msvc8test@TTSTest
 [run_dependent_text]
 output:Version
+errors:UTFDataFormatException
