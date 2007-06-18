@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="zz_foreign_tcpip"
-	ProjectGUID="{492B0B5A-0BBE-49BA-82E6-70A82DBC242F}"
-	RootNamespace="zz_foreign_tcpip"
+	Name="z_optional_libitm"
+	ProjectGUID="{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
+	RootNamespace="z_optional_libitm"
 	>
 	<Platforms>
 		<Platform
@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32"
+				AdditionalIncludeDirectories="..\..\..\src"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -100,10 +100,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				WholeProgramOptimization="true"
-				PreprocessorDefinitions="WIN32"
-				BasicRuntimeChecks="0"
+				AdditionalIncludeDirectories="..\..\..\src"
 				RuntimeLibrary="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -147,11 +144,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\foreign\tcpip\socket.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\tcpip\storage.cpp"
+				RelativePath="..\..\..\src\itm-remoteserver\remoteserver.cpp"
 				>
 			</File>
 		</Filter>
@@ -161,11 +154,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\foreign\tcpip\socket.h"
+				RelativePath="..\..\..\src\itm-remoteserver\remoteconstants.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\foreign\tcpip\storage.h"
+				RelativePath="..\..\..\src\itm-remoteserver\remoteserver.h"
 				>
 			</File>
 		</Filter>

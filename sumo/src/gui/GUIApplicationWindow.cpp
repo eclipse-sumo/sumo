@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <fx.h>
 #include <fx3d.h>
 #include <string>
@@ -228,7 +232,7 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
     */
     // set the caption
-    string caption = "SUMO " + string(VERSION) + " - no simulation loaded";
+    string caption = "SUMO " + string(VERSION_STRING) + " - no simulation loaded";
     setTitle(caption.c_str());
 
     // start the simulation-thread
@@ -996,7 +1000,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         }
 #endif
         // set simulation name on the caption
-        string caption = "SUMO " + string(VERSION) + " - " + ec->_file;
+        string caption = "SUMO " + string(VERSION_STRING) + " - " + ec->_file;
         setTitle(caption.c_str());
         ostringstream str;
         // set simulation step begin information
@@ -1162,7 +1166,7 @@ GUIApplicationWindow::closeAllWindows()
     delete gSimInfo;
     gSimInfo = 0;
     // reset the caption
-    string caption = "SUMO " + string(VERSION) + " - no simulation loaded";
+    string caption = "SUMO " + string(VERSION_STRING) + " - no simulation loaded";
     setTitle(caption.c_str());
     // delete other children
     while (myTrackerWindows.size()!=0) {
