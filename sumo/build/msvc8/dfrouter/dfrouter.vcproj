@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="dfrouter"
 	ProjectGUID="{171F8F50-AC6B-4FBC-9F6C-32C65F0A310C}"
+	RootNamespace="dfrouter"
 	Keyword="MFCProj"
 	>
 	<Platforms>
@@ -26,6 +27,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -76,7 +78,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
-				OutputFile=".\Debug/dfrouter.exe"
+				OutputFile=".\Debug/dfrouterD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreAllDefaultLibraries="false"
@@ -109,7 +111,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Debug\dfrouter.exe ..\..\..\bin\dfrouterD.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
@@ -124,6 +126,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -205,7 +208,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>

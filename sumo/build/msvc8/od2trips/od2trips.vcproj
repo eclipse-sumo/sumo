@@ -25,6 +25,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -106,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Release\od2trips.exe ..\..\..\bin\od2trips.exe&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
@@ -121,6 +122,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -171,7 +173,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib odbc32.lib odbccp32.lib $(NOINHERIT)"
-				OutputFile=".\Debug/od2trips.exe"
+				OutputFile=".\Debug/od2tripsD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
@@ -203,7 +205,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Debug\od2trips.exe ..\..\..\bin\od2tripsD.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>

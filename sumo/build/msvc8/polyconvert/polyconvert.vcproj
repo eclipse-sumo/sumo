@@ -25,6 +25,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -70,7 +71,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib"
-				OutputFile=".\Debug/polyconvert.exe"
+				OutputFile=".\Debug/polyconvertD.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
@@ -101,7 +102,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Debug\polyconvert.exe ..\..\..\bin\polyconvertD.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
@@ -116,6 +117,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -192,7 +194,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Release\polyconvert.exe ..\..\..\bin\polyconvert.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>

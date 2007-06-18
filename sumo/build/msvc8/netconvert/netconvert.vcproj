@@ -27,6 +27,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -77,7 +78,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT)"
-				OutputFile=".\Debug/netconvert.exe"
+				OutputFile=".\Debug/netconvertD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
@@ -109,7 +110,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
@@ -124,6 +125,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -205,7 +207,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Release\netconvert.exe ..\..\..\bin\netconvert.exe&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>

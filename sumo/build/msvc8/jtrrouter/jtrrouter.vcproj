@@ -25,6 +25,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -75,7 +76,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
-				OutputFile=".\Debug/jtrrouter.exe"
+				OutputFile=".\Debug/jtrrouterD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
@@ -107,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
@@ -122,6 +123,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -203,7 +205,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir ..\..\..\bin&#x0D;&#x0A;copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>
