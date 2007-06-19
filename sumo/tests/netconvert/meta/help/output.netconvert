@@ -1,14 +1,13 @@
-SUMO netconvert
+SUMO netconvert Version dev-SVN-r4156
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
- Version 0.9.6
  
 Road network importer / builder for the road traffic simulation SUMO.
 
-Usage: netconvert.exe [OPTION]*
+Usage: sumo-netconvert [OPTION]*
  
  Examples:
-  netconvert.exe -c <CONFIGURATION>
-  netconvert.exe -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
+  sumo-netconvert -c <CONFIGURATION>
+  sumo-netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -39,7 +38,6 @@ Usage: netconvert.exe [OPTION]*
  Output Options:
   -o, --output-file FILE               The generated net will be written to
                                          FILE
-  --binary-output                      
   --plain-output FILE                  Prefix of files to write nodes and edges
                                          to
   --node-geometry-dump FILE            Writes node corner positions to FILE

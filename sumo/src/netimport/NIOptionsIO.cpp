@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -63,9 +67,9 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("netconvert.exe");
+    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-netconvert");
+    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");

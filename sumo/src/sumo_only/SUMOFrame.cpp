@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -66,9 +70,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");
 #ifdef WIN32
-    oc.setApplicationName("sumo.exe");
+    oc.setApplicationName("sumo.exe", "SUMO sumo Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo");
+    oc.setApplicationName("sumo", "SUMO sumo Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
     oc.addCallExample("-c munich_config.cfg");

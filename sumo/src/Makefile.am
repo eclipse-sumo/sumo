@@ -27,7 +27,12 @@ bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
 sumo-duarouter sumo-dfrouter sumo-jtrrouter \
 sumo-od2trips sumo-polyconvert $(GUI_APPS)
 
-EXTRA_PROGRAMS =
+COMMON_LIBS = ./utils/options/liboptions.a \
+./utils/common/libcommon.a \
+./utils/xml/libxml.a \
+./utils/gfx/libgfx.a \
+./utils/importio/libimportio.a \
+./utils/iodevices/libiodevices.a
 
 sumo_SOURCES = sumo_main.cpp
 
@@ -48,12 +53,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./sumo_only/libsumoonly.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
-./utils/common/libcommon.a \
-./utils/options/liboptions.a \
-./utils/xml/libxml.a \
-./utils/gfx/libgfx.a \
-./utils/iodevices/libiodevices.a \
-./utils/common/SUMOVehicleClass.o \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(ITM_LIBS) \
 $(TCPIP_LIBS) \
@@ -84,11 +84,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
-./utils/gfx/libgfx.a \
-./utils/options/liboptions.a \
-./utils/common/libcommon.a \
-./utils/importio/libimportio.a \
-./utils/xml/libxml.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(TCPIP_LIBS) \
 $(XERCES_LIBS) \
@@ -105,10 +101,7 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
 ./utils/geom/libgeom.a \
-./utils/options/liboptions.a \
-./utils/common/libcommon.a \
-./utils/importio/libimportio.a \
-./utils/xml/libxml.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS) \
 $(PROJ_LIBS)
@@ -122,11 +115,7 @@ sumo_duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
-./utils/options/liboptions.a \
-./utils/common/libcommon.a \
-./utils/gfx/libgfx.a \
-./utils/xml/libxml.a \
-./utils/importio/libimportio.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
 
@@ -139,12 +128,8 @@ sumo_dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
-./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
-./utils/common/libcommon.a \
-./utils/gfx/libgfx.a \
-./utils/xml/libxml.a \
-./utils/importio/libimportio.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
 
@@ -157,11 +142,7 @@ sumo_jtrrouter_LDFLAGS = $(XERCES_LDFLAGS)
 sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
-./utils/options/liboptions.a \
-./utils/common/libcommon.a \
-./utils/gfx/libgfx.a \
-./utils/xml/libxml.a \
-./utils/importio/libimportio.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
 
@@ -175,10 +156,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/options/liboptions.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
-./utils/common/libcommon.a \
-./utils/importio/libimportio.a \
-./utils/gfx/libgfx.a \
-./utils/xml/libxml.a \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
 
@@ -190,12 +168,8 @@ sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
 ./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
-./utils/xml/libxml.a \
-./utils/importio/libimportio.a \
-./utils/gfx/libgfx.a \
 ./utils/shapes/libshapes.a \
-./utils/common/libcommon.a \
-./utils/xml/XMLSubSys.o \
+$(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS) \
 $(PROJ_LIBS)
@@ -220,7 +194,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
 $(sumo_LDADD) \
-./utils/importio/libimportio.a \
 ./utils/glutils/libglutils.a \
 ./gui/GUIManipulator.o \
 ./utils/gui/drawer/GUICompleteSchemeStorage.o \
@@ -242,16 +215,4 @@ windows_config.h
 if WITH_VERSION_H
 version.h: .svn/entries
 	../tools/build/version.py
-
-sumo_main.o: version.h
-netconvert_main.o: version.h
-netgen_main.o: version.h
-duarouter_main.o: version.h
-dfrouter_main.o: version.h
-jtrrouter_main.o: version.h
-od2trips_main.o: version.h
-polyconvert_main.o: version.h
-if WITH_GUI
-guisim_main.o: version.h
-endif
 endif

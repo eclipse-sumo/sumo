@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -62,9 +66,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
 #ifdef WIN32
-    oc.setApplicationName("dfrouter.exe");
+    oc.setApplicationName("dfrouter.exe", "SUMO dfrouter Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-dfrouter");
+    oc.setApplicationName("sumo-dfrouter", "SUMO dfrouter Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
 

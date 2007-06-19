@@ -74,9 +74,9 @@ fillOptions(OptionsCont &oc)
 {
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("polyconvert.exe");
+    oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-polyconvert");
+    oc.setApplicationName("sumo-polyconvert", "SUMO polyconvert Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -282,24 +282,13 @@ main(int argc, char **argv)
     try {
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions, 0);
         if (init_ret<0) {
-            cout << "SUMO polyconvert" << endl;
-            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION_STRING << endl;
-            switch (init_ret) {
-            case -2:
-                OptionsSubSys::getOptions().printHelp(cout);
-                break;
-            case -4:
-                break;
-            default:
-                cout << " Use --help to get the list of options." << endl;
-            }
+            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
         } else if (init_ret!=0) {
             throw ProcessError();
         }
-        // retrieve the options // gibt die Options aus der container zurück
+        // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
 
         // build the projection

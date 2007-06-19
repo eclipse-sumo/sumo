@@ -1,16 +1,15 @@
-SUMO netgen
+SUMO netgen Version dev-SVN-r4156
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
- Version 0.9.6
  
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: netgen.exe [OPTION]*
+Usage: sumo-netgen [OPTION]*
  
  Examples:
-  netgen.exe -c <CONFIGURATION>
-  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
-  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
-  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
+  sumo-netgen -c <CONFIGURATION>
+  sumo-netgen --grid-net [grid-network options] -o <OUTPUTFILE>
+  sumo-netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
+  sumo-netgen --random-net [random-network opts] -o <OUTPUTFILE>
  
  Either "--grid-net", "--spider-net" or "--random-net" must be 
   supplied. In dependance to these switches other options are used.
@@ -63,7 +62,6 @@ Usage: netgen.exe [OPTION]*
  Output Options:
   -o, --output-file FILE               The generated net will be written to
                                          FILE
-  --binary-output                      
   --plain-output FILE                  Prefix of files to write nodes and edges
                                          to
   --node-geometry-dump FILE            Writes node corner positions to FILE

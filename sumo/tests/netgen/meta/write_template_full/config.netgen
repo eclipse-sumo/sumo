@@ -36,7 +36,6 @@
 
    <output>
       <output-file>net.net.xml</output-file>
-      <binary-output>false</binary-output>
       <plain-output></plain-output>
       <node-geometry-dump></node-geometry-dump>
       <map-output></map-output>

@@ -73,11 +73,11 @@ SystemFrame::init(bool gui, int argc, char **argv,
         return 2;
     }
     // initialise the options-subsystem
+    bool iret = OptionsSubSys::init(!gui, argc, argv, fill_f, check_f);
     if (argc<2&&!gui) {
         // no options are given
         return -3;
     }
-    bool iret = OptionsSubSys::init(!gui, argc, argv, fill_f, check_f);
     // check whether the help shall be printed
     if (OptionsSubSys::getOptions().getBool("help")) {
         //HelpPrinter::print(help);

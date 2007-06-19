@@ -120,9 +120,9 @@ fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("netgen.exe");
+    oc.setApplicationName("netgen.exe", "SUMO netgen Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-netgen");
+    oc.setApplicationName("sumo-netgen", "SUMO netgen Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("--grid-net [grid-network options] -o <OUTPUTFILE>");
@@ -329,18 +329,7 @@ main(int argc, char **argv)
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if (init_ret<0) {
-            cout << "SUMO netgen" << endl;
-            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION_STRING << endl;
-            switch (init_ret) {
-            case -2:
-                OptionsSubSys::getOptions().printHelp(cout);
-                break;
-            case -4:
-                break;
-            default:
-                cout << " Use --help to get the list of options." << endl;
-            }
+            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
         } else if (init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {

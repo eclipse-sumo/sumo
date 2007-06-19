@@ -405,9 +405,9 @@ fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("guisim.exe");
+    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-guisim");
+    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("");
     oc.addCallExample("-c <CONFIGURATION>");
@@ -439,18 +439,7 @@ main(int argc, char **argv)
 #endif
         int init_ret = SystemFrame::init(true, argc, argv, fillOptions);
         if (init_ret<0) {
-            cout << "SUMO guisim" << endl;
-            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION_STRING << endl;
-            switch (init_ret) {
-            case -2:
-                OptionsSubSys::getOptions().printHelp(cout);
-                break;
-            case -4:
-                break;
-            default:
-                cout << " Use --help to get the list of options." << endl;
-            }
+            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
         } else if (init_ret!=0||!GUIFrame::checkInitOptions(OptionsSubSys::getOptions())) {

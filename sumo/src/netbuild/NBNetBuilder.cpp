@@ -83,18 +83,11 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
     // save network
-    bool ok = true;
-    if (!oc.getBool("binary-output")) {
-        ofstream res(oc.getString("o").c_str());
-        if (res.good()) {
-            save(res, oc);
-        } else {
-            ok = false;
-        }
-    } else {}
-    if (!ok) {
+    ofstream res(oc.getString("o").c_str());
+    if (res.good()) {
+        save(res, oc);
+    } else {
         throw ProcessError("Could not save net to '" + oc.getString("o") + "'.");
-
     }
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
@@ -400,60 +393,58 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 bool
 NBNetBuilder::save(ostream &res, OptionsCont &oc)
 {
-    if (!oc.getBool("binary-output")) {
-        // print the computed values
-        res << "<net>" << endl << endl;
-        res.setf(ios::fixed , ios::floatfield);
-        // write network offsets
-        res << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>" << endl;
-        res << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>" << endl;
-        res << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>" << endl;
-        if (!oc.getBool("use-projection")) {
-            res << "   <orig-proj>!</orig-proj>" << endl;
-        } else if (oc.getBool("proj.simple")) {
-            res << "   <orig-proj>-</orig-proj>" << endl;
-        } else {
-            res << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>" << endl;
-        }
-        res << endl;
-        res << setprecision(OUTPUT_ACCURACY);
-
-        // write the numbers of some elements
-        // edges
-        std::vector<std::string> ids;
-        if (oc.getBool("add-internal-links")) {
-            ids = myNodeCont.getInternalNamesList();
-        }
-        myEdgeCont.writeXMLEdgeList(res, ids);
-        if (oc.getBool("add-internal-links")) {
-            myNodeCont.writeXMLInternalLinks(res);
-        }
-
-        // write the number of nodes
-        myNodeCont.writeXMLNumber(res);
-        res << endl;
-        // write the districts
-        myDistrictCont.writeXML(res);
-        // write edges with lanes and connected edges
-        myEdgeCont.writeXMLStep1(res);
-        // write the logics
-        myJunctionLogicCont.writeXML(res);
-        myTLLCont.writeXML(res);
-        // write the nodes
-        myNodeCont.writeXML(res);
-        // write internal nodes
-        if (oc.getBool("add-internal-links")) {
-            myNodeCont.writeXMLInternalNodes(res);
-        }
-        // write the successors of lanes
-        myEdgeCont.writeXMLStep2(res, oc.getBool("add-internal-links"));
-        if (oc.getBool("add-internal-links")) {
-            myNodeCont.writeXMLInternalSuccInfos(res);
-        }
-        res << "</net>" << endl;
+    // print the header
+    oc.writeXMLHeader(res);
+    // print the computed values
+    res << "<net>" << endl << endl;
+    res.setf(ios::fixed , ios::floatfield);
+    // write network offsets
+    res << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>" << endl;
+    res << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>" << endl;
+    res << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>" << endl;
+    if (!oc.getBool("use-projection")) {
+        res << "   <orig-proj>!</orig-proj>" << endl;
+    } else if (oc.getBool("proj.simple")) {
+        res << "   <orig-proj>-</orig-proj>" << endl;
     } else {
-//        res << setmode(os::binary);
+        res << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>" << endl;
     }
+    res << endl;
+    res << setprecision(OUTPUT_ACCURACY);
+
+    // write the numbers of some elements
+    // edges
+    std::vector<std::string> ids;
+    if (oc.getBool("add-internal-links")) {
+        ids = myNodeCont.getInternalNamesList();
+    }
+    myEdgeCont.writeXMLEdgeList(res, ids);
+    if (oc.getBool("add-internal-links")) {
+        myNodeCont.writeXMLInternalLinks(res);
+    }
+
+    // write the number of nodes
+    myNodeCont.writeXMLNumber(res);
+    res << endl;
+    // write the districts
+    myDistrictCont.writeXML(res);
+    // write edges with lanes and connected edges
+    myEdgeCont.writeXMLStep1(res);
+    // write the logics
+    myJunctionLogicCont.writeXML(res);
+    myTLLCont.writeXML(res);
+    // write the nodes
+    myNodeCont.writeXML(res);
+    // write internal nodes
+    if (oc.getBool("add-internal-links")) {
+        myNodeCont.writeXMLInternalNodes(res);
+    }
+    // write the successors of lanes
+    myEdgeCont.writeXMLStep2(res, oc.getBool("add-internal-links"));
+    if (oc.getBool("add-internal-links")) {
+        myNodeCont.writeXMLInternalSuccInfos(res);
+    }
+    res << "</net>" << endl;
     return true;
 }
 
@@ -480,9 +471,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
-
-    oc.doRegister("binary-output", new Option_Bool(false));
-    oc.addDescription("binary-output", "Output", "");
 
     oc.doRegister("plain-output", new Option_FileName());
     oc.addDescription("plain-output", "Output", "Prefix of files to write nodes and edges to");

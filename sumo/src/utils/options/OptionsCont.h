@@ -164,7 +164,7 @@ public:
     void clear();
 
     /// Sets the application name
-    void setApplicationName(const std::string &appName);
+    void setApplicationName(const std::string &appName, const std::string &fullName);
 
     /// Sets the application description
     void setApplicationDescription(const std::string &appDesc);
@@ -179,11 +179,14 @@ public:
     void addOptionSubTopic(const std::string &topic);
 
     /// Prints the help
-    void printHelp(std::ostream &os);
+    void printHelp(std::ostream &os, bool fullHelp, bool suppressInfoline);
 
-    // writes the configuration
+    /// Writes the configuration
     void writeConfiguration(std::ostream &os, bool filled,
                             bool complete, bool addComments);
+
+    /// Writes a standard XML header, including the configuration
+    void writeXMLHeader(std::ostream &os);
 
 private:
     /** returns the named option */
@@ -215,7 +218,7 @@ private:
     KnownContType myValues;
 
     /// some information on the application
-    std::string myAppName, myAppDescription, myAdditionalMessage;
+    std::string myAppName, myFullName, myAppDescription, myAdditionalMessage;
 
     /// lists of call examples and option subtopics
     std::vector<std::string> myCallExamples, mySubTopics;

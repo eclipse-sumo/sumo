@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -189,18 +185,7 @@ main(int argc, char **argv)
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv, ROJTRFrame::fillOptions);
         if (init_ret<0) {
-            cout << "SUMO jtrrouter" << endl;
-            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION_STRING << endl;
-            switch (init_ret) {
-            case -2:
-                OptionsSubSys::getOptions().printHelp(cout);
-                break;
-            case -4:
-                break;
-            default:
-                cout << " Use --help to get the list of options." << endl;
-            }
+            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
         } else if (init_ret!=0||!ROJTRFrame::checkOptions(OptionsSubSys::getOptions())) {

@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -61,9 +65,9 @@ ROJTRFrame::fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
 #ifdef WIN32
-    oc.setApplicationName("jtrrouter.exe");
+    oc.setApplicationName("jtrrouter.exe", "SUMO jtrrouter Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-jtrrouter");
+    oc.setApplicationName("sumo-jtrrouter", "SUMO jtrrouter Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
 

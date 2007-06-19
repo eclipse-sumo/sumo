@@ -1,14 +1,13 @@
-SUMO duarouter
+SUMO duarouter Version dev-SVN-r4156
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
- Version 0.9.6
  
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
 
-Usage: duarouter.exe [OPTION]*
+Usage: sumo-duarouter [OPTION]*
  
  Example:
-  duarouter.exe -c <CONFIGURATION>
+  sumo-duarouter -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup

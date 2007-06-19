@@ -79,9 +79,9 @@ fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("od2trips.exe");
+    oc.setApplicationName("od2trips.exe", "SUMO od2trips Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-od2trips");
+    oc.setApplicationName("sumo-od2trips", "SUMO od2trips Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -469,18 +469,7 @@ main(int argc, char **argv)
         // initialise subsystems
         int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
         if (init_ret<0) {
-            cout << "SUMO od2trips" << endl;
-            cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-            cout << " Version " << VERSION_STRING << endl;
-            switch (init_ret) {
-            case -2:
-                OptionsSubSys::getOptions().printHelp(cout);
-                break;
-            case -4:
-                break;
-            default:
-                cout << " Use --help to get the list of options." << endl;
-            }
+            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
         } else if (init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {

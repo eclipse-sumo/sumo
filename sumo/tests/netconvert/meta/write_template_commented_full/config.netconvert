@@ -49,9 +49,6 @@
       <!-- The generated net will be written to FILE -->
       <output-file>net.net.xml</output-file>
 
-      <!--  -->
-      <binary-output>false</binary-output>
-
       <!-- Prefix of files to write nodes and edges to -->
       <plain-output></plain-output>
 

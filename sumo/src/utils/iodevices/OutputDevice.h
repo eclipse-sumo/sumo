@@ -63,7 +63,7 @@ public:
         If not, one has to use the "writeString" API */
     virtual bool supportsStreams() const = 0;
 
-    /// Returns the assiciated ostream
+    /// Returns the associated ostream
     virtual std::ostream &getOStream() = 0;
 
     //{

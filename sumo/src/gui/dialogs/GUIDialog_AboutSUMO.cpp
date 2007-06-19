@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include "GUIDialog_AboutSUMO.h"
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/foxtools/FXLinkLabel.h>
@@ -190,7 +194,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     FXVerticalFrame *f4 =
         new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,   20,0,0,0);
     FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FONTWEIGHT_BOLD);
-    FXLabel *l = new FXLabel(f4, "SUMO 0.9", 0,
+    FXLabel *l = new FXLabel(f4, (FXString)"SUMO " + VERSION_STRING, 0,
                              LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
                              0,0,0,0, 0,0,0,0);
     l->setFont(fnt);

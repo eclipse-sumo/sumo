@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -61,9 +65,9 @@ RODUAFrame::fillOptions(OptionsCont &oc)
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("duarouter.exe");
+    oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-duarouter");
+    oc.setApplicationName("sumo-duarouter", "SUMO duarouter Version " + (string)VERSION_STRING);
 #endif
     oc.addCallExample("-c <CONFIGURATION>");
 
