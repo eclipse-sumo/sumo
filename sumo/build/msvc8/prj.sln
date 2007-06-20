@@ -95,6 +95,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcproj", 
 		{5F43A81C-7E48-4651-9714-66006C0A87B6} = {5F43A81C-7E48-4651-9714-66006C0A87B6}
 		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
 		{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47} = {FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
@@ -239,6 +240,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "zz_foreign_tcpip\zz_foreign_tcpip.vcproj", "{492B0B5A-0BBE-49BA-82E6-70A82DBC242F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_optional_libitm", "z_optional_libitm\z_optional_libitm.vcproj", "{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
