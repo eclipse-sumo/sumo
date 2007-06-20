@@ -8,4 +8,4 @@ config:config.cfg
 
 [run_dependent_text]
 output:netgen.exe{REPLACE sumo-netgen}
-
+net:Version

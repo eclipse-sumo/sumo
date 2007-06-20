@@ -14,4 +14,4 @@ config:config.cfg
 
 [run_dependent_text]
 output:netconvert.exe{REPLACE sumo-netconvert}
-
+net:Version
