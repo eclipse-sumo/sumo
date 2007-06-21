@@ -33,8 +33,20 @@
 #include <map>
 #include <vector>
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class MSEdge;
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MSEdgeContinuations
+ *
+ * Stores predeccessor-successor-relations of MSEdges.
+ */
 class MSEdgeContinuations
 {
 public:
