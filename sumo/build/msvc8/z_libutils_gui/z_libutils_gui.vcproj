@@ -249,14 +249,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIIOGlobals.cpp"
 				>
 			</File>
@@ -302,10 +294,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp"
 				>
 			</File>
 			<File
@@ -487,18 +475,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIIcons.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIIconSubSys.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUIImageGlobals.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIInterface_GridNet.h"
 				>
 			</File>
@@ -563,14 +539,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUITextures.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\images\GUITexturesHelper.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\tracker\GUITLLogicPhasesTrackerWindow.h"
 				>
 			</File>
@@ -582,12 +550,6 @@
 				RelativePath="..\..\..\src\utils\gui\tracker\TrackerValueDesc.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Ressourcendateien"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
 		</Filter>
 	</Files>
 	<Globals>

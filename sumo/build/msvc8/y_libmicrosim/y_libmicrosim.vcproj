@@ -172,94 +172,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledDet.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSBuildCells.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.cpp"
 				>
 			</File>
 			<File
@@ -297,35 +210,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.cpp"
 				>
 			</File>
 			<File
@@ -406,10 +290,6 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSEmitter.cpp"
-				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEventControl.cpp"
@@ -616,61 +496,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2002.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2004.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_Krauss.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -990,22 +816,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSUnit.cpp"
 				>
 				<FileConfiguration
@@ -1158,56 +968,7 @@
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
-			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\CastingFunctionBinding.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledDet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\FuncBinding_UIntParam.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\FunctionBinding.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_Single.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_TimeFixed.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_TimeFloating.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSAbstractLaneChangeModel.h"
 				>
@@ -1218,10 +979,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSBuildCells.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.h"
 				>
 			</File>
 			<File
@@ -1241,14 +998,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSEdge.h"
 				>
 			</File>
@@ -1262,10 +1011,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEmitControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSEmitter.h"
 				>
 			</File>
 			<File
@@ -1305,19 +1050,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2002.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2004.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_Krauss.h"
 				>
 			</File>
 			<File
@@ -1365,10 +1098,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSPredicates.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSRightOfWayJunction.h"
 				>
 			</File>
@@ -1389,31 +1118,11 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSSaveState.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSSpaceMeanSpeed.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTrigger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.h"
 				>
 			</File>
 			<File
@@ -1438,6 +1147,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSVehicleControl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSVehicleQuitReminded.h"
 				>
 			</File>
 			<File

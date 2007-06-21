@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -119,7 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,..\..\..\src"
 				PreprocessorDefinitions="FOXDLL;WIN32;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="2"
