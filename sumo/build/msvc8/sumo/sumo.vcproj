@@ -45,7 +45,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;ABS_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -67,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -146,7 +145,6 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -274,14 +272,13 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\windows_config.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Ressourcendateien"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 	</Files>
 	<Globals>

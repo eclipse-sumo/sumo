@@ -51,7 +51,7 @@
 #define HAVE_PROJ 1
 
 /* define to use nvwa for memory leak checking */
-#define CHECK_MEMORY_LEAKS 1
+//#define CHECK_MEMORY_LEAKS 1
 
 /* define to use itm remote server code */
 //#define ITM 1

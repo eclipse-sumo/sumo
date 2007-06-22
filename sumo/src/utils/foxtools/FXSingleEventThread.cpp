@@ -1,9 +1,6 @@
 /* =========================================================================
- * compiler pragmas
+ * included modules
  * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else

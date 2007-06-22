@@ -47,7 +47,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -69,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -148,7 +147,6 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -341,15 +339,6 @@
 				RelativePath="..\..\..\src\routing_df\RODFNetHandler.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\windows_config.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Ressourcendateien"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 	</Files>
 	<Globals>

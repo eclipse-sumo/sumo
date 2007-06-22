@@ -20,22 +20,14 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
 *********************************************************************************/
 /* =========================================================================
- * compiler pragmas
+ * included modules
  * ======================================================================= */
-#pragma warning(disable: 4786)
-
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif
 
-
-/* #ifdef WIN32
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif / patch by Daniel Krajzewicz 24.02.2004 */
 #include <fxver.h>
 #include <xincs.h>
 #include <fxdefs.h>

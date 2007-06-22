@@ -42,7 +42,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -60,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -117,7 +116,6 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include;..\..\..\src"
-				PreprocessorDefinitions="WIN32;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

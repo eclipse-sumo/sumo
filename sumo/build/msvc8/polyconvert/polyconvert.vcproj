@@ -45,7 +45,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\Debug/polyconvert.pch"
@@ -62,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -138,7 +137,6 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
-				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -425,15 +423,6 @@
 				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\windows_config.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Ressourcendateien"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 	</Files>
 	<Globals>

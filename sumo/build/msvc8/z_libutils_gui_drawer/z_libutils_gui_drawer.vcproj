@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="z_libmicrosim_actions"
-	ProjectGUID="{A54D4A8B-9520-40F0-B8CB-152BF506CB47}"
-	RootNamespace="z_libmicrosim_actions"
+	Name="z_libutils_gui_drawer"
+	ProjectGUID="{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
+	RootNamespace="z_libutils_gui_drawer"
 	>
 	<Platforms>
 		<Platform
@@ -40,7 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX14)\include,..\..\..\src"
+				PreprocessorDefinitions=""
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -101,7 +102,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX14)\include,..\..\..\src"
+				PreprocessorDefinitions=""
 				RuntimeLibrary="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -145,27 +147,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledDet.cpp"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.cpp"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradients.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.cpp"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.cpp"
 				>
 			</File>
 		</Filter>
@@ -175,27 +165,63 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledDet.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIBaseColorer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLCoupledLaneDet.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ByDeviceNumber.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSState.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ByDeviceState.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitches.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ByOptCORNValue.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ColorSettingFunction.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.h"
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_LaneBySelection.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByCastedFunctionValue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_SingleColor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradients.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneRepresentation.h"
 				>
 			</File>
 		</Filter>
