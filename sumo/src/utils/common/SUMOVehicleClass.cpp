@@ -28,8 +28,14 @@
 #include <config.h>
 #endif
 
-#include "SUMOVehicleClass.h"
 #include <string>
+#include "SUMOVehicleClass.h"
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
+
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
@@ -59,6 +65,9 @@ std::string sSVC_BICYCLE("bicycle");
 std::string sSVC_PEDESTRIAN("pedestrian");
 
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 std::string
 getVehicleClassName(SUMOVehicleClass id)
 {

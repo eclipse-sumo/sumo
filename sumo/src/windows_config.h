@@ -15,11 +15,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-/* Name of package */
-#define PACKAGE "sumo"
+#ifndef WIN32
+#define WIN32
+#endif
 
-/* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS 1
+/* Define for dynamic Fox linkage */
+#define FOXDLL 1
 
 /* defines the precision of floats */
 #define SUMOReal float
@@ -50,7 +51,7 @@
 #define HAVE_PROJ 1
 
 /* define to use nvwa for memory leak checking */
-//#define CHECK_MEMORY_LEAKS 1
+#define CHECK_MEMORY_LEAKS 1
 
 /* define to use itm remote server code */
 //#define ITM 1

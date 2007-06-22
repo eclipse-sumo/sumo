@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -31,10 +30,19 @@
 
 #include "GUIUserIO.h"
 
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
+
+
 #ifdef WIN32
 #include <windows.h>
+#endif
 
-
+// ===========================================================================
+// method definitions
+// ===========================================================================
+#ifdef WIN32
 void
 GUIUserIO::copyToClipboard(FXApp *app, const std::string &text)
 {

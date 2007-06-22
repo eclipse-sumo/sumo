@@ -1,10 +1,4 @@
 /* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef _MSC_VER
@@ -18,6 +12,10 @@
 #endif
 
 #include "FXLinkLabel.h"
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 FXint fxexecute(FXString link)

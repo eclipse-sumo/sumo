@@ -50,7 +50,6 @@
 #include "MSMoveReminder.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
-#include "lanechanging/MSLCM_Krauss.h"
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
