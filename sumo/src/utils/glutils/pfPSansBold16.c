@@ -14,6 +14,15 @@ before using this file.
 
    -------------------------------------------------- */
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include "polyfonttypes.h"
 //#include "../sgl.h"
 
