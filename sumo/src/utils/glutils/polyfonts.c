@@ -27,12 +27,6 @@
   Bob@Pendleton.com
 */
 
-#ifdef WIN32
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>

@@ -14,12 +14,6 @@ before using this file.
 
    -------------------------------------------------- */
 
-#ifdef WIN32
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif
-
 #include "polyfonttypes.h"
 //#include "../sgl.h"
 
