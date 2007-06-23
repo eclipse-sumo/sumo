@@ -36,6 +36,8 @@
  *
  */
 
+#ifdef CHECK_MEMORY_LEAKS
+
 #include <new>
 #include <assert.h>
 #include <limits.h>
@@ -689,3 +691,5 @@ __debug_new_counter::~__debug_new_counter()
 #endif
         }
 }
+
+#endif // CHECK_MEMORY_LEAKS
