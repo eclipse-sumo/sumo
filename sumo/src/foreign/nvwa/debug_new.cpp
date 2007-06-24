@@ -36,6 +36,12 @@
  *
  */
 
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 
 #include <new>
