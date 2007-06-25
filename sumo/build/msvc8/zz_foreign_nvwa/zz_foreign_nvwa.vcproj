@@ -39,6 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\..\..\src"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -100,6 +101,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="..\..\..\src"
 				RuntimeLibrary="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -146,28 +148,12 @@
 				RelativePath="..\..\..\src\foreign\nvwa\debug_new.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\mem_pool_base.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\static_mem_pool.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\class_level_lock.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\cont_ptr_utils.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\foreign\nvwa\debug_new.h"
 				>
@@ -177,31 +163,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\foreign\nvwa\fixed_mem_pool.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\mem_pool_base.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\object_level_lock.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\pctimer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\set_assign.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\foreign\nvwa\static_assert.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\nvwa\static_mem_pool.h"
 				>
 			</File>
 		</Filter>
