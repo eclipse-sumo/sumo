@@ -137,13 +137,13 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
         }
     }
     // check whether the forward direction has a higher priority
-    //  get the forward direction
+        //  try to get the forward direction
     vector<NBEdge*> tmp(outgoing);
     sort(tmp.begin(), tmp.end(),
          NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
-    // check whether it has a higher priority
-    if (edge->getJunctionPriority(to)==1) {
+        // check whether it has a higher priority and is going straight
+    if (edge->getJunctionPriority(to)==1 && to->getMMLDirection(parent, edge)==MMLDIR_STRAIGHT) {
         _dirs.push_back(MainDirections::DIR_FORWARD);
     }
 }
@@ -1112,7 +1112,7 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
     //  a virtual edge is used as a replacement for a real edge from now on
     //  it shall ollow to divide the existing lanes on this structure without
     //  regarding the structure of outgoing edges
-    sumResulting += minResulting / 2;
+    sumResulting += minResulting / (SUMOReal) 2.;
     size_t noVirtual = (size_t)(sumResulting / minResulting);
     // compute the transition from virtual to real edges
     vector<NBEdge*> transition;
