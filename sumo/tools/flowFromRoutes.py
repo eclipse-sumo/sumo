@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # This script recreates a flow file from routes and emitters.
 import math, string, sys
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
-MAX_POS_DEVIATION = 1
+MAX_POS_DEVIATION = 10
 
 class DetectorData:
 
@@ -47,9 +47,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._detData = {}
         self._parser = make_parser()
         self._parser.setContentHandler(self)
+        self._isGroupValid = True
 
     def startElement(self, name, attrs):
-        if name == 'detector_definition':
+        if name == 'group':
+            self._isGroupValid = attrs.get('valid', "1") == "1"
+        elif name == 'detector_definition':
+            if not self._isGroupValid:
+                return
             edge = attrs['lane'][0:-2]
             if not edge in self._edge2det:
                 self._edge2det[edge] = DetectorData()

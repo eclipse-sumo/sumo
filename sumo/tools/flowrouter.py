@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # This script does flow routing similar to the dfrouter.
 # It has three mandatory parameters, the SUMO net (.net.xml), a file
 # specifying detectors and one for the flows. It may detect the type
@@ -9,7 +9,7 @@ import os, random, string, sys
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
-MAX_POS_DEVIATION = 1
+MAX_POS_DEVIATION = 10
 
 # Vertex class which stores incoming and outgoing edges as well as
 # auxiliary data for the flow computation. The members are accessed
@@ -454,6 +454,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         self._edge = ''
         self._lane2edge = {}
         self._det2edge = {}
+        self._isGroupValid = True
 
     def startElement(self, name, attrs):
         if name == 'edges':
@@ -471,7 +472,11 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
             edgeObj.length = float(attrs['length'])
+        elif name == 'group':
+            self._isGroupValid = attrs.get('valid', "1") == "1"
         elif name == 'detector_definition':
+            if not self._isGroupValid:
+                return
             if not attrs['lane'] in self._lane2edge:
                 warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
                 return
