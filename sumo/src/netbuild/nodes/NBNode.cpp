@@ -2069,12 +2069,15 @@ NBNode::addTrafficLight(NBTrafficLightDefinition *tld)
 NBMMLDirection
 NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
 {
+    // ok, no connection at all -> dead end
     if (outgoing==0) {
         return MMLDIR_NODIR;
     }
+    // turning direction
     if (incoming->isTurningDirectionAt(this, outgoing)) {
         return MMLDIR_TURN;
     }
+    // get the angle between incoming/outgoing at the junction
     SUMOReal angle =
         NBHelpers::normRelAngle(
             incoming->getAngle(), outgoing->getAngle());
@@ -2083,7 +2086,6 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
         return MMLDIR_STRAIGHT;
     }
 
-    NBMMLDirection tmp;
     // check for left and right, first
     if (angle>0) {
         // check whether any othe edge outgoes further to right
@@ -2110,7 +2112,8 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
         }
         return MMLDIR_LEFT;
     }
-    return tmp;
+    /// !!! probably an error should be throw, here
+    return MMLDIR_NODIR;
 }
 
 

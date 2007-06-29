@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// 	»missingDescription«
+// 	Possible directional types of lane-to-lane connections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -34,14 +34,40 @@
 // ===========================================================================
 // enumerations
 // ===========================================================================
+/**
+ * @enum NBMMLDirection
+ * @brief Possible directional types of lane-to-lane connections
+ *
+ * A link between an incoming and an outgoing lane has an abstract direction.
+ *  This direction is used within the gui to show the arrows at a lane's end.
+ *
+ * During network building, this direction information is used when building
+ *  internal edges. In fact, this should be rechecked.
+ *
+ * @todo recheck usage within the computation of internal lanes, regard using something different
+ */
 enum NBMMLDirection {
+    /// dead-end
     MMLDIR_NODIR,
+
+    /// The link goes straight
     MMLDIR_STRAIGHT,
+
+    /// The link is a turnaround link
     MMLDIR_TURN,
+
+    /// The link turns left
     MMLDIR_LEFT,
+
+    /// The link turns right
     MMLDIR_RIGHT,
+
+    /// The link turns left, but not too much
     MMLDIR_PARTLEFT,
+
+    /// The link turns right, but not too much
     MMLDIR_PARTRIGHT
+
 };
 
 
