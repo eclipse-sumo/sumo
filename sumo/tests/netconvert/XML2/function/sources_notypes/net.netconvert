@@ -1,3 +1,20 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/29/07 15:48:46 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>input_nodes.nod.xml</xml-node-files>
+      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>500.000000,0.000000</net-offset>
@@ -19,7 +36,7 @@
 
    <edge id="2" from="dr" to="tr" priority="2" type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" vclasses="" maxspeed="28.00" length="297.98">1701.56,0.14 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.08 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="28.00" length="297.98">1701.56,0.14 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
       </lanes>
       <cedge id="3">2_0</cedge>
    </edge>
