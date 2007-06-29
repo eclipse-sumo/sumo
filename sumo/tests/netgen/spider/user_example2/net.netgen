@@ -1,3 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/29/07 10:24:45 by SUMO netgen Version 0.9.6
+<configuration>
+
+   <spider_network>
+      <spider-net>true</spider-net>
+      <spider-arm-number>4</spider-arm-number>
+      <spider-circle-number>3</spider-circle-number>
+      <spider-space-rad>100</spider-space-rad>
+   </spider_network>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>300.000000,300.000000</net-offset>
@@ -821,7 +840,7 @@
    </succ>
 
    <succ edge="1/1to2/1" lane="1/1to2/1_0" junction="2/1">
-      <succlane lane="2/1to2/2_0" yield="1" dir="r" state="m"/>
+      <succlane lane="2/1to2/2_0" yield="1" dir="s" state="m"/>
       <succlane lane="2/1to3/1_0" yield="1" dir="L" state="m"/>
       <succlane lane="2/1to1_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/1to1/1_0" yield="1" dir="t" state="m"/>
@@ -830,14 +849,14 @@
    <succ edge="1/1to4/1" lane="1/1to4/1_0" junction="4/1">
       <succlane lane="4/1to1_0" yield="1" dir="r" state="m"/>
       <succlane lane="4/1to3/1_0" yield="1" dir="R" state="m"/>
-      <succlane lane="4/1to4/2_0" yield="1" dir="s" state="m"/>
+      <succlane lane="4/1to4/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="4/1to1/1_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="1/2to1/1" lane="1/2to1/1_0" junction="1/1">
-      <succlane lane="1/1to2/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1/1to2/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/1to1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/1to4/1_0" yield="1" dir="s" state="m"/>
+      <succlane lane="1/1to4/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/1to1/2_0" yield="1" dir="t" state="m"/>
    </succ>
 
@@ -848,7 +867,7 @@
    </succ>
 
    <succ edge="1/2to2/2" lane="1/2to2/2_0" junction="2/2">
-      <succlane lane="2/2to2/3_0" yield="1" dir="r" state="m"/>
+      <succlane lane="2/2to2/3_0" yield="1" dir="s" state="m"/>
       <succlane lane="2/2to3/2_0" yield="1" dir="L" state="m"/>
       <succlane lane="2/2to2/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/2to1/2_0" yield="1" dir="t" state="m"/>
@@ -857,14 +876,14 @@
    <succ edge="1/2to4/2" lane="1/2to4/2_0" junction="4/2">
       <succlane lane="4/2to4/1_0" yield="1" dir="r" state="m"/>
       <succlane lane="4/2to3/2_0" yield="1" dir="R" state="m"/>
-      <succlane lane="4/2to4/3_0" yield="1" dir="s" state="m"/>
+      <succlane lane="4/2to4/3_0" yield="1" dir="l" state="m"/>
       <succlane lane="4/2to1/2_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="1/3to1/2" lane="1/3to1/2_0" junction="1/2">
-      <succlane lane="1/2to2/2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1/2to2/2_0" yield="0" dir="r" state="M"/>
       <succlane lane="1/2to1/1_0" yield="0" dir="s" state="M"/>
-      <succlane lane="1/2to4/2_0" yield="1" dir="s" state="m"/>
+      <succlane lane="1/2to4/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="1/2to1/3_0" yield="1" dir="t" state="m"/>
    </succ>
 
@@ -944,7 +963,7 @@
    </succ>
 
    <succ edge="2/2to2/1" lane="2/2to2/1_0" junction="2/1">
-      <succlane lane="2/1to3/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="2/1to3/1_0" yield="0" dir="r" state="M"/>
       <succlane lane="2/1to1_0" yield="0" dir="s" state="M"/>
       <succlane lane="2/1to1/1_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/1to2/2_0" yield="1" dir="t" state="m"/>
@@ -970,7 +989,7 @@
    </succ>
 
    <succ edge="2/3to2/2" lane="2/3to2/2_0" junction="2/2">
-      <succlane lane="2/2to3/2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="2/2to3/2_0" yield="0" dir="r" state="M"/>
       <succlane lane="2/2to2/1_0" yield="0" dir="s" state="M"/>
       <succlane lane="2/2to1/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="2/2to2/3_0" yield="1" dir="t" state="m"/>
@@ -1073,7 +1092,7 @@
    <succ edge="4/1to3/1" lane="4/1to3/1_0" junction="3/1">
       <succlane lane="3/1to1_0" yield="1" dir="r" state="m"/>
       <succlane lane="3/1to2/1_0" yield="1" dir="R" state="m"/>
-      <succlane lane="3/1to3/2_0" yield="1" dir="s" state="m"/>
+      <succlane lane="3/1to3/2_0" yield="1" dir="l" state="m"/>
       <succlane lane="3/1to4/1_0" yield="1" dir="t" state="m"/>
    </succ>
 
@@ -1094,7 +1113,7 @@
    <succ edge="4/2to3/2" lane="4/2to3/2_0" junction="3/2">
       <succlane lane="3/2to3/1_0" yield="1" dir="r" state="m"/>
       <succlane lane="3/2to2/2_0" yield="1" dir="R" state="m"/>
-      <succlane lane="3/2to3/3_0" yield="1" dir="s" state="m"/>
+      <succlane lane="3/2to3/3_0" yield="1" dir="l" state="m"/>
       <succlane lane="3/2to4/2_0" yield="1" dir="t" state="m"/>
    </succ>
 
