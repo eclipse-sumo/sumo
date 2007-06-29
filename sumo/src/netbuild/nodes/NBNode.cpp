@@ -2079,7 +2079,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
         NBHelpers::normRelAngle(
             incoming->getAngle(), outgoing->getAngle());
     // ok, should be a straight connection
-    if (abs(angle)<45) {
+    if (abs((int) angle)+1<45) {
         return MMLDIR_STRAIGHT;
     }
 
