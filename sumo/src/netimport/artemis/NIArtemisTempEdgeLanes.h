@@ -54,7 +54,7 @@ class NIArtemisTempEdgeLanes
 {
 public:
     static void add(const std::string &link, int lane, int section,
-                        SUMOReal start, SUMOReal end, const std::string &mvmt);
+                        SUMOReal start, SUMOReal end);
     static void close(NBDistrictCont &dc,
                       NBEdgeCont &ec, NBNodeCont &nc);
 private:
@@ -63,7 +63,7 @@ private:
     {
     public:
         LinkLaneDesc(int lane, int section,
-                     SUMOReal start, SUMOReal end, const std::string &mvmt);
+                     SUMOReal start, SUMOReal end);
         ~LinkLaneDesc();
         SUMOReal getStart() const;
         SUMOReal getEnd() const;
@@ -88,9 +88,6 @@ private:
 
     typedef std::map<std::string, DoubleVector> Link2Positions;
     static Link2Positions myLinkLanePositions;
-
-protected:
-    NBNodeCont &myNodeCont;
 
 };
 

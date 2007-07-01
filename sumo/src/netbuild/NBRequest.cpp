@@ -229,24 +229,10 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-    if (_junction->getID()=="15620399") {
-        int bla = 0;
-    }
-    if (_junction->getID()=="15620399") {
-        int bla = 0;
-    }
     string from1ID = "1si";
     string to1ID = "4o";
     string from2ID = "2si";
     string to2ID = "4o";
-    if (from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
-        int bla = 0;
-    }
-
-    if (from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
-        int bla = 0;
-    }
-
     // check whether one of the links has a dead end
     if (to1==0||to2==0) {
         return;

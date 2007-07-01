@@ -201,7 +201,6 @@ public:
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
-                                            SUMOReal haltingTimeThreshold,
                                             MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     // converts the name of an output style into it's enumeration value

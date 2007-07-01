@@ -150,14 +150,12 @@ class MSE3LeaveReminder : public MSMoveReminder
     /// @param id The detector's unique id.
     /// @param entries Entry-cross-sections.
     /// @param exits Leavey-cross-sections.
-    /// @param haltingTimeThreshold A vehicle must at least drive that time
-    /// at a speed lesser than haltingSpeedThreshold to be a "halting" vehicle.
     /// @param haltingSpeedThreshold A vehicle must not drive a greater speed
     /// for at more than haltingTimeThreshold  to be a "halting" vehicle.
     ///
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MSUnit::Seconds haltingTimeThreshold, MSUnit::MetersPerSecond haltingSpeedThreshold);
+                  MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     /// Dtor. Deletes the created detectors.
     virtual ~MSE3Collector(void);

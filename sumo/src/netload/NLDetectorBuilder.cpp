@@ -377,7 +377,6 @@ NLDetectorBuilder::endE3Detector()
                              myE3Definition->myID,
                              myE3Definition->myEntries,
                              myE3Definition->myExits,
-                             myE3Definition->myHaltingTimeThreshold,
                              myE3Definition->myHaltingSpeedThreshold);
     /*
     E3MeasuresVector &toAdd = myE3Definition->myMeasures;
@@ -580,11 +579,9 @@ MSE3Collector *
 NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,
-                                    SUMOReal haltingTimeThreshold,
                                     MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
-    return new MSE3Collector(id, entries, exits,
-                             haltingTimeThreshold, haltingSpeedThreshold);
+    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold);
 }
 
 

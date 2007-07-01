@@ -74,9 +74,8 @@ NIArtemisParser_Lanes::myDependentReport()
         TplConvert<char>::_2SUMOReal(myLineParser.get("Start").c_str());
     SUMOReal end =
         TplConvert<char>::_2SUMOReal(myLineParser.get("End").c_str());
-    string mvmt = myLineParser.get("Mvmt");
     // purpose omitted
-    NIArtemisTempEdgeLanes::add(link, lane, section, start, end, mvmt);
+    NIArtemisTempEdgeLanes::add(link, lane, section, start, end);
 }
 
 

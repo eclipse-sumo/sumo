@@ -224,9 +224,6 @@ NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
 Position2DVector
 NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 {
-    if (myNode.getID()=="59333170") {
-        int bla = 0;
-    }
     // if we have less than two edges, we can not compute the node's shape this way
     if (myNode._allEdges.size()<2) {
         return Position2DVector();
@@ -250,30 +247,9 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 
     // check which edges are parallel
     joinSameDirectionEdges(same, geomsCCW, geomsCW);
-    if (myNode.getID()=="59333170") {
-        cout << "same#1 " << myNode.getID() << endl;
-        for (std::map<NBEdge*, std::vector<NBEdge*> >::iterator i=same.begin(); i!=same.end(); ++i) {
-            cout << (*i).first->getID() << ": ";
-            std::vector<NBEdge*> v = (*i).second;
-            for (std::vector<NBEdge*>::iterator j=v.begin(); j!=v.end(); ++j) {
-                cout << (*j)->getID() << ", ";
-            }
-            cout << endl;
-        }
-        int bla = 0;
-    }
 
     // compute unique direction list
     std::vector<NBEdge*> newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
-
-    if (myNode.getID()=="59333170") {
-        cout << "newAll#1 " << myNode.getID() << endl;
-        for (std::vector<NBEdge*>::iterator j=newAll.begin(); j!=newAll.end(); ++j) {
-            cout << (*j)->getID() << ", ";
-        }
-        cout << endl;
-        int bla = 0;
-    }
 
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size()<2) {
@@ -454,14 +430,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                 }
             }
         }
-    }
-
-    if (myNode.getID()=="59333170") {
-        cout << myNode.getID() << endl;
-        for (std::map<NBEdge*, SUMOReal>::iterator i=distances.begin(); i!=distances.end(); ++i) {
-            cout << (*i).first->getID() << "\t" << (*i).second << endl;
-        }
-        int bla = 0;
     }
 
     for (i=newAll.begin(); i!=newAll.end(); ++i) {

@@ -135,7 +135,6 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &entries,
                              const CrossSectionVector &exits,
-                             MSUnit::Seconds haltingTimeThreshold,
                              MSUnit::MetersPerSecond haltingSpeedThreshold)
         : idM(id), entriesM(entries), exitsM(exits),
         // !dk! kept for later use: haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),

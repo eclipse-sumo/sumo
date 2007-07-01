@@ -425,12 +425,10 @@ NBNodeCont::searchEdgeInNode(const NBEdgeCont &ec,
 
     if (find(n->_outgoingEdges->begin(), n->_outgoingEdges->end(), e)
             !=n->_outgoingEdges->end()) {
-        int checkdummy = 0;
     }
 
     if (find(n->_incomingEdges->begin(), n->_incomingEdges->end(), e)
             !=n->_incomingEdges->end()) {
-        int checkdummy = 0;
     }
 
 }

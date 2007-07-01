@@ -122,7 +122,6 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
 
     vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
     /*get the count of mobiles for the vehicle*/
-    int noCellPhones = v->size();
     int passedNo = 0;
     int currNo = 0;
     bool doBreak = false;

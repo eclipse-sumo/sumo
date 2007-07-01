@@ -181,7 +181,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
 
         // set information about later beginning lanes
-        size_t priorLaneNo = edge->getNoLanes();
         if (hasAttribute(attrs, SUMO_ATTR_FORCE_LENGTH)) {
             try {
                 int forcedLength = getInt(attrs, SUMO_ATTR_FORCE_LENGTH); // !!! describe
@@ -686,7 +685,6 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             sort(myExpansions.begin(), myExpansions.end(), expansions_sorter());
             NBEdge *e = myEdgeCont.retrieve(myCurrentID);
             // compute the node positions and sort the lanes
-            SUMOReal prev = 0;
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
@@ -709,7 +707,6 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
                     }
                 }
             }
-            SUMOReal seen = 0;
             // split the edge
             size_t lastRightLane = 0;
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {

@@ -65,8 +65,7 @@ NIArtemisTempEdgeLanes::Link2Positions NIArtemisTempEdgeLanes::myLinkLanePositio
 // method definitions
 // ===========================================================================
 NIArtemisTempEdgeLanes::LinkLaneDesc::LinkLaneDesc(int lane, int section,
-        SUMOReal start, SUMOReal end,
-        const std::string &mvmt)
+        SUMOReal start, SUMOReal end)
         : myLane(lane), mySection(section), myStart(start), myEnd(end)
 {}
 
@@ -114,11 +113,10 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(SUMOReal length)
 
 void
 NIArtemisTempEdgeLanes::add(const std::string &link, int lane,
-                                int section, SUMOReal start, SUMOReal end,
-                                const std::string &mvmt)
+                                int section, SUMOReal start, SUMOReal end)
 {
     myLinkLaneDescs[link].push_back(
-        new LinkLaneDesc(lane, section, start, end, mvmt));
+        new LinkLaneDesc(lane, section, start, end));
     myLinkLanePositions[link].push_back(start);
     myLinkLanePositions[link].push_back(end);
 }

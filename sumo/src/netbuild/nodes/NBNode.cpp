@@ -517,7 +517,7 @@ NBNode::setPriorityJunctionPriorities()
         if (bestOutgoing.size()!=0) {
             // mark the best outgoing as the continuation
             sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
-            NBEdge *bo = extractAndMarkFirst(bestOutgoing);
+            extractAndMarkFirst(bestOutgoing);
         }
         return;
     }
