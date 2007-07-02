@@ -268,9 +268,13 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
             MsgHandler::getErrorInstance()->inform("At least one of the defined lanes was not numeric");
         }
         //
-        bool keepUncontrolled = getBoolSecure(attrs, SUMO_ATTR_UNCONTROLLED, false);
-        if (keepUncontrolled) {
-            from->disableConnection4TLS(fromLane, to, toLane);
+        try {
+            bool keepUncontrolled = getBoolSecure(attrs, SUMO_ATTR_UNCONTROLLED, false);
+            if (keepUncontrolled) {
+                from->disableConnection4TLS(fromLane, to, toLane);
+            }
+        } catch (BoolFormatException &) {
+            MsgHandler::getErrorInstance()->inform("The definition about being (un)controlled is not a valid bool.");
         }
     }
 }
