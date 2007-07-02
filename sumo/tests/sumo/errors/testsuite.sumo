@@ -16,6 +16,8 @@ duplicates
 # Tests for broken waut definitions
 wauts
 
+# Tests with broken networks
+network
 
 
 
