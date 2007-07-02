@@ -242,7 +242,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
-        MsgHandler::getErrorInstance()->inform("failed.");
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         delete net;
         return 0;
     } else {
