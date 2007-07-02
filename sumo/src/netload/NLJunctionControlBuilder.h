@@ -160,6 +160,10 @@ public:
     void addWAUTJunction(const std::string &wautid, const std::string &junc,
                          const std::string &proc, bool synchron);
 
+    const std::string &getActiveID() const;
+    const std::string &getActiveKey() const;
+    const std::string &getActiveSubKey() const;
+
 protected:
     /** @brief adds an information about the initialisation of a tls
         The initialisation is done during the closing of junctions */

@@ -37,7 +37,6 @@
 #include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLBuilder.h"
@@ -88,9 +87,12 @@ NLEdgeControlBuilder::prepare(unsigned int no)
 MSEdge *
 NLEdgeControlBuilder::addEdge(const string &id)
 {
+    if(m_pEdges==0) {
+        throw ProcessError();
+    }
     MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
     if (!MSEdge::dictionary(id, edge)) {
-        throw ProcessError("Another edge with the id '" + id + "' exists.");
+        throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     m_pEdges->push_back(edge);
     return edge;
@@ -103,7 +105,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
 {
     m_pActiveEdge = MSEdge::dictionary(id);
     if (m_pActiveEdge==0) {
-        throw ProcessError("Trying to define a not declared edge (network error).");
+        throw InvalidArgument("Trying to define a not declared edge ('" + id + "').");
     }
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();
@@ -119,7 +121,7 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw ProcessError("Lane's '" + id + "' edge already has a depart lane.");
+        throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);
@@ -139,7 +141,7 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                                    myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
-        throw 1;
+        throw InvalidArgument("Unrecognised edge type.");
     }
     m_pLaneStorage->push_back(lane);
     if (isDepart) {
@@ -197,7 +199,7 @@ NLEdgeControlBuilder::addAllowed(MSLane *lane)
     // checks if the lane is inside the edge
     MSEdge::LaneCont::iterator i1 = find(m_pLanes->begin(), m_pLanes->end(), lane);
     if (i1==m_pLanes->end()) {
-        throw ProcessError("Broken net: lane '" + lane->getID() + "' is not within the current edge.");
+        throw InvalidArgument("Broken net: lane '" + lane->getID() + "' is not within the current edge.");
     }
     m_pLaneStorage->push_back(lane);
 }
@@ -220,8 +222,7 @@ MSEdge *
 NLEdgeControlBuilder::closeEdge()
 {
     if (m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
-        MsgHandler::getErrorInstance()->inform("Something is corrupt within the definition of lanes for the edge '" + m_pActiveEdge->getID() + "'.");
-        return 0;
+        throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + m_pActiveEdge->getID() + "'.");
     }
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
                               m_pLanes, m_Function);
@@ -246,12 +247,19 @@ NLEdgeControlBuilder::build()
     return new MSEdgeControl(singleLanes, multiLanes);
 }
 
+
 MSEdge *
 NLEdgeControlBuilder::getActiveEdge() const
 {
     return m_pActiveEdge;
 }
 
+
+size_t
+NLEdgeControlBuilder::getEdgeCapacity() const
+{
+	return m_pEdges==0 ? 0 : m_pEdges->capacity();
+}
 
 
 /****************************************************************************/

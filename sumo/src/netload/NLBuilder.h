@@ -94,8 +94,7 @@ public:
     /// the net loading method
     virtual bool build();
 
-    /// Closes the net building process
-    bool buildNet(GNEImageProcWindow &t);
+    friend class GNEImageProcWindow;
 
 protected:
     /// loads a described subpart form the given list of files
@@ -106,11 +105,8 @@ protected:
     bool parse(const std::string &mmlWhat, const std::string &files,
                SAX2XMLReader &parser);
 
-    /// reports the process (done or failure)
-    void subreport(const std::string &ok, const std::string &wrong) ;
-
     /// Closes the net building process
-    bool buildNet();
+    void buildNet();
 
     /// Builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);

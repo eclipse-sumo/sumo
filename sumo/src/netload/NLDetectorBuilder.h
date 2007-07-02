@@ -117,7 +117,6 @@ public:
     void beginE3Detector(const std::string &id,
                          OutputDevice *device, int splInterval,
                          const std::string &measures,
-                         SUMOReal haltingTimeThreshold,
                          MSUnit::MetersPerSecond haltingSpeedThreshold);
 
     /// builds an entry point of an e3 detector
@@ -128,6 +127,9 @@ public:
 
     /// Builds of an e3-detector using collected values
     void endE3Detector();
+
+    /// Returns the id of the currently built e3-detector
+    std::string getCurrentE3ID() const;
 
     /// Makes some data conversion and calls the propriate building function
     MSDetectorFileOutput* buildE2(const std::string &id,
@@ -218,7 +220,6 @@ public:
         /// Constructor
         E3DetectorDefinition(const std::string &id,
                              OutputDevice *device,
-                             SUMOReal haltingTimeThreshold,
                              MSUnit::MetersPerSecond haltingSpeedThreshold,
                              const E3MeasuresVector &measures,
                              int splInterval);
@@ -231,8 +232,7 @@ public:
         /// The device the detector shall use
         OutputDevice *myDevice;
         /// @name further detector descriptions
-        //@{
-        SUMOReal myHaltingTimeThreshold;
+        //@{ 
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
         E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;

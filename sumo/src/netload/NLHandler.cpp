@@ -101,8 +101,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myCurrentIsInternalToSkip(false),
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-        myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder),
-        myAmInTLLogicMode(false), myCurrentWAUTIsBroken(false)
+        myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder),
+        myAmInTLLogicMode(false), myCurrentIsBroken(false)
 {}
 
 
@@ -220,131 +220,211 @@ NLHandler::myStartElement(SumoXMLTag element,
 
 
 void
-NLHandler::addParam(const Attributes &attrs)
+NLHandler::myCharacters(SumoXMLTag element,
+                        const std::string &chars) throw(ProcessError)
 {
-    string key, val;
-    try {
-        key = getString(attrs, SUMO_ATTR_KEY);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing key for a parameter.");
-        return;
+    // check static net information
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
+        case SUMO_TAG_EDGES:
+            allocateEdges(chars);
+            break;
+        case SUMO_TAG_NODECOUNT:
+            setNodeNumber(chars);
+            break;
+        case SUMO_TAG_CEDGE:
+            addAllowedEdges(chars);
+            break;
+        case SUMO_TAG_POLY:
+            addPolyPosition(chars);
+            break;
+        case SUMO_TAG_INCOMING_LANES:
+            addIncomingLanes(chars);
+            break;
+#ifdef HAVE_INTERNAL_LANES
+        case SUMO_TAG_INTERNAL_LANES:
+            addInternalLanes(chars);
+            break;
+#endif
+        case SUMO_TAG_LANE:
+            addLaneShape(chars);
+            break;
+        case SUMO_TAG_REQUESTSIZE:
+            if (myJunctionControlBuilder.getActiveKey().length()!=0) {
+                setRequestSize(chars);
+            }
+            break;
+        case SUMO_TAG_LANENUMBER:
+            if (myJunctionControlBuilder.getActiveKey().length()!=0) {
+                setLaneNumber(chars);
+            }
+            break;
+        case SUMO_TAG_KEY:
+            setKey(chars);
+            break;
+        case SUMO_TAG_SUBKEY:
+            setSubKey(chars);
+            break;
+        case SUMO_TAG_OFFSET:
+            setOffset(chars);
+            break;
+        case SUMO_TAG_NET_OFFSET:
+            setNetOffset(chars);
+            break;
+        case SUMO_TAG_CONV_BOUNDARY:
+            setNetConv(chars);
+            break;
+        case SUMO_TAG_ORIG_BOUNDARY:
+            setNetOrig(chars);
+            break;
+        case SUMO_TAG_ORIG_PROJ:
+            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
+        }
     }
-    try {
-        val = getString(attrs, SUMO_ATTR_VALUE);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing value for a parameter.");
-        return;
-    }
-    // set
-    if (myAmInTLLogicMode) {
-        assert(key!="");
-        assert(val!="");
-        myJunctionControlBuilder.addParam(key, val);
+    if (wanted(LOADFILTER_DYNAMIC)) {
+        MSRouteHandler::myCharacters(element, chars);
     }
 }
 
 
 void
-NLHandler::openWAUT(const Attributes &attrs)
+NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-    myCurrentWAUTIsBroken = false;
-    SUMOTime t;
-    std::string id, pro;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
-        myCurrentWAUTIsBroken = true;
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
+        case SUMO_TAG_EDGE:
+            closeEdge();
+            break;
+        case SUMO_TAG_LANES:
+            closeLanes();
+            break;
+        case SUMO_TAG_LANE:
+            closeLane();
+            break;
+        case SUMO_TAG_CEDGE:
+            closeAllowedEdge();
+            break;
+        case SUMO_TAG_JUNCTION:
+            closeJunction();
+            break;
+        case SUMO_TAG_SUCC:
+            closeSuccLane();
+            break;
+        }
     }
-    try {
-        t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
-    } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
-        myCurrentWAUTIsBroken = true;
+    if (wanted(LOADFILTER_NET)) {
+        switch (element) {
+        case SUMO_TAG_ROWLOGIC:
+            myJunctionControlBuilder.closeJunctionLogic();
+            break;
+        case SUMO_TAG_TLLOGIC:
+            myJunctionControlBuilder.closeTrafficLightLogic();
+            myAmInTLLogicMode = false;
+            break;
+        default:
+            break;
+        }
     }
-    try {
-        pro = getString(attrs, SUMO_ATTR_START_PROG);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
-        myCurrentWAUTIsBroken = true;
+    // !!!
+    if (element==SUMO_TAG_WAUT) {
+        closeWAUT();
     }
-    if (!myCurrentWAUTIsBroken) {
-        myCurrentWAUTID = id;
-        myJunctionControlBuilder.addWAUT(t, id, pro);
+    // !!!!
+    if (wanted(LOADFILTER_NETADD)) {
+        switch (element) {
+        case SUMO_TAG_E3DETECTOR:
+            endE3Detector();
+            break;
+        case SUMO_TAG_DETECTOR:
+            endDetector();
+            break;
+        default:
+            break;
+        }
+    }
+    if (wanted(LOADFILTER_DYNAMIC)) {
+        MSRouteHandler::myEndElement(element);
     }
 }
 
 
-void
-NLHandler::addWAUTSwitch(const Attributes &attrs)
-{
-    SUMOTime t;
-    std::string to;
-    try {
-        t = getInt(attrs, SUMO_ATTR_TIME);
-    } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
-        myCurrentWAUTIsBroken = true;
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
-        myCurrentWAUTIsBroken = true;
-    }
-    try {
-        to = getString(attrs, SUMO_ATTR_TO);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
-        myCurrentWAUTIsBroken = true;
-    }
-    if (!myCurrentWAUTIsBroken) {
-        myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
-    }
-}
-
-
-void
-NLHandler::addWAUTJunction(const Attributes &attrs)
-{
-    std::string wautID, junctionID, procedure;
-    try {
-        wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
-        myCurrentWAUTIsBroken = true;
-    }
-    try {
-        junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
-        myCurrentWAUTIsBroken = true;
-    }
-    procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
-    bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
-    if (!myCurrentWAUTIsBroken) {
-        myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
-    }
-}
-
-
+// ---- the root/edges - element
 void
 NLHandler::setEdgeNumber(const Attributes &attrs)
 {
     try {
         myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing number of edges.");
+        MsgHandler::getErrorInstance()->inform("Missing number of edges.");
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of edges.");
+        MsgHandler::getErrorInstance()->inform("The number of edges is not numeric.");
     }
 }
 
 
 void
+NLHandler::allocateEdges(const std::string &chars)
+{
+    size_t found = 0;
+	size_t wanted = myEdgeControlBuilder.getEdgeCapacity();
+    try {
+        size_t beg = 0;
+        size_t idx = chars.find(' ');
+        while (idx!=string::npos) {
+            string edgeid = chars.substr(beg, idx-beg);
+            found++;
+            // skip internal edges if not wished
+            if (MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
+                myEdgeControlBuilder.addEdge(edgeid);
+            }
+            beg = idx + 1;
+            idx = chars.find(' ', beg);
+        }
+        string edgeid = chars.substr(beg);
+        // skip internal edges if not wished
+        //  (the last one shouldn't be internal anyway)
+        if (!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
+            return;
+        }
+        found++;
+        myEdgeControlBuilder.addEdge(edgeid);
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+    if(wanted!=found) {
+        throw ProcessError("The number of edges in the list mismatches the edge count.");
+    }
+}
+// ----
+
+
+// ---- the root/node_count - element
+void
+NLHandler::setNodeNumber(const std::string &chars)
+{
+    try {
+        myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
+    } catch (EmptyData &) {
+        throw ProcessError("Missing number of nodes.");
+    } catch (NumberFormatException &) {
+        throw ProcessError("The number of nodes is not numeric.");
+    }
+}
+// ----
+
+
+// ---- the root/edge - element
+void
 NLHandler::chooseEdge(const Attributes &attrs)
 {
+    myCurrentIsBroken = false;
     // get the id
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
+        if(id=="") {
+            throw EmptyData();
+        }
         // omit internal edges if not wished
         if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
             myCurrentIsInternalToSkip = true;
@@ -352,22 +432,21 @@ NLHandler::chooseEdge(const Attributes &attrs)
         }
         myCurrentIsInternalToSkip = false;
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of an edge-object.");
+        myCurrentIsBroken = true;
         return;
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-        return;
-    }
+    } 
+
     // get the function
     string func;
     try {
         func = getString(attrs, SUMO_ATTR_FUNC);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing function of an edge-object.");
+        MsgHandler::getErrorInstance()->inform("Missing function of an edge-object.");
+        myCurrentIsBroken = true;
         return;
     }
-
-    // get the type
+        // parse the function
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
     if (func=="normal") {
         funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
@@ -383,56 +462,338 @@ NLHandler::chooseEdge(const Attributes &attrs)
     }
     if (funcEnum<0) {
         MsgHandler::getErrorInstance()->inform("Edge '" + id + "' has an invalid type ('" + func + "').");
+        myCurrentIsBroken = true;
         return;
     }
     //
-    myEdgeControlBuilder.chooseEdge(id, funcEnum);
-    // continuation
-    myCurrentID = id;
+    try {
+        myEdgeControlBuilder.chooseEdge(id, funcEnum);
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+        myCurrentIsBroken = true;
+    }
 }
 
+
+void
+NLHandler::closeEdge()
+{
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    try {
+        MSEdge *edge = myEdgeControlBuilder.closeEdge();
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());
+        }
+#endif
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
+
+//       ---- the root/edge/lanes - element
+void
+NLHandler::closeLanes()
+{
+    myEdgeControlBuilder.closeLanes();
+}
+
+
+//             ---- the root/edge/lanes/lane - element
+void
+NLHandler::addLane(const Attributes &attrs)
+{
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    try {
+        string id = getString(attrs, SUMO_ATTR_ID);
+        if(id=="") {
+            throw EmptyData();
+        }
+        try {
+            myCurrentLaneID = id;
+            myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
+            myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
+            myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
+            myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
+            myCurrentIsBroken = true;
+        } catch (NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("One of a lane's attributes must be numeric but is not (id='" + id + "').\n Can not build according edge.");
+            myCurrentIsBroken = true;
+        } catch (BoolFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Value of depart definition of lane '" + id + "' is invalid.\n Can not build according edge.");
+            myCurrentIsBroken = true;
+        }
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing id of a lane-object.\n Can not build according edge.");
+        myCurrentIsBroken = true;
+    }
+}
 
 
 void
 NLHandler::addLaneShape(const std::string &chars)
 {
-    myShape = GeomConvHelper::parseShape(chars);
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    myShape.clear();
+    try {
+        myShape = GeomConvHelper::parseShape(chars);
+        return;
+    } catch (OutOfBoundsException &) {
+    } catch (NumberFormatException &) {
+    } catch (EmptyData &) {
+    }
+    MsgHandler::getErrorInstance()->inform("Could not parse shape of lane '" + myCurrentLaneID + "'.\n Can not build according edge.");
+    myCurrentIsBroken = true;
 }
 
 
 void
-NLHandler::addLane(const Attributes &attrs)
+NLHandler::closeLane()
 {
-    // omit internal edges if not wished
-    if (myCurrentIsInternalToSkip) {
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    // check shape
+    if(myShape.size()<2) {
+        MsgHandler::getErrorInstance()->inform("Shape of lane '" + myCurrentLaneID + "' is broken.\n Can not build according edge.");
+        myCurrentIsBroken = true;
+        return;
+    }
+    // build
+    try {
+        MSLane *lane =
+            myEdgeControlBuilder.addLane(myCurrentLaneID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
+        // insert the lane into the lane-dictionary, checking
+        if (!MSLane::dictionary(myCurrentLaneID, lane)) {
+            delete lane;
+            MsgHandler::getErrorInstance()->inform("Another lane with the id '" + myCurrentLaneID + "' exists.");
+        }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
+
+//       ---- the root/edge/cedge - element
+void
+NLHandler::openAllowedEdge(const Attributes &attrs)
+{
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    string id;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+        MSEdge *edge = MSEdge::dictionary(id);
+        if (edge==0) {
+            MsgHandler::getErrorInstance()->inform("Trying to reference an unknown edge ('" + id + "') in edge '" + myEdgeControlBuilder.getActiveEdge()->getID() + "'.");
+            myCurrentIsBroken = true;
+            return;
+        }
+        myEdgeControlBuilder.openAllowedEdge(edge);
+        // continuation
+        myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing id of an cedge-object.");
+        myCurrentIsBroken = true;
+    }
+}
+
+
+void
+NLHandler::closeAllowedEdge()
+{
+    // omit internal edges if not wished and broken edges
+    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+        return;
+    }
+    myEdgeControlBuilder.closeAllowedEdge();
+}
+// ----
+
+
+// ---- the root/junction - element
+void
+NLHandler::openJunction(const Attributes &attrs)
+{
+    string id;
+    myCurrentIsBroken = false;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+        if(id=="") {
+            throw EmptyData();
+        }
+        try {
+            myJunctionControlBuilder.openJunction(id,
+                                                  getStringSecure(attrs, SUMO_ATTR_KEY, ""),
+                                                  getString(attrs, SUMO_ATTR_TYPE),
+                                                  getFloat(attrs, SUMO_ATTR_X),
+                                                  getFloat(attrs, SUMO_ATTR_Y));
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
+            myCurrentIsBroken = true;
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what() + string("\n Can not build according junction."));
+            myCurrentIsBroken = true;
+        } catch (NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Position of junction '" + id + "' is not numeric.\n Can not build according junction.");
+            myCurrentIsBroken = true;
+        }
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing id of a junction-object.\n Can not build according junction.");
+        myCurrentIsBroken = true;
+    }
+}
+
+
+void
+NLHandler::closeJunction()
+{
+    if(myCurrentIsBroken) {
         return;
     }
     try {
-        string id = getString(attrs, SUMO_ATTR_ID);
-        try {
-            myID = id;
-            myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
-            myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
-            myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
-            myVehicleClasses = getStringSecure(attrs, SUMO_ATTR_VCLASSES, "");
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
+        myJunctionControlBuilder.closeJunction();
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
+// ----
+
+void
+NLHandler::addParam(const Attributes &attrs)
+{
+    string key, val;
+    try {
+        key = getString(attrs, SUMO_ATTR_KEY);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing key for a parameter.");
+        return;
+    }
+    try {
+        val = getString(attrs, SUMO_ATTR_VALUE);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing value for a parameter.");
+        return;
+    }
+    // set
+    if (myAmInTLLogicMode) {
+        assert(key!="");
+        assert(val!="");
+        myJunctionControlBuilder.addParam(key, val);
+    }
+}
+
+
+void
+NLHandler::openWAUT(const Attributes &attrs)
+{
+    myCurrentIsBroken = false;
+    SUMOTime t;
+    std::string id, pro;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
+        myCurrentIsBroken = true;
+    }
+    try {
+        t = getIntSecure(attrs, SUMO_ATTR_REF_TIME, 0);
+    } catch (NumberFormatException&) {
+        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
+        myCurrentIsBroken = true;
+    }
+    try {
+        pro = getString(attrs, SUMO_ATTR_START_PROG);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
+        myCurrentIsBroken = true;
+    }
+    if(!myCurrentIsBroken) {
+        myCurrentWAUTID = id;
+        myJunctionControlBuilder.addWAUT(t, id, pro);
+    }
+}
+
+
+void
+NLHandler::addWAUTSwitch(const Attributes &attrs)
+{
+    SUMOTime t;
+    std::string to;
+    try {
+        t = getInt(attrs, SUMO_ATTR_TIME);
+    } catch (NumberFormatException&) {
+        MsgHandler::getErrorInstance()->inform("The switch time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
+        myCurrentIsBroken = true;
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing switch time for WAUT '" + myCurrentWAUTID + "'.");
+        myCurrentIsBroken = true;
+    }
+    try {
+        to = getString(attrs, SUMO_ATTR_TO);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
+        myCurrentIsBroken = true;
+    }
+    if(!myCurrentIsBroken) {
+        myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+    }
+}
+
+
+void
+NLHandler::addWAUTJunction(const Attributes &attrs)
+{
+    std::string wautID, junctionID, procedure;
+    try {
+        wautID = getString(attrs, SUMO_ATTR_WAUT_ID);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
+        myCurrentIsBroken = true;
+    }
+    try {
+        junctionID = getString(attrs, SUMO_ATTR_JUNCTION_ID);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
+        myCurrentIsBroken = true;
+    }
+    procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
+    try {
+        bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
+        if(!myCurrentIsBroken) {
+            myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
+        }
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The information whether WAUT '" + wautID + "' is uncontrolled is not a valid bool.");
+    }
+}
+
+
+
+
+
 
 
 void
 NLHandler::addPOI(const Attributes &attrs)
 {
     try {
-        std::string name = getString(attrs, SUMO_ATTR_ID);
+        string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
                                     getIntSecure(attrs, SUMO_ATTR_LAYER, 1),
@@ -442,15 +803,17 @@ NLHandler::addPOI(const Attributes &attrs)
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
                                     getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
-        } catch (ProcessError &e) {
+        } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
+        } catch (OutOfBoundsException &) {
+            MsgHandler::getErrorInstance()->inform("Color definition of POI '" + name + "' seems to be broken.");
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("The color of POI '" + name + "' could not be parsed.");
+            MsgHandler::getErrorInstance()->inform("One of POI's '" + name + "' attributes should be numeric but is not.");
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("POI '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing name of a POI-object.");
+        MsgHandler::getErrorInstance()->inform("Missing name of a POI-object.");
     }
 }
 
@@ -459,46 +822,22 @@ void
 NLHandler::addPoly(const Attributes &attrs)
 {
     try {
-        std::string name = getString(attrs, SUMO_ATTR_ID);
+        string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
                                         getIntSecure(attrs, SUMO_ATTR_LAYER, -1),
                                         getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
                                         GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                                        getBoolSecure(attrs, SUMO_ATTR_FILL, false));// !!!
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+                                        getBoolSecure(attrs, SUMO_ATTR_FILL, false));
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
+        } catch (BoolFormatException &) {
+            MsgHandler::getErrorInstance()->inform("The attribute 'fill' of polygon '" + name + "' is not a valid bool.");
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing name of a poly-object.");
-    }
-}
-
-
-void
-NLHandler::openAllowedEdge(const Attributes &attrs)
-{
-    // omit internal edges if not wished
-    if (myCurrentIsInternalToSkip) {
-        return;
-    }
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-        MSEdge *edge = MSEdge::dictionary(id);
-        if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("Trying to reference to an unknown edge ('" + id + "').");
-            return;
-        }
-        myEdgeControlBuilder.openAllowedEdge(edge);
-        // continuation
-        myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an cedge-object.");
+        MsgHandler::getErrorInstance()->inform("Missing name of a poly-object.");
     }
 }
 
@@ -536,12 +875,21 @@ NLHandler::addLogicItem(const Attributes &attrs)
     bool cont = false;
 #ifdef HAVE_INTERNAL_LANES
     if (MSGlobals::gUsingInternalLanes) {
-        cont = getBoolSecure(attrs, SUMO_ATTR_CONT, false);
+        try {
+            cont = getBoolSecure(attrs, SUMO_ATTR_CONT, false);
+        } catch (BoolFormatException &) {
+            MsgHandler::getErrorInstance()->inform("The definition whether a link is a cont-link is not a valid bool.");
+            return;
+        }
     }
 #endif
     // store received information
     if (request>=0 && response.length()>0) {
-        myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
+        try {
+            myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
     }
 }
 
@@ -559,9 +907,10 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
         {
             try {
                 detectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+            } catch (EmptyData&) {
+                MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is empty.");
             } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform(
-                    "A detector offset of a traffic light logic is not numeric!");
+                MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is not numeric.");
                 return;
             }
         }
@@ -607,14 +956,14 @@ NLHandler::addPhase(const Attributes &attrs)
     try {
         duration = getInt(attrs, SUMO_ATTR_DURATION);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing phase duration...");
+        MsgHandler::getErrorInstance()->inform("Missing phase duration.");
         return;
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
         return;
     }
     if (duration==0) {
-        MsgHandler::getErrorInstance()->inform("The duration of a tls-logic must not be zero. Is in '" + m_Key + "'.");
+        MsgHandler::getErrorInstance()->inform("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
@@ -623,12 +972,18 @@ NLHandler::addPhase(const Attributes &attrs)
     int max = duration;
     try {
         min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The phase minimum duration is empty.");
+        return;
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase minimum duration is not numeric.");
         return;
     }
     try {
         max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The phase maximum duration is empty.");
+        return;
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
@@ -642,28 +997,6 @@ NLHandler::addPhase(const Attributes &attrs)
 
 
 void
-NLHandler::openJunction(const Attributes &attrs)
-{
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-        try {
-            myJunctionControlBuilder.openJunction(id,
-                                                  getStringSecure(attrs, SUMO_ATTR_KEY, ""),
-                                                  getString(attrs, SUMO_ATTR_TYPE),
-                                                  getFloat(attrs, SUMO_ATTR_X),
-                                                  getFloat(attrs, SUMO_ATTR_Y));
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in a junction-object.");
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a junction-object.");
-    }
-}
-
-
-
-void
 NLHandler::addDetector(const Attributes &attrs)
 {
     // try to get the id first
@@ -671,7 +1004,7 @@ NLHandler::addDetector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
         return;
     }
     // try to get the type
@@ -680,19 +1013,19 @@ NLHandler::addDetector(const Attributes &attrs)
     // induct loops (E1-detectors)
     if (type=="induct_loop"||type=="E1"||type=="e1") {
         addE1Detector(attrs);
-        myDetectorType = "e1";
+        myCurrentDetectorType = "e1";
         return;
     }
     // lane-based areal detectors (E2-detectors)
     if (type=="lane_based"||type=="E2"||type=="e2") {
         addE2Detector(attrs);
-        myDetectorType = "e2";
+        myCurrentDetectorType = "e2";
         return;
     }
     // multi-origin/multi-destination detectors (E3-detectors)
     if (type=="multi_od"||type=="E3"||type=="e3") {
         beginE3Detector(attrs);
-        myDetectorType = "e3";
+        myCurrentDetectorType = "e3";
         return;
     }
 }
@@ -706,7 +1039,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
         return;
     }
 
@@ -752,12 +1085,14 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                           getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
 #endif //#ifdef USE_SOCKETS
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NetworkError &e) {
@@ -774,7 +1109,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
         return;
     }
     // check whether this is a lsa-based detector or one that uses a sample
@@ -846,10 +1181,12 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                                              );
         }
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
@@ -865,9 +1202,8 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        m_Key = id;
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
         return;
     }
     try {
@@ -876,12 +1212,13 @@ NLHandler::beginE3Detector(const Attributes &attrs)
                                               getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
@@ -897,10 +1234,12 @@ NLHandler::addE3Entry(const Attributes &attrs)
         myDetectorBuilder.addE3Entry(
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Position of an entry of detector '" + myDetectorBuilder.getCurrentE3ID() + "' is not numeric.");
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
+        MsgHandler::getErrorInstance()->inform("The description of an entry of the detector '" + myDetectorBuilder.getCurrentE3ID() + "' does not contain a needed value.");
     }
 }
 
@@ -912,12 +1251,12 @@ NLHandler::addE3Exit(const Attributes &attrs)
         myDetectorBuilder.addE3Exit(
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Position of an exit of detector '" + myDetectorBuilder.getCurrentE3ID() + "' is not numeric.");
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
-    } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        MsgHandler::getErrorInstance()->inform("The description of an exit of the detector '" + myDetectorBuilder.getCurrentE3ID() + "' does not contain a needed value.");
     }
 }
 
@@ -935,15 +1274,13 @@ NLHandler::addSource(const Attributes &attrs)
             myTriggerBuilder.buildTrigger(
                 myNet, attrs, getFileName(), *this);
             return;
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
@@ -959,8 +1296,6 @@ NLHandler::addTrigger(const Attributes &attrs)
         try {
             myTriggerBuilder.buildTrigger(myNet, attrs, getFileName(), *this);
             return;
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
@@ -969,7 +1304,7 @@ NLHandler::addTrigger(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a trigger-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a trigger-object.");
     }
 }
 
@@ -984,9 +1319,9 @@ NLHandler::openSucc(const Attributes &attrs)
             return;
         }
         myCurrentIsInternalToSkip = false;
-        m_pSLB.openSuccLane(id);
+        mySucceedingLaneBuilder.openSuccLane(id);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a succ-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a succ-object.");
     }
 }
 
@@ -1000,7 +1335,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
         if (tlID!="") {
-            m_pSLB.addSuccLane(
+            mySucceedingLaneBuilder.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
@@ -1012,7 +1347,7 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false),
                 tlID, getInt(attrs, SUMO_ATTR_TLLINKNO));
         } else {
-            m_pSLB.addSuccLane(
+            mySucceedingLaneBuilder.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
 #ifdef HAVE_INTERNAL_LANES
@@ -1024,11 +1359,13 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what() + string("\n While building lane '" + m_pSLB.getSuccingLaneName() + "'"));
+        MsgHandler::getErrorInstance()->inform("Missing attribute in a succlane-object of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
     }
 }
 
@@ -1051,7 +1388,7 @@ NLHandler::parseLinkDir(char dir)
     case 'R':
         return MSLink::LINKDIR_PARTRIGHT;
     default:
-        throw NumberFormatException();
+        throw InvalidArgument("Unrecognised link direction '" + toString(dir) + "'.");
     }
 }
 
@@ -1072,7 +1409,7 @@ NLHandler::parseLinkState(char state)
     case '=':
         return MSLink::LINKSTATE_EQUAL;
     default:
-        throw NumberFormatException();
+        throw InvalidArgument("Unrecognised link state '" + toString(state) + "'.");
     }
 }
 
@@ -1081,121 +1418,8 @@ NLHandler::parseLinkState(char state)
 // ----------------------------------
 
 
-void
-NLHandler::myCharacters(SumoXMLTag element,
-                        const std::string &chars) throw(ProcessError)
-{
-    // check static net information
-    if (wanted(LOADFILTER_NET)) {
-        switch (element) {
-        case SUMO_TAG_EDGES:
-            allocateEdges(chars);
-            break;
-        case SUMO_TAG_CEDGE:
-            addAllowedEdges(chars);
-            break;
-        case SUMO_TAG_POLY:
-            addPolyPosition(chars);
-            break;
-        case SUMO_TAG_NODECOUNT:
-            setNodeNumber(chars);
-            break;
-        case SUMO_TAG_INCOMING_LANES:
-            addIncomingLanes(chars);
-            break;
-#ifdef HAVE_INTERNAL_LANES
-        case SUMO_TAG_INTERNAL_LANES:
-            addInternalLanes(chars);
-            break;
-#endif
-        case SUMO_TAG_LANE:
-            addLaneShape(chars);
-            break;
-            /*
-            default:
-            break;
-            }
-            }
-            // check junction logics
-            if(wanted(LOADFILTER_LOGICS)) {
-            switch(element) {
-            */
-        case SUMO_TAG_REQUESTSIZE:
-            if (m_Key.length()!=0) {
-                setRequestSize(chars);
-            }
-            break;
-        case SUMO_TAG_LANENUMBER:
-            if (m_Key.length()!=0) {
-                setLaneNumber(chars);
-            }
-            break;
-        case SUMO_TAG_KEY:
-            setKey(chars);
-            break;
-        case SUMO_TAG_SUBKEY:
-            setSubKey(chars);
-            break;
-        case SUMO_TAG_OFFSET:
-            setOffset(chars);
-            break;
-        case SUMO_TAG_NET_OFFSET:
-            setNetOffset(chars);
-            break;
-        case SUMO_TAG_CONV_BOUNDARY:
-            setNetConv(chars);
-            break;
-        case SUMO_TAG_ORIG_BOUNDARY:
-            setNetOrig(chars);
-            break;
-        case SUMO_TAG_ORIG_PROJ:
-            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
-            break;
-        default:
-            break;
-        }
-    }
-    if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myCharacters(element, chars);
-    }
-}
 
 
-void
-NLHandler::allocateEdges(const std::string &chars)
-{
-    size_t beg = 0;
-    size_t idx = chars.find(' ');
-    while (idx!=string::npos) {
-        string edgeid = chars.substr(beg, idx-beg);
-        // skip internal edges if not wished
-        if (MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
-            myEdgeControlBuilder.addEdge(edgeid);
-        }
-        beg = idx + 1;
-        idx = chars.find(' ', beg);
-    }
-    string edgeid = chars.substr(beg);
-    // skip internal edges if not wished
-    //  (the last one shouldn't be internal anyway)
-    if (!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
-        return;
-    }
-    myEdgeControlBuilder.addEdge(edgeid);
-}
-
-
-void
-NLHandler::setNodeNumber(const std::string &chars)
-{
-    try {
-        myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing number of nodes.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of nodes.");
-    }
-}
 
 
 void
@@ -1215,7 +1439,7 @@ NLHandler::addAllowedEdges(const std::string &chars)
                 return;
             }
             myEdgeControlBuilder.addAllowed(lane);
-        } catch (ProcessError &e) {
+        } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     }
@@ -1230,7 +1454,7 @@ NLHandler::setRequestSize(const std::string &chars)
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("One of an edge's attributes must be numeric but is not.");
     }
 }
 
@@ -1243,7 +1467,7 @@ NLHandler::setLaneNumber(const std::string &chars)
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing lane number.");
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("One of an edge's attributes must be numeric but is not.");
     }
 }
 
@@ -1255,8 +1479,7 @@ NLHandler::setKey(const std::string &chars)
         MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
         return;
     }
-    m_Key = chars;
-    myJunctionControlBuilder.setKey(m_Key);
+    myJunctionControlBuilder.setKey(chars);
 }
 
 
@@ -1267,8 +1490,7 @@ NLHandler::setSubKey(const std::string &chars)
         MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
         return;
     }
-    m_Key = chars;
-    myJunctionControlBuilder.setSubKey(m_Key);
+    myJunctionControlBuilder.setSubKey(chars);
 }
 
 
@@ -1278,9 +1500,10 @@ NLHandler::setOffset(const std::string &chars)
     try {
         myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid offset for a junction.");
-        return;
-    }
+        MsgHandler::getErrorInstance()->inform("The offset for a junction is not numeric.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The offset for a junction is not empty.");
+    } // !!! können chars die Laenge 0 haben?
 }
 
 
@@ -1290,9 +1513,12 @@ NLHandler::setNetOffset(const std::string &chars)
     try {
         Position2DVector s = GeomConvHelper::parseShape(chars);
         myNetworkOffset = s[0];
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+    } catch (OutOfBoundsException &) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-        return;
     }
 }
 
@@ -1302,9 +1528,12 @@ NLHandler::setNetConv(const std::string &chars)
 {
     try {
         myConvBoundary = GeomConvHelper::parseBoundary(chars);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid converted network boundary.");
-        return;
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
     }
 }
 
@@ -1314,9 +1543,12 @@ NLHandler::setNetOrig(const std::string &chars)
 {
     try {
         myOrigBoundary = GeomConvHelper::parseBoundary(chars);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid original network boundary.");
-        return;
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
     }
 }
 
@@ -1328,19 +1560,15 @@ NLHandler::addIncomingLanes(const std::string &chars)
     StringTokenizer st(chars);
     while (st.hasNext()) {
         string set = st.next();
-        try {
-            MSLane *lane = MSLane::dictionary(set);
-            if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
-                continue;
-            }
-            if (lane==0) {
-                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming.");
-                return;
-            }
-            myJunctionControlBuilder.addIncomingLane(lane);
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+        MSLane *lane = MSLane::dictionary(set);
+        if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
+            continue;
         }
+        if (lane==0) {
+            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as incoming to junction '" + myJunctionControlBuilder.getActiveID() + "'.");
+            return;
+        }
+        myJunctionControlBuilder.addIncomingLane(lane);
     }
 }
 
@@ -1350,7 +1578,11 @@ NLHandler::addIncomingLanes(const std::string &chars)
 void
 NLHandler::addPolyPosition(const std::string &chars)
 {
-    myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
+    try {
+        myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
 }
 
 
@@ -1365,139 +1597,21 @@ NLHandler::addInternalLanes(const std::string &chars)
     StringTokenizer st(chars);
     while (st.hasNext()) {
         string set = st.next();
-        try {
-            MSLane *lane = MSLane::dictionary(set);
-            if (lane==0) {
-                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
-                return;
-            }
-            myJunctionControlBuilder.addInternalLane(lane);
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+        MSLane *lane = MSLane::dictionary(set);
+        if (lane==0) {
+            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");
+            return;
         }
+        myJunctionControlBuilder.addInternalLane(lane);
     }
 }
 #endif
 
 // ----------------------------------
 
-void
-NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
-    if (wanted(LOADFILTER_NET)) {
-        switch (element) {
-        case SUMO_TAG_EDGE:
-            closeEdge();
-            break;
-        case SUMO_TAG_LANES:
-            closeLanes();
-            break;
-        case SUMO_TAG_LANE:
-            closeLane();
-            break;
-        case SUMO_TAG_CEDGE:
-            closeAllowedEdge();
-            break;
-        case SUMO_TAG_JUNCTION:
-            closeJunction();
-            break;
-        case SUMO_TAG_SUCC:
-            closeSuccLane();
-            break;
-        }
-    }
-    if (wanted(LOADFILTER_NET)) {
-        switch (element) {
-        case SUMO_TAG_ROWLOGIC:
-            myJunctionControlBuilder.closeJunctionLogic();
-            break;
-        case SUMO_TAG_TLLOGIC:
-            myJunctionControlBuilder.closeTrafficLightLogic();
-            myAmInTLLogicMode = false;
-            break;
-        default:
-            break;
-        }
-    }
-    // !!!
-    if (element==SUMO_TAG_WAUT) {
-        closeWAUT();
-    }
-    // !!!!
-    if (wanted(LOADFILTER_NETADD)) {
-        switch (element) {
-        case SUMO_TAG_E3DETECTOR:
-            endE3Detector();
-            break;
-        case SUMO_TAG_DETECTOR:
-            endDetector();
-            break;
-        default:
-            break;
-        }
-    }
-    if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myEndElement(element);
-    }
-}
-
-
-void
-NLHandler::closeEdge()
-{
-    // do not process internal lanes if not wished
-    if (!myCurrentIsInternalToSkip) {
-        MSEdge *edge = myEdgeControlBuilder.closeEdge();
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsSubSys::getOptions());
-        }
-#endif
-    }
-}
-
-
-void
-NLHandler::closeLane()
-{
-    // do not process internal lanes if not wished
-    if (!myCurrentIsInternalToSkip) {
-        MSLane *lane =
-            myEdgeControlBuilder.addLane(myID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
-        // insert the lane into the lane-dictionary, checking
-        if (!MSLane::dictionary(myID, lane)) {
-            throw ProcessError("Another lane with the id '" + myID + "' exists.");
-        }
-    }
-}
-
-void
-NLHandler::closeLanes()
-{
-    myEdgeControlBuilder.closeLanes();
-}
-
-
-void
-NLHandler::closeAllowedEdge()
-{
-    // do not process internal lanes if not wished
-    if (!myCurrentIsInternalToSkip) {
-        myEdgeControlBuilder.closeAllowedEdge();
-    }
-}
 
 
 
-void
-NLHandler::closeJunction()
-{
-    try {
-        myJunctionControlBuilder.closeJunction();
-    } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    }
-}
 
 
 
@@ -1509,8 +1623,8 @@ NLHandler::closeSuccLane()
         return;
     }
     try {
-        m_pSLB.closeSuccLane();
-    } catch (ProcessError &e) {
+        mySucceedingLaneBuilder.closeSuccLane();
+    } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1519,10 +1633,10 @@ NLHandler::closeSuccLane()
 void
 NLHandler::endDetector()
 {
-    if (myDetectorType=="e3") {
+    if (myCurrentDetectorType=="e3") {
         endE3Detector();
     }
-    myDetectorType = "";
+    myCurrentDetectorType = "";
 }
 
 
@@ -1532,8 +1646,6 @@ NLHandler::endE3Detector()
     try {
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1550,24 +1662,17 @@ NLHandler::closeWAUT()
 
 
 
-std::string
-NLHandler::getMessage() const
-{
-    return "Loading routes, lanes and vehicle types...";
-}
-
-
 bool
 NLHandler::wanted(NLLoadFilter filter) const
 {
-    return (_filter&filter)!=0;
+    return (myLoadFilter&filter)!=0;
 }
 
 
 void
 NLHandler::setWanted(NLLoadFilter filter)
 {
-    _filter = filter;
+    myLoadFilter = filter;
 }
 
 

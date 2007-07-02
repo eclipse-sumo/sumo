@@ -91,7 +91,7 @@ public:
     virtual ~NLHandler() throw();
 
     /// returns a message about the processing
-    std::string getMessage() const;
+    //std::string getMessage() const;
 
     /// sets the data type filter
     void setWanted(NLLoadFilter filter);
@@ -166,10 +166,8 @@ protected:
     MSNet &myNet;
 
     /// the definition of what to load
-    NLLoadFilter                              _filter;
+    NLLoadFilter myLoadFilter;
 
-    /// the current key
-    std::string     m_Key;
 
 private:
     /// add the shape to the Lane
@@ -303,28 +301,27 @@ protected:
     NLDetectorBuilder &myDetectorBuilder;
 
     /// The type of the last detector
-    std::string myDetectorType;
+    std::string myCurrentDetectorType;
 
     /// The trigger builder to use
     NLTriggerBuilder &myTriggerBuilder;
 
     /** storage for edges during building */
-    NLEdgeControlBuilder      &myEdgeControlBuilder;
+    NLEdgeControlBuilder &myEdgeControlBuilder;
 
     /** storage for junctions during building */
-    NLJunctionControlBuilder  &myJunctionControlBuilder;
+    NLJunctionControlBuilder &myJunctionControlBuilder;
 
     NLGeomShapeBuilder &myShapeBuilder;
 
     /// storage for building succeeding lanes
-    NLSucceedingLaneBuilder   m_pSLB;
+    NLSucceedingLaneBuilder mySucceedingLaneBuilder;
 
 
-    std::string myCurrentID;
-
-    // { Information about a lane
+    /// @name Information about a lane
+    //@{
     /// The id of the current lane
-    std::string myID;
+    std::string myCurrentLaneID;
 
     /// The information whether the current lane is a depart lane
     bool myLaneIsDepart;
@@ -340,7 +337,7 @@ protected:
 
     /// The shape of the current lane
     Position2DVector myShape;
-    // }
+    //@}
 
     /// Edge continuations
     MSEdgeContinuations myContinuations;
@@ -357,7 +354,7 @@ protected:
     /// The network's boundaries
     Boundary myOrigBoundary, myConvBoundary;
 
-    bool myCurrentWAUTIsBroken;
+    bool myCurrentIsBroken;
 
 private:
     /** invalid copy constructor */

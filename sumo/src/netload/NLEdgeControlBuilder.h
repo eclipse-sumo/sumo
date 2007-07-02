@@ -124,6 +124,8 @@ public:
                              std::vector<SUMOVehicleClass> &allowed,
                              std::vector<SUMOVehicleClass> &disallowed);
 
+    size_t getEdgeCapacity() const;
+
 
 protected:
     /// A running numer for lane numbering

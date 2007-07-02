@@ -70,12 +70,10 @@ using namespace std;
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     const std::string &id,
     OutputDevice *device,
-    MSUnit::Seconds haltingTimeThreshold,
     MSUnit::MetersPerSecond haltingSpeedThreshold,
     const E3MeasuresVector &measures,
     int splInterval) :
         myID(id), myDevice(device),
-        myHaltingTimeThreshold(haltingTimeThreshold),
         myHaltingSpeedThreshold(haltingSpeedThreshold),
         myMeasures(measures), mySampleInterval(splInterval)
 {}
@@ -327,12 +325,11 @@ void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice *device, int splInterval,
                                    const std::string &measures,
-                                   SUMOReal /*haltingTimeThreshold*/,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
-                     haltingSpeedThreshold, haltingSpeedThreshold,
+                     haltingSpeedThreshold,
                      toAdd, splInterval);
 }
 
@@ -364,6 +361,16 @@ NLDetectorBuilder::addE3Exit(const std::string &lane,
         pos = clane->length() + pos;
     }
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
+}
+
+
+std::string 
+NLDetectorBuilder::getCurrentE3ID() const
+{
+    if(myE3Definition==0) {
+        return "<unknown>";
+    }
+    return myE3Definition->myID;
 }
 
 

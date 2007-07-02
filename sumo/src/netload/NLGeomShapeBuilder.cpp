@@ -37,7 +37,6 @@
 #include <utils/shapes/ShapeContainer.h>
 #include "NLGeomShapeBuilder.h"
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 
@@ -85,8 +84,8 @@ NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
     Polygon2D *p =
         new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape, myFillPoly);
     if (!myShapeContainer.add(myCurrentLayer, p)) {
-        MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
+        throw InvalidArgument("A duplicate of the polygon '" + myCurrentName + "' occured.");
     }
 }
 
@@ -102,8 +101,8 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     PointOfInterest *p = new PointOfInterest(name, type, pos, c);
     if (!myShapeContainer.add(layer, p)) {
-        MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
+        throw InvalidArgument("A duplicate of the POI '" + name + "' occured.");
     }
 }
 
@@ -118,7 +117,7 @@ NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
     }
     MSLane *lane = MSLane::dictionary(laneID);
     if (lane==0) {
-        throw EmptyData();
+        throw InvalidArgument("Lane '" + laneID + "' to place a poi on is not known.");
     }
     if (posOnLane<0) {
         posOnLane = lane->length() + posOnLane;

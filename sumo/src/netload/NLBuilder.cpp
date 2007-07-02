@@ -131,14 +131,19 @@ bool
 NLBuilder::build()
 {
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
-    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser);
     // try to build the net
-    ok = buildNet();
+    if(!load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser)) {
+        delete parser;
+        return false;
+    }
+    buildNet();
     // load the previous state if wished
-    if (ok&&m_pOptions.isSet("load-state")) {
+    if (m_pOptions.isSet("load-state")) {
         BinaryInputDevice strm(m_pOptions.getString("load-state"));
         if (!strm.good()) {
-            throw ProcessError("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
+            delete parser;
+            MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
+            return false;
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
             myNet.loadState(strm, (long) 0xfffffff);
@@ -146,57 +151,56 @@ NLBuilder::build()
         }
     }
     // load weights if wished
-    if (ok&&m_pOptions.isSet("weight-files")) {
+    if (m_pOptions.isSet("weight-files")) {
         if (!FileHelpers::checkFileList("weights", m_pOptions.getString("weight-files"))) {
-            throw ProcessError();
+            delete parser;
+            return false;
         }
         // start parsing; for each file in the list
         StringTokenizer st(m_pOptions.getString("weight-files"), ';');
-        while (st.hasNext()&&ok) {
+        while (st.hasNext()) {
             string tmp = st.next();
             // report about loading when wished
             WRITE_MESSAGE("Loading weights from '" + tmp + "'...");
             // check whether the file exists
             if (!FileHelpers::exists(tmp)) {
                 // report error if not
-                throw ProcessError("The weights file '" + tmp + "' does not exist!");
+                MsgHandler::getErrorInstance()->inform("The weights file '" + tmp + "' does not exist!");
+                return false;
             } else {
                 EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
                 SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
                 SAXWeightsHandler wh(def, tmp);
                 // parse the file
-                if (!XMLSubSys::runParser(wh, tmp)) {
-                    throw ProcessError();
+                if(!XMLSubSys::runParser(wh, tmp)) {
+                    return false;
                 }
-                ok = !(MsgHandler::getErrorInstance()->wasInformed());
             }
         }
     }
     // load routes
-    if (m_pOptions.isSet("route-files")&&ok&&m_pOptions.getInt("route-steps")<=0) {
-        ok = load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("route-files"),
-                  *parser);
+    if (m_pOptions.isSet("route-files")&&m_pOptions.getInt("route-steps")<=0) {
+        if(!load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("route-files"), *parser)) {
+            delete parser;
+            return false;
+        }
     }
     // load additional net elements (sources, detectors, ...)
-    if (m_pOptions.isSet("additional-files")&&ok) {
-        ok = load("additional elements",
+    if (m_pOptions.isSet("additional-files")) {
+        if(!load("additional elements",
                   (NLLoadFilter)((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
-                  m_pOptions.getString("additional-files"), *parser);
+                  m_pOptions.getString("additional-files"), *parser)) {
+            delete parser;
+            return false;
+        }
     }
-    subreport("Loading done.", "Loading failed.");
     delete parser;
-    return ok&&!MsgHandler::getErrorInstance()->wasInformed();
+    WRITE_MESSAGE("Loading done.");
+    return true;
 }
 
 
-bool
-NLBuilder::buildNet(GNEImageProcWindow &)
-{
-    return buildNet();
-}
-
-
-bool
+void
 NLBuilder::buildNet()
 {
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
@@ -217,7 +221,6 @@ NLBuilder::buildNet()
         streams, meanData,
         m_pOptions.getIntVector("save-state.times"),
         m_pOptions.getString("save-state.prefix"));
-    return true;
 }
 
 bool
@@ -237,13 +240,13 @@ NLBuilder::load(const std::string &mmlWhat,
     parser.setErrorHandler(&myXMLHandler);
     parse(mmlWhat, files, parser);
     // report about loaded structures
-    subreport(
-        "Loading of " + mmlWhat + " done.",
-        "Loading of " + mmlWhat + " failed.");
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
-        throw ProcessError();
+    if(MsgHandler::getErrorInstance()->wasInformed()) {
+        WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
+        return false;
+    } else {
+        WRITE_MESSAGE("Loading of " + mmlWhat + " done.");
+        return true;
     }
-    return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
 
@@ -272,17 +275,6 @@ NLBuilder::parse(const std::string &mmlWhat,
         }
     }
     return ok;
-}
-
-
-void
-NLBuilder::subreport(const std::string &ok, const std::string &wrong)
-{
-    if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        WRITE_MESSAGE(ok.c_str());
-    } else {
-        WRITE_MESSAGE(wrong.c_str());
-    }
 }
 
 

@@ -30,7 +30,6 @@
 
 #include "NLDiscreteEventBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/actions/Command_SaveTLSSwitches.h>
@@ -77,14 +76,12 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
     string type = parser.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     // check whether the type was given
     if (type=="") {
-        MsgHandler::getErrorInstance()->inform("An action's type is not given.");
-        return;
+        throw InvalidArgument("An action's type is not given.");
     }
     // get the numerical representation
     KnownActions::iterator i = myActions.find(type);
     if (i==myActions.end()) {
-        MsgHandler::getErrorInstance()->inform("The action type '" + type + "' is not known.");
-        return;
+        throw InvalidArgument("The action type '" + type + "' is not known.");
     }
     ActionType at = (*i).second;
     // build the action
@@ -100,7 +97,7 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
         a = buildSaveTLSwitchStatesCommand(parser, attrs, basePath);
         break;
     default:
-        throw 1;
+        throw InvalidArgument("Unknown trigger type.");
     }
 }
 
@@ -115,12 +112,11 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
     string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
-        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
-        return 0;
+        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
 
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
@@ -141,12 +137,11 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
-        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
-        return 0;
+        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
 
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
@@ -167,12 +162,11 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
     string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
-        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
-        return 0;
+        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
     }
     // get the logic
     if (!myNet.getTLSControl().knows(source)) {
-        throw ProcessError("The traffic light logic to save (" + source +  ") is not given.");
+        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
 
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);

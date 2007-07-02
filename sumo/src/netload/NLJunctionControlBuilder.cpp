@@ -45,7 +45,6 @@
 #include "NLBuilder.h"
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
 #include "NLJunctionControlBuilder.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
@@ -130,7 +129,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         myType = TYPE_INTERNAL;
     }
     if (myType<0) {
-        throw ProcessError("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
+        throw InvalidArgument("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
 
     }
     myPosition.set(x, y);
@@ -156,6 +155,9 @@ NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
 void
 NLJunctionControlBuilder::closeJunction()
 {
+    if(myJunctions==0) {
+        throw ProcessError("Information about the number of nodes was missing.");
+    }
     MSJunction *junction = 0;
     switch (myType) {
     case TYPE_NOJUNCTION:
@@ -176,13 +178,13 @@ NLJunctionControlBuilder::closeJunction()
 #endif
         break;
     default:
-        throw ProcessError("False junction type.");
+        throw InvalidArgument("False junction type.");
 
     }
     if (junction!=0) {
         myJunctions->push_back(junction);
         if (!MSJunction::dictionary(myActiveID, junction)) {
-            throw ProcessError("Another junction with the id '" + myActiveID + "' exists.");
+            throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
     }
 }
@@ -238,7 +240,7 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
     // get and check the junction logic
     MSJunctionLogic *jtype = MSJunctionLogic::dictionary(myActiveID);
     if (jtype==0) {
-        throw ProcessError("Missing junction logic '" + myActiveID + "'.");
+        throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
     }
     return jtype;
 }
@@ -313,7 +315,8 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
     myActivePhases.clear();
     if (tlLogic!=0) {
         if (!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
-            MsgHandler::getErrorInstance()->inform("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
+            delete tlLogic;
+            throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
         }
     }
 }
@@ -376,8 +379,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        bool cont)
 {
     if (myRequestSize<=0) {
-        MsgHandler::getErrorInstance()->inform("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
-        return;
+        throw InvalidArgument("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
     }
     // add the read response for the given request index
     bitset<64> use(response);
@@ -485,7 +487,7 @@ void
 NLJunctionControlBuilder::closeJunctionLogic()
 {
     if (myRequestItemNumber!=myRequestSize) {
-        MsgHandler::getErrorInstance()->inform("The description for the junction logic '" + myActiveKey + "' is malicious.");
+        throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes, myActiveConts);
@@ -557,6 +559,26 @@ NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
     getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync);
 }
 
+
+const string &
+NLJunctionControlBuilder::getActiveID() const
+{
+    return myActiveID;
+}
+
+
+const string &
+NLJunctionControlBuilder::getActiveKey() const
+{
+    return myActiveKey;
+}
+
+
+const string &
+NLJunctionControlBuilder::getActiveSubKey() const
+{
+    return myActiveSubKey;
+}
 
 
 /****************************************************************************/

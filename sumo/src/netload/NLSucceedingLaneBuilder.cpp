@@ -102,14 +102,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // get the lane the link belongs to
     MSLane *lane = MSLane::dictionary(laneId);
     if (lane==0) {
-        throw ProcessError("An unknown lane ('" + laneId + "') should be set as a follower.");
+        throw InvalidArgument("An unknown lane ('" + laneId + "') should be set as a follower for lane '" + m_CurrentLane + "'.");
     }
 #ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
     if (viaID!="" && OptionsSubSys::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
         if (via==0) {
-            throw ProcessError("An unknown lane ('" + viaID + "') should be set as a via-lane.");
+            throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + m_CurrentLane + "'.");
         }
     }
     if (pass>=0) {
@@ -121,7 +121,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (tlid!="") {
         logics = myJunctionControlBuilder.getTLLogic(tlid);
         if (logics.ltVariants.size()==0) {
-            throw ProcessError("A link wanted to use an unknown tl-logic ('" + tlid + "').");
+            throw InvalidArgument("A link of lane '" + m_CurrentLane + "' wanted to use an unknown tl-logic ('" + tlid + "').");
         }
     }
     // build the link
@@ -141,7 +141,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (logics.ltVariants.size()!=0) {
         MSLane *current = MSLane::dictionary(m_CurrentLane);
         if (current==0) {
-            throw ProcessError("An unknown lane ('" + m_CurrentLane + "') should be assigned t a tl-logic.");
+            throw InvalidArgument("An unknown lane ('" + m_CurrentLane + "') should be assigned t a tl-logic.");
         }
         std::map<std::string, MSTrafficLightLogic *>::iterator i;
         for (i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {
@@ -158,7 +158,7 @@ NLSucceedingLaneBuilder::closeSuccLane()
 {
     MSLane *current = MSLane::dictionary(m_CurrentLane);
     if (current==0) {
-        throw ProcessError("An unknown lane ('" + m_CurrentLane + "') should be closed.");
+        throw InvalidArgument("Trying to close connections of an unknown lane ('" + m_CurrentLane + "').");
     }
     MSLinkCont *cont = new MSLinkCont();
     cont->reserve(m_SuccLanes->size());
