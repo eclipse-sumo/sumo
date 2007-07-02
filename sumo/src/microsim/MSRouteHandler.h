@@ -80,7 +80,7 @@ public:
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    virtual void closeRoute();
+    virtual void closeRoute() throw(ProcessError);
 
     /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;

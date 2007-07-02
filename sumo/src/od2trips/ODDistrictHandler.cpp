@@ -77,6 +77,8 @@ ODDistrictHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_DSINK:
         addSink(attrs);
         break;
+    default:
+        break;
     }
 }
 

@@ -228,13 +228,10 @@ RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
                                         const Attributes &attrs) throw(ProcessError)
 {
     RORDLoader_TripDefs::myStartElement(element, attrs);
-    switch (element) {
-    case SUMO_TAG_FLOW:
+    if (element == SUMO_TAG_FLOW) {
         parseFlowAmountDef(attrs);
-        break;
-    case SUMO_TAG_INTERVAL:
+    } else if (element == SUMO_TAG_INTERVAL) {
         parseInterval(attrs);
-        break;
     }
 }
 
@@ -310,13 +307,10 @@ void
 RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     RORDLoader_TripDefs::myEndElement(element);
-    switch (element) {
-    case SUMO_TAG_FLOW:
+    if (element == SUMO_TAG_FLOW) {
         myEndFlowAmountDef();
-        break;
-    case SUMO_TAG_INTERVAL:
+    } else if (element == SUMO_TAG_INTERVAL) {
         myEndInterval();
-        break;
     }
 }
 

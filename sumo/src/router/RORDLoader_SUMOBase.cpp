@@ -94,10 +94,8 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 void
 RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-    switch (element) {
-    case SUMO_TAG_VEHICLE:
+    if (element == SUMO_TAG_VEHICLE) {
         closeVehicle();
-        break;
     }
 }
 

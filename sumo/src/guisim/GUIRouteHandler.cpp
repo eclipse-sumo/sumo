@@ -132,7 +132,7 @@ GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 
 
 void
-GUIRouteHandler::closeRoute()
+GUIRouteHandler::closeRoute() throw(ProcessError)
 {
     int size = myActiveRoute.size();
     if (size==0) {

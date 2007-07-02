@@ -190,7 +190,7 @@ GUIHandler::openRoute(const Attributes &attrs)
 
 
 void
-GUIHandler::closeRoute()
+GUIHandler::closeRoute() throw(ProcessError)
 {
     int size = myActiveRoute.size();
     if (size==0) {

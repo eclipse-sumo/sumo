@@ -208,6 +208,8 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(*this, attrs, getFileName());
             break;
+        default:
+            break;
         }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
@@ -279,6 +281,9 @@ NLHandler::myCharacters(SumoXMLTag element,
             break;
         case SUMO_TAG_ORIG_PROJ:
             GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
+            break;
+        default:
+            break;
         }
     }
     if (wanted(LOADFILTER_DYNAMIC)) {
@@ -309,6 +314,8 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             break;
         case SUMO_TAG_SUCC:
             closeSuccLane();
+            break;
+        default:
             break;
         }
     }
@@ -1503,7 +1510,7 @@ NLHandler::setOffset(const std::string &chars)
         MsgHandler::getErrorInstance()->inform("The offset for a junction is not numeric.");
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The offset for a junction is not empty.");
-    } // !!! können chars die Laenge 0 haben?
+    } // !!! can chars have length 0?
 }
 
 

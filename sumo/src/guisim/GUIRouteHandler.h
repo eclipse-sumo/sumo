@@ -64,7 +64,7 @@ protected:
                                       const RGBColor &c, SUMOReal prob);
 
     /// Ends route processing
-    void closeRoute();
+    void closeRoute() throw(ProcessError);
 
     /// Starts route processing
     void openRoute(const Attributes &attrs);

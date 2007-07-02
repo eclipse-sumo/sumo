@@ -100,6 +100,8 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
     case SUMO_TAG_TOEDGE:
         addToEdge(attrs);
         break;
+    default:
+        break;
     }
 }
 
@@ -125,6 +127,8 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
         edge->setType(ROEdge::ET_SOURCE);
     }
     break;
+    default:
+        break;
     }
 }
 
@@ -138,6 +142,8 @@ ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw(ProcessError)
         break;
     case SUMO_TAG_FROMEDGE:
         endFromEdge();
+        break;
+    default:
         break;
     }
 }

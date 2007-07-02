@@ -317,23 +317,16 @@ MSRouteHandler::addRouteElements(const std::string &chars)
 void
 MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-    switch (element) {
-    case SUMO_TAG_ROUTE:
-        try {
-            closeRoute();
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
-        break;
-    case SUMO_TAG_VEHICLE:
+    if (element == SUMO_TAG_ROUTE) {
+        closeRoute();
+    } else if (element == SUMO_TAG_VEHICLE) {
         closeVehicle();
-        break;
     }
 }
 
 
 void
-MSRouteHandler::closeRoute()
+MSRouteHandler::closeRoute() throw(ProcessError)
 {
     int size = myActiveRoute.size();
     if (size==0) {
