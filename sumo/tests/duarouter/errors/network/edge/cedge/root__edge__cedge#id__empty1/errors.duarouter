@@ -1,2 +1,2 @@
-Error: The network file 'net.net.xml' could not be found.
+Error: At edge '1': succeding edge '' does not exist.
 Quitting (on error).
