@@ -289,7 +289,13 @@ public:
             throw EmptyData();
         }
         char akt = (char) data[0];
-        return akt=='1' || akt=='x' || akt=='t' || akt=='T';
+        if(akt=='1' || akt=='x' || akt=='t' || akt=='T') {
+            return true;
+        }
+        if(akt=='0' || akt=='-' || akt=='f' || akt=='F') {
+            return false;
+        }
+        throw BoolFormatException();
     }
 
 

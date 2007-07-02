@@ -52,8 +52,7 @@ GeomConvHelper::parseShape(const std::string &shpdef)
         StringTokenizer pos(st.next(), ",");
         SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
         SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-        shape.push_back(
-            Position2D(x, y));
+        shape.push_back(Position2D(x, y));
     }
     return shape;
 }
@@ -64,7 +63,7 @@ GeomConvHelper::parseBoundary(const std::string &def)
 {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
-        throw ProcessError("Could not parse '" + def + "' as boundary.");
+        throw InvalidArgument("Could not parse '" + def + "' as boundary.");
     }
     SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
     SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());

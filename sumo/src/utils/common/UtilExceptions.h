@@ -93,7 +93,7 @@ public:
 /**
  * NumberFormatException
  * Thrown when the string that shall be converted into a
- * numerical representation has any other chracters then
+ * numerical representation has any other characters then
  * digits and a dot
  */
 class NumberFormatException : public std::runtime_error
@@ -102,6 +102,22 @@ public:
     /** constructor */
     NumberFormatException()
             : std::runtime_error("Number Format")
+    {}
+
+};
+
+
+/**
+ * BoolFormatException
+ * Thrown when the string that shall be converted into a
+ * boolean does not match
+ */
+class BoolFormatException : public std::runtime_error
+{
+public:
+    /** constructor */
+    BoolFormatException()
+            : std::runtime_error("Bool Format")
     {}
 
 };
