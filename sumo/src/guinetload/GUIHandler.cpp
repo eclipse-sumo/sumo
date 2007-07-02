@@ -114,8 +114,15 @@ GUIHandler::myCharacters(SumoXMLTag element,
 void
 GUIHandler::addJunctionShape(const std::string &chars)
 {
-    Position2DVector shape = GeomConvHelper::parseShape(chars);
-    static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
+    try {
+        Position2DVector shape = GeomConvHelper::parseShape(chars);
+        static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
+        return;
+    } catch (OutOfBoundsException &) {
+    } catch (NumberFormatException &) {
+    } catch (EmptyData &) {
+    }
+    MsgHandler::getErrorInstance()->inform("Could not parse shape of junction '" + myJunctionControlBuilder.getActiveID() + "'.");
 }
 
 
@@ -139,15 +146,15 @@ GUIHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
-        } catch (ProcessError &e) {
+        } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
+            MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Error in description: one of an vehtype's attributes must be numeric but is not.");
+            MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vehicle-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
     }
 }
 
@@ -166,7 +173,7 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
         delete myCurrentVehicleType;
         myCurrentVehicleType = 0;
         if (!MSGlobals::gStateLoaded) {
-            throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
+            MsgHandler::getErrorInstance()->inform("Another vehicle type with the id '" + id + "' exists.");
         }
     }
 }
@@ -187,11 +194,12 @@ GUIHandler::closeRoute()
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        if (myActiveRouteID[0]!='!') {
-            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        if(myActiveRouteID[0]!='!') {
+            MsgHandler::getErrorInstance()->inform("Route '" + myActiveRouteID + "' has no edges.");
         } else {
-            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
+            MsgHandler::getErrorInstance()->inform("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
         }
+        return;
     }
     GUIRoute *route =
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
@@ -199,15 +207,16 @@ GUIHandler::closeRoute()
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if (myActiveRouteID[0]!='!') {
-                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
+            if(myActiveRouteID[0]!='!') {
+                MsgHandler::getErrorInstance()->inform("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
-                    throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                    MsgHandler::getErrorInstance()->inform("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
-                    throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
+                    MsgHandler::getErrorInstance()->inform("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
                 }
             }
+            return;
         }
     }
     if (myAmInEmbeddedMode) {

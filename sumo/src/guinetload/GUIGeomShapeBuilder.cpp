@@ -35,8 +35,8 @@
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/common/UtilExceptions.h>
 #include "GUIGeomShapeBuilder.h"
-#include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -64,8 +64,8 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
         new GUIPolygon2D(myIdStorage, myCurrentLayer, myCurrentName, myCurrentType,
                          myCurrentColor, shape, myFillPoly);
     if (!myShapeContainer.add(myCurrentLayer, p)) {
-        MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
+        throw InvalidArgument("A duplicate of the polygon '" + myCurrentName + "' occured.");
     }
 }
 
@@ -80,8 +80,8 @@ GUIGeomShapeBuilder::addPoint(const std::string &name,
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, layer, name, type, pos, c);
     if (!myShapeContainer.add(layer, p)) {
-        MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
+        throw InvalidArgument("A duplicate of the POI '" + name + "' occured.");
     }
 }
 

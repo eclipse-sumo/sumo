@@ -38,7 +38,6 @@
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIE1VehicleActor.h>
 #include <guisim/GUIBusStop.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include "GUITriggerBuilder.h"

@@ -80,7 +80,7 @@ GUIEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
     if (!MSEdge::dictionary(id, edge)) {
-        throw ProcessError("Another edge with the id '" + id + "' exists.");
+        throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     m_pEdges->push_back(edge);
     return edge;
@@ -104,7 +104,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
-        throw ProcessError("Lane's '" + id + "' edge already has a depart lane.");
+        throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
     }
     std::vector<SUMOVehicleClass> allowed, disallowed;
     parseVehicleClasses(vclasses, allowed, disallowed);
@@ -124,7 +124,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                                     myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
-        throw ProcessError("A lane with an unknown type occured (" + toString(m_Function) + ")");
+        throw InvalidArgument("A lane with an unknown type occured (" + toString(m_Function) + ")");
     }
 #ifdef RAKNET_DEMO
     float *xPos = new float[shape.size()];
