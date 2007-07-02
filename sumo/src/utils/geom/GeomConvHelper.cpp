@@ -47,6 +47,9 @@ Position2DVector
 GeomConvHelper::parseShape(const std::string &shpdef)
 {
     StringTokenizer st(shpdef, " ");
+    if(shpdef=="") {
+        throw EmptyData();
+    }
     Position2DVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");

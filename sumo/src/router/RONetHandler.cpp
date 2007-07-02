@@ -103,20 +103,22 @@ void
 RONetHandler::parseEdge(const Attributes &attrs)
 {
     // get the id of the edge and the edge
+	_currentEdge = 0;
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
         if (_currentName[0]==':') {
             // this is an internal edge - we will not use it
             //  !!! recheck this; internal edges may be of importance during the dua
-            _currentEdge = 0;
             return;
         }
     } catch (EmptyData &) {
-        throw ProcessError("An edge without an id occured within '" + getFileName() + ".");
+		MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + getFileName() + "'.");
+		return;
     }
     _currentEdge = _net.getEdge(_currentName);
     if (_currentEdge==0) {
-        throw ProcessError("An unknown edge occured within '" + getFileName() + ".");
+        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + getFileName() + "' (id='" + _currentName + "').");
+		return;
     }
 
     // get the type of the edge
@@ -132,34 +134,44 @@ RONetHandler::parseEdge(const Attributes &attrs)
         } else if (type=="internal") {
             _process = false;
         } else {
-            throw ProcessError("Edge '" + _currentName + "' has an unknown type.");
+            MsgHandler::getErrorInstance()->inform("Edge '" + _currentName + "' has an unknown type.");
+			return;
         }
     } catch (EmptyData &) {
-        throw ProcessError("Missing type in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + _currentName + "'.");
+		return;
     }
     // get the from-junction
     RONode *fromNode = 0;
     try {
         string from = getString(attrs, SUMO_ATTR_FROM);
+        if(from=="") {
+            throw EmptyData();
+        }
         fromNode = _net.getNode(from);
         if (fromNode==0) {
             fromNode = new RONode(from);
             _net.addNode(fromNode);
         }
     } catch (EmptyData &) {
-        throw ProcessError("Missing from-node in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + _currentName + "'.");
+		return;
     }
     // get the to-junction
     RONode *toNode = 0;
     try {
         string to = getString(attrs, SUMO_ATTR_TO);
+        if(to=="") {
+            throw EmptyData();
+        }
         toNode = _net.getNode(to);
         if (toNode==0) {
             toNode = new RONode(to);
             _net.addNode(toNode);
         }
     } catch (EmptyData &) {
-        throw ProcessError("Missing to-node in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + _currentName + "'.");
+		return;
     }
     // add the edge
     _currentEdge->setNodes(fromNode, toNode);
@@ -170,36 +182,36 @@ void
 RONetHandler::parseLane(const Attributes &attrs)
 {
     if (_currentEdge==0) {
-        // was an internal edge to skip
+        // was an internal edge to skip or an error occured
         return;
     }
     SUMOReal maxSpeed = -1;
     SUMOReal length = -1;
     std::vector<SUMOVehicleClass> allowed, disallowed;
+    // get the id
+    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    if (id.length()==0) {
+        MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
+        return;
+    }
     // get the speed
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("A lane without a maxspeed definition occured within '" + getFileName() + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing maxspeed definition in lane '" + id + "'.");
         return;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A lane with a nonnumerical maxspeed definition occured within '" + getFileName() + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Not numerical maxspeed definition in lane '" + id + "'.");
         return;
     }
     // get the length
     try {
         length = getFloat(attrs, SUMO_ATTR_LENGTH);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("A lane without a length definition occured within '" + getFileName() + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing length definition in lane '" + id + "'.");
         return;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A lane with a nonnumerical length definition occured within '" + getFileName() + "', edge '" + _currentName + "'.");
-        return;
-    }
-    // get the id
-    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-    if (id.length()==0) {
-        MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
+        MsgHandler::getErrorInstance()->inform("Not numerical length definition in lane '" + id + "'.");
         return;
     }
     // get the vehicle classes
@@ -229,6 +241,9 @@ RONetHandler::parseJunction(const Attributes &attrs)
 {
     try {
         _currentName = getString(attrs, SUMO_ATTR_ID);
+        if(_currentName=="") {
+            throw EmptyData();
+        }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A junction without an id occured within '" + getFileName() + "'.");
     }
@@ -250,7 +265,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
             // connect edge
             _currentEdge->addFollower(succ);
         } else {
-            MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': the succeding edge '" + succID + "' does not exist.");
+            MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': succeding edge '" + succID + "' does not exist.");
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': a succeding edge has no id.");
