@@ -4,6 +4,7 @@ copy_test_path:input_net.net.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:input_turns.turns.csv
+copy_test_path:net.net.xml
 
 [collate_file]
 routes:routes.rou.xml

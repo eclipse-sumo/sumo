@@ -25,4 +25,5 @@ straight_only_deprecated
 # Tests for checking false sink definitions
 sinks
 
+network
 

@@ -1,0 +1,5 @@
+<flowdefs>
+
+	<flow id="0" from="1" to="2" begin="0" end="100" no="100"/>
+
+</flowdefs>
