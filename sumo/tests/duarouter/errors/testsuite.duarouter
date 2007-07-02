@@ -19,6 +19,7 @@ no_input
 # Tests what happens if an unknown option is passed
 unknown_option
 
+network
 
 
 
