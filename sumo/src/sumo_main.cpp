@@ -110,7 +110,7 @@ load(OptionsCont &oc)
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if (!builder.build()) {
         delete net;
-        net = 0;
+        throw ProcessError();
     }
     return net;
 }
