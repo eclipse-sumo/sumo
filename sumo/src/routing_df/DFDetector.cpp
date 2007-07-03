@@ -601,7 +601,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                 if (destIndex>=0) {
                     strm << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
                 }
-                strm << " vehtype=\"" << type << "\"/>" << endl;
+                strm  << "/>" << endl;
                 srcFD.isLKW += srcFD.fLKW;
             }
             delete destDist;
