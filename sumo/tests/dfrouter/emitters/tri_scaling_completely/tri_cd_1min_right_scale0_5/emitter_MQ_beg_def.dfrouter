@@ -2,9 +2,9 @@
    <routedistelem id="beg_to_end" probability="0"/>
    <routedistelem id="beg_to_end_1" probability="0"/>
    <routedistelem id="beg_to_end_2" probability="1"/>
-   <emit id="emitter_MQ_beg_0" time="0" speed="100" route="beg_to_end_2" vehtype="test"/>
-   <emit id="emitter_MQ_beg_12" time="12" speed="100" route="beg_to_end_2" vehtype="test"/>
-   <emit id="emitter_MQ_beg_24" time="24" speed="100" route="beg_to_end_2" vehtype="test"/>
-   <emit id="emitter_MQ_beg_36" time="36" speed="100" route="beg_to_end_2" vehtype="test"/>
-   <emit id="emitter_MQ_beg_48" time="48" speed="100" route="beg_to_end_2" vehtype="test"/>
+   <emit id="emitter_MQ_beg_0" time="0" speed="100" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_12" time="12" speed="100" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_24" time="24" speed="100" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_36" time="36" speed="100" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_48" time="48" speed="100" route="beg_to_end_2"/>
 </triggeredsource>
