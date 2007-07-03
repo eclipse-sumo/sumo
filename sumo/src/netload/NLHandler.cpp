@@ -732,7 +732,12 @@ NLHandler::openWAUT(const Attributes &attrs)
     }
     if(!myCurrentIsBroken) {
         myCurrentWAUTID = id;
-        myJunctionControlBuilder.addWAUT(t, id, pro);
+        try {
+            myJunctionControlBuilder.addWAUT(t, id, pro);
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+            myCurrentIsBroken = true;
+        }
     }
 }
 
@@ -758,7 +763,12 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
         myCurrentIsBroken = true;
     }
     if(!myCurrentIsBroken) {
-        myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+        try {
+            myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+            myCurrentIsBroken = true;
+        }
     }
 }
 
@@ -787,6 +797,10 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
         }
     } catch (BoolFormatException &) {
         MsgHandler::getErrorInstance()->inform("The information whether WAUT '" + wautID + "' is uncontrolled is not a valid bool.");
+        myCurrentIsBroken = true;
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+        myCurrentIsBroken = true;
     }
 }
 

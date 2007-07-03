@@ -45,7 +45,6 @@
 #include <microsim/MSNet.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -630,8 +629,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
     // check whether the waut was already defined
     if (myWAUTs.find(id)!=myWAUTs.end()) {
         // report an error if so
-        MsgHandler::getErrorInstance()->inform("Waut '" + id + "' was already defined.");
-        return;
+        throw InvalidArgument("Waut '" + id + "' was already defined.");
     }
     WAUT *w = new WAUT;
     w->id = id;
@@ -648,8 +646,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
         // report an error if the waut is not known
-        MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
-        return;
+        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     // build and save the waut switch definition
     WAUTSwitch s;
@@ -686,14 +683,12 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
         // report an error if the waut is not known
-        MsgHandler::getErrorInstance()->inform("Waut '" + wautid + "' was not yet defined.");
-        return;
+        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     // try to get the tls to switch
     if (myLogics.find(junc)==myLogics.end()) {
         // report an error if the tls is not known
-        MsgHandler::getErrorInstance()->inform("TLS '" + junc + "' to switch in WAUT '" + wautid + "' was not yet defined.");
-        return;
+        throw InvalidArgument("TLS '" + junc + "' to switch in WAUT '" + wautid + "' was not yet defined.");
     }
     WAUTJunction j;
     j.junction = junc;
