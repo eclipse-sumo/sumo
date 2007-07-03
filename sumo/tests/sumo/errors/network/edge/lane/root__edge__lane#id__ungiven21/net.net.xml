@@ -19,7 +19,7 @@
 
    <edge id="2" from="2" to="3" priority="1" type="" function="normal">
       <lanes>
-         <lane id="2_0" vclasses="" maxspeed="19.00" length="100.00">100.00,-4.95 200.00,-4.95</lane>
+         <lane depart="1" vclasses="" maxspeed="19.00" length="100.00">100.00,-4.95 200.00,-4.95</lane>
          <lane id="2_1" depart="0" vclasses="" maxspeed="19.00" length="100.00">100.00,-1.65 200.00,-1.65</lane>
       </lanes>
    </edge>

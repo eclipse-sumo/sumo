@@ -12,7 +12,7 @@
    <edge id="1" from="1" to="2" priority="1" type="" function="normal">
       <lanes>
          <lane id="1_0" depart="1" vclasses="" maxspeed="19.00" length="100.00">0.00,-4.95 100.00,-4.95</lane>
-         <lane id="1_1" vclasses="" maxspeed="19.00" length="100.00">0.00,-1.65 100.00,-1.65</lane>
+         <lane depart="0" vclasses="" maxspeed="19.00" length="100.00">0.00,-1.65 100.00,-1.65</lane>
       </lanes>
       <cedge id="2">1_0 1_1</cedge>
    </edge>
