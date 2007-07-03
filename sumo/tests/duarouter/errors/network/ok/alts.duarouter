@@ -1,2 +1,7 @@
 <route-alternatives>
+   <vehicle id="0" depart="0">
+      <routealt last="0">
+         <route cost="10.5263" probability="1">1 2</route>
+      </routealt>
+   </vehicle>
 </route-alternatives>
