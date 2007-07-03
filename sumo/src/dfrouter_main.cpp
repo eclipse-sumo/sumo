@@ -95,7 +95,7 @@ loadNet(OptionsCont &oc)
     RODFEdgeBuilder builder;
     RONet *ronet =  loader.loadNet(builder);
     if (ronet==0) {
-        throw ProcessError();
+         throw ProcessError();
     }
 
     DFRONet *net = new DFRONet(ronet, oc.getBool("highway-mode"));
@@ -115,14 +115,14 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
     // read definitions stored in XML-format
     {
         vector<string> files = oc.getStringVector("detector-files");
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
                 throw ProcessError("Could not open detector file '" + *fileIt + "'");
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
             DFDetectorHandler handler(oc, *cont, *fileIt);
-            if (XMLSubSys::runParser(handler, *fileIt)) {
+            if(XMLSubSys::runParser(handler, *fileIt)) {
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
             } else {
                 MsgHandler::getMessageInstance()->endProcessMsg("failed.");
@@ -138,7 +138,7 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
             delete cont;
             throw ProcessError("You need a network in order to read elmar definitions.");
         }
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
                 throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
@@ -213,7 +213,7 @@ readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
     }
     // check whether the file exists
     vector<string> files = oc.getStringVector("detector-flow-files");
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
         }
@@ -316,7 +316,9 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
                                      *optNet,
                                      oc.getBool("write-calibrators"),
                                      oc.getBool("include-unused-routes"),
-                                     oc.getFloat("scale"));
+                                     oc.getFloat("scale"),
+                                     oc.getInt("max-nodet-follower"),
+                                     oc.getBool("emissions-only"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-poi-output")) {
@@ -383,7 +385,7 @@ main(int argc, char **argv)
         // build routes
         startComputation(net, oc);
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

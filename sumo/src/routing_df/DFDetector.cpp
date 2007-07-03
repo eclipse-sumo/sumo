@@ -106,10 +106,15 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
                      const DFDetectorCon &detectors,
                      const DFDetectorFlows &flows,
                      SUMOTime time,
-                     const DFRONet &net) const
+                     const DFRONet &net,
+                     int maxFollower,
+                     int follower) const
 {
+    if(follower>maxFollower){
+        return 0;
+    }
     while (e!=0) {
-        if (q==end) {
+        if(q==end) {
             return 0;
         }
         if (net.hasDetector(e)) {
@@ -120,7 +125,7 @@ DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
             SUMOReal allProbs = 0;
             for (size_t i=0; i<e->getNoFollowing(); ++i) {
                 ROEdge *ne = e->getFollower(i);
-                SUMOReal prob = getUsage(ne, end, q, detectors, flows, time, net);
+                SUMOReal prob = getUsage(ne, end, q, detectors, flows, time, net, maxFollower, follower+1);
                 probs[ne] = prob;
                 allProbs += prob;
             }
@@ -148,7 +153,8 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         SUMOTime endTime,
         SUMOTime stepOffset,
         const DFRONet &net,
-        std::map<size_t, RandomDistributor<size_t>* > &into) const
+        std::map<size_t, RandomDistributor<size_t>* > &into,
+        int maxFollower) const
 {
     if (myRoutes==0) {
         if (myType!=DISCARDED_DETECTOR&&myType!=BETWEEN_DETECTOR) {
@@ -177,7 +183,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                     SUMOReal allProbs = 0;
                     for (size_t i=0; i<(*q)->getNoFollowing(); ++i) {
                         ROEdge *ne = (*q)->getFollower(i);
-                        SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net);
+                        SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net, maxFollower, 0);
                         probs[ne] = prob;
                         allProbs += prob;
                     }
@@ -484,7 +490,9 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                                    SUMOTime stepOffset,
                                    const DFRONet &net,
                                    bool includeUnusedRoutes,
-                                   SUMOReal scale) const
+                                   SUMOReal scale,
+                                   int maxFollower,
+                                   bool emissionsOnly) const
 {
     // write the definition
     ofstream strm(file.c_str());
@@ -501,14 +509,13 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 
 //    cout << "a2" << endl;
     std::map<size_t, RandomDistributor<size_t>* > dists;
-    if (flows.knows(myID)) {
-        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists); // !!!
+    if (!emissionsOnly&&flows.knows(myID)) {
+        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists, maxFollower); // !!!
     }
-//    cout << "a3" << endl;
+    //cout << "a3" << endl;
 
     // routes
-    {
-
+    if(!emissionsOnly) {
         if (myRoutes!=0&&myRoutes->get().size()!=0) {
             const std::vector<DFRORouteDesc*> &routes = myRoutes->get();
             std::vector<DFRORouteDesc*>::const_iterator i;
@@ -547,7 +554,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
     }
 //    cout << "a4" << endl;
     // emissions
-    if (flows.knows(myID)) {
+    if (emissionsOnly||flows.knows(myID)) {
         // get the flows for this detector
 
         const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -560,7 +567,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
             }
             const FlowDef &srcFD = mflows[(int)(time/stepOffset) - startTime];  // !!! check stepOffset
             // get flows at end
-            RandomDistributor<size_t> *destDist = dists[time];
+            RandomDistributor<size_t> *destDist = dists.size()>time ? dists[time] : 0;
             // go through the cars
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
 //            cout << "b1 " << carNo <<  endl;
@@ -568,7 +575,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                 // get the vehicle parameter
                 string type = "test";
                 SUMOReal v = -1;
-                int destIndex = destDist->getOverallProb()>0 ? destDist->get() : -1;
+                int destIndex = destDist!=0 && destDist->getOverallProb()>0 ? destDist->get() : -1;
 //!!! micro srcIndex = srcDist.get();
 //				std::vector<std::string> route = droutes[destIndex]->edges2Pass;
                 if (srcFD.isLKW>1) {
@@ -598,7 +605,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
                 strm << "_" << ctime  << "\"" // !!! running
                 << " time=\"" << ctime << "\""
                 << " speed=\"" << v << "\"";
-                if (destIndex>=0) {
+                if (!emissionsOnly&&destIndex>=0) {
                     strm << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
                 }
                 strm  << "/>" << endl;
@@ -861,7 +868,9 @@ DFDetectorCon::writeEmitters(const std::string &file,
                              SUMOTime stepOffset, const DFRONet &net,
                              bool writeCalibrators,
                              bool includeUnusedRoutes,
-                             SUMOReal scale)
+                             SUMOReal scale,
+                             int maxFollower,
+                             bool emissionsOnly)
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
@@ -872,17 +881,17 @@ DFDetectorCon::writeEmitters(const std::string &file,
         DFDetector *det = *i;
         string defFileName;
 
-
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
             defFileName = "emitter_" + det->getID() + ".def.xml";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
             defFileName = "calibrator_" + det->getID() + ".def.xml";
         } else {
+            defFileName = "other_" + det->getID() + ".def.xml";
             continue;
         }
         // try to write the definition
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale)) {
+        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale, maxFollower, emissionsOnly)) {
             // skip if something failed... (!!!)
             continue;
         }

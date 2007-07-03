@@ -163,6 +163,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("max-nodet-follower", new Option_Integer(30));
     oc.addDescription("max-nodet-follower", "Processing", "Number of edges until which a route is followed");
 
+    oc.doRegister("emissions-only", new Option_Bool(false));
+    oc.addDescription("emissions-only", "Processing", "Writes only emission times");
+
 
     // flow reading
     oc.doRegister("fast-flows", new Option_Bool(false));

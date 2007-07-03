@@ -103,7 +103,8 @@ public:
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 const DFRONet &net,
-                                bool includeUnusedRoutes, SUMOReal scale) const;
+                                bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
+                                bool emissionsOnly) const;
 
     void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
     void addRoutes(DFRORouteCont *routes);
@@ -125,14 +126,16 @@ protected:
                                       const DFDetectorFlows &flows,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                       const DFRONet &net,
-                                      std::map<size_t, RandomDistributor<size_t>* > &into) const;
+                                      std::map<size_t, RandomDistributor<size_t>* > &into,
+                                      int maxFollower) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
     SUMOReal getUsage(ROEdge *e,
                       std::vector<ROEdge*>::const_iterator end,
                       std::vector<ROEdge*>::const_iterator q,
                       const DFDetectorCon &detectors,
-                      const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net) const;
+                      const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net,
+                      int maxFollower, int follower) const;
 
 protected:
     std::string myID;
@@ -170,7 +173,8 @@ public:
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                        const DFRONet &net,
                        bool writeCalibrators, bool includeUnusedRoutes,
-                       SUMOReal scale);
+                       SUMOReal scale, int maxFollower,
+                       bool emissionsOnly);
 
     void writeEmitterPOIs(const std::string &file,
                           const DFDetectorFlows &flows,
