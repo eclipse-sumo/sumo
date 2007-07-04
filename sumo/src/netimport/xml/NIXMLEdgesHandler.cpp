@@ -379,12 +379,18 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
     myCurrentType = "";
     if (hasAttribute(attrs, SUMO_ATTR_TYPE)) {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
+        if(myCurrentType=="") {
+            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has an empty type.");
+            return;
+        }
+        if(!myTypeCont.knows(myCurrentType)) {
+            MsgHandler::getErrorInstance()->inform("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
+            return;
+        }
         myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
         myCurrentPriority = myTypeCont.getPriority(myCurrentType);
         myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
         myCurrentEdgeFunction = myTypeCont.getFunction(myCurrentType);
-    } else {
-        myCurrentType = "";
     }
 }
 
@@ -392,14 +398,18 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 {
+    if (!hasAttribute(attrs, SUMO_ATTR_SPEED)) {
+        return;
+    }
     try {
-        myCurrentSpeed =
-            getFloatSecure(attrs, SUMO_ATTR_SPEED, (SUMOReal) myCurrentSpeed);
+        myCurrentSpeed = getFloat(attrs, SUMO_ATTR_SPEED);
         if (_options.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for speed (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for speed in edge '" + myCurrentID + "'.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Empty speed definition in edge '" + myCurrentID + "'.");
     }
 }
 
@@ -407,12 +417,16 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
 {
+    if (!hasAttribute(attrs, SUMO_ATTR_NOLANES)) {
+        return;
+    }
     // try to get the number of lanes
     try {
-        myCurrentLaneNo =
-            getIntSecure(attrs, SUMO_ATTR_NOLANES, myCurrentLaneNo);
+        myCurrentLaneNo = getInt(attrs, SUMO_ATTR_NOLANES);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for nolanes (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("The lane number is not numeric in edge '" + myCurrentID + "'.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Empty lane number definition in edge '" + myCurrentID + "'.");
     }
 }
 
@@ -420,12 +434,16 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 {
+    if (!hasAttribute(attrs, SUMO_ATTR_PRIORITY)) {
+        return;
+    }
     // try to retrieve given priority
     try {
-        myCurrentPriority =
-            getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
+        myCurrentPriority = getInt(attrs, SUMO_ATTR_PRIORITY);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Not numeric value for priority in edge '" + myCurrentID + "'.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Empty priority definition in edge '" + myCurrentID + "'.");
     }
 }
 
@@ -433,9 +451,14 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
 {
+    myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
+    if (!hasAttribute(attrs, SUMO_ATTR_FUNC)) {
+        return;
+    }
     // try to get the tpe
     string func = getStringSecure(attrs, SUMO_ATTR_FUNC, "");
     if (func=="") {
+        MsgHandler::getErrorInstance()->inform("Empty edge function in edge '" + myCurrentID + "'.");
         return;
     }
     if (func=="source") {
