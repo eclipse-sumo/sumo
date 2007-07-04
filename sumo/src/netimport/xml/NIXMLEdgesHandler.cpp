@@ -60,6 +60,7 @@
 // ===========================================================================
 using namespace std;
 
+const SUMOReal SUMOXML_INVALID_POSITION = -999999.;
 
 // ===========================================================================
 // method definitions
@@ -346,8 +347,15 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
     myCurrentID = "";
     try {
         myCurrentID = getString(attrs, SUMO_ATTR_ID);
+        if(myCurrentID=="") {
+            throw EmptyData();
+        }
     } catch (EmptyData &) {
-        WRITE_WARNING("No id given... Skipping.");
+        if(_options.getBool("omit-corrupt-edges")) {
+            MsgHandler::getWarningInstance()->inform("Missing edge id.");
+        } else {
+            MsgHandler::getErrorInstance()->inform("Missing edge id.");
+        }
     }
 }
 
@@ -445,40 +453,32 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
 {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
-    myCurrentBegNodeID = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");
-    myCurrentEndNodeID = getStringSecure(attrs, SUMO_ATTR_TONODE, "");
+    string begNodeID = getStringSecure(attrs, SUMO_ATTR_FROMNODE, "");
+    string endNodeID = getStringSecure(attrs, SUMO_ATTR_TONODE, "");
     // or their positions
-    myBegNodeXPos = myBegNodeYPos = myEndNodeXPos = myEndNodeYPos = -1.0;
-    myBegNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
-    myBegNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
-    myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
-    myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
-    if (myBegNodeXPos!=-1&&myBegNodeYPos!=-1) {
-        Position2D pos(myBegNodeXPos, myBegNodeYPos);
+    SUMOReal begNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
+    SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
+    SUMOReal endNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
+    SUMOReal endNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
+    if (begNodeXPos!=SUMOXML_INVALID_POSITION&&begNodeYPos!=SUMOXML_INVALID_POSITION) {
+        Position2D pos(begNodeXPos, begNodeYPos);
         GeoConvHelper::x2cartesian(pos);
-        myBegNodeXPos = pos.x();
-        myBegNodeYPos = pos.y();
+        begNodeXPos = pos.x();
+        begNodeYPos = pos.y();
     }
-    if (myEndNodeXPos!=-1&&myEndNodeYPos!=-1) {
-        Position2D pos(myEndNodeXPos, myEndNodeYPos);
+    if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
+        Position2D pos(endNodeXPos, endNodeYPos);
         GeoConvHelper::x2cartesian(pos);
-        myEndNodeXPos = pos.x();
-        myEndNodeYPos = pos.y();
+        endNodeXPos = pos.x();
+        endNodeYPos = pos.y();
     }
-    // check with shape
-    /*
-    if(myShape.size()!=0) {
-        myBegNodeXPos = myShape.getBegin().x();
-        myBegNodeXPos = myShape.getBegin().y();
-        myBegNodeXPos = myShape.getEnd().x();
-        myBegNodeXPos = myShape.getEnd().y();
-    }
-    */
     // check the obtained values for nodes
-    if (!insertNodesCheckingCoherence()) {
-        return false;
-    }
-    return true;
+    MsgHandler *msgh = _options.getBool("omit-corrupt-edges")
+                       ? MsgHandler::getWarningInstance()
+                       : MsgHandler::getErrorInstance();
+    myFromNode = insertNodeChecking(*msgh, Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
+    myToNode = insertNodeChecking(*msgh, Position2D(endNodeXPos, endNodeYPos), endNodeID, "to");
+    return myFromNode!=0&&myToNode!=0;
 }
 
 
@@ -487,97 +487,48 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
                                   const std::string &attrName)
 {
     try {
-        return getFloatSecure(attrs, attrID, -1);
+        return getFloatSecure(attrs, attrID, SUMOXML_INVALID_POSITION);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
-        return -1.0;
+        return SUMOXML_INVALID_POSITION;
     }
 }
 
 
-bool
-NIXMLEdgesHandler::insertNodesCheckingCoherence()
+NBNode *
+NIXMLEdgesHandler::insertNodeChecking(MsgHandler &msgh, const Position2D &pos, 
+                                      const std::string &name, const std::string &dir)
 {
-    // check if both coordinates and names are given.
-    // if so, store them in the nodes-map
-    MsgHandler *msgh = _options.getBool("omit-corrupt-edges")
-                       ? MsgHandler::getWarningInstance()
-                       : MsgHandler::getErrorInstance();
-    bool coherent = false;
-    if (myBegNodeXPos!=-1.0 &&
-            myBegNodeYPos!=-1.0 &&
-            myEndNodeXPos!=-1.0 &&
-            myEndNodeYPos!=-1.0 &&
-            myCurrentBegNodeID!="" &&
-            myCurrentEndNodeID!="") {
-
-        Position2D begPos(myBegNodeXPos, myBegNodeYPos);
-        Position2D endPos(myEndNodeXPos, myEndNodeYPos);
-        coherent = true;
-        if (!myNodeCont.insert(myCurrentBegNodeID, begPos)) {
-            msgh->inform("On parsing edge '" + myCurrentID + "':\n Position of node '" + myCurrentBegNodeID + "' mismatches previous positions");
-            coherent = false;
-        }
-        if (!myNodeCont.insert(myCurrentEndNodeID, endPos)) {
-            msgh->inform("On parsing edge '" + myCurrentID + "':\n Position of node '" + myCurrentEndNodeID + "' mismatches previous positions");
-            coherent = false;
-        }
+    NBNode *ret = 0;
+    if(name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
+        msgh.inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
+        return ret;
     }
-
-
-    myFromNode = myToNode = 0;
-    // if the node coordinates are given, but no names for them, insert the nodes only
-    if (myBegNodeXPos!=-1.0 &&
-            myBegNodeYPos!=-1.0 &&
-            myEndNodeXPos!=-1.0 &&
-            myEndNodeYPos!=-1.0 &&
-            myCurrentBegNodeID=="" &&
-            myCurrentEndNodeID=="") {
-
-        Position2D begPos(myBegNodeXPos, myBegNodeYPos);
-        Position2D endPos(myEndNodeXPos, myEndNodeYPos);
-        myFromNode = myNodeCont.retrieve(begPos);
-        myToNode = myNodeCont.retrieve(endPos);
-        if (myFromNode!=0 && myToNode!=0) {
-            coherent = true;
-        } else {
-            if (myFromNode==0) {
-                myFromNode = new NBNode(myNodeCont.getFreeID(), begPos);
-                if (!myNodeCont.insert(myFromNode)) {
-                    msgh->inform("On parsing edge '" + myCurrentID + "':\n Could not insert from-node '" + myFromNode->getID() + "'");
-                    return false;
-                }
+    if(name!="") {
+        if (pos.x()!=SUMOXML_INVALID_POSITION && pos.y()!=SUMOXML_INVALID_POSITION) {
+            // the node is named and it has a position given
+            if(!myNodeCont.insert(name, pos)) {
+                msgh.inform("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
+                return 0;
             }
-            if (myToNode==0) {
-                myToNode = new NBNode(myNodeCont.getFreeID(), endPos);
-                if (!myNodeCont.insert(myToNode)) {
-                    msgh->inform("On parsing edge '" + myCurrentID + "':\n Could not insert to-node '" + myToNode->getID() + "'");
-                    return false;
-                }
-            }
-            coherent = true;
+        }
+        // the node is given by its name
+        ret = myNodeCont.retrieve(name);
+        if(ret==0) {
+            msgh.inform("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
         }
     } else {
-        myFromNode = myNodeCont.retrieve(myCurrentBegNodeID);
-        myToNode = myNodeCont.retrieve(myCurrentEndNodeID);
+        ret = myNodeCont.retrieve(pos);
+        if (ret==0) {
+            ret = new NBNode(myNodeCont.getFreeID(), pos);
+            if (!myNodeCont.insert(ret)) {
+                msgh.inform("Could not insert " + dir + "-node at position " + toString(pos) + ".");
+                delete ret;
+                return 0;
+            }
+        }
     }
-    // if only the names of the nodes are known, get the coordinates
-    if (myFromNode!=0 && myToNode!=0 &&
-            myBegNodeXPos==-1.0 &&
-            myBegNodeYPos==-1.0 &&
-            myEndNodeXPos==-1.0 &&
-            myEndNodeYPos==-1.0) {
-
-        myBegNodeXPos = myFromNode->getPosition().x();
-        myBegNodeYPos = myFromNode->getPosition().y();
-        myEndNodeXPos = myToNode->getPosition().x();
-        myEndNodeYPos = myToNode->getPosition().y();
-        coherent = true;
-    }
-    if (!coherent) {
-        msgh->inform("On parsing edge '" + myCurrentID + "':\n Either the name or the position of a node is not given.");
-    }
-    return coherent;
+    return ret;
 }
 
 
@@ -589,21 +540,12 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
         try {
             myLength = getFloat(attrs, SUMO_ATTR_LENGTH);
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Not numeric value for length (at tag ID='" + myCurrentID + "').");
+            MsgHandler::getErrorInstance()->inform("Not numeric value for length in edge '" + myCurrentID + "'.");
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Empty length definition of edge '" + myCurrentID + "'.");
         }
     } else {
-        if (myBegNodeXPos!=-1.0 &&
-                myBegNodeYPos!=-1.0 &&
-                myEndNodeXPos!=-1.0 &&
-                myEndNodeYPos!=-1.0) {
-
-            myLength = sqrt(
-                           (myBegNodeXPos-myEndNodeXPos)*(myBegNodeXPos-myEndNodeXPos)
-                           +
-                           (myBegNodeYPos-myEndNodeYPos)*(myBegNodeYPos-myEndNodeYPos));
-        } else {
-            myLength = 0;
-        }
+        myLength = 0;
     }
 }
 

@@ -44,6 +44,7 @@ class NBNodeCont;
 class NBEdgeCont;
 class NBTypeCont;
 class NBDistrictCont;
+class MsgHandler;
 
 
 // ===========================================================================
@@ -114,12 +115,11 @@ private:
     SUMOReal tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
                             const std::string &attrName);
 
-    /** @brief Build the enodes in respect to the given parameters
-        Returns the information whether the nodes could be build correctly */
-    bool insertNodesCheckingCoherence();
-
     /// Parses the optional information of how to spread the lanes
     NBEdge::LaneSpreadFunction getSpreadFunction(const Attributes &attrs);
+
+    NBNode * insertNodeChecking(MsgHandler &msgh, const Position2D &pos, 
+                                      const std::string &name, const std::string &dir);
 
 
 private:
@@ -146,12 +146,6 @@ private:
 
     /// The current edge's type
     std::string myCurrentType;
-
-    /// The ids of the begin and the end node
-    std::string myCurrentBegNodeID, myCurrentEndNodeID;
-
-    /// The positions of the nodes
-    SUMOReal myBegNodeXPos, myBegNodeYPos, myEndNodeXPos, myEndNodeYPos;
 
     /// The nodes
     NBNode *myFromNode, *myToNode;
