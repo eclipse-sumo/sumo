@@ -1,0 +1,13 @@
+# Tests what happens if xml-edges can not be read
+xml_false_edg
+
+# Tests what happens if no xml-edges are given
+xml_no_edg
+
+# Tests what happens if xml-nodes can not be read
+xml_false_nod
+
+# Tests what happens if no xml-nodes are given
+xml_no_nod
+
+
