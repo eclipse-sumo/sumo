@@ -69,7 +69,50 @@ edge#frompos__false1
 edge#frompos__false4
 
 
+# Empty function (first edge)
+edge#function__empty1
 
+# Empty function (fourth edge)
+edge#function__empty4
+
+# Invalid function (first edge)
+edge#function__false1
+
+# Invalid function (fourth edge)
+edge#function__false4
+
+
+# Empty lane number (first edge)
+edge#nolanes__empty1
+
+# Empty lane number (fourth edge)
+edge#nolanes__empty4
+
+# Invalid lane number (first edge)
+edge#nolanes__false1
+
+# Invalid lane number (fourth edge)
+edge#nolanes__false4
+
+
+# Empty type (first edge)
+edge#type__empty1
+
+# Empty type (fourth edge)
+edge#type__empty4
+
+# Invalid type (first edge)
+edge#type__false1
+
+# Invalid type (fourth edge)
+edge#type__false4
+
+
+# Invalid priority (first edge)
+edge#priority__false1
+
+# Invalid priority (fourth edge)
+edge#priority__false4
 
 
 
