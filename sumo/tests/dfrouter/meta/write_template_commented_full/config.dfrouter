@@ -76,6 +76,9 @@
       <!-- Number of edges until which a route is followed -->
       <max-nodet-follower>30</max-nodet-follower>
 
+      <!-- Writes only emission times -->
+      <emissions-only>false</emissions-only>
+
       <!-- Assumes flows to be stored in a less complex format -->
       <fast-flows>false</fast-flows>
 

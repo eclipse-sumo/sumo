@@ -1,12 +1,12 @@
-SUMO dfrouter Version dev-SVN-r4156
+SUMO dfrouter Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
 
-Usage: sumo-dfrouter [OPTION]*
+Usage: dfrouter.exe [OPTION]*
  
  Example:
-  sumo-dfrouter -c <CONFIGURATION>
+  dfrouter.exe -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE      Loads the named config on startup
@@ -50,6 +50,7 @@ Usage: sumo-dfrouter [OPTION]*
   --keep-longer-routes               Keeps routes even if a shorter one exists
   --max-nodet-follower INT           Number of edges until which a route is
                                        followed
+  --emissions-only                   Writes only emission times
   --fast-flows                       Assumes flows to be stored in a less
                                        complex format
   --time-offset INT                  Subtracts INT from flow times
