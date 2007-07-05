@@ -202,7 +202,7 @@ NIOptionsIO::checkOptions()
         if (!checkCompleteDescription()) {
             if (!checkNodes()) ok = false;
             if (!checkEdges()) ok = false;
-            if (!checkOutput()) ok = false;
+            //if (!checkOutput()) ok = false;
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -255,7 +255,7 @@ NIOptionsIO::checkEdges()
             oc.isSet("sumo-net")) {
         return true;
     }
-    MsgHandler::getErrorInstance()->inform("Either sections or edges must be supplied.");
+    MsgHandler::getErrorInstance()->inform("Edges must be supplied.");
     return false;
 }
 

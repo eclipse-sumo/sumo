@@ -1,2 +1,2 @@
-Error: The output file "output/net.net.xml" can not be build.
+Error: Could not save net to 'output/net.net.xml'.
 Quitting (on error).
