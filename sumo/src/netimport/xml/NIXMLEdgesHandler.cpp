@@ -399,6 +399,9 @@ void
 NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 {
     if (!hasAttribute(attrs, SUMO_ATTR_SPEED)) {
+        if (_options.getBool("speed-in-kmh")) {
+            myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
+        }
         return;
     }
     try {
@@ -451,7 +454,6 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
 {
-    myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
     if (!hasAttribute(attrs, SUMO_ATTR_FUNC)) {
         return;
     }
