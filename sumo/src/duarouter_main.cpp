@@ -123,10 +123,16 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     size_t noLoaders =
         loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
     if (noLoaders==0) {
+        delete router;
         throw ProcessError("No route input specified.");
     }
     // prepare the output
-    net.openOutput(oc.getString("output"), true);
+    try {
+        net.openOutput(oc.getString("output"), true);
+    } catch (InvalidArgument &e) {
+        delete router;
+        throw ProcessError(e.what());
+    }
     // the routes are sorted - process stepwise
     if (!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);

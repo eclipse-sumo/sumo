@@ -163,7 +163,11 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
         throw ProcessError("No route input specified.");
     }
     // prepare the output
-    net.openOutput(oc.getString("output"), false);
+    try {
+        net.openOutput(oc.getString("output"), false);
+    } catch (InvalidArgument &e) {
+        throw ProcessError(e.what());
+    }
     // the routes are sorted - process stepwise
     if (!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, router);
