@@ -206,7 +206,6 @@ TLink::buildNBEdge(NBNetBuilder &nb) const
                "netgen-default", // type
                nb.getTypeCont().getDefaultSpeed(),
                nb.getTypeCont().getDefaultNoLanes(),
-               -1,
                nb.getTypeCont().getDefaultPriority()
            );
 }
