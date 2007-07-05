@@ -32,6 +32,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iostream>
 #include <iomanip>
 #include <cassert>
 #include "OutputWrapper.h"
@@ -61,7 +62,7 @@ OutputWrapper::OutputWrapperMap OutputWrapper::myOutputWrappers;
 OutputWrapper::OutputWrapper(const string &name)
 {
     if (name=="stdout") {
-//         myStream = &cout;
+        myStream = &cout;
     } else {
         myStream = new std::ofstream(name.c_str());
         if (!myStream->good()) {
@@ -89,7 +90,7 @@ OutputWrapper::ok()
 void
 OutputWrapper::close()
 {
-    myStream->close();
+//    myStream->close();
 }
 
 

@@ -236,6 +236,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputWrapper.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\iodevices\SharedOutputDevices.cpp"
 				>
 				<FileConfiguration
@@ -287,6 +291,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputWrapper.h"
 				>
 			</File>
 			<File
