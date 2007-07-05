@@ -127,6 +127,12 @@ NBTypeCont::getPriority(const string &type)
     return (*i).second->myPriority;
 }
 
+bool 
+NBTypeCont::knows(const std::string &type) const
+{
+    return myTypes.find(type)!=myTypes.end();
+}
+
 
 int
 NBTypeCont::getDefaultNoLanes()

@@ -93,6 +93,8 @@ public:
     /// reports how many nodes were loaded
     void report();
 
+    bool knows(const std::string &type) const;
+
 private:
     /** a container of types, accessed by the string key */
     typedef std::map<std::string, NBType*> TypesCont;
