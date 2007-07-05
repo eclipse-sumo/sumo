@@ -31,6 +31,7 @@
 #include <iostream>
 #include "Option.h"
 #include "OptionsCont.h"
+#include "OptionsSubSys.h"
 #include "OptionsParser.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -50,7 +51,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
+OptionsParser::parse(int argc, char **argv)
 {
     bool ok = true;
     for (int i=1; i<argc;) {
@@ -58,9 +59,9 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
             int add;
             // try to set the current option
             if (i<argc-1) {
-                add = check(oc, argv[i], argv[i+1], ok);
+                add = check(argv[i], argv[i+1], ok);
             } else {
-                add = check(oc, argv[i], ok);
+                add = check(argv[i], ok);
             }
             i += add;
         } catch (InvalidArgument &e) {
@@ -74,17 +75,19 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
 
 
 int
-OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
+OptionsParser::check(char *arg1, bool &ok)
 {
     // the last stand-alone argument should be a switch
     if (!checkParameter(arg1)) return 1;
+
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // check switch
     if (isAbbreviation(arg1)) {
         // set all switches when abbreviated
         for (int i=1; arg1[i]!=0; i++) {
-            if (oc->isBool(convert(arg1[i]))) {
+            if (oc.isBool(convert(arg1[i]))) {
                 // process boolean switches
-                ok &= oc->set(convert(arg1[i]), true);
+                ok &= oc.set(convert(arg1[i]), true);
             } else {
                 // process non-boolean switches
                 ok &= processNonBooleanSingleSwitch(oc, arg1+i);
@@ -95,9 +98,9 @@ OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if (idx1!=string::npos) {
-            ok &= oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1));
+            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
         } else {
-            ok &= oc->set(convert(arg1+2), true);
+            ok &= oc.set(convert(arg1+2), true);
         }
     }
     return 1;
@@ -105,7 +108,7 @@ OptionsParser::check(OptionsCont *oc, char *arg1, bool &ok)
 
 
 int
-OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
+OptionsParser::check(char *arg1, char *arg2, bool &ok)
 {
     // the first argument should be an option
     // (only the second may be a free string)
@@ -113,24 +116,26 @@ OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
         ok = false;
         return 1;
     }
+
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
         string tmp(arg1+2);
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if (idx1!=string::npos) {
-            if (!oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
+            if (!oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
                 ok = false;
             }
             return 1;
         } else {
-            if (oc->isBool(convert(arg1+2))) {
-                if (!oc->set(convert(arg1+2), true)) {
+            if (oc.isBool(convert(arg1+2))) {
+                if (!oc.set(convert(arg1+2), true)) {
                     ok = false;
                 }
                 return 1;
             } else {
-                if (!oc->set(convert(arg1+2), convert(arg2))) {
+                if (!oc.set(convert(arg1+2), convert(arg2))) {
                     ok = false;
                 }
                 return 2;
@@ -145,8 +150,8 @@ OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
         // go through the abbreviated switches
         for (int i=1; arg1[i]!=0; i++) {
             // set boolean switches
-            if (oc->isBool(convert(arg1[i]))) {
-                ok &= oc->set(convert(arg1[i]), true);
+            if (oc.isBool(convert(arg1[i]))) {
+                ok &= oc.set(convert(arg1[i]), true);
                 // set non-boolean switches
             } else {
                 // check whether the parameter comes directly after the switch
@@ -158,11 +163,11 @@ OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
                     if (arg1[i+1]=='=') {
                         string val = arg1;
                         val = val.substr(i+2);
-                        ok &= oc->set(convert(arg1[i]), val);
+                        ok &= oc.set(convert(arg1[i]), val);
                         // option name and attribute were in one argument
                         return 1;
                     } else {
-                        ok &= oc->set(convert(arg1[i]), convert(arg2));
+                        ok &= oc.set(convert(arg1[i]), convert(arg2));
                         // option name and attribute were in two arguments
                         return 2;
                     }
@@ -176,21 +181,21 @@ OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2, bool &ok)
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg)
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg)
 {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
             MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg).substr(0, 1) + "'.");
             return false;
         } else {
-            return oc->set(convert(arg[0]), string(arg+2));
+            return oc.set(convert(arg[0]), string(arg+2));
         }
     } else {
         if (strlen(arg)<2) {
             MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg) + "'.");
             return false;
         } else {
-            return oc->set(convert(arg[0]), string(arg+1));
+            return oc.set(convert(arg[0]), string(arg+1));
         }
     }
 }

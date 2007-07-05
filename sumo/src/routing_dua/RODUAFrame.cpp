@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -60,15 +56,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-RODUAFrame::fillOptions(OptionsCont &oc)
+RODUAFrame::fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-duarouter", "SUMO duarouter Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -82,16 +72,17 @@ RODUAFrame::fillOptions(OptionsCont &oc)
 
     // insert options
     ROFrame::fillOptions(oc);
-    addImportOptions(oc);
-    addDUAOptions(oc);
+    addImportOptions();
+    addDUAOptions();
     // add rand options
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
 void
-RODUAFrame::addImportOptions(OptionsCont &oc)
+RODUAFrame::addImportOptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // register import options
     oc.doRegister("trip-defs", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-defs");
@@ -132,8 +123,9 @@ RODUAFrame::addImportOptions(OptionsCont &oc)
 
 
 void
-RODUAFrame::addDUAOptions(OptionsCont &oc)
+RODUAFrame::addDUAOptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // register additional options
     oc.doRegister("supplementary-weights", 'S', new Option_FileName());
     oc.addSynonyme("supplementary-weights", "add");
@@ -152,9 +144,9 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
 
 
 bool
-RODUAFrame::checkOptions(OptionsCont &oc)
+RODUAFrame::checkOptions()
 {
-    return ROFrame::checkOptions(oc);
+    return ROFrame::checkOptions(OptionsSubSys::getOptions());
 }
 
 

@@ -29,6 +29,7 @@
 #endif
 
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsSubSys.h>
 #include "RandHelper.h"
 #include <ctime>
 #include <cmath>
@@ -48,8 +49,9 @@ MTRand RandHelper::myRandomNumberGenerator;
 // member method definitions
 // ===========================================================================
 void
-RandHelper::insertRandOptions(OptionsCont &oc)
+RandHelper::insertRandOptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // registers random number options
     oc.addOptionSubTopic("Random Number");
 
@@ -62,12 +64,13 @@ RandHelper::insertRandOptions(OptionsCont &oc)
 
 
 void
-RandHelper::initRandGlobal(const OptionsCont &options)
+RandHelper::initRandGlobal()
 {
-    if (options.getBool("abs-rand")) {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    if (oc.getBool("abs-rand")) {
         myRandomNumberGenerator.seed();
     } else {
-        myRandomNumberGenerator.seed(options.getInt("srand"));
+        myRandomNumberGenerator.seed(oc.getInt("srand"));
     }
 }
 

@@ -30,17 +30,15 @@
 #include <config.h>
 #endif
 
-class OptionsCont;
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
 class GUIFrame
 {
 public:
-    static void fillInitOptions(OptionsCont &oc);
+    static void fillInitOptions();
 
-    static bool checkInitOptions(OptionsCont &oc);
+    static bool checkInitOptions();
 
 };
 

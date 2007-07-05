@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -62,15 +58,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-NIOptionsIO::fillOptions(OptionsCont &oc)
+NIOptionsIO::fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
 
@@ -200,19 +190,19 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     NBNetBuilder::insertNetBuildOptions(oc);
 
     // add rand options
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
 bool
-NIOptionsIO::checkOptions(OptionsCont &oc)
+NIOptionsIO::checkOptions()
 {
     bool ok = true;
     try {
-        if (!checkCompleteDescription(oc)) {
-            if (!checkNodes(oc)) ok = false;
-            if (!checkEdges(oc)) ok = false;
-            if (!checkOutput(oc)) ok = false;
+        if (!checkCompleteDescription()) {
+            if (!checkNodes()) ok = false;
+            if (!checkEdges()) ok = false;
+            if (!checkOutput()) ok = false;
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
@@ -223,15 +213,16 @@ NIOptionsIO::checkOptions(OptionsCont &oc)
 
 
 bool
-NIOptionsIO::checkCompleteDescription(OptionsCont &)
+NIOptionsIO::checkCompleteDescription()
 {
     return false;
 }
 
 
 bool
-NIOptionsIO::checkNodes(OptionsCont &oc)
+NIOptionsIO::checkNodes()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // check the existance of a name for the nodes file
     if (oc.isSet("n") ||
             oc.isSet("e") ||
@@ -251,8 +242,9 @@ NIOptionsIO::checkNodes(OptionsCont &oc)
 
 
 bool
-NIOptionsIO::checkEdges(OptionsCont &oc)
+NIOptionsIO::checkEdges()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // check whether at least a sections or a edges file is supplied
     if (oc.isSet("e") ||
             oc.isSet("cell-edges") ||
@@ -269,8 +261,9 @@ NIOptionsIO::checkEdges(OptionsCont &oc)
 
 
 bool
-NIOptionsIO::checkOutput(OptionsCont &oc)
+NIOptionsIO::checkOutput()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     ofstream strm(oc.getString("output-file").c_str()); // !!! should be made when input are ok
     if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");

@@ -56,45 +56,6 @@ OptionsCont OptionsSubSys::myOptions;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool
-OptionsSubSys::init(bool loadConfig, int argc, char **argv,
-                    fill_options *fill_f,
-                    check_options *check_f)
-{
-    (*fill_f)(myOptions);
-    // parse options
-    if (OptionsIO::getOptions(loadConfig, &myOptions, argc, argv)) {
-        // 01.06.2005: version retrieval patched
-        // check the settings
-        if (check_f!=0&&!check_f(myOptions)) {
-            return false;
-        }
-    } else {
-        // the options could not be parsed
-        //  something is wrong with the calling parameter
-        return false;
-    }
-    return true;
-}
-
-
-bool
-OptionsSubSys::guiInit(fill_options *fill_f,
-                       const std::string &optionName,
-                       const std::string &optionValue)
-{
-    (*fill_f)(myOptions);
-    myOptions.set(optionName, optionValue);
-    // parse options
-    if (!OptionsIO::getOptions(true, &myOptions, 1, 0)) {
-        // the options could not be parsed
-        //  - something is wrong with the calling parameter
-        return false;
-    }
-    return true;
-}
-
-
 OptionsCont &
 OptionsSubSys::getOptions()
 {

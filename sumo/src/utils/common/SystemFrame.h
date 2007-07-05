@@ -56,26 +56,8 @@ class SystemFrame
 public:
     static void addConfigurationOptions(OptionsCont &oc);
 
-    /** @brief Initialises the application's subsystems
-     *
-     * Initialises the xml-subsystem, the options subsystem and the messaging.
-     *   The return codes are:
-     * 0: everything's fine
-     * 1: a problem occured while processing an option (error message was already printed) 
-     * 2: the XML-subsystem could not be initialised 
-     * -2: the help screen shall be printed
-     * -3: no options were given or were false
-     * -4: a template was saved */
-    static int init(bool gui, int argc, char **argv,
-                    fill_options *fill_f, check_options *check_f=0);
-
     /// Closes all of an applications subsystems
     static void close();
-
-private:
-    /** Static storage for the logging file used
-        A separate storage is needed to delete the log file at application closing */
-    static LogFile *myLogFile;
 
 };
 

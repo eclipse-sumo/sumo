@@ -59,16 +59,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool
-XMLSubSys::init() throw()
+void
+XMLSubSys::init() throw(ProcessError)
 {
     try {
         XMLPlatformUtils::Initialize();
-        return true;
-    } catch (const XMLException& toCatch) {
-        cerr << "Error during XML-initialization: "
-        << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
-        return false;
+    } catch (const XMLException& e) {
+        throw ProcessError ("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
 }
 

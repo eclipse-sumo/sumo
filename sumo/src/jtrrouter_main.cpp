@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -48,6 +52,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_jtr/ROJTREdgeBuilder.h>
@@ -179,20 +184,28 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
+#ifdef WIN32
+    oc.setApplicationName("jtrrouter.exe", "SUMO jtrrouter Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-jtrrouter", "SUMO jtrrouter Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     RONet *net = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv, ROJTRFrame::fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        XMLSubSys::init();
+        ROJTRFrame::fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!ROJTRFrame::checkOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        MsgHandler::initOutputOptions();
+        if (!ROJTRFrame::checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
         ROVehicleBuilder vb;

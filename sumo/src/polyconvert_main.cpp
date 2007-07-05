@@ -34,6 +34,7 @@
 
 #include <iostream>
 #include <string>
+#include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
@@ -70,14 +71,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-fillOptions(OptionsCont &oc)
+fillOptions()
 {
-    oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-polyconvert", "SUMO polyconvert Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -192,7 +188,7 @@ fillOptions(OptionsCont &oc)
 
 
     // random initialisation (not used!!!)
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
@@ -278,19 +274,25 @@ getOrigProj(const std::string &file)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-polyconvert", "SUMO polyconvert Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     try {
-        int init_ret = SystemFrame::init(false, argc, argv, fillOptions, 0);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        // initialise subsystems
+        XMLSubSys::init();
+        fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
-
+        MsgHandler::initOutputOptions();
+        RandHelper::initRandGlobal();
         // build the projection
         Boundary origNetBoundary;
         Position2D netOffset;

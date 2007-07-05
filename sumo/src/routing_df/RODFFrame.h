@@ -32,12 +32,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class OptionsCont;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -48,9 +42,9 @@ class RODFFrame
 {
 public:
     /// Builds the simulation options
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions();
 
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions();
 
 };
 

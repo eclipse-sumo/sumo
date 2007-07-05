@@ -51,10 +51,10 @@ class RandHelper
 {
 public:
     /// Initialises the given options container with random number options
-    static void insertRandOptions(OptionsCont &options);
+    static void insertRandOptions();
 
     /// Reads the given random number options and initialises the random number geerator in accordance
-    static void initRandGlobal(const OptionsCont &options);
+    static void initRandGlobal();
 
     /// Returns a random integer between [0, len-1]
     static inline size_t getRandomIndex(size_t len)

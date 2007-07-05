@@ -179,7 +179,7 @@ public:
     void addOptionSubTopic(const std::string &topic);
 
     /// Prints the help
-    void printHelp(std::ostream &os, bool fullHelp, bool suppressInfoline);
+    void printHelp(std::ostream &os);
 
     /// Writes the configuration
     void writeConfiguration(std::ostream &os, bool filled,
@@ -187,6 +187,9 @@ public:
 
     /// Writes a standard XML header, including the configuration
     void writeXMLHeader(std::ostream &os);
+
+    /// Checks for help and configuration output, returns whether we should exit
+    bool processMetaOptions(bool missingOptions);
 
 private:
     /** returns the named option */

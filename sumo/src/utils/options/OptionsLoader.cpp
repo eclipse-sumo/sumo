@@ -39,6 +39,7 @@
 #include <utils/common/StringTokenizer.h>
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
+#include "OptionsSubSys.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -59,10 +60,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsLoader::OptionsLoader(OptionsCont *oc,
-                             const char *file, bool verbose)
+OptionsLoader::OptionsLoader(const char *file, bool verbose)
         : _error(false), _file(file), _verbose(verbose),
-        _options(oc), _item()
+        _options(OptionsSubSys::getOptions()), _item()
 {}
 
 
@@ -99,14 +99,14 @@ void OptionsLoader::characters(const XMLCh* const chars,
     if (value.length()>0) {
         try {
             bool isWriteable;
-            if (_options->isBool(_item)) {
+            if (_options.isBool(_item)) {
                 if (value=="0"||value=="false"||value=="FALSE") {
                     isWriteable = setSecure(_item, false);
                 } else {
                     isWriteable = setSecure(_item, true);
                 }
             } else {
-                if (_options->isFileName(_item)) {
+                if (_options.isFileName(_item)) {
                     StringTokenizer st(value, ';');
                     string conv;
                     while (st.hasNext()) {
@@ -139,8 +139,8 @@ void OptionsLoader::characters(const XMLCh* const chars,
 bool
 OptionsLoader::setSecure(const std::string &name, bool value)
 {
-    if (_options->isWriteable(name)) {
-        _options->set(name, value);
+    if (_options.isWriteable(name)) {
+        _options.set(name, value);
         return true;
     }
     return false;
@@ -150,8 +150,8 @@ OptionsLoader::setSecure(const std::string &name, bool value)
 bool
 OptionsLoader::setSecure(const std::string &name, const std::string &value)
 {
-    if (_options->isWriteable(name)) {
-        _options->set(name, value);
+    if (_options.isWriteable(name)) {
+        _options.set(name, value);
         return true;
     }
     return false;

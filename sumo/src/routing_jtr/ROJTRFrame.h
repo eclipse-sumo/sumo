@@ -32,12 +32,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class OptionsCont;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -47,11 +41,11 @@ class ROJTRFrame
 {
 public:
     /// Builds the simulation options
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions();
 
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions();
 
-    static void addJTROptions(OptionsCont &oc);
+    static void addJTROptions();
 
 };
 

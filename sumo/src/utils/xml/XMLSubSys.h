@@ -74,10 +74,9 @@ public:
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
-     *  caught and their content is reported to cerr. In this case the function
-     *  returns false. If no problem occured, true is returned.
+     *  caught and their content is reported using a ProcessError.
      */
-    static bool init() throw();
+    static void init() throw(ProcessError);
 
 
     /**

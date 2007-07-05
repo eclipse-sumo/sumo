@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 class OptionsCont;
+class ProcessError;
 
 
 // ===========================================================================
@@ -55,11 +56,11 @@ class OptionsIO
 {
 public:
     /** loads the configuration and parses the command line arguments */
-    static bool getOptions(bool loadConfig, OptionsCont *oc,
-                           int argv, char **argc);
+    static void getOptions(bool loadConfig, 
+                           int argv, char **argc) throw(ProcessError);
 
     /** loads and parses the configuration */
-    static bool loadConfiguration(OptionsCont *oc);
+    static void loadConfiguration() throw(ProcessError);
 
 };
 

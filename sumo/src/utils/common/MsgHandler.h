@@ -39,6 +39,7 @@
 // ===========================================================================
 class MsgRetriever;
 class AbstractMutex;
+class LogFile;
 
 
 // ===========================================================================
@@ -79,6 +80,8 @@ public:
 
     /// Returns the instance to add errors to
     static MsgHandler *getErrorInstance();
+
+    static void initOutputOptions();
 
     /// Removes pending handler
     static void cleanupOnEnd();
@@ -126,6 +129,7 @@ public:
         The lock will not be deleted */
     void assignLock(AbstractMutex *lock);
 
+
 protected:
     /// Builds the string which includes the mml-message type
     inline std::string build(const std::string &msg, bool addType)
@@ -168,6 +172,10 @@ private:
     /// Information whether a process information is printed to cout
     static bool myAmProcessingProcess;
 
+    /** Static storage for the logging file used
+        A separate storage is needed to delete the log file at application closing */
+    static LogFile *myLogFile;
+
 private:
     /// The type of the instance
     MsgType myType;
@@ -190,9 +198,6 @@ private:
     /** @brief The lock if any has to be used
         The lock will not be deleted */
     AbstractMutex *myLock;
-
-    // Information whether a process information was sent as last
-    //bool myAmProcessingProcess;
 
 private:
     /** invalid copy constructor */

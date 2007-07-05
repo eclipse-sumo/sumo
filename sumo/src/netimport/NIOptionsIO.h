@@ -32,12 +32,6 @@
 
 
 // ===========================================================================
-// class definitions
-// ===========================================================================
-class OptionsCont;
-
-
-// ===========================================================================
 // class declarations
 // ===========================================================================
 /**
@@ -50,26 +44,26 @@ class OptionsCont;
 class NIOptionsIO
 {
 public:
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions();
 
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions();
 
 private:
 
     /** checks whether the given option settings are ok */
-    static bool check(OptionsCont &oc);
+    static bool check();
 
     /** checks whether all needed informations are given */
-    static bool checkCompleteDescription(OptionsCont &oc);
+    static bool checkCompleteDescription();
 
     /** checks whether the node file definition is given */
-    static bool checkNodes(OptionsCont &oc);
+    static bool checkNodes();
 
     /** checks whether the edge file definition is given */
-    static bool checkEdges(OptionsCont &oc);
+    static bool checkEdges();
 
     /** checks whether the output can be build */
-    static bool checkOutput(OptionsCont &oc);
+    static bool checkOutput();
 
 };
 

@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -61,15 +57,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-RODFFrame::fillOptions(OptionsCont &oc)
+RODFFrame::fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
-#ifdef WIN32
-    oc.setApplicationName("dfrouter.exe", "SUMO dfrouter Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-dfrouter", "SUMO dfrouter Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -231,12 +221,12 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
 bool
-RODFFrame::checkOptions(OptionsCont &)
+RODFFrame::checkOptions()
 {
     return true;
 }

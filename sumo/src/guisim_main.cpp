@@ -41,6 +41,7 @@
 #include <microsim/MSEmitControl.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -400,15 +401,9 @@ deleteColoringSchemes()
  * options initialisation
  * ----------------------------------------------------------------------- */
 void
-fillOptions(OptionsCont &oc)
+fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("GUI version of the simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("");
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -421,7 +416,7 @@ fillOptions(OptionsCont &oc)
 
 
     // insert options
-    GUIFrame::fillInitOptions(oc);
+    GUIFrame::fillInitOptions();
 }
 
 
@@ -431,26 +426,43 @@ fillOptions(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("GUI version of the simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
 #ifndef _DEBUG
     try {
 #else
     {
 #endif
-        int init_ret = SystemFrame::init(true, argc, argv, fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        // initialise subsystems
+        XMLSubSys::init();
+        fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!GUIFrame::checkInitOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
+        MsgHandler::initOutputOptions();
+        GUIFrame::checkInitOptions();
+        RandHelper::initRandGlobal();
+        // within gui-based applications, nothing is reported to the console
+        MsgHandler::getErrorInstance()->report2cout(false);
+        MsgHandler::getErrorInstance()->report2cerr(false);
+        MsgHandler::getWarningInstance()->report2cout(false);
+        MsgHandler::getWarningInstance()->report2cerr(false);
+        MsgHandler::getMessageInstance()->report2cout(false);
+        MsgHandler::getMessageInstance()->report2cerr(false);
         // Make application
         FXApp application("SUMO GUISimulation","DLR+ZAIK");
         gFXApp = &application;
         // Open display
         application.init(argc,argv);
-        OptionsCont &oc = OptionsSubSys::getOptions();
         int minor, major;
         if (!FXGLVisual::supported(&application, major, minor)) {
             throw ProcessError("This system has no OpenGL support. Exiting.");

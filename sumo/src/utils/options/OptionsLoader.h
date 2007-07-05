@@ -67,7 +67,7 @@ class OptionsLoader : public HandlerBase
 {
 public:
     /** standard constructor */
-    OptionsLoader(OptionsCont *oc, const char *file, bool verbose);
+    OptionsLoader(const char *file, bool verbose);
 
     /** destructor */
     ~OptionsLoader();
@@ -132,7 +132,7 @@ private:
     bool  _verbose;
 
     /** the container to store the informations into */
-    OptionsCont *_options;
+    OptionsCont &_options;
 
     /** the name of the currently parsed option */
     std::string _item;

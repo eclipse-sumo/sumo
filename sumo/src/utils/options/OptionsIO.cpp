@@ -41,6 +41,7 @@
 #include "OptionsCont.h"
 #include "OptionsLoader.h"
 #include "OptionsParser.h"
+#include "OptionsSubSys.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
@@ -59,47 +60,38 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool
-OptionsIO::getOptions(bool loadConfig, OptionsCont *oc, int argc, char **argv)
+void
+OptionsIO::getOptions(bool loadConfig, int argc, char **argv) throw(ProcessError)
 {
-    bool ret = true;
     // preparse the options
     //  (maybe another configuration file was chosen)
-    ret = OptionsParser::parse(oc, argc, argv);
-    // return when the help shall be printed
-    if (oc->exists("help")&&oc->getBool("help")) {
-        return ret;
+    if (!OptionsParser::parse(argc, argv)) {
+        throw ProcessError("Could not parse commandline options.");
     }
-    // check whether to use the command line parameetr only
+    // check whether to use the command line parameters only
     if (!loadConfig) {
-        return true;
+        return;
     }
     // read the configuration when everything's ok
-    if (ret) {
-        oc->resetWritable();
-        ret = loadConfiguration(oc);
-    }
+    OptionsSubSys::getOptions().resetWritable();
+    loadConfiguration();
     // reparse the options
     //  (overwrite the settings from the configuration file)
-    if (ret) {
-        oc->resetWritable();
-        ret = OptionsParser::parse(oc, argc, argv);
-    }
-    return ret;
+    OptionsSubSys::getOptions().resetWritable();
+    OptionsParser::parse(argc, argv);
 }
 
 
-bool
-OptionsIO::loadConfiguration(OptionsCont *oc)
+void
+OptionsIO::loadConfiguration() throw(ProcessError)
 {
-    if (!oc->exists("configuration-file") || !oc->isSet("configuration-file")) {
-        return true;
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
+        return;
     }
-    bool ok = true;
-    string path = oc->getString("configuration-file");
+    string path = oc.getString("configuration-file");
     if (!FileHelpers::exists(path)) {
-        MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("configuration-file") + "'.");
-        return false;
+        throw ProcessError("Could not find configuration '" + oc.getString("configuration-file") + "'.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading configuration...");
     // build parser
@@ -108,26 +100,18 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
-    OptionsLoader handler(oc, path.c_str(), oc->getBool("verbose"));
+    OptionsLoader handler(path.c_str(), oc.getBool("verbose"));
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(path.c_str());
         if (handler.errorOccured()) {
-            ok = false;
+            throw ProcessError("Could not load configuration '" + path + "'.");
         }
-    } catch (const XMLException&) {
-        ok = false;
+    } catch (const XMLException &e) {
+        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
-    if (ok) {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-    }
-    if (!ok) {
-        MsgHandler::getErrorInstance()->inform("Could not load configuration '" + path + "'.");
-    }
-    return ok;
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
 
 

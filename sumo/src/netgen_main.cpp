@@ -41,6 +41,7 @@
 #include <netgen/NGRandomNet.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
@@ -49,6 +50,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,8 +67,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-checkOptions(OptionsCont &oc)
+checkOptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
@@ -115,15 +118,9 @@ checkOptions(OptionsCont &oc)
 
 /** build and retrieve the options (settings) */
 void
-fillOptions(OptionsCont &oc)
+fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("netgen.exe", "SUMO netgen Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-netgen", "SUMO netgen Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("--grid-net [grid-network options] -o <OUTPUTFILE>");
     oc.addCallExample("--spider-net [spider-network opts] -o <OUTPUTFILE>");
@@ -263,7 +260,7 @@ fillOptions(OptionsCont &oc)
 
 
     // add rand options
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
@@ -324,20 +321,29 @@ buildNetwork(NBNetBuilder &nb)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("netgen.exe", "SUMO netgen Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-netgen", "SUMO netgen Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        XMLSubSys::init();
+        fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
+        MsgHandler::initOutputOptions();
+        if (!checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         // initialise the (default) types
         GeoConvHelper::init("!", Position2D());
-        OptionsCont &oc = OptionsSubSys::getOptions();
         NBNetBuilder nb;
         nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
         // build the netgen-network description

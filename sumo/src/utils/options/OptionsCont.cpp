@@ -46,6 +46,7 @@
 #include <ctime>
 #include "Option.h"
 #include "OptionsCont.h"
+#include "OptionsSubSys.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -483,19 +484,61 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
     os << endl;
 }
 
+bool
+OptionsCont::processMetaOptions(bool missingOptions)
+{
+    if (missingOptions) {
+        // no options are given
+        cout << myFullName << endl;
+        cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
+        cout << " Use --help to get the list of options." << endl;
+        return true;
+    }
+
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // check whether the help shall be printed
+    if (oc.getBool("help")) {
+        cout << myFullName << endl;
+        cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
+        oc.printHelp(cout);
+        return true;
+    }
+    // check whether the settings shall be printed
+    if (oc.getBool("print-options")) {
+        cout << oc;
+    }
+    // check whether something has to be done with options
+    // whether the current options shall be saved
+    if (oc.isSet("save-configuration")) {
+        ofstream out(oc.getString("save-configuration").c_str());
+        if (!out.good()) {
+            throw ProcessError("Could not save configuration to '" + oc.getString("save-configuration") + "'");
+        } else {
+            oc.writeConfiguration(out, true, false, false);
+            if (oc.getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written configuration to '" + oc.getString("save-configuration") + "'");
+            }
+        }
+    }
+    // whether the template shall be saved
+    if (oc.isSet("save-template")) {
+        ofstream out(oc.getString("save-template").c_str());
+        if (!out.good()) {
+            throw ProcessError("Could not save template to '" + oc.getString("save-template") + "'");
+        } else {
+            oc.writeConfiguration(out, false, true, oc.getBool("save-template.commented"));
+            if (oc.getBool("verbose")) {
+                MsgHandler::getMessageInstance()->inform("Written template to '" + oc.getString("save-template") + "'");
+            }
+            return true;
+        }
+    }
+    return false;
+}
 
 void
-OptionsCont::printHelp(std::ostream &os, bool fullHelp, bool suppressInfoline)
+OptionsCont::printHelp(std::ostream &os)
 {
-    os << myFullName << endl;
-    os << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
-    if (suppressInfoline) {
-        return;
-    }
-    if (!fullHelp) {
-        os << " Use --help to get the list of options." << endl;
-        return;
-    }
     vector<string>::const_iterator i, j;
     // print application description
     os << ' ' << endl;

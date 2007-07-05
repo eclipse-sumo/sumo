@@ -53,14 +53,14 @@ class OptionsParser
 {
 public:
     /** parses the command line arguments */
-    static bool parse(OptionsCont *oc, int argc, char **argv);
+    static bool parse(int argc, char **argv);
 
 private:
     /** parses the last argument */
-    static int check(OptionsCont *oc, char *arg1, bool &ok);
+    static int check(char *arg1, bool &ok);
 
     /** parses the previous arguments */
-    static int check(OptionsCont *oc, char *arg1, char *arg2, bool &ok);
+    static int check(char *arg1, char *arg2, bool &ok);
 
     /** returns the information whether the given argument is an option
         (begins with '-') */
@@ -77,7 +77,7 @@ private:
     static std::string convert(char abbr);
 
     /** extracts the parameter directly attached to an option */
-    static bool processNonBooleanSingleSwitch(OptionsCont *oc, char *arg);
+    static bool processNonBooleanSingleSwitch(OptionsCont &oc, char *arg);
 
 };
 

@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -49,6 +53,7 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_dua/RODUAFrame.h>
@@ -143,22 +148,28 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-duarouter", "SUMO duarouter Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     RONet *net = 0;
     ROLoader *loader = 0;
     try {
-        // initialise the application system (messaging, xml, options)
-        int init_ret =
-            SystemFrame::init(false, argc, argv, RODUAFrame::fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        XMLSubSys::init();
+        RODUAFrame::fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!RODUAFrame::checkOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        MsgHandler::initOutputOptions();
+        if (!RODUAFrame::checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         // load data
         ROVehicleBuilder vb;
         loader = new ROLoader(oc, vb, false);

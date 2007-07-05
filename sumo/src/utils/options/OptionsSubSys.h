@@ -61,25 +61,6 @@ typedef bool(check_options)(OptionsCont &);
 class OptionsSubSys
 {
 public:
-    /** @brief Initialises the options container
-     *
-     * fill_f is used to fill the given OptionsCont with values, check_f
-     * to validate them. This method performs the parsing of options and
-     * also other options-related function (printing the help screen etc.) */
-    static bool init(bool loadConfig, int argc, char **argv,
-                     fill_options *fill_f, check_options *check_f=0);
-
-    /** @brief Initialisation method for gui-based applications
-     *
-     * We may be sure that we set our options when performing gui-based
-     * options processes right (not via the command line), so checking
-     * is left out here; we also do not have to parse command line options
-     * or to print anything.
-     *
-     * The name will be inserted as the name of the configuration to load. */
-    static bool guiInit(fill_options *fill_f,
-                        const std::string &optionName, const std::string &optionValue);
-
     /** @brief Retrieves the options
      * 
      * They should be initialised before. */

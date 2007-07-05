@@ -37,6 +37,8 @@
 #include "MsgRetriever.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/LogFile.h>
+#include <utils/common/UtilExceptions.h>
 #include "AbstractMutex.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -64,6 +66,7 @@ MsgHandler *MsgHandler::myErrorInstance = 0;
 MsgHandler *MsgHandler::myWarningInstance = 0;
 MsgHandler *MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
+LogFile *MsgHandler::myLogFile = 0;
 
 
 // ===========================================================================
@@ -263,7 +266,6 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
         myRetrievers.erase(i);
     }
     // check whether the message shall be generated
-    // check whether the message shall be generated
     if (myType==MT_WARNING) {
         gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
                             ? OptionsSubSys::getOptions().getBool("suppress-warnings")
@@ -296,17 +298,40 @@ MsgHandler::report2cerr(bool value)
     if (myType==MT_WARNING) {
         gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
                             ? OptionsSubSys::getOptions().getBool("suppress-warnings")
-                            : !myReport2COUT;
+                            : !myReport2CERR;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
+        gSuppressMessages = !(myRetrievers.size()==0||myReport2CERR);
     }
     cerr.setf(ios::fixed ,ios::floatfield);
 }
 
 
 void
+MsgHandler::initOutputOptions()
+{
+    getMessageInstance()->report2cout(OptionsSubSys::getOptions().getBool("verbose"));
+    getWarningInstance()->report2cerr(!OptionsSubSys::getOptions().getBool("suppress-warnings"));
+    // build the logger if possible
+    if (OptionsSubSys::getOptions().isSet("log-file")) {
+        myLogFile =
+            new LogFile(OptionsSubSys::getOptions().getString("log-file"));
+        if (!myLogFile->good()) {
+            delete myLogFile;
+            myLogFile = 0;
+            throw ProcessError("Could not build logging file '" + OptionsSubSys::getOptions().getString("log-file") + "'");
+        } else {
+            getErrorInstance()->addRetriever(myLogFile);
+            getWarningInstance()->addRetriever(myLogFile);
+            getMessageInstance()->addRetriever(myLogFile);
+        }
+    }
+}
+
+
+void
 MsgHandler::cleanupOnEnd()
 {
+    delete myLogFile;
     delete myMessageInstance;
     myMessageInstance = 0;
     delete myWarningInstance;
@@ -317,9 +342,8 @@ MsgHandler::cleanupOnEnd()
 
 
 MsgHandler::MsgHandler(MsgType type)
-        : myType(type), myWasInformed(false), myReport2COUT(true),
-        myReport2CERR(false), myLock(0)
-
+        : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
+        myReport2CERR(type!=MT_MESSAGE), myLock(0)
 {}
 
 

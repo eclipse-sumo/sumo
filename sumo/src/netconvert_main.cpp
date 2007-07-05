@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <string>
 #include <netbuild/NBNetBuilder.h>
@@ -40,11 +44,14 @@
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBDistribution.h>
+#include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -63,18 +70,26 @@ using namespace std;
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     try {
-        int init_ret = SystemFrame::init(false, argc, argv, NIOptionsIO::fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        XMLSubSys::init();
+        NIOptionsIO::fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        MsgHandler::initOutputOptions();
+        if (!NIOptionsIO::checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         NBNetBuilder nb;
         // initialise the (default) types
         nb.getTypeCont().setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));

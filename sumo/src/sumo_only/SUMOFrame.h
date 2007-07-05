@@ -51,7 +51,7 @@ class SUMOFrame
 {
 public:
     /// Builds the simulation options
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions();
 
     /** @brief Builds the streams used possibly by the simulation */
     static std::vector<OutputDevice*> buildStreams(const OptionsCont &oc);
@@ -68,7 +68,7 @@ public:
      * - the begin and the end of the simulation must be given
      * Returns true when all constraints are valid
      */
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions();
 
     /** Sets the global microsim-options */
     static void setMSGlobals(OptionsCont &oc);

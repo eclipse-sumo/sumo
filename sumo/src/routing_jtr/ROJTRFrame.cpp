@@ -28,10 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -60,15 +56,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-ROJTRFrame::fillOptions(OptionsCont &oc)
+ROJTRFrame::fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
-#ifdef WIN32
-    oc.setApplicationName("jtrrouter.exe", "SUMO jtrrouter Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-jtrrouter", "SUMO jtrrouter Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -81,15 +71,16 @@ ROJTRFrame::fillOptions(OptionsCont &oc)
 
 
     ROFrame::fillOptions(oc);
-    addJTROptions(oc);
+    addJTROptions();
     // add rand options
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
 void
-ROJTRFrame::addJTROptions(OptionsCont &oc)
+ROJTRFrame::addJTROptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
     oc.addDescription("flow-definition", "I/O", "Read flow-definitions from FILE");
@@ -114,9 +105,9 @@ ROJTRFrame::addJTROptions(OptionsCont &oc)
 
 
 bool
-ROJTRFrame::checkOptions(OptionsCont &oc)
+ROJTRFrame::checkOptions()
 {
-    return ROFrame::checkOptions(oc);
+    return ROFrame::checkOptions(OptionsSubSys::getOptions());
 }
 
 

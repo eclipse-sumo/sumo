@@ -74,15 +74,9 @@ using namespace std;
 // functions
 // ===========================================================================
 void
-fillOptions(OptionsCont &oc)
+fillOptions()
 {
-    // give some application descriptions
-    oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("od2trips.exe", "SUMO od2trips Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-od2trips", "SUMO od2trips Version " + (string)VERSION_STRING);
-#endif
+    OptionsCont &oc = OptionsSubSys::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -165,7 +159,7 @@ fillOptions(OptionsCont &oc)
 
 
     // add rand options
-    RandHelper::insertRandOptions(oc);
+    RandHelper::insertRandOptions();
 }
 
 
@@ -208,8 +202,9 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
 
 
 bool
-checkOptions(OptionsCont &oc)
+checkOptions()
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
@@ -464,19 +459,27 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
 int
 main(int argc, char **argv)
 {
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
+#ifdef WIN32
+    oc.setApplicationName("od2trips.exe", "SUMO od2trips Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo-od2trips", "SUMO od2trips Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     try {
         // initialise subsystems
-        int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        XMLSubSys::init();
+        fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        MsgHandler::initOutputOptions();
+        if (!checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         // load the districts
         ODDistrictCont *districts = loadDistricts(oc);
         if (districts==0) {

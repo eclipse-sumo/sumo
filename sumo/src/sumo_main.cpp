@@ -28,6 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <ctime>
 #include <string>
 #include <iostream>
@@ -122,19 +126,27 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-    size_t rand_init = 10551;
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    // give some application descriptions
+    oc.setApplicationDescription("A microscopic road traffic simulation.");
+#ifdef WIN32
+    oc.setApplicationName("sumo.exe", "SUMO sumo Version " + (string)VERSION_STRING);
+#else
+    oc.setApplicationName("sumo", "SUMO sumo Version " + (string)VERSION_STRING);
+#endif
     int ret = 0;
     try {
-        int init_ret = SystemFrame::init(false, argc, argv, SUMOFrame::fillOptions);
-        if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+        // initialise subsystems
+        XMLSubSys::init();
+        SUMOFrame::fillOptions();
+        OptionsIO::getOptions(true, argc, argv);
+        if(oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!SUMOFrame::checkOptions(OptionsSubSys::getOptions())) {
-            throw ProcessError();
         }
-        // retrieve the options
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        MsgHandler::initOutputOptions();
+        if (!SUMOFrame::checkOptions()) throw ProcessError();
+        RandHelper::initRandGlobal();
         // load the net
         MSNet *net = load(oc);
         if (net!=0) {

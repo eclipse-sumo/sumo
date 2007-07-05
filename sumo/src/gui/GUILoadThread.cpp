@@ -97,14 +97,7 @@ GUILoadThread::run()
     OptionsSubSys::close();
 
     // try to load the given configuration
-    if (!initOptions()) {
-        // ok, the options could not be set
-        submitEndAndCleanup(net, simStartTime, simEndTime);
-        return 0;
-    }
-    // retrieve the options
-    OptionsCont &oc = OptionsSubSys::getOptions();
-    if (!SUMOFrame::checkOptions(oc)) {
+    if (!initOptions() || !SUMOFrame::checkOptions()) {
         // the options are not valid
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
@@ -115,6 +108,7 @@ GUILoadThread::run()
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 
     // try to load
+    OptionsCont &oc = OptionsSubSys::getOptions();
     SUMOFrame::setMSGlobals(oc);
     net =
         new GUINet(oc.getInt("begin"), buildVehicleControl(),
@@ -139,7 +133,7 @@ GUILoadThread::run()
             simStartTime = oc.getInt("begin");
             simEndTime = oc.getInt("end");
             closeNetLoadingDependent(oc, *net);
-            RandHelper::initRandGlobal(oc);
+            RandHelper::initRandGlobal();
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
@@ -209,11 +203,22 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
 bool
 GUILoadThread::initOptions()
 {
-    if (myLoadNet) {
-        return OptionsSubSys::guiInit(SUMOFrame::fillOptions, "net-file", _file);
-    } else {
-        return OptionsSubSys::guiInit(SUMOFrame::fillOptions, "configuration-file", _file);
+    try {
+        SUMOFrame::fillOptions();
+        OptionsCont &oc = OptionsSubSys::getOptions();
+        if (myLoadNet) {
+            oc.set("net-file", _file);
+        } else {
+            oc.set("configuration-file", _file);
+        }
+        OptionsIO::getOptions(true, 1, 0);
+    } catch (ProcessError &e) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
     }
+    return false;
 }
 
 

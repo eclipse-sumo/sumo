@@ -32,12 +32,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class OptionsCont;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -46,13 +40,13 @@ class OptionsCont;
 class RODUAFrame
 {
 public:
-    static void fillOptions(OptionsCont &oc);
+    static void fillOptions();
 
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions();
 
-    static void addImportOptions(OptionsCont &oc);
+    static void addImportOptions();
 
-    static void addDUAOptions(OptionsCont &oc);
+    static void addDUAOptions();
 
 
 };
