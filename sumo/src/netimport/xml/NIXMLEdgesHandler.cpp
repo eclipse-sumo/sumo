@@ -577,14 +577,12 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
 Position2DVector
 NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
 {
-    string shpdef;
-    shpdef = getStringSecure(attrs, SUMO_ATTR_SHAPE, "");
-    // return if no shape was given
-    if (shpdef=="") {
+    if (!hasAttribute(attrs, SUMO_ATTR_SHAPE)) {
         return Position2DVector();
     }
     // try to build shape
     try {
+        string shpdef = getStringSecure(attrs, SUMO_ATTR_SHAPE, "");
         Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
         Position2DVector shape;
         for (size_t i=0; i<shape1.size(); ++i) {
