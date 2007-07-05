@@ -242,7 +242,7 @@ RORDLoader_TripDefs::getTime(const Attributes &attrs, SumoXMLAttr which,
 }
 
 
-int
+SUMOTime
 RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
                                const std::string &id)
 {
