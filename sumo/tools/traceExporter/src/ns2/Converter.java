@@ -39,13 +39,15 @@ public class Converter {
 	 */
 	private static void help() {
 		System.out.println("needed options:");
-		System.out.println("-n [netfile]");
-		System.out.println("-t [tracefile]");
-		System.out.println("-a [activityfile]");
-		System.out.println("-m [mobilityfile]");
-		System.out.println("-c [configfile]");
-		System.out.println("-b [begin]");
-		System.out.println("-e [end]");
+		System.out.println("-n <sumo net.xml file>");
+		System.out.println("-t <sumo netstate-dump file>");
+		System.out.println("-a <output activity file>");
+		System.out.println("-m <output mobility file>");
+		System.out.println("-c <output config file]");
+		System.out.println("-b <converting begin time>");
+		System.out.println("-e <converting end time>");
+		System.out.println("[ -p <penetration rate (0..1)> ] ");
+		System.out.println("[ -s <seed for random numbers (used to determine fraction of equipped cars)> ] ");
 	}
 	
 	/**
