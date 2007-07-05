@@ -56,25 +56,25 @@ public:
     /// Reads the given random number options and initialises the random number geerator in accordance
     static void initRandGlobal();
 
-    /// Returns a random integer between [0, len-1]
+    /// Returns a random integer in [0, len-1]
     static inline size_t getRandomIndex(size_t len)
     {
-        return (size_t) floor((double) len * RandHelper::myRandomNumberGenerator.randExc());
+        return (size_t) RandHelper::myRandomNumberGenerator.randInt(len-1);
     }
 
-    /// Returns a random integer between [0, 1)
+    /// Returns a random real number in [0, 1)
     static inline SUMOReal rand()
     {
         return (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
-    /// Returns a random integer between [0, maxV)
+    /// Returns a random real number in [0, maxV)
     static inline SUMOReal rand(SUMOReal maxV)
     {
         return maxV *(SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
-    /// Returns a random integer between [minV, maxV)
+    /// Returns a random real number in [minV, maxV)
     static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV)
     {
         SUMOReal range = maxV - minV;
@@ -97,7 +97,7 @@ getRandomFrom(const std::vector<T> &v)
 }
 
 
-/// Returns a random number between [0, 1)
+/// Returns a random real number between [0, 1)
 inline SUMOReal
 randSUMO()
 {
