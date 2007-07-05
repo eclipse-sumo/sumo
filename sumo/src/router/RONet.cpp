@@ -91,6 +91,7 @@ RONet::addEdge(ROEdge *edge)
 {
     if (!_edges.add(edge->getID(), edge)) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
+        delete edge;
     }
 }
 
@@ -420,7 +421,8 @@ RONet::buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
     if (!ret->good()) {
-        throw ProcessError("The file '" + name + "' could not be opened for writing.");
+        delete ret;
+        throw InvalidArgument("The file '" + name + "' could not be opened for writing.");
     }
     return ret;
 }
