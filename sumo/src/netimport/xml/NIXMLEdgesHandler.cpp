@@ -124,16 +124,18 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                            myCurrentID, myCurrentName,
                            myFromNode, myToNode,
                            myCurrentType, myCurrentSpeed,
-                           myCurrentLaneNo, myLength, myCurrentPriority, myLanesSpread,
+                           myCurrentLaneNo, myCurrentPriority, myLanesSpread,
                            myCurrentEdgeFunction);
+                edge->setLoadedLength(myLength);
             } else {
                 edge = new NBEdge(
                            myCurrentID, myCurrentName,
                            myFromNode, myToNode,
                            myCurrentType, myCurrentSpeed,
-                           myCurrentLaneNo, myLength, myCurrentPriority,
+                           myCurrentLaneNo, myCurrentPriority,
                            myShape, myLanesSpread,
                            myCurrentEdgeFunction);
+                edge->setLoadedLength(myLength);
             }
             // insert the edge
             if (!myEdgeCont.insert(edge)) {

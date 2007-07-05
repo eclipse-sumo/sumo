@@ -109,7 +109,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                                      100, 3/*nolanes*/, 2000.0, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SOURCE);
+                                      100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SOURCE);
             if (!myEdgeCont.insert(edge)) {
                 addError("A duplicate edge id occured (ID='" + id + "').");
             } else {
@@ -125,7 +125,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                                      100, 3/*nolanes*/, 2000.0, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SINK);
+                                      100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SINK);
             if (!myEdgeCont.insert(edge)) {
                 addError("A duplicate edge id occured (ID='" + id + "').");
             } else {

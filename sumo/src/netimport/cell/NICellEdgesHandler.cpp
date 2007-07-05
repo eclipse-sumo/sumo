@@ -149,7 +149,7 @@ NICellEdgesHandler::report(const std::string &result)
         }
     }
     myEdgeCont.insert(new NBEdge(id, id, from, to, "DEFAULT",
-                                 speed, nolanes, length, priority));
+                                 speed, nolanes, priority));
     return true;
 }
 

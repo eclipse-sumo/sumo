@@ -666,7 +666,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
 
     NBEdge *buildEdge = new NBEdge(
                             toString<int>(myID), myName, fromNode, toNode, myType,
-                            avgSpeed/(SUMOReal) 3.6, myNoLanes, myGeom.length(), -1, myGeom,
+                            avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
                             NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {

@@ -99,7 +99,7 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
         int priority = getInt(attrs, SUMO_ATTR_PRIORITY);
         if (speed>0&&length>0&&nolanes>0&&priority>0) {
             myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
-                                         nolanes, length, priority));
+                                         nolanes, priority));
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("An edge with an unknown id occured.");

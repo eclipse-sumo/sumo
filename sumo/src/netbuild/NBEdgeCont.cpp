@@ -374,7 +374,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
                              edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
-                             pos, edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
+                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
                              edge->_basicType);
     size_t i;
     for (i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
@@ -382,7 +382,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     }
     NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName,
                              node, edge->_to, edge->_type, edge->_speed, noLanesSecondEdge,
-                             edge->_length-pos, edge->getPriority(), geoms.second,
+                             edge->getPriority(), geoms.second,
                              edge->myLaneSpreadFunction, edge->_basicType);
     for (i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
@@ -579,7 +579,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     speed /= edges.size();
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
-                                 nolanes, -1, priority, tpledge->myLaneSpreadFunction, function);
+                                 nolanes, priority, tpledge->myLaneSpreadFunction, function);
     insert(newEdge);
     // replace old edge by current within the nodes
     //  and delete the old

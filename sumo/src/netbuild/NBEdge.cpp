@@ -173,18 +173,18 @@ NBEdge::MainDirections::includes(Direction d) const
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
-               SUMOReal length, int priority, LaneSpreadFunction spread,
+               int priority, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
         _step(INIT), _id(StringUtils::convertUmlaute(id)),
         _type(StringUtils::convertUmlaute(type)),
-        _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
+        _nolanes(nolanes), _from(from), _to(to), _angle(0),
         _priority(priority), _speed(speed),
         _name(StringUtils::convertUmlaute(name)),
         _turnDestination(0),
         _fromJunctionPriority(-1), _toJunctionPriority(-1),
         _basicType(basic), myLaneSpreadFunction(spread),
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
-        myAmTurningWithAngle(0), myAmTurningOf(0)
+        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     assert(_nolanes!=0);
     if (_from==0||_to==0) {
@@ -198,9 +198,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _to->addIncomingEdge(this);
     // prepare container
     _reachable.resize(_nolanes, EdgeLaneVector());
-    if (_length<=0) {
-        _length = GeomHelper::distance(_from->getPosition(), _to->getPosition());
-    }
+    _length = GeomHelper::distance(_from->getPosition(), _to->getPosition());
     assert(_from->getPosition()!=_to->getPosition());
     myGeom.push_back(_from->getPosition());
     myGeom.push_back(_to->getPosition());
@@ -221,18 +219,18 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
-               SUMOReal length, int priority,
+               int priority,
                Position2DVector geom, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
         _step(INIT), _id(StringUtils::convertUmlaute(id)),
         _type(StringUtils::convertUmlaute(type)),
-        _nolanes(nolanes), _from(from), _to(to), _length(length), _angle(0),
+        _nolanes(nolanes), _from(from), _to(to), _angle(0),
         _priority(priority), _speed(speed),
         _name(StringUtils::convertUmlaute(name)), _turnDestination(0),
         _fromJunctionPriority(-1), _toJunctionPriority(-1),
         _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
-        myAmTurningWithAngle(0), myAmTurningOf(0)
+        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     assert(_nolanes!=0);
     if (_from==0||_to==0) {
@@ -248,10 +246,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     _to->addIncomingEdge(this);
     // prepare container
     _reachable.resize(_nolanes, EdgeLaneVector());
-    if (_length<=0) {
-        _length = GeomHelper::distance(
+    _length = GeomHelper::distance(
                       _from->getPosition(), _to->getPosition());
-    }
     assert(myGeom.size()>=2);
     computeLaneShapes();
     for (size_t i=0; i<_nolanes; i++) {
@@ -541,8 +537,11 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
         throw ProcessError("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString(lane) + ".");
 
     }
-    into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
-    "\">";
+    SUMOReal length = _length;
+    if(myLoadedLength>0) {
+        length = myLoadedLength;
+    }
+    into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << length << "\">";
     // the lane's shape
     into << myLaneGeoms[lane];
     // close
@@ -2295,7 +2294,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
         } else {
             string edgename = _id + "[" + toString(i-1) + "]";
             currentEdge = new NBEdge(edgename, edgename, newFrom, newTo, _type, _speed, _nolanes,
-                                     -1, _priority, myLaneSpreadFunction, _basicType);
+                                     _priority, myLaneSpreadFunction, _basicType);
             if (!ec.insert(currentEdge)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
 
@@ -2479,5 +2478,11 @@ NBEdge::getMaxConnectedLane(NBEdge *of) const
     return ret;
 }
 
+
+void 
+NBEdge::setLoadedLength(SUMOReal val)
+{
+    myLoadedLength = val;
+}
 
 /****************************************************************************/

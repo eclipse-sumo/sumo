@@ -120,13 +120,13 @@ public:
     /// constructor
     NBEdge(std::string id, std::string name,
            NBNode *from, NBNode *to, std::string type,
-           SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
+           SUMOReal speed, size_t nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     NBEdge(std::string id, std::string name,
            NBNode *from, NBNode *to, std::string type,
-           SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
+           SUMOReal speed, size_t nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
@@ -187,6 +187,8 @@ public:
 
     bool hasRestrictions() const;
     void writeLanesPlain(std::ostream &into);
+    void setLoadedLength(SUMOReal val);
+
 
     /** adds a connection to another edge;
         instead of adding connections one by one, they may be computed
@@ -509,6 +511,7 @@ private:
     std::vector<std::vector<SUMOVehicleClass> > myAllowedOnLanes;
     std::vector<std::vector<SUMOVehicleClass> > myNotAllowedOnLanes;
 
+    SUMOReal myLoadedLength;
 
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;

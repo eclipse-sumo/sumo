@@ -147,7 +147,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     NBEdge *e = 0;
     if (interID=="-1") {
         e = new NBEdge(id, id, from, to, "DEFAULT",
-                       speed, nolanes, length, priority);
+                       speed, nolanes, priority);
     } else {
         Position2DVector geoms = myGeoms[interID];
         if (connection) {
@@ -155,12 +155,12 @@ NIElmar2EdgesHandler::report(const std::string &result)
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
             e = new NBEdge(id, id, from, to, "DEFAULT",
-                           speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
+                           speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
         } else {
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
             e = new NBEdge(id, id, from, to, "DEFAULT",
-                           speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
+                           speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
         }
     }
     // add vehicle type information to the edge

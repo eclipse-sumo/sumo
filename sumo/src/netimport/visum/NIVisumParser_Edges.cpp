@@ -209,7 +209,7 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
     NBEdge::LaneSpreadFunction lsf = oneway
                                      ? NBEdge::LANESPREAD_CENTER
                                      : NBEdge::LANESPREAD_RIGHT;
-    NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio, lsf);
+    NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, prio, lsf);
     if (!myEdgeCont.insert(e)) {
         delete e;
         addError(" Duplicate edge occured ('" + id + "').");

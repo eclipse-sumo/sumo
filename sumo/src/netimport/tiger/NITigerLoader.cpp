@@ -126,7 +126,7 @@ NITigerLoader::load(OptionsCont &)
             int priority = -1;
             NBEdge *e =
                 new NBEdge(eid, eid, from, to, type, speed, nolanes,
-                           cposes.length(), priority, cposes);
+                           priority, cposes);
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
@@ -135,7 +135,7 @@ NITigerLoader::load(OptionsCont &)
             eid = "-" + eid;
             e =
                 new NBEdge(eid, eid, to, from, type, speed, nolanes,
-                           cposes.length(), priority, cposes.reverse());
+                           priority, cposes.reverse());
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
