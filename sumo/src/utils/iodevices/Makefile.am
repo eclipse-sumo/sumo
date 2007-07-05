@@ -7,4 +7,5 @@ BinaryOutputDevice.cpp BinaryOutputDevice.h \
 BinaryInputDevice.cpp BinaryInputDevice.h \
 OutputDevice_COUT.cpp OutputDevice_COUT.h \
 OutputDevice_File.cpp OutputDevice_File.h \
+OutputWrapper.cpp OutputWrapper.h \
 SharedOutputDevices.cpp SharedOutputDevices.h

@@ -75,10 +75,13 @@ public:
 
 private:
     /// constructor
-    OutputWrapper();
+    OutputWrapper(const std::string &name);
 
     /// Destructor
     virtual ~OutputWrapper();
+
+    /// the output stream
+    std::ostream *myStream;
 
     /// the XML root element
     std::string myRootElement;
@@ -86,8 +89,11 @@ private:
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;
 
+    /// Definition of a map from names to output devices
+    typedef std::map<std::string, OutputWrapper*> OutputWrapperMap;
+
     /// map from names to output wrappers
-    static std::map<std::string, OutputWrapper*> myOutputWrappers;
+    static OutputWrapperMap myOutputWrappers;
 
 };
 

@@ -52,16 +52,16 @@ using namespace std;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-OutputWrapperMap myOutputWrappers;
+OutputWrapper::OutputWrapperMap OutputWrapper::myOutputWrappers;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputWrapper::OutputWrapper(const std::string &name)
+OutputWrapper::OutputWrapper(const string &name)
 {
     if (name=="stdout") {
-        myStream = cout;
+//         myStream = &cout;
     } else {
         myStream = new std::ofstream(name.c_str());
         if (!myStream->good()) {
@@ -102,14 +102,6 @@ OutputWrapper::getOutputWrapper(const std::string &name)
         myOutputWrappers[name] = new OutputWrapper(name);
     }
     return myOutputWrappers[name];
-}
-
-
-OutputWrapper *
-OutputWrapper::getOutputWrapperChecking(const std::string &base,
-        const std::string &name)
-{
-    return getOutputWrapper(FileHelpers::checkForRelativity(name, base));
 }
 
 /****************************************************************************/
