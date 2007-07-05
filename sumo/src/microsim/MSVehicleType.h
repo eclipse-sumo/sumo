@@ -135,9 +135,9 @@ public:
             // we should not prevent vehicles from driving just due to dawdling
             //  if someone is starting, he should definitely start
             // (but what about slow-to-start?)!!!
-            speed -= myDawdle * speed * random;
+            speed -= ACCEL2SPEED(myDawdle * speed * random);
         } else {
-            speed -= myDawdle * getMaxAccel(speed) * random;
+            speed -= ACCEL2SPEED(myDawdle * getMaxAccel(speed) * random);
         }
         return MAX2(SUMOReal(0), speed);
     }
