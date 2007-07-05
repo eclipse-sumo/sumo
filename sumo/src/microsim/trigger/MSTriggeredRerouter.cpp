@@ -104,7 +104,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob,
         const std::string &aXMLFilename)
-        : MSTrigger(id), SUMOSAXHandler("reroutings", aXMLFilename),
+        : MSTrigger(id), SUMOSAXHandler(aXMLFilename),
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
     // read in the trigger description

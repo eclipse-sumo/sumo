@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
                                      const std::string &file)
-        : SUMOSAXHandler("detector definition", file),
+        : SUMOSAXHandler(file),
         myOptions(oc),  myContainer(con)
 {}
 

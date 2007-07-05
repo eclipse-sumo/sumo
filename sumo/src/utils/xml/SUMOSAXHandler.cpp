@@ -52,8 +52,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXHandler::SUMOSAXHandler(const std::string &filetype,
-                               const std::string &file) throw()
+SUMOSAXHandler::SUMOSAXHandler(const std::string &file) throw()
         : GenericSAXHandler(sumotags, sumoattrs), myFileName(file)
 {}
 

@@ -67,7 +67,7 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
         SUMOTime end,
         const std::string &file)
         : ROAbstractRouteDefLoader(vb, net, begin, end),
-        SUMOSAXHandler("xml-route definitions", file),
+        SUMOSAXHandler(file),
         _parser(XMLSubSys::getSAXReader(*this)), _token(), _ended(false)
 {}
 

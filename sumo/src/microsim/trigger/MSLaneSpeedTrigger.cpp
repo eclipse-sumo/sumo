@@ -57,7 +57,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &aXMLFilename)
-        : MSTrigger(id), SUMOSAXHandler("speed_limits", aXMLFilename),
+        : MSTrigger(id), SUMOSAXHandler(aXMLFilename),
         myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
         /*    ,
             myNextOffset(0)*/

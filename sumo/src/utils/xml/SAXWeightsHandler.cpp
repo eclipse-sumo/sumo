@@ -66,7 +66,7 @@ SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string 
 
 SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 {
-    delete[] myAttributeName;
+//    delete[] myAttributeName;
 }
 
 
@@ -75,7 +75,7 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
                                      const std::string &file)
-        : SUMOSAXHandler("sumo-netweights", file),
+        : SUMOSAXHandler(file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
         myDefinitions(defs)
 {}
@@ -83,7 +83,7 @@ SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &d
 
 SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
                                      const std::string &file)
-        : SUMOSAXHandler("sumo-netweights", file),
+        : SUMOSAXHandler(file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1)
 {
     myDefinitions.push_back(def);

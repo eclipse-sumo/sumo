@@ -75,7 +75,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
                                bool wantsVehicleColor,
                                int incDUABase,
                                int incDUAStage)
-        : SUMOSAXHandler("sumo-network/routes", file),
+        : SUMOSAXHandler(file),
         myVehicleControl(vc),
         myLastDepart(0), myLastReadVehicle(0),
         myAddVehiclesDirectly(addVehiclesDirectly),

@@ -57,7 +57,7 @@ using namespace std;
 MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
         const std::string &filename)
         : MSTriggeredReader(net),
-        SUMOSAXHandler("sumo-trigger values", filename),
+        SUMOSAXHandler(filename),
         myParser(0), myHaveMore(true)
 {
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
