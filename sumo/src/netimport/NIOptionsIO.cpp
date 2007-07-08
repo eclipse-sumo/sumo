@@ -60,7 +60,7 @@ using namespace std;
 void
 NIOptionsIO::fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
 
@@ -222,7 +222,7 @@ NIOptionsIO::checkCompleteDescription()
 bool
 NIOptionsIO::checkNodes()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check the existance of a name for the nodes file
     if (oc.isSet("n") ||
             oc.isSet("e") ||
@@ -244,7 +244,7 @@ NIOptionsIO::checkNodes()
 bool
 NIOptionsIO::checkEdges()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check whether at least a sections or a edges file is supplied
     if (oc.isSet("e") ||
             oc.isSet("cell-edges") ||
@@ -263,7 +263,7 @@ NIOptionsIO::checkEdges()
 bool
 NIOptionsIO::checkOutput()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     ofstream strm(oc.getString("output-file").c_str()); // !!! should be made when input are ok
     if (!strm.good()) {
         MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");

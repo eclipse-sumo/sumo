@@ -48,7 +48,6 @@
 #include <algorithm>
 #include <map>
 #include "MSMoveReminder.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/common/ToString.h>
@@ -261,7 +260,7 @@ MSVehicle::MSVehicle(string id,
 void
 MSVehicle::initDevices(int vehicleIndex)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
 
     // cell phones
     if (myType->getID().compare("SBahn")== 0) {
@@ -303,7 +302,7 @@ MSVehicle::initDevices(int vehicleIndex)
         }
     } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
         bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
-        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.cell-phone.knownveh", myID);
+        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
         if (t1||t2) {
             int noCellPhones = (int)(randSUMO()
                                      * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
@@ -325,7 +324,7 @@ MSVehicle::initDevices(int vehicleIndex)
         } else {
             t1 = !((vehicleIndex%1000)>=(int)(oc.getFloat("device.c2x.probability")*1000.));
         }
-        bool t2 = oc.isSet("device.c2x.knownveh") && OptionsSubSys::helper_CSVOptionMatches("device.c2x.knownveh", myID);
+        bool t2 = oc.isSet("device.c2x.knownveh") && OptionsCont::getOptions().isInStringVector("device.c2x.knownveh", myID);
         if (t1||t2) {
             equipped = true;
         }

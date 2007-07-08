@@ -42,7 +42,6 @@
 #include <netbuild/NBDistribution.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVissimNodeCluster.h"
 #include "NIVissimDistrictConnection.h"
@@ -656,13 +655,13 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     for (i=0; i<(int) myNoLanes; i++) {
         if (myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
             WRITE_WARNING("Unset speed on edge:" + toString<int>(myID) + ", lane:" + toString<int>(i) + "; using default.");
-            avgSpeed += OptionsSubSys::getOptions().getFloat("vissim.default-speed");
+            avgSpeed += OptionsCont::getOptions().getFloat("vissim.default-speed");
         } else {
             avgSpeed += myLaneSpeeds[i];
         }
     }
     avgSpeed /= (SUMOReal) myLaneSpeeds.size();
-    avgSpeed *= OptionsSubSys::getOptions().getFloat("vissim.speed-norm");
+    avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     NBEdge *buildEdge = new NBEdge(
                             toString<int>(myID), myName, fromNode, toNode, myType,
@@ -671,7 +670,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i,
-                                    OptionsSubSys::getOptions().getFloat("vissim.default-speed"));
+                                    OptionsCont::getOptions().getFloat("vissim.default-speed"));
         } else {
             buildEdge->setLaneSpeed(i, myLaneSpeeds[i]/(SUMOReal) 3.6);
         }

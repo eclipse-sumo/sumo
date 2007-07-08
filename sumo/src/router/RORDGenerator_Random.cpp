@@ -37,7 +37,6 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include "RORouteDef.h"
 #include "RORouteDef_OrigDest.h"
 #include "RONet.h"
@@ -65,12 +64,12 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
         myCurrentTime(0), myRemoveFirst(removeFirst)
 {
-    if (!OptionsSubSys::getOptions().isSet("random-route-color")) {
+    if (!OptionsCont::getOptions().isSet("random-route-color")) {
         myColor = RGBColor(-1, -1, -1);
         return;
     }
     string color =
-        OptionsSubSys::getOptions().getString("random-route-color");
+        OptionsCont::getOptions().getString("random-route-color");
     StringTokenizer st(color, ";");
     try {
         SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());

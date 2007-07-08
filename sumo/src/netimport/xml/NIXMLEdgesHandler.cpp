@@ -47,7 +47,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -151,7 +150,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_LANE) {
         NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
         if (edge==0) {
-            if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
+            if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                 MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
@@ -325,7 +324,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             e.pos = getFloat(attrs, SUMO_ATTR_POS);
             NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
             if (edge==0) {
-                if (!OptionsSubSys::helper_CSVOptionMatches("remove-edges", myCurrentID)) {
+                if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;

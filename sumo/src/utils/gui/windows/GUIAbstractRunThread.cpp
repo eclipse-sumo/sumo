@@ -45,7 +45,6 @@
 #include "GUIAbstractRunThread.h"
 // #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

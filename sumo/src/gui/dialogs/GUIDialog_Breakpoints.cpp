@@ -48,7 +48,6 @@
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
@@ -110,7 +109,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
     myTable->setTableSize(20,1);
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setCellType(0, CT_INT);
-    myTable->setNumberCellParams(0, OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
+    myTable->setNumberCellParams(0, OptionsCont::getOptions().getInt("begin"), OptionsCont::getOptions().getInt("end"),
                                  1, 10, 100, "%.0f");
     myTable->getRowHeader()->setWidth(0);
     rebuildList();

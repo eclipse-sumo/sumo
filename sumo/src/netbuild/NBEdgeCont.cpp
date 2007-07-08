@@ -38,7 +38,6 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
 #include "nodes/NBNodeCont.h"
@@ -95,8 +94,8 @@ NBEdgeCont::insert(NBEdge *edge)
     if (i!=_edges.end()) {
         return false;
     }
-    if (OptionsSubSys::getOptions().isSet("edges-min-speed")) {
-        if (edge->getSpeed()<OptionsSubSys::getOptions().getFloat("edges-min-speed")) {
+    if (OptionsCont::getOptions().isSet("edges-min-speed")) {
+        if (edge->getSpeed()<OptionsCont::getOptions().getFloat("edges-min-speed")) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -104,11 +103,11 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge is a named edge to keep
-    if (!OptionsSubSys::getOptions().getBool("keep-edges.postload")
+    if (!OptionsCont::getOptions().getBool("keep-edges.postload")
             &&
-            OptionsSubSys::getOptions().isSet("keep-edges")) {
+            OptionsCont::getOptions().isSet("keep-edges")) {
 
-        if (!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
+        if (!OptionsCont::getOptions().isInStringVector("keep-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -116,8 +115,8 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge is a named edge to remove
-    if (OptionsSubSys::getOptions().isSet("remove-edges")) {
-        if (OptionsSubSys::helper_CSVOptionMatches("remove-edges", edge->getID())) {
+    if (OptionsCont::getOptions().isSet("remove-edges")) {
+        if (OptionsCont::getOptions().isInStringVector("remove-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -125,11 +124,11 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge shall be removed due to a allow an unwished class
-    if (OptionsSubSys::getOptions().isSet("remove-edges.by-type")) {
+    if (OptionsCont::getOptions().isSet("remove-edges.by-type")) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
         // !!! don't do this each time
-        StringTokenizer st(OptionsSubSys::getOptions().getString("remove-edges.by-type"), ";");
+        StringTokenizer st(OptionsCont::getOptions().getString("remove-edges.by-type"), ";");
         while (st.hasNext()) {
             SUMOVehicleClass vclass = getVehicleClassID(st.next());
             std::vector<SUMOVehicleClass>::iterator i =
@@ -770,7 +769,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
     std::vector<NBEdge*> toRemove;
     for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end();) {
         NBEdge *edge = (*i).second;
-        if (!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
+        if (!OptionsCont::getOptions().isInStringVector("keep-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             toRemove.push_back(edge);

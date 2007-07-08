@@ -403,7 +403,7 @@ deleteColoringSchemes()
 void
 fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("");
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -426,7 +426,7 @@ fillOptions()
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
 #ifdef WIN32
@@ -484,7 +484,7 @@ main(int argc, char **argv)
         gGradients = new GUIGradientStorage(window);
         initColoringSchemes(&application);
         // delete startup-options
-        OptionsSubSys::close();
+        OptionsCont::getOptions().clear();
         // Create app
         application.addSignal(SIGINT,window, MID_QUIT);
         application.create();

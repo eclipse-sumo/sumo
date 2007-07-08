@@ -32,7 +32,6 @@
 #include "ROJTRRouter.h"
 #include "ROJTREdge.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -56,7 +55,7 @@ ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
 {
     myMaxEdges = (int)(
                      ((SUMOReal) net.getEdgeNo()) *
-                     OptionsSubSys::getOptions().getFloat("max-edges-factor"));
+                     OptionsCont::getOptions().getFloat("max-edges-factor"));
 }
 
 

@@ -43,7 +43,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>
@@ -94,7 +93,7 @@ GUILoadThread::run()
     int simEndTime = 0;
 
     // remove old options
-    OptionsSubSys::close();
+    OptionsCont::getOptions().clear();
 
     // try to load the given configuration
     if (!initOptions() || !SUMOFrame::checkOptions()) {
@@ -108,7 +107,7 @@ GUILoadThread::run()
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 
     // try to load
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     SUMOFrame::setMSGlobals(oc);
     net =
         new GUINet(oc.getInt("begin"), buildVehicleControl(),
@@ -205,7 +204,7 @@ GUILoadThread::initOptions()
 {
     try {
         SUMOFrame::fillOptions();
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        OptionsCont &oc = OptionsCont::getOptions();
         if (myLoadNet) {
             oc.set("net-file", _file);
         } else {

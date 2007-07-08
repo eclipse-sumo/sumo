@@ -46,7 +46,6 @@
 #include "NBTrafficLightLogicVector.h"
 #include "nodes/NBNode.h"
 #include "NBRequest.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -83,11 +82,11 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
     //  this is mostly the case if Vissim-networks are imported and someone
     //  did not concern prohibitions when inserting streams
     bool keepUnregulated = false;
-    if (OptionsSubSys::getOptions().getBool("keep-unregulated")
+    if (OptionsCont::getOptions().getBool("keep-unregulated")
             ||
-            OptionsSubSys::helper_CSVOptionMatches("keep-unregulated.nodes", junction->getID())
+            OptionsCont::getOptions().isInStringVector("keep-unregulated.nodes", junction->getID())
             ||
-            (OptionsSubSys::getOptions().getBool("keep-unregulated.district-nodes")&&(junction->isNearDistrict()||junction->isDistrict()))) {
+            (OptionsCont::getOptions().getBool("keep-unregulated.district-nodes")&&(junction->isNearDistrict()||junction->isDistrict()))) {
 
         keepUnregulated = true;
     }
@@ -529,7 +528,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).edge);
         os << "\"";
-        if (OptionsSubSys::getOptions().getBool("add-internal-links")) {
+        if (OptionsCont::getOptions().getBool("add-internal-links")) {
             if (_junction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
                 os << " cont=\"1\"";
             } else {

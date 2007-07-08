@@ -36,7 +36,6 @@
 #include <utils/common/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBTrafficLightPhases.h"
@@ -116,8 +115,8 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
     size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
-    if (OptionsSubSys::getOptions().isSet("traffic-light-yellow")) {
-        breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
+    if (OptionsCont::getOptions().isSet("traffic-light-yellow")) {
+        breakingTime = OptionsCont::getOptions().getInt("traffic-light-yellow");
     }
     return myCompute(ec, breakingTime, myType, oc.getBool("all-logics"));
 }

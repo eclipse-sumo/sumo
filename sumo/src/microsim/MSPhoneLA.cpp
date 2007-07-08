@@ -33,7 +33,6 @@
 #include "MSNet.h"
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
@@ -123,7 +122,7 @@ MSPhoneLA::writeOutput(SUMOTime t)
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
         if (od!=0) {
-            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             od->getOStream()
             << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
@@ -133,7 +132,7 @@ MSPhoneLA::writeOutput(SUMOTime t)
     {
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
         if (od!=0) {
-            std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od->getBoolMarker("hadFirstCall")) {
                 od->getOStream() << "," << endl;

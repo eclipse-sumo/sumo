@@ -127,10 +127,10 @@ main(int argc, char **argv)
 #endif
         int init_ret = SystemFrame::init(true, argc, argv, fillOptions);
         if (init_ret<0) {
-            OptionsSubSys::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
+            OptionsCont::getOptions().printHelp(cout, init_ret == -2, init_ret == -4);
             SystemFrame::close();
             return 0;
-        } else if (init_ret!=0||!GUIFrame::checkInitOptions(OptionsSubSys::getOptions())) {
+        } else if (init_ret!=0||!GUIFrame::checkInitOptions(OptionsCont::getOptions())) {
             throw ProcessError();
         }
         // Make application
@@ -138,7 +138,7 @@ main(int argc, char **argv)
         gFXApp = &application;
         // Open display
         application.init(argc,argv);
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        OptionsCont &oc = OptionsCont::getOptions();
         int minor, major;
         if (!FXGLVisual::supported(&application, major, minor)) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
@@ -156,7 +156,7 @@ main(int argc, char **argv)
                                      oc.getString("configuration-file"));
         gGradients = new GUIGradientStorage(window);
         // delete startup-options
-        OptionsSubSys::close();
+        OptionsCont::getOptions().clear();
         // Create app
         application.addSignal(SIGINT,window, MID_QUIT);
         application.create();

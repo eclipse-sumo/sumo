@@ -34,7 +34,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <string>
 #include <cassert>
@@ -107,10 +106,10 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
             (this, &MSDetector2File::write2file, key);
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             writeData,
-            OptionsSubSys::getOptions().getInt("begin") + interval,
+            OptionsCont::getOptions().getInt("begin") + interval,
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myLastCalls[interval] =
-            OptionsSubSys::getOptions().getInt("begin");
+            OptionsCont::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(),

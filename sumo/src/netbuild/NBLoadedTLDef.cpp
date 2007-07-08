@@ -32,7 +32,6 @@
 #include <cassert>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightDefinition.h"
@@ -385,7 +384,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
         // needed later
         group->sortPhases();
         // patch the yellow time for this group
-        if (!OptionsSubSys::getOptions().getBool("keep-small-tyellow")) {
+        if (!OptionsCont::getOptions().getBool("keep-small-tyellow")) {
             group->patchTYellow(breakingTime);
         }
         // check for too short green lights to be patched

@@ -145,7 +145,6 @@ double beginProbs[] = {
 #include "../MSLane.h"
 #include "../MSPhoneCell.h"
 #include "../MSPhoneLA.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 
@@ -245,7 +244,7 @@ inline int getTrainDuration(void)
 MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
         : myVehicle(vehicle), myId(id), myCommand(0)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     mycurrentCellId = -1;
     mycurrentLAId = -1;
     myCallId = -1;
@@ -473,7 +472,7 @@ MSDevice_CPhone::changeState()
                 int time = MSNet::getInstance()->getCurrentTimeStep();
                 time = time % 86400;
                 time = time / 1800;
-                prob = (SUMOReal)(beginProbs[time] /*/ 2.5*/ * (double) OptionsSubSys::getOptions().getFloat("cell-dynamic-callcount-scale-factor"));
+                prob = (SUMOReal)(beginProbs[time] /*/ 2.5*/ * (double) OptionsCont::getOptions().getFloat("cell-dynamic-callcount-scale-factor"));
                 next = 1;
                 if (randSUMO()<=prob) {
                     // most start telephoning

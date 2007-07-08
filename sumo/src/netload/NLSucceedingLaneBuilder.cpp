@@ -39,7 +39,6 @@
 #include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include "NLJunctionControlBuilder.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -106,7 +105,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
 #ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
-    if (viaID!="" && OptionsSubSys::getOptions().getBool("use-internal-links")) {
+    if (viaID!="" && OptionsCont::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
         if (via==0) {
             throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + m_CurrentLane + "'.");
@@ -127,7 +126,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // build the link
     // if internal lanes are used, the next lane of a normal edge
     // will be an internal lane
-    /*    if(via!=0&&OptionsSubSys::getOptions().getBool("use-internal-links")) {
+    /*    if(via!=0&&OptionsCont::getOptions().getBool("use-internal-links")) {
             lane = via;
         } else {
             via = 0;

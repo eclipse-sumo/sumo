@@ -29,7 +29,6 @@
 #endif
 
 #include "ODmatrix.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
@@ -169,7 +168,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if ((*i).type.length()!=0) {
                 strm << "type=\"" << (*i).type << "\" ";
             }
-            if (!OptionsSubSys::getOptions().getBool("no-color")) {
+            if (!OptionsCont::getOptions().getBool("no-color")) {
                 strm << "color=\"" << (*i).color << "\" ";
             }
             strm << "/>"<< endl;

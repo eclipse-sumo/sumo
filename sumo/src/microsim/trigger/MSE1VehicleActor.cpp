@@ -36,7 +36,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSPhoneNet.h>
@@ -70,7 +69,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
     assert(posM >= 0 && posM <= laneM->length());
     //eintragen in MSPhoneNet
 
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     percentOfActivity = oc.getBool("device.cell-phone.percent-of-activity");
 
     if (type == 1) {
@@ -211,7 +210,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 {
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2);
                     if (od!=0) {
-                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
                         od->getOStream()
@@ -226,7 +225,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         } else {
                             od->setBoolMarker("hadFirstCall", true);
                         }
-                        std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         od->getOStream()
                         << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()

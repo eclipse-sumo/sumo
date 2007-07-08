@@ -48,7 +48,6 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
@@ -371,7 +370,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
 #ifdef WIN32

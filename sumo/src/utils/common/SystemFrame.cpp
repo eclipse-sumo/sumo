@@ -56,7 +56,7 @@ SystemFrame::close()
     // close the xml-subsystem
     XMLSubSys::close();
     // delete build program options
-    OptionsSubSys::close();
+    OptionsCont::getOptions().clear();
     // delete messages
     MsgHandler::cleanupOnEnd();
 }

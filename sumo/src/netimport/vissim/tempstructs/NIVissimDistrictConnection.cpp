@@ -37,7 +37,6 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimEdge.h"
@@ -412,14 +411,14 @@ NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) con
     if (dist==0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         WRITE_WARNING(". Using default.");
-        return OptionsSubSys::getOptions().getFloat("vissim.default-speed");
+        return OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     assert(dist!=0);
     SUMOReal speed = dist->getMax();
     if (speed<0||speed>1000) {
         WRITE_WARNING(" False speed at district '" + id);
         WRITE_WARNING(". Using default.");
-        speed = OptionsSubSys::getOptions().getFloat("vissim.default-speed");
+        speed = OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     return speed;
 }

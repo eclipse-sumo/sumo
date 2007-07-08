@@ -31,7 +31,6 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsParser.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include "GUIFrame.h"
 
@@ -46,7 +45,7 @@
 void
 GUIFrame::fillInitOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
     oc.addDescription("max-gl-width", "Open GL", ""); // !!!
 
@@ -84,7 +83,7 @@ GUIFrame::fillInitOptions()
 bool
 GUIFrame::checkInitOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check whether the parameter are ok
     if (oc.getInt("w")<0||oc.getInt("h")<0) {
         MsgHandler::getErrorInstance()->inform(

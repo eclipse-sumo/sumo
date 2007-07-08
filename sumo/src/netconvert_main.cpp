@@ -46,7 +46,6 @@
 #include <netbuild/NBDistribution.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
@@ -70,7 +69,7 @@ using namespace std;
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
 #ifdef WIN32

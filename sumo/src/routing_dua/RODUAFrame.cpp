@@ -58,7 +58,7 @@ using namespace std;
 void
 RODUAFrame::fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -82,7 +82,7 @@ RODUAFrame::fillOptions()
 void
 RODUAFrame::addImportOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // register import options
     oc.doRegister("trip-defs", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-defs");
@@ -125,7 +125,7 @@ RODUAFrame::addImportOptions()
 void
 RODUAFrame::addDUAOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // register additional options
     oc.doRegister("supplementary-weights", 'S', new Option_FileName());
     oc.addSynonyme("supplementary-weights", "add");
@@ -146,7 +146,7 @@ RODUAFrame::addDUAOptions()
 bool
 RODUAFrame::checkOptions()
 {
-    return ROFrame::checkOptions(OptionsSubSys::getOptions());
+    return ROFrame::checkOptions(OptionsCont::getOptions());
 }
 
 

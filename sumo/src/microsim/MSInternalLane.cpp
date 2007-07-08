@@ -45,7 +45,6 @@
 #include <climits>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS

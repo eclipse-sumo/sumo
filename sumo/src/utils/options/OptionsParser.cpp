@@ -31,7 +31,6 @@
 #include <iostream>
 #include "Option.h"
 #include "OptionsCont.h"
-#include "OptionsSubSys.h"
 #include "OptionsParser.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -80,7 +79,7 @@ OptionsParser::check(char *arg1, bool &ok)
     // the last stand-alone argument should be a switch
     if (!checkParameter(arg1)) return 1;
 
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check switch
     if (isAbbreviation(arg1)) {
         // set all switches when abbreviated
@@ -117,7 +116,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok)
         return 1;
     }
 
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
         string tmp(arg1+2);

@@ -40,7 +40,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
@@ -1198,7 +1197,7 @@ NBNode::writeXML(ostream &into)
     }
     into << "</inclanes>" << endl;
     // write the internal lanes
-    if (OptionsSubSys::getOptions().getBool("add-internal-links")) {
+    if (OptionsCont::getOptions().getBool("add-internal-links")) {
         into << "      <intlanes>";
         writeinternal(_incomingEdges, into, _id);
         into << "</intlanes>" << endl;
@@ -1300,7 +1299,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
         swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
     }
 #ifdef _DEBUG
-    if (OptionsSubSys::getOptions().getInt("netbuild.debug")>0) {
+    if (OptionsCont::getOptions().getInt("netbuild.debug")>0) {
         DEBUG_OUT << "Node '" << _id << "': ";
         const EdgeVector &ev = getEdges();
         for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
@@ -1495,9 +1494,9 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
     // check both
     if (src==0) {
         // maybe it was removed due to something
-        if (OptionsSubSys::getOptions().isSet("edges-min-speed")
+        if (OptionsCont::getOptions().isSet("edges-min-speed")
                 ||
-                OptionsSubSys::getOptions().isSet("keep-edges")) {
+                OptionsCont::getOptions().isSet("keep-edges")) {
 
             WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + getID() + "'.");
         } else {
@@ -1506,9 +1505,9 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
         return;
     }
     if (dest==0) {
-        if (OptionsSubSys::getOptions().isSet("edges-min-speed")
+        if (OptionsCont::getOptions().isSet("edges-min-speed")
                 ||
-                OptionsSubSys::getOptions().isSet("keep-edges")) {
+                OptionsCont::getOptions().isSet("keep-edges")) {
 
             WRITE_WARNING("Could not set connection from node '" + getID() + "' to node '" + to->getID() + "'.");
         } else {

@@ -59,7 +59,7 @@ using namespace std;
 void
 RODFFrame::fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics

@@ -41,7 +41,6 @@
 #include "OptionsCont.h"
 #include "OptionsLoader.h"
 #include "OptionsParser.h"
-#include "OptionsSubSys.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
@@ -73,11 +72,11 @@ OptionsIO::getOptions(bool loadConfig, int argc, char **argv) throw(ProcessError
         return;
     }
     // read the configuration when everything's ok
-    OptionsSubSys::getOptions().resetWritable();
+    OptionsCont::getOptions().resetWritable();
     loadConfiguration();
     // reparse the options
     //  (overwrite the settings from the configuration file)
-    OptionsSubSys::getOptions().resetWritable();
+    OptionsCont::getOptions().resetWritable();
     OptionsParser::parse(argc, argv);
 }
 
@@ -85,7 +84,7 @@ OptionsIO::getOptions(bool loadConfig, int argc, char **argv) throw(ProcessError
 void
 OptionsIO::loadConfiguration() throw(ProcessError)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }

@@ -36,7 +36,6 @@
 #include <utils/geom/GeomHelper.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_EdgePolys.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -105,9 +104,9 @@ NIVisumParser_EdgePolys::myDependentReport()
         if (failed) {
             // we should report this to the warning instance only if we have removed
             //  some nodes or edges...
-            if (OptionsSubSys::getOptions().isSet("edges-min-speed")
+            if (OptionsCont::getOptions().isSet("edges-min-speed")
                     ||
-                    OptionsSubSys::getOptions().isSet("keep-edges")) {
+                    OptionsCont::getOptions().isSet("keep-edges")) {
 
                 WRITE_WARNING("Could not set geometry between node '" + from->getID() + "' and node '" + to->getID() + "'.");
             } else {

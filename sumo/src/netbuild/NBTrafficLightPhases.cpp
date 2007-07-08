@@ -33,7 +33,6 @@
 #include <algorithm>
 #include <iostream>
 #include <bitset>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include "NBTrafficLightLogic.h"
@@ -228,8 +227,8 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         }
         // add phase
         size_t duration = 31;
-        if (OptionsSubSys::getOptions().isSet("traffic-light-green")) {
-            duration = OptionsSubSys::getOptions().getInt("traffic-light-green");
+        if (OptionsCont::getOptions().isSet("traffic-light-green")) {
+            duration = OptionsCont::getOptions().getInt("traffic-light-green");
         }
         ret->addStep(duration, driveMask, brakeMask, std::bitset<64>());
         // add possible additional left-turn phase when existing

@@ -47,7 +47,6 @@
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
@@ -202,11 +201,11 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setCellType(1, CT_INT);
     myTable->setNumberCellParams(1,
-                                 OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
+                                 OptionsCont::getOptions().getInt("begin"), OptionsCont::getOptions().getInt("end"),
                                  1, 10, 100, "%.0f");
     myTable->setCellType(2, CT_INT);
     myTable->setNumberCellParams(2,
-                                 OptionsSubSys::getOptions().getInt("begin"), OptionsSubSys::getOptions().getInt("end"),
+                                 OptionsCont::getOptions().getInt("begin"), OptionsCont::getOptions().getInt("end"),
                                  1, 10, 100, "%.0f");
     myTable->setCellType(3, CT_REAL);
     myTable->setNumberCellParams(3, -100000000000000000.0, 1000000000000000.0,

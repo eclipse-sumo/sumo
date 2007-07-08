@@ -35,7 +35,6 @@
 #include <iostream>
 #include "MsgHandler.h"
 #include "MsgRetriever.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/LogFile.h>
 #include <utils/common/UtilExceptions.h>
@@ -248,8 +247,8 @@ MsgHandler::addRetriever(MsgRetriever *retriever)
     }
     // check whether the message shall be generated
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
-                            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
+                            ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : false;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = false;
@@ -267,8 +266,8 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
     }
     // check whether the message shall be generated
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
-                            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
+                            ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : myRetrievers.size()==0;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
@@ -281,8 +280,8 @@ MsgHandler::report2cout(bool value)
 {
     myReport2COUT = value;
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
-                            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
+                            ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : !myReport2COUT;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
@@ -296,8 +295,8 @@ MsgHandler::report2cerr(bool value)
 {
     myReport2CERR = value;
     if (myType==MT_WARNING) {
-        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
-                            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+        gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
+                            ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : !myReport2CERR;
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2CERR);
@@ -309,16 +308,16 @@ MsgHandler::report2cerr(bool value)
 void
 MsgHandler::initOutputOptions()
 {
-    getMessageInstance()->report2cout(OptionsSubSys::getOptions().getBool("verbose"));
-    getWarningInstance()->report2cerr(!OptionsSubSys::getOptions().getBool("suppress-warnings"));
+    getMessageInstance()->report2cout(OptionsCont::getOptions().getBool("verbose"));
+    getWarningInstance()->report2cerr(!OptionsCont::getOptions().getBool("suppress-warnings"));
     // build the logger if possible
-    if (OptionsSubSys::getOptions().isSet("log-file")) {
+    if (OptionsCont::getOptions().isSet("log-file")) {
         myLogFile =
-            new LogFile(OptionsSubSys::getOptions().getString("log-file"));
+            new LogFile(OptionsCont::getOptions().getString("log-file"));
         if (!myLogFile->good()) {
             delete myLogFile;
             myLogFile = 0;
-            throw ProcessError("Could not build logging file '" + OptionsSubSys::getOptions().getString("log-file") + "'");
+            throw ProcessError("Could not build logging file '" + OptionsCont::getOptions().getString("log-file") + "'");
         } else {
             getErrorInstance()->addRetriever(myLogFile);
             getWarningInstance()->addRetriever(myLogFile);

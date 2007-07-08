@@ -30,7 +30,6 @@
 
 #include <algorithm>
 #include <utils/geom/Position2DVector.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
@@ -85,7 +84,7 @@ NBNodeShapeComputer::compute()
     bool simpleContinuation = myNode.isSimpleContinuation();
     ret = computeContinuationNodeShape(simpleContinuation);
     // add the geometry of internal lanes
-    if (OptionsSubSys::getOptions().getBool("add-internal-links")) {
+    if (OptionsCont::getOptions().getBool("add-internal-links")) {
         addInternalGeometry();
     }
     if (ret.size()<3) {

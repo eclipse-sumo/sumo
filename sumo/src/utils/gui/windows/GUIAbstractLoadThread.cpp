@@ -33,7 +33,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>

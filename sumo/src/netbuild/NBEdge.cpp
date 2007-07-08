@@ -48,7 +48,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "NBEdge.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -2315,7 +2314,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
 void
 NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
 {
-    if (OptionsSubSys::getOptions().getBool("dismiss-vclasses")) {
+    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
         return;
     }
     if (lane<0) {
@@ -2338,7 +2337,7 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
 void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
 {
-    if (OptionsSubSys::getOptions().getBool("dismiss-vclasses")) {
+    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
         return;
     }
     if (lane<0) {

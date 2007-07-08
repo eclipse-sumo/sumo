@@ -42,7 +42,6 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <gui/GUIApplicationWindow.h>
 
@@ -100,9 +99,9 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("vehicles waiting [#]", true,
                 new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
-                (SUMOReal) OptionsSubSys::getOptions().getInt("end"));
+                (SUMOReal) OptionsCont::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
-                (SUMOReal) OptionsSubSys::getOptions().getInt("begin"));
+                (SUMOReal) OptionsCont::getOptions().getInt("begin"));
     ret->mkItem("time step [s]", true,
                 new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getCurrentTimeStep));
     if (getNet().logSimulationDuration()) {

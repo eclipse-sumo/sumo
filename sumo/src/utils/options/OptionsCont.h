@@ -69,6 +69,11 @@
 class OptionsCont
 {
 public:
+    /** @brief Retrieves the options
+     * 
+     * They should be initialised before. */
+    static OptionsCont &getOptions();
+
     /** constructor */
     OptionsCont();
 
@@ -126,6 +131,10 @@ public:
     /** returns the list of string-value of the named option
         (only for Option_String) */
     std::vector<std::string> getStringVector(const std::string &name) const;
+
+    /** returns the named option is a list of string values containing a specified item */
+    bool isInStringVector(const std::string &optionName,
+                          const std::string &itemName);
 
     /** returns the information whether the option is a boolean option */
     bool isBool(const std::string &name) const;
@@ -208,6 +217,9 @@ private:
 
 
 private:
+    /// The static options container used
+    static OptionsCont myOptions;
+
     /** definition of the type that stores the addresses of used options */
     typedef std::vector<Option*> ItemAddressContType;
 

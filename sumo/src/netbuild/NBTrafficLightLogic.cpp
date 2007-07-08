@@ -38,7 +38,6 @@
 #include "NBEdge.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogic.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/StringTokenizer.h>
@@ -191,14 +190,14 @@ NBTrafficLightLogic::getOffset() const
 {
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
-    if (OptionsSubSys::getOptions().isSet("tl-logics.half-offset")) {
+    if (OptionsCont::getOptions().isSet("tl-logics.half-offset")) {
         if (checkOffsetFor("tl-logics.half-offset")) {
             return computeOffsetFor(0.5);
         }
     }
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
-    if (OptionsSubSys::getOptions().isSet("tl-logics.quarter-offset")) {
+    if (OptionsCont::getOptions().isSet("tl-logics.quarter-offset")) {
         if (checkOffsetFor("tl-logics.quarter-offset")) {
             return computeOffsetFor(0.25);
         }
@@ -213,7 +212,7 @@ bool
 NBTrafficLightLogic::checkOffsetFor(const std::string &optionName) const
 {
     string offsets =
-        OptionsSubSys::getOptions().getString(optionName);
+        OptionsCont::getOptions().getString(optionName);
     StringTokenizer st(offsets, ";");
     while (st.hasNext()) {
         string key = st.next();

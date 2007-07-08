@@ -42,7 +42,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/RandHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/common/MsgHandler.h>
@@ -381,7 +380,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
         gr=&myGraph;
         if (m_img) {
             //
-            OptionsCont &oc = OptionsSubSys::getOptions();
+            OptionsCont &oc = OptionsCont::getOptions();
             oc.clear();
             myNetBuilder->insertNetBuildOptions(oc);
             // add rand options
@@ -426,9 +425,9 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             myNetBuilder->save(strm, oc);
             string description = strm.str();
             //
-            OptionsSubSys::getOptions().clear();
+            OptionsCont::getOptions().clear();
             OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/, "hallo");
-            OptionsCont &oc2 = OptionsSubSys::getOptions();
+            OptionsCont &oc2 = OptionsCont::getOptions();
             SUMOFrame::setMSGlobals(oc2);
             GUINet *net = new GUINet(oc2.getInt("begin"), oc2.getInt("end"),
                                      new GUIVehicleControl(),

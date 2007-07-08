@@ -33,7 +33,6 @@
 #include "MSCORN.h"
 #include <iostream>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
 #include "MSPhoneCell.h"
@@ -56,7 +55,7 @@ using namespace std;
 // ===========================================================================
 MSPhoneNet::MSPhoneNet()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     percentModus = oc.getBool("device.cell-phone.percent-of-activity");
     lastTime = 0;
 }
@@ -250,14 +249,14 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
         std::map< std::string, int >::const_iterator coit;
         for (coit = myLAChanges.begin(); coit != myLAChanges.end(); coit++) {
             if (od1 != 0) {
-                std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
                 od1->getOStream()
                 << "03;" << timestr << ';' << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << "\n";
             }
             if (od2 != 0) {
-                std::string timestr= OptionsSubSys::getOptions().getString("device.cell-phone.sql-date");
+                std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
                 if (od2->getBoolMarker("hadFirstCall")) {
                     od2->getOStream() << "," << endl;

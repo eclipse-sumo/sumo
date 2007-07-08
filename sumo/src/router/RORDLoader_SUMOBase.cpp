@@ -37,7 +37,6 @@
 #include <utils/gfx/GfxConvHelper.h>
 #include "ROVehicleType_Krauss.h"
 #include "ROVehicleBuilder.h"
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -192,7 +191,7 @@ RORDLoader_SUMOBase::getErrorHandlerMarkInvalid()
 {
     mySkipCurrent = true;
     return
-        OptionsSubSys::getOptions().getBool("continue-on-unbuild")
+        OptionsCont::getOptions().getBool("continue-on-unbuild")
         ? MsgHandler::getWarningInstance()
         : MsgHandler::getErrorInstance();
 }

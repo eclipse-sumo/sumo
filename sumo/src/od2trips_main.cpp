@@ -43,7 +43,6 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
@@ -76,7 +75,7 @@ using namespace std;
 void
 fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -204,7 +203,7 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
 bool
 checkOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
@@ -459,7 +458,7 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
 #ifdef WIN32

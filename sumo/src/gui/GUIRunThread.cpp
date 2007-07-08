@@ -45,7 +45,6 @@
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/SysUtils.h>

@@ -39,7 +39,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include "NGNetElements.h"
@@ -122,7 +121,7 @@ TNode::buildNBNode(NBNetBuilder &nb) const
     GeoConvHelper::x2cartesian(pos);
     NBNode *node = new NBNode(myID, pos);
     // check whether it is a traffic light junction
-    string nodeType = OptionsSubSys::getOptions().getString("default-junction-type");
+    string nodeType = OptionsCont::getOptions().getString("default-junction-type");
     if (nodeType=="priority") {
         return node;
     }

@@ -42,7 +42,6 @@
 #include "NBRequest.h"
 #include "NBTypeCont.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
@@ -80,7 +79,7 @@ NBNetBuilder::buildLoaded()
     myEdgeCont.report();
     myNodeCont.report();
     // perform the computation
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
     // save network
     ofstream res(oc.getString("o").c_str());
@@ -151,7 +150,7 @@ NBNetBuilder::splitGeometry(int &step, OptionsCont &oc)
 bool
 NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
 {
-    if (!OptionsSubSys::getOptions().isSet("keep-edges")) {
+    if (!OptionsCont::getOptions().isSet("keep-edges")) {
         return true;
     }
     inform(step, "Removing unwished edges.");

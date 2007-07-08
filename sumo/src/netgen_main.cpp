@@ -43,7 +43,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/Option.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
@@ -69,7 +68,7 @@ using namespace std;
 bool
 checkOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
@@ -120,7 +119,7 @@ checkOptions()
 void
 fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("--grid-net [grid-network options] -o <OUTPUTFILE>");
     oc.addCallExample("--spider-net [spider-network opts] -o <OUTPUTFILE>");
@@ -268,7 +267,7 @@ TNGNet *
 buildNetwork(NBNetBuilder &nb)
 {
     TNGNet *net = new TNGNet(nb);
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider-net")) {
         net->CreateSpiderWeb(
@@ -321,7 +320,7 @@ buildNetwork(NBNetBuilder &nb)
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
 #ifdef WIN32

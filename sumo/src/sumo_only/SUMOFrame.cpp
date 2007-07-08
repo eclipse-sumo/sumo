@@ -63,7 +63,7 @@ using namespace std;
 void
 SUMOFrame::fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
     oc.addCallExample("-c munich_config.cfg");
     oc.addCallExample("--help");
@@ -458,7 +458,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
 bool
 SUMOFrame::checkOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     try {
         oc.resetWritable();

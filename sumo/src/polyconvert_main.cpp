@@ -36,7 +36,6 @@
 #include <string>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SystemFrame.h>
@@ -73,7 +72,7 @@ using namespace std;
 void
 fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -274,7 +273,7 @@ getOrigProj(const std::string &file)
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
 #ifdef WIN32
     oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (string)VERSION_STRING);

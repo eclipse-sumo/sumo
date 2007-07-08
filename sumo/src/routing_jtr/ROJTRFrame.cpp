@@ -58,7 +58,7 @@ using namespace std;
 void
 ROJTRFrame::fillOptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -80,7 +80,7 @@ ROJTRFrame::fillOptions()
 void
 ROJTRFrame::addJTROptions()
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
     oc.addDescription("flow-definition", "I/O", "Read flow-definitions from FILE");
@@ -107,7 +107,7 @@ ROJTRFrame::addJTROptions()
 bool
 ROJTRFrame::checkOptions()
 {
-    return ROFrame::checkOptions(OptionsSubSys::getOptions());
+    return ROFrame::checkOptions(OptionsCont::getOptions());
 }
 
 

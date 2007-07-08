@@ -39,7 +39,6 @@
 #include <utils/common/StringTokenizer.h>
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
-#include "OptionsSubSys.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -62,7 +61,7 @@ using namespace std;
 // ===========================================================================
 OptionsLoader::OptionsLoader(const char *file, bool verbose)
         : _error(false), _file(file), _verbose(verbose),
-        _options(OptionsSubSys::getOptions()), _item()
+        _options(OptionsCont::getOptions()), _item()
 {}
 
 

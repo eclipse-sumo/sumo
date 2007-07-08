@@ -56,7 +56,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
@@ -126,7 +125,7 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");
 #ifdef WIN32

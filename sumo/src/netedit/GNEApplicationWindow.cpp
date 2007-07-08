@@ -76,7 +76,6 @@
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsSubSys.h>
 
 #include "Image.h"
 #include "GNEImageProcWindow.h"
@@ -924,7 +923,7 @@ GNEApplicationWindow::onCmdSaveNet(FXObject*,FXSelector,void*)
         }
     }
     ofstream out((filestr + ".net.xml").c_str());
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     oc.clear();
     myNetBuilder.insertNetBuildOptions(oc);
     myNetBuilder.save(out, oc);

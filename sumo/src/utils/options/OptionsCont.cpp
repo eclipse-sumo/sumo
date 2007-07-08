@@ -46,7 +46,6 @@
 #include <ctime>
 #include "Option.h"
 #include "OptionsCont.h"
-#include "OptionsSubSys.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
@@ -65,8 +64,21 @@ using namespace std;
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+OptionsCont OptionsCont::myOptions;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+OptionsCont &
+OptionsCont::getOptions()
+{
+    return myOptions;
+}
+
+
 OptionsCont::OptionsCont()
         : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false)
 {}
@@ -495,7 +507,7 @@ OptionsCont::processMetaOptions(bool missingOptions)
         return true;
     }
 
-    OptionsCont &oc = OptionsSubSys::getOptions();
+    OptionsCont &oc = OptionsCont::getOptions();
     // check whether the help shall be printed
     if (oc.getBool("help")) {
         cout << myFullName << endl;
@@ -716,6 +728,18 @@ OptionsCont::getStringVector(const std::string &name) const
         ret.push_back(st.next());
     }
     return ret;
+}
+
+
+bool
+OptionsCont::isInStringVector(const std::string &optionName,
+                              const std::string &itemName)
+{
+    if (isSet(optionName)) {
+        vector<string> values = getStringVector(optionName);
+        return find(values.begin(), values.end(), itemName)!=values.end();
+    }
+    return false;
 }
 
 

@@ -51,7 +51,6 @@
 #include <climits>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #ifdef GUI_DEBUG
@@ -279,7 +278,7 @@ MSLane::detectCollisions(SUMOTime timestep)
             MSVehicle *predV = *pred;
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
-            if (!OptionsSubSys::getOptions().getBool("quit-on-accident")) {
+            if (!OptionsCont::getOptions().getBool("quit-on-accident")) {
                 handler = MsgHandler::getWarningInstance();
             } else {
                 handler = MsgHandler::getErrorInstance();
@@ -288,7 +287,7 @@ MSLane::detectCollisions(SUMOTime timestep)
                 "MSLane::detectCollision: Collision of " + vehV->getID() + " with " + predV->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
 //            DEBUG_OUT << ( *veh )->getID() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
 //            DEBUG_OUT << ( *pred )->getID() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
-            if (OptionsSubSys::getOptions().getBool("quit-on-accident")) {
+            if (OptionsCont::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
                 vehV->leaveLaneAtLaneChange();

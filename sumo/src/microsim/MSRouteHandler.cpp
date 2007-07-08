@@ -47,7 +47,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 

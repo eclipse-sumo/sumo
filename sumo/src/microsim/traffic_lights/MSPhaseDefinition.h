@@ -31,7 +31,6 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
-#include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 
@@ -59,7 +58,7 @@ public:
             : duration(durationArg), _lastSwitch(0), driveMask(driveMaskArg),
             breakMask(breakMaskArg), yellowMask(yellowMaskArg)
     {
-        _lastSwitch = OptionsSubSys::getOptions().getInt("begin");
+        _lastSwitch = OptionsCont::getOptions().getInt("begin");
     }
 
     /// destructor
