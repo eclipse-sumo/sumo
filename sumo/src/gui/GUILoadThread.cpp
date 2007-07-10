@@ -211,6 +211,7 @@ GUILoadThread::initOptions()
             oc.set("configuration-file", _file);
         }
         OptionsIO::getOptions(true, 1, 0);
+        return true;
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
