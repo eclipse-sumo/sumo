@@ -1,10 +1,8 @@
 Parsing nodes from 'input_nodes.nod.xml'...
-   9 nodes loaded.
 Parsing edges from 'input_edges.edg.xml'...
-   12 edges loaded.
-   0 types loaded.
-   12 edges loaded.
+ Import done;
    9 nodes loaded.
+   12 edges loaded.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions

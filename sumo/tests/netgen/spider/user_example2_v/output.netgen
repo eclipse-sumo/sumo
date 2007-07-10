@@ -1,6 +1,6 @@
-   0 types loaded.
-   48 edges loaded.
-   13 nodes loaded.
+ Generation done;
+   13 nodes generated.
+   48 edges generated.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions
