@@ -40,6 +40,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -110,9 +111,6 @@ NILoader::load(OptionsCont &oc)
     NIXMLTypesHandler *handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
-    if (myNetBuilder.getTypeCont().size()>0) {
-        myNetBuilder.getTypeCont().report();
-    }
     // try to load using different methods
     loadSUMO(oc);
     loadCell(oc);
@@ -126,11 +124,22 @@ NILoader::load(OptionsCont &oc)
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
         throw ProcessError("No nodes loaded.");
-
     }
     if (myNetBuilder.getEdgeCont().size()==0) {
         throw ProcessError("No edges loaded.");
-
+    }
+    // report loaded structures
+    WRITE_MESSAGE(" Import done;");
+    if(myNetBuilder.getDistrictCont().size()>0) {
+        WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
+    }
+    WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
+    if(myNetBuilder.getTypeCont().size()>0) {
+        WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getTypeCont().size()) + " types loaded.");
+    }
+    WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
+    if (myNetBuilder.getEdgeCont().getNoEdgeSplits()>0) {
+        WRITE_MESSAGE("The split of edges was performed "+ toString<int>(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
     }
 }
 
@@ -176,16 +185,12 @@ NILoader::loadXML(OptionsCont &oc)
     loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
                 oc.getStringVector("xml-node-files"), "nodes");
-    myNetBuilder.getNodeCont().report();
-
     // load the edges
     loadXMLType(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTypeCont(),
                                       myNetBuilder.getDistrictCont(), oc),
                 oc.getStringVector("xml-edge-files"), "edges");
-    myNetBuilder.getEdgeCont().report();
-
     // load the connections
     loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),
                 oc.getStringVector("xml-connection-files"), "connections");
@@ -240,7 +245,6 @@ NILoader::loadCell(OptionsCont &oc)
             throw ProcessError();
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        myNetBuilder.getNodeCont().report();
     }
     // load edges
     if (oc.isSet("cell-edge-file")) {
@@ -255,7 +259,6 @@ NILoader::loadCell(OptionsCont &oc)
             throw ProcessError();
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        myNetBuilder.getEdgeCont().report();
     }
 }
 
@@ -382,7 +385,6 @@ NILoader::loadElmar(OptionsCont &oc)
         }
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    myNetBuilder.getNodeCont().report();
 
     // load edges
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
@@ -405,7 +407,6 @@ NILoader::loadElmar(OptionsCont &oc)
     }
     myNetBuilder.getEdgeCont().recheckLaneSpread();
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    myNetBuilder.getEdgeCont().report();
 }
 
 

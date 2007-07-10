@@ -353,6 +353,10 @@ main(int argc, char **argv)
         nb.preCheckOptions(oc);
         net->toNB();
         delete net;
+        // report generated structures
+        WRITE_MESSAGE(" Generation done;");
+        WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
+        WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.buildLoaded();
         GeoConvHelper::close();
     } catch (ProcessError &e) {
