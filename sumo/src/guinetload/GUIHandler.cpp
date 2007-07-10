@@ -121,6 +121,7 @@ GUIHandler::addJunctionShape(const std::string &chars)
     } catch (OutOfBoundsException &) {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
+        return;
     }
     MsgHandler::getErrorInstance()->inform("Could not parse shape of junction '" + myJunctionControlBuilder.getActiveID() + "'.");
 }
