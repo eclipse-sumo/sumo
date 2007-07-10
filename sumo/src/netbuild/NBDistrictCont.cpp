@@ -104,13 +104,6 @@ NBDistrictCont::clear()
 }
 
 
-void
-NBDistrictCont::report()
-{
-    WRITE_MESSAGE("   " + toString<int>(size()) + " districts loaded.");
-}
-
-
 bool
 NBDistrictCont::addSource(const std::string &dist, NBEdge *source,
                           SUMOReal weight)

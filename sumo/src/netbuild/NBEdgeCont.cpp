@@ -78,7 +78,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBEdgeCont::NBEdgeCont()
-        : EdgesSplit(0)
+        : myEdgesSplit(0)
 {}
 
 
@@ -282,29 +282,12 @@ int NBEdgeCont::size()
 }
 
 
-int
-NBEdgeCont::getNo()
-{
-    return _edges.size();
-}
-
-
 void
 NBEdgeCont::clear()
 {
     for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++)
         delete((*i).second);
     _edges.clear();
-}
-
-
-void
-NBEdgeCont::report()
-{
-    WRITE_MESSAGE("   " + toString<int>(getNo()) + " edges loaded.");
-    if (EdgesSplit>0) {
-        WRITE_MESSAGE("The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
-    }
 }
 
 
@@ -417,7 +400,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     erase(dc, edge);
     insert(one);
     insert(two);
-    EdgesSplit++;
+    myEdgesSplit++;
     return true;
 }
 
@@ -835,5 +818,10 @@ NBEdgeCont::recheckEdgeGeomsForDoublePositions()
 }
 
 
+size_t 
+NBEdgeCont::getNoEdgeSplits()
+{
+    return myEdgesSplit;
+}
 
 /****************************************************************************/

@@ -71,9 +71,6 @@ public:
     /** deletes all districts */
     void clear();
 
-    /// reports how many districts were loaded
-    void report();
-
     /// adds a source to the named district
     bool addSource(const std::string &dist, NBEdge *source,
                    SUMOReal weight);

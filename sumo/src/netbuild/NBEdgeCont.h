@@ -128,17 +128,11 @@ public:
     /** writes the successor definitions of edges */
     void writeXMLStep2(std::ostream &into, bool includeInternal);
 
-    /** returns the size of the edges */
+    /** returns the number of edges */
     int size();
-
-    /** returns the number of known edges */
-    int getNo();
 
     /** deletes all edges */
     void clear();
-
-    /// reports how many edges were loaded
-    void report();
 
     /// joins the given edges as they connect the same nodes
     void joinSameNodeConnectingEdges(NBDistrictCont &dc,
@@ -167,6 +161,8 @@ public:
 
     void recheckEdgeGeomsForDoublePositions();
 
+    size_t getNoEdgeSplits();
+
 private:
     std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);
@@ -182,7 +178,7 @@ private:
     EdgeCont _edges;
 
     /// the number of splits of edges during the building
-    size_t EdgesSplit;
+    size_t myEdgesSplit;
 
 private:
     /** invalid copy constructor */

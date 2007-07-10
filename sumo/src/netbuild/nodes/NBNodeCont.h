@@ -124,9 +124,6 @@ public:
     /** deletes all nodes */
     void clear();
 
-    /// reports how many nodes were loaded
-    void report();
-
     /// Joins edges connecting the same nodes
     bool recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                       NBEdgeCont &ec);

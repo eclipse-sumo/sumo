@@ -322,13 +322,6 @@ NBNodeCont::clear()
 }
 
 
-void
-NBNodeCont::report()
-{
-    WRITE_MESSAGE("   " + toString<int>(size()) + " nodes loaded.");
-}
-
-
 bool
 NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                          NBEdgeCont &ec)

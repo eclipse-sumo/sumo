@@ -75,9 +75,6 @@ NBNetBuilder::~NBNetBuilder()
 void
 NBNetBuilder::buildLoaded()
 {
-    myTypeCont.report();
-    myEdgeCont.report();
-    myNodeCont.report();
     // perform the computation
     OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
