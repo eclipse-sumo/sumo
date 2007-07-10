@@ -90,9 +90,6 @@ public:
     /** deletes all types */
     void clear();
 
-    /// reports how many nodes were loaded
-    void report();
-
     bool knows(const std::string &type) const;
 
 private:

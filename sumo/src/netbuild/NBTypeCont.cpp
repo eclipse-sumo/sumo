@@ -179,13 +179,6 @@ NBTypeCont::clear()
 }
 
 
-void
-NBTypeCont::report()
-{
-    WRITE_MESSAGE("   " + toString<int>(size()) + " types loaded.");
-}
-
-
 
 /****************************************************************************/
 
