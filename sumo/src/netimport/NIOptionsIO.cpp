@@ -198,6 +198,8 @@ bool
 NIOptionsIO::checkOptions()
 {
     bool ok = true;
+    return ok;
+    /*
     try {
         if (!checkCompleteDescription()) {
             if (!checkNodes()) ok = false;
@@ -208,6 +210,7 @@ NIOptionsIO::checkOptions()
         MsgHandler::getErrorInstance()->inform(e.what());
         return false;
     }
+    */
     return ok;
 }
 
